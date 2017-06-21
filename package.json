@@ -1,0 +1,25 @@
+{
+  "name": "gitlab-api",
+  "version": "1.0.0",
+  "description": "GitLab API Nodejs library.",
+  "main": "src/index.js",
+  "directories": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/node-gitlab-api"
+  },
+  "keywords": [
+    "gitlab",
+    "git",
+    "api",
+    "request"
+  ],
+  "author": "Justin Dalrymple",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
