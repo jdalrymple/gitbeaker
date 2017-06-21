@@ -1,7 +1,7 @@
 {
-  "name": "gitlab-api",
+  "name": "node-gitlab-api",
   "version": "1.0.0",
-  "description": "GitLab API Nodejs library.",
+  "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "main": "src/index.js",
   "directories": {},
   "scripts": {},
@@ -15,7 +15,7 @@
     "api",
     "request"
   ],
-  "author": "Justin Dalrymple",
+  "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {

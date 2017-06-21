@@ -51,8 +51,6 @@ MIT
 Changelog
 =========
 
-------------------
-
 - Initial release, still missing a testing suite, travis triggers and overall review
 
 [Initial Release](https://github.com/jdalrymple/node-gitlab-api/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
