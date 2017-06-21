@@ -7,16 +7,16 @@ class BaseModel {
     return this.client.get(endpoint, options);
   }
 
-  post(){
-    return this.client.post(arguments);
+  post(endpoint, options){
+    return this.client.post(endpoint, options);
   }
 
-  put(){
-    return this.client.put(arguments);
+  put(endpoint, options){
+    return this.client.put(endpoint, options);
   }
 
-  delete(){
-    return this.client.delete(arguments);
+  delete(endpoint, options){
+    return this.client.delete(endpoint, options);
   }
 };
 

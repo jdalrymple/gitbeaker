@@ -32,6 +32,7 @@ class API {
   }
 
   post(endpoint, options) {
+    console.log(endpoint);
     return Request.post({
       url: this.url + endpoint,
       headers: this.headers,
