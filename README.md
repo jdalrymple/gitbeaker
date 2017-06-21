@@ -17,7 +17,7 @@ npm install gitlab
 Usage
 =====
 
-URL to your GitLab instance should not include `/api/v3` path.
+URL to your GitLab instance should not include `/api/v4` path.
 
 ```javascript
 // Connection
@@ -40,7 +40,7 @@ console.log(projects);
 
 Contributors
 ------------
-This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but i ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
+This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
 
 License
@@ -48,8 +48,12 @@ License
 
 MIT
 
-
 Changelog
 =========
 
-- POC
+------------------
+
+- Initial release, still missing a testing suite, travis triggers and overall review
+
+[Initial Release](https://github.com/jdalrymple/node-gitlab-api/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
+------------------
