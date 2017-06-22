@@ -1,3 +1,5 @@
+[![Dependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-test#info=dependencies) [![devDependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-test#info=devDependencies)
+
 node-gitlab-api
 ===============
 
