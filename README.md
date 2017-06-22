@@ -22,7 +22,7 @@ URL to your GitLab instance should not include `/api/v4` path.
 ```javascript
 // Connection
 const GitlabAPI = require('gitlab-api')({
-  url:   'http://example.com' // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'
 })
   
