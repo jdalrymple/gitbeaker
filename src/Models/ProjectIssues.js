@@ -12,7 +12,7 @@ class ProjectIssues extends BaseModel {
     options.page = options.page || 1;
     options.per_page = options.per_page || 100;
 
-    return this.get(`projects/${Utils.parseProjectId(projectId)}/issues`, options);
+    return this.get(`projects/${Utils.parse(projectId)}/issues`, options);
   }
 
   create(projectId, options = {}) {

@@ -64,6 +64,10 @@ MIT
 Changelog
 =========
 
+[1.0.7](https://github.com/jdalrymple/node-gitlab-api/commit/2b02d1e354c1c267683d10b893ad055fe856a214) (2017-06-23)
+------------------
+- Fixing bug within the Issues API; reference to an old function.
+
 [1.0.6](https://github.com/jdalrymple/node-gitlab-api/commit/2b02d1e354c1c267683d10b893ad055fe856a214) (2017-06-23)
 ------------------
 - Fixing bug within the Labels API; Missing required argument.
