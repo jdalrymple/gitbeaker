@@ -39,6 +39,18 @@ let projects = await gitlab.projects.all();
 console.log(projects);
 ```
 
+General rule about all the function parameters:
+- If its a required parameter, it is a named argument in the functions
+- If its an optional parameter, it is defined in a options object following the named arguments
+
+ie. 
+
+```javascript
+GitlabAPI.projects.create(projectId, {
+	//options defined in the gitlab api documentation
+})
+```
+
 Contributors
 ------------
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
@@ -51,6 +63,12 @@ MIT
 
 Changelog
 =========
+
+[1.0.4](https://github.com/jdalrymple/node-gitlab-api/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
+------------------
+- Adding more to the labels API
+- Removed the old 'list' calls for projects and issues which displayed a deprecated message. Only all is available now.
+- Cleaned up the Issues class
 
 [1.0.3](https://github.com/jdalrymple/node-gitlab-api/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
 ------------------
