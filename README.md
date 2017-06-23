@@ -64,6 +64,10 @@ MIT
 Changelog
 =========
 
+[1.0.5](https://github.com/jdalrymple/node-gitlab-api/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
+------------------
+- Fixing bug within the delete API calls. It was missing query parameters
+
 [1.0.4](https://github.com/jdalrymple/node-gitlab-api/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
 ------------------
 - Adding more to the labels API

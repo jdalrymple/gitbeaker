@@ -50,10 +50,11 @@ class API {
     });
   }
 
-  delete(endpoint) {
+  delete(endpoint, options) {
     return Request.delete({
       url: this.url + endpoint,
       headers: this.headers,
+      qs: options,
       json: true,
     });
   }
