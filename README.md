@@ -64,7 +64,7 @@ MIT
 Changelog
 =========
 
-[1.0.7](https://github.com/jdalrymple/node-gitlab-api/commit/2b02d1e354c1c267683d10b893ad055fe856a214) (2017-06-23)
+[1.0.7](https://github.com/jdalrymple/node-gitlab-api/commit/50642ad764ecd20d2a9e279cf2a47e7b5efe8f07) (2017-06-23)
 ------------------
 - Fixing bug within the Issues API; reference to an old function.
 
