@@ -52,6 +52,11 @@ MIT
 Changelog
 =========
 
+[1.0.2](https://github.com/jdalrymple/node-gitlab-api/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
+------------------
+- Updating problems within the Milestone API
+
+
 [1.0.1](https://github.com/jdalrymple/node-gitlab-api/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
 ------------------
 - Initial release
