@@ -6,7 +6,7 @@ class Labels extends BaseModel {
     super(...args);
   }
 
-  all(options = {}) {
+  all(projectId, options = {}) {
     options.page = options.page || 1;
     options.per_page = options.per_page || 100;
 
