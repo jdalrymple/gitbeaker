@@ -1,9 +1,9 @@
 [![Dependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-test#info=dependencies) [![devDependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-test#info=devDependencies)
 
+[![NPM](https://nodei.co/npm/node-gitlab-api.png?downloads=true&stars=true)](https://nodei.co/npm/node-gitlab-api/)
+
 node-gitlab-api
 ===============
-
---
 
 [GitLab](https://github.com/gitlabhq/gitlabhq) API Nodejs library.
 It wraps the HTTP v4 api library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
