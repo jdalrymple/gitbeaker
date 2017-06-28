@@ -55,6 +55,8 @@ Contributors
 ------------
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
+- [Dylan DesRosier](https://github.com/ddesrosier)
+
 
 License
 -------
