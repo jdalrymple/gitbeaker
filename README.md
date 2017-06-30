@@ -88,7 +88,7 @@ MIT
 Changelog
 =========
 
-[1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit///) (2017-06-30)
+[1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
 ------------------
 - Adding more to the Project Issue Notes API
 - Updating Readme to show examples of connecting with oauth tokens
