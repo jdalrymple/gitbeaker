@@ -8,6 +8,16 @@ node-gitlab-api
 [GitLab](https://github.com/gitlabhq/gitlabhq) API Nodejs library.
 It wraps the HTTP v4 api library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
+Table of Contents
+==================
+* [Install](#install)
+* [Usage](#usage)
+* [Docs](#docs)
+	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+* [Contributors](#contributors)
+* [License](#licence)
+* [Changelog](#changelog)
+
 Install
 =======
 
@@ -22,12 +32,18 @@ Usage
 URL to your GitLab instance should not include `/api/v4` path.
 
 ```javascript
-// Connection
+// Connection with basic token
 const GitlabAPI = require('gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'
 })
   
+// Connection with oauth token
+const GitlabAPI = require('gitlab-api')({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  oauthToken: 'abcdefghij123456'
+})
+
 // Listing users
 let users = await gitlab.users.all();
 
@@ -51,20 +67,32 @@ GitlabAPI.projects.create(projectId, {
 })
 ```
 
+Docs
+====
+Although there are the offical docs for the API, i realised i should still explain the function calls in this library, so i wrote some up!
+
+* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+
 Contributors
-------------
+============
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 
 
 License
--------
+=======
 
 MIT
 
 Changelog
 =========
+
+[1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit///) (2017-06-30)
+------------------
+- Adding more to the Project Issue Notes API
+- Updating Readme to show examples of connecting with oauth tokens
+- Begun adding documentation for projects
 
 [1.0.7](https://github.com/jdalrymple/node-gitlab-api/commit/50642ad764ecd20d2a9e279cf2a47e7b5efe8f07) (2017-06-23)
 ------------------
@@ -87,7 +115,6 @@ Changelog
 ------------------
 - Updating problems within the Milestone API
 - Removed the old 'list' calls for projects and issues which displayed a deprecated message. Only all is available now.
-
 
 [1.0.2](https://github.com/jdalrymple/node-gitlab-api/commit/a295d5a613efa13be79fec5fa2835076047cdcc5) (2017-06-22)
 ------------------
