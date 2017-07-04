@@ -1,13 +1,13 @@
 # Projects API
 
-* [List projects](#list-all-projects)
-* [Get single project](#get-a-single-project)
-* [Create project](#create-a-project)
-* [Create project for user](#create-a-project-for-user)
-* [Edit project](#edit-a-project)
-* [Fork project](#fork-a-project)
-* [Star project](#star-a-project)
-* [Unstar project](#unstar-a-project)
+* [List all projects](#list-all-projects)
+* [Get a single project](#get-a-single-project)
+* [Create a project](#create-a-project)
+* [Create a project for user](#create-a-project-for-user)
+* [Edit a project](#edit-a-project)
+* [Fork a project](#fork-a-project)
+* [Star a project](#star-a-project)
+* [Unstar a project](#unstar-a-project)
 
 
 ### List all projects
@@ -34,7 +34,7 @@ let projectA = GitlabAPI.projects.show(21);
 let projectB = GitlabAPI.projects.show('diaspora/diaspora');
 ```
 
-Parameters: [Get single project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-single-project)
+Parameters: [Get a single project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-single-project)
 
 
 ### Create a project
@@ -47,7 +47,7 @@ let projectA = GitlabAPI.projects.create({
   // params
 });
 ```
-Parameters: [Create project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project)
+Parameters: [Create a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project)
 
 
 ### Create a project for user
@@ -61,7 +61,7 @@ let projectA = GitlabAPI.projects.create({
   // params
 });
 ```
-Parameters: [Create project for user](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project-for-user)
+Parameters: [Create a project for user](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project-for-user)
 
 
 ### Edit a project
@@ -74,7 +74,7 @@ let projectA = GitlabAPI.projects.edit(projectId, {
   // params
 });
 ```
-Parameters: [Edit project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#edit-project)
+Parameters: [Edit a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#edit-project)
 
 
 ### Fork a project
@@ -87,7 +87,7 @@ let projectA = GitlabAPI.projects.fork(projectId, {
   // params
 });
 ```
-Parameters: [Fork project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#fork-project)
+Parameters: [Fork a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#fork-project)
 
 
 ### Star a project
