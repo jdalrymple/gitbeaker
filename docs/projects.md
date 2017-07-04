@@ -38,3 +38,42 @@ let projectA = GitlabAPI.projects.create({
 });
 ```
 Parameters: [Create project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project)
+
+
+### Create project for user
+
+Creates a new project owned by the specified user. Available only for admins.
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.createForUser(userId, {
+  // params
+});
+```
+Parameters: [Create project for user](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project-for-user)
+
+
+### Edit project
+
+Creates a new project owned by the specified user. Available only for admins.
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.edit(projectId, {
+  // params
+});
+```
+Parameters: [Edit project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#edit-project)
+
+
+### Fork project
+
+Forks a project into the user namespace of the authenticated user or the one provided.
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.fork(projectId, {
+  // params
+});
+```
+Parameters: [Fork project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#fork-project)
