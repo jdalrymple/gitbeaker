@@ -46,10 +46,6 @@ class Projects extends BaseModel {
     return this.get("projects/all", options);
   }
 
-  show(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}`);
-  }
-
   create(options = {}) {
     if(options.userId){
       return this.post(`projects/user/${userId}`, options);
@@ -62,6 +58,39 @@ class Projects extends BaseModel {
     return this.put(`projects/${Utils.parse(projectId)}`, options);
   }
 
+  fork(projectId, options = {}) {
+    return this.post(`projects/${projectId}/fork`, options);
+  }
+
+  remove(projectId) {
+    return this.delete(`projects/${Utils.parse(projectId)}`);
+  }
+
+  search(projectName) {
+    return this.get(`projects`, { search: projectName });
+  }
+
+  share(projectId, groupId, groupAccess, options) {
+    if(!groupId || !groupAccess) throw new Error("Missing required arguments");
+
+    options.group_id = groupId;
+    options.groupAccess = groupAccess;
+
+    return this.post(`projects/${Utils.parse(projectId)}/share`, options);
+  }
+
+  show(projectId) {
+    return this.get(`projects/${Utils.parse(projectId)}`);
+  }
+ 
+  star(projectId) {
+    return this.post(`projects/${Utils.parse(projectId)}/star`);
+  }
+
+  unstar(projectId) {
+    return this.post(`projects/${Utils.parse(projectId)}/unstar`);
+  }
+  
   addMember(projectId, options = {}) {
     return this.post(`projects/${projectId}/members`, options);
   }
@@ -80,30 +109,6 @@ class Projects extends BaseModel {
 
   listTags(projectId) {
     return this.get(`projects/${projectId}/repository/tags`);
-  }
-
-  remove(projectId) {
-    return this.delete(`projects/${Utils.parse(projectId)}`);
-  }
-
-  fork(projectId, options = {}) {
-    return this.post(`projects/${projectId}/fork`, options);
-  }
-
-  star(projectId) {
-    return this.post(`projects/${Utils.parse(projectId)}/star`);
-  }
-
-  unstar(projectId) {
-    return this.post(`projects/${Utils.parse(projectId)}/unstar`);
-  }
-  
-  share(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/share`, options);
-  }
-
-  search(projectName) {
-    return this.get(`projects`, { search: projectName });
   }
 
   listTriggers(projectId) {

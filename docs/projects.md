@@ -1,14 +1,31 @@
 # Projects API
 
-* [List all projects](#list-all-projects)
-* [Get a single project](#get-a-single-project)
-* [Create a project](#create-a-project)
-* [Create a project for user](#create-a-project-for-user)
-* [Edit a project](#edit-a-project)
-* [Fork a project](#fork-a-project)
-* [Star a project](#star-a-project)
-* [Unstar a project](#unstar-a-project)
+* [Basic](#basic)
+	* [List all projects](#list-all-projects)
+	* [Get a single project](#get-a-single-project)
+	* [Create a project](#create-a-project)
+	* [Create a project for user](#create-a-project-for-user)
+	* [Edit a project](#edit-a-project)
+	* [Fork a project](#fork-a-project)
+	* [Star a project](#star-a-project)
+	* [Unstar a project](#unstar-a-project)
+* [Project Members](#project-members)
+	* [Share project with group](#list-all-projects)
+	* [Delete a shared project link within a group](#get-a-single-project)
+	* [List all members of a project](#list-all-projects)
+	* [Get a member of a project](#get-a-single-project)
+	* [Add a member to a project](#get-a-single-project)
+	* [Edit a member of a project](#get-a-single-project)
+	* [Remove a member from a project](#get-a-single-project)
+* [Project Hooks](#project-members)
+	* [Share project with group](#list-all-projects)
+	* [Delete a shared project link within a group](#get-a-single-project)
+* [Project Branches](#project-members)
+	* [Share project with group](#list-all-projects)
+	* [Delete a shared project link within a group](#get-a-single-project)
+* [Project Search](#project-members)
 
+## Basic
 
 ### List all projects
 
@@ -111,3 +128,28 @@ let projectA = GitlabAPI.projects.unstar(projectId);
 ```
 Parameters: [Unstar a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#unstar-a-project)
 
+
+### Remove a project
+
+Removes a project including all associated resources (issues, merge requests etc.)
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.remove(projectId);
+```
+Parameters: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
+
+
+## Project Members
+
+### Share a project with a group
+
+Allow to share project with group.
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.share(projectId, groupId, groupAccess, {
+	//options
+});
+```
+Parameters: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
