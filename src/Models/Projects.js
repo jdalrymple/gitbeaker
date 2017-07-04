@@ -51,11 +51,11 @@ class Projects extends BaseModel {
   }
 
   create(options = {}) {
-    return this.post("projects", options);
-  }
-
-  createForUser(userId, options = {}) {
-    return this.post(`projects/user/${userId}`, options);
+    if(options.userId){
+      return this.post(`projects/user/${userId}`, options);
+    } else {
+      return this.post("projects", options);
+    }
   }
 
   edit(projectId, options = {}) {
