@@ -103,6 +103,10 @@ class Projects extends BaseModel {
     return this.get(`projects/${projectId}/members`);
   }
 
+  showMember(projectId, memberId){
+    return this.get(`projects/${projectId}/members/${memberId}`);
+  }
+  
   listCommits(projectId, options = {}) {
     return this.get(`projects/${projectId}/repository/commits`, options);
   }

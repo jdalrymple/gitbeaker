@@ -10,20 +10,29 @@
 	* [Star a project](#star-a-project)
 	* [Unstar a project](#unstar-a-project)
 * [Project Members](#project-members)
-	* [Share project with group](#list-all-projects)
-	* [Delete a shared project link within a group](#get-a-single-project)
-	* [List all members of a project](#list-all-projects)
-	* [Get a member of a project](#get-a-single-project)
-	* [Add a member to a project](#get-a-single-project)
-	* [Edit a member of a project](#get-a-single-project)
-	* [Remove a member from a project](#get-a-single-project)
-* [Project Hooks](#project-members)
-	* [Share project with group](#list-all-projects)
-	* [Delete a shared project link within a group](#get-a-single-project)
+	* [Share project with group](#share-project-with-group)
+	* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
+	* [List all members](#list-all-members-of-a-project)
+	* [Get a member](#get-a-member-of-a-project)
+	* [Add a member](#add-a-member-of-a-project)
+	* [Edit a member](#edit-a-member-of-a-project)
+	* [Remove a member](#remove-a-member-of-a-project)
+* [Project Triggers](#project-hooks)
+	* [List all hooks](#list-all-hooks)
+	* [Get a hook](#get-a-hook)
+	* [Create a hook](#create-a-hook)
+	* [Edit a hook](#edit-a-hook)
+* [Project Hooks](#project-hooks)
+	* [List all hooks](#list-all-hooks)
+	* [Get a hook](#get-a-hook)
+	* [Create a hook](#create-a-hook)
+	* [Edit a hook](#edit-a-hook)
 * [Project Branches](#project-members)
-	* [Share project with group](#list-all-projects)
-	* [Delete a shared project link within a group](#get-a-single-project)
-* [Project Search](#project-members)
+	* [List all branches](#list-all-branches)
+	* [Get a branch](#get-a-branch)
+	* [Protect a branch](#protect-a-branch)
+	* [Unprotect a branch](#unprotect-a-branch)
+* [Project Search](#project-search)
 
 ## Basic
 
@@ -59,7 +68,6 @@ Parameters: [Get a single project](https://github.com/gitlabhq/gitlabhq/blob/mas
 Creates a new project owned by the authenticated user.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.create({
   // params
 });
@@ -72,7 +80,6 @@ Parameters: [Create a project](https://github.com/gitlabhq/gitlabhq/blob/master/
 Creates a new project owned by the specified user. Available only for admins.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.create({
 	userId: 5,
   // params
@@ -86,7 +93,6 @@ Parameters: [Create a project for user](https://github.com/gitlabhq/gitlabhq/blo
 Creates a new project owned by the specified user. Available only for admins.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.edit(projectId, {
   // params
 });
@@ -99,7 +105,6 @@ Parameters: [Edit a project](https://github.com/gitlabhq/gitlabhq/blob/master/do
 Forks a project into the user namespace of the authenticated user or the one provided.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.fork(projectId, {
   // params
 });
@@ -112,7 +117,6 @@ Parameters: [Fork a project](https://github.com/gitlabhq/gitlabhq/blob/master/do
 Stars a given project. Returns status code `304` if the project is already starred.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.star(projectId);
 ```
 Parameters: [Star a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#star-a-project)
@@ -123,7 +127,6 @@ Parameters: [Star a project](https://github.com/gitlabhq/gitlabhq/blob/master/do
 Unstars a given project. Returns status code `304` if the project is not starred.
 
 ```javascript
-// From a project ID
 let projectA = GitlabAPI.projects.unstar(projectId);
 ```
 Parameters: [Unstar a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#unstar-a-project)
@@ -134,8 +137,7 @@ Parameters: [Unstar a project](https://github.com/gitlabhq/gitlabhq/blob/master/
 Removes a project including all associated resources (issues, merge requests etc.)
 
 ```javascript
-// From a project ID
-let projectA = GitlabAPI.projects.remove(projectId);
+GitlabAPI.projects.remove(projectId);
 ```
 Parameters: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
 
@@ -147,9 +149,79 @@ Parameters: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/
 Allow to share project with group.
 
 ```javascript
-// From a project ID
-let projectA = GitlabAPI.projects.share(projectId, groupId, groupAccess, {
-	//options
+GitlabAPI.projects.share(projectId, groupId, groupAccess, {
+	// params
 });
 ```
 Parameters: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
+
+### Delete a shared project link within a group
+
+Unshare the project from the group.
+
+```javascript
+GitlabAPI.projects.unshare(projectId, groupId);
+```
+Parameters: [Unshare a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#delete-a-shared-project-within-group)
+
+### List all members
+
+Gets a list of project members viewable by the authenticated user.
+
+```javascript
+let members = GitlabAPI.projects.listMembers(projectId);
+```
+Parameters: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
+
+### Get a member
+
+Gets a member of a project.
+
+```javascript
+let member = GitlabAPI.projects.showMember(projectId, memberId);
+```
+Parameters: [Get a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#get-a-member-of-a-group-or-project)
+
+### Add a member
+
+Gets a member of a project.
+
+```javascript
+let member = GitlabAPI.projects.addMember(projectId, {
+	// params
+});
+```
+Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
+
+### Edit a member
+
+Edits a member of a project.
+
+```javascript
+let member = GitlabAPI.projects.editMember(projectId, {
+	// params
+});
+```
+Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
+
+### Remove a member
+
+Removes a member of a project.
+
+```javascript
+GitlabAPI.projects.editMember(projectId, memberId);
+```
+Parameters: [Remove a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#remove-a-member-to-a-group-or-project)
+
+## Project Triggers
+
+### List all project triggers
+
+Allow to share project with group.
+
+```javascript
+// From a project ID
+let projectA = GitlabAPI.projects.listTriggers(projectId);
+```
+Parameters: [List all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
+
