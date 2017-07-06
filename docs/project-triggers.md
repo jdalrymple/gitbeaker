@@ -1,12 +1,10 @@
-* [Project Triggers](#project-triggers)
-	* [List all triggers](#list-all-triggers)
-	* [Get a trigger](#get-a-triggers)
-	* [Create a trigger](#create-a-triggers)
-	* [Edit a trigger](#edit-a-triggers)
-	* [Remove a trigger](#edit-a-triggers)
-
-	
 ## Project Triggers
+
+* [List all triggers](#list-all-triggers)
+* [Get a trigger](#get-a-triggers)
+* [Create a trigger](#create-a-triggers)
+* [Edit a trigger](#edit-a-triggers)
+* [Remove a trigger](#edit-a-triggers)
 
 ### List all project triggers
 

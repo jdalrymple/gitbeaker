@@ -1,14 +1,12 @@
-* [Project Members](#project-members)
-	* [Share project with group](#share-project-with-group)
-	* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
-	* [List all members](#list-all-members-of-a-project)
-	* [Get a member](#get-a-member-of-a-project)
-	* [Add a member](#add-a-member-of-a-project)
-	* [Edit a member](#edit-a-member-of-a-project)
-	* [Remove a member](#remove-a-member-of-a-project)
-
-	
 ## Project Members
+
+* [Share project with group](#share-project-with-group)
+* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
+* [List all members](#list-all-members-of-a-project)
+* [Get a member](#get-a-member-of-a-project)
+* [Add a member](#add-a-member-of-a-project)
+* [Edit a member](#edit-a-member-of-a-project)
+* [Remove a member](#remove-a-member-of-a-project)
 
 ### Share a project with a group
 
