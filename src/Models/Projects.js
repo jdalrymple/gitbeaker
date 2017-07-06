@@ -27,8 +27,8 @@ class Projects extends BaseModel {
     this.deploy_keys = new ProjectDeployKeys(...args);
     this.merge_requests = new ProjectMergeRequests(...args);
     this.services = new ProjectServices(...args);
-    this.builds = new ProjectBuilds(...args);
-    this.pipelines = new Pipelines(...args);
+    this.triggers = new ProjectTriggers(...args);
+    this.pipelines = new ProjectPipelines(...args);
     this.runners = new Runners(...args);
   }
 
@@ -89,46 +89,6 @@ class Projects extends BaseModel {
 
   unstar(projectId) {
     return this.post(`projects/${Utils.parse(projectId)}/unstar`);
-  }
-  
-  addMember(projectId, options = {}) {
-    return this.post(`projects/${projectId}/members`, options);
-  }
-
-  editMember(projectId, userId, options = {}) {
-    return this.put(`projects/${projectId}/members/${userId}`, options);
-  }
-
-  listMembers(projectId) {
-    return this.get(`projects/${projectId}/members`);
-  }
-
-  showMember(projectId, memberId){
-    return this.get(`projects/${projectId}/members/${memberId}`);
-  }
-  
-  listCommits(projectId, options = {}) {
-    return this.get(`projects/${projectId}/repository/commits`, options);
-  }
-
-  listTags(projectId) {
-    return this.get(`projects/${projectId}/repository/tags`);
-  }
-
-  listTriggers(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/triggers`);
-  }
-
-  showTrigger(projectId, token) {
-    return this.get(`projects/${Utils.parse(projectId)}/triggers/${token}`);
-  }
-
-  createTrigger(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/triggers`, options);
-  }
-
-  removeTrigger(projectId, token) {
-    return this.delete(`projects/${Utils.parse(projectId)}/triggers/${token}`);
   }
 
   upload(projectId, filePath) {

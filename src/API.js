@@ -1,5 +1,5 @@
 const Request = require('request-promise');
-const { Groups, Projects, Issues, Notes, Users, Labels } = require('./Models');
+const { Groups, Projects, Issues, Users, Labels } = require('./Models');
 
 class API {
   constructor({ url = 'https://gitlab.com', token, oauthToken }) {
@@ -17,7 +17,6 @@ class API {
     this.groups = new Groups(this);
     this.projects = new Projects(this);
     this.issues = new Issues(this);
-    this.notes = new Notes(this);
     this.users = new Users(this);
     this.labels = new Labels(this);
   }

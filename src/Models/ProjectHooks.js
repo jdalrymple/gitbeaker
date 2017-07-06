@@ -11,7 +11,7 @@ class ProjectHooks extends BaseModel {
   }
 
   show(projectId, hookId) {
-    return this.get(`projects/${Utils.parse(projectId)}/hooks/${parseInt(hookId)}`);
+    return this.get(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
   }
 
   add(projectId, options) {
@@ -20,14 +20,14 @@ class ProjectHooks extends BaseModel {
     return this.post(`projects/${Utils.parse(projectId)}/hooks`, options);
   }
 
-  update(projectId, hookId, url) {
-    return this.put(`projects/${Utils.parse(projectId)}/hooks/${parseInt(hookId)}`,{
+  edit(projectId, hookId, url) {
+    return this.put(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`,{
       access_level: parseInt(accessLevel)
     });
   }
 
   remove(projectId, hookId) {    
-    return this.delete(`projects/${Utils.parse(projectId)}/hooks/${parseInt(hookId)}`);
+    return this.delete(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
   }
 }
 

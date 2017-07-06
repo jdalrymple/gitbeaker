@@ -1,6 +1,6 @@
 # Projects API
 
-* [Basic](#basic)
+* [Projects](#projects)
 	* [List all projects](#list-all-projects)
 	* [Get a single project](#get-a-single-project)
 	* [Create a project](#create-a-project)
@@ -9,32 +9,13 @@
 	* [Fork a project](#fork-a-project)
 	* [Star a project](#star-a-project)
 	* [Unstar a project](#unstar-a-project)
+	* [Project search](#project-search)
+* [Project Repository](#project-repository)
 * [Project Members](#project-members)
-	* [Share project with group](#share-project-with-group)
-	* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
-	* [List all members](#list-all-members-of-a-project)
-	* [Get a member](#get-a-member-of-a-project)
-	* [Add a member](#add-a-member-of-a-project)
-	* [Edit a member](#edit-a-member-of-a-project)
-	* [Remove a member](#remove-a-member-of-a-project)
-* [Project Triggers](#project-hooks)
-	* [List all hooks](#list-all-hooks)
-	* [Get a hook](#get-a-hook)
-	* [Create a hook](#create-a-hook)
-	* [Edit a hook](#edit-a-hook)
-* [Project Hooks](#project-hooks)
-	* [List all hooks](#list-all-hooks)
-	* [Get a hook](#get-a-hook)
-	* [Create a hook](#create-a-hook)
-	* [Edit a hook](#edit-a-hook)
-* [Project Branches](#project-members)
-	* [List all branches](#list-all-branches)
-	* [Get a branch](#get-a-branch)
-	* [Protect a branch](#protect-a-branch)
-	* [Unprotect a branch](#unprotect-a-branch)
-* [Project Search](#project-search)
+* [Project Triggers](#project-triggers)
+* [Project Hooks](#project-triggers)
 
-## Basic
+## Projects
 
 ### List all projects
 
@@ -140,88 +121,3 @@ Removes a project including all associated resources (issues, merge requests etc
 GitlabAPI.projects.remove(projectId);
 ```
 Parameters: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
-
-
-## Project Members
-
-### Share a project with a group
-
-Allow to share project with group.
-
-```javascript
-GitlabAPI.projects.share(projectId, groupId, groupAccess, {
-	// params
-});
-```
-Parameters: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
-
-### Delete a shared project link within a group
-
-Unshare the project from the group.
-
-```javascript
-GitlabAPI.projects.unshare(projectId, groupId);
-```
-Parameters: [Unshare a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#delete-a-shared-project-within-group)
-
-### List all members
-
-Gets a list of project members viewable by the authenticated user.
-
-```javascript
-let members = GitlabAPI.projects.listMembers(projectId);
-```
-Parameters: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
-
-### Get a member
-
-Gets a member of a project.
-
-```javascript
-let member = GitlabAPI.projects.showMember(projectId, memberId);
-```
-Parameters: [Get a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#get-a-member-of-a-group-or-project)
-
-### Add a member
-
-Gets a member of a project.
-
-```javascript
-let member = GitlabAPI.projects.addMember(projectId, {
-	// params
-});
-```
-Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
-
-### Edit a member
-
-Edits a member of a project.
-
-```javascript
-let member = GitlabAPI.projects.editMember(projectId, {
-	// params
-});
-```
-Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
-
-### Remove a member
-
-Removes a member of a project.
-
-```javascript
-GitlabAPI.projects.editMember(projectId, memberId);
-```
-Parameters: [Remove a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#remove-a-member-to-a-group-or-project)
-
-## Project Triggers
-
-### List all project triggers
-
-Allow to share project with group.
-
-```javascript
-// From a project ID
-let projectA = GitlabAPI.projects.listTriggers(projectId);
-```
-Parameters: [List all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
-

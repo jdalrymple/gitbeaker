@@ -21,7 +21,7 @@ class ProjectMembers extends BaseModel {
     });
   }
 
-  update(projectId, userId, accessLevel = 30) {
+  edit(projectId, userId, accessLevel = 30) {
     return this.put(`projects/${Utils.parse(projectId)}/members/${parseInt(userId)}`,{ 
       access_level: parseInt(accessLevel)
     });
