@@ -29,7 +29,7 @@ class Projects extends BaseModel {
     this.services = new ProjectServices(...args);
     this.triggers = new ProjectTriggers(...args);
     this.pipelines = new ProjectPipelines(...args);
-    this.runners = new Runners(...args);
+    this.runners = new ProjectRunners(...args);
   }
 
   all(options = {}) {
