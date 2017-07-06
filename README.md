@@ -88,10 +88,11 @@ MIT
 Changelog
 =========
 
-[1.0.9]() (2017-07-06)
+[1.0.9](https://github.com/jdalrymple/node-gitlab-api/commit/7a90dbb6354fe956fff37c56f938a833e3fc5ea1) (2017-07-06)
 ------------------
 - Fixing broken Notes API reference
 - Added Project triggers, members and hooks docs
+- Moved Project Runners into its own scope and seperated out general Runners API logic
 
 [1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
 ------------------
