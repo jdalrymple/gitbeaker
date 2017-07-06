@@ -1,10 +1,10 @@
 ## Project Triggers
 
 * [List all triggers](#list-all-triggers)
-* [Get a trigger](#get-a-triggers)
-* [Create a trigger](#create-a-triggers)
-* [Edit a trigger](#edit-a-triggers)
-* [Remove a trigger](#edit-a-triggers)
+* [Get a trigger](#get-a-trigger)
+* [Add a trigger](#add-a-trigger)
+* [Edit a trigger](#edit-a-trigger)
+* [Remove a trigger](#edit-a-trigger)
 
 ### List all project triggers
 
@@ -26,13 +26,13 @@ let trigger = GitlabAPI.projects.triggers.show(projectId, triggerId);
 ```
 Parameters: [Get trigger details](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#get-trigger-details)
 
-### Create a trigger
+### Add a trigger
 
 Create a trigger for a project.
 
 ```javascript
 // From a project ID
-let trigger = GitlabAPI.projects.triggers.create(projectId, {
+let trigger = GitlabAPI.projects.triggers.add(projectId, {
 	// params
 });
 ```
@@ -59,5 +59,3 @@ Remove a trigger from a project.
 let trigger = GitlabAPI.projects.triggers.remove(projectId, triggerId);
 ```
 Parameters: [Remove a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#remove-a-project-trigger)
-
-

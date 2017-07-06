@@ -91,7 +91,7 @@ Changelog
 [1.0.9]() (2017-07-06)
 ------------------
 - Fixing broken Notes API reference
-- Finished the Projects documentation
+- Added Project triggers, members and hooks docs
 
 [1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
 ------------------

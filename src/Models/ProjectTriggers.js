@@ -6,28 +6,24 @@ class ProjectTriggers extends BaseModel {
     super(...args);
   }
 
-  createTrigger(projectId, options = {}) {
+  add(projectId, options = {}) {
     return this.post(`projects/${Utils.parse(projectId)}/triggers`, options);
   }
 
-  editTrigger(projectId, triggerId, options = {}) {
+  edit(projectId, triggerId, options = {}) {
     return this.put(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`, options);
   }
 
-  listTriggers(projectId) {
+  list(projectId) {
     return this.get(`projects/${Utils.parse(projectId)}/triggers`);
   }
 
-  removeTrigger(projectId, triggerId) {
+  remove(projectId, triggerId) {
     return this.delete(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`);
   }
 
-  showTrigger(projectId, triggerId) {
+  show(projectId, triggerId) {
     return this.get(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`);
-  }
-
-  triggerBuild(options = {}) {
-    return this.post(`projects/${Utils.parse(options.projectId)}/trigger/pipeline`, options);
   }
 }
 

@@ -10,10 +10,10 @@
 	* [Star a project](#star-a-project)
 	* [Unstar a project](#unstar-a-project)
 	* [Project search](#project-search)
-* [Project Repository](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-repository.md)
 * [Project Members](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-members.md)
 * [Project Triggers](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-triggers.md)
 * [Project Hooks](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-hooks.md)
+* [Project Repository](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-repository.md)
 
 ## Projects
 
