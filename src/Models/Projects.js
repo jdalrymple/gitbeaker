@@ -9,8 +9,9 @@ const ProjectMilestones = require('./ProjectMilestones');
 const ProjectDeployKeys = require('./ProjectDeployKeys');
 const ProjectMergeRequests = require('./ProjectMergeRequests');
 const ProjectServices = require('./ProjectServices');
-const ProjectBuilds = require('./ProjectBuilds');
-const Pipelines = require('./Pipelines');
+const ProjectTriggers = require('./ProjectTriggers');
+const ProjectRunners = require('./ProjectRunners');
+const ProjectPipelines = require('./ProjectPipelines');
 const Runners = require('./Runners');
 
 
