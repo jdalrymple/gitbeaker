@@ -33,13 +33,13 @@ URL to your GitLab instance should not include `/api/v4` path.
 
 ```javascript
 // Connection with basic token
-const GitlabAPI = require('gitlab-api')({
+const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'
 })
   
 // Connection with oauth token
-const GitlabAPI = require('gitlab-api')({
+const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
