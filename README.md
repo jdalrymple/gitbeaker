@@ -87,6 +87,9 @@ MIT
 
 Changelog
 =========
+[1.0.10](https://github.com/jdalrymple/node-gitlab-api/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
+------------------
+- Fixing Issues #1, #2, and #3
 
 [1.0.9](https://github.com/jdalrymple/node-gitlab-api/commit/7a90dbb6354fe956fff37c56f938a833e3fc5ea1) (2017-07-06)
 ------------------
