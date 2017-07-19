@@ -23,7 +23,7 @@ Install
 
 ```bash
 # Install from npm
-npm install gitlab
+npm install node-gitlab-api
 ```
 
 Usage
