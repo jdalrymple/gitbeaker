@@ -2,28 +2,34 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectTriggers extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   add(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/triggers`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/triggers`, options);
   }
 
   edit(projectId, triggerId, options = {}) {
-    return this.put(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`, options);
+    const [pId, tId] = [projectId, triggerId].map(Utils.parse);
+
+    return this.put(`projects/${pId}/triggers/${tId}`, options);
   }
 
   list(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/triggers`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/triggers`);
   }
 
   remove(projectId, triggerId) {
-    return this.delete(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`);
+    const [pId, tId] = [projectId, triggerId].map(Utils.parse);
+
+    return this.delete(`projects/${pId}/triggers/${tId}`);
   }
 
   show(projectId, triggerId) {
-    return this.get(`projects/${Utils.parse(projectId)}/triggers/${Utils.parse(triggerId)}`);
+    const [pId, tId] = [projectId, triggerId].map(Utils.parse);
+
+    return this.get(`projects/${pId}/triggers/${tId}`);
   }
 }
 

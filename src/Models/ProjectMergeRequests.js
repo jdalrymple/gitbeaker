@@ -2,55 +2,49 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectMergeRequests extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   list(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
     Utils.defaultPaging(options);
 
-    projectId = Utils.parse(projectId);
-
-    return this.get(`projects/${Utils.parse(projectId)}/merge_requests`, options);
+    return this.get(`projects/${pId}/merge_requests`, options);
   }
 
-  show(projectId, mergeRequestId) {
-    [projectId, hookId] = Array.from(arguments).map(Utils.parse);
+  show(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
 
-    return this.get(`projects/${projectId}/merge_requests/${mergerequestId}`);
+    return this.get(`projects/${pId}/merge_requests/${mId}`);
   }
 
   add(projectId, sourceBranch, targetBranch, assigneeId, title) {
-    [projectId, assigneeId] = [projectId, assigneeId].map(Utils.parse);
+    const [pId, aId] = [projectId, assigneeId].map(Utils.parse);
 
-    let options = {
-      id: projectId,
+    const options = {
+      id: pId,
       source_branch: sourceBranch,
       target_branch: targetBranch,
-      title
+      title,
     };
 
-    if (assigneeId !== undefined) options.assigneeId = assigneeId;
+    if (assigneeId !== undefined) options.assigneeId = aId;
 
-    return this.post(`projects/${projectId}/merge_requests`, options);
+    return this.post(`projects/${pId}/merge_requests`, options);
   }
 
   update(projectId, mergerequestId, options = {}) {
-    [projectId, mergerequestId] = [projectId, mergerequestId].map(Utils.parse);
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
 
-    options.id = projectId;
-    options.merge_request_id = mergerequestId;
+    options.id = pId;
+    options.merge_request_id = mId;
 
-    return this.put(`projects/${projectId}/merge_requests/${mergerequestId}`, options);
+    return this.put(`projects/${pId}/merge_requests/${mId}`, options);
   }
 
   comment(projectId, mergerequestId, note) {
-    [projectId, mergerequestId] = [projectId, mergerequestId].map(Utils.parse);
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/merge_requests/${mergerequestId}/comments`, {
-      id: projectId,
-      merge_request_id: mergerequestId,
-      note
+    return this.post(`projects/${pId}/merge_requests/${mId}/comments`, {
+      body: note,
     });
   }
 }

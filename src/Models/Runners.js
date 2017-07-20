@@ -2,20 +2,26 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class Runners extends BaseModel {
-  constructor(...args) {
-    super(...args);
+  all(options = {}) {
+    return this.get('runners/all', options);
   }
 
   show(runnerId) {
-    return this.get(`runners/${parseInt(runnerId)}`);
+    const rId = Utils.parse(runnerId);
+
+    return this.get(`runners/${rId}`);
   }
 
   update(runnerId, attributes) {
-    return this.put(`runners/${parseInt(runnerId)}`, attributes);
+    const rId = Utils.parse(runnerId);
+
+    return this.put(`runners/${rId}`, attributes);
   }
 
-  remove(runnerId, projectId, enable) {
-    return this.delete(`runners/${parseInt(runnerId)}`);
+  remove(runnerId) {
+    const rId = Utils.parse(runnerId);
+
+    return this.delete(`runners/${rId}`);
   }
 }
 

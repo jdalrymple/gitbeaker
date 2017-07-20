@@ -1,45 +1,42 @@
 const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
-class ProjectNotes extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
+class ProjectIssueNotes extends BaseModel {
+  all(projectId, issueIId, options = {}) {
+    const [pId, iIId] = [projectId, issueIId].map(Utils.parse);
 
-  all(projectId, issueId, options = {}) {
     Utils.defaultPaging(options);
-    [projectId, issueId] = [projectId, issueId].map(Utils.parse);
 
-    return this.get(`projects/${projectId}/issues/${issueId}/notes`, options);
+    return this.get(`projects/${pId}/issues/${iIId}/notes`, options);
   }
 
-  create(projectId, issueId, options = {}) {
-  	if(!options.body) throw new Error('Missing required property: body');
+  create(projectId, issueIId, options = {}) {
+    if (!options.body) throw new Error('Missing required property: body');
 
-    [projectId, issueId] = [projectId, issueId].map(Utils.parse);
+    const [pId, iIId] = [projectId, issueIId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/issues/${issueId}/notes`, options);
+    return this.post(`projects/${pId}/issues/${iIId}/notes`, options);
   }
 
-  edit(projectId, issueId, noteId, options = {}) {
-  	if(!options.body) throw new Error('Missing required property: body');
+  edit(projectId, issueIId, noteId, options = {}) {
+    if (!options.body) throw new Error('Missing required property: body');
 
-    [projectId, issueId, noteId] = [projectId, issueId, noteId].map(Utils.parse)
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
 
-    return this.put(`projects/${projectId}/issues/${issueId}/notes/${noteId}`, options);
+    return this.put(`projects/${pId}/issues/${iIId}/notes/${nId}`, options);
   }
 
-  remove(projectId, issueId, nodeId) {
-    [projectId, issueId, noteId] = Array.from(arguments).map(Utils.parse)
+  remove(projectId, issueIId, noteId) {
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${issueId}/notes/${noteId}`);
+    return this.delete(`projects/${pId}/issues/${iIId}/notes/${nId}`);
   }
 
-  show(projectId, issueId, noteId) {
-    [projectId, issueId, noteId] = Array.from(arguments).map(Utils.parse)
+  show(projectId, issueIId, noteId) {
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
 
-    return this.get(`projects/${projectId}/issues/${issueId}/notes/${noteId}`);
+    return this.get(`projects/${pId}/issues/${iIId}/notes/${nId}`);
   }
 }
 
-module.exports = ProjectNotes;
+module.exports = ProjectIssueNotes;

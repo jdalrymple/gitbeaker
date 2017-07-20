@@ -2,20 +2,22 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectServices extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   show(projectId, serviceName) {
-    return this.get(`projects/${Utils.parse(projectId)}/services/${serviceName}`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/services/${serviceName}`);
   }
 
-  update(projectId, serviceName, params = {}) {
-    return this.put(`projects/${Utils.parse(projectId)}/services/${serviceName}`, params);
+  update(projectId, serviceName, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/services/${serviceName}`, options);
   }
 
   remove(projectId, serviceName) {
-    return this.delete(`projects/${Utils.parse(projectId)}/services/${serviceName}`);
+    const pId = Utils.parse(projectId);
+
+    return this.delete(`projects/${pId}/services/${serviceName}`);
   }
 }
 

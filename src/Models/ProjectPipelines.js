@@ -2,13 +2,11 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class Pipelines extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   all(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/pipelines`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/pipelines`);
   }
 }
 
-module.exports = Pipelines
+module.exports = Pipelines;

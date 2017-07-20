@@ -6,53 +6,51 @@ class ProjectIssues extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.notes = ProjectIssueNotes;
+    this.notes = new ProjectIssueNotes(...args);
   }
 
   all(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
     Utils.defaultPaging(options);
 
-    projectId = Utils.parse(projectId);
-
-    return this.get(`projects/${projectId}/issues`, options);
+    return this.get(`projects/${pId}/issues`, options);
   }
 
   create(projectId, options = {}) {
-    projectId = Utils.parse(projectId);
+    const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${projectId}/issues`, options);
+    return this.post(`projects/${pId}/issues`, options);
   }
 
   edit(projectId, issueId, options = {}) {
-    [projectId, issueId] = [projectId, issueId].map(Utils.parse)
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.put(`projects/${projectId}/issues/${issueId}`, options);
+    return this.put(`projects/${pId}/issues/${iId}`, options);
   }
 
   remove(projectId, issueId) {
-    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-
-    return this.delete(`projects/${projectId}/issues/${issueId}`);
+    return this.delete(`projects/${pId}/issues/${iId}`);
   }
 
   show(projectId, issueId) {
-    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-
-    return this.get(`projects/${projectId}/issues/${issueId}`);
+    return this.get(`projects/${pId}/issues/${iId}`);
   }
 
   subscribe(projectId, issueId, options = {}) {
-    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/issues/${issueId}/subscribe`, options);
+    return this.post(`projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
   unsubscribe(projectId, issueId) {
-    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${issueId}/unsubscribe`);
+    return this.delete(`projects/${pId}/issues/${iId}/unsubscribe`);
   }
 }
 

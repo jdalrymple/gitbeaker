@@ -1,17 +1,35 @@
 const Request = require('request-promise');
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
 
+function defaultRequestWithQS(url, endpoint, headers, options) {
+  return {
+    url: url + endpoint,
+    headers,
+    json: true,
+    qs: options,
+  };
+}
+
+function defaultRequestWithBody(url, endpoint, headers, options) {
+  return {
+    url: url + endpoint,
+    headers,
+    json: true,
+    body: options,
+  };
+}
+
 class API {
   constructor({ url = 'https://gitlab.com', token, oauthToken }) {
     this.url = `${url}/api/v4/`;
-    this.headers = {}
+    this.headers = {};
 
     if (oauthToken) {
       this.headers.Authorization = `Bearer ${oauthToken}`;
     } else if (token) {
       this.headers['private-token'] = token;
     } else {
-      throw "`token` (private-token) or `oauth_token` is mandatory"
+      throw new Error('`token` (private-token) or `oauth_token` is mandatory');
     }
 
     this.groups = new Groups(this);
@@ -36,24 +54,6 @@ class API {
 
   delete(endpoint, options) {
     return Request.delete(defaultRequestWithQS(this.url, endpoint, this.headers, options));
-  }
-}
-
-function defaultRequestWithQS(url, endpoint, headers, options) {
-  return {
-    url: url + endpoint,
-    headers: headers,
-    json: true,
-    qs: options
-  }
-}
-
-function defaultRequestWithBody(url, endpoint, headers, options) {
-  return {
-    url: url + endpoint,
-    headers: headers,
-    json: true,
-    body: options
   }
 }
 

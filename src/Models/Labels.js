@@ -2,47 +2,44 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class Labels extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   all(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
     Utils.defaultPaging(options);
 
-    projectId = Utils.parse(projectId);
-
-    return this.get(`projects/${projectId}/labels`, options);
+    return this.get(`projects/${pId}/labels`, options);
   }
 
   create(projectId, options = {}) {
-    projectId = Utils.parse(projectId);
+    const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${projectId}/labels`, options);
+    return this.post(`projects/${pId}/labels`, options);
   }
 
   edit(projectId, labelName, options = {}) {
-    projectId = Utils.parse(projectId);
-    options.name = labelName
+    const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${projectId}/labels`, options);
+    options.name = labelName;
+
+    return this.put(`projects/${pId}/labels`, options);
   }
 
   remove(projectId, labelName) {
-    projectId = Utils.parse(projectId);
+    const pId = Utils.parse(projectId);
 
-    return this.delete(`projects/${projectId}/labels`, { name: labelName });
+    return this.delete(`projects/${pId}/labels`, { name: labelName });
   }
 
   subscribe(projectId, labelId, options = {}) {
-    [projectId, labelId] = [projectId, labelId].map(Utils.parse);
+    const [pId, lId] = [projectId, labelId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/issues/${labelId}/subscribe`, options);
+    return this.post(`projects/${pId}/issues/${lId}/subscribe`, options);
   }
 
   unsubscribe(projectId, labelId) {
-    [projectId, labelId] = [projectId, labelId].map(Utils.parse);
+    const [pId, lId] = [projectId, labelId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${labelId}/unsubscribe`);
+    return this.delete(`projects/${pId}/issues/${lId}/unsubscribe`);
   }
 }
 
