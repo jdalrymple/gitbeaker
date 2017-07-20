@@ -5,7 +5,8 @@ const ProjectIssueNotes = require('./ProjectIssueNotes');
 class ProjectIssues extends BaseModel {
   constructor(...args) {
     super(...args);
-    this.notes = ProjectIssueNotes;
+
+    this.notes = new ProjectIssueNotes(...args);
   }
 
   all(projectId, options = {}) {

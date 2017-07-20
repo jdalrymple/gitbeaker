@@ -1,7 +1,7 @@
 const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
-class ProjectNotes extends BaseModel {
+class ProjectIssueNotes extends BaseModel {
   constructor(...args) {
     super(...args);
   }
@@ -16,6 +16,8 @@ class ProjectNotes extends BaseModel {
   create(projectId, issueId, options = {}) {
   	if(!options.body) throw new Error('Missing required property: body');
 
+    console.log(this.post)
+  
     return this.post(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes`, options);
   }
 
@@ -46,4 +48,4 @@ class ProjectNotes extends BaseModel {
   }
 }
 
-module.exports = ProjectNotes;
+module.exports = ProjectIssueNotes;

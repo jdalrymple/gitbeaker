@@ -8,6 +8,9 @@ class BaseModel {
   }
 
   post(endpoint, options){
+    console.log(endpoint)
+    console.log(options)
+    
     return this.client.post(endpoint, options);
   }
 
