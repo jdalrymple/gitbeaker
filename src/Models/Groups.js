@@ -1,31 +1,31 @@
 const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
-function hasAccess() {
-  let access_level;
-  let hasAccess;
+const ACCESS_LEVELS = {
+  GUEST: 10,
+  REPORTER: 20,
+  DEVELOPER: 30,
+  MASTER: 40,
+  OWNER: 50,
+};
 
-  for (let k in this.access_levels) {
-    access_level = this.access_levels[k];
-    if (accessLevel === access_level) {
-      hasAccess = true;
+function hasAccess(accessLevel) {
+  let valid = false;
+
+  Object.values(ACCESS_LEVELS).forEach((level) => {
+    if (accessLevel === level) {
+      valid = true;
     }
-  }
+  });
 
-  if (!hasAccess) throw `\`accessLevel\` must be one of ${JSON.stringify(this.access_levels)}`;
+  if (!valid) throw new Error(`\`accessLevel\` must be one of ${JSON.stringify(ACCESS_LEVELS)}`);
 }
 
 class Groups extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.access_levels = {
-      GUEST: 10,
-      REPORTER: 20,
-      DEVELOPER: 30,
-      MASTER: 40,
-      OWNER: 50,
-    };
+    this.access_levels = ACCESS_LEVELS;
   }
 
   all(options = {}) {
@@ -49,7 +49,7 @@ class Groups extends BaseModel {
   addMember(groupId, userId, accessLevel) {
     const [gId, uId] = [groupId, userId].map(Utils.parse);
 
-    hasAccess.call(this);
+    hasAccess(accessLevel);
 
     return this.post(`groups/${gId}/members`, {
       user_id: uId,
@@ -60,7 +60,7 @@ class Groups extends BaseModel {
   editMember(groupId, userId, accessLevel) {
     const [gId, uId] = [groupId, userId].map(Utils.parse);
 
-    hasAccess.call(this);
+    hasAccess(accessLevel);
 
     return this.put(`groups/${gId}/members/${uId}`, {
       access_level: accessLevel,
