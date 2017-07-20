@@ -15,10 +15,7 @@ class ProjectIssueNotes extends BaseModel {
 
   create(projectId, issueId, options = {}) {
   	if(!options.body) throw new Error('Missing required property: body');
-
-    console.log(this.post)
-  
-    return this.post(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes`, options);
+    return this.post(`projects/${Utils.parse(projectId)}/issues/${Utils.parse(issueId)}/notes`, options);
   }
 
   edit(projectId, issueId, noteId, options = {}) {
