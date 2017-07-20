@@ -87,7 +87,7 @@ MIT
 
 Changelog
 =========
-[1.0.11](https://github.com/jdalrymple/node-gitlab-api/commit/) (2017-07-20)
+[1.0.11](https://github.com/jdalrymple/node-gitlab-api/commit/af4eb6955f583b5be4a4032d2d532d81bb2cf54d) (2017-07-20)
 ------------------
 - Fixing the problem where Id was used instead of IId's for Project issues
 - Fixing the naming convention for Project Issues
