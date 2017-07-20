@@ -5,14 +5,16 @@ const ProjectIssueNotes = require('./ProjectIssueNotes');
 class ProjectIssues extends BaseModel {
   constructor(...args) {
     super(...args);
+
     this.notes = ProjectIssueNotes;
   }
 
   all(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get(`projects/${Utils.parse(projectId)}/issues`, options);
+    projectId = Utils.parse(projectId);
+
+    return this.get(`projects/${projectId}/issues`, options);
   }
 
   create(projectId, options = {}) {
@@ -22,36 +24,33 @@ class ProjectIssues extends BaseModel {
   }
 
   edit(projectId, issueId, options = {}) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    [projectId, issueId] = [projectId, issueId].map(Utils.parse)
 
     return this.put(`projects/${projectId}/issues/${issueId}`, options);
   }
 
   remove(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+
 
     return this.delete(`projects/${projectId}/issues/${issueId}`);
   }
 
   show(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+
 
     return this.get(`projects/${projectId}/issues/${issueId}`);
   }
 
   subscribe(projectId, issueId, options = {}) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
 
     return this.post(`projects/${projectId}/issues/${issueId}/subscribe`, options);
   }
 
   unsubscribe(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
 
     return this.delete(`projects/${projectId}/issues/${issueId}/unsubscribe`);
   }

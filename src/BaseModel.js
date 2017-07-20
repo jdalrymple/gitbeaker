@@ -18,6 +18,6 @@ class BaseModel {
   delete(endpoint, options){
     return this.client.delete(endpoint, options);
   }
-};
+}
 
 module.exports = BaseModel;

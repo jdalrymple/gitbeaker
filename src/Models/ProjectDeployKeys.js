@@ -7,15 +7,21 @@ class ProjectKeys extends BaseModel {
   }
 
   listKeys(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/deploy_keys`);
+    projectId = Utils.parse(projectId);
+
+    return this.get(`projects/${projectId}/deploy_keys`);
   }
 
   getKey(projectId, keyId) {
-    return this.get(`projects/${Utils.parse(projectId)}/deploy_keys/${parseInt(keyId)}`);
+    [groupId, keyId] = Array.from(arguments).map(Utils.parse);
+
+    return this.get(`projects/${projectId}/deploy_keys/${keyId}`);
   }
 
   addKey(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/deploy_keys`, options);
+    projectId = Utils.parse(projectId);
+
+    return this.post(`projects/${projectId}/deploy_keys`, options);
   }
 }
 

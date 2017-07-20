@@ -1,4 +1,5 @@
 const BaseModel = require('../BaseModel');
+const Utils = require('utils');
 
 class Groups extends BaseModel {
   constructor(...args){
@@ -13,24 +14,29 @@ class Groups extends BaseModel {
   }
 
   all(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
     return this.get("groups", options);
   }
 
   show(groupId) {
-    return this.get(`groups/${parseInt(groupId)}`);
+    groupId = Utils.parse(groupId);
+
+    return this.get(`groups/${groupId}`);
   }
 
   listMembers(groupId) {
-    return this.get(`groups/${parseInt(groupId)}/members`);
+    groupId = Utils.parse(groupId);
+
+    return this.get(`groups/${groupId}/members`);
   }
 
   addMember(groupId, userId, accessLevel) {
     hasAccess.call(this);
 
-    return this.post(`groups/${parseInt(groupId)}/members`, {
+    [groupId,userId] = [groupId,userId].map(Utils.parse);
+
+    return this.post(`groups/${groupId}/members`, {
       user_id: userId,
       access_level: accessLevel
     });
@@ -39,13 +45,17 @@ class Groups extends BaseModel {
   editMember(groupId, userId, accessLevel) {
     hasAccess.call(this);
    
-    return this.put(`groups/${parseInt(groupId)}/members/${parseInt(userId)}`, {
+    [groupId,userId] = [groupId,userId].map(Utils.parse);
+
+    return this.put(`groups/${groupId}/members/${userId}`, {
       access_level: accessLevel
     });
   }
 
   removeMember(groupId, userId) {
-    return this.delete(`groups/${parseInt(groupId)}/members/${parseInt(userId)}`);
+    [groupId,userId] = Array.from(arguments).map(Utils.parse);
+
+    return this.delete(`groups/${groupId}/members/${userId}`);
   }
 
   create(options = {}) {
@@ -53,15 +63,21 @@ class Groups extends BaseModel {
   }
 
   listProjects(groupId) {    
-    return this.get(`groups/${parseInt(groupId)}/projects`);
+    groupId = Utils.parse(groupId);
+
+    return this.get(`groups/${groupId}/projects`);
   }
 
   addProject(groupId, projectId) {
-    return this.post(`groups/${parseInt(groupId)}/projects/${parseInt(projectId)}`);
+   [groupId,projectId] = Array.from(arguments).map(Utils.parse);
+
+    return this.post(`groups/${groupId}/projects/${projectId}`);
   }
 
   deleteGroup(groupId) {
-    return this.delete(`groups/${parseInt(groupId)}`);
+    groupId = Utils.parse(groupId);
+
+    return this.delete(`groups/${groupId}`);
   }
 
   search(nameOrPath) {

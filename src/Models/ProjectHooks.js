@@ -7,27 +7,36 @@ class ProjectHooks extends BaseModel {
   }
 
   list(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/hooks`);
+    projectId = Utils.parse(projectId);
+
+    return this.get(`projects/${projectId}/hooks`);
   }
 
   show(projectId, hookId) {
-    return this.get(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
+    [projectId, hookId] = Array.from(arguments).map(Utils.parse);
+
+    return this.get(`projects/${projectId}/hooks/${hookId}`);
   }
 
   add(projectId, options) {
-    if (typeof options === 'string') options = {url: options};
-    
-    return this.post(`projects/${Utils.parse(projectId)}/hooks`, options);
+    if (typeof options === 'string') options = { url: options };
+    projectId = Utils.parse(projectId);
+
+    return this.post(`projects/${projectId}/hooks`, options);
   }
 
   edit(projectId, hookId, url) {
-    return this.put(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`,{
+    [projectId, hookId] = [projectId, hookId].map(Utils.parse);
+
+    return this.put(`projects/${projectId}/hooks/${hookId}`, {
       access_level: parseInt(accessLevel)
     });
   }
 
-  remove(projectId, hookId) {    
-    return this.delete(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
+  remove(projectId, hookId) {
+    [projectId, hookId] = Array.from(arguments).map(Utils.parse);
+
+    return this.delete(`projects/${projectId}/hooks/${hookId}`);
   }
 }
 

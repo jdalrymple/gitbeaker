@@ -7,28 +7,38 @@ class ProjectMembers extends BaseModel {
   }
 
   list(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/members`);
+    projectId = Utils.parse(projectId);
+
+    return this.get(`projects/${projectId}/members`);
   }
 
   show(projectId, userId) {
-    return this.get(`projects/${Utils.parse(projectId)}/members/${parseInt(userId)}`);
+    [projectId, userId] = Array.from(arguments).map(Utils.parse)
+
+    return this.get(`projects/${projectId}/members/${userId}`);
   }
 
   add(projectId, userId, accessLevel = 30) {
-    return this.post(`projects/${Utils.parse(projectId)}/members`, {
-      user_id: parseInt(userId),
+    [projectId, userId] = [projectId, userId].map(Utils.parse)
+
+    return this.post(`projects/${projectId}/members`, {
+      user_id: userId,
       access_level: parseInt(accessLevel)
     });
   }
 
   edit(projectId, userId, accessLevel = 30) {
-    return this.put(`projects/${Utils.parse(projectId)}/members/${parseInt(userId)}`,{ 
+    [projectId, userId] = [projectId, userId].map(Utils.parse)
+
+    return this.put(`projects/${projectId}/members/${userId}`, {
       access_level: parseInt(accessLevel)
     });
   }
 
   remove(projectId, userId) {
-    return this.delete(`projects/${Utils.parse(projectId)}/members/${parseInt(userId)}`);
+    [projectId, issueId] = Array.from(arguments).map(Utils.parse)
+
+    return this.delete(`projects/${projectId}/members/${userId}`);
   }
 }
 

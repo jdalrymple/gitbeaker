@@ -7,8 +7,7 @@ class ProjectMilestones extends BaseModel {
   }
 
   all(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
     return this.get(`projects/${Utils.parse(projectId)}/milestones`, options);
   }

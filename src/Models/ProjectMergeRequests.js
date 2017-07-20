@@ -7,40 +7,49 @@ class ProjectMergeRequests extends BaseModel {
   }
 
   list(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
+
+    projectId = Utils.parse(projectId);
 
     return this.get(`projects/${Utils.parse(projectId)}/merge_requests`, options);
   }
 
   show(projectId, mergeRequestId) {
-    return this.get(`projects/${Utils.parse(projectId)}/merge_requests/${parseInt(mergeRequestId)}`);
+    [projectId, hookId] = Array.from(arguments).map(Utils.parse);
+
+    return this.get(`projects/${projectId}/merge_requests/${mergerequestId}`);
   }
 
   add(projectId, sourceBranch, targetBranch, assigneeId, title) {
+    [projectId, assigneeId] = [projectId, assigneeId].map(Utils.parse);
+
     let options = {
-      id: Utils.parse(projectId),
+      id: projectId,
       source_branch: sourceBranch,
       target_branch: targetBranch,
       title
     };
 
-    if (assigneeId !== undefined) options.assigneeId = parseInt(assigneeId);
+    if (assigneeId !== undefined) options.assigneeId = assigneeId;
 
-    return this.post(`projects/${Utils.parse(projectId)}/merge_requests`, options);
+    return this.post(`projects/${projectId}/merge_requests`, options);
   }
 
   update(projectId, mergerequestId, options = {}) {
-    options.id = Utils.parse(projectId);
-    options.merge_request_id = parseInt(mergerequestId);
+    [projectId, mergerequestId] = [projectId, mergerequestId].map(Utils.parse);
 
-    return this.put(`projects/${Utils.parse(projectId)}/merge_requests/${parseInt(mergerequestId)}`, options);
+    options.id = projectId;
+    options.merge_request_id = mergerequestId;
+
+    return this.put(`projects/${projectId}/merge_requests/${mergerequestId}`, options);
   }
 
   comment(projectId, mergerequestId, note) {
-    return this.post(`projects/${Utils.parse(projectId)}/merge_requests/${parseInt(mergerequestId)}/comments`, {
-      id: Utils.parse(projectId),
-      merge_request_id: parseInt(mergerequestId),
+    [projectId, mergerequestId] = [projectId, mergerequestId].map(Utils.parse);
+
+    return this.post(`projects/${projectId}/merge_requests/${mergerequestId}/comments`, {
+      id: projectId,
+      merge_request_id: mergerequestId,
       note
     });
   }

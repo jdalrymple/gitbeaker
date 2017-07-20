@@ -34,15 +34,13 @@ class Projects extends BaseModel {
   }
 
   all(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
     return this.get("projects", options); 
   }
 
   allAdmin(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
     return this.get("projects/all", options);
   }

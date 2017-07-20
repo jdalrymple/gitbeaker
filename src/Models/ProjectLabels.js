@@ -7,10 +7,10 @@ class ProjectLabels extends BaseModel {
   }
 
   all(projectId, options = {}) {
-  	options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
+    projectId = Utils.parse(projectId);
 
-    return this.get(`projects/${Utils.parse(projectId)}/labels`, options);
+    return this.get(`projects/${projectId}/labels`, options);
   }
 }
 

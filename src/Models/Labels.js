@@ -7,39 +7,40 @@ class Labels extends BaseModel {
   }
 
   all(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get(`projects/${Utils.parse(projectId)}/labels`, options);
+    projectId = Utils.parse(projectId);
+
+    return this.get(`projects/${projectId}/labels`, options);
   }
 
   create(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/labels`, options);
+    projectId = Utils.parse(projectId);
+
+    return this.post(`projects/${projectId}/labels`, options);
   }
 
   edit(projectId, labelName, options = {}) {
     projectId = Utils.parse(projectId);
     options.name = labelName
 
-    return this.put(`projects/${Utils.parse(projectId)}/labels`, options);
+    return this.put(`projects/${projectId}/labels`, options);
   }
 
   remove(projectId, labelName) {
     projectId = Utils.parse(projectId);
 
-    return this.delete(`projects/${Utils.parse(projectId)}/labels`, { name: labelName });
+    return this.delete(`projects/${projectId}/labels`, { name: labelName });
   }
 
   subscribe(projectId, labelId, options = {}) {
-    projectId = Utils.parse(projectId);
-    labelId = Utils.parse(labelId);
+    [projectId, labelId] = [projectId, labelId].map(Utils.parse);
 
     return this.post(`projects/${projectId}/issues/${labelId}/subscribe`, options);
   }
 
   unsubscribe(projectId, labelId) {
-    projectId = Utils.parse(projectId);
-    labelId = Utils.parse(labelId);
+    [projectId, labelId] = [projectId, labelId].map(Utils.parse);
 
     return this.delete(`projects/${projectId}/issues/${labelId}/unsubscribe`);
   }
