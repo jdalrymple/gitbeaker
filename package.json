@@ -1,6 +1,6 @@
 {
   "name": "node-gitlab-api",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "main": "src/index.js",
   "directories": {},
