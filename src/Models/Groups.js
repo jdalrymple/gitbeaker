@@ -1,88 +1,105 @@
 const BaseModel = require('../BaseModel');
+const Utils = require('../Utils');
+
+const ACCESS_LEVELS = {
+  GUEST: 10,
+  REPORTER: 20,
+  DEVELOPER: 30,
+  MASTER: 40,
+  OWNER: 50,
+};
+
+function hasAccess(accessLevel) {
+  let valid = false;
+
+  Object.values(ACCESS_LEVELS).forEach((level) => {
+    if (accessLevel === level) {
+      valid = true;
+    }
+  });
+
+  if (!valid) throw new Error(`\`accessLevel\` must be one of ${JSON.stringify(ACCESS_LEVELS)}`);
+}
 
 class Groups extends BaseModel {
-  constructor(...args){
+  constructor(...args) {
     super(...args);
-    this.access_levels = {
-      GUEST:      10,
-      REPORTER:   20,
-      DEVELOPER:  30,
-      MASTER:     40,
-      OWNER:      50
-    }
+
+    this.access_levels = ACCESS_LEVELS;
   }
 
   all(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get("groups", options);
+    return this.get('groups', options);
   }
 
   show(groupId) {
-    return this.get(`groups/${parseInt(groupId)}`);
+    const gId = Utils.parse(groupId);
+
+    return this.get(`groups/${gId}`);
   }
 
   listMembers(groupId) {
-    return this.get(`groups/${parseInt(groupId)}/members`);
+    const gId = Utils.parse(groupId);
+
+    return this.get(`groups/${gId}/members`);
   }
 
   addMember(groupId, userId, accessLevel) {
-    hasAccess.call(this);
+    const [gId, uId] = [groupId, userId].map(Utils.parse);
 
-    return this.post(`groups/${parseInt(groupId)}/members`, {
-      user_id: userId,
-      access_level: accessLevel
+    hasAccess(accessLevel);
+
+    return this.post(`groups/${gId}/members`, {
+      user_id: uId,
+      access_level: accessLevel,
     });
   }
 
   editMember(groupId, userId, accessLevel) {
-    hasAccess.call(this);
-   
-    return this.put(`groups/${parseInt(groupId)}/members/${parseInt(userId)}`, {
-      access_level: accessLevel
+    const [gId, uId] = [groupId, userId].map(Utils.parse);
+
+    hasAccess(accessLevel);
+
+    return this.put(`groups/${gId}/members/${uId}`, {
+      access_level: accessLevel,
     });
   }
 
   removeMember(groupId, userId) {
-    return this.delete(`groups/${parseInt(groupId)}/members/${parseInt(userId)}`);
+    const [gId, uId] = [groupId, userId].map(Utils.parse);
+
+    return this.delete(`groups/${gId}/members/${uId}`);
   }
 
   create(options = {}) {
-    return this.post("groups", options);
+    return this.post('groups', options);
   }
 
-  listProjects(groupId) {    
-    return this.get(`groups/${parseInt(groupId)}/projects`);
+  listProjects(groupId) {
+    const gId = Utils.parse(groupId);
+
+    return this.get(`groups/${gId}/projects`);
   }
 
   addProject(groupId, projectId) {
-    return this.post(`groups/${parseInt(groupId)}/projects/${parseInt(projectId)}`);
+    const [gId, pId] = [groupId, projectId].map(Utils.parse);
+
+    return this.post(`groups/${gId}/projects/${pId}`);
   }
 
   deleteGroup(groupId) {
-    return this.delete(`groups/${parseInt(groupId)}`);
+    const gId = Utils.parse(groupId);
+
+    return this.delete(`groups/${gId}`);
   }
 
   search(nameOrPath) {
-    return this.get("groups", options, {
-      search: nameOrPath
+    return this.get('groups', {
+      search: nameOrPath,
     });
   }
-}
-
-function hasAccess(){
-  let access_level;
-  let hasAccess;
-
-  for (let k in this.access_levels) {
-    access_level = this.access_levels[k];
-    if (accessLevel === access_level) { 
-      hasAccess = true; 
-    }
-  }
-
-  if (!hasAccess) throw `\`accessLevel\` must be one of ${JSON.stringify(this.access_levels)}`;
 }
 
 module.exports = Groups;

@@ -2,46 +2,44 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class Labels extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   all(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${Utils.parse(projectId)}/labels`, options);
+    Utils.defaultPaging(options);
+
+    return this.get(`projects/${pId}/labels`, options);
   }
 
   create(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/labels`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/labels`, options);
   }
 
   edit(projectId, labelName, options = {}) {
-    projectId = Utils.parse(projectId);
-    options.name = labelName
+    const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${Utils.parse(projectId)}/labels`, options);
+    options.name = labelName;
+
+    return this.put(`projects/${pId}/labels`, options);
   }
 
   remove(projectId, labelName) {
-    projectId = Utils.parse(projectId);
+    const pId = Utils.parse(projectId);
 
-    return this.delete(`projects/${Utils.parse(projectId)}/labels`, { name: labelName });
+    return this.delete(`projects/${pId}/labels`, { name: labelName });
   }
 
   subscribe(projectId, labelId, options = {}) {
-    projectId = Utils.parse(projectId);
-    labelId = Utils.parse(labelId);
+    const [pId, lId] = [projectId, labelId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/issues/${labelId}/subscribe`, options);
+    return this.post(`projects/${pId}/issues/${lId}/subscribe`, options);
   }
 
   unsubscribe(projectId, labelId) {
-    projectId = Utils.parse(projectId);
-    labelId = Utils.parse(labelId);
+    const [pId, lId] = [projectId, labelId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${labelId}/unsubscribe`);
+    return this.delete(`projects/${pId}/issues/${lId}/unsubscribe`);
   }
 }
 

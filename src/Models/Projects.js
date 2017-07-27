@@ -12,8 +12,6 @@ const ProjectServices = require('./ProjectServices');
 const ProjectTriggers = require('./ProjectTriggers');
 const ProjectRunners = require('./ProjectRunners');
 const ProjectPipelines = require('./ProjectPipelines');
-const Runners = require('./Runners');
-
 
 class Projects extends BaseModel {
   constructor(...args) {
@@ -34,67 +32,83 @@ class Projects extends BaseModel {
   }
 
   all(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get("projects", options); 
+    return this.get('projects', options);
   }
 
   allAdmin(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get("projects/all", options);
+    return this.get('projects/all', options);
   }
 
   create(options = {}) {
-    if(options.userId){
-      return this.post(`projects/user/${userId}`, options);
-    } else {
-      return this.post("projects", options);
+    if (options.userId) {
+      const uId = Utils.parse(options.userId);
+
+      return this.post(`projects/user/${uId}`, options);
     }
+
+    return this.post('projects', options);
   }
 
   edit(projectId, options = {}) {
-    return this.put(`projects/${Utils.parse(projectId)}`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}`, options);
   }
 
   fork(projectId, options = {}) {
-    return this.post(`projects/${projectId}/fork`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/fork`, options);
   }
 
   remove(projectId) {
-    return this.delete(`projects/${Utils.parse(projectId)}`);
+    const pId = Utils.parse(projectId);
+
+    return this.delete(`projects/${pId}`);
   }
 
   search(projectName) {
-    return this.get(`projects`, { search: projectName });
+    return this.get('projects', { search: projectName });
   }
 
   share(projectId, groupId, groupAccess, options) {
-    if(!groupId || !groupAccess) throw new Error("Missing required arguments");
+    const pId = Utils.parse(projectId);
+
+    if (!groupId || !groupAccess) throw new Error('Missing required arguments');
 
     options.group_id = groupId;
     options.groupAccess = groupAccess;
 
-    return this.post(`projects/${Utils.parse(projectId)}/share`, options);
+    return this.post(`projects/${pId}/share`, options);
   }
 
   show(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}`);
   }
- 
+
   star(projectId) {
-    return this.post(`projects/${Utils.parse(projectId)}/star`);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/star`);
   }
 
   unstar(projectId) {
-    return this.post(`projects/${Utils.parse(projectId)}/unstar`);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/unstar`);
   }
 
   upload(projectId, filePath) {
-    return this.post(`projects/${Utils.parse(projectId)}/uploads`, {
-      file: filePath
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/uploads`, {
+      file: filePath,
     });
   }
 }

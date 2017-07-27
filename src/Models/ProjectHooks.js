@@ -2,32 +2,35 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectHooks extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   list(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/hooks`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/hooks`);
   }
 
   show(projectId, hookId) {
-    return this.get(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
+    const [pId, hId] = [projectId, hookId].map(Utils.parse);
+
+    return this.get(`projects/${pId}/hooks/${hId}`);
   }
 
-  add(projectId, options) {
-    if (typeof options === 'string') options = {url: options};
-    
-    return this.post(`projects/${Utils.parse(projectId)}/hooks`, options);
+  add(projectId, url, options = {}) {
+    options.url = url;
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/hooks`, options);
   }
 
-  edit(projectId, hookId, url) {
-    return this.put(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`,{
-      access_level: parseInt(accessLevel)
-    });
+  edit(projectId, hookId, url, options) {
+    const [pId, hId] = [projectId, hookId].map(Utils.parse);
+
+    return this.put(`projects/${pId}/hooks/${hId}`, options);
   }
 
-  remove(projectId, hookId) {    
-    return this.delete(`projects/${Utils.parse(projectId)}/hooks/${Utils.parse(hookId)}`);
+  remove(projectId, hookId) {
+    const [pId, hId] = [projectId, hookId].map(Utils.parse);
+
+    return this.delete(`projects/${pId}/hooks/${hId}`);
   }
 }
 

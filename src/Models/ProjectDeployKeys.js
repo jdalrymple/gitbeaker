@@ -2,20 +2,22 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectKeys extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   listKeys(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/deploy_keys`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/deploy_keys`);
   }
 
   getKey(projectId, keyId) {
-    return this.get(`projects/${Utils.parse(projectId)}/deploy_keys/${parseInt(keyId)}`);
+    const [pId, kId] = [projectId, keyId].map(Utils.parse);
+
+    return this.get(`projects/${pId}/deploy_keys/${kId}`);
   }
 
   addKey(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/deploy_keys`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/deploy_keys`, options);
   }
 }
 

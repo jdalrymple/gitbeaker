@@ -1,18 +1,19 @@
 const BaseModel = require('../BaseModel');
+const Utils = require('../Utils');
 
 class UserKeys extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   all(userId) {
-    return this.get(`users/${parseInt(userId)}/keys`);
+    const uId = Utils.parse(userId);
+
+    return this.get(`users/${uId}/keys`);
   }
 
   addKey(userId, title, key) {
-    return this.post(`users/${userId}/keys`, {
+    const uId = Utils.parse(userId);
+
+    return this.post(`users/${uId}/keys`, {
       title,
-      key
+      key,
     });
   }
 }

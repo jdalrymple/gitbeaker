@@ -2,46 +2,40 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectIssueNotes extends BaseModel {
-  constructor(...args) {
-    super(...args);
+  all(projectId, issueIId, options = {}) {
+    const [pId, iIId] = [projectId, issueIId].map(Utils.parse);
+
+    Utils.defaultPaging(options);
+
+    return this.get(`projects/${pId}/issues/${iIId}/notes`, options);
   }
 
-  all(projectId, issueId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+  create(projectId, issueIId, options = {}) {
+    if (!options.body) throw new Error('Missing required property: body');
 
-    return this.get(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes`, options);
+    const [pId, iIId] = [projectId, issueIId].map(Utils.parse);
+
+    return this.post(`projects/${pId}/issues/${iIId}/notes`, options);
   }
 
-  create(projectId, issueId, options = {}) {
-  	if(!options.body) throw new Error('Missing required property: body');
-    return this.post(`projects/${Utils.parse(projectId)}/issues/${Utils.parse(issueId)}/notes`, options);
+  edit(projectId, issueIId, noteId, options = {}) {
+    if (!options.body) throw new Error('Missing required property: body');
+
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
+
+    return this.put(`projects/${pId}/issues/${iIId}/notes/${nId}`, options);
   }
 
-  edit(projectId, issueId, noteId, options = {}) {
-  	if(!options.body) throw new Error('Missing required property: body');
+  remove(projectId, issueIId, noteId) {
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
 
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
-    noteId = Utils.parse(noteId);
-
-    return this.put(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes/${noteId}`, options);
+    return this.delete(`projects/${pId}/issues/${iIId}/notes/${nId}`);
   }
 
-  remove(projectId, issueId, nodeId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
-    noteId = Utils.parse(noteId);
+  show(projectId, issueIId, noteId) {
+    const [pId, iIId, nId] = [projectId, issueIId, noteId].map(Utils.parse);
 
-    return this.delete(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes/${noteId}`);
-  }
-
-  show(projectId, issueId, noteId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
-    noteId = Utils.parse(noteId);
-
-    return this.get(`projects/${Utils.parse(projectId)}/issues/${parseInt(issueId)}/notes/${noteId}`);
+    return this.get(`projects/${pId}/issues/${iIId}/notes/${nId}`);
   }
 }
 

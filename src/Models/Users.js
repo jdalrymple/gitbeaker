@@ -1,5 +1,6 @@
 const BaseModel = require('../BaseModel');
 const UserKeys = require('./UserKeys');
+const Utils = require('../Utils');
 
 class Users extends BaseModel {
   constructor(...args) {
@@ -9,34 +10,35 @@ class Users extends BaseModel {
   }
 
   all(options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    Utils.defaultPaging(options);
 
-    return this.get("users", options);
+    return this.get('users', options);
   }
 
   current() {
-    return this.get("user");
+    return this.get('user');
   }
 
   show(userId) {
-    return this.get(`users/${parseInt(userId)}`);
+    const uId = Utils.parse(userId);
+
+    return this.get(`users/${uId}`);
   }
 
   create(options = {}) {
-    return this.post("users", options);
+    return this.post('users', options);
   }
 
   session(email, password) {
-    return this.post("session", {
+    return this.post('session', {
       email,
-      password
+      password,
     });
   }
 
   search(emailOrUsername) {
-    return this.get("users", {
-      search: emailOrUsername
+    return this.get('users', {
+      search: emailOrUsername,
     });
   }
 }

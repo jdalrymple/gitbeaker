@@ -2,84 +2,118 @@ const BaseModel = require('../BaseModel');
 const Utils = require('../Utils');
 
 class ProjectRepository extends BaseModel {
-  constructor(...args) {
-    super(...args);
-  }
-
   listBranches(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/branches`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/branches`);
   }
 
   showBranch(projectId, branchId) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/branches/${encodeURI(branchId)}`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
   }
 
   protectBranch(projectId, branchId) {
-    return this.put(`projects/${Utils.parse(projectId)}/repository/branches/${encodeURI(branchId)}/protect`);
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/protect`);
   }
 
   unprotectBranch(projectId, branchId) {
-    return this.put(`projects/${Utils.parse(projectId)}/repository/branches/${encodeURI(branchId)}/unprotect`);
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/unprotect`);
   }
 
-  createBranch(options = {}) {
-    return this.post(`projects/${Utils.parse(options.projectId)}/repository/branches`, options);
+  createBranch(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/repository/branches`, options);
   }
 
   deleteBranch(projectId, branchId) {
-      return this.delete(`projects/${Utils.parse(projectId)}/repository/branches/${encodeURI(branchId)}`);
-    }
+    const pId = Utils.parse(projectId);
 
-  addTag(options = {}) {
-    return this.post(`projects/${Utils.parse(options.id)}/repository/tags`, options);
+    return this.delete(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
+  }
+
+  addTag(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/repository/tags`, options);
   }
 
   deleteTag(projectId, tagName) {
-    return this.delete(`projects/${Utils.parse(projectId)}/repository/tags/${encodeURI(tagName)}`);
+    const pId = Utils.parse(projectId);
+
+    return this.delete(`projects/${pId}/repository/tags/${encodeURI(tagName)}`);
   }
 
   showTag(projectId, tagName) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/tags/${encodeURI(tagName)}`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/tags/${encodeURI(tagName)}`);
   }
 
   listTags(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/tags`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/tags`);
   }
 
   listCommits(projectId) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/commits`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/commits`);
   }
 
   showCommit(projectId, sha) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/commits/${sha}`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/commits/${sha}`);
   }
 
   diffCommit(projectId, sha) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/commits/${sha}/diff`);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/commits/${sha}/diff`);
   }
 
-  listTree(projectId, options = {}) {  
-    return this.get(`projects/${Utils.parse(projectId)}/repository/tree`, options);
+  listTree(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/tree`, options);
   }
 
   showFile(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
+
     if (options.file_path && options.ref) {
-      return this.get(`projects/${Utils.parse(projectId)}/repository/files`, options);
+      return this.get(`projects/${pId}/repository/files`, options);
     } else if (options.file_path && options.file_id) {
-      return this.get(`projects/${Utils.parse(projectId)}/repository/raw_blobs/` + options.file_id, options);
+      return this.get(`projects/${pId}/repository/raw_blobs/{options.file_id}`, options);
     }
+
+    return null;
   }
 
   createFile(projectId, options = {}) {
-    return this.post(`projects/${Utils.parse(projectId)}/repository/files`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/repository/files`, options);
   }
 
   updateFile(projectId, options = {}) {
-    return this.put(`projects/${Utils.parse(projectId)}/repository/files`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/repository/files`, options);
   }
 
   compare(projectId, options = {}) {
-    return this.get(`projects/${Utils.parse(projectId)}/repository/compare`, options);
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/repository/compare`, options);
   }
 }
 

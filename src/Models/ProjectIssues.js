@@ -10,51 +10,47 @@ class ProjectIssues extends BaseModel {
   }
 
   all(projectId, options = {}) {
-    options.page = options.page || 1;
-    options.per_page = options.per_page || 100;
+    const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${Utils.parse(projectId)}/issues`, options);
+    Utils.defaultPaging(options);
+
+    return this.get(`projects/${pId}/issues`, options);
   }
 
   create(projectId, options = {}) {
-    projectId = Utils.parse(projectId);
+    const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${projectId}/issues`, options);
+    return this.post(`projects/${pId}/issues`, options);
   }
 
   edit(projectId, issueId, options = {}) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.put(`projects/${projectId}/issues/${issueId}`, options);
+    return this.put(`projects/${pId}/issues/${iId}`, options);
   }
 
   remove(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${issueId}`);
+    return this.delete(`projects/${pId}/issues/${iId}`);
   }
 
   show(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.get(`projects/${projectId}/issues/${issueId}`);
+    return this.get(`projects/${pId}/issues/${iId}`);
   }
 
   subscribe(projectId, issueId, options = {}) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.post(`projects/${projectId}/issues/${issueId}/subscribe`, options);
+    return this.post(`projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
   unsubscribe(projectId, issueId) {
-    projectId = Utils.parse(projectId);
-    issueId = Utils.parse(issueId);
+    const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
-    return this.delete(`projects/${projectId}/issues/${issueId}/unsubscribe`);
+    return this.delete(`projects/${pId}/issues/${iId}/unsubscribe`);
   }
 }
 

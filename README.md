@@ -1,4 +1,4 @@
-[![Dependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-test#info=dependencies) [![devDependency Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-test#info=devDependencies)
+[![dependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api)[![devDependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api?type=dev)[![Code Climate](https://codeclimate.com/github/jdalrymple/node-gitlab-api/badges/gpa.svg)](https://codeclimate.com/github/jdalrymple/node-gitlab-api)
 
 [![NPM](https://nodei.co/npm/node-gitlab-api.png?downloads=true&stars=true)](https://nodei.co/npm/node-gitlab-api/)
 
@@ -23,7 +23,7 @@ Install
 
 ```bash
 # Install from npm
-npm install gitlab
+npm install node-gitlab-api
 ```
 
 Usage
@@ -87,6 +87,14 @@ MIT
 
 Changelog
 =========
+[1.0.11](https://github.com/jdalrymple/node-gitlab-api/commit/af4eb6955f583b5be4a4032d2d532d81bb2cf54d) (2017-07-20)
+------------------
+- Fixing the problem where Id was used instead of IId's for Project issues
+- Fixing the naming convention for Project Issues
+- Standadized the use of parseInt in the codebase
+- Removed instances of duplicate code found by code climate
+
+
 [1.0.10](https://github.com/jdalrymple/node-gitlab-api/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
 ------------------
 - Fixing Issues #1, #2, and #3
