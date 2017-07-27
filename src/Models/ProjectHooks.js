@@ -22,6 +22,7 @@ class ProjectHooks extends BaseModel {
   }
 
   edit(projectId, hookId, url, options) {
+    options.url = url;
     const [pId, hId] = [projectId, hookId].map(Utils.parse);
 
     return this.put(`projects/${pId}/hooks/${hId}`, options);
