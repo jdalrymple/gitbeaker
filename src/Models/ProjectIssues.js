@@ -52,6 +52,15 @@ class ProjectIssues extends BaseModel {
 
     return this.delete(`projects/${pId}/issues/${iId}/unsubscribe`);
   }
+
+  link(projectId, issueIId, targetProjectId, targetIssueId, options = {}) {
+    const [pId, iId] = [projectId, issueIId].map(Utils.parse);
+    const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(Utils.parse);
+    options.target_project_id = targetpId;
+    options.target_issue_id = targetIId;
+
+    return this.post(`projects/${pId}/issues/${iId}/links`, options);
+  }
 }
 
 module.exports = ProjectIssues;
