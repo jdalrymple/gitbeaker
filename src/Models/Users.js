@@ -1,4 +1,4 @@
-const BaseModel = require('../BaseModel');
+const BaseModel = require('./BaseModel');
 const UserKeys = require('./UserKeys');
 const Utils = require('../Utils');
 

@@ -1,4 +1,5 @@
 const Request = require('request-promise');
+
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
 
 function defaultRequestWithQS(url, endpoint, headers, options) {
@@ -16,6 +17,15 @@ function defaultRequestWithBody(url, endpoint, headers, options) {
     headers,
     json: true,
     body: options,
+  };
+}
+
+function defaultRequestWithFormData(url, endpoint, headers, options) {
+  return {
+    url: url + endpoint,
+    headers,
+    json: true,
+    formData: options,
   };
 }
 
@@ -46,6 +56,14 @@ class API {
 
   post(endpoint, options) {
     return Request.post(defaultRequestWithBody(this.url, endpoint, this.headers, options));
+  }
+
+  postForm(endpoint, options) {
+    const formHeader = Object.assign(this.headers, {
+      'content-type': 'multipart/form-data',
+    });
+
+    return Request.post(defaultRequestWithFormData(this.url, endpoint, formHeader, options));
   }
 
   put(endpoint, options) {

@@ -11,6 +11,10 @@ class BaseModel {
     return this.client.post(endpoint, options);
   }
 
+  postForm(endpoint, options) {
+    return this.client.postForm(endpoint, options);
+  }
+
   put(endpoint, options) {
     return this.client.put(endpoint, options);
   }

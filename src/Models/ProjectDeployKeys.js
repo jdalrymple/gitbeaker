@@ -1,4 +1,4 @@
-const BaseModel = require('../BaseModel');
+const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ProjectKeys extends BaseModel {
