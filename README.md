@@ -88,6 +88,10 @@ MIT
 Changelog
 =========
 
+[1.0.13](https://github.com/jdalrymple/node-gitlab-api/) (2017-07-31)
+------------------
+- Fixed another bug in the project file upload functionality
+
 [1.0.12](https://github.com/jdalrymple/node-gitlab-api/commit/6f77ee0a462a19ae65bd6206eb94c72e271ba673) (2017-07-30)
 ------------------
 - Added issue links (for related issues)

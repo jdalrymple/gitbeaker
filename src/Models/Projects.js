@@ -112,7 +112,10 @@ class Projects extends BaseModel {
     return this.postForm(`projects/${pId}/uploads`, {
       file: {
         value: file,
-        contentType: 'application/octet-stream',
+        options: {
+          filename: 'test2',
+          contentType: 'application/octet-stream',
+        },
       },
     });
   }

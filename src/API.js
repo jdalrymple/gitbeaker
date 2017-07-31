@@ -1,32 +1,18 @@
 const Request = require('request-promise');
-
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
 
-function defaultRequestWithQS(url, endpoint, headers, options) {
-  return {
-    url: url + endpoint,
+function defaultRequest(url, endpoint, { headers, body, qs, formData }) {
+  const params = {
+    url: `${url}${endpoint}`,
     headers,
     json: true,
-    qs: options,
   };
-}
 
-function defaultRequestWithBody(url, endpoint, headers, options) {
-  return {
-    url: url + endpoint,
-    headers,
-    json: true,
-    body: options,
-  };
-}
+  if (body) params.body = body;
+  if (qs) params.qs = qs;
+  if (formData) params.formData = formData;
 
-function defaultRequestWithFormData(url, endpoint, headers, options) {
-  return {
-    url: url + endpoint,
-    headers,
-    json: true,
-    formData: options,
-  };
+  return params;
 }
 
 class API {
@@ -51,28 +37,40 @@ class API {
   }
 
   get(endpoint, options) {
-    return Request.get(defaultRequestWithQS(this.url, endpoint, this.headers, options));
+    return Request.get(defaultRequest(this.url, endpoint, {
+      headers: this.headers,
+      qs: options,
+    }));
   }
 
   post(endpoint, options) {
-    return Request.post(defaultRequestWithBody(this.url, endpoint, this.headers, options));
+    return Request.post(defaultRequest(this.url, endpoint, {
+      headers: this.headers,
+      body: options,
+    }));
   }
 
   postForm(endpoint, options) {
-    const formHeader = Object.assign(this.headers, {
-      'content-type': 'multipart/form-data',
-    });
-
-    return Request.post(defaultRequestWithFormData(this.url, endpoint, formHeader, options));
+    return Request.post(defaultRequest(this.url, endpoint, {
+      headers: this.headers,
+      formData: options,
+    }));
   }
 
   put(endpoint, options) {
-    return Request.put(defaultRequestWithBody(this.url, endpoint, this.headers, options));
+    return Request.put(defaultRequest(this.url, endpoint, {
+      headers: this.headers,
+      body: options,
+    }));
   }
 
   delete(endpoint, options) {
-    return Request.delete(defaultRequestWithQS(this.url, endpoint, this.headers, options));
+    return Request.delete(defaultRequest(this.url, endpoint, {
+      headers: this.headers,
+      qs: options,
+    }));
   }
 }
+
 
 module.exports = API;
