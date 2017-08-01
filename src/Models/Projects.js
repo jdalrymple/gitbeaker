@@ -1,5 +1,6 @@
-const BaseModel = require('./BaseModel');
 const Fs = require('fs');
+const Path = require('path');
+const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 const ProjectMembers = require('./ProjectMembers');
 const ProjectHooks = require('./ProjectHooks');
@@ -105,7 +106,7 @@ class Projects extends BaseModel {
     return this.post(`projects/${pId}/unstar`);
   }
 
-  upload(projectId, filePath) {
+  upload(projectId, filePath, { fileName = Path.basename(filePath) } = {}) {
     const pId = Utils.parse(projectId);
     const file = Fs.readFileSync(filePath);
 
@@ -113,7 +114,7 @@ class Projects extends BaseModel {
       file: {
         value: file,
         options: {
-          filename: 'test2',
+          filename: fileName,
           contentType: 'application/octet-stream',
         },
       },
