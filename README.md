@@ -87,8 +87,12 @@ MIT
 
 Changelog
 =========
+[1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
+------------------
+- Adding default file name for file uploads. If none is supplied, the filename is
+inferred from the file path
 
-[1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-07-31)
+[1.0.13](https://github.com/jdalrymple/node-gitlab-api/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
 ------------------
 - Fixed another bug in the project file upload functionality
 
