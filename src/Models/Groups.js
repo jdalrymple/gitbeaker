@@ -77,10 +77,10 @@ class Groups extends BaseModel {
     return this.post('groups', options);
   }
 
-  listProjects(groupId) {
+  listProjects(groupId, options = {}) {
     const gId = Utils.parse(groupId);
 
-    return this.get(`groups/${gId}/projects`);
+    return this.get(`groups/${gId}/projects`, options);
   }
 
   addProject(groupId, projectId) {
