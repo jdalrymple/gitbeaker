@@ -7,6 +7,10 @@ class BaseModel {
     return this.client.get(endpoint, options);
   }
 
+  getAndPaginate(endpoint, options) {
+    return this.client.getAndPaginate(endpoint, options);
+  }
+
   post(endpoint, options) {
     return this.client.post(endpoint, options);
   }

@@ -1,5 +1,6 @@
 const Request = require('request-promise');
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
+const { defaultPaging } = require('./Utils');
 
 function defaultRequest(url, endpoint, { headers, body, qs, formData }) {
   const params = {
@@ -41,6 +42,34 @@ class API {
       headers: this.headers,
       qs: options,
     }));
+  }
+
+  getAndPaginate(endpoint, options) {
+    defaultPaging(options);
+
+    const allResults = [];
+    options.page = 1;
+
+    // eslint-disable-next-line arrow-body-style
+    const getNextPage = () => {
+      return this.get(endpoint, options)
+        .then((pageResults) => {
+          // eslint-disable-next-line no-plusplus
+          for (let i = 0; i < pageResults.length; i++) {
+            allResults.push(pageResults[i]);
+          }
+
+          if (pageResults.length === options.per_page) {
+            options.page += 1;
+
+            return getNextPage();
+          }
+
+          return allResults;
+        });
+    };
+
+    return getNextPage();
   }
 
   post(endpoint, options) {
