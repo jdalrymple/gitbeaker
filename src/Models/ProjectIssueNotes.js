@@ -5,9 +5,7 @@ class ProjectIssueNotes extends BaseModel {
   all(projectId, issueIId, options = {}) {
     const [pId, iIId] = [projectId, issueIId].map(Utils.parse);
 
-    Utils.defaultPaging(options);
-
-    return this.get(`projects/${pId}/issues/${iIId}/notes`, options);
+    return this.getAndPaginate(`projects/${pId}/issues/${iIId}/notes`, options);
   }
 
   create(projectId, issueIId, options = {}) {
