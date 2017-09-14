@@ -1,7 +1,7 @@
 const Request = require('request-promise');
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
 
-function defaultRequest(url, endpoint, { headers, body, qs, formData }) {
+function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false}) {
   const params = {
     url: `${url}${endpoint}`,
     headers,
@@ -11,6 +11,8 @@ function defaultRequest(url, endpoint, { headers, body, qs, formData }) {
   if (body) params.body = body;
   if (qs) params.qs = qs;
   if (formData) params.formData = formData;
+
+  params.resolveWithFullResponse = resolveWithFullResponse;
 
   return params;
 }
@@ -36,10 +38,11 @@ class API {
     this.runners = new Runners(this);
   }
 
-  get(endpoint, options) {
+  get(endpoint, options, fullResponse) {
     return Request.get(defaultRequest(this.url, endpoint, {
       headers: this.headers,
       qs: options,
+      resolveWithFullResponse: fullResponse,
     }));
   }
 

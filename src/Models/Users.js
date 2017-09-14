@@ -10,8 +10,6 @@ class Users extends BaseModel {
   }
 
   all(options = {}) {
-    Utils.defaultPaging(options);
-
     return this.get('users', options);
   }
 

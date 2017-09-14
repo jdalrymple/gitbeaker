@@ -28,6 +28,7 @@
     "eslint-plugin-react": "^7.1.0"
   },
   "dependencies": {
+    "parse-link-header": "^1.0.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "tempy": "^0.1.0"

@@ -34,14 +34,10 @@ class Projects extends BaseModel {
   }
 
   all(options = {}) {
-    Utils.defaultPaging(options);
-
     return this.get('projects', options);
   }
 
   allAdmin(options = {}) {
-    Utils.defaultPaging(options);
-
     return this.get('projects/all', options);
   }
 

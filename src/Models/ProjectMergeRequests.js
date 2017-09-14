@@ -5,8 +5,6 @@ class ProjectMergeRequests extends BaseModel {
   list(projectId, options = {}) {
     const pId = Utils.parse(projectId);
 
-    Utils.defaultPaging(options);
-
     return this.get(`projects/${pId}/merge_requests`, options);
   }
 
