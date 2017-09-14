@@ -19,7 +19,7 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^8.0.0",
     "babel-preset-latest": "^6.16.0",
     "eslint": "^4.2.0",
     "eslint-config-airbnb": "^15.0.2",
@@ -31,6 +31,6 @@
     "parse-link-header": "^1.0.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "tempy": "^0.1.0"
+    "tempy": "^0.2.0"
   }
 }
