@@ -20,12 +20,9 @@ class BaseModel {
 
   get(endpoint, options) {
     if (!options.page && !options.per_page) {
-      console.log('d')
       return getAllPages(this.client, endpoint, options);
     }
 
-    console.log('ddddd')
-    console.log(endpoint)
     return this.client.get(endpoint, options);
   }
 
