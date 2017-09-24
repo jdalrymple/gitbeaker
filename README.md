@@ -103,6 +103,10 @@ MIT
 
 ## Changelog
 
+[1.1.1](https://github.com/jdalrymple/node-gitlab-api/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
+------------------
+- Patch, fixed a broken pagination property 
+
 [1.1.0](https://github.com/jdalrymple/node-gitlab-api/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
 ------------------
 - Adding proper pagination support
