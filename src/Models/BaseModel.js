@@ -19,7 +19,7 @@ class BaseModel {
   }
 
   get(endpoint, options) {
-    if (!options.page) {
+    if (options && !options.page) {
       return getAllPages(this.client, endpoint, options);
     }
 
