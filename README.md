@@ -103,6 +103,10 @@ MIT
 
 ## Changelog
 
+[1.1.0](https://github.com/jdalrymple/node-gitlab-api/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
+------------------
+- Adding proper pagination support
+
 [1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 ------------------
 - Adding default file name for file uploads. If none is supplied, the filename is
