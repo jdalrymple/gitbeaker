@@ -3,12 +3,11 @@ const LinkParser = require('parse-link-header');
 async function getAllPages(client, endpoint, options, results = []) {
   const response = await client.get(endpoint, options, true);
   const links = LinkParser(response.headers.link);
-  const limit = options.max_pages ? response.headers['X-Page'] <= options.max_pages : true;
-
+  const limit = options.max_pages ? response.headers['x-page'] < options.max_pages : true;
   const moreResults = results.concat(response.body);
 
   if (links.next && limit) {
-    await getAllPages(client, links.next.url.replace(client.url, ''), options, moreResults);
+    return getAllPages(client, links.next.url.replace(client.url, ''), options, moreResults);
   }
 
   return moreResults;
