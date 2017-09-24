@@ -17,7 +17,7 @@ GitlabAPI.projects.share(projectId, groupId, groupAccess, {
 	// params
 });
 ```
-Parameters: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
+**Parameters**: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
 
 ### Delete a shared project link within a group
 
@@ -26,7 +26,7 @@ Unshare the project from the group.
 ```javascript
 GitlabAPI.projects.unshare(projectId, groupId);
 ```
-Parameters: [Unshare a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#delete-a-shared-project-within-group)
+**Parameters**: [Unshare a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#delete-a-shared-project-within-group)
 
 ### List all members
 
@@ -35,7 +35,13 @@ Gets a list of project members viewable by the authenticated user.
 ```javascript
 let members = GitlabAPI.projects.members.list(projectId);
 ```
-Parameters: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
+**Parameters**: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
+
+**Extra Parameters**
+
+| Argument      | Description              | Type     | Required | Default           |
+|---------------|--------------------------|----------|----------|-------------------|
+| max_pages     |Limits the amount of pages returned | Number   | No       |  All pages         |
 
 ### Get a member
 
@@ -44,7 +50,7 @@ Gets a member of a project.
 ```javascript
 let member = GitlabAPI.projects.members.show(projectId, memberId);
 ```
-Parameters: [Get a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#get-a-member-of-a-group-or-project)
+**Parameters**: [Get a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#get-a-member-of-a-group-or-project)
 
 ### Add a member
 
@@ -55,7 +61,7 @@ let member = GitlabAPI.projects.members.add(projectId, {
 	// params
 });
 ```
-Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
+**Parameters**: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
 
 ### Edit a member
 
@@ -66,7 +72,7 @@ let member = GitlabAPI.projects.members.edit(projectId, {
 	// params
 });
 ```
-Parameters: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
+**Parameters**: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
 
 ### Remove a member
 
@@ -75,4 +81,4 @@ Removes a member of a project.
 ```javascript
 GitlabAPI.projects.members.remove(projectId, memberId);
 ```
-Parameters: [Remove a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#remove-a-member-to-a-group-or-project)
+**Parameters**: [Remove a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#remove-a-member-to-a-group-or-project)

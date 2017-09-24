@@ -2,14 +2,13 @@
 
 [![NPM](https://nodei.co/npm/node-gitlab-api.png?downloads=true&stars=true)](https://nodei.co/npm/node-gitlab-api/)
 
-node-gitlab-api
-===============
+# node-gitlab-api
 
 [GitLab](https://github.com/gitlabhq/gitlabhq) API Nodejs library.
 It wraps the HTTP v4 api library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
-Table of Contents
-==================
+## Table of Contents
+
 * [Install](#install)
 * [Usage](#usage)
 * [Docs](#docs)
@@ -18,16 +17,14 @@ Table of Contents
 * [License](#licence)
 * [Changelog](#changelog)
 
-Install
-=======
+## Install
 
 ```bash
 # Install from npm
 npm install node-gitlab-api
 ```
 
-Usage
-=====
+## Usage
 
 URL to your GitLab instance should not include `/api/v4` path.
 
@@ -67,26 +64,45 @@ GitlabAPI.projects.create(projectId, {
 })
 ```
 
-Docs
-====
+### Pagination
+
+For any .all() function on a reasource, it will return all the items from gitlab. This can be troublesome if there are many items, as the request it self can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
+
+
+```javascript
+// Listing projects
+let projects = await gitlab.projects.all({max_pages:2});
+
+```
+
+You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
+
+```javascript
+// Listing projects
+let projects = await gitlab.projects.all({max_pages:2, per_page:40});
+
+```
+
+
+## Docs
+
 Although there are the offical docs for the API, i realised i should still explain the function calls in this library, so i wrote some up!
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 
-Contributors
-============
+## Contributors
+
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 
 
-License
-=======
+## License
 
 MIT
 
-Changelog
-=========
+## Changelog
+
 [1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 ------------------
 - Adding default file name for file uploads. If none is supplied, the filename is

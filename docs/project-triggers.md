@@ -14,7 +14,13 @@ Allow to share project with group.
 // From a project ID
 let triggers = GitlabAPI.projects.triggers.list(projectId);
 ```
-Parameters: [List all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
+**Parameters**: [List all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
+
+**Extra Parameters**
+
+| Argument      | Description              | Type     | Required | Default           |
+|---------------|--------------------------|----------|----------|-------------------|
+| max_pages     |Limits the amount of pages returned | Number   | No       |  All pages         |
 
 ### Get a trigger
 
@@ -24,7 +30,7 @@ Get details of project's build trigger.
 // From a project ID
 let trigger = GitlabAPI.projects.triggers.show(projectId, triggerId);
 ```
-Parameters: [Get trigger details](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#get-trigger-details)
+**Parameters**: [Get trigger details](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#get-trigger-details)
 
 ### Add a trigger
 
@@ -36,7 +42,7 @@ let trigger = GitlabAPI.projects.triggers.add(projectId, {
 	// params
 });
 ```
-Parameters: [Create a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#create-a-project-trigger)
+**Parameters**: [Create a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#create-a-project-trigger)
 
 ### Edit a trigger
 
@@ -48,7 +54,7 @@ let trigger = GitlabAPI.projects.triggers.edit(projectId, triggerId, {
 	// params
 });
 ```
-Parameters: [Edit a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#update-a-project-trigger)
+**Parameters**: [Edit a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#update-a-project-trigger)
 
 ### Remove a trigger
 
@@ -58,4 +64,4 @@ Remove a trigger from a project.
 // From a project ID
 let trigger = GitlabAPI.projects.triggers.remove(projectId, triggerId);
 ```
-Parameters: [Remove a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#remove-a-project-trigger)
+**Parameters**: [Remove a trigger](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#remove-a-project-trigger)

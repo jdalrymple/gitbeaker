@@ -23,7 +23,13 @@ Get a list of visible projects for authenticated user. When accessed without aut
 let projects = GitlabAPI.projects.all();
 ```
 
-Parameters: [List all projects](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects)
+**Parameters**: [List all projects](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects)
+
+**Extra Parameters**
+
+| Argument      | Description              | Type     | Required | Default           |
+|---------------|--------------------------|----------|----------|-------------------|
+| max_pages     |Limits the amount of pages returned | Number   | No       |  All pages         |
 
 
 ### Get a single project
@@ -39,7 +45,7 @@ let projectA = GitlabAPI.projects.show(21);
 let projectB = GitlabAPI.projects.show('diaspora/diaspora');
 ```
 
-Parameters: [Get a single project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-single-project)
+**Parameters**: [Get a single project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-single-project)
 
 
 ### Create a project
@@ -51,7 +57,7 @@ let projectA = GitlabAPI.projects.create({
   // params
 });
 ```
-Parameters: [Create a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project)
+**Parameters**: [Create a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project)
 
 
 ### Create a project for user
@@ -64,7 +70,7 @@ let projectA = GitlabAPI.projects.create({
   // params
 });
 ```
-Parameters: [Create a project for user](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project-for-user)
+**Parameters**: [Create a project for user](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#create-project-for-user)
 
 
 ### Edit a project
@@ -76,7 +82,7 @@ let projectA = GitlabAPI.projects.edit(projectId, {
   // params
 });
 ```
-Parameters: [Edit a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#edit-project)
+**Parameters**: [Edit a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#edit-project)
 
 
 ### Fork a project
@@ -88,7 +94,7 @@ let projectA = GitlabAPI.projects.fork(projectId, {
   // params
 });
 ```
-Parameters: [Fork a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#fork-project)
+**Parameters**: [Fork a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#fork-project)
 
 
 ### Star a project
@@ -98,7 +104,7 @@ Stars a given project. Returns status code `304` if the project is already starr
 ```javascript
 let projectA = GitlabAPI.projects.star(projectId);
 ```
-Parameters: [Star a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#star-a-project)
+**Parameters**: [Star a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#star-a-project)
 
 
 ### Unstar a project
@@ -108,7 +114,7 @@ Unstars a given project. Returns status code `304` if the project is not starred
 ```javascript
 let projectA = GitlabAPI.projects.unstar(projectId);
 ```
-Parameters: [Unstar a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#unstar-a-project)
+**Parameters**: [Unstar a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#unstar-a-project)
 
 
 ### Remove a project
@@ -118,4 +124,4 @@ Removes a project including all associated resources (issues, merge requests etc
 ```javascript
 GitlabAPI.projects.remove(projectId);
 ```
-Parameters: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
+**Parameters**: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)

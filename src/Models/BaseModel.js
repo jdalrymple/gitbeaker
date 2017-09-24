@@ -3,10 +3,11 @@ const LinkParser = require('parse-link-header');
 async function getAllPages(client, endpoint, options, results = []) {
   const response = await client.get(endpoint, options, true);
   const links = LinkParser(response.headers.link);
+  const limit = options.max_pages ? response.headers['X-Page'] <= options.max_pages : true;
 
   const moreResults = results.concat(response.body);
 
-  if (links.next) {
+  if (links.next && limit) {
     await getAllPages(client, links.next.url.replace(client.url, ''), options, moreResults);
   }
 
@@ -19,7 +20,7 @@ class BaseModel {
   }
 
   get(endpoint, options) {
-    if (!options.page && !options.per_page) {
+    if (!options.page) {
       return getAllPages(this.client, endpoint, options);
     }
 
