@@ -14,10 +14,10 @@ class ProjectRepository extends BaseModel {
     return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
   }
 
-  protectBranch(projectId, branchId) {
+  protectBranch(projectId, branch, options) {
     const pId = Utils.parse(projectId);
-
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/protect`);
+  
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branch)}/protect?developers_can_push=${options.developers_can_push}&developers_can_merge=${options.developers_can_merge}`);
   }
 
   unprotectBranch(projectId, branchId) {
