@@ -103,9 +103,9 @@ MIT
 
 ## Changelog
 
-[1.1.2](https://github.com/jdalrymple/node-gitlab-api/) (2017-09-24)
+[1.1.2](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
 ------------------
-- Updated the protected branch functionality by adding an options parameter originally proposed by @shadygrove
+- Updated the protected branch functionality by adding an options parameter originally proposed by [shadygrove](https://github.com/shadygrove)
 - Removed old paging logic from groups
 - Updating library dependencies
 
