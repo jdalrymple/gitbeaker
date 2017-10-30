@@ -103,6 +103,12 @@ MIT
 
 ## Changelog
 
+[1.1.2](https://github.com/jdalrymple/node-gitlab-api/) (2017-09-24)
+------------------
+- Updated the protected branch functionality by adding an options parameter originally proposed by @shadygrove
+- Removed old paging logic from groups
+- Updating library dependencies
+
 [1.1.1](https://github.com/jdalrymple/node-gitlab-api/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
 ------------------
 - Patch, fixed a broken pagination property 

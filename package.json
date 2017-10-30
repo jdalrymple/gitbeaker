@@ -1,6 +1,6 @@
 {
   "name": "node-gitlab-api",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "main": "src/index.js",
   "directories": {},
@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "parse-link-header": "^1.0.1",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "tempy": "^0.2.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "tempy": "^0.2.1"
   }
 }

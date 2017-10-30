@@ -29,8 +29,6 @@ class Groups extends BaseModel {
   }
 
   all(options = {}) {
-    Utils.defaultPaging(options);
-
     return this.get('groups', options);
   }
 
