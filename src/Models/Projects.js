@@ -79,7 +79,7 @@ class Projects extends BaseModel {
     if (!groupId || !groupAccess) throw new Error('Missing required arguments');
 
     options.group_id = groupId;
-    options.groupAccess = groupAccess;
+    options.group_access = groupAccess;
 
     return this.post(`projects/${pId}/share`, options);
   }
