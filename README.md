@@ -32,7 +32,7 @@ URL to your GitLab instance should not include `/api/v4` path.
 // Connection with basic token
 const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456'
+  token: 'abcdefghij123456'	//Can be created in your profile. 
 })
   
 // Connection with oauth token
@@ -40,16 +40,23 @@ const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
+const gitlab = GitLabAPI
 
 // Listing users
 let users = await gitlab.users.all();
-
 console.log(users);
+
+// or
+let usersP = gitlab.users.all();
+usersP.then(console.log);
 
 // Listing projects
 let projects = await gitlab.projects.all();
-
 console.log(projects);
+
+// or
+let projectsP = gitlab.users.all();
+projectsP.then(console.log);
 ```
 
 General rule about all the function parameters:
