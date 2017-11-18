@@ -28,28 +28,36 @@ npm install node-gitlab-api
 
 URL to your GitLab instance should not include `/api/v4` path.
 
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 ```javascript
-// Connection with basic token
 const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'
 })
-  
-// Connection with oauth token
+```
+
+Or, use a oauth token instead!
+
+```javascript
 const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
+```
 
+Once you have your library instatiated, you can utilize many of the api's functionality:
+```javascript
 // Listing users
 let users = await gitlab.users.all();
+```
 
-console.log(users);
-
+Or using Promise-Then notation
+```javascript
 // Listing projects
-let projects = await gitlab.projects.all();
-
-console.log(projects);
+gitlab.projects.all()
+.then((projects) => {
+	console.log(projects)
+})
 ```
 
 General rule about all the function parameters:
@@ -95,13 +103,18 @@ Although there are the offical docs for the API, i realised i should still expla
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
-
+- [Shady Grove](https://github.com/shadygrove)
+- []()
 
 ## License
 
 MIT
 
 ## Changelog
+[1.1.3](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
+------------------
+- Fixing typos in... thanks to []
+- Updated the ReadMe to be more clear based on suggestions from [ ]()
 
 [1.1.2](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
 ------------------
