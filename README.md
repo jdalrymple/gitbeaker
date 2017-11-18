@@ -119,6 +119,11 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[1.1.4](https://github.com/jdalrymple/node-gitlab-api/328bc29fe48d1bf18c83779a214cce34e80dda09) (2017-11-17)
+------------------
+- Library maintenance, cleaning up spelling errors, updating dependencies, adding to contributors lists etc.
+
 [1.1.3](https://github.com/jdalrymple/node-gitlab-api/6f28ce1726ce371d4b0272d5f8305080d51e3e25) (2017-11-17)
 ------------------
 - Fixing typos in the project sharing (group_access) thanks to [Christoph Lehmann](https://github.com/christophlehmann)
