@@ -6,8 +6,8 @@
 
 # node-gitlab-api
 
-[GitLab](https://github.com/gitlabhq/gitlabhq) API Nodejs library.
-It wraps the HTTP v4 api library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
+[GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library.
+It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
 ## Table of Contents
 
@@ -38,7 +38,7 @@ const GitlabAPI = require('node-gitlab-api')({
 })
 ```
 
-Or, use a oauth token instead!
+Or, use a OAuth token instead!
 
 ```javascript
 const GitlabAPI = require('node-gitlab-api')({
@@ -47,7 +47,7 @@ const GitlabAPI = require('node-gitlab-api')({
 })
 ```
 
-Once you have your library instatiated, you can utilize many of the api's functionality:
+Once you have your library instantiated, you can utilize many of the API's functionality:
 
 Using the await/async method
 
@@ -59,7 +59,7 @@ let users = await GitlabAPI.users.all();
 Or using Promise-Then notation
 ```javascript
 // Listing projects
-gitlab.projects.all()
+GitlabAPI.projects.all()
 .then((projects) => {
 	console.log(projects)
 })
@@ -73,18 +73,18 @@ ie.
 
 ```javascript
 GitlabAPI.projects.create(projectId, {
-	//options defined in the gitlab api documentation
+	//options defined in the Gitlab API documentation
 })
 ```
 
 ### Pagination
 
-For any .all() function on a reasource, it will return all the items from gitlab. This can be troublesome if there are many items, as the request it self can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
+For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request it self can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
 
 ```javascript
 // Listing projects
-let projects = await gitlab.projects.all({max_pages:2});
+let projects = await GitlabAPI.projects.all({max_pages:2});
 
 ```
 
@@ -92,25 +92,25 @@ You can also use this in conjunction to the perPage argument which would overrid
 
 ```javascript
 // Listing projects
-let projects = await gitlab.projects.all({max_pages:2, per_page:40});
+let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 
 ```
 
 
 ## Docs
 
-Although there are the offical docs for the API, i realised i should still explain the function calls in this library, so i wrote some up!
+Although there are the official docs for the API, below are some additional docs for this node package!
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 
 ## Contributors
 
-This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
+This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
 - [Cory Zibeill](https://github.com/coryzibell)
-- [Shady Grove](https://github.com/shadygrove)
+- [Martin Bour](https://github.com/shadygrove)
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 
@@ -126,7 +126,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [1.1.2](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-10-29)
 ------------------
-- Updated the protected branch functionality by adding an options parameter originally proposed by [shadygrove](https://github.com/shadygrove)
+- Updated the protected branch functionality by adding an options parameter originally proposed by [Martin Bour](https://github.com/shadygrove)
 - Removed old paging logic from groups
 - Updating library dependencies
 
@@ -157,7 +157,7 @@ inferred from the file path
 ------------------
 - Fixing the problem where Id was used instead of IId's for Project issues
 - Fixing the naming convention for Project Issues
-- Standadized the use of parseInt in the codebase
+- Standardized the use of parseInt in the code base
 - Removed instances of duplicate code found by code climate
 
 
@@ -169,12 +169,12 @@ inferred from the file path
 ------------------
 - Fixing broken Notes API reference
 - Added Project triggers, members and hooks docs
-- Moved Project Runners into its own scope and seperated out general Runners API logic
+- Moved Project Runners into its own scope and separated out general Runners API logic
 
 [1.0.8](https://github.com/jdalrymple/node-gitlab-api/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
 ------------------
 - Adding more to the Project Issue Notes API
-- Updating Readme to show examples of connecting with oauth tokens
+- Updating Readme to show examples of connecting with OAuth tokens
 - Begun adding documentation for projects
 
 [1.0.7](https://github.com/jdalrymple/node-gitlab-api/commit/50642ad764ecd20d2a9e279cf2a47e7b5efe8f07) (2017-06-23)
@@ -201,8 +201,8 @@ inferred from the file path
 
 [1.0.2](https://github.com/jdalrymple/node-gitlab-api/commit/a295d5a613efa13be79fec5fa2835076047cdcc5) (2017-06-22)
 ------------------
-- Updating examples in readme
-- Adding dependancy badges
+- Updating examples in ReadMe
+- Adding dependency badges
 - Removing unused test files
 
 [1.0.1](https://github.com/jdalrymple/node-gitlab-api/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
