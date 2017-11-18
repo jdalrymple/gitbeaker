@@ -1,4 +1,6 @@
-[![dependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api)[![devDependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api?type=dev)[![Code Climate](https://codeclimate.com/github/jdalrymple/node-gitlab-api/badges/gpa.svg)](https://codeclimate.com/github/jdalrymple/node-gitlab-api)
+[![dependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api)[![devDependencies Status](https://david-dm.org/jdalrymple/node-gitlab-api/dev-status.svg)](https://david-dm.org/jdalrymple/node-gitlab-api?type=dev)[![Code Climate](https://codeclimate.com/github/jdalrymple/node-gitlab-api/badges/gpa.svg)](https://codeclimate.com/github/jdalrymple/node-gitlab-api)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 
 [![NPM](https://nodei.co/npm/node-gitlab-api.png?downloads=true&stars=true)](https://nodei.co/npm/node-gitlab-api/)
 
@@ -115,7 +117,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 MIT
 
 ## Changelog
-[1.1.3](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
+[1.1.3](https://github.com/jdalrymple/node-gitlab-api/6f28ce1726ce371d4b0272d5f8305080d51e3e25) (2017-09-24)
 ------------------
 - Fixing typos in the project sharing (group_access) thanks to [Christoph Lehmann](https://github.com/christophlehmann)
 - Updated the ReadMe to be more clear based on suggestions from [Frank V](https://github.com/FrankV01)
