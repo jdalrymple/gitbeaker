@@ -114,7 +114,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## License
 
-MIT
+[MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
 [1.1.3](https://github.com/jdalrymple/node-gitlab-api/6f28ce1726ce371d4b0272d5f8305080d51e3e25) (2017-11-17)
