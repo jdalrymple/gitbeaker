@@ -108,6 +108,8 @@ Although there are the offical docs for the API, i realised i should still expla
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributers](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
+- [Mike Wyatt](https://github.com/mikew)
+- [Cory Zibeill](https://github.com/coryzibell)
 - [Shady Grove](https://github.com/shadygrove)
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
@@ -131,10 +133,11 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [1.1.1](https://github.com/jdalrymple/node-gitlab-api/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
 ------------------
 - Patch, fixed a broken pagination property 
+- Adding in missing options parameter  in the groups API thanks to a pull request from [Cory Zibell](https://github.com/coryzibell)
 
 [1.1.0](https://github.com/jdalrymple/node-gitlab-api/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
 ------------------
-- Adding proper pagination support
+- Adding proper pagination support thanks to a problem noticed by [Mike Wyatt](https://github.com/mikew)
 
 [1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 ------------------
