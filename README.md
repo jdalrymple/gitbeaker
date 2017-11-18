@@ -107,6 +107,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Shady Grove](https://github.com/shadygrove)
+- [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 
 ## License
@@ -116,8 +117,8 @@ MIT
 ## Changelog
 [1.1.3](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
 ------------------
-- Fixing typos in... thanks to []
-- Updated the ReadMe to be more clear based on suggestions from [ ]()
+- Fixing typos in the project sharing (group_access) thanks to [Christoph Lehmann](https://github.com/christophlehmann)
+- Updated the ReadMe to be more clear based on suggestions from [Frank V](https://github.com/FrankV01)
 
 [1.1.2](https://github.com/jdalrymple/node-gitlab-api/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-09-24)
 ------------------
