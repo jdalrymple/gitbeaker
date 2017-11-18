@@ -32,7 +32,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 ```javascript
 const GitlabAPI = require('node-gitlab-api')({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456'
+  token: 'abcdefghij123456'	//Can be created in your profile. 
 })
 ```
 
@@ -46,9 +46,12 @@ const GitlabAPI = require('node-gitlab-api')({
 ```
 
 Once you have your library instatiated, you can utilize many of the api's functionality:
+
+Using the await/async method
+
 ```javascript
 // Listing users
-let users = await gitlab.users.all();
+let users = await GitlabAPI.users.all();
 ```
 
 Or using Promise-Then notation
@@ -104,7 +107,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Shady Grove](https://github.com/shadygrove)
-- []()
+- [Frank V](https://github.com/FrankV01)
 
 ## License
 
