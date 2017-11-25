@@ -86,28 +86,34 @@ class ProjectRepository extends BaseModel {
     return this.get(`projects/${pId}/repository/tree`, options);
   }
 
-  showFile(projectId, options = {}) {
+  showFile(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    if (options.file_path && options.ref) {
-      return this.get(`projects/${pId}/repository/files`, options);
-    } else if (options.file_path && options.file_id) {
-      return this.get(`projects/${pId}/repository/raw_blobs/{options.file_id}`, options);
-    }
-
-    return null;
+    return this.get(`projects/${pId}/repository/files/${filePath}`, {ref: options.ref});
   }
 
-  createFile(projectId, options = {}) {
+  showRawFile(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${pId}/repository/files`, options);
+    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, {ref: options.ref});
   }
 
-  updateFile(projectId, options = {}) {
+  createFile(projectId, filePath, branch, options = {}) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/files`, options);
+    return this.post(`projects/${pId}/repository/files/${filePath}`, Object.assign({branch},options));
+  }
+
+  updateFile(projectId, filePath, branch, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/repository/files/${filePath}`, Object.assign({branch},options));
+  }
+
+  deleteFile(projectId, filePath, branch, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.delete(`projects/${pId}/repository/files/${filePath}`, Object.assign({branch},options));
   }
 
   compare(projectId, options = {}) {
