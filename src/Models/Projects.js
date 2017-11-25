@@ -25,8 +25,8 @@ class Projects extends BaseModel {
     this.labels = new ProjectLabels(...args);
     this.repository = new ProjectRepository(...args);
     this.milestones = new ProjectMilestones(...args);
-    this.deploy_keys = new ProjectDeployKeys(...args);
-    this.merge_requests = new ProjectMergeRequests(...args);
+    this.deployKeys = new ProjectDeployKeys(...args);
+    this.mergeRequests = new ProjectMergeRequests(...args);
     this.services = new ProjectServices(...args);
     this.triggers = new ProjectTriggers(...args);
     this.pipelines = new ProjectPipelines(...args);
