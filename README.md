@@ -113,6 +113,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Martin Bour](https://github.com/shadygrove)
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
+- [Salim Benabbou](https://github.com/Salimlou)
 
 ## License
 
@@ -120,7 +121,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[1.2.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-11-25)
+[1.2.0](https://github.com/jdalrymple/node-gitlab-api/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
 ------------------
 - Adding fix to the API constructor to include the [missing oauthToken](https://github.com/jdalrymple/node-gitlab-api/pulls?q=is%3Apr+is%3Aclosed) thanks to [Salim Benabbou](https://github.com/Salimlou).
 - Updated some of the outdated gitlab repository file endpoints outlined in [Issue #11](https://github.com/jdalrymple/node-gitlab-api/issues/11): [showFile](https://docs.gitlab.com/ee/api/repository_files.html#get-file-from-repository), [updateFile](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository), and [createFile](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository). Also added [deleteFile](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) and [showRawFile](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository).
