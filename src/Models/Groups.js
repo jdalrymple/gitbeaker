@@ -1,31 +1,15 @@
 const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
-const ACCESS_LEVELS = {
-  GUEST: 10,
-  REPORTER: 20,
-  DEVELOPER: 30,
-  MASTER: 40,
-  OWNER: 50,
-};
-
-function hasAccess(accessLevel) {
-  let valid = false;
-
-  Object.values(ACCESS_LEVELS).forEach((level) => {
-    if (accessLevel === level) {
-      valid = true;
-    }
-  });
-
-  if (!valid) throw new Error(`\`accessLevel\` must be one of ${JSON.stringify(ACCESS_LEVELS)}`);
-}
-
 class Groups extends BaseModel {
   constructor(...args) {
     super(...args);
 
     this.access_levels = ACCESS_LEVELS;
+    this.milestones = new GroupMilestones(...args);
+    this.members = new GroupMembers(...args);
+    this.projects = new GroupProjects(...args);
+    this.accessLevels = new GroupAccessLevels(...args);
   }
 
   all(options = {}) {
