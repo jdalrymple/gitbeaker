@@ -2,6 +2,11 @@ const LinkParser = require('parse-link-header');
 
 async function getAllPages(client, endpoint, options, results = []) {
   const response = await client.get(endpoint, options, true);
+
+  if(!response.headers['x-page']){
+    return response;
+  }
+
   const links = LinkParser(response.headers.link);
   const limit = options.max_pages ? response.headers['x-page'] < options.max_pages : true;
   const moreResults = results.concat(response.body);
@@ -19,7 +24,7 @@ class BaseModel {
   }
 
   get(endpoint, options) {
-    if (options && !options.page) {
+    if (!options.page) {
       return getAllPages(this.client, endpoint, options);
     }
 

@@ -125,6 +125,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 ------------------
 - Adding fix to the API constructor to include the [missing oauthToken](https://github.com/jdalrymple/node-gitlab-api/pulls?q=is%3Apr+is%3Aclosed) thanks to [Salim Benabbou](https://github.com/Salimlou).
 - Updated some of the outdated gitlab repository file endpoints outlined in [Issue #11](https://github.com/jdalrymple/node-gitlab-api/issues/11): [showFile](https://docs.gitlab.com/ee/api/repository_files.html#get-file-from-repository), [updateFile](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository), and [createFile](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository). Also added [deleteFile](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) and [showRawFile](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository).
+- Fixing bug where many pages where attempted to be loaded on every GET request.
 
 [1.1.4](https://github.com/jdalrymple/node-gitlab-api/328bc29fe48d1bf18c83779a214cce34e80dda09) (2017-11-17)
 ------------------
