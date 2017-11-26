@@ -9,6 +9,8 @@
 	* [Fork a project](#fork-a-project)
 	* [Star a project](#star-a-project)
 	* [Unstar a project](#unstar-a-project)
+	* [Share project with group](#share-project-with-group)
+	* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
 * [Project Members](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-members.md)
 * [Project Triggers](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-triggers.md)
 * [Project Hooks](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-hooks.md)
@@ -125,3 +127,23 @@ Removes a project including all associated resources (issues, merge requests etc
 GitlabAPI.projects.remove(projectId);
 ```
 **Parameters**: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
+
+### Share a project with a group
+
+Allow to share project with group.
+
+```javascript
+GitlabAPI.projects.share(projectId, groupId, groupAccess, {
+	// params
+});
+```
+**Parameters**: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
+
+### Delete a shared project link within a group
+
+Unshare the project from the group.
+
+```javascript
+GitlabAPI.projects.unshare(projectId, groupId);
+```
+**Parameters**: [Unshare a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#delete-a-shared-project-within-group)
