@@ -2,7 +2,7 @@ const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ProjectHooks extends BaseModel {
-  list(projectId) {
+  all(projectId) {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/hooks`);
@@ -15,17 +15,15 @@ class ProjectHooks extends BaseModel {
   }
 
   add(projectId, url, options = {}) {
-    options.url = url;
     const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${pId}/hooks`, options);
+    return this.post(`projects/${pId}/hooks`, Object.assign({ url }, options));
   }
 
-  edit(projectId, hookId, url, options) {
-    options.url = url;
+  edit(projectId, hookId, url, options = {}) {
     const [pId, hId] = [projectId, hookId].map(Utils.parse);
 
-    return this.put(`projects/${pId}/hooks/${hId}`, options);
+    return this.put(`projects/${pId}/hooks/${hId}`, Object.assign({ url }, options));
   }
 
   remove(projectId, hookId) {

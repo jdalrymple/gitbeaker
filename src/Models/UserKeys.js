@@ -8,7 +8,7 @@ class UserKeys extends BaseModel {
     return this.get(`users/${uId}/keys`);
   }
 
-  addKey(userId, title, key) {
+  add(userId, title, key) {
     const uId = Utils.parse(userId);
 
     return this.post(`users/${uId}/keys`, {

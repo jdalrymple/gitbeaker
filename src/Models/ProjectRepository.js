@@ -1,125 +1,54 @@
 const BaseModel = require('./BaseModel');
+const ProjectRepositoryBranches = require('./ProjectRepositoryBranches');
+const ProjectRepositoryTags = require('./ProjectRepositoryTags');
+const ProjectRepositoryCommits = require('./ProjectRepositoryCommits');
+const ProjectRepositoryFiles = require('./ProjectRepositoryFiles');
 const Utils = require('../Utils');
 
 class ProjectRepository extends BaseModel {
-  listBranches(projectId) {
-    const pId = Utils.parse(projectId);
+  constructor(...args) {
+    super(...args);
 
-    return this.get(`projects/${pId}/repository/branches`);
+    this.branches = new ProjectRepositoryBranches(...args);
+    this.tags = new ProjectRepositoryTags(...args);
+    this.commits = new ProjectRepositoryCommits(...args);
+    this.files = new ProjectRepositoryFiles(...args);
   }
 
-  showBranch(projectId, branchName) {
+  compare(projectId, from, to) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
+    return this.get(`projects/${pId}/repository/compare`, { from, to });
   }
 
-  protectBranch(projectId, branchName, options = {}) {
+  contributors(projectId) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/protect`, options);
+    return this.get(`projects/${pId}/repository/contributors`);
   }
 
-  unprotectBranch(projectId, branchName) {
+  showArchive(projectId, { sha }) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/unprotect`);
+    return this.get(`projects/${pId}/repository/archive`, { sha });
   }
 
-  createBranch(projectId, branch, ref) {
+  showBlob(projectId, sha) {
     const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${pId}/repository/branches`, { branch, ref });
+    return this.get(`projects/${pId}/repository/blobs/${sha}`);
   }
 
-  deleteBranch(projectId, branchId) {
+  showBlobRaw(projectId, sha) {
     const pId = Utils.parse(projectId);
 
-    return this.delete(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
+    return this.get(`projects/${pId}/repository/blobs/${sha}/raw`);
   }
 
-  addTag(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.post(`projects/${pId}/repository/tags`, options);
-  }
-
-  deleteTag(projectId, tagName) {
-    const pId = Utils.parse(projectId);
-
-    return this.delete(`projects/${pId}/repository/tags/${encodeURI(tagName)}`);
-  }
-
-  showTag(projectId, tagName) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/tags/${encodeURI(tagName)}`);
-  }
-
-  listTags(projectId) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/tags`);
-  }
-
-  listCommits(projectId) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/commits`);
-  }
-
-  showCommit(projectId, sha) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/commits/${sha}`);
-  }
-
-  diffCommit(projectId, sha) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/commits/${sha}/diff`);
-  }
-
-  listTree(projectId, options = {}) {
+  tree(projectId, options = {}) {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/repository/tree`, options);
-  }
-
-  showFile(projectId, filePath, ref) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref: options.ref });
-  }
-
-  showRawFile(projectId, filePath, ref) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref: options.ref });
-  }
-
-  createFile(projectId, filePath, branch, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.post(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
-  }
-
-  updateFile(projectId, filePath, branch, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.put(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
-  }
-
-  deleteFile(projectId, filePath, branch, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.delete(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
-  }
-
-  compare(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/repository/compare`, options);
   }
 }
 

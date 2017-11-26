@@ -1,7 +1,7 @@
 const Request = require('request-promise');
 const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
 
-function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false}) {
+function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false }) {
   const params = {
     url: `${url}${endpoint}`,
     headers,

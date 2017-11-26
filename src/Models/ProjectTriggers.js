@@ -8,16 +8,16 @@ class ProjectTriggers extends BaseModel {
     return this.post(`projects/${pId}/triggers`, options);
   }
 
+  all(projectId) {
+    const pId = Utils.parse(projectId);
+
+    return this.get(`projects/${pId}/triggers`);
+  }
+
   edit(projectId, triggerId, options = {}) {
     const [pId, tId] = [projectId, triggerId].map(Utils.parse);
 
     return this.put(`projects/${pId}/triggers/${tId}`, options);
-  }
-
-  list(projectId) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/triggers`);
   }
 
   remove(projectId, triggerId) {

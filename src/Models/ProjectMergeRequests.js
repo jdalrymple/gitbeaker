@@ -2,21 +2,8 @@ const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ProjectMergeRequests extends BaseModel {
-  list(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.get(`projects/${pId}/merge_requests`, options);
-  }
-
-  show(projectId, mergerequestId) {
-    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
-
-    return this.get(`projects/${pId}/merge_requests/${mId}`);
-  }
-
   add(projectId, sourceBranch, targetBranch, assigneeId, title) {
     const [pId, aId] = [projectId, assigneeId].map(Utils.parse);
-
     const options = {
       id: pId,
       source_branch: sourceBranch,
@@ -29,13 +16,10 @@ class ProjectMergeRequests extends BaseModel {
     return this.post(`projects/${pId}/merge_requests`, options);
   }
 
-  update(projectId, mergerequestId, options = {}) {
-    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
+  all(projectId, options = {}) {
+    const pId = Utils.parse(projectId);
 
-    options.id = pId;
-    options.merge_request_id = mId;
-
-    return this.put(`projects/${pId}/merge_requests/${mId}`, options);
+    return this.get(`projects/${pId}/merge_requests`, options);
   }
 
   comment(projectId, mergerequestId, note) {
@@ -44,6 +28,18 @@ class ProjectMergeRequests extends BaseModel {
     return this.post(`projects/${pId}/merge_requests/${mId}/comments`, {
       body: note,
     });
+  }
+
+  show(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
+
+    return this.get(`projects/${pId}/merge_requests/${mId}`);
+  }
+
+  update(projectId, mergerequestId, options = {}) {
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
+
+    return this.put(`projects/${pId}/merge_requests/${mId}`, options);
   }
 }
 

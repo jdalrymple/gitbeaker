@@ -12,7 +12,7 @@
 Gets a list of project members viewable by the authenticated user.
 
 ```javascript
-let members = GitlabAPI.projects.members.list(projectId);
+let members = GitlabAPI.projects.members.all(projectId);
 ```
 **Parameters**: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
 

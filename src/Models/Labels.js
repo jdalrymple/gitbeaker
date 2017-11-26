@@ -17,9 +17,7 @@ class Labels extends BaseModel {
   edit(projectId, labelName, options = {}) {
     const pId = Utils.parse(projectId);
 
-    options.name = labelName;
-
-    return this.put(`projects/${pId}/labels`, options);
+    return this.put(`projects/${pId}/labels`, Object.assign({ name: labelName }, options));
   }
 
   remove(projectId, labelName) {
