@@ -102,6 +102,7 @@ let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 Although there are the official docs for the API, below are some additional docs for this node package!
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 
 ## Contributors
 
@@ -130,7 +131,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Renamed `list` functions to `all` for consistency
 - Renamed `update` functions to `edit` for consistency
 - Renaming addKey just to add in UserKeys class
-- Renaming deploy_keys and merge_requests to deployKeys and mergeRequests for consistancy
+- Renaming deploy_keys and merge_requests to deployKeys and mergeRequests for consistency
 - Adding Project Access Requests
 - Removing old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
 - Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
