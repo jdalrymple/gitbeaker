@@ -1,45 +1,39 @@
 const BaseModel = require('./BaseModel');
+const GroupMilestoneIssues = require('./GroupMilestoneIssues');
+const GroupMilestoneMergeRequests = require('./GroupMilestoneMergeRequests');
+
 const Utils = require('../Utils');
 
 class GroupMilestones extends BaseModel {
-  constructor(..args){
-    this.issues = new GroupMilestoneIssues(..args);
-    this.mergeRequests = new GroupMilestoneMergeRequests(..args);
+  constructor(...args) {
+    super(...args);
+
+    this.issues = new GroupMilestoneIssues(...args);
+    this.mergeRequests = new GroupMilestoneMergeRequests(...args);
   }
 
   all(groupId, options = {}) {
-    const pId = Utils.parse(groupId);
+    const gId = Utils.parse(groupId);
 
-    return this.get(`groups/${pId}/milestones`, options);
+    return this.get(`groups/${gId}/milestones`, options);
   }
 
   show(groupId, milestoneId) {
-    const [pId, mId] = [groupId, milestoneId].map(Utils.parse);
+    const [gId, mId] = [groupId, milestoneId].map(Utils.parse);
 
-    return this.get(`groups/${pId}/milestones/${mId}`);
+    return this.get(`groups/${gId}/milestones/${mId}`);
   }
 
-  create(groupId, title, { description, due_date, start_date }) {
-    const pId = Utils.parse(groupId);
+  create(groupId, title, options) {
+    const gId = Utils.parse(groupId);
 
-    return this.post(`groups/${pId}/milestones`, {
-      title,
-      description,
-      due_date,
-      start_date,
-    });
+    return this.post(`groups/${gId}/milestones`, options);
   }
 
-  update(groupId, milestoneId, { title, description, due_date, start_date, state_event }) {
-    const [pId, mId] = [projectId, milestoneId].map(Utils.parse);
+  update(groupId, milestoneId, options) {
+    const [gId, mId] = [groupId, milestoneId].map(Utils.parse);
 
-    return this.put(`groups/${pId}/milestones/${mId}`, {
-      title,
-      description,
-      due_date,
-      start_date,
-      state_event,
-    });
+    return this.put(`groups/${gId}/milestones/${mId}`, options);
   }
 }
 
