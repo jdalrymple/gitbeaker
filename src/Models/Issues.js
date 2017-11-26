@@ -1,5 +1,4 @@
 const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
 
 class Issues extends BaseModel {
   all(options = {}) {

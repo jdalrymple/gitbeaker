@@ -6,6 +6,12 @@ class Runners extends BaseModel {
     return this.get('runners/all', options);
   }
 
+  remove(runnerId) {
+    const rId = Utils.parse(runnerId);
+
+    return this.delete(`runners/${rId}`);
+  }
+
   show(runnerId) {
     const rId = Utils.parse(runnerId);
 
@@ -16,12 +22,6 @@ class Runners extends BaseModel {
     const rId = Utils.parse(runnerId);
 
     return this.put(`runners/${rId}`, attributes);
-  }
-
-  remove(runnerId) {
-    const rId = Utils.parse(runnerId);
-
-    return this.delete(`runners/${rId}`);
   }
 }
 

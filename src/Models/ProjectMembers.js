@@ -2,16 +2,10 @@ const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ProjectMembers extends BaseModel {
-  list(projectId) {
+  all(projectId) {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/members`);
-  }
-
-  show(projectId, userId) {
-    const [pId, uId] = [projectId, userId].map(Utils.parse);
-
-    return this.get(`projects/${pId}/members/${uId}`);
   }
 
   add(projectId, userId, accessLevel = 30) {
@@ -35,6 +29,12 @@ class ProjectMembers extends BaseModel {
     const [pId, uId] = [projectId, userId].map(Utils.parse);
 
     return this.delete(`projects/${pId}/members/${uId}`);
+  }
+
+  show(projectId, userId) {
+    const [pId, uId] = [projectId, userId].map(Utils.parse);
+
+    return this.get(`projects/${pId}/members/${uId}`);
   }
 }
 

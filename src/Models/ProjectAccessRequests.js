@@ -10,10 +10,12 @@ const ACCESS_LEVELS = {
 };
 
 class ProjectAccessRequests extends BaseModel {
-  constructor(){
-  	this.ACCESS_LEVELS = ACCESS_LEVELS;
+  constructor(...args) {
+    super(...args);
+
+    this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
-  
+
   all(projectId) {
     const pId = Utils.parse(projectId);
 
@@ -26,10 +28,10 @@ class ProjectAccessRequests extends BaseModel {
     return this.post(`projects/${pId}/access_requests`);
   }
 
-  approve(projectId, userId, {access_level = 30}) {
+  approve(projectId, userId, { access_level = 30 }) {
     const [pId, uId] = [projectId, userId].map(Utils.parse);
 
-    return this.post(`projects/${pId}/access_requests/${uId}/approve`, {access_level});
+    return this.post(`projects/${pId}/access_requests/${uId}/approve`, { access_level });
   }
 
   deny(projectId, userId) {

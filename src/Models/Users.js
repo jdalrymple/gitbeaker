@@ -13,18 +13,12 @@ class Users extends BaseModel {
     return this.get('users', options);
   }
 
-  current() {
-    return this.get('user');
-  }
-
-  show(userId) {
-    const uId = Utils.parse(userId);
-
-    return this.get(`users/${uId}`);
-  }
-
   create(options = {}) {
     return this.post('users', options);
+  }
+
+  current() {
+    return this.get('user');
   }
 
   session(email, password) {
@@ -38,6 +32,12 @@ class Users extends BaseModel {
     return this.get('users', {
       search: emailOrUsername,
     });
+  }
+
+  show(userId) {
+    const uId = Utils.parse(userId);
+
+    return this.get(`users/${uId}`);
   }
 }
 

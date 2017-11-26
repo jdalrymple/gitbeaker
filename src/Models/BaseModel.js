@@ -3,7 +3,7 @@ const LinkParser = require('parse-link-header');
 async function getAllPages(client, endpoint, options = {}, results = []) {
   const response = await client.get(endpoint, options, true);
 
-  if(!response.headers['x-page']){
+  if (!response.headers['x-page']) {
     return response;
   }
 

@@ -29,7 +29,7 @@ class ProjectRepositoryBranches extends BaseModel {
   show(projectId, branchName) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
+    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchName)}`);
   }
 
   unprotect(projectId, branchName) {

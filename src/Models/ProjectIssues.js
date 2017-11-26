@@ -27,6 +27,13 @@ class ProjectIssues extends BaseModel {
     return this.put(`projects/${pId}/issues/${iId}`, options);
   }
 
+  link(projectId, issueIId, targetProjectId, targetIssueId, options = {}) {
+    const [pId, iId] = [projectId, issueIId].map(Utils.parse);
+    const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(Utils.parse);
+
+    return this.post(`projects/${pId}/issues/${iId}/links`, Object.assign({ target_project_id: targetpId, target_issue_id: targetIId }, options));
+  }
+
   remove(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
@@ -49,15 +56,6 @@ class ProjectIssues extends BaseModel {
     const [pId, iId] = [projectId, issueId].map(Utils.parse);
 
     return this.delete(`projects/${pId}/issues/${iId}/unsubscribe`);
-  }
-
-  link(projectId, issueIId, targetProjectId, targetIssueId, options = {}) {
-    const [pId, iId] = [projectId, issueIId].map(Utils.parse);
-    const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(Utils.parse);
-    options.target_project_id = targetpId;
-    options.target_issue_id = targetIId;
-
-    return this.post(`projects/${pId}/issues/${iId}/links`, options);
   }
 }
 

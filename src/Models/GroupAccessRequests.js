@@ -10,10 +10,12 @@ const ACCESS_LEVELS = {
 };
 
 class GroupAccessRequests extends BaseModel {
-  constructor(){
-  	this.ACCESS_LEVELS = ACCESS_LEVELS;
+  constructor(...args) {
+    super(...args);
+
+    this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
-  
+
   all(groupId) {
     const gId = Utils.parse(groupId);
 
@@ -26,10 +28,10 @@ class GroupAccessRequests extends BaseModel {
     return this.post(`groups/${gId}/access_requests`);
   }
 
-  approve(groupId, userId, {access_level = 30}) {
+  approve(groupId, userId, { access_level = 30 }) {
     const [gId, uId] = [groupId, userId].map(Utils.parse);
 
-    return this.post(`groups/${gId}/access_requests/${uId}/approve`, {access_level});
+    return this.post(`groups/${gId}/access_requests/${uId}/approve`, { access_level });
   }
 
   deny(groupId, userId) {

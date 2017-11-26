@@ -14,25 +14,16 @@ class ProjectMilestones extends BaseModel {
     return this.get(`projects/${pId}/milestones/${mId}`);
   }
 
-  add(projectId, title, { description, due_date }) {
+  add(projectId, title, options) {
     const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${pId}/milestones`, {
-      title,
-      description,
-      due_date,
-    });
+    return this.post(`projects/${pId}/milestones`, options);
   }
 
-  update(projectId, milestoneId, { title, description, due_date, state_event }) {
+  update(projectId, milestoneId, options) {
     const [pId, mId] = [projectId, milestoneId].map(Utils.parse);
 
-    return this.put(`projects/${pId}/milestones/${mId}`, {
-      title,
-      description,
-      due_date,
-      state_event,
-    });
+    return this.put(`projects/${pId}/milestones/${mId}`, options);
   }
 }
 

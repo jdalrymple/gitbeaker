@@ -5,11 +5,7 @@ class ProjectRunners extends BaseModel {
   all(projectId, options = {}) {
     const pId = Utils.parse(projectId);
 
-    if (projectId != null) {
-      return this.get(`projects/${pId}/runners`, options);
-    }
-
-    return this.get('runners', options);
+    return this.get(`projects/${pId}/runners`, options);
   }
 
   enable(projectId, runnerId) {
@@ -25,7 +21,6 @@ class ProjectRunners extends BaseModel {
 
     return this.delete(`projects/${pId}/runners/${rId}`);
   }
-
 }
 
 module.exports = ProjectRunners;

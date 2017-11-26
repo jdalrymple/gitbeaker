@@ -17,13 +17,13 @@ class ProjectRepositoryFiles extends BaseModel {
   show(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref: options.ref });
+    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref });
   }
 
   showRaw(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref: options.ref });
+    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref });
   }
 
   update(projectId, filePath, branch, options = {}) {

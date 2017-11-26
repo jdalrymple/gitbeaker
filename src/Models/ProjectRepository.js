@@ -1,12 +1,18 @@
 const BaseModel = require('./BaseModel');
+const ProjectRepositoryBranches = require('./ProjectRepositoryBranches');
+const ProjectRepositoryTags = require('./ProjectRepositoryTags');
+const ProjectRepositoryCommits = require('./ProjectRepositoryCommits');
+const ProjectRepositoryFiles = require('./ProjectRepositoryFiles');
 const Utils = require('../Utils');
 
 class ProjectRepository extends BaseModel {
-  constructor() {
-    this.branches = new ProjectRepositoryBranches(..args);
-    this.tags = new ProjectRepositoryTags(..args);
-    this.commits = new ProjectRepositoryCommits(..args);
-    this.files = new ProjectRepositoryFiles(..args);
+  constructor(...args) {
+    super(...args);
+
+    this.branches = new ProjectRepositoryBranches(...args);
+    this.tags = new ProjectRepositoryTags(...args);
+    this.commits = new ProjectRepositoryCommits(...args);
+    this.files = new ProjectRepositoryFiles(...args);
   }
 
   compare(projectId, from, to) {
