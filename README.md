@@ -121,6 +121,25 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[2.0.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-11-25)
+------------------
+- Updated project docs for clarity
+- Cleaned up many linting problems within the class models
+- Removed mutator operations on the options arguments
+- Renamed ProjectKeys to ProjectDeployKeys
+- Renamed `list` functions to `all` for consistency
+- Renamed `update` functions to `edit` for consistency
+- Renaming addKey just to add in UserKeys class
+- Renaming deploy_keys and merge_requests to deployKeys and mergeRequests for consistancy
+- Adding Project Access Requests
+- Removing old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
+- Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
+- Methods in the ProjectDeployKeys class updated for consistency
+- Methods in the ProjectHooks updated for consistency
+- Updated the structure of the ProjectRepository class with commits, branches, tags and files properties.
+- Added contributors, showBlob and showBlobRaw functions to the ProjectRepository class
+
+
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
 ------------------
 - Extending the Groups API, see docs for a full overview.

@@ -30,16 +30,16 @@ class ProjectMergeRequests extends BaseModel {
     });
   }
 
+  edit(projectId, mergerequestId, options = {}) {
+    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
+
+    return this.put(`projects/${pId}/merge_requests/${mId}`, options);
+  }
+
   show(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
 
     return this.get(`projects/${pId}/merge_requests/${mId}`);
-  }
-
-  update(projectId, mergerequestId, options = {}) {
-    const [pId, mId] = [projectId, mergerequestId].map(Utils.parse);
-
-    return this.put(`projects/${pId}/merge_requests/${mId}`, options);
   }
 }
 

@@ -8,6 +8,12 @@ class ProjectRepositoryFiles extends BaseModel {
     return this.post(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
   }
 
+  edit(projectId, filePath, branch, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.put(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
+  }
+
   remove(projectId, filePath, branch, options = {}) {
     const pId = Utils.parse(projectId);
 
@@ -24,12 +30,6 @@ class ProjectRepositoryFiles extends BaseModel {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref });
-  }
-
-  update(projectId, filePath, branch, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.put(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
   }
 }
 
