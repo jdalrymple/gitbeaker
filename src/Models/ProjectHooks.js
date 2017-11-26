@@ -2,7 +2,7 @@ const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ProjectHooks extends BaseModel {
-  list(projectId) {
+  all(projectId) {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/hooks`);
