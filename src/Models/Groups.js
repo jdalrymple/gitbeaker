@@ -19,6 +19,12 @@ class Groups extends BaseModel {
     return this.get('groups', options);
   }
 
+  allSubgroups(groupId, options = {}) {
+    const gId = Utils.parse(groupId);
+
+    return this.get(`groups/${gId}/subgroups`, options);
+  }
+
   show(groupId) {
     const gId = Utils.parse(groupId);
 

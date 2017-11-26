@@ -1,7 +1,8 @@
 # Groups API
 
 * [Groups](#Groups)
-	* [List all Groups](#list-all-groups)
+	* [List all groups](#list-all-groups)
+	* [List all group's subgroups](#list-all-groups-subgroups)
 	* [Get a single group](#get-a-single-group)
 	* [Create a group](#create-a-group)
 	* [Edit a group](#edit-a-group)
@@ -15,7 +16,7 @@
 
 ## Groups
 
-### List all Groups
+### List all groups
 
 Get a list of visible Groups for authenticated user. When accessed without authentication, only public Groups are returned.
 
@@ -24,6 +25,23 @@ let groups = GitlabAPI.groups.all();
 ```
 
 **Parameters**: [List all Groups](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/groups.md#list-groups)
+
+**Extra Parameters**
+
+| Argument      | Description              | Type     | Required | Default           |
+|---------------|--------------------------|----------|----------|-------------------|
+| max_pages     |Limits the amount of pages returned | Number   | No       |  All pages         |
+
+
+### List all groups subgroups
+
+Get a list of visible Groups for authenticated user. When accessed without authentication, only public Groups are returned.
+
+```javascript
+let groups = GitlabAPI.groups.allSubgroups(groupId, { //params });
+```
+
+**Parameters**: [List all Groups](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/groups.md#list-a-groupss-subgroups)
 
 **Extra Parameters**
 
