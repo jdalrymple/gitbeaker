@@ -18,22 +18,22 @@ class GroupMilestones extends BaseModel {
     return this.get(`groups/${gId}/milestones`, options);
   }
 
-  show(groupId, milestoneId) {
-    const [gId, mId] = [groupId, milestoneId].map(Utils.parse);
-
-    return this.get(`groups/${gId}/milestones/${mId}`);
-  }
-
   create(groupId, title, options) {
     const gId = Utils.parse(groupId);
 
     return this.post(`groups/${gId}/milestones`, options);
   }
 
-  update(groupId, milestoneId, options) {
+  edit(groupId, milestoneId, options) {
     const [gId, mId] = [groupId, milestoneId].map(Utils.parse);
 
     return this.put(`groups/${gId}/milestones/${mId}`, options);
+  }
+
+  show(groupId, milestoneId) {
+    const [gId, mId] = [groupId, milestoneId].map(Utils.parse);
+
+    return this.get(`groups/${gId}/milestones/${mId}`);
   }
 }
 

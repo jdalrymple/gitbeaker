@@ -11,7 +11,7 @@
 Gets a list of group members viewable by the authenticated user.
 
 ```javascript
-let members = GitlabAPI.projects.members.list(projectId);
+let members = GitlabAPI.group.members.all(groupId);
 ```
 **Parameters**: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
 
@@ -20,6 +20,7 @@ let members = GitlabAPI.projects.members.list(projectId);
 | Argument      | Description              | Type     | Required | Default           |
 |---------------|--------------------------|----------|----------|-------------------|
 | max_pages     |Limits the amount of pages returned | Number   | No       |  All pages         |
+
 
 ### Get a member
 

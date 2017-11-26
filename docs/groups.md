@@ -4,15 +4,14 @@
 	* [List all Groups](#list-all-groups)
 	* [Get a single group](#get-a-single-group)
 	* [Create a group](#create-a-group)
-	* [Create a group for user](#create-a-group-for-user)
 	* [Edit a group](#edit-a-group)
 	* [Search for a group](#edit-a-group)
 * [Group Members](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-members.md)
-* [Group Milestones](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-triggers.md)
-	* [Group Milestones Issues](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-triggers.md)
-	* [Group Milestones Merge Requests](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-triggers.md)
-* [Group Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-hooks.md)
-* [Group Access Requests](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-hooks.md)
+* [Group Milestones](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-milestones.md)
+	* [Group Milestones Issues](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-milestone-issues.md)
+	* [Group Milestones Merge Requests](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-milestone-merge-requests.md)
+* [Group Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-projects.md)
+* [Group Access Requests](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/group-access-requests.md)
 
 ## Groups
 
