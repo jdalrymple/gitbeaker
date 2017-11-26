@@ -123,7 +123,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-11-25)
 ------------------
-- Extending the Groups API
+- Extending the Groups API, see docs for a full overview.
+
 
 [1.2.0](https://github.com/jdalrymple/node-gitlab-api/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
 ------------------
