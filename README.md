@@ -121,7 +121,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.0.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-11-25)
+[2.0.0](https://github.com/jdalrymple/node-gitlab-api/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
 ------------------
 - Updated project docs for clarity
 - Cleaned up many linting problems within the class models
