@@ -15,6 +15,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 * [Usage](#usage)
 * [Docs](#docs)
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
 * [License](#licence)
 * [Changelog](#changelog)
