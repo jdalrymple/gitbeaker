@@ -1,4 +1,4 @@
-## Project Members
+## Group Members
 
 * [List all members](#list-all-members)
 * [Get a member](#get-a-member)
@@ -6,13 +6,12 @@
 * [Edit a member](#edit-a-member)
 * [Remove a member](#remove-a-member)
 
-
 ### List all members
 
-Gets a list of project members viewable by the authenticated user.
+Gets a list of group members viewable by the authenticated user.
 
 ```javascript
-let members = GitlabAPI.projects.members.list(projectId);
+let members = GitlabAPI.group.members.all(groupId);
 ```
 **Parameters**: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
 
@@ -25,20 +24,20 @@ let members = GitlabAPI.projects.members.list(projectId);
 
 ### Get a member
 
-Gets a member of a project.
+Gets a member of a group.
 
 ```javascript
-let member = GitlabAPI.projects.members.show(projectId, memberId);
+let member = GitlabAPI.groups.members.show(groupId, memberId);
 ```
 **Parameters**: [Get a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#get-a-member-of-a-group-or-project)
 
 
 ### Add a member
 
-Gets a member of a project.
+Gets a member of a group.
 
 ```javascript
-let member = GitlabAPI.projects.members.add(projectId, {
+let member = GitlabAPI.groups.members.add(groupId, {
 	// params
 });
 ```
@@ -47,10 +46,10 @@ let member = GitlabAPI.projects.members.add(projectId, {
 
 ### Edit a member
 
-Edits a member of a project.
+Edits a member of a group.
 
 ```javascript
-let member = GitlabAPI.projects.members.edit(projectId, {
+let member = GitlabAPI.groups.members.edit(groupId, {
 	// params
 });
 ```
@@ -59,9 +58,9 @@ let member = GitlabAPI.projects.members.edit(projectId, {
 
 ### Remove a member
 
-Removes a member of a project.
+Removes a member of a group.
 
 ```javascript
-GitlabAPI.projects.members.remove(projectId, memberId);
+GitlabAPI.groups.members.remove(groupId, memberId);
 ```
 **Parameters**: [Remove a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#remove-a-member-to-a-group-or-project)
