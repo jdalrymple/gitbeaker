@@ -14,10 +14,10 @@ class ProjectRepositoryBranches extends BaseModel {
     return this.post(`projects/${pId}/repository/branches`, { branch, ref });
   }
 
-  protect(projectId, branchName, options = {}) {
+  protect(projectId, branchId, options = {}) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/protect`, options);
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/protect`, options);
   }
 
   remove(projectId, branchId) {
@@ -26,16 +26,16 @@ class ProjectRepositoryBranches extends BaseModel {
     return this.delete(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
   }
 
-  show(projectId, branchName) {
+  show(projectId, branchId) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchName)}`);
+    return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
   }
 
-  unprotect(projectId, branchName) {
+  unprotect(projectId, branchId) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/unprotect`);
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/unprotect`);
   }
 }
 
