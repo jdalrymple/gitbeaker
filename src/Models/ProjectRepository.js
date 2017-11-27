@@ -8,22 +8,22 @@ class ProjectRepository extends BaseModel {
     return this.get(`projects/${pId}/repository/branches`);
   }
 
-  showBranch(projectId, branchName) {
+  showBranch(projectId, branchId) {
     const pId = Utils.parse(projectId);
 
     return this.get(`projects/${pId}/repository/branches/${encodeURI(branchId)}`);
   }
 
-  protectBranch(projectId, branchName, options = {}) {
+  protectBranch(projectId, branchId, options = {}) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/protect`, options);
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/protect`, options);
   }
 
-  unprotectBranch(projectId, branchName) {
+  unprotectBranch(projectId, branchId) {
     const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchName)}/unprotect`);
+    return this.put(`projects/${pId}/repository/branches/${encodeURI(branchId)}/unprotect`);
   }
 
   createBranch(projectId, branch, ref) {
@@ -89,13 +89,13 @@ class ProjectRepository extends BaseModel {
   showFile(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref: options.ref });
+    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref });
   }
 
   showRawFile(projectId, filePath, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref: options.ref });
+    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref });
   }
 
   createFile(projectId, filePath, branch, options = {}) {
