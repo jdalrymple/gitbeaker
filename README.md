@@ -121,6 +121,11 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[1.3.1](https://github.com/jdalrymple/node-gitlab-api/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
+------------------
+- Fixed broken argument reference in the showFile and showFileRaw functions
+
+
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
 ------------------
 - Extending the Groups API, see docs for a full overview.
