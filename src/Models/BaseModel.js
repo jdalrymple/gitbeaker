@@ -1,6 +1,6 @@
 const LinkParser = require('parse-link-header');
 
-async function getAllPages(client, endpoint, options = {}, results = []) {
+async function getAllPages(client, endpoint, options, results = []) {
   const response = await client.get(endpoint, options, true);
 
   if (!response.headers['x-page']) {
@@ -23,7 +23,7 @@ class BaseModel {
     this.client = APIClient;
   }
 
-  get(endpoint, options) {
+  get(endpoint, options = {}) {
     if (!options.page) {
       return getAllPages(this.client, endpoint, options);
     }
@@ -31,19 +31,19 @@ class BaseModel {
     return this.client.get(endpoint, options);
   }
 
-  post(endpoint, options) {
+  post(endpoint, options = {}) {
     return this.client.post(endpoint, options);
   }
 
-  postForm(endpoint, options) {
+  postForm(endpoint, options = {}) {
     return this.client.postForm(endpoint, options);
   }
 
-  put(endpoint, options) {
+  put(endpoint, options = {}) {
     return this.client.put(endpoint, options);
   }
 
-  delete(endpoint, options) {
+  delete(endpoint, options = {}) {
     return this.client.delete(endpoint, options);
   }
 }
