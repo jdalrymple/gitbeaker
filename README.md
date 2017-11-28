@@ -15,6 +15,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 * [Usage](#usage)
 * [Docs](#docs)
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
 * [License](#licence)
 * [Changelog](#changelog)
@@ -121,9 +122,14 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[1.3.2](https://github.com/jdalrymple/node-gitlab-api/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
+------------------
+- Adding default values for the BaseModel options parameter.
+
+
 [1.3.1](https://github.com/jdalrymple/node-gitlab-api/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
 ------------------
-- Fixed broken argument reference in the showFile and showFileRaw functions
+- Fixed broken argument reference in the showFile and showFileRaw functions.
 
 
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
