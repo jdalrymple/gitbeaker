@@ -1,6 +1,6 @@
 {
   "name": "node-gitlab-api",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.1-rc.1",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "main": "src/index.js",
   "directories": {},
@@ -13,6 +13,7 @@
     "gitlab",
     "git",
     "api",
+    "es6",
     "request"
   ],
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",

@@ -116,6 +116,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 - [Salim Benabbou](https://github.com/Salimlou)
+- [Tamás Török-Vistai](https://github.com/tvtamas) 
 
 ## License
 
@@ -123,7 +124,27 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.0.0rc](https://github.com/jdalrymple/node-gitlab-api/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
+[2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
+------------------
+- Updating pagination changes into v2.0.1
+
+[1.3.3](https://github.com/jdalrymple/node-gitlab-api/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
+------------------
+- Adding pagination to project pipelines thanks to [Tamás Török-Vistai](https://github.com/tvtamas)
+ 
+[2.0.0-rc.2](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-28)
+------------------
+- Updating all recent core changes into v2.0.0
+
+[1.3.2](https://github.com/jdalrymple/node-gitlab-api/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
+------------------
+- Adding default values for the BaseModel options parameter.
+
+[1.3.1](https://github.com/jdalrymple/node-gitlab-api/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
+------------------
+- Fixed broken argument reference in the showFile and showFileRaw functions.
+
+[2.0.0-rc.1](https://github.com/jdalrymple/node-gitlab-api/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
 ------------------
 - Updated project docs for clarity
 - Cleaned up many linting problems within the class models
@@ -140,7 +161,6 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Methods in the ProjectHooks updated for consistency
 - Updated the structure of the ProjectRepository class with commits, branches, tags and files properties.
 - Added contributors, showBlob and showBlobRaw functions to the ProjectRepository class
-
 
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
 ------------------
@@ -179,7 +199,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 ------------------
-- Adding default file name for file uploads. If none is supplied, the filename is
+- Adding default file name for file uploads. If none is supplied, the file name is
 inferred from the file path
 
 [1.0.13](https://github.com/jdalrymple/node-gitlab-api/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
