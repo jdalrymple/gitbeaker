@@ -115,12 +115,18 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 - [Salim Benabbou](https://github.com/Salimlou)
+- [Tamás Török-Vistai](https://github.com/tvtamas)
 
 ## License
 
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[1.3.3](https://github.com/jdalrymple/node-gitlab-api/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
+------------------
+- Adding pagination to project pipelines thanks to [Tamás Török-Vistai](https://github.com/tvtamas)
+
 
 [1.3.2](https://github.com/jdalrymple/node-gitlab-api/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
 ------------------
@@ -169,7 +175,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [1.0.14](https://github.com/jdalrymple/node-gitlab-api/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 ------------------
-- Adding default file name for file uploads. If none is supplied, the filename is
+- Adding default file name for file uploads. If none is supplied, the file name is
 inferred from the file path
 
 [1.0.13](https://github.com/jdalrymple/node-gitlab-api/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
