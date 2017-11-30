@@ -1,11 +1,13 @@
 const BaseModel = require('./BaseModel');
 const UserKeys = require('./UserKeys');
 const Utils = require('../Utils');
+const ResourceCustomAttributes = require('./ResourceCustomAttributes');
 
 class Users extends BaseModel {
   constructor(...args) {
     super(...args);
 
+    this.customAttributes = new ResourceCustomAttributes('users', ...args);
     this.keys = UserKeys;
   }
 

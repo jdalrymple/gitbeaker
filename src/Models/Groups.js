@@ -1,18 +1,21 @@
 const BaseModel = require('./BaseModel');
-const GroupMilestones = require('./GroupMilestones');
-const GroupMembers = require('./GroupMembers');
 const GroupProjects = require('./GroupProjects');
-const GroupAccessRequests = require('./GroupAccessRequests');
+const ResourceAccessRequests = require('./ResourceAccessRequests');
+const ResourceCustomAttributes = require('./ResourceCustomAttributes');
+const ResourceMembers = require('./ResourceMembers');
+const ResourceMilestones = require('./ResourceMilestones');
+
 const Utils = require('../Utils');
 
 class Groups extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.milestones = new GroupMilestones(...args);
-    this.members = new GroupMembers(...args);
     this.projects = new GroupProjects(...args);
-    this.accessRequests = new GroupAccessRequests(...args);
+    this.accessRequests = new ResourceAccessRequests('groups', ...args);
+    this.customAttributes = new ResourceCustomAttributes('groups', ...args);
+    this.members = new ResourceMembers('groups', ...args);
+    this.milestones = new ResourceMilestones('groups', ...args);
   }
 
   all(options = {}) {

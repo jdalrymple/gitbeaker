@@ -2,35 +2,40 @@ const Fs = require('fs');
 const Path = require('path');
 const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
-const ProjectMembers = require('./ProjectMembers');
 const ProjectHooks = require('./ProjectHooks');
 const ProjectIssues = require('./ProjectIssues');
 const ProjectLabels = require('./ProjectLabels');
 const ProjectRepository = require('./ProjectRepository');
-const ProjectMilestones = require('./ProjectMilestones');
 const ProjectDeployKeys = require('./ProjectDeployKeys');
 const ProjectMergeRequests = require('./ProjectMergeRequests');
 const ProjectServices = require('./ProjectServices');
 const ProjectTriggers = require('./ProjectTriggers');
 const ProjectRunners = require('./ProjectRunners');
 const ProjectPipelines = require('./ProjectPipelines');
+const ResourceCustomAttributes = require('./ResourceCustomAttributes');
+const ResourceMembers = require('./ResourceMembers');
+const ResourceAccessRequests = require('./ResourceAccessRequests');
+const ResourceMilestones = require('./ResourceMilestones');
+
 
 class Projects extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.members = new ProjectMembers(...args);
     this.hooks = new ProjectHooks(...args);
     this.issues = new ProjectIssues(...args);
     this.labels = new ProjectLabels(...args);
     this.repository = new ProjectRepository(...args);
-    this.milestones = new ProjectMilestones(...args);
     this.deployKeys = new ProjectDeployKeys(...args);
     this.mergeRequests = new ProjectMergeRequests(...args);
     this.services = new ProjectServices(...args);
     this.triggers = new ProjectTriggers(...args);
     this.pipelines = new ProjectPipelines(...args);
     this.runners = new ProjectRunners(...args);
+    this.customAttributes = new ResourceCustomAttributes('projects', ...args);
+    this.members = new ResourceMembers('projects', ...args);
+    this.accessRequests = new ResourceAccessRequests('projects', ...args);
+    this.milestones = new ResourceMilestones('projects', ...args);
   }
 
   all(options = {}) {
