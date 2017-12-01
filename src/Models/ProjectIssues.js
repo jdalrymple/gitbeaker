@@ -1,12 +1,12 @@
 const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
-const ProjectIssueNotes = require('./ProjectIssueNotes');
+const ResourceNotes = require('./ResourceNotes');
 
 class ProjectIssues extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.notes = new ProjectIssueNotes(...args);
+    this.notes = new ResourceNotes('projects', 'issues', ...args);
   }
 
   all(projectId, options = {}) {

@@ -127,6 +127,14 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
 ------------------
 - Updating pagination changes into v2.0.1
+- Removed unused labels endpoint since it already exists under projects.labels
+- Added a mergeRequests class for the merge_requests endpoints
+- Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as 
+accepting merge requests, cancelling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
+- Fixed the notes endpoints for ProjectMergeRequests. This can now be access via projects.mergeRequests.notes.[command here]
+- Added comments endpoints to the ProjectRepositoryCommits class
+- Added the ability to post a status to a specific commit to the Project class
+
 
 [1.3.3](https://github.com/jdalrymple/node-gitlab-api/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
 ------------------

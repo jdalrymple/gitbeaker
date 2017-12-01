@@ -16,6 +16,7 @@ const ResourceCustomAttributes = require('./ResourceCustomAttributes');
 const ResourceMembers = require('./ResourceMembers');
 const ResourceAccessRequests = require('./ResourceAccessRequests');
 const ResourceMilestones = require('./ResourceMilestones');
+const ResourceNotes = require('./ResourceNotes');
 
 
 class Projects extends BaseModel {
@@ -36,6 +37,7 @@ class Projects extends BaseModel {
     this.members = new ResourceMembers('projects', ...args);
     this.accessRequests = new ResourceAccessRequests('projects', ...args);
     this.milestones = new ResourceMilestones('projects', ...args);
+    this.snippets = new ResourceNotes('projects', 'snippets', ...args);
   }
 
   all(options = {}) {
@@ -99,6 +101,12 @@ class Projects extends BaseModel {
     const pId = Utils.parse(projectId);
 
     return this.post(`projects/${pId}/star`);
+  }
+
+  statuses(projectId, sha, state, options = {}) {
+    const pId = Utils.parse(projectId);
+
+    return this.post(`projects/${pId}/statuses/${sha}`, Object.assign({ state }, options));
   }
 
   unstar(projectId) {
