@@ -2,7 +2,7 @@ const BaseModel = require('./BaseModel');
 const Utils = require('../Utils');
 
 class ResourceNotes extends BaseModel {
-  constructor(resourceType, resource2Type ...args){
+  constructor(resourceType, resource2Type, ...args){
     super(...args);
 
     this.resourceType = resourceType;
