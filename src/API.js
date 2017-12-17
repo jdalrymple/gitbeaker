@@ -1,7 +1,7 @@
-const Request = require('request-promise');
-const { Groups, Projects, Issues, Runners, Users, Labels } = require('./Models');
+import Request from 'request-promise';
+import { Groups, Projects, Issues, Runners, Users, Labels } from './Models';
 
-function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false}) {
+function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false }) {
   const params = {
     url: `${url}${endpoint}`,
     headers,
@@ -34,7 +34,6 @@ class API {
     this.projects = new Projects(this);
     this.issues = new Issues(this);
     this.users = new Users(this);
-    this.labels = new Labels(this);
     this.runners = new Runners(this);
   }
 
@@ -75,5 +74,4 @@ class API {
   }
 }
 
-
-module.exports = API;
+export default API;

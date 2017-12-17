@@ -1,20 +1,20 @@
 ## Project Hooks
 
-* [List all hooks](#list-all-hooks)
+* [Get all hooks](#get-all-hooks)
 * [Get a hook](#get-a-hook)
 * [Add a hook](#add-a-hook-to-a-project)
 * [Edit a hook](#edit-a-hook) 
 * [Remove a hook](#remove-a-hook) 
 
-### List all hooks
+### Get all hooks
 
 Get a list of project hooks.
 
 ```javascript
 // From a project ID
-let hooks = GitlabAPI.projects.hooks.list(projectId);
+let hooks = GitlabAPI.projects.hooks.all(projectId);
 ```
-Parameters: [List all project hooks](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-project-hooks)
+Parameters: [Get all project hooks](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-project-hooks)
 
 ### Get a hook
 

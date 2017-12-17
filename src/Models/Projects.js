@@ -1,49 +1,54 @@
-const Fs = require('fs');
-const Path = require('path');
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
-const ProjectMembers = require('./ProjectMembers');
-const ProjectHooks = require('./ProjectHooks');
-const ProjectIssues = require('./ProjectIssues');
-const ProjectLabels = require('./ProjectLabels');
-const ProjectRepository = require('./ProjectRepository');
-const ProjectMilestones = require('./ProjectMilestones');
-const ProjectDeployKeys = require('./ProjectDeployKeys');
-const ProjectMergeRequests = require('./ProjectMergeRequests');
-const ProjectServices = require('./ProjectServices');
-const ProjectTriggers = require('./ProjectTriggers');
-const ProjectRunners = require('./ProjectRunners');
-const ProjectPipelines = require('./ProjectPipelines');
+import Fs from 'fs';
+import Path from 'path';
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
+import ProjectHooks from './ProjectHooks';
+import ProjectIssues from './ProjectIssues';
+import ProjectLabels from './ProjectLabels';
+import ProjectRepository from './ProjectRepository';
+import ProjectProtectedBranches from './ProjectProtectedBranches';
+import ProjectDeployKeys from './ProjectDeployKeys';
+import ProjectMergeRequests from './ProjectMergeRequests';
+import ProjectServices from './ProjectServices';
+import ProjectTriggers from './ProjectTriggers';
+import ProjectRunners from './ProjectRunners';
+import ProjectPipelines from './ProjectPipelines';
+import ResourceCustomAttributes from './ResourceCustomAttributes';
+import ResourceMembers from './ResourceMembers';
+import ResourceAccessRequests from './ResourceAccessRequests';
+import ResourceMilestones from './ResourceMilestones';
+import ResourceNotes from './ResourceNotes';
+
 
 class Projects extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.members = new ProjectMembers(...args);
     this.hooks = new ProjectHooks(...args);
     this.issues = new ProjectIssues(...args);
     this.labels = new ProjectLabels(...args);
     this.repository = new ProjectRepository(...args);
-    this.milestones = new ProjectMilestones(...args);
-    this.deploy_keys = new ProjectDeployKeys(...args);
-    this.merge_requests = new ProjectMergeRequests(...args);
+    this.protectedBranches = new ProjectProtectedBranches(...args);
+    this.deployKeys = new ProjectDeployKeys(...args);
+    this.mergeRequests = new ProjectMergeRequests(...args);
     this.services = new ProjectServices(...args);
     this.triggers = new ProjectTriggers(...args);
     this.pipelines = new ProjectPipelines(...args);
     this.runners = new ProjectRunners(...args);
+    this.customAttributes = new ResourceCustomAttributes('projects', ...args);
+    this.members = new ResourceMembers('projects', ...args);
+    this.accessRequests = new ResourceAccessRequests('projects', ...args);
+    this.milestones = new ResourceMilestones('projects', ...args);
+    this.snippets = new ResourceNotes('projects', 'snippets', ...args);
   }
 
   all(options = {}) {
     return this.get('projects', options);
   }
 
-  allAdmin(options = {}) {
-    return this.get('projects/all', options);
-  }
-
   create(options = {}) {
     if (options.userId) {
-      const uId = Utils.parse(options.userId);
+      const uId = parse(options.userId);
 
       return this.post(`projects/user/${uId}`, options);
     }
@@ -52,19 +57,19 @@ class Projects extends BaseModel {
   }
 
   edit(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.put(`projects/${pId}`, options);
   }
 
   fork(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.post(`projects/${pId}/fork`, options);
   }
 
   remove(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.delete(`projects/${pId}`);
   }
@@ -74,7 +79,7 @@ class Projects extends BaseModel {
   }
 
   share(projectId, groupId, groupAccess, options) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     if (!groupId || !groupAccess) throw new Error('Missing required arguments');
 
@@ -85,25 +90,37 @@ class Projects extends BaseModel {
   }
 
   show(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}`);
   }
 
   star(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.post(`projects/${pId}/star`);
   }
 
+  statuses(projectId, sha, state, options = {}) {
+    const pId = parse(projectId);
+
+    return this.post(`projects/${pId}/statuses/${sha}`, Object.assign({ state }, options));
+  }
+
+  unshare(projectId, groupId) {
+    const [pId, gId] = [projectId, groupId].map(parse);
+
+    return this.delete(`projects/${pId}/share${gId}`);
+  }
+
   unstar(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.post(`projects/${pId}/unstar`);
   }
 
   upload(projectId, filePath, { fileName = Path.basename(filePath) } = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
     const file = Fs.readFileSync(filePath);
 
     return this.postForm(`projects/${pId}/uploads`, {

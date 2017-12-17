@@ -1,12 +1,12 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class Pipelines extends BaseModel {
   all(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/pipelines`, options);
   }
 }
 
-module.exports = Pipelines;
+export default Pipelines;

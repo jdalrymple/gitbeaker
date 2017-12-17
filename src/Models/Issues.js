@@ -1,5 +1,4 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
 
 class Issues extends BaseModel {
   all(options = {}) {
@@ -7,4 +6,4 @@ class Issues extends BaseModel {
   }
 }
 
-module.exports = Issues;
+export default Issues;

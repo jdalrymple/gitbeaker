@@ -1,4 +1,4 @@
-const LinkParser = require('parse-link-header');
+import LinkParser from 'parse-link-header';
 
 async function getAllPages(client, endpoint, options, results = []) {
   const response = await client.get(endpoint, options, true);
@@ -48,4 +48,4 @@ class BaseModel {
   }
 }
 
-module.exports = BaseModel;
+export default BaseModel;

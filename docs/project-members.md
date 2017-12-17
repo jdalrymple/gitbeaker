@@ -1,20 +1,20 @@
 ## Project Members
 
-* [List all members](#list-all-members)
+* [Get all members](#get-all-members)
 * [Get a member](#get-a-member)
 * [Add a member](#add-a-member)
 * [Edit a member](#edit-a-member)
 * [Remove a member](#remove-a-member)
 
 
-### List all members
+### Get all members
 
-Gets a list of project members viewable by the authenticated user.
+Gets a list of all project members viewable by the authenticated user.
 
 ```javascript
-let members = GitlabAPI.projects.members.list(projectId);
+let members = GitlabAPI.projects.members.all(projectId);
 ```
-**Parameters**: [List all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
+**Parameters**: [Get all members](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#list-all-members-of-a-group-or-project)
 
 **Extra Parameters**
 

@@ -1,28 +1,38 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class Runners extends BaseModel {
   all(options = {}) {
     return this.get('runners/all', options);
   }
 
-  show(runnerId) {
-    const rId = Utils.parse(runnerId);
-
-    return this.get(`runners/${rId}`);
+  allOwned(options = {}) {
+    return this.get('runners', options);
   }
 
-  update(runnerId, attributes) {
-    const rId = Utils.parse(runnerId);
+  edit(runnerId, attributes) {
+    const rId = parse(runnerId);
 
     return this.put(`runners/${rId}`, attributes);
   }
 
   remove(runnerId) {
-    const rId = Utils.parse(runnerId);
+    const rId = parse(runnerId);
 
     return this.delete(`runners/${rId}`);
   }
+
+  show(runnerId) {
+    const rId = parse(runnerId);
+
+    return this.get(`runners/${rId}`);
+  }
+
+  showJobs(runnerId) {
+    const rId = parse(runnerId);
+
+    return this.get(`runners/${rId}/jobs`);
+  }
 }
 
-module.exports = Runners;
+export default Runners;

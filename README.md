@@ -13,10 +13,14 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 
 * [Install](#install)
 * [Usage](#usage)
+    * [Import](#import)
+    * [Examples](#examples)
+    * [Pagination](#pagination)
 * [Docs](#docs)
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
+* [Tests](#tests)
 * [License](#licence)
 * [Changelog](#changelog)
 
@@ -28,7 +32,8 @@ npm install node-gitlab-api
 ```
 
 ## Usage
-
+### Import
+#### ES6 (>=node 8.0.0)
 URL to your GitLab instance should not include `/api/v4` path.
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
@@ -47,7 +52,16 @@ const GitlabAPI = require('node-gitlab-api')({
   oauthToken: 'abcdefghij123456'
 })
 ```
+#### ES5
+The same parameters as above, but the require url inclues a `/dist/es5`:
 
+```javascript
+const GitlabAPI = require('node-gitlab-api/dist/es5')({
+  ...
+})
+```
+
+### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
 Using the await/async method
@@ -97,12 +111,16 @@ let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 
 ```
 
-
 ## Docs
 
-Although there are the official docs for the API, below are some additional docs for this node package!
+Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! :sun-glasses:
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+
+## Tests
+
+Nothing yet, but its on the TODO list :P
 
 ## Contributors
 
@@ -115,7 +133,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 - [Salim Benabbou](https://github.com/Salimlou)
-- [Tamás Török-Vistai](https://github.com/tvtamas)
+- [Tamás Török-Vistai](https://github.com/tvtamas) 
 
 ## License
 
@@ -123,20 +141,70 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[2.1.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-12-15)
+------------------
+- Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
+- Updating project docs for consistency
+- Adding project unsharing to API. It was in the docs, but missing from the API
+- Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.add`
+- Added Owned Runners and Runner Jobs API 
+
+### Breaking Changes between 1.3.3 and 2.1.0
+- The `list` functions are no longer supported and have all been renamed to `all`
+- The `update` functions are no longer supported and have all been renamed to  `edit`
+- The `addKey` function has been renamed to `add` in UserKeys class
+- The deploy_keys and merge_requests properties have been renamed to deployKeys and mergeRequests
+- Removed old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
+- Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
+- Updated the structure of the ProjectRepository class such that its commits, branches, tags and files are properties and can be accessed like `repository.commits.all()` etc.
+- Removed unused labels endpoint since it already exists under projects.labels
+
+
+[2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
+------------------
+- Updating pagination changes into v2.0.1
+- Removed unused labels endpoint since it already exists under projects.labels
+- Added a mergeRequests class for the merge_requests endpoints
+- Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as 
+accepting merge requests, cancelling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
+- Fixed the notes endpoints for ProjectMergeRequests. This can now be access via projects.mergeRequests.notes.[command here]
+- Added comments endpoints to the ProjectRepositoryCommits class
+- Added the ability to post a status to a specific commit to the Project class
+
+
 [1.3.3](https://github.com/jdalrymple/node-gitlab-api/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
 ------------------
 - Adding pagination to project pipelines thanks to [Tamás Török-Vistai](https://github.com/tvtamas)
-
+ 
+[2.0.0-rc.2](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-28)
+------------------
+- Updating all recent core changes into v2.0.0
 
 [1.3.2](https://github.com/jdalrymple/node-gitlab-api/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
 ------------------
 - Adding default values for the BaseModel options parameter.
 
-
 [1.3.1](https://github.com/jdalrymple/node-gitlab-api/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
 ------------------
 - Fixed broken argument reference in the showFile and showFileRaw functions.
 
+[2.0.0-rc.1](https://github.com/jdalrymple/node-gitlab-api/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
+------------------
+- Updated project docs for clarity
+- Cleaned up many linting problems within the class models
+- Removed mutator operations on the options arguments
+- Renamed ProjectKeys to ProjectDeployKeys
+- Renamed `list` functions to `all` for consistency
+- Renamed `update` functions to `edit` for consistency
+- Renaming addKey just to add in UserKeys class
+- Renaming deploy_keys and merge_requests to deployKeys and mergeRequests for consistency
+- Adding Project Access Requests
+- Removing old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
+- Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
+- Methods in the ProjectDeployKeys class updated for consistency
+- Methods in the ProjectHooks updated for consistency
+- Updated the structure of the ProjectRepository class with commits, branches, tags and files properties.
+- Added contributors, showBlob and showBlobRaw functions to the ProjectRepository class
 
 [1.3.0](https://github.com/jdalrymple/node-gitlab-api/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
 ------------------

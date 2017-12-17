@@ -1,24 +1,24 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
-class ProjectKeys extends BaseModel {
-  listKeys(projectId) {
-    const pId = Utils.parse(projectId);
+class ProjectDeployKeys extends BaseModel {
+  add(projectId, options = {}) {
+    const pId = parse(projectId);
+
+    return this.post(`projects/${pId}/deploy_keys`, options);
+  }
+
+  all(projectId) {
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/deploy_keys`);
   }
 
-  getKey(projectId, keyId) {
-    const [pId, kId] = [projectId, keyId].map(Utils.parse);
+  show(projectId, keyId) {
+    const [pId, kId] = [projectId, keyId].map(parse);
 
     return this.get(`projects/${pId}/deploy_keys/${kId}`);
   }
-
-  addKey(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
-
-    return this.post(`projects/${pId}/deploy_keys`, options);
-  }
 }
 
-module.exports = ProjectKeys;
+export default ProjectDeployKeys;

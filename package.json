@@ -1,10 +1,17 @@
 {
   "name": "node-gitlab-api",
-  "version": "1.3.3",
+  "version": "2.1.0",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "main": "src/index.js",
-  "directories": {},
-  "scripts": {},
+  "main": "dist/latest/index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "build:es6": "babel src --out-dir dist/latest",
+    "build:es5": "babel src --out-dir dist/es5  --no-babelrc --presets=es2015",
+    "build": "npm run build:es6 && npm run build:es5",
+    "prepublishOnly": "npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/node-gitlab-api"
@@ -14,13 +21,16 @@
     "git",
     "api",
     "es6",
+    "es5",
     "request"
   ],
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-latest": "^6.24.1",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",

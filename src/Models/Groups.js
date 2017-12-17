@@ -1,18 +1,20 @@
-const BaseModel = require('./BaseModel');
-const GroupMilestones = require('./GroupMilestones');
-const GroupMembers = require('./GroupMembers');
-const GroupProjects = require('./GroupProjects');
-const GroupAccessRequests = require('./GroupAccessRequests');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import GroupProjects from './GroupProjects';
+import ResourceAccessRequests from './ResourceAccessRequests';
+import ResourceCustomAttributes from './ResourceCustomAttributes';
+import ResourceMembers from './ResourceMembers';
+import ResourceMilestones from './ResourceMilestones';
+import { parse } from '../Utils';
 
 class Groups extends BaseModel {
   constructor(...args) {
     super(...args);
 
-    this.milestones = new GroupMilestones(...args);
-    this.members = new GroupMembers(...args);
     this.projects = new GroupProjects(...args);
-    this.accessRequests = new GroupAccessRequests(...args);
+    this.accessRequests = new ResourceAccessRequests('groups', ...args);
+    this.customAttributes = new ResourceCustomAttributes('groups', ...args);
+    this.members = new ResourceMembers('groups', ...args);
+    this.milestones = new ResourceMilestones('groups', ...args);
   }
 
   all(options = {}) {
@@ -20,13 +22,13 @@ class Groups extends BaseModel {
   }
 
   allSubgroups(groupId, options = {}) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.get(`groups/${gId}/subgroups`, options);
   }
 
   show(groupId) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.get(`groups/${gId}`);
   }
@@ -36,7 +38,7 @@ class Groups extends BaseModel {
   }
 
   remove(groupId) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.delete(`groups/${gId}`);
   }
@@ -48,4 +50,4 @@ class Groups extends BaseModel {
   }
 }
 
-module.exports = Groups;
+export default Groups;

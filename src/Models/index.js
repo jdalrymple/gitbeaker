@@ -1,8 +1,15 @@
-const Groups = require('./Groups');
-const Projects = require('./Projects');
-const Issues = require('./Issues');
-const Users = require('./Users');
-const Labels = require('./Labels');
-const Runners = require('./Runners');
+import Groups from './Groups';
+import Projects from './Projects';
+import Issues from './Issues';
+import Users from './Users';
+import Runners from './Runners';
+import MergeRequests from './MergeRequests';
 
-module.exports = { Groups, Projects, Runners, Issues, Users, Labels };
+export {
+  Groups,
+  Projects,
+  Runners,
+  Issues,
+  Users,
+  MergeRequests,
+};
