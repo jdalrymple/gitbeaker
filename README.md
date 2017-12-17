@@ -113,7 +113,7 @@ let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 
 ## Docs
 
-Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! :sun-glasses:
+Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! 😎
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 * [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
