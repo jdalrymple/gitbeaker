@@ -146,7 +146,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
 - Updating project docs for consistency
 - Adding project unsharing to API. It was in the docs, but missing from the API
-- Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.add`
+- Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.protect`
 - Added Owned Runners and Runner Jobs API 
 
 ### Breaking Changes between 1.3.3 and 2.1.0
