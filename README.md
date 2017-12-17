@@ -13,6 +13,9 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 
 * [Install](#install)
 * [Usage](#usage)
+    * [Import](#import)
+    * [Examples](#examples)
+    * [Pagination](#pagination)
 * [Docs](#docs)
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
