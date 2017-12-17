@@ -141,7 +141,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.1.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-12-15)
+[2.1.0](https://github.com/jdalrymple/node-gitlab-api/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
 ------------------
 - Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
 - Updating project docs for consistency
