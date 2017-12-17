@@ -10,6 +10,7 @@ class ProjectIssues extends BaseModel {
   }
 
   all(projectId, options = {}) {
+    console.log(parse)
     const pId = parse(projectId);
 
     return this.get(`projects/${pId}/issues`, options);

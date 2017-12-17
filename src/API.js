@@ -34,7 +34,6 @@ class API {
     this.projects = new Projects(this);
     this.issues = new Issues(this);
     this.users = new Users(this);
-    this.labels = new Labels(this);
     this.runners = new Runners(this);
   }
 

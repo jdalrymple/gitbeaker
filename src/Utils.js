@@ -5,6 +5,6 @@ function parse(value) {
   return parseInt(value, 10);
 }
 
-export default {
+export {
   parse,
 };

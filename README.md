@@ -29,7 +29,8 @@ npm install node-gitlab-api
 ```
 
 ## Usage
-
+### Import
+#### ES6 (>=node 8.0.0)
 URL to your GitLab instance should not include `/api/v4` path.
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
@@ -48,7 +49,16 @@ const GitlabAPI = require('node-gitlab-api')({
   oauthToken: 'abcdefghij123456'
 })
 ```
+#### ES5
+The same parameters as above, but the require url inclues a `/dist/es5`:
 
+```javascript
+const GitlabAPI = require('node-gitlab-api/dist/es5')({
+  ...
+})
+```
+
+### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
 Using the await/async method
@@ -98,7 +108,6 @@ let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 
 ```
 
-
 ## Docs
 
 Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! :sun-glasses:
@@ -131,6 +140,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [2.1.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-12-15)
 ------------------
+- Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
 - Updating project docs for consistency
 - Adding project unsharing to API. It was in the docs, but missing from the API
 - Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.add`
@@ -144,6 +154,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Removed old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
 - Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
 - Updated the structure of the ProjectRepository class such that its commits, branches, tags and files are properties and can be accessed like `repository.commits.all()` etc.
+- Removed unused labels endpoint since it already exists under projects.labels
 
 
 [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
