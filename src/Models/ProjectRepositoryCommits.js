@@ -1,6 +1,6 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
-const ProjectRepositoryCommitComments = require('./ProjectRepositoryCommitComments');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
+import ProjectRepositoryCommitComments from './ProjectRepositoryCommitComments';
 
 class ProjectRepositoryCommits extends BaseModel {
   constructor(...args) {
@@ -10,28 +10,28 @@ class ProjectRepositoryCommits extends BaseModel {
   }
 
   all(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/commits`);
   }
 
   diff(projectId, sha) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/commits/${sha}/diff`);
   }
 
   show(projectId, sha) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/commits/${sha}`);
   }
 
   statuses(projectId, sha, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/commits/${sha}/statuses`, options);
   }
 }
 
-module.exports = ProjectRepositoryCommits;
+export default ProjectRepositoryCommits;

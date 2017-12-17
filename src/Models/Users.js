@@ -1,7 +1,7 @@
-const BaseModel = require('./BaseModel');
-const UserKeys = require('./UserKeys');
-const Utils = require('../Utils');
-const ResourceCustomAttributes = require('./ResourceCustomAttributes');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
+import UserKeys from './UserKeys';
+import ResourceCustomAttributes from './ResourceCustomAttributes';
 
 class Users extends BaseModel {
   constructor(...args) {
@@ -37,10 +37,10 @@ class Users extends BaseModel {
   }
 
   show(userId) {
-    const uId = Utils.parse(userId);
+    const uId = parse(userId);
 
     return this.get(`users/${uId}`);
   }
 }
 
-module.exports = Users;
+export default Users;

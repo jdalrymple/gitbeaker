@@ -1,8 +1,7 @@
-const BaseModel = require('./BaseModel');
-const ResourceMilestoneIssues = require('./GroupMilestoneIssues');
-const ResourceMilestoneMergeRequests = require('./GroupMilestoneMergeRequests');
-
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
+import ResourceMilestoneIssues from './ResourceMilestoneIssues';
+import ResourceMilestoneMergeRequests from './ResourceMilestoneMergeRequests';
 
 class ResourceMilestones extends BaseModel {
   constructor(resourceType, ...args) {
@@ -14,28 +13,28 @@ class ResourceMilestones extends BaseModel {
   }
 
   all(resourceId, options = {}) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.get(`${this.resourceType}/${rId}/milestones`, options);
   }
 
   create(resourceId, title, options) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.post(`${this.resourceType}/${rId}/milestones`, options);
   }
 
   edit(resourceId, milestoneId, options) {
-    const [rId, mId] = [resourceId, milestoneId].map(Utils.parse);
+    const [rId, mId] = [resourceId, milestoneId].map(parse);
 
     return this.put(`${this.resourceType}/${rId}/milestones/${mId}`, options);
   }
 
   show(resourceId, milestoneId) {
-    const [rId, mId] = [resourceId, milestoneId].map(Utils.parse);
+    const [rId, mId] = [resourceId, milestoneId].map(parse);
 
     return this.get(`${this.resourceType}/${rId}/milestones/${mId}`);
   }
 }
 
-module.exports = ResourceMilestones;
+export default ResourceMilestones;

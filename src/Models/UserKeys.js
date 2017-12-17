@@ -1,21 +1,21 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class UserKeys extends BaseModel {
-  all(userId) {
-    const uId = Utils.parse(userId);
-
-    return this.get(`users/${uId}/keys`);
-  }
-
   add(userId, title, key) {
-    const uId = Utils.parse(userId);
+    const uId = parse(userId);
 
     return this.post(`users/${uId}/keys`, {
       title,
       key,
     });
   }
+
+  all(userId) {
+    const uId = parse(userId);
+
+    return this.get(`users/${uId}/keys`);
+  }
 }
 
-module.exports = UserKeys;
+export default UserKeys;

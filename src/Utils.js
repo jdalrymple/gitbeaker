@@ -5,6 +5,6 @@ function parse(value) {
   return parseInt(value, 10);
 }
 
-module.exports = {
+export default {
   parse,
 };

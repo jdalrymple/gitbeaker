@@ -1,9 +1,9 @@
-const BaseModel = require('./BaseModel');
-const ProjectRepositoryBranches = require('./ProjectRepositoryBranches');
-const ProjectRepositoryTags = require('./ProjectRepositoryTags');
-const ProjectRepositoryCommits = require('./ProjectRepositoryCommits');
-const ProjectRepositoryFiles = require('./ProjectRepositoryFiles');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
+import ProjectRepositoryBranches from './ProjectRepositoryBranches';
+import ProjectRepositoryTags from './ProjectRepositoryTags';
+import ProjectRepositoryCommits from './ProjectRepositoryCommits';
+import ProjectRepositoryFiles from './ProjectRepositoryFiles';
 
 class ProjectRepository extends BaseModel {
   constructor(...args) {
@@ -16,40 +16,40 @@ class ProjectRepository extends BaseModel {
   }
 
   compare(projectId, from, to) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/compare`, { from, to });
   }
 
   contributors(projectId) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/contributors`);
   }
 
   showArchive(projectId, { sha }) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/archive`, { sha });
   }
 
   showBlob(projectId, sha) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/blobs/${sha}`);
   }
 
   showBlobRaw(projectId, sha) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/blobs/${sha}/raw`);
   }
 
   tree(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/repository/tree`, options);
   }
 }
 
-module.exports = ProjectRepository;
+export default ProjectRepository;

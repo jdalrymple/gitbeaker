@@ -1,15 +1,15 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class ProjectRunners extends BaseModel {
   all(projectId, options = {}) {
-    const pId = Utils.parse(projectId);
+    const pId = parse(projectId);
 
     return this.get(`projects/${pId}/runners`, options);
   }
 
   enable(projectId, runnerId) {
-    const [pId, rId] = [projectId, runnerId].map(Utils.parse);
+    const [pId, rId] = [projectId, runnerId].map(parse);
 
     return this.post(`projects/${pId}/runners`, {
       runner_id: rId,
@@ -17,10 +17,10 @@ class ProjectRunners extends BaseModel {
   }
 
   disable(projectId, runnerId) {
-    const [pId, rId] = [projectId, runnerId].map(Utils.parse);
+    const [pId, rId] = [projectId, runnerId].map(parse);
 
     return this.delete(`projects/${pId}/runners/${rId}`);
   }
 }
 
-module.exports = ProjectRunners;
+export default ProjectRunners;

@@ -1,5 +1,5 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class ResourceCustomAttributes extends BaseModel {
   constructor(resourceType, ...args) {
@@ -9,28 +9,28 @@ class ResourceCustomAttributes extends BaseModel {
   }
 
   all(resourceId) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.get(`${this.resourceType}/${rId}/custom_attributes`);
   }
 
   set(resourceId, customAttributeId, value) {
-    const [rId, cId] = [resourceId, customAttributeId].map(Utils.parse);
+    const [rId, cId] = [resourceId, customAttributeId].map(parse);
 
     return this.put(`${this.resourceType}/${rId}/custom_attributes/${cId}`, { value });
   }
 
   remove(resourceId, customAttributeId) {
-    const [rId, cId] = [resourceId, customAttributeId].map(Utils.parse);
+    const [rId, cId] = [resourceId, customAttributeId].map(parse);
 
     return this.delete(`${this.resourceType}/${rId}/members/${cId}`);
   }
 
   show(resourceId, customAttributeId) {
-    const [rId, cId] = [resourceId, customAttributeId].map(Utils.parse);
+    const [rId, cId] = [resourceId, customAttributeId].map(parse);
 
     return this.get(`${this.resourceType}/${rId}/members/${cId}`);
   }
 }
 
-module.exports = ResourceCustomAttributes;
+export default ResourceCustomAttributes;

@@ -1,11 +1,10 @@
-const BaseModel = require('./BaseModel');
-const GroupProjects = require('./GroupProjects');
-const ResourceAccessRequests = require('./ResourceAccessRequests');
-const ResourceCustomAttributes = require('./ResourceCustomAttributes');
-const ResourceMembers = require('./ResourceMembers');
-const ResourceMilestones = require('./ResourceMilestones');
-
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import GroupProjects from './GroupProjects';
+import ResourceAccessRequests from './ResourceAccessRequests';
+import ResourceCustomAttributes from './ResourceCustomAttributes';
+import ResourceMembers from './ResourceMembers';
+import ResourceMilestones from './ResourceMilestones';
+import { parse } from '../Utils';
 
 class Groups extends BaseModel {
   constructor(...args) {
@@ -23,13 +22,13 @@ class Groups extends BaseModel {
   }
 
   allSubgroups(groupId, options = {}) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.get(`groups/${gId}/subgroups`, options);
   }
 
   show(groupId) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.get(`groups/${gId}`);
   }
@@ -39,7 +38,7 @@ class Groups extends BaseModel {
   }
 
   remove(groupId) {
-    const gId = Utils.parse(groupId);
+    const gId = parse(groupId);
 
     return this.delete(`groups/${gId}`);
   }
@@ -51,4 +50,4 @@ class Groups extends BaseModel {
   }
 }
 
-module.exports = Groups;
+export default Groups;

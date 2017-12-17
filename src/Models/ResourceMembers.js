@@ -1,5 +1,5 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class ResourceMembers extends BaseModel {
   constructor(resourceType, ...args) {
@@ -9,13 +9,13 @@ class ResourceMembers extends BaseModel {
   }
 
   all(resourceId) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.get(`${this.resourceType}/${rId}/members`);
   }
 
   add(resourceId, userId, accessLevel) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.post(`${this.resourceType}/${rId}/members`, {
       user_id: uId,
@@ -24,7 +24,7 @@ class ResourceMembers extends BaseModel {
   }
 
   edit(resourceId, userId, accessLevel) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.put(`${this.resourceType}/${rId}/members/${uId}`, {
       access_level: parseInt(accessLevel, 10),
@@ -32,16 +32,16 @@ class ResourceMembers extends BaseModel {
   }
 
   show(resourceId, userId) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.get(`${this.resourceType}/${rId}/members/${uId}`);
   }
 
   remove(resourceId, userId) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.delete(`${this.resourceType}/${rId}/members/${uId}`);
   }
 }
 
-module.exports = ResourceMembers;
+export default ResourceMembers;

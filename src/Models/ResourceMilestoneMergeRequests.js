@@ -1,5 +1,5 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 class ResourceMilestoneMergeRequests extends BaseModel {
   constructor(resourceType, ...args) {
@@ -9,10 +9,10 @@ class ResourceMilestoneMergeRequests extends BaseModel {
   }
 
   all(resourceId, milestoneId) {
-    const [rId, mId] = [resourceId, milestoneId].map(Utils.parse);
+    const [rId, mId] = [resourceId, milestoneId].map(parse);
 
     return this.get(`${this.resourceType}/${rId}/milestones/${mId}/merge_requests`);
   }
 }
 
-module.exports = ResourceMilestoneMergeRequests;
+export default ResourceMilestoneMergeRequests;

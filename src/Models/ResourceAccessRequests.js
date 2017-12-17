@@ -1,5 +1,5 @@
-const BaseModel = require('./BaseModel');
-const Utils = require('../Utils');
+import BaseModel from './BaseModel';
+import { parse } from '../Utils';
 
 const ACCESS_LEVELS = {
   GUEST: 10,
@@ -10,7 +10,7 @@ const ACCESS_LEVELS = {
 };
 
 class ResourceAccessRequests extends BaseModel {
-  constructor(resourceType, ...args){
+  constructor(resourceType, ...args) {
     super(...args);
 
     this.resourceType = resourceType;
@@ -18,28 +18,28 @@ class ResourceAccessRequests extends BaseModel {
   }
 
   all(resourceId) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.get(`${this.resourceType}/${rId}/access_requests`);
   }
 
   request(resourceId) {
-    const rId = Utils.parse(resourceId);
+    const rId = parse(resourceId);
 
     return this.post(`${this.resourceType}/${rId}/access_requests`);
   }
 
   approve(resourceId, userId, { access_level = 30 }) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.post(`${this.resourceType}/${rId}/access_requests/${uId}/approve`, { access_level });
   }
 
   deny(resourceId, userId) {
-    const [rId, uId] = [resourceId, userId].map(Utils.parse);
+    const [rId, uId] = [resourceId, userId].map(parse);
 
     return this.delete(`${this.resourceType}/${rId}/access_requests/${uId}/approve`);
   }
 }
 
-module.exports = ResourceAccessRequests;
+export default ResourceAccessRequests;
