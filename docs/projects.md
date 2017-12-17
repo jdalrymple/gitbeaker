@@ -1,7 +1,7 @@
-# Projects API
+ # Projects API
 
 * [Projects](#projects)
-	* [List all projects](#list-all-projects)
+	* [Get all projects](#get-all-projects)
 	* [Get a single project](#get-a-single-project)
 	* [Create a project](#create-a-project)
 	* [Create a project for user](#create-a-project-for-user)
@@ -9,15 +9,18 @@
 	* [Fork a project](#fork-a-project)
 	* [Star a project](#star-a-project)
 	* [Unstar a project](#unstar-a-project)
+	* [Remove a project](#remove-a-project)
+	* [Search for a project](#search-for-a-project)
+	* [Post the build status to a commit](#post-the-build-startus-to-a-commit)
 	* [Share project with group](#share-project-with-group)
-	* [Delete a shared project link within a group](#delete-a-shared-project-link-within-a-group)
+	* [Unshare a project with a group](#unshare-a-project-with-a-group)
 * [Project Members](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-members.md)
 * [Project Triggers](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-triggers.md)
 * [Project Hooks](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-hooks.md)
 
 ## Projects
 
-### List all projects
+### Get all projects
 
 Get a list of visible projects for authenticated user. When accessed without authentication, only public projects are returned.
 
@@ -25,7 +28,7 @@ Get a list of visible projects for authenticated user. When accessed without aut
 let projects = GitlabAPI.projects.all();
 ```
 
-**Parameters**: [List all projects](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects)
+**Parameters**: [Get all projects](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects)
 
 **Extra Parameters**
 
@@ -128,6 +131,25 @@ GitlabAPI.projects.remove(projectId);
 ```
 **Parameters**: [Remove a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#remove-project)
 
+### Search for a project
+
+Search for projects by name which are accessible to the authenticated user. This endpoint can be accessed without authentication if the project is publicly accessible.
+
+```javascript
+GitlabAPI.projects.search(query);
+```
+**Parameters**: [Search for a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#search-for-projects-by-name)
+
+### Post the build status to a commit
+
+Search for projects by name which are accessible to the authenticated user. This endpoint can be accessed without authentication if the project is publicly accessible.
+
+```javascript
+GitlabAPI.projects.search(query);
+```
+**Parameters**: [Search for a project](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#search-for-projects-by-name)
+
+
 ### Share a project with a group
 
 Allow to share project with group.
@@ -139,7 +161,7 @@ GitlabAPI.projects.share(projectId, groupId, groupAccess, {
 ```
 **Parameters**: [Share a project with a group](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#share-project-with-group)
 
-### Delete a shared project link within a group
+### Unshare a project with a group
 
 Unshare the project from the group.
 

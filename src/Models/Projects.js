@@ -6,6 +6,7 @@ const ProjectHooks = require('./ProjectHooks');
 const ProjectIssues = require('./ProjectIssues');
 const ProjectLabels = require('./ProjectLabels');
 const ProjectRepository = require('./ProjectRepository');
+const ProjectProtectedBranches = require('./ProjectProtectedBranches');
 const ProjectDeployKeys = require('./ProjectDeployKeys');
 const ProjectMergeRequests = require('./ProjectMergeRequests');
 const ProjectServices = require('./ProjectServices');
@@ -27,6 +28,7 @@ class Projects extends BaseModel {
     this.issues = new ProjectIssues(...args);
     this.labels = new ProjectLabels(...args);
     this.repository = new ProjectRepository(...args);
+    this.protectedBranches = new ProjectProtectedBranches(...args);
     this.deployKeys = new ProjectDeployKeys(...args);
     this.mergeRequests = new ProjectMergeRequests(...args);
     this.services = new ProjectServices(...args);
@@ -42,10 +44,6 @@ class Projects extends BaseModel {
 
   all(options = {}) {
     return this.get('projects', options);
-  }
-
-  allAdmin(options = {}) {
-    return this.get('projects/all', options);
   }
 
   create(options = {}) {
@@ -107,6 +105,12 @@ class Projects extends BaseModel {
     const pId = Utils.parse(projectId);
 
     return this.post(`projects/${pId}/statuses/${sha}`, Object.assign({ state }, options));
+  }
+
+  unshare(projectId, groupId) {
+    const [pId, gId] = [projectId, groupId].map(Utils.parse);
+
+    return this.delete(`projects/${pId}/share${gId}`);
   }
 
   unstar(projectId) {

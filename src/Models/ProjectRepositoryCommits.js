@@ -3,7 +3,7 @@ const Utils = require('../Utils');
 const ProjectRepositoryCommitComments = require('./ProjectRepositoryCommitComments');
 
 class ProjectRepositoryCommits extends BaseModel {
-  constructor(...args){
+  constructor(...args) {
     super(...args);
 
     this.comments = new ProjectRepositoryCommitComments(...args);

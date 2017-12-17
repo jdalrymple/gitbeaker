@@ -1,20 +1,20 @@
 ## Project Triggers
 
-* [List all triggers](#list-all-triggers)
+* [Get all triggers](#get-all-triggers)
 * [Get a trigger](#get-a-trigger)
 * [Add a trigger](#add-a-trigger)
 * [Edit a trigger](#edit-a-trigger)
 * [Remove a trigger](#edit-a-trigger)
 
-### List all project triggers
+### Get all project triggers
 
 Allow to share project with group.
 
 ```javascript
 // From a project ID
-let triggers = GitlabAPI.projects.triggers.list(projectId);
+let triggers = GitlabAPI.projects.triggers.all(projectId);
 ```
-**Parameters**: [List all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
+**Parameters**: [Get all project triggers](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/pipeline_triggers.md#list-project-triggers)
 
 **Extra Parameters**
 

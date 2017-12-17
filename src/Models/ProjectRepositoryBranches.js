@@ -8,34 +8,34 @@ class ProjectRepositoryBranches extends BaseModel {
     return this.get(`projects/${pId}/repository/branches`);
   }
 
-  create(projectId, branch, ref) {
+  create(projectId, branchName, ref) {
     const pId = Utils.parse(projectId);
 
-    return this.post(`projects/${pId}/repository/branches`, { branch, ref });
+    return this.post(`projects/${pId}/repository/branches`, { branch: branchName, ref });
   }
 
-  protect(projectId, branchId, options = {}) {
-    const [pId, bId] = [projectId, branchId].map(Utils.parse);
+  protect(projectId, branchName, options = {}) {
+    const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${bId}/protect`, options);
+    return this.put(`projects/${pId}/repository/branches/${branchName}/protect`, options);
   }
 
-  remove(projectId, branchId) {
-    const [pId, bId] = [projectId, branchId].map(Utils.parse);
+  remove(projectId, branchName) {
+    const pId = Utils.parse(projectId);
 
-    return this.delete(`projects/${pId}/repository/branches/${bId}`);
+    return this.delete(`projects/${pId}/repository/branches/${branchName}`);
   }
 
-  show(projectId, branchId) {
-    const [pId, bId] = [projectId, branchId].map(Utils.parse);
+  show(projectId, branchName) {
+    const pId = Utils.parse(projectId);
 
-    return this.get(`projects/${pId}/repository/branches/${bId}`);
+    return this.get(`projects/${pId}/repository/branches/${branchName}`);
   }
 
-  unprotect(projectId, branchId) {
-    const [pId, bId] = [projectId, branchId].map(Utils.parse);
+  unprotect(projectId, branchName) {
+    const pId = Utils.parse(projectId);
 
-    return this.put(`projects/${pId}/repository/branches/${bId}/unprotect`);
+    return this.put(`projects/${pId}/repository/branches/${branchName}/unprotect`);
   }
 }
 

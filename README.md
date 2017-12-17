@@ -17,6 +17,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
+* [Tests](#tests)
 * [License](#licence)
 * [Changelog](#changelog)
 
@@ -100,10 +101,14 @@ let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
 
 ## Docs
 
-Although there are the official docs for the API, below are some additional docs for this node package!
+Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! :sun-glasses:
 
 * [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 * [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+
+## Tests
+
+Nothing yet, but its on the TODO list :P
 
 ## Contributors
 
@@ -123,6 +128,23 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[2.1.0](https://github.com/jdalrymple/node-gitlab-api/) (2017-12-15)
+------------------
+- Updating project docs for consistency
+- Adding project unsharing to API. It was in the docs, but missing from the API
+- Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.add`
+- Added Owned Runners and Runner Jobs API 
+
+### Breaking Changes between 1.3.3 and 2.1.0
+- The `list` functions are no longer supported and have all been renamed to `all`
+- The `update` functions are no longer supported and have all been renamed to  `edit`
+- The `addKey` function has been renamed to `add` in UserKeys class
+- The deploy_keys and merge_requests properties have been renamed to deployKeys and mergeRequests
+- Removed old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
+- Removed the old group project functions from the Group class. These are now located in the GroupProject class. The functions that have been removed are listProjects, addProjects. These functions can be access by group.projects.all, and group.projects.add respectively.
+- Updated the structure of the ProjectRepository class such that its commits, branches, tags and files are properties and can be accessed like `repository.commits.all()` etc.
+
 
 [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
 ------------------
