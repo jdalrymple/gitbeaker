@@ -9,10 +9,10 @@ class ProjectRepositoryCommits extends BaseModel {
     this.comments = new ProjectRepositoryCommitComments(...args);
   }
 
-  all(projectId) {
+  all(projectId, options = {}) {
     const pId = parse(projectId);
 
-    return this.get(`projects/${pId}/repository/commits`);
+    return this.get(`projects/${pId}/repository/commits`, options);
   }
 
   diff(projectId, sha) {
