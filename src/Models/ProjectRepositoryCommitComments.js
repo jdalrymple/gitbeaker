@@ -2,10 +2,10 @@ import BaseModel from './BaseModel';
 import { parse } from '../Utils';
 
 class ProjectRepositoryCommitComments extends BaseModel {
-  all(projectId, sha) {
+  all(projectId, sha, options = {}) {
     const pId = parse(projectId);
 
-    return this.get(`projects/${pId}/repository/commits/${sha}/comments`);
+    return this.get(`projects/${pId}/repository/commits/${sha}/comments`, options);
   }
 
   create(projectId, sha, note, options = {}) {
