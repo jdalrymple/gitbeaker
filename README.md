@@ -312,3 +312,33 @@ inferred from the file path
 - Initial release
 - TODO: Tests, Examples
 
+## Development
+
+To get this running locally rather than from your `node_modules` folder:
+
+```bash
+$ git clone https://github.com/jdalrymple/node-gitlab-api.git
+$ cd node-gitlab-api
+$ npm install
+$ npm build
+```
+
+And then inside whatever project you are using `node-gitlab-api` in you change your references to use that repo.  In your package.json of that upstream project change:
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab-api": "2.1.0"
+    ...
+  }
+```
+
+to this
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab-api": "<path-to-your-clone>"
+    ...
+  }
+```
