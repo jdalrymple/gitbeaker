@@ -155,6 +155,9 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Added support for the Project Enviroments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab-api/pull/28)
 - Fixing parse function to handle encoded urls that dont include '/' such as in groups #24
 
+### Breaking Changes between 2.1.0 and 2.2.0
+- Fixed a problem with the get responses where the response contained the full request response and not just the body
+
 [2.1.0](https://github.com/jdalrymple/node-gitlab-api/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
 ------------------
 - Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
