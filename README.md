@@ -153,6 +153,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab-api/pull/23)
 - Exposed the Merge Requests resource which was missing from the exports list thanks to [fewieden](https://github.com/fewieden) in [PR #26](https://github.com/jdalrymple/node-gitlab-api/pull/26)
 - Added support for the Project Enviroments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab-api/pull/28)
+- Fixing parse function to handle encoded urls that dont include '/' such as in groups #24
 
 [2.1.0](https://github.com/jdalrymple/node-gitlab-api/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
 ------------------
