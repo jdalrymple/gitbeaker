@@ -5,31 +5,31 @@ class ProjectRepositoryFiles extends BaseModel {
   create(projectId, filePath, branch, options = {}) {
     const pId = parse(projectId);
 
-    return this.post(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
+    return this.post(`projects/${pId}/repository/files/${parse(filePath)}`, Object.assign({ branch }, options));
   }
 
   edit(projectId, filePath, branch, options = {}) {
     const pId = parse(projectId);
 
-    return this.put(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
+    return this.put(`projects/${pId}/repository/files/${parse(filePath)}`, Object.assign({ branch }, options));
   }
 
   remove(projectId, filePath, branch, options = {}) {
     const pId = parse(projectId);
 
-    return this.delete(`projects/${pId}/repository/files/${filePath}`, Object.assign({ branch }, options));
+    return this.delete(`projects/${pId}/repository/files/${parse(filePath)}`, Object.assign({ branch }, options));
   }
 
   show(projectId, filePath, ref) {
     const pId = parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}`, { ref });
+    return this.get(`projects/${pId}/repository/files/${parse(filePath)}`, { ref });
   }
 
   showRaw(projectId, filePath, ref) {
     const pId = parse(projectId);
 
-    return this.get(`projects/${pId}/repository/files/${filePath}/raw`, { ref });
+    return this.get(`projects/${pId}/repository/files/${parse(filePath)}/raw`, { ref });
   }
 }
 
