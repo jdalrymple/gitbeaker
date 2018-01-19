@@ -1,7 +1,7 @@
 import BaseModel from './BaseModel';
 
 class MergeRequests extends BaseModel {
-  all(projectId, options = {}) {
+  all(options = {}) {
     return this.get('merge_requests', options);
   }
 }
