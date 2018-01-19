@@ -17,6 +17,7 @@
 * [Project Members](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-members.md)
 * [Project Triggers](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-triggers.md)
 * [Project Hooks](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-hooks.md)
+* [Project Repository Files](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/project-repository-files.md)
 
 ## Projects
 

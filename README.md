@@ -145,7 +145,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.2.0](https://github.com/jdalrymple/node-gitlab-api/) (2018-1-18)
+[2.2.0](https://github.com/jdalrymple/node-gitlab-api/96e414a75ad97e88ecaaff15a6c1409a9e27b963) (2018-1-18)
 ------------------
 - Fixed the missing options parameter for the ProjectRepositoryCommitComment's model thanks to [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab-api/pull/21)
 - Removal of the left over debug console.logs's within project issues again by [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab-api/pull/22)
