@@ -1,8 +1,7 @@
 function parse(value) {
-  if (typeof value === 'number') return value;
-  else if (value.toString().includes('/')) return encodeURIComponent(value);
+  if (Number.isInteger(value)) return value;
 
-  return parseInt(value, 10);
+  return encodeURIComponent(value);
 }
 
 export {
