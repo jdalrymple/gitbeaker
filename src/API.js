@@ -1,7 +1,13 @@
 import Request from 'request-promise';
-import { Groups, Projects, Issues, Runners, Users, Labels, MergeRequests } from './Models';
+import { Groups, Projects, Issues, Runners, Users, MergeRequests } from './Models';
 
-function defaultRequest(url, endpoint, { headers, body, qs, formData, resolveWithFullResponse = false }) {
+function defaultRequest(url, endpoint, {
+  headers,
+  body,
+  qs,
+  formData,
+  resolveWithFullResponse = false,
+}) {
   const params = {
     url: `${url}${endpoint}`,
     headers,
@@ -38,7 +44,7 @@ class API {
     this.mergeRequests = new MergeRequests(this);
   }
 
-  get(endpoint, options, fullResponse) {
+  get(endpoint, options, fullResponse = false) {
     return Request.get(defaultRequest(this.url, endpoint, {
       headers: this.headers,
       qs: options,
