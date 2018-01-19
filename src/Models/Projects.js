@@ -13,6 +13,8 @@ import ProjectServices from './ProjectServices';
 import ProjectTriggers from './ProjectTriggers';
 import ProjectRunners from './ProjectRunners';
 import ProjectPipelines from './ProjectPipelines';
+import ProjectJobs from './ProjectJobs';
+import ProjectEnvironments from './ProjectEnvironments';
 import ResourceCustomAttributes from './ResourceCustomAttributes';
 import ResourceMembers from './ResourceMembers';
 import ResourceAccessRequests from './ResourceAccessRequests';
@@ -34,6 +36,8 @@ class Projects extends BaseModel {
     this.services = new ProjectServices(...args);
     this.triggers = new ProjectTriggers(...args);
     this.pipelines = new ProjectPipelines(...args);
+    this.jobs = new ProjectJobs(...args);
+    this.environments = new ProjectEnvironments(...args);
     this.runners = new ProjectRunners(...args);
     this.customAttributes = new ResourceCustomAttributes('projects', ...args);
     this.members = new ResourceMembers('projects', ...args);
