@@ -21,7 +21,6 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
 * [Tests](#tests)
-* [Development](#development)
 * [License](#licence)
 * [Changelog](#changelog)
 
@@ -123,36 +122,6 @@ Although there are the official docs for the API, below are some additional docs
 
 Nothing yet, but its on the TODO list :P
 
-## Development
-
-To get this running locally rather than from your `node_modules` folder:
-
-```bash
-$ git clone https://github.com/jdalrymple/node-gitlab-api.git
-$ cd node-gitlab-api
-$ npm install
-$ npm build
-```
-
-And then inside whatever project you are using `node-gitlab-api` in you change your references to use that repo.  In your package.json of that upstream project change:
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab-api": "2.1.0"
-    ...
-  }
-```
-
-to this
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab-api": "<path-to-your-clone>"
-    ...
-  }
-```
 ## Contributors
 
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
@@ -175,6 +144,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[2.2.1](https://github.com/jdalrymple/node-gitlab-api/e864064c98feda59d594d77b67f7d0657db78700) (2018-1-23)
+------------------
+Added support for the Version API through version.show()
 
 [2.2.0](https://github.com/jdalrymple/node-gitlab-api/96e414a75ad97e88ecaaff15a6c1409a9e27b963) (2018-1-18)
 ------------------
@@ -359,3 +332,34 @@ inferred from the file path
 ------------------
 - Initial release
 - TODO: Tests, Examples
+
+## Development
+
+To get this running locally rather than from your `node_modules` folder:
+
+```bash
+$ git clone https://github.com/jdalrymple/node-gitlab-api.git
+$ cd node-gitlab-api
+$ npm install
+$ npm build
+```
+
+And then inside whatever project you are using `node-gitlab-api` in you change your references to use that repo.  In your package.json of that upstream project change:
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab-api": "2.1.0"
+    ...
+  }
+```
+
+to this
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab-api": "<path-to-your-clone>"
+    ...
+  }
+```
