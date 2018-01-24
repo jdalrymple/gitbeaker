@@ -145,6 +145,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[2.2.2](https://github.com/jdalrymple/node-gitlab-api/) (2018-1-24)
+------------------
+Fixing bug with the version support
+
 [2.2.1](https://github.com/jdalrymple/node-gitlab-api/e864064c98feda59d594d77b67f7d0657db78700) (2018-1-23)
 ------------------
 Added support for the Version API through version.show()

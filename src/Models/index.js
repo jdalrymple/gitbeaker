@@ -4,6 +4,7 @@ import Issues from './Issues';
 import Users from './Users';
 import Runners from './Runners';
 import MergeRequests from './MergeRequests';
+import Version from './Version';
 
 export {
   Groups,
@@ -12,4 +13,5 @@ export {
   Issues,
   Users,
   MergeRequests,
+  Version,
 };

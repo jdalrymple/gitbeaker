@@ -1,5 +1,5 @@
 import Request from 'request-promise';
-import { Groups, Projects, Issues, Runners, Users, MergeRequests } from './Models';
+import { Groups, Projects, Issues, Runners, Users, MergeRequests, Version } from './Models';
 
 function defaultRequest(url, endpoint, {
   headers,
@@ -42,6 +42,7 @@ class API {
     this.users = new Users(this);
     this.runners = new Runners(this);
     this.mergeRequests = new MergeRequests(this);
+    this.version = new Version(this);
   }
 
   get(endpoint, options, fullResponse = false) {
