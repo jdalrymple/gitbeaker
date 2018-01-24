@@ -145,7 +145,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.2.2](https://github.com/jdalrymple/node-gitlab-api/) (2018-1-24)
+[2.2.2](https://github.com/jdalrymple/node-gitlab-api/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 ------------------
 Fixing bug with the version support
 
