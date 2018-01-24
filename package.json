@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build:es6": "babel src --out-dir dist/latest",
-    "build:es5": "babel src --out-dir dist/es5  --no-babelrc --presets=es2015",
+    "build:es5": "babel src --out-dir dist/es5  --no-babelrc --presets=es2015,es2016,es2017",
     "build": "npm run build:es6 && npm run build:es5",
     "prepublishOnly": "npm run build"
   },
