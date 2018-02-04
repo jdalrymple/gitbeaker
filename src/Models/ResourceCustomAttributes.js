@@ -23,13 +23,13 @@ class ResourceCustomAttributes extends BaseModel {
   remove(resourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(parse);
 
-    return this.delete(`${this.resourceType}/${rId}/members/${cId}`);
+    return this.delete(`${this.resourceType}/${rId}/custom_attributes/${cId}`);
   }
 
   show(resourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(parse);
 
-    return this.get(`${this.resourceType}/${rId}/members/${cId}`);
+    return this.get(`${this.resourceType}/${rId}/custom_attributes/${cId}`);
   }
 }
 

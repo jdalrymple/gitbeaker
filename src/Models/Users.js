@@ -8,7 +8,7 @@ class Users extends BaseModel {
     super(...args);
 
     this.customAttributes = new ResourceCustomAttributes('users', ...args);
-    this.keys = UserKeys;
+    this.keys = new UserKeys(...args);
   }
 
   all(options = {}) {
