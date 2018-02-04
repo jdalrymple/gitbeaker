@@ -145,7 +145,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.2.3](https://github.com/jdalrymple/node-gitlab-api/) (2018-2-3)
+[2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
 Fixing bug within the customAttributes logic
 
