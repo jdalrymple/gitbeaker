@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["env", {
+      "useBuiltIns": false,
+    }],
+  ],
+  "plugins": [
+    "transform-runtime"
+  ]
+}
