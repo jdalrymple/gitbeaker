@@ -2,10 +2,10 @@ import BaseModel from './BaseModel';
 import { parse } from '../Utils';
 
 class ProjectRepositoryTags extends BaseModel {
-  all(projectId) {
+  all(projectId, options = {}) {
     const pId = parse(projectId);
 
-    return this.get(`projects/${pId}/repository/tags`);
+    return this.get(`projects/${pId}/repository/tags`, options);
   }
 
   create(projectId, options = {}) {
