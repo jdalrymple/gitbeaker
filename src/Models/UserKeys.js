@@ -11,6 +11,13 @@ class UserKeys extends BaseModel {
     });
   }
 
+  delete(userId, keyId) {
+    const uId = parse(userId);
+    const kId = parse(keyId);
+
+    return super.delete(`users/${uId}/keys/${kId}`);
+  }
+
   all(userId) {
     const uId = parse(userId);
 
