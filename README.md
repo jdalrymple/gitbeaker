@@ -146,7 +146,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.2.4](https://github.com/jdalrymple/node-gitlab-api/) (2018-2-3)
+[2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------
 - Fixed the missing options for tags.all #40
 - Added delete key method to UserKeys.js #41 thanks to [Claude Abounegm](https://github.com/claude-abounegm)
