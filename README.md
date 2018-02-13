@@ -138,6 +138,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Adam Dehnel](https://github.com/arsdehnel)
 - [fewieden](https://github.com/fewieden)
 - [Jeff Pelton](https://github.com/comster)
+- [Claude Abounegm](https://github.com/claude-abounegm)
 
 ## License
 
@@ -145,17 +146,22 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[2.2.4](https://github.com/jdalrymple/node-gitlab-api/) (2018-2-3)
+------------------
+- Fixed the missing options for tags.all #40
+- Added delete key method to UserKeys.js #41 thanks to [Claude Abounegm](https://github.com/claude-abounegm)
+
 [2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
-Fixing bug within the customAttributes logic
+- Fixing bug within the customAttributes logic
 
 [2.2.2](https://github.com/jdalrymple/node-gitlab-api/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 ------------------
-Fixing bug with the version support
+- Fixing bug with the version support
 
 [2.2.1](https://github.com/jdalrymple/node-gitlab-api/e864064c98feda59d594d77b67f7d0657db78700) (2018-1-23)
 ------------------
-Added support for the Version API through version.show()
+- Added support for the Version API through version.show()
 
 [2.2.0](https://github.com/jdalrymple/node-gitlab-api/96e414a75ad97e88ecaaff15a6c1409a9e27b963) (2018-1-18)
 ------------------
