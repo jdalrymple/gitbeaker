@@ -35,12 +35,10 @@ let member = GitlabAPI.projects.members.show(projectId, memberId);
 
 ### Add a member
 
-Gets a member of a project.
+Adds a member to a project.
 
 ```javascript
-let member = GitlabAPI.projects.members.add(projectId, {
-	// params
-});
+let member = GitlabAPI.projects.members.add(projectId, userId, accessLevel);
 ```
 **Parameters**: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
 
@@ -50,11 +48,9 @@ let member = GitlabAPI.projects.members.add(projectId, {
 Edits a member of a project.
 
 ```javascript
-let member = GitlabAPI.projects.members.edit(projectId, {
-	// params
-});
+let member = GitlabAPI.projects.members.edit(projectId, userId, accessLevel);
 ```
-**Parameters**: [Add a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
+**Parameters**: [Edit a member](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md#add-a-member-to-a-group-or-project)
 
 
 ### Remove a member
