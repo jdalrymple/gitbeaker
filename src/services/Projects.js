@@ -18,7 +18,7 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, 'projects', options);
   }
 
-  edit(projectId, options = {}) {
+  edit(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}`, options);
@@ -32,7 +32,7 @@ export class Projects extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
-  fork(projectId, options = {}) {
+  fork(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/fork`, options);
@@ -111,6 +111,37 @@ export class Projects extends BaseService {
       },
       true,
     );
+  }
+
+  // Variables
+  createVariable(projectId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/variables`, options);
+  }
+
+  editVariable(projectId, keyId, options) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.put(this, `projects/${pId}/variables/${kId}`, options);
+  }
+
+  variables(projectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/variables`);
+  }
+
+  showVariable(projectId, keyId) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/variables/${kId}`);
+  }
+
+  removeVariable(projectId, keyId) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.delete(this, `projects/${pId}/variables/${kId}`);
   }
 }
 

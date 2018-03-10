@@ -32,6 +32,37 @@ export class Groups extends BaseService {
       search: nameOrPath,
     });
   }
+
+  // Variables
+  createVariable(groupId, options) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.post(this, `groups/${gId}/variables`, options);
+  }
+
+  editVariable(groupId, keyId, options) {
+    const [gId, kId] = [groupId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.put(this, `groups/${gId}/variables/${kId}`, options);
+  }
+
+  variables(groupId) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.get(this, `groups/${gId}/variables`);
+  }
+
+  showVariable(groupId, keyId) {
+    const [gId, kId] = [groupId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `groups/${gId}/variables/${kId}`);
+  }
+
+  removeVariable(groupId, keyId) {
+    const [gId, kId] = [groupId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.delete(this, `groups/${gId}/variables/${kId}`);
+  }
 }
 
 export default Groups;
