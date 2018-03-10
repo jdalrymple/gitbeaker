@@ -72,7 +72,7 @@ export class Users extends BaseService {
     });
   }
 
-  allEmails(userId) {
+  emails(userId) {
     const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
 
     return RequestHelper.get(this, url);
@@ -92,7 +92,7 @@ export class Users extends BaseService {
   }
 
   // Impersonation Tokens
-  allImpersonationTokens(userId) {
+  impersonationTokens(userId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/impersonation_tokens`);
@@ -121,7 +121,7 @@ export class Users extends BaseService {
   }
 
   // GPG Keys
-  allGPGKeys(userId) {
+  gpgKeys(userId) {
     const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
     return RequestHelper.get(this, url);
@@ -151,7 +151,7 @@ export class Users extends BaseService {
   }
 
   // SSH Keys
-  allKeys(userId) {
+  keys(userId) {
     const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
 
     return RequestHelper.get(this, url);
