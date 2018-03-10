@@ -5,18 +5,6 @@ export class Groups extends BaseService {
     return RequestHelper.get(this, 'groups', options);
   }
 
-  allSubgroups(groupId, options = {}) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get(this, `groups/${gId}/subgroups`, options);
-  }
-
-  show(groupId) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get(this, `groups/${gId}`);
-  }
-
   create(options = {}) {
     return RequestHelper.post(this, 'groups', options);
   }
@@ -31,6 +19,18 @@ export class Groups extends BaseService {
     return RequestHelper.get(this, 'groups', {
       search: nameOrPath,
     });
+  }
+
+  show(groupId) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.get(this, `groups/${gId}`);
+  }
+
+  subgroups(groupId, options = {}) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.get(this, `groups/${gId}/subgroups`, options);
   }
 
   // Variables
