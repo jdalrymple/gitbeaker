@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { validateEventOptions } from './Events';
 
 export class Users extends BaseService {
   all(options = {}) {
@@ -21,6 +22,14 @@ export class Users extends BaseService {
 
   current() {
     return RequestHelper.get(this, 'user');
+  }
+
+  events(userId, options) {
+    validateEventOptions(options.action, options.targetType);
+
+    const uId = encodeURIComponent(userId);
+
+    return RequestHelper.get(this, `users/${uId}/events`, options);
   }
 
   session(email, password) {

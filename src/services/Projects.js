@@ -1,6 +1,7 @@
 import Fs from 'fs';
 import Path from 'path';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { validateEventOptions } from './Events';
 
 export class Projects extends BaseService {
   all(options = {}) {
@@ -21,6 +22,14 @@ export class Projects extends BaseService {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}`, options);
+  }
+
+  events(projectId, options) {
+    validateEventOptions(options.action, options.targetType);
+
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
   fork(projectId, options = {}) {
