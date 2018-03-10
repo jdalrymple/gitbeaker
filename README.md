@@ -146,14 +146,15 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
+[2.2.4](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
+- Fixed #33 - Bug within the es5 transpilling configuration
 - Fixed the missing options for tags.all #40
 - Added delete key method to UserKeys.js #41 thanks to [Claude Abounegm](https://github.com/claude-abounegm)
 
 [2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
-- Fixing bug within the customAttributes logic
+- Fixed #37 - Bug within the customAttributes logic 
 
 [2.2.2](https://github.com/jdalrymple/node-gitlab-api/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 ------------------
