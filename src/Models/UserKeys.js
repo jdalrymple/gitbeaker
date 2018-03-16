@@ -11,6 +11,13 @@ class UserKeys extends BaseModel {
     });
   }
 
+  addForCurrentUser(title, key) {
+    return this.post('user/keys', {
+      title,
+      key,
+    });
+  }
+
   remove(userId, keyId) {
     const uId = parse(userId);
     const kId = parse(keyId);
@@ -18,10 +25,20 @@ class UserKeys extends BaseModel {
     return this.delete(`users/${uId}/keys/${kId}`);
   }
 
+  removeForCurrentUser(keyId) {
+    const kId = parse(keyId);
+
+    return this.delete(`user/keys/${kId}`);
+  }
+
   all(userId) {
     const uId = parse(userId);
 
     return this.get(`users/${uId}/keys`);
+  }
+
+  allForCurrentUser() {
+    return this.get('user/keys');
   }
 }
 
