@@ -72,6 +72,12 @@ class Projects extends BaseModel {
     return this.post(`projects/${pId}/fork`, options);
   }
 
+  forks(projectId, options = {}) {
+    const pId = parse(projectId);
+
+    return this.get(`projects/${pId}/forks`, options);
+  }
+
   remove(projectId) {
     const pId = parse(projectId);
 
