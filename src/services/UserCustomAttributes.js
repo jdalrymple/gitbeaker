@@ -1,8 +1,8 @@
 import { ResourceCustomAttributes } from '../templates';
 
-class UserCustomAttributes {
+class UserCustomAttributes extends ResourceCustomAttributes {
   constructor(options) {
-    return new ResourceCustomAttributes('users', options);
+    super('users', options);
   }
 }
 

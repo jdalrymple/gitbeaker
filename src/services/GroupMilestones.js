@@ -1,8 +1,8 @@
 import { ResourceMilestones } from '../templates';
 
-class GroupMilestones {
+class GroupMilestones extends ResourceMilestones {
   constructor(options) {
-    return new ResourceMilestones('groups', options);
+    super('groups', options);
   }
 }
 

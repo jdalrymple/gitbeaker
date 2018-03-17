@@ -1,8 +1,8 @@
 import { ResourceAccessRequests } from '../templates';
 
-class ProjectAccessRequests {
+class ProjectAccessRequests extends ResourceAccessRequests {
   constructor(options) {
-    return new ResourceAccessRequests('projects', options);
+    super('projects', options);
   }
 }
 

@@ -1,8 +1,8 @@
 import { ResourceAccessRequests } from '../templates';
 
-class GroupAccessRequests {
+class GroupAccessRequests extends ResourceAccessRequests {
   constructor(options) {
-    return new ResourceAccessRequests('groups', options);
+    super('groups', options);
   }
 }
 

@@ -7,9 +7,10 @@
     "node": ">=8.9.0"
   },
   "scripts": {
+    "build:clean": "rimraf -rf dist && mkdirp -p dist",
     "build:es6": "babel src -d dist/latest",
     "build:es5": "babel src -d dist/es5  --no-babelrc --presets=@babel/env --plugins=@babel/plugin-proposal-export-default-from,@babel/plugin-proposal-export-namespace-from",
-    "build": "npm run build:es6 && npm run build:es5",
+    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "dependencies": {
+    "humps": "^2.0.1",
     "parse-link-header": "^1.0.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",

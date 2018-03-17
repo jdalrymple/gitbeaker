@@ -1,8 +1,8 @@
-import * as Services from './services';
+import * as APIServices from './services';
 import { init } from './infrastructure/Namespace';
 
 // All not initialized
-// export * from './services';
+export * from './services';
 
 // Groups
 const {
@@ -13,93 +13,93 @@ const {
   GroupMilestones,
   GroupProjects,
   GroupVariables,
-} = Services;
+} = APIServices;
 
-// export const GroupNamespace = options => init(options, {
-//   Groups,
-//   GroupAccessRequests,
-//   GroupCustomAttributes,
-//   GroupMembers,
-//   GroupMilestones,
-//   GroupProjects,
-//   GroupVariables,
-// });
+export const GroupNamespace = options => init(options, {
+  Groups,
+  GroupAccessRequests,
+  GroupCustomAttributes,
+  GroupMembers,
+  GroupMilestones,
+  GroupProjects,
+  GroupVariables,
+});
 
-// // Users
-// const {
-//   Users,
-//   UserEmails,
-//   UserImpersonationTokens,
-//   UserKeys,
-//   UserGPGKeys,
-// } = Services;
+// Users
+const {
+  Users,
+  UserEmails,
+  UserImpersonationTokens,
+  UserKeys,
+  UserGPGKeys,
+} = APIServices;
 
-// export const UserNamespace = options => init(options, {
-//   Users,
-//   UserEmails,
-//   UserImpersonationTokens,
-//   UserKeys,
-//   UserGPGKeys,
-// });
+export const UserNamespace = options => init(options, {
+  Users,
+  UserEmails,
+  UserImpersonationTokens,
+  UserKeys,
+  UserGPGKeys,
+});
 
-// // // Projects
-// const {
-//   Branches,
-//   Commits,
-//   DeployKeys,
-//   Environments,
-//   Issues,
-//   Jobs,
-//   Labels,
-//   MergeRequests,
-//   MergeRequestNotes,
-//   MergeRequestVersions,
-//   Pipelines,
-//   Projects,
-//   ProjectAccessRequests,
-//   ProjectCustomAttributes,
-//   ProjectHooks,
-//   ProjectMembers,
-//   ProjectMilestones,
-//   ProjectSnippets,
-//   ProtectedBranches,
-//   ProjectVariables,
-//   Repositories,
-//   RepositoryFiles,
-//   Runners,
-//   Services,
-//   Tags,
-//   Triggers,
-// } = Services;
+// Projects
+const {
+  Branches,
+  Commits,
+  DeployKeys,
+  Environments,
+  Issues,
+  Jobs,
+  Labels,
+  MergeRequests,
+  MergeRequestNotes,
+  MergeRequestVersions,
+  Pipelines,
+  Projects,
+  ProjectAccessRequests,
+  ProjectCustomAttributes,
+  ProjectHooks,
+  ProjectMembers,
+  ProjectMilestones,
+  ProjectSnippets,
+  ProtectedBranches,
+  ProjectVariables,
+  Repositories,
+  RepositoryFiles,
+  Runners,
+  Services,
+  Tags,
+  Triggers,
+} = APIServices;
 
-// export const ProjectNamespace = options => init(options, {
-//   Branches,
-//   Commits,
-//   DeployKeys,
-//   Environments,
-//   Issues,
-//   Jobs,
-//   Labels,
-//   MergeRequests,
-//   MergeRequestNotes,
-//   MergeRequestVersions,
-//   Pipelines,
-//   Projects,
-//   ProjectAccessRequests,
-//   ProjectCustomAttributes,
-//   ProjectHooks,
-//   ProjectMembers,
-//   ProjectMilestones,
-//   ProjectSnippets,
-//   ProtectedBranches,
-//   ProjectVariables,
-//   Repositories,
-//   RepositoryFiles,
-//   Runners,
-//   Services,
-//   Tags,
-//   Triggers,
-// });
+export const ProjectNamespace = options => init(options, {
+  Branches,
+  Commits,
+  DeployKeys,
+  Environments,
+  Issues,
+  Jobs,
+  Labels,
+  MergeRequests,
+  MergeRequestNotes,
+  MergeRequestVersions,
+  Pipelines,
+  Projects,
+  ProjectAccessRequests,
+  ProjectCustomAttributes,
+  ProjectHooks,
+  ProjectMembers,
+  ProjectMilestones,
+  ProjectSnippets,
+  ProtectedBranches,
+  ProjectVariables,
+  Repositories,
+  RepositoryFiles,
+  Runners,
+  Services,
+  Tags,
+  Triggers,
+});
 
-// // All initialized
-// export default options => init(options, Services);
+// All initialized
+export default options => init(options, Services);

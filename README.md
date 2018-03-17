@@ -38,7 +38,9 @@ URL to your GitLab instance should not include `/api/v4` path.
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 ```javascript
-const GitlabAPI = require('node-gitlab-api')({
+import GitlabAPI from 'node-gitlab-api';
+
+const API = GitlabAPI({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'	//Can be created in your profile. 
 })
@@ -47,7 +49,9 @@ const GitlabAPI = require('node-gitlab-api')({
 Or, use a OAuth token instead!
 
 ```javascript
-const GitlabAPI = require('node-gitlab-api')({
+import GitlabAPI from 'node-gitlab-api';
+
+const API = GitlabAPI({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
@@ -56,7 +60,7 @@ const GitlabAPI = require('node-gitlab-api')({
 The same parameters as above, but the require url inclues a `/dist/es5`:
 
 ```javascript
-const GitlabAPI = require('node-gitlab-api/dist/es5')({
+const GitlabAPI = require('node-gitlab-api/dist/es5').default({
   ...
 })
 ```

@@ -1,8 +1,8 @@
 import { ResourceCustomAttributes } from '../templates';
 
-class ProjectCustomAttributes {
+class ProjectCustomAttributes extends ResourceCustomAttributes {
   constructor(options) {
-    return new ResourceCustomAttributes('projects', options);
+    super('projects', options);
   }
 }
 

@@ -1,8 +1,8 @@
 import { ResourceVariables } from '../templates';
 
-class ProjectVariables {
+class ProjectVariables extends ResourceVariables {
   constructor(options) {
-    return new ResourceVariables('projects', options);
+    super('projects', options);
   }
 }
 

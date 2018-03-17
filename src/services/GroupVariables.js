@@ -1,8 +1,8 @@
 import { ResourceVariables } from '../templates';
 
-class GroupVariables {
+class GroupVariables extends ResourceVariables {
   constructor(options) {
-    return new ResourceVariables('groups', options);
+    super('groups', options);
   }
 }
 

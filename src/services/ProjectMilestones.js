@@ -1,8 +1,8 @@
 import { ResourceMilestones } from '../templates';
 
-class ProjectMilestones {
+class ProjectMilestones extends ResourceMilestones {
   constructor(options) {
-    return new ResourceMilestones('projects', options);
+    super('projects', options);
   }
 }
 

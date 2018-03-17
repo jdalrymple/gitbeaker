@@ -1,8 +1,8 @@
 import { ResourceMembers } from '../templates';
 
-class ProjectMembers {
+class ProjectMembers extends ResourceMembers {
   constructor(options) {
-    return new ResourceMembers('projects', options);
+    super('projects', options);
   }
 }
 
