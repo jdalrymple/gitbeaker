@@ -1,9 +1,13 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
-        "node": "8.9.0"
+        "node": "9.80"
       }
     }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-export-namespace-from"
   ]
 }

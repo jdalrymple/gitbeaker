@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class ResourceNotes extends BaseService {
+class ResourceNotes extends BaseService {
   constructor(resourceType, resource2Type, ...args) {
     super(...args);
 

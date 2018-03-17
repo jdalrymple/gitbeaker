@@ -1,6 +1,6 @@
 import { ResourceCustomAttributes } from '../templates';
 
-export class UserCustomAttributes {
+class UserCustomAttributes {
   constructor(options) {
     return new ResourceCustomAttributes('users', options);
   }

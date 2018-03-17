@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class RepositoryFiles extends BaseService {
+class RepositoryFiles extends BaseService {
   create(projectId, filePath, branch, options = {}) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
     const extendedOptions = Object.assign({ branch }, options);

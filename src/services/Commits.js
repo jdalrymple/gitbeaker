@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Commits extends BaseService {
+class Commits extends BaseService {
   all(projectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 

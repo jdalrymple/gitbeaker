@@ -1,6 +1,6 @@
 import { ResourceMembers } from '../templates';
 
-export class ProjectMembers {
+class ProjectMembers {
   constructor(options) {
     return new ResourceMembers('projects', options);
   }

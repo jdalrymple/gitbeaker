@@ -1,6 +1,6 @@
 import { ResourceCustomAttributes } from '../templates';
 
-export class GroupCustomAttributes {
+class GroupCustomAttributes {
   constructor(options) {
     return new ResourceCustomAttributes('groups', options);
   }

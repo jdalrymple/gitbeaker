@@ -1,6 +1,6 @@
 import { ResourceAccessRequests } from '../templates';
 
-export class GroupAccessRequests {
+class GroupAccessRequests {
   constructor(options) {
     return new ResourceAccessRequests('groups', options);
   }

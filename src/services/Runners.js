@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Runners extends BaseService {
+class Runners extends BaseService {
   all(options = {}) {
     return RequestHelper.get(this, 'runners/all', options);
   }

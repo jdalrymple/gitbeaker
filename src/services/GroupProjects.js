@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class GroupProjects extends BaseService {
+class GroupProjects extends BaseService {
   all(groupId, options = {}) {
     const gId = encodeURIComponent(groupId);
 

@@ -1,41 +1,46 @@
 // Groups
-export * from './GroupAccessRequests';
-export * from './GroupCustomAttributes';
-export * from './GroupMembers';
-export * from './GroupMilestones';
-export * from './GroupProjects';
-export * from './Groups';
+export Groups from './Groups';
+export GroupAccessRequests from './GroupAccessRequests';
+export GroupCustomAttributes from './GroupCustomAttributes';
+export GroupMembers from './GroupMembers';
+export GroupMilestones from './GroupMilestones';
+export GroupProjects from './GroupProjects';
+export GroupVariables from './GroupVariables';
+
+// Users
+export Users from './Users';
+export UserEmails from './UserEmails';
+export UserImpersonationTokens from './UserImpersonationTokens';
+export UserKeys from './UserKeys';
+export UserGPGKeys from './UserGPGKeys';
 
 // Projects
-export * from './Branches';
-export * from './Commits';
-export * from './CommitNotes';
-export * from './DeployKeys';
-export * from './Environments';
-export * from './Issues';
-export * from './Jobs';
-export * from './Labels';
-export * from './MergeRequests';
-export * from './MergeRequestNotes';
-export * from './MergeRequestVersions';
-export * from './Pipelines';
-export * from './Projects';
-export * from './ProjectAccessRequests';
-export * from './ProjectCustomAttributes';
-export * from './ProjectHooks';
-export * from './ProjectMembers';
-export * from './ProjectMilestones';
-export * from './ProjectSnippets';
-export * from './ProtectedBranches';
-export * from './Repositories';
-export * from './RepositoryFiles';
-export * from './Runners';
-export * from './Services';
-export * from './Tags';
-export * from './Triggers';
+export Branches from './Branches';
+export Commits from './Commits';
+export DeployKeys from './DeployKeys';
+export Environments from './Environments';
+export Issues from './Issues';
+export Jobs from './Jobs';
+export Labels from './Labels';
+export MergeRequests from './MergeRequests';
+export MergeRequestNotes from './MergeRequestNotes';
+export MergeRequestVersions from './MergeRequestVersions';
+export Pipelines from './Pipelines';
+export Projects from './Projects';
+export ProjectAccessRequests from './ProjectAccessRequests';
+export ProjectCustomAttributes from './ProjectCustomAttributes';
+export ProjectHooks from './ProjectHooks';
+export ProjectMembers from './ProjectMembers';
+export ProjectMilestones from './ProjectMilestones';
+export ProjectSnippets from './ProjectSnippets';
+export ProtectedBranches from './ProtectedBranches';
+export ProjectVariables from './ProjectVariables';
+export Repositories from './Repositories';
+export RepositoryFiles from './RepositoryFiles';
+export Runners from './Runners';
+export Services from './Services';
+export Tags from './Tags';
+export Triggers from './Triggers';
 
 // General
-export * from './SystemHooks';
-export * from './Users';
-// export * from './UserKeys';
-// export * from './UserGPGKeys';
+export SystemHooks from './SystemHooks';

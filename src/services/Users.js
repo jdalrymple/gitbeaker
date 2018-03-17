@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 
-export class Users extends BaseService {
+class Users extends BaseService {
   all(options = {}) {
     return RequestHelper.get(this, 'users', options);
   }
@@ -61,122 +61,6 @@ export class Users extends BaseService {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.post(this, `users/${uId}/unblock`);
-  }
-
-  // Emails
-  addEmail(email, userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
-
-    return RequestHelper.post(this, url, {
-      email,
-    });
-  }
-
-  emails(userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
-
-    return RequestHelper.get(this, url);
-  }
-
-  showEmail(emailId) {
-    const eId = encodeURIComponent(emailId);
-
-    return RequestHelper.get(this, `users/emails/${eId}`);
-  }
-
-  removeEmail(emailId, userId) {
-    const eId = encodeURIComponent(emailId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
-
-    return RequestHelper.delete(this, `${url}/${eId}`);
-  }
-
-  // Impersonation Tokens
-  impersonationTokens(userId) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.get(this, `users/${uId}/impersonation_tokens`);
-  }
-
-  createImpersonationToken(userId, name, scopes, expiresAt) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.post(this, `users/${uId}/impersonation_tokens`, {
-      name,
-      expiresAt,
-      scopes,
-    });
-  }
-
-  showImpersonationToken(userId, tokenId) {
-    const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `users/${uId}/impersonation_tokens/${tId}`);
-  }
-
-  revokeImpersonationToken(userId, tokenId) {
-    const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
-
-    return RequestHelper.delete(this, `users/${uId}/impersonation_tokens/${tId}`);
-  }
-
-  // GPG Keys
-  gpgKeys(userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.get(this, url);
-  }
-
-  addGPGKey(title, key, userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.post(this, url, {
-      title,
-      key,
-    });
-  }
-
-  showGPGKey(keyId, userId) {
-    const kId = encodeURIComponent(keyId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.get(this, `${url}/${kId}`);
-  }
-
-  removeGPGKey(keyId, userId) {
-    const kId = encodeURIComponent(keyId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.delete(this, `${url}/${kId}`);
-  }
-
-  // SSH Keys
-  keys(userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
-
-    return RequestHelper.get(this, url);
-  }
-
-  addKey(title, key, userId) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
-
-    return RequestHelper.post(this, url, {
-      title,
-      key,
-    });
-  }
-
-  showKey(keyId) {
-    const kId = encodeURIComponent(keyId);
-
-    return RequestHelper.get(this, `users/keys/${kId}`);
-  }
-
-  removeKey(keyId, userId) {
-    const kId = encodeURIComponent(keyId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
-
-    return RequestHelper.delete(this, `${url}/${kId}`);
   }
 }
 

@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Tags extends BaseService {
+class Tags extends BaseService {
   all(projectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 

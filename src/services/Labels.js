@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Labels extends BaseService {
+class Labels extends BaseService {
   all(projectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 

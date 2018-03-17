@@ -8,7 +8,7 @@ export const ACCESS_LEVELS = {
   OWNER: 50,
 };
 
-export class ResourceAccessRequests extends BaseService {
+class ResourceAccessRequests extends BaseService {
   constructor(resourceType, ...args) {
     super(...args);
 

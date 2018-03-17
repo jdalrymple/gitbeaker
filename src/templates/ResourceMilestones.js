@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class ResourceMilestones extends BaseService {
+class ResourceMilestones extends BaseService {
   constructor(resourceType, ...args) {
     super(...args);
 

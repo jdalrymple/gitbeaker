@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Repositories extends BaseService {
+class Repositories extends BaseService {
   compare(projectId, from, to) {
     const pId = encodeURIComponent(projectId);
 

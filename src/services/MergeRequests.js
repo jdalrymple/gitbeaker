@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class MergeRequests extends BaseService {
+class MergeRequests extends BaseService {
   accept(projectId, mergerequestId, options = {}) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 

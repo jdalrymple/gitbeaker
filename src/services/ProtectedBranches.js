@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class ProtectedBranches extends BaseService {
+class ProtectedBranches extends BaseService {
   all(projectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 

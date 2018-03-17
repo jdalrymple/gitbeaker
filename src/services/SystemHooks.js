@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class SystemHooks extends BaseService {
+class SystemHooks extends BaseService {
   all(options = {}) {
     const pId = encodeURIComponent(projectId);
 

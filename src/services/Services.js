@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Services extends BaseService {
+class Services extends BaseService {
   edit(projectId, serviceName, options = {}) {
     const pId = encodeURIComponent(projectId);
 

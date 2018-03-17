@@ -34,7 +34,7 @@ function validateEventOptions(action, target) {
   }
 }
 
-export class Events extends BaseService {
+class Events extends BaseService {
   all(options) {
     validateEventOptions(options.action, options.targetType);
 

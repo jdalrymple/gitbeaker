@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-export class Triggers extends BaseService {
+class Triggers extends BaseService {
   add(projectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 

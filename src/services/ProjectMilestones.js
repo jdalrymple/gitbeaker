@@ -1,6 +1,6 @@
 import { ResourceMilestones } from '../templates';
 
-export class ProjectMilestones {
+class ProjectMilestones {
   constructor(options) {
     return new ResourceMilestones('projects', options);
   }

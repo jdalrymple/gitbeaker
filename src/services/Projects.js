@@ -3,19 +3,15 @@ import Path from 'path';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 
-export class Projects extends BaseService {
-  all(options = {}) {
+class Projects extends BaseService {
+  all(options) {
     return RequestHelper.get(this, 'projects', options);
   }
 
-  create(options = {}) {
-    if (options.userId) {
-      const uId = encodeURIComponent(options.userId);
+  create(options) {
+    const url = options.userId ? `projects/user/${encodeURIComponent(options.userId)}` : 'projects';
 
-      return RequestHelper.post(this, `projects/user/${uId}`, options);
-    }
-
-    return RequestHelper.post(this, 'projects', options);
+    return RequestHelper.post(this, url, options);
   }
 
   edit(projectId, options) {
@@ -38,6 +34,12 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/fork`, options);
   }
 
+  forks(projectId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return this.get(`projects/${pId}/forks`, options);
+  }
+
   remove(projectId) {
     const pId = encodeURIComponent(projectId);
 
@@ -53,8 +55,7 @@ export class Projects extends BaseService {
 
     if (!groupId || !groupAccess) throw new Error('Missing required arguments');
 
-    options.group_id = groupId;
-    options.group_access = groupAccess;
+    Object.assign(options, { groupId, groupAccess });
 
     return RequestHelper.post(this, `projects/${pId}/share`, options);
   }
@@ -71,14 +72,10 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/star`);
   }
 
-  statuses(projectId, sha, state, options = {}) {
+  statuses(projectId, sha, state, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/statuses/${sha}`,
-      Object.assign({ state }, options),
-    );
+    return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, Object.assign(options, { state }));
   }
 
   unshare(projectId, groupId) {
@@ -111,37 +108,6 @@ export class Projects extends BaseService {
       },
       true,
     );
-  }
-
-  // Variables
-  createVariable(projectId, options) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post(this, `projects/${pId}/variables`, options);
-  }
-
-  editVariable(projectId, keyId, options) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.put(this, `projects/${pId}/variables/${kId}`, options);
-  }
-
-  variables(projectId) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get(this, `projects/${pId}/variables`);
-  }
-
-  showVariable(projectId, keyId) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `projects/${pId}/variables/${kId}`);
-  }
-
-  removeVariable(projectId, keyId) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.delete(this, `projects/${pId}/variables/${kId}`);
   }
 }
 

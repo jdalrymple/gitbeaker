@@ -1,6 +1,6 @@
 import { ResourceNotes } from '../templates';
 
-export class ProjectSnippets {
+class ProjectSnippets {
   constructor(options) {
     return new ResourceNotes('projects', 'snippets', options);
   }
