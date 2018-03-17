@@ -68,13 +68,13 @@ Using the await/async method
 
 ```javascript
 // Listing users
-let users = await GitlabAPI.users.all();
+let users = await GitlabAPI.Users.all();
 ```
 
 Or using Promise-Then notation
 ```javascript
 // Listing projects
-GitlabAPI.projects.all()
+GitlabAPI.Projects.all()
 .then((projects) => {
 	console.log(projects)
 })
@@ -87,7 +87,7 @@ General rule about all the function parameters:
 ie. 
 
 ```javascript
-GitlabAPI.projects.create(projectId, {
+GitlabAPI.Projects.create(projectId, {
 	//options defined in the Gitlab API documentation
 })
 ```
@@ -99,7 +99,7 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 ```javascript
 // Listing projects
-let projects = await GitlabAPI.projects.all({max_pages:2});
+let projects = await GitlabAPI.Projects.all({maxPages:2});
 
 ```
 
@@ -107,7 +107,7 @@ You can also use this in conjunction to the perPage argument which would overrid
 
 ```javascript
 // Listing projects
-let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
+let projects = await GitlabAPI.Projects.all({maxPages:2, perPage:40});
 
 ```
 
@@ -145,6 +145,24 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[3.0.0](https://github.com/jdalrymple/node-gitlab-api/) (2018-3-16)
+------------------
+- Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
+- Exporting namespaces which are groups of related API's. These include: ProjectsNamespace, UsersNamespace and GroupsNamespace
+- Added activies support to the Users service
+- Added events support to the Projects, and Users
+- Added full support for ProjectVariables and GroupVariables
+- Added support for UserGPGKeys
+- Added support for UserImpersonationTokens
+- Added support for SystemHooks
+
+...to be continued
+
+
+### Breaking Changes between 2.2.4 and 3.0.0
+- All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. GitlabAPI.Projects vs GitlabAPI.projects
+-
 
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------
