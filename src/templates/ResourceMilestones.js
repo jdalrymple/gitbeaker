@@ -7,7 +7,7 @@ class ResourceMilestones extends BaseService {
     this.resourceType = resourceType;
   }
 
-  all(resourceId, options = {}) {
+  all(resourceId, options) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${this.resourceType}/${rId}/milestones`, options);

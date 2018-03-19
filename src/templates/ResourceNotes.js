@@ -8,13 +8,13 @@ class ResourceNotes extends BaseService {
     this.resource2Type = resource2Type;
   }
 
-  all(resourceId, resource2Id, options = {}) {
+  all(resourceId, resource2Id, options) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
-  create(resourceId, resource2Id, options = {}) {
+  create(resourceId, resource2Id, options) {
     if (!options.body) throw new Error('Missing required property: body');
 
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
@@ -22,7 +22,7 @@ class ResourceNotes extends BaseService {
     return RequestHelper.post(this, `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
-  edit(resourceId, resource2Id, noteId, options = {}) {
+  edit(resourceId, resource2Id, noteId, options) {
     if (!options.body) throw new Error('Missing required property: body');
 
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
