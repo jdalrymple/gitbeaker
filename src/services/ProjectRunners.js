@@ -10,9 +10,7 @@ class ProjectRunners extends BaseService {
   enable(projectId, runnerId) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/runners`, {
-      runner_id: rId,
-    });
+    return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId });
   }
 
   disable(projectId, runnerId) {

@@ -1,13 +1,11 @@
 import Request from 'request-promise';
 import Humps from 'humps';
 
-function defaultRequest(url, endpoint, {
-  headers,
-  body,
-  qs,
-  formData,
-  resolveWithFullResponse = false,
-}) {
+function defaultRequest(
+  url,
+  endpoint,
+  { headers, body, qs, formData, resolveWithFullResponse = false },
+) {
   const params = {
     url: `${url}${endpoint}`,
     headers,

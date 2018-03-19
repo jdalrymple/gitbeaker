@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class UserGPGKeys extends BaseService {
-  all({ userId }) {
+  all({ userId } = {}) {
     const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
     return RequestHelper.get(this, url);
   }
 
-  add(title, key, { userId }) {
+  add(title, key, { userId } = {}) {
     const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
     return RequestHelper.post(this, url, {
@@ -16,14 +16,14 @@ class UserGPGKeys extends BaseService {
     });
   }
 
-  show(keyId, { userId }) {
+  show(keyId, { userId } = {}) {
     const kId = encodeURIComponent(keyId);
     const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
     return RequestHelper.get(this, `${url}/${kId}`);
   }
 
-  remove(keyId, { userId }) {
+  remove(keyId, { userId } = {}) {
     const kId = encodeURIComponent(keyId);
     const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 

@@ -28,10 +28,7 @@ class ResourceMilestones extends BaseService {
   issues(resourceId, milestoneId) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `${this.resourceType}/${rId}/milestones/${mId}/issues`,
-    );
+    return RequestHelper.get(this, `${this.resourceType}/${rId}/milestones/${mId}/issues`);
   }
 
   mergeRequests(resourceId, milestoneId) {

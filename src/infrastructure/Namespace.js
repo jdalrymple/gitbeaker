@@ -10,6 +10,4 @@ function init(...services) {
   };
 }
 
-export {
-  init,
-};
+export { init };

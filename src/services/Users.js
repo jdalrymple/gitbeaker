@@ -2,7 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 
 class Users extends BaseService {
-  all(options = {}) {
+  all(options) {
     return RequestHelper.get(this, 'users', options);
   }
 
@@ -16,7 +16,7 @@ class Users extends BaseService {
     return RequestHelper.post(this, `users/${uId}/block`);
   }
 
-  create(options = {}) {
+  create(options) {
     return RequestHelper.post(this, 'users', options);
   }
 

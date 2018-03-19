@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Branches extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches`, options);
@@ -16,7 +16,7 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId, branchName, options = {}) {
+  protect(projectId, branchName, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(
@@ -29,28 +29,19 @@ class Branches extends BaseService {
   remove(projectId, branchName) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(
-      this,
-      `projects/${pId}/repository/branches/${branchName}`,
-    );
+    return RequestHelper.delete(this, `projects/${pId}/repository/branches/${branchName}`);
   }
 
   show(projectId, branchName) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/branches/${branchName}`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/branches/${branchName}`);
   }
 
   unprotect(projectId, branchName) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put(
-      this,
-      `projects/${pId}/repository/branches/${branchName}/unprotect`,
-    );
+    return RequestHelper.put(this, `projects/${pId}/repository/branches/${branchName}/unprotect`);
   }
 }
 

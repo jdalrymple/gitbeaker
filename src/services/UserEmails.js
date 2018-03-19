@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class UserEmails extends BaseService {
-  all({ userId }) {
+  all({ userId } = {}) {
     const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
 
     return RequestHelper.get(this, url);
   }
 
-  add(email, { userId }) {
+  add(email, { userId } = {}) {
     const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
 
     return RequestHelper.post(this, url, {
@@ -21,7 +21,7 @@ class UserEmails extends BaseService {
     return RequestHelper.get(this, `users/emails/${eId}`);
   }
 
-  remove(emailId, { userId }) {
+  remove(emailId, { userId } = {}) {
     const eId = encodeURIComponent(emailId);
     const url = userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails';
 

@@ -26,32 +26,22 @@ class ResourceMembers extends BaseService {
   edit(resourceId, userId, accessLevel, options) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `${this.resourceType}/${rId}/members/${uId}`,
-      {
-        access_level: parseInt(accessLevel, 10),
-        ...options,
-      },
-    );
+    return RequestHelper.put(this, `${this.resourceType}/${rId}/members/${uId}`, {
+      access_level: parseInt(accessLevel, 10),
+      ...options,
+    });
   }
 
   show(resourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `${this.resourceType}/${rId}/members/${uId}`,
-    );
+    return RequestHelper.get(this, `${this.resourceType}/${rId}/members/${uId}`);
   }
 
   remove(resourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `${this.resourceType}/${rId}/members/${uId}`,
-    );
+    return RequestHelper.delete(this, `${this.resourceType}/${rId}/members/${uId}`);
   }
 }
 

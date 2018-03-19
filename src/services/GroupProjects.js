@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class GroupProjects extends BaseService {
-  all(groupId, options = {}) {
+  all(groupId, options) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get(this, `groups/${gId}/projects`, options);

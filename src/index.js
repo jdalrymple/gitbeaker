@@ -26,13 +26,7 @@ export const GroupNamespace = init({
 });
 
 // Users
-const {
-  Users,
-  UserEmails,
-  UserImpersonationTokens,
-  UserKeys,
-  UserGPGKeys,
-} = APIServices;
+const { Users, UserEmails, UserImpersonationTokens, UserKeys, UserGPGKeys } = APIServices;
 
 export const UserNamespace = init({
   Users,

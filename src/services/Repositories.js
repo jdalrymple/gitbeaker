@@ -33,13 +33,10 @@ class Repositories extends BaseService {
   showBlobRaw(projectId, sha) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/blobs/${sha}/raw`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/blobs/${sha}/raw`);
   }
 
-  tree(projectId, options = {}) {
+  tree(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/tree`, options);

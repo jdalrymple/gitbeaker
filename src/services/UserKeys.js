@@ -7,7 +7,7 @@ class UserKeys extends BaseService {
     return RequestHelper.get(this, url);
   }
 
-  create(title, key, { userId }) {
+  create(title, key, { userId } = {}) {
     const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
 
     return RequestHelper.post(this, url, {
@@ -22,7 +22,7 @@ class UserKeys extends BaseService {
     return RequestHelper.get(this, `users/keys/${kId}`);
   }
 
-  remove(keyId, { userId }) {
+  remove(keyId, { userId } = {}) {
     const kId = encodeURIComponent(keyId);
     const url = userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys';
 

@@ -19,38 +19,27 @@ class ResourceAccessRequests extends BaseService {
   all(resourceId) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(
-      this,
-      `${this.resourceType}/${rId}/access_requests`,
-    );
+    return RequestHelper.get(this, `${this.resourceType}/${rId}/access_requests`);
   }
 
   request(resourceId) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(
-      this,
-      `${this.resourceType}/${rId}/access_requests`,
-    );
+    return RequestHelper.post(this, `${this.resourceType}/${rId}/access_requests`);
   }
 
   approve(resourceId, userId, { accessLevel = 30 }) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `${this.resourceType}/${rId}/access_requests/${uId}/approve`,
-      { accessLevel },
-    );
+    return RequestHelper.post(this, `${this.resourceType}/${rId}/access_requests/${uId}/approve`, {
+      accessLevel,
+    });
   }
 
   deny(resourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `${this.resourceType}/${rId}/access_requests/${uId}/approve`,
-    );
+    return RequestHelper.delete(this, `${this.resourceType}/${rId}/access_requests/${uId}/approve`);
   }
 }
 

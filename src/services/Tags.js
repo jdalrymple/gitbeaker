@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Tags extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/tags`, options);
   }
 
-  create(projectId, options = {}) {
+  create(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/tags`, options);

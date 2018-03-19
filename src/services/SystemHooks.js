@@ -1,10 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class SystemHooks extends BaseService {
-  all(options = {}) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get(this, `hooks`, options);
+  all(options) {
+    return RequestHelper.get(this, 'hooks', options);
   }
 
   show(hookId) {
@@ -13,22 +11,14 @@ class SystemHooks extends BaseService {
     return RequestHelper.get(this, `hooks/${hId}`);
   }
 
-  add(url, options = {}) {
-    return RequestHelper.post(
-      this,
-      `hooks`,
-      Object.assign({ url }, options),
-    );
+  add(url, options) {
+    return RequestHelper.post(this, 'hooks', { url, ...options });
   }
 
-  edit(hookId, url, options = {}) {
+  edit(hookId, url, options) {
     const hId = encodeURIComponent(hookId);
 
-    return RequestHelper.put(
-      this,
-      `hooks/${hId}`,
-      Object.assign({ url }, options),
-    );
+    return RequestHelper.put(this, `hooks/${hId}`, { url, ...options });
   }
 
   remove(projectId, hookId) {

@@ -19,16 +19,14 @@ class Labels extends BaseService {
     return RequestHelper.put(
       this,
       `projects/${pId}/labels`,
-      Object.assign({ name: labelName }, options),
+      { name: labelName, ...options },
     );
   }
 
   remove(projectId, labelName) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/labels`, {
-      name: labelName,
-    });
+    return RequestHelper.delete(this, `projects/${pId}/labels`, { name: labelName });
   }
 
   subscribe(projectId, labelId, options = {}) {

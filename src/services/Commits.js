@@ -1,42 +1,32 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Commits extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/commits`,
-      options,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/commits`, options);
   }
 
-  allComments(projectId, sha) {
+  comments(projectId, sha) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/commits/${sha}/comments`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/comments`);
   }
 
-  createComment(projectId, sha, note, options = {}) {
+  createComment(projectId, sha, note, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(
       this,
       `projects/${pId}/repository/commits/${sha}/comments`,
-      Object.assign({ note }, options),
+      { note, ...options },
     );
   }
 
   diff(projectId, sha) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/commits/${sha}/diff`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/diff`);
   }
 
   show(projectId, sha) {
@@ -45,14 +35,10 @@ class Commits extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`);
   }
 
-  statuses(projectId, sha, options = {}) {
+  statuses(projectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/commits/${sha}/statuses`,
-      options,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
   }
 }
 

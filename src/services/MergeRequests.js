@@ -12,13 +12,9 @@ class MergeRequests extends BaseService {
   }
 
   all(projectId, options = {}) {
-    const pId = encodeURIComponent(projectId);
+    const url = projectId ? `projects/${encodeURIComponent(projectId)}/merge_requests` : 'merge_requests';
 
-    if (projectId) {
-      return RequestHelper.get(this, `projects/${pId}/merge_requests`, options);
-    }
-
-    return RequestHelper.get(this, 'merge_requests', options);
+    return RequestHelper.get(this, url, options);
   }
 
   cancelOnPipelineSucess(projectId, mergerequestId) {
@@ -63,15 +59,13 @@ class MergeRequests extends BaseService {
     return RequestHelper.post(
       this,
       `projects/${pId}/merge_requests`,
-      Object.assign(
-        {
-          id: pId,
-          source_branch: sourceBranch,
-          target_branch: targetBranch,
-          title,
-        },
-        options,
-      ),
+      {
+        id: pId,
+        source_branch: sourceBranch,
+        target_branch: targetBranch,
+        title,
+        ...options,
+      },
     );
   }
 

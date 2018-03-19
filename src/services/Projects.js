@@ -55,9 +55,7 @@ class Projects extends BaseService {
 
     if (!groupId || !groupAccess) throw new Error('Missing required arguments');
 
-    Object.assign(options, { groupId, groupAccess });
-
-    return RequestHelper.post(this, `projects/${pId}/share`, options);
+    return RequestHelper.post(this, `projects/${pId}/share`, { groupId, groupAccess, ...options });
   }
 
   show(projectId) {
@@ -75,7 +73,7 @@ class Projects extends BaseService {
   statuses(projectId, sha, state, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, Object.assign(options, { state }));
+    return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
   }
 
   unshare(projectId, groupId) {

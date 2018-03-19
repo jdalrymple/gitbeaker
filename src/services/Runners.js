@@ -1,11 +1,11 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Runners extends BaseService {
-  all(options = {}) {
+  all(options) {
     return RequestHelper.get(this, 'runners/all', options);
   }
 
-  allOwned(options = {}) {
+  allOwned(options) {
     return RequestHelper.get(this, 'runners', options);
   }
 

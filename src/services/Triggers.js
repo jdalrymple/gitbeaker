@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Triggers extends BaseService {
-  add(projectId, options = {}) {
+  add(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/triggers`, options);
@@ -13,7 +13,7 @@ class Triggers extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/triggers`);
   }
 
-  edit(projectId, triggerId, options = {}) {
+  edit(projectId, triggerId, options) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/triggers/${tId}`, options);

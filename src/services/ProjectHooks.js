@@ -19,7 +19,7 @@ class ProjectHooks extends BaseService {
     return RequestHelper.post(
       this,
       `projects/${pId}/hooks`,
-      Object.assign({ url }, options),
+      { url, ...options },
     );
   }
 
@@ -29,7 +29,7 @@ class ProjectHooks extends BaseService {
     return RequestHelper.put(
       this,
       `projects/${pId}/hooks/${hId}`,
-      Object.assign({ url }, options),
+      { url, ...options },
     );
   }
 
