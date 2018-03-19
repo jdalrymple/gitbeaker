@@ -1,18 +1,16 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class MergeRequests extends BaseService {
-  accept(projectId, mergerequestId, options = {}) {
+  accept(projectId, mergerequestId, options) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `projects/${pId}/merge_requests/${mId}/merge`,
-      options,
-    );
+    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}/merge`, options);
   }
 
-  all(projectId, options = {}) {
-    const url = projectId ? `projects/${encodeURIComponent(projectId)}/merge_requests` : 'merge_requests';
+  all({ projectId, ...options } = {}) {
+    const url = projectId
+      ? `projects/${encodeURIComponent(projectId)}/merge_requests`
+      : 'merge_requests';
 
     return RequestHelper.get(this, url, options);
   }
@@ -29,63 +27,43 @@ class MergeRequests extends BaseService {
   changes(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/merge_requests/${mId}/changes`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/changes`);
   }
 
   closesIssues(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/merge_requests/${mId}/closes_issues`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/closes_issues`);
   }
 
   commits(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/merge_requests/${mId}/commits`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/commits`);
   }
 
-  create(projectId, sourceBranch, targetBranch, title, options = {}) {
+  create(projectId, sourceBranch, targetBranch, title, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests`,
-      {
-        id: pId,
-        source_branch: sourceBranch,
-        target_branch: targetBranch,
-        title,
-        ...options,
-      },
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests`, {
+      id: pId,
+      sourceBranch,
+      targetBranch,
+      title,
+      ...options,
+    });
   }
 
   createTodo(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/todo`,
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/todo`);
   }
 
-  edit(projectId, mergerequestId, options = {}) {
+  edit(projectId, mergerequestId, options) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `projects/${pId}/merge_requests/${mId}`,
-      options,
-    );
+    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}`, options);
   }
 
   remove(projectId, mergerequestId) {
@@ -100,70 +78,62 @@ class MergeRequests extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}`);
   }
 
-  subscribe(projectId, mergerequestId, options = {}) {
+  subscribe(projectId, mergerequestId, options) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/subscribe`,
-      options,
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/subscribe`, options);
   }
 
   resetSpentTime(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/reset_spent_time`,
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/reset_spent_time`);
   }
 
   resetTimeEstimate(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/reset_time_estimate`,
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/reset_time_estimate`);
   }
 
   spentTime(projectId, mergerequestId, duration) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/add_spent_time`,
-      { duration },
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/add_spent_time`, {
+      duration,
+    });
   }
 
   timeEstimate(projectId, mergerequestId, duration) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/merge_requests/${mId}/time_estimate`,
-      { duration },
-    );
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/time_estimate`, {
+      duration,
+    });
   }
 
   timeStats(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/merge_requests/${mId}/time_stats`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/time_stats`);
+  }
+
+  version(projectId, mergerequestId, versionId) {
+    const [pId, mId, vId] = [projectId, mergerequestId, versionId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/versions/${vId}`);
+  }
+
+  versions(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/versions`);
   }
 
   unsubscribe(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `projects/${pId}/merge_requests/${mId}/unsubscribe`,
-    );
+    return RequestHelper.delete(this, `projects/${pId}/merge_requests/${mId}/unsubscribe`);
   }
 }
 

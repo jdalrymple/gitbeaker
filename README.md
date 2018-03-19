@@ -190,6 +190,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added support for UserGPGKeys
 - Added support for UserImpersonationTokens
 - Added support for SystemHooks
+- Added support for Events. This is also exposed in Projects and Users under the events function
 - Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 
@@ -197,8 +198,35 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 
 ### Breaking Changes between 2.2.4 and 3.0.0
+- Instantiation of the API must use the new operator consistently. See usage above.
 - All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
--
+- All subservices (services exposed as properties of other services) have been moved out into their own service
+```
+ProjectRepository -> Repositories, Tags, Commits, Branches and RepositoryFiles
+Users -> Users, UserKeys, UserGPGKeys, UserCustomAttributes, UserVariables
+
+```
+
+- Many services have been renamed:
+```
+ProjectProtectedBranches -> ProtectedBranches
+ProjectDeployKeys -> DeployKeys
+ProjectEnvironments -> Enviroments
+ProjectJobs -> Jobs
+ProjectLabels -> Labels
+ProjectPipelines -> Pipelines
+ProjectRepository -> Repositories
+ProjectServices -> Services
+ProjectTriggers -> Triggers
+```
+
+- Some services were merged:
+```
+Issues = ProjectIssues + Issues.  ProjectId is optional for all()
+MergeRequests = ProjectMergeRequests + MergeRequests + MergeRequestsChanges + MergeRequestsCommits + MergeRequestVersions. ProjectId is optional for all()
+Runners = ProjectRunners + Runners. ProjectId is optional for all()
+
+```
 
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------

@@ -24,7 +24,6 @@ export Jobs from './Jobs';
 export Labels from './Labels';
 export MergeRequests from './MergeRequests';
 export MergeRequestNotes from './MergeRequestNotes';
-export MergeRequestVersions from './MergeRequestVersions';
 export Pipelines from './Pipelines';
 export Projects from './Projects';
 export ProjectAccessRequests from './ProjectAccessRequests';
@@ -44,3 +43,4 @@ export Triggers from './Triggers';
 
 // General
 export SystemHooks from './SystemHooks';
+export Events from './Events';

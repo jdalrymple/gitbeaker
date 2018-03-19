@@ -16,11 +16,10 @@ class Commits extends BaseService {
   createComment(projectId, sha, note, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/repository/commits/${sha}/comments`,
-      { note, ...options },
-    );
+    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/comments`, {
+      note,
+      ...options,
+    });
   }
 
   diff(projectId, sha) {

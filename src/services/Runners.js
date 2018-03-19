@@ -1,8 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Runners extends BaseService {
-  all(options) {
-    return RequestHelper.get(this, 'runners/all', options);
+  all({ projectId, ...options } = {}) {
+    const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
+
+    return RequestHelper.get(this, url, options);
   }
 
   allOwned(options) {
@@ -15,6 +17,24 @@ class Runners extends BaseService {
     return RequestHelper.put(this, `runners/${rId}`, attributes);
   }
 
+  enable(projectId, runnerId) {
+    const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId });
+  }
+
+  disable(projectId, runnerId) {
+    const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
+
+    return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`);
+  }
+
+  jobs(runnerId) {
+    const rId = encodeURIComponent(runnerId);
+
+    return RequestHelper.get(this, `runners/${rId}/jobs`);
+  }
+
   remove(runnerId) {
     const rId = encodeURIComponent(runnerId);
 
@@ -25,12 +45,6 @@ class Runners extends BaseService {
     const rId = encodeURIComponent(runnerId);
 
     return RequestHelper.get(this, `runners/${rId}`);
-  }
-
-  showJobs(runnerId) {
-    const rId = encodeURIComponent(runnerId);
-
-    return RequestHelper.get(this, `runners/${rId}/jobs`);
   }
 }
 

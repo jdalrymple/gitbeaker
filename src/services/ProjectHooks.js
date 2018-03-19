@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ProjectHooks extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/hooks`, options);
@@ -13,24 +13,16 @@ class ProjectHooks extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/hooks/${hId}`);
   }
 
-  add(projectId, url, options = {}) {
+  add(projectId, url, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/hooks`,
-      { url, ...options },
-    );
+    return RequestHelper.post(this, `projects/${pId}/hooks`, { url, ...options });
   }
 
-  edit(projectId, hookId, url, options = {}) {
+  edit(projectId, hookId, url, options) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `projects/${pId}/hooks/${hId}`,
-      { url, ...options },
-    );
+    return RequestHelper.put(this, `projects/${pId}/hooks/${hId}`, { url, ...options });
   }
 
   remove(projectId, hookId) {

@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Issues extends BaseService {
-  all(projectId, options) {
+  all({ projectId, ...options }) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/issues` : 'issues';
 
     return RequestHelper.get(this, url, options);
@@ -23,15 +23,11 @@ class Issues extends BaseService {
     const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
     const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/issues/${iId}/links`,
-      {
-        targetProjectId: targetpId,
-        targetIssueId: targetIId,
-        ...options,
-      },
-    );
+    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/links`, {
+      targetProjectId: targetpId,
+      targetIssueId: targetIId,
+      ...options,
+    });
   }
 
   remove(projectId, issueId) {
@@ -49,20 +45,13 @@ class Issues extends BaseService {
   subscribe(projectId, issueId, options) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/issues/${iId}/subscribe`,
-      options,
-    );
+    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
   unsubscribe(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `projects/${pId}/issues/${iId}/unsubscribe`,
-    );
+    return RequestHelper.delete(this, `projects/${pId}/issues/${iId}/unsubscribe`);
   }
 }
 
