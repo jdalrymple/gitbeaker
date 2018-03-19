@@ -194,8 +194,6 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 
-...to be continued
-
 
 ### Breaking Changes between 2.2.4 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
