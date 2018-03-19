@@ -9,7 +9,7 @@
   "scripts": {
     "build:clean": "rimraf -rf dist && mkdirp -p dist",
     "build:es6": "babel src -d dist/latest",
-    "build:es5": "babel src -d dist/es5  --no-babelrc --presets=@babel/env --plugins=@babel/plugin-proposal-export-default-from,@babel/plugin-proposal-export-namespace-from",
+    "build:es5": "babel src -d dist/es5  --no-babelrc --presets=@babel/env --plugins=@babel/plugin-proposal-export-default-from,@babel/plugin-proposal-export-namespace-from,@babel/plugin-proposal-object-rest-spread",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "prepublishOnly": "npm run build"
   },
