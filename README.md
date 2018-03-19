@@ -94,6 +94,56 @@ etc..
 
 ```
 
+Currently there are three Namespaces:
+1. ProjectsNamespace which includes:
+```
+Branches,
+Commits,
+DeployKeys,
+Environments,
+Issues,
+Jobs,
+Labels,
+MergeRequests,
+MergeRequestNotes,
+Pipelines,
+Projects,
+ProjectAccessRequests,
+ProjectCustomAttributes,
+ProjectHooks,
+ProjectMembers,
+ProjectMilestones,
+ProjectSnippets,
+ProtectedBranches,
+ProjectVariables,
+Repositories,
+RepositoryFiles,
+Runners,
+Services,
+Tags,
+Triggers
+```
+
+2. UsersNamespace which includes:
+```
+Users,
+UserEmails,
+UserImpersonationTokens,
+UserKeys,
+UserGPGKeys
+```
+
+3. GroupsNamespace which includes:
+```
+Groups,
+GroupAccessRequests,
+GroupCustomAttributes,
+GroupMembers,
+GroupMilestones,
+GroupProjects,
+GroupVariables
+```
+
 ### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
