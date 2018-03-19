@@ -172,6 +172,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [fewieden](https://github.com/fewieden)
 - [Jeff Pelton](https://github.com/comster)
 - [Claude Abounegm](https://github.com/claude-abounegm)
+- [Stefan Hall](https://github.com/Marethyu1)
 
 ## License
 
@@ -189,6 +190,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added support for UserGPGKeys
 - Added support for UserImpersonationTokens
 - Added support for SystemHooks
+- Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
+- Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 
 ...to be continued
 
