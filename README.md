@@ -32,37 +32,66 @@ npm install node-gitlab-api
 ```
 
 ## Usage
-### Import
-#### ES6 (>=node 8.0.0)
+### Basic Import
+
 URL to your GitLab instance should not include `/api/v4` path.
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
-```javascript
-import GitlabAPI from 'node-gitlab-api';
 
-const API = GitlabAPI({
+```javascript
+// ES6 (>=node 8.0.0)
+import Gitlab from 'node-gitlab-api';
+
+// ES5
+const Gitlab = require('node-gitlab-api/dist/es5').default
+
+
+// Instantiating
+const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'	//Can be created in your profile. 
 })
-```
 
-Or, use a OAuth token instead!
+// Or, use a OAuth token instead!
 
-```javascript
-import GitlabAPI from 'node-gitlab-api';
-
-const API = GitlabAPI({
+const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
+
 ```
-#### ES5
-The same parameters as above, but the require url inclues a `/dist/es5`:
+
+### Specific Imports
+
+Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
 
 ```javascript
-const GitlabAPI = require('node-gitlab-api/dist/es5').default({
-  ...
+import { Projects } from 'node-gitlab-api';
+
+const service = new Projects({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
 })
+
+```
+
+### Namespace Imports
+
+It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Namespace export for importing and instantiating all these related API's at once.
+
+
+```javascript
+import { ProjectsNamespace } from 'node-gitlab-api';
+
+const services = new ProjectsNamespace({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+})
+
+services.Projects.all()
+services.MergeRequests.all()
+etc..
+
 ```
 
 ### Examples
@@ -72,13 +101,13 @@ Using the await/async method
 
 ```javascript
 // Listing users
-let users = await GitlabAPI.Users.all();
+let users = await api.Users.all();
 ```
 
 Or using Promise-Then notation
 ```javascript
 // Listing projects
-GitlabAPI.Projects.all()
+api.Projects.all()
 .then((projects) => {
 	console.log(projects)
 })
@@ -91,7 +120,7 @@ General rule about all the function parameters:
 ie. 
 
 ```javascript
-GitlabAPI.Projects.create(projectId, {
+api.Projects.create(projectId, {
 	//options defined in the Gitlab API documentation
 })
 ```
@@ -103,7 +132,7 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 ```javascript
 // Listing projects
-let projects = await GitlabAPI.Projects.all({maxPages:2});
+let projects = await api.Projects.all({maxPages:2});
 
 ```
 
@@ -111,7 +140,7 @@ You can also use this in conjunction to the perPage argument which would overrid
 
 ```javascript
 // Listing projects
-let projects = await GitlabAPI.Projects.all({maxPages:2, perPage:40});
+let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
 
@@ -165,7 +194,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 
 ### Breaking Changes between 2.2.4 and 3.0.0
-- All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. GitlabAPI.Projects vs GitlabAPI.projects
+- All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
 -
 
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)

@@ -15,7 +15,7 @@ const {
   GroupVariables,
 } = APIServices;
 
-export const GroupNamespace = options => init(options, {
+export const GroupNamespace = init({
   Groups,
   GroupAccessRequests,
   GroupCustomAttributes,
@@ -34,7 +34,7 @@ const {
   UserGPGKeys,
 } = APIServices;
 
-export const UserNamespace = options => init(options, {
+export const UserNamespace = init({
   Users,
   UserEmails,
   UserImpersonationTokens,
@@ -72,7 +72,7 @@ const {
   Triggers,
 } = APIServices;
 
-export const ProjectNamespace = options => init(options, {
+export const ProjectNamespace = init({
   Branches,
   Commits,
   DeployKeys,
@@ -102,4 +102,4 @@ export const ProjectNamespace = options => init(options, {
 });
 
 // All initialized
-export default options => init(options, Services);
+export default init(Services);

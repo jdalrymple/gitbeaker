@@ -1,9 +1,13 @@
-function init(options, ...services) {
+function init(...services) {
   const combined = Object.assign({}, ...services);
 
-  return Object.entries(combined).reduce((output, [name, Service]) => {
-    output[name] = new Service(options); return output;
-  }, {});
+  return class Namespace {
+    constructor(options) {
+      Object.entries(combined).forEach(([name, Service]) => {
+        this[name] = new Service(options);
+      });
+    }
+  };
 }
 
 export {
