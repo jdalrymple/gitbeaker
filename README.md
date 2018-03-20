@@ -203,7 +203,10 @@ Using the await/async method
 ```javascript
 import Gitlab from 'node-gitlab-api';
 
-const api = new Gitlab({ my credentials here });
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
 
 // Listing users
 let users = await api.Users.all();
@@ -224,7 +227,10 @@ ie.
 ```javascript
 import Gitlab from 'node-gitlab-api';
 
-const api = new Gitlab({ my credentials here });
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
 
 api.Projects.create(projectId, {
 	//options defined in the Gitlab API documentation
@@ -237,7 +243,13 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 
 ```javascript
-// Listing projects
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
 let projects = await api.Projects.all({maxPages:2});
 
 ```
@@ -245,7 +257,13 @@ let projects = await api.Projects.all({maxPages:2});
 You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
 
 ```javascript
-// Listing projects
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
 let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
