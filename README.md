@@ -9,72 +9,6 @@
 [GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library.
 It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
-## Table of Contents
-
-* [Install](#install)
-* [Usage](#usage)
-    * [Import](#import)
-    * [Examples](#examples)
-    * [Pagination](#pagination)
-* [Docs](#docs)
-	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
-	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
-* [Contributors](#contributors)
-* [Tests](#tests)
-* [License](#licence)
-* [Changelog](#changelog)
-
-## Install
-
-```bash
-# Install from npm
-npm install node-gitlab-api
-```
-
-## Usage
-### Basic Import
-
-URL to your GitLab instance should not include `/api/v4` path.
-
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
-
-```javascript
-// ES6 (>=node 8.0.0)
-import Gitlab from 'node-gitlab-api';
-
-// ES5
-const Gitlab = require('node-gitlab-api/dist/es5').default
-
-
-// Instantiating
-const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456'	//Can be created in your profile. 
-})
-
-// Or, use a OAuth token instead!
-
-const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
-  oauthToken: 'abcdefghij123456'
-})
-
-```
-
-### Specific Imports
-
-Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
-
-```javascript
-import { Projects } from 'node-gitlab-api';
-
-const service = new Projects({
-  url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
-})
-
-```
-
 The API's that are currently supported are:
 ```
 // Groups
@@ -126,7 +60,75 @@ Events
 
 ```
 
-### Namespace Imports
+## Table of Contents
+
+* [Install](#install)
+* [Usage](#usage)
+    * [Import](#import)
+        * [Specific Imports](#specific-imports)
+        * [Namespace Imports](#namespace-imports)
+    * [Examples](#examples)
+    * [Pagination](#pagination)
+* [Docs](#docs)
+	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+* [Contributors](#contributors)
+* [Tests](#tests)
+* [License](#licence)
+* [Changelog](#changelog)
+
+## Install
+
+```bash
+# Install from npm
+npm install node-gitlab-api
+```
+
+## Usage
+### Import
+
+URL to your GitLab instance should not include `/api/v4` path.
+
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+
+```javascript
+// ES6 (>=node 8.0.0)
+import Gitlab from 'node-gitlab-api';
+
+// ES5
+const Gitlab = require('node-gitlab-api/dist/es5').default
+
+
+// Instantiating
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456'	//Can be created in your profile. 
+})
+
+// Or, use a OAuth token instead!
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  oauthToken: 'abcdefghij123456'
+})
+
+```
+
+#### Specific Imports
+
+Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
+
+```javascript
+import { Projects } from 'node-gitlab-api';
+
+const service = new Projects({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+})
+
+```
+
+#### Namespace Imports
 
 It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Namespace export for importing and instantiating all these related API's at once.
 
