@@ -9,6 +9,34 @@
 [GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library.
 It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
+## Table of Contents
+
+* [Install](#install)
+* [Usage](#usage)
+    * [Supported APIs](#supported-apis)
+    * [Import](#import)
+        * [Specific Imports](#specific-imports)
+        * [Namespace Imports](#namespace-imports)
+    * [Examples](#examples)
+    * [Pagination](#pagination)
+* [Docs](#docs)
+	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
+	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+* [Contributors](#contributors)
+* [Tests](#tests)
+* [License](#licence)
+* [Changelog](#changelog)
+
+
+## Install
+
+```bash
+# Install from npm
+npm install node-gitlab-api
+```
+
+## Usage
+### Supported APIs
 The API's that are currently supported are:
 ```
 // Groups
@@ -59,32 +87,6 @@ SystemHooks
 Events
 
 ```
-
-## Table of Contents
-
-* [Install](#install)
-* [Usage](#usage)
-    * [Import](#import)
-        * [Specific Imports](#specific-imports)
-        * [Namespace Imports](#namespace-imports)
-    * [Examples](#examples)
-    * [Pagination](#pagination)
-* [Docs](#docs)
-	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
-	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
-* [Contributors](#contributors)
-* [Tests](#tests)
-* [License](#licence)
-* [Changelog](#changelog)
-
-## Install
-
-```bash
-# Install from npm
-npm install node-gitlab-api
-```
-
-## Usage
 ### Import
 
 URL to your GitLab instance should not include `/api/v4` path.
