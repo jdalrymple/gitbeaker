@@ -75,6 +75,57 @@ const service = new Projects({
 
 ```
 
+The API's that are currently supported are:
+```
+// Groups
+Groups
+GroupAccessRequests
+GroupCustomAttributes
+GroupMembers
+GroupMilestones
+GroupProjects
+GroupVariables
+
+// Users
+Users
+UserEmails
+UserImpersonationTokens
+UserKeys
+UserGPGKeys
+
+// Projects
+Branches
+Commits
+DeployKeys
+Environments
+Issues
+Jobs
+Labels
+MergeRequests
+MergeRequestNotes
+Pipelines
+Projects
+ProjectAccessRequests
+ProjectCustomAttributes
+ProjectHooks
+ProjectMembers
+ProjectMilestones
+ProjectSnippets
+ProtectedBranches
+ProjectVariables
+Repositories
+RepositoryFiles
+Runners
+Services
+Tags
+Triggers
+
+// General
+SystemHooks
+Events
+
+```
+
 ### Namespace Imports
 
 It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Namespace export for importing and instantiating all these related API's at once.
@@ -150,13 +201,14 @@ Once you have your library instantiated, you can utilize many of the API's funct
 Using the await/async method
 
 ```javascript
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({ my credentials here });
+
 // Listing users
 let users = await api.Users.all();
-```
 
-Or using Promise-Then notation
-```javascript
-// Listing projects
+// Or using Promise-Then notation
 api.Projects.all()
 .then((projects) => {
 	console.log(projects)
@@ -170,6 +222,10 @@ General rule about all the function parameters:
 ie. 
 
 ```javascript
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({ my credentials here });
+
 api.Projects.create(projectId, {
 	//options defined in the Gitlab API documentation
 })
