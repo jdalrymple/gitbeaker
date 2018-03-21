@@ -1,5 +1,6 @@
 import Request from 'request-promise';
 import Humps from 'humps';
+import URL from 'url';
 
 function defaultRequest(
   url,
@@ -7,7 +8,7 @@ function defaultRequest(
   { headers, body, qs, formData, resolveWithFullResponse = false },
 ) {
   const params = {
-    url: `${url}${endpoint}`,
+    url: URL.resolve(url, endpoint),
     headers,
     json: true,
   };
