@@ -323,7 +323,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 
 
-### Breaking Changes between 2.2.4 and 3.0.0
+### Breaking Changes between 2.2.5 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
 - All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
 - All subservices (services exposed as properties of other services) have been moved out into their own service
@@ -353,6 +353,11 @@ MergeRequests = ProjectMergeRequests + MergeRequests + MergeRequestsChanges + Me
 Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 ```
+
+[2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15) 
+------------------ 
+- Fixed #48 - Problem with trailing `\` in url 
+
 
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------
