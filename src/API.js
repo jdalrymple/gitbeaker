@@ -1,4 +1,5 @@
 import Request from 'request-promise';
+import URL from 'url';
 import { Groups, Projects, Issues, Runners, Users, MergeRequests, Version } from './Models';
 
 function defaultRequest(url, endpoint, {
@@ -25,7 +26,7 @@ function defaultRequest(url, endpoint, {
 
 class API {
   constructor({ url = 'https://gitlab.com', token, oauthToken }) {
-    this.url = `${url}/api/v4/`;
+    this.url = URL.resolve(url, 'api/v4');
     this.headers = {};
 
     if (oauthToken) {
