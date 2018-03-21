@@ -7,6 +7,21 @@ class MergeRequests extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}/merge`, options);
   }
 
+  approve(projectId, mergerequestId, { sha }) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/approve`, { sha });
+  }
+
+  approvals(projectId, { mergerequestId } = {}) {
+    const pId = encodeURIComponent(projectId);
+    const mergeRequest = mergerequestId
+      ? `merge_requests/${encodeURIComponent(mergerequestId)}`
+      : '';
+
+    return RequestHelper.get(this, `projects/${pId}/${mergeRequest}/approvals`);
+  }
+
   all({ projectId, ...options } = {}) {
     const url = projectId
       ? `projects/${encodeURIComponent(projectId)}/merge_requests`
@@ -64,6 +79,24 @@ class MergeRequests extends BaseService {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}`, options);
+  }
+
+  editApprovals(projectId, { mergerequestId, ...options }) {
+    const pId = encodeURIComponent(projectId);
+    const mergeRequest = mergerequestId
+      ? `merge_requests/${encodeURIComponent(mergerequestId)}/`
+      : '';
+
+    return RequestHelper.get(this, `projects/${pId}/${mergeRequest}approvals`, options);
+  }
+
+  editApprovers(projectId, { mergerequestId, ...options }) {
+    const pId = encodeURIComponent(projectId);
+    const mergeRequest = mergerequestId
+      ? `merge_requests/${encodeURIComponent(mergerequestId)}/`
+      : '';
+
+    return RequestHelper.get(this, `projects/${pId}/${mergeRequest}approvers`, options);
   }
 
   remove(projectId, mergerequestId) {
@@ -128,6 +161,12 @@ class MergeRequests extends BaseService {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}/versions`);
+  }
+
+  unapprove(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/approve`);
   }
 
   unsubscribe(projectId, mergerequestId) {

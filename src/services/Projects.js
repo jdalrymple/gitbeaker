@@ -19,7 +19,7 @@ class Projects extends BaseService {
 
     return RequestHelper.put(this, `projects/${pId}`, options);
   }
-
+  
   events(projectId, options) {
     validateEventOptions(options.action, options.targetType);
 
