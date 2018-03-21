@@ -8,7 +8,7 @@
 Gets a list of group projects viewable by the authenticated user.
 
 ```javascript
-let milestones = GitlabAPI.group.projects.all(groupId);
+let milestones = GitlabAPI.groups.projects.all(groupId);
 ```
 **Parameters**: [List all a group projects](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/groups.md#list-a-groups-projects)
 
