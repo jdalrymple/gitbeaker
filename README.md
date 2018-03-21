@@ -145,6 +145,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+[2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15)
+------------------
+- Fixed more issues within the url concatenation
+
 [2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15)
 ------------------
 - Fixed #48 - Problem with trailing `\` in url
@@ -175,7 +179,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab-api/pull/23)
 - Exposed the Merge Requests resource which was missing from the exports list thanks to [fewieden](https://github.com/fewieden) in [PR #26](https://github.com/jdalrymple/node-gitlab-api/pull/26)
 - Added support for the Project Enviroments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab-api/pull/28)
-- Fixing parse function to handle encoded urls that dont include '/' such as in groups #24
+- Fixing parse function to handle encoded urls that don't include '/' such as in groups #24
 
 ### Breaking Changes between 2.1.0 and 2.2.0
 - Fixed a problem with the get responses where the response contained the full request response and not just the body
