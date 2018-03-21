@@ -94,4 +94,4 @@ export const ProjectNamespace = init({
 });
 
 // All initialized
-export default init(Services);
+export default init(APIServices);

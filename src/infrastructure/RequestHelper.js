@@ -24,7 +24,7 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options, fullResponse = false) {
+  static async get(service, endpoint, options = {}, fullResponse = false) {
     const response = await Request.get(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       qs: options,
@@ -43,7 +43,7 @@ class RequestHelper {
     return [...response.body, ...more];
   }
 
-  static post(service, endpoint, options, form = false) {
+  static post(service, endpoint, options = {}, form = false) {
     const body = form ? 'fromData' : 'body';
 
     return Request.post(defaultRequest(service.url, endpoint, {
@@ -52,14 +52,14 @@ class RequestHelper {
     }));
   }
 
-  static put(service, endpoint, options) {
+  static put(service, endpoint, options = {}) {
     return Request.put(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       body: options,
     }));
   }
 
-  static delete(service, endpoint, options) {
+  static delete(service, endpoint, options = {}) {
     return Request.delete(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       qs: options,
