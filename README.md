@@ -308,7 +308,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[3.0.0](https://github.com/jdalrymple/node-gitlab-api/) (2018-3-16)
+[3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-3-16)
 ------------------
 - Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
 - Exporting namespaces which are groups of related API's. These include: ProjectsNamespace, UsersNamespace and GroupsNamespace
@@ -321,9 +321,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added support for Events. This is also exposed in Projects and Users under the events function
 - Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
+- Added support for Merge Request Approvals #49
+- Fixed problem with .all() functions where only the some of the results were being returned
 
-
-### Breaking Changes between 2.2.5 and 3.0.0
+### Breaking Changes between 2.2.6 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
 - All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
 - All subservices (services exposed as properties of other services) have been moved out into their own service
@@ -353,6 +354,11 @@ MergeRequests = ProjectMergeRequests + MergeRequests + MergeRequestsChanges + Me
 Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 ```
+
+[2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15) 
+------------------ 
+- Fixed more issues within the url concatenation 
+
 
 [2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15) 
 ------------------ 
