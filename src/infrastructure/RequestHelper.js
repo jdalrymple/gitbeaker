@@ -1,5 +1,6 @@
 import Request from 'request-promise';
 import Humps from 'humps';
+import LinkParser from 'parse-link-header';
 import URL from 'url';
 
 function defaultRequest(
@@ -23,12 +24,23 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static get(service, endpoint, options, fullResponse = false) {
-    return Request.get(defaultRequest(service.url, endpoint, {
+  static async get(service, endpoint, options, fullResponse = false) {
+    const response = await Request.get(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       qs: options,
-      resolveWithFullResponse: fullResponse,
+      resolveWithFullResponse: options.page ? true : fullResponse,
     }));
+
+    const links = LinkParser(response.headers.link);
+    const page = response.headers['x-page'];
+    const limit = options.maxPages ? page < options.maxPages : true;
+    let more = [];
+
+    if (page && limit && links.next) {
+      more = await RequestHelper.get(service, links.next.url.replace(service.url, ''), options);
+    }
+
+    return [...response.body, ...more];
   }
 
   static post(service, endpoint, options, form = false) {
