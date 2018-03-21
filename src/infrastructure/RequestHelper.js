@@ -1,7 +1,7 @@
 import Request from 'request-promise';
 import Humps from 'humps';
 import LinkParser from 'parse-link-header';
-import URL from 'url';
+import URLJoin from 'url-join';
 
 function defaultRequest(
   url,
@@ -9,7 +9,7 @@ function defaultRequest(
   { headers, body, qs, formData, resolveWithFullResponse = false },
 ) {
   const params = {
-    url: URL.resolve(url, endpoint),
+    url: URLJoin(url, endpoint),
     headers,
     json: true,
   };
@@ -24,11 +24,12 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options = {}, fullResponse = false) {
+  static async get(service, endpoint, options = {}) {
+
     const response = await Request.get(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       qs: options,
-      resolveWithFullResponse: options.page ? true : fullResponse,
+      resolveWithFullResponse: true,
     }));
 
     const links = LinkParser(response.headers.link);
@@ -38,9 +39,11 @@ class RequestHelper {
 
     if (page && limit && links.next) {
       more = await RequestHelper.get(service, links.next.url.replace(service.url, ''), options);
+
+      return [...response.body, ...more];
     }
 
-    return [...response.body, ...more];
+    return response.body;
   }
 
   static post(service, endpoint, options = {}, form = false) {
