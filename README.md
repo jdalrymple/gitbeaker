@@ -145,6 +145,9 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+[2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15)
+------------------
+- Fixed #48 - Problem with trailing `\` in url
 
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
