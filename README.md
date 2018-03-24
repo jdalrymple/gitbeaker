@@ -323,6 +323,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 - Added support for Merge Request Approvals #49
 - Fixed problem with .all() functions where only the some of the results were being returned
+- Added full support for Enviroments
 
 ### Breaking Changes between 2.2.6 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
