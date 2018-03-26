@@ -15,7 +15,7 @@ const {
   GroupVariables,
 } = APIServices;
 
-export const GroupNamespace = init({
+export const GroupsBundle = init({
   Groups,
   GroupAccessRequests,
   GroupCustomAttributes,
@@ -28,7 +28,7 @@ export const GroupNamespace = init({
 // Users
 const { Users, UserEmails, UserImpersonationTokens, UserKeys, UserGPGKeys } = APIServices;
 
-export const UserNamespace = init({
+export const UsersBundle = init({
   Users,
   UserEmails,
   UserImpersonationTokens,
@@ -65,7 +65,7 @@ const {
   Triggers,
 } = APIServices;
 
-export const ProjectNamespace = init({
+export const ProjectsBundle = init({
   Branches,
   Commits,
   DeployKeys,

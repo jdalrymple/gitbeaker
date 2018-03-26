@@ -83,8 +83,9 @@ Tags
 Triggers
 
 // General
-SystemHooks
 Events
+SystemHooks
+Todos
 
 ```
 ### Import
@@ -130,15 +131,15 @@ const service = new Projects({
 
 ```
 
-#### Namespace Imports
+#### Bundle Imports
 
-It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Namespace export for importing and instantiating all these related API's at once.
+It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Bundle export for importing and instantiating all these related API's at once.
 
 
 ```javascript
-import { ProjectsNamespace } from 'node-gitlab-api';
+import { ProjectsBundle } from 'node-gitlab-api';
 
-const services = new ProjectsNamespace({
+const services = new ProjectsBundle({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456' //Can be created in your profile. 
 })
@@ -149,8 +150,8 @@ etc..
 
 ```
 
-Currently there are three Namespaces:
-1. ProjectsNamespace which includes:
+Currently there are three Bundles:
+1. ProjectsBundle which includes:
 ```
 Branches,
 Commits,
@@ -179,7 +180,7 @@ Tags,
 Triggers
 ```
 
-2. UsersNamespace which includes:
+2. UsersBundle which includes:
 ```
 Users,
 UserEmails,
@@ -188,7 +189,7 @@ UserKeys,
 UserGPGKeys
 ```
 
-3. GroupsNamespace which includes:
+3. GroupsBundle which includes:
 ```
 Groups,
 GroupAccessRequests,
@@ -324,6 +325,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added support for Merge Request Approvals #49
 - Fixed problem with .all() functions where only the some of the results were being returned
 - Added full support for Enviroments
+- Added support for Todos
 
 ### Breaking Changes between 2.2.6 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
@@ -334,7 +336,7 @@ ProjectRepository -> Repositories, Tags, Commits, Branches and RepositoryFiles
 Users -> Users, UserKeys, UserGPGKeys, UserCustomAttributes, UserVariables
 
 ```
-
+- Moved createTodo function from MergeRequests API to Todos API
 - Many services have been renamed:
 ```
 ProjectProtectedBranches -> ProtectedBranches

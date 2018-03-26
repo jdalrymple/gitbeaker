@@ -69,12 +69,6 @@ class MergeRequests extends BaseService {
     });
   }
 
-  createTodo(projectId, mergerequestId) {
-    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
-
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/todo`);
-  }
-
   edit(projectId, mergerequestId, options) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 

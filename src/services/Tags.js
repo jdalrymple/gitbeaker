@@ -14,21 +14,15 @@ class Tags extends BaseService {
   }
 
   remove(projectId, tagName) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `projects/${pId}/repository/tags/${encodeURI(tagName)}`,
-    );
+    return RequestHelper.delete(this, `projects/${pId}/repository/tags/${tId}`);
   }
 
   show(projectId, tagName) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/repository/tags/${encodeURI(tagName)}`,
-    );
+    return RequestHelper.get(this, `projects/${pId}/repository/tags/${tId}`);
   }
 }
 
