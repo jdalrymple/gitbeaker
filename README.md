@@ -16,7 +16,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
     * [Supported APIs](#supported-apis)
     * [Import](#import)
         * [Specific Imports](#specific-imports)
-        * [Namespace Imports](#namespace-imports)
+        * [Bundle Imports](#bundle-imports)
     * [Examples](#examples)
     * [Pagination](#pagination)
 * [Docs](#docs)
@@ -312,7 +312,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-3-16)
 ------------------
 - Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
-- Exporting namespaces which are groups of related API's. These include: ProjectsNamespace, UsersNamespace and GroupsNamespace
+- Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
 - Added activies support to the Users service
 - Added events support to the Projects, and Users
 - Added full support for ProjectVariables and GroupVariables
