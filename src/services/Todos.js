@@ -2,7 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 class Todos extends BaseService {
   all(options) {
-    return RequestHelper.get(this, 'todos, options);
+    return RequestHelper.get(this, 'todos', options);
   }
 
   create(projectId, mergerequestId) {
