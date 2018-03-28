@@ -1,6 +1,6 @@
 import Pick from 'lodash.pick';
 import * as APIServices from './services';
-import { init } from './infrastructure/Namespace';
+import init from './infrastructure/Namespace';
 
 // All seperatly
 export * from './services';
@@ -13,7 +13,7 @@ export const GroupsBundle = init(Pick(APIServices, [
   'GroupMembers',
   'GroupMilestones',
   'GroupProjects',
-  'GroupVariables'
+  'GroupVariables',
 ]));
 
 // Users
