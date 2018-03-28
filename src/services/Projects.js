@@ -19,7 +19,7 @@ class Projects extends BaseService {
 
     return RequestHelper.put(this, `projects/${pId}`, options);
   }
-  
+
   events(projectId, options) {
     validateEventOptions(options.action, options.targetType);
 
@@ -37,7 +37,7 @@ class Projects extends BaseService {
   forks(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
-    return this.get(`projects/${pId}/forks`, options);
+    return RequestHelper.get(this, `projects/${pId}/forks`, options);
   }
 
   remove(projectId) {
