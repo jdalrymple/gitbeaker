@@ -10,4 +10,4 @@ function init(...services) {
   };
 }
 
-default export init;
+export default init;
