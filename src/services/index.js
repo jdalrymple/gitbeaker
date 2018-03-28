@@ -39,7 +39,7 @@ export RepositoryFiles from './RepositoryFiles';
 export Runners from './Runners';
 export Services from './Services';
 export Tags from './Tags';
-export Todos from '/Todos';
+export Todos from './Todos';
 export Triggers from './Triggers';
 
 // General
