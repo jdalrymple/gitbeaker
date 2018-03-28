@@ -14,7 +14,7 @@ class Todos extends BaseService {
   done({ todoId } = {}) {
     const tId = encodeURIComponent(todoId);
 
-    return RequestHelper.delete(this,`todos/${tId}/mark_as_done`);
+    return RequestHelper.delete(this, `todos/${tId}/mark_as_done`);
   }
 }
 
