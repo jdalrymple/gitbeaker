@@ -1,9 +1,9 @@
 import { ResourceAwardEmojis } from '../templates';
 
-class SnippetAwardEmojis extends ResourceAwardEmojis {
+class ProjectSnippetAwardEmojis extends ResourceAwardEmojis {
   constructor(options) {
     super('issues', options);
   }
 }
 
-export default SnippetAwardEmojis;
+export default ProjectSnippetAwardEmojis;

@@ -10,7 +10,7 @@ class Environments extends BaseService {
   create(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put(this, `projects/${pId}/environments`, options);
+    return RequestHelper.post(this, `projects/${pId}/environments`, options);
   }
 
   edit(projectId, environmentId, options) {
