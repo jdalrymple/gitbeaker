@@ -1,10 +1,11 @@
+import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceNotes extends BaseService {
   constructor(resourceType, resource2Type, ...args) {
     super(...args);
 
-    this.resourceType = resourceType;
+    this.url = URLJoin(this.url, resourceType);
     this.resource2Type = resource2Type;
   }
 
@@ -13,7 +14,7 @@ class ResourceNotes extends BaseService {
 
     return RequestHelper.get(
       this,
-      `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes`,
+      `${rId}/${this.resource2Type}/${r2Id}/notes`,
       options,
     );
   }
@@ -25,7 +26,7 @@ class ResourceNotes extends BaseService {
 
     return RequestHelper.post(
       this,
-      `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes`,
+      `${rId}/${this.resource2Type}/${r2Id}/notes`,
       options,
     );
   }
@@ -37,7 +38,7 @@ class ResourceNotes extends BaseService {
 
     return RequestHelper.put(
       this,
-      `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
+      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
       options,
     );
   }
@@ -47,7 +48,7 @@ class ResourceNotes extends BaseService {
 
     return RequestHelper.delete(
       this,
-      `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
+      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
     );
   }
 
@@ -56,7 +57,7 @@ class ResourceNotes extends BaseService {
 
     return RequestHelper.get(
       this,
-      `${this.resourceType}/${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
+      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
     );
   }
 }

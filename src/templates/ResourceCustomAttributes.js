@@ -1,22 +1,23 @@
+import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceCustomAttributes extends BaseService {
   constructor(resourceType, ...args) {
     super(...args);
 
-    this.resourceType = resourceType;
+    this.url = URLJoin(this.url, resourceType);
   }
 
   all(resourceId) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${this.resourceType}/${rId}/custom_attributes`);
+    return RequestHelper.get(this, `${rId}/custom_attributes`);
   }
 
   set(resourceId, customAttributeId, value) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${this.resourceType}/${rId}/custom_attributes/${cId}`, {
+    return RequestHelper.put(this, `${rId}/custom_attributes/${cId}`, {
       value,
     });
   }
@@ -24,13 +25,13 @@ class ResourceCustomAttributes extends BaseService {
   remove(resourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${this.resourceType}/${rId}/custom_attributes/${cId}`);
+    return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`);
   }
 
   show(resourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${this.resourceType}/${rId}/custom_attributes/${cId}`);
+    return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`);
   }
 }
 

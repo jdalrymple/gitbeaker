@@ -25,7 +25,6 @@ function defaultRequest(
 
 class RequestHelper {
   static async get(service, endpoint, options = {}) {
-
     const response = await Request.get(defaultRequest(service.url, endpoint, {
       headers: service.headers,
       qs: options,

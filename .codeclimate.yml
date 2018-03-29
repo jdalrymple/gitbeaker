@@ -7,6 +7,11 @@ engines:
       languages:
         javascript:
           mass_threshold: 65
+  shellcheck:
+    enabled: true
+checks:
+  method-count:
+    enabled: false
 ratings:
    paths:
    - "**.js"

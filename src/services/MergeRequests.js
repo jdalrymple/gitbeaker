@@ -15,17 +15,13 @@ class MergeRequests extends BaseService {
 
   approvals(projectId, { mergerequestId } = {}) {
     const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId
-      ? `merge_requests/${encodeURIComponent(mergerequestId)}`
-      : '';
+    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
 
     return RequestHelper.get(this, `projects/${pId}/${mergeRequest}/approvals`);
   }
 
   all({ projectId, ...options } = {}) {
-    const url = projectId
-      ? `projects/${encodeURIComponent(projectId)}/merge_requests`
-      : 'merge_requests';
+    const url = projectId ? `projects/${encodeURIComponent(projectId)}/merge_requests` : 'merge_requests';
 
     return RequestHelper.get(this, url, options);
   }
@@ -33,10 +29,7 @@ class MergeRequests extends BaseService {
   cancelOnPipelineSucess(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `projects/${pId}/merge_requests/${mId}/cancel_merge_when_pipeline_succeeds`,
-    );
+    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}/cancel_merge_when_pipeline_succeeds`);
   }
 
   changes(projectId, mergerequestId) {
@@ -77,18 +70,14 @@ class MergeRequests extends BaseService {
 
   editApprovals(projectId, { mergerequestId, ...options }) {
     const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId
-      ? `merge_requests/${encodeURIComponent(mergerequestId)}/`
-      : '';
+    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
 
     return RequestHelper.get(this, `projects/${pId}/${mergeRequest}approvals`, options);
   }
 
   editApprovers(projectId, { mergerequestId, ...options }) {
     const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId
-      ? `merge_requests/${encodeURIComponent(mergerequestId)}/`
-      : '';
+    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
 
     return RequestHelper.get(this, `projects/${pId}/${mergeRequest}approvers`, options);
   }

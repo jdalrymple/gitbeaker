@@ -1,16 +1,14 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
+const url = userId => (userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys');
+
 class UserGPGKeys extends BaseService {
   all({ userId } = {}) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.get(this, url);
+    return RequestHelper.get(this, url(userId));
   }
 
   add(title, key, { userId } = {}) {
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
-
-    return RequestHelper.post(this, url, {
+    return RequestHelper.post(this, url(userId), {
       title,
       key,
     });
@@ -18,16 +16,14 @@ class UserGPGKeys extends BaseService {
 
   show(keyId, { userId } = {}) {
     const kId = encodeURIComponent(keyId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
-    return RequestHelper.get(this, `${url}/${kId}`);
+    return RequestHelper.get(this, `${url(userId)}/${kId}`);
   }
 
   remove(keyId, { userId } = {}) {
     const kId = encodeURIComponent(keyId);
-    const url = userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
-    return RequestHelper.delete(this, `${url}/${kId}`);
+    return RequestHelper.delete(this, `${url(userId)}/${kId}`);
   }
 }
 
