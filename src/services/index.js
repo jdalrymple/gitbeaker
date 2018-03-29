@@ -6,6 +6,8 @@ export GroupMembers from './GroupMembers';
 export GroupMilestones from './GroupMilestones';
 export GroupProjects from './GroupProjects';
 export GroupVariables from './GroupVariables';
+export Epics from './Epics';
+export EpicIssues from './EpicIssues';
 
 // Users
 export Users from './Users';
