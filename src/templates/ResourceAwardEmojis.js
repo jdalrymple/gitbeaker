@@ -23,7 +23,7 @@ class ResourceAwardsEmojis extends BaseService {
     return RequestHelper.get(this, url(projectId, resourceId, noteId), options);
   }
 
-  create(projectId, resourceId, name, noteId) {
+  award(projectId, resourceId, name, noteId) {
     return RequestHelper.post(this, url(projectId, resourceId, noteId), { name });
   }
 
