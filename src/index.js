@@ -30,6 +30,7 @@ export const ProjectsBundle = init(Pick(APIServices, [
   'Branches',
   'Commits',
   'DeployKeys',
+  'Deployments',
   'Environments',
   'Issues',
   'Jobs',

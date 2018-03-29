@@ -17,6 +17,7 @@ export UserGPGKeys from './UserGPGKeys';
 // Projects
 export Branches from './Branches';
 export Commits from './Commits';
+export Deployments from './Deployments';
 export DeployKeys from './DeployKeys';
 export Environments from './Environments';
 export Issues from './Issues';
