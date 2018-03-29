@@ -1,6 +1,7 @@
 // Groups
 export Groups from './Groups';
 export GroupAccessRequests from './GroupAccessRequests';
+export GroupBadges from './GroupBadges';
 export GroupCustomAttributes from './GroupCustomAttributes';
 export GroupMembers from './GroupMembers';
 export GroupMilestones from './GroupMilestones';

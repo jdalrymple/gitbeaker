@@ -9,6 +9,7 @@ export * from './services';
 export const GroupsBundle = init(Pick(APIServices, [
   'Groups',
   'GroupAccessRequests',
+  'GroupBadges',
   'GroupCustomAttributes',
   'GroupMembers',
   'GroupMilestones',

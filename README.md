@@ -42,6 +42,7 @@ The API's that are currently supported are:
 // Groups
 Groups
 GroupAccessRequests
+GroupBadges
 GroupCustomAttributes
 GroupMembers
 GroupMilestones
