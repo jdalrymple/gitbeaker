@@ -49,7 +49,8 @@ export Todos from './Todos';
 export Triggers from './Triggers';
 
 // General
-export SystemHooks from './SystemHooks';
-export Events from './Events';
 export BroadcastMessages from './BroadcastMessages';
+export Events from './Events';
 export FeatureFlags from './FeatureFlags';
+export Keys from './Keys';
+export SystemHooks from './SystemHooks';
