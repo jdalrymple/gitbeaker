@@ -95,6 +95,7 @@ Events
 FeatureFlags
 GeoNodes
 GitignoreTemplates
+GitLabCIYMLTemplates
 Keys
 SystemHooks
 

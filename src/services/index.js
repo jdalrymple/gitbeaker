@@ -54,5 +54,6 @@ export Events from './Events';
 export FeatureFlags from './FeatureFlags';
 export GeoNodes from './GeoNodes';
 export GitignoreTemplates from './GitignoreTemplates';
+export GitLabCIYMLTemplates from './GitLabCIYMLTemplates';
 export Keys from './Keys';
 export SystemHooks from './SystemHooks';
