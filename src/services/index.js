@@ -52,5 +52,6 @@ export Triggers from './Triggers';
 export BroadcastMessages from './BroadcastMessages';
 export Events from './Events';
 export FeatureFlags from './FeatureFlags';
+export GeoNodes from './GeoNodes';
 export Keys from './Keys';
 export SystemHooks from './SystemHooks';

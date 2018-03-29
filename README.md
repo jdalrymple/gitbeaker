@@ -47,6 +47,8 @@ GroupMembers
 GroupMilestones
 GroupProjects
 GroupVariables
+Epics
+EpicIssues
 
 // Users
 Users
@@ -58,12 +60,15 @@ UserGPGKeys
 // Projects
 Branches
 Commits
+Deployments
 DeployKeys
 Environments
 Issues
+IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
+MergeRequestAwardEmojis
 MergeRequestNotes
 Pipelines
 Projects
@@ -73,6 +78,7 @@ ProjectHooks
 ProjectMembers
 ProjectMilestones
 ProjectSnippets
+ProjectSnippetAwardEmojis
 ProtectedBranches
 ProjectVariables
 Repositories
@@ -80,12 +86,16 @@ RepositoryFiles
 Runners
 Services
 Tags
+Todos
 Triggers
 
 // General
+BroadcastMessages
 Events
+FeatureFlags
+GeoNodes
+Keys
 SystemHooks
-Todos
 
 ```
 ### Import
