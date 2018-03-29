@@ -52,3 +52,4 @@ export Triggers from './Triggers';
 export SystemHooks from './SystemHooks';
 export Events from './Events';
 export BroadcastMessages from './BroadcastMessages';
+export FeatureFlags from './FeatureFlags';
