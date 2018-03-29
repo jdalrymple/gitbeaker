@@ -53,5 +53,6 @@ export BroadcastMessages from './BroadcastMessages';
 export Events from './Events';
 export FeatureFlags from './FeatureFlags';
 export GeoNodes from './GeoNodes';
+export GitignoreTemplates from './GitignoreTemplates';
 export Keys from './Keys';
 export SystemHooks from './SystemHooks';

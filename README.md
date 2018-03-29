@@ -94,6 +94,7 @@ BroadcastMessages
 Events
 FeatureFlags
 GeoNodes
+GitignoreTemplates
 Keys
 SystemHooks
 
