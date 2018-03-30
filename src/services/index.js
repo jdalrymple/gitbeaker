@@ -44,6 +44,7 @@ export ProjectIssueBoards from './ProjectIssueBoards';
 export ProjectHooks from './ProjectHooks';
 export ProjectMembers from './ProjectMembers';
 export ProjectMilestones from './ProjectMilestones';
+export ProjectSnippet from './ProjectSnippet';
 export ProjectSnippetNotes from './ProjectSnippetNotes';
 export ProjectSnippetAwardEmojis from './ProjectSnippetAwardEmojis';
 export ProtectedBranches from './ProtectedBranches';

@@ -79,6 +79,7 @@ ProjectHooks
 ProjectMembers
 ProjectMilestones
 ProjectSnippets
+ProjectSnippetNotes
 ProjectSnippetAwardEmojis
 ProtectedBranches
 ProjectVariables
