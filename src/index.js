@@ -18,6 +18,7 @@ export const GroupsBundle = init(Pick(APIServices, [
   'GroupVariables',
   'Epics',
   'EpicIssues',
+  'EpicNotes',
 ]));
 
 // Users
@@ -37,6 +38,7 @@ export const ProjectsBundle = init(Pick(APIServices, [
   'Deployments',
   'Environments',
   'Issues',
+  'IssueNotes',
   'Jobs',
   'Labels',
   'MergeRequests',

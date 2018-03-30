@@ -10,6 +10,7 @@ export GroupProjects from './GroupProjects';
 export GroupVariables from './GroupVariables';
 export Epics from './Epics';
 export EpicIssues from './EpicIssues';
+export EpicNotes from './EpicNotes';
 
 // Users
 export Users from './Users';
@@ -25,6 +26,7 @@ export Deployments from './Deployments';
 export DeployKeys from './DeployKeys';
 export Environments from './Environments';
 export Issues from './Issues';
+export IssueNotes from './IssueNotes';
 export IssueAwardEmojis from './IssueAwardEmojis';
 export Jobs from './Jobs';
 export Labels from './Labels';
