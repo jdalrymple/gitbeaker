@@ -3,12 +3,15 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 function url(projectId, resourceType, resourceId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
+  let output = `${pId}/${resourceType}/${rId}/`;
 
   if (noteId) {
-    return `${pId}/${resourceType}/${rId}/notes/${encodeURIComponent(noteId)}/award_emoji`;
+    output += `notes/${encodeURIComponent(noteId)}/`;
   }
 
-  return `${pId}/${resourceType}/${rId}/award_emoji`;
+  output += 'award_emoji';
+
+  return output;
 }
 
 class ResourceAwardsEmojis extends BaseService {
