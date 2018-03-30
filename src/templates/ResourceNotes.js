@@ -12,11 +12,7 @@ class ResourceNotes extends BaseService {
   all(resourceId, resource2Id, options) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes`,
-      options,
-    );
+    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
   create(resourceId, resource2Id, options) {
@@ -24,11 +20,7 @@ class ResourceNotes extends BaseService {
 
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.post(
-      this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes`,
-      options,
-    );
+    return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
   edit(resourceId, resource2Id, noteId, options) {
@@ -36,29 +28,19 @@ class ResourceNotes extends BaseService {
 
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
-      options,
-    );
+    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 
   remove(resourceId, resource2Id, noteId) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
-    );
+    return RequestHelper.delete(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`);
   }
 
   show(resourceId, resource2Id, noteId) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
-    );
+    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`);
   }
 }
 
