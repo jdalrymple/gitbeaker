@@ -59,4 +59,5 @@ export GeoNodes from './GeoNodes';
 export GitignoreTemplates from './GitignoreTemplates';
 export GitLabCIYMLTemplates from './GitLabCIYMLTemplates';
 export Keys from './Keys';
+export Licence from './Licence';
 export SystemHooks from './SystemHooks';
