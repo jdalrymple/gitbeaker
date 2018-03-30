@@ -39,6 +39,7 @@ export PipelineScheduleVariables from './PipelineScheduleVariables';
 export Projects from './Projects';
 export ProjectAccessRequests from './ProjectAccessRequests';
 export ProjectCustomAttributes from './ProjectCustomAttributes';
+export ProjectImportExport from './ProjectImportExport';
 export ProjectIssueBoards from './ProjectIssueBoards';
 export ProjectHooks from './ProjectHooks';
 export ProjectMembers from './ProjectMembers';
