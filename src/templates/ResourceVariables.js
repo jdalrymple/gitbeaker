@@ -1,41 +1,68 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
+const url = (resourceType, resourceId, resource2Type, resource2Id) => {
+  const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
+
+  let output = `${resourceType}/${rId}/`;
+
+  if (resource2Id) {
+    output += `${resource2Type}/${r2Id}/`;
+  }
+
+  output += 'variables';
+
+  return output;
+};
+
 class ResourceVariables extends BaseService {
-  constructor(resourceType, ...args) {
+  constructor(resourceType, resource2Type, ...args) {
     super(...args);
 
-    this.url = URLJoin(this.url, resourceType);
+    this.resourceType = resourceType;
+    this.resource2Type = resource2Type;
   }
 
-  all(resourceId) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get(this, `${rId}/variables`);
+  all(resourceId, resource2Id) {
+    return RequestHelper.get(
+      this,
+      url(this.resourceType, resourceId, this.resource2Type, resource2Id),
+    );
   }
 
-  create(resourceId, options) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post(this, `${rId}/variables`, options);
+  create(resourceId, resource2Id, options) {
+    return RequestHelper.post(
+      this,
+      url(this.resourceType, resourceId, this.resource2Type, resource2Id),
+      options,
+    );
   }
 
-  edit(resourceId, keyId, options) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  edit(resourceId, resource2Id, keyId, options) {
+    const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.put(
+      this,
+      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+      options,
+    );
   }
 
-  show(resourceId, keyId) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  show(resourceId, resource2Id, keyId) {
+    const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `${rId}/variables/${kId}`);
+    return RequestHelper.get(
+      this,
+      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+    );
   }
 
-  remove(resourceId, keyId) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  remove(resourceId, resource2Id, keyId) {
+    const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.delete(this, `${rId}/variables/${kId}`);
+    return RequestHelper.delete(
+      this,
+      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+    );
   }
 }
 

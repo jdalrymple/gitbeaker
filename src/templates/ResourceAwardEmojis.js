@@ -1,15 +1,15 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
-const url = (projectId, resourceId, noteId) => {
+function url(projectId, resourceType, resourceId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
 
   if (noteId) {
-    return `${pId}/${this.resourceId}/${rId}/notes/${encodeURIComponent(noteId)}/award_emoji`;
+    return `${pId}/${resourceType}/${rId}/notes/${encodeURIComponent(noteId)}/award_emoji`;
   }
 
-  return `${pId}/${this.resourceId}/${rId}/award_emoji`;
-};
+  return `${pId}/${resourceType}/${rId}/award_emoji`;
+}
 
 class ResourceAwardsEmojis extends BaseService {
   constructor(resourceType, ...args) {
@@ -20,19 +20,21 @@ class ResourceAwardsEmojis extends BaseService {
   }
 
   all(projectId, resourceId, options, noteId) {
-    return RequestHelper.get(this, url(projectId, resourceId, noteId), options);
+    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
   }
 
   award(projectId, resourceId, name, noteId) {
-    return RequestHelper.post(this, url(projectId, resourceId, noteId), { name });
+    return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
+      name,
+    });
   }
 
   remove(projectId, resourceId, awardId, noteId) {
-    return RequestHelper.delete(this, url(projectId, resourceId, noteId));
+    return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 
   show(projectId, resourceId, awardId, noteId) {
-    return RequestHelper.get(this, url(projectId, resourceId, noteId));
+    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 }
 
