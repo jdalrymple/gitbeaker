@@ -1,9 +1,9 @@
 import { ResourceNotes } from '../templates';
 
-class ProjectSnippets extends ResourceNotes {
+class ProjectSnippetNotes extends ResourceNotes {
   constructor(options) {
     super('projects', 'snippets', options);
   }
 }
 
-export default ProjectSnippets;
+export default ProjectSnippetNotes;

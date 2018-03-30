@@ -52,7 +52,7 @@ export const ProjectsBundle = init(Pick(APIServices, [
   'ProjectHooks',
   'ProjectMembers',
   'ProjectMilestones',
-  'ProjectSnippets',
+  'ProjectSnippetNotes',
   'ProtectedBranches',
   'ProjectVariables',
   'Repositories',
