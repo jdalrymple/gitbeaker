@@ -44,6 +44,8 @@ export const ProjectsBundle = init(Pick(APIServices, [
   'MergeRequests',
   'MergeRequestNotes',
   'Pipelines',
+  'PipelineSchedules',
+  'PipelineScheduleVariables',
   'Projects',
   'ProjectAccessRequests',
   'ProjectBadges',
