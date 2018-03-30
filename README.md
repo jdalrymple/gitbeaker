@@ -145,6 +145,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+[2.2.7](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.7) (2018-3-15)
+------------------
+- Fixing babel runtime
+
 [2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15)
 ------------------
 - Fixed more issues within the url concatenation
