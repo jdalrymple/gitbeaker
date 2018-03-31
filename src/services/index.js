@@ -70,4 +70,5 @@ export GitLabCIYMLTemplates from './GitLabCIYMLTemplates';
 export Keys from './Keys';
 export Licence from './Licence';
 export Namespaces from './Namespaces';
+export NotificationSettings from './NotificationSettings';
 export SystemHooks from './SystemHooks';
