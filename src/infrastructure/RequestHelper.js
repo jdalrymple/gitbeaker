@@ -6,7 +6,13 @@ import URLJoin from 'url-join';
 function defaultRequest(
   url,
   endpoint,
-  { headers, body, qs, formData, resolveWithFullResponse = false },
+  {
+    headers,
+    body,
+    qs,
+    formData,
+    resolveWithFullResponse = false,
+  },
 ) {
   const params = {
     url: URLJoin(url, endpoint),
