@@ -1,14 +1,8 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { ResourceTemplates } from '../templates';
 
-class GitLabCIYMLTemplates extends BaseService {
-  all(options) {
-    return RequestHelper.get(this, 'templates/gitlab_ci_ymls', options);
-  }
-
-  show(ciymlId) {
-    const gId = encodeURIComponent(ciymlId);
-
-    return RequestHelper.post(this, `templates/gitlab_ci_ymls/${gId}`);
+class GitLabCIYMLTemplates extends ResourceTemplates {
+  constructor(options) {
+    super('gitlab_ci_ymls', options);
   }
 }
 

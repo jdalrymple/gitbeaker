@@ -1,14 +1,8 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { ResourceTemplates } from '../templates';
 
-class GitignoreTemplates extends BaseService {
-  all(options) {
-    return RequestHelper.get(this, 'templates/gitignores', options);
-  }
-
-  show(gitignoreId) {
-    const gId = encodeURIComponent(gitignoreId);
-
-    return RequestHelper.post(this, `templates/gitignores/${gId}`);
+class GitignoreTemplates extends ResourceTemplates {
+  constructor(options) {
+    super('gitignores', options);
   }
 }
 

@@ -69,6 +69,7 @@ export GitignoreTemplates from './GitignoreTemplates';
 export GitLabCIYMLTemplates from './GitLabCIYMLTemplates';
 export Keys from './Keys';
 export Licence from './Licence';
+export LicenceTemplates from './LicenceTemplates';
 export Namespaces from './Namespaces';
 export NotificationSettings from './NotificationSettings';
 export SystemHooks from './SystemHooks';
