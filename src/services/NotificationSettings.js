@@ -45,7 +45,7 @@ class NotificationSettings extends BaseService {
     return RequestHelper.get(this, `${url}notification_settings`);
   }
 
-  edit({ projectId, groupId } = {}, options) {
+  edit(options, { projectId, groupId } = {}) {
     let url;
 
     if (projectId) {

@@ -74,5 +74,8 @@ export LicenceTemplates from './LicenceTemplates';
 export Lint from './Lint';
 export Namespaces from './Namespaces';
 export NotificationSettings from './NotificationSettings';
+export PagesDomains from './PagesDomains';
+export Search from './Search';
 export SidekiqMetrics from './SidekiqMetrics';
 export SystemHooks from './SystemHooks';
+export Wikis from './Wikis';
