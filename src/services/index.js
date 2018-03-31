@@ -11,6 +11,7 @@ export GroupVariables from './GroupVariables';
 export Epics from './Epics';
 export EpicIssues from './EpicIssues';
 export EpicNotes from './EpicNotes';
+export EpicDiscussions from './EpicDiscussions';
 
 // Users
 export Users from './Users';
@@ -27,6 +28,7 @@ export DeployKeys from './DeployKeys';
 export Environments from './Environments';
 export Issues from './Issues';
 export IssueNotes from './IssueNotes';
+export IssueDiscussions from './IssueDiscussions';
 export IssueAwardEmojis from './IssueAwardEmojis';
 export Jobs from './Jobs';
 export Labels from './Labels';
@@ -44,8 +46,9 @@ export ProjectIssueBoards from './ProjectIssueBoards';
 export ProjectHooks from './ProjectHooks';
 export ProjectMembers from './ProjectMembers';
 export ProjectMilestones from './ProjectMilestones';
-export ProjectSnippet from './ProjectSnippet';
+export ProjectSnippets from './ProjectSnippets';
 export ProjectSnippetNotes from './ProjectSnippetNotes';
+export ProjectSnippetDiscussions from './ProjectSnippetDiscussions';
 export ProjectSnippetAwardEmojis from './ProjectSnippetAwardEmojis';
 export ProtectedBranches from './ProtectedBranches';
 export ProjectVariables from './ProjectVariables';
