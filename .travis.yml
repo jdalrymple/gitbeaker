@@ -11,7 +11,7 @@ cache:
 stages:
   lint
   build
-  test
+  # test
 
 jobs:
   include:
