@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "8"
+  - "lts/*"
+  - "node"
+
+cache:
+  directories:
+    - "node_modules"
+
+stages:
+  lint
+  build
+  test
+
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+    - stage: build
+      script: npm run build
+    # - stage: test
+    #   script: npm run test:unit
+    #   script: npm run test:integration
