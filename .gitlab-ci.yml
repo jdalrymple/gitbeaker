@@ -1,0 +1,21 @@
+stages:
+  - lint
+  # - unit-tests
+  # - integration-tests
+
+image: node:6.11.2
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
+
+# unit-tests:
+#   stage: unit-test
+#   script:
+#     - npm run unit-tests
+
+# integration-tests:
+#   stage: integration-tests
+#   script:
+#     - npm run integration-tests
