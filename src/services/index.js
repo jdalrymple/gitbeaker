@@ -73,4 +73,5 @@ export Licence from './Licence';
 export LicenceTemplates from './LicenceTemplates';
 export Namespaces from './Namespaces';
 export NotificationSettings from './NotificationSettings';
+export SidekiqMetrics from './SidekiqMetrics';
 export SystemHooks from './SystemHooks';
