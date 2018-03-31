@@ -71,6 +71,7 @@ export GitLabCIYMLTemplates from './GitLabCIYMLTemplates';
 export Keys from './Keys';
 export Licence from './Licence';
 export LicenceTemplates from './LicenceTemplates';
+export Lint from './Lint';
 export Namespaces from './Namespaces';
 export NotificationSettings from './NotificationSettings';
 export SidekiqMetrics from './SidekiqMetrics';
