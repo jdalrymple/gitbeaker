@@ -61,6 +61,7 @@ export Todos from './Todos';
 export Triggers from './Triggers';
 
 // General
+export ApplicationSettings from './ApplicationSettings';
 export BroadcastMessages from './BroadcastMessages';
 export Events from './Events';
 export FeatureFlags from './FeatureFlags';
