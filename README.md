@@ -39,24 +39,40 @@ npm install node-gitlab-api
 ### Supported APIs
 The API's that are currently supported are:
 ```
+// General
+ApplicationSettings
+BroadcastMessages
+Events
+FeatureFlags
+GeoNodes
+GitignoreTemplates
+GitLabCIYMLTemplates
+Keys
+Licence
+LicenceTemplates
+Lint
+Namespaces
+NotificationSettings
+PagesDomains
+Search
+SidekiqMetrics
+SystemHooks
+Wikis
+
 // Groups
 Groups
 GroupAccessRequests
 GroupBadges
 GroupCustomAttributes
+GroupIssueBoards
 GroupMembers
 GroupMilestones
 GroupProjects
 GroupVariables
 Epics
 EpicIssues
-
-// Users
-Users
-UserEmails
-UserImpersonationTokens
-UserKeys
-UserGPGKeys
+EpicNotes
+EpicDiscussions
 
 // Projects
 Branches
@@ -65,6 +81,8 @@ Deployments
 DeployKeys
 Environments
 Issues
+IssueNotes
+IssueDiscussions
 IssueAwardEmojis
 Jobs
 Labels
@@ -72,14 +90,19 @@ MergeRequests
 MergeRequestAwardEmojis
 MergeRequestNotes
 Pipelines
+PipelineSchedules
+PipelineScheduleVariables
 Projects
 ProjectAccessRequests
 ProjectCustomAttributes
+ProjectImportExport
+ProjectIssueBoards
 ProjectHooks
 ProjectMembers
 ProjectMilestones
 ProjectSnippets
 ProjectSnippetNotes
+ProjectSnippetDiscussions
 ProjectSnippetAwardEmojis
 ProtectedBranches
 ProjectVariables
@@ -91,15 +114,12 @@ Tags
 Todos
 Triggers
 
-// General
-BroadcastMessages
-Events
-FeatureFlags
-GeoNodes
-GitignoreTemplates
-GitLabCIYMLTemplates
-Keys
-SystemHooks
+// Users
+Users
+UserEmails
+UserImpersonationTokens
+UserKeys
+UserGPGKeys
 
 ```
 ### Import
@@ -167,30 +187,43 @@ etc..
 Currently there are three Bundles:
 1. ProjectsBundle which includes:
 ```
-Branches,
-Commits,
-DeployKeys,
-Environments,
-Issues,
-Jobs,
-Labels,
-MergeRequests,
-MergeRequestNotes,
-Pipelines,
-Projects,
-ProjectAccessRequests,
-ProjectCustomAttributes,
-ProjectHooks,
-ProjectMembers,
-ProjectMilestones,
-ProjectSnippets,
-ProtectedBranches,
-ProjectVariables,
-Repositories,
-RepositoryFiles,
-Runners,
-Services,
-Tags,
+Branches
+Commits
+Deployments
+DeployKeys
+Environments
+Issues
+IssueNotes
+IssueDiscussions
+IssueAwardEmojis
+Jobs
+Labels
+MergeRequests
+MergeRequestAwardEmojis
+MergeRequestNotes
+Pipelines
+PipelineSchedules
+PipelineScheduleVariables
+Projects
+ProjectAccessRequests
+ProjectCustomAttributes
+ProjectImportExport
+ProjectIssueBoards
+ProjectHooks
+ProjectMembers
+ProjectMilestones
+ProjectSnippets
+ProjectSnippetNotes
+ProjectSnippetDiscussions
+ProjectSnippetAwardEmojis
+ProtectedBranches
+ProjectVariables
+Repositories
+RepositoryFiles
+Runners
+Services
+Tags
+Todos
 Triggers
 ```
 
@@ -205,13 +238,19 @@ UserGPGKeys
 
 3. GroupsBundle which includes:
 ```
-Groups,
-GroupAccessRequests,
-GroupCustomAttributes,
-GroupMembers,
-GroupMilestones,
-GroupProjects,
+Groups
+GroupAccessRequests
+GroupBadges
+GroupCustomAttributes
+GroupIssueBoards
+GroupMembers
+GroupMilestones
+GroupProjects
 GroupVariables
+Epics
+EpicIssues
+EpicNotes
+EpicDiscussions
 ```
 
 ### Examples
@@ -327,19 +366,13 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 ------------------
 - Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
 - Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
-- Added activies support to the Users service
 - Added events support to the Projects, and Users
 - Added full support for ProjectVariables and GroupVariables
-- Added support for UserGPGKeys
-- Added support for UserImpersonationTokens
-- Added support for SystemHooks
 - Added support for Events. This is also exposed in Projects and Users under the events function
 - Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
-- Added support for Merge Request Approvals #49
 - Fixed problem with .all() functions where only the some of the results were being returned
-- Added full support for Enviroments
-- Added support for Todos
+- Completed support for all Gitlab APIs, #49, #53
 
 ### Breaking Changes between 2.2.6 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
