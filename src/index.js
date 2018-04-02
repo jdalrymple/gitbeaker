@@ -1,12 +1,12 @@
 import Pick from 'lodash.pick';
 import * as APIServices from './services';
-import init from './infrastructure/Bundle';
+import { Bundler } from './infrastructure';
 
 // All seperatly
 export * from './services';
 
 // Groups
-export const GroupsBundle = init(Pick(APIServices, [
+export const GroupsBundler = Bundler(Pick(APIServices, [
   'Groups',
   'GroupAccessRequests',
   'GroupBadges',
@@ -23,7 +23,7 @@ export const GroupsBundle = init(Pick(APIServices, [
 ]));
 
 // Users
-export const UsersBundle = init(Pick(APIServices, [
+export const UsersBundler = Bundler(Pick(APIServices, [
   'Users',
   'UserEmails',
   'UserImpersonationTokens',
@@ -32,7 +32,7 @@ export const UsersBundle = init(Pick(APIServices, [
 ]));
 
 // Projects
-export const ProjectsBundle = init(Pick(APIServices, [
+export const ProjectsBundler = Bundler(Pick(APIServices, [
   'Branches',
   'Commits',
   'DeployKeys',
@@ -74,4 +74,4 @@ export const ProjectsBundle = init(Pick(APIServices, [
 ]));
 
 // All initialized
-export default init(APIServices);
+export default Bundler(APIServices);

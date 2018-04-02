@@ -1,4 +1,4 @@
-function init(...services) {
+function Bundler(...services) {
   const combined = Object.assign({}, ...services);
 
   return class Bundle {
@@ -10,4 +10,4 @@ function init(...services) {
   };
 }
 
-export default init;
+export default Bundler;
