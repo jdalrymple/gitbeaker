@@ -1,6 +1,6 @@
 import Pick from 'lodash.pick';
 import * as APIServices from './services';
-import init from './infrastructure/Namespace';
+import init from './infrastructure/Bundle';
 
 // All seperatly
 export * from './services';
