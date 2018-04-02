@@ -1,4 +1,4 @@
-import { promisify as Promisify } from 'util';
+import Promisify from 'util.promisify';
 import XHR from 'xhr';
 
 const XMLHttpRequester = Promisify(XHR);
