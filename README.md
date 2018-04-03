@@ -352,6 +352,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Jeff Pelton](https://github.com/comster)
 - [Claude Abounegm](https://github.com/claude-abounegm)
 - [Stefan Hall](https://github.com/Marethyu1)
+- [Jordan Wallet](https://github.com/Mr-Wallet)
+
 
 ## License
 
