@@ -328,10 +328,7 @@ let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ## Docs
 
-Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! 😎
-
-* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
-* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+Although there are the official docs for the API, there are some goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
 
 ## Tests
 
@@ -362,7 +359,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-3-16)
+[3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-4-2)
 ------------------
 - Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
 - Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
@@ -405,24 +402,43 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 ```
 
+[2.2.8](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.7) (2018-4-1)
+------------------
+- Updating babel
+
+[2.2.7](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.7) (2018-3-15)
+------------------
+- Fixing babel runtime
+
 [2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15) 
 ------------------ 
 - Fixed more issues within the url concatenation 
-
 
 [2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15) 
 ------------------ 
 - Fixed #48 - Problem with trailing `\` in url 
 
-
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------
+- Fixing babel runtime
+
+[2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15)
+------------------
+- Fixed more issues within the url concatenation
+
+[2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15)
+------------------
+- Fixed #48 - Problem with trailing `\` in url
+
+[2.2.4](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
+------------------
+- Fixed #33 - Bug within the es5 transpilling configuration
 - Fixed the missing options for tags.all #40
 - Added delete key method to UserKeys.js #41 thanks to [Claude Abounegm](https://github.com/claude-abounegm)
 
 [2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
-- Fixing bug within the customAttributes logic
+- Fixed #37 - Bug within the customAttributes logic 
 
 [2.2.2](https://github.com/jdalrymple/node-gitlab-api/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 ------------------
@@ -440,7 +456,7 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab-api/pull/23)
 - Exposed the Merge Requests resource which was missing from the exports list thanks to [fewieden](https://github.com/fewieden) in [PR #26](https://github.com/jdalrymple/node-gitlab-api/pull/26)
 - Added support for the Project Enviroments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab-api/pull/28)
-- Fixing parse function to handle encoded urls that dont include '/' such as in groups #24
+- Fixing parse function to handle encoded urls that don't include '/' such as in groups #24
 
 ### Breaking Changes between 2.1.0 and 2.2.0
 - Fixed a problem with the get responses where the response contained the full request response and not just the body
