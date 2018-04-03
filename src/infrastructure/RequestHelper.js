@@ -4,9 +4,9 @@ import QS from 'qs';
 import URLJoin from 'url-join';
 
 function defaultRequest(
-  url,
+  { url, useXMLHttpRequest },
   endpoint,
-  { headers, body, qs, formData, resolveWithFullResponse = false, useXMLHttpRequest },
+  { headers, body, qs, formData, resolveWithFullResponse = false },
 ) {
   const params = {
     url: URLJoin(url, endpoint),
@@ -30,7 +30,7 @@ function defaultRequest(
 
 class RequestHelper {
   static async get(service, endpoint, options = {}) {
-    const response = await service.requester.get(defaultRequest(service.url, endpoint, {
+    const response = await service.requester.get(defaultRequest(service, endpoint, {
       headers: service.headers,
       qs: options,
       resolveWithFullResponse: true,
@@ -53,21 +53,21 @@ class RequestHelper {
   static post(service, endpoint, options = {}, form = false) {
     const body = form ? 'fromData' : 'body';
 
-    return service.requester.post(defaultRequest(service.url, endpoint, {
+    return service.requester.post(defaultRequest(service, endpoint, {
       headers: service.headers,
       [body]: options,
     }));
   }
 
   static put(service, endpoint, options = {}) {
-    return service.requester.put(defaultRequest(service.url, endpoint, {
+    return service.requester.put(defaultRequest(service, endpoint, {
       headers: service.headers,
       body: options,
     }));
   }
 
   static delete(service, endpoint, options = {}) {
-    return service.requester.delete(defaultRequest(service.url, endpoint, {
+    return service.requester.delete(defaultRequest(service, endpoint, {
       headers: service.headers,
       qs: options,
     }));
