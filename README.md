@@ -328,7 +328,7 @@ let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ## Docs
 
-Although there are the official docs for the API, there are some goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
+Although there are the official docs for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
 
 ## Tests
 
