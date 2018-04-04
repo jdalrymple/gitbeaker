@@ -52,6 +52,15 @@ const GitlabAPI = require('node-gitlab-api')({
   oauthToken: 'abcdefghij123456'
 })
 ```
+
+Using basic http authentication with token
+```javascript
+const GitlabAPI = require('node-gitlab-api')({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456'
+  basicAuth: { 'user': 'jhonny', 'pass': "boy" }
+})
+```
 #### ES5
 The same parameters as above, but the require url inclues a `/dist/es5`:
 
