@@ -13,7 +13,10 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 
 * [Install](#install)
 * [Usage](#usage)
+    * [Supported APIs](#supported-apis)
     * [Import](#import)
+        * [Specific Imports](#specific-imports)
+        * [Bundle Imports](#bundle-imports)
     * [Examples](#examples)
     * [Pagination](#pagination)
 * [Docs](#docs)
@@ -24,6 +27,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
 * [License](#licence)
 * [Changelog](#changelog)
 
+
 ## Install
 
 ```bash
@@ -32,33 +36,221 @@ npm install node-gitlab-api
 ```
 
 ## Usage
+### Supported APIs
+The API's that are currently supported are:
+```
+// General
+ApplicationSettings
+BroadcastMessages
+Events
+FeatureFlags
+GeoNodes
+GitignoreTemplates
+GitLabCIYMLTemplates
+Keys
+Licence
+LicenceTemplates
+Lint
+Namespaces
+NotificationSettings
+PagesDomains
+Search
+SidekiqMetrics
+SystemHooks
+Wikis
+
+// Groups
+Groups
+GroupAccessRequests
+GroupBadges
+GroupCustomAttributes
+GroupIssueBoards
+GroupMembers
+GroupMilestones
+GroupProjects
+GroupVariables
+Epics
+EpicIssues
+EpicNotes
+EpicDiscussions
+
+// Projects
+Branches
+Commits
+Deployments
+DeployKeys
+Environments
+Issues
+IssueNotes
+IssueDiscussions
+IssueAwardEmojis
+Jobs
+Labels
+MergeRequests
+MergeRequestAwardEmojis
+MergeRequestNotes
+Pipelines
+PipelineSchedules
+PipelineScheduleVariables
+Projects
+ProjectAccessRequests
+ProjectCustomAttributes
+ProjectImportExport
+ProjectIssueBoards
+ProjectHooks
+ProjectMembers
+ProjectMilestones
+ProjectSnippets
+ProjectSnippetNotes
+ProjectSnippetDiscussions
+ProjectSnippetAwardEmojis
+ProtectedBranches
+ProjectVariables
+Repositories
+RepositoryFiles
+Runners
+Services
+Tags
+Todos
+Triggers
+
+// Users
+Users
+UserEmails
+UserImpersonationTokens
+UserKeys
+UserGPGKeys
+
+```
 ### Import
-#### ES6 (>=node 8.0.0)
+
 URL to your GitLab instance should not include `/api/v4` path.
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+
 ```javascript
-const GitlabAPI = require('node-gitlab-api')({
+// ES6 (>=node 8.0.0)
+import Gitlab from 'node-gitlab-api';
+
+// ES5
+const Gitlab = require('node-gitlab-api/dist/es5').default
+
+
+// Instantiating
+const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456'	//Can be created in your profile. 
 })
-```
 
-Or, use a OAuth token instead!
+// Or, use a OAuth token instead!
 
-```javascript
-const GitlabAPI = require('node-gitlab-api')({
+const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
+
 ```
-#### ES5
-The same parameters as above, but the require url inclues a `/dist/es5`:
+
+#### Specific Imports
+
+Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
 
 ```javascript
-const GitlabAPI = require('node-gitlab-api/dist/es5')({
-  ...
+import { Projects } from 'node-gitlab-api';
+
+const service = new Projects({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
 })
+
+```
+
+#### Bundle Imports
+
+It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Bundle export for importing and instantiating all these related API's at once.
+
+
+```javascript
+import { ProjectsBundle } from 'node-gitlab-api';
+
+const services = new ProjectsBundle({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+})
+
+services.Projects.all()
+services.MergeRequests.all()
+etc..
+
+```
+
+Currently there are three Bundles:
+1. ProjectsBundle which includes:
+```
+Branches
+Commits
+Deployments
+DeployKeys
+Environments
+Issues
+IssueNotes
+IssueDiscussions
+IssueAwardEmojis
+Jobs
+Labels
+MergeRequests
+MergeRequestAwardEmojis
+MergeRequestNotes
+Pipelines
+PipelineSchedules
+PipelineScheduleVariables
+Projects
+ProjectAccessRequests
+ProjectCustomAttributes
+ProjectImportExport
+ProjectIssueBoards
+ProjectHooks
+ProjectMembers
+ProjectMilestones
+ProjectSnippets
+ProjectSnippetNotes
+ProjectSnippetDiscussions
+ProjectSnippetAwardEmojis
+ProtectedBranches
+ProjectVariables
+Repositories
+RepositoryFiles
+Runners
+Services
+Tags
+Todos
+Triggers
+```
+
+2. UsersBundle which includes:
+```
+Users,
+UserEmails,
+UserImpersonationTokens,
+UserKeys,
+UserGPGKeys
+```
+
+3. GroupsBundle which includes:
+```
+Groups
+GroupAccessRequests
+GroupBadges
+GroupCustomAttributes
+GroupIssueBoards
+GroupMembers
+GroupMilestones
+GroupProjects
+GroupVariables
+Epics
+EpicIssues
+EpicNotes
+EpicDiscussions
 ```
 
 ### Examples
@@ -67,14 +259,18 @@ Once you have your library instantiated, you can utilize many of the API's funct
 Using the await/async method
 
 ```javascript
-// Listing users
-let users = await GitlabAPI.users.all();
-```
+import Gitlab from 'node-gitlab-api';
 
-Or using Promise-Then notation
-```javascript
-// Listing projects
-GitlabAPI.projects.all()
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
+// Listing users
+let users = await api.Users.all();
+
+// Or using Promise-Then notation
+api.Projects.all()
 .then((projects) => {
 	console.log(projects)
 })
@@ -87,7 +283,14 @@ General rule about all the function parameters:
 ie. 
 
 ```javascript
-GitlabAPI.projects.create(projectId, {
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
+api.Projects.create(projectId, {
 	//options defined in the Gitlab API documentation
 })
 ```
@@ -98,25 +301,34 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 
 ```javascript
-// Listing projects
-let projects = await GitlabAPI.projects.all({max_pages:2});
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
+let projects = await api.Projects.all({maxPages:2});
 
 ```
 
 You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
 
 ```javascript
-// Listing projects
-let projects = await GitlabAPI.projects.all({max_pages:2, per_page:40});
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' //Can be created in your profile. 
+});
+
+let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
 
 ## Docs
 
-Although there are the official docs for the API, below are some additional docs for this node package! Would eventually like to document everything, but there is quite a bit to document. PR's are welcome! 😎
-
-* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
-* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
+Although there are the official docs for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
 
 ## Tests
 
@@ -139,17 +351,76 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [fewieden](https://github.com/fewieden)
 - [Jeff Pelton](https://github.com/comster)
 - [Claude Abounegm](https://github.com/claude-abounegm)
+- [Stefan Hall](https://github.com/Marethyu1)
+- [Jordan Wallet](https://github.com/Mr-Wallet)
+
 
 ## License
 
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-4-2)
+------------------
+- Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
+- Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
+- Added events support to the Projects, and Users
+- Added full support for ProjectVariables and GroupVariables
+- Added support for Events. This is also exposed in Projects and Users under the events function
+- Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
+- Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
+- Fixed problem with .all() functions where only the some of the results were being returned
+- Completed support for all Gitlab APIs, #49, #53
+
+### Breaking Changes between 2.2.6 and 3.0.0
+- Instantiation of the API must use the new operator consistently. See usage above.
+- All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
+- All subservices (services exposed as properties of other services) have been moved out into their own service
+```
+ProjectRepository -> Repositories, Tags, Commits, Branches and RepositoryFiles
+Users -> Users, UserKeys, UserGPGKeys, UserCustomAttributes, UserVariables
+
+```
+- Moved createTodo function from MergeRequests API to Todos API
+- Many services have been renamed:
+```
+ProjectProtectedBranches -> ProtectedBranches
+ProjectDeployKeys -> DeployKeys
+ProjectEnvironments -> Enviroments
+ProjectJobs -> Jobs
+ProjectLabels -> Labels
+ProjectPipelines -> Pipelines
+ProjectRepository -> Repositories
+ProjectServices -> Services
+ProjectTriggers -> Triggers
+```
+
+- Some services were merged:
+```
+Issues = ProjectIssues + Issues.  ProjectId is optional for all()
+MergeRequests = ProjectMergeRequests + MergeRequests + MergeRequestsChanges + MergeRequestsCommits + MergeRequestVersions. ProjectId is optional for all()
+Runners = ProjectRunners + Runners. ProjectId is optional for all()
+
+```
+
 [2.2.8](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.7) (2018-4-1)
 ------------------
 - Updating babel
 
 [2.2.7](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.7) (2018-3-15)
+------------------
+- Fixing babel runtime
+
+[2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15) 
+------------------ 
+- Fixed more issues within the url concatenation 
+
+[2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15) 
+------------------ 
+- Fixed #48 - Problem with trailing `\` in url 
+
+[2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
 ------------------
 - Fixing babel runtime
 
