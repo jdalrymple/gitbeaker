@@ -6,7 +6,7 @@
 
 # node-gitlab-api
 
-[GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library.
+[GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the Gitlab API services.
 It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
 
 ## Table of Contents
@@ -336,7 +336,7 @@ Nothing yet, but its on the TODO list :P
 
 ## Contributors
 
-This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting 90% of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
+This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
