@@ -50,27 +50,33 @@ class RequestHelper {
     return response.body;
   }
 
-  static post(service, endpoint, options = {}, form = false) {
+  static async post(service, endpoint, options = {}, form = false) {
     const body = form ? 'fromData' : 'body';
 
-    return service.requester.post(defaultRequest(service, endpoint, {
+    const response = await service.requester.post(defaultRequest(service, endpoint, {
       headers: service.headers,
       [body]: options,
     }));
+
+    return response.body;
   }
 
-  static put(service, endpoint, options = {}) {
-    return service.requester.put(defaultRequest(service, endpoint, {
+  static async put(service, endpoint, options = {}) {
+    const response = await service.requester.put(defaultRequest(service, endpoint, {
       headers: service.headers,
       body: options,
     }));
+
+    return response.body;
   }
 
-  static delete(service, endpoint, options = {}) {
-    return service.requester.delete(defaultRequest(service, endpoint, {
+  static async delete(service, endpoint, options = {}) {
+    const response = await service.requester.delete(defaultRequest(service, endpoint, {
       headers: service.headers,
       qs: options,
     }));
+
+    return response.body;
   }
 }
 
