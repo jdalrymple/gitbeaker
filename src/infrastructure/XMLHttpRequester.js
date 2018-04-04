@@ -3,6 +3,7 @@ import XHR from 'xhr';
 
 const XMLHttpRequester = Promisify(XHR);
 XMLHttpRequester.del = Promisify(XHR.del);
+XMLHttpRequester.delete = XMLHttpRequester.del;
 XMLHttpRequester.get = Promisify(XHR.get);
 XMLHttpRequester.head = Promisify(XHR.head);
 XMLHttpRequester.patch = Promisify(XHR.patch);
