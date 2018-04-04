@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-const url = userId => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'users/keys');
+const url = userId => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 
 class UserKeys extends BaseService {
   all({ userId }) {

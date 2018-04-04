@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'users/emails');
+const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 
 class UserEmails extends BaseService {
   all({ userId } = {}) {
@@ -16,7 +16,7 @@ class UserEmails extends BaseService {
   show(emailId) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.get(this, `users/emails/${eId}`);
+    return RequestHelper.get(this, `user/emails/${eId}`);
   }
 
   remove(emailId, { userId } = {}) {
