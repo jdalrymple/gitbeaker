@@ -13,6 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const XMLHttpRequester = (0, _util.default)(_xhr.default);
 XMLHttpRequester.del = (0, _util.default)(_xhr.default.del);
+XMLHttpRequester.delete = XMLHttpRequester.del;
 XMLHttpRequester.get = (0, _util.default)(_xhr.default.get);
 XMLHttpRequester.head = (0, _util.default)(_xhr.default.head);
 XMLHttpRequester.patch = (0, _util.default)(_xhr.default.patch);
