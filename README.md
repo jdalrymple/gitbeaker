@@ -6,8 +6,7 @@
 
 # node-gitlab-api
 
-[GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the Gitlab API services.
-It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api).
+[GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the [Gitlab API](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) services.
 
 ## Table of Contents
 
@@ -19,6 +18,7 @@ It wraps the HTTP v4 API library described [here](https://github.com/gitlabhq/gi
         * [Bundle Imports](#bundle-imports)
     * [Examples](#examples)
     * [Pagination](#pagination)
+* [Migrating from node-gitlab](#migrating-from-node-gitlab)
 * [Docs](#docs)
 	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
 	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
@@ -326,9 +326,13 @@ let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
 
+## Migrating from node-gitlab
+
+With the sucess of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such there will be a little bit of growing pains for those upgrading from the node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transisition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitly have the answer to help get you all setup up as quickly as possible.  
+
 ## Docs
 
-Although there are the official docs for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
 
 ## Tests
 
