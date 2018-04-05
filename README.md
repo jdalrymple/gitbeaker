@@ -365,6 +365,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.0.3](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.2) (2018-4-5)
+------------------
+- Fixed the problem with the validation of Event resource options
+
 [3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-4-2)
 ------------------
 - Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
