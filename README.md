@@ -375,6 +375,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Jordan Wallet](https://github.com/Mr-Wallet)
 - [Ev Haus](https://github.com/EvHaus) 
 - [zhao0](https://github.com/zhao0)
+- [Joshua Grosso](https://github.com/jgrosso)
 
 ## License
 

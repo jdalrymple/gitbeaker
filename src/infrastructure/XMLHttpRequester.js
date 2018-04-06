@@ -1,25 +1,32 @@
+import {
+  StatusCodeError,
+} from 'request-promise-core/errors';
 import Promisify from 'util.promisify';
 import XHR from 'xhr';
 
-function PromisifyWithFullResponseOption(fn) {
+const promisifyFn = (fn) => {
   const promisifiedFn = Promisify(fn);
 
-  return async (params) => {
-    const response = await promisifiedFn(params);
+  return async (opts) => {
+    const response = await promisifiedFn(opts);
 
-    return params.resolveWithFullResponse
+    if (response.statusCode >= 400 && response.statusCode <= 599) {
+      throw new StatusCodeError(response.statusCode, response.body, {}, null);
+    }
+
+    return opts.resolveWithFullResponse
       ? response
       : response.body;
   };
-}
+};
 
-const XMLHttpRequester = PromisifyWithFullResponseOption(XHR);
-XMLHttpRequester.del = PromisifyWithFullResponseOption(XHR.del);
+const XMLHttpRequester = promisifyFn(XHR);
+XMLHttpRequester.del = promisifyFn(XHR.del);
 XMLHttpRequester.delete = XMLHttpRequester.del;
-XMLHttpRequester.get = PromisifyWithFullResponseOption(XHR.get);
-XMLHttpRequester.head = PromisifyWithFullResponseOption(XHR.head);
-XMLHttpRequester.patch = PromisifyWithFullResponseOption(XHR.patch);
-XMLHttpRequester.post = PromisifyWithFullResponseOption(XHR.post);
-XMLHttpRequester.put = PromisifyWithFullResponseOption(XHR.put);
+XMLHttpRequester.get = promisifyFn(XHR.get);
+XMLHttpRequester.head = promisifyFn(XHR.head);
+XMLHttpRequester.patch = promisifyFn(XHR.patch);
+XMLHttpRequester.post = promisifyFn(XHR.post);
+XMLHttpRequester.put = promisifyFn(XHR.put);
 
 export default XMLHttpRequester;
