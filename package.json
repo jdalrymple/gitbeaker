@@ -47,6 +47,7 @@
     "qs": "^6.5.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
+    "request-promise-core": "^1.1.1",
     "tempy": "^0.2.1",
     "url-join": "^4.0.0",
     "util.promisify": "^1.0.0",
