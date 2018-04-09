@@ -2,7 +2,7 @@ import { ResourceNotes } from '../templates';
 
 class MergeRequestNotes extends ResourceNotes {
   constructor(options) {
-    super('projects', 'mergerequests', options);
+    super('projects', 'merge_requests', options);
   }
 }
 
