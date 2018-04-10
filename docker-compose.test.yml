@@ -1,0 +1,7 @@
+version: '2'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce
+    ports: 
+      - 8080:80
+      - 8443:443

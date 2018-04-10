@@ -14,6 +14,7 @@
     "lint": "node_modules/eslint/bin/eslint.js ./src ./tests",
     "test:infrastructure": "node_modules/tape/bin/tape tests/infrastructure/**/*.js | tap-spec",
     "test:services": "node_modules/tape/bin/tape tests/services/**/*.js | tap-spec",
+    "test:watch": "GITLAB_URL=http://localhost:8080 API_TOKEN=ysccjxQtMCqz_wBfJEy2 jest --watch",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -31,13 +32,15 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.42",
-    "@babel/core": "^7.0.0-beta.42",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0-beta.42",
-    "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.42",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.42",
-    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.44",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.2",
+    "babel-jest": "^23.0.0-alpha.0",
     "blue-tape": "^1.0.0",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -50,10 +53,13 @@
     "tap-spec": "^4.1.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.42",
+    "@babel/runtime": "^7.0.0-beta.44",
+    "babel-7-jest": "^21.3.3",
     "humps": "^2.0.1",
+    "jest": "^23.0.0-alpha.4",
     "lodash.pick": "^4.4.0",
     "parse-link-header": "^1.0.1",
+    "regenerator-runtime": "^0.11.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "url-join": "^4.0.0"

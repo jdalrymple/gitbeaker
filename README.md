@@ -664,3 +664,24 @@ to this
     ...
   }
 ```
+
+## Testing
+
+Testing is a work-in-progress right now but here is the start.  
+
+1. First run gitlab in a docker container:
+
+```bash
+docker-compose -f docker-compose.test.yml up
+```
+
+1. Once GitLab is up on localhost:8080, create the admin password, then login as `root` with that password and then create an access token ( Avatar -> Settings -> Access Tokens ).  
+
+1. Copy that token and put it into the package.json in the `test:watch` command
+
+1. Then run the jest tests against it:
+
+```bash
+npm run test:watch
+```
+
