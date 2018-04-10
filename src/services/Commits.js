@@ -48,7 +48,7 @@ class Commits extends BaseService {
   editStatus(projectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
+    return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, options);
   }
 
   references(projectId, sha) {
