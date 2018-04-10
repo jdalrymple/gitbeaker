@@ -12,7 +12,7 @@
     "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "lint": "node_modules/eslint/bin/eslint.js ./src ./tests",
-    "test:infrastructure": "node_modules/tape/bin/tape tests/infrastructure/**/*.js | tap-spec",
+    "test:infrastructure": "jest tests/services/**/*.js",
     "test:services": "node_modules/tape/bin/tape tests/services/**/*.js | tap-spec",
     "test:watch": "GITLAB_URL=http://localhost:8080 API_TOKEN=ysccjxQtMCqz_wBfJEy2 jest --watch",
     "prepublishOnly": "npm run build"
@@ -46,6 +46,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "istanbul": "^0.4.5",
+    "jest-tap-reporter": "^1.9.0",
     "nyc": "^11.2.1",
     "onchange": "^3.3.0",
     "tap-spec": "^4.1.1"
