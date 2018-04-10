@@ -4,10 +4,10 @@ import {
 import Promisify from 'util.promisify';
 import XHR from 'xhr';
 
-const promisifyFn = (fn) => {
+function promisifyFn(fn) {
   const promisifiedFn = Promisify(fn);
 
-  return async (opts) => {
+  return async function(opts) {
     const response = await promisifiedFn(opts);
 
     if (response.statusCode >= 400 && response.statusCode <= 599) {
@@ -18,7 +18,7 @@ const promisifyFn = (fn) => {
       ? response
       : response.body;
   };
-};
+}
 
 const XMLHttpRequester = promisifyFn(XHR);
 XMLHttpRequester.del = promisifyFn(XHR.del);
