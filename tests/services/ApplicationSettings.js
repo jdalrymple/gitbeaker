@@ -1,29 +1,26 @@
-import Test from 'blue-tape';
-import { ApplicationSettings } from '../../dist/latest';
+// import { ApplicationSettings } from '../../dist/latest';
 
-Test('Basic init of ApplicationSettings library', async (assert)=> {
-	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
+// test('Basic init of ApplicationSettings library', async ()=> {
+// 	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
 
-	assert.true(true);
-});
+// 	assert.true(true);
+// });
 
-Test('Getting all the application settings', async (assert) => {
-	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
-	const settings = await service.all();
+// test('Getting all the application settings', async () => {
+// 	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
+// 	const settings = await service.all();
 
-	// Check the settings
-	assert.true(true);
-});
+// 	// Check the settings
+// 	assert.true(true);
+// });
 
-Test('Edit the application settings', async (assert) => {
-	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
-	const settings = await service.edit({
+// test('Edit the application settings', async (assert) => {
+// 	const service = new ApplicationSettings({ url: process.env.TEST_URL, token: process.env.TEST_TOKEN });
+// 	const settings = await service.edit({
 
-	});
+// 	});
 
-	// Check the settings
-	// Return to original state
-	assert.true(true);
-});
-
-Test.onFinish(() => process.exit(0));
+// 	// Check the settings
+// 	// Return to original state
+// 	assert.true(true);
+// });
