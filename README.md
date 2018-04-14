@@ -357,7 +357,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Claude Abounegm](https://github.com/claude-abounegm)
 - [Stefan Hall](https://github.com/Marethyu1)
 - [Jordan Wallet](https://github.com/Mr-Wallet)
-
+- [Ev Haus](https://github.com/EvHaus) 
+- [zhao0](https://github.com/zhao0)
 
 ## License
 
@@ -365,7 +366,12 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
-[3.0.3](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.2) (2018-4-5)
+[3.0.4](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.4) (2018-4-13)
+------------------
+- Fixed endpoint for MergeRequestNotes thanks to [Ev Haus](https://github.com/EvHaus) in PR [#63](https://github.com/jdalrymple/node-gitlab-api/pull/63)
+- Fixed Commits.editStatus method thanks to [zhao0](https://github.com/zhao0) in PR [#65](https://github.com/jdalrymple/node-gitlab-api/pull/65)
+
+[3.0.3](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.3) (2018-4-5)
 ------------------
 - Fixed the problem with the validation of Event resource options
 
@@ -376,10 +382,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - Added events support to the Projects, and Users
 - Added full support for ProjectVariables and GroupVariables
 - Added support for Events. This is also exposed in Projects and Users under the events function
-- Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45] thanks to [Stefan Hall](https://github.com/Marethyu1)
+- Fixed the missing options parameter for the ProjectMembers and GroupMemebers APIs in PR [#45](https://github.com/jdalrymple/node-gitlab-api/pull/45) thanks to [Stefan Hall](https://github.com/Marethyu1)
 - Supporting both camelCase and snake_case option properties: `projects.all({perPage:5}) === projects.all({per_page: 5})`
 - Fixed problem with .all() functions where only the some of the results were being returned
-- Completed support for all Gitlab APIs, #49, #53
+- Completed support for all Gitlab APIs, [#49](https://github.com/jdalrymple/node-gitlab-api/pull/49), [#53](https://github.com/jdalrymple/node-gitlab-api/pull/53)
 
 ### Breaking Changes between 2.2.6 and 3.0.0
 - Instantiation of the API must use the new operator consistently. See usage above.
@@ -420,18 +426,6 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 ------------------
 - Fixing babel runtime
 
-[2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15) 
------------------- 
-- Fixed more issues within the url concatenation 
-
-[2.2.5](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.5) (2018-3-15) 
------------------- 
-- Fixed #48 - Problem with trailing `\` in url 
-
-[2.2.4](https://github.com/jdalrymple/node-gitlab-api/5d7c031ca2b833b28633647195560379d88ba5b3) (2018-2-12)
-------------------
-- Fixing babel runtime
-
 [2.2.6](https://github.com/jdalrymple/node-gitlab-api/tags/2.2.6) (2018-3-15)
 ------------------
 - Fixed more issues within the url concatenation
@@ -443,8 +437,8 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 [2.2.4](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
 - Fixed #33 - Bug within the es5 transpilling configuration
-- Fixed the missing options for tags.all #40
-- Added delete key method to UserKeys.js #41 thanks to [Claude Abounegm](https://github.com/claude-abounegm)
+- Fixed the missing options for tags.all [#40](https://github.com/jdalrymple/node-gitlab-api/pull/40)
+- Added delete key method to UserKeys.js [#41](https://github.com/jdalrymple/node-gitlab-api/pull/41) thanks to [Claude Abounegm](https://github.com/claude-abounegm)
 
 [2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
@@ -595,7 +589,7 @@ inferred from the file path
 
 [1.0.10](https://github.com/jdalrymple/node-gitlab-api/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
 ------------------
-- Fixing Issues #1, #2, and #3
+- Fixing Issues [#1](https://github.com/jdalrymple/node-gitlab-api/pull/1), [#2](https://github.com/jdalrymple/node-gitlab-api/pull/3), and [#3](https://github.com/jdalrymple/node-gitlab-api/pull/3)
 
 [1.0.9](https://github.com/jdalrymple/node-gitlab-api/commit/7a90dbb6354fe956fff37c56f938a833e3fc5ea1) (2017-07-06)
 ------------------
