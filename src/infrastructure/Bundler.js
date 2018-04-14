@@ -1,5 +1,5 @@
-function Bundler(...services) {
-  const combined = Object.assign({}, ...services);
+function Bundler(services = {}) {
+  const combined = Object.assign({}, services);
 
   return class Bundle {
     constructor(options) {
