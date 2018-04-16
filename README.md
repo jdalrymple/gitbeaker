@@ -366,6 +366,14 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.1.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.1.0) (2018-4-16)
+------------------
+- Added addTimeEstimate, addTimeSpent, timeStats, resetTimeSpent and resetTimeEstimate to the Issues API. Requested in PR [#68](https://github.com/jdalrymple/node-gitlab-api/pull/68)
+
+**Breaking Change**
+
+- Renamed timeEstimate to addTimeEstimate, and timeSpend to addTimeSpent, in the MergeRequests API
+
 [3.0.4](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.4) (2018-4-13)
 ------------------
 - Fixed endpoint for MergeRequestNotes thanks to [Ev Haus](https://github.com/EvHaus) in PR [#63](https://github.com/jdalrymple/node-gitlab-api/pull/63)

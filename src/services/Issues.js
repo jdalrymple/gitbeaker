@@ -1,6 +1,22 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Issues extends BaseService {
+  addSpentTime(projectId, issueId, duration) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/add_spent_time`, {
+      duration,
+    });
+  }
+
+  addTimeEstimate(projectId, issueId, duration) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/time_estimate`, {
+      duration,
+    });
+  }
+
   all({ projectId, ...options }) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/issues` : 'issues';
 
@@ -36,6 +52,18 @@ class Issues extends BaseService {
     return RequestHelper.delete(this, `projects/${pId}/issues/${iId}`);
   }
 
+  resetSpentTime(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${mId}/reset_spent_time`);
+  }
+
+  resetTimeEstimate(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${mId}/reset_time_estimate`);
+  }
+
   show(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
@@ -48,6 +76,12 @@ class Issues extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
+  timeStats(projectId, mergerequestId) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${mId}/time_stats`);
+  }
+  
   unsubscribe(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 

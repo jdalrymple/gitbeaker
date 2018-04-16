@@ -7,6 +7,22 @@ class MergeRequests extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}/merge`, options);
   }
 
+  addSpentTime(projectId, mergerequestId, duration) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${mId}/add_spent_time`, {
+      duration,
+    });
+  }
+
+  addTimeEstimate(projectId, mergerequestId, duration) {
+    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/issues/${mId}/time_estimate`, {
+      duration,
+    });
+  }
+
   approve(projectId, mergerequestId, { sha }) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
@@ -88,18 +104,6 @@ class MergeRequests extends BaseService {
     return RequestHelper.delete(this, `projects/${pId}/merge_requests/${mId}`);
   }
 
-  show(projectId, mergerequestId) {
-    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}`);
-  }
-
-  subscribe(projectId, mergerequestId, options) {
-    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
-
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/subscribe`, options);
-  }
-
   resetSpentTime(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
@@ -112,20 +116,10 @@ class MergeRequests extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/reset_time_estimate`);
   }
 
-  spentTime(projectId, mergerequestId, duration) {
+  show(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/add_spent_time`, {
-      duration,
-    });
-  }
-
-  timeEstimate(projectId, mergerequestId, duration) {
-    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
-
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/time_estimate`, {
-      duration,
-    });
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}`);
   }
 
   timeStats(projectId, mergerequestId) {
