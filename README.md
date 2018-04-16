@@ -139,7 +139,7 @@ const Gitlab = require('node-gitlab-api/dist/es5').default
 // Instantiating
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456'	//Can be created in your profile. 
+  token: 'abcdefghij123456'	// Can be created in your profile.
 })
 
 // Or, use a OAuth token instead!
@@ -160,7 +160,7 @@ import { Projects } from 'node-gitlab-api';
 
 const service = new Projects({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 })
 
 ```
@@ -175,7 +175,7 @@ import { ProjectsBundle } from 'node-gitlab-api';
 
 const services = new ProjectsBundle({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 })
 
 services.Projects.all()
@@ -253,6 +253,22 @@ EpicNotes
 EpicDiscussions
 ```
 
+### Using XMLHttpRequest
+This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
+
+```javascript
+import Gitlab from 'node-gitlab-api';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456',	// Can be created in your profile.
+
+  useXMLHttpRequest: true // Use the browser's XMLHttpRequest instead of Node's Request library
+})
+```
+
+**WARNING:** Currently this option does not support the `multipart/form-data` content type, and therefore the endpoint for [uploading a file to a project](https://docs.gitlab.com/ee/api/projects.html#upload-a-file) will not work correctly. All other endpoints should work exactly as expected.
+
 ### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
@@ -263,7 +279,7 @@ import Gitlab from 'node-gitlab-api';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 });
 
 // Listing users
@@ -280,14 +296,14 @@ General rule about all the function parameters:
 - If its a required parameter, it is a named argument in the functions
 - If its an optional parameter, it is defined in a options object following the named arguments
 
-ie. 
+ie.
 
 ```javascript
 import Gitlab from 'node-gitlab-api';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 });
 
 api.Projects.create(projectId, {
@@ -305,7 +321,7 @@ import Gitlab from 'node-gitlab-api';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 });
 
 let projects = await api.Projects.all({maxPages:2});
@@ -319,7 +335,7 @@ import Gitlab from 'node-gitlab-api';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' //Can be created in your profile. 
+  token: 'abcdefghij123456' // Can be created in your profile.
 });
 
 let projects = await api.Projects.all({maxPages:2, perPage:40});
@@ -349,7 +365,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Christoph Lehmann](https://github.com/christophlehmann)
 - [Frank V](https://github.com/FrankV01)
 - [Salim Benabbou](https://github.com/Salimlou)
-- [Tamás Török-Vistai](https://github.com/tvtamas) 
+- [Tamás Török-Vistai](https://github.com/tvtamas)
 - [Martin Benninger](https://github.com/MartinBenninger)
 - [Adam Dehnel](https://github.com/arsdehnel)
 - [fewieden](https://github.com/fewieden)
@@ -359,6 +375,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Jordan Wallet](https://github.com/Mr-Wallet)
 - [Ev Haus](https://github.com/EvHaus) 
 - [zhao0](https://github.com/zhao0)
+- [Joshua Grosso](https://github.com/jgrosso)
 
 ## License
 
@@ -450,7 +467,7 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 [2.2.3](https://github.com/jdalrymple/node-gitlab-api/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 ------------------
-- Fixed #37 - Bug within the customAttributes logic 
+- Fixed #37 - Bug within the customAttributes logic
 
 [2.2.2](https://github.com/jdalrymple/node-gitlab-api/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 ------------------
@@ -479,7 +496,7 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Updating project docs for consistency
 - Adding project unsharing to API. It was in the docs, but missing from the API
 - Updating deprecated protected branches endpoint. Previously this was `projects.branches.protect` now its `projects.protectedBranches.protect`
-- Added Owned Runners and Runner Jobs API 
+- Added Owned Runners and Runner Jobs API
 
 ### Breaking Changes between 1.3.3 and 2.1.0
 - The `list` functions are no longer supported and have all been renamed to `all`
@@ -497,7 +514,7 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Updating pagination changes into v2.0.1
 - Removed unused labels endpoint since it already exists under projects.labels
 - Added a mergeRequests class for the merge_requests endpoints
-- Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as 
+- Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as
 accepting merge requests, cancelling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
 - Fixed the notes endpoints for ProjectMergeRequests. This can now be access via projects.mergeRequests.notes.[command here]
 - Added comments endpoints to the ProjectRepositoryCommits class
@@ -507,7 +524,7 @@ accepting merge requests, cancelling merges when the pipeline succeeds, listing 
 [1.3.3](https://github.com/jdalrymple/node-gitlab-api/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
 ------------------
 - Adding pagination to project pipelines thanks to [Tamás Török-Vistai](https://github.com/tvtamas)
- 
+
 [2.0.0-rc.2](https://github.com/jdalrymple/node-gitlab-api/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-28)
 ------------------
 - Updating all recent core changes into v2.0.0
@@ -566,7 +583,7 @@ accepting merge requests, cancelling merges when the pipeline succeeds, listing 
 
 [1.1.1](https://github.com/jdalrymple/node-gitlab-api/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
 ------------------
-- Patch, fixed a broken pagination property 
+- Patch, fixed a broken pagination property
 - Adding in missing options parameter  in the groups API thanks to a pull request from [Cory Zibell](https://github.com/coryzibell)
 
 [1.1.0](https://github.com/jdalrymple/node-gitlab-api/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
