@@ -385,7 +385,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [3.1.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.1.0) (2018-4-16)
 ------------------
-- Added addTimeEstimate, addTimeSpent, timeStats, resetTimeSpent and resetTimeEstimate to the Issues API. Requested in PR [#68](https://github.com/jdalrymple/node-gitlab-api/pull/68)
+- Added addTimeEstimate, addTimeSpent, timeStats, resetTimeSpent and resetTimeEstimate to the Issues API. Requested in Issue [#68](https://github.com/jdalrymple/node-gitlab-api/issues/68)
+- Added XMLHttpRequest Support PR [#59](https://github.com/jdalrymple/node-gitlab-api/pull/59)
 
 **Breaking Change**
 
