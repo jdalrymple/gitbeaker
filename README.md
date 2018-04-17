@@ -230,6 +230,7 @@ Triggers
 2. UsersBundle which includes:
 ```
 Users,
+UserCustomAttributes,
 UserEmails,
 UserImpersonationTokens,
 UserKeys,
