@@ -383,6 +383,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.1.1](https://github.com/jdalrymple/node-gitlab-api/tags/3.1.1) (2018-4-17)
+------------------
+- Fixed missing UserCustomAttributes export
+
 [3.1.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.1.0) (2018-4-16)
 ------------------
 - Added addTimeEstimate, addTimeSpent, timeStats, resetTimeSpent and resetTimeEstimate to the Issues API. Requested in Issue [#68](https://github.com/jdalrymple/node-gitlab-api/issues/68)

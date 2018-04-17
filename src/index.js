@@ -25,6 +25,7 @@ export const GroupsBundler = Bundler(Pick(APIServices, [
 // Users
 export const UsersBundler = Bundler(Pick(APIServices, [
   'Users',
+  'UserCustomAttributes',
   'UserEmails',
   'UserImpersonationTokens',
   'UserKeys',

@@ -15,6 +15,7 @@ export EpicDiscussions from './EpicDiscussions';
 
 // Users
 export Users from './Users';
+export UserCustomAttributes from './UserCustomAttributes';
 export UserEmails from './UserEmails';
 export UserImpersonationTokens from './UserImpersonationTokens';
 export UserKeys from './UserKeys';
