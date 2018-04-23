@@ -385,6 +385,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.2.1](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.1) (2018-4-23)
+------------------
+- Fixed incorrectly named bundles 
+
 [3.2.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.0) (2018-4-21)
 ------------------
 - Completed ProjectPipeline Support in PR [#72](https://github.com/jdalrymple/node-gitlab-api/pull/72) thanks to [Frédéric Boutin](https://github.com/fboutin-pmc)
