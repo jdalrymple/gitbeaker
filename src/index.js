@@ -49,7 +49,7 @@ export const ProjectsBundle = Bundler(Pick(APIServices, [
   'MergeRequestAwardEmojis',
   'MergeRequestNotes',
   'Pipelines',
-  'PipelineSchedules',
+  'PipelineJobs',
   'PipelineScheduleVariables',
   'Projects',
   'ProjectAccessRequests',
