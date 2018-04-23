@@ -377,12 +377,21 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Ev Haus](https://github.com/EvHaus) 
 - [zhao0](https://github.com/zhao0)
 - [Joshua Grosso](https://github.com/jgrosso)
+- [Frédéric Boutin](https://github.com/fboutin-pmc)
 
 ## License
 
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[3.2.1](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.1) (2018-4-23)
+------------------
+- Fixed incorrectly named bundles 
+
+[3.2.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.0) (2018-4-21)
+------------------
+- Completed ProjectPipeline Support in PR [#72](https://github.com/jdalrymple/node-gitlab-api/pull/72) thanks to [Frédéric Boutin](https://github.com/fboutin-pmc)
 
 [3.1.1](https://github.com/jdalrymple/node-gitlab-api/tags/3.1.1) (2018-4-17)
 ------------------
