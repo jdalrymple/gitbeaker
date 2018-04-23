@@ -50,6 +50,7 @@ export const ProjectsBundle = Bundler(Pick(APIServices, [
   'MergeRequestNotes',
   'Pipelines',
   'PipelineJobs',
+  'PipelineSchedules',
   'PipelineScheduleVariables',
   'Projects',
   'ProjectAccessRequests',
