@@ -1,5 +1,6 @@
 import URLJoin from 'url-join';
 import Request from 'request-promise';
+import StreamableRequest from 'request';
 import XMLHttpRequester from './XMLHttpRequester';
 
 class BaseModel {
@@ -7,6 +8,7 @@ class BaseModel {
     this.url = URLJoin(url, 'api', 'v4');
     this.headers = {};
     this.requester = useXMLHttpRequest ? XMLHttpRequester : Request;
+    this.streamRequester = StreamableRequest;
     this.useXMLHttpRequest = useXMLHttpRequest;
 
     if (oauthToken) {
