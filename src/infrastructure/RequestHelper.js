@@ -50,6 +50,13 @@ class RequestHelper {
     return response.body;
   }
 
+  static streamGet(service, endpoint, options = {}) {
+    return service.streamRequester.get(defaultRequest(service, endpoint, {
+      headers: service.headers,
+      qs: options,
+    }));
+  }
+
   static post(service, endpoint, options = {}, form = false) {
     const body = form ? 'fromData' : 'body';
 
