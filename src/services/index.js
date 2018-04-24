@@ -37,7 +37,6 @@ export MergeRequests from './MergeRequests';
 export MergeRequestAwardEmojis from './MergeRequestAwardEmojis';
 export MergeRequestNotes from './MergeRequestNotes';
 export Pipelines from './Pipelines';
-export PipelineJobs from './PipelineJobs';
 export PipelineSchedules from './PipelineSchedules';
 export PipelineScheduleVariables from './PipelineScheduleVariables';
 export Projects from './Projects';

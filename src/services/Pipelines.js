@@ -30,6 +30,12 @@ class Pipelines extends BaseService {
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`);
   }
+
+  showJobs(projectId, pipelineId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
+  }
 }
 
 export default Pipelines;
