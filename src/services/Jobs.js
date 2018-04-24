@@ -7,6 +7,12 @@ class Jobs extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/jobs`, options);
   }
 
+  play(projectId, jobId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/jobs/${jobId}/play`);
+  }
+
   downloadSingleArtifactFile(projectId, jobId, artifactPath) {
     const pId = encodeURIComponent(projectId);
 
