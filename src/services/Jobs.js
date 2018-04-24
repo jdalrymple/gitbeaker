@@ -18,6 +18,12 @@ class Jobs extends BaseService {
 
     return RequestHelper.streamGet(this, `projects/${pId}/jobs/${jobId}/artifacts/${artifactPath}`);
   }
+
+  showPipelineJobs(projectId, pipelineId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
+  }
 }
 
 export default Jobs;
