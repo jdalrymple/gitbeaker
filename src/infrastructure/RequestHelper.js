@@ -2,6 +2,7 @@ import Humps from 'humps';
 import LinkParser from 'parse-link-header';
 import QS from 'qs';
 import URLJoin from 'url-join';
+import StreamableRequest from 'request';
 
 function defaultRequest(
   { url, useXMLHttpRequest },
@@ -29,7 +30,14 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options = {}) {
+  static async get(service, endpoint, options = {}, { stream = false }) {
+    if (stream) {
+      return StreamableRequest.get(defaultRequest(service, endpoint, {
+        headers: service.headers,
+        qs: options,
+      }));
+    }
+
     const response = await service.requester.get(defaultRequest(service, endpoint, {
       headers: service.headers,
       qs: options,
@@ -48,13 +56,6 @@ class RequestHelper {
     }
 
     return response.body;
-  }
-
-  static streamGet(service, endpoint, options = {}) {
-    return service.streamRequester.get(defaultRequest(service, endpoint, {
-      headers: service.headers,
-      qs: options,
-    }));
   }
 
   static post(service, endpoint, options = {}, form = false) {

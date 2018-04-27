@@ -13,16 +13,10 @@ class Jobs extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/jobs/${jobId}/play`);
   }
 
-  downloadSingleArtifactFile(projectId, jobId, artifactPath) {
+  downloadSingleArtifactFile(projectId, jobId, artifactPath, { stream = false }) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/jobs/${jobId}/artifacts/${artifactPath}`);
-  }
-
-  downloadSingleArtifactFileStream(projectId, jobId, artifactPath) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.streamGet(this, `projects/${pId}/jobs/${jobId}/artifacts/${artifactPath}`);
+    return RequestHelper.get(this, `projects/${pId}/jobs/${jobId}/artifacts/${artifactPath}`, {}, { stream });
   }
 
   showPipelineJobs(projectId, pipelineId, options) {
