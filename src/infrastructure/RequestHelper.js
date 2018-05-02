@@ -30,8 +30,8 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options = {}, { stream = false }) {
-    if (stream) {
+  static async get(service, endpoint, options = {}, requestOptions = {}) {
+    if (requestOptions && requestOptions.stream === true) {
       return StreamableRequest.get(defaultRequest(service, endpoint, {
         headers: service.headers,
         qs: options,
