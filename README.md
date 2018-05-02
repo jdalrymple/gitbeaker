@@ -57,6 +57,7 @@ PagesDomains
 Search
 SidekiqMetrics
 SystemHooks
+Version
 Wikis
 
 // Groups
@@ -130,7 +131,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 
 ```javascript
 // ES6 (>=node 8.0.0)
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 // ES5
 const Gitlab = require('node-gitlab-api/dist/es5').default
@@ -156,7 +157,7 @@ const api = new Gitlab({
 Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
 
 ```javascript
-import { Projects } from 'node-gitlab-api';
+import { Projects } from 'gitlab';
 
 const service = new Projects({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -171,7 +172,7 @@ It can be annoying to have to import all the API's pertaining to a specific reso
 
 
 ```javascript
-import { ProjectsBundle } from 'node-gitlab-api';
+import { ProjectsBundle } from 'gitlab';
 
 const services = new ProjectsBundle({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -258,7 +259,7 @@ EpicDiscussions
 This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
 
 ```javascript
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -276,7 +277,7 @@ Once you have your library instantiated, you can utilize many of the API's funct
 Using the await/async method
 
 ```javascript
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -300,7 +301,7 @@ General rule about all the function parameters:
 ie.
 
 ```javascript
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -318,7 +319,7 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 
 ```javascript
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -332,7 +333,7 @@ let projects = await api.Projects.all({maxPages:2});
 You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
 
 ```javascript
-import Gitlab from 'node-gitlab-api';
+import Gitlab from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -385,6 +386,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.2.2](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.2) (2018-5-2)
+------------------
+- Fixed missing Version API
+
 [3.2.1](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.1) (2018-4-23)
 ------------------
 - Fixed incorrectly named bundles 
@@ -417,7 +422,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [3.0.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.0.0) (2018-4-2)
 ------------------
-- Exporting all services seperatly ie. const { Projects } from 'node-gitlab-api'; as well as the usual default export: const Gitlab from 'node-gitlab-api'
+- Exporting all services seperatly ie. const { Projects } from 'gitlab'; as well as the usual default export: const Gitlab from 'gitlab'
 - Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
 - Added events support to the Projects, and Users
 - Added full support for ProjectVariables and GroupVariables

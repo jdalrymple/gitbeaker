@@ -79,4 +79,5 @@ export PagesDomains from './PagesDomains';
 export Search from './Search';
 export SidekiqMetrics from './SidekiqMetrics';
 export SystemHooks from './SystemHooks';
+export Version from './Version';
 export Wikis from './Wikis';
