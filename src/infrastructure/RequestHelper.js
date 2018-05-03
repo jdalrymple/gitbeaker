@@ -30,8 +30,8 @@ function defaultRequest(
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options = {}, requestOptions = {}) {
-    if (requestOptions && requestOptions.stream === true) {
+  static async get(service, endpoint, options = {}, { stream = false } = {}) {
+    if (stream) {
       if (service.useXMLHttpRequest) {
         throw new Error('Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming');
       }
