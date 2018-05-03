@@ -32,6 +32,9 @@ function defaultRequest(
 class RequestHelper {
   static async get(service, endpoint, options = {}, requestOptions = {}) {
     if (requestOptions && requestOptions.stream === true) {
+      if (service.useXMLHttpRequest) {
+        throw new Error('Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming');
+      }
       return StreamableRequest.get(defaultRequest(service, endpoint, {
         headers: service.headers,
         qs: options,
