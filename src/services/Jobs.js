@@ -13,7 +13,7 @@ class Jobs extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/jobs/${jobId}/play`);
   }
 
-  downloadSingleArtifactFile(projectId, jobId, artifactPath, { stream = false }) {
+  downloadSingleArtifactFile(projectId, jobId, artifactPath, { stream }) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jobId}/artifacts/${artifactPath}`, {}, { stream });
