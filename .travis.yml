@@ -11,7 +11,7 @@ cache:
 stages:
   lint
   build
-  # test
+  test
 
 jobs:
   include:
@@ -19,6 +19,6 @@ jobs:
       script: npm run lint
     - stage: build
       script: npm run build
-    # - stage: test
-    #   script: npm run test:infrastrcture
+    - stage: test
+      script: npm run test:infrastrcture
     #   script: npm run test:services
