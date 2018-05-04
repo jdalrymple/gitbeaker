@@ -3,7 +3,7 @@ import { BaseService } from '../../src/infrastructure';
 describe('Creation of BaseService instance', () => {
   test('If a token or oauthToken is not passed, throw an error', async () => {
     expect(() => {
-        new BaseService();
+      const service = new BaseService();  // eslint-disable-line no-unused-vars
     }).toThrowError('`token` (private-token) or `oauth_token` is mandatory');
   });
 
