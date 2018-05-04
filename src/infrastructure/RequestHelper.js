@@ -56,7 +56,7 @@ async function getPaginated(service, endpoint, options = {}) {
   let more = [];
 
   if (page && limit && links.next) {
-    more = await RequestHelper.get(service, links.next.url.replace(service.url, ''), options);
+    more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
 
     return [...response.body, ...more];
   }
