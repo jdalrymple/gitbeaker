@@ -1,6 +1,14 @@
 language: node_js
 node_js:
+  - "8"
+  - "lts/*"
   - "node"
+
+cache:
+  directories:
+    - "node_modules"
+
+script: npm run test:infrastructure
 
 jobs:
   include:
@@ -8,17 +16,4 @@ jobs:
       script: npm run lint
     - stage: build
       script: npm run build
-    - stage: test
-      node_js:
-        - "8"
-        - "lts/*"
-        - "node"
-
-      cache:
-        directories:
-          - "node_modules"
-
-      script: npm run test:infrastructure
-
-
     #   script: npm run test:services
