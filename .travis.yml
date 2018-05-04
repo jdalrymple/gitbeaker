@@ -12,6 +12,7 @@ jobs:
       node_js:
         - "8"
         - "lts/*"
+        - "node"
 
       cache:
         directories:
