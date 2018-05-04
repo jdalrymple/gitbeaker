@@ -8,11 +8,6 @@ cache:
   directories:
     - "node_modules"
 
-stages:
-  lint
-  build
-  test
-
 jobs:
   include:
     - stage: lint
