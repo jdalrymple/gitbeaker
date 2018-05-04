@@ -37,4 +37,4 @@ describe('Creation of BaseService instance', () => {
 
     expect(service.headers['private-token']).toBe('1234');
   });
-}
+});
