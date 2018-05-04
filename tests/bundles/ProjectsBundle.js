@@ -42,7 +42,7 @@ test('All the correct service keys are included in the projects bundle', async (
     'Services',
     'Tags',
     'Triggers',
-  ]
+  ];
 
   expect(bundle).toHaveProperty(services);
 });
@@ -50,7 +50,7 @@ test('All the correct service keys are included in the projects bundle', async (
 test('All the correct service instances are included in the projects bundle', async () => {
   const bundle = new ProjectsBundle();
 
-  Object.keys(bundle).forEach(key => {
+  Object.keys(bundle).forEach((key) => {
     expect(bundle[key]).instanceOf(Services[key]);
   });
 });
