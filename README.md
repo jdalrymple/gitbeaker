@@ -20,8 +20,6 @@
     * [Pagination](#pagination)
 * [Migrating from node-gitlab](#migrating-from-node-gitlab)
 * [Docs](#docs)
-	* [Projects](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/projects.md)
-	* [Groups](https://github.com/jdalrymple/node-gitlab-api/blob/master/docs/groups.md)
 * [Contributors](#contributors)
 * [Tests](#tests)
 * [License](#licence)
@@ -379,12 +377,18 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [zhao0](https://github.com/zhao0)
 - [Joshua Grosso](https://github.com/jgrosso)
 - [Frédéric Boutin](https://github.com/fboutin-pmc)
+- [Isaac Ouellet Therrien](https://github.com/yonguelink)
 
 ## License
 
 [MIT](https://github.com/jdalrymple/node-gitlab-api/blob/master/LICENSE.md)
 
 ## Changelog
+
+[3.3.0](https://github.com/jdalrymple/node-gitlab-api/tags/3.3.0) (2018-5-7)
+------------------
+- Added extended support for the Jobs and Pipelines API thanks to [Isaac Ouellet Therrien](https://github.com/yonguelink) in PR [#77](https://github.com/jdalrymple/node-gitlab-api/pull/77)
+- Updated packages
 
 [3.2.2](https://github.com/jdalrymple/node-gitlab-api/tags/3.2.2) (2018-5-2)
 ------------------

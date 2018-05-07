@@ -1,6 +1,6 @@
 {
   "name": "gitlab",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "main": "dist/latest/index.js",
   "engines": {
@@ -46,7 +46,7 @@
     "humps": "^2.0.1",
     "lodash.pick": "^4.4.0",
     "parse-link-header": "^1.0.1",
-    "qs": "^6.5.1",
+    "qs": "^6.5.2",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "request-promise-core": "^1.1.1",
