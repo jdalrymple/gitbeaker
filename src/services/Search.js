@@ -2,7 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 class Search extends BaseService {
   all(scope, search, { projectId, groupId } = {}) {
-    let url;
+    let url = '';
 
     if (projectId) {
       url += `projects/${encodeURIComponent(projectId)}/`;
