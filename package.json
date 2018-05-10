@@ -12,9 +12,9 @@
     "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "lint": "node_modules/.bin/eslint ./src ./tests",
-    "test:bundles": "jest tests/bundles; exit 0",
-    "test:infrastructure": "jest tests/infrastructure; exit 0",
-    "test:services": "jest tests/services; exit 0",
+    "test:bundles": "jest tests/bundles",
+    "test:infrastructure": "jest tests/infrastructure",
+    "test:services": "jest tests/services",
     "test": "jest && codecov",
     "test:watch": "GITLAB_URL=http://localhost:8080 API_TOKEN=ysccjxQtMCqz_wBfJEy2 jest --watch",
     "prepublishOnly": "npm run build"
