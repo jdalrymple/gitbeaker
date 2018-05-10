@@ -25,7 +25,7 @@ test('All the correct service keys are included in the groups bundle', async () 
 test('All the correct service instances are included in the groups bundle', async () => {
   const bundle = new GroupsBundle();
 
-  Object.keys(bundle).forEach(key => {
+  Object.keys(bundle).forEach((key) => {
     expect(bundle[key]).instanceOf(Services[key]);
   });
 });
