@@ -52,11 +52,11 @@ async function getPaginated(service, endpoint, options = {}) {
   const response = await service.requester.get(requestOptions);
   const links = LinkParser(response.headers.link);
   const page = response.headers['x-page'];
-  const limit = options.maxPages ? page < options.maxPages : true;
-  let more = [];
+  const underMaxPageLimit = options.maxPages ? page < options.maxPages : true;
 
-  if (page && limit && links.next) {
-    more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
+  // If not looking for a singular page and still under the max pages limit AND their is a next page, paginate
+  if (!options.page && underMaxPageLimit && links.next) {
+    const more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
 
     return [...response.body, ...more];
   }
