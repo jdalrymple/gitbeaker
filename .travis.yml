@@ -9,6 +9,7 @@ cache:
     - "node_modules"
 
 script: npm run test:infrastructure
+script: npm run test:bundles
 
 jobs:
   include:

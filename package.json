@@ -12,6 +12,7 @@
     "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "lint": "node_modules/.bin/eslint ./src ./tests",
+    "test:bundles": "jest tests/bundles; exit 0",
     "test:infrastructure": "jest tests/infrastructure; exit 0",
     "test:services": "jest tests/services; exit 0",
     "test": "jest && codecov",
