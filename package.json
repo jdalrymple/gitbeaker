@@ -42,13 +42,13 @@
     "@babel/preset-env": "^7.0.0-beta.46",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^23.0.0-alpha.0",
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.0-alpha.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.3",
+    "jest": "^23.0.0-charlie.1",
     "jest-tap-reporter": "^1.9.0"
   },
   "dependencies": {
