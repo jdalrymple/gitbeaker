@@ -10,20 +10,22 @@
 
 ## Table of Contents
 
-* [Install](#install)
-* [Usage](#usage)
-    * [Supported APIs](#supported-apis)
-    * [Import](#import)
-        * [Specific Imports](#specific-imports)
-        * [Bundle Imports](#bundle-imports)
-    * [Examples](#examples)
-    * [Pagination](#pagination)
-* [Migrating from node-gitlab](#migrating-from-node-gitlab)
-* [Docs](#docs)
-* [Contributors](#contributors)
-* [Tests](#tests)
-* [License](#licence)
-* [Changelog](#changelog)
+- [Install](#install)
+- [Usage](#usage)
+    - [Supported APIs](#supported-apis)
+    - [Import](#import)
+        - [Specific Imports](#specific-imports)
+        - [Bundle Imports](#bundle-imports)
+    - [Examples](#examples)
+    - [Pagination](#pagination)
+- [Migrating from node-gitlab](#migrating-from-node-gitlab)
+- [Docs](#docs)
+- [Development](#development)
+- [Testing](#testing)
+- [Contributors](#contributors)
+- [Tests](#tests)
+- [License](#licence)
+- [Changelog](#changelog)
 
 
 ## Install
@@ -350,9 +352,56 @@ With the sucess of this library thanks to the community, this has become the mai
 
 Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
 
-## Tests
+## Development
 
-Nothing yet, but its on the TODO list :P
+To get this running locally rather than from your `node_modules` folder:
+
+```bash
+$ git clone https://github.com/jdalrymple/node-gitlab.git
+$ cd node-gitlab
+$ npm install
+$ npm build
+```
+
+And then inside whatever project you are using `node-gitlab` in you change your references to use that repo.  In your package.json of that upstream project change:
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab": "2.1.0"
+    ...
+  }
+```
+
+to this
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab": "<path-to-your-clone>"
+    ...
+  }
+```
+
+## Testing
+
+Testing is a work-in-progress right now but here is the start.  
+
+1. First run gitlab in a docker container:
+
+```bash
+docker-compose -f docker-compose.test.yml up
+```
+
+1. Once GitLab is up on localhost:8080, create the admin password, then login as `root` with that password and then create an access token ( Avatar -> Settings -> Access Tokens ).  
+
+1. Copy that token and put it into the package.json in the `test:watch` command
+
+1. Then run the jest tests against it:
+
+```bash
+npm run test:watch
+```
 
 ## Contributors
 
@@ -690,55 +739,3 @@ inferred from the file path
 ------------------
 - Initial release
 - TODO: Tests, Examples
-
-## Development
-
-To get this running locally rather than from your `node_modules` folder:
-
-```bash
-$ git clone https://github.com/jdalrymple/node-gitlab.git
-$ cd node-gitlab
-$ npm install
-$ npm build
-```
-
-And then inside whatever project you are using `node-gitlab` in you change your references to use that repo.  In your package.json of that upstream project change:
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab": "2.1.0"
-    ...
-  }
-```
-
-to this
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab": "<path-to-your-clone>"
-    ...
-  }
-```
-
-## Testing
-
-Testing is a work-in-progress right now but here is the start.  
-
-1. First run gitlab in a docker container:
-
-```bash
-docker-compose -f docker-compose.test.yml up
-```
-
-1. Once GitLab is up on localhost:8080, create the admin password, then login as `root` with that password and then create an access token ( Avatar -> Settings -> Access Tokens ).  
-
-1. Copy that token and put it into the package.json in the `test:watch` command
-
-1. Then run the jest tests against it:
-
-```bash
-npm run test:watch
-```
-
