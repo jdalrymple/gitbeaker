@@ -2,7 +2,7 @@
 
 
 
-[![NPM](https://nodei.co/npm/node-gitlab.png?downloads=true&stars=true)](https://nodei.co/npm/node-gitlab/)
+[![NPM](https://nodei.co/npm/node-gitlab.png?downloads=true&stars=true)](https://nodei.co/npm/gitlab/)
 
 # node-gitlab
 
