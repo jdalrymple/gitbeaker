@@ -16,7 +16,6 @@
     "test:infrastructure": "jest tests/infrastructure",
     "test:services": "jest tests/services",
     "test": "jest && codecov",
-    "test:watch": "GITLAB_URL=http://localhost:8080 API_TOKEN=ysccjxQtMCqz_wBfJEy2 jest --watch",
     "prepublishOnly": "npm run build"
   },
   "repository": {
