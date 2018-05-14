@@ -10,6 +10,10 @@ cache:
 
 ## Spin up glitlab instance and sleep for 60 seconds
 before_script:
+  ## Give travis permissions to use this file
+  - chmod +x docker-endpoint.sh
+
+  ## Spin up container
   - docker-compose -f docker-compose.test.yml up
 
   ## Get the docker env variables
