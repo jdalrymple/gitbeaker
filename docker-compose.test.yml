@@ -3,8 +3,7 @@ services:
   gitlab:
     image: gitlab/gitlab-ce
     container_name: gitlab
-    command:
-      -ls
+    command: bash -c "ls"
     # entrypoint:
     #   - ./docker-entrypoint.sh
     environment:
