@@ -2,6 +2,7 @@ version: '3'
 services:
   gitlab:
     image: gitlab/gitlab-ce
+    container_name: gitlab
     entrypoint: docker-entrypoint.sh
     enviroment:
       - GITLAB_URL='http://localhost:8080'

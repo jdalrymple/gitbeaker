@@ -11,10 +11,13 @@ cache:
 ## Spin up glitlab instance and sleep for 60 seconds
 before_script:
   - docker-compose -f docker-compose.test.yml up
+
   ## Get the docker env variables
-  - SET PERSONAL_ACCESS_TOKEN =
-  - SET GITLAB_URL 
-  - sleep 60
+  - SET PERSONAL_ACCESS_TOKEN = docker exec -i gitlab echo PERSONAL_ACCESS_TOKEN
+  - SET GITLAB_URL = docker exec -i gitlab echo PERSONAL_ACCESS_TOKEN
+
+  ## Sleep before performing commands on container
+  - sleep 10000
 
 ## run tests
 script:
