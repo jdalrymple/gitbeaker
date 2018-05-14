@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ## Set GITLAB_URL ENV
 gitlab-rails console production
 
