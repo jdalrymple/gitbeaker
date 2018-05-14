@@ -28,6 +28,9 @@ script:
   - npm run test:infrastructure
   - npm run test:bundles
 
+after_script:
+  - docker-compose -f docker-compose.test.yml down
+
 jobs:
   include:
     - stage: lint

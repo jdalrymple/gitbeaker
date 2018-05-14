@@ -4,6 +4,7 @@ services:
     image: gitlab/gitlab-ce
     container_name: gitlab
     entrypoint: docker-entrypoint.sh
+    privileged: true
     environment:
       - GITLAB_URL='http://localhost:8080'
       - PERSONAL_ACCESS_TOKEN='token'
