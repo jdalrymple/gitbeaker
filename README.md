@@ -385,6 +385,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.3.4](https://github.com/jdalrymple/node-gitlab/tags/3.3.4) (2018-5-14)
+------------------
+- Fixing #85
+
 [3.3.3](https://github.com/jdalrymple/node-gitlab/tags/3.3.3) (2018-5-13)
 ------------------
 - Fixing #84

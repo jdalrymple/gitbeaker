@@ -50,7 +50,7 @@ async function getPaginated(service, endpoint, options = {}) {
   });
 
   const response = await service.requester.get(requestOptions);
-  const links = LinkParser(response.headers.link);
+  const links = LinkParser(response.headers.link) || {};
   const page = response.headers['x-page'];
   const underMaxPageLimit = options.maxPages ? page < options.maxPages : true;
 
