@@ -5,10 +5,10 @@ services:
     container_name: gitlab
     entrypoint:
       - sh
-      - gitlab-rails console production
-      - ENV['PERSONAL_ACCESS_TOKEN'] = t.token
-      - exit
       - ls
+      - gitlab-rails console
+      - ENV['PERSONAL_ACCESS_TOKEN'] = "test"
+      - exit
     environment:
       - GITLAB_URL='http://localhost:8080'
       - PERSONAL_ACCESS_TOKEN='token'
