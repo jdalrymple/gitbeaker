@@ -8,9 +8,13 @@
   },
   "scripts": {
     "build:clean": "rimraf -rf dist && mkdir -p dist",
+    "build:clean-tsc": "rimraf -rf dist_tsc && mkdir -p dist_tsc",
     "build:es6": "babel src -d dist/latest --config-file=./.babelrc",
+    "build:es6-tsc": "tsc",
     "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
+    "build:es5-tsc": "tsc -p tsconfig-es5.json",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
+    "build-tsc": "npm run build:clean-tsc && npm run build:es6-tsc && npm run build:es5-tsc",
     "lint": "node_modules/.bin/eslint ./src ./test",
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
@@ -53,7 +57,8 @@
     "eslint-plugin-react": "^7.8.2",
     "jest": "^23.1.0",
     "jest-tap-reporter": "^1.9.0",
-    "regenerator-runtime": "^0.11.1"
+    "regenerator-runtime": "^0.11.1",
+    "typescript": "2.8.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.49",

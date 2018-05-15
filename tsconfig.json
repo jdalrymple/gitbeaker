@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "allowJs": true,
+
+    "esModuleInterop": true,
+    "declaration": false,
+    "outDir": "dist_tsc/latest"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
