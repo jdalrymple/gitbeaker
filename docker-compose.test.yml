@@ -1,17 +1,10 @@
 version: '3'
 services:
   gitlab:
-    image: gitlab/gitlab-ce
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     container_name: gitlab
-    entrypoint:
-      - sh
-      - -c
-      - |
-          ls
-          gitlab-ctl reconfigure
-          gitlab-rails console
-          ENV['PERSONAL_ACCESS_TOKEN'] = "test"
-          exit
     environment:
       - GITLAB_URL='http://localhost:8080'
       - PERSONAL_ACCESS_TOKEN='token'
