@@ -60,7 +60,7 @@ export const ProjectsBundle = Bundler(Pick(APIServices, [
   'ProjectHooks',
   'ProjectMembers',
   'ProjectMilestones',
-  'ProjectSnippet',
+  'ProjectSnippets',
   'ProjectSnippetNotes',
   'ProjectSnippetDiscussions',
   'ProjectSnippetAwardEmojis',
