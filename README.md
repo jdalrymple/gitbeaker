@@ -93,6 +93,7 @@ PipelineSchedules
 PipelineScheduleVariables
 Projects
 ProjectAccessRequests
+ProjectBadges
 ProjectCustomAttributes
 ProjectImportExport
 ProjectIssueBoards
@@ -205,6 +206,7 @@ PipelineSchedules
 PipelineScheduleVariables
 Projects
 ProjectAccessRequests
+ProjectBadges
 ProjectCustomAttributes
 ProjectImportExport
 ProjectIssueBoards
