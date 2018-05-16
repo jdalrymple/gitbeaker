@@ -20,8 +20,9 @@
     * [Pagination](#pagination)
 * [Migrating from node-gitlab](#migrating-from-node-gitlab)
 * [Docs](#docs)
-* [Contributors](#contributors)
 * [Tests](#tests)
+* [Development](#development)
+* [Contributors](#contributors)
 * [License](#licence)
 * [Changelog](#changelog)
 
@@ -356,6 +357,38 @@ Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree
 
 Nothing yet, but its on the TODO list :P
 
+
+## Development
+
+To get this running locally rather than from your `node_modules` folder:
+
+```bash
+$ git clone https://github.com/jdalrymple/node-gitlab.git
+$ cd node-gitlab
+$ npm install
+$ npm build
+```
+
+And then inside whatever project you are using `node-gitlab` in you change your references to use that repo.  In your package.json of that upstream project change:
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab": "2.1.0"
+    ...
+  }
+```
+
+to this
+
+```json
+  "dependencies": {
+    ...
+    "node-gitlab": "<path-to-your-clone>"
+    ...
+  }
+```
+
 ## Contributors
 
 This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
@@ -380,6 +413,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Joshua Grosso](https://github.com/jgrosso)
 - [Frédéric Boutin](https://github.com/fboutin-pmc)
 - [Isaac Ouellet Therrien](https://github.com/yonguelink)
+- [Pavel Birukov](https://github.com/r00ger)
 
 ## License
 
@@ -387,18 +421,22 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.3.5](https://github.com/jdalrymple/node-gitlab/tags/3.3.5) (2018-5-15)
+------------------
+- Fixing missing exports thanks to [Pavel Birukov](https://github.com/r00ger) in [#86](https://github.com/jdalrymple/node-gitlab/pull/86)
+
 [3.3.4](https://github.com/jdalrymple/node-gitlab/tags/3.3.4) (2018-5-14)
 ------------------
-- Fixing #85
+- Fixing [#85](https://github.com/jdalrymple/node-gitlab/pull/85)
 
 [3.3.3](https://github.com/jdalrymple/node-gitlab/tags/3.3.3) (2018-5-13)
 ------------------
-- Fixing #84
+- Fixing [#84](https://github.com/jdalrymple/node-gitlab/pull/84)
 
 [3.3.2](https://github.com/jdalrymple/node-gitlab/tags/3.3.2) (2018-5-9)
 ------------------
-- Fixing #82
-- Fixing #83
+- Fixing [#82](https://github.com/jdalrymple/node-gitlab/pull/82)
+- Fixing [#83](https://github.com/jdalrymple/node-gitlab/pull/83)
 - Updating repo name for clarity
 
 [3.3.0](https://github.com/jdalrymple/node-gitlab/tags/3.3.0) (2018-5-7)
@@ -700,34 +738,3 @@ inferred from the file path
 ------------------
 - Initial release
 - TODO: Tests, Examples
-
-## Development
-
-To get this running locally rather than from your `node_modules` folder:
-
-```bash
-$ git clone https://github.com/jdalrymple/node-gitlab.git
-$ cd node-gitlab
-$ npm install
-$ npm build
-```
-
-And then inside whatever project you are using `node-gitlab` in you change your references to use that repo.  In your package.json of that upstream project change:
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab": "2.1.0"
-    ...
-  }
-```
-
-to this
-
-```json
-  "dependencies": {
-    ...
-    "node-gitlab": "<path-to-your-clone>"
-    ...
-  }
-```
