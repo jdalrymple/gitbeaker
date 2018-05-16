@@ -1,7 +1,11 @@
 #!/bin/sh
+#https://gitlab.com/gitlab-org/omnibus-gitlab/blob/10-8-stable/docker/assets/wrapper
 
-## Set GITLAB_URL ENV
-# gitlab-rails console production
+exec /assets/wrapper
+
+gitlab-ctl stop
+
+gitlab-rails console
 
 # ## Reset default password for root user
 # u = User.first
@@ -18,7 +22,6 @@
 # ENV['PERSONAL_ACCESS_TOKEN'] = t.token
 
 # ## Exist rails console
-# exit
-ls
+exit
+
 ## Exec any other entry point logic
-exec /assets/wrapper "$@"
