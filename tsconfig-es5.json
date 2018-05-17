@@ -12,7 +12,7 @@
 
     "esModuleInterop": true,
     "declaration": false,
-    "outDir": "dist_tsc/es5"
+    "outDir": "dist-tsc/es5"
   },
   "include": [
     "src/**/*"
