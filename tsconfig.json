@@ -8,11 +8,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
 
-    "allowJs": true,
-
     "esModuleInterop": true,
-    "declaration": false,
-    "outDir": "dist_tsc/latest"
+    "declaration": true,
+    "outDir": "dist-tsc/latest"
   },
   "include": [
     "src/**/*"
