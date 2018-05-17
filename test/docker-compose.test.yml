@@ -3,7 +3,7 @@ services:
   gitlab:
     image: gitlab/gitlab-ce
     container_name: gitlab
-    command: sh -c ./docker-entrypoint.sh
+    entrypoint: init/docker-entrypoint
     environment:
       - GITLAB_URL='http://localhost:8080'
       - PERSONAL_ACCESS_TOKEN='token'
@@ -11,4 +11,6 @@ services:
       - 8080:80
       - 8443:443
     volumes:
-      - ./docker-entrypoint.sh:/docker-entrypoint.sh
+      - ./docker-entrypoint:/init/docker-entrypoint
+      - ./init:/init/init
+      - ./test.rb:/init/test.rb
