@@ -134,7 +134,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 import Gitlab from 'gitlab';
 
 // ES5
-const Gitlab = require('node-gitlab/dist/es5').default
+const Gitlab = require('gitlab/dist/es5').default
 
 
 // Instantiating
