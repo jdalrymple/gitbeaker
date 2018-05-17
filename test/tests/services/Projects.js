@@ -1,4 +1,4 @@
-import { Projects } from '../../src';
+import { Projects } from '../../../src';
 
 const credentials = {
 	url: process.env.GITLAB_URL,

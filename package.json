@@ -12,8 +12,8 @@
     "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "lint": "node_modules/.bin/eslint ./src ./tests",
-    "test:infrastructure": "jest tests/infrastructure",
     "test:bundles": "jest test/tests/bundles",
+    "test:infrastructure": "jest test/tests/infrastructure",
     "test:services": "jest test/tests/services",
     "test": "jest && codecov",
     "prepublishOnly": "npm run build"
@@ -39,6 +39,7 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.47",
     "@babel/plugin-transform-runtime": "^7.0.0-beta.47",
     "@babel/preset-env": "^7.0.0-beta.47",
+    "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^22.4.3",
     "eslint": "^5.0.0-alpha.3",
@@ -47,7 +48,9 @@
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
+    "jest": "^22.4.3",
     "jest-tap-reporter": "^1.9.0",
+    "regenerator-runtime": "^0.11.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.47",
