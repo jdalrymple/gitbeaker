@@ -19,13 +19,13 @@ test('All the correct service keys are included in the groups bundle', async () 
     'EpicDiscussions',
   ];
 
-  expect(bundle).toHaveProperty(services);
+  expect(Object.keys(bundle)).toEqual(expect.arrayContaining(services));
 });
 
 test('All the correct service instances are included in the groups bundle', async () => {
   const bundle = new GroupsBundle({ token: 'test' });
 
   Object.keys(bundle).forEach((key) => {
-    expect(bundle[key]).instanceOf(Services[key]);
+    expect(bundle[key]).toBeInstanceOf(Services[key]);
   });
 });
