@@ -1,4 +1,4 @@
-import { BaseService } from '../../src/infrastructure';
+import { BaseService } from '../../../src/infrastructure';
 
 describe('Creation of BaseService instance', () => {
   test('If a token or oauthToken is not passed, throw an error', async () => {

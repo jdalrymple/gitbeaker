@@ -1,8 +1,8 @@
-import { GroupsBundle } from '../../src';
-import Services from '../../src/services';
+import { GroupsBundle } from '../../../src';
+import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the groups bundle', async () => {
-  const bundle = new GroupsBundle();
+  const bundle = new GroupsBundle({ token: 'test' });
   const services = [
     'Groups',
     'GroupAccessRequests',
@@ -23,7 +23,7 @@ test('All the correct service keys are included in the groups bundle', async () 
 });
 
 test('All the correct service instances are included in the groups bundle', async () => {
-  const bundle = new GroupsBundle();
+  const bundle = new GroupsBundle({ token: 'test' });
 
   Object.keys(bundle).forEach((key) => {
     expect(bundle[key]).instanceOf(Services[key]);

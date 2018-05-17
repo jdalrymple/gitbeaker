@@ -1,8 +1,8 @@
-import { ProjectsBundle } from '../../src';
-import Services from '../../src/services';
+import { ProjectsBundle } from '../../../src';
+import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the projects bundle', async () => {
-  const bundle = new ProjectsBundle();
+  const bundle = new ProjectsBundle({ token: 'test' });
   const services = [
     'Branches',
     'Commits',
@@ -48,7 +48,7 @@ test('All the correct service keys are included in the projects bundle', async (
 });
 
 test('All the correct service instances are included in the projects bundle', async () => {
-  const bundle = new ProjectsBundle();
+  const bundle = new ProjectsBundle({ token: 'test' });
 
   Object.keys(bundle).forEach((key) => {
     expect(bundle[key]).instanceOf(Services[key]);

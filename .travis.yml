@@ -8,8 +8,28 @@ cache:
   directories:
     - "node_modules"
 
-script: npm run test:infrastructure
-script: npm run test:bundles
+## Spin up glitlab instance and sleep for 60 seconds
+before_script:
+  ## Spin up container
+  - cd test/docker/
+  - docker-compose -f docker-compose.test.yml up -d
+  - cd .
+
+  ## Get the docker env variables
+  - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab echo PERSONAL_ACCESS_TOKEN)
+  - export GITLAB_URL=$(docker exec -i gitlab echo GITLAB_URL)
+
+  ## Sleep before performing commands on container
+  - sleep 30
+
+## run tests
+script:
+  - npm run test:infrastructure
+  - npm run test:bundles
+  - npm run test:services
+
+after_script:
+  - docker-compose -f docker-compose.test.yml down
 
 jobs:
   include:
@@ -17,4 +37,3 @@ jobs:
       script: npm run lint
     - stage: build
       script: npm run build
-    #   script: npm run test:services
