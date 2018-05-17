@@ -23,7 +23,6 @@
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
-- [Tests](#tests)
 - [License](#licence)
 - [Changelog](#changelog)
 
