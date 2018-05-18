@@ -12,7 +12,7 @@ cache:
 before_script:
   ## Spin up container
   - cd test/docker/
-  - docker-compose -f docker-compose.test.yml up -d
+  - docker-compose -f docker-compose.test.yml up
   - cd .
 
   ## Get the docker env variables
