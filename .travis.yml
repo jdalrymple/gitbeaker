@@ -12,9 +12,10 @@ cache:
 before_script:
   ## Spin up container
   - cd test/docker/
-  - docker-compose -f docker-compose.test.yml up
+  - docker-compose -f docker-compose.test.yml up -d
   - cd .
-
+  
+  - docker exec -i gitlab echo $PERSONAL_ACCESS_TOKEN
   ## Get the docker env variables
   - PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab echo $PERSONAL_ACCESS_TOKEN)
   - GITLAB_URL=$(docker exec -i gitlab echo $GITLAB_URL)
