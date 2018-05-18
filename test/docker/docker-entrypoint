@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Running the init logic for gitlab. See PR# for splitting this wrapper file into two pieces
-/bin/bash init/init &>/dev/null
+/bin/bash init/init
 
 echo Sleep for 30 seconds to ensure all services are running
 sleep 30
