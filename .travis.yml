@@ -16,8 +16,8 @@ before_script:
   - cd .
 
   ## Get the docker env variables
-  - PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab echo PERSONAL_ACCESS_TOKEN)
-  - GITLAB_URL=$(docker exec -i gitlab echo GITLAB_URL)
+  - PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab echo $PERSONAL_ACCESS_TOKEN)
+  - GITLAB_URL=$(docker exec -i gitlab echo $GITLAB_URL)
   - echo $PERSONAL_ACCESS_TOKEN
   - echo $GITLAB_URL
   ## Sleep before performing commands on container
