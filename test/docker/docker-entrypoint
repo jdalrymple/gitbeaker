@@ -9,6 +9,9 @@ sleep 30
 echo Initalize test token and user
 PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
 
+echo $PERSONAL_ACCESS_TOKEN
+echo $GITLAB_URL
+
 echo Tail and wait
 gitlab-ctl tail&
 wait
