@@ -14,10 +14,10 @@ before_script:
   - cd test/docker/
   - docker-compose -f docker-compose.test.yml up -d
   - cd .
-  
-  - docker exec -i gitlab echo $PERSONAL_ACCESS_TOKEN
+
+  - docker exec -i gitlab printenv
   ## Get the docker env variables
-  - PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab echo $PERSONAL_ACCESS_TOKEN)
+  - PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab printenv)
   - GITLAB_URL=$(docker exec -i gitlab echo $GITLAB_URL)
   - echo $PERSONAL_ACCESS_TOKEN
   - echo $GITLAB_URL
