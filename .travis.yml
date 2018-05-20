@@ -18,9 +18,6 @@ before_script:
   - sleep 240
 
   ## Get the docker env variables
-  - docker exec -it gitlab bash -lc 'echo "$PERSONAL_ACCESS_TOKEN"'
-  - docker exec -it gitlab bash -lc 'env'
-
   - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'echo "$PERSONAL_ACCESS_TOKEN"')
   - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
 
