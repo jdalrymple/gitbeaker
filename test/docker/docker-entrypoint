@@ -7,7 +7,10 @@ echo Sleep for 30 seconds to ensure all services are running
 sleep 30
 
 echo Initalize test token and user
-export PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
+PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
+
+echo "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.bashrc
+echo "export GITLAB_URL=http://localhost:$EXTERNAL_PORT" >> ~/.bashrc
 
 echo Tail and wait
 gitlab-ctl tail&
