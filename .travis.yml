@@ -15,15 +15,15 @@ before_script:
   - docker-compose -f docker-compose.test.yml up -d
 
   ## Get the docker env variables
-  - docker exec -it gitlab bash -lc "env"
+  - docker exec -it gitlab sh -lc "env"
 
   - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
   - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
+  - env
 
   ## Sleep before performing commands on container
   - sleep 30
 
-  - env
 ## run tests
 script:
   - npm run test
