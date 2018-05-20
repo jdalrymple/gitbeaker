@@ -15,8 +15,10 @@ before_script:
   - docker-compose -f docker-compose.test.yml up -d
 
   ## Get the docker env variables
-  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc "printenv PERSONAL_ACCESS_TOKEN" -d)
-  - export GITLAB_URL=$(docker exec -it gitlab bash -lc "printenv GITLAB_URL" -d)
+  - echo $(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
+
+  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
+  - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'echo "$GITLAB_URL"')
 
   ## Sleep before performing commands on container
   - sleep 30
