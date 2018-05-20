@@ -15,7 +15,7 @@ before_script:
   - docker-compose -f docker-compose.test.yml up -d
 
   ## Sleep before performing commands on container
-  - sleep 60
+  - sleep 120
 
   ## Get the docker env variables
   - docker exec -it gitlab bash -lc 'echo "$PERSONAL_ACCESS_TOKEN"'
