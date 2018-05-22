@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {BaseService, RequestHelper} from '../infrastructure';
 
 class ProtectedBranches extends BaseService {
   all(projectId, options) {
@@ -17,15 +17,15 @@ class ProtectedBranches extends BaseService {
   }
 
   show(projectId, branchName) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/protected_branches/${branchName}`);
+    return RequestHelper.get(this, `projects/${pId}/protected_branches/${bName}`);
   }
 
   unprotect(projectId, branchName) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/protected_branches/${branchName}`);
+    return RequestHelper.delete(this, `projects/${pId}/protected_branches/${bName}`);
   }
 }
 
