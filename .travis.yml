@@ -18,10 +18,10 @@ before_script:
   - sleep 240
 
   ## Get the docker env variables
-  - export TESTS=$(docker exec -it gitlab bash -lc 'printenv TEST')
+  - export TESTS=$(docker exec -it gitlab bash -lc 'printenv EXTERNAL_PORT')
   - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printenv PERSONAL_ACCESS_TOKEN')
   - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printenv GITLAB_URL')
-
+  
 ## run tests
 script:
   - npm run test
