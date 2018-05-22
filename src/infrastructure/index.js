@@ -1,3 +1,3 @@
-export BaseService from './BaseService';
-export RequestHelper from './RequestHelper';
-export Bundler from './Bundler';
+export { default as BaseService } from './BaseService';
+export { default as RequestHelper } from './RequestHelper';
+export { default as Bundler } from './Bundler';
