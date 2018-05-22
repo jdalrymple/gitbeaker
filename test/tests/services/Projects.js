@@ -5,6 +5,8 @@ describe('Projects.all', () => {
   	const c = { url: process.env.GITLAB_URL, token: process.env.PERSONAL_ACCESS_TOKEN };
 
   	console.log(process.env.TESTS)
+  	console.log(process.env.TESTS2)
+
     const service = new Projects(c);
     const projects = await service.all();
 
