@@ -72,7 +72,7 @@ class RequestHelper {
   }
 
   static post(service, endpoint, options = {}, form = false) {
-    const body = form ? 'fromData' : 'body';
+    const body = form ? 'formData' : 'body';
 
     return service.requester.post(
       defaultRequest(service, endpoint, {
