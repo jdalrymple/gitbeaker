@@ -12,7 +12,7 @@ GITLAB_URL="http://localhost:$EXTERNAL_PORT"
 
 printf "export TEST=TEST" >> ~/.profile
 printf "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.profile
-echo "export GITLAB_URL=$GITLAB_URL" >> ~/.profile
+echo -e "export GITLAB_URL=$GITLAB_URL" >> ~/.profile
 
 echo Tail and wait
 gitlab-ctl tail&
