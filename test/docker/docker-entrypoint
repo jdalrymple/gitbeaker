@@ -10,7 +10,8 @@ echo Initalize test token and user
 PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
 GITLAB_URL="http://localhost:$EXTERNAL_PORT"
 
-echo "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.profile
+printf "export TEST=TEST" >> ~/.profile
+printf "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.profile
 echo "export GITLAB_URL=$GITLAB_URL" >> ~/.profile
 
 echo Tail and wait
