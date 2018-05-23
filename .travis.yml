@@ -1,5 +1,3 @@
-language: node_js
-
 stages:
   - prepare cache
   - lint
@@ -10,6 +8,7 @@ stages:
 jobs:
   include:
     - stage: prepare cache
+      language: node_js
       node_js: node
       script: true
       cache:
