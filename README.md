@@ -2,7 +2,7 @@
 
 
 
-[![NPM](https://nodei.co/npm/node-gitlab.png?downloads=true&stars=true)](https://nodei.co/npm/gitlab/)
+[![NPM](https://nodei.co/npm/node-gitlab.png?downloads=true&stars=true)](https://nodei.co/npm/gitlab/) [![Greenkeeper badge](https://badges.greenkeeper.io/jdalrymple/node-gitlab.svg)](https://greenkeeper.io/)
 
 # node-gitlab
 
