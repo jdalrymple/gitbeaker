@@ -1,5 +1,3 @@
-language: node_js
-
 stages:
   - prepare cache
   - lint
@@ -15,14 +13,17 @@ cache:
 jobs:
   include:
     - stage: prepare cache
+      language: node_js
       node_js: node
       script: true
 
     - stage: lint
+      language: node_js
       node_js: node
       script: npm run lint
 
     - stage: build
+      language: node_js
       node_js: node
       script: npm run build
 
@@ -40,17 +41,22 @@ jobs:
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 
     - stage: test
-      script: npm run test
+      language: node_js
       node_js: 8
+      script: npm run test
 
     - stage: test
-      script: npm run test
+      language: node_js
       node_js: lts/*
 
-    - stage: test
       script: npm run test
-      node_js: 9
 
     - stage: test
+      language: node_js
+      node_js: 9
       script: npm run test
+
+    - stage: test
+      language: node_js
       node_js: node
+      script: npm run test
