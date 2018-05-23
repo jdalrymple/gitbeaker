@@ -410,12 +410,23 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Frédéric Boutin](https://github.com/fboutin-pmc)
 - [Isaac Ouellet Therrien](https://github.com/yonguelink)
 - [Pavel Birukov](https://github.com/r00ger)
+- [Sharma-Rajat](https://github.com/Sharma-Rajat)
+- [Joseph Petersen](https://github.com/casz)
+- [Igor Katsuba](https://github.com/Defenderbass)
 
 ## License
 
 [MIT](https://github.com/jdalrymple/node-gitlab/blob/master/LICENSE.md)
 
 ## Changelog
+
+[3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
+------------------
+- Typo fix and branch id encoding thanks to [Igor Katsuba](https://github.com/Defenderbass)
+ in [#92](https://github.com/jdalrymple/node-gitlab/pull/92) and [#91](https://github.com/jdalrymple/node-gitlab/pull/91)
+- Removal of non standard babel plugins in prep for move to Typescript thanks to [Pavel Birukov](https://github.com/r00ger) in [#90](https://github.com/jdalrymple/node-gitlab/pull/90)
+- Docs update pointing to the wrong npm package thanks to [Joseph Petersen](https://github.com/casz) in [#88](https://github.com/jdalrymple/node-gitlab/pull/88)
+- Licence update (to match the year) thanks to [Sharma-Rajat](https://github.com/Sharma-Rajat) in [#87](https://github.com/jdalrymple/node-gitlab/pull/87)
 
 [3.3.5](https://github.com/jdalrymple/node-gitlab/tags/3.3.5) (2018-5-15)
 ------------------
