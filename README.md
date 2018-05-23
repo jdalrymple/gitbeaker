@@ -392,15 +392,28 @@ Testing is a work-in-progress right now but here is the start.
 docker-compose -f docker-compose.test.yml up
 ```
 
-1. Once GitLab is up on localhost:8080, create the admin password, then login as `root` with that password and then create an access token ( Avatar -> Settings -> Access Tokens ).  
-
-1. Copy that token and put it into the package.json in the `test:watch` command
-
-1. Then run the jest tests against it:
+1. Once GitLab is up on localhost:8080, get the two environment variables from the docker image could
+either export them into environment variables locally:
 
 ```bash
-npm run test:watch
+  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+  - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 ```
+
+1. Now run the tests
+
+```bash
+npm run test
+```
+
+You can also define them in front of the npm script
+
+```
+PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
+```
+
+> Note it may take about 3 minutes to get the variables while gitlab is starting up in the container
+
 
 ## Contributors
 
