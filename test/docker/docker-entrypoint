@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## Running the init logic for gitlab. See PR# for splitting this wrapper file into two pieces
+/bin/bash init/init
+
+echo Sleep for 30 seconds to ensure all services are running
+sleep 30
+
+echo Initalize test token and user
+PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
+GITLAB_URL="http://localhost:$EXTERNAL_PORT"
+
+echo "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.profile
+echo "export GITLAB_URL=$GITLAB_URL" >> ~/.profile
+
+echo Tail and wait
+gitlab-ctl tail&
+wait

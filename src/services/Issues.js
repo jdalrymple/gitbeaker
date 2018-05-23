@@ -81,7 +81,7 @@ class Issues extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/issues/${mId}/time_stats`);
   }
-  
+
   unsubscribe(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 

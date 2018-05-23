@@ -12,7 +12,8 @@ class ResourceDiscussions extends BaseService {
   addNote(resourceId, resource2Id, discussiodId, noteId, options) {
     if (!options.body) throw new Error('Missing required property: body');
 
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId].map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
+      .map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, options);
   }
@@ -32,13 +33,15 @@ class ResourceDiscussions extends BaseService {
   }
 
   editNote(resourceId, resource2Id, discussiodId, noteId, body) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId].map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
+      .map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, { body });
   }
 
   removeNote(resourceId, resource2Id, discussiodId, noteId) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId].map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
+      .map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`);
   }

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce
+    container_name: gitlab
+    entrypoint: init/docker-entrypoint
+    environment:
+      - EXTERNAL_PORT=8080
+      - PERSONAL_ACCESS_TOKEN
+    ports: 
+      - 8080:80
+      - 8443:443
+    volumes:
+      - ./docker-entrypoint:/init/docker-entrypoint
+      - ./init:/init/init
+      - ./test.rb:/init/test.rb
