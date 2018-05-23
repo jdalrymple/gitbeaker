@@ -8,14 +8,18 @@ stages:
 jobs:
   include:
     - stage: prepare cache
-      language: node_js
       node_js: node
       script: true
+      cache:
+        directories:
+        - node_modules # NPM packages
 
     - stage: lint
+      node_js: node
       script: npm run lint
 
     - stage: build
+      node_js: node
       script: npm run build
 
     - stage: setup test docker
@@ -33,20 +37,16 @@ jobs:
 
     - stage: test
       script: npm run test
-      language: node_js
       node_js: 8
 
     - stage: test
       script: npm run test
-      language: node_js
       node_js: lts/*
 
     - stage: test
       script: npm run test
-      language: node_js
       node_js: 9
 
     - stage: test
       script: npm run test
-      language: node_js
       node_js: node
