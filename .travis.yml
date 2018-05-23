@@ -15,21 +15,21 @@ cache:
 
 jobs:
   include:
-    - before_script:
-      ## Spin up container
-      - cd test/docker/
-      - docker-compose -f docker-compose.test.yml up -d
+    - stage: test
+      before_script:
+        ## Spin up container
+        - cd test/docker/
+        - docker-compose -f docker-compose.test.yml up -d
 
-      ## Sleep before performing commands on container
-      - sleep 240
+        ## Sleep before performing commands on container
+        - sleep 240
 
-      ## Get the docker env variables
-      - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-      - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-    - script: npm run test
-    - after_script:
-      - docker-compose -f docker-compose.test.yml down
-
+        ## Get the docker env variables
+        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+        - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+      script: npm run test
+      after_script:
+        - docker-compose -f docker-compose.test.yml down
     - stage: lint
       script: npm run lint
     - stage: build
