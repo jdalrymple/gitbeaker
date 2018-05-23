@@ -1,6 +1,4 @@
-import {
-  StatusCodeError,
-} from 'request-promise-core/errors';
+import { StatusCodeError } from 'request-promise-core/errors';
 import Promisify from 'util.promisify';
 import XHR from 'xhr';
 
@@ -14,9 +12,7 @@ function promisifyFn(fn) {
       throw new StatusCodeError(response.statusCode, response.body, {}, null);
     }
 
-    return opts.resolveWithFullResponse
-      ? response
-      : response.body;
+    return opts.resolveWithFullResponse ? response : response.body;
   };
 }
 
