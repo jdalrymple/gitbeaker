@@ -1,4 +1,4 @@
-import {BaseService, RequestHelper} from '../infrastructure';
+import { BaseService, RequestHelper } from '../infrastructure';
 
 class ProtectedBranches extends BaseService {
   all(projectId, options) {
