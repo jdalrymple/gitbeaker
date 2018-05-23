@@ -7,7 +7,13 @@ import StreamableRequest from 'request';
 function defaultRequest(
   { url, useXMLHttpRequest },
   endpoint,
-  { headers, body, qs, formData, resolveWithFullResponse = false },
+  {
+    headers,
+    body,
+    qs,
+    formData,
+    resolveWithFullResponse = false,
+  },
 ) {
   const params = {
     url: URLJoin(url, endpoint),
@@ -31,9 +37,7 @@ function defaultRequest(
 
 function getStream(service, endpoint, options = {}) {
   if (service.useXMLHttpRequest) {
-    throw new Error(
-      'Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming',
-    );
+    throw new Error('Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming');
   }
 
   const requestOptions = defaultRequest(service, endpoint, {
@@ -56,7 +60,8 @@ async function getPaginated(service, endpoint, options = {}) {
   const page = response.headers['x-page'];
   const underMaxPageLimit = options.maxPages ? page < options.maxPages : true;
 
-  // If not looking for a singular page and still under the max pages limit AND their is a next page, paginate
+  // If not looking for a singular page and still under the max pages limit
+  // AND their is a next page, paginate
   if (!options.page && underMaxPageLimit && links.next) {
     const more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
 
@@ -74,32 +79,31 @@ class RequestHelper {
   }
 
   static post(service, endpoint, options = {}, form = false) {
-    const body = form ? 'fromData' : 'body';
+    const body = form ? 'formData' : 'body';
+    const requestOptions = defaultRequest(service, endpoint, {
+      headers: service.headers,
+      [body]: options,
+    });
 
-    return service.requester.post(
-      defaultRequest(service, endpoint, {
-        headers: service.headers,
-        [body]: options,
-      }),
-    );
+    return service.requester.post(requestOptions);
   }
 
   static put(service, endpoint, options = {}) {
-    return service.requester.put(
-      defaultRequest(service, endpoint, {
-        headers: service.headers,
-        body: options,
-      }),
-    );
+    const requestOptions = defaultRequest(service, endpoint, {
+      headers: service.headers,
+      body: options,
+    });
+
+    return service.requester.put(requestOptions);
   }
 
   static delete(service, endpoint, options = {}) {
-    return service.requester.delete(
-      defaultRequest(service, endpoint, {
-        headers: service.headers,
-        qs: options,
-      }),
-    );
+    const requestOptions = defaultRequest(service, endpoint, {
+      headers: service.headers,
+      qs: options,
+    });
+
+    return service.requester.delete(requestOptions);
   }
 }
 

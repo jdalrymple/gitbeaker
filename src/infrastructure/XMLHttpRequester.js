@@ -5,7 +5,7 @@ import XHR from 'xhr';
 function promisifyFn(fn) {
   const promisifiedFn = Promisify(fn);
 
-  return async function(opts) {
+  return async function (opts) {
     const response = await promisifiedFn(opts);
 
     if (response.statusCode >= 400 && response.statusCode <= 599) {
@@ -17,6 +17,7 @@ function promisifyFn(fn) {
 }
 
 const XMLHttpRequester = promisifyFn(XHR);
+
 XMLHttpRequester.del = promisifyFn(XHR.del);
 XMLHttpRequester.delete = XMLHttpRequester.del;
 XMLHttpRequester.get = promisifyFn(XHR.get);

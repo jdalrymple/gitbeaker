@@ -4,7 +4,7 @@ import XMLHttpRequester from './XMLHttpRequester';
 
 class BaseModel {
   constructor({
-   url = 'https://gitlab.com', token, oauthToken, useXMLHttpRequest = false
+    url = 'https://gitlab.com', token, oauthToken, useXMLHttpRequest = false,
   } = {}) {
     this.url = URLJoin(url, 'api', 'v4');
     this.headers = {};
