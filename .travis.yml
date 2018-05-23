@@ -1,3 +1,5 @@
+language: node_js
+
 stages:
   - prepare cache
   - lint
@@ -5,15 +7,16 @@ stages:
   - setup test docker
   - test
 
+cache:
+  directories:
+  - node_modules # NPM packages
+
+
 jobs:
   include:
     - stage: prepare cache
-      language: node_js
       node_js: node
       script: true
-      cache:
-        directories:
-        - node_modules # NPM packages
 
     - stage: lint
       node_js: node
