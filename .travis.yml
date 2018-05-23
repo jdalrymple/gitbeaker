@@ -8,6 +8,8 @@ stages:
 jobs:
   include:
     - stage: prepare cache
+      language: node_js
+      node_js: node
       script: true
 
     - stage: lint
