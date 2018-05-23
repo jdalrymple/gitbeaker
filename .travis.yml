@@ -1,3 +1,8 @@
+stages:
+  - lint
+  - build
+  - test
+
 language: node_js
 node_js:
   - "8"
@@ -8,28 +13,23 @@ cache:
   directories:
     - "node_modules"
 
-## Spin up glitlab instance and sleep for 60 seconds
-before_script:
-  ## Spin up container
-  - cd test/docker/
-  - docker-compose -f docker-compose.test.yml up -d
-
-  ## Sleep before performing commands on container
-  - sleep 240
-
-  ## Get the docker env variables
-  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-  - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-
-## run tests
-script:
-  - npm run test
-
-after_script:
-  - docker-compose -f docker-compose.test.yml down
-
 jobs:
   include:
+    - before_script:
+      ## Spin up container
+      - cd test/docker/
+      - docker-compose -f docker-compose.test.yml up -d
+
+      ## Sleep before performing commands on container
+      - sleep 240
+
+      ## Get the docker env variables
+      - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+      - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+    - script: npm run test
+    - after_script:
+      - docker-compose -f docker-compose.test.yml down
+
     - stage: lint
       script: npm run lint
     - stage: build
