@@ -40,8 +40,8 @@ jobs:
         - sleep 240
 
         ## Get the docker env variables
-        - $PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - $GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+        - "$PERSONAL_ACCESS_TOKEN"=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+        - "$GITLAB_URL"=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 
     - stage: test
       language: node_js
