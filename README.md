@@ -152,7 +152,7 @@ const api = new Gitlab({
 
 #### Specific Imports
 
-Sometimes you dont want to import and instantiate the whole gitlab api, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
+Sometimes you don't want to import and instantiate the whole Gitlab API, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
 
 ```javascript
 import { Projects } from 'gitlab';
@@ -166,7 +166,7 @@ const service = new Projects({
 
 #### Bundle Imports
 
-It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convience, there is a Bundle export for importing and instantiating all these related API's at once.
+It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
 
 
 ```javascript
@@ -343,13 +343,13 @@ let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
 
-## Migrating from node-gitlab
+## Migrating from node-gitlab/node-gitlab
 
-With the sucess of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such there will be a little bit of growing pains for those upgrading from the node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transisition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitly have the answer to help get you all setup up as quickly as possible.  
+With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.  
 
 ## Docs
 
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documention for these goodies [#39]! Stay tuned!! 
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!! 
 
 ## Development
 
@@ -386,7 +386,7 @@ to this
 
 Testing is a work-in-progress right now but here is the start.  
 
-1. First run gitlab in a docker container:
+1. First run Gitlab in a docker container:
 
 ```bash
 docker-compose -f docker-compose.test.yml up
@@ -412,7 +412,7 @@ You can also define them in front of the npm script
 PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 ```
 
-> Note it may take about 3 minutes to get the variables while gitlab is starting up in the container
+> Note it may take about 3 minutes to get the variables while Gitlab is starting up in the container
 
 
 ## Contributors
@@ -452,7 +452,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
 ------------------
-- Added the first stage of testing in [#71](https://github.com/jdalrymple/node-gitlab/pull/71) with [Adam Dehnel](https://github.com/arsdehnel)'s guidence
+- Added the first stage of testing in [#71](https://github.com/jdalrymple/node-gitlab/pull/71) with [Adam Dehnel](https://github.com/arsdehnel)'s guidance
 - Added jobs.show() that was missing from the Jobs service
 
 [3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
@@ -522,8 +522,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 [3.0.0](https://github.com/jdalrymple/node-gitlab/tags/3.0.0) (2018-4-2)
 ------------------
-- Exporting all services seperatly ie. const { Projects } from 'gitlab'; as well as the usual default export: const Gitlab from 'gitlab'
-- Exporting bunbles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
+- Exporting all services separately ie. const { Projects } from 'gitlab'; as well as the usual default export: const Gitlab from 'gitlab'
+- Exporting bundles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
 - Added events support to the Projects, and Users
 - Added full support for ProjectVariables and GroupVariables
 - Added support for Events. This is also exposed in Projects and Users under the events function
@@ -546,7 +546,7 @@ Users -> Users, UserKeys, UserGPGKeys, UserCustomAttributes, UserVariables
 ```
 ProjectProtectedBranches -> ProtectedBranches
 ProjectDeployKeys -> DeployKeys
-ProjectEnvironments -> Enviroments
+ProjectEnvironments -> Environments
 ProjectJobs -> Jobs
 ProjectLabels -> Labels
 ProjectPipelines -> Pipelines
@@ -604,7 +604,7 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 - Added proper docs for ProjectRepositoryFiles, enabled default urlEncoding for the passed in file paths and also documented
 how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab/pull/23)
 - Exposed the Merge Requests resource which was missing from the exports list thanks to [fewieden](https://github.com/fewieden) in [PR #26](https://github.com/jdalrymple/node-gitlab/pull/26)
-- Added support for the Project Enviroments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab/pull/28)
+- Added support for the Project Environments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab/pull/28)
 - Fixing parse function to handle encoded urls that don't include '/' such as in groups #24
 
 ### Breaking Changes between 2.1.0 and 2.2.0
@@ -635,7 +635,7 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Removed unused labels endpoint since it already exists under projects.labels
 - Added a mergeRequests class for the merge_requests endpoints
 - Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as
-accepting merge requests, cancelling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
+accepting merge requests, canceling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
 - Fixed the notes endpoints for ProjectMergeRequests. This can now be access via projects.mergeRequests.notes.[command here]
 - Added comments endpoints to the ProjectRepositoryCommits class
 - Added the ability to post a status to a specific commit to the Project class
@@ -683,7 +683,7 @@ accepting merge requests, cancelling merges when the pipeline succeeds, listing 
 [1.2.0](https://github.com/jdalrymple/node-gitlab/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
 ------------------
 - Adding fix to the API constructor to include the [missing oauthToken](https://github.com/jdalrymple/node-gitlab/pulls?q=is%3Apr+is%3Aclosed) thanks to [Salim Benabbou](https://github.com/Salimlou).
-- Updated some of the outdated gitlab repository file endpoints outlined in [Issue #11](https://github.com/jdalrymple/node-gitlab/issues/11): [showFile](https://docs.gitlab.com/ee/api/repository_files.html#get-file-from-repository), [updateFile](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository), and [createFile](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository). Also added [deleteFile](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) and [showRawFile](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository).
+- Updated some of the outdated Gitlab repository file endpoints outlined in [Issue #11](https://github.com/jdalrymple/node-gitlab/issues/11): [showFile](https://docs.gitlab.com/ee/api/repository_files.html#get-file-from-repository), [updateFile](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository), and [createFile](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository). Also added [deleteFile](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) and [showRawFile](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository).
 - Fixing bug where many pages where attempted to be loaded on every GET request.
 
 [1.1.4](https://github.com/jdalrymple/node-gitlab/328bc29fe48d1bf18c83779a214cce34e80dda09) (2017-11-17)
