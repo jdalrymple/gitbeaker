@@ -1,8 +1,9 @@
+language: node_js
+
 stages:
   - prepare cache
   - lint
   - build
-  - setup test docker
   - test
 
 cache:
@@ -12,59 +13,37 @@ cache:
 jobs:
   include:
     - stage: prepare cache
-      language: node_js
       node_js: node
       script: true
 
     - stage: lint
-      language: node_js
       node_js: node
       script: npm run lint
 
     - stage: build
-      language: node_js
       node_js: node
       script: npm run build
 
-    - stage: setup test docker
-      script:
-         ## Spin up container
+    - &test
+      stage: test
+      node_js: 8
+      before_script:
+        ## Spin up container
         - cd test/docker/
         - docker-compose -f docker-compose.test.yml up -d
 
         ## Sleep before performing commands on container
         - sleep 240
-    - stage: test
-      language: node_js
-      node_js: 8
-      env:
-        - PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 
+        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+        - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
       script: npm run test
 
-    - stage: test
-      language: node_js
+    - <<: *test
       node_js: lts/*
-      env:
-        - PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 
-      script: npm run test
-
-    - stage: test
-      language: node_js
+    - <<: *test
       node_js: 9
-      env:
-        - PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 
-      script: npm run test
-
-    - stage: test
-      language: node_js
+    - <<: *test
       node_js: node
-      env:
-        - PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-      script: npm run test
