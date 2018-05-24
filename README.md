@@ -450,6 +450,11 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 
 ## Changelog
 
+[3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
+------------------
+- Added the first stage of testing in [#71](https://github.com/jdalrymple/node-gitlab/pull/71) with [Adam Dehnel](https://github.com/arsdehnel)'s guidence
+- Added jobs.show() that was missing from the Jobs service
+
 [3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
 ------------------
 - Typo fix and branch id encoding thanks to [Igor Katsuba](https://github.com/Defenderbass)
