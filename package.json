@@ -40,7 +40,7 @@
     "@babel/preset-env": "^7.0.0-beta.47",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.3",
-    "babel-jest": "^22.4.4",
+    "babel-jest": "^23.0.0",
     "codecov": "^3.0.2",
     "eslint": "^5.0.0-alpha.3",
     "eslint-config-airbnb": "^16.1.0",
