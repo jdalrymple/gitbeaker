@@ -16,9 +16,9 @@ jobs:
       node_js: node
       script: true
 
-    - stage: lint
-      node_js: node
-      script: npm run lint
+    # - stage: lint
+    #   node_js: node
+    #   script: npm run lint
 
     - stage: build
       node_js: node
