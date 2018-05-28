@@ -72,6 +72,7 @@
     "jest-extended": "^0.8.1",
     "jest-tap-reporter": "^1.9.0",
     "regenerator-runtime": "^0.12.0",
+    "ts-jest": "^22.4.6",
     "semantic-release": "^15.9.3"
     "typescript": "2.8.3"
   },
