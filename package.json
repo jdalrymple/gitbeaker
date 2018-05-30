@@ -18,6 +18,7 @@
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
     "build-tsc": "npm run build:clean-tsc && npm run build:es6-tsc && npm run build:es5-tsc",
     "lint": "node_modules/.bin/eslint ./src ./test",
+    "lint-tsc": "tslint 'src/**/*.{ts,tsx}' --format stylish",
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
     "test:services": "jest test/tests/services",
@@ -75,6 +76,8 @@
     "jest-tap-reporter": "^1.9.0",
     "regenerator-runtime": "^0.12.1"
     "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.9.2",
     "typescript": "2.8.3"
   },
   "dependencies": {
