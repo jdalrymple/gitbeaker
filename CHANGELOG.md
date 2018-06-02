@@ -4,6 +4,7 @@
 ------------------
 - Seperated out changelog
 - Adding ability to view pagination information, [#94](https://github.com/jdalrymple/node-gitlab/issues/94), via the showPagination option
+- Adding CommitDiscussions and MergeRequestDiscussions support
 
 [3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
 ------------------

@@ -188,6 +188,7 @@ Currently there are three Bundles:
 ```
 Branches
 Commits
+CommitDiscussions
 Deployments
 DeployKeys
 Environments

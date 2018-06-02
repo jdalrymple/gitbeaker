@@ -36,6 +36,7 @@ export const UsersBundle = Bundler(Pick(APIServices, [
 export const ProjectsBundle = Bundler(Pick(APIServices, [
   'Branches',
   'Commits',
+  'CommitDiscussions',
   'DeployKeys',
   'Deployments',
   'Environments',

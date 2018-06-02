@@ -24,6 +24,7 @@ export { default as UserGPGKeys } from './UserGPGKeys';
 // Projects
 export { default as Branches } from './Branches';
 export { default as Commits } from './Commits';
+export { default as CommitDiscussions } from './CommitDiscussions';
 export { default as Deployments } from './Deployments';
 export { default as DeployKeys } from './DeployKeys';
 export { default as Environments } from './Environments';

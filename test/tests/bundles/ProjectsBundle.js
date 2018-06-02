@@ -6,6 +6,7 @@ test('All the correct service keys are included in the projects bundle', async (
   const services = [
     'Branches',
     'Commits',
+    'CommitDiscussions',
     'DeployKeys',
     'Deployments',
     'Environments',
@@ -17,6 +18,7 @@ test('All the correct service keys are included in the projects bundle', async (
     'Labels',
     'MergeRequests',
     'MergeRequestAwardEmojis',
+    'MergeRequestDiscussions',
     'MergeRequestNotes',
     'Pipelines',
     'PipelineSchedules',
