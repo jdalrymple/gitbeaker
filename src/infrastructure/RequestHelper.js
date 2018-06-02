@@ -70,7 +70,7 @@ async function getPaginated(service, endpoint, options = {}) {
 
   const data = [...response.body, ...more];
 
-  if(!queryOptions.page && pagination) {
+  if (!queryOptions.page && pagination) {
     return {
       data,
       pagination: {
@@ -79,7 +79,8 @@ async function getPaginated(service, endpoint, options = {}) {
         current: response.headers['x-page'],
         previous: response.headers['x-prev-page'],
         total: response.headers['x-total-pages'],
-      }
+      },
+    };
   }
 
   return data;
