@@ -35,6 +35,7 @@ export { default as Jobs } from './Jobs';
 export { default as Labels } from './Labels';
 export { default as MergeRequests } from './MergeRequests';
 export { default as MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
+export { default as MergeRequestDiscussions } from './MergeRequestDiscussions';
 export { default as MergeRequestNotes } from './MergeRequestNotes';
 export { default as Pipelines } from './Pipelines';
 export { default as PipelineSchedules } from './PipelineSchedules';

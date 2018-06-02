@@ -199,6 +199,7 @@ Jobs
 Labels
 MergeRequests
 MergeRequestAwardEmojis
+MergeRequestDiscussions
 MergeRequestNotes
 Pipelines
 PipelineSchedules
