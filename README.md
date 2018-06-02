@@ -343,6 +343,29 @@ let projects = await api.Projects.all({maxPages:2, perPage:40});
 
 ```
 
+Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option:
+
+```javascript
+...
+let { data, pagination } = await api.Projects.all({ perPage:40, maxPages:2, showPagination: true });
+...
+```
+
+This will result in a response in this format:
+
+```javascript
+data: [
+...
+],
+pagination: {
+  next: 4,
+  current: 2,
+  perPage: 3,
+  previous: 1,
+  total: 3,
+}
+```
+
 ## Migrating from node-gitlab/node-gitlab
 
 With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.  

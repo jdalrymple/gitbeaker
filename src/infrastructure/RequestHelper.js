@@ -49,7 +49,7 @@ function getStream(service, endpoint, options = {}) {
 }
 
 async function getPaginated(service, endpoint, options = {}) {
-  const { pagination, maxPages, ...queryOptions } = options;
+  const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
     qs: queryOptions,
@@ -70,7 +70,7 @@ async function getPaginated(service, endpoint, options = {}) {
 
   const data = [...response.body, ...more];
 
-  if (!queryOptions.page && pagination) {
+  if (!queryOptions.page && showPagination) {
     return {
       data,
       pagination: {
