@@ -1,5 +1,10 @@
 # Changelog
 
+[3.4.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.1) (2018-6-01)
+------------------
+- Seperated out changelog
+- Adding ability to view pagination information, [#94](https://github.com/jdalrymple/node-gitlab/issues/94), via the showPagination option
+
 [3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
 ------------------
 - Added the first stage of testing in [#71](https://github.com/jdalrymple/node-gitlab/pull/71) with [Adam Dehnel](https://github.com/arsdehnel)'s guidance
