@@ -49,26 +49,41 @@ function getStream(service, endpoint, options = {}) {
 }
 
 async function getPaginated(service, endpoint, options = {}) {
+  const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
-    qs: options,
+    qs: queryOptions,
     resolveWithFullResponse: true,
   });
 
   const response = await service.requester.get(requestOptions);
   const links = LinkParser(response.headers.link) || {};
   const page = response.headers['x-page'];
-  const underMaxPageLimit = options.maxPages ? page < options.maxPages : true;
+  const underMaxPageLimit = maxPages ? page < maxPages : true;
+  let more = [];
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
-  if (!options.page && underMaxPageLimit && links.next) {
-    const more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
-
-    return [...response.body, ...more];
+  if (!queryOptions.page && underMaxPageLimit && links.next) {
+    more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
   }
 
-  return response.body;
+  const data = [...response.body, ...more];
+
+  if (!queryOptions.page && showPagination) {
+    return {
+      data,
+      pagination: {
+        perPage: response.headers['x-per-page'],
+        next: response.headers['x-next-page'],
+        current: response.headers['x-page'],
+        previous: response.headers['x-prev-page'],
+        total: response.headers['x-total-pages'],
+      },
+    };
+  }
+
+  return data;
 }
 
 class RequestHelper {
