@@ -2,7 +2,7 @@ import { ResourceAwardEmojis } from '../templates';
 
 class MergeRequestAwardEmojis extends ResourceAwardEmojis {
   constructor(options) {
-    super('issues', options);
+    super('merge_requests', options);
   }
 }
 
