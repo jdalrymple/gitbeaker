@@ -68,7 +68,7 @@ async function getPaginated(service, endpoint, options = {}) {
     more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
   }
 
-  const data = [...response.body, ...more];
+  const data = Array.isArray(response.body) ? [...response.body, ...more] : response.body;
 
   if (!queryOptions.page && showPagination) {
     return {
