@@ -70,7 +70,7 @@ async function getPaginated(service, endpoint, options = {}) {
 
   const data = [...response.body, ...more];
 
-  if (!queryOptions.page && showPagination) {
+  if (queryOptions.page && showPagination) {
     return {
       data,
       pagination: {
