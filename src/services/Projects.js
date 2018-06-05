@@ -40,6 +40,12 @@ class Projects extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/forks`, options);
   }
 
+  languages(projectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/languages`);
+  }
+
   remove(projectId) {
     const pId = encodeURIComponent(projectId);
 
