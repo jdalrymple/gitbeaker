@@ -45,10 +45,10 @@ class Users extends BaseService {
     });
   }
 
-  show(userId) {
+  show(userId, options) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}`);
+    return RequestHelper.get(this, `users/${uId}`, options);
   }
 
   remove(userId) {

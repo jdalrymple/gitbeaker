@@ -58,10 +58,10 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/share`, { groupId, groupAccess, ...options });
   }
 
-  show(projectId) {
+  show(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}`);
+    return RequestHelper.get(this, `projects/${pId}`, options);
   }
 
   star(projectId) {

@@ -57,10 +57,10 @@ class Commits extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`);
   }
 
-  show(projectId, sha) {
+  show(projectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`);
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`, options);
   }
 
   status(projectId, sha, options) {
