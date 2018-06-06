@@ -38,7 +38,7 @@ const mockService2 = {
           },
         ],
         headers: {
-          link: `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
+          link: "<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'",
           'x-next-page': 2,
           'x-page': 1,
           'x-per-page': 2,
@@ -60,7 +60,7 @@ const mockService2 = {
           },
         ],
         headers: {
-          link: `<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
+          link: "<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'",
           'x-next-page': '',
           'x-page': 2,
           'x-per-page': 2,
@@ -136,7 +136,7 @@ describe('RequestHelper.get()', () => {
     const response = await RequestHelper.get(
       mockService2,
       'https://www.test.com',
-      { page: 2, showPagination: true, },
+      { page: 2, showPagination: true },
     );
 
     expect(response.data).toBeDefined();
