@@ -12,9 +12,9 @@ const mockService = {
       headers: {
         'X-Page': 1,
         'X-Total-Pages': 1,
-      }
-    })
-  }
+      },
+    }),
+  },
 };
 
 const mockService2 = {
@@ -22,7 +22,7 @@ const mockService2 = {
   headers: {},
   requester: {
     get: ({ url, qs }) => {
-      const u = url;
+      let u = url;
 
       if (qs.page) u += `page=${qs.page}`;
 
@@ -35,7 +35,7 @@ const mockService2 = {
           {
             prop1: 2,
             prop2: 'test property2',
-          }
+          },
         ],
         headers: {
           link: `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
@@ -45,7 +45,7 @@ const mockService2 = {
           'x-prev-page': '',
           'x-total': 4,
           'x-total-pages': 2,
-        }
+        },
       };
 
       const page2 = {
@@ -57,7 +57,7 @@ const mockService2 = {
           {
             prop1: 4,
             prop2: 'test property4',
-          }
+          },
         ],
         headers: {
           link: `<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
@@ -67,14 +67,14 @@ const mockService2 = {
           'x-prev-page': 1,
           'x-total': 4,
           'x-total-pages': 2,
-        }
+        },
       };
 
       if (u.includes('page=2')) return page2;
 
       return page1;
-    }
-  }
+    },
+  },
 };
 
 describe('RequestHelper.get()', () => {
