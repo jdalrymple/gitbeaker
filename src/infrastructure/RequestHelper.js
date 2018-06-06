@@ -22,12 +22,16 @@ function defaultRequest(
   };
 
   if (body) params.body = Humps.decamelizeKeys(body);
+
   if (qs) {
     if (useXMLHttpRequest) {
       // The xhr package doesn't have a way of passing in a qs object until v3
       params.url = URLJoin(params.url, `?${QS.stringify(Humps.decamelizeKeys(qs))}`);
-    } else params.qs = Humps.decamelizeKeys(qs);
+    } else {
+      params.qs = Humps.decamelizeKeys(qs);
+    }
   }
+
   if (formData) params.formData = formData;
 
   params.resolveWithFullResponse = resolveWithFullResponse;
@@ -61,24 +65,29 @@ async function getPaginated(service, endpoint, options = {}) {
   const page = response.headers['x-page'];
   const underMaxPageLimit = maxPages ? page < maxPages : true;
   let more = [];
+  let data;
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
   if (!queryOptions.page && underMaxPageLimit && links.next) {
     more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
+    data = [...response.body, ...more];
+  } else {
+    data = response.body;
   }
 
   const data = Array.isArray(response.body) ? [...response.body, ...more] : response.body;
 
-  if (!queryOptions.page && showPagination) {
+  if (queryOptions.page && showPagination) {
     return {
       data,
       pagination: {
+        total: response.headers['x-total'],
+        next: response.headers['x-next-page'] || null,
+        current: response.headers['x-page'] || null,
+        previous: response.headers['x-prev-page'] || null,
         perPage: response.headers['x-per-page'],
-        next: response.headers['x-next-page'],
-        current: response.headers['x-page'],
-        previous: response.headers['x-prev-page'],
-        total: response.headers['x-total-pages'],
+        totalPages: response.headers['x-total-pages'],
       },
     };
   }
