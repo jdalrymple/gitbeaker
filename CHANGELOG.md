@@ -1,5 +1,11 @@
 # Changelog
 
+[3.4.2](https://github.com/jdalrymple/node-gitlab/tags/3.4.2) (2018-6-06)
+------------------
+- Fixing previous release errors [#100](https://github.com/jdalrymple/node-gitlab/issues/100)
+- Adding options to the show function of Projects, Groups and Users [#101](https://github.com/jdalrymple/node-gitlab/issues/101) thanks to [Giuseppe Angri](https://github.com/giuseppeangri)
+- Adding project languages function [#102](https://github.com/jdalrymple/node-gitlab/issues/102) thanks to [Giuseppe Angri](https://github.com/giuseppeangri)
+
 [3.4.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.1) (2018-6-01)
 ------------------
 - Seperated out changelog
