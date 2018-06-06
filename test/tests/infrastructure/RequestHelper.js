@@ -107,7 +107,7 @@ describe('RequestHelper.get()', () => {
       { maxPages: 1 },
     );
 
-    expect(response.length).toBe(2);
+    expect(response).toHaveLength(2);
     expect(response[0].prop1).toBe(1);
 
     response.forEach((l, index) => {
@@ -123,7 +123,7 @@ describe('RequestHelper.get()', () => {
       { page: 2 },
     );
 
-    expect(response.length).toBe(2);
+    expect(response).toHaveLength(2);
     expect(response[0].prop1).toBe(3);
 
     response.forEach((l, index) => {
@@ -140,7 +140,7 @@ describe('RequestHelper.get()', () => {
     );
 
     expect(response.data).toBeDefined();
-    expect(response.data.length).toBe(2);
+    expect(response.data).toHaveLength(2);
     expect(response.data[0].prop1).toBe(3);
 
     response.data.forEach((l, index) => {
