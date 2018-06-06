@@ -7,11 +7,11 @@ const mockService = {
     get: () => ({
       body: {
         prop1: 5,
-        prop2: 'test property'
+        prop2: 'test property',
       },
       headers: {
         'X-Page': 1,
-        'X-Total-Pages': 1
+        'X-Total-Pages': 1,
       }
     })
   }
@@ -22,17 +22,19 @@ const mockService2 = {
   headers: {},
   requester: {
     get: ({ url, qs }) => {
-      if (qs.page) url += `page=${qs.page}`;
+      const u = url;
+
+      if (qs.page) u += `page=${qs.page}`;
 
       const page1 = {
         body: [
           {
             prop1: 1,
-            prop2: 'test property1'
+            prop2: 'test property1',
           },
           {
             prop1: 2,
-            prop2: 'test property2'
+            prop2: 'test property2',
           }
         ],
         headers: {
@@ -42,7 +44,7 @@ const mockService2 = {
           'x-per-page': 2,
           'x-prev-page': '',
           'x-total': 4,
-          'x-total-pages': 2
+          'x-total-pages': 2,
         }
       };
 
@@ -50,11 +52,11 @@ const mockService2 = {
         body: [
           {
             prop1: 3,
-            prop2: 'test property3'
+            prop2: 'test property3',
           },
           {
             prop1: 4,
-            prop2: 'test property4'
+            prop2: 'test property4',
           }
         ],
         headers: {
@@ -64,11 +66,11 @@ const mockService2 = {
           'x-per-page': 2,
           'x-prev-page': 1,
           'x-total': 4,
-          'x-total-pages': 2
+          'x-total-pages': 2,
         }
       };
 
-      if (url.includes('page=2')) return page2;
+      if (u.includes('page=2')) return page2;
 
       return page1;
     }
@@ -79,7 +81,7 @@ describe('RequestHelper.get()', () => {
   it('Should respond with an object', async () => {
     const response = await RequestHelper.get(
       mockService,
-      'https://www.test.com'
+      'https://www.test.com',
     );
 
     expect(response.prop1).toBe(5);
@@ -89,7 +91,7 @@ describe('RequestHelper.get()', () => {
   it('Should be paginated when links are present', async () => {
     const response = await RequestHelper.get(
       mockService2,
-      'https://www.test.com'
+      'https://www.test.com',
     );
 
     response.forEach((l, index) => {
@@ -102,7 +104,7 @@ describe('RequestHelper.get()', () => {
     const response = await RequestHelper.get(
       mockService2,
       'https://www.test.com',
-      { maxPages: 1 }
+      { maxPages: 1 },
     );
 
     expect(response.length).toBe(2);
@@ -118,7 +120,7 @@ describe('RequestHelper.get()', () => {
     const response = await RequestHelper.get(
       mockService2,
       'https://www.test.com',
-      { page: 2 }
+      { page: 2 },
     );
 
     expect(response.length).toBe(2);
@@ -134,7 +136,7 @@ describe('RequestHelper.get()', () => {
     const response = await RequestHelper.get(
       mockService2,
       'https://www.test.com',
-      { page: 2, showPagination: true }
+      { page: 2, showPagination: true, },
     );
 
     expect(response.data).toBeDefined();
@@ -152,7 +154,7 @@ describe('RequestHelper.get()', () => {
       current: 2,
       next: null,
       perPage: 2,
-      totalPages: 2
+      totalPages: 2,
     });
   });
 });
