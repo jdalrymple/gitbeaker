@@ -360,11 +360,12 @@ data: [
 ...
 ],
 pagination: {
+  total: 20,
   next: 4,
   current: 2,
-  perPage: 3,
   previous: 1,
-  total: 3,
+  perPage: 3,
+  totalPages: 3,
 }
 ```
 
