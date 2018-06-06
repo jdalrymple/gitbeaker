@@ -72,10 +72,10 @@ async function getPaginated(service, endpoint, options = {}) {
   if (!queryOptions.page && underMaxPageLimit && links.next) {
     more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
     data = [...response.body, ...more];
-  }else {
+  } else {
     data = response.body;
   }
-    
+
   if (queryOptions.page && showPagination) {
     return {
       data,
