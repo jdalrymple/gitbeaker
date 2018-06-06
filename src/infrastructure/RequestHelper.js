@@ -80,11 +80,11 @@ async function getPaginated(service, endpoint, options = {}) {
     return {
       data,
       pagination: {
-        total: response.headers['x-total']
+        total: response.headers['x-total'],
+        next: response.headers['x-next-page'] || null,
+        current: response.headers['x-page'] || null,
+        previous: response.headers['x-prev-page'] || null,
         perPage: response.headers['x-per-page'],
-        next: response.headers['x-next-page'],
-        current: response.headers['x-page'],
-        previous: response.headers['x-prev-page'],
         totalPages: response.headers['x-total-pages'],
       },
     };

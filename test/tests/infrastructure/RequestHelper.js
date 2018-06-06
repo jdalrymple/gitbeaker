@@ -57,10 +57,10 @@ const mockService2 = {
 					link: `<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel="prev", <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel="first", <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel="last"`,
 					'x-next-page': '',
 					'x-page': 2,
-					'x-per-Page': 2,
-					'x-prev-Page': 1,
+					'x-per-page': 2,
+					'x-prev-page': 1,
 					'x-total': 4,
-					'x-total-Pages': 2,
+					'x-total-pages': 2,
 				} 
 			}
 
@@ -128,7 +128,7 @@ describe('RequestHelper.get()', () => {
 			total: 4,
 			previous: 1,
 			current: 2,
-			next: '',
+			next: null,
 			perPage: 2,
 			totalPages: 2
 		})
