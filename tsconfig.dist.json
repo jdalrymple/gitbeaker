@@ -4,6 +4,7 @@
     "strict": false,
     "strictPropertyInitialization": false,
     "noUnusedParameters": false,
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "skipLibCheck": true
   }
 }
