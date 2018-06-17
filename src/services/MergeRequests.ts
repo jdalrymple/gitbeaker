@@ -29,14 +29,14 @@ class MergeRequests extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/approve`, { sha });
   }
 
-  approvals(projectId, { mergerequestId } = {}) {
+  approvals(projectId, { mergerequestId }: { mergerequestId?: string } = {}) {
     const pId = encodeURIComponent(projectId);
     const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
 
     return RequestHelper.get(this, `projects/${pId}/${mergeRequest}/approvals`);
   }
 
-  all({ projectId, ...options } = {}) {
+  all({ projectId, ...options }: { projectId?: string } = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/merge_requests` : 'merge_requests';
 
     return RequestHelper.get(this, url, options);
