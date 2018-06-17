@@ -4,6 +4,28 @@ import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 
+interface RequestParametersInput {
+  url?: string;
+  headers: import('./BaseService').default['headers'];
+  json?: boolean;
+  body?: Object;
+  qs?: Object;
+  formData?: temporaryAny;
+  resolveWithFullResponse?: boolean;
+}
+
+interface GetPaginatedOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+}
+
+type RequestParametersOutput = RequestParametersInput & Required<Pick<RequestParametersInput, 'url'>>;
+
+async function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function defaultRequest(
   { url, useXMLHttpRequest, rejectUnauthorized },
   endpoint,
@@ -13,9 +35,9 @@ function defaultRequest(
     qs,
     formData,
     resolveWithFullResponse = false,
-  },
-) {
-  const params = {
+  }: RequestParametersInput,
+): RequestParametersOutput {
+  const params: RequestParametersOutput = {
     url: URLJoin(url, endpoint),
     headers,
     json: true,
@@ -58,7 +80,7 @@ export async function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getPaginated(service, endpoint, options = {}) {
+async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}, sleepOnRateLimit = true) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
