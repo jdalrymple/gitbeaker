@@ -2,8 +2,10 @@ import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceDiscussions extends BaseService {
-  constructor(resourceType, resource2Type, ...args) {
-    super(...args);
+  protected resource2Type: temporaryAny;
+
+  constructor(resourceType, resource2Type, baseParams) {
+    super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);
     this.resource2Type = resource2Type;

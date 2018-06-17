@@ -24,16 +24,21 @@ const EVENTS = {
   FAILED_PIPELINE: 'failed_pipeline',
   SUCCESS_PIPELINE: 'success_pipeline',
 };
-
+interface NotificationSettingsOptions {
+  projectId?: string;
+  groupId?: string;
+}
 class NotificationSettings extends BaseService {
-  constructor(...args) {
-    super(...args);
+  protected LEVELS: typeof LEVELS;
+  protected EVENTS: typeof EVENTS;
+  constructor(baseParams) {
+    super(baseParams);
 
     this.LEVELS = LEVELS;
     this.EVENTS = EVENTS;
   }
 
-  all({ projectId, groupId } = {}) {
+  all({ projectId, groupId }: NotificationSettingsOptions = {}) {
     let url;
 
     if (projectId) {
@@ -45,7 +50,7 @@ class NotificationSettings extends BaseService {
     return RequestHelper.get(this, `${url}notification_settings`);
   }
 
-  edit(options, { projectId, groupId } = {}) {
+  edit(options, { projectId, groupId }: NotificationSettingsOptions = {}) {
     let url;
 
     if (projectId) {
