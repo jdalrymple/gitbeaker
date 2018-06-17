@@ -1,7 +1,11 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
+interface SearchOptions {
+  projectId?: string;
+  groupId?: string;
+}
 class Search extends BaseService {
-  all(scope, search, { projectId, groupId } = {}) {
+  all(scope, search, { projectId, groupId }: SearchOptions = {}) {
     let url = '';
 
     if (projectId) {

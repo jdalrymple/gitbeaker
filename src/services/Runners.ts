@@ -1,7 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
+interface RunnersOptions {
+  projectId?: string;
+}
 class Runners extends BaseService {
-  all({ projectId, ...options } = {}) {
+  all({ projectId, ...options }: RunnersOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 
     return RequestHelper.get(this, url, options);
