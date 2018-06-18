@@ -12,8 +12,8 @@ class Users extends BaseService {
 
   projects(userId) {
     const uId = encodeURIComponent(userId);
-    
-    return RequestHelper.get(this, `users/${uId}/projects`)
+
+    return RequestHelper.get(this, `users/${uId}/projects`);
   }
 
   block(userId) {
