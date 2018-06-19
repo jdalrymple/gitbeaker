@@ -5,10 +5,15 @@ stages:
   - lint
   - build
   - test
+  - release
 
 cache:
   directories:
   - node_modules # NPM packages
+  ~/.npm
+
+notifications:
+  email: false
 
 jobs:
   include:
@@ -47,3 +52,9 @@ jobs:
 
     - <<: *test
       node_js: node
+
+  - stage: release
+      if: branch = master
+      node_js: node
+      script:
+        - npm run semantic-release
