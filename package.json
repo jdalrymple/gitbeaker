@@ -17,7 +17,7 @@
     "test:services": "jest test/tests/services",
     "test": "jest && codecov",
     "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "jest": "^23.1.0",
     "jest-tap-reporter": "^1.9.0",
     "regenerator-runtime": "^0.11.1",
-    "semantic-release": "^15.5.5",
+    "semantic-release": "^15.5.5"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.49",
