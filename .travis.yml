@@ -18,11 +18,11 @@ jobs:
 
     - stage: lint
       node_js: node
-      script: npm run lint-tsc
+      script: npm run lint
 
     - stage: build
       node_js: node
-      script: npm run build-tsc
+      script: npm run build
 
     - &test
       stage: test
