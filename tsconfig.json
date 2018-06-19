@@ -11,8 +11,8 @@
     "pretty": true,
 
     "esModuleInterop": true,
-    "declaration": true,
-    "outDir": "dist-tsc/latest"
+    "declaration": false,
+    "outDir": "dist/latest"
   },
   "include": [
     "src/**/*"
