@@ -1,10 +1,10 @@
 function Bundler(services = {}) {
-  const combined = Object.assign({}, services);
+  const combined = { ...services };
 
   return class Bundle {
     constructor(options) {
-      Object.entries(combined).forEach(([name, Service]) => {
-        this[name] = new Service(options);
+      Object.keys(combined).forEach((serviceName) => {
+        this[serviceName] = new combined[serviceName](options);
       });
     }
   };
