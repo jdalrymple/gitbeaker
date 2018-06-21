@@ -54,7 +54,6 @@ jobs:
       node_js: node
 
   - stage: release
-      if: branch = master
       node_js: node
       script:
         - npm run semantic-release
