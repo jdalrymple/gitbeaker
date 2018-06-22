@@ -56,4 +56,3 @@ test('All the correct service instances are included in the projects bundle', as
     expect(bundle[key]).toBeInstanceOf(Services[key]);
   });
 });
-
