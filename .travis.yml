@@ -9,8 +9,8 @@ stages:
 
 cache:
   directories:
-  - node_modules # NPM packages
-  ~/.npm
+    - node_modules # NPM packages
+    - ~/.npm
 
 notifications:
   email: false
