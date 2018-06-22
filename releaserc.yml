@@ -1,1 +1,1 @@
-tagFormat: ${version}
+tagFormat: "${version}"
