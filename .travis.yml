@@ -53,7 +53,7 @@ jobs:
     - <<: *test
       node_js: node
 
-  - stage: release
+    - stage: release
       node_js: node
       script:
         - npm run semantic-release
