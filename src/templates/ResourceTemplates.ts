@@ -2,8 +2,8 @@ import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceTemplates extends BaseService {
-  constructor(resourceType, ...args) {
-    super(...args);
+  constructor(resourceType, baseParams) {
+    super(baseParams);
 
     this.url = URLJoin(this.url, 'templates', resourceType);
   }

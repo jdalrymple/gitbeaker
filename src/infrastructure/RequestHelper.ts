@@ -4,6 +4,21 @@ import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 
+interface RequestParametersInput {
+  url?: string;
+  headers: import('./BaseService').default['headers'];
+  json?: boolean;
+  body?: Object;
+  qs?: Object;
+  formData?: temporaryAny;
+  resolveWithFullResponse?: boolean;
+}
+interface GetPaginatedOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+}
+type RequestParametersOutput = RequestParametersInput & Required<Pick<RequestParametersInput, 'url'>>;
 function defaultRequest(
   { url, useXMLHttpRequest },
   endpoint,
@@ -13,9 +28,9 @@ function defaultRequest(
     qs,
     formData,
     resolveWithFullResponse = false,
-  },
-) {
-  const params = {
+  }: RequestParametersInput,
+): RequestParametersOutput {
+  const params: RequestParametersOutput = {
     url: URLJoin(url, endpoint),
     headers,
     json: true,
@@ -41,7 +56,7 @@ function defaultRequest(
 
 function getStream(service, endpoint, options = {}) {
   if (service.useXMLHttpRequest) {
-    throw new Error('Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming');
+    throw new Error(`Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming`);
   }
 
   const requestOptions = defaultRequest(service, endpoint, {
@@ -52,7 +67,7 @@ function getStream(service, endpoint, options = {}) {
   return StreamableRequest.get(requestOptions);
 }
 
-async function getPaginated(service, endpoint, options = {}) {
+async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,

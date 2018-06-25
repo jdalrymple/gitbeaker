@@ -17,13 +17,21 @@ function promisifyFn(fn) {
 }
 
 const XMLHttpRequester = promisifyFn(XHR);
-
+// Temporarily ignore typechecks, so that we can assign props to `XMLHttpRequester`
+// typed as `const XMLHttpRequester: (opts: any) => Promise<any>`
+// @ts-ignore
 XMLHttpRequester.del = promisifyFn(XHR.del);
+// @ts-ignore
 XMLHttpRequester.delete = XMLHttpRequester.del;
+// @ts-ignore
 XMLHttpRequester.get = promisifyFn(XHR.get);
+// @ts-ignore
 XMLHttpRequester.head = promisifyFn(XHR.head);
+// @ts-ignore
 XMLHttpRequester.patch = promisifyFn(XHR.patch);
+// @ts-ignore
 XMLHttpRequester.post = promisifyFn(XHR.post);
+// @ts-ignore
 XMLHttpRequester.put = promisifyFn(XHR.put);
 
 export default XMLHttpRequester;
