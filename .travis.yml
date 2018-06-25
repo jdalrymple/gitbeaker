@@ -1,7 +1,6 @@
 language: node_js
 
 stages:
-  - prepare cache
   - lint and build
   - test
   - release
@@ -16,10 +15,6 @@ notifications:
 
 jobs:
   include:
-    - stage: prepare cache
-      node_js: node
-      script: true
-
     - stage: lint and build
       node_js: node
       script: npm run lint
