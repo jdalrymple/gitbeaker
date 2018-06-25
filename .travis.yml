@@ -2,13 +2,17 @@ language: node_js
 
 stages:
   - prepare cache
-  - lint
-  - build
+  - lint and build
   - test
+  - release
 
 cache:
   directories:
-  - node_modules # NPM packages
+    - node_modules # NPM packages
+    - ~/.npm
+
+notifications:
+  email: false
 
 jobs:
   include:
@@ -16,12 +20,9 @@ jobs:
       node_js: node
       script: true
 
-    - stage: lint
+    - stage: lint and build
       node_js: node
       script: npm run lint
-
-    - stage: build
-      node_js: node
       script: npm run build
 
     - &test
@@ -47,3 +48,8 @@ jobs:
 
     - <<: *test
       node_js: node
+
+    - stage: release
+      node_js: node
+      script:
+        - npm run semantic-release
