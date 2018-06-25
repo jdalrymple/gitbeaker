@@ -2,8 +2,7 @@ language: node_js
 
 stages:
   - prepare cache
-  - lint
-  - build
+  - lint and build
   - test
   - release
 
@@ -21,12 +20,9 @@ jobs:
       node_js: node
       script: true
 
-    - stage: lint
+    - stage: lint and build
       node_js: node
       script: npm run lint
-
-    - stage: build
-      node_js: node
       script: npm run build
 
     - &test
