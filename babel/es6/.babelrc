@@ -1,0 +1,12 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "node": "8.9.0"
+      }
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
+}
