@@ -1,8 +1,11 @@
+env:
+  node: true
+  browser: true
 extends:
   - tslint-config-airbnb
 rules:
   object-shorthand-properties-first: false
   variable-name: [true, "ban-keywords", "check-format", "allow-pascal-case"]
   import-name: false
-  max-line-length: [true, { "limit": 120, "ignore-pattern": "`[^`]+`"}]
+  max-line-length: [true, { "limit": 100, "ignore-pattern": "`[^`]+`"}]
   function-name: false
