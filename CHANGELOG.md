@@ -1,5 +1,10 @@
 # Changelog
 
+[3.4.3](https://github.com/jdalrymple/node-gitlab/tags/3.4.3) (2018-6-25)
+------------------
+- Updating packages
+- Adding support for the retrieval of projects by user id [#105](https://github.com/jdalrymple/node-gitlab/pull/105) thanks to [Michael Townsend](https://github.com/Continuities)
+
 [3.4.2](https://github.com/jdalrymple/node-gitlab/tags/3.4.2) (2018-6-06)
 ------------------
 - Fixing previous release errors [#100](https://github.com/jdalrymple/node-gitlab/issues/100)
