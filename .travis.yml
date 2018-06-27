@@ -22,7 +22,6 @@ jobs:
 
     - &test
       stage: test
-      node_js: 8
       before_script:
         ## Spin up container
         - cd test/docker/
@@ -33,16 +32,10 @@ jobs:
 
         - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-      script: npm run test
-
-    - <<: *test
-      node_js: lts/*
-
-    - <<: *test
-      node_js: 9
-
-    - <<: *test
-      node_js: node
+      script: nvm install 8 && npm run test
+      script: nvm install lts && npm run test
+      script: nvm install 9 && npm run test
+      script: nvm install node && npm run test
 
     - stage: release
       node_js: node
