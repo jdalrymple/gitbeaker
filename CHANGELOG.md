@@ -1,5 +1,9 @@
 # Changelog
 
+[3.4.4](https://github.com/jdalrymple/node-gitlab/tags/3.4.4) (2018-6-26)
+------------------
+- Updating babel configuration thanks to a prompt from [bodtx](https://github.com/bodtx) and suggestions from [Logan Smyth](loganfsmyth)
+
 [3.4.3](https://github.com/jdalrymple/node-gitlab/tags/3.4.3) (2018-6-25)
 ------------------
 - Updating packages
