@@ -2,7 +2,7 @@ import { ResourceIssueBoards } from '../templates';
 
 class ProjectIssueBoards extends ResourceIssueBoards {
   constructor(options) {
-    super('products', options);
+    super('projects', options);
   }
 }
 
