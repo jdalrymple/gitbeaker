@@ -8,7 +8,7 @@ describe('ApplicationSettings.all', () => {
     });
     const settings = await service.all();
 
-    expect(settings).toBeAnObject();
+    expect(settings).toBeObject();
   });
 
   it('should contain all the required properties', async () => {
