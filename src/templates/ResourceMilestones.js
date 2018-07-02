@@ -17,7 +17,7 @@ class ResourceMilestones extends BaseService {
   create(resourceId, title, options) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}/milestones`, options);
+    return RequestHelper.post(this, `${rId}/milestones`, { title, ...options });
   }
 
   edit(resourceId, milestoneId, options) {
