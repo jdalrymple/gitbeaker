@@ -7,7 +7,13 @@ import StreamableRequest from 'request';
 function defaultRequest(
   { url, useXMLHttpRequest },
   endpoint,
-  { headers, body, qs, formData, resolveWithFullResponse = false },
+  {
+    headers,
+    body,
+    qs,
+    formData,
+    resolveWithFullResponse = false,
+  },
 ) {
   const params = {
     url: URLJoin(url, endpoint),
