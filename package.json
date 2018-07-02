@@ -7,6 +7,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
+    "commit": "npx git-cz",
     "build:clean": "rimraf -rf dist && mkdir -p dist",
     "build:es6": "babel src -d dist/latest",
     "build:es5": "babel src -d dist/es5 --env-name es5",
@@ -46,6 +47,7 @@
     "babel-eslint": "^8.2.3",
     "babel-jest": "^23.0.0",
     "codecov": "^3.0.2",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.0.0-rc.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.12.0",
@@ -69,5 +71,10 @@
     "url-join": "^4.0.0",
     "util.promisify": "^1.0.0",
     "xhr": "^2.5.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
