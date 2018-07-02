@@ -8,6 +8,6 @@ describe('Projects.all', () => {
     });
     const projects = await service.all();
 
-    expect(projects).instanceOf(Array);
+    expect(projects).toBeInstanceOf(Array);
   });
 });
