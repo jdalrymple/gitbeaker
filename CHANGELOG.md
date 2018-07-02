@@ -1,5 +1,10 @@
 # Changelog
 
+[3.4.5](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
+------------------
+- Updating badges [PR #115](https://github.com/jdalrymple/node-gitlab/pull/115) thanks to [Munif Tanjim](https://github.com/MunifTanjim)
+- Fixed ProjectIssueBoards url [PR #114](https://github.com/jdalrymple/node-gitlab/pull/114) thanks to [Artem](https://github.com/arthot)
+
 [3.4.4](https://github.com/jdalrymple/node-gitlab/tags/3.4.4) (2018-6-26)
 ------------------
 - Updating babel configuration thanks to a prompt from [bodtx](https://github.com/bodtx) and suggestions from [Logan Smyth](loganfsmyth)

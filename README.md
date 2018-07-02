@@ -477,7 +477,10 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Sharma-Rajat](https://github.com/Sharma-Rajat)
 - [Joseph Petersen](https://github.com/casz)
 - [Igor Katsuba](https://github.com/Defenderbass)
-- [Michael Townsend](https://github.com/Continuities) 
+- [Michael Townsend](https://github.com/Continuities)
+- [bodtx](https://github.com/bodtx)
+- [Artem](https://github.com/arthot)
+- [Munif Tanjim](https://github.com/MunifTanjim)
 
 ## License
 
