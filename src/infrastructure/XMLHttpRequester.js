@@ -1,14 +1,17 @@
 import { StatusCodeError } from 'request-promise-core/errors';
 import Promisify from 'util.promisify';
 import XHR from 'xhr';
+import wait from './RequestHelper';
 
 function promisifyFn(fn) {
   const promisifiedFn = Promisify(fn);
 
-  return async function (opts) {
+  return async function getResponse(opts) {
     const response = await promisifiedFn(opts);
-
-    if (response.statusCode >= 400 && response.statusCode <= 599) {
+    const sleepTime = parseInt(response.headers['retry-after'], 10);
+    if (response.statusCode === 429 && sleepTime) {
+      await wait(sleepTime * 1000);
+    } else if (response.statusCode >= 400 && response.statusCode <= 599) {
       throw new StatusCodeError(response.statusCode, response.body, {}, null);
     }
 
