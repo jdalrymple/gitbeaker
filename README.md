@@ -24,7 +24,7 @@
         - [Bundle Imports](#bundle-imports)
     - [Examples](#examples)
     - [Pagination](#pagination)
-- [Migrating from node-gitlab](#migrating-from-node-gitlab)
+- [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
 - [Testing](#testing)
