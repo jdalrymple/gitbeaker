@@ -1,5 +1,19 @@
 # Changelog
 
+[3.5.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-08)
+------------------
+- Fixed migrating-from-node-gitlab link in Table of Contents #118 thanks to [Quentin Dreyer](https://github.com/qkdreyer)
+- Fix methods for editing MR approval/approver settings #119 thanks to [Norm MacLennan](https://github.com/maclennann)
+- Removed codcov patch coverage until a larger portion of the codebase is covered
+
+[3.5.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-04)
+------------------
+- Obey the rate limit (9b46250), closes #73 thanks to [Max Wittig](https://github.com/max-wittig)
+
+[3.4.6](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
+------------------
+- Title parameter in the Project Milestones API was not being passed in the request (f1c3e1a), closes #116
+
 [3.4.5](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
 ------------------
 - Updating badges [PR #115](https://github.com/jdalrymple/node-gitlab/pull/115) thanks to [Munif Tanjim](https://github.com/MunifTanjim)

@@ -481,6 +481,9 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [bodtx](https://github.com/bodtx)
 - [Artem](https://github.com/arthot)
 - [Munif Tanjim](https://github.com/MunifTanjim)
+- [Max Wittig](https://github.com/max-wittig)
+- [Quentin Dreyer](https://github.com/qkdreyer)
+- [Norm MacLennan](https://github.com/maclennann)
 
 ## License
 
