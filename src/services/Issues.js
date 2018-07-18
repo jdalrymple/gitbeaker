@@ -76,6 +76,12 @@ class Issues extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
+  participants(projectId, issueId) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`);
+  }
+
   timeStats(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
