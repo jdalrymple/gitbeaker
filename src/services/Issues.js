@@ -46,6 +46,12 @@ class Issues extends BaseService {
     });
   }
 
+  participants(projectId, issueId) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`);
+  }
+
   remove(projectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
@@ -74,12 +80,6 @@ class Issues extends BaseService {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
-  }
-
-  participants(projectId, issueId) {
-    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`);
   }
 
   timeStats(projectId, mergerequestId) {
