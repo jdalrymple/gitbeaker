@@ -37,4 +37,10 @@ describe('Creation of BaseService instance', () => {
 
     expect(service.headers['private-token']).toBe('1234');
   });
+
+  test('API version should be modified', async () => {
+    const service = new BaseService({ url: 'https://testing.com', token: '1234', version: 'v3' });
+
+    expect(service.url).toBe('https://testing.com/api/v3');
+  });
 });
