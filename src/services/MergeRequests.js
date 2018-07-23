@@ -104,7 +104,7 @@ class MergeRequests extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/${mergeRequest}/pipelines`);
   }
-    
+
   remove(projectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
