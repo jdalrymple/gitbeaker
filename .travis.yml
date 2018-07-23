@@ -29,8 +29,8 @@ jobs:
         - cd test/docker/
         - docker-compose -f docker-compose.test.yml up -d
 
-        ## Sleep before performing commands on container
-        - sleep 240
+        ## Test for liveness
+        - docker exec -it gitlab bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost/-/liveness)" != "200" ]]; do sleep 5; done;
 
         - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
