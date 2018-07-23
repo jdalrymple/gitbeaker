@@ -46,6 +46,12 @@ class Projects extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/languages`);
   }
 
+  mirrorPull(projectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/mirror/pull`);
+  }
+
   remove(projectId) {
     const pId = encodeURIComponent(projectId);
 
