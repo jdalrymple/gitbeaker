@@ -484,6 +484,8 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Max Wittig](https://github.com/max-wittig)
 - [Quentin Dreyer](https://github.com/qkdreyer)
 - [Norm MacLennan](https://github.com/maclennann)
+- [jnovick](https://github.com/jnovick)
+- [Fabian Aussems](https://github.com/mozinator)
 
 ## License
 
