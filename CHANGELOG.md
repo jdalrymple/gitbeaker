@@ -1,3 +1,18 @@
+# [3.6.0](https://github.com/jdalrymple/node-gitlab/compare/3.5.1...3.6.0) (2018-07-24)
+
+
+### Bug Fixes
+
+* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 4.0.0 ([#122](https://github.com/jdalrymple/node-gitlab/issues/122)) ([5351dcc](https://github.com/jdalrymple/node-gitlab/commit/5351dcc))
+
+
+### Features
+
+* add mirror pull trigger ([#130](https://github.com/jdalrymple/node-gitlab/issues/130)) ([b6ccb80](https://github.com/jdalrymple/node-gitlab/commit/b6ccb80))
+* Making API version modifyable ([a2732b9](https://github.com/jdalrymple/node-gitlab/commit/a2732b9))
+* Updating Jobs API ([03a2f2d](https://github.com/jdalrymple/node-gitlab/commit/03a2f2d))
+* Updating participants function for issues ([f60e7ed](https://github.com/jdalrymple/node-gitlab/commit/f60e7ed))
+
 # Changelog
 
 [3.5.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-08)
