@@ -34,6 +34,8 @@ jobs:
 
         - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+        - echo GITLAB_URL
+        - echo PERSONAL_ACCESS_TOKEN
       script:
         - nvm install node && npm ci && npm run build && npm run test
         
