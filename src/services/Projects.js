@@ -52,6 +52,12 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/mirror/pull`);
   }
 
+  updatePushRule(projectId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return _infrastructure.RequestHelper.put(this, `projects/${pId}/push_rule`, options);
+  }
+
   remove(projectId) {
     const pId = encodeURIComponent(projectId);
 
