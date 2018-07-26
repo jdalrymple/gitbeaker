@@ -18,7 +18,7 @@ class Branches extends BaseService {
 
   protect(projectId, options) {
     const pId = encodeURIComponent(projectId);
-    
+
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, options);
   }
 
