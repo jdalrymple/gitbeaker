@@ -16,9 +16,8 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId, branchName, options) {
-    
-    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
+  protect(projectId, options) {
+    const pId = encodeURIComponent(projectId);
     
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, options);
   }
