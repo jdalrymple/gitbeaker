@@ -55,7 +55,7 @@ class Projects extends BaseService {
   updatePushRule(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
-    return _infrastructure.RequestHelper.put(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
   remove(projectId) {
