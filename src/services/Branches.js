@@ -16,10 +16,10 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId, options) {
+  protect(projectId, branchName, options) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/protected_branches`, options);
+    return RequestHelper.post(this, `projects/${pId}/protected_branches`, { branchName, ...options });
   }
 
   remove(projectId, branchName) {
