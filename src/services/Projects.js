@@ -100,6 +100,12 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/unstar`);
   }
 
+  updatePushRule(projectId, options) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
+  }
+
   upload(projectId, filePath, { fileName = Path.basename(filePath) } = {}) {
     const pId = encodeURIComponent(projectId);
     const file = Fs.readFileSync(filePath);
