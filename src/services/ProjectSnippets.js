@@ -31,17 +31,18 @@ class ProjectSnippets extends BaseService {
     });
   }
 
-  edit(projectId, options) {
-    const pId = encodeURIComponent(projectId);
+  edit(projectId, snippetId, options) {
+    const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/snippets`, options);
+    return RequestHelper.put(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
-  remove(projectId) {
-    const pId = encodeURIComponent(projectId);
+  remove(projectId, snippetId) {
+    const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/snippets`);
+    return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`);
   }
+
 
   show(projectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
