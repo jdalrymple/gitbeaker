@@ -16,14 +16,14 @@ notifications:
 jobs:
   include:
     - stage: lint and build
-      node_js: node
+      node_js: 10.0.0
       script:
         - npm run lint
         - npm run build
 
     - &test
       stage: test
-      node_js: node
+      node_js: 10.0.0
       before_script:
         ## Spin up container
         - cd test/docker/
@@ -38,9 +38,9 @@ jobs:
         - echo $GITLAB_URL
         - echo $PERSONAL_ACCESS_TOKEN
       script:
-        - nvm install node && npm ci && npm run build && npm run test
+        - nvm install 10 && npm ci && npm run build && npm run test
         
     - stage: release
-      node_js: node
+      node_js: 10.0.0
       script:
         - npm run semantic-release
