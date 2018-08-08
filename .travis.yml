@@ -21,8 +21,7 @@ jobs:
         - npm run lint
         - npm run build
 
-    - &test
-      stage: test
+    - stage: test
       node_js: 10.0.0
       before_script:
         ## Spin up container
@@ -38,7 +37,7 @@ jobs:
         - echo $GITLAB_URL
         - echo $PERSONAL_ACCESS_TOKEN
       script:
-        - nvm install 10 && npm ci && npm run build && npm run test
+        - npm run test
         
     - stage: release
       node_js: 10.0.0
