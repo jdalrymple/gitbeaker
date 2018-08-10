@@ -88,6 +88,11 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
   }
 
+  transfer(projectId, namespace) {
+    const pId = encodeURIComponent(projectId);
+    return RequestHelper.put(this, `projects/${pId}/transfer`, namespace);
+  }
+
   unshare(projectId, groupId) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
