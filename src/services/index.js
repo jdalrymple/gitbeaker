@@ -63,6 +63,7 @@ export { default as Services } from './Services';
 export { default as Tags } from './Tags';
 export { default as Todos } from './Todos';
 export { default as Triggers } from './Triggers';
+export { default as PushRule } from './PushRule';
 
 // General
 export { default as ApplicationSettings } from './ApplicationSettings';
