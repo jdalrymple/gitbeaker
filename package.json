@@ -40,6 +40,7 @@
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.55",
     "@babel/core": "7.0.0-beta.55",
+    "@babel/plugin-proposal-decorators": "^7.0.0-rc.1",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.55",
     "@babel/plugin-transform-runtime": "7.0.0-beta.55",
     "@babel/preset-env": "7.0.0-beta.55",
@@ -68,6 +69,7 @@
     "commander": "^2.17.1",
     "humps": "^2.0.1",
     "json-stable-stringify": "^1.0.1",
+    "lodash.isstring": "^4.0.1",
     "lodash.pick": "^4.4.0",
     "nconf": "^0.10.0",
     "parse-link-header": "^1.0.1",

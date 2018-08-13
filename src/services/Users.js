@@ -1,5 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
+import { cli } from '../cli/worker';
+
 
 class Users extends BaseService {
   all(options) {
@@ -26,6 +28,7 @@ class Users extends BaseService {
     return RequestHelper.post(this, 'users', options);
   }
 
+  @cli({ alias: 'whoami' })
   current() {
     return RequestHelper.get(this, 'user');
   }
