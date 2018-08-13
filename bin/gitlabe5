@@ -1,2 +1,2 @@
-#!/usr/bin/env node --harmony
-require('../dist/es5/cli/index');
+#!/usr/bin/env node
+require('../dist/latest/cli/index').default('');

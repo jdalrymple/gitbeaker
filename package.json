@@ -69,7 +69,9 @@
     "commander": "^2.17.1",
     "humps": "^2.0.1",
     "json-stable-stringify": "^1.0.1",
+    "lodash.camelcase": "^4.3.0",
     "lodash.isstring": "^4.0.1",
+    "lodash.kebabcase": "^4.1.1",
     "lodash.pick": "^4.4.0",
     "nconf": "^0.10.0",
     "parse-link-header": "^1.0.1",
@@ -88,6 +90,7 @@
   },
   "bin": {
     "gitlab": "bin/gitlab",
+    "gitlab-users": "bin/gitlab-users",
     "gitlabe5": "bin/gitlabe5"
   }
 }

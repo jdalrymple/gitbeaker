@@ -8,21 +8,19 @@ const nconf = require('nconf');
 
 const isString = require('lodash.isstring');
 
+const kebabCase = require('lodash.kebabcase');
+
+const camelCase = require('lodash.camelcase');
+
 const stringify = require('json-stable-stringify');
 
 const program = require('commander');
 
-const rootCommenderMap = {};
-// exports.done = false;
-
-// exports.done = true;
-
-require('./sub-command');
-
-// fix circular dependency
-const Gitlab = require('../index.js').default;
+let NAMESPACE = '';
+// require('./sub-command');
 
 let gitlabInstance;
+
 
 ((function makeConfigFile() {
   const gitlabDirPath = path.join(process.env[(process.platform === 'win32' ? 'USERPROFILE' : 'HOME')], '.gitlab');
@@ -58,7 +56,12 @@ function checkOptions() {
   return true;
 }
 
+let Gitlab;
+
 function requireOrGetGitlab() {
+  // fix circular dependency
+  // eslint-disable-next-line
+  Gitlab = require('../index.js').default;
   if (gitlabInstance != null) {
     return gitlabInstance;
   }
@@ -73,15 +76,18 @@ function requireOrGetGitlab() {
 }
 
 
-function createPara(arr) {
+function createPara(arr = []) {
   return arr.map(item => `<${item}>`).join(' ');
 }
 
 
-function createCommand(commander, name, para) {
-  return commander.command(`${name} ${createPara(para)}`);
+function createSubCommandByDesc(commander, name, desc = '', para = []) {
+  return commander.command(`${name} ${createPara(para)}`, desc);
 }
 
+function createCommand(commander, name, para = []) {
+  return commander.command(`${name} ${createPara(para)}`);
+}
 
 function createDesc(commander, clsName, { desc = null }) {
   const reslut = desc || `Check https://github.com/jdalrymple/node-gitlab/blob/master/src/services/${clsName}.js`;
@@ -95,44 +101,52 @@ function createAlias(commander, { alias = null }) {
   }
 }
 
-function getOrCreateRootCommender(commander, name, para = []) {
-  let value = rootCommenderMap[name];
-  if (!value) {
-    rootCommenderMap[name] = createCommand(commander, name, para);
-    value = rootCommenderMap[name];
-  }
-  return value;
-}
-
 function createAction(subCommander, clsName, fnName) {
   subCommander.action((...args) => {
     const gitlab = requireOrGetGitlab();
-    gitlab[clsName][fnName]().then(stringifyFormat);
+    // console.log(args[0]);
+    // console.log(args[1]);
+    // console.log(args[1].parent.parent.options);
+    // gitlab[clsName][fnName]().then(stringifyFormat);
   });
 }
 
-export function cli(...args) {
+export function cls(target) {
+  if (NAMESPACE) {
+    return;
+  }
+  const clsName = kebabCase(target.name);
+  createSubCommandByDesc(program, clsName, `use gitlab-${clsName}`);
+}
+
+export function api(...args) {
   // copy
   const argsArr = args.slice();
   let options = {};
-  if (!isString(argsArr[argsArr.length - 1])) {
+  if (argsArr.length > 0 && !isString(argsArr[argsArr.length - 1])) {
     // remove options
-    options = argsArr.shift();
+    const { 0: last } = argsArr.splice(-1, 1);
+    options = last;
   }
+
   return (target, fnName, descriptor) => {
     const clsName = target.constructor.name;
-    let rootCommender = getOrCreateRootCommender(program, clsName);
-    createDesc(rootCommender, clsName, options);
-    rootCommender = rootCommender.forwardSubcommands();
-
-    const subCommander = createCommand(rootCommender, fnName, argsArr);
-    createAlias(subCommander, options);
-    createAction(subCommander, clsName, fnName);
+    if (NAMESPACE === clsName) {
+      const commander = createCommand(program, fnName, argsArr);
+      commander.allowUnknownOption(true);
+      createDesc(commander, clsName, options);
+      createAlias(commander, options);
+      createAction(commander, clsName, fnName);
+    }
 
     return descriptor;
   };
 }
 
+export function create(namespace) {
+  NAMESPACE = camelCase(namespace).replace('gitlab', '');
+  requireOrGetGitlab();
+}
 
 export function getConfigCmd() {
   const config = nconf.get();
@@ -155,9 +169,4 @@ export function tokenCmd(token) {
     console.log('Save token');
   }
   return console.log(nconf.get('token'));
-}
-
-export function whoAmICmd() {
-  const gitlab = requireOrGetGitlab();
-  gitlab.Users.current().then(stringifyFormat);
 }
