@@ -65,8 +65,11 @@
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
     "@semantic-release/npm": "^5.0.1",
+    "commander": "^2.17.1",
     "humps": "^2.0.1",
+    "json-stable-stringify": "^1.0.1",
     "lodash.pick": "^4.4.0",
+    "nconf": "^0.10.0",
     "parse-link-header": "^1.0.1",
     "qs": "^6.5.2",
     "request": "^2.87.0",
@@ -80,5 +83,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "bin": {
+    "gitlab": "bin/gitlab",
+    "gitlabe5": "bin/gitlabe5"
   }
 }
