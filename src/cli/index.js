@@ -14,9 +14,9 @@ program.usage(`
   So usage: gitlab-user events 17 --sort=asc --target_type=issue
 `).version(packageInfo.version).option('-c, --config', 'Get config', worker.getConfigCmd);
 
-// program.command('url [url]').description("Get or Set url of your gitlab website. Please make sure your settings are 'http' or 'https'.").action(worker.urlCmd);
+program.command('url [url]').description("Get or Set url of your gitlab website. Please make sure your settings are 'http' or 'https'.").action(worker.urlCmd);
 
-// program.command('token [token]').description('Get or Set token of gitlab').action(worker.tokenCmd);
+program.command('token [token]').description('Get or Set token of gitlab').action(worker.tokenCmd);
 
 export default function createCLI(namespace = '') {
   worker.create(namespace);

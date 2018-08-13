@@ -12,6 +12,10 @@ const kebabCase = require('lodash.kebabcase');
 
 const camelCase = require('lodash.camelcase');
 
+const chunk = require('lodash.chunk');
+
+const fromPairs = require('lodash.frompairs');
+
 const stringify = require('json-stable-stringify');
 
 const program = require('commander');
@@ -89,8 +93,12 @@ function createCommand(commander, name, para = []) {
   return commander.command(`${name} ${createPara(para)}`);
 }
 
-function createDesc(commander, clsName, { desc = null }) {
-  const reslut = desc || `Check https://github.com/jdalrymple/node-gitlab/blob/master/src/services/${clsName}.js`;
+function createDesc(commander, clsName, { desc = null, options = false }) {
+  let reslut = desc || 'This commas has not options.';
+
+  if (options) {
+    reslut = 'Please check options by official document.';
+  }
 
   commander.description(reslut);
 }
@@ -101,13 +109,28 @@ function createAlias(commander, { alias = null }) {
   }
 }
 
-function createAction(subCommander, clsName, fnName) {
-  subCommander.action((...args) => {
+function createAction(commander, clsName, fnName) {
+  commander.action((...args) => {
     const gitlab = requireOrGetGitlab();
-    // console.log(args[0]);
-    // console.log(args[1]);
-    // console.log(args[1].parent.parent.options);
-    // gitlab[clsName][fnName]().then(stringifyFormat);
+    const argsArr = args.slice();
+    let command = null;
+    if (argsArr.length > 0) {
+      const { 0: last } = argsArr.splice(-1, 1);
+      command = last;
+    }
+    if (command && command.parent) {
+      const parsed = command.parseOptions(command.normalize(command.parent.rawArgs.slice(2)));
+      if (parsed.unknown.length > 1) {
+        const chunkData = chunk(parsed.unknown, 2).map(item => [item[0].replace('--', ''), item[1]]);
+        const options = fromPairs(chunkData);
+        argsArr.push(options);
+      }
+    }
+
+    const fn = gitlab[clsName][fnName];
+    fn.apply(gitlab[clsName], argsArr)
+      .then(stringifyFormat)
+      .catch(err => console.error(err.message));
   });
 }
 
