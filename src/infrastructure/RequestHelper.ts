@@ -22,7 +22,7 @@ interface GetPaginatedOptions {
 
 type RequestParametersOutput = RequestParametersInput & Required<Pick<RequestParametersInput, 'url'>>;
 
-async function wait(ms) {
+export async function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 

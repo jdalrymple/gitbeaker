@@ -98,7 +98,7 @@ class MergeRequests extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/${mergeRequest}approvers`, options);
   }
 
-  pipelines(projectId, { mergerequestId } = {}) {
+  pipelines(projectId, { mergerequestId }: { mergerequestId?: string } = {}) {
     const pId = encodeURIComponent(projectId);
     const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
 
