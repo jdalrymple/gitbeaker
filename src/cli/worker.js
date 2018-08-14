@@ -112,15 +112,15 @@ function createCommand(commander, name, para = []) {
   return commander.command(`${name} ${createPara(para)}`);
 }
 
-function createDesc(commander, clsName, { desc = null, options = false, action = null }) {
+function createDesc(commander, clsName, { desc = null, options = false, method = null }) {
   let reslut = desc || 'This commas has not options.';
 
   if (options) {
     reslut = 'Please check options by official document.';
   }
 
-  if (action) {
-    reslut = `Method: ${action}.${reslut}`;
+  if (method) {
+    reslut = `Method: ${method}.${reslut}`;
   }
 
   commander.description(reslut);

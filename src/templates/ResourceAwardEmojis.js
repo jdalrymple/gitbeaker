@@ -23,24 +23,24 @@ class ResourceAwardsEmojis extends BaseService {
     this.resourceType = resourceType;
   }
 
-  @api('<projectId>', '<resourceId>', '<noteId>', { options: true })
+  @api('<projectId>', '<resourceId>', '<noteId>', { options: true, method: 'GET' })
   all(projectId, resourceId, noteId, options) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
   }
 
-  @api('<projectId>', '<resourceId>', '<name>', '<noteId>')
+  @api('<projectId>', '<resourceId>', '<name>', '<noteId>', { method: 'POST' })
   award(projectId, resourceId, name, noteId) {
     return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
       name,
     });
   }
 
-  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>')
+  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>', { method: 'DELETE' })
   remove(projectId, resourceId, awardId, noteId) {
     return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 
-  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>')
+  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>', { method: 'GET' })
   show(projectId, resourceId, awardId, noteId) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
   }

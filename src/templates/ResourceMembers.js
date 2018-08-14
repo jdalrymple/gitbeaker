@@ -1,5 +1,6 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api } from '../cli/worker';
 
 class ResourceMembers extends BaseService {
   constructor(resourceType, ...args) {
@@ -8,6 +9,7 @@ class ResourceMembers extends BaseService {
     this.url = URLJoin(this.url, resourceType);
   }
 
+  @api('<resourceId>', { options: true, method: 'GET' })
   all(resourceId, { excludeInherited = false, query } = {}) {
     const rId = encodeURIComponent(resourceId);
 
@@ -16,6 +18,7 @@ class ResourceMembers extends BaseService {
     return RequestHelper.get(this, url, { query });
   }
 
+  @api('<resourceId>', '<userId>', '<accessLevel>', { options: true, method: 'POST' })
   add(resourceId, userId, accessLevel, options) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
@@ -26,6 +29,7 @@ class ResourceMembers extends BaseService {
     });
   }
 
+  @api('<resourceId>', '<userId>', '<accessLevel>', { options: true, method: 'PUT' })
   edit(resourceId, userId, accessLevel, options) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
@@ -35,12 +39,14 @@ class ResourceMembers extends BaseService {
     });
   }
 
+  @api('<resourceId>', '<userId>', { method: 'GET' })
   show(resourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/members/${uId}`);
   }
 
+  @api('<resourceId>', '<userId>', { method: 'DELETE' })
   remove(resourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 

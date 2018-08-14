@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api } from '../cli/worker';
 
 const url = (resourceType, resourceId, resource2Type, resource2Id) => {
   const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
@@ -22,6 +23,7 @@ class ResourceVariables extends BaseService {
     this.resource2Type = resource2Type;
   }
 
+  @api('<resourceId>', '<resource2Id>', { method: 'GET' })
   all(resourceId, resource2Id) {
     return RequestHelper.get(
       this,
@@ -29,6 +31,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
+  @api('<resourceId>', '<resource2Id>', { options: true, method: 'POST' })
   create(resourceId, resource2Id, options) {
     return RequestHelper.post(
       this,
@@ -37,6 +40,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
+  @api('<resourceId>', '<resource2Id>', '<keyId>', { options: true, method: 'PUT' })
   edit(resourceId, resource2Id, keyId, options) {
     const kId = encodeURIComponent(keyId);
 
@@ -47,6 +51,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
+  @api('<resourceId>', '<resource2Id>', '<keyId>', { method: 'GET' })
   show(resourceId, resource2Id, keyId) {
     const kId = encodeURIComponent(keyId);
 
@@ -56,6 +61,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
+  @api('<resourceId>', '<resource2Id>', '<keyId>', { method: 'DELETE' })
   remove(resourceId, resource2Id, keyId) {
     const kId = encodeURIComponent(keyId);
 
