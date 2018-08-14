@@ -1,7 +1,7 @@
 import { StatusCodeError } from 'request-promise-core/errors';
 import Promisify from 'util.promisify';
 import XHR from 'xhr';
-import wait from './RequestHelper';
+import { wait } from './RequestHelper';
 
 function promisifyFn(fn) {
   const promisifiedFn = Promisify(fn);
