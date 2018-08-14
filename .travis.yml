@@ -5,11 +5,6 @@ stages:
   - test
   - release
 
-cache:
-  directories:
-    - node_modules # NPM packages
-    - ~/.npm
-
 notifications:
   email: false
 
