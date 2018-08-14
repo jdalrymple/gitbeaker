@@ -24,6 +24,8 @@ const APIMap = {};
 
 let NAMESPACE = '';
 
+let COMMAND = 'gitlab';
+
 let gitlabInstance;
 
 
@@ -120,7 +122,7 @@ function createDesc(commander, clsName, { desc = null, options = false, method =
   }
 
   if (method) {
-    reslut = `Method: ${method}.${reslut}`;
+    reslut = `Method: ${method}. ${reslut}`;
   }
 
   commander.description(reslut);
@@ -193,7 +195,7 @@ export function cls(superTarget = null) {
       }
       return;
     }
-    createSubCommandByDesc(program, clsName, `use gitlab-${clsName}`);
+    createSubCommandByDesc(program, clsName, `use ${COMMAND}-${clsName}`);
   };
 }
 
@@ -214,7 +216,13 @@ export function api(...args) {
 }
 
 export function create(namespace) {
-  NAMESPACE = camelCase(namespace).replace('gitlab', '');
+  const regExp = /(gitlab)|(gitlabe5)/;
+  NAMESPACE = camelCase(namespace).replace(regExp, '');
+  const matched = camelCase(namespace).match(regExp);
+  if (matched && matched.length) {
+    const { 0: first } = matched;
+    COMMAND = first;
+  }
   requireOrGetGitlab();
 }
 

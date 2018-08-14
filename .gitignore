@@ -3,3 +3,4 @@ npm-debug.log
 dist
 coverage
 .vscode
+bin
