@@ -448,6 +448,19 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 
 > Note it may take about 3 minutes to get the variables while Gitlab is starting up in the container
 
+## CLI
+```bash
+npm install -g node-gitlab
+```
+
+```bash
+# ES6 (>=node 8.0.0)
+gitlab
+// ES5
+gitlabe5
+```
+
+[sub-commands](https://github.com/tj/commander.js#git-style-sub-commands)
 
 ## Contributors
 
@@ -486,6 +499,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Norm MacLennan](https://github.com/maclennann)
 - [jnovick](https://github.com/jnovick)
 - [Fabian Aussems](https://github.com/mozinator)
+- [mdsb100](https://github.com/mdsb100)
 
 ## License
 
