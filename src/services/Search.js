@@ -1,7 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api, cls } from '../cli/worker';
 
+@cls()
 class Search extends BaseService {
-  all(scope, search, { projectId, groupId } = {}) {
+  @api('<projectId>', '<groupId>', '<scope>', '<search>', { method: 'GET' })
+  all(projectId, groupId, scope, search) {
     let url = '';
 
     if (projectId) {

@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api, cls } from '../cli/worker';
 
 const ACTION_TYPES = [
   'created',
@@ -33,8 +34,9 @@ function validateEventOptions(action, target) {
     throw new Error(`This target is not supported. Pleased use one of following options: ${TARGET_TYPES}`);
   }
 }
-
+@cls()
 class Events extends BaseService {
+  @api({ options: true, method: 'GET' })
   all(options) {
     validateEventOptions(options.action, options.targetType);
 

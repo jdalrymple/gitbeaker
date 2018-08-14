@@ -1,12 +1,16 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api, cls } from '../cli/worker';
 
+@cls()
 class ProtectedBranches extends BaseService {
+  @api('<projectId>', { options: true, method: 'GET' })
   all(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/protected_branches`, options);
   }
 
+  @api('<projectId>', { options: true, method: 'POST' })
   protect(projectId, branchName, options) {
     const pId = encodeURIComponent(projectId);
 
@@ -16,12 +20,14 @@ class ProtectedBranches extends BaseService {
     });
   }
 
+  @api('<projectId>', '<branchName>', { options: true, method: 'GET' })
   show(projectId, branchName) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/protected_branches/${bName}`);
   }
 
+  @api('<projectId>', '<branchName>', { options: true, method: 'DELETE' })
   unprotect(projectId, branchName) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 

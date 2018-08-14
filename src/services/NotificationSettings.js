@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api, cls } from '../cli/worker';
 
 const LEVELS = {
   DISABLED: 'disabled',
@@ -25,6 +26,7 @@ const EVENTS = {
   SUCCESS_PIPELINE: 'success_pipeline',
 };
 
+@cls()
 class NotificationSettings extends BaseService {
   constructor(...args) {
     super(...args);
@@ -33,7 +35,8 @@ class NotificationSettings extends BaseService {
     this.EVENTS = EVENTS;
   }
 
-  all({ projectId, groupId } = {}) {
+  @api('<projectId>', '<groupId>', { method: 'GET' })
+  all(projectId, groupId) {
     let url;
 
     if (projectId) {
@@ -45,7 +48,8 @@ class NotificationSettings extends BaseService {
     return RequestHelper.get(this, `${url}notification_settings`);
   }
 
-  edit(options, { projectId, groupId } = {}) {
+  @api('<projectId>', '<groupId>', { options: true, method: 'PUT' })
+  edit(projectId, groupId, options) {
     let url;
 
     if (projectId) {
