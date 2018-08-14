@@ -460,7 +460,7 @@ gitlab
 gitlabe5
 ```
 
-[sub-commands](https://github.com/tj/commander.js#git-style-sub-commands)
+[git-style-sub-commands](https://github.com/tj/commander.js#git-style-sub-commands)
 
 ## Contributors
 
