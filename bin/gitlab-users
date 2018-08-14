@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-
 require('../dist/latest/cli/index').default('gitlab-users');

@@ -20,8 +20,9 @@ const stringify = require('json-stable-stringify');
 
 const program = require('commander');
 
+const APIMap = {};
+
 let NAMESPACE = '';
-// require('./sub-command');
 
 let gitlabInstance;
 
@@ -79,9 +80,27 @@ function requireOrGetGitlab() {
   return null;
 }
 
+function clsObjectFromAPIMap(clsName) {
+  let value = APIMap[clsName];
+  if (!value) {
+    APIMap[clsName] = {};
+    value = APIMap[clsName];
+  }
+  return value;
+}
+
+function apiObjectFromAPIMap(clsName, fnName, obj = null) {
+  const clsObj = clsObjectFromAPIMap(clsName);
+  let value = clsObj[fnName];
+  if (obj && !value) {
+    clsObj[fnName] = obj;
+    value = clsObj[fnName];
+  }
+  return value;
+}
 
 function createPara(arr = []) {
-  return arr.map(item => `<${item}>`).join(' ');
+  return arr.map(item => `${item}`).join(' ');
 }
 
 
@@ -93,11 +112,15 @@ function createCommand(commander, name, para = []) {
   return commander.command(`${name} ${createPara(para)}`);
 }
 
-function createDesc(commander, clsName, { desc = null, options = false }) {
+function createDesc(commander, clsName, { desc = null, options = false, action = null }) {
   let reslut = desc || 'This commas has not options.';
 
   if (options) {
     reslut = 'Please check options by official document.';
+  }
+
+  if (action) {
+    reslut = `Method: ${action}.${reslut}`;
   }
 
   commander.description(reslut);
@@ -134,26 +157,14 @@ function createAction(commander, clsName, fnName) {
   });
 }
 
-export function cls(target) {
-  if (NAMESPACE) {
-    return;
-  }
-  const clsName = kebabCase(target.name);
-  createSubCommandByDesc(program, clsName, `use gitlab-${clsName}`);
-}
-
-export function api(...args) {
-  // copy
-  const argsArr = args.slice();
-  let options = {};
-  if (argsArr.length > 0 && !isString(argsArr[argsArr.length - 1])) {
-    // remove options
-    const { 0: last } = argsArr.splice(-1, 1);
-    options = last;
-  }
-
+function createAPI(argsArr, options) {
   return (target, fnName, descriptor) => {
+    // createAPI maybe called by cls
     const clsName = target.constructor.name;
+    apiObjectFromAPIMap(clsName, fnName, {
+      argsArr,
+      options,
+    });
     if (NAMESPACE === clsName) {
       const commander = createCommand(program, fnName, argsArr);
       commander.allowUnknownOption(true);
@@ -161,9 +172,45 @@ export function api(...args) {
       createAlias(commander, options);
       createAction(commander, clsName, fnName);
     }
-
     return descriptor;
   };
+}
+
+export function cls(superTarget = null) {
+  return (target) => {
+    const clsName = kebabCase(target.name);
+    if (NAMESPACE) {
+      if (typeof superTarget === 'function' && superTarget.name) {
+        // If has super, I must to inherit api by myself.
+        const superClsName = superTarget.name;
+        const superObj = clsObjectFromAPIMap(superClsName);
+
+        // eslint-disable-next-line
+        for (const fnName in superObj) {
+          const item = superObj[fnName];
+          createAPI(item.argsArr, item.options)(target.prototype, fnName, null);
+        }
+      }
+      return;
+    }
+    createSubCommandByDesc(program, clsName, `use gitlab-${clsName}`);
+  };
+}
+
+export function api(...args) {
+  // copy
+  const argsArr = args.slice();
+  let options = {};
+  /*
+   * options must be at the end
+   */
+  if (argsArr.length > 0 && !isString(argsArr[argsArr.length - 1])) {
+    // remove options
+    const { 0: last } = argsArr.splice(-1, 1);
+    options = last;
+  }
+
+  return createAPI(argsArr, options);
 }
 
 export function create(namespace) {

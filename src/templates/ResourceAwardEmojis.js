@@ -1,5 +1,6 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { api } from '../cli/worker';
 
 function url(projectId, resourceType, resourceId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
@@ -22,20 +23,24 @@ class ResourceAwardsEmojis extends BaseService {
     this.resourceType = resourceType;
   }
 
-  all(projectId, resourceId, options, noteId) {
+  @api('<projectId>', '<resourceId>', '<noteId>', { options: true })
+  all(projectId, resourceId, noteId, options) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
   }
 
+  @api('<projectId>', '<resourceId>', '<name>', '<noteId>')
   award(projectId, resourceId, name, noteId) {
     return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
       name,
     });
   }
 
+  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>')
   remove(projectId, resourceId, awardId, noteId) {
     return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 
+  @api('<projectId>', '<resourceId>', '<awardId>', '<noteId>')
   show(projectId, resourceId, awardId, noteId) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
   }

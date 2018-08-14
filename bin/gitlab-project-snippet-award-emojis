@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+require('../dist/latest/cli/index').default('gitlab-project-snippet-award-emojis');

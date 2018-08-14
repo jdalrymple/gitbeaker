@@ -6,11 +6,11 @@ const worker = require('./worker');
 const packageInfo = require('./../../../package.json');
 
 program.usage(`
-  Please check the https://github.com/gitlabhq/gitlabhq/tree/master/doc/api and \n
+  Please check https://github.com/gitlabhq/gitlabhq/tree/master/doc/api and \n
   https://github.com/jdalrymple/node-gitlab/tree/master/src/services to determine the requested options. \n
   For example: \n
   In node-gitlab > User > events(userId, options) \n
-  The options parameter check from https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/events.md#get-user-contribution-events \n
+  Check https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/events.md#get-user-contribution-events \n
   So usage: gitlab-user events 17 --sort=asc --target_type=issue
 `).version(packageInfo.version).option('-c, --config', 'Get config', worker.getConfigCmd);
 

@@ -2,7 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 import { api, cls } from '../cli/worker';
 
-@cls
+@cls()
 class Users extends BaseService {
   @api({ options: true })
   all(options) {
@@ -14,14 +14,14 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'users/activities');
   }
 
-  @api('userId')
+  @api('<userId>')
   projects(userId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/projects`);
   }
 
-  @api('userId')
+  @api('<userId>')
   block(userId) {
     const uId = encodeURIComponent(userId);
 
@@ -38,7 +38,7 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'user');
   }
 
-  @api('userId', { options: true })
+  @api('<userId>', { options: true })
   events(userId, options) {
     validateEventOptions(options.action, options.targetType);
 
@@ -47,7 +47,7 @@ class Users extends BaseService {
     return RequestHelper.get(this, `users/${uId}/events`, options);
   }
 
-  @api('email', 'password')
+  @api('<email>', '<password>')
   session(email, password) {
     return RequestHelper.post(this, 'session', {
       email,
@@ -55,28 +55,28 @@ class Users extends BaseService {
     });
   }
 
-  @api('emailOrUsername')
+  @api('<emailOrUsername>')
   search(emailOrUsername) {
     return RequestHelper.get(this, 'users', {
       search: emailOrUsername,
     });
   }
 
-  @api('userId', { options: true })
+  @api('<userId>', { options: true })
   show(userId, options) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}`, options);
   }
 
-  @api('userId')
+  @api('<userId>')
   remove(userId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.delete(this, `users/${uId}`);
   }
 
-  @api('userId')
+  @api('<userId>')
   unblock(userId) {
     const uId = encodeURIComponent(userId);
 

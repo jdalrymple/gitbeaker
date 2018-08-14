@@ -93,6 +93,8 @@
   "bin": {
     "gitlab": "bin/gitlab",
     "gitlab-users": "bin/gitlab-users",
+    "gitlab-application-settings": "bin/gitlab-application-settings",
+    "gitlab-project-snippet-award-emojis": "bin/gitlab-project-snippet-award-emojis",
     "gitlabe5": "bin/gitlabe5"
   }
 }
