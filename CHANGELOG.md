@@ -1,3 +1,19 @@
+# [3.8.0](https://github.com/jdalrymple/node-gitlab/compare/3.7.0...3.8.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **api:** Updating project members all function to include the inherited members.  [#141](https://github.com/jdalrymple/node-gitlab/issues/141) ([e081a16](https://github.com/jdalrymple/node-gitlab/commit/e081a16))
+* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.0 ([dc9748d](https://github.com/jdalrymple/node-gitlab/commit/dc9748d))
+* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.1 ([12b6ca1](https://github.com/jdalrymple/node-gitlab/commit/12b6ca1)), closes [#139](https://github.com/jdalrymple/node-gitlab/issues/139)
+* **package:** Updating packages and fixing [#140](https://github.com/jdalrymple/node-gitlab/issues/140) due to a babel update ([04d1769](https://github.com/jdalrymple/node-gitlab/commit/04d1769))
+
+
+### Features
+
+* Add push rule service ([#143](https://github.com/jdalrymple/node-gitlab/issues/143)) ([395f83c](https://github.com/jdalrymple/node-gitlab/commit/395f83c))
+* Add transfer a project to a new namespace ([#145](https://github.com/jdalrymple/node-gitlab/issues/145)) ([87e9f55](https://github.com/jdalrymple/node-gitlab/commit/87e9f55))
+
 # [3.7.0](https://github.com/jdalrymple/node-gitlab/compare/3.6.0...3.7.0) (2018-08-02)
 
 
