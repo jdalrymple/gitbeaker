@@ -11,6 +11,7 @@ program.usage(`
   For example: \n
   In node-gitlab > User > events(userId, options) \n
   Check https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/events.md#get-user-contribution-events \n
+  The optional parameters use '--xxxx'\n
   So usage: gitlab-user events 17 --sort=asc --target_type=issue
 `).version(packageInfo.version).option('-c, --config', 'Get config', worker.getConfigCmd);
 
