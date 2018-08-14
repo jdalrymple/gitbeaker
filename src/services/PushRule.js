@@ -1,7 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class PushRule extends BaseService {
-
   create(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
@@ -14,10 +13,10 @@ class PushRule extends BaseService {
     if (upsert) {
       const pushRule = await this.show(projectId);
 
-      if (!pushRule) return this.create(projectId, options)
+      if (!pushRule) return this.create(projectId, options);
     }
 
-    return RequestHelper.put(this, `projects/${pId}/push_rule`, args);
+    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
   remove(projectId) {
@@ -31,7 +30,6 @@ class PushRule extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/push_rule`);
   }
-
 }
 
 export default PushRule;

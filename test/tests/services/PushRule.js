@@ -8,8 +8,8 @@ describe('PushRule', () => {
     });
     const pushRules = {
       upsert: true,
-      member_check: true
-    }
+      member_check: true,
+    };
     const result = await service.edit(1, pushRules);
 
     expect(result).toBeInstanceOf(Object);
