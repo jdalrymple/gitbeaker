@@ -30,7 +30,7 @@ let gitlabInstance;
 
 
 ((function makeConfigFile() {
-  const gitlabDirPath = path.join(process.env[(process.platform === 'win32' ? 'USERPROFILE' : 'HOME')], '.gitlab');
+  const gitlabDirPath = path.join(process.env[(process.platform === 'win32' ? 'USERPROFILE' : 'HOME')], '.gitlab-cli');
 
   if (!fs.existsSync(gitlabDirPath)) {
     fs.mkdirSync(gitlabDirPath);
