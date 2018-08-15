@@ -28,7 +28,7 @@
 - [Docs](#docs)
 - [Development](#development)
 - [Testing](#testing)
-- [CLI](#CLI)
+- [CLI](#cli)
 - [Contributors](#contributors)
 - [License](#licence)
 - [Changelog](#changelog)
