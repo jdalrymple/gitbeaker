@@ -3,7 +3,6 @@ import { api, cls } from '../cli/worker';
 
 @cls()
 class PushRule extends BaseService {
-  @api('<projectId>', { options: true, method: 'POST' })
   create(projectId, options) {
     const pId = encodeURIComponent(projectId);
 
@@ -20,10 +19,7 @@ class PushRule extends BaseService {
       if (!pushRule) return this.create(projectId, options);
     }
 
-    return RequestHelper.put(this, `projects/${pId}/push_rule`, {
-      upsert,
-      ...options,
-    });
+    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
   @api('<projectId>', { method: 'DELETE' })
