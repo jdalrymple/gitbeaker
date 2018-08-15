@@ -8,6 +8,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "strictPropertyInitialization": true,
+    "strictNullChecks": true,
     "pretty": true,
 
     "esModuleInterop": true,

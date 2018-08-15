@@ -7,7 +7,7 @@ class PushRule extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);
   }
 
-  async edit(projectId, { upsert, ...options } = {}) {
+  async edit(projectId, { upsert = false, ...options } = {}) {
     const pId = encodeURIComponent(projectId);
 
     if (upsert) {

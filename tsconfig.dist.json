@@ -4,6 +4,7 @@
     "target": "es6",
     "strict": false,
     "strictPropertyInitialization": false,
+    "strictNullChecks": false,
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "skipLibCheck": true
