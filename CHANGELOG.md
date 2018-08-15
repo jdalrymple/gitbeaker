@@ -1,3 +1,17 @@
+# [3.9.0](https://github.com/jdalrymple/node-gitlab/compare/3.8.0...3.9.0) (2018-08-15)
+
+
+### Bug Fixes
+
+* Fix error while throwing an error in RequestHelper ([#156](https://github.com/jdalrymple/node-gitlab/issues/156)) ([177d7fd](https://github.com/jdalrymple/node-gitlab/commit/177d7fd))
+* Handling errors before retrying request ([#142](https://github.com/jdalrymple/node-gitlab/issues/142)) [skip-ci] ([bc3b366](https://github.com/jdalrymple/node-gitlab/commit/bc3b366))
+* Linting Master ([#157](https://github.com/jdalrymple/node-gitlab/issues/157)) ([ab14ed7](https://github.com/jdalrymple/node-gitlab/commit/ab14ed7))
+
+
+### Features
+
+* Add deploy keys enable functionality ([#155](https://github.com/jdalrymple/node-gitlab/issues/155)) thanks to [Michael Matzka](https://github.com/mimaidms ) ([66547ad](https://github.com/jdalrymple/node-gitlab/commit/66547ad))
+
 # [3.8.0](https://github.com/jdalrymple/node-gitlab/compare/3.7.0...3.8.0) (2018-08-14)
 
 
