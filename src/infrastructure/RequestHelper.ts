@@ -125,11 +125,11 @@ async function getPaginated(
       !err.response.headers ||
       !err.response.headers['retry-after'] ||
       parseInt(err.statusCode, 10) != 429
-    ) throw error;
+    ) throw err;
     
     const sleepTime = parseInt(err.response.headers['retry-after'], 10);
 
-    if (!sleepTime) throw error;
+    if (!sleepTime) throw err;
     
     await wait(sleepTime * 1000);
 
