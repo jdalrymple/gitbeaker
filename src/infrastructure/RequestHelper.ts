@@ -20,8 +20,7 @@ interface GetPaginatedOptions {
   page?: number;
 }
 
-type RequestParametersOutput =
-  RequestParametersInput & Required<Pick<RequestParametersInput, 'url'>>;
+type RequestParametersOutput = RequestParametersInput & Required<Pick<RequestParametersInput, 'url'>>;
 
 export async function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -77,11 +76,7 @@ function getStream(service, endpoint, options = {}) {
   return StreamableRequest.get(requestOptions);
 }
 
-async function getPaginated(
-  service,
-  endpoint,
-  options: GetPaginatedOptions = {},
-  sleepOnRateLimit = true) {
+async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}, sleepOnRateLimit = true) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
