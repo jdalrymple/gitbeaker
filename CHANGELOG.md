@@ -1,3 +1,10 @@
+# [3.10.0](https://github.com/jdalrymple/node-gitlab/compare/3.9.0...3.10.0) (2018-08-15)
+
+
+### Features
+
+* Expose reject unauthorized in request helper ([#160](https://github.com/jdalrymple/node-gitlab/issues/160)) ([01a2ce2](https://github.com/jdalrymple/node-gitlab/commit/01a2ce2)), closes [#142](https://github.com/jdalrymple/node-gitlab/issues/142)
+
 # [3.9.0](https://github.com/jdalrymple/node-gitlab/compare/3.8.0...3.9.0) (2018-08-15)
 
 
