@@ -7,7 +7,7 @@ interface BaseModelOptions {
   token?: string;
   oauthToken?: string;
   useXMLHttpRequest?: boolean;
-  version?: string
+  version?: string;
 }
 
 class BaseModel {

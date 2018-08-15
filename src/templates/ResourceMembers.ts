@@ -8,7 +8,7 @@ class ResourceMembers extends BaseService {
     this.url = URLJoin(this.url, resourceType);
   }
 
-  all(resourceId, { excludeInherited = false, query } = {}) {
+  all(resourceId, { excludeInherited = false, query = '' } = {}) {
     const rId = encodeURIComponent(resourceId);
 
     const url = excludeInherited ? `${rId}/members` : `${rId}/members/all`;

@@ -3,7 +3,8 @@ language: node_js
 stages:
   - lint and build
   - test
-  - release
+  - name: release
+    if: branch = master
 
 notifications:
   email: false
@@ -25,7 +26,7 @@ jobs:
 
         ## Test for liveness
         # - docker exec -it gitlab bash -lc 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost/-/readiness)" != "200" ]]; do sleep 5; done'
-        - sleep 240 
+        - sleep 240
 
         - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
@@ -33,7 +34,7 @@ jobs:
         - echo $PERSONAL_ACCESS_TOKEN
       script:
         - npm run test
-        
+
     - stage: release
       node_js: 10.0.0
       script:
