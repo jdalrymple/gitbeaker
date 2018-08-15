@@ -13,7 +13,7 @@
     "build:es6": "tsc -p tsconfig.dist.json",
     "build:es5": "tsc -p tsconfig-es5.dist.json",
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
-    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish",
+    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
     "test:services": "jest test/tests/services",
@@ -59,6 +59,7 @@
     "typescript": "3.0.1"
   },
   "dependencies": {
+    "@semantic-release/git": "^7.0.1",
     "@semantic-release/npm": "^5.0.1",
     "humps": "^2.0.1",
     "parse-link-header": "^1.0.1",
