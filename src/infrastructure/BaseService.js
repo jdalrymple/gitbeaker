@@ -9,11 +9,13 @@ class BaseModel {
     url = 'https://gitlab.com',
     useXMLHttpRequest = false,
     version = 'v4',
+    rejectUnauthorized = true,
   } = {}) {
     this.url = URLJoin(url, 'api', version);
     this.headers = {};
     this.requester = useXMLHttpRequest ? XMLHttpRequester : Request;
     this.useXMLHttpRequest = useXMLHttpRequest;
+    this.rejectUnauthorized = rejectUnauthorized;
 
     if (oauthToken) {
       this.headers.authorization = `Bearer ${oauthToken}`;

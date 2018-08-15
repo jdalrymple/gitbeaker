@@ -5,7 +5,7 @@ import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 
 function defaultRequest(
-  { url, useXMLHttpRequest },
+  { url, useXMLHttpRequest, rejectUnauthorized },
   endpoint,
   {
     headers,
@@ -35,6 +35,8 @@ function defaultRequest(
   if (formData) params.formData = formData;
 
   params.resolveWithFullResponse = resolveWithFullResponse;
+
+  params.rejectUnauthorized = rejectUnauthorized;
 
   return params;
 }
