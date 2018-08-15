@@ -59,6 +59,7 @@
     "typescript": "3.0.1"
   },
   "dependencies": {
+    "@semantic-release/git": "^7.0.1",
     "@semantic-release/npm": "^5.0.1",
     "humps": "^2.0.1",
     "parse-link-header": "^1.0.1",

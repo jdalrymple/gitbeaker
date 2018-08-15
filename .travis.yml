@@ -3,8 +3,7 @@ language: node_js
 stages:
   - lint and build
   - test
-  - name: release
-    if: branch = master
+  - release
 
 notifications:
   email: false
