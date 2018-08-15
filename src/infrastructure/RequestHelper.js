@@ -58,7 +58,7 @@ export async function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getPaginated(service, endpoint, options = {}, sleepOnRateLimit = true) {
+async function getPaginated(service, endpoint, options = {}) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
@@ -99,17 +99,17 @@ async function getPaginated(service, endpoint, options = {}, sleepOnRateLimit = 
 
     return data;
   } catch (err) {
-     if(
-      !err.response ||
-      !err.response.headers ||
-      !err.response.headers['retry-after'] ||
-      parseInt(err.statusCode, 10) != 429
+    if (
+      !err.response
+      || !err.response.headers
+      || !err.response.headers['retry-after']
+      || parseInt(err.statusCode, 10) !== 429
     ) throw err;
-    
+
     const sleepTime = parseInt(err.response.headers['retry-after'], 10);
 
     if (!sleepTime) throw err;
-    
+
     await wait(sleepTime * 1000);
 
     return getPaginated(service, endpoint, options);
