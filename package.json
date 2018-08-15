@@ -40,7 +40,7 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "@babel/cli": "7.0.0-rc.1",
-    "@babel/core": "7.0.0-beta.55",
+    "@babel/core": "7.0.0-rc.1",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.55",
     "@babel/plugin-transform-runtime": "7.0.0-beta.55",
     "@babel/preset-env": "7.0.0-beta.55",
