@@ -99,13 +99,20 @@ async function getPaginated(service, endpoint, options = {}, sleepOnRateLimit = 
 
     return data;
   } catch (err) {
+     if(
+      !err.response ||
+      !err.response.headers ||
+      !err.response.headers['retry-after'] ||
+      parseInt(err.statusCode, 10) != 429
+    ) throw error;
+    
     const sleepTime = parseInt(err.response.headers['retry-after'], 10);
-    if (sleepOnRateLimit && parseInt(err.statusCode, 10) === 429
-         && sleepTime) {
-      await wait(sleepTime * 1000);
-      return getPaginated(service, endpoint, options, sleepOnRateLimit);
-    }
-    throw err;
+
+    if (!sleepTime) throw error;
+    
+    await wait(sleepTime * 1000);
+
+    return getPaginated(service, endpoint, options);
   }
 }
 
