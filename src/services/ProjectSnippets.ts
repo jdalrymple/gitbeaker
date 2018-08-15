@@ -43,7 +43,6 @@ class ProjectSnippets extends BaseService {
     return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`);
   }
 
-
   show(projectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
