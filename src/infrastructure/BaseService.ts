@@ -14,6 +14,7 @@ interface BaseModelOptions {
 class BaseModel {
   protected url: string;
   public headers: { [header: string]: string };
+  public rejectUnauthorized: boolean;
   protected requester: any;
   protected useXMLHttpRequest: boolean;
 

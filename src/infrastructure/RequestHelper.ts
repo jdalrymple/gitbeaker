@@ -12,6 +12,7 @@ interface RequestParametersInput {
   qs?: Object;
   formData?: temporaryAny;
   resolveWithFullResponse?: boolean;
+  rejectUnauthorized?: boolean;
 }
 
 interface GetPaginatedOptions {
