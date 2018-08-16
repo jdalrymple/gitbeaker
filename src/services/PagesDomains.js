@@ -4,7 +4,7 @@ class PagesDomains extends BaseService {
   all({ projectId } = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 
-    return RequestHelper.get(this, `${url}page/domains`);
+    return RequestHelper.get(this, `${url}pages/domains`);
   }
 
   create(projectId, domain, options) {
