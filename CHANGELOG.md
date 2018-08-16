@@ -1,3 +1,10 @@
+## [3.10.1](https://github.com/jdalrymple/node-gitlab/compare/3.10.0...3.10.1) (2018-08-16)
+
+
+### Bug Fixes
+
+* Typo in PagesDomains all() method ([#162](https://github.com/jdalrymple/node-gitlab/issues/162)) ([128f150](https://github.com/jdalrymple/node-gitlab/commit/128f150))
+
 # [3.10.0](https://github.com/jdalrymple/node-gitlab/compare/3.9.0...3.10.0) (2018-08-15)
 
 
