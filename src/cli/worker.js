@@ -115,7 +115,7 @@ function createCommand(commander, name, para = []) {
 }
 
 function createDesc(commander, clsName, { desc = null, options = false, method = null }) {
-  let reslut = desc || 'This commas has not options.';
+  let reslut = desc || 'This API has not options.';
 
   if (options) {
     reslut = 'Please check options by official document.';
