@@ -5,7 +5,7 @@ import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 
 function defaultRequest(
-  { url, useXMLHttpRequest },
+  { url, useXMLHttpRequest, rejectUnauthorized },
   endpoint,
   {
     headers,
@@ -36,6 +36,8 @@ function defaultRequest(
 
   params.resolveWithFullResponse = resolveWithFullResponse;
 
+  params.rejectUnauthorized = rejectUnauthorized;
+
   return params;
 }
 
@@ -58,7 +60,7 @@ export async function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getPaginated(service, endpoint, options = {}, sleepOnRateLimit = true) {
+async function getPaginated(service, endpoint, options = {}) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
@@ -99,13 +101,20 @@ async function getPaginated(service, endpoint, options = {}, sleepOnRateLimit = 
 
     return data;
   } catch (err) {
+    if (
+      !err.response
+      || !err.response.headers
+      || !err.response.headers['retry-after']
+      || parseInt(err.statusCode, 10) !== 429
+    ) throw err;
+
     const sleepTime = parseInt(err.response.headers['retry-after'], 10);
-    if (sleepOnRateLimit && parseInt(err.statusCode, 10) === 429
-         && sleepTime) {
-      await wait(sleepTime * 1000);
-      return getPaginated(service, endpoint, options, sleepOnRateLimit);
-    }
-    throw err;
+
+    if (!sleepTime) throw err;
+
+    await wait(sleepTime * 1000);
+
+    return getPaginated(service, endpoint, options);
   }
 }
 

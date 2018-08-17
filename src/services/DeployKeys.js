@@ -23,6 +23,12 @@ class DeployKeys extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`);
   }
+
+  enable(projectId, keyId) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/deploy_keys/${kId}/enable`);
+  }
 }
 
 export default DeployKeys;
