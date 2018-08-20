@@ -1,3 +1,15 @@
+# [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* Revert "fix(api): Updating project members all function to include the inherited members.  [#141](https://github.com/jdalrymple/node-gitlab/issues/141)" until properly implemented by GitLab (https://gitlab.com/gitlab-org/gitlab-ee/merge_requests/6669)  ([24d9bcd](https://github.com/jdalrymple/node-gitlab/commit/24d9bcd))
+
+
+### Features
+
+* **projects:** add archive/unarchive functionality ([#168](https://github.com/jdalrymple/node-gitlab/issues/168)) ([5e7b1bd](https://github.com/jdalrymple/node-gitlab/commit/5e7b1bd)), closes [#166](https://github.com/jdalrymple/node-gitlab/issues/166)
+
 ## [3.10.1](https://github.com/jdalrymple/node-gitlab/compare/3.10.0...3.10.1) (2018-08-16)
 
 
