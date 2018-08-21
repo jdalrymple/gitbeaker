@@ -8,6 +8,12 @@ class Projects extends BaseService {
     return RequestHelper.get(this, 'projects', options);
   }
 
+  archive(projectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/archive`);
+  }
+
   create(options) {
     const url = options.userId ? `projects/user/${encodeURIComponent(options.userId)}` : 'projects';
 
@@ -91,6 +97,12 @@ class Projects extends BaseService {
   transfer(projectId, namespace) {
     const pId = encodeURIComponent(projectId);
     return RequestHelper.put(this, `projects/${pId}/transfer`, namespace);
+  }
+
+  unarchive(projectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/unarchive`);
   }
 
   unshare(projectId, groupId) {
