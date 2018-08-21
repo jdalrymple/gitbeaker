@@ -68,39 +68,41 @@ async function getPaginated(service, endpoint, options = {}) {
     resolveWithFullResponse: true,
   });
 
-  try {
-    const response = await service.requester.get(requestOptions);
-    const links = LinkParser(response.headers.link) || {};
-    const page = response.headers['x-page'];
-    const underMaxPageLimit = maxPages ? page < maxPages : true;
-    let more = [];
-    let data;
+  const response = await service.requester.get(requestOptions);
+  const links = LinkParser(response.headers.link) || {};
+  const page = response.headers['x-page'];
+  const underMaxPageLimit = maxPages ? page < maxPages : true;
+  let more = [];
+  let data;
 
-    // If not looking for a singular page and still under the max pages limit
-    // AND their is a next page, paginate
-    if (!queryOptions.page && underMaxPageLimit && links.next) {
-      more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
-      data = [...response.body, ...more];
-    } else {
-      data = response.body;
-    }
+  // If not looking for a singular page and still under the max pages limit
+  // AND their is a next page, paginate
+  if (!queryOptions.page && underMaxPageLimit && links.next) {
+    more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
+    data = [...response.body, ...more];
+  } else {
+    data = response.body;
+  }
 
-    if (queryOptions.page && showPagination) {
-      return {
-        data,
-        pagination: {
-          total: response.headers['x-total'],
-          next: response.headers['x-next-page'] || null,
-          current: response.headers['x-page'] || null,
-          previous: response.headers['x-prev-page'] || null,
-          perPage: response.headers['x-per-page'],
-          totalPages: response.headers['x-total-pages'],
-        },
-      };
-    }
+  if (queryOptions.page && showPagination) {
+    return {
+      data,
+      pagination: {
+        total: response.headers['x-total'],
+        next: response.headers['x-next-page'] || null,
+        current: response.headers['x-page'] || null,
+        previous: response.headers['x-prev-page'] || null,
+        perPage: response.headers['x-per-page'],
+        totalPages: response.headers['x-total-pages'],
+      },
+    };
+  }
 
-    return data;
-  } catch (err) {
+  return data;
+}
+
+class RequestHelper {
+  static async handleRequestError(err) {
     if (
       !err.response
       || !err.response.headers
@@ -111,46 +113,53 @@ async function getPaginated(service, endpoint, options = {}) {
     const sleepTime = parseInt(err.response.headers['retry-after'], 10);
 
     if (!sleepTime) throw err;
-
-    await wait(sleepTime * 1000);
-
-    return getPaginated(service, endpoint, options);
+    return wait(sleepTime * 1000);
   }
-}
 
-class RequestHelper {
-  static async get(service, endpoint, options = {}, { stream = false } = {}) {
-    if (stream) return getStream(service, endpoint, options);
+  static get(service, endpoint, options = {}, { stream = false } = {}) {
+    return RequestHelper.request('get', service, endpoint, options, stream);
+  }
 
-    return getPaginated(service, endpoint, options);
+  static async request(type, service, endpoint, options = {}, form = false, stream = false) {
+    const requestOptions = defaultRequest(service, endpoint, {
+      headers: service.headers,
+    });
+
+    try {
+      switch (type) {
+        case 'get':
+          if (stream) return await getStream(service, endpoint, options);
+          return await getPaginated(service, endpoint, options);
+        case 'post': {
+          const body = form ? 'formData' : 'body';
+          requestOptions[body] = options;
+          return await service.requester.post(requestOptions);
+        }
+        case 'put':
+          requestOptions.body = options;
+          return await service.requester.put(requestOptions);
+        case 'delete':
+          requestOptions.qs = options;
+          return await service.requester.delete(requestOptions);
+        default:
+          throw new Error(`Unknown request type ${type}`);
+      }
+    } catch (err) {
+      await RequestHelper.handleRequestError(err);
+      return RequestHelper.request(type, service, endpoint, options, form, stream);
+    }
   }
 
   static post(service, endpoint, options = {}, form = false) {
-    const body = form ? 'formData' : 'body';
-    const requestOptions = defaultRequest(service, endpoint, {
-      headers: service.headers,
-      [body]: options,
-    });
-
-    return service.requester.post(requestOptions);
+    return RequestHelper.request('post', service, endpoint, options, form);
   }
 
   static put(service, endpoint, options = {}) {
-    const requestOptions = defaultRequest(service, endpoint, {
-      headers: service.headers,
-      body: options,
-    });
-
-    return service.requester.put(requestOptions);
+    return RequestHelper.request('put', service, endpoint, options);
   }
 
   static delete(service, endpoint, options = {}) {
-    const requestOptions = defaultRequest(service, endpoint, {
-      headers: service.headers,
-      qs: options,
-    });
-
-    return service.requester.delete(requestOptions);
+    return RequestHelper.request('delete', service, endpoint, options);
   }
 }
 
