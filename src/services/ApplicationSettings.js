@@ -6,7 +6,7 @@ class ApplicationSettings extends BaseService {
   }
 
   edit(options) {
-    return RequestHelper.post(this, 'application/settings', options);
+    return RequestHelper.put(this, 'application/settings', options);
   }
 }
 
