@@ -1,12 +1,6 @@
 import { BaseService } from '../../../src/infrastructure';
 
 describe('Creation of BaseService instance', () => {
-  test('If a token or oauthToken is not passed, throw an error', async () => {
-    expect(() => {
-      const service = new BaseService(); // eslint-disable-line no-unused-vars
-    }).toThrowError('`token` (private-token) or `oauth_token` is mandatory');
-  });
-
   test('Url defaults to https://gitlab.com/api/v4', async () => {
     const service = new BaseService({ token: 'test' });
 
