@@ -47,7 +47,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/cli": "7.0.0-rc.1",
+    "@babel/cli": "7.0.0",
     "@babel/core": "7.0.0-rc.1",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-rc.1",
     "@babel/plugin-transform-runtime": "7.0.0-rc.1",
