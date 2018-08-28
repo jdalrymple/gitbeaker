@@ -57,7 +57,7 @@
     "@semantic-release/git": "^7.0.1",
     "@semantic-release/npm": "^5.0.2",
     "babel-core": "^7.0.0-0",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "codecov": "^3.0.4",
     "cz-conventional-changelog": "^2.1.0",
