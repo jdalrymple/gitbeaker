@@ -51,7 +51,7 @@
     "@babel/core": "7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
-    "@babel/preset-env": "7.0.0-rc.1",
+    "@babel/preset-env": "7.0.0",
     "@semantic-release/changelog": "^3.0.0",
     "semantic-release": "^15.9.8",
     "@semantic-release/git": "^7.0.1",
