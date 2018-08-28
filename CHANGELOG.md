@@ -1,3 +1,11 @@
+## [3.11.2](https://github.com/jdalrymple/node-gitlab/compare/3.11.1...3.11.2) (2018-08-28)
+
+
+### Bug Fixes
+
+* obey rate limits for all request types correctly ([#170](https://github.com/jdalrymple/node-gitlab/issues/170)) ([4bc7c69](https://github.com/jdalrymple/node-gitlab/commit/4bc7c69)), closes [#165](https://github.com/jdalrymple/node-gitlab/issues/165)
+* Testing negated npmignore ([86960c4](https://github.com/jdalrymple/node-gitlab/commit/86960c4))
+
 ## [3.11.1](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...3.11.1) (2018-08-28)
 
 
