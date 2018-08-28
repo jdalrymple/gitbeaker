@@ -1,4 +1,12 @@
 node_modules
 npm-debug.log
-dist
 coverage
+src
+test
+.babelrc
+jest.config.js
+.releaserc.yml
+.travis.yml
+.eslintrc.yml
+.codecov.yml
+.codeclimate.yml
