@@ -38,8 +38,6 @@ class BaseModel {
       this.headers.authorization = `Bearer ${oauthToken}`;
     } else if (token) {
       this.headers['private-token'] = token;
-    } else {
-      throw new Error('`token` (private-token) or `oauth_token` is mandatory');
     }
   }
 }
