@@ -38,6 +38,14 @@
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@babel/cli": "7.0.0-rc.1",
     "@babel/core": "7.0.0-rc.1",
@@ -77,10 +85,5 @@
     "url-join": "^4.0.0",
     "util.promisify": "^1.0.0",
     "xhr": "^2.5.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
