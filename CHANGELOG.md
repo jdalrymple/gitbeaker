@@ -1,3 +1,11 @@
+## [3.11.1](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...3.11.1) (2018-08-28)
+
+
+### Bug Fixes
+
+* **applications-settings:** Edit of application settings not working ([#169](https://github.com/jdalrymple/node-gitlab/issues/169)) ([f0213ca](https://github.com/jdalrymple/node-gitlab/commit/f0213ca))
+* **test:** Application settings api updated ([#177](https://github.com/jdalrymple/node-gitlab/issues/177)) ([0723a7a](https://github.com/jdalrymple/node-gitlab/commit/0723a7a))
+
 # [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
 
 
