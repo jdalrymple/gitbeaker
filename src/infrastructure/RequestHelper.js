@@ -121,26 +121,39 @@ class RequestHelper {
   }
 
   static async request(type, service, endpoint, options = {}, form = false, stream = false) {
-    const requestOptions = defaultRequest(service, endpoint, {
-      headers: service.headers,
-    });
-
     try {
       switch (type) {
         case 'get':
           if (stream) return await getStream(service, endpoint, options);
           return await getPaginated(service, endpoint, options);
+
         case 'post': {
-          const body = form ? 'formData' : 'body';
-          requestOptions[body] = options;
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            [form ? 'formData' : 'body']: options,
+          });
+
           return await service.requester.post(requestOptions);
         }
-        case 'put':
-          requestOptions.body = options;
+
+        case 'put': {
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            body: options,
+          });
+
           return await service.requester.put(requestOptions);
-        case 'delete':
-          requestOptions.qs = options;
+        }
+
+        case 'delete': {
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            qs: options,
+          });
+
           return await service.requester.delete(requestOptions);
+        }
+
         default:
           throw new Error(`Unknown request type ${type}`);
       }
