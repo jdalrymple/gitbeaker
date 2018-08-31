@@ -71,8 +71,8 @@ class MergeRequests extends BaseService {
 
     return RequestHelper.post(this, `projects/${pId}/merge_requests`, {
       id: pId,
-      sourceBranch,
-      targetBranch,
+      source_branch: sourceBranch,
+      target_branch: targetBranch,
       title,
       ...options,
     });
