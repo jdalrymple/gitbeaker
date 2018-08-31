@@ -117,32 +117,38 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
 
 class RequestHelper {
   static async request(type, service, endpoint, options = {}, form = false, stream = false) {
-    const requestOptions = defaultRequest(service, endpoint, {
-      headers: service.headers,
-    });
-
     try {
       switch (type) {
         case 'get':
-          if (stream) return getStream(service, endpoint, options);
-          return getPaginated(service, endpoint, options);
+          if (stream) return await getStream(service, endpoint, options);
+          return await getPaginated(service, endpoint, options);
 
-        case 'post':
-          const body = form ? 'formData' : 'body';
+        case 'post': {
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            [form ? 'formData' : 'body']: options,
+          });
 
-          requestOptions[body] = options;
+          return await service.requester.post(requestOptions);
+        }
 
-          return service.requester.post(requestOptions);
+        case 'put': {
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            body: options,
+          });
 
-        case 'put':
-          requestOptions.body = options;
+          return await service.requester.put(requestOptions);
+        }
 
-          return service.requester.put(requestOptions);
+        case 'delete': {
+          const requestOptions = defaultRequest(service, endpoint, {
+            headers: service.headers,
+            qs: options,
+          });
 
-        case 'delete':
-          requestOptions.qs = options;
-
-          return service.requester.delete(requestOptions);
+          return await service.requester.delete(requestOptions);
+        }
 
         default:
           throw new Error(`Unknown request type ${type}`);
