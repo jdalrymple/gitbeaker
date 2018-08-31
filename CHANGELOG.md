@@ -1,3 +1,10 @@
+## [3.11.3](https://github.com/jdalrymple/node-gitlab/compare/3.11.2...3.11.3) (2018-08-31)
+
+
+### Bug Fixes
+
+* Camelcasing broke the body params ([e50f588](https://github.com/jdalrymple/node-gitlab/commit/e50f588))
+
 ## [3.11.2](https://github.com/jdalrymple/node-gitlab/compare/3.11.1...3.11.2) (2018-08-28)
 
 
