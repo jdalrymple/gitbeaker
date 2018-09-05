@@ -4,6 +4,29 @@
 ### Major Update
 - Migration to Typescript
 
+## [3.11.3](https://github.com/jdalrymple/node-gitlab/compare/3.11.2...3.11.3) (2018-08-31)
+
+
+### Bug Fixes
+
+* Camelcasing broke the body params ([e50f588](https://github.com/jdalrymple/node-gitlab/commit/e50f588))
+
+## [3.11.2](https://github.com/jdalrymple/node-gitlab/compare/3.11.1...3.11.2) (2018-08-28)
+
+
+### Bug Fixes
+
+* obey rate limits for all request types correctly ([#170](https://github.com/jdalrymple/node-gitlab/issues/170)) ([4bc7c69](https://github.com/jdalrymple/node-gitlab/commit/4bc7c69)), closes [#165](https://github.com/jdalrymple/node-gitlab/issues/165)
+* Testing negated npmignore ([86960c4](https://github.com/jdalrymple/node-gitlab/commit/86960c4))
+
+## [3.11.1](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...3.11.1) (2018-08-28)
+
+
+### Bug Fixes
+
+* **applications-settings:** Edit of application settings not working ([#169](https://github.com/jdalrymple/node-gitlab/issues/169)) ([f0213ca](https://github.com/jdalrymple/node-gitlab/commit/f0213ca))
+* **test:** Application settings api updated ([#177](https://github.com/jdalrymple/node-gitlab/issues/177)) ([0723a7a](https://github.com/jdalrymple/node-gitlab/commit/0723a7a))
+
 # [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
 
 
