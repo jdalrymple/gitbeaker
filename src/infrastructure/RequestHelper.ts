@@ -4,18 +4,36 @@ import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 
+interface RequestParametersInput {
+  url?: string;
+  headers: import('./BaseService').default['headers'];
+  json?: boolean;
+  body?: Object;
+  qs?: Object;
+  formData?: temporaryAny;
+  resolveWithFullResponse?: boolean;
+  rejectUnauthorized?: boolean;
+}
+
+interface GetPaginatedOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+}
+
+type RequestParametersOutput = RequestParametersInput &
+  Required<Pick<RequestParametersInput, 'url'>>;
+
+export async function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function defaultRequest(
   { url, useXMLHttpRequest, rejectUnauthorized },
   endpoint,
-  {
-    headers,
-    body,
-    qs,
-    formData,
-    resolveWithFullResponse = false,
-  },
-) {
-  const params = {
+  { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
+): RequestParametersOutput {
+  const params: RequestParametersOutput = {
     url: URLJoin(url, endpoint),
     headers,
     json: true,
@@ -44,7 +62,7 @@ function defaultRequest(
 function getStream(service, endpoint, options = {}) {
   if (service.useXMLHttpRequest) {
     throw new Error(
-      'Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming',
+      `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming`,
     );
   }
 
@@ -56,11 +74,7 @@ function getStream(service, endpoint, options = {}) {
   return StreamableRequest.get(requestOptions);
 }
 
-export async function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function getPaginated(service, endpoint, options = {}) {
+async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
@@ -102,24 +116,6 @@ async function getPaginated(service, endpoint, options = {}) {
 }
 
 class RequestHelper {
-  static async handleRequestError(err) {
-    if (
-      !err.response
-      || !err.response.headers
-      || !err.response.headers['retry-after']
-      || parseInt(err.statusCode, 10) !== 429
-    ) throw err;
-
-    const sleepTime = parseInt(err.response.headers['retry-after'], 10);
-
-    if (!sleepTime) throw err;
-    return wait(sleepTime * 1000);
-  }
-
-  static get(service, endpoint, options = {}, { stream = false } = {}) {
-    return RequestHelper.request('get', service, endpoint, options, stream);
-  }
-
   static async request(type, service, endpoint, options = {}, form = false, stream = false) {
     try {
       switch (type) {
@@ -161,6 +157,26 @@ class RequestHelper {
       await RequestHelper.handleRequestError(err);
       return RequestHelper.request(type, service, endpoint, options, form, stream);
     }
+  }
+
+  static async handleRequestError(err) {
+    if (
+      !err.response ||
+      !err.response.headers ||
+      !err.response.headers['retry-after'] ||
+      parseInt(err.statusCode, 10) !== 429
+    ) {
+      throw err;
+    }
+
+    const sleepTime = parseInt(err.response.headers['retry-after'], 10);
+
+    if (!sleepTime) throw err;
+    return wait(sleepTime * 1000);
+  }
+
+  static get(service, endpoint, options = {}, { stream = false } = {}) {
+    return RequestHelper.request('get', service, endpoint, options, stream);
   }
 
   static post(service, endpoint, options = {}, form = false) {

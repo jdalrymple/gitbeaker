@@ -1,3 +1,9 @@
+# [4.0.0-beta](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...4.0.0-beta) (2018-08-22)
+
+
+### Major Update
+- Migration to Typescript
+
 ## [3.11.3](https://github.com/jdalrymple/node-gitlab/compare/3.11.2...3.11.3) (2018-08-31)
 
 

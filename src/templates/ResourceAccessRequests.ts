@@ -10,8 +10,10 @@ export const ACCESS_LEVELS = {
 };
 
 class ResourceAccessRequests extends BaseService {
-  constructor(resourceType, ...args) {
-    super(...args);
+  protected ACCESS_LEVELS: typeof ACCESS_LEVELS;
+
+  constructor(resourceType, baseParams) {
+    super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);
     this.ACCESS_LEVELS = ACCESS_LEVELS;

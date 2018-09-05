@@ -1,7 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
+interface PagesDomainsOptions {
+  projectId?: string;
+}
 class PagesDomains extends BaseService {
-  all({ projectId } = {}) {
+  all({ projectId }: PagesDomainsOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 
     return RequestHelper.get(this, `${url}pages/domains`);

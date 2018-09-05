@@ -15,8 +15,10 @@ function url(projectId, resourceType, resourceId, noteId) {
 }
 
 class ResourceAwardsEmojis extends BaseService {
-  constructor(resourceType, ...args) {
-    super(...args);
+  protected resourceType: temporaryAny;
+
+  constructor(resourceType, baseParams) {
+    super(baseParams);
 
     this.url = URLJoin(this.url, 'projects');
     this.resourceType = resourceType;

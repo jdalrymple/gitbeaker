@@ -25,11 +25,11 @@ const TARGET_TYPES = [
 ];
 
 function validateEventOptions(action, target) {
-  if (action && !ACTION_TYPES.includes(action)) {
+  if (action && ACTION_TYPES.indexOf(action) === -1) {
     throw new Error(`This action is not supported. Pleased use one of following options: ${ACTION_TYPES}`);
   }
 
-  if (target && !TARGET_TYPES.includes(target)) {
+  if (target && TARGET_TYPES.indexOf(target) === -1) {
     throw new Error(`This target is not supported. Pleased use one of following options: ${TARGET_TYPES}`);
   }
 }
