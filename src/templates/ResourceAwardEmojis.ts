@@ -1,5 +1,6 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 function url(projectId, resourceType, resourceId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
@@ -17,7 +18,7 @@ function url(projectId, resourceType, resourceId, noteId) {
 class ResourceAwardsEmojis extends BaseService {
   protected resourceType: temporaryAny;
 
-  constructor(resourceType, baseParams) {
+  constructor(resourceType, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, 'projects');

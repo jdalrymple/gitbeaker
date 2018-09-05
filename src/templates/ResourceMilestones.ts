@@ -1,8 +1,9 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class ResourceMilestones extends BaseService {
-  constructor(resourceType, baseParams) {
+  constructor(resourceType, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);

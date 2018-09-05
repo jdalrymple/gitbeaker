@@ -12,6 +12,9 @@ interface BaseModelOptions {
   rejectUnauthorized?: boolean;
 }
 
+export type BaseModelContructorOptions =
+  | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
+  | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
 class BaseModel {
   protected url: string;
   public headers: { [header: string]: string | number};
@@ -19,8 +22,6 @@ class BaseModel {
   protected requester: any;
   protected useXMLHttpRequest: boolean;
 
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>);
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>);
   constructor({
     token,
     oauthToken,
@@ -29,7 +30,7 @@ class BaseModel {
     useXMLHttpRequest = false,
     version = 'v4',
     rejectUnauthorized = true,
-  }: BaseModelOptions = {}) {
+  }: BaseModelContructorOptions) {
     this.url = URLJoin(url, 'api', version);
     this.headers = {};
     this.requester = useXMLHttpRequest ? XMLHttpRequester : Request;

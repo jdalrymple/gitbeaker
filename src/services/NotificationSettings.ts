@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 const LEVELS = {
   DISABLED: 'disabled',
@@ -31,7 +32,7 @@ interface NotificationSettingsOptions {
 class NotificationSettings extends BaseService {
   protected LEVELS: typeof LEVELS;
   protected EVENTS: typeof EVENTS;
-  constructor(baseParams) {
+  constructor(baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.LEVELS = LEVELS;

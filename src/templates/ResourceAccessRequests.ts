@@ -1,5 +1,6 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 export const ACCESS_LEVELS = {
   GUEST: 10,
@@ -12,14 +13,14 @@ export const ACCESS_LEVELS = {
 class ResourceAccessRequests extends BaseService {
   protected ACCESS_LEVELS: typeof ACCESS_LEVELS;
 
-  constructor(resourceType, baseParams) {
+  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);
     this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
 
-  all(resourceId) {
+  all(resourceId: string) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/access_requests`);
