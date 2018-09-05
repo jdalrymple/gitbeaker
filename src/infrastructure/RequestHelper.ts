@@ -62,7 +62,8 @@ function defaultRequest(
 function getStream(service, endpoint, options = {}) {
   if (service.useXMLHttpRequest) {
     throw new Error(
-      `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this option to use streaming`,
+      `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this
+      option to use streaming`,
     );
   }
 
