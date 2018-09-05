@@ -15,7 +15,8 @@
     "outDir": "dist/latest"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/tests/**/*"
   ],
   "exclude": [
     "node_modules"
