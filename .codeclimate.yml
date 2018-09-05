@@ -1,17 +1,22 @@
 engines:
-  eslint:
+  tslint:
+    enabled: true
+    config: tslint.yml
+  shellcheck:
     enabled: true
   duplication:
     enabled: true
     config:
       languages:
-        javascript:
+        typescript:
           mass_threshold: 65
-  shellcheck:
-    enabled: true
-checks:
-  method-count:
-    enabled: false
+
 ratings:
-   paths:
-   - "**.js"
+  paths:
+    - "**.ts"
+
+exclude_paths:
+  - node_modules
+  - typings
+  - coverage
+  - dist
