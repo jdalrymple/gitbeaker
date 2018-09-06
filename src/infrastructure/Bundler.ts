@@ -3,7 +3,7 @@ import { BaseModelContructorOptions } from './BaseService';
 
 function Bundler<T extends { [K: string]: typeof BaseService }>(
   services: T,
-): new (...args: any[]) => { [K in keyof T]: InstanceType<T[K]> } {
+): new (baseOptions: BaseModelContructorOptions) => { [K in keyof T]: InstanceType<T[K]> } {
   const combined = { ...services as object } as T;
   interface BundleClass {
     [K: string]: BaseService;
