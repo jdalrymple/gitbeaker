@@ -1,7 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class Branches extends BaseService {
-  all(projectId: ProjectId, options) {
+  all(projectId: ProjectId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches`, options);
@@ -16,7 +17,7 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId: ProjectId, branchName: string, options) {
+  protect(projectId: ProjectId, branchName: string, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, { name: branchName, ...options });

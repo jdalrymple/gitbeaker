@@ -4,7 +4,7 @@ describe('ApplicationSettings.all', () => {
   it('should return an array', async () => {
     const service = new ApplicationSettings({
       url: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
+      token: process.env.PERSONAL_ACCESS_TOKEN!,
     });
     const settings = await service.all();
 
@@ -14,7 +14,7 @@ describe('ApplicationSettings.all', () => {
   it('should contain all the required properties', async () => {
     const service = new ApplicationSettings({
       url: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
+      token: process.env.PERSONAL_ACCESS_TOKEN!,
     });
     const settings = await service.all();
 

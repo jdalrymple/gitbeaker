@@ -1,5 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 function url(
   resourceType: ResourceType,
@@ -41,7 +42,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  create(resourceId: ResourceType, resource2Id: Resource2Id, options) {
+  create(resourceId: ResourceType, resource2Id: Resource2Id, options: RequestOptions) {
     return RequestHelper.post(
       this,
       url(this.resourceType, resourceId, this.resource2Type, resource2Id),
@@ -49,7 +50,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  edit(resourceId: ResourceType, resource2Id: Resource2Id, keyId, options) {
+  edit(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string, options: RequestOptions) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.put(
@@ -59,7 +60,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  show(resourceId: ResourceType, resource2Id: Resource2Id, keyId) {
+  show(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.get(
@@ -68,7 +69,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  remove(resourceId: ResourceType, resource2Id: Resource2Id, keyId) {
+  remove(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.delete(

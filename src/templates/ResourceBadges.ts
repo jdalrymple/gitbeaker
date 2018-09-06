@@ -9,37 +9,37 @@ class ResourceBadges extends BaseService {
     this.url = URLJoin(this.url, resourceType);
   }
 
-  add(resourceId, options) {
+  add(resourceId: ResourceId, options) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}/badges`, options);
   }
 
-  all(resourceId, options) {
+  all(resourceId: ResourceId, options) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/badges`, options);
   }
 
-  edit(resourceId, badgeId, options) {
+  edit(resourceId: ResourceId, badgeId, options) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/badges/${bId}`, options);
   }
 
-  preview(resourceId, linkUrl, imageUrl) {
+  preview(resourceId: ResourceId, linkUrl, imageUrl) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/badges/render`, { linkUrl, imageUrl });
   }
 
-  remove(resourceId, badgeId) {
+  remove(resourceId: ResourceId, badgeId) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/badges/${bId}`);
   }
 
-  show(resourceId, badgeId) {
+  show(resourceId: ResourceId, badgeId) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/badges/${bId}`);

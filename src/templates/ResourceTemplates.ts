@@ -1,6 +1,7 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class ResourceTemplates extends BaseService {
   constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
@@ -9,7 +10,7 @@ class ResourceTemplates extends BaseService {
     this.url = URLJoin(this.url, 'templates', resourceType);
   }
 
-  all(options) {
+  all(options: RequestOptions) {
     return RequestHelper.get(this, '', options);
   }
 

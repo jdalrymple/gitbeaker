@@ -32,7 +32,7 @@ class ResourceAccessRequests extends BaseService {
     return RequestHelper.post(this, `${rId}/access_requests`);
   }
 
-  approve(resourceId, userId, { accessLevel = 30 }) {
+  approve(resourceId: ResourceId, userId, { accessLevel = 30 }) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/access_requests/${uId}/approve`, {
@@ -40,7 +40,7 @@ class ResourceAccessRequests extends BaseService {
     });
   }
 
-  deny(resourceId, userId) {
+  deny(resourceId: ResourceId, userId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/access_requests/${uId}`);

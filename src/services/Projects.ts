@@ -2,9 +2,10 @@ import Fs from 'fs';
 import Path from 'path';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class Projects extends BaseService {
-  all(options) {
+  all(options?: RequestOptions) {
     return RequestHelper.get(this, 'projects', options);
   }
 

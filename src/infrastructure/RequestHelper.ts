@@ -21,6 +21,7 @@ interface GetPaginatedOptions {
   maxPages?: number;
   perPage?: number;
   page?: number;
+  position?: temporaryAny;
 }
 
 type RequestParametersOutput = RequestParametersInput &
@@ -32,7 +33,7 @@ export async function wait(ms: number) {
 
 function defaultRequest(
   { url, useXMLHttpRequest, rejectUnauthorized }: BaseService,
-  endpoint,
+  endpoint: string,
   { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
 ): RequestParametersOutput {
   const params: RequestParametersOutput = {
@@ -61,7 +62,7 @@ function defaultRequest(
   return params;
 }
 
-function getStream(service: BaseService, endpoint: string, options = {}) {
+function getStream(service: BaseService, endpoint: string, options: RequestOptions = {}) {
   if (service.useXMLHttpRequest) {
     throw new Error(
       `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this
@@ -124,7 +125,13 @@ async function getPaginated(
 
 type RequestType = 'post' | 'get' | 'put' | 'delete';
 export interface RequestOptions {
-
+  body?: string | temporaryAny;
+  title?: string;
+  name?: string;
+  label_id?: temporaryAny;
+  access_level?: number;
+  user_id?: UserId;
+  position?: temporaryAny;
 }
 class RequestHelper {
   static async request(
@@ -193,19 +200,24 @@ class RequestHelper {
     return wait(sleepTime * 1000);
   }
 
-  static get(service: BaseService, endpoint, options = {}, { stream = false } = {}) {
+  static get(
+    service: BaseService,
+    endpoint: string,
+    options: RequestOptions = {},
+    { stream = false } = {},
+  ) {
     return RequestHelper.request('get', service, endpoint, options, false, stream);
   }
 
-  static post(service: BaseService, endpoint, options = {}, form = false) {
+  static post(service: BaseService, endpoint: string, options: RequestOptions = {}, form = false) {
     return RequestHelper.request('post', service, endpoint, options, form);
   }
 
-  static put(service: BaseService, endpoint, options = {}) {
+  static put(service: BaseService, endpoint: string, options: RequestOptions = {}) {
     return RequestHelper.request('put', service, endpoint, options);
   }
 
-  static delete(service: BaseService, endpoint, options = {}) {
+  static delete(service: BaseService, endpoint: string, options: RequestOptions = {}) {
     return RequestHelper.request('delete', service, endpoint, options);
   }
 }

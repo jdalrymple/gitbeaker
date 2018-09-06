@@ -15,7 +15,7 @@ class ResourceCustomAttributes extends BaseService {
     return RequestHelper.get(this, `${rId}/custom_attributes`);
   }
 
-  set(resourceId, customAttributeId, value) {
+  set(resourceId: ResourceId, customAttributeId, value) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/custom_attributes/${cId}`, {
@@ -23,13 +23,13 @@ class ResourceCustomAttributes extends BaseService {
     });
   }
 
-  remove(resourceId, customAttributeId) {
+  remove(resourceId: ResourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`);
   }
 
-  show(resourceId, customAttributeId) {
+  show(resourceId: ResourceId, customAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`);

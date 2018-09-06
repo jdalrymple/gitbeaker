@@ -5,7 +5,7 @@ describe('PushRule', () => {
   xit('should create or edit push rule on upsert', async () => {
     const service = new PushRule({
       url: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
+      token: process.env.PERSONAL_ACCESS_TOKEN!,
     });
     const pushRules = {
       upsert: true,
