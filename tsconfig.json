@@ -7,9 +7,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true,
-    "pretty": true,
+    "pretty": false,
     "esModuleInterop": true,
     "declaration": false,
     "outDir": "dist/latest"
