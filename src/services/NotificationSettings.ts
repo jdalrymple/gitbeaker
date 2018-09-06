@@ -26,7 +26,7 @@ const EVENTS = {
   SUCCESS_PIPELINE: 'success_pipeline',
 };
 interface NotificationSettingsOptions {
-  projectId?: string;
+  projectId?: ProjectId;
   groupId?: string;
 }
 class NotificationSettings extends BaseService {
@@ -40,7 +40,7 @@ class NotificationSettings extends BaseService {
   }
 
   all({ projectId, groupId }: NotificationSettingsOptions = {}) {
-    let url;
+    let url = '';
 
     if (projectId) {
       url += `projects/${encodeURIComponent(projectId)}/`;

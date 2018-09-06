@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class RepositoryFiles extends BaseService {
-  create(projectId, filePath, branch, options) {
+  create(projectId: ProjectId, filePath, branch, options) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
@@ -10,7 +10,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  edit(projectId, filePath, branch, options) {
+  edit(projectId: ProjectId, filePath, branch, options) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
@@ -19,7 +19,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  remove(projectId, filePath, branch, options) {
+  remove(projectId: ProjectId, filePath, branch, options) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/repository/files/${path}`, {
@@ -28,7 +28,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  show(projectId, filePath, ref) {
+  show(projectId: ProjectId, filePath, ref) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
@@ -36,7 +36,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  showRaw(projectId, filePath, ref) {
+  showRaw(projectId: ProjectId, filePath, ref) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, { ref });

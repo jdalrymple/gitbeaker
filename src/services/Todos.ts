@@ -8,7 +8,7 @@ class Todos extends BaseService {
     return RequestHelper.get(this, 'todos', options);
   }
 
-  create(projectId, mergerequestId) {
+  create(projectId: ProjectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/todo`);

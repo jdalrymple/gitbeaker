@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ProtectedBranches extends BaseService {
-  all(projectId, options) {
+  all(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/protected_branches`, options);
   }
 
-  protect(projectId, branchName, options) {
+  protect(projectId: ProjectId, branchName, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, {
@@ -16,13 +16,13 @@ class ProtectedBranches extends BaseService {
     });
   }
 
-  show(projectId, branchName) {
+  show(projectId: ProjectId, branchName) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/protected_branches/${bName}`);
   }
 
-  unprotect(projectId, branchName) {
+  unprotect(projectId: ProjectId, branchName) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/protected_branches/${bName}`);

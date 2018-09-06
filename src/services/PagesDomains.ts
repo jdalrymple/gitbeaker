@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 interface PagesDomainsOptions {
-  projectId?: string;
+  projectId?: ProjectId;
 }
 class PagesDomains extends BaseService {
   all({ projectId }: PagesDomainsOptions = {}) {
@@ -10,25 +10,25 @@ class PagesDomains extends BaseService {
     return RequestHelper.get(this, `${url}pages/domains`);
   }
 
-  create(projectId, domain, options) {
+  create(projectId: ProjectId, domain, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pages/domains`, { domain, ...options });
   }
 
-  edit(projectId, domain, options) {
+  edit(projectId: ProjectId, domain, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 
-  show(projectId, domain) {
+  show(projectId: ProjectId, domain) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pages/domains/${domain}`);
   }
 
-  remove(projectId, domain) {
+  remove(projectId: ProjectId, domain) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.delete(this, `projects/${pId}/pages/domains/${domain}`);

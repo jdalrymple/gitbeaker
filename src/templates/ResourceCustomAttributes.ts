@@ -3,7 +3,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class ResourceCustomAttributes extends BaseService {
-  constructor(resourceType, baseParams: BaseModelContructorOptions) {
+  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);

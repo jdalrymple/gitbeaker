@@ -1,20 +1,20 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Jobs extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId: ProjectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/jobs`, options);
   }
 
-  cancel(projectId, jobId) {
+  cancel(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/cancel`);
   }
 
   downloadSingleArtifactFile(
-    projectId,
+    projectId: ProjectId,
     jobId,
     artifactPath,
     options = { stream: false },
@@ -30,7 +30,7 @@ class Jobs extends BaseService {
   }
 
   downloadLatestArtifactFile(
-    projectId,
+    projectId: ProjectId,
     ref,
     name,
     options = { stream: false },
@@ -45,43 +45,43 @@ class Jobs extends BaseService {
     );
   }
 
-  downloadTraceFile(projectId, jobId) {
+  downloadTraceFile(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}/trace`);
   }
 
-  erase(projectId, jobId) {
+  erase(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/erase`);
   }
 
-  keepArtifacts(projectId, jobId) {
+  keepArtifacts(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/artifacts/keep`);
   }
 
-  play(projectId, jobId) {
+  play(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/play`);
   }
 
-  retry(projectId, jobId) {
+  retry(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/retry`);
   }
 
-  show(projectId, jobId) {
+  show(projectId: ProjectId, jobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}`);
   }
 
-  showPipelineJobs(projectId, pipelineId, options) {
+  showPipelineJobs(projectId: ProjectId, pipelineId, options) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
     return RequestHelper.get(

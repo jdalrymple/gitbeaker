@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class PushRule extends BaseService {
-  create(projectId, options) {
+  create(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);
   }
 
-  async edit(projectId, { upsert = false, ...options } = {}) {
+  async edit(projectId: ProjectId, { upsert = false, ...options } = {}) {
     const pId = encodeURIComponent(projectId);
 
     if (upsert) {
@@ -19,13 +19,13 @@ class PushRule extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  remove(projectId) {
+  remove(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.delete(this, `projects/${pId}/push_rule`);
   }
 
-  show(projectId) {
+  show(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/push_rule`);

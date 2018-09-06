@@ -7,7 +7,7 @@ class GroupProjects extends BaseService {
     return RequestHelper.get(this, `groups/${gId}/projects`, options);
   }
 
-  add(groupId, projectId) {
+  add(groupId, projectId: ProjectId) {
     const [gId, pId] = [groupId, projectId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `groups/${gId}/projects/${pId}`);

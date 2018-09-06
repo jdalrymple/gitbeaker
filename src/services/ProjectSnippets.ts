@@ -7,19 +7,19 @@ const VISIBILITY_LEVELS = {
 };
 
 class ProjectSnippets extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId: ProjectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/snippets`, options);
   }
 
-  content(projectId, snippetId) {
+  content(projectId: ProjectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/raw`);
   }
 
-  create(projectId, title, fileName, code, visibility, options = {}) {
+  create(projectId: ProjectId, title, fileName, code, visibility, options = {}) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/snippets`, {
@@ -31,25 +31,25 @@ class ProjectSnippets extends BaseService {
     });
   }
 
-  edit(projectId, snippetId, options) {
+  edit(projectId: ProjectId, snippetId, options) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
-  remove(projectId, snippetId) {
+  remove(projectId: ProjectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`);
   }
 
-  show(projectId, snippetId) {
+  show(projectId: ProjectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/snippets/${sId}`);
   }
 
-  userAgentDetails(projectId, snippetId) {
+  userAgentDetails(projectId: ProjectId, snippetId) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/user_agent_detail`);

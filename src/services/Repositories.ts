@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Repositories extends BaseService {
-  compare(projectId, from, to) {
+  compare(projectId: ProjectId, from, to) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/compare`, {
@@ -10,13 +10,13 @@ class Repositories extends BaseService {
     });
   }
 
-  contributors(projectId) {
+  contributors(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/contributors`);
   }
 
-  showArchive(projectId, { sha }) {
+  showArchive(projectId: ProjectId, { sha }) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/archive`, {
@@ -24,19 +24,19 @@ class Repositories extends BaseService {
     });
   }
 
-  showBlob(projectId, sha) {
+  showBlob(projectId: ProjectId, sha) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/blobs/${sha}`);
   }
 
-  showBlobRaw(projectId, sha) {
+  showBlobRaw(projectId: ProjectId, sha) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/blobs/${sha}/raw`);
   }
 
-  tree(projectId, options) {
+  tree(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/tree`, options);

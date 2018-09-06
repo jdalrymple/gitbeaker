@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ProjectImportExport extends BaseService {
-  download(projectId) {
+  download(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/export/download`);
   }
 
-  exportStatus(projectId) {
+  exportStatus(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/export`);
@@ -17,13 +17,13 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.post(this, 'projects/import', { file, path, ...options });
   }
 
-  importStatus(projectId) {
+  importStatus(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/import`);
   }
 
-  schedule(projectId, options) {
+  schedule(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/export`, options);

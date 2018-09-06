@@ -1,25 +1,25 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Commits extends BaseService {
-  all(projectId, options) {
+  all(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits`, options);
   }
 
-  cherryPick(projectId, sha, branch) {
+  cherryPick(projectId: ProjectId, sha, branch) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, { branch });
   }
 
-  comments(projectId, sha) {
+  comments(projectId: ProjectId, sha) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/comments`);
   }
 
-  create(projectId, branch, message, actions = [], options) {
+  create(projectId: ProjectId, branch, message, actions = [], options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits`, {
@@ -30,7 +30,7 @@ class Commits extends BaseService {
     });
   }
 
-  createComment(projectId, sha, note, options) {
+  createComment(projectId: ProjectId, sha, note, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/comments`, {
@@ -39,31 +39,31 @@ class Commits extends BaseService {
     });
   }
 
-  diff(projectId, sha) {
+  diff(projectId: ProjectId, sha) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/diff`);
   }
 
-  editStatus(projectId, sha, options) {
+  editStatus(projectId: ProjectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, options);
   }
 
-  references(projectId, sha) {
+  references(projectId: ProjectId, sha) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`);
   }
 
-  show(projectId, sha, options) {
+  show(projectId: ProjectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`, options);
   }
 
-  status(projectId, sha, options) {
+  status(projectId: ProjectId, sha, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);

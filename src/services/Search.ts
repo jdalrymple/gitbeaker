@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 interface SearchOptions {
-  projectId?: string;
+  projectId?: ProjectId;
   groupId?: string;
 }
 class Search extends BaseService {

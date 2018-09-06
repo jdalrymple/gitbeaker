@@ -3,6 +3,7 @@ import LinkParser from 'parse-link-header';
 import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
+import { BaseService } from '.';
 
 interface RequestParametersInput {
   url?: string;
@@ -18,18 +19,19 @@ interface RequestParametersInput {
 interface GetPaginatedOptions {
   showPagination?: boolean;
   maxPages?: number;
+  perPage?: number;
   page?: number;
 }
 
 type RequestParametersOutput = RequestParametersInput &
   Required<Pick<RequestParametersInput, 'url'>>;
 
-export async function wait(ms) {
+export async function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function defaultRequest(
-  { url, useXMLHttpRequest, rejectUnauthorized },
+  { url, useXMLHttpRequest, rejectUnauthorized }: BaseService,
   endpoint,
   { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
 ): RequestParametersOutput {
@@ -59,7 +61,7 @@ function defaultRequest(
   return params;
 }
 
-function getStream(service, endpoint, options = {}) {
+function getStream(service: BaseService, endpoint: string, options = {}) {
   if (service.useXMLHttpRequest) {
     throw new Error(
       `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this
@@ -75,7 +77,11 @@ function getStream(service, endpoint, options = {}) {
   return StreamableRequest.get(requestOptions);
 }
 
-async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
+async function getPaginated(
+  service: BaseService,
+  endpoint: string,
+  options: GetPaginatedOptions = {},
+) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
@@ -116,8 +122,19 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
   return data;
 }
 
+type RequestType = 'post' | 'get' | 'put' | 'delete';
+export interface RequestOptions {
+
+}
 class RequestHelper {
-  static async request(type, service, endpoint, options = {}, form = false, stream = false) {
+  static async request(
+    type: RequestType,
+    service: BaseService,
+    endpoint: string,
+    options: RequestOptions = {},
+    form = false,
+    stream = false,
+  ) {
     try {
       switch (type) {
         case 'get':
@@ -176,19 +193,19 @@ class RequestHelper {
     return wait(sleepTime * 1000);
   }
 
-  static get(service, endpoint, options = {}, { stream = false } = {}) {
+  static get(service: BaseService, endpoint, options = {}, { stream = false } = {}) {
     return RequestHelper.request('get', service, endpoint, options, false, stream);
   }
 
-  static post(service, endpoint, options = {}, form = false) {
+  static post(service: BaseService, endpoint, options = {}, form = false) {
     return RequestHelper.request('post', service, endpoint, options, form);
   }
 
-  static put(service, endpoint, options = {}) {
+  static put(service: BaseService, endpoint, options = {}) {
     return RequestHelper.request('put', service, endpoint, options);
   }
 
-  static delete(service, endpoint, options = {}) {
+  static delete(service: BaseService, endpoint, options = {}) {
     return RequestHelper.request('delete', service, endpoint, options);
   }
 }

@@ -1,13 +1,13 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Branches extends BaseService {
-  all(projectId, options) {
+  all(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches`, options);
   }
 
-  create(projectId, branchName, ref) {
+  create(projectId: ProjectId, branchName: string, ref: string) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/branches`, {
@@ -16,25 +16,25 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId, branchName, options) {
+  protect(projectId: ProjectId, branchName: string, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, { name: branchName, ...options });
   }
 
-  remove(projectId, branchName) {
+  remove(projectId: ProjectId, branchName: string) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/repository/branches/${bName}`);
   }
 
-  show(projectId, branchName) {
+  show(projectId: ProjectId, branchName: string) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches/${bName}`);
   }
 
-  unprotect(projectId, branchName) {
+  unprotect(projectId: ProjectId, branchName: string) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/repository/branches/${bName}/unprotect`);

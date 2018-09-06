@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Issues extends BaseService {
-  addSpentTime(projectId, issueId, duration) {
+  addSpentTime(projectId: ProjectId, issueId, duration) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/add_spent_time`, {
@@ -9,7 +9,7 @@ class Issues extends BaseService {
     });
   }
 
-  addTimeEstimate(projectId, issueId, duration) {
+  addTimeEstimate(projectId: ProjectId, issueId, duration) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/time_estimate`, {
@@ -23,19 +23,19 @@ class Issues extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 
-  create(projectId, options) {
+  create(projectId: ProjectId, options) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/issues`, options);
   }
 
-  edit(projectId, issueId, options) {
+  edit(projectId: ProjectId, issueId, options) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
   }
 
-  link(projectId, issueIId, targetProjectId, targetIssueId, options = {}) {
+  link(projectId: ProjectId, issueIId, targetProjectId, targetIssueId, options = {}) {
     const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
     const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(encodeURIComponent);
 
@@ -46,49 +46,49 @@ class Issues extends BaseService {
     });
   }
 
-  participants(projectId, issueId) {
+  participants(projectId: ProjectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`);
   }
 
-  remove(projectId, issueId) {
+  remove(projectId: ProjectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/issues/${iId}`);
   }
 
-  resetSpentTime(projectId, mergerequestId) {
+  resetSpentTime(projectId: ProjectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${mId}/reset_spent_time`);
   }
 
-  resetTimeEstimate(projectId, mergerequestId) {
+  resetTimeEstimate(projectId: ProjectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${mId}/reset_time_estimate`);
   }
 
-  show(projectId, issueId) {
+  show(projectId: ProjectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${iId}`);
   }
 
-  subscribe(projectId, issueId, options) {
+  subscribe(projectId: ProjectId, issueId, options) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
-  timeStats(projectId, mergerequestId) {
+  timeStats(projectId: ProjectId, mergerequestId) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${mId}/time_stats`);
   }
 
-  unsubscribe(projectId, issueId) {
+  unsubscribe(projectId: ProjectId, issueId) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/issues/${iId}/unsubscribe`);

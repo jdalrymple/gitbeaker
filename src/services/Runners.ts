@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 interface RunnersOptions {
-  projectId?: string;
+  projectId?: ProjectId;
 }
 class Runners extends BaseService {
   all({ projectId, ...options }: RunnersOptions = {}) {
@@ -20,13 +20,13 @@ class Runners extends BaseService {
     return RequestHelper.put(this, `runners/${rId}`, attributes);
   }
 
-  enable(projectId, runnerId) {
+  enable(projectId: ProjectId, runnerId) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId });
   }
 
-  disable(projectId, runnerId) {
+  disable(projectId: ProjectId, runnerId) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`);
