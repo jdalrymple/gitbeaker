@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/jdalrymple/node-gitlab/compare/4.0.0...4.0.1) (2018-09-06)
+
+
+### Bug Fixes
+
+* Updating the package.lock ([9b4b6f9](https://github.com/jdalrymple/node-gitlab/commit/9b4b6f9))
+
 # [4.0.0-beta](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...4.0.0-beta) (2018-08-22)
 
 
