@@ -3,6 +3,7 @@ export { default as Groups } from './Groups';
 export { default as GroupAccessRequests } from './GroupAccessRequests';
 export { default as GroupBadges } from './GroupBadges';
 export { default as GroupCustomAttributes } from './GroupCustomAttributes';
+export { default as GroupHooks } from './GroupHooks';
 export { default as GroupIssueBoards } from './GroupIssueBoards';
 export { default as GroupMembers } from './GroupMembers';
 export { default as GroupMilestones } from './GroupMilestones';

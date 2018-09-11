@@ -3,6 +3,7 @@ export { default as ResourceAwardEmojis } from './ResourceAwardEmojis';
 export { default as ResourceBadges } from './ResourceBadges';
 export { default as ResourceCustomAttributes } from './ResourceCustomAttributes';
 export { default as ResourceDiscussions } from './ResourceDiscussions';
+export { default as ResourceHooks } from './ResourceHooks';
 export { default as ResourceIssueBoards } from './ResourceIssueBoards';
 export { default as ResourceMembers } from './ResourceMembers';
 export { default as ResourceMilestones } from './ResourceMilestones';
