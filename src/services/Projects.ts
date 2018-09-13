@@ -1,8 +1,11 @@
 import Fs from 'fs';
 import Path from 'path';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { validateEventOptions } from './Events';
+import { assertEventOptions } from './Events';
 import { RequestOptions } from '../infrastructure/RequestHelper';
+
+/** TODO annotate options */
+type ProjectOptions = temporaryAny;
 
 class Projects extends BaseService {
   all(options?: RequestOptions) {
@@ -14,34 +17,36 @@ class Projects extends BaseService {
 
     return RequestHelper.post(this, `projects/${pId}/archive`);
   }
-
-  create(options) {
+  /**
+   * @see https://docs.gitlab.com/ee/api/projects.html#create-project-for-user
+   */
+  create(options: temporaryAny) {
     const url = options.userId ? `projects/user/${encodeURIComponent(options.userId)}` : 'projects';
 
     return RequestHelper.post(this, url, options);
   }
 
-  edit(projectId: ProjectId, options) {
+  edit(projectId: ProjectId, options: temporaryAny) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}`, options);
   }
 
-  events(projectId: ProjectId, options) {
-    validateEventOptions(options.action, options.targetType);
+  events(projectId: ProjectId, options: ProjectOptions) {
+    assertEventOptions(options.action, options.targetType);
 
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
-  fork(projectId: ProjectId, options) {
+  fork(projectId: ProjectId, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/fork`, options);
   }
 
-  forks(projectId: ProjectId, options) {
+  forks(projectId: ProjectId, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/forks`, options);
@@ -69,7 +74,7 @@ class Projects extends BaseService {
     return RequestHelper.get(this, 'projects', { search: projectName });
   }
 
-  share(projectId: ProjectId, groupId, groupAccess, options) {
+  share(projectId: ProjectId, groupId: GroupId, groupAccess: GroupAccess, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     if (!groupId || !groupAccess) throw new Error('Missing required arguments');
@@ -77,7 +82,7 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/share`, { groupId, groupAccess, ...options });
   }
 
-  show(projectId: ProjectId, options) {
+  show(projectId: ProjectId, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}`, options);
@@ -89,15 +94,15 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/star`);
   }
 
-  statuses(projectId: ProjectId, sha, state, options) {
+  statuses(projectId: ProjectId, sha: string, state: string, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
   }
 
-  transfer(projectId: ProjectId, namespace) {
+  transfer(projectId: ProjectId, namespace: string) {
     const pId = encodeURIComponent(projectId);
-    return RequestHelper.put(this, `projects/${pId}/transfer`, namespace);
+    return RequestHelper.put(this, `projects/${pId}/transfer`, { namespace });
   }
 
   unarchive(projectId: ProjectId) {
@@ -106,7 +111,7 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/unarchive`);
   }
 
-  unshare(projectId: ProjectId, groupId) {
+  unshare(projectId: ProjectId, groupId: GroupId) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/share${gId}`);
@@ -118,13 +123,13 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/unstar`);
   }
 
-  updatePushRule(projectId: ProjectId, options) {
+  updatePushRule(projectId: ProjectId, options: ProjectOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId: ProjectId, filePath, { fileName = Path.basename(filePath) } = {}) {
+  upload(projectId: ProjectId, filePath: string, { fileName = Path.basename(filePath) } = {}) {
     const pId = encodeURIComponent(projectId);
     const file = Fs.readFileSync(filePath);
 

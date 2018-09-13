@@ -1,7 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class DeployKeys extends BaseService {
-  add(projectId: ProjectId, options) {
+  add(projectId: ProjectId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/deploy_keys`, options);
@@ -13,13 +14,13 @@ class DeployKeys extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/deploy_keys`);
   }
 
-  show(projectId: ProjectId, keyId) {
+  show(projectId: ProjectId, keyId: KeyId) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`);
   }
 
-  enable(projectId: ProjectId, keyId) {
+  enable(projectId: ProjectId, keyId: KeyId) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/deploy_keys/${kId}/enable`);

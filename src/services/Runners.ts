@@ -1,5 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
+type RunnerId = string | number;
 interface RunnersOptions {
   projectId?: ProjectId;
 }
@@ -10,41 +12,41 @@ class Runners extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 
-  allOwned(options) {
+  allOwned(options: RequestOptions) {
     return RequestHelper.get(this, 'runners', options);
   }
 
-  edit(runnerId, attributes) {
+  edit(runnerId: RunnerId, options: RequestOptions) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.put(this, `runners/${rId}`, attributes);
+    return RequestHelper.put(this, `runners/${rId}`, options);
   }
 
-  enable(projectId: ProjectId, runnerId) {
+  enable(projectId: ProjectId, runnerId: RunnerId) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId });
   }
 
-  disable(projectId: ProjectId, runnerId) {
+  disable(projectId: ProjectId, runnerId: RunnerId) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`);
   }
 
-  jobs(runnerId) {
+  jobs(runnerId: RunnerId) {
     const rId = encodeURIComponent(runnerId);
 
     return RequestHelper.get(this, `runners/${rId}/jobs`);
   }
 
-  remove(runnerId) {
+  remove(runnerId: RunnerId) {
     const rId = encodeURIComponent(runnerId);
 
     return RequestHelper.delete(this, `runners/${rId}`);
   }
 
-  show(runnerId) {
+  show(runnerId: RunnerId) {
     const rId = encodeURIComponent(runnerId);
 
     return RequestHelper.get(this, `runners/${rId}`);

@@ -1,4 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { PipelineId } from './Pipelines';
+import { RequestOptions } from '../infrastructure/RequestHelper';
+
+export type JobId = string | number;
 
 class Jobs extends BaseService {
   all(projectId: ProjectId, options = {}) {
@@ -7,7 +11,7 @@ class Jobs extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/jobs`, options);
   }
 
-  cancel(projectId: ProjectId, jobId) {
+  cancel(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/cancel`);
@@ -15,8 +19,8 @@ class Jobs extends BaseService {
 
   downloadSingleArtifactFile(
     projectId: ProjectId,
-    jobId,
-    artifactPath,
+    jobId: JobId,
+    artifactPath: string,
     options = { stream: false },
   ) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
@@ -24,15 +28,15 @@ class Jobs extends BaseService {
     return RequestHelper.get(
       this,
       `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
-      options,
+      options as temporaryAny,
       { stream: options.stream },
     );
   }
 
   downloadLatestArtifactFile(
     projectId: ProjectId,
-    ref,
-    name,
+    ref: string,
+    name: string,
     options = { stream: false },
   ) {
     const [pId, rId, jobName] = [projectId, ref, name].map(encodeURIComponent);
@@ -40,48 +44,48 @@ class Jobs extends BaseService {
     return RequestHelper.get(
       this,
       `projects/${pId}/jobs/artifacts/${rId}/download?job=${jobName}`,
-      options,
+      options as temporaryAny,
       { stream: options.stream },
     );
   }
 
-  downloadTraceFile(projectId: ProjectId, jobId) {
+  downloadTraceFile(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}/trace`);
   }
 
-  erase(projectId: ProjectId, jobId) {
+  erase(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/erase`);
   }
 
-  keepArtifacts(projectId: ProjectId, jobId) {
+  keepArtifacts(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/artifacts/keep`);
   }
 
-  play(projectId: ProjectId, jobId) {
+  play(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/play`);
   }
 
-  retry(projectId: ProjectId, jobId) {
+  retry(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/retry`);
   }
 
-  show(projectId: ProjectId, jobId) {
+  show(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}`);
   }
 
-  showPipelineJobs(projectId: ProjectId, pipelineId, options) {
+  showPipelineJobs(projectId: ProjectId, pipelineId: PipelineId, options: RequestOptions) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
     return RequestHelper.get(

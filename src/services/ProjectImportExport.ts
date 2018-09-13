@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class ProjectImportExport extends BaseService {
   download(projectId: ProjectId) {
@@ -13,7 +14,7 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`);
   }
 
-  import(file, path, options) {
+  import(file: temporaryAny, path: string, options: RequestOptions) {
     return RequestHelper.post(this, 'projects/import', { file, path, ...options });
   }
 
@@ -23,7 +24,7 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/import`);
   }
 
-  schedule(projectId: ProjectId, options) {
+  schedule(projectId: ProjectId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/export`, options);

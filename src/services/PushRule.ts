@@ -1,7 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class PushRule extends BaseService {
-  create(projectId: ProjectId, options) {
+  create(projectId: ProjectId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);

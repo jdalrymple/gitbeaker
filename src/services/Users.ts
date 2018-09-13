@@ -1,8 +1,9 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { validateEventOptions } from './Events';
+import { assertEventOptions, EventOptions } from './Events';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class Users extends BaseService {
-  all(options) {
+  all(options: RequestOptions) {
     return RequestHelper.get(this, 'users', options);
   }
 
@@ -10,19 +11,19 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'users/activities');
   }
 
-  projects(userId) {
+  projects(userId: UserId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/projects`);
   }
 
-  block(userId) {
+  block(userId: UserId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.post(this, `users/${uId}/block`);
   }
 
-  create(options) {
+  create(options: RequestOptions) {
     return RequestHelper.post(this, 'users', options);
   }
 
@@ -36,40 +37,40 @@ class Users extends BaseService {
     return RequestHelper.put(this, `users/${uId}`, options);
   }
 
-  events(userId, options) {
-    validateEventOptions(options.action, options.targetType);
+  events(userId: UserId, options: RequestOptions & EventOptions) {
+    assertEventOptions(options.action, options.targetType);
 
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/events`, options);
   }
 
-  session(email, password) {
+  session(email: string, password: string) {
     return RequestHelper.post(this, 'session', {
       email,
       password,
     });
   }
 
-  search(emailOrUsername) {
+  search(emailOrUsername: string) {
     return RequestHelper.get(this, 'users', {
       search: emailOrUsername,
     });
   }
 
-  show(userId, options) {
+  show(userId: UserId, options: RequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}`, options);
   }
 
-  remove(userId) {
+  remove(userId: UserId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.delete(this, `users/${uId}`);
   }
 
-  unblock(userId) {
+  unblock(userId: UserId) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.post(this, `users/${uId}/unblock`);

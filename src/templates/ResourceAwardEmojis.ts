@@ -1,6 +1,7 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 function url(
   projectId: ProjectId,
@@ -30,21 +31,21 @@ class ResourceAwardsEmojis extends BaseService {
     this.resourceType = resourceType;
   }
 
-  all(projectId: ProjectId, resourceId: ResourceId, options, noteId: NoteId) {
+  all(projectId: ProjectId, resourceId: ResourceId, options: RequestOptions, noteId: NoteId) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
   }
 
-  award(projectId: ProjectId, resourceId: ResourceId, name, noteId: NoteId) {
+  award(projectId: ProjectId, resourceId: ResourceId, name: string, noteId: NoteId) {
     return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
       name,
     });
   }
 
-  remove(projectId: ProjectId, resourceId: ResourceId, awardId, noteId: NoteId) {
+  remove(projectId: ProjectId, resourceId: ResourceId, awardId: string | number, noteId: NoteId) {
     return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 
-  show(projectId: ProjectId, resourceId: ResourceId, awardId, noteId: NoteId) {
+  show(projectId: ProjectId, resourceId: ResourceId, awardId: string | number, noteId: NoteId) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 }

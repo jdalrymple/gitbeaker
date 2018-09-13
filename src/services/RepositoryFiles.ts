@@ -1,7 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 class RepositoryFiles extends BaseService {
-  create(projectId: ProjectId, filePath, branch, options) {
+  create(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
@@ -10,7 +11,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  edit(projectId: ProjectId, filePath, branch, options) {
+  edit(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
@@ -19,7 +20,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  remove(projectId: ProjectId, filePath, branch, options) {
+  remove(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/repository/files/${path}`, {
@@ -28,7 +29,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  show(projectId: ProjectId, filePath, ref) {
+  show(projectId: ProjectId, filePath: string, ref: string) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
@@ -36,7 +37,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  showRaw(projectId: ProjectId, filePath, ref) {
+  showRaw(projectId: ProjectId, filePath: string, ref: string) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, { ref });

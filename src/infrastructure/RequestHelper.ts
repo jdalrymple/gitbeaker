@@ -4,8 +4,9 @@ import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
 import { BaseService } from '.';
+import { CommitAction } from '../services/Commits';
 
-interface RequestParametersInput {
+export interface RequestParametersInput {
   url?: string;
   headers: import('./BaseService').default['headers'];
   json?: boolean;
@@ -95,7 +96,7 @@ async function getPaginated(
   const page = response.headers['x-page'];
   const underMaxPageLimit = maxPages ? page < maxPages : true;
   let more = [];
-  let data;
+  let data: temporaryAny;
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
@@ -125,6 +126,42 @@ async function getPaginated(
 
 type RequestType = 'post' | 'get' | 'put' | 'delete';
 export interface RequestOptions {
+  targetIssueId?: string;
+  targetProjectId?: string;
+  content?: string;
+  id?: string;
+  sourceBranch?: string;
+  targetBranch?: string;
+  /** The duration in human format. e.g: 3h30m */
+  duration?: string;
+  domain?: string;
+  cron?: temporaryAny;
+  description?: string;
+  file?: {
+    value: Buffer;
+    options: {
+      filename: string;
+      contentType: 'application/octet-stream';
+    };
+  };
+  path?: string;
+  namespace?: string;
+  visibility?: string;
+  code?: string;
+  fileName?: string;
+  from?: string;
+  to?: string;
+  sha?: string;
+  runnerId?: string;
+  ref?: string;
+  scope?: string;
+  url?: string;
+  scopes?: temporaryAny;
+  expiresAt?: string;
+  note?: string;
+  actions?: CommitAction[];
+  commitMessage?: string;
+  branch?: string;
   body?: string | temporaryAny;
   title?: string;
   name?: string;
@@ -132,6 +169,15 @@ export interface RequestOptions {
   access_level?: number;
   user_id?: UserId;
   position?: temporaryAny;
+  value?: string;
+  linkUrl?: string;
+  imageUrl?: string;
+  key?: string;
+  action?: string;
+  targetType?: string;
+  email?: string;
+  password?: string;
+  search?: string;
 }
 class RequestHelper {
   static async request(
@@ -184,7 +230,7 @@ class RequestHelper {
     }
   }
 
-  static async handleRequestError(err) {
+  static async handleRequestError(err: temporaryAny) {
     if (
       !err.response ||
       !err.response.headers ||

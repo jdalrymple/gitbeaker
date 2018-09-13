@@ -11,6 +11,12 @@ type Resource2Id = string;      // see if we can narrow the type to string liter
 type NoteId = string;           // see if `| number` is a valid type
 type ProjectId = string | number;
 type KeyId = string;            // see if `| number` is a valid type
+type GroupId = string | number;
+
+type GroupAccess = temporaryAny;
+
+/** The duration in human format. e.g: 3h30m */
+type Duration = string;
 
 /**
   * Encodes a text string as a valid component of a Uniform Resource Identifier (URI).

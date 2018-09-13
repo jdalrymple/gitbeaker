@@ -1,8 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { RequestOptions } from '../infrastructure/RequestHelper';
 
-export type GroupId = string | number;
 export type EpicId = string | number;
+
 class Epics extends BaseService {
   all(groupId: GroupId) {
     const gId = encodeURIComponent(groupId);

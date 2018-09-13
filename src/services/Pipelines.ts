@@ -1,4 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 export type PipelineId = string | number;
 
@@ -33,7 +34,7 @@ class Pipelines extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`);
   }
 
-  showJobs(projectId: ProjectId, pipelineId: PipelineId, options) {
+  showJobs(projectId: ProjectId, pipelineId: PipelineId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);

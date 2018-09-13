@@ -1,5 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 const LEVELS = {
   DISABLED: 'disabled',
@@ -51,8 +52,8 @@ class NotificationSettings extends BaseService {
     return RequestHelper.get(this, `${url}notification_settings`);
   }
 
-  edit(options, { projectId, groupId }: NotificationSettingsOptions = {}) {
-    let url;
+  edit(options: RequestOptions, { projectId, groupId }: NotificationSettingsOptions = {}) {
+    let url = '';
 
     if (projectId) {
       url += `projects/${encodeURIComponent(projectId)}/`;

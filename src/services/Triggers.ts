@@ -1,7 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
+
+type TriggerId = string | number;
 
 class Triggers extends BaseService {
-  add(projectId: ProjectId, options) {
+  add(projectId: ProjectId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/triggers`, options);
@@ -13,19 +16,19 @@ class Triggers extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/triggers`);
   }
 
-  edit(projectId: ProjectId, triggerId, options) {
+  edit(projectId: ProjectId, triggerId: TriggerId, options: RequestOptions) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
-  remove(projectId: ProjectId, triggerId) {
+  remove(projectId: ProjectId, triggerId: TriggerId) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/triggers/${tId}`);
   }
 
-  show(projectId: ProjectId, triggerId) {
+  show(projectId: ProjectId, triggerId: TriggerId) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/triggers/${tId}`);

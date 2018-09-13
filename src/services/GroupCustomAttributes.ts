@@ -1,7 +1,8 @@
 import { ResourceCustomAttributes } from '../templates';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class GroupCustomAttributes extends ResourceCustomAttributes {
-  constructor(options) {
+  constructor(options: BaseModelContructorOptions) {
     super('groups', options);
   }
 }

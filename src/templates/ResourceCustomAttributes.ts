@@ -2,6 +2,7 @@ import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
+export type CustomAttributeId = string | number;
 class ResourceCustomAttributes extends BaseService {
   constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
     super(baseParams);
@@ -15,7 +16,7 @@ class ResourceCustomAttributes extends BaseService {
     return RequestHelper.get(this, `${rId}/custom_attributes`);
   }
 
-  set(resourceId: ResourceId, customAttributeId, value) {
+  set(resourceId: ResourceId, customAttributeId: CustomAttributeId, value: string) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/custom_attributes/${cId}`, {
@@ -23,13 +24,13 @@ class ResourceCustomAttributes extends BaseService {
     });
   }
 
-  remove(resourceId: ResourceId, customAttributeId) {
+  remove(resourceId: ResourceId, customAttributeId: CustomAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`);
   }
 
-  show(resourceId: ResourceId, customAttributeId) {
+  show(resourceId: ResourceId, customAttributeId: CustomAttributeId) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`);
