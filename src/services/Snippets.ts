@@ -1,12 +1,9 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Snippets extends BaseService {
-  all(options = {}) {
-    return RequestHelper.get(this, `snippets`, options);
-  }
-
-  allPublic(options = {}) {
-    return RequestHelper.get(this, `snippets/public`, options);
+  all(options = { public: false }) {
+    const url = options.public ? 'snippets/public' : 'snippets';
+    return RequestHelper.get(this, url, options);
   }
 
   content(snippetId) {
