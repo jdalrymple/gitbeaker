@@ -13,7 +13,7 @@ class Snippets extends BaseService {
   }
 
   create(title, fileName, content, visibility, options = {}) {
-    return RequestHelper.post(this, `snippets`, {
+    return RequestHelper.post(this, 'snippets', {
       title,
       fileName,
       content,
