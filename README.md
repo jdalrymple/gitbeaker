@@ -61,6 +61,7 @@ NotificationSettings
 PagesDomains
 Search
 SidekiqMetrics
+Snippets
 SystemHooks
 Version
 Wikis

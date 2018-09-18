@@ -83,6 +83,7 @@ export { default as Markdown } from './Markdown';
 export { default as PagesDomains } from './PagesDomains';
 export { default as Search } from './Search';
 export { default as SidekiqMetrics } from './SidekiqMetrics';
+export { default as Snippets } from './Snippets';
 export { default as SystemHooks } from './SystemHooks';
 export { default as Version } from './Version';
 export { default as Wikis } from './Wikis';
