@@ -79,6 +79,7 @@ export { default as LicenceTemplates } from './LicenceTemplates';
 export { default as Lint } from './Lint';
 export { default as Namespaces } from './Namespaces';
 export { default as NotificationSettings } from './NotificationSettings';
+export { default as Markdown } from './Markdown';
 export { default as PagesDomains } from './PagesDomains';
 export { default as Search } from './Search';
 export { default as SidekiqMetrics } from './SidekiqMetrics';
