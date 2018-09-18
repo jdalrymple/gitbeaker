@@ -177,7 +177,7 @@ class RequestHelper {
   }
 
   static get(service, endpoint, options = {}, { stream = false } = {}) {
-    return RequestHelper.request('get', service, endpoint, options, stream);
+    return RequestHelper.request('get', service, endpoint, options, false, stream);
   }
 
   static post(service, endpoint, options = {}, form = false) {
