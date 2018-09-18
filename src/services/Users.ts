@@ -30,6 +30,12 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'user');
   }
 
+  edit(userId, options) {
+    const uId = encodeURIComponent(userId);
+
+    return RequestHelper.put(this, `users/${uId}`, options);
+  }
+
   events(userId, options) {
     validateEventOptions(options.action, options.targetType);
 
