@@ -1,3 +1,12 @@
+# [4.1.0](https://github.com/jdalrymple/node-gitlab/compare/4.0.1...4.1.0) (2018-09-19)
+
+
+### Features
+
+* Added user edit support [#186](https://github.com/jdalrymple/node-gitlab/issues/186) ([95e8999](https://github.com/jdalrymple/node-gitlab/commit/95e8999))
+* Adding markdown support [#182](https://github.com/jdalrymple/node-gitlab/issues/182) ([#193](https://github.com/jdalrymple/node-gitlab/issues/193)) ([2113e8e](https://github.com/jdalrymple/node-gitlab/commit/2113e8e))
+* Re-add list all project members endpoint ([#190](https://github.com/jdalrymple/node-gitlab/issues/190)) ([5b07b6a](https://github.com/jdalrymple/node-gitlab/commit/5b07b6a)), closes [/github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9#diff-379104d7d595f3793c2d7380496cc3c3](https://github.com//github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9/issues/diff-379104d7d595f3793c2d7380496cc3c3) [#141](https://github.com/jdalrymple/node-gitlab/issues/141)
+
 ## [4.0.1](https://github.com/jdalrymple/node-gitlab/compare/4.0.0...4.0.1) (2018-09-06)
 
 
