@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/jdalrymple/node-gitlab/compare/4.1.0...4.1.1) (2018-09-25)
+
+
+### Bug Fixes
+
+* Updating ApplicationSettings test ([0d345b7](https://github.com/jdalrymple/node-gitlab/commit/0d345b7))
+
 # [4.1.0](https://github.com/jdalrymple/node-gitlab/compare/4.0.1...4.1.0) (2018-09-19)
 
 
