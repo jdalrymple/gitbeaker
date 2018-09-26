@@ -1,20 +1,22 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class RepositoryFiles extends BaseService {
-  create(projectId, filePath, branch, options) {
+  create(projectId, filePath, branch, content, options) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
       branch,
+      content,
       ...options,
     });
   }
 
-  edit(projectId, filePath, branch, options) {
+  edit(projectId, filePath, branch, content, options) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
       branch,
+      content,
       ...options,
     });
   }
