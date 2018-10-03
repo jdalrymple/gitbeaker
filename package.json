@@ -62,7 +62,7 @@
     "husky": "^1.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "jest": "^23.5.0",
-    "jest-extended": "^0.10.0",
+    "jest-extended": "^0.11.0",
     "jest-tap-reporter": "^1.9.0",
     "ts-jest": "^23.1.4",
     "tslint": "^5.11.0",
