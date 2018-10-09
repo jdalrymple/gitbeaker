@@ -8,6 +8,7 @@ interface BaseModelOptions {
   oauthToken?: string;
   useXMLHttpRequest?: boolean;
   version?: string;
+  sudo?: boolean;
   rejectUnauthorized?: boolean;
 }
 
@@ -23,6 +24,7 @@ class BaseModel {
   constructor({
     token,
     oauthToken,
+    sudo,
     url = 'https://gitlab.com',
     useXMLHttpRequest = false,
     version = 'v4',
@@ -34,11 +36,12 @@ class BaseModel {
     this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
 
-    if (oauthToken) {
-      this.headers.authorization = `Bearer ${oauthToken}`;
-    } else if (token) {
-      this.headers['private-token'] = token;
-    }
+    // Handle auth tokens
+    if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
+    else if (token) this.headers['private-token'] = token;
+
+    // Set sudo
+    if (sudo) this.headers['Sudo'] = sudo;
   }
 }
 
