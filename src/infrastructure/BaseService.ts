@@ -8,13 +8,13 @@ interface BaseModelOptions {
   oauthToken?: string;
   useXMLHttpRequest?: boolean;
   version?: string;
-  sudo?: boolean;
+  sudo?: string | number;
   rejectUnauthorized?: boolean;
 }
 
 class BaseModel {
   protected url: string;
-  public headers: { [header: string]: string };
+  public headers: { [header: string]: string | number};
   public rejectUnauthorized: boolean;
   protected requester: any;
   protected useXMLHttpRequest: boolean;
