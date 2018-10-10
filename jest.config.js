@@ -1,18 +1,21 @@
 module.exports = {
-  coverageDirectory: './coverage/',
-  collectCoverage: true,
-  testURL: 'http://localhost/',
-  setupTestFrameworkScriptFile: 'jest-extended',
-  reporters: ['jest-tap-reporter'],
-  testRegex: '(/__tests__/.*|/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
-  },
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json"
-  ]
+	preset: 'ts-jest',
+
+	testEnvironment: 'node',
+	testRegex: '(/__tests__/.*|/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+	testMatch: null,
+	testURL: 'http://localhost/',
+
+	coverageDirectory: './coverage/',
+	collectCoverage: true,
+
+	setupTestFrameworkScriptFile: 'jest-extended',
+
+	globals: {
+		'ts-jest': {
+			diagnostics: {
+				ignoreCodes: [2445, 7006, 7031, 2339, 7016, 7023, 7017]
+			},
+		},
+	},
 };
