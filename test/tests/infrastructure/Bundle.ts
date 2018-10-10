@@ -1,13 +1,13 @@
 import { Bundler } from '../../../src/infrastructure';
 
 class Test1 {
-  constructor(value) {
+  constructor(value: number) {
     this.value = value * 3;
   }
 }
 
 class Test2 {
-  constructor(value) {
+  constructor(value: number) {
     this.value = value * 2;
   }
 }
@@ -15,7 +15,7 @@ class Test2 {
 test('No classes passed to Bundler returns an empty Bundle', async () => {
   const Bundle = Bundler();
   const services = new Bundle();
-
+  
   expect(services).toEqual({});
 });
 
