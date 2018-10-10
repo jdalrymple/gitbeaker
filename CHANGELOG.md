@@ -1,3 +1,15 @@
+# [4.2.0](https://github.com/jdalrymple/node-gitlab/compare/4.1.1...4.2.0) (2018-10-10)
+
+
+### Bug Fixes
+
+* jest.config file to properly run tests again. Follow up issue to fix these exceptions ([dcee7ac](https://github.com/jdalrymple/node-gitlab/commit/dcee7ac))
+
+
+### Features
+
+* Add sudo abilities [#203](https://github.com/jdalrymple/node-gitlab/issues/203) ([4bf574c](https://github.com/jdalrymple/node-gitlab/commit/4bf574c))
+
 ## [4.1.1](https://github.com/jdalrymple/node-gitlab/compare/4.1.0...4.1.1) (2018-09-25)
 
 
