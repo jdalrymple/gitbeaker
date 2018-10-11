@@ -17,7 +17,11 @@ class SystemHooks extends BaseService {
     return RequestHelper.put(this, `hooks/${hId}`, { url, ...options });
   }
 
-  remove(projectId: ProjectId, hookId: HookId) {
+  remove(
+    // @ts-ignore 'projectId' is declared but its value is never read
+    projectId: ProjectId,
+    hookId: HookId,
+  ) {
     const hId = encodeURIComponent(hookId);
 
     return RequestHelper.delete(this, `hooks/${hId}`);

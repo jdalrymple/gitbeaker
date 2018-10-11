@@ -41,11 +41,23 @@ class ResourceAwardsEmojis extends BaseService {
     });
   }
 
-  remove(projectId: ProjectId, resourceId: ResourceId, awardId: string | number, noteId: NoteId) {
+  remove(
+    projectId: ProjectId,
+    resourceId: ResourceId,
+    // @ts-ignore 'awardId' is declared but its value is never read
+    awardId: string | number,
+    noteId: NoteId,
+  ) {
     return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 
-  show(projectId: ProjectId, resourceId: ResourceId, awardId: string | number, noteId: NoteId) {
+  show(
+    projectId: ProjectId,
+    resourceId: ResourceId,
+    // @ts-ignore 'awardId' is declared but its value is never read
+    awardId: string | number,
+    noteId: NoteId,
+  ) {
     return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
   }
 }

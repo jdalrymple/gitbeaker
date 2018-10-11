@@ -125,6 +125,7 @@ async function getPaginated(
 }
 
 type RequestType = 'post' | 'get' | 'put' | 'delete';
+
 export interface RequestOptions {
   targetIssueId?: string;
   targetProjectId?: string;
@@ -178,7 +179,10 @@ export interface RequestOptions {
   email?: string;
   password?: string;
   search?: string;
+  public?: boolean;
+  text?: string;
 }
+
 class RequestHelper {
   static async request(
     type: RequestType,
@@ -187,7 +191,7 @@ class RequestHelper {
     options: RequestOptions = {},
     form = false,
     stream = false,
-  ) {
+  ): Promise<temporaryAny> {
     try {
       switch (type) {
         case 'get':

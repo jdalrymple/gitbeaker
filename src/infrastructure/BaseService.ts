@@ -1,6 +1,6 @@
 import URLJoin from 'url-join';
 import Request from 'request-promise';
-import XMLHttpRequester from './XMLHttpRequester';
+import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
 
 interface BaseModelOptions {
   url?: string;
@@ -19,7 +19,7 @@ class BaseModel {
   protected url: string;
   public readonly headers: { [header: string]: string | number};
   public readonly rejectUnauthorized: boolean;
-  protected readonly requester: any;
+  protected readonly requester: XhrStaticPromisified;
   protected readonly useXMLHttpRequest: boolean;
 
   constructor({
@@ -33,7 +33,8 @@ class BaseModel {
   }: BaseModelContructorOptions) {
     this.url = URLJoin(url, 'api', version);
     this.headers = {};
-    this.requester = useXMLHttpRequest ? XMLHttpRequester : Request;
+    this.requester = useXMLHttpRequest
+      ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
     this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
 

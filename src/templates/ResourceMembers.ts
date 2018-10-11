@@ -12,12 +12,12 @@ class ResourceMembers extends BaseService {
     this.url = URLJoin(this.url, resourceType);
   }
 
-  all(resourceId, includeInherited = false, options = {}) {
+  all(resourceId: ResourceId, includeInherited = false, options = {}) {
     const rId = encodeURIComponent(resourceId);
 
     const url = includeInherited ? `${rId}/members/all` : `${rId}/members`;
 
-    return RequestHelper.get(this, url, { options });
+    return RequestHelper.get(this, url, options);
   }
 
   add(resourceId: ResourceId, userId: UserId, accessLevel: AccessLevel, options: RequestOptions) {

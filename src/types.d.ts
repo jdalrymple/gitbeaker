@@ -1,4 +1,5 @@
 /// <reference path="../node_modules/jest-extended/types/index.d.ts" />
+
 type temporaryAny = any;
 type UserIdOptions = { userId?: string };
 type UserId = string;
@@ -23,3 +24,5 @@ type Duration = string;
   * @param uriComponent A value representing an encoded URI component.
   */
 declare function encodeURIComponent(uriComponent: number | string): string;
+
+declare module 'request-promise-core/errors';

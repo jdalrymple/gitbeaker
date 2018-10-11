@@ -31,7 +31,7 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'user');
   }
 
-  edit(userId, options) {
+  edit(userId: UserId, options: RequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.put(this, `users/${uId}`, options);
