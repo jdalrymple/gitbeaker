@@ -34,10 +34,10 @@
     "prepublishOnly": "npm run build",
     "prepush": "npm run lint",
     "semantic-release": "semantic-release",
-    "test": "jest --debug && codecov",
+    "test": "jest --debug --runInBand && codecov",
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
-    "test:services": "jest test/tests/services",
+    "test:services": "jest test/tests/services"
   },
   "config": {
     "commitizen": {
