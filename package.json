@@ -17,7 +17,7 @@
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
     "test:services": "jest test/tests/services",
-    "test": "jest --debug && codecov",
+    "test": "jest --debug --runInBand && codecov",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release"
   },

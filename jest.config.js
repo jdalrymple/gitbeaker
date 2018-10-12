@@ -2,7 +2,7 @@ module.exports = {
 	preset: 'ts-jest',
 
 	testEnvironment: 'node',
-	testRegex: '(/__tests__/.*|/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+	testRegex: 'test/tests/.*\\.ts$',
 	testMatch: null,
 	testURL: 'http://localhost/',
 
