@@ -17,16 +17,18 @@
   "version": "4.2.0",
   "main": "dist/latest/index.js",
   "browser": {
+    "dist/latest/index.js": "dist/browser/bundle.js",
     "got": "ky"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
+    "build": "npm run build:clean && npm run build:es6 && npm run build:es5 && npm run build:browser",
     "build:clean": "rimraf -rf dist && mkdirp dist",
     "build:es5": "tsc -p tsconfig-es5.dist.json",
     "build:es6": "tsc -p tsconfig.dist.json",
+    "build:browser": "browserify dist/browser/index.js > dist/browser/bundle.js",
     "commit": "npx git-cz",
     "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
     "prepublishOnly": "npm run build",
@@ -62,6 +64,7 @@
     "@types/request-promise": "^4.1.42",
     "@types/url-join": "^0.8.2",
     "@types/util.promisify": "^1.0.0",
+    "browserify": "^16.2.3",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.1.1",
@@ -79,7 +82,9 @@
     "es5",
     "es6",
     "gitlab",
-    "request"
+    "got",
+    "ky",
+    "browser"
   ],
   "engines": {
     "node": ">=8.9.0"

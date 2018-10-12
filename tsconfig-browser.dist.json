@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig-es5.dist.json",
+  "compilerOptions": {
+    "outFile": "dist/browser/index.js",
+  }
+}
