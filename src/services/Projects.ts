@@ -1,5 +1,6 @@
-import Fs from 'fs';
+import FormData from 'form-data';
 import Path from 'path';
+import RandomString from 'randomstring';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 
@@ -123,24 +124,21 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, filePath, { fileName = Path.basename(filePath) } = {}) {
+  upload(projectId, content, { fileName = RandomString(8)  }) {
     const pId = encodeURIComponent(projectId);
-    const file = Fs.readFileSync(filePath);
+    const form = new FormData();
 
-    return RequestHelper.post(
-      this,
-      `projects/${pId}/uploads`,
-      {
-        file: {
-          value: file,
-          options: {
-            filename: fileName,
-            contentType: 'application/octet-stream',
-          },
+    form.append(fileName, {
+      file: {
+        value: content,
+        options: {
+          filename: fileName,
+          contentType: 'application/octet-stream',
         },
       },
-      true,
-    );
+    });
+
+    return RequestHelper.post(this, `projects/${pId}/uploads`, form);
   }
 }
 

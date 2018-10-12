@@ -1,17 +1,14 @@
 import Humps from 'humps';
 import LinkParser from 'parse-link-header';
-import QS from 'qs';
 import URLJoin from 'url-join';
-import StreamableRequest from 'request';
+import Request from 'got';
 
 interface RequestParametersInput {
   url?: string;
   headers: import('./BaseService').default['headers'];
   json?: boolean;
   body?: Object;
-  qs?: Object;
-  formData?: temporaryAny;
-  resolveWithFullResponse?: boolean;
+  query?: Object;
   rejectUnauthorized?: boolean;
 }
 
@@ -24,66 +21,30 @@ interface GetPaginatedOptions {
 type RequestParametersOutput = RequestParametersInput &
   Required<Pick<RequestParametersInput, 'url'>>;
 
-export async function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function defaultRequest(
-  { url, useXMLHttpRequest, rejectUnauthorized },
+  { url, rejectUnauthorized, headers },
   endpoint,
-  { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
+  { body, query, resolveWithFullResponse = false }: RequestParametersInput,
 ): RequestParametersOutput {
-  const params: RequestParametersOutput = {
-    url: URLJoin(url, endpoint),
-    headers,
-    json: true,
-  };
-
-  if (body) params.body = Humps.decamelizeKeys(body);
-
-  if (qs) {
-    if (useXMLHttpRequest) {
-      // The xhr package doesn't have a way of passing in a qs object until v3
-      params.url = URLJoin(params.url, `?${QS.stringify(Humps.decamelizeKeys(qs))}`);
-    } else {
-      params.qs = Humps.decamelizeKeys(qs);
-    }
-  }
-
-  if (formData) params.formData = formData;
-
-  params.resolveWithFullResponse = resolveWithFullResponse;
-
-  params.rejectUnauthorized = rejectUnauthorized;
-
-  return params;
-}
-
-function getStream(service, endpoint, options = {}) {
-  if (service.useXMLHttpRequest) {
-    throw new Error(
-      `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this
-      option to use streaming`,
-    );
-  }
-
-  const requestOptions = defaultRequest(service, endpoint, {
-    headers: service.headers,
-    qs: options,
-  });
-
-  return StreamableRequest.get(requestOptions);
+  return [
+    URLJoin(url, endpoint),
+    {
+      headers,
+      query: Humps.decamelizeKeys(query),
+      body: Humps.decamelizeKeys(body),
+      rejectUnauthorized,
+      json: true,
+    },
+  ];
 }
 
 async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
-    headers: service.headers,
-    qs: queryOptions,
-    resolveWithFullResponse: true,
+    query: queryOptions,
   });
 
-  const response = await service.requester.get(requestOptions);
+  const response = await Request.get(...requestOptions);
   const links = LinkParser(response.headers.link) || {};
   const page = response.headers['x-page'];
   const underMaxPageLimit = maxPages ? page < maxPages : true;
@@ -117,79 +78,40 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
 }
 
 class RequestHelper {
-  static async request(type, service, endpoint, options = {}, form = false, stream = false) {
-    try {
-      switch (type) {
-        case 'get':
-          if (stream) return await getStream(service, endpoint, options);
-          return await getPaginated(service, endpoint, options);
-
-        case 'post': {
-          const requestOptions = defaultRequest(service, endpoint, {
-            headers: service.headers,
-            [form ? 'formData' : 'body']: options,
-          });
-
-          return await service.requester.post(requestOptions);
-        }
-
-        case 'put': {
-          const requestOptions = defaultRequest(service, endpoint, {
-            headers: service.headers,
-            body: options,
-          });
-
-          return await service.requester.put(requestOptions);
-        }
-
-        case 'delete': {
-          const requestOptions = defaultRequest(service, endpoint, {
-            headers: service.headers,
-            qs: options,
-          });
-
-          return await service.requester.delete(requestOptions);
-        }
-
-        default:
-          throw new Error(`Unknown request type ${type}`);
-      }
-    } catch (err) {
-      await RequestHelper.handleRequestError(err);
-      return RequestHelper.request(type, service, endpoint, options, form, stream);
-    }
-  }
-
-  static async handleRequestError(err) {
-    if (
-      !err.response ||
-      !err.response.headers ||
-      !err.response.headers['retry-after'] ||
-      parseInt(err.statusCode, 10) !== 429
-    ) {
-      throw err;
+  static async get(service, endpoint, options = {}, { stream = false } = {}) {
+    if (stream) {
+      return Request.stream(defaultRequest(service, endpoint, {
+        query: options,
+      });
     }
 
-    const sleepTime = parseInt(err.response.headers['retry-after'], 10);
+    const response = await getPaginated(service, endpoint, options);
 
-    if (!sleepTime) throw err;
-    return wait(sleepTime * 1000);
+    return response.body;
   }
 
-  static get(service, endpoint, options = {}, { stream = false } = {}) {
-    return RequestHelper.request('get', service, endpoint, options, false, stream);
-  }
+  static async post(service, endpoint, options = {}, form = false) {
+    const response = await Request.post(defaultRequest(service, endpoint, {
+      body: options,
+    });
 
-  static post(service, endpoint, options = {}, form = false) {
-    return RequestHelper.request('post', service, endpoint, options, form);
+    return response.body;
   }
 
   static put(service, endpoint, options = {}) {
-    return RequestHelper.request('put', service, endpoint, options);
+    const response = await Request.put(defaultRequest(service, endpoint, {
+      body: options,
+    });
+
+    return response.body;
   }
 
   static delete(service, endpoint, options = {}) {
-    return RequestHelper.request('delete', service, endpoint, options);
+    const response = await Request.delete(defaultRequest(service, endpoint, {
+      query: options,
+    });
+
+    return response.body;
   }
 }
 

@@ -1,51 +1,56 @@
 {
   "name": "gitlab",
-  "version": "4.2.0",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "main": "dist/latest/index.js",
-  "engines": {
-    "node": ">=8.9.0"
-  },
-  "scripts": {
-    "prepush": "npm run lint",
-    "commit": "npx git-cz",
-    "build:clean": "rimraf -rf dist && mkdirp dist",
-    "build:es6": "tsc -p tsconfig.dist.json",
-    "build:es5": "tsc -p tsconfig-es5.dist.json",
-    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
-    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
-    "test:bundles": "jest test/tests/bundles",
-    "test:infrastructure": "jest test/tests/infrastructure",
-    "test:services": "jest test/tests/services",
-    "test": "jest --debug --runInBand && codecov",
-    "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release"
+  "license": "MIT",
+  "author": {
+    "email": "justin.s.dalrymple@gmail.com",
+    "name": "Justin Dalrymple"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/node-gitlab"
   },
-  "keywords": [
-    "gitlab",
-    "api",
-    "es6",
-    "es5",
-    "request"
-  ],
+  "homepage": "https://github.com/jdalrymple/node-gitlab#readme",
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
-  "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
-  "license": "MIT",
-  "readmeFilename": "README.md",
+  "version": "4.2.0",
+  "main": "dist/latest/index.js",
+  "browser": {
+    "got": "ky"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
+    "build:clean": "rimraf -rf dist && mkdirp dist",
+    "build:es5": "tsc -p tsconfig-es5.dist.json",
+    "build:es6": "tsc -p tsconfig.dist.json",
+    "commit": "npx git-cz",
+    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "prepush": "npm run lint",
+    "semantic-release": "semantic-release",
+    "test": "jest --debug && codecov",
+    "test:bundles": "jest test/tests/bundles",
+    "test:infrastructure": "jest test/tests/infrastructure",
+    "test:services": "jest test/tests/services",
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "dependencies": {
+    "form-data": "^2.3.2",
+    "got": "^9.2.2",
+    "humps": "^2.0.1",
+    "ky": "^0.4.1",
+    "parse-link-header": "^1.0.1",
+    "randomstring": "^1.1.5",
+    "url-join": "^4.0.0"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.4",
@@ -69,15 +74,14 @@
     "tslint-config-airbnb": "^5.11.0",
     "typescript": "^3.1.2"
   },
-  "dependencies": {
-    "humps": "^2.0.1",
-    "parse-link-header": "^1.0.1",
-    "qs": "^6.5.2",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "request-promise-core": "^1.1.1",
-    "url-join": "^4.0.0",
-    "util.promisify": "^1.0.0",
-    "xhr": "^2.5.0"
+  "keywords": [
+    "api",
+    "es5",
+    "es6",
+    "gitlab",
+    "request"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
   }
 }
