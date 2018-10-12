@@ -3,36 +3,20 @@ import LinkParser from 'parse-link-header';
 import URLJoin from 'url-join';
 import Request from 'got';
 
-interface RequestParametersInput {
-  url?: string;
-  headers: import('./BaseService').default['headers'];
-  json?: boolean;
-  body?: Object;
-  query?: Object;
-  rejectUnauthorized?: boolean;
-}
-
 interface GetPaginatedOptions {
   showPagination?: boolean;
   maxPages?: number;
   page?: number;
 }
 
-type RequestParametersOutput = RequestParametersInput &
-  Required<Pick<RequestParametersInput, 'url'>>;
-
-function defaultRequest(
-  { url, rejectUnauthorized, headers },
-  endpoint,
-  { body, query, resolveWithFullResponse = false }: RequestParametersInput,
-): RequestParametersOutput {
+function defaultRequest(service, endpoint, { body, query }: { body?: Object, query?: Object }) {
   return [
-    URLJoin(url, endpoint),
+    URLJoin(service.url, endpoint),
     {
-      headers,
-      query: Humps.decamelizeKeys(query),
-      body: Humps.decamelizeKeys(body),
-      rejectUnauthorized,
+      headers: service.headers,
+      query: query && Humps.decamelizeKeys(query),
+      body: body && Humps.decamelizeKeys(body),
+      rejectUnauthorized: service.rejectUnauthorized,
       json: true,
     },
   ];
@@ -80,9 +64,11 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
 class RequestHelper {
   static async get(service, endpoint, options = {}, { stream = false } = {}) {
     if (stream) {
-      return Request.stream(defaultRequest(service, endpoint, {
-        query: options,
-      });
+      return Request.stream(
+        ...defaultRequest(service, endpoint, {
+          query: options,
+        }),
+      );
     }
 
     const response = await getPaginated(service, endpoint, options);
@@ -91,25 +77,31 @@ class RequestHelper {
   }
 
   static async post(service, endpoint, options = {}, form = false) {
-    const response = await Request.post(defaultRequest(service, endpoint, {
-      body: options,
-    });
+    const response = await Request.post(
+      ...defaultRequest(service, endpoint, {
+        body: options,
+      }),
+    );
 
     return response.body;
   }
 
-  static put(service, endpoint, options = {}) {
-    const response = await Request.put(defaultRequest(service, endpoint, {
-      body: options,
-    });
+  static async put(service, endpoint, options = {}) {
+    const response = await Request.put(
+      ...defaultRequest(service, endpoint, {
+        body: options,
+      }),
+    );
 
     return response.body;
   }
 
-  static delete(service, endpoint, options = {}) {
-    const response = await Request.delete(defaultRequest(service, endpoint, {
-      query: options,
-    });
+  static async delete(service, endpoint, options = {}) {
+    const response = await Request.delete(
+      ...defaultRequest(service, endpoint, {
+        query: options,
+      }),
+    );
 
     return response.body;
   }
