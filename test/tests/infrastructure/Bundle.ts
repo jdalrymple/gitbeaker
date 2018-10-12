@@ -13,8 +13,8 @@ class Test2 {
 }
 
 test('No classes passed to Bundler returns an empty Bundle', async () => {
-  const Bundle = Bundler();
-  const services = new Bundle();
+  const Bundle = Bundler(undefined as any);
+  const services = new Bundle(undefined as any);
   
   expect(services).toEqual({});
 });

@@ -10,7 +10,7 @@ function Bundler<T extends { [K: string]: typeof BaseService }>(
   }
   return class Bundle implements BundleClass {
     [K: string]: any;
-    constructor(baseOptions: BaseModelContructorOptions = {}) {
+    constructor(baseOptions: BaseModelContructorOptions) {
       Object.keys(combined).forEach((serviceName) => {
         this[serviceName] = new combined[serviceName](baseOptions);
       });

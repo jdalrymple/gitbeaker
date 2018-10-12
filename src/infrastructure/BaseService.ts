@@ -16,11 +16,11 @@ export type BaseModelContructorOptions =
   | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
   | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
 class BaseModel {
-  protected url: string;
+  public url: string;
   public readonly headers: { [header: string]: string | number};
   public readonly rejectUnauthorized: boolean;
-  protected readonly requester: XhrStaticPromisified;
-  protected readonly useXMLHttpRequest: boolean;
+  public readonly requester: XhrStaticPromisified;
+  public readonly useXMLHttpRequest: boolean;
 
   constructor({
     token,
