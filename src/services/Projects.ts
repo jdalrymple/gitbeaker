@@ -1,5 +1,4 @@
 import FormData from 'form-data';
-import Path from 'path';
 import RandomString from 'randomstring';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';

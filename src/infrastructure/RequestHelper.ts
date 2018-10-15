@@ -76,7 +76,7 @@ class RequestHelper {
     return response.body;
   }
 
-  static async post(service, endpoint, options = {}, form = false) {
+  static async post(service, endpoint, options = {}) {
     const response = await Request.post(
       ...defaultRequest(service, endpoint, {
         body: options,
