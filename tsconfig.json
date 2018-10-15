@@ -12,7 +12,6 @@
     "pretty": true,
     "esModuleInterop": true,
     "declaration": false,
-    "outDir": "dist/latest",
     "traceResolution": true,
     "types": [
       "node"

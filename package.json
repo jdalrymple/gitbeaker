@@ -28,7 +28,6 @@
     "build:clean": "rimraf -rf dist && mkdirp dist",
     "build:es5": "tsc -p tsconfig-es5.json",
     "build:es6": "tsc",
-    "build:browser": "browserify -p tsify src/index.ts > dist/browser.js",
     "commit": "npx git-cz",
     "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
     "prepublishOnly": "npm run build",
@@ -64,7 +63,6 @@
     "@types/request-promise": "^4.1.42",
     "@types/url-join": "^0.8.2",
     "@types/util.promisify": "^1.0.0",
-    "browserify": "^16.2.3",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.1.1",
@@ -73,7 +71,6 @@
     "jest-tap-reporter": "^1.9.0",
     "semantic-release": "^15.9.17",
     "ts-jest": "^23.10.4",
-    "tsify": "^4.0.0",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
     "typescript": "^3.1.2"
