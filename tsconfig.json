@@ -6,18 +6,23 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "pretty": true,
     "esModuleInterop": true,
     "declaration": false,
-    "outDir": "dist/latest"
+    "outDir": "dist/latest",
+    "traceResolution": true,
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

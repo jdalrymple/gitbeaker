@@ -26,9 +26,9 @@
   "scripts": {
     "build": "npm run build:clean && npm run build:es6 && npm run build:es5 && npm run build:browser",
     "build:clean": "rimraf -rf dist && mkdirp dist",
-    "build:es5": "tsc -p tsconfig-es5.dist.json",
-    "build:es6": "tsc -p tsconfig.dist.json",
-    "build:browser": "browserify src/index.ts -p [ tsify --noImplicitAny ] > dist/browser.js",
+    "build:es5": "tsc -p tsconfig-es5.json",
+    "build:es6": "tsc",
+    "build:browser": "browserify -p tsify src/index.ts > dist/browser.js",
     "commit": "npx git-cz",
     "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
     "prepublishOnly": "npm run build",
