@@ -386,19 +386,15 @@ For example, if you want to disable notifications for a specific user:
 ```javascript
 import Gitlab from 'gitlab';
 
-const api = new Gitlab({
+const { NotificationSettings } = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
+  sudo: userid_or_username
 });
-
-api.NotificationSettings.headers.Sudo = userid_or_username; // eg: 1 or 'username'
 
 await api.NotificationSettings.edit({
   level: api.NotificationSettings.LEVELS.DISABLED
 })
-
-delete api.NotificationSettings.headers.Sudo // clear impersonation header afterwards
-
 ```
 
 ## Migrating from node-gitlab/node-gitlab
