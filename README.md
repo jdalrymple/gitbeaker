@@ -24,6 +24,7 @@
         - [Bundle Imports](#bundle-imports)
     - [Examples](#examples)
     - [Pagination](#pagination)
+    - [Sudo](#sudo)
 - [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
@@ -378,6 +379,24 @@ pagination: {
 }
 ```
 
+### Sudo
+For private gitlab instances, administrators are able to impersonate users through the API. To do so, you have to set the 'Sudo' header on the services you want to impersonate the user for.
+
+For example, if you want to disable notifications for a specific user:
+```javascript
+import Gitlab from 'gitlab';
+
+const { NotificationSettings } = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' // Can be created in your profile.
+  sudo: userid_or_username
+});
+
+await api.NotificationSettings.edit({
+  level: api.NotificationSettings.LEVELS.DISABLED
+})
+```
+
 ## Migrating from node-gitlab/node-gitlab
 
 With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.  
@@ -495,3 +514,5 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 ## Changelog
 
 [Here](https://github.com/jdalrymple/node-gitlab/blob/master/CHANGELOG.md)
+
+
