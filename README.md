@@ -24,6 +24,7 @@
         - [Bundle Imports](#bundle-imports)
     - [Examples](#examples)
     - [Pagination](#pagination)
+    - [sudo](#sudo)
 - [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
@@ -376,6 +377,28 @@ pagination: {
   perPage: 3,
   totalPages: 3,
 }
+```
+
+### Sudo
+For private gitlab instances, administrators are able to impersonate users through the API. To do so, you have to set the 'Sudo' header on the services you want to impersonate the user for.
+
+For example, if you want to disable notifications for a specific user:
+```javascript
+import Gitlab from 'gitlab';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' // Can be created in your profile.
+});
+
+api.NotificationSettings.headers.Sudo = userid_or_username; // eg: 1 or 'username'
+
+await api.NotificationSettings.edit({
+  level: api.NotificationSettings.LEVELS.DISABLED
+})
+
+delete api.NotificationSettings.headers.Sudo // clear impersonation header afterwards
+
 ```
 
 ## Migrating from node-gitlab/node-gitlab
