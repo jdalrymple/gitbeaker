@@ -39,7 +39,7 @@ class NotificationSettings extends BaseService {
   }
 
   all({ projectId, groupId }: NotificationSettingsOptions = {}) {
-    let url;
+    let url = '';
 
     if (projectId) {
       url += `projects/${encodeURIComponent(projectId)}/`;
@@ -51,7 +51,7 @@ class NotificationSettings extends BaseService {
   }
 
   edit(options, { projectId, groupId }: NotificationSettingsOptions = {}) {
-    let url;
+    let url = '';
 
     if (projectId) {
       url += `projects/${encodeURIComponent(projectId)}/`;
