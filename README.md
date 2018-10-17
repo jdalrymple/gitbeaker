@@ -389,11 +389,11 @@ import Gitlab from 'gitlab';
 const { NotificationSettings } = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
-  sudo: userid_or_username
+  sudo: 8 // Can be the user ID or a username
 });
 
-await api.NotificationSettings.edit({
-  level: api.NotificationSettings.LEVELS.DISABLED
+await NotificationSettings.edit({
+  level: NotificationSettings.LEVELS.DISABLED
 })
 ```
 
