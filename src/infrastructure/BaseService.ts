@@ -34,6 +34,9 @@ class BaseModel {
 
     // Set sudo
     if (sudo) this.headers['Sudo'] = sudo;
+
+    // Freeze properties
+    Object.freeze(this);
   }
 }
 
