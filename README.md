@@ -138,7 +138,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 
 ```javascript
 // ES6 (>=node 8.0.0)
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 // ES5, assuming native or polyfilled Promise is available
 const Gitlab = require('gitlab/dist/es5').default
@@ -269,7 +269,7 @@ EpicDiscussions
 This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
 
 ```javascript
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -287,7 +287,7 @@ Once you have your library instantiated, you can utilize many of the API's funct
 Using the await/async method
 
 ```javascript
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -311,7 +311,7 @@ General rule about all the function parameters:
 ie.
 
 ```javascript
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -329,7 +329,7 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 
 
 ```javascript
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -343,7 +343,7 @@ let projects = await api.Projects.all({maxPages:2});
 You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
 
 ```javascript
-import Gitlab from 'gitlab';
+import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to http://gitlab.com
@@ -358,7 +358,11 @@ Additionally, if you would like to get back the pagination information, to know 
 
 ```javascript
 ...
-let { data, pagination } = await api.Projects.all({ perPage:40, maxPages:2, showPagination: true });
+const { data, pagination } = await api.Projects.all({
+  perPage:40,
+  maxPages:2,
+  showPagination: true
+});
 ...
 ```
 
@@ -401,9 +405,7 @@ And then inside whatever project you are using `node-gitlab` in you change your 
 
 ```json
   "dependencies": {
-    ...
-    "node-gitlab": "2.1.0"
-    ...
+    "gitlab": "5.0.0"
   }
 ```
 
@@ -411,9 +413,7 @@ to this
 
 ```json
   "dependencies": {
-    ...
-    "node-gitlab": "<path-to-your-clone>"
-    ...
+    "gitlab": "<path-to-your-clone>"
   }
 ```
 
