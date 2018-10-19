@@ -1,5 +1,5 @@
 import * as FormData from 'form-data';
-import RandomString from 'randomstring';
+import randomstring from 'randomstring';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
 
@@ -123,7 +123,7 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, { fileName = RandomString(8)  }) {
+  upload(projectId, content, { fileName = randomstring(8)  }) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 

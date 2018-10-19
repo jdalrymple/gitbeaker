@@ -1,4 +1,4 @@
-import Request from 'got';
+import * as Request from 'got';
 import { decamelizeKeys } from 'humps';
 
 interface GetPaginatedOptions {

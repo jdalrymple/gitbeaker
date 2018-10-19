@@ -1,4 +1,4 @@
-function Bundler(services = {}) {
+export function bundler(services = {}) {
   const combined = { ...services };
 
   return class Bundle {
@@ -9,5 +9,3 @@ function Bundler(services = {}) {
     }
   };
 }
-
-export default Bundler;
