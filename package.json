@@ -26,9 +26,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:clean && npm run build:bundle",
-    "build:clean": "rimraf -rf dist && mkdirp dist",
-    "build:bundle": "rollup -c",
+    "build": "rollup -c",
     "commit": "npx git-cz",
     "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
     "format": "prettier",

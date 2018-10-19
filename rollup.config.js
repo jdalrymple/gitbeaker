@@ -26,13 +26,21 @@ export default [
     ],
   },
 
-  // CommonJS (for Node) and ES module (for bundlers) build.
+  // CommonJS (for Node) (for bundlers) build.
   {
     input: 'src/index.ts',
-    output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' }
+    output: { file: pkg.main, format: 'cjs' },
+    external: [...Object.keys(pkg.dependencies)],
+    plugins: [
+      ts({ typescript }),
+      terser(),
     ],
+  },
+
+  // ES module (for bundlers) build.
+  {
+    input: 'src/index.ts',
+    output: { file: pkg.module, format: 'es' },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),
