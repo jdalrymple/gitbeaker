@@ -1,11 +1,10 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceMilestones extends BaseService {
   constructor(resourceType, baseParams) {
     super(baseParams);
 
-    this.url = URLJoin(this.url, resourceType);
+    this.url = [this.url, resourceType].join('/');
   }
 
   all(resourceId, options) {

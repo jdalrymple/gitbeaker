@@ -1,7 +1,5 @@
-import Humps from 'humps';
-import LinkParser from 'parse-link-header';
-import URLJoin from 'url-join';
 import Request from 'got';
+import { decamelizeKeys } from 'humps';
 
 interface GetPaginatedOptions {
   showPagination?: boolean;
@@ -11,11 +9,11 @@ interface GetPaginatedOptions {
 
 function defaultRequest(service, endpoint, { body, query }: { body?: Object, query?: Object }) {
   return [
-    URLJoin(service.url, endpoint),
+    [service.url, endpoint].join('/'),
     {
       headers: service.headers,
-      query: query && Humps.decamelizeKeys(query),
-      body: body && Humps.decamelizeKeys(body),
+      query: query && decamelizeKeys(query),
+      body: body && decamelizeKeys(body),
       rejectUnauthorized: service.rejectUnauthorized,
       json: true,
     },
@@ -23,57 +21,48 @@ function defaultRequest(service, endpoint, { body, query }: { body?: Object, que
 }
 
 async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
-  const { showPagination, maxPages, ...queryOptions } = options;
-  const requestOptions = defaultRequest(service, endpoint, {
-    query: queryOptions,
-  });
+  const { showPagination, maxPages, ...query } = options;
+  const requestOptions = defaultRequest(service, endpoint, { query });
+  const response = await Request.get(...requestOptions);  
+  const pagination = {
+    total: response.headers['x-total'],
+    next: response.headers['x-next-page'] || null,
+    current: response.headers['x-page'] || null,
+    previous: response.headers['x-prev-page'] || null,
+    perPage: response.headers['x-per-page'],
+    totalPages: response.headers['x-total-pages'],
+  }
 
-  const response = await Request.get(...requestOptions);
-  const links = LinkParser(response.headers.link) || {};
-  const page = response.headers['x-page'];
-  const underMaxPageLimit = maxPages ? page < maxPages : true;
-  let more = [];
+  const underLimit = maxPages ? pagination.current < maxPages : true;
   let data;
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
-  if (!queryOptions.page && underMaxPageLimit && links.next) {
-    more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
+  if (!query.page && underLimit && pagination.next) {
+    const more = await getPaginated(service, endpoint, {
+      page: pagination.next,
+      ...options
+    });
+
     data = [...response.body, ...more];
   } else {
     data = response.body;
   }
 
-  if (queryOptions.page && showPagination) {
-    return {
-      data,
-      pagination: {
-        total: response.headers['x-total'],
-        next: response.headers['x-next-page'] || null,
-        current: response.headers['x-page'] || null,
-        previous: response.headers['x-prev-page'] || null,
-        perPage: response.headers['x-per-page'],
-        totalPages: response.headers['x-total-pages'],
-      },
-    };
-  }
+  if (query.page && showPagination) return { data, pagination };
 
   return data;
 }
 
 class RequestHelper {
   static async get(service, endpoint, options = {}, { stream = false } = {}) {
-    if (stream) {
-      return Request.stream(
-        ...defaultRequest(service, endpoint, {
-          query: options,
-        }),
-      );
-    }
+    if (!stream) return getPaginated(service, endpoint, options);
 
-    const response = await getPaginated(service, endpoint, options);
-
-    return response.body;
+    return Request.stream(
+      ...defaultRequest(service, endpoint, {
+        query: options,
+      }),
+    );
   }
 
   static async post(service, endpoint, options = {}) {

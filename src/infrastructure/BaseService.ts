@@ -1,5 +1,3 @@
-import URLJoin from 'url-join';
-
 interface BaseModelOptions {
   url?: string;
   token?: string;
@@ -24,7 +22,7 @@ class BaseModel {
     version = 'v4',
     rejectUnauthorized = true,
   }: BaseModelOptions = {}) {
-    this.url = URLJoin(url, 'api', version);
+    this.url = [url, 'api', version].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
 

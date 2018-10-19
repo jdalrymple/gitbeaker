@@ -1,15 +1,14 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
-  let output = `${pId}/${resourceType}/${rId}/`;
+  const output = [pId, resourceType, rId];
 
-  if (noteId) output += `notes/${encodeURIComponent(noteId)}/`;
+  if (noteId) output.push('notes', encodeURIComponent(noteId));
 
-  output += 'award_emoji';
+  output.push(encodeURIComponent('award_emoji'));
 
-  if (awardId) output += `/${encodeURIComponent(awardId)}/`;
+  if (awardId) output.push(encodeURIComponent(awardId));
 
   return output;
 }
@@ -20,7 +19,7 @@ class ResourceAwardsEmojis extends BaseService {
   constructor(resourceType, baseParams) {
     super(baseParams);
 
-    this.url = URLJoin(this.url, 'projects');
+    this.url = [this.url, 'projects'].join('/');
     this.resourceType = resourceType;
   }
 

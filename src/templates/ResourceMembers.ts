@@ -1,19 +1,19 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceMembers extends BaseService {
   constructor(resourceType, baseParams) {
     super(baseParams);
 
-    this.url = URLJoin(this.url, resourceType);
+    this.url = [this.url, resourceType].join('/');
   }
 
   all(resourceId, includeInherited = false, options = {}) {
     const rId = encodeURIComponent(resourceId);
+    const url = [rId, 'members'];
 
-    const url = includeInherited ? `${rId}/members/all` : `${rId}/members`;
+    if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url, { options });
+    return RequestHelper.get(this, url.join('/'), { options });
   }
 
   add(resourceId, userId, accessLevel, options) {
