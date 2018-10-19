@@ -14,6 +14,8 @@
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
+
+    "lib": ["es6", "dom"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
