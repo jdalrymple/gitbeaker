@@ -76,4 +76,4 @@ export const ProjectsBundle = Bundler({
 });
 
 // All initialized
-export default Bundler(APIServices);
+export const Gitlab = Bundler(APIServices);
