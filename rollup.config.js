@@ -14,7 +14,13 @@ export default [
       file: 'dist/bundle.js',
       name: 'node-gitlab',
       format: 'umd',
-      exports: 'named'
+      exports: 'named',
+      globals: {
+        'got': 'Request',
+        'humps': 'humps',
+        'randomstring': 'randomstring',
+        'form-data': 'FormData',
+      }
     },
     external: [...Object.keys(pkg.dependencies || {})],
     plugins: [
@@ -29,7 +35,10 @@ export default [
   // CommonJS (for Node) (for bundlers) build.
   {
     input: 'src/index.ts',
-    output: { file: pkg.main, format: 'cjs' },
+    output: {
+      file: pkg.main,
+      format: 'cjs',
+    },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),
@@ -40,7 +49,10 @@ export default [
   // ES module (for bundlers) build.
   {
     input: 'src/index.ts',
-    output: { file: pkg.module, format: 'es' },
+    output: {
+      file: pkg.module,
+      format: 'es',
+    },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),

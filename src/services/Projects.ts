@@ -1,4 +1,4 @@
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import randomstring from 'randomstring';
 import { BaseService, RequestHelper } from '../infrastructure';
 import { validateEventOptions } from './Events';
