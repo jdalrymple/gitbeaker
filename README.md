@@ -267,22 +267,6 @@ EpicNotes
 EpicDiscussions
 ```
 
-### Using XMLHttpRequest
-This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
-
-```javascript
-import { Gitlab } from 'gitlab';
-
-const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456',	// Can be created in your profile.
-
-  useXMLHttpRequest: true // Use the browser's XMLHttpRequest instead of Node's Request library
-})
-```
-
-**WARNING:** Currently this option does not support the `multipart/form-data` content type, and therefore the endpoint for [uploading a file to a project](https://docs.gitlab.com/ee/api/projects.html#upload-a-file) will not work correctly. All other endpoints should work exactly as expected.
-
 ### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
