@@ -1,5 +1,6 @@
 extends:
   - tslint-config-airbnb
+  - tslint-config-prettier
 rules:
   object-shorthand-properties-first: false
   variable-name: [true, "ban-keywords", "check-format", "allow-pascal-case"]
