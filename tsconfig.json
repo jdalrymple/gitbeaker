@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
     "declaration": false,
-   
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitAny": false,
-
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
-
     "target": "es5",
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
-
     "lib": ["es6", "dom"]
   },
   "include": ["src/**/*"],
