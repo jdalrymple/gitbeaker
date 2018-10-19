@@ -7,7 +7,7 @@ import typescript from 'typescript';
 import pkg from './package.json';
 
 export default [
-  // browser-friendly UMD build
+  // Browser-friendly UMD build
   {
     input: 'src/index.ts',
     output: {
