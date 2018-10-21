@@ -1,5 +1,5 @@
-import * as APIServices from './services';
 import { bundler } from './infrastructure';
+import * as APIServices from './services';
 
 // All seperatly
 export * from './services';

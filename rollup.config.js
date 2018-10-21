@@ -22,7 +22,7 @@ export default [
         'form-data': 'FormData',
       }
     },
-    external: [...Object.keys(pkg.dependencies || {})],
+    external: [...Object.keys(pkg.dependencies)],
     plugins: [
       json(),
       resolve({ browser: true }), // so Rollup can find `ms`
