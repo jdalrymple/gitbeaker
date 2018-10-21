@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
+    /* Basic Options */                       
     "declaration": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": false,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true,
-    "moduleResolution": "node",
     "target": "es5",
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
-    "lib": ["es6", "dom"]
+    "lib": ["es6", "dom"],
+
+
+    /* Module Resolution Options */           
+    "moduleResolution": "node",
+
+    /* Strict Type-Checking Options */        
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+
+    /* Additional Checks */                   
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
 }
