@@ -10,7 +10,7 @@ function url(projectId, resourceType, resourceId, awardId, noteId) {
 
   if (awardId) output.push(encodeURIComponent(awardId));
 
-  return output;
+  return output.join('/');
 }
 
 class ResourceAwardsEmojis extends BaseService {
