@@ -1,7 +1,7 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import Request from 'got';
 
-const mockedGetBasic = () => {
+const mockedGetBasic = () => ({
   body: {
     prop1: 5,
     prop2: 'test property',
@@ -9,8 +9,8 @@ const mockedGetBasic = () => {
   headers: {
     'X-Page': 1,
     'X-Total-Pages': 1,
-  }
-}
+  },
+});
 
 const mockedGetExtended = () => {
   let u = url;
@@ -29,7 +29,10 @@ const mockedGetExtended = () => {
       },
     ],
     headers: {
-      link: "<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'",
+      link:
+        `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next',
+        <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first',
+        <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
       'x-next-page': 2,
       'x-page': 1,
       'x-per-page': 2,
@@ -51,7 +54,9 @@ const mockedGetExtended = () => {
       },
     ],
     headers: {
-      link: "<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev', <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first', <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'",
+      link: `<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev',
+        <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first',
+        <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
       'x-next-page': '',
       'x-page': 2,
       'x-per-page': 2,
@@ -68,7 +73,7 @@ const mockedGetExtended = () => {
 
 describe('RequestHelper.get()', () => {
   it('Should respond with an object', async () => {
-    Request.get = jest.fn(() =>  mockedGetBasic());
+    Request.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(
       { url: 'testing', token: 'token' },
@@ -80,7 +85,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated when links are present', async () => {
-    Request.get = jest.fn(() =>  mockedGetExtended());
+    Request.get = jest.fn(() => mockedGetExtended());
 
     const response = await RequestHelper.get(
       { url: 'testing', token: 'token' },
@@ -94,7 +99,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
-    Request.get = jest.fn(() =>  mockedGetExtended());
+    Request.get = jest.fn(() => mockedGetExtended());
 
     const response = await RequestHelper.get(
       { url: 'testing', token: 'token' },

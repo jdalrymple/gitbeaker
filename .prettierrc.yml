@@ -1,3 +1,5 @@
 printWidth: 100
 singleQuote: true
-trailingComma: es6
+trailingComma: all
+tabWidth: 2
+useTabs: false
