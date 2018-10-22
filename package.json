@@ -18,7 +18,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": {
-    "dist/index.js": "dist/bundle.js",
+    "dist/index.js": "dist/index.browser.js",
     "got": "ky"
   },
   "types": "dist/index.d.ts",
