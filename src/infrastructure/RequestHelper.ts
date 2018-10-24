@@ -33,8 +33,14 @@ function defaultRequest(
   endpoint,
   { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
 ): RequestParametersOutput {
+  let paramUrl;
+  if(endpoint.startsWith("http")){
+    paramUrl = endpoint;
+  }else{
+    paramUrl =  URLJoin(url, endpoint)
+  }  
   const params: RequestParametersOutput = {
-    url: URLJoin(url, endpoint),
+    url: paramUrl,
     headers,
     json: true,
   };
