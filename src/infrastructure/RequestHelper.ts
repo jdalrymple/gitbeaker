@@ -10,6 +10,7 @@ interface RequestParametersInput {
   json?: boolean;
   body?: Object;
   qs?: Object;
+  qsStringifyOptions? : Object;
   formData?: temporaryAny;
   resolveWithFullResponse?: boolean;
   rejectUnauthorized?: boolean;
@@ -44,9 +45,10 @@ function defaultRequest(
   if (qs) {
     if (useXMLHttpRequest) {
       // The xhr package doesn't have a way of passing in a qs object until v3
-      params.url = URLJoin(params.url, `?${QS.stringify(Humps.decamelizeKeys(qs))}`);
+      params.url = URLJoin(params.url, `?${QS.stringify(Humps.decamelizeKeys(qs), { arrayFormat: 'brackets' })}`);
     } else {
       params.qs = Humps.decamelizeKeys(qs);
+      params.qsStringifyOptions = { arrayFormat: 'brackets' };
     }
   }
 
