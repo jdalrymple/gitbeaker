@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...4.2.1) (2018-10-29)
+
+
+### Bug Fixes
+
+* Updating application settings test to match updated API ([dececa6](https://github.com/jdalrymple/node-gitlab/commit/dececa6))
+
 # [4.2.0](https://github.com/jdalrymple/node-gitlab/compare/4.1.1...4.2.0) (2018-10-10)
 
 
