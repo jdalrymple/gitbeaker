@@ -12,10 +12,10 @@ const mockedGetBasic = () => ({
   },
 });
 
-const mockedGetExtended = () => {
+const mockedGetExtended = ({ url, query }) => {
   let u = url;
 
-  if (qs.page) u += `page=${qs.page}`;
+  if (query.page) u += `page=${query.page}`;
 
   const page1 = {
     body: [
@@ -85,7 +85,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated when links are present', async () => {
-    Request.get = jest.fn(() => mockedGetExtended());
+    Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
 
     const response = await RequestHelper.get(
       { url: 'testing', token: 'token' },
@@ -99,7 +99,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
-    Request.get = jest.fn(() => mockedGetExtended());
+    Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
 
     const response = await RequestHelper.get(
       { url: 'testing', token: 'token' },
