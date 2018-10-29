@@ -24,6 +24,7 @@ export default [
       }
     },
     external: [...Object.keys(pkg.dependencies)],
+    treeshake: false,
     plugins: [
       json(),
       resolve({ browser: true }), // so Rollup can find `ms`
@@ -41,6 +42,7 @@ export default [
       file: pkg.main,
       format: 'cjs',
     },
+    treeshake: false,
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),
@@ -56,6 +58,7 @@ export default [
       file: pkg.module,
       format: 'es',
     },
+    treeshake: false,
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),

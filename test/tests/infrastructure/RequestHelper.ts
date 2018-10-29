@@ -1,5 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
-import Request from 'got';
+import * as Request from 'got';
 
 const mockedGetBasic = () => ({
   body: {
