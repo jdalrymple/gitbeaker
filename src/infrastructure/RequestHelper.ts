@@ -1,5 +1,6 @@
 import Request from 'got';
 import { decamelizeKeys } from 'humps';
+import { stringify } from 'query-string';
 
 interface GetPaginatedOptions {
   showPagination?: boolean;
@@ -12,7 +13,7 @@ function defaultRequest(service, endpoint, { body, query }: { body?: Object, que
     [service.url, endpoint].join('/'),
     {
       headers: service.headers,
-      query: query && decamelizeKeys(query),
+      query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
       body: body && decamelizeKeys(body),
       rejectUnauthorized: service.rejectUnauthorized,
       json: true,
