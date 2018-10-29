@@ -18,8 +18,9 @@ export default [
       exports: 'named',
       globals: {
         'got': 'Request',
-        'humps': 'humps',
-        'randomstring': 'randomstring',
+        'humps': 'Humps',
+        'randomstring': 'RandomString',
+        'query-string' : 'QueryString',
         'form-data': 'FormData',
       }
     },
@@ -62,7 +63,7 @@ export default [
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
       ts({ typescript }),
-      terser(),
+      // terser(),
       analyze()
     ],
   },
