@@ -1,5 +1,5 @@
 ## Description
-*(Breif description of your issue here)*
+*(Brief description of your issue here)*
 
 ## Steps to reproduce
 *(Tell us how to reproduce this issue. Please provide a working demo, you can use this template as a base)*

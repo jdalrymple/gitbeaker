@@ -108,9 +108,6 @@ describe('ApplicationSettings.all', () => {
       'session_expire_delay',
       'shared_runners_enabled',
       'shared_runners_text',
-      'sidekiq_throttling_enabled',
-      'sidekiq_throttling_factor',
-      'sidekiq_throttling_queues',
       'sign_in_text',
       'signup_enabled',
       'terminal_max_session_time',
@@ -136,6 +133,7 @@ describe('ApplicationSettings.all', () => {
       'user_oauth_applications',
       'version_check_enabled',
       'web_ide_clientside_preview_enabled',
+      'diff_max_patch_bytes',
       'password_authentication_enabled',
       'signin_enabled',
     ]);
