@@ -18,6 +18,7 @@
     "test:infrastructure": "jest test/tests/infrastructure",
     "test:services": "jest test/tests/services",
     "test": "jest --debug --runInBand && codecov",
+    "test-with-token": "PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${PERSONAL_ACCESS_TOKEN}\"') GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${GITLAB_URL}\"') npm run test",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release"
   },
