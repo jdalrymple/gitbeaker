@@ -450,14 +450,17 @@ docker-compose -f docker-compose.test.yml up
 either export them into environment variables locally:
 
 ```bash
-  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-  - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')  
 ```
 
 1. Now run the tests
 
 ```bash
 npm run test
+
+# or, alternatively
+npm run test-with-token # sets PERSONAL_ACCESS_TOKEN and GITLAB_URL from above, before running tests
 ```
 
 You can also define them in front of the npm script
