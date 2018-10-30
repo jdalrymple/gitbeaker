@@ -30,7 +30,7 @@ class ResourceIssueBoards extends BaseService {
   createList(resourceId: ResourceId, boardId: BoardId, labelId: LabelId) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/boards/${bId}/lists`, { label_id: labelId });
+    return RequestHelper.post(this, `${rId}/boards/${bId}/lists`, { labelId });
   }
 
   edit(resourceId: ResourceId, boardId: BoardId, options: RequestOptions) {

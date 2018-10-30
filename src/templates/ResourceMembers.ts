@@ -24,8 +24,8 @@ class ResourceMembers extends BaseService {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/members`, {
-      user_id: uId,
-      access_level: accessLevel,
+      userId: uId,
+      accessLevel,
       ...options,
     });
   }
@@ -34,7 +34,7 @@ class ResourceMembers extends BaseService {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/members/${uId}`, {
-      access_level: accessLevel,
+      accessLevel,
       ...options,
     });
   }

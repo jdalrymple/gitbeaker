@@ -166,9 +166,9 @@ export interface RequestOptions {
   body?: string | temporaryAny;
   title?: string;
   name?: string;
-  label_id?: temporaryAny;
-  access_level?: number;
-  user_id?: UserId;
+  labelId?: temporaryAny;
+  accessLevel?: number;
+  userId?: UserId;
   position?: temporaryAny;
   value?: string;
   linkUrl?: string;

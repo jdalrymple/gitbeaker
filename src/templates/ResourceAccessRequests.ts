@@ -20,7 +20,7 @@ class ResourceAccessRequests extends BaseService {
     this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
 
-  all(resourceId: string) {
+  all(resourceId: ResourceId) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/access_requests`);
@@ -36,7 +36,7 @@ class ResourceAccessRequests extends BaseService {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/access_requests/${uId}/approve`, {
-      access_level: accessLevel,
+      accessLevel,
     });
   }
 

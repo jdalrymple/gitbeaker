@@ -14,7 +14,7 @@ class ResourceTemplates extends BaseService {
     return RequestHelper.get(this, '', options);
   }
 
-  show(resourceId: string) {
+  show(resourceId: ResourceId) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}`);

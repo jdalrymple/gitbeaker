@@ -10,7 +10,7 @@ class ResourceCustomAttributes extends BaseService {
     this.url = URLJoin(this.url, resourceType);
   }
 
-  all(resourceId: string) {
+  all(resourceId: ResourceId) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/custom_attributes`);
