@@ -86,14 +86,14 @@ class MergeRequests extends BaseService {
 
   editApprovals(projectId, { mergerequestId, ...options }) {
     const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
+    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}/` : '';
 
     return RequestHelper.post(this, `projects/${pId}/${mergeRequest}approvals`, options);
   }
 
   editApprovers(projectId, { mergerequestId, ...options }) {
     const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
+    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}/` : '';
 
     return RequestHelper.put(this, `projects/${pId}/${mergeRequest}approvers`, options);
   }
