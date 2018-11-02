@@ -8,5 +8,8 @@
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src/**/*",
+  ]
 }

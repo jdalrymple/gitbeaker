@@ -141,7 +141,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 // ES6 (>=node 8.0.0)
 import Gitlab from 'gitlab';
 
-// ES5, assuming native or polyfilled Promise is available
+// ES5, assuming Promise and Object.assign are available
 const Gitlab = require('gitlab/dist/es5').default
 
 

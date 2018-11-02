@@ -1,17 +1,26 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
+export type DiscussiodId = string | number;
 class ResourceDiscussions extends BaseService {
-  protected resource2Type: temporaryAny;
+  protected resource2Type: string;
 
-  constructor(resourceType, resource2Type, baseParams) {
+  constructor(resourceType: string, resource2Type: string, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);
     this.resource2Type = resource2Type;
   }
 
-  addNote(resourceId, resource2Id, discussiodId, noteId, options) {
+  addNote(
+    resourceId: string,
+    resource2Id: string,
+    discussiodId: string,
+    noteId: NoteId,
+    options: RequestOptions,
+  ) {
     if (!options.body) throw new Error('Missing required property: body');
 
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
@@ -20,13 +29,13 @@ class ResourceDiscussions extends BaseService {
     return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, options);
   }
 
-  all(resourceId, resource2Id, options) {
+  all(resourceId: ResourceId, resource2Id: Resource2Id, options: RequestOptions) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
   }
 
-  create(resourceId, resource2Id, options) {
+  create(resourceId: ResourceId, resource2Id: Resource2Id, options: RequestOptions) {
     if (!options.body) throw new Error('Missing required property: body');
 
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
@@ -34,21 +43,32 @@ class ResourceDiscussions extends BaseService {
     return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
   }
 
-  editNote(resourceId, resource2Id, discussiodId, noteId, body) {
+  editNote(
+    resourceId: ResourceId,
+    resource2Id: Resource2Id,
+    discussiodId: DiscussiodId,
+    noteId: NoteId,
+    options: RequestOptions,
+  ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
       .map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, { body });
+    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, { body: options });
   }
 
-  removeNote(resourceId, resource2Id, discussiodId, noteId) {
+  removeNote(
+    resourceId: ResourceId,
+    resource2Id: Resource2Id,
+    discussiodId: DiscussiodId,
+    noteId: NoteId,
+  ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
       .map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`);
   }
 
-  show(resourceId, resource2Id, discussiodId) {
+  show(resourceId: ResourceId, resource2Id: Resource2Id, discussiodId: DiscussiodId) {
     const [rId, r2Id, dId] = [resourceId, resource2Id, discussiodId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`);

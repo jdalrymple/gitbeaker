@@ -1,8 +1,9 @@
 import { ResourceDiscussions } from '../templates';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class CommitDiscussions extends ResourceDiscussions {
-  constructor(options) {
-    super('projects', 'commits', options);
+  constructor(baseParams: BaseModelContructorOptions) {
+    super('projects', 'commits', baseParams);
   }
 }
 

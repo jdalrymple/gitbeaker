@@ -1,7 +1,8 @@
 import { ResourceAccessRequests } from '../templates';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class GroupAccessRequests extends ResourceAccessRequests {
-  constructor(options) {
+  constructor(options: BaseModelContructorOptions) {
     super('groups', options);
   }
 }

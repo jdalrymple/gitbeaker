@@ -1,6 +1,12 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
-const url = (resourceType, resourceId, resource2Type, resource2Id) => {
+function url(
+  resourceType: ResourceType,
+  resourceId: ResourceId,
+  resource2Type: Resource2Type,
+  resource2Id: Resource2Id) {
   const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
   let output = `${resourceType}/${rId}/`;
@@ -12,27 +18,31 @@ const url = (resourceType, resourceId, resource2Type, resource2Id) => {
   output += 'variables';
 
   return output;
-};
+}
 
 class ResourceVariables extends BaseService {
-  protected resourceType: temporaryAny;
-  protected resource2Type: temporaryAny;
+  protected resourceType: ResourceType;
+  protected resource2Type: Resource2Type;
 
-  constructor(resourceType, resource2Type, baseParams) {
+  constructor(
+    resourceType: ResourceType,
+    resource2Type: Resource2Type,
+    baseParams: BaseModelContructorOptions,
+  ) {
     super(baseParams);
 
     this.resourceType = resourceType;
     this.resource2Type = resource2Type;
   }
 
-  all(resourceId, resource2Id) {
+  all(resourceId: ResourceType, resource2Id: Resource2Id) {
     return RequestHelper.get(
       this,
       url(this.resourceType, resourceId, this.resource2Type, resource2Id),
     );
   }
 
-  create(resourceId, resource2Id, options) {
+  create(resourceId: ResourceType, resource2Id: Resource2Id, options: RequestOptions) {
     return RequestHelper.post(
       this,
       url(this.resourceType, resourceId, this.resource2Type, resource2Id),
@@ -40,7 +50,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  edit(resourceId, resource2Id, keyId, options) {
+  edit(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string, options: RequestOptions) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.put(
@@ -50,7 +60,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  show(resourceId, resource2Id, keyId) {
+  show(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.get(
@@ -59,7 +69,7 @@ class ResourceVariables extends BaseService {
     );
   }
 
-  remove(resourceId, resource2Id, keyId) {
+  remove(resourceId: ResourceType, resource2Id: Resource2Id, keyId: string) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.delete(

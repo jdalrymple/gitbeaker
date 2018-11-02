@@ -1,6 +1,6 @@
 import URLJoin from 'url-join';
 import Request from 'request-promise';
-import XMLHttpRequester from './XMLHttpRequester';
+import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
 
 interface BaseModelOptions {
   url?: string;
@@ -12,15 +12,16 @@ interface BaseModelOptions {
   rejectUnauthorized?: boolean;
 }
 
+export type BaseModelContructorOptions =
+  | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
+  | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
 class BaseModel {
-  protected url: string;
-  public headers: { [header: string]: string | number};
-  public rejectUnauthorized: boolean;
-  protected requester: any;
-  protected useXMLHttpRequest: boolean;
+  public url: string;
+  public readonly headers: { [header: string]: string | number};
+  public readonly rejectUnauthorized: boolean;
+  public readonly requester: XhrStaticPromisified;
+  public readonly useXMLHttpRequest: boolean;
 
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>);
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>);
   constructor({
     token,
     oauthToken,
@@ -29,10 +30,11 @@ class BaseModel {
     useXMLHttpRequest = false,
     version = 'v4',
     rejectUnauthorized = true,
-  }: BaseModelOptions = {}) {
+  }: BaseModelContructorOptions) {
     this.url = URLJoin(url, 'api', version);
     this.headers = {};
-    this.requester = useXMLHttpRequest ? XMLHttpRequester : Request;
+    this.requester = useXMLHttpRequest
+      ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
     this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
 

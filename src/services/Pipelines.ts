@@ -1,37 +1,40 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { RequestOptions } from '../infrastructure/RequestHelper';
+
+export type PipelineId = string | number;
 
 class Pipelines extends BaseService {
-  all(projectId, options = {}) {
+  all(projectId: ProjectId, options = {}) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines`, options);
   }
 
-  create(projectId, ref) {
+  create(projectId: ProjectId, ref: string) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref });
   }
 
-  show(projectId, pipelineId) {
+  show(projectId: ProjectId, pipelineId: PipelineId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`);
   }
 
-  retry(projectId, pipelineId) {
+  retry(projectId: ProjectId, pipelineId: PipelineId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`);
   }
 
-  cancel(projectId, pipelineId) {
+  cancel(projectId: ProjectId, pipelineId: PipelineId) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`);
   }
 
-  showJobs(projectId, pipelineId, options) {
+  showJobs(projectId: ProjectId, pipelineId: PipelineId, options: RequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);

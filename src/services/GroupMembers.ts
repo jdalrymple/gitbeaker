@@ -1,7 +1,8 @@
 import { ResourceMembers } from '../templates';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class GroupMembers extends ResourceMembers {
-  constructor(options) {
+  constructor(options: BaseModelContructorOptions) {
     super('groups', options);
   }
 }

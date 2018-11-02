@@ -1,7 +1,8 @@
 import { ResourceVariables } from '../templates';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class PipelineScheduleVariables extends ResourceVariables {
-  constructor(options) {
+  constructor(options: BaseModelContructorOptions) {
     super('projects', 'pipelines', options);
   }
 }

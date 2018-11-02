@@ -1,47 +1,51 @@
 import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
+/** A valid access level */
+export type AccessLevel = number;
 class ResourceMembers extends BaseService {
-  constructor(resourceType, baseParams) {
+  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.url = URLJoin(this.url, resourceType);
   }
 
-  all(resourceId, includeInherited = false, options = {}) {
+  all(resourceId: ResourceId, includeInherited = false, options = {}) {
     const rId = encodeURIComponent(resourceId);
 
     const url = includeInherited ? `${rId}/members/all` : `${rId}/members`;
 
-    return RequestHelper.get(this, url, { options });
+    return RequestHelper.get(this, url, options);
   }
 
-  add(resourceId, userId, accessLevel, options) {
+  add(resourceId: ResourceId, userId: UserId, accessLevel: AccessLevel, options: RequestOptions) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/members`, {
-      user_id: uId,
-      access_level: parseInt(accessLevel, 10),
+      userId: uId,
+      accessLevel,
       ...options,
     });
   }
 
-  edit(resourceId, userId, accessLevel, options) {
+  edit(resourceId: ResourceId, userId: UserId, accessLevel: AccessLevel, options: RequestOptions) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/members/${uId}`, {
-      access_level: parseInt(accessLevel, 10),
+      accessLevel,
       ...options,
     });
   }
 
-  show(resourceId, userId) {
+  show(resourceId: ResourceId, userId: UserId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/members/${uId}`);
   }
 
-  remove(resourceId, userId) {
+  remove(resourceId: ResourceId, userId: UserId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${rId}/members/${uId}`);

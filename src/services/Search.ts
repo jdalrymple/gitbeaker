@@ -1,11 +1,11 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 interface SearchOptions {
-  projectId?: string;
-  groupId?: string;
+  projectId: ProjectId;
+  groupId: string | number;
 }
 class Search extends BaseService {
-  all(scope, search, { projectId, groupId }: SearchOptions = {}) {
+  all(scope: string, search: string, { projectId, groupId }: SearchOptions) {
     let url = '';
 
     if (projectId) {

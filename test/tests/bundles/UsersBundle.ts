@@ -11,7 +11,7 @@ test('All the correct service keys are included in the users bundle', async () =
 test('All the correct service instances are included in the users bundle', async () => {
   const bundle = new UsersBundle({ token: 'test' });
 
-  Object.keys(bundle).forEach((key) => {
+  (Object.keys(bundle) as (keyof typeof bundle)[]).forEach((key) => {
     expect(bundle[key]).toBeInstanceOf(Services[key]);
   });
 });

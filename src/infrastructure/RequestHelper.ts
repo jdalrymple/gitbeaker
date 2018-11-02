@@ -3,8 +3,10 @@ import LinkParser from 'parse-link-header';
 import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
+import { BaseService } from '.';
+import { CommitAction } from '../services/Commits';
 
-interface RequestParametersInput {
+export interface RequestParametersInput {
   url?: string;
   headers: import('./BaseService').default['headers'];
   json?: boolean;
@@ -19,19 +21,21 @@ interface RequestParametersInput {
 interface GetPaginatedOptions {
   showPagination?: boolean;
   maxPages?: number;
+  perPage?: number;
   page?: number;
+  position?: temporaryAny;
 }
 
 type RequestParametersOutput = RequestParametersInput &
   Required<Pick<RequestParametersInput, 'url'>>;
 
-export async function wait(ms) {
+export async function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function defaultRequest(
-  { url, useXMLHttpRequest, rejectUnauthorized },
-  endpoint,
+  { url, useXMLHttpRequest, rejectUnauthorized }: BaseService,
+  endpoint: string,
   { headers, body, qs, formData, resolveWithFullResponse = false }: RequestParametersInput,
 ): RequestParametersOutput {
   const params: RequestParametersOutput = {
@@ -61,7 +65,7 @@ function defaultRequest(
   return params;
 }
 
-function getStream(service, endpoint, options = {}) {
+function getStream(service: BaseService, endpoint: string, options: RequestOptions = {}) {
   if (service.useXMLHttpRequest) {
     throw new Error(
       `Cannot use streaming functionality with XMLHttpRequest. Please instantiate without this
@@ -77,7 +81,11 @@ function getStream(service, endpoint, options = {}) {
   return StreamableRequest.get(requestOptions);
 }
 
-async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
+async function getPaginated(
+  service: BaseService,
+  endpoint: string,
+  options: GetPaginatedOptions = {},
+) {
   const { showPagination, maxPages, ...queryOptions } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     headers: service.headers,
@@ -90,7 +98,7 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
   const page = response.headers['x-page'];
   const underMaxPageLimit = maxPages ? page < maxPages : true;
   let more = [];
-  let data;
+  let data: temporaryAny;
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
@@ -118,8 +126,74 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
   return data;
 }
 
+type RequestType = 'post' | 'get' | 'put' | 'delete';
+
+export interface RequestOptions {
+  targetIssueId?: string;
+  targetProjectId?: string;
+  content?: string;
+  id?: string;
+  sourceBranch?: string;
+  targetBranch?: string;
+  /** The duration in human format. e.g: 3h30m */
+  duration?: string;
+  domain?: string;
+  cron?: temporaryAny;
+  description?: string;
+  file?: {
+    value: Buffer;
+    options: {
+      filename: string;
+      contentType: 'application/octet-stream';
+    };
+  };
+  path?: string;
+  namespace?: string;
+  visibility?: string;
+  code?: string;
+  fileName?: string;
+  from?: string;
+  to?: string;
+  sha?: string;
+  runnerId?: string;
+  ref?: string;
+  scope?: string;
+  url?: string;
+  scopes?: temporaryAny;
+  expiresAt?: string;
+  note?: string;
+  actions?: CommitAction[];
+  commitMessage?: string;
+  branch?: string;
+  body?: string | temporaryAny;
+  title?: string;
+  name?: string;
+  labelId?: temporaryAny;
+  accessLevel?: number;
+  userId?: UserId;
+  position?: temporaryAny;
+  value?: string;
+  linkUrl?: string;
+  imageUrl?: string;
+  key?: string;
+  action?: string;
+  targetType?: string;
+  email?: string;
+  password?: string;
+  search?: string;
+  public?: boolean;
+  text?: string;
+}
+
 class RequestHelper {
-  static async request(type, service, endpoint, options = {}, form = false, stream = false) {
+  static async request(
+    type: RequestType,
+    service: BaseService,
+    endpoint: string,
+    options: RequestOptions = {},
+    form = false,
+    stream = false,
+  ): Promise<temporaryAny> {
     try {
       switch (type) {
         case 'get':
@@ -162,7 +236,7 @@ class RequestHelper {
     }
   }
 
-  static async handleRequestError(err) {
+  static async handleRequestError(err: temporaryAny) {
     if (
       !err.response ||
       !err.response.headers ||
@@ -178,19 +252,24 @@ class RequestHelper {
     return wait(sleepTime * 1000);
   }
 
-  static get(service, endpoint, options = {}, { stream = false } = {}) {
+  static get(
+    service: BaseService,
+    endpoint: string,
+    options: RequestOptions = {},
+    { stream = false } = {},
+  ) {
     return RequestHelper.request('get', service, endpoint, options, false, stream);
   }
 
-  static post(service, endpoint, options = {}, form = false) {
+  static post(service: BaseService, endpoint: string, options: RequestOptions = {}, form = false) {
     return RequestHelper.request('post', service, endpoint, options, form);
   }
 
-  static put(service, endpoint, options = {}) {
+  static put(service: BaseService, endpoint: string, options: RequestOptions = {}) {
     return RequestHelper.request('put', service, endpoint, options);
   }
 
-  static delete(service, endpoint, options = {}) {
+  static delete(service: BaseService, endpoint: string, options: RequestOptions = {}) {
     return RequestHelper.request('delete', service, endpoint, options);
   }
 }

@@ -1,4 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { RequestOptions } from '../infrastructure/RequestHelper';
 
 const LEVELS = {
   DISABLED: 'disabled',
@@ -25,13 +27,13 @@ const EVENTS = {
   SUCCESS_PIPELINE: 'success_pipeline',
 };
 interface NotificationSettingsOptions {
-  projectId?: string;
+  projectId?: ProjectId;
   groupId?: string;
 }
 class NotificationSettings extends BaseService {
   protected LEVELS: typeof LEVELS;
   protected EVENTS: typeof EVENTS;
-  constructor(baseParams) {
+  constructor(baseParams: BaseModelContructorOptions) {
     super(baseParams);
 
     this.LEVELS = LEVELS;
@@ -50,7 +52,7 @@ class NotificationSettings extends BaseService {
     return RequestHelper.get(this, `${url}notification_settings`);
   }
 
-  edit(options, { projectId, groupId }: NotificationSettingsOptions = {}) {
+  edit(options: RequestOptions, { projectId, groupId }: NotificationSettingsOptions = {}) {
     let url = '';
 
     if (projectId) {
