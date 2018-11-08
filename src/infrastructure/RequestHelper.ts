@@ -20,7 +20,6 @@ function defaultRequest(
   endpoint,
   { body, query, method, stream = false }: DefaultRequestOptions,
 ) {
-  console.log(service)
   return [
     endpoint,
     {
@@ -83,6 +82,11 @@ class RequestHelper {
   }
 
   static async post(service, endpoint, options = {}) {
+    console.log(options)
+    console.log(endpoint)
+    console.log(defaultRequest(service, endpoint, {
+        body: options,
+    }))
     const response = await Request.apply(
       ...defaultRequest(service, endpoint, {
         body: options,
