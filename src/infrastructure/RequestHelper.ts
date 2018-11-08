@@ -38,7 +38,7 @@ function defaultRequest(
 async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, { query });
-  const response = await Request(...requestOptions);
+  const response = await Request.apply(...requestOptions);
   const pagination = {
     total: response.headers['x-total'],
     next: response.headers['x-next-page'] || null,
@@ -73,7 +73,7 @@ class RequestHelper {
   static async get(service, endpoint, options = {}, { stream = false } = {}) {
     if (!stream) return getPaginated(service, endpoint, options);
 
-    return Request(
+    return Request.apply(
       ...defaultRequest(service, endpoint, {
         query: options,
         stream: true,
@@ -82,7 +82,7 @@ class RequestHelper {
   }
 
   static async post(service, endpoint, options = {}) {
-    const response = await Request(
+    const response = await Request.apply(
       ...defaultRequest(service, endpoint, {
         body: options,
       }),
@@ -92,7 +92,7 @@ class RequestHelper {
   }
 
   static async put(service, endpoint, options = {}) {
-    const response = await Request(
+    const response = await Request.apply(
       ...defaultRequest(service, endpoint, {
         method: 'PUT',
         body: options,
@@ -103,7 +103,7 @@ class RequestHelper {
   }
 
   static async delete(service, endpoint, options = {}) {
-    const response = await Request(
+    const response = await Request.apply(
       ...defaultRequest(service, endpoint, {
         method: 'DELETE',
         query: options,

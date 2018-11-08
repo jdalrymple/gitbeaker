@@ -12,11 +12,7 @@ const mockedGetBasic = () => ({
   },
 });
 
-const mockedGetExtended = ({ url, query = {} }) => {
-  let u = url;
-
-  if (query.page) u += `page=${query.page}`;
-
+const mockedGetExtended = (url, { query = '' }) => {
   const page1 = {
     body: [
       {
@@ -29,8 +25,7 @@ const mockedGetExtended = ({ url, query = {} }) => {
       },
     ],
     headers: {
-      link:
-        `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next',
+      link: `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next',
         <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first',
         <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
       'x-next-page': 2,
@@ -66,18 +61,16 @@ const mockedGetExtended = ({ url, query = {} }) => {
     },
   };
 
-  if (u.includes('page=2')) return page2;
-
-  return page1;
+  return query.includes('page=2') ? page2 : page1;
 };
 
 describe('RequestHelper.get()', () => {
   it('Should respond with an object', async () => {
-    Request.get = jest.fn(() => mockedGetBasic());
+    Request.apply = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
-      'https://www.test.com',
+      'test',
     );
 
     expect(response.prop1).toBe(5);
@@ -85,11 +78,11 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated when links are present', async () => {
-    Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
+    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
-      'https://www.test.com',
+      'test',
     );
 
     response.forEach((l, index) => {
@@ -99,11 +92,11 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
-    Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
+    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token'},
-      'https://www.test.com',
+      { url: 'https://testing.com', token: 'token' },
+      'test',
       { maxPages: 1 },
     );
 
@@ -117,9 +110,11 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the page option', async () => {
+    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
-      'https://www.test.com',
+      'test',
       { page: 2 },
     );
 
@@ -133,9 +128,11 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should show the pagination information when the page option is given', async () => {
+    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
-      'https://www.test.com',
+      'test',
       { page: 2, showPagination: true },
     );
 

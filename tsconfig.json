@@ -6,7 +6,7 @@
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
-    "lib": ["ES2015", "DOM"],
+    "lib": ["ES2015","ES2016","DOM"],
 
 
     /* Module Resolution Options */           

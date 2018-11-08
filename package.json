@@ -28,7 +28,7 @@
   "scripts": {
     "build": "rollup -c",
     "commit": "npx git-cz",
-    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts' -t stylish",
+    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts' -t stylish -p tsconfig.json",
     "format": "prettier",
     "prepublishOnly": "npm run build",
     "prepush": "npm run lint",
