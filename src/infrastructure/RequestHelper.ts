@@ -9,13 +9,17 @@ interface GetPaginatedOptions {
 }
 
 interface DefaultRequestOptions {
-  body?: object,
-  query?: object,
-  stream?: boolean,
-  method?: string,
+  body?: object;
+  query?: object;
+  stream?: boolean;
+  method?: string;
 }
 
-function defaultRequest(service, endpoint, { body, query, method, stream = false }: DefaultRequestOptions) {
+function defaultRequest(
+  service,
+  endpoint,
+  { body, query, method, stream = false }: DefaultRequestOptions,
+) {
   return [
     endpoint,
     {
@@ -34,7 +38,7 @@ function defaultRequest(service, endpoint, { body, query, method, stream = false
 async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, { query });
-  const response = await Request(...requestOptions);  
+  const response = await Request(...requestOptions);
   const pagination = {
     total: response.headers['x-total'],
     next: response.headers['x-next-page'] || null,
@@ -42,7 +46,7 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
     previous: response.headers['x-prev-page'] || null,
     perPage: response.headers['x-per-page'],
     totalPages: response.headers['x-total-pages'],
-  }
+  };
 
   const underLimit = maxPages ? pagination.current < maxPages : true;
   let data;
@@ -52,7 +56,7 @@ async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}
   if (!query.page && underLimit && pagination.next) {
     const more = await getPaginated(service, endpoint, {
       page: pagination.next,
-      ...options
+      ...options,
     });
 
     data = [...response.body, ...more];

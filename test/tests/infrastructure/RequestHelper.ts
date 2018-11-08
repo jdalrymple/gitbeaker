@@ -12,7 +12,7 @@ const mockedGetBasic = () => ({
   },
 });
 
-const mockedGetExtended = ({ url, query }) => {
+const mockedGetExtended = ({ url, query = {} }) => {
   let u = url;
 
   if (query.page) u += `page=${query.page}`;
@@ -102,7 +102,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
 
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token' },
+      { url: 'testing', token: 'token'},
       'https://www.test.com',
       { maxPages: 1 },
     );
