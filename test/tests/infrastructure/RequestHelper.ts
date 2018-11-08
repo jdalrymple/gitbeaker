@@ -76,7 +76,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token' },
+      { url: 'https://testing.com', token: 'token' },
       'https://www.test.com',
     );
 
@@ -88,7 +88,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
 
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token' },
+      { url: 'https://testing.com', token: 'token' },
       'https://www.test.com',
     );
 
@@ -102,7 +102,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn(({ url, query }) => mockedGetExtended({ url, query }));
 
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token'},
+      { url: 'https://testing.com', token: 'token'},
       'https://www.test.com',
       { maxPages: 1 },
     );
@@ -118,7 +118,7 @@ describe('RequestHelper.get()', () => {
 
   it('Should be paginated but limited by the page option', async () => {
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token' },
+      { url: 'https://testing.com', token: 'token' },
       'https://www.test.com',
       { page: 2 },
     );
@@ -134,7 +134,7 @@ describe('RequestHelper.get()', () => {
 
   it('Should show the pagination information when the page option is given', async () => {
     const response = await RequestHelper.get(
-      { url: 'testing', token: 'token' },
+      { url: 'https://testing.com', token: 'token' },
       'https://www.test.com',
       { page: 2, showPagination: true },
     );
