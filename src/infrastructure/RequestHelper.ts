@@ -20,6 +20,7 @@ function defaultRequest(
   endpoint,
   { body, query, method, stream = false }: DefaultRequestOptions,
 ) {
+  console.log(service)
   return [
     endpoint,
     {
