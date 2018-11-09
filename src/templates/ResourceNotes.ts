@@ -1,4 +1,3 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceNotes extends BaseService {
@@ -7,7 +6,7 @@ class ResourceNotes extends BaseService {
   constructor(resourceType, resource2Type, baseParams) {
     super(baseParams);
 
-    this.url = URLJoin(this.url, resourceType);
+    this.url = [this.url, resourceType].join('/');
     this.resource2Type = resource2Type;
   }
 

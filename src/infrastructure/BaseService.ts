@@ -1,6 +1,4 @@
-import URLJoin from 'url-join';
-
-interface BaseModelOptions {
+interface BaseServiceOptions {
   url?: string;
   token?: string;
   oauthToken?: string;
@@ -9,13 +7,13 @@ interface BaseModelOptions {
   rejectUnauthorized?: boolean;
 }
 
-class BaseModel {
+class BaseService {
   protected url: string;
   public headers: { [header: string]: string | number};
   public rejectUnauthorized: boolean;
 
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>);
-  constructor(options: BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>);
+  constructor(options: BaseServiceOptions & Required<Pick<BaseServiceOptions, 'token'>>);
+  constructor(options: BaseServiceOptions & Required<Pick<BaseServiceOptions, 'oauthToken'>>);
   constructor({
     token,
     oauthToken,
@@ -23,8 +21,8 @@ class BaseModel {
     url = 'https://gitlab.com',
     version = 'v4',
     rejectUnauthorized = true,
-  }: BaseModelOptions = {}) {
-    this.url = URLJoin(url, 'api', version);
+  }: BaseServiceOptions = {}) {
+    this.url = [url, 'api', version].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
 
@@ -40,4 +38,4 @@ class BaseModel {
   }
 }
 
-export default BaseModel;
+export default BaseService;

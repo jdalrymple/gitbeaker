@@ -1,17 +1,14 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-const url = (resourceType, resourceId, resource2Type, resource2Id) => {
+const url = (resourceId, resource2Type, resource2Id) => {
   const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
+  const output = [rId];
 
-  let output = `${resourceType}/${rId}/`;
+  if (resource2Id) output.push(resource2Type, r2Id);
 
-  if (resource2Id) {
-    output += `${resource2Type}/${r2Id}/`;
-  }
+  output.push('variables');
 
-  output += 'variables';
-
-  return output;
+  return output.join('/');
 };
 
 class ResourceVariables extends BaseService {
@@ -21,21 +18,21 @@ class ResourceVariables extends BaseService {
   constructor(resourceType, resource2Type, baseParams) {
     super(baseParams);
 
-    this.resourceType = resourceType;
+    this.url = [this.url, resourceType].join('/');
     this.resource2Type = resource2Type;
   }
 
   all(resourceId, resource2Id) {
     return RequestHelper.get(
       this,
-      url(this.resourceType, resourceId, this.resource2Type, resource2Id),
+      url(resourceId, this.resource2Type, resource2Id),
     );
   }
 
   create(resourceId, resource2Id, options) {
     return RequestHelper.post(
       this,
-      url(this.resourceType, resourceId, this.resource2Type, resource2Id),
+      url(resourceId, this.resource2Type, resource2Id),
       options,
     );
   }
@@ -45,7 +42,7 @@ class ResourceVariables extends BaseService {
 
     return RequestHelper.put(
       this,
-      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
       options,
     );
   }
@@ -55,7 +52,7 @@ class ResourceVariables extends BaseService {
 
     return RequestHelper.get(
       this,
-      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
     );
   }
 
@@ -64,7 +61,7 @@ class ResourceVariables extends BaseService {
 
     return RequestHelper.delete(
       this,
-      `${url(this.resourceType, resourceId, this.resource2Type, resource2Id)}/${kId}`,
+      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
     );
   }
 }

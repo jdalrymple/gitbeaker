@@ -1,27 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
+    /* Basic Options */                       
+    "declaration": false,
+    "target": "es5",
+    "module": "es6",
+    "outDir": "dist",
+    "pretty": true,
+    "lib": ["ES2015","ES2016","DOM"],
+
+
+    /* Module Resolution Options */           
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    
+    /* Strict Type-Checking Options */        
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+
+    /* Additional Checks */                   
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noImplicitAny": false,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true,
-    "pretty": true,
-    "esModuleInterop": true,
-    "declaration": false,
-    "traceResolution": true,
-    "types": [
-      "node"
-    ]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*"],
 }

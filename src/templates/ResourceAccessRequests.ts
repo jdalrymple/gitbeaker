@@ -1,4 +1,3 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
 
 export const ACCESS_LEVELS = {
@@ -15,7 +14,7 @@ class ResourceAccessRequests extends BaseService {
   constructor(resourceType, baseParams) {
     super(baseParams);
 
-    this.url = URLJoin(this.url, resourceType);
+    this.url = [this.url, resourceType].join('/');
     this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
 
