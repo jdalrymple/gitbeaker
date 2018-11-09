@@ -2,7 +2,9 @@
   "name": "gitlab",
   "version": "4.2.1",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "main": "dist/latest/index.js",
+  "main": "dist/es5/index.js",
+  "modules": "dist/latest/index.js",
+  "types": "dist/latest/index.d.ts",
   "engines": {
     "node": ">=8.9.0"
   },

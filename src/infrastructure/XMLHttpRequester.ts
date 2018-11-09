@@ -1,5 +1,4 @@
 import { StatusCodeError } from 'request-promise-core/errors';
-import { promisify } from 'util';
 import XHR, { XhrUriConfig, XhrUrlConfig } from 'xhr';
 import { wait } from './RequestHelper';
 
@@ -22,7 +21,17 @@ interface XhrConfgExtraParams {
 }
 
 function promisifyWithRetry<F extends Function>(fn: F): XhrInstancePromisified {
-  const promisifiedFn = promisify(fn);
+
+  const promisifiedFn = (...args: any[]) => new Promise<any>((resolve, reject) => {
+    fn(...args, (err:any, data:any) => {
+
+      if (err) {
+        reject(err);
+      }
+
+      resolve(data);
+    });
+  });
 
   return async function getResponse(
     opts: XhrUriConfig & XhrConfgExtraParams | XhrUrlConfig & XhrConfgExtraParams,
