@@ -7,7 +7,7 @@ describe('Creation of BaseService instance', () => {
     expect(service.url).toBe('https://gitlab.com/api/v4');
   });
 
-  test('Use the Oauth Token when a user supplies both a Private Token and a Oauth Token', async () => {
+  test('Use the Oauth Token when a given both a Private Token and a Oauth Token', async () => {
     const service = new BaseService({ token: 'test', oauthToken: '1234' });
 
     expect(service.headers['private-token']).toBeUndefined();
