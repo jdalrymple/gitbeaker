@@ -1,5 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
-import * as Request from 'got';
+import Request from 'got';
 
 const mockedGetBasic = () => ({
   body: {
@@ -66,7 +66,7 @@ const mockedGetExtended = (url, { query = '' }) => {
 
 describe('RequestHelper.get()', () => {
   it('Should respond with an object', async () => {
-    Request.apply = jest.fn(() => mockedGetBasic());
+    Request.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
@@ -78,7 +78,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated when links are present', async () => {
-    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+    Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
@@ -92,7 +92,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
-    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+    Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
@@ -110,7 +110,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should be paginated but limited by the page option', async () => {
-    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+    Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },
@@ -128,7 +128,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('Should show the pagination information when the page option is given', async () => {
-    Request.apply = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
+    Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
       { url: 'https://testing.com', token: 'token' },

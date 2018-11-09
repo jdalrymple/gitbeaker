@@ -11,7 +11,8 @@
 
     /* Module Resolution Options */           
     "moduleResolution": "node",
-
+    "esModuleInterop": true,
+    
     /* Strict Type-Checking Options */        
     "strictPropertyInitialization": true,
     "strictNullChecks": true,

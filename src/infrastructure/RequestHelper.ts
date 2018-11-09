@@ -1,4 +1,4 @@
-import * as Request from 'got';
+import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 
@@ -18,7 +18,7 @@ interface DefaultRequestOptions {
 function defaultRequest(
   service,
   endpoint,
-  { body, query, method, stream = false }: DefaultRequestOptions,
+  { body, query }: DefaultRequestOptions,
 ) {
   return [
     endpoint,
@@ -27,8 +27,6 @@ function defaultRequest(
       headers: service.headers,
       query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
       body: body && decamelizeKeys(body),
-      stream,
-      method,
       rejectUnauthorized: service.rejectUnauthorized,
       json: true,
     },
@@ -38,7 +36,7 @@ function defaultRequest(
 async function getPaginated(service, endpoint, options: GetPaginatedOptions = {}) {
   const { showPagination, maxPages, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, { query });
-  const response = await Request.apply(...requestOptions);
+  const response = await Request.get(...requestOptions);
   const pagination = {
     total: response.headers['x-total'],
     next: response.headers['x-next-page'] || null,
@@ -73,21 +71,15 @@ class RequestHelper {
   static async get(service, endpoint, options = {}, { stream = false } = {}) {
     if (!stream) return getPaginated(service, endpoint, options);
 
-    return Request.apply(
+    return Request.stream(
       ...defaultRequest(service, endpoint, {
         query: options,
-        stream: true,
       }),
     );
   }
 
   static async post(service, endpoint, options = {}) {
-    console.log(options)
-    console.log(endpoint)
-    console.log(defaultRequest(service, endpoint, {
-        body: options,
-    }))
-    const response = await Request.apply(
+    const response = await Request.post(
       ...defaultRequest(service, endpoint, {
         body: options,
       }),
@@ -97,9 +89,8 @@ class RequestHelper {
   }
 
   static async put(service, endpoint, options = {}) {
-    const response = await Request.apply(
+    const response = await Request.put(
       ...defaultRequest(service, endpoint, {
-        method: 'PUT',
         body: options,
       }),
     );
@@ -108,9 +99,8 @@ class RequestHelper {
   }
 
   static async delete(service, endpoint, options = {}) {
-    const response = await Request.apply(
+    const response = await Request.delete(
       ...defaultRequest(service, endpoint, {
-        method: 'DELETE',
         query: options,
       }),
     );
