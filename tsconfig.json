@@ -8,10 +8,13 @@
     "pretty": true,
     "lib": ["ES2015","ES2016","DOM"],
 
-
     /* Module Resolution Options */           
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+        "@types": [ "./types.ts" ],
+    },
     
     /* Strict Type-Checking Options */        
     "strictPropertyInitialization": true,

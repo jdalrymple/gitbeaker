@@ -1,29 +1,14 @@
 import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
+import { PaginatedRequestOptions, BaseRequestOptions, DefaultRequestOptions } from '@types';
 
-interface DefaultRequestOptions {
-  body?: object;
-  query?: object;
-  sudo?: string | number;
-}
-
-interface PaginatedRequestOptions extends DefaultRequestOptions {
-  showPagination?: boolean;
-  maxPages?: number;
-  page?: number;
-}
-
-function defaultRequest(
-  service,
-  endpoint,
-  { body, query }: DefaultRequestOptions,
-) {
+function defaultRequest(service, endpoint, { body, query, sudo }: DefaultRequestOptions) {
   return [
     endpoint,
     {
       baseUrl: service.url,
-      headers: service.headers,
+      headers: { sudo, ...service.headers },
       query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
       body: body && decamelizeKeys(body),
       rejectUnauthorized: service.rejectUnauthorized,
@@ -71,7 +56,7 @@ async function getPaginated(service, endpoint, options: PaginatedRequestOptions 
 }
 
 class RequestHelper {
-  static async get(service, endpoint, options: DefaultRequestOptions = {}, { stream = false }) {
+  static async get(service, endpoint, options: BaseRequestOptions = {}, { stream = false } = {}) {
     const { sudo, ...query } = options;
 
     if (!stream) return getPaginated(service, endpoint, options);
@@ -84,7 +69,7 @@ class RequestHelper {
     );
   }
 
-  static async post(service, endpoint, options: DefaultRequestOptions = {}) {
+  static async post(service, endpoint, options: BaseRequestOptions = {}) {
     const { sudo, ...body } = options;
     const response = await Request.post(
       ...defaultRequest(service, endpoint, {
@@ -96,7 +81,7 @@ class RequestHelper {
     return response.body;
   }
 
-  static async put(service, endpoint, options: DefaultRequestOptions = {}) {
+  static async put(service, endpoint, options: BaseRequestOptions = {}) {
     const { sudo, ...body } = options;
     const response = await Request.put(
       ...defaultRequest(service, endpoint, {
@@ -108,7 +93,7 @@ class RequestHelper {
     return response.body;
   }
 
-  static async delete(service, endpoint, options: DefaultRequestOptions = {}) {
+  static async delete(service, endpoint, options: BaseRequestOptions = {}) {
     const { sudo, ...query } = options;
     const response = await Request.delete(
       ...defaultRequest(service, endpoint, {

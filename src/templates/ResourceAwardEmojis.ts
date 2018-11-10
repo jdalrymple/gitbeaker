@@ -14,7 +14,7 @@ function url(projectId, resourceType, resourceId, awardId, noteId) {
 }
 
 class ResourceAwardsEmojis extends BaseService {
-  protected resourceType: temporaryAny;
+  protected resourceType: string;
 
   constructor(resourceType, baseParams) {
     super(baseParams);

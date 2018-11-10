@@ -1,6 +1,32 @@
-import {} from '../src/index';
+// Base Service
+export interface BaseServiceOptions {
+  url?: string;
+  token?: string;
+  oauthToken?: string;
+  version?: string;
+  sudo?: string | number;
+  rejectUnauthorized?: boolean;
+}
 
-declare global {
-    type temporaryAny = any;
-    type UserIdOptions = { userId?: string };
+// RequestHelper
+export interface DefaultRequestOptions {
+  body?: object | undefined;
+  query?: object | undefined;
+  sudo?: string | number | undefined;
+}
+
+export interface BaseRequestOptions {
+  sudo?: string | number | undefined;
+  [propName: string]: any;
+}
+
+export interface PaginatedRequestOptions extends BaseRequestOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+}
+
+// Users
+export interface UserIdOptions extends BaseRequestOptions {
+	userId?: number;
 }

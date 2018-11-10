@@ -1,11 +1,4 @@
-interface BaseServiceOptions {
-  url?: string;
-  token?: string;
-  oauthToken?: string;
-  version?: string;
-  sudo?: string | number;
-  rejectUnauthorized?: boolean;
-}
+import { BaseServiceOptions } from '@types';
 
 class BaseService {
   protected url: string;

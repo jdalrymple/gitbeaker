@@ -1,29 +1,36 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseRequestOptions, UserIdOptions } from '@types';
 
 const url = userId => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 
 class UserKeys extends BaseService {
-  all({ userId }) {
-    return RequestHelper.get(this, url(userId));
+  all(options: UserIdOptions) {
+    const { userId, ...opts } = options;
+
+    return RequestHelper.get(this, url(userId), opts);
   }
 
-  create(title, key, { userId }: UserIdOptions = {}) {
+  create(title, key, options: UserIdOptions) {
+    const { userId, ...opts } = options;
+
     return RequestHelper.post(this, url(userId), {
       title,
       key,
+      ...opts
     });
   }
 
-  show(keyId) {
+  show(keyId, options: BaseRequestOptions) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `user/keys/${kId}`);
+    return RequestHelper.get(this, `user/keys/${kId}`, options);
   }
 
-  remove(keyId, { userId }: UserIdOptions = {}) {
+  remove(keyId, options: UserIdOptions) {
     const kId = encodeURIComponent(keyId);
+    const { userId, ...opts } = options;
 
-    return RequestHelper.delete(this, `${url(userId)}/${kId}`);
+    return RequestHelper.delete(this, `${url(userId)}/${kId}`, opts);
   }
 }
 

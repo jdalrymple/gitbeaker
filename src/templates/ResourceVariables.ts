@@ -12,8 +12,7 @@ const url = (resourceId, resource2Type, resource2Id) => {
 };
 
 class ResourceVariables extends BaseService {
-  protected resourceType: temporaryAny;
-  protected resource2Type: temporaryAny;
+  protected resource2Type: string;
 
   constructor(resourceType, resource2Type, baseParams) {
     super(baseParams);

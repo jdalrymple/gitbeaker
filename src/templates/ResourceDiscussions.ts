@@ -1,8 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceDiscussions extends BaseService {
-  protected resource2Type: temporaryAny;
-
+  protected resource2Type: string;
+  
   constructor(resourceType, resource2Type, baseParams) {
     super(baseParams);
 
