@@ -1,7 +1,7 @@
 import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
-import { PaginatedRequestOptions, BaseRequestOptions, DefaultRequestOptions } from '@types';
+import { PaginatedRequestOptions, BaseRequestOptions, DefaultRequestOptions } from '@src/types';
 
 function defaultRequest(service, endpoint, { body, query, sudo }: DefaultRequestOptions) {
   return [

@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, UserIdOptions } from '@types';
+import { BaseRequestOptions, UserIdOptions } from '@src/types';
 
 const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 

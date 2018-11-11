@@ -1,9 +1,9 @@
-import { BaseServiceOptions } from '@types';
+import { BaseServiceOptions } from '@src/types';
 
 class BaseService {
-  protected url: string;
-  public headers: { [header: string]: string | number};
-  public rejectUnauthorized: boolean;
+  protected readonly url: string;
+  public readonly headers: { [header: string]: string | number};
+  public readonly rejectUnauthorized: boolean;
 
   constructor(options: BaseServiceOptions & Required<Pick<BaseServiceOptions, 'token'>>);
   constructor(options: BaseServiceOptions & Required<Pick<BaseServiceOptions, 'oauthToken'>>);
@@ -11,11 +11,12 @@ class BaseService {
     token,
     oauthToken,
     sudo,
-    url = 'https://gitlab.com',
+    host = 'https://gitlab.com',
+    url = '',
     version = 'v4',
     rejectUnauthorized = true,
   }: BaseServiceOptions = {}) {
-    this.url = [url, 'api', version].join('/');
+    this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
 
@@ -25,9 +26,6 @@ class BaseService {
 
     // Set sudo
     if (sudo) this.headers['Sudo'] = sudo;
-
-    // Freeze properties
-    Object.freeze(this);
   }
 }
 

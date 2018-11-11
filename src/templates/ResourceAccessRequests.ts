@@ -12,9 +12,8 @@ class ResourceAccessRequests extends BaseService {
   protected ACCESS_LEVELS: typeof ACCESS_LEVELS;
 
   constructor(resourceType, baseParams) {
-    super(baseParams);
+    super({ url: resourceType, ...baseParams });
 
-    this.url = [this.url, resourceType].join('/');
     this.ACCESS_LEVELS = ACCESS_LEVELS;
   }
 

@@ -69,7 +69,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token' },
+      { host: 'https://testing.com', token: 'token' },
       'test',
     );
 
@@ -81,7 +81,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token' },
+      { host: 'https://testing.com', token: 'token' },
       'test',
     );
 
@@ -95,7 +95,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token' },
+      { host: 'https://testing.com', token: 'token' },
       'test',
       { maxPages: 1 },
     );
@@ -113,7 +113,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token' },
+      { host: 'https://testing.com', token: 'token' },
       'test',
       { page: 2 },
     );
@@ -131,7 +131,7 @@ describe('RequestHelper.get()', () => {
     Request.get = jest.fn((url, { query }) => mockedGetExtended(url, { query }));
 
     const response = await RequestHelper.get(
-      { url: 'https://testing.com', token: 'token' },
+      { host: 'https://testing.com', token: 'token' },
       'test',
       { page: 2, showPagination: true },
     );

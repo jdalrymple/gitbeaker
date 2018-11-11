@@ -15,9 +15,8 @@ class ResourceVariables extends BaseService {
   protected resource2Type: string;
 
   constructor(resourceType, resource2Type, baseParams) {
-    super(baseParams);
+    super({ url: resourceType, ...baseParams });
 
-    this.url = [this.url, resourceType].join('/');
     this.resource2Type = resource2Type;
   }
 

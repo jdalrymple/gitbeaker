@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
-        "@types": [ "./types.ts" ],
+        "@src/*": [ "./*" ],
     },
     
     /* Strict Type-Checking Options */        

@@ -2,9 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceIssueBoards extends BaseService {
   constructor(resourceType, baseParams) {
-    super(baseParams);
-
-    this.url = [this.url, resourceType].join('/');
+    super({ url: resourceType, ...baseParams });
   }
 
   all(resourceId, options) {

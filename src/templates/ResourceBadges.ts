@@ -2,9 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceBadges extends BaseService {
   constructor(resourceType, baseParams) {
-    super(baseParams);
-
-    this.url = [this.url, resourceType].join('/');
+    super({ url: resourceType, ...baseParams });
   }
 
   add(resourceId, options) {

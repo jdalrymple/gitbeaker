@@ -17,9 +17,8 @@ class ResourceAwardsEmojis extends BaseService {
   protected resourceType: string;
 
   constructor(resourceType, baseParams) {
-    super(baseParams);
+    super({ url: 'projects', ...baseParams });
 
-    this.url = [this.url, 'projects'].join('/');
     this.resourceType = resourceType;
   }
 

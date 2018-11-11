@@ -1,4 +1,4 @@
-import { bundler } from '../../../src/infrastructure';
+import { bundler }  from '../../../src/infrastructure';
 
 class Test1 {
   constructor(value: number) {

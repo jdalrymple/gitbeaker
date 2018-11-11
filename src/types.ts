@@ -1,7 +1,8 @@
 // Base Service
 export interface BaseServiceOptions {
-  url?: string;
+  host?: string;
   token?: string;
+  url?: string | undefined;
   oauthToken?: string;
   version?: string;
   sudo?: string | number;

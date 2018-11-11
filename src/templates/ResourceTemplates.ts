@@ -2,9 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 
 class ResourceTemplates extends BaseService {
   constructor(resourceType, baseParams) {
-    super(baseParams);
-
-    this.url = [this.url, 'templates', resourceType].join('/');
+    super({ url: ['templates', resourceType].join('/'), ...baseParams });
   }
 
   all(options) {
