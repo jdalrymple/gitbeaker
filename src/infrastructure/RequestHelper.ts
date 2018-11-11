@@ -24,18 +24,17 @@ async function getPaginated(service, endpoint, options: PaginatedRequestOptions 
     sudo,
   });
 
-  const response = await Request.get(...requestOptions);
+  const { headers, body } = await Request.get(...requestOptions);
   const pagination = {
-    total: response.headers['x-total'],
-    next: response.headers['x-next-page'] || null,
-    current: response.headers['x-page'] || null,
-    previous: response.headers['x-prev-page'] || null,
-    perPage: response.headers['x-per-page'],
-    totalPages: response.headers['x-total-pages'],
+    total: headers['x-total'],
+    next: headers['x-next-page'] || null,
+    current: headers['x-page'] || null,
+    previous: headers['x-prev-page'] || null,
+    perPage: headers['x-per-page'],
+    totalPages: headers['x-total-pages'],
   };
 
   const underLimit = maxPages ? pagination.current < maxPages : true;
-  let data;
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
@@ -45,14 +44,10 @@ async function getPaginated(service, endpoint, options: PaginatedRequestOptions 
       ...options,
     });
 
-    data = [...response.body, ...more];
-  } else {
-    data = response.body;
+    return [...body, ...more];
   }
 
-  if (query.page && showPagination) return { data, pagination };
-
-  return data;
+  return (showPagination) ?  { data: body, pagination } : body;
 }
 
 class RequestHelper {
