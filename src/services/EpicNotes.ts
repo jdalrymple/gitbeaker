@@ -1,8 +1,8 @@
 import { ResourceNotes } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class EpicNotes extends ResourceNotes {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('groups', 'epics', options);
   }
 }

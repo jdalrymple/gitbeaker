@@ -1,11 +1,11 @@
+import { bundler } from './infrastructure';
 import * as APIServices from './services';
-import { Bundler } from './infrastructure';
 
 // All seperatly
 export * from './services';
 
 // Groups
-export const GroupsBundle = Bundler({
+export const GroupsBundle = bundler({
   Groups: APIServices.Groups,
   GroupAccessRequests: APIServices.GroupAccessRequests,
   GroupBadges: APIServices.GroupBadges,
@@ -22,7 +22,7 @@ export const GroupsBundle = Bundler({
 });
 
 // Users
-export const UsersBundle = Bundler({
+export const UsersBundle = bundler({
   Users: APIServices.Users,
   UserCustomAttributes: APIServices.UserCustomAttributes,
   UserEmails: APIServices.UserEmails,
@@ -32,7 +32,7 @@ export const UsersBundle = Bundler({
 });
 
 // Projects
-export const ProjectsBundle = Bundler({
+export const ProjectsBundle = bundler({
   Branches: APIServices.Branches,
   Commits: APIServices.Commits,
   CommitDiscussions: APIServices.CommitDiscussions,
@@ -76,4 +76,4 @@ export const ProjectsBundle = Bundler({
 });
 
 // All initialized
-export default Bundler(APIServices);
+export const Gitlab = bundler(APIServices);

@@ -1,8 +1,8 @@
 import { ResourceAwardEmojis } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class MergeRequestAwardEmojis extends ResourceAwardEmojis {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('merge_requests', options);
   }
 }

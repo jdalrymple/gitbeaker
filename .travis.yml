@@ -37,4 +37,4 @@ jobs:
     - stage: release
       node_js: 10.0.0
       script:
-        - npm run semantic-release
+        - npm run release

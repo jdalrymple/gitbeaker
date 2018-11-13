@@ -1,40 +1,45 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-
-export type PipelineId = string | number;
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  ProjectId,
+  PipelineId,
+  JobScope,
+} from '@src/types';
 
 class Pipelines extends BaseService {
-  all(projectId: ProjectId, options = {}) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines`, options);
   }
 
-  create(projectId: ProjectId, ref: string) {
+  create(projectId: ProjectId, ref: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref });
+    return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
   }
 
-  show(projectId: ProjectId, pipelineId: PipelineId) {
+  show(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`);
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
-  retry(projectId: ProjectId, pipelineId: PipelineId) {
+  retry(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`);
+    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
   }
 
-  cancel(projectId: ProjectId, pipelineId: PipelineId) {
+  cancel(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`);
+    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
   }
 
-  showJobs(projectId: ProjectId, pipelineId: PipelineId, options: RequestOptions) {
+  showJobs(projectId: ProjectId, pipelineId: PipelineId, options: { scope: JobScope } & Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);

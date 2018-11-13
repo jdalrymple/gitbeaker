@@ -1,10 +1,14 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-
-type PipelineScheduleId = string | number;
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  ProjectId,
+  PipelineScheduleId,
+} from '@src/types';
 
 class PipelineSchedules extends BaseService {
-  all(projectId: ProjectId, options: RequestOptions) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipeline_schedules`, options);
@@ -14,8 +18,8 @@ class PipelineSchedules extends BaseService {
     projectId: ProjectId,
     description: string,
     ref: string,
-    cron: temporaryAny,
-    options: RequestOptions,
+    cron: string,
+    options?: BaseRequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -27,28 +31,32 @@ class PipelineSchedules extends BaseService {
     });
   }
 
-  edit(projectId: ProjectId, scheduleId: PipelineScheduleId, options: RequestOptions) {
+  edit(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  remove(projectId: ProjectId, scheduleId: PipelineScheduleId) {
+  remove(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/pipeline_schedules/${sId}`);
+    return RequestHelper.delete(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  show(projectId: ProjectId, scheduleId: PipelineScheduleId) {
+  show(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${sId}`);
+    return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  takeOwnership(projectId: ProjectId, scheduleId: PipelineScheduleId) {
+  takeOwnership(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/pipeline_schedules/${sId}/take_ownership`);
+    return RequestHelper.post(
+      this,
+      `projects/${pId}/pipeline_schedules/${sId}/take_ownership`,
+      options,
+    );
   }
 }
 

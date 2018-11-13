@@ -1,18 +1,16 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-
-export type BroadcastMessageId = string | number;
+import { BaseRequestOptions, PaginatedRequestOptions, BroadcastMessageId } from '@src/types';
 
 class BroadcastMessages extends BaseService {
-  all(options: RequestOptions) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'broadcast_messages', options);
   }
 
-  create(options: RequestOptions) {
+  create(options?: BaseRequestOptions) {
     return RequestHelper.post(this, 'broadcast_messages', options);
   }
 
-  edit(broadcastMessageId: BroadcastMessageId, options: RequestOptions) {
+  edit(broadcastMessageId: BroadcastMessageId, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
     return RequestHelper.put(this, `broadcast_messages/${bId}`, options);
@@ -24,7 +22,7 @@ class BroadcastMessages extends BaseService {
     return RequestHelper.delete(this, `broadcast_messages/${bId}`);
   }
 
-  show(broadcastMessageId: BroadcastMessageId, options: RequestOptions) {
+  show(broadcastMessageId: BroadcastMessageId, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
     return RequestHelper.get(this, `broadcast_messages/${bId}`, options);

@@ -1,83 +1,93 @@
 {
   "name": "gitlab",
-  "version": "4.2.1",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "main": "dist/latest/index.js",
-  "engines": {
-    "node": ">=8.9.0"
-  },
-  "scripts": {
-    "prepush": "npm run lint",
-    "commit": "npx git-cz",
-    "build:clean": "rimraf -rf dist && mkdirp dist",
-    "build:es6": "tsc -p tsconfig.dist.json",
-    "build:es5": "tsc -p tsconfig-es5.dist.json",
-    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
-    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
-    "test:bundles": "jest test/tests/bundles",
-    "test:infrastructure": "jest test/tests/infrastructure",
-    "test:services": "jest test/tests/services",
-    "test": "jest --debug --runInBand && codecov",
-    "test-with-token": "PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${PERSONAL_ACCESS_TOKEN}\"') GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${GITLAB_URL}\"') npm run test",
-    "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release"
+  "license": "MIT",
+  "author": {
+    "email": "justin.s.dalrymple@gmail.com",
+    "name": "Justin Dalrymple"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/node-gitlab"
   },
-  "keywords": [
-    "gitlab",
-    "api",
-    "es6",
-    "es5",
-    "request"
-  ],
+  "homepage": "https://github.com/jdalrymple/node-gitlab#readme",
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
-  "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
-  "license": "MIT",
-  "readmeFilename": "README.md",
+  "version": "5.0.0-rc.1",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "browser": {
+    "dist/index.js": "dist/index.browser.js",
+    "got": "ky"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "commit": "npx git-cz",
+    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts' -t stylish",
+    "format": "prettier",
+    "prepublishOnly": "npm run build",
+    "prepush": "npm run lint",
+    "release": "semantic-release",
+    "test": "jest --debug --runInBand && codecov",
+    "test:bundles": "jest test/tests/bundles",
+    "test:infrastructure": "jest test/tests/infrastructure",
+    "test:services": "jest test/tests/services"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "dependencies": {
+    "form-data": "^2.3.3",
+    "got": "^9.2.2",
+    "humps": "^2.0.1",
+    "ky": "^0.4.1",
+    "query-string": "^6.2.0",
+    "randomstring": "^1.1.5"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.5",
     "@semantic-release/npm": "^5.0.5",
     "@types/humps": "^1.1.2",
-    "@types/jest": "^23.3.9",
-    "@types/parse-link-header": "^1.0.0",
-    "@types/qs": "^6.5.1",
-    "@types/request-promise": "^4.1.42",
-    "@types/url-join": "^0.8.2",
-    "@types/util.promisify": "^1.0.0",
+    "@types/jest": "^23.3.5",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.1.3",
     "jest": "^23.6.0",
     "jest-extended": "^0.11.0",
     "jest-tap-reporter": "^1.9.0",
-    "semantic-release": "^15.10.7",
+    "prettier": "^1.14.3",
+    "rollup": "^0.66.6",
+    "rollup-plugin-analyzer": "^2.1.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.17.1",
+    "semantic-release": "^15.10.3",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
-    "typescript": "^3.1.6"
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.1.3"
   },
-  "dependencies": {
-    "humps": "^2.0.1",
-    "parse-link-header": "^1.0.1",
-    "qs": "^6.5.2",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "request-promise-core": "^1.1.1",
-    "url-join": "^4.0.0",
-    "xhr": "^2.5.0"
+  "keywords": [
+    "api",
+    "es5",
+    "es6",
+    "gitlab",
+    "got",
+    "ky",
+    "browser"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
   }
 }

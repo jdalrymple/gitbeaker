@@ -4,7 +4,7 @@ describe('ApplicationSettings.all', () => {
   let settings: ReturnType<ApplicationSettings['all']>;
   beforeEach(async () => {
     const service = new ApplicationSettings({
-      url: process.env.GITLAB_URL,
+      host: process.env.GITLAB_URL,
       token: process.env.PERSONAL_ACCESS_TOKEN,
     });
     settings = await service.all();

@@ -1,46 +1,18 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  NotificationSettingLevel,
+  ProjectId,
+  GroupId
+} from '@src/types';
 
-const LEVELS = {
-  DISABLED: 'disabled',
-  PARTICIPATING: 'participating',
-  WATCH: 'watch',
-  GLOBAL: 'global',
-  MENTION: 'mention',
-  CUSTOM: 'custom',
-};
-
-const EVENTS = {
-  NEW_NOTE: 'new_note',
-  NEW_ISSUE: 'new_issue',
-  REOPEM_ISSUE: 'reopen_issue',
-  CLOSE_ISSUE: 'close_issue',
-  REASSIGN_ISSUE: 'reassign_issue',
-  NEW_MERGE_REQUESTS: 'new_merge_request',
-  PUSH_TO_MERGE_REQUEST: 'push_to_merge_request',
-  REOPEN_MERGE_REQUESTS: 'reopen_merge_request',
-  CLOSE_MERGE_REQUEST: 'close_merge_request',
-  REASSIGN_MERGE_REQUEST: 'reassign_merge_request',
-  MERGE_MERGE_REQUEST: 'merge_merge_request',
-  FAILED_PIPELINE: 'failed_pipeline',
-  SUCCESS_PIPELINE: 'success_pipeline',
-};
-interface NotificationSettingsOptions {
-  projectId?: ProjectId;
-  groupId?: string;
-}
 class NotificationSettings extends BaseService {
-  protected LEVELS: typeof LEVELS;
-  protected EVENTS: typeof EVENTS;
-  constructor(baseParams: BaseModelContructorOptions) {
-    super(baseParams);
-
-    this.LEVELS = LEVELS;
-    this.EVENTS = EVENTS;
-  }
-
-  all({ projectId, groupId }: NotificationSettingsOptions = {}) {
+  all({
+    projectId,
+    groupId,
+    ...options
+  }: { projectId?: ProjectId; groupId?: GroupId } & PaginatedRequestOptions = {}) {
     let url = '';
 
     if (projectId) {
@@ -49,10 +21,18 @@ class NotificationSettings extends BaseService {
       url += `groups/${encodeURIComponent(groupId)}/`;
     }
 
-    return RequestHelper.get(this, `${url}notification_settings`);
+    return RequestHelper.get(this, `${url}notification_settings`, options);
   }
 
-  edit(options: RequestOptions, { projectId, groupId }: NotificationSettingsOptions = {}) {
+  edit({
+    projectId,
+    groupId,
+    ...options
+  }: {
+    projectId?: ProjectId;
+    groupId?: GroupId;
+    level?: NotificationSettingLevel;
+  } & BaseRequestOptions = {}) {
     let url = '';
 
     if (projectId) {

@@ -1,35 +1,38 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { BaseRequestOptions, Sudo, ProjectId } from '@src/types';
 
 class PushRule extends BaseService {
-  create(projectId: ProjectId, options: RequestOptions) {
+  create(projectId: ProjectId, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);
   }
 
-  async edit(projectId: ProjectId, { upsert = false, ...options } = {}) {
+  edit(
+    projectId: ProjectId,
+    { upsert = false, ...options }: { upsert: boolean } & BaseRequestOptions,
+  ) {
     const pId = encodeURIComponent(projectId);
 
-    if (upsert) {
-      const pushRule = await this.show(projectId);
+    try {
+      return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
+    } catch (e) {
+      if (e.message.includes('exist')) return this.create(projectId, options);
 
-      if (!pushRule) return this.create(projectId, options);
+      throw e;
     }
-
-    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  remove(projectId: ProjectId) {
+  remove(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/push_rule`);
+    return RequestHelper.delete(this, `projects/${pId}/push_rule`, options);
   }
 
-  show(projectId: ProjectId) {
+  show(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/push_rule`);
+    return RequestHelper.get(this, `projects/${pId}/push_rule`, options);
   }
 }
 

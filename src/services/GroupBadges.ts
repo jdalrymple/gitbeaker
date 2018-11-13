@@ -1,8 +1,8 @@
 import { ResourceBadges } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class GroupBadges extends ResourceBadges {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('groups', options);
   }
 }

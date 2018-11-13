@@ -1,35 +1,35 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '@src/types';
 
 class Wikis extends BaseService {
-  all(projectId: ProjectId, options: RequestOptions) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/wikis`, options);
   }
 
-  create(projectId: ProjectId, options: RequestOptions) {
+  create(projectId: ProjectId, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/wikis`, options);
   }
 
-  edit(projectId: ProjectId, slug: string, options: RequestOptions) {
+  edit(projectId: ProjectId, slug: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/wikis/${slug}`, options);
   }
 
-  show(projectId: ProjectId, slug: string) {
+  show(projectId: ProjectId, slug: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/wikis/${slug}`);
+    return RequestHelper.get(this, `projects/${pId}/wikis/${slug}`, options);
   }
 
-  remove(projectId: ProjectId, slug: string) {
+  remove(projectId: ProjectId, slug: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/wikis/${slug}`);
+    return RequestHelper.delete(this, `projects/${pId}/wikis/${slug}`, options);
   }
 }
 

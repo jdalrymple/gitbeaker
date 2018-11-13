@@ -1,8 +1,8 @@
 import { ResourceAwardEmojis } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class IssueAwardEmojis extends ResourceAwardEmojis {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('issues', options);
   }
 }

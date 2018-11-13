@@ -1,3 +1,31 @@
+
+# [5.0.0-rc.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...5.0.0) (2018-11-07)
+
+### Breaking
+* Added content as a required parameter for RepositoryFiles
+* Removed projectId from System Hooks API since it wasn't required
+* Removed dependency on FS. Now the Projects API takes in two arguments `projectId` and `content` as well as an option fileName argument
+* Changing everything to named exports for simplicity
+* Switching required initialization argument from 'url' to 'host'
+* Updated Approvals API support to match https://docs.gitlab.com/ee/api/merge_request_approvals.html
+* MergeRequest Pipelines require the mergeRequestId
+* NotificationSettings API edit function now takes one parameter, `options`
+* Changing the access level enum property from master to maintainer as per https://gitlab.com/gitlab-org/gitlab-ce/issues/42751
+* Notes now require a body argument instead of checking the options argument for a body parameter
+
+## Bug Fixes
+* #227 (https://github.com/jdalrymple/node-gitlab/issues/227) Fixing array syntax thanks to Lukas Eipert (https://github.com/leipert) (f9bc34d (https://github.com/jdalrymple/node-gitlab/commit/f9bc34d))
+* Fixing Todos support. If todoId was not passed, an undefined value would be introduced into the url (cbeef18 (https://github.com/jdalrymple/node-gitlab/commit/cbeef18))
+* ResourceAwardEmojis API wasn't properly filtering based on awardId (70f4315 (https://github.com/jdalrymple/node-gitlab/commit/70f4315))
+* Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality
+
+## Features
+* Adding the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))
+
+## Documentation
+* Removing xml request docs
+* Updating imports to be named imports
+
 ## [4.2.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...4.2.1) (2018-10-29)
 
 

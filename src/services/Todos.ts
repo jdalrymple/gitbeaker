@@ -1,26 +1,31 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-import { MergeRequestId } from './MergeRequests';
+import {
+  PaginatedRequestOptions,
+  Sudo,
+  ProjectId,
+  TodoId,
+  MergeRequestId,
+} from '@src/types';
 
-type TodoId = string | number;
-interface TodosOptions {
-  todoId: TodoId;
-}
 class Todos extends BaseService {
-  all(options: RequestOptions) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'todos', options);
   }
 
-  create(projectId: ProjectId, mergerequestId: MergeRequestId) {
-    const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
-
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/todo`);
+  create(projectId: ProjectId, mergerequestId: MergeRequestId, options?: Sudo) {
+    return RequestHelper.post(
+      this,
+      `projects/${projectId}/merge_requests/${mergerequestId}/todo`,
+      options,
+    );
   }
 
-  done({ todoId }: TodosOptions) {
-    const tId = encodeURIComponent(todoId);
+  done({ todoId, ...options }: { todoId?: TodoId } & Sudo) {
+    let url = 'mark_as_done';
 
-    return RequestHelper.delete(this, `todos/${tId}/mark_as_done`);
+    if (todoId) url = `${todoId}/${url}`;
+
+    return RequestHelper.delete(this, `todos/${url}`, options);
   }
 }
 

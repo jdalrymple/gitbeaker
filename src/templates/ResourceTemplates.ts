@@ -1,23 +1,25 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  ResourceId,
+  ResourceType,
+} from '@src/types';
 
 class ResourceTemplates extends BaseService {
-  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
-
-    this.url = URLJoin(this.url, 'templates', resourceType);
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+    super({ url: ['templates', resourceType].join('/'), ...options });
   }
 
-  all(options: RequestOptions) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, '', options);
   }
 
-  show(resourceId: ResourceId) {
+  show(resourceId: ResourceId, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}`);
+    return RequestHelper.post(this, `${rId}`, options);
   }
 }
 

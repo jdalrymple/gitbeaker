@@ -1,79 +1,84 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { assertEventOptions, EventOptions } from './Events';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  UserId,
+  EventOptions,
+} from '@src/types';
 
 class Users extends BaseService {
-  all(options: RequestOptions) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'users', options);
   }
 
-  activities() {
-    return RequestHelper.get(this, 'users/activities');
+  activities(options?: Sudo) {
+    return RequestHelper.get(this, 'users/activities', options);
   }
 
-  projects(userId: UserId) {
+  projects(userId: UserId, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/projects`);
+    return RequestHelper.get(this, `users/${uId}/projects`, options);
   }
 
-  block(userId: UserId) {
+  block(userId: UserId, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/block`);
+    return RequestHelper.post(this, `users/${uId}/block`, options);
   }
 
-  create(options: RequestOptions) {
+  create(options?: BaseRequestOptions) {
     return RequestHelper.post(this, 'users', options);
   }
 
-  current() {
-    return RequestHelper.get(this, 'user');
+  current(options?: Sudo) {
+    return RequestHelper.get(this, 'user', options);
   }
 
-  edit(userId: UserId, options: RequestOptions) {
+  edit(userId: UserId, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.put(this, `users/${uId}`, options);
   }
 
-  events(userId: UserId, options: RequestOptions & EventOptions) {
-    assertEventOptions(options.action, options.targetType);
-
+  events(userId: UserId, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/events`, options);
   }
 
-  session(email: string, password: string) {
+  session(email: string, password: string, options?: Sudo) {
     return RequestHelper.post(this, 'session', {
       email,
       password,
+      ...options,
     });
   }
 
-  search(emailOrUsername: string) {
+  search(emailOrUsername: string, options?: Sudo) {
     return RequestHelper.get(this, 'users', {
       search: emailOrUsername,
+      ...options,
     });
   }
 
-  show(userId: UserId, options: RequestOptions) {
+  show(userId: UserId, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}`, options);
   }
 
-  remove(userId: UserId) {
+  remove(userId: UserId, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.delete(this, `users/${uId}`);
+    return RequestHelper.delete(this, `users/${uId}`, options);
   }
 
-  unblock(userId: UserId) {
+  unblock(userId: UserId, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/unblock`);
+    return RequestHelper.post(this, `users/${uId}/unblock`, options);
   }
 }
 

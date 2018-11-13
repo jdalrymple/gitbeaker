@@ -1,26 +1,35 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  AccessLevel,
+  Sudo,
+  ResourceId,
+  ResourceType,
+  UserId,
+} from '@src/types';
 
-/** A valid access level */
-export type AccessLevel = number;
 class ResourceMembers extends BaseService {
-  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
-
-    this.url = URLJoin(this.url, resourceType);
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+    super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId, includeInherited = false, options = {}) {
+  all(resourceId: ResourceId, includeInherited = false, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
+    const url = [rId, 'members'];
 
-    const url = includeInherited ? `${rId}/members/all` : `${rId}/members`;
+    if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get(this, url.join('/'), { options });
   }
 
-  add(resourceId: ResourceId, userId: UserId, accessLevel: AccessLevel, options: RequestOptions) {
+  add(
+    resourceId: ResourceId,
+    userId: UserId,
+    accessLevel: AccessLevel,
+    options?: BaseRequestOptions,
+  ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/members`, {
@@ -30,7 +39,12 @@ class ResourceMembers extends BaseService {
     });
   }
 
-  edit(resourceId: ResourceId, userId: UserId, accessLevel: AccessLevel, options: RequestOptions) {
+  edit(
+    resourceId: ResourceId,
+    userId: UserId,
+    accessLevel: AccessLevel,
+    options?: BaseRequestOptions,
+  ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/members/${uId}`, {
@@ -39,16 +53,16 @@ class ResourceMembers extends BaseService {
     });
   }
 
-  show(resourceId: ResourceId, userId: UserId) {
+  show(resourceId: ResourceId, userId: UserId, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/members/${uId}`);
+    return RequestHelper.get(this, `${rId}/members/${uId}`, options);
   }
 
-  remove(resourceId: ResourceId, userId: UserId) {
+  remove(resourceId: ResourceId, userId: UserId, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/members/${uId}`);
+    return RequestHelper.delete(this, `${rId}/members/${uId}`, options);
   }
 }
 
