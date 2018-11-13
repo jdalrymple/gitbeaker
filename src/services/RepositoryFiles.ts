@@ -1,26 +1,40 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { BaseRequestOptions, Sudo, ProjectId } from '@src/types';
 
 class RepositoryFiles extends BaseService {
-  create(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
+  create(
+    projectId: ProjectId,
+    filePath: string,
+    branch: string,
+    content: string,
+    options?: BaseRequestOptions,
+  ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
       branch,
+      content,
       ...options,
     });
   }
 
-  edit(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
+  edit(
+    projectId: ProjectId,
+    filePath: string,
+    branch: string,
+    content: string,
+    options?: BaseRequestOptions,
+  ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
       branch,
+      content,
       ...options,
     });
   }
 
-  remove(projectId: ProjectId, filePath: string, branch: string, options: RequestOptions) {
+  remove(projectId: ProjectId, filePath: string, branch: string, options?: BaseRequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `projects/${pId}/repository/files/${path}`, {
@@ -29,18 +43,22 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  show(projectId: ProjectId, filePath: string, ref: string) {
+  show(projectId: ProjectId, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
       ref,
+      ...options,
     });
   }
 
-  showRaw(projectId: ProjectId, filePath: string, ref: string) {
+  showRaw(projectId: ProjectId, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, { ref });
+    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, {
+      ref,
+      ...options,
+    });
   }
 }
 

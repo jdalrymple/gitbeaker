@@ -1,25 +1,24 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  ProjectId,
+  SnippetId,
+  SnippetVisibility,
+} from '@src/types';
 
-const VISIBILITY_LEVELS = {
-  PRIVATE: 'private',
-  INTERNAL: 'internal',
-  PUBLIC: 'public',
-};
-
-type SnippetId = string | number;
-type VisibilityLevel = 'private' | 'public' | 'internal';
 class ProjectSnippets extends BaseService {
-  all(projectId: ProjectId, options = {}) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/snippets`, options);
   }
 
-  content(projectId: ProjectId, snippetId: SnippetId) {
+  content(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/raw`);
+    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/raw`, options);
   }
 
   create(
@@ -27,8 +26,8 @@ class ProjectSnippets extends BaseService {
     title: string,
     fileName: string,
     code: string,
-    visibility: VisibilityLevel,
-    options: RequestOptions = {},
+    visibility: SnippetVisibility,
+    options?: BaseRequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -41,30 +40,29 @@ class ProjectSnippets extends BaseService {
     });
   }
 
-  edit(projectId: ProjectId, snippetId: SnippetId, options: RequestOptions) {
+  edit(projectId: ProjectId, snippetId: SnippetId, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
-  remove(projectId: ProjectId, snippetId: SnippetId) {
+  remove(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`);
+    return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
-  show(projectId: ProjectId, snippetId: SnippetId) {
+  show(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}`);
+    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
-  userAgentDetails(projectId: ProjectId, snippetId: SnippetId) {
+  userAgentDetails(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/user_agent_detail`);
+    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/user_agent_detail`, options);
   }
 }
 
 export default ProjectSnippets;
-export { VISIBILITY_LEVELS };

@@ -1,31 +1,31 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '@src/types';
 
-const url = (userId?: string) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
+const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 
-/** SSH key ID */
-export type KeyId = string;
 class UserKeys extends BaseService {
-  all({ userId }: UserIdOptions) {
-    return RequestHelper.get(this, url(userId));
+  all({ userId, ...options }: { userId?: UserId } & PaginatedRequestOptions = {}) {
+    return RequestHelper.get(this, url(userId), options);
   }
-  /** Add SSH key for user */
-  create(title: string, key: KeyId, { userId }: UserIdOptions = {}) {
+
+  create(title, key, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     return RequestHelper.post(this, url(userId), {
       title,
       key,
+      ...options
     });
   }
 
-  show(keyId: KeyId) {
+  show(keyId, options?: BaseRequestOptions) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `user/keys/${kId}`);
+    return RequestHelper.get(this, `user/keys/${kId}`, options);
   }
 
-  remove(keyId: KeyId, { userId }: UserIdOptions = {}) {
+  remove(keyId, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.delete(this, `${url(userId)}/${kId}`);
+    return RequestHelper.delete(this, `${url(userId)}/${kId}`, options);
   }
 }
 

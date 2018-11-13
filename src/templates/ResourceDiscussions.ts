@@ -1,77 +1,120 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  BaseServiceOptions,
+  Sudo,
+  ResourceId,
+  ResourceType,
+  NoteId,
+  DiscussionId,
+} from '@src/types';
 
-export type DiscussiodId = string | number;
 class ResourceDiscussions extends BaseService {
-  protected resource2Type: string;
+  protected resource2Type: ResourceType;
 
-  constructor(resourceType: string, resource2Type: string, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
+  constructor(
+    resourceType: ResourceType,
+    resource2Type: ResourceType,
+    options: BaseServiceOptions,
+  ) {
+    super({ url: resourceType, ...options });
 
-    this.url = URLJoin(this.url, resourceType);
     this.resource2Type = resource2Type;
   }
 
   addNote(
-    resourceId: string,
-    resource2Id: string,
-    discussiodId: string,
+    resourceId: ResourceId,
+    resource2Id: ResourceId,
+    discussionId: DiscussionId,
     noteId: NoteId,
-    options: RequestOptions,
+    content: string,
+    options?: BaseRequestOptions,
   ) {
-    if (!options.body) throw new Error('Missing required property: body');
+    if (!content) throw new Error('Missing required content argument');
 
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
-      .map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
+      encodeURIComponent,
+    );
 
-    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, options);
+    return RequestHelper.put(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      { body: content, ...options },
+    );
   }
 
-  all(resourceId: ResourceId, resource2Id: Resource2Id, options: RequestOptions) {
+  all(resourceId: ResourceId, resource2Id: ResourceId, options?: PaginatedRequestOptions) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
   }
 
-  create(resourceId: ResourceId, resource2Id: Resource2Id, options: RequestOptions) {
-    if (!options.body) throw new Error('Missing required property: body');
+  create(
+    resourceId: ResourceId,
+    resource2Id: ResourceId,
+    content: string,
+    options?: BaseRequestOptions,
+  ) {
+    if (!content) throw new Error('Missing required content argument');
 
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
+    return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, {
+      body: content,
+      ...options,
+    });
   }
 
   editNote(
     resourceId: ResourceId,
-    resource2Id: Resource2Id,
-    discussiodId: DiscussiodId,
+    resource2Id: ResourceId,
+    discussionId: DiscussionId,
     noteId: NoteId,
-    options: RequestOptions,
+    options?: BaseRequestOptions,
   ) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
-      .map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
+      encodeURIComponent,
+    );
 
-    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, { body: options });
+    return RequestHelper.put(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      { body: options },
+    );
   }
 
   removeNote(
     resourceId: ResourceId,
-    resource2Id: Resource2Id,
-    discussiodId: DiscussiodId,
+    resource2Id: ResourceId,
+    discussionId: DiscussionId,
     noteId: NoteId,
+    options?: Sudo,
   ) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussiodId, noteId]
-      .map(encodeURIComponent);
+    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
+      encodeURIComponent,
+    );
 
-    return RequestHelper.delete(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`);
+    return RequestHelper.delete(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      options,
+    );
   }
 
-  show(resourceId: ResourceId, resource2Id: Resource2Id, discussiodId: DiscussiodId) {
-    const [rId, r2Id, dId] = [resourceId, resource2Id, discussiodId].map(encodeURIComponent);
+  show(
+    resourceId: ResourceId,
+    resource2Id: ResourceId,
+    discussionId: DiscussionId,
+    options?: Sudo,
+  ) {
+    const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`);
+    return RequestHelper.get(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`,
+      options,
+    );
   }
 }
 

@@ -1,64 +1,89 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  ProjectId,
+  ResourceId,
+  ResourceType,
+  NoteId,
+  AwardId,
+} from '@src/types';
 
-function url(
-  projectId: ProjectId,
-  resourceType: ResourceType,
-  resourceId: ResourceId,
-  noteId: NoteId,
-) {
+function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
-  let output = `${pId}/${resourceType}/${rId}/`;
+  const output = [pId, resourceType, rId];
 
-  if (noteId) {
-    output += `notes/${encodeURIComponent(noteId)}/`;
-  }
+  if (noteId) output.push('notes', encodeURIComponent(noteId));
 
-  output += 'award_emoji';
+  output.push(encodeURIComponent('award_emoji'));
 
-  return output;
+  if (awardId) output.push(encodeURIComponent(awardId));
+
+  return output.join('/');
 }
 
 class ResourceAwardsEmojis extends BaseService {
-  protected resourceType: temporaryAny;
+  protected resourceType: string;
 
-  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+    super({ url: 'projects', ...options });
 
-    this.url = URLJoin(this.url, 'projects');
     this.resourceType = resourceType;
   }
 
-  all(projectId: ProjectId, resourceId: ResourceId, options: RequestOptions, noteId: NoteId) {
-    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
+  all(
+    projectId: ProjectId,
+    resourceId: ResourceId,
+    noteId: NoteId,
+    options?: PaginatedRequestOptions,
+  ) {
+    return RequestHelper.get(
+      this,
+      url(projectId, this.resourceType, resourceId, null, noteId),
+      options,
+    );
   }
 
-  award(projectId: ProjectId, resourceId: ResourceId, name: string, noteId: NoteId) {
-    return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
+  award(
+    projectId: ProjectId,
+    resourceId: ResourceId,
+    name: string,
+    noteId: NoteId,
+    options?: Sudo,
+  ) {
+    return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, null, noteId), {
       name,
+      ...options,
     });
   }
 
   remove(
     projectId: ProjectId,
     resourceId: ResourceId,
-    // @ts-ignore 'awardId' is declared but its value is never read
-    awardId: string | number,
+    awardId: AwardId,
     noteId: NoteId,
+    options?: Sudo,
   ) {
-    return RequestHelper.delete(this, url(projectId, this.resourceType, resourceId, noteId));
+    return RequestHelper.delete(
+      this,
+      url(projectId, this.resourceType, resourceId, awardId, noteId),
+      options,
+    );
   }
 
   show(
     projectId: ProjectId,
     resourceId: ResourceId,
-    // @ts-ignore 'awardId' is declared but its value is never read
-    awardId: string | number,
+    awardId: AwardId,
     noteId: NoteId,
+    options?: Sudo,
   ) {
-    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId));
+    return RequestHelper.get(
+      this,
+      url(projectId, this.resourceType, resourceId, awardId, noteId),
+      options,
+    );
   }
 }
 

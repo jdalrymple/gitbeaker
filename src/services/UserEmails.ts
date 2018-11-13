@@ -1,28 +1,30 @@
 import { BaseService, RequestHelper } from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '@src/types';
 
-const url = (userId?: UserId) => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
+const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 
 class UserEmails extends BaseService {
-  all({ userId }: UserIdOptions = {}) {
-    return RequestHelper.get(this, url(userId));
+  all({ userId, ...options }: { userId?: UserId } & PaginatedRequestOptions = {}) {
+    return RequestHelper.get(this, url(userId), options);
   }
 
-  add(email: string, { userId }: UserIdOptions = {}) {
+  add(email, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     return RequestHelper.post(this, url(userId), {
       email,
+      ...options,
     });
   }
 
-  show(emailId: string) {
+  show(emailId, options?: BaseRequestOptions) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.get(this, `user/emails/${eId}`);
+    return RequestHelper.get(this, `user/emails/${eId}`, options);
   }
 
-  remove(emailId: string, { userId }: UserIdOptions = {}) {
+  remove(emailId, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.delete(this, `${url(userId)}/${eId}`);
+    return RequestHelper.delete(this, `${url(userId)}/${eId}`, options);
   }
 }
 

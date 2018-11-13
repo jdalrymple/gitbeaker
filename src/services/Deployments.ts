@@ -1,19 +1,17 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-
-type DeploymentId = string | number;
+import { PaginatedRequestOptions, Sudo, ProjectId, DeploymentId } from '@src/types';
 
 class Deployments extends BaseService {
-  all(projectId: ProjectId, options: RequestOptions) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/deployments`, options);
   }
 
-  show(projectId: ProjectId, deploymentId: DeploymentId) {
+  show(projectId: ProjectId, deploymentId: DeploymentId, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/deployments/${dId}`);
+    return RequestHelper.post(this, `projects/${pId}/deployments/${dId}`, options);
   }
 }
 

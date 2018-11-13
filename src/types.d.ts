@@ -1,68 +1,184 @@
-/// <reference path="../node_modules/jest-extended/types/index.d.ts" />
-
-type temporaryAny = any;
-type UserIdOptions = { userId?: string };
-type UserId = string;
-
-type ResourceType = string;     // see if we can narrow the type to string literals
-type ResourceId = string;       // see if we can narrow the type to string literals
-type Resource2Type = string;    // see if we can narrow the type to string literals
-type Resource2Id = string;      // see if we can narrow the type to string literals
-
-type NoteId = string;           // see if `| number` is a valid type
-type ProjectId = string | number;
-type KeyId = string;            // see if `| number` is a valid type
-type GroupId = string | number;
-type PipelineScheduleId = string;
-
-type GroupAccess = temporaryAny;
-
-/** The duration in human format. e.g: 3h30m */
-type Duration = string;
-
-/**
-  * Encodes a text string as a valid component of a Uniform Resource Identifier (URI).
-  * @param uriComponent A value representing an encoded URI component.
-  */
-declare function encodeURIComponent(uriComponent: number | string): string;
-
-declare module 'request-promise-core/errors';
-
-interface ObjectConstructor {
-  /**
-   * Copy the values of all of the enumerable own properties from one or more source objects to a
-   * target object. Returns the target object.
-   * @param target The target object to copy to.
-   * @param source The source object from which to copy properties.
-   */
-  assign<T, U>(target: T, source: U): T & U;
-  /**
-   * Copy the values of all of the enumerable own properties from one or more source objects to a
-   * target object. Returns the target object.
-   * @param target The target object to copy to.
-   * @param source1 The first source object from which to copy properties.
-   * @param source2 The second source object from which to copy properties.
-   */
-  assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
-  /**
-   * Copy the values of all of the enumerable own properties from one or more source objects to a
-   * target object. Returns the target object.
-   * @param target The target object to copy to.
-   * @param source1 The first source object from which to copy properties.
-   * @param source2 The second source object from which to copy properties.
-   * @param source3 The third source object from which to copy properties.
-   */
-  assign<T, U, V, W>(
-    target: T,
-    source1: U,
-    source2: V,
-    source3: W,
-  ): T & U & V & W;
-  /**
-   * Copy the values of all of the enumerable own properties from one or more source objects to a
-   * target object. Returns the target object.
-   * @param target The target object to copy to.
-   * @param sources One or more source objects from which to copy properties
-   */
-  assign(target: any, ...sources: any[]): any;
+// Overrides
+declare global {
+  function encodeURIComponent(uriComponent: string | number | boolean): string; 
 }
+
+// Global
+export type ResourceType = string;
+export type ResourceId = string | number;
+export type AwardId = number;
+export type BroadcastMessageId = number;
+export type BadgeId = number;
+export type BoardId = number;
+export type CustomAttributeId = number;
+export type DeploymentId = number;
+export type DiscussionId = number;
+export type EnvironmentId = number;
+export type EpicId = number;
+export type GeonodeId = number;
+export type GroupId = string | number;
+export type GroupProjectId = number;
+export type HookId = number;
+export type ImpersonationTokenId = number;
+export type IssueId = number;
+export type JobId = number;
+export type LabelId = number;
+export type KeyId = string;
+export type NamespaceId = string | number;
+export type MergeRequestId = number;
+export type MilestoneId = number;
+export type NoteId = number;
+export type PipelineId = number;
+export type PipelineScheduleId = number
+export type ProjectId = string | number;
+export type RunnerId = number;
+export type SnippetId = number;
+export type TodoId = number;
+export type TriggerId = number;
+export type VersionId = number;
+export type UserId = number;
+
+export interface Sudo {
+  sudo?: string | number;
+}
+
+// Base Service
+export interface BaseServiceOptions extends Sudo {
+  oauthToken?: string;
+  token?: string;
+  host?: string;
+  url?: string;
+  version?: string;
+  rejectUnauthorized?: boolean;
+}
+
+// RequestHelper
+export interface DefaultRequestOptions extends Sudo {
+  body?: object;
+  query?: object;
+}
+
+export interface BaseRequestOptions extends Sudo {
+  [key: string]: any;
+}
+
+export interface PaginatedRequestOptions extends BaseRequestOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+  perPage?: number;
+}
+
+// Access Requests
+export enum AccessLevel {
+  GUEST= 10,
+  REPORTER= 20,
+  DEVELOPER = 30,
+  MAINTAINER = 40,
+  OWNER = 50,
+};
+
+// Commits
+export interface CommitAction {
+  /** The action to perform */
+  action: 'create' | 'delete' | 'move' | 'update';
+  /** Full path to the file. Ex. lib/class.rb */
+  filePath: string;
+  /** Original full path to the file being moved.Ex.lib / class1.rb */
+  previousPath?: string;
+  /** File content, required for all except delete. Optional for move */
+  content?: string;
+  /** text or base64. text is default. */
+  encoding?: string;
+  /** Last known file commit id. Will be only considered in update, move and delete actions. */
+  lastCommitId?: string;
+}
+
+// Events
+export type EventAction =
+  | 'created'
+  | 'updated'
+  | 'closed'
+  | 'reopened'
+  | 'pushed'
+  | 'commented'
+  | 'merged'
+  | 'joined'
+  | 'left'
+  | 'destroyed'
+  | 'expired'
+
+export type EventTarget =
+  | 'issue',
+  | 'milestone',
+  | 'merge_request',
+  | 'note',
+  | 'project',
+  | 'snippet',
+  | 'user'
+
+export interface EventOptions {
+  action: EventAction,
+  targetType: EventTarget
+}
+
+// Jobs
+export type JobScope =
+  | 'created'
+  | 'pending'
+  | 'running'
+  | 'failed'
+  | 'success'
+  | 'canceled'
+  | 'skipped'
+  | 'manual'
+
+// Notification Settings Levels
+export type NotificationSettingLevel =
+  | 'disabled'
+  | 'participating'
+  | 'watch'
+  | 'global'
+  | 'mention'
+  | 'custom'
+
+// Services
+export type SupportedService =
+  |'asana'
+  | 'assembla'
+  | 'bamboo'
+  | 'bugzilla'
+  | 'buildkite'
+  | 'campfire'
+  | 'custom-issue-tracker'
+  | 'drone-ci'
+  | 'emails-on-push'
+  | 'external-wiki'
+  | 'flowdock'
+  | 'hangouts_chat'
+  | 'hipchat'
+  | 'irker'
+  | 'jira'
+  | 'kubernetes'
+  | 'slack-slash-commands'
+  | 'slack'
+  | 'mattermost-slash-commands'
+  | 'packagist'
+  | 'pipelines-email'
+  | 'pivotaltracker'
+  | 'prometheus'
+  | 'pushover'
+  | 'redmine'
+  | 'microsoft-teams'
+  | 'mattermost'
+  | 'mattermost-slash-commands'
+  | 'teamcity'
+  | 'jenkins'
+  | 'jenkins-deprecated'
+  | 'mock-ci';
+
+// Snippets
+export type SnippetVisibility = 'private' | 'public' | 'internal'
+
+// User Impersonation Tokens
+export type ImpersonationTokenScope = 'api' | 'read_user'

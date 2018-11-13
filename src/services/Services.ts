@@ -1,32 +1,23 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { BaseRequestOptions, Sudo, ProjectId, SupportedService } from '@src/types';
 
-type ServiceName = 'asana' | 'assembla' | 'bamboo' | 'bugzilla' | 'buildkite' | 'campfire'
-  | 'custom-issue-tracker' | 'drone-ci' | 'emails-on-push' | 'external-wiki' | 'flowdock'
-  | 'hangouts_chat' | 'hipchat' | 'irker' | 'jira' | 'kubernetes' | 'slack-slash-commands'
-  | 'slack' | 'mattermost-slash-commands' | 'packagist' | 'pipelines-email' | 'pivotaltracker'
-  | 'prometheus' | 'pushover' | 'redmine' | 'microsoft-teams' | 'mattermost'
-  | 'mattermost-slash-commands' | 'teamcity' | 'jenkins' | 'jenkins-deprecated' | 'mock-ci';
-/**
- * @see https://docs.gitlab.com/ee/api/services.html
- */
 class Services extends BaseService {
-  edit(projectId: ProjectId, serviceName: ServiceName, options: RequestOptions) {
+  edit(projectId: ProjectId, serviceName: SupportedService, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
-  remove(projectId: ProjectId, serviceName: ServiceName) {
+  remove(projectId: ProjectId, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/services/${serviceName}`);
+    return RequestHelper.delete(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
-  show(projectId: ProjectId, serviceName: ServiceName) {
+  show(projectId: ProjectId, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/services/${serviceName}`);
+    return RequestHelper.get(this, `projects/${pId}/services/${serviceName}`, options);
   }
 }
 

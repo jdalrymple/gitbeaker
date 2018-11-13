@@ -1,4 +1,4 @@
-import { Bundler } from '../../../src/infrastructure';
+import { bundler }  from '../../../src/infrastructure';
 
 class Test1 {
   constructor(value: number) {
@@ -13,14 +13,14 @@ class Test2 {
 }
 
 test('No classes passed to Bundler returns an empty Bundle', async () => {
-  const Bundle = Bundler(undefined as any);
-  const services = new Bundle(undefined as any);
+  const Bundle = bundler();
+  const services = new Bundle();
   
   expect(services).toEqual({});
 });
 
 test('Classes passed to Bundler get merged', async () => {
-  const Bundle = Bundler({ Test1, Test2 });
+  const Bundle = bundler({ Test1, Test2 });
   const services = new Bundle();
 
   expect(services.Test1).toBeInstanceOf(Test1);
@@ -28,7 +28,7 @@ test('Classes passed to Bundler get merged', async () => {
 });
 
 test('Classes passed to Bundler with options get initialized', async () => {
-  const Bundle = Bundler({ Test1, Test2 });
+  const Bundle = bundler({ Test1, Test2 });
   const services = new Bundle(2);
 
   expect(services.Test1.value).toBe(6);

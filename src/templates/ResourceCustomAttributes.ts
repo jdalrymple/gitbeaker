@@ -1,39 +1,43 @@
-import URLJoin from 'url-join';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import {
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  ResourceId,
+  ResourceType,
+  CustomAttributeId,
+} from '@src/types';
 
-export type CustomAttributeId = string | number;
 class ResourceCustomAttributes extends BaseService {
-  constructor(resourceType: string, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
-
-    this.url = URLJoin(this.url, resourceType);
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+    super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId) {
+  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${rId}/custom_attributes`);
+    return RequestHelper.get(this, `${rId}/custom_attributes`, options);
   }
 
-  set(resourceId: ResourceId, customAttributeId: CustomAttributeId, value: string) {
+  set(resourceId: ResourceId, customAttributeId: CustomAttributeId, value: string, options?: Sudo) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/custom_attributes/${cId}`, {
       value,
+      ...options,
     });
   }
 
-  remove(resourceId: ResourceId, customAttributeId: CustomAttributeId) {
+  remove(resourceId: ResourceId, customAttributeId: CustomAttributeId, options?: Sudo) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`);
+    return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`, options);
   }
 
-  show(resourceId: ResourceId, customAttributeId: CustomAttributeId) {
+  show(resourceId: ResourceId, customAttributeId: CustomAttributeId, options?: Sudo) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`);
+    return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`, options);
   }
 }
 

@@ -1,21 +1,32 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
-
-type SnippetId = string | number;
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  SnippetId,
+  SnippetVisibility,
+} from '@src/types';
 
 class Snippets extends BaseService {
-  all(options = { public: false }) {
-    const url = options.public ? 'snippets/public' : 'snippets';
+  all({ public: p, ...options }: { public: boolean } & PaginatedRequestOptions) {
+    const url = p ? 'snippets/public' : 'snippets';
+
     return RequestHelper.get(this, url, options);
   }
 
-  content(snippetId: SnippetId) {
+  content(snippetId: SnippetId, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get(this, `snippets/${sId}/raw`);
+    return RequestHelper.get(this, `snippets/${sId}/raw`, options);
   }
 
-  create(title: string, fileName: string, content: string, visibility: string, options = {}) {
+  create(
+    title: string,
+    fileName: string,
+    content: string,
+    visibility: SnippetVisibility,
+    options?: BaseRequestOptions,
+  ) {
     return RequestHelper.post(this, 'snippets', {
       title,
       fileName,
@@ -25,28 +36,28 @@ class Snippets extends BaseService {
     });
   }
 
-  edit(snippetId: SnippetId, options: RequestOptions) {
+  edit(snippetId: SnippetId, options?: BaseRequestOptions) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.put(this, `snippets/${sId}`, options);
   }
 
-  remove(snippetId: SnippetId) {
+  remove(snippetId: SnippetId, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.delete(this, `snippets/${sId}`);
+    return RequestHelper.delete(this, `snippets/${sId}`, options);
   }
 
-  show(snippetId: SnippetId) {
+  show(snippetId: SnippetId, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get(this, `snippets/${sId}`);
+    return RequestHelper.get(this, `snippets/${sId}`, options);
   }
 
-  userAgentDetails(snippetId: SnippetId) {
+  userAgentDetails(snippetId: SnippetId, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get(this, `snippets/${sId}/user_agent_detail`);
+    return RequestHelper.get(this, `snippets/${sId}/user_agent_detail`, options);
   }
 }
 

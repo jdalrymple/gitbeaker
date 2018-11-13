@@ -1,8 +1,8 @@
 import { ResourceCustomAttributes } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class UserCustomAttributes extends ResourceCustomAttributes {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('users', options);
   }
 }

@@ -1,8 +1,8 @@
 import { ResourceTemplates } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '@src/types';
 
 class GitignoreTemplates extends ResourceTemplates {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('gitignores', options);
   }
 }

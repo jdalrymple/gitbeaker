@@ -1,38 +1,35 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '@src/types';
 
-interface PagesDomainsOptions {
-  projectId?: ProjectId;
-}
 class PagesDomains extends BaseService {
-  all({ projectId }: PagesDomainsOptions = {}) {
+  all({ projectId, ...options }: { projectId?: ProjectId } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 
-    return RequestHelper.get(this, `${url}pages/domains`);
+    return RequestHelper.get(this, `${url}pages/domains`, options);
   }
 
-  create(projectId: ProjectId, domain: string, options: RequestOptions) {
+  create(projectId: ProjectId, domain: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pages/domains`, { domain, ...options });
   }
 
-  edit(projectId: ProjectId, domain: string, options: RequestOptions) {
+  edit(projectId: ProjectId, domain: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 
-  show(projectId: ProjectId, domain: string) {
+  show(projectId: ProjectId, domain: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pages/domains/${domain}`);
+    return RequestHelper.get(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 
-  remove(projectId: ProjectId, domain: string) {
+  remove(projectId: ProjectId, domain: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/pages/domains/${domain}`);
+    return RequestHelper.delete(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 }
 

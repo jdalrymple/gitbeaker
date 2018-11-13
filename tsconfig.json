@@ -1,22 +1,30 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
+    /* Basic Options */                       
+    "declaration": false,
+    "target": "es5",
+    "module": "es6",
+    "outDir": "dist",
+    "pretty": true,
+    "lib": ["ES2015","ES2016", "ES2017", "DOM"],
+
+    /* Module Resolution Options */           
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+        "@src/*": [ "./*" ],
+    },
+    
+    /* Strict Type-Checking Options */        
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+
+    /* Additional Checks */                   
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "pretty": false,
-    "esModuleInterop": true,
-    "declaration": false,
-    "outDir": "dist/latest"
   },
-  "include": [
-    "src/**/*",
-    "test/tests/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"],
 }

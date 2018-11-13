@@ -1,6 +1,12 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import {
+  BaseServiceOptions,
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  ResourceId,
+  ResourceType,
+  KeyId,
+} from '@src/types';
 
 class ResourceVariables extends BaseService {
   protected resourceType: ResourceType;

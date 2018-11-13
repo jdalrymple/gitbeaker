@@ -1,55 +1,51 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, RunnerId } from '@src/types';
 
-type RunnerId = string | number;
-interface RunnersOptions {
-  projectId?: ProjectId;
-}
 class Runners extends BaseService {
-  all({ projectId, ...options }: RunnersOptions = {}) {
+  all({ projectId, ...options }: { projectId: ProjectId } & PaginatedRequestOptions) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 
     return RequestHelper.get(this, url, options);
   }
 
-  allOwned(options: RequestOptions) {
+  allOwned(options?: BaseRequestOptions) {
     return RequestHelper.get(this, 'runners', options);
   }
 
-  edit(runnerId: RunnerId, options: RequestOptions) {
+  edit(runnerId: RunnerId, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(runnerId);
 
     return RequestHelper.put(this, `runners/${rId}`, options);
   }
 
-  enable(projectId: ProjectId, runnerId: RunnerId) {
+  enable(projectId: ProjectId, runnerId: RunnerId, options?: Sudo) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId });
+    return RequestHelper.post(this, `projects/${pId}/runners`, { runnerId: rId, ...options });
   }
 
-  disable(projectId: ProjectId, runnerId: RunnerId) {
+  disable(projectId: ProjectId, runnerId: RunnerId, options?: Sudo) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`);
+    return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`, options);
   }
 
-  jobs(runnerId: RunnerId) {
+  jobs(runnerId: RunnerId, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.get(this, `runners/${rId}/jobs`);
+    return RequestHelper.get(this, `runners/${rId}/jobs`, options);
   }
 
-  remove(runnerId: RunnerId) {
+  remove(runnerId: RunnerId, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.delete(this, `runners/${rId}`);
+    return RequestHelper.delete(this, `runners/${rId}`, options);
   }
 
-  show(runnerId: RunnerId) {
+  show(runnerId: RunnerId, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.get(this, `runners/${rId}`);
+    return RequestHelper.get(this, `runners/${rId}`, options);
   }
 }
 

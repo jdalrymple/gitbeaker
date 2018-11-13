@@ -1,36 +1,35 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { HookId } from './SystemHooks';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, HookId } from '@src/types';
 
 class ProjectHooks extends BaseService {
-  all(projectId: ProjectId, options: RequestOptions) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/hooks`, options);
   }
 
-  show(projectId: ProjectId, hookId: HookId) {
+  show(projectId: ProjectId, hookId: HookId, options?: Sudo) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/hooks/${hId}`);
+    return RequestHelper.get(this, `projects/${pId}/hooks/${hId}`, options);
   }
 
-  add(projectId: ProjectId, url: string, options: RequestOptions) {
+  add(projectId: ProjectId, url: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/hooks`, { url, ...options });
   }
 
-  edit(projectId: ProjectId, hookId: HookId, url: string, options: RequestOptions) {
+  edit(projectId: ProjectId, hookId: HookId, url: string, options?: BaseRequestOptions) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/hooks/${hId}`, { url, ...options });
   }
 
-  remove(projectId: ProjectId, hookId: HookId) {
+  remove(projectId: ProjectId, hookId: HookId, options?: Sudo) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/hooks/${hId}`);
+    return RequestHelper.delete(this, `projects/${pId}/hooks/${hId}`, options);
   }
 }
 

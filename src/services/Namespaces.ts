@@ -1,15 +1,15 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, Sudo, NamespaceId } from '@src/types';
 
 class Namespaces extends BaseService {
-  all(options: RequestOptions) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'namespaces', options);
   }
 
-  show(namespaceId: string | number) {
+  show(namespaceId: NamespaceId, options: { search?: string } & Sudo) {
     const nId = encodeURIComponent(namespaceId);
 
-    return RequestHelper.get(this, `namespaces/${nId}`);
+    return RequestHelper.get(this, `namespaces/${nId}`, options);
   }
 }
 

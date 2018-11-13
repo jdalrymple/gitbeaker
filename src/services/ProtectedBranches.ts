@@ -1,14 +1,14 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '@src/types';
 
 class ProtectedBranches extends BaseService {
-  all(projectId: ProjectId, options: RequestOptions) {
+  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/protected_branches`, options);
   }
 
-  protect(projectId: ProjectId, branchName: string, options: RequestOptions) {
+  protect(projectId: ProjectId, branchName: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, {
@@ -17,16 +17,16 @@ class ProtectedBranches extends BaseService {
     });
   }
 
-  show(projectId: ProjectId, branchName: string) {
+  show(projectId: ProjectId, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/protected_branches/${bName}`);
+    return RequestHelper.get(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 
-  unprotect(projectId: ProjectId, branchName: string) {
+  unprotect(projectId: ProjectId, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/protected_branches/${bName}`);
+    return RequestHelper.delete(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 }
 
