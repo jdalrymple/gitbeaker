@@ -6,7 +6,7 @@ import {
   ResourceId,
   ResourceType,
   CustomAttributeId,
-} from '@src/types';
+} from '@typings';
 
 class ResourceCustomAttributes extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

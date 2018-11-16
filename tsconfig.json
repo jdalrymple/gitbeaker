@@ -11,9 +11,9 @@
     /* Module Resolution Options */           
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-        "@src/*": [ "./*" ],
+        "@typings": [ "index.d.ts" ],
     },
     
     /* Strict Type-Checking Options */        

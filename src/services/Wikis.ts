@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '@typings';
 
 class Wikis extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

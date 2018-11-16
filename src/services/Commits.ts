@@ -5,7 +5,7 @@ import {
   Sudo,
   CommitAction,
   ProjectId,
-} from '@src/types';
+} from '@typings';
 
 class Commits extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

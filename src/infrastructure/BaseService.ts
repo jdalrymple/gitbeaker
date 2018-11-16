@@ -1,4 +1,4 @@
-import { BaseServiceOptions } from '@src/types';
+import { BaseServiceOptions } from '@typings';
 
 class BaseService {
   protected readonly url: string;

@@ -1,5 +1,5 @@
 import { ResourceTemplates } from '../templates';
-import { BaseServiceOptions } from '@src/types';
+import { BaseServiceOptions } from '@typings';
 
 class LicenceTemplates extends ResourceTemplates {
   constructor(options: BaseServiceOptions) {

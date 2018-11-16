@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, IssueId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, IssueId } from '@typings';
 
 class Issues extends BaseService {
   addSpentTime(projectId: ProjectId, issueId: IssueId, duration: string, options?: Sudo) {

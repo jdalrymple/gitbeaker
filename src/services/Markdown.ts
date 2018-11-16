@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { Sudo, ProjectId } from '@src/types';
+import { Sudo, ProjectId } from '@typings';
 
 class Markdown extends BaseService {
   render(text: string, options: { gfm?: string, project?: ProjectId } & Sudo) {

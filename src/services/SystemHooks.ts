@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, HookId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, HookId } from '@typings';
 
 class SystemHooks extends BaseService {
   add(url: string, options?: BaseRequestOptions) {

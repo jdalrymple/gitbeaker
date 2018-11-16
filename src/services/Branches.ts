@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo, ProjectId } from '@src/types';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo, ProjectId } from '@typings';
 
 class Branches extends BaseService {
   all(projectId: ProjectId, options: { search: string } & PaginatedRequestOptions) {

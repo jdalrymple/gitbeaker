@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, Sudo, ProjectId } from '@src/types';
+import { BaseRequestOptions, Sudo, ProjectId } from '@typings';
 
 class Repositories extends BaseService {
   compare(projectId: ProjectId, from: string, to: string, options?: Sudo) {

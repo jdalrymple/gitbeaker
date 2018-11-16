@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { Sudo } from '@src/types';
+import { Sudo } from '@typings';
 
 class Version extends BaseService {
   show(options?: Sudo) {

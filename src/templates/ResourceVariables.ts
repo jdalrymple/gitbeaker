@@ -6,7 +6,7 @@ import {
   ResourceId,
   ResourceType,
   KeyId,
-} from '@src/types';
+} from '@typings';
 
 class ResourceVariables extends BaseService {
   protected resourceType: ResourceType;

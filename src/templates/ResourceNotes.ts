@@ -7,7 +7,7 @@ import {
   ResourceId,
   ResourceType,
   NoteId,
-} from '@src/types';
+} from '@typings';
 
 class ResourceNotes extends BaseService {
   protected resource2Type: string;

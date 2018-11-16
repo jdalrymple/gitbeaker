@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '@typings';
 
 const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 

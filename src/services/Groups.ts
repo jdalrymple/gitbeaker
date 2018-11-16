@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, GroupId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, GroupId } from '@typings';
 
 class Groups extends BaseService {
   all(options?: PaginatedRequestOptions) {
