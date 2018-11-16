@@ -8,7 +8,7 @@ import {
   ResourceType,
   NoteId,
   AwardId,
-} from '@src/types';
+} from '@typings';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);

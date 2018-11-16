@@ -1,5 +1,5 @@
 import { ResourceIssueBoards } from '../templates';
-import { BaseServiceOptions } from '@src/types';
+import { BaseServiceOptions } from '@typings';
 
 class ProjectIssueBoards extends ResourceIssueBoards {
   constructor(options: BaseServiceOptions) {

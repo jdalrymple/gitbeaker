@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo, GroupId, EpicId } from '@src/types';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo, GroupId, EpicId } from '@typings';
 
 class Epics extends BaseService {
   all(groupId: GroupId, options?: PaginatedRequestOptions) {

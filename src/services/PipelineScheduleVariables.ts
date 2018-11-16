@@ -1,5 +1,5 @@
 import { ResourceVariables } from '../templates';
-import { BaseServiceOptions } from '@src/types';
+import { BaseServiceOptions } from '@typings';
 
 class PipelineScheduleVariables extends ResourceVariables {
   constructor(options: BaseServiceOptions) {

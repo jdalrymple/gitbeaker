@@ -21,9 +21,10 @@
     "dist/index.js": "dist/index.browser.js",
     "got": "ky"
   },
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "rollup -c",

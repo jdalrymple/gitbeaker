@@ -1,5 +1,5 @@
 import { ResourceDiscussions } from '../templates';
-import { BaseServiceOptions } from '@src/types';
+import { BaseServiceOptions } from '@typings';
 
 class EpicDiscussions extends ResourceDiscussions {
   constructor(options: BaseServiceOptions) {

@@ -6,7 +6,7 @@ import {
   ResourceId,
   UserId,
   AccessLevel,
-} from '@src/types';
+} from '@typings';
 
 class ResourceAccessRequests extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

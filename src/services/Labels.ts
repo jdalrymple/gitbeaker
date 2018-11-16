@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, LabelId } from '@src/types';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, LabelId } from '@typings';
 
 class Labels extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

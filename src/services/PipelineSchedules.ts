@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   PipelineScheduleId,
-} from '@src/types';
+} from '@typings';
 
 class PipelineSchedules extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {
