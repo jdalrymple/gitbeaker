@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Basic Options */                       
-    "declaration": false,
+    "declaration": true,
     "target": "es5",
     "module": "es6",
     "outDir": "dist",
@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-        "@typings": [ "index.d.ts" ],
+        "@typings": [ "src/types.d.ts" ],
     },
     
     /* Strict Type-Checking Options */        
