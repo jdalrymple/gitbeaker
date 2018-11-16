@@ -76,7 +76,7 @@ export enum AccessLevel {
   DEVELOPER = 30,
   MAINTAINER = 40,
   OWNER = 50,
-};
+}
 
 // Commits
 export interface CommitAction {
@@ -109,12 +109,12 @@ export type EventAction =
   | 'expired'
 
 export type EventTarget =
-  | 'issue',
-  | 'milestone',
-  | 'merge_request',
-  | 'note',
-  | 'project',
-  | 'snippet',
+  | 'issue'
+  | 'milestone'
+  | 'merge_request'
+  | 'note'
+  | 'project'
+  | 'snippet'
   | 'user'
 
 export interface EventOptions {
@@ -144,7 +144,7 @@ export type NotificationSettingLevel =
 
 // Services
 export type SupportedService =
-  |'asana'
+  | 'asana'
   | 'assembla'
   | 'bamboo'
   | 'bugzilla'
