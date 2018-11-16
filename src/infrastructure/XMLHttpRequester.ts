@@ -42,8 +42,8 @@ function promisifyWithRetry<F extends Function>(fn: F): XhrInstancePromisified {
 const promisifyWithRetryDelete = promisifyWithRetry(XHR.del);
 const XMLHttpRequesterPromisifiedExtras = {
   del: promisifyWithRetryDelete,
-  get: promisifyWithRetryDelete,
-  delete: promisifyWithRetry(XHR.del),
+  delete: promisifyWithRetryDelete,
+  get: promisifyWithRetry(XHR.get),
   head: promisifyWithRetry(XHR.head),
   patch: promisifyWithRetry(XHR.patch),
   post: promisifyWithRetry(XHR.post),
