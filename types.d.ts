@@ -1,9 +1,7 @@
-// Overrides
 declare global {
   function encodeURIComponent(uriComponent: string | number | boolean): string; 
 }
 
-// Global
 export type ResourceType = string;
 export type ResourceId = string | number;
 export type AwardId = number;

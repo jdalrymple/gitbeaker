@@ -3,7 +3,6 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import { terser } from "rollup-plugin-terser";
-import { plugin as analyze } from 'rollup-plugin-analyzer'
 import typescript from 'typescript';
 import pkg from './package.json';
 
@@ -31,7 +30,6 @@ export default [
       commonjs(), // so Rollup can convert `ms` to an ES module
       ts({ typescript }),
       terser(),
-      analyze()
     ],
   },
 
@@ -46,7 +44,6 @@ export default [
     plugins: [
       ts({ typescript }),
       terser(),
-      analyze()
     ],
   },
 
@@ -61,7 +58,6 @@ export default [
     plugins: [
       ts({ typescript }),
       terser(),
-      analyze()
     ],
   },
 ];
