@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
-  "version": "5.0.0-rc.2",
+  "version": "5.0.0-rc.3",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": {
