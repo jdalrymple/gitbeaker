@@ -1,3 +1,10 @@
+## [4.2.5](https://github.com/jdalrymple/node-gitlab/compare/4.2.4...4.2.5) (2018-11-26)
+
+
+### Bug Fixes
+
+* Project variables urls were being generated incorrectly ([28b28cf](https://github.com/jdalrymple/node-gitlab/commit/28b28cf))
+
 ## [4.2.4](https://github.com/jdalrymple/node-gitlab/compare/4.2.3...4.2.4) (2018-11-26)
 
 
