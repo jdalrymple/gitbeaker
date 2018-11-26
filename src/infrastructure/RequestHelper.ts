@@ -109,7 +109,7 @@ async function getPaginated(
     data = response.body;
   }
 
-  if (queryOptions.page && showPagination) {
+  if ((queryOptions.page || maxPages) && showPagination) {
     return {
       data,
       pagination: {

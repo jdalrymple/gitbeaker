@@ -328,7 +328,6 @@ api.Projects.create(projectId, {
 
 For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request it self can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
-
 ```javascript
 import Gitlab from 'gitlab';
 
@@ -337,7 +336,7 @@ const api = new Gitlab({
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
-let projects = await api.Projects.all({maxPages:2});
+let projects = await api.Projects.all({ maxPages:2 });
 
 ```
 
@@ -351,11 +350,12 @@ const api = new Gitlab({
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
-let projects = await api.Projects.all({maxPages:2, perPage:40});
+let projects = await api.Projects.all({ maxPages:2, perPage:40 });
 
 ```
 
-Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option:
+Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option `showPagination` in addition to either the
+`maxPages` or `page` properties.
 
 ```javascript
 ...
