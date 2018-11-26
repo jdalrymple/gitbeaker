@@ -1,3 +1,10 @@
+## [4.2.4](https://github.com/jdalrymple/node-gitlab/compare/4.2.3...4.2.4) (2018-11-26)
+
+
+### Bug Fixes
+
+* Event properties using the incorrect boolean operator ([5f21a46](https://github.com/jdalrymple/node-gitlab/commit/5f21a46))
+
 ## [4.2.3](https://github.com/jdalrymple/node-gitlab/compare/4.2.2...4.2.3) (2018-11-26)
 
 
