@@ -24,19 +24,19 @@ class ResourceVariables extends BaseService {
   }
 
   edit(resourceId: ResourceId, keyId: string, options: RequestOptions) {
-    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
+    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${this.resourceType}/${rId}/variables/${kId}`, options);
   }
 
   show(resourceId: ResourceId, keyId: string) {
-    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
+    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${this.resourceType}/${rId}/variables/${kId}`);
   }
 
   remove(resourceId: ResourceId, keyId: string) {
-    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
+    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.delete(this, `${this.resourceType}/${rId}/variables/${kId}`);
   }
