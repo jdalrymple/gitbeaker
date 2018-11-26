@@ -13,6 +13,7 @@ type NoteId = string;           // see if `| number` is a valid type
 type ProjectId = string | number;
 type KeyId = string;            // see if `| number` is a valid type
 type GroupId = string | number;
+type PipelineScheduleId = string;
 
 type GroupAccess = temporaryAny;
 
