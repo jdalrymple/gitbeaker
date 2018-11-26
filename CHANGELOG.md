@@ -1,3 +1,10 @@
+## [4.2.3](https://github.com/jdalrymple/node-gitlab/compare/4.2.2...4.2.3) (2018-11-26)
+
+
+### Bug Fixes
+
+* Filtering all events shouldnt require an action or a target [#61](https://github.com/jdalrymple/node-gitlab/issues/61) ([cda23b8](https://github.com/jdalrymple/node-gitlab/commit/cda23b8))
+
 ## [4.2.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...4.2.1) (2018-10-29)
 
 
