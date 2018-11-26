@@ -29,11 +29,11 @@ function assertEventOptions(
   action: keyof typeof ACTION_TYPES,
   target: keyof typeof TARGET_TYPES,
 ) {
-  if (!action || !(action in ACTION_TYPES)) {
+  if (action || !(action in ACTION_TYPES)) {
     throw new Error(`This action is not supported. Pleased use one of following options: ${Object.keys(ACTION_TYPES)}`);
   }
 
-  if (!target || !(target in TARGET_TYPES)) {
+  if (target || !(target in TARGET_TYPES)) {
     throw new Error(`This target is not supported. Pleased use one of following options: ${Object.keys(TARGET_TYPES)}`);
   }
 }
