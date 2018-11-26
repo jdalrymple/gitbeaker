@@ -1,3 +1,10 @@
+## [4.2.7](https://github.com/jdalrymple/node-gitlab/compare/4.2.6...4.2.7) (2018-11-26)
+
+
+### Bug Fixes
+
+* handing the function arguments in the incorrect order ([26235ff](https://github.com/jdalrymple/node-gitlab/commit/26235ff))
+
 ## [4.2.6](https://github.com/jdalrymple/node-gitlab/compare/4.2.5...4.2.6) (2018-11-26)
 
 
