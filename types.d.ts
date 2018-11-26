@@ -116,8 +116,8 @@ export type EventTarget =
   | 'user'
 
 export interface EventOptions {
-  action: EventAction,
-  targetType: EventTarget
+  action?: EventAction,
+  targetType?: EventTarget
 }
 
 // Jobs
