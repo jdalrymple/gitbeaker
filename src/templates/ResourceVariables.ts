@@ -9,42 +9,38 @@ import {
 } from '@typings';
 
 class ResourceVariables extends BaseService {
-  protected resourceType: ResourceType;
-
-  constructor(resourceType: ResourceType, baseParams: BaseModelContructorOptions) {
-    super(baseParams);
-
-    this.resourceType = resourceType;
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+    super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId) {
+  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${this.resourceType}/${rId}/variables`);
+    return RequestHelper.get(this, `${rId}/variables`, options);
   }
 
-  create(resourceId: ResourceId, options: RequestOptions) {
+  create(resourceId: ResourceId, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${this.resourceType}/${rId}/variables`, options);
+    return RequestHelper.post(this, `${rId}/variables`, options);
   }
 
-  edit(resourceId: ResourceId, keyId: string, options: RequestOptions) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  edit(resourceId: ResourceId, keyId: KeyId, options?: BaseRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${this.resourceType}/${rId}/variables/${kId}`, options);
+    return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
   }
 
-  show(resourceId: ResourceId, keyId: string) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  show(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${this.resourceType}/${rId}/variables/${kId}`);
+    return RequestHelper.get(this, `${rId}/variables/${kId}`, options);
   }
 
-  remove(resourceId: ResourceId, keyId: string) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
+  remove(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${this.resourceType}/${rId}/variables/${kId}`);
+    return RequestHelper.delete(this, `${rId}/variables/${kId}`, options);
   }
 }
 

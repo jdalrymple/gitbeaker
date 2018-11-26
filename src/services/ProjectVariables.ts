@@ -2,7 +2,7 @@ import { ResourceVariables } from '../templates';
 import { BaseServiceOptions } from '@typings';
 
 class ProjectVariables extends ResourceVariables {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', options);
   }
 }
