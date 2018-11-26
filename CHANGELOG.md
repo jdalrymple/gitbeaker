@@ -1,3 +1,10 @@
+## [4.2.6](https://github.com/jdalrymple/node-gitlab/compare/4.2.5...4.2.6) (2018-11-26)
+
+
+### Bug Fixes
+
+* Update pagination docs and conditions [#238](https://github.com/jdalrymple/node-gitlab/issues/238) ([266de00](https://github.com/jdalrymple/node-gitlab/commit/266de00))
+
 ## [4.2.5](https://github.com/jdalrymple/node-gitlab/compare/4.2.4...4.2.5) (2018-11-26)
 
 
