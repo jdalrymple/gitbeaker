@@ -8,81 +8,39 @@ import {
   KeyId,
 } from '@typings';
 
-const url = (resourceId, resource2Type, resource2Id) => {
-  const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
-  const output = [rId];
-
-  if (resource2Id) output.push(resource2Type, r2Id);
-
-  output.push('variables');
-
-  return output.join('/');
-};
-
 class ResourceVariables extends BaseService {
-  protected resource2Type: string | null;
-
-  constructor(
-    resourceType: ResourceType,
-    resource2Type: ResourceType | null,
-    options: BaseServiceOptions,
-  ) {
+  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
-
-    this.resource2Type = resource2Type;
   }
 
-  all(resourceId: ResourceType, resource2Id: ResourceId, options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, url(resourceId, this.resource2Type, resource2Id), options);
+  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
+    const rId = encodeURIComponent(resourceId);
+
+    return RequestHelper.get(this, `${rId}/variables`, options);
   }
 
-  create(resourceId: ResourceType, resource2Id: ResourceId, options?: BaseRequestOptions) {
-    return RequestHelper.post(this, url(resourceId, this.resource2Type, resource2Id), options);
+  create(resourceId: ResourceId, options?: BaseRequestOptions) {
+    const rId = encodeURIComponent(resourceId);
+
+    return RequestHelper.post(this, `${rId}/variables`, options);
   }
 
-  edit(
-    resourceId: ResourceType,
-    resource2Id: ResourceId,
-    keyId: KeyId,
-    options?: BaseRequestOptions,
-  ) {
-    const kId = encodeURIComponent(keyId);
+  edit(resourceId: ResourceId, keyId: KeyId, options?: BaseRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(
-      this,
-      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
-      options,
-    );
+    return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
   }
 
-  show(
-    resourceId: ResourceType,
-    resource2Id: ResourceId,
-    keyId: KeyId,
-    options?: BaseRequestOptions,
-  ) {
-    const kId = encodeURIComponent(keyId);
+  show(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
-      options,
-    );
+    return RequestHelper.get(this, `${rId}/variables/${kId}`, options);
   }
 
-  remove(
-    resourceId: ResourceType,
-    resource2Id: ResourceId,
-    keyId: KeyId,
-    options?: BaseRequestOptions,
-  ) {
-    const kId = encodeURIComponent(keyId);
+  remove(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+    const [kId, rId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.delete(
-      this,
-      `${url(resourceId, this.resource2Type, resource2Id)}/${kId}`,
-      options,
-    );
+    return RequestHelper.delete(this, `${rId}/variables/${kId}`, options);
   }
 }
 
