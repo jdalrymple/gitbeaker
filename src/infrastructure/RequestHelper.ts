@@ -48,7 +48,7 @@ class RequestHelper {
       return [...body, ...more];
     }
 
-    return showPagination ? { data: body, pagination } : body;
+    return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
   }
 
   static async stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
