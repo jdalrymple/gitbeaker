@@ -45,7 +45,7 @@ class Snippets extends BaseService {
   remove(snippetId: SnippetId, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.delete(this, `snippets/${sId}`, options);
+    return RequestHelper.del(this, `snippets/${sId}`, options);
   }
 
   show(snippetId: SnippetId, options?: Sudo) {

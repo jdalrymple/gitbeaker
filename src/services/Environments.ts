@@ -29,7 +29,7 @@ class Environments extends BaseService {
   remove(projectId: ProjectId, environmentId: EnvironmentId, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/environments/${eId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/environments/${eId}`, options);
   }
 
   stop(projectId: ProjectId, environmentId: EnvironmentId, options?: Sudo) {

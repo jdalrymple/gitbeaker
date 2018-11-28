@@ -13,7 +13,7 @@ class Groups extends BaseService {
   remove(groupId: GroupId, options?: Sudo) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.delete(this, `groups/${gId}`, options);
+    return RequestHelper.del(this, `groups/${gId}`, options);
   }
 
   search(nameOrPath: string, options?: Sudo) {

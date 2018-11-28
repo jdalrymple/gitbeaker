@@ -29,7 +29,7 @@ class ProjectHooks extends BaseService {
   remove(projectId: ProjectId, hookId: HookId, options?: Sudo) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/hooks/${hId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/hooks/${hId}`, options);
   }
 }
 

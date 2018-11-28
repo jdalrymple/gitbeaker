@@ -74,7 +74,7 @@ class PipelineScheduleVariables extends BaseService {
 	) {
 		const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-		return RequestHelper.delete(
+		return RequestHelper.del(
 			this,
 			`projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
 			options,

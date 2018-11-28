@@ -11,7 +11,7 @@ class Services extends BaseService {
   remove(projectId: ProjectId, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/services/${serviceName}`, options);
+    return RequestHelper.del(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
   show(projectId: ProjectId, serviceName: SupportedService, options?: Sudo) {

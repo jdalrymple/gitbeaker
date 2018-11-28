@@ -23,7 +23,7 @@ class Labels extends BaseService {
   remove(projectId: ProjectId, labelName: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/labels`, { name: labelName, ...options });
+    return RequestHelper.del(this, `projects/${pId}/labels`, { name: labelName, ...options });
   }
 
   subscribe(projectId: ProjectId, labelId: LabelId, options?: Sudo) {
@@ -35,7 +35,7 @@ class Labels extends BaseService {
   unsubscribe(projectId: ProjectId, labelId: LabelId, options?: Sudo) {
     const [pId, lId] = [projectId, labelId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/issues/${lId}/unsubscribe`, options);
+    return RequestHelper.del(this, `projects/${pId}/issues/${lId}/unsubscribe`, options);
   }
 }
 

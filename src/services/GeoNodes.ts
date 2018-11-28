@@ -25,7 +25,7 @@ class GeoNodes extends BaseService {
   repair(geonodeId: GeonodeId, options?: Sudo) {
     const gId = encodeURIComponent(geonodeId);
 
-    return RequestHelper.delete(this, `geo_nodes/${gId}`, options);
+    return RequestHelper.del(this, `geo_nodes/${gId}`, options);
   }
 
   show(geonodeId: GeonodeId, options?: Sudo) {

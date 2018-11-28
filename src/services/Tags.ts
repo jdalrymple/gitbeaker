@@ -17,7 +17,7 @@ class Tags extends BaseService {
   remove(projectId: ProjectId, tagName: string, options?: Sudo) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/repository/tags/${tId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/repository/tags/${tId}`, options);
   }
 
   show(projectId: ProjectId, tagName: string, options?: Sudo) {

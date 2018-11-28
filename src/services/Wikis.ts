@@ -29,7 +29,7 @@ class Wikis extends BaseService {
   remove(projectId: ProjectId, slug: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/wikis/${slug}`, options);
+    return RequestHelper.del(this, `projects/${pId}/wikis/${slug}`, options);
   }
 }
 

@@ -186,7 +186,7 @@ class MergeRequests extends BaseService {
   remove(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/merge_requests/${mIId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/merge_requests/${mIId}`, options);
   }
 
   resetSpentTime(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
@@ -251,7 +251,7 @@ class MergeRequests extends BaseService {
   unsubscribe(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/merge_requests/${mIId}/unsubscribe`, options);
+    return RequestHelper.del(this, `projects/${pId}/merge_requests/${mIId}/unsubscribe`, options);
   }
 }
 

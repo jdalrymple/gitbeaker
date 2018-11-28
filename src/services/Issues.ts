@@ -64,7 +64,7 @@ class Issues extends BaseService {
   remove(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/issues/${iId}`, options);
   }
 
   resetSpentTime(projectId: ProjectId, issueId: IssueId, options?: BaseRequestOptions) {
@@ -100,7 +100,7 @@ class Issues extends BaseService {
   unsubscribe(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
+    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
   }
 }
 

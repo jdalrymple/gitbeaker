@@ -37,7 +37,7 @@ class RepositoryFiles extends BaseService {
   remove(projectId: ProjectId, filePath: string, branch: string, options?: BaseRequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.del(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       ...options,
     });

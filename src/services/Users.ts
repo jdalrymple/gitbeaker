@@ -72,7 +72,7 @@ class Users extends BaseService {
   remove(userId: UserId, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.delete(this, `users/${uId}`, options);
+    return RequestHelper.del(this, `users/${uId}`, options);
   }
 
   unblock(userId: UserId, options?: Sudo) {

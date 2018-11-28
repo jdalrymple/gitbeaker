@@ -23,7 +23,7 @@ class Epics extends BaseService {
   remove(groupId: GroupId, epicId: EpicId, options?: Sudo) {
     const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `groups/${gId}/epics/${eId}`, options);
+    return RequestHelper.del(this, `groups/${gId}/epics/${eId}`, options);
   }
 
   show(groupId: GroupId, epicId: EpicId, options?: Sudo) {

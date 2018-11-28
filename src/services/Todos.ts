@@ -25,7 +25,7 @@ class Todos extends BaseService {
 
     if (todoId) url = `${todoId}/${url}`;
 
-    return RequestHelper.delete(this, `todos/${url}`, options);
+    return RequestHelper.del(this, `todos/${url}`, options);
   }
 }
 
