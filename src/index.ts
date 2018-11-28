@@ -1,7 +1,7 @@
 import { bundler } from './infrastructure';
 import * as APIServices from './services';
 
-// All seperatly
+// All separately
 export * from './services';
 
 // Groups
