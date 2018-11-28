@@ -18,7 +18,7 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
 }
 
 class RequestHelper {
-  static async get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
+  async get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
     const { showPagination, maxPages, sudo, ...query } = options;
     const requestOptions = defaultRequest(service, endpoint, {
       query,
@@ -51,7 +51,7 @@ class RequestHelper {
     return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
   }
 
-  static async stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
+  async stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
     return Request.stream(
       ...defaultRequest(service, endpoint, {
         query: options,
@@ -59,7 +59,7 @@ class RequestHelper {
     );
   }
 
-  static async post(service, endpoint: string, options: BaseRequestOptions = {}) {
+  async post(service, endpoint: string, options: BaseRequestOptions = {}) {
     const { sudo, ...body } = options;
     const response = await Request.post(
       ...defaultRequest(service, endpoint, {
@@ -71,7 +71,7 @@ class RequestHelper {
     return response.body;
   }
 
-  static async put(service, endpoint: string, options: BaseRequestOptions = {}) {
+  async put(service, endpoint: string, options: BaseRequestOptions = {}) {
     const { sudo, ...body } = options;
     const response = await Request.put(
       ...defaultRequest(service, endpoint, {
@@ -82,7 +82,7 @@ class RequestHelper {
     return response.body;
   }
 
-  static async delete(service, endpoint: string, options: BaseRequestOptions = {}) {
+  async delete(service, endpoint: string, options: BaseRequestOptions = {}) {
     const { sudo, ...query } = options;
     const response = await Request.delete(
       ...defaultRequest(service, endpoint, {
