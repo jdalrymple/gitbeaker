@@ -29,7 +29,7 @@ class PagesDomains extends BaseService {
   remove(projectId: ProjectId, domain: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/pages/domains/${domain}`, options);
+    return RequestHelper.del(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 }
 

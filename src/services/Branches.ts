@@ -27,7 +27,7 @@ class Branches extends BaseService {
   remove(projectId: ProjectId, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/repository/branches/${bName}`, options);
+    return RequestHelper.del(this, `projects/${pId}/repository/branches/${bName}`, options);
   }
 
   show(projectId: ProjectId, branchName: string, options?: Sudo) {

@@ -24,7 +24,7 @@ class UserEmails extends BaseService {
   remove(emailId, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.delete(this, `${url(userId)}/${eId}`, options);
+    return RequestHelper.del(this, `${url(userId)}/${eId}`, options);
   }
 }
 

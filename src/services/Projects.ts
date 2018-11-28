@@ -14,13 +14,6 @@ import {
 } from '@typings';
 
 class Projects extends BaseService {
-  private requestHandler: RequestHelper;
-
-  constructor(options: BaseServiceOptions & { requestHandler?: RequestHelper }) {
-    super(options);
-    this.requestHandler = options.requestHandler || new RequestHelper();
-  }
-
   all(options?: PaginatedRequestOptions) {
     return this.requestHandler.get(this, 'projects', options);
   }

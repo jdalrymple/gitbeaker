@@ -26,7 +26,7 @@ class ProtectedBranches extends BaseService {
   unprotect(projectId: ProjectId, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/protected_branches/${bName}`, options);
+    return RequestHelper.del(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 }
 

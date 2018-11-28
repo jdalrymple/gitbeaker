@@ -24,13 +24,13 @@ class EpicIssues extends BaseService {
   edit(groupId: GroupId, epicId: EpicId, issueId: IssueId, options?: BaseRequestOptions) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.del(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 
   remove(groupId: GroupId, epicId: EpicId, issueId: IssueId, options?: Sudo) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.del(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 }
 

@@ -40,7 +40,7 @@ class PipelineSchedules extends BaseService {
   remove(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
   show(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {

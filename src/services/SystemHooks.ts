@@ -19,7 +19,7 @@ class SystemHooks extends BaseService {
   remove(hookId: HookId, options?: Sudo) {
     const hId = encodeURIComponent(hookId);
 
-    return RequestHelper.delete(this, `hooks/${hId}`, options);
+    return RequestHelper.del(this, `hooks/${hId}`, options);
   }
 }
 

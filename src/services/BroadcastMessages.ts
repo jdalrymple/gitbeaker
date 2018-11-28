@@ -19,7 +19,7 @@ class BroadcastMessages extends BaseService {
   remove(broadcastMessageId: BroadcastMessageId) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.delete(this, `broadcast_messages/${bId}`);
+    return RequestHelper.del(this, `broadcast_messages/${bId}`);
   }
 
   show(broadcastMessageId: BroadcastMessageId, options?: BaseRequestOptions) {

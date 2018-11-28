@@ -25,7 +25,7 @@ class UserKeys extends BaseService {
   remove(keyId, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.delete(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.del(this, `${url(userId)}/${kId}`, options);
   }
 }
 

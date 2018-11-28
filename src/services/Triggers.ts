@@ -29,7 +29,7 @@ class Triggers extends BaseService {
   remove(projectId: ProjectId, triggerId: TriggerId, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   show(projectId: ProjectId, triggerId: TriggerId, options?: Sudo) {

@@ -27,7 +27,7 @@ class Runners extends BaseService {
   disable(projectId: ProjectId, runnerId: RunnerId, options?: Sudo) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/runners/${rId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/runners/${rId}`, options);
   }
 
   jobs(runnerId: RunnerId, options?: Sudo) {
@@ -39,7 +39,7 @@ class Runners extends BaseService {
   remove(runnerId: RunnerId, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.delete(this, `runners/${rId}`, options);
+    return RequestHelper.del(this, `runners/${rId}`, options);
   }
 
   show(runnerId: RunnerId, options?: Sudo) {

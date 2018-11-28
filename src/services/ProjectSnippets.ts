@@ -49,7 +49,7 @@ class ProjectSnippets extends BaseService {
   remove(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
   show(projectId: ProjectId, snippetId: SnippetId, options?: Sudo) {

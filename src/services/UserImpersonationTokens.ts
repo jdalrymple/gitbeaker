@@ -40,7 +40,7 @@ class UserImpersonationTokens extends BaseService {
   revoke(userId: UserId, tokenId: ImpersonationTokenId, options?: Sudo) {
     const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `users/${uId}/impersonation_tokens/${tId}`, options);
+    return RequestHelper.del(this, `users/${uId}/impersonation_tokens/${tId}`, options);
   }
 }
 

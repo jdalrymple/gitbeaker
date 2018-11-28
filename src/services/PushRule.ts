@@ -26,7 +26,7 @@ class PushRule extends BaseService {
   remove(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.del(this, `projects/${pId}/push_rule`, options);
   }
 
   show(projectId: ProjectId, options?: Sudo) {

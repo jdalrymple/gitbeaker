@@ -17,81 +17,77 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-class RequestHelper {
-  async get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
-    const { showPagination, maxPages, sudo, ...query } = options;
-    const requestOptions = defaultRequest(service, endpoint, {
-      query,
-      sudo,
+export function get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
+  const { showPagination, maxPages, sudo, ...query } = options;
+  const requestOptions = defaultRequest(service, endpoint, {
+    query,
+    sudo,
+  });
+
+  const { headers, body } = await Request.get(...requestOptions);
+  const pagination = {
+    total: headers['x-total'],
+    next: headers['x-next-page'] || null,
+    current: headers['x-page'] || null,
+    previous: headers['x-prev-page'] || null,
+    perPage: headers['x-per-page'],
+    totalPages: headers['x-total-pages'],
+  };
+
+  const underLimit = maxPages ? pagination.current < maxPages : true;
+
+  // If not looking for a singular page and still under the max pages limit
+  // AND their is a next page, paginate
+  if (!query.page && underLimit && pagination.next) {
+    const more = await this.get(service, endpoint, {
+      page: pagination.next,
+      ...options,
     });
 
-    const { headers, body } = await Request.get(...requestOptions);
-    const pagination = {
-      total: headers['x-total'],
-      next: headers['x-next-page'] || null,
-      current: headers['x-page'] || null,
-      previous: headers['x-prev-page'] || null,
-      perPage: headers['x-per-page'],
-      totalPages: headers['x-total-pages'],
-    };
-
-    const underLimit = maxPages ? pagination.current < maxPages : true;
-
-    // If not looking for a singular page and still under the max pages limit
-    // AND their is a next page, paginate
-    if (!query.page && underLimit && pagination.next) {
-      const more = await this.get(service, endpoint, {
-        page: pagination.next,
-        ...options,
-      });
-
-      return [...body, ...more];
-    }
-
-    return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
+    return [...body, ...more];
   }
 
-  async stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
-    return Request.stream(
-      ...defaultRequest(service, endpoint, {
-        query: options,
-      }),
-    );
-  }
-
-  async post(service, endpoint: string, options: BaseRequestOptions = {}) {
-    const { sudo, ...body } = options;
-    const response = await Request.post(
-      ...defaultRequest(service, endpoint, {
-        body,
-        sudo,
-      }),
-    );
-
-    return response.body;
-  }
-
-  async put(service, endpoint: string, options: BaseRequestOptions = {}) {
-    const { sudo, ...body } = options;
-    const response = await Request.put(
-      ...defaultRequest(service, endpoint, {
-        body,
-      }),
-    );
-
-    return response.body;
-  }
-
-  async delete(service, endpoint: string, options: BaseRequestOptions = {}) {
-    const { sudo, ...query } = options;
-    const response = await Request.delete(
-      ...defaultRequest(service, endpoint, {
-        query,
-      }),
-    );
-
-    return response.body;
-  }
+  return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
 }
 
-export default RequestHelper;
+export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
+  return Request.stream(
+    ...defaultRequest(service, endpoint, {
+      query: options,
+    }),
+  );
+}
+
+export function post(service, endpoint: string, options: BaseRequestOptions = {}) {
+  const { sudo, ...body } = options;
+  const response = await Request.post(
+    ...defaultRequest(service, endpoint, {
+      body,
+      sudo,
+    }),
+  );
+
+  return response.body;
+}
+
+export function put(service, endpoint: string, options: BaseRequestOptions = {}) {
+  const { sudo, ...body } = options;
+  const response = await Request.put(
+    ...defaultRequest(service, endpoint, {
+      body,
+    }),
+  );
+
+  return response.body;
+}
+
+export function del(service, endpoint: string, options: BaseRequestOptions = {}) {
+  const { sudo, ...query } = options;
+  const response = await Request.delete(
+    ...defaultRequest(service, endpoint, {
+      query,
+    }),
+  );
+
+  return response.body;
+}
