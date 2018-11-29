@@ -1,3 +1,4 @@
 # API Services
 
-[Projects](projects/README.md)
+- [Projects](projects/README.md)
+- [Groups](groups/README.md)
