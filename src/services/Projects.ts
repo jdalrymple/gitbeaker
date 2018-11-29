@@ -93,6 +93,7 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/star`, options);
   }
 
+  // TODO: confirm removal - not found in docs v4
   statuses(projectId: ProjectId, sha: string, state: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
@@ -128,7 +129,11 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, { fileName = randomstring(8) }: { fileName?: string }) {
+  upload(
+      projectId: ProjectId,
+      content: Blob,
+      { fileName = randomstring(8) }: { fileName?: string }
+      ) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
