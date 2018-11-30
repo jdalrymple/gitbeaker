@@ -244,7 +244,7 @@ projectId | number&#124;string | yes | the numerical id or the name of the proje
 sudo | number&#124;string | no | the numerical id or the username of the user to impersonate for this operation, see [official docs](https://docs.gitlab.com/ee/api/README.html#sudo)
 statistics | boolean | no | return statistical information
 licence | boolean | no | return licence information
-with_custom_attributes | boolean | no | return custom attributes
+with_custom_attributes | boolean | no | return custom attributes, see [official docs](https://docs.gitlab.com/ee/api/custom_attributes.html)
 
 ### Returns
 See [official documentation](https://docs.gitlab.com/ee/api/projects.html#get-single-project) for examples
