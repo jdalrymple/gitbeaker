@@ -1,23 +1,33 @@
 language: node_js
 
 stages:
-  - lint and build
+  - lint
+  - build
   - test
   - release
 
 notifications:
   email: false
 
+node_js: 10.0.0
+
 jobs:
   include:
-    - stage: lint and build
-      node_js: 10.0.0
+    - stage: lint
       script:
         - npm run lint
+
+    - stage: build
+      script:
         - npm run build
 
     - stage: test
-      node_js: 10.0.0
+      name: 'Unit Tests'
+      script:
+        - npm run test:unit
+
+    - stage: test
+      name: 'Integration Tests'
       before_script:
         ## Spin up container
         - cd test/docker/
@@ -32,9 +42,8 @@ jobs:
         - echo $GITLAB_URL
         - echo $PERSONAL_ACCESS_TOKEN
       script:
-        - npm run test
+        - npm run test:integration
 
     - stage: release
-      node_js: 10.0.0
       script:
         - npm run release
