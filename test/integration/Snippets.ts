@@ -1,4 +1,4 @@
-import { Snippets } from '../../../src';
+import { Snippets } from '../../src';
 
 describe('Snippets', () => {
   it('should create snippet', async () => {

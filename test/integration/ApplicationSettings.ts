@@ -1,4 +1,4 @@
-import { ApplicationSettings } from '../../../src';
+import { ApplicationSettings } from '../../src';
 
 describe('ApplicationSettings.all', () => {
   let settings: ReturnType<ApplicationSettings['all']>;
