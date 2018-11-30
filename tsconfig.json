@@ -5,6 +5,7 @@
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
+    "declaration": true,
     "lib": ["ES2015","ES2016", "ES2017", "DOM"],
 
     /* Module Resolution Options */           
@@ -12,7 +13,7 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-        "@typings": [ "types.d.ts" ],
+        "@typings": [ "types/types.d.ts" ],
     },
     
     /* Strict Type-Checking Options */        

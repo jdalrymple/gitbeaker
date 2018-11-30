@@ -40,6 +40,20 @@ export interface Sudo {
   sudo?: string | number;
 }
 
+// Bundler
+export interface Constructor {
+  new (...args: any): any;
+}
+
+export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
+  [name in P]: InstanceType<T[P]>
+};
+
+export interface Bundle<T extends { [name: string]: Constructor }, P extends keyof T> {
+  new (options?: any): Mapper<T, P>;
+}
+
+
 // Base Service
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
