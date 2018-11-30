@@ -29,7 +29,7 @@ export async function get(
   service,
   endpoint: string,
   options: PaginatedRequestOptions = {},
-): GetResponse {
+): Promise<GetResponse> {
   const { showPagination, maxPages, sudo, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     query,
@@ -74,7 +74,7 @@ export async function post(
   service,
   endpoint: string,
   options: BaseRequestOptions = {},
-): PostResponse {
+): Promise<PostResponse> {
   const { sudo, ...body } = options;
   const response = await Request.post(
     ...defaultRequest(service, endpoint, {
@@ -90,7 +90,7 @@ export async function put(
   service,
   endpoint: string,
   options: BaseRequestOptions = {},
-): PutResponse {
+): Promise<PutResponse> {
   const { sudo, ...body } = options;
   const response = await Request.put(
     ...defaultRequest(service, endpoint, {
@@ -105,7 +105,7 @@ export async function del(
   service,
   endpoint: string,
   options: BaseRequestOptions = {},
-): DelResponse {
+): Promise<DelResponse> {
   const { sudo, ...query } = options;
   const response = await Request.delete(
     ...defaultRequest(service, endpoint, {
