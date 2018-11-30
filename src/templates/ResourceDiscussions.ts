@@ -95,7 +95,7 @@ class ResourceDiscussions extends BaseService {
       encodeURIComponent,
     );
 
-    return RequestHelper.delete(
+    return RequestHelper.del(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
       options,

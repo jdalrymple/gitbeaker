@@ -65,7 +65,7 @@ class ResourceAwardsEmojis extends BaseService {
     noteId: NoteId,
     options?: Sudo,
   ) {
-    return RequestHelper.delete(
+    return RequestHelper.del(
       this,
       url(projectId, this.resourceType, resourceId, awardId, noteId),
       options,

@@ -40,7 +40,7 @@ class ResourceAccessRequests extends BaseService {
   deny(resourceId: ResourceId, userId: UserId) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/access_requests/${uId}`);
+    return RequestHelper.del(this, `${rId}/access_requests/${uId}`);
   }
 }
 

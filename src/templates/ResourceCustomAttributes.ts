@@ -31,7 +31,7 @@ class ResourceCustomAttributes extends BaseService {
   remove(resourceId: ResourceId, customAttributeId: CustomAttributeId, options?: Sudo) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/custom_attributes/${cId}`, options);
+    return RequestHelper.del(this, `${rId}/custom_attributes/${cId}`, options);
   }
 
   show(resourceId: ResourceId, customAttributeId: CustomAttributeId, options?: Sudo) {
