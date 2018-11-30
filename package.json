@@ -35,9 +35,8 @@
     "prepush": "npm run lint",
     "release": "semantic-release",
     "test": "jest --debug --runInBand && codecov",
-    "test:bundles": "jest test/tests/bundles",
-    "test:infrastructure": "jest test/tests/infrastructure",
-    "test:services": "jest test/tests/services"
+    "test:unit": "jest test/unit",
+    "test:integration": "jest test/integration"
   },
   "config": {
     "commitizen": {

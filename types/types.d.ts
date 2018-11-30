@@ -65,6 +65,20 @@ export interface BaseServiceOptions extends Sudo {
 }
 
 // RequestHelper
+export type GetResponse = { data: object | object[], pagination: PaginationOptions } | object | object[];
+export type PostResponse = object;
+export type PutResponse = object;
+export type DelResponse = object;
+
+export interface PaginationOptions {
+  total: bigint;
+  next: bigint | null;
+  current: bigint | null;
+  previous: bigint | null;
+  perPage: bigint;
+  totalPages: bigint;
+}
+
 export interface DefaultRequestOptions extends Sudo {
   body?: object;
   query?: object;

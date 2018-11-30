@@ -1,7 +1,16 @@
 import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
-import { PaginatedRequestOptions, BaseRequestOptions, DefaultRequestOptions } from '@typings';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  DefaultRequestOptions,
+  PaginationOptions,
+  GetResponse,
+  PostResponse,
+  PutResponse,
+  DelResponse
+} from '@typings';
 
 function defaultRequest(service, endpoint: string, { body, query, sudo }: DefaultRequestOptions) {
   return [
@@ -17,7 +26,11 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-export async function get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
+export async function get(
+  service,
+  endpoint: string,
+  options: PaginatedRequestOptions = {},
+): GetResponse {
   const { showPagination, maxPages, sudo, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     query,
@@ -58,7 +71,7 @@ export function stream(service, endpoint: string, options: BaseRequestOptions = 
   );
 }
 
-export async function post(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function post(service, endpoint: string, options: BaseRequestOptions = {}): PostResponse {
   const { sudo, ...body } = options;
   const response = await Request.post(
     ...defaultRequest(service, endpoint, {
@@ -70,7 +83,7 @@ export async function post(service, endpoint: string, options: BaseRequestOption
   return response.body;
 }
 
-export async function put(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function put(service, endpoint: string, options: BaseRequestOptions = {}): PutResponse {
   const { sudo, ...body } = options;
   const response = await Request.put(
     ...defaultRequest(service, endpoint, {
@@ -81,7 +94,7 @@ export async function put(service, endpoint: string, options: BaseRequestOptions
   return response.body;
 }
 
-export async function del(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function del(service, endpoint: string, options: BaseRequestOptions = {}): DelResponse {
   const { sudo, ...query } = options;
   const response = await Request.delete(
     ...defaultRequest(service, endpoint, {
