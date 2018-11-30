@@ -1,4 +1,4 @@
-import { PushRule } from '../../../src';
+import { PushRule } from '../../src';
 
 describe('PushRule', () => {
   // the feature is not available for CE users https://gitlab.com/gitlab-org/gitlab-ee/issues/3825
