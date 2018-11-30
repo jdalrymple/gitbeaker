@@ -12,13 +12,6 @@ class Test2 {
   }
 }
 
-test('No classes passed to Bundler returns an empty Bundle', async () => {
-  const Bundle = bundler();
-  const services = new Bundle();
-  
-  expect(services).toEqual({});
-});
-
 test('Classes passed to Bundler get merged', async () => {
   const Bundle = bundler({ Test1, Test2 });
   const services = new Bundle();
