@@ -62,7 +62,7 @@ class ResourceMembers extends BaseService {
   remove(resourceId: ResourceId, userId: UserId, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/members/${uId}`, options);
+    return RequestHelper.del(this, `${rId}/members/${uId}`, options);
   }
 }
 

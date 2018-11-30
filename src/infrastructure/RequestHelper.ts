@@ -58,7 +58,7 @@ export function stream(service, endpoint: string, options: BaseRequestOptions = 
   );
 }
 
-export function post(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function post(service, endpoint: string, options: BaseRequestOptions = {}) {
   const { sudo, ...body } = options;
   const response = await Request.post(
     ...defaultRequest(service, endpoint, {
@@ -70,7 +70,7 @@ export function post(service, endpoint: string, options: BaseRequestOptions = {}
   return response.body;
 }
 
-export function put(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function put(service, endpoint: string, options: BaseRequestOptions = {}) {
   const { sudo, ...body } = options;
   const response = await Request.put(
     ...defaultRequest(service, endpoint, {
@@ -81,7 +81,7 @@ export function put(service, endpoint: string, options: BaseRequestOptions = {})
   return response.body;
 }
 
-export function del(service, endpoint: string, options: BaseRequestOptions = {}) {
+export async function del(service, endpoint: string, options: BaseRequestOptions = {}) {
   const { sudo, ...query } = options;
   const response = await Request.delete(
     ...defaultRequest(service, endpoint, {

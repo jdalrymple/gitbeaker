@@ -41,7 +41,7 @@ class ResourceBadges extends BaseService {
   remove(resourceId: ResourceId, badgeId: BadgeId, options?: Sudo) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/badges/${bId}`, options);
+    return RequestHelper.del(this, `${rId}/badges/${bId}`, options);
   }
 
   show(resourceId: ResourceId, badgeId: BadgeId, options?: Sudo) {

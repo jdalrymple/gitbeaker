@@ -40,7 +40,7 @@ class ResourceVariables extends BaseService {
   remove(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.del(this, `${rId}/variables/${kId}`, options);
   }
 }
 

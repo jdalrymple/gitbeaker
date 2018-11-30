@@ -58,13 +58,13 @@ class ResourceIssueBoards extends BaseService {
   remove(resourceId: ResourceId, boardId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/boards/${bId}`, options);
+    return RequestHelper.del(this, `${rId}/boards/${bId}`, options);
   }
 
   removeList(resourceId: ResourceId, boardId: number, listId: number, options?: Sudo) {
     const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/boards/${bId}/lists/${lId}`, options);
+    return RequestHelper.del(this, `${rId}/boards/${bId}/lists/${lId}`, options);
   }
 
   show(resourceId: ResourceId, boardId: number, options?: Sudo) {

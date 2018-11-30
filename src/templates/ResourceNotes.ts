@@ -60,7 +60,7 @@ class ResourceNotes extends BaseService {
   remove(resourceId: ResourceId, resource2Id: ResourceId, noteId: NoteId, options?: Sudo) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
+    return RequestHelper.del(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 
   show(resourceId: ResourceId, resource2Id: ResourceId, noteId: NoteId, options?: Sudo) {
