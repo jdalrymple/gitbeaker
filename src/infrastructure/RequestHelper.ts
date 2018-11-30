@@ -17,7 +17,7 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-export function get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
+export async function get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
   const { showPagination, maxPages, sudo, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, {
     query,
