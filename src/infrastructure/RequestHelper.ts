@@ -9,7 +9,7 @@ import {
   GetResponse,
   PostResponse,
   PutResponse,
-  DelResponse
+  DelResponse,
 } from '@typings';
 
 function defaultRequest(service, endpoint: string, { body, query, sudo }: DefaultRequestOptions) {
@@ -71,7 +71,11 @@ export function stream(service, endpoint: string, options: BaseRequestOptions = 
   );
 }
 
-export async function post(service, endpoint: string, options: BaseRequestOptions = {}): PostResponse {
+export async function post(
+  service,
+  endpoint: string,
+  options: BaseRequestOptions = {},
+): PostResponse {
   const { sudo, ...body } = options;
   const response = await Request.post(
     ...defaultRequest(service, endpoint, {
@@ -83,7 +87,11 @@ export async function post(service, endpoint: string, options: BaseRequestOption
   return response.body;
 }
 
-export async function put(service, endpoint: string, options: BaseRequestOptions = {}): PutResponse {
+export async function put(
+  service,
+  endpoint: string,
+  options: BaseRequestOptions = {},
+): PutResponse {
   const { sudo, ...body } = options;
   const response = await Request.put(
     ...defaultRequest(service, endpoint, {
@@ -94,7 +102,11 @@ export async function put(service, endpoint: string, options: BaseRequestOptions
   return response.body;
 }
 
-export async function del(service, endpoint: string, options: BaseRequestOptions = {}): DelResponse {
+export async function del(
+  service,
+  endpoint: string,
+  options: BaseRequestOptions = {},
+): DelResponse {
   const { sudo, ...query } = options;
   const response = await Request.delete(
     ...defaultRequest(service, endpoint, {
