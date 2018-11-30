@@ -5,7 +5,6 @@ import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   DefaultRequestOptions,
-  PaginationOptions,
   GetResponse,
   PostResponse,
   PutResponse,

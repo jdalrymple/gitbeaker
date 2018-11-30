@@ -65,10 +65,10 @@ export interface BaseServiceOptions extends Sudo {
 }
 
 // RequestHelper
-export type GetResponse = { data: object | object[], pagination: PaginationOptions } | object | object[];
-export type PostResponse = object;
-export type PutResponse = object;
-export type DelResponse = object;
+export type GetResponse = Promise<{ data: object | object[], pagination: PaginationOptions } | object | object[]>;
+export type PostResponse = Promise<object>;
+export type PutResponse = Promise<object>;
+export type DelResponse = Promise<object>;
 
 export interface PaginationOptions {
   total: bigint;
