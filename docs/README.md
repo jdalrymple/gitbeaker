@@ -8,10 +8,10 @@ import { ProjectsBundle } from 'gitlab';
 const services = new ProjectsBundle({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
-})
+});
 
-services.Projects.all()
-services.MergeRequests.all()
+services.Projects.all();
+services.MergeRequests.all();
 // etc...
 ```
 
@@ -30,7 +30,7 @@ ProjectsBundle which includes:
 - IssueAwardEmojis
 - Jobs
 - Labels
-- MergeRequests
+- [MergeRequests](projects/MergeRequests.md)
 - MergeRequestAwardEmojis
 - MergeRequestDiscussions
 - MergeRequestNotes
