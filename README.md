@@ -27,6 +27,7 @@
     - [Examples](#examples)
     - [Pagination](#pagination)
     - [Sudo](#sudo)
+    - [Custom Request Libraries](#custom-request-libraries)
 - [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
@@ -376,17 +377,34 @@ For private gitlab instances, administrators are able to impersonate users throu
 
 For example, if you want to disable notifications for a specific user:
 ```javascript
-import Gitlab from 'gitlab';
+import { NotificationSettings } from 'gitlab';
 
-const { NotificationSettings } = new Gitlab({
+const service = new NotificationSettings({
   url:   'http://example.com', // Defaults to http://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
   sudo: 8 // Can be the user ID or a username
 });
 
-await NotificationSettings.edit({
+await service.edit({
   level: NotificationSettings.LEVELS.DISABLED
 })
+```
+
+### Custom Request Libraries
+There is another constructor parameter that allows the user to specify their own custom request library
+as long as it has a similar API to got. To specify the library, simply set the `requester` property when
+instatiating a service:
+
+```javascript
+import { Gitlab } from 'gitlab';
+import YourCustomRequester from 'module';
+
+const api = new Gitlab({
+  host:   'http://example.com', // Defaults to http://gitlab.com
+  token: 'abcdefghij123456' // Can be created in your profile.
+  requester: YourCustomRequester
+});
+
 ```
 
 ## Migrating from node-gitlab/node-gitlab

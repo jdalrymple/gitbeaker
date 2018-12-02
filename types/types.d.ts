@@ -61,6 +61,13 @@ export interface BaseServiceOptions extends Sudo {
   url?: string;
   version?: string;
   rejectUnauthorized?: boolean;
+  requester?: {
+    get: Function;
+    post: Function;
+    put: Function;
+    delete: Function;
+    stream: Function;
+  };
 }
 
 // RequestHelper
