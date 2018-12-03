@@ -1,7 +1,7 @@
-import { BaseServiceOptions } from '@typings';
 import Request from 'got';
+import { BaseServiceOptions } from '@typings';
 
-class BaseService {
+export class BaseService {
   protected readonly url: string;
   protected readonly requester: object;
   public readonly headers: { [header: string]: string | number};
@@ -30,5 +30,3 @@ class BaseService {
     if (sudo) this.headers['Sudo'] = sudo;
   }
 }
-
-export default BaseService;

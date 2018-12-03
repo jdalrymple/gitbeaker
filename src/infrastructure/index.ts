@@ -1,5 +1,3 @@
-import * as RequestHelper from './RequestHelper';
-
-export { RequestHelper }
-export { default as BaseService } from './BaseService';
+export { BaseService } from './BaseService';
+export { RequestHelper } from './RequestHelper';
 export { bundler } from './Utils';

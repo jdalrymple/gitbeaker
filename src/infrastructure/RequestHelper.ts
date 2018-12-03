@@ -28,16 +28,13 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-export async function get(
-  service,
-  endpoint: string,
-  options: PaginatedRequestOptions = {},
-): Promise<GetResponse> {
-  const { showPagination, maxPages, sudo, ...query } = options;
-  const requestOptions = defaultRequest(service, endpoint, {
-    query,
-    sudo,
-  });
+export class RequestHelper {
+  static async get(service, endpoint: string, options: PaginatedRequestOptions = {}) {
+    const { showPagination, maxPages, sudo, ...query } = options;
+    const requestOptions = defaultRequest(service, endpoint, {
+      query,
+      sudo,
+    });
 
     const { headers, body } = await service.requester.get(...requestOptions);
     const pagination = {
