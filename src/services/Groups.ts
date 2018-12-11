@@ -10,6 +10,12 @@ class Groups extends BaseService {
     return RequestHelper.post(this, 'groups', options);
   }
 
+  edit(groupId: GroupId, options?: BaseRequestOptions) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.put(this, `groups/${gId}`, options);
+  }
+
   remove(groupId: GroupId, options?: Sudo) {
     const gId = encodeURIComponent(groupId);
 
