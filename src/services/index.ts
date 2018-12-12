@@ -55,6 +55,7 @@ export { default as ProjectSnippetNotes } from './ProjectSnippetNotes';
 export { default as ProjectSnippetDiscussions } from './ProjectSnippetDiscussions';
 export { default as ProjectSnippetAwardEmojis } from './ProjectSnippetAwardEmojis';
 export { default as ProtectedBranches } from './ProtectedBranches';
+export { default as ProtectedTags } from './ProtectedTags';
 export { default as ProjectVariables } from './ProjectVariables';
 export { default as Repositories } from './Repositories';
 export { default as RepositoryFiles } from './RepositoryFiles';
