@@ -1,3 +1,10 @@
+# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+
+
+### Features
+
+* **services:** add protected tags ([8203830](https://github.com/jdalrymple/node-gitlab/commit/8203830))
+
 ## [4.2.7](https://github.com/jdalrymple/node-gitlab/compare/4.2.6...4.2.7) (2018-11-26)
 
 
