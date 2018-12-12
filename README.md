@@ -114,6 +114,7 @@ ProjectSnippetNotes
 ProjectSnippetDiscussions
 ProjectSnippetAwardEmojis
 ProtectedBranches
+ProtectedTags
 ProjectVariables
 Repositories
 RepositoryFiles
@@ -229,6 +230,7 @@ ProjectSnippetNotes
 ProjectSnippetDiscussions
 ProjectSnippetAwardEmojis
 ProtectedBranches
+ProtectedTags
 ProjectVariables
 Repositories
 RepositoryFiles
