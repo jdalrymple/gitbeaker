@@ -20,7 +20,8 @@
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
-
+    "downlevelIteration": true,
+    
     /* Additional Checks */                   
     "noUnusedLocals": true,
     "noUnusedParameters": true,
