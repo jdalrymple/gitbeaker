@@ -1,5 +1,5 @@
 
-# [5.0.0-rc.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...5.0.0) (2018-11-07)
+# [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...5.0.0) (2018-12-19)
 
 ### Breaking
 * Added content as a required parameter for RepositoryFiles
@@ -20,7 +20,9 @@
 * Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality
 
 ## Features
-* Adding the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))
+* Added the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))
+* Added the missing edit function to the Groups API
+* Added LDAP support to the Groups API 
 
 ## Documentation
 * Removing xml request docs
