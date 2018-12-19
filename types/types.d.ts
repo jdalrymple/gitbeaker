@@ -72,7 +72,7 @@ export interface BaseServiceOptions extends Sudo {
 
 // RequestHelper
 export type GetResponse =
-  | { data: object | object[]; pagination: PaginationOptions }
+  | { data: object | object[], pagination: PaginationOptions }
   | object
   | object[];
 export type PostResponse = object;

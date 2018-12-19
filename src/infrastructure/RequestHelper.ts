@@ -51,7 +51,7 @@ export async function get(
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
   if (!query.page && underLimit && pagination.next) {
-    const more = await this.get(service, endpoint, {
+    const more = await get(service, endpoint, {
       page: pagination.next,
       ...options,
     });
