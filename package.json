@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
-  "version": "5.0.0-rc.6",
+  "version": "5.0.0-rc.7",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": {
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.1",
-    "@semantic-release/git": "^7.0.5",
+    "@semantic-release/git": "^7.0.6",
     "@semantic-release/npm": "^5.1.2",
     "@types/humps": "^1.1.2",
     "@types/jest": "^23.3.10",
@@ -64,7 +64,7 @@
     "jest-extended": "^0.11.0",
     "jest-tap-reporter": "^1.9.0",
     "prettier": "^1.15.3",
-    "rollup": "^0.68.0",
+    "rollup": "^0.68.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0",
