@@ -8,7 +8,7 @@ import {
   ResourceType,
   NoteId,
   DiscussionId,
-} from '@typings';
+} from '../../types/types';
 
 class ResourceDiscussions extends BaseService {
   protected resource2Type: ResourceType;

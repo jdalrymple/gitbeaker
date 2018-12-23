@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { Sudo } from '@typings';
+import { Sudo } from '../../types/types';
 
 class Licence extends BaseService {
   all(options?: Sudo) {

@@ -8,7 +8,7 @@ import {
   ResourceId,
   ResourceType,
   UserId,
-} from '@typings';
+} from '../../types/types';
 
 class ResourceMembers extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

@@ -6,7 +6,7 @@ import {
   GroupId,
   EpicId,
   IssueId,
-} from '@typings';
+} from '../../types/types';
 
 class EpicIssues extends BaseService {
   all(groupId: GroupId, epicId: EpicId, options?: PaginatedRequestOptions) {

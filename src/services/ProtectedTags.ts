@@ -4,7 +4,7 @@ import {
   BaseRequestOptions,
   Sudo,
   ProjectId,
-} from '@typings';
+} from '../../types/types';
 
 class ProtectedTags extends BaseService {
   all(projectId: ProjectId, options: PaginatedRequestOptions) {

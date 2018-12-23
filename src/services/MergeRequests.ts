@@ -7,7 +7,7 @@ import {
   MergeRequestId,
   GroupId,
   UserId,
-} from '@typings';
+} from '../../types/types';
 
 class MergeRequests extends BaseService {
   accept(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: BaseRequestOptions) {

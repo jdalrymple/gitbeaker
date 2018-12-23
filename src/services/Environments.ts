@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   EnvironmentId,
-} from '@typings';
+} from '../../types/types';
 
 class Environments extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

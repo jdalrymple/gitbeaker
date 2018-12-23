@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '@typings';
+import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '../../types/types';
 
 const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 

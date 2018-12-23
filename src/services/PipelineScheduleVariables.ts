@@ -5,7 +5,7 @@ import {
 	PipelineScheduleId,
 	ProjectId,
 	KeyId,
-} from '@typings';
+} from '../../types/types';
 
 class PipelineScheduleVariables extends BaseService {
 	all(

@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, PaginatedRequestOptions, BroadcastMessageId } from '@typings';
+import { BaseRequestOptions, PaginatedRequestOptions, BroadcastMessageId } from '../../types/types';
 
 class BroadcastMessages extends BaseService {
   all(options?: PaginatedRequestOptions) {

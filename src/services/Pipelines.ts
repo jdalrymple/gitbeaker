@@ -6,7 +6,7 @@ import {
   ProjectId,
   PipelineId,
   JobScope,
-} from '@typings';
+} from '../../types/types';
 
 class Pipelines extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

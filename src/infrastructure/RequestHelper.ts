@@ -9,7 +9,7 @@ import {
   PostResponse,
   PutResponse,
   DelResponse,
-} from '@typings';
+} from '../../types/types';
 
 function defaultRequest(service, endpoint: string, { body, query, sudo }: DefaultRequestOptions) {
   return [

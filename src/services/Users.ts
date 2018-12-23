@@ -5,7 +5,7 @@ import {
   Sudo,
   UserId,
   EventOptions,
-} from '@typings';
+} from '../../types/types';
 
 class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {

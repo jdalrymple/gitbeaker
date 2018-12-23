@@ -1,5 +1,5 @@
 import { ResourceVariables } from '../templates';
-import { BaseServiceOptions } from '@typings';
+import { BaseServiceOptions } from '../../types/types';
 
 class GroupVariables extends ResourceVariables {
   constructor(options: BaseServiceOptions) {

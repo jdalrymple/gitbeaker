@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, GeonodeId } from '@typings';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo, GeonodeId } from '../../types/types';
 
 class GeoNodes extends BaseService {
   all(options?: PaginatedRequestOptions) {

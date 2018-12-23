@@ -6,7 +6,7 @@ import {
   ResourceId,
   ResourceType,
   KeyId,
-} from '@typings';
+} from '../../types/types';
 
 class ResourceVariables extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

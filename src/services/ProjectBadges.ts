@@ -1,5 +1,5 @@
 import { ResourceBadges } from '../templates';
-import { BaseServiceOptions } from '@typings';
+import { BaseServiceOptions } from '../../types/types';
 
 class ProjectBadges extends ResourceBadges {
   constructor(options: BaseServiceOptions) {

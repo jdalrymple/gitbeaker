@@ -5,7 +5,7 @@ import {
   ProjectId,
   TodoId,
   MergeRequestId,
-} from '@typings';
+} from '../../types/types';
 
 class Todos extends BaseService {
   all(options?: PaginatedRequestOptions) {

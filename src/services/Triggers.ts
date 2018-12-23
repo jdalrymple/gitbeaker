@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   TriggerId,
-} from '@typings';
+} from '../../types/types';
 
 class Triggers extends BaseService {
   add(projectId: ProjectId, options?: BaseRequestOptions) {

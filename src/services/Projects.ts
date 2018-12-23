@@ -10,7 +10,7 @@ import {
   UserId,
   GroupId,
   NamespaceId,
-} from '@typings';
+} from '../../types/types';
 
 class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {

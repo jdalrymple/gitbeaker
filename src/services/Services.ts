@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, Sudo, ProjectId, SupportedService } from '@typings';
+import { BaseRequestOptions, Sudo, ProjectId, SupportedService } from '../../types/types';
 
 class Services extends BaseService {
   edit(projectId: ProjectId, serviceName: SupportedService, options?: BaseRequestOptions) {

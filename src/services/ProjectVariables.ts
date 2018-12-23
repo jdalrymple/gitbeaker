@@ -1,5 +1,5 @@
 import { ResourceVariables } from '../templates';
-import { BaseServiceOptions } from '@typings';
+import { BaseServiceOptions } from '../../types/types';
 
 class ProjectVariables extends ResourceVariables {
   constructor(options: BaseServiceOptions) {

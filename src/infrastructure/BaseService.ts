@@ -1,5 +1,5 @@
 import Request from 'got';
-import { BaseServiceOptions } from '@typings';
+import { BaseServiceOptions } from '../../types/types';
 
 export class BaseService {
   protected readonly url: string;
