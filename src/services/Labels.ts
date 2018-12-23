@@ -1,5 +1,11 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, LabelId } from '../../types/types';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  ProjectId,
+  LabelId,
+} from '../../types/types';
 
 class Labels extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

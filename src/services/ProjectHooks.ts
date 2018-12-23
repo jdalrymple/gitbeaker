@@ -1,5 +1,11 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId, HookId } from '../../types/types';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  ProjectId,
+  HookId,
+} from '../../types/types';
 
 class ProjectHooks extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {
