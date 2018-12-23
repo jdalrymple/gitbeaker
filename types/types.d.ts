@@ -80,12 +80,12 @@ export type PutResponse = object;
 export type DelResponse = object;
 
 export interface PaginationOptions {
-  total: bigint;
-  next: bigint | null;
-  current: bigint | null;
-  previous: bigint | null;
-  perPage: bigint;
-  totalPages: bigint;
+  total: number;
+  next: number | null;
+  current: number | null;
+  previous: number | null;
+  perPage: number;
+  totalPages: number;
 }
 
 export interface DefaultRequestOptions extends Sudo {
