@@ -1,5 +1,5 @@
-import Request from 'got';
-import { decamelizeKeys } from 'humps';
+import Request, { Options as KyOptions, ResponsePromise } from 'ky';
+import { decamelizeKeys, camelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import {
   PaginatedRequestOptions,
@@ -11,18 +11,57 @@ import {
   DelResponse,
 } from '../../types/types';
 
-function defaultRequest(service, endpoint: string, { body, query, sudo }: DefaultRequestOptions) {
+function defaultRequest(
+  service,
+  endpoint: string,
+  { body, query, sudo }: DefaultRequestOptions,
+): [string, KyOptions] {
+  let urlStr = `${service.url}${endpoint}`;
+  if (query) {
+    urlStr += `?${stringify(decamelizeKeys(query), { arrayFormat: 'bracket' })}`;
+  }
+  const headers = {
+    ...service.headers,
+  };
+  if (sudo) {
+    headers.sudo = sudo;
+  }
   return [
-    endpoint,
+    urlStr,
     {
-      baseUrl: service.url,
-      headers: { sudo, ...service.headers },
-      query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
-      body: body && decamelizeKeys(body),
-      rejectUnauthorized: service.rejectUnauthorized,
-      json: true,
+      headers,
+      body: body && typeof body !== 'object' ? body : undefined,
+      // TODO
+      // rejectUnauthorized: service.rejectUnauthorized,
+      json: typeof body === 'object' ? decamelizeKeys(body) : undefined,
     },
   ];
+}
+
+async function handleResponse(
+  response: ResponsePromise,
+): Promise<{
+  body: object | [];
+  headers: object;
+  status: number;
+  statusText: string;
+}> {
+  const { headers, status, statusText } = await response;
+  const rawBody = await response.json();
+  let body;
+  if (Array.isArray(body)) {
+    body = rawBody;
+  } else if (typeof rawBody === 'object' && rawBody !== null) {
+    body = camelizeKeys(rawBody);
+  } else {
+    body = {};
+  }
+  return {
+    body,
+    headers,
+    status,
+    statusText,
+  };
 }
 
 export async function get(
@@ -36,7 +75,9 @@ export async function get(
     sudo,
   });
 
-  const { headers, body } = await Request.get(...requestOptions);
+  const { headers, body } = await handleResponse(
+    Request.get(...(requestOptions as [string, object])),
+  );
   const pagination = {
     total: headers['x-total'],
     next: headers['x-next-page'] || null,
@@ -56,14 +97,20 @@ export async function get(
       ...options,
     });
 
-    return [...body, ...more];
+    return [...(Array.isArray(body) ? body : []), ...(Array.isArray(more) ? more : [])];
   }
 
   return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
 }
 
 export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
-  return Request.stream(
+  const Req = Request as {
+    stream?: (endpoint: string, options: KyOptions) => ReadableStream
+  }
+  if (typeof Req.stream !== 'function') {
+    throw new Error('Not implementated! Arg!')
+  }
+  return Req.stream(
     ...defaultRequest(service, endpoint, {
       query: options,
     }),
@@ -76,11 +123,13 @@ export async function post(
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
   const { sudo, ...body } = options;
-  const response = await Request.post(
-    ...defaultRequest(service, endpoint, {
-      body,
-      sudo,
-    }),
+  const response = await handleResponse(
+    Request.post(
+      ...defaultRequest(service, endpoint, {
+        body,
+        sudo,
+      }),
+    ),
   );
 
   return response.body;
@@ -92,10 +141,12 @@ export async function put(
   options: BaseRequestOptions = {},
 ): Promise<PutResponse> {
   const { sudo, ...body } = options;
-  const response = await Request.put(
-    ...defaultRequest(service, endpoint, {
-      body,
-    }),
+  const response = await handleResponse(
+    Request.put(
+      ...defaultRequest(service, endpoint, {
+        body,
+      }),
+    ),
   );
 
   return response.body;
@@ -107,10 +158,12 @@ export async function del(
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
   const { sudo, ...query } = options;
-  const response = await Request.delete(
-    ...defaultRequest(service, endpoint, {
-      query,
-    }),
+  const response = await handleResponse(
+    Request.delete(
+      ...defaultRequest(service, endpoint, {
+        query,
+      }),
+    ),
   );
 
   return response.body;

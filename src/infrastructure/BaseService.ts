@@ -1,4 +1,4 @@
-import Request from 'got';
+import Request from 'ky';
 import { BaseServiceOptions } from '../../types/types';
 
 export class BaseService {

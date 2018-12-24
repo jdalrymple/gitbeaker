@@ -66,7 +66,7 @@ export interface BaseServiceOptions extends Sudo {
     post: Function;
     put: Function;
     delete: Function;
-    stream: Function;
+    stream?: Function;
   };
 }
 

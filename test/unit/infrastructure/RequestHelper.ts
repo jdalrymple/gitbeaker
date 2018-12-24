@@ -1,4 +1,4 @@
-import Request from 'got';
+import Request from 'ky';
 import { RequestHelper, BaseService } from '../../../src/infrastructure';
 
 const mockedGetBasic = () => ({
