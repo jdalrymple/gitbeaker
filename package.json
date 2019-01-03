@@ -56,7 +56,7 @@
     "@types/parse-link-header": "^1.0.0",
     "@types/qs": "^6.5.1",
     "@types/request-promise": "^4.1.42",
-    "@types/url-join": "^0.8.2",
+    "@types/url-join": "^4.0.0",
     "@types/util.promisify": "^1.0.0",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
