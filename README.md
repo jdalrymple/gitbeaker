@@ -148,14 +148,14 @@ const Gitlab = require('gitlab/dist/es5').default
 
 // Instantiating
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456'	// Can be created in your profile.
 })
 
 // Or, use a OAuth token instead!
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   oauthToken: 'abcdefghij123456'
 })
 
@@ -169,7 +169,7 @@ Sometimes you don't want to import and instantiate the whole Gitlab API, perhaps
 import { Projects } from 'gitlab';
 
 const service = new Projects({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 })
 
@@ -184,7 +184,7 @@ It can be annoying to have to import all the API's pertaining to a specific reso
 import { ProjectsBundle } from 'gitlab';
 
 const services = new ProjectsBundle({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 })
 
@@ -275,7 +275,7 @@ This package uses the [Request](https://github.com/request/request) library by d
 import Gitlab from 'gitlab';
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456',	// Can be created in your profile.
 
   useXMLHttpRequest: true // Use the browser's XMLHttpRequest instead of Node's Request library
@@ -293,7 +293,7 @@ Using the await/async method
 import Gitlab from 'gitlab';
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
@@ -317,7 +317,7 @@ ie.
 import Gitlab from 'gitlab';
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
@@ -334,7 +334,7 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 import Gitlab from 'gitlab';
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
@@ -348,7 +348,7 @@ You can also use this in conjunction to the perPage argument which would overrid
 import Gitlab from 'gitlab';
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
 });
 
@@ -389,7 +389,7 @@ For example, if you want to disable notifications for a specific user:
 import Gitlab from 'gitlab';
 
 const { NotificationSettings } = new Gitlab({
-  url:   'http://example.com', // Defaults to http://gitlab.com
+  url:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
   sudo: 8 // Can be the user ID or a username
 });
