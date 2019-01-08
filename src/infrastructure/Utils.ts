@@ -7,3 +7,7 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
 		});
 	} as any) as Bundle<T, P>;
 }
+
+export function skipAllCaps(key, convert, options) {
+  return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
+}
