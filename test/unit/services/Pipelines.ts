@@ -32,7 +32,7 @@ describe('Instantiating Pipelines service', () => {
     expect(service.rejectUnauthorized).toBeTruthy();
     expect(service.headers).toMatchObject({'private-token': 'abcdefg'});
   });
-})
+});
 
 describe('Projects.create', () => {
   it('should request POST /projects/user/:id when userId defined', async () => {
@@ -40,7 +40,7 @@ describe('Projects.create', () => {
       variables: {
         PULL_REQUEST_NAME: 'TEST',
       }
-    }));
+    });
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipelines', {
       ref: 'ci/cd',
