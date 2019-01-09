@@ -1,6 +1,7 @@
 import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
+import { skipAllCaps } from './Utils'
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
@@ -18,7 +19,7 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
       baseUrl: service.url,
       headers: { sudo, ...service.headers },
       query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
-      body: body && decamelizeKeys(body),
+      body: body && decamelizeKeys(body, skipAllCaps),
       rejectUnauthorized: service.rejectUnauthorized,
       json: true,
     },
