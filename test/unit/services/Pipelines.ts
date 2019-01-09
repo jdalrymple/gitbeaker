@@ -42,7 +42,7 @@ describe('Projects.create', () => {
       }
     });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipelines', {
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipeline', {
       ref: 'ci/cd',
       variables: {
         PULL_REQUEST_NAME: 'TEST',
