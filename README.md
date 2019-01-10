@@ -142,7 +142,7 @@ URL to your GitLab instance should not include `/api/v4` path.
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 
 ```javascript
-// ES6 (>=node 8.0.0)
+// ES6 (>=node 10.0.0)
 import { Gitlab } from 'gitlab';
 
 // ES5, assuming native or polyfilled Promise is available
