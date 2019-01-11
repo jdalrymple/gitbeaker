@@ -1,6 +1,6 @@
 import { PushRule } from '../../src';
 
-describe('PushRule', () => {
+describe('PushRule.edit', () => {
   // the feature is not available for CE users https://gitlab.com/gitlab-org/gitlab-ee/issues/3825
   xit('should create or edit push rule on upsert', async () => {
     const service = new PushRule({

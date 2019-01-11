@@ -1,6 +1,6 @@
 import { Snippets } from '../../src';
 
-describe('Snippets', () => {
+describe('Snippets.create', () => {
   it('should create snippet', async () => {
     const service = new Snippets({
       host: process.env.GITLAB_URL,
