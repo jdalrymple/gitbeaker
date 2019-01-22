@@ -114,7 +114,7 @@ class Projects extends BaseService {
   unshare(projectId: ProjectId, groupId: GroupId) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/share${gId}`);
+    return RequestHelper.delete(this, `projects/${pId}/share/${gId}`);
   }
 
   unstar(projectId: ProjectId) {
