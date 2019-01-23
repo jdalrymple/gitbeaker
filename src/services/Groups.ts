@@ -17,7 +17,7 @@ class Groups extends BaseService {
 
     return RequestHelper.post(this, `groups/${gId}`, options);
   }
-  
+
   ldap_group_link(groupId: GroupId, options: RequestOptions) {
     const gId = encodeURIComponent(groupId);
     
