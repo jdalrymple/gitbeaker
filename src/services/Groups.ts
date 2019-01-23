@@ -23,7 +23,7 @@ class Groups extends BaseService {
     
     return RequestHelper.post(this, `groups/${gId}/ldap_group_links`, options);
   }
-  
+
   remove(groupId: GroupId) {
     const gId = encodeURIComponent(groupId);
 
