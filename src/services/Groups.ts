@@ -12,6 +12,12 @@ class Groups extends BaseService {
     return RequestHelper.post(this, 'groups', options);
   }
 
+  edit(groupId: GroupId, options: RequestOptions) {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.post(this, `groups/${gId}`, options);
+  }
+
   remove(groupId: GroupId) {
     const gId = encodeURIComponent(groupId);
 
@@ -34,6 +40,11 @@ class Groups extends BaseService {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get(this, `groups/${gId}/subgroups`, options);
+  }
+
+  ldap_group_link(groupId: GroupId, options: RequestOptions) {
+    const gId = encodeURIComponent(groupId);
+    return RequestHelper.post(this, `groups/${gId}/ldap_group_links`, options);
   }
 }
 
