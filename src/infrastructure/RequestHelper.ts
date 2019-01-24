@@ -1,4 +1,3 @@
-import Request from 'got';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils'
@@ -37,7 +36,7 @@ export async function get(
     sudo,
   });
 
-  const { headers, body } = await Request.get(...requestOptions);
+  const { headers, body } = await service.requester.get(...requestOptions);
   const pagination = {
     total: headers['x-total'],
     next: headers['x-next-page'] || null,
@@ -64,7 +63,7 @@ export async function get(
 }
 
 export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
-  return Request.stream(
+  return service.requester.stream(
     ...defaultRequest(service, endpoint, {
       query: options,
     }),
@@ -77,7 +76,7 @@ export async function post(
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
   const { sudo, ...body } = options;
-  const response = await Request.post(
+  const response = await service.requester.post(
     ...defaultRequest(service, endpoint, {
       body,
       sudo,
@@ -93,7 +92,7 @@ export async function put(
   options: BaseRequestOptions = {},
 ): Promise<PutResponse> {
   const { sudo, ...body } = options;
-  const response = await Request.put(
+  const response = await service.requester.put(
     ...defaultRequest(service, endpoint, {
       body,
     }),
@@ -108,7 +107,7 @@ export async function del(
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
   const { sudo, ...query } = options;
-  const response = await Request.delete(
+  const response = await service.requester.delete(
     ...defaultRequest(service, endpoint, {
       query,
     }),
