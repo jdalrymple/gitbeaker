@@ -148,8 +148,9 @@ const Gitlab = require('gitlab/dist/es5').default
 
 // Instantiating
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456'	// Can be created in your profile.
+  url:   'http://example.com',  // Defaults to https://gitlab.com
+  token: 'abcdefghij123456',    // Can be created in your profile.
+  rejectUnauthorized: false     // Should insecure certificates be rejected (true by default)
 })
 
 // Or, use a OAuth token instead!
