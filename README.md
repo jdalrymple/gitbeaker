@@ -149,7 +149,7 @@ const Gitlab = require('gitlab/dist/es5').default
 // Instantiating
 const api = new Gitlab({
   url:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456'	// Can be created in your profile.
+  token: 'abcdefghij123456'  // Can be created in your profile.
 })
 
 // Or, use a OAuth token instead!
@@ -267,6 +267,28 @@ EpicIssues
 EpicNotes
 EpicDiscussions
 ```
+
+#### Handling HTTPS certificates
+
+If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
+
+```js
+"scripts": {
+    "start": "NODE_EXTRA_CA_CERTS=./secrets/3ShapeCA.pem node bot.js"
+},
+```
+
+Although we don't encourage it, if you absolutely must allow insecure certificates, you can instantiate the API with `rejectAuthorized` set to `true` like this:
+
+```
+const api = new Gitlab({
+  url: '...',
+  token: '...',
+  rejectUnauthorized: true
+})
+```
+
+> **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
 ### Using XMLHttpRequest
 This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
