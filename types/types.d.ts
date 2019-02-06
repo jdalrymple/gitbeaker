@@ -1,3 +1,5 @@
+import { Options } from "ky";
+
 declare global {
   function encodeURIComponent(uriComponent: string | number | boolean): string;
 }
@@ -54,6 +56,16 @@ export interface Bundle<T extends { [name: string]: Constructor }, P extends key
 }
 
 // Base Service
+export interface Requester {
+  get: Function;
+  post: Function;
+  put: Function;
+  delete: Function;
+  stream?: Function;
+}
+
+export type RequesterOptions = Options
+
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
   token?: string;
@@ -61,13 +73,7 @@ export interface BaseServiceOptions extends Sudo {
   url?: string;
   version?: string;
   rejectUnauthorized?: boolean;
-  requester?: {
-    get: Function;
-    post: Function;
-    put: Function;
-    delete: Function;
-    stream: Function;
-  };
+  requester?: Requester;
 }
 
 // RequestHelper

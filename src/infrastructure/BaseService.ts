@@ -1,10 +1,10 @@
-import Request from 'got';
-import { BaseServiceOptions } from '../../types/types';
+import ky from 'ky';
+import { BaseServiceOptions, Requester } from '../../types/types';
 
 export class BaseService {
   public readonly url: string;
-  public readonly requester: Request;
-  public readonly headers: { [header: string]: string | number};
+  public readonly requester: Requester;
+  public readonly headers: { [header: string]: string };
   public readonly rejectUnauthorized: boolean;
 
   constructor({
@@ -15,7 +15,7 @@ export class BaseService {
     url = '',
     version = 'v4',
     rejectUnauthorized = true,
-    requester = Request,
+    requester = ky,
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};

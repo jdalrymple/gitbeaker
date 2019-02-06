@@ -1,6 +1,5 @@
-import { decamelizeKeys } from 'humps';
+import { decamelizeKeys, camelizeKeys } from 'humps';
 import { stringify } from 'query-string';
-import { skipAllCaps } from './Utils';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
@@ -9,25 +8,63 @@ import {
   PostResponse,
   PutResponse,
   DelResponse,
+  RequesterOptions,
 } from '../../types/types';
 import { BaseService } from './BaseService';
+import { ResponsePromise } from 'ky';
+import { skipAllCaps } from './Utils';
 
 function defaultRequest(
   service: BaseService,
   endpoint: string,
   { body, query, sudo }: DefaultRequestOptions,
-) {
+): [string, RequesterOptions] {
+  let urlStr = `${service.url}${endpoint}`;
+  if (query) {
+    urlStr += `?${stringify(decamelizeKeys(query), { arrayFormat: 'bracket' })}`;
+  }
+  const headers = {
+    ...service.headers,
+  };
+  if (sudo) {
+    headers.sudo = `${sudo}`;
+  }
   return [
-    endpoint,
+    urlStr,
     {
-      baseUrl: service.url,
-      headers: { sudo, ...service.headers },
-      query: query && stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
-      body: body && decamelizeKeys(body, skipAllCaps),
-      rejectUnauthorized: service.rejectUnauthorized,
-      json: true,
+      headers,
+      body: body && typeof body !== 'object' ? body : undefined,
+      // TODO
+      // rejectUnauthorized: service.rejectUnauthorized,
+      json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : undefined,
     },
   ];
+}
+
+async function handleResponse(
+  response: ResponsePromise,
+): Promise<{
+  body: object | [];
+  headers: object;
+  status: number;
+  statusText: string;
+}> {
+  const { headers, status, statusText } = await response;
+  const rawBody = await response.json();
+  let body;
+  if (Array.isArray(body)) {
+    body = rawBody;
+  } else if (typeof rawBody === 'object' && rawBody !== null) {
+    body = camelizeKeys(rawBody);
+  } else {
+    body = {};
+  }
+  return {
+    body,
+    headers,
+    status,
+    statusText,
+  };
 }
 
 export async function get(
@@ -40,8 +77,9 @@ export async function get(
     query,
     sudo,
   });
-
-  const { headers, body } = await service.requester.get(...requestOptions);
+  const { headers, body } = await handleResponse(
+    service.requester.get(...(requestOptions as [string, object])),
+  );
   const pagination = {
     total: headers['x-total'],
     next: headers['x-next-page'] || null,
@@ -61,7 +99,7 @@ export async function get(
       ...options,
     });
 
-    return [...body, ...more];
+    return [...(Array.isArray(body) ? body : []), ...(Array.isArray(more) ? more : [])];
   }
 
   return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
@@ -72,6 +110,10 @@ export function stream(
   endpoint: string,
   options: BaseRequestOptions = ({} = {}),
 ) {
+  if (typeof service.requester.stream !== 'function') {
+    throw new Error('Stream method is not implementated in requester!');
+  }
+
   return service.requester.stream(
     ...defaultRequest(service, endpoint, {
       query: options,
@@ -85,11 +127,13 @@ export async function post(
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
   const { sudo, ...body } = options;
-  const response = await service.requester.post(
-    ...defaultRequest(service, endpoint, {
-      body,
-      sudo,
-    }),
+  const response = await handleResponse(
+    service.requester.post(
+      ...defaultRequest(service, endpoint, {
+        body,
+        sudo,
+      }),
+    ),
   );
 
   return response.body;
@@ -101,10 +145,12 @@ export async function put(
   options: BaseRequestOptions = {},
 ): Promise<PutResponse> {
   const { sudo, ...body } = options;
-  const response = await service.requester.put(
-    ...defaultRequest(service, endpoint, {
-      body,
-    }),
+  const response = await handleResponse(
+    service.requester.put(
+      ...defaultRequest(service, endpoint, {
+        body,
+      }),
+    ),
   );
 
   return response.body;
@@ -116,10 +162,12 @@ export async function del(
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
   const { sudo, ...query } = options;
-  const response = await service.requester.delete(
-    ...defaultRequest(service, endpoint, {
-      query,
-    }),
+  const response = await handleResponse(
+    service.requester.delete(
+      ...defaultRequest(service, endpoint, {
+        query,
+      }),
+    ),
   );
 
   return response.body;
