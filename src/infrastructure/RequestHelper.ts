@@ -11,8 +11,13 @@ import {
   PutResponse,
   DelResponse,
 } from '../../types/types';
+import { BaseService } from './BaseService';
 
-function defaultRequest(service, endpoint: string, { body, query, sudo }: DefaultRequestOptions) {
+function defaultRequest(
+  service: BaseService,
+  endpoint: string,
+  { body, query, sudo }: DefaultRequestOptions,
+) {
   return [
     endpoint,
     {
@@ -27,7 +32,7 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
 }
 
 async function getImplementation(
-  service,
+  service: BaseService,
   endpoint: string,
   options: PaginatedRequestOptions = {},
   isNextPageRequest: boolean = false,
@@ -71,14 +76,18 @@ async function getImplementation(
 }
 
 export async function get(
-  service,
+  service: BaseService,
   endpoint: string,
   options: PaginatedRequestOptions = {},
 ): Promise<GetResponse> {
   return getImplementation(service, endpoint, options);
 }
 
-export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
+export function stream(
+  service: BaseService,
+  endpoint: string,
+  options: BaseRequestOptions = ({} = {}),
+) {
   return service.requester.stream(
     ...defaultRequest(service, endpoint, {
       query: options,
@@ -87,7 +96,7 @@ export function stream(service, endpoint: string, options: BaseRequestOptions = 
 }
 
 export async function post(
-  service,
+  service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
@@ -120,7 +129,7 @@ export async function postData(service, endpoint: string, body: FormData): Promi
 }
 
 export async function put(
-  service,
+  service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
 ): Promise<PutResponse> {
@@ -135,7 +144,7 @@ export async function put(
 }
 
 export async function del(
-  service,
+  service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
