@@ -2,8 +2,8 @@ import Request from 'got';
 import { BaseServiceOptions } from '../../types/types';
 
 export class BaseService {
-  protected readonly url: string;
-  protected readonly requester: object;
+  public readonly url: string;
+  public readonly requester: Request;
   public readonly headers: { [header: string]: string | number};
   public readonly rejectUnauthorized: boolean;
 
