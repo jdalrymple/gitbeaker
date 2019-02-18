@@ -46,11 +46,11 @@ async function handleResponse(
   response: ResponsePromise,
 ): Promise<{
   body: object | [];
-  headers: object;
+  headers: { [k: string]: string };
   status: number;
   statusText: string;
 }> {
-  const { headers, status, statusText } = await response;
+  const { headers: rawHeaders, status, statusText } = await response;
   const rawBody = await response.json();
   let body;
   if (Array.isArray(body)) {
@@ -60,6 +60,12 @@ async function handleResponse(
   } else {
     body = {};
   }
+
+  const headers = {};
+  rawHeaders.forEach((value, key) => {
+    headers[key] = value;
+  });
+
   return {
     body,
     headers,
@@ -84,8 +90,8 @@ async function getImplementation(
   );
   const pagination = {
     total: headers['x-total'],
-    next: headers['x-next-page'] || null,
-    current: headers['x-page'] || null,
+    next: parseInt(headers['x-next-page'], 10) || null,
+    current: parseInt(headers['x-page'], 10) || 1,
     previous: headers['x-prev-page'] || null,
     perPage: headers['x-per-page'],
     totalPages: headers['x-total-pages'],
