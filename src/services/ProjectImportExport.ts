@@ -18,14 +18,9 @@ class ProjectImportExport extends BaseService {
   import(content: string, path: string, options?: BaseRequestOptions) {
     const form = new FormData();
 
-    form.append(path, {
-      file: {
-        value: content,
-        options: {
-          filename: path,
-          contentType: 'application/octet-stream',
-        },
-      },
+    form.append('file', content, {
+      filename: path,
+      contentType: 'application/octet-stream',
     });
 
     return RequestHelper.post(this, 'projects/import', { ...form, ...options });

@@ -132,14 +132,9 @@ class Projects extends BaseService {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
-    form.append(fileName, {
-      file: {
-        value: content,
-        options: {
-          filename: fileName,
-          contentType: 'application/octet-stream',
-        },
-      },
+    form.append('file', content, {
+      filename: fileName,
+      contentType: 'application/octet-stream',
     });
 
     return RequestHelper.post(this, `projects/${pId}/uploads`, form);
