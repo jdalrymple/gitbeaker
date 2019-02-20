@@ -128,7 +128,7 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, { fileName = randomstring(8) }: { fileName?: string }) {
+  upload(projectId, content, { fileName = randomstring.generate(8) }: { fileName?: string }) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
