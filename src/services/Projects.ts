@@ -137,7 +137,7 @@ class Projects extends BaseService {
       contentType: 'application/octet-stream',
     });
 
-    return RequestHelper.post(this, `projects/${pId}/uploads`, form);
+    return RequestHelper.postData(this, `projects/${pId}/uploads`, form);
   }
 }
 

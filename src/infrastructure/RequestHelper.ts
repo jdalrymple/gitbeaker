@@ -1,3 +1,4 @@
+import FormData from 'form-data';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils'
@@ -84,6 +85,27 @@ export async function post(
   );
 
   return response.body;
+}
+
+export async function postData(
+  service,
+  endpoint: string,
+  body: FormData,
+): Promise<PostResponse> {
+  const requestOptions = {
+    baseUrl: service.url,
+    headers: service.headers,
+    body,
+    rejectUnauthorized: service.rejectUnauthorized,
+  };
+
+  const response = await service.requester.post(endpoint, requestOptions);
+
+  try {
+    return JSON.parse(response.body);
+  } catch (e) {
+    return {};
+  }
 }
 
 export async function put(
