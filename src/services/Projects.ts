@@ -10,6 +10,7 @@ import {
   UserId,
   GroupId,
   NamespaceId,
+  ProjectUploadMetadata,
 } from '../../types/types';
 
 class Projects extends BaseService {
@@ -128,14 +129,16 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, { fileName = randomstring.generate(8) }: { fileName?: string }) {
+  upload(projectId, content, metadata: ProjectUploadMetadata = {}) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
-    form.append('file', content, {
-      filename: fileName,
+    const defaultMetadata: ProjectUploadMetadata = {
+      filename: randomstring.generate(8),
       contentType: 'application/octet-stream',
-    });
+    };
+
+    form.append('file', content, Object.assign(defaultMetadata, metadata));
 
     return RequestHelper.postData(this, `projects/${pId}/uploads`, form);
   }
