@@ -217,3 +217,9 @@ export type SnippetVisibility = 'private' | 'public' | 'internal';
 
 // User Impersonation Tokens
 export type ImpersonationTokenScope = 'api' | 'read_user';
+
+// Project upload metadata
+export interface ProjectUploadMetadata {
+  filename?: string,
+  contentType?: string,
+}
