@@ -2,7 +2,7 @@ import { ApplicationSettings } from '../../src';
 
 describe('ApplicationSettings.all', () => {
   let settings: ReturnType<ApplicationSettings['all']>;
-  
+
   beforeEach(async () => {
     const service = new ApplicationSettings({
       host: process.env.GITLAB_URL,
@@ -12,8 +12,8 @@ describe('ApplicationSettings.all', () => {
     settings = await service.all();
   });
 
-  it('Should return an array', async () => {
-    expect(settings).toBeArray();
+  it('Should return an object', async () => {
+    expect(settings).toBeObject();
   });
 
   /**

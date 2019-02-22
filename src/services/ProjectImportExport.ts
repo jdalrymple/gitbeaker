@@ -15,20 +15,15 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, path: string, options?: BaseRequestOptions) {
+  import(content: string, path: string) {
     const form = new FormData();
 
-    form.append(path, {
-      file: {
-        value: content,
-        options: {
-          filename: path,
-          contentType: 'application/octet-stream',
-        },
-      },
+    form.append('file', content, {
+      filename: path,
+      contentType: 'application/octet-stream',
     });
 
-    return RequestHelper.post(this, 'projects/import', { ...form, ...options });
+    return RequestHelper.postData(this, 'projects/import', form);
   }
 
   importStatus(projectId: ProjectId, options?: Sudo) {
