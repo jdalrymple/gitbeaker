@@ -5,6 +5,7 @@ import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
 interface BaseModelOptions {
   url?: string;
   token?: string;
+  jobToken?: string;
   oauthToken?: string;
   useXMLHttpRequest?: boolean;
   version?: string;
@@ -14,6 +15,7 @@ interface BaseModelOptions {
 
 export type BaseModelContructorOptions =
   | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
+  | BaseModelOptions & Required<Pick<BaseModelOptions, 'jobToken'>>
   | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
 class BaseModel {
   public url: string;
@@ -24,6 +26,7 @@ class BaseModel {
 
   constructor({
     token,
+    jobToken,
     oauthToken,
     sudo,
     url = 'https://gitlab.com',
@@ -40,6 +43,7 @@ class BaseModel {
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
+    else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
 
     // Set sudo

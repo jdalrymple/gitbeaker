@@ -159,6 +159,13 @@ const api = new Gitlab({
   oauthToken: 'abcdefghij123456'
 })
 
+// You can also use a CI job token:
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to https://gitlab.com
+  jobToken: process.env.CI_JOB_TOKEN
+})
+
 ```
 
 #### Specific Imports
