@@ -33,13 +33,13 @@ class Triggers extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/triggers/${tId}`);
   }
-  
+
   pipeline(projectId: ProjectId, options: RequestOptions) {
-    if(!options.ref) throw new Error('Missing required property: ref');
-    if(!options.token) throw new Error('Missing required property: token');
-    
+    if (!options.ref) throw new Error('Missing required property: ref');
+    if (!options.token) throw new Error('Missing required property: token');
+
     const pId = encodeURIComponent(projectId);
-    
+
     return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, options);
   }
 }
