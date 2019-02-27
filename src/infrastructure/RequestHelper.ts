@@ -183,6 +183,7 @@ export interface RequestOptions {
   search?: string;
   public?: boolean;
   text?: string;
+  token?: string;
 }
 
 class RequestHelper {
