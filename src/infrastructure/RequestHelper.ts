@@ -1,7 +1,7 @@
 import FormData from 'form-data';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
-import { skipAllCaps } from './Utils'
+import { skipAllCaps } from './Utils';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
@@ -26,10 +26,11 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-export async function get(
+async function getImpl(
   service,
   endpoint: string,
-  options: PaginatedRequestOptions = {},
+  options: PaginatedRequestOptions,
+  isNextPageRequest: boolean = false
 ): Promise<GetResponse> {
   const { showPagination, maxPages, sudo, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, {
@@ -51,16 +52,26 @@ export async function get(
 
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
-  if (!query.page && underLimit && pagination.next) {
-    const more = await get(service, endpoint, {
-      page: pagination.next,
-      ...options,
-    });
+  if ((isNextPageRequest || !query.page) && underLimit && pagination.next) {
+    const more = await getImpl(
+      service,
+      endpoint,
+      Object.assign({}, options, { page: pagination.next }),
+      true,
+    );
 
     return [...body, ...more];
   }
 
   return (query.page || (maxPages && underLimit)) && showPagination ? { data: body, pagination } : body;
+}
+
+export async function get(
+  service,
+  endpoint: string,
+  options: PaginatedRequestOptions = {},
+): Promise<GetResponse> {
+  return getImpl(service, endpoint, options);
 }
 
 export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
