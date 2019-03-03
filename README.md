@@ -162,6 +162,13 @@ const api = new Gitlab({
   oauthToken: 'abcdefghij123456'
 })
 
+// You can also use a CI job token:
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to https://gitlab.com
+  jobToken: process.env.CI_JOB_TOKEN
+})
+
 ```
 
 #### Specific Imports
@@ -270,6 +277,44 @@ EpicIssues
 EpicNotes
 EpicDiscussions
 ```
+
+#### Handling HTTPS certificates
+
+If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
+
+```js
+"scripts": {
+    "start": "NODE_EXTRA_CA_CERTS=./secrets/3ShapeCA.pem node bot.js"
+},
+```
+
+Although we don't encourage it, if you absolutely must allow insecure certificates, you can instantiate the API with `rejectAuthorized` set to `false` like this:
+
+```
+const api = new Gitlab({
+  url: '...',
+  token: '...',
+  rejectUnauthorized: false
+})
+```
+
+> **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
+
+### Using XMLHttpRequest
+This package uses the [Request](https://github.com/request/request) library by default, which is built into Node. However, if your code is running in a browser, you can get better built-in resolution of proxies and self-signed certificates by using the browser's XMLHttpRequest implementation instead:
+
+```javascript
+import Gitlab from 'gitlab';
+
+const api = new Gitlab({
+  url:   'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456',	// Can be created in your profile.
+
+  useXMLHttpRequest: true // Use the browser's XMLHttpRequest instead of Node's Request library
+})
+```
+
+**WARNING:** Currently this option does not support the `multipart/form-data` content type, and therefore the endpoint for [uploading a file to a project](https://docs.gitlab.com/ee/api/projects.html#upload-a-file) will not work correctly. All other endpoints should work exactly as expected.
 
 ### Examples
 Once you have your library instantiated, you can utilize many of the API's functionality:
@@ -380,7 +425,7 @@ For example, if you want to disable notifications for a specific user:
 import { NotificationSettings } from 'gitlab';
 
 const service = new NotificationSettings({
-  url:   'http://example.com', // Defaults to https://gitlab.com
+  host:   'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456' // Can be created in your profile.
   sudo: 8 // Can be the user ID or a username
 });

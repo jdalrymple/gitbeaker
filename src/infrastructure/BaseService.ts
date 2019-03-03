@@ -9,6 +9,7 @@ export class BaseService {
 
   constructor({
     token,
+    jobToken,
     oauthToken,
     sudo,
     host = 'https://gitlab.com',
@@ -24,6 +25,7 @@ export class BaseService {
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
+    else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
 
     // Set sudo
