@@ -13,55 +13,83 @@ const mockedGetBasic = () => ({
 });
 
 const mockedGetExtended = (url, { query = '' }) => {
-  const page1 = {
-    body: [
-      {
-        prop1: 1,
-        prop2: 'test property1',
+  const pages = [
+    {
+      body: [
+        {
+          prop1: 1,
+          prop2: 'test property1',
+        },
+        {
+          prop1: 2,
+          prop2: 'test property2',
+        },
+      ],
+      headers: {
+        link: `<'https://www.test.com/api/v4/projects?page=2&per_page=2>; rel='next',
+        <'https://www.test.com/api/v4/projects?page=1&per_page=2>; rel='first',
+        <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='last'`,
+        'x-next-page': 2,
+        'x-page': 1,
+        'x-per-page': 2,
+        'x-prev-page': '',
+        'x-total': 4,
+        'x-total-pages': 2,
       },
-      {
-        prop1: 2,
-        prop2: 'test property2',
-      },
-    ],
-    headers: {
-      link: `<'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='next',
-        <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first',
-        <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
-      'x-next-page': 2,
-      'x-page': 1,
-      'x-per-page': 2,
-      'x-prev-page': '',
-      'x-total': 4,
-      'x-total-pages': 2,
     },
-  };
-
-  const page2 = {
-    body: [
-      {
-        prop1: 3,
-        prop2: 'test property3',
+    {
+      body: [
+        {
+          prop1: 3,
+          prop2: 'test property3',
+        },
+        {
+          prop1: 4,
+          prop2: 'test property4',
+        },
+      ],
+      headers: {
+        link: `<'https://www.test.com/api/v4/projects?page=1&per_page=2>; rel='prev',
+        <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='next'
+        <'https://www.test.com/api/v4/projects?page=1&per_page=2>; rel='first',
+        <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='last'`,
+        'x-next-page': '',
+        'x-page': 2,
+        'x-per-page': 2,
+        'x-prev-page': 1,
+        'x-total': 6,
+        'x-total-pages': 3,
       },
-      {
-        prop1: 4,
-        prop2: 'test property4',
-      },
-    ],
-    headers: {
-      link: `<'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='prev',
-        <'https://www.test.com/api/v3/projects/8?page=1&per_page=2>; rel='first',
-        <'https://www.test.com/api/v3/projects/8?page=2&per_page=2>; rel='last'`,
-      'x-next-page': '',
-      'x-page': 2,
-      'x-per-page': 2,
-      'x-prev-page': 1,
-      'x-total': 4,
-      'x-total-pages': 2,
     },
-  };
+    {
+      body: [
+        {
+          prop1: 5,
+          prop2: 'test property5',
+        },
+        {
+          prop1: 6,
+          prop2: 'test property6',
+        },
+      ],
+      headers: {
+        link: `<'https://www.test.com/api/v4/projects?page=2&per_page=2>; rel='prev',
+        <'https://www.test.com/api/v4/projects?page=1&per_page=2>; rel='first',
+        <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='last'`,
+        'x-next-page': '',
+        'x-page': 3,
+        'x-per-page': 2,
+        'x-prev-page': 2,
+        'x-total': 6,
+        'x-total-pages': 3,
+      },
+    },
+  ];
 
-  return query.includes('page=2') ? page2 : page1;
+  const q = query.match(/(?!\D)\d+/);
+  const page:number = q != null ? q[0] : 1;
+
+  return pages[page-1];
 };
 
 const service = new BaseService({
@@ -88,6 +116,8 @@ describe('RequestHelper.get()', () => {
       expect(l.prop1).toBe(1 + index);
       expect(l.prop2).toBe(`test property${1 + index}`);
     });
+
+    expect(response.length).toBe(6)
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
