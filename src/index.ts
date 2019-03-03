@@ -78,3 +78,6 @@ export const ProjectsBundle = bundler({
 
 // All initialized
 export const Gitlab = bundler(APIServices);
+console.log(Object.keys(APIServices).length === Object.keys(new Gitlab({token:'deded'})).length)
+console.log(Object.keys(APIServices).length)
+console.log(Object.keys(new Gitlab({token:'deded'})).length)
