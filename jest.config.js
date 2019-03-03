@@ -9,7 +9,7 @@ module.exports = {
 	coverageDirectory: './coverage/',
 	collectCoverage: true,
 
-	setupTestFrameworkScriptFile: 'jest-extended',
+	setupFilesAfterEnv: ['jest-extended'],
 
 	globals: {
 		'ts-jest': {
