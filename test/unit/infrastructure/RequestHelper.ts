@@ -53,7 +53,7 @@ const mockedGetExtended = (url, { query = '' }) => {
         <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='next'
         <'https://www.test.com/api/v4/projects?page=1&per_page=2>; rel='first',
         <'https://www.test.com/api/v4/projects?page=3&per_page=2>; rel='last'`,
-        'x-next-page': '',
+        'x-next-page': 3,
         'x-page': 2,
         'x-per-page': 2,
         'x-prev-page': 1,
@@ -163,12 +163,12 @@ describe('RequestHelper.get()', () => {
     });
 
     expect(response.pagination).toMatchObject({
-      total: 4,
+      total: 6,
       previous: 1,
       current: 2,
-      next: null,
+      next: 3,
       perPage: 2,
-      totalPages: 2,
+      totalPages: 3,
     });
   });
 });
