@@ -60,7 +60,7 @@ export async function get(
     return [...body, ...more];
   }
 
-  return (query.page || maxPages) && showPagination ? { data: body, pagination } : body;
+  return (query.page || (maxPages && underLimit)) && showPagination ? { data: body, pagination } : body;
 }
 
 export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
@@ -87,11 +87,7 @@ export async function post(
   return response.body;
 }
 
-export async function postData(
-  service,
-  endpoint: string,
-  body: FormData,
-): Promise<PostResponse> {
+export async function postData(service, endpoint: string, body: FormData): Promise<PostResponse> {
   const requestOptions = {
     baseUrl: service.url,
     headers: service.headers,
