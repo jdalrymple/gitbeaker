@@ -547,7 +547,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Joshua Grosso](https://github.com/jgrosso)
 - [Frédéric Boutin](https://github.com/fboutin-pmc)
 - [Isaac Ouellet Therrien](https://github.com/yonguelink)
-- [Pavel Birukov](https://github.com/r00ger)
+- [Pavel Birukov](https://github.com/pablobirukov)
 - [Sharma-Rajat](https://github.com/Sharma-Rajat)
 - [Joseph Petersen](https://github.com/casz)
 - [Igor Katsuba](https://github.com/IKatsuba)
@@ -568,6 +568,16 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Louis Cherel](https://github.com/Musinux)
 - [Lukas Eipert](https://github.com/leipert)
 - [Maximilian Krauß](https://github.com/maximilian-krauss)
+- [Evolution Gaming](https://github.com/evolution-gaming)
+- [WEBER Logan](https://github.com/Neonox31)
+- [Anton Zhukov](https://github.com/MrCheater)
+- [Nic Loomans](https://github.com/beaverusiv)
+- [Jennifer Everhart]()
+- [Carl Kittelberger](https://github.com/icedream)
+- [Patrik Votoček](https://github.com/Vrtak-CZ)
+- [Kyrylo Fedorov](https://github.com/Kyr)
+- [Claudio Vellage](https://github.com/jdalrymple/LRH539)
+- [Seb0uil](https://github.com/seb0uil)
 
 ## License
 
