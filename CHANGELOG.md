@@ -22,6 +22,7 @@
 * Fixing ci lint url (#278)
 * Fixing form data (#272)
 * Fixing randomstring usage (#271)
+* Incorrect http method used to update MR approvers #262
 
 ## Features
 * Added the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))

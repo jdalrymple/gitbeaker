@@ -105,7 +105,7 @@ class MergeRequests extends BaseService {
       url = `projects/${pId}/approvals`;
     }
 
-    return RequestHelper.post(this, url, { approverIds, approverGroupIds, ...options });
+    return RequestHelper.put(this, url, { approverIds, approverGroupIds, ...options });
   }
 
   cancelOnPipelineSucess(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
