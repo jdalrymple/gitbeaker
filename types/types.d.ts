@@ -57,6 +57,7 @@ export interface Bundle<T extends { [name: string]: Constructor }, P extends key
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
   token?: string;
+  jobToken?: string;
   host?: string;
   url?: string;
   version?: string;
