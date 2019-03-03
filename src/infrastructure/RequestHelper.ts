@@ -26,11 +26,11 @@ function defaultRequest(service, endpoint: string, { body, query, sudo }: Defaul
   ];
 }
 
-async function getImpl(
+async function getImplementation(
   service,
   endpoint: string,
-  options: PaginatedRequestOptions,
-  isNextPageRequest: boolean = false
+  options: PaginatedRequestOptions = {},
+  isNextPageRequest: boolean = false,
 ): Promise<GetResponse> {
   const { showPagination, maxPages, sudo, ...query } = options;
   const requestOptions = defaultRequest(service, endpoint, {
@@ -39,6 +39,7 @@ async function getImpl(
   });
 
   const { headers, body } = await service.requester.get(...requestOptions);
+
   const pagination = {
     total: headers['x-total'],
     next: headers['x-next-page'] || null,
@@ -53,17 +54,20 @@ async function getImpl(
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
   if ((isNextPageRequest || !query.page) && underLimit && pagination.next) {
-    const more = await getImpl(
+    const more = await getImplementation(
       service,
       endpoint,
-      Object.assign({}, options, { page: pagination.next }),
+      {
+        ...options,
+        page: pagination.next
+      },
       true,
     );
 
     return [...body, ...more];
   }
 
-  return (query.page || (maxPages && underLimit)) && showPagination ? { data: body, pagination } : body;
+  return (query.page || underLimit) && showPagination ? { data: body, pagination } : body;
 }
 
 export async function get(
@@ -71,7 +75,7 @@ export async function get(
   endpoint: string,
   options: PaginatedRequestOptions = {},
 ): Promise<GetResponse> {
-  return getImpl(service, endpoint, options);
+  return getImplementation(service, endpoint, options);
 }
 
 export function stream(service, endpoint: string, options: BaseRequestOptions = ({} = {})) {
