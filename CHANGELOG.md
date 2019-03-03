@@ -12,35 +12,44 @@
 * NotificationSettings API edit function now takes one parameter, `options`
 * Changing the access level enum property from master to maintainer as per https://gitlab.com/gitlab-org/gitlab-ce/issues/42751
 * Notes now require a body argument instead of checking the options argument for a body parameter
+* Bumped min node version to > v10 LTS
 
 ## Bug Fixes
 * #227 (https://github.com/jdalrymple/node-gitlab/issues/227) Fixing array syntax thanks to Lukas Eipert (https://github.com/leipert) (f9bc34d (https://github.com/jdalrymple/node-gitlab/commit/f9bc34d))
 * Fixing Todos support. If todoId was not passed, an undefined value would be introduced into the url (cbeef18 (https://github.com/jdalrymple/node-gitlab/commit/cbeef18))
 * ResourceAwardEmojis API wasn't properly filtering based on awardId (70f4315 (https://github.com/jdalrymple/node-gitlab/commit/70f4315))
 * Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality
+* Fixing ci lint url (#278)
+* Fixing form data (#272)
+* Fixing randomstring usage (#271)
 
 ## Features
 * Added the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))
 * Added the missing edit function to the Groups API
 * Added LDAP support to the Groups API 
+* Added missing method for triggering pipelines (#275)
+* Implement jobToken property to allow authentication via CI job token (#269)
 
 ## Documentation
 * Removing xml request docs
 * Updating imports to be named imports
+
+## Tests 
+* Fixing integration test for ApplicationSettings (#273)
 
 # [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
 
 
 ### Features
 
-* **services:** add protected tags ([8203830](https://github.com/jdalrymple/node-gitlab/commit/8203830))
+* **services:** Add protected tags ([8203830](https://github.com/jdalrymple/node-gitlab/commit/8203830))
 
 ## [4.2.7](https://github.com/jdalrymple/node-gitlab/compare/4.2.6...4.2.7) (2018-11-26)
 
 
 ### Bug Fixes
 
-* handing the function arguments in the incorrect order ([26235ff](https://github.com/jdalrymple/node-gitlab/commit/26235ff))
+* Handing the function arguments in the incorrect order ([26235ff](https://github.com/jdalrymple/node-gitlab/commit/26235ff))
 
 ## [4.2.6](https://github.com/jdalrymple/node-gitlab/compare/4.2.5...4.2.6) (2018-11-26)
 
