@@ -46,7 +46,7 @@ test('All the correct service keys are included in the projects bundle', async (
     'Triggers',
   ];
 
-  expect(Object.keys(bundle)).toEqual(expect.arrayContaining(services));
+  expect(Object.keys(bundle)).toIncludeAllMembers(services);
 });
 
 test('All the correct service instances are included in the projects bundle', async () => {

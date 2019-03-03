@@ -9,7 +9,7 @@ describe('Instantiating All services', () => {
 	    token: 'abcdefg',
 	});
 
-  	expect(Object.keys(bundle)).toEqual(expect.arrayContaining(Object.keys(Services)));
+  	expect(Object.keys(bundle)).toIncludeAllMembers(Object.keys(Services));
   });
 
    it('should create a valid gitlab service object using require', async () => {
@@ -17,6 +17,6 @@ describe('Instantiating All services', () => {
 	    token: 'abcdefg',
 	});
 
-  	expect(Object.keys(bundle)).toEqual(expect.arrayContaining(Object.keys(Services)));
+    expect(Object.keys(bundle)).toIncludeAllMembers(Object.keys(Services));
   });
 });
