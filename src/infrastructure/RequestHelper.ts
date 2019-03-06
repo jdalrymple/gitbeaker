@@ -103,6 +103,9 @@ async function getPaginated(
   // If not looking for a singular page and still under the max pages limit
   // AND their is a next page, paginate
   if (!queryOptions.page && underMaxPageLimit && links.next) {
+    // If redirected from http:// to https://, need to update service.url to avoid url inception
+    if (service.url.slice(0,5) === 'http:' && links.next.url.slice(0,5) === 'https')
+      service.url = service.url.replace('http:', 'https:');
     more = await getPaginated(service, links.next.url.replace(service.url, ''), options);
     data = [...response.body, ...more];
   } else {
