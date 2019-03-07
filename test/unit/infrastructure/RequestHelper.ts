@@ -87,9 +87,9 @@ const mockedGetExtended = (url, { query = '' }) => {
   ];
 
   const q = query.match(/(?!\D)\d+/);
-  const page:number = q != null ? q[0] : 1;
+  const page: number = q != null ? q[0] : 1;
 
-  return pages[page-1];
+  return pages[page - 1];
 };
 
 const service = new BaseService({
@@ -98,6 +98,22 @@ const service = new BaseService({
 });
 
 describe('RequestHelper.get()', () => {
+  it('Should respond create the proper get url without pagination', async () => {
+    Request.get = jest.fn(() => mockedGetBasic());
+
+    const response = await RequestHelper.get(service, 'test');
+
+    expect(Request.get).toHaveBeenCalledWith('test', {
+      baseUrl: 'https://testing.com/api/v4/',
+      body: undefined,
+      headers: { 'private-token': 'token', sudo: undefined },
+      json: true,
+      query: '',
+      rejectUnauthorized: true,
+    });
+  });
+
+
   it('Should respond with an object', async () => {
     Request.get = jest.fn(() => mockedGetBasic());
 
@@ -117,7 +133,7 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property${1 + index}`);
     });
 
-    expect(response.length).toBe(6)
+    expect(response.length).toBe(6);
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {

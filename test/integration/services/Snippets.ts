@@ -1,12 +1,16 @@
-import { Snippets } from '../../src';
+import { Snippets } from '../../../src';
 
-describe('Snippets.create', () => {
-  it('should create snippet', async () => {
-    const service = new Snippets({
+let service: Snippets;
+
+beforeEach(() => {
+    service = new Snippets({
       host: process.env.GITLAB_URL,
       token: process.env.PERSONAL_ACCESS_TOKEN,
     });
+});
 
+describe('Snippets.create', () => {
+  it('should create a snippet', async () => {
     const result = await service.create(
       'This is a snippet',
       'test.txt',
