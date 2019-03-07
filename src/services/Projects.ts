@@ -70,6 +70,12 @@ class Projects extends BaseService {
     return RequestHelper.delete(this, `projects/${pId}`);
   }
 
+  removeFork(projectId: ProjectId) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.delete(this, `projects/${pId}/fork`);
+  }
+
   search(projectName: string) {
     return RequestHelper.get(this, 'projects', { search: projectName });
   }
