@@ -90,6 +90,12 @@ class Commits extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
   }
+
+  mergeRequests(projectId: ProjectId, sha: string, options: RequestOptions) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/merge_requests`, options);
+  }
 }
 
 export default Commits;
