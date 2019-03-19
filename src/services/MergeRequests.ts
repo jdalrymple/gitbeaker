@@ -65,7 +65,7 @@ class MergeRequests extends BaseService {
   approve(
     projectId: ProjectId,
     mergerequestIId: MergeRequestId,
-    options: { sha: string } & BaseRequestOptions,
+    options: { sha?: string } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
