@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
+
+
+### Features
+
+* Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
+
 # [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
 
 ### Features
