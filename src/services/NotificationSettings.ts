@@ -4,7 +4,7 @@ import {
   PaginatedRequestOptions,
   NotificationSettingLevel,
   ProjectId,
-  GroupId
+  GroupId,
 } from '../../types/types';
 
 class NotificationSettings extends BaseService {
@@ -12,7 +12,7 @@ class NotificationSettings extends BaseService {
     projectId,
     groupId,
     ...options
-  }: { projectId?: ProjectId; groupId?: GroupId } & PaginatedRequestOptions = {}) {
+  }: ({ projectId: ProjectId } | { groupId: GroupId }) & PaginatedRequestOptions) {
     let url = '';
 
     if (projectId) {
@@ -28,11 +28,9 @@ class NotificationSettings extends BaseService {
     projectId,
     groupId,
     ...options
-  }: {
-    projectId?: ProjectId;
-    groupId?: GroupId;
-    level?: NotificationSettingLevel;
-  } & BaseRequestOptions = {}) {
+  }: { level?: NotificationSettingLevel }
+  & ({ projectId: ProjectId } | { groupId: GroupId })
+  & BaseRequestOptions) {
     let url = '';
 
     if (projectId) {

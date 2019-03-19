@@ -48,7 +48,7 @@ class MergeRequests extends BaseService {
     projectId,
     groupId,
     ...options
-  }: { projectId?: ProjectId; groupId: GroupId } & PaginatedRequestOptions) {
+  }: ({ projectId: ProjectId } | { groupId: GroupId } | {}) & PaginatedRequestOptions) {
     let url;
 
     if (projectId) {
