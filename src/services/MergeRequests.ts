@@ -3,8 +3,54 @@ import { RequestOptions } from '../infrastructure/RequestHelper';
 
 export type MergeRequestId = string | number;
 
+export interface AcceptMergeRequestOptions {
+  merge_commit_message?: string;
+  squash_commit_message?: string;
+  squash?: boolean;
+  should_remove_source_branch?: boolean;
+  merge_when_pipeline_succeeds?: boolean;
+  sha?: string;
+}
+
+export interface ShowMergeRequestOptions {
+  render_html?: boolean;
+  include_diverged_commits_count?: true;
+  include_rebase_in_progress?: boolean;
+}
+
+export interface CreateMergeRequestOptions {
+  assignee_id?: number;
+  description?: string;
+  target_project_id?: number;
+  labels?: string;
+  milestone_id?: number;
+  remove_source_branch?: boolean;
+  allow_collaboration?: boolean;
+  allow_maintainer_to_push?: boolean;
+  squash?: boolean;
+}
+
+export interface UpdateMergeRequestOptions {
+  target_branch?: number;
+  title?: string;
+  assignee_id?: number;
+  milestone_id?: number;
+  labels?: string;
+  description?: string;
+  state_event?: string;
+  remove_source_branch?: boolean;
+  squash?: boolean;
+  discussion_locked?: boolean;
+  allow_collaboration?: boolean;
+  allow_maintainer_to_push?: boolean;
+}
+
 class MergeRequests extends BaseService {
-  accept(projectId: ProjectId, mergerequestId: MergeRequestId, options: RequestOptions) {
+  accept(
+      projectId: ProjectId,
+      mergerequestId: MergeRequestId,
+      options: AcceptMergeRequestOptions & RequestOptions,
+  ) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}/merge`, options);
@@ -74,7 +120,7 @@ class MergeRequests extends BaseService {
     sourceBranch: string,
     targetBranch: string,
     title: string,
-    options: RequestOptions,
+    options: CreateMergeRequestOptions & RequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -87,7 +133,11 @@ class MergeRequests extends BaseService {
     });
   }
 
-  edit(projectId: ProjectId, mergerequestId: MergeRequestId, options: RequestOptions) {
+  edit(
+      projectId: ProjectId,
+      mergerequestId: MergeRequestId,
+      options: UpdateMergeRequestOptions & RequestOptions,
+  ) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/merge_requests/${mId}`, options);
@@ -138,10 +188,14 @@ class MergeRequests extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/merge_requests/${mId}/reset_time_estimate`);
   }
 
-  show(projectId: ProjectId, mergerequestId: MergeRequestId) {
+  show(
+      projectId: ProjectId,
+      mergerequestId: MergeRequestId,
+      options?: ShowMergeRequestOptions & RequestOptions,
+  ) {
     const [pId, mId] = [projectId, mergerequestId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}`);
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mId}`, options);
   }
 
   timeStats(projectId: ProjectId, mergerequestId: MergeRequestId) {
