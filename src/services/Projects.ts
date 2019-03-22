@@ -75,7 +75,7 @@ class Projects extends BaseService {
   removeFork(projectId: ProjectId) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.delete(this, `projects/${pId}/fork`);
+    return RequestHelper.del(this, `projects/${pId}/fork`);
   }
 
   search(projectName: string) {
