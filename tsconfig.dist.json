@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
     "target": "es6",
     "strict": false,
     "strictPropertyInitialization": false,
