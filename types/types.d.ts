@@ -169,6 +169,49 @@ export type JobScope =
   | 'skipped'
   | 'manual';
 
+// Merge Requests
+export interface AcceptMergeRequestOptions {
+  merge_commit_message?: string;
+  squash_commit_message?: string;
+  squash?: boolean;
+  should_remove_source_branch?: boolean;
+  merge_when_pipeline_succeeds?: boolean;
+  sha?: string;
+}
+
+export interface ShowMergeRequestOptions {
+  render_html?: boolean;
+  include_diverged_commits_count?: true;
+  include_rebase_in_progress?: boolean;
+}
+
+export interface CreateMergeRequestOptions {
+  assignee_id?: number;
+  description?: string;
+  target_project_id?: number;
+  labels?: string;
+  milestone_id?: number;
+  remove_source_branch?: boolean;
+  allow_collaboration?: boolean;
+  allow_maintainer_to_push?: boolean;
+  squash?: boolean;
+}
+
+export interface UpdateMergeRequestOptions {
+  target_branch?: number;
+  title?: string;
+  assignee_id?: number;
+  milestone_id?: number;
+  labels?: string;
+  description?: string;
+  state_event?: string;
+  remove_source_branch?: boolean;
+  squash?: boolean;
+  discussion_locked?: boolean;
+  allow_collaboration?: boolean;
+  allow_maintainer_to_push?: boolean;
+}
+
 // Notification Settings Levels
 export type NotificationSettingLevel =
   | 'disabled'
