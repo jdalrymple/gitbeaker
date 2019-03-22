@@ -38,6 +38,13 @@
 ### Tests 
 * Fixing integration test for ApplicationSettings (#273)
 
+## [4.5.1](https://github.com/jdalrymple/node-gitlab/compare/4.5.0...4.5.1) (2019-03-22)
+
+
+### Bug Fixes
+
+* Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
+
 # [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
 
 
