@@ -32,7 +32,7 @@ class MergeRequests extends BaseService {
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${mIId}/add_spent_time`, {
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIId}/add_spent_time`, {
       duration,
       ...options,
     });
@@ -46,7 +46,7 @@ class MergeRequests extends BaseService {
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${mIId}/time_estimate`, {
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIId}/time_estimate`, {
       duration,
       ...options,
     });
