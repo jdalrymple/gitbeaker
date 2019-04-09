@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run build",
     "prepush": "npm run lint",
     "release": "semantic-release",
-    "test": "jest --debug --runInBand && codecov",
+    "test": "jest test/unit --debug --runInBand && codecov",
     "test:unit": "jest test/unit",
     "test:integration": "jest test/integration"
   },
