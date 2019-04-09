@@ -21,10 +21,8 @@ jobs:
       node_js: 10.15.3
       script:
         - npm run build
-    - &build
+    - <<: *build
       node_js: 8.9.0
-      script:
-        - npm run build # Without this, this stage runs npm test
     
     - &test-unit
       stage: test
@@ -32,11 +30,9 @@ jobs:
       name: 'Unit Tests 10.15.3'
       script:
         - npm run test:unit
-    - &test-unit
+    - <<: *test-unit
       name: 'Unit Tests 8.9.0'
       node_js: 8.9.0
-      script:
-        - npm run test:unit # Without this, this stage runs npm test
 
     - &test-integration
       stage: test
@@ -57,24 +53,9 @@ jobs:
         - echo $PERSONAL_ACCESS_TOKEN
       script:
         - npm run test:integration
-    - &test-integration
+    - <<: test-integration
       name: 'Integration Tests 8.9.0'
       node_js: 8.9.0
-      before_script:
-        ## Spin up container
-        - cd test/docker/
-        - docker-compose -f docker-compose.test.yml up -d
-
-        ## Test for liveness
-        # - docker exec -it gitlab bash -lc 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost/-/readiness)" != "200" ]]; do sleep 5; done'
-        - sleep 240
-
-        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-        - echo $GITLAB_URL
-        - echo $PERSONAL_ACCESS_TOKEN
-      script:
-        - npm run test:integration # Without this, this stage runs npm test
 
     - stage: release
       node_js: 10.15.3
