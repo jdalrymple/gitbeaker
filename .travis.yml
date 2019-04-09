@@ -9,7 +9,9 @@ stages:
 notifications:
   email: false
 
-node_js: 10.15.3
+node_js:
+  - 10.15.3
+  - 8.9.0
 
 jobs:
   include:
