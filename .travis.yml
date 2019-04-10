@@ -20,7 +20,7 @@ script:
   - npm run lint
   - npm run build
   - npm run test:unit
-  - sleep 15
+  - sleep 30
   - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
   - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
   - echo $GITLAB_URL
