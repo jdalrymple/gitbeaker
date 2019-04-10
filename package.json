@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
-  "version": "5.0.0-rc.11",
+  "version": "5.0.0-rc.12",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": {
@@ -48,7 +48,7 @@
     "form-data": "^2.3.3",
     "got": "^9.6.0",
     "humps": "^2.0.1",
-    "ky": "^0.9.0",
+    "ky": "^0.9.1",
     "query-string": "^6.4.2",
     "randomstring": "^1.1.5"
   },
@@ -65,18 +65,18 @@
     "jest-extended": "^0.11.1",
     "jest-tap-reporter": "^1.9.0",
     "prettier": "^1.16.4",
-    "rollup": "^1.8.0",
+    "rollup": "^1.9.3",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-node-resolve": "^4.2.2",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.20.1",
     "semantic-release": "^15.13.3",
-    "ts-jest": "^24.0.1",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.15.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.1"
+    "typescript": "^3.4.3"
   },
   "keywords": [
     "api",
