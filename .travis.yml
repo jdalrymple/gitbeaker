@@ -9,7 +9,7 @@ node_js:
   - 10.15.3
   - 8.9.0
 
-before_install:
+before_cache:
     ## Spin up container
   - cd test/docker/
   - docker-compose -f docker-compose.test.yml up -d
