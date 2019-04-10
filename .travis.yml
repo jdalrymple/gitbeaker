@@ -9,7 +9,7 @@ node_js:
   - 10.15.3
   - 8.9.0
 
-before_cache:
+before_install:
     ## Spin up container
   - cd test/docker/
   - docker-compose -f docker-compose.test.yml up -d
@@ -20,7 +20,7 @@ script:
   - npm run lint
   - npm run build
   - npm run test:unit
-  - sleep 45
+  - sleep 100
   - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
   - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
   - echo $GITLAB_URL
