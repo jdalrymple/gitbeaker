@@ -46,7 +46,7 @@ export interface Constructor {
 }
 
 export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
-  [name in P]: InstanceType<T[P]>
+  [name in P]: InstanceType<T[name]>
 };
 
 export interface Bundle<T extends { [name: string]: Constructor }, P extends keyof T> {

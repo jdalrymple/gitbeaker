@@ -2,7 +2,7 @@ import { BaseService, RequestHelper } from '../infrastructure';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo, ProjectId } from '../../types/types';
 
 class Branches extends BaseService {
-  all(projectId: ProjectId, options: { search: string } & PaginatedRequestOptions) {
+  all(projectId: ProjectId, options?: { search?: string } & PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches`, options);
