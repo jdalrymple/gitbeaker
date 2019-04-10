@@ -1,63 +1,32 @@
 language: node_js
 
-stages:
-  - lint
-  - build
-  - test
-  - release
-
 notifications:
   email: false
+  
+cache: npm
 
-jobs:
-  include:
-    - stage: lint
-      node_js: 10.15.3
-      script:
-        - npm run lint
-       
-    - &build
-      stage: build
-      node_js: 10.15.3
-      script:
-        - npm run build
-    - <<: *build
-      node_js: 8.9.0
-    
-    - &test-unit
-      stage: test
-      node_js: 10.15.3
-      name: 'Unit Tests 10.15.3'
-      script:
-        - npm run test:unit
-    - <<: *test-unit
-      name: 'Unit Tests 8.9.0'
-      node_js: 8.9.0
+node_js:
+  - 10.15.3
+  - 8.9.0
 
-    - &test-integration
-      stage: test
+before_script:
+    ## Spin up container
+  - cd test/docker/
+  - docker-compose -f docker-compose.test.yml up -d
+  - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
+  - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+  - echo $GITLAB_URL
+  - echo $PERSONAL_ACCESS_TOKEN
+
+script:
+  - npm run lint
+  - npm run build
+  - npm test:unit
+  - npm run test:integration
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: npm run release
+    on:
       node_js: 10.15.3
-      name: 'Integration Tests 10.15.3'
-      before_script:
-        ## Spin up container
-        - cd test/docker/
-        - docker-compose -f docker-compose.test.yml up -d
-
-        ## Test for liveness
-        # - docker exec -it gitlab bash -lc 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost/-/readiness)" != "200" ]]; do sleep 5; done'
-        - sleep 240
-
-        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-        - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
-        - echo $GITLAB_URL
-        - echo $PERSONAL_ACCESS_TOKEN
-      script:
-        - npm run test:integration
-    - <<: test-integration
-      name: 'Integration Tests 8.9.0'
-      node_js: 8.9.0
-
-    - stage: release
-      node_js: 10.15.3
-      script:
-        - npm run release
