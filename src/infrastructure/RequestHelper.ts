@@ -188,6 +188,7 @@ export interface RequestOptions {
   public?: boolean;
   text?: string;
   token?: string;
+  maxPages?: number;
 }
 
 class RequestHelper {
