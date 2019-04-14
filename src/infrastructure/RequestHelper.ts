@@ -12,7 +12,7 @@ import {
   RequesterOptions,
 } from '../../types/types';
 import { BaseService } from './BaseService';
-import { ResponsePromise } from 'ky';
+import { ResponsePromise } from 'ky-universal';
 import { skipAllCaps } from './Utils';
 
 function defaultRequest(
@@ -52,7 +52,9 @@ async function handleResponse(
 }> {
   const { headers: rawHeaders, status, statusText } = await response;
   const rawBody = await response.json();
+  const headers = {};
   let body;
+
   if (Array.isArray(body)) {
     body = rawBody;
   } else if (typeof rawBody === 'object' && rawBody !== null) {
@@ -61,7 +63,6 @@ async function handleResponse(
     body = {};
   }
 
-  const headers = {};
   rawHeaders.forEach((value, key) => {
     headers[key] = value;
   });
