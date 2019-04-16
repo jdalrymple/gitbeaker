@@ -120,7 +120,7 @@ class Projects extends BaseService {
   unshare(projectId: ProjectId, groupId: GroupId, options?: Sudo) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/share${gId}`, options);
+    return RequestHelper.del(this, `projects/${pId}/share/${gId}`, options);
   }
 
   unstar(projectId: ProjectId, options?: Sudo) {
