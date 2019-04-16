@@ -1,4 +1,4 @@
-import { Options } from "ky";
+import FormData from 'form-data';
 
 declare global {
   function encodeURIComponent(uriComponent: string | number | boolean): string;
@@ -64,8 +64,6 @@ export interface Requester {
   stream?: Function;
 }
 
-export type RequesterOptions = Options
-
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
   token?: string;
@@ -96,7 +94,7 @@ export interface PaginationOptions {
 }
 
 export interface DefaultRequestOptions extends Sudo {
-  body?: object;
+  body?: object | FormData;
   query?: object;
 }
 

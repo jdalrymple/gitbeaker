@@ -1,94 +1,25 @@
-import FormData from 'form-data';
-import { decamelizeKeys, camelizeKeys } from 'humps';
-import { stringify } from 'query-string';
+import Li from 'li';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
-  DefaultRequestOptions,
   GetResponse,
   PostResponse,
   PutResponse,
   DelResponse,
-  RequesterOptions,
 } from '../../types/types';
 import { BaseService } from './BaseService';
-import { ResponsePromise } from 'ky-universal';
-import { skipAllCaps } from './Utils';
 
-function defaultRequest(
-  service: BaseService,
-  endpoint: string,
-  { body, query, sudo }: DefaultRequestOptions,
-): [string, RequesterOptions] {
-  let urlStr = `${service.url}${endpoint}`;
-  if (query) {
-    urlStr += `?${stringify(decamelizeKeys(query), { arrayFormat: 'bracket' })}`;
-  }
-  const headers = {
-    ...service.headers,
-  };
-  if (sudo) {
-    headers.sudo = `${sudo}`;
-  }
-  return [
-    urlStr,
-    {
-      headers,
-      body: body && typeof body !== 'object' ? body : undefined,
-      // TODO
-      // rejectUnauthorized: service.rejectUnauthorized,
-      json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : undefined,
-    },
-  ];
-}
-
-async function handleResponse(
-  response: ResponsePromise,
-): Promise<{
-  body: object | [];
-  headers: { [k: string]: string };
-  status: number;
-  statusText: string;
-}> {
-  const { headers: rawHeaders, status, statusText } = await response;
-  const rawBody = await response.json();
-  const headers = {};
-  let body;
-
-  if (Array.isArray(body)) {
-    body = rawBody;
-  } else if (typeof rawBody === 'object' && rawBody !== null) {
-    body = camelizeKeys(rawBody);
-  } else {
-    body = {};
-  }
-
-  rawHeaders.forEach((value, key) => {
-    headers[key] = value;
-  });
-
-  return {
-    body,
-    headers,
-    status,
-    statusText,
-  };
-}
-
-async function getImplementation(
+export async function get(
   service: BaseService,
   endpoint: string,
   options: PaginatedRequestOptions = {},
-  isNextPageRequest: boolean = false,
 ): Promise<GetResponse> {
   const { showPagination, maxPages, sudo, ...query } = options;
-  const requestOptions = defaultRequest(service, endpoint, {
+  const { headers, body } = await service.requester.get(service, endpoint, {
     query,
     sudo,
-  });
-  const { headers, body } = await handleResponse(
-    service.requester.get(...(requestOptions as [string, object])),
-  );
+  })
+
   const pagination = {
     total: headers['x-total'],
     next: parseInt(headers['x-next-page'], 10) || null,
@@ -97,34 +28,20 @@ async function getImplementation(
     perPage: headers['x-per-page'],
     totalPages: headers['x-total-pages'],
   };
-
   const underLimit = maxPages ? pagination.current < maxPages : true;
 
-  // If not looking for a singular page and still under the max pages limit
-  // AND their is a next page, paginate
-  if ((isNextPageRequest || !query.page) && underLimit && pagination.next) {
-    const more = await getImplementation(
+  if (!query.page && underLimit && pagination.next) {
+    const { next } = Li.parse(headers.link)
+    const more = await get(
       service,
-      endpoint,
-      {
-        ...options,
-        page: pagination.next
-      },
-      true,
+      next.replace(service.url, ''),
+      options,
     );
 
-    return [...(Array.isArray(body) ? body : []), ...(Array.isArray(more) ? more : [])];
+    return [...body, ...more];
   }
 
   return (query.page || underLimit) && showPagination ? { data: body, pagination } : body;
-}
-
-export async function get(
-  service: BaseService,
-  endpoint: string,
-  options: PaginatedRequestOptions = {},
-): Promise<GetResponse> {
-  return getImplementation(service, endpoint, options);
 }
 
 export function stream(
@@ -136,11 +53,9 @@ export function stream(
     throw new Error('Stream method is not implementated in requester!');
   }
 
-  return service.requester.stream(
-    ...defaultRequest(service, endpoint, {
-      query: options,
-    }),
-  );
+  return service.requester.stream(service, endpoint, {
+    query: options,
+  })
 }
 
 export async function post(
@@ -149,33 +64,12 @@ export async function post(
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
   const { sudo, ...body } = options;
-  const response = await handleResponse(
-    service.requester.post(
-      ...defaultRequest(service, endpoint, {
-        body,
-        sudo,
-      }),
-    ),
-  );
+  const response = await service.requester.post(service, endpoint, {
+    body,
+    sudo,
+  });
 
   return response.body;
-}
-
-export async function postData(service, endpoint: string, body: FormData): Promise<PostResponse> {
-  const requestOptions = {
-    baseUrl: service.url,
-    headers: service.headers,
-    body,
-    rejectUnauthorized: service.rejectUnauthorized,
-  };
-
-  const response = await service.requester.post(endpoint, requestOptions);
-
-  try {
-    return JSON.parse(response.body);
-  } catch (e) {
-    return {};
-  }
 }
 
 export async function put(
@@ -184,13 +78,9 @@ export async function put(
   options: BaseRequestOptions = {},
 ): Promise<PutResponse> {
   const { sudo, ...body } = options;
-  const response = await handleResponse(
-    service.requester.put(
-      ...defaultRequest(service, endpoint, {
-        body,
-      }),
-    ),
-  );
+  const response = await service.requester.put(service, endpoint, {
+    body,
+  });
 
   return response.body;
 }
@@ -201,13 +91,10 @@ export async function del(
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
   const { sudo, ...query } = options;
-  const response = await handleResponse(
-    service.requester.delete(
-      ...defaultRequest(service, endpoint, {
-        query,
-      }),
-    ),
-  );
+  const response = await  service.requester.delete(service, endpoint, {
+    query,
+    sudo,
+  });
 
   return response.body;
 }

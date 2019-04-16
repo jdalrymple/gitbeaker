@@ -16,10 +16,11 @@ export default [
       format: 'umd',
       exports: 'named',
       globals: {
-        'got': 'Request',
+        'li': 'Li',
         'humps': 'Humps',
+        'query-string': 'QueryString',
         'randomstring': 'RandomString',
-        'query-string' : 'QueryString',
+        'ky-universal': 'Ky',
         'form-data': 'FormData',
       }
     },

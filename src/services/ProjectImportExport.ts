@@ -15,7 +15,7 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, path: string) {
+  import(content: string, path: string, options?: Sudo) {
     const form = new FormData();
 
     form.append('file', content, {
@@ -23,7 +23,7 @@ class ProjectImportExport extends BaseService {
       contentType: 'application/octet-stream',
     });
 
-    return RequestHelper.postData(this, 'projects/import', form);
+    return RequestHelper.post(this, 'projects/import', { ...options, form });
   }
 
   importStatus(projectId: ProjectId, options?: Sudo) {

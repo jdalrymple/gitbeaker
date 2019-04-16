@@ -1,4 +1,4 @@
-import ky from 'ky';
+import { KyRequester } from './Requester';
 import { BaseServiceOptions, Requester } from '../../types/types';
 
 export class BaseService {
@@ -16,7 +16,7 @@ export class BaseService {
     url = '',
     version = 'v4',
     rejectUnauthorized = true,
-    requester = ky,
+    requester = KyRequester,
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};

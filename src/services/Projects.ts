@@ -135,7 +135,7 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, metadata: ProjectUploadMetadata = {}) {
+  upload(projectId, content, metadata: ProjectUploadMetadata = {}, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
@@ -146,7 +146,7 @@ class Projects extends BaseService {
 
     form.append('file', content, Object.assign(defaultMetadata, metadata));
 
-    return RequestHelper.postData(this, `projects/${pId}/uploads`, form);
+    return RequestHelper.post(this, `projects/${pId}/uploads`, { ...options, form });
   }
 }
 
