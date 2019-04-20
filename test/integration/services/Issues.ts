@@ -19,12 +19,40 @@ beforeEach(() => {
 
 describe('Issues.create', () => {
   it('should create a valid issue on a project', async () => {
-    const issue = await service.create(project.id, {
-      title: 'Issue Integration test',
+    const issue1 = await service.create(project.id, {
+      title: 'Issue Integration test1',
       description: 'A test issue ensuring a sucessfully create Issue in GitLab',
     });
 
-    expect(issue).toBeInstanceOf(Object);
-    expect(issue.title).toBe('Issue Integration test');
+    const issue2 = await service.create(project.id, {
+      title: 'Issue Integration test2',
+      description: 'A test issue ensuring a sucessfully create Issue in GitLab',
+    });
+
+    expect(issue1).toBeInstanceOf(Object);
+    expect(issue1.title).toBe('Issue Integration test1');
+  });
+});
+
+describe('Issues.all', () => {
+  it('should return a list of issues on a project', async () => {
+    const issues = await service.all(project.id);
+
+    expect(issues).toBeInstanceOf(Array);
+    expect(issues.length).toEqual(2)
+  });
+
+  it('should return a list filtered to a specfic page', async () => {
+    const issues1 = await service.all(project.id, { perPage: 1, page: 1 });
+
+    expect(issues1).toBeInstanceOf(Array);
+    expect(issues1.length).toEqual(1);
+    expect(issues1[0].title).toBe('Issue Integration test1');
+
+    const issues2 = await service.all(project.id, { perPage: 1, page: 2 });
+
+    expect(issues2).toBeInstanceOf(Array);
+    expect(issues2.length).toEqual(1);
+    expect(issues2[0].title).toBe('Issue Integration test2');
   });
 });
