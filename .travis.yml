@@ -1,7 +1,6 @@
 language: node_js
 
 stages:
-  - lint
   - build
   - test
   - release
@@ -10,12 +9,7 @@ notifications:
   email: false
 
 jobs:
-  include:
-    - stage: lint
-      node_js: 10.15.3
-      script:
-        - npm run lint
-       
+  include:       
     - &build
       stage: build
       node_js: 10.15.3

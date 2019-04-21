@@ -1,0 +1,7 @@
+linters:
+  lib/*.{js, ts}:
+    - "npm run lint"
+    - "git add"
+  lib/*.{json,css,md}:
+    - "npm run format"
+    - "git add"
