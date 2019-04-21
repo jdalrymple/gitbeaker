@@ -30,9 +30,9 @@ describe('Instantiating Projects service', () => {
     expect(service).toBeInstanceOf(Projects);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({'private-token': 'abcdefg'});
+    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
   });
-})
+});
 
 describe('Projects.all', () => {
   it('should request GET /projects', async () => {

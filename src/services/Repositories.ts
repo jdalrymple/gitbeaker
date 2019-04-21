@@ -8,7 +8,7 @@ class Repositories extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/compare`, {
       from,
       to,
-      ...options
+      ...options,
     });
   }
 

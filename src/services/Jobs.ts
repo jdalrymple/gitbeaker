@@ -38,7 +38,11 @@ class Jobs extends BaseService {
       );
     }
 
-    return RequestHelper.get(this, `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`, options);
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
+      options,
+    );
   }
 
   downloadLatestArtifactFile(
@@ -57,7 +61,11 @@ class Jobs extends BaseService {
       );
     }
 
-    return RequestHelper.get(this, `projects/${pId}/jobs/artifacts/${rId}/download?job=${jobName}`, options);
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/jobs/artifacts/${rId}/download?job=${jobName}`,
+      options,
+    );
   }
 
   downloadTraceFile(projectId: ProjectId, jobId: JobId, options?: Sudo) {

@@ -3,10 +3,10 @@ import { Projects } from '../../../src';
 let service: Projects;
 
 beforeEach(() => {
-    service = new Projects({
-      host: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
-    });
+  service = new Projects({
+    host: process.env.GITLAB_URL,
+    token: process.env.PERSONAL_ACCESS_TOKEN,
+  });
 });
 
 describe('Projects.create', () => {
@@ -15,4 +15,4 @@ describe('Projects.create', () => {
     expect(p).toBeInstanceOf(Object);
     expect(p.name).toEqual('Project Integration test');
   });
-})
+});

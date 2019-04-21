@@ -30,7 +30,7 @@ describe('Instantiating Pipelines service', () => {
     expect(service).toBeInstanceOf(Pipelines);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({'private-token': 'abcdefg'});
+    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
   });
 });
 
@@ -39,7 +39,7 @@ describe('Projects.create', () => {
     await service.create(1, 'ci/cd', {
       variables: {
         PULL_REQUEST_NAME: 'TEST',
-      }
+      },
     });
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipeline', {

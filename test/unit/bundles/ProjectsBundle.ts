@@ -52,7 +52,7 @@ test('All the correct service keys are included in the projects bundle', async (
 test('All the correct service instances are included in the projects bundle', async () => {
   const bundle = new ProjectsBundle({ token: 'test' });
 
-  (Object.keys(bundle) as (keyof typeof bundle)[]).forEach((key) => {
+  (Object.keys(bundle) as (keyof typeof bundle)[]).forEach(key => {
     expect(bundle[key]).toBeInstanceOf(Services[key]);
   });
 });

@@ -18,7 +18,7 @@ export async function get(
   const { headers, body } = await service.requester.get(service, endpoint, {
     query,
     sudo,
-  })
+  });
 
   const pagination = {
     total: headers['x-total'],
@@ -32,11 +32,7 @@ export async function get(
 
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
-    const more = await get(
-      service,
-      next.replace(/(.+\/api\/v[0-9]\/)/, ''),
-      options,
-    );
+    const more = await get(service, next.replace(/(.+\/api\/v[0-9]\/)/, ''), options);
 
     return [...body, ...more];
   }
@@ -55,7 +51,7 @@ export function stream(
 
   return service.requester.stream(service, endpoint, {
     query: options,
-  })
+  });
 }
 
 export async function post(
@@ -91,7 +87,7 @@ export async function del(
   options: BaseRequestOptions = {},
 ): Promise<DelResponse> {
   const { sudo, ...query } = options;
-  const response = await  service.requester.delete(service, endpoint, {
+  const response = await service.requester.delete(service, endpoint, {
     query,
     sudo,
   });

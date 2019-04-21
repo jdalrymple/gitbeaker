@@ -14,14 +14,17 @@ class Branches extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/repository/branches`, {
       branch: branchName,
       ref,
-      ...options
+      ...options,
     });
   }
 
   protect(projectId: ProjectId, branchName: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/protected_branches`, { name: branchName, ...options });
+    return RequestHelper.post(this, `projects/${pId}/protected_branches`, {
+      name: branchName,
+      ...options,
+    });
   }
 
   remove(projectId: ProjectId, branchName: string, options?: Sudo) {
@@ -39,7 +42,11 @@ class Branches extends BaseService {
   unprotect(projectId: ProjectId, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/repository/branches/${bName}/unprotect`, options);
+    return RequestHelper.put(
+      this,
+      `projects/${pId}/repository/branches/${bName}/unprotect`,
+      options,
+    );
   }
 }
 

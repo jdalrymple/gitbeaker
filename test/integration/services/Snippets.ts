@@ -3,10 +3,10 @@ import { Snippets } from '../../../src';
 let service: Snippets;
 
 beforeEach(() => {
-    service = new Snippets({
-      host: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
-    });
+  service = new Snippets({
+    host: process.env.GITLAB_URL,
+    token: process.env.PERSONAL_ACCESS_TOKEN,
+  });
 });
 
 describe('Snippets.create', () => {

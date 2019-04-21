@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 import { PaginatedRequestOptions, BaseRequestOptions, UserId } from '../../types/types';
 
-const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
+const url = userId => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 
 class UserKeys extends BaseService {
   all({ userId, ...options }: { userId?: UserId } & PaginatedRequestOptions = {}) {
@@ -12,7 +12,7 @@ class UserKeys extends BaseService {
     return RequestHelper.post(this, url(userId), {
       title,
       key,
-      ...options
+      ...options,
     });
   }
 

@@ -28,9 +28,8 @@ class NotificationSettings extends BaseService {
     projectId,
     groupId,
     ...options
-  }: { level?: NotificationSettingLevel }
-  & ({ projectId: ProjectId } | { groupId: GroupId })
-  & BaseRequestOptions) {
+  }: { level?: NotificationSettingLevel } & ({ projectId: ProjectId } | { groupId: GroupId }) &
+    BaseRequestOptions) {
     let url = '';
 
     if (projectId) {

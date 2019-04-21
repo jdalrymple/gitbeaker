@@ -113,7 +113,6 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-
   it('Should respond with an object', async () => {
     Request.get = jest.fn(() => mockedGetBasic());
 

@@ -5,17 +5,17 @@ const { Gitlab: GitlabCommon } = require('../../../src');
 
 describe('Instantiating All services', () => {
   it('should create a valid gitlab service object using import', async () => {
-  	const bundle = new GitlabModule({
-	    token: 'abcdefg',
-	});
+    const bundle = new GitlabModule({
+      token: 'abcdefg',
+    });
 
-  	expect(Object.keys(bundle)).toIncludeAllMembers(Object.keys(Services));
+    expect(Object.keys(bundle)).toIncludeAllMembers(Object.keys(Services));
   });
 
-   it('should create a valid gitlab service object using require', async () => {
-  	const bundle = new GitlabCommon({
-	    token: 'abcdefg',
-	});
+  it('should create a valid gitlab service object using require', async () => {
+    const bundle = new GitlabCommon({
+      token: 'abcdefg',
+    });
 
     expect(Object.keys(bundle)).toIncludeAllMembers(Object.keys(Services));
   });

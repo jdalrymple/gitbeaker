@@ -33,7 +33,11 @@ class Groups extends BaseService {
     return RequestHelper.del(this, `groups/${gId}`, options);
   }
 
-  removeLDAPLink(groupId: GroupId, cn, { provider, ...options}: Sudo & { provider?: string } = {}) {
+  removeLDAPLink(
+    groupId: GroupId,
+    cn,
+    { provider, ...options }: Sudo & { provider?: string } = {},
+  ) {
     const gId = encodeURIComponent(groupId);
     const url = provider ? `${provider}/${cn}` : `${cn}`;
 
@@ -43,7 +47,7 @@ class Groups extends BaseService {
   search(nameOrPath: string, options?: Sudo) {
     return RequestHelper.get(this, 'groups', {
       search: nameOrPath,
-      ...options
+      ...options,
     });
   }
 

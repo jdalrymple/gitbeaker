@@ -4,7 +4,7 @@ const config = {
   host: process.env.GITLAB_URL,
   token: process.env.PERSONAL_ACCESS_TOKEN,
 };
-let project
+let project;
 let service: Issues;
 
 beforeAll(async () => {
