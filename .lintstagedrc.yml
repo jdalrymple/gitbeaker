@@ -3,5 +3,5 @@ linters:
     - "npm run lint"
     - "git add"
   lib/*.{json,css,md}:
-    - "npm run format"
+    - "prettier --write"
     - "git add"

@@ -28,8 +28,7 @@
   "scripts": {
     "build": "rollup -c",
     "commit": "npx git-cz",
-    "lint": "tslint src/**/*.ts test/**/*.ts -t stylish --fix",
-    "format": "prettier --write src/**/*.ts test/**/*.ts",
+    "lint": "tslint --project tsconfig.json -t stylish --fix",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
     "test": "jest test/unit --debug --runInBand && codecov",
