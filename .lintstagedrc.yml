@@ -1,6 +1,6 @@
 linters:
   lib/*.{js, ts}:
-    - "npm run lint"
+    - "npm run lint -- --fix"
     - "git add"
   lib/*.{json,css,md}:
     - "prettier --write"
