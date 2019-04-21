@@ -39,7 +39,7 @@ describe('Issues.all', () => {
     const issues = await service.all(project.id);
 
     expect(issues).toBeInstanceOf(Array);
-    expect(issues.length).toEqual(2)
+    expect(issues.length).toEqual(2);
   });
 
   it('should return a list filtered to a specfic page', async () => {

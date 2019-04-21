@@ -31,10 +31,10 @@ export async function get(
   const underLimit = maxPages ? pagination.current < maxPages : true;
 
   if (!query.page && underLimit && pagination.next) {
-    const { next } = Li.parse(headers.link)
+    const { next } = Li.parse(headers.link);
     const more = await get(
       service,
-      next.replace(service.url, ''),
+      next.replace(/(.+\/api\/v[0-9]\/)/, ''),
       options,
     );
 
