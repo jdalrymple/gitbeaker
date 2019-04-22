@@ -14,20 +14,20 @@
 
 # node-gitlab
 
- 🤖 [GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the [Gitlab API](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) services.
+🤖 [GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the [Gitlab API](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) services.
 
 ## Table of Contents
 
 - [Install](#install)
 - [Usage](#usage)
-    - [Supported APIs](#supported-apis)
-    - [Import](#import)
-        - [Specific Imports](#specific-imports)
-        - [Bundle Imports](#bundle-imports)
-    - [Examples](#examples)
-    - [Pagination](#pagination)
-    - [Sudo](#sudo)
-    - [Custom Request Libraries](#custom-request-libraries)
+  - [Supported APIs](#supported-apis)
+  - [Import](#import)
+    - [Specific Imports](#specific-imports)
+    - [Bundle Imports](#bundle-imports)
+  - [Examples](#examples)
+  - [Pagination](#pagination)
+  - [Sudo](#sudo)
+  - [Custom Request Libraries](#custom-request-libraries)
 - [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
@@ -35,7 +35,6 @@
 - [Contributors](#contributors)
 - [License](#licence)
 - [Changelog](#changelog)
-
 
 ## Install
 
@@ -45,8 +44,11 @@ npm install gitlab
 ```
 
 ## Usage
+
 ### Supported APIs
+
 The API's that are currently supported are:
+
 ```
 // General
 ApplicationSettings
@@ -135,6 +137,7 @@ UserKeys
 UserGPGKeys
 
 ```
+
 ### Import
 
 URL to your GitLab instance should not include `/api/v4` path.
@@ -146,29 +149,27 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 import { Gitlab } from 'gitlab';
 
 // ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('gitlab')
-
+const { Gitlab } = require('gitlab');
 
 // Instantiating
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456'	// Can be created in your profile.
-})
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
+});
 
 // Or, use a OAuth token instead!
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  oauthToken: 'abcdefghij123456'
-})
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  oauthToken: 'abcdefghij123456',
+});
 
 // You can also use a CI job token:
 
 const api = new Gitlab({
-  url:   'http://example.com', // Defaults to https://gitlab.com
-  jobToken: process.env.CI_JOB_TOKEN
-})
-
+  url: 'http://example.com', // Defaults to https://gitlab.com
+  jobToken: process.env.CI_JOB_TOKEN,
+});
 ```
 
 #### Specific Imports
@@ -179,16 +180,14 @@ Sometimes you don't want to import and instantiate the whole Gitlab API, perhaps
 import { Projects } from 'gitlab';
 
 const service = new Projects({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
-})
-
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
+});
 ```
 
 #### Bundle Imports
 
 It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
-
 
 ```javascript
 import { ProjectsBundle } from 'gitlab';
@@ -205,7 +204,9 @@ etc..
 ```
 
 Currently there are three Bundles:
+
 1. ProjectsBundle which includes:
+
 ```
 Branches
 Commits
@@ -252,6 +253,7 @@ Triggers
 ```
 
 2. UsersBundle which includes:
+
 ```
 Users,
 UserCustomAttributes,
@@ -262,6 +264,7 @@ UserGPGKeys
 ```
 
 3. GroupsBundle which includes:
+
 ```
 Groups
 GroupAccessRequests
@@ -301,6 +304,7 @@ const api = new Gitlab({
 > **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
 ### Examples
+
 Once you have your library instantiated, you can utilize many of the API's functionality:
 
 Using the await/async method
@@ -309,21 +313,21 @@ Using the await/async method
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
 });
 
 // Listing users
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all()
-.then((projects) => {
-	console.log(projects)
-})
+api.Projects.all().then(projects => {
+  console.log(projects);
+});
 ```
 
 General rule about all the function parameters:
+
 - If its a required parameter, it is a named argument in the functions
 - If its an optional parameter, it is defined in a options object following the named arguments
 
@@ -333,13 +337,13 @@ ie.
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
 });
 
 api.Projects.create(projectId, {
-	//options defined in the Gitlab API documentation
-})
+  //options defined in the Gitlab API documentation
+});
 ```
 
 ### Pagination
@@ -350,12 +354,11 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
 });
 
-let projects = await api.Projects.all({ maxPages:2 });
-
+let projects = await api.Projects.all({ maxPages: 2 });
 ```
 
 You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
@@ -364,12 +367,11 @@ You can also use this in conjunction to the perPage argument which would overrid
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host: 'http://example.com', // Defaults to https://gitlab.com
+  token: 'abcdefghij123456', // Can be created in your profile.
 });
 
-let projects = await api.Projects.all({ maxPages:2, perPage:40 });
-
+let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
 ```
 
 Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option `showPagination` in addition to either the
@@ -402,9 +404,11 @@ pagination: {
 ```
 
 ### Sudo
+
 For private gitlab instances, administrators are able to impersonate users through the API. To do so, you have to set the 'Sudo' header on the services you want to impersonate the user for.
 
 For example, if you want to disable notifications for a specific user:
+
 ```javascript
 import { NotificationSettings } from 'gitlab';
 
@@ -420,6 +424,7 @@ await service.edit({
 ```
 
 ### Custom Request Libraries
+
 There is another constructor parameter that allows the user to specify their own custom request library
 as long as it has a similar API to got. To specify the library, simply set the `requester` property when
 instatiating a service:
@@ -438,11 +443,11 @@ const api = new Gitlab({
 
 ## Migrating from node-gitlab/node-gitlab
 
-With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.  
+With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.
 
 ## Docs
 
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!! 
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
 
 ## Development
 
@@ -455,7 +460,7 @@ $ npm install
 $ npm build
 ```
 
-And then inside whatever project you are using `node-gitlab` in you change your references to use that repo.  In your package.json of that upstream project change:
+And then inside whatever project you are using `node-gitlab` in you change your references to use that repo. In your package.json of that upstream project change:
 
 ```json
   "dependencies": {
@@ -473,7 +478,7 @@ to this
 
 ## Testing
 
-Testing is a work-in-progress right now but here is the start.  
+Testing is a work-in-progress right now but here is the start.
 
 1. First run Gitlab in a docker container:
 
@@ -482,11 +487,11 @@ docker-compose -f docker-compose.test.yml up
 ```
 
 1. Once GitLab is up on localhost:8080, get the two environment variables from the docker image could
-either export them into environment variables locally:
+   either export them into environment variables locally:
 
 ```bash
 export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')  
+export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 ```
 
 1. Now run the tests
@@ -505,7 +510,6 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 ```
 
 > Note it may take about 3 minutes to get the variables while Gitlab is starting up in the container
-
 
 ## Contributors
 
@@ -526,7 +530,7 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 - [Claude Abounegm](https://github.com/claude-abounegm)
 - [Stefan Hall](https://github.com/Marethyu1)
 - [Jordan Wallet](https://github.com/Mr-Wallet)
-- [Ev Haus](https://github.com/EvHaus) 
+- [Ev Haus](https://github.com/EvHaus)
 - [zhao0](https://github.com/zhao0)
 - [Joshua Grosso](https://github.com/jgrosso)
 - [Frédéric Boutin](https://github.com/fboutin-pmc)
@@ -570,5 +574,3 @@ This started off as a fork from [node-gitlab](https://github.com/node-gitlab/nod
 ## Changelog
 
 [Here](https://github.com/jdalrymple/node-gitlab/blob/master/CHANGELOG.md)
-
-

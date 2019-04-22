@@ -8,10 +8,10 @@ Please make sure the new issue you are opening is not a duplicate, and **remove*
 ---
 
 **Description**
-*(Brief description of the technical debt here)*
+_(Brief description of the technical debt here)_
 
-*(Paste any relevant logs - please use code blocks (```) to format console output,
-logs, and code as it's very hard to read otherwise.)*
+_(Paste any relevant logs - please use code blocks (```) to format console output,
+logs, and code as it's very hard to read otherwise.)_
 
 **Possible solutions**
-*(Any possible suggestions on how to improve this code)*
+_(Any possible suggestions on how to improve this code)_
