@@ -15,7 +15,7 @@ jobs:
       node_js: 10.15.3
       script:
         - npm run lint
-        - prettier --check ./**/*.{md, yml, json}
+        - prettier --check './*.json' './*.yml' './*.md'"
 
     - &build
       stage: build
