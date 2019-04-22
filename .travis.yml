@@ -4,6 +4,7 @@ stages:
   - lint
   - build
   - test
+  - coverage
   - release
 
 notifications:
@@ -53,6 +54,11 @@ jobs:
     - <<: *test-integration
       name: 'Integration Tests 8.9.0'
       node_js: 8.9.0
+
+    - stage: coverage
+      node_js: 10.15.3
+      script:
+        - npm run coverage
 
     - stage: release
       node_js: 10.15.3

@@ -28,11 +28,12 @@ export async function get(
     perPage: headers['x-per-page'],
     totalPages: headers['x-total-pages'],
   };
+
   const underLimit = maxPages ? pagination.current < maxPages : true;
 
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
-    const more = await get(service, next.replace(/(.+\/api\/v[0-9]\/)/, ''), options);
+    const more = await get(service, next.replace(/(.+\/api\/v[0-9]\/)/, ''), { maxPages, sudo });
 
     return [...body, ...more];
   }

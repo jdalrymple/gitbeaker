@@ -33,9 +33,9 @@
     "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md'",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
-    "test": "jest test/unit --debug --runInBand && codecov",
-    "test:unit": "jest test/unit",
-    "test:integration": "jest test/integration"
+    "coverage": "codecov",
+    "test:unit": "jest test/unit --debug -c=jest.config.json",
+    "test:integration": "jest test/integration -c=jest.config.json"
   },
   "config": {
     "commitizen": {

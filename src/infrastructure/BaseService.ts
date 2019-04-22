@@ -1,4 +1,4 @@
-import { KyRequester } from './Requester';
+import { KyRequester } from './KyRequester';
 import { BaseServiceOptions, Requester } from '../../types/types';
 
 export class BaseService {

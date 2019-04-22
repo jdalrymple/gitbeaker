@@ -2,7 +2,7 @@ import { Pipelines } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
-jest.mock('got', () => ({
+jest.mock('../../../src/infrastructure/KyRequester', () => ({
   // This wont work for all cases, but for the tests currently outlined below, it should be fine
   get: jest.fn(() => {
     body: [];
