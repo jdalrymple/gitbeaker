@@ -1,31 +1,35 @@
 {
   "compilerOptions": {
-    /* Basic Options */                       
+    /* Basic Options */
+
     "target": "es5",
     "module": "es6",
     "outDir": "dist",
     "pretty": true,
     "declaration": true,
-    "lib": ["ES2015","ES2016", "ES2017", "DOM"],
+    "lib": ["ES2015", "ES2016", "ES2017", "DOM"],
 
-    /* Module Resolution Options */           
+    /* Module Resolution Options */
+
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-        "@typings": [ "types/types.d.ts" ],
+      "@typings": ["types/types.d.ts"]
     },
-    
-    /* Strict Type-Checking Options */        
+
+    /* Strict Type-Checking Options */
+
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "downlevelIteration": true,
-    
-    /* Additional Checks */                   
+
+    /* Additional Checks */
+
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }

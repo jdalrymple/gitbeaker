@@ -30,6 +30,7 @@
     "commit": "npx git-cz",
     "lint": "tslint -p . -t stylish",
     "lint:fix": "npm run lint -- --fix",
+    "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md'",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
     "test": "jest test/unit --debug --runInBand && codecov",

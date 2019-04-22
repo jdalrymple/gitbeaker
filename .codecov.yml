@@ -9,8 +9,8 @@ coverage:
   status:
     project:
       default:
-       threshold: 0.2
-       if_not_found: success
+        threshold: 0.2
+        if_not_found: success
     patch:
       default:
         enabled: no
