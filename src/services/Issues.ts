@@ -26,7 +26,7 @@ class Issues extends BaseService {
     });
   }
 
-  all({ projectId, ...options }: { projectId: ProjectId } & PaginatedRequestOptions) {
+  all({ projectId, ...options }: { projectId?: ProjectId } & PaginatedRequestOptions) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/issues` : 'issues';
 
     return RequestHelper.get(this, url, options);
