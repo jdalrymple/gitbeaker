@@ -36,20 +36,27 @@ describe('Issues.create', () => {
 
 describe('Issues.all', () => {
   it('should return a list of issues on a project', async () => {
-    const issues = await service.all(project.id);
+    const issues = await service.all({ projectId: project.id });
+
+    expect(issues).toBeInstanceOf(Array);
+    expect(issues.length).toEqual(2);
+  });
+
+  it('should return a list of all issues', async () => {
+    const issues = await service.all();
 
     expect(issues).toBeInstanceOf(Array);
     expect(issues.length).toEqual(2);
   });
 
   it('should return a list filtered to a specfic page', async () => {
-    const issues1 = await service.all(project.id, { perPage: 1, page: 1 });
+    const issues1 = await service.all({projectId: project.id, perPage: 1, page: 1 });
 
     expect(issues1).toBeInstanceOf(Array);
     expect(issues1.length).toEqual(1);
     expect(issues1[0].title).toBe('Issue Integration test1');
 
-    const issues2 = await service.all(project.id, { perPage: 1, page: 2 });
+    const issues2 = await service.all({ projectId: project.id, perPage: 1, page: 2 });
 
     expect(issues2).toBeInstanceOf(Array);
     expect(issues2.length).toEqual(1);

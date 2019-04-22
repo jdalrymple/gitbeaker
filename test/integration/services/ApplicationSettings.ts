@@ -20,6 +20,6 @@ describe('ApplicationSettings.all', () => {
    * @see https://docs.gitlab.com/ee/api/settings.html#get-current-application-settings
    */
   it('should contain all the required properties', async () => {
-    expect(settings).toContainKeys(['id', 'gravatar_enabled']);
+    expect(settings).toContainKeys(['id', 'gravatarEnabled']);
   });
 });
