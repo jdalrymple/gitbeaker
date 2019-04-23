@@ -2,7 +2,7 @@
   "preset": "ts-jest",
 
   "testEnvironment": "node",
-  "testRegex": "test/.*\\.ts$",
+  "testRegex": "test\\/.*\\.ts$",
   "testMatch": null,
   "testURL": "http://localhost/",
 

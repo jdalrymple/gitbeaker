@@ -54,12 +54,12 @@ describe('Issues.all', () => {
 
     expect(issues1).toBeInstanceOf(Array);
     expect(issues1.length).toEqual(1);
-    expect(issues1[0].title).toBe('Issue Integration test1');
+    expect(issues1[0].title).toBe('Issue Integration test2');
 
     const issues2 = await service.all({ projectId: project.id, perPage: 1, page: 2 });
 
     expect(issues2).toBeInstanceOf(Array);
     expect(issues2.length).toEqual(1);
-    expect(issues2[0].title).toBe('Issue Integration test2');
+    expect(issues2[0].title).toBe('Issue Integration test1');
   });
 });

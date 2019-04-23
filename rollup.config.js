@@ -3,6 +3,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import { terser } from "rollup-plugin-terser";
+import builtins from 'rollup-plugin-node-builtins';
+import globals from 'rollup-plugin-node-globals';
 import typescript from 'typescript';
 import pkg from './package.json';
 
@@ -22,13 +24,16 @@ export default [
         'randomstring': 'RandomString',
         'ky-universal': 'Ky',
         'form-data': 'FormData',
+        'universal-url':'universal-url'
       }
     },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
-      json(),
+      globals(),
+      builtins(),
       resolve({ browser: true }), // so Rollup can find `ms`
       commonjs(), // so Rollup can convert `ms` to an ES module
+      json(),
       ts({ typescript }),
       terser(),
     ],
@@ -43,6 +48,8 @@ export default [
     },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
+      globals(),
+      builtins(),
       ts({ typescript }),
       terser(),
     ],
