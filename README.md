@@ -57,6 +57,7 @@ Keys
 Licence
 LicenceTemplates
 Lint
+Markdown
 Namespaces
 NotificationSettings
 PagesDomains
