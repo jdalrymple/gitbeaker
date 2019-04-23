@@ -428,13 +428,9 @@ await NotificationSettings.edit({
 })
 ```
 
-## Migrating from node-gitlab/node-gitlab
-
-With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.  
-
 ## Docs
 
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!! 
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, this library comes with some extra goodies to make using the API easier. After the 5.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!
 
 ## Development
 
