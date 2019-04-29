@@ -61,6 +61,12 @@ class Jobs extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/erase`);
   }
 
+  eraseArtifacts(projectId: ProjectId, jobId: JobId) {
+    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
+
+    return RequestHelper.delete(this, `projects/${pId}/jobs/${jId}/artifacts`);
+  }
+
   keepArtifacts(projectId: ProjectId, jobId: JobId) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
