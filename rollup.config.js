@@ -13,7 +13,7 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      file: 'dist/index.browser.js',
+      file: pkg.browser,
       name: 'node-gitlab',
       format: 'umd',
       exports: 'named',
