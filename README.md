@@ -429,7 +429,7 @@ There is another constructor parameter that allows the user to specify their own
 as long as it has a similar API to ky. To specify the library, simply set the `requester` property when
 instatiating a service:
 
-An example can be seen in the [KyRequester.ts](https://github.com/jdalrymple/node-gitlab/blob/next/src/infrastructure/KyRequester.ts) file
+An example can be seen in the [KyRequester.ts](./src/infrastructure/KyRequester.ts) file
 
 ```javascript
 import { Gitlab } from 'gitlab';
