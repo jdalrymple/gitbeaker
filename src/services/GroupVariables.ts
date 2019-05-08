@@ -1,9 +1,9 @@
 import { ResourceVariables } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '../../types/types';
 
 class GroupVariables extends ResourceVariables {
-  constructor(baseParams: BaseModelContructorOptions) {
-    super('groups', baseParams);
+  constructor(options: BaseServiceOptions) {
+    super('groups', options);
   }
 }
 

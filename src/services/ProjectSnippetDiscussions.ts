@@ -1,8 +1,8 @@
 import { ResourceDiscussions } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '../../types/types';
 
 class ProjectSnippetDiscussions extends ResourceDiscussions {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', 'snippets', options);
   }
 }

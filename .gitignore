@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 dist
 coverage
+.rpt2_cache
+.idea

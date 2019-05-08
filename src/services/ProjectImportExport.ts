@@ -1,30 +1,38 @@
+import FormData from 'form-data';
 import { BaseService, RequestHelper } from '../infrastructure';
-import { RequestOptions } from '../infrastructure/RequestHelper';
+import { BaseRequestOptions, Sudo, ProjectId } from '../../types/types';
 
 class ProjectImportExport extends BaseService {
-  download(projectId: ProjectId) {
+  download(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/export/download`);
+    return RequestHelper.get(this, `projects/${pId}/export/download`, options);
   }
 
-  exportStatus(projectId: ProjectId) {
+  exportStatus(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/export`);
+    return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(file: temporaryAny, path: string, options: RequestOptions) {
-    return RequestHelper.post(this, 'projects/import', { file, path, ...options });
+  import(content: string, path: string, options?: Sudo) {
+    const form = new FormData();
+
+    form.append('file', content, {
+      filename: path,
+      contentType: 'application/octet-stream',
+    });
+
+    return RequestHelper.post(this, 'projects/import', { ...options, form });
   }
 
-  importStatus(projectId: ProjectId) {
+  importStatus(projectId: ProjectId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/import`);
+    return RequestHelper.get(this, `projects/${pId}/import`, options);
   }
 
-  schedule(projectId: ProjectId, options: RequestOptions) {
+  schedule(projectId: ProjectId, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/export`, options);

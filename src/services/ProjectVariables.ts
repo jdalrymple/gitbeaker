@@ -1,8 +1,8 @@
 import { ResourceVariables } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '../../types/types';
 
 class ProjectVariables extends ResourceVariables {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', options);
   }
 }

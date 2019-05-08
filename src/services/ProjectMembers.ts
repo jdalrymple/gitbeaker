@@ -1,8 +1,8 @@
 import { ResourceMembers } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
+import { BaseServiceOptions } from '../../types/types';
 
 class ProjectMembers extends ResourceMembers {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', options);
   }
 }
