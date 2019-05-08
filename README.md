@@ -426,12 +426,14 @@ await service.edit({
 ### Custom Request Libraries
 
 There is another constructor parameter that allows the user to specify their own custom request library
-as long as it has a similar API to got. To specify the library, simply set the `requester` property when
+as long as it has a similar API to ky. To specify the library, simply set the `requester` property when
 instatiating a service:
+
+An example can be seen in the [KyRequester.ts](https://github.com/jdalrymple/node-gitlab/blob/next/src/infrastructure/KyRequester.ts) file
 
 ```javascript
 import { Gitlab } from 'gitlab';
-import YourCustomRequester from 'module';
+import YourCustomRequester from 'custom-requester';
 
 const api = new Gitlab({
   host:   'http://example.com', // Defaults to https://gitlab.com
@@ -440,10 +442,6 @@ const api = new Gitlab({
 });
 
 ```
-
-## Migrating from node-gitlab/node-gitlab
-
-With the success of this library thanks to the community, this has become the main npm package to interact with the Gitlab API. As such, there will be a little bit of growing pains for those upgrading from the original node-gitlab v1.8 to our newest 3.0.0 release, far too many to list here. I hope the library is written clearly enough to ease this transition, but if there is anything that you're having trouble with please feel free to create an issue! If not myself, someone will definitely have the answer to help get you all setup up as quickly as possible.
 
 ## Docs
 
