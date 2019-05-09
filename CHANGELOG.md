@@ -1,4 +1,39 @@
-# [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...5.0.0) (2018-12-19)
+## [4.5.1](https://github.com/jdalrymple/node-gitlab/compare/4.5.0...4.5.1) (2019-03-22)
+
+### Bug Fixes
+
+* Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
+
+# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
+
+
+### Features
+
+* Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
+
+# [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
+
+### Features
+
+* **Projects:**
+  * Add support for DELETE /projects/:id/fork ([ef53a2](https://github.com/jdalrymple/node-gitlab/commit/ef53a2))
+
+* **MergeRequests:**
+  * Add MergeRequest.participants request ([b11a4f](https://github.com/jdalrymple/node-gitlab/commit/b11a4f))
+
+* **Triggers:**
+  * Add missing method for triggering pipelines ([5858fc](https://github.com/jdalrymple/node-gitlab/commit/5858fc))
+
+### Bug Fixes
+* Add  missing / from unshare in Projects ([6fb7f5](https://github.com/jdalrymple/node-gitlab/commit/6fb7f5))
+* Change lint api url. ([1d6e6e](https://github.com/jdalrymple/node-gitlab/commit/1d6e6e))
+* Implement jobToken property to allow authentication via CI job token ([8f551f](https://github.com/jdalrymple/node-gitlab/commit/8f551f))
+
+### Docs
+* Update README.md with `rejectUnauthorized`
+* Fixing typo in the host url
+
+# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
 
 ### Breaking
 

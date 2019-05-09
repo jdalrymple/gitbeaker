@@ -38,6 +38,7 @@ class Groups extends BaseService {
     cn,
     { provider, ...options }: Sudo & { provider?: string } = {},
   ) {
+
     const gId = encodeURIComponent(groupId);
     const url = provider ? `${provider}/${cn}` : `${cn}`;
 

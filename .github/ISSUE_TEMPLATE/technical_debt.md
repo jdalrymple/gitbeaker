@@ -3,15 +3,13 @@ name: Technical Debt
 about: Suggest an improvement to the codebase
 ---
 
-Please make sure the new issue you are opening is not a duplicate, and **remove** this notice!
-
----
+<!-- Please make sure the new issue you are opening is not a duplicate, and **remove** this notice! -->
 
 **Description**
-_(Brief description of the technical debt here)_
+<!-- *(Brief description of your issue here)*
 
-_(Paste any relevant logs - please use code blocks (```) to format console output,
-logs, and code as it's very hard to read otherwise.)_
+(Paste any relevant logs - please use code blocks (```) to format console output,
+logs, and code as it's very hard to read otherwise.) -->
 
 **Possible solutions**
-_(Any possible suggestions on how to improve this code)_
+<!-- *(Any possible suggestions on how to improve this code)* -->

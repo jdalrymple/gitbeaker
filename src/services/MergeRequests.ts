@@ -82,7 +82,7 @@ class MergeRequests extends BaseService {
 
   approvals(
     projectId: ProjectId,
-    { mergerequestIId, ...options }: { mergerequestIId: MergeRequestId } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
@@ -101,7 +101,7 @@ class MergeRequests extends BaseService {
     projectId: ProjectId,
     approverIds: UserId[],
     approverGroupIds: GroupId[],
-    { mergerequestIId, ...options }: { mergerequestIId: MergeRequestId } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
@@ -149,7 +149,7 @@ class MergeRequests extends BaseService {
     sourceBranch: string,
     targetBranch: string,
     title: string,
-    options: CreateMergeRequestOptions & BaseRequestOptions,
+    options?: CreateMergeRequestOptions & BaseRequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -165,7 +165,7 @@ class MergeRequests extends BaseService {
   edit(
     projectId: ProjectId,
     mergerequestIId: MergeRequestId,
-    options: UpdateMergeRequestOptions & BaseRequestOptions,
+    options?: UpdateMergeRequestOptions & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
@@ -174,7 +174,7 @@ class MergeRequests extends BaseService {
 
   editApprovals(
     projectId: ProjectId,
-    { mergerequestIId, ...options }: { mergerequestIId: MergeRequestId } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 

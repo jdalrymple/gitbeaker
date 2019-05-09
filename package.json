@@ -1,39 +1,47 @@
 {
   "name": "gitlab",
+  "version": "5.0.0-rc.14",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "license": "MIT",
-  "author": {
-    "email": "justin.s.dalrymple@gmail.com",
-    "name": "Justin Dalrymple"
+  "keywords": [
+    "api",
+    "browser",
+    "es5",
+    "es6",
+    "gitlab",
+    "ky"
+  ],
+  "homepage": "https://github.com/jdalrymple/node-gitlab#readme",
+  "bugs": {
+    "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/node-gitlab"
   },
-  "homepage": "https://github.com/jdalrymple/node-gitlab#readme",
-  "bugs": {
-    "url": "https://github.com/jdalrymple/node-gitlab/issues"
+  "license": "MIT",
+  "author": {
+    "name": "Justin Dalrymple",
+    "email": "justin.s.dalrymple@gmail.com"
   },
-  "version": "5.0.0-rc.14",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "browser": "dist/index.browser.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "types"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "browser": "dist/index.browser.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "commit": "npx git-cz",
+    "coverage": "codecov",
     "lint": "tslint -p . -t stylish",
-    "lint:fix": "npm run lint -- --fix",
     "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md'",
+    "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
-    "coverage": "codecov",
-    "test:unit": "jest test/unit --debug -c=jest.config.json",
-    "test:integration": "jest test/integration -c=jest.config.json"
+    "test:integration": "jest test/integration -c=jest.config.json",
+    "test:unit": "jest test/unit --debug -c=jest.config.json"
   },
   "config": {
     "commitizen": {
@@ -41,7 +49,6 @@
     }
   },
   "dependencies": {
-    "@types/form-data": "^2.2.1",
     "form-data": "^2.3.3",
     "humps": "^2.0.1",
     "ky": "^0.10.0",
@@ -56,6 +63,7 @@
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.8",
     "@semantic-release/npm": "^5.1.7",
+    "@types/form-data": "^2.2.1",
     "@types/humps": "^1.1.2",
     "@types/jest": "^24.0.12",
     "codecov": "^3.3.0",
@@ -73,21 +81,13 @@
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.21.0",
-    "semantic-release": "^15.13.12",
+    "semantic-release": "^15.13.13",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.5"
   },
-  "keywords": [
-    "api",
-    "es5",
-    "es6",
-    "gitlab",
-    "ky",
-    "browser"
-  ],
   "engines": {
     "node": ">=8.9.0"
   }
