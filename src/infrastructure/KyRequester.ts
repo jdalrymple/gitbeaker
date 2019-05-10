@@ -7,6 +7,17 @@ import { skipAllCaps } from './Utils';
 const methods = ['get', 'post', 'put', 'delete'];
 const KyRequester = {} as Requester;
 
+function responseHeadersAsObject(response) {
+    const headers = {}
+    const keyVals = [...response.headers.entries()]
+   
+    keyVals.forEach(([key, val]) => {
+        headers[key] = val
+    })
+
+    return headers
+}
+
 function defaultRequest(
   service: any,
   endpoint: string,
@@ -19,6 +30,7 @@ function defaultRequest(
   return [
     endpoint,
     {
+      timeout: 30000,
       headers,
       searchParams: stringify(decamelizeKeys(query || {}), { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
@@ -32,14 +44,12 @@ methods.forEach(m => {
   KyRequester[m] = async function(service, endpoint, options) {
     const response = await Ky[m](...defaultRequest(service, endpoint, options));
     const { status } = response;
-    let { headers } = response;
+    const headers = responseHeadersAsObject(response) || {};
     let body = await response.json();
 
     if (typeof body === 'object') {
       body = camelizeKeys(body || {});
     }
-
-    headers = headers || {};
 
     return { body, headers, status };
   };
