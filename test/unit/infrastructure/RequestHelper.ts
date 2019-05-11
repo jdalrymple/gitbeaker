@@ -136,9 +136,9 @@ describe('RequestHelper.get()', () => {
   it('should be paginated but limited by the maxPages option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
-    const response = await RequestHelper.get(service, 'test', { maxPages: 1 });
+    const response = await RequestHelper.get(service, 'test', { maxPages: 3, perPage: 1 });
 
-    expect(response).toHaveLength(2);
+    expect(response).toHaveLength(3);
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
