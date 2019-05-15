@@ -6,7 +6,7 @@ import {
   PostResponse,
   PutResponse,
   DelResponse,
-} from '../../types/types';
+} from '../../typings';
 import { BaseService } from './BaseService';
 
 export async function get(

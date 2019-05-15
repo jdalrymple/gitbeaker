@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   LabelId,
-} from '../../types/types';
+} from '../../typings';
 
 class Labels extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   IssueId,
-} from '../../types/types';
+} from '../../typings';
 
 class Issues extends BaseService {
   addSpentTime(projectId: ProjectId, issueId: IssueId, duration: string, options?: Sudo) {

@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   HookId,
-} from '../../types/types';
+} from '../../typings';
 
 class ProjectHooks extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

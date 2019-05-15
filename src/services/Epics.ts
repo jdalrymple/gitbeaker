@@ -5,7 +5,7 @@ import {
   Sudo,
   GroupId,
   EpicId,
-} from '../../types/types';
+} from '../../typings';
 
 class Epics extends BaseService {
   all(groupId: GroupId, options?: PaginatedRequestOptions) {

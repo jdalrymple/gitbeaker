@@ -1,5 +1,5 @@
 import { ResourceDiscussions } from '../templates';
-import { BaseServiceOptions } from '../../types/types';
+import { BaseServiceOptions } from '../../typings';
 
 class ProjectSnippetDiscussions extends ResourceDiscussions {
   constructor(options: BaseServiceOptions) {

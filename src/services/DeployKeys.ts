@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, Sudo, ProjectId, KeyId } from '../../types/types';
+import { PaginatedRequestOptions, Sudo, ProjectId, KeyId } from '../../typings';
 
 class DeployKeys extends BaseService {
   add(projectId: ProjectId, options?: Sudo) {

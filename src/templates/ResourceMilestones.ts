@@ -7,7 +7,7 @@ import {
   ResourceId,
   ResourceType,
   MilestoneId,
-} from '../../types/types';
+} from '../../typings';
 
 class ResourceMilestones extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

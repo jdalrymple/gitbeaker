@@ -1,16 +1,4 @@
-import FormData from 'form-data';
-import { URL, URLSearchParams } from 'universal-url'
-
-declare global {
-  function encodeURIComponent(uriComponent: string | number | boolean): string;
-
-  namespace NodeJS {
-    interface Global extends NodeJS.Global {
-      URL: typeof URL,
-      URLSearchParams: typeof URLSearchParams
-    }
-  }
-}
+import * as FormData from 'form-data';
 
 export type ResourceType = string;
 export type ResourceId = string | number;

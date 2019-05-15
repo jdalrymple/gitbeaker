@@ -5,7 +5,7 @@ import {
   UserId,
   ImpersonationTokenId,
   ImpersonationTokenScope,
-} from '../../types/types';
+} from '../../typings';
 
 class UserImpersonationTokens extends BaseService {
   all(userId: UserId, options?: PaginatedRequestOptions) {

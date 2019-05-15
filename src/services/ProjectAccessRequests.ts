@@ -1,5 +1,5 @@
 import { ResourceAccessRequests } from '../templates';
-import { BaseServiceOptions } from '../../types/types';
+import { BaseServiceOptions } from '../../typings';
 
 class ProjectAccessRequests extends ResourceAccessRequests {
   constructor(options: BaseServiceOptions) {

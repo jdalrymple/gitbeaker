@@ -11,7 +11,7 @@ import {
   CreateMergeRequestOptions,
   UpdateMergeRequestOptions,
   ShowMergeRequestOptions,
-} from '../../types/types';
+} from '../../typings';
 
 class MergeRequests extends BaseService {
   accept(

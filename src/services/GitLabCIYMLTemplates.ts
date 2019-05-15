@@ -1,5 +1,5 @@
 import { ResourceTemplates } from '../templates';
-import { BaseServiceOptions } from '../../types/types';
+import { BaseServiceOptions } from '../../typings';
 
 class GitLabCIYMLTemplates extends ResourceTemplates {
   constructor(options: BaseServiceOptions) {

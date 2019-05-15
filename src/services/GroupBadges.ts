@@ -1,5 +1,5 @@
 import { ResourceBadges } from '../templates';
-import { BaseServiceOptions } from '../../types/types';
+import { BaseServiceOptions } from '../../typings';
 
 class GroupBadges extends ResourceBadges {
   constructor(options: BaseServiceOptions) {

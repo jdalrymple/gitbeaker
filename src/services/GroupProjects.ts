@@ -4,7 +4,7 @@ import {
   BaseRequestOptions,
   GroupProjectId,
   ProjectId,
-} from '../../types/types';
+} from '../../typings';
 
 class GroupProjects extends BaseService {
   all(groupId: GroupProjectId, options?: PaginatedRequestOptions) {

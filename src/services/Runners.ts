@@ -5,7 +5,7 @@ import {
   Sudo,
   ProjectId,
   RunnerId,
-} from '../../types/types';
+} from '../../typings';
 
 class Runners extends BaseService {
   all({ projectId, ...options }: { projectId: ProjectId } & PaginatedRequestOptions) {

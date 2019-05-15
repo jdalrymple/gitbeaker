@@ -7,7 +7,7 @@ import {
   ResourceId,
   ResourceType,
   BadgeId,
-} from '../../types/types';
+} from '../../typings';
 
 class ResourceBadges extends BaseService {
   constructor(resourceType: ResourceType, options: BaseServiceOptions) {

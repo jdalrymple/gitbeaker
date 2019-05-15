@@ -6,7 +6,7 @@ import {
   ResourceId,
   ResourceType,
   LabelId,
-} from '../../types/types';
+} from '../../typings';
 
 class ResourceIssueBoards extends BaseService {
   constructor(resourceType: ResourceType, options) {

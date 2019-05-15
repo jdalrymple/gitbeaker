@@ -1,5 +1,5 @@
 import { KyRequester } from './KyRequester';
-import { BaseServiceOptions, Requester } from '../../types/types';
+import { BaseServiceOptions, Requester } from '../../typings';
 
 export class BaseService {
   public readonly url: string;

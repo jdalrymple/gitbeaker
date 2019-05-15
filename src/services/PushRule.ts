@@ -1,5 +1,5 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, Sudo, ProjectId } from '../../types/types';
+import { BaseRequestOptions, Sudo, ProjectId } from '../../typings';
 
 class PushRule extends BaseService {
   create(projectId: ProjectId, options?: BaseRequestOptions) {

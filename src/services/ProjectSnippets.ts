@@ -6,7 +6,7 @@ import {
   ProjectId,
   SnippetId,
   SnippetVisibility,
-} from '../../types/types';
+} from '../../typings';
 
 class ProjectSnippets extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

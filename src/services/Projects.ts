@@ -11,7 +11,7 @@ import {
   GroupId,
   NamespaceId,
   ProjectUploadMetadata,
-} from '../../types/types';
+} from '../../typings';
 
 class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
