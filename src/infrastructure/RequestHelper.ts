@@ -1,12 +1,4 @@
 import Li from 'li';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  GetResponse,
-  PostResponse,
-  PutResponse,
-  DelResponse,
-} from '../../typings';
 import { BaseService } from './BaseService';
 
 export async function get(
