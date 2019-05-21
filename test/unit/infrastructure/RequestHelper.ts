@@ -32,8 +32,8 @@ const mockedGetExtended = (url, {query}) => {
         'x-page': 1,
         'x-per-page': 2,
         'x-prev-page': '',
-        'x-total': 4,
-        'x-total-pages': 2,
+        'x-total': 8,
+        'x-total-pages': 4,
       },
     },
     {
@@ -56,8 +56,8 @@ const mockedGetExtended = (url, {query}) => {
         'x-page': 2,
         'x-per-page': 2,
         'x-prev-page': 1,
-        'x-total': 6,
-        'x-total-pages': 3,
+        'x-total': 8,
+        'x-total-pages': 4,
       },
     },
     {
@@ -73,16 +73,40 @@ const mockedGetExtended = (url, {query}) => {
       ],
       headers: {
         link: `<https://www.test.com/api/v4/test?page=2&per_page=2>; rel="prev",
+        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="next",
         <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=3&per_page=2>; rel="last"`,
+        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
         'x-next-page': '',
         'x-page': 3,
         'x-per-page': 2,
         'x-prev-page': 2,
-        'x-total': 6,
-        'x-total-pages': 3,
+        'x-total': 8,
+        'x-total-pages': 4,
       },
     },
+    {
+      body: [
+        {
+          prop1: 7,
+          prop2: 'test property7',
+        },
+        {
+          prop1: 8,
+          prop2: 'test property8',
+        },
+      ],
+      headers: {
+        link: `<https://www.test.com/api/v4/test?page=3&per_page=2>; rel="prev",
+        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
+        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
+        'x-next-page': '',
+        'x-page': 4,
+        'x-per-page': 2,
+        'x-prev-page': 3,
+        'x-total': 8,
+        'x-total-pages': 4,
+      },
+    }
   ];
 
   const q = url.match(/page=([0-9]+)/);
@@ -136,9 +160,9 @@ describe('RequestHelper.get()', () => {
   it('should be paginated but limited by the maxPages option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
-    const response = await RequestHelper.get(service, 'test', { maxPages: 3, perPage: 1 });
+    const response = await RequestHelper.get(service, 'test', { maxPages: 3 });
 
-    expect(response).toHaveLength(3);
+    expect(response).toHaveLength(6);
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
@@ -172,12 +196,12 @@ describe('RequestHelper.get()', () => {
     });
 
     expect(response.pagination).toMatchObject({
-      total: 6,
+      total: 8,
       previous: 1,
       current: 2,
       next: 3,
       perPage: 2,
-      totalPages: 3,
+      totalPages: 4,
     });
   });
 });
