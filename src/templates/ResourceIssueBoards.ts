@@ -1,15 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  ResourceId,
-  ResourceType,
-  LabelId,
-} from '../../types/types';
 
 class ResourceIssueBoards extends BaseService {
-  constructor(resourceType: ResourceType, options) {
+  constructor(resourceType: string, options) {
     super({ url: resourceType, ...options });
   }
 

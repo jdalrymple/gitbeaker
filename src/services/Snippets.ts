@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  SnippetId,
-  SnippetVisibility,
-} from '../../types/types';
 
 class Snippets extends BaseService {
   all({ public: p, ...options }: { public: boolean } & PaginatedRequestOptions) {

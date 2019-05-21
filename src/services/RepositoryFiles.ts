@@ -1,5 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, Sudo, ProjectId } from '../../types/types';
 
 class RepositoryFiles extends BaseService {
   create(

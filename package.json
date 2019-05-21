@@ -25,14 +25,14 @@
   },
   "files": [
     "dist",
-    "types"
+    "typings"
   ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": "dist/index.browser.js",
-  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && tsc",
     "commit": "npx git-cz",
     "coverage": "codecov",
     "lint": "tslint -p . -t stylish",

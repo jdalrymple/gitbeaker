@@ -1,5 +1,4 @@
 import { ResourceNotes } from '../templates';
-import { BaseServiceOptions } from '../../types/types';
 
 class MergeRequestNotes extends ResourceNotes {
   constructor(options: BaseServiceOptions) {

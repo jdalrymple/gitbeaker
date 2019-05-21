@@ -1,5 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions } from '../../types/types';
 
 class FeatureFlags extends BaseService {
   all(options?: PaginatedRequestOptions) {

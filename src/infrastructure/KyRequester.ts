@@ -1,7 +1,6 @@
 import Ky from 'ky-universal';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
-import { Requester, DefaultRequestOptions } from '../../types/types';
 import { skipAllCaps } from './Utils';
 
 const methods = ['get', 'post', 'put', 'delete'];

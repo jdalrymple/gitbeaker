@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  ProjectId,
-  PipelineScheduleId,
-} from '../../types/types';
 
 class PipelineSchedules extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

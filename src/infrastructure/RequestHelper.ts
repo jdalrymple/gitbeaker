@@ -1,12 +1,4 @@
 import Li from 'li';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  GetResponse,
-  PostResponse,
-  PutResponse,
-  DelResponse,
-} from '../../types/types';
 import { BaseService } from './BaseService';
 
 export async function get(
@@ -33,7 +25,7 @@ export async function get(
 
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
-    const more = await get(service, next.replace(/.+\/api\/v\d\//, ''), { maxPages, sudo });
+    const more = await get(service, next.replace(/.+\/api\/v\d\//, ''), options);
 
     return [...body, ...more];
   }

@@ -1,5 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { BaseRequestOptions, ProjectId, GroupId } from '../../types/types';
 
 class Search extends BaseService {
   all(

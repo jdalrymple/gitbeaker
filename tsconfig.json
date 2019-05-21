@@ -14,9 +14,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": "./",
-    "paths": {
-      "@typings": ["types/types.d.ts"]
-    },
 
     /* Strict Type-Checking Options */
 
@@ -31,5 +28,5 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["src/**/*"]
+  "include": ["typings/*", "src/**/*"]
 }

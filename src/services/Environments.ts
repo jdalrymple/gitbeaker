@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  ProjectId,
-  EnvironmentId,
-} from '../../types/types';
 
 class Environments extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  Sudo,
-  UserId,
-  ImpersonationTokenId,
-  ImpersonationTokenScope,
-} from '../../types/types';
 
 class UserImpersonationTokens extends BaseService {
   all(userId: UserId, options?: PaginatedRequestOptions) {

@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  NotificationSettingLevel,
-  ProjectId,
-  GroupId,
-} from '../../types/types';
 
 class NotificationSettings extends BaseService {
   all({

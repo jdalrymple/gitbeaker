@@ -1,14 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  ProjectId,
-  ResourceId,
-  ResourceType,
-  NoteId,
-  AwardId,
-} from '../../types/types';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
@@ -26,7 +16,7 @@ function url(projectId, resourceType, resourceId, awardId, noteId) {
 class ResourceAwardsEmojis extends BaseService {
   protected resourceType: string;
 
-  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: 'projects', ...options });
 
     this.resourceType = resourceType;
