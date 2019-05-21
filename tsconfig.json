@@ -14,8 +14,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": "./",
-    "typeRoots": [ "./typings", "node_modules/@types"],
-    "types": ["index.d.ts"],
     
     /* Strict Type-Checking Options */
 
@@ -31,6 +29,7 @@
     "noImplicitReturns": true
   },
   "include": [
+    "typings/**",
     "src/**/*",
   ]
 }
