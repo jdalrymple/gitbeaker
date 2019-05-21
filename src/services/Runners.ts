@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  ProjectId,
-  RunnerId,
-} from '../../typings';
 
 class Runners extends BaseService {
   all({ projectId, ...options }: { projectId: ProjectId } & PaginatedRequestOptions) {

@@ -1,12 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  ProjectId,
-  SnippetId,
-  SnippetVisibility,
-} from '../../typings';
 
 class ProjectSnippets extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

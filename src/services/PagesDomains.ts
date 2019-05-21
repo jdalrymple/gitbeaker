@@ -1,5 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo, ProjectId } from '../../typings';
 
 class PagesDomains extends BaseService {
   all({ projectId, ...options }: { projectId?: ProjectId } & PaginatedRequestOptions = {}) {

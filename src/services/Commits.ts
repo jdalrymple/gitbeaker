@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  CommitAction,
-  ProjectId,
-} from '../../typings';
 
 class Commits extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

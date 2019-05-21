@@ -1,11 +1,4 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  ProjectId,
-  TriggerId,
-} from '../../typings';
 
 class Triggers extends BaseService {
   add(projectId: ProjectId, options?: BaseRequestOptions) {

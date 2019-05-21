@@ -15,7 +15,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "typeRoots": [ "./typings", "node_modules/@types"],
-
+    "types": ["index.d.ts"],
+    
     /* Strict Type-Checking Options */
 
     "strictPropertyInitialization": true,
@@ -29,5 +30,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*",
+  ]
 }

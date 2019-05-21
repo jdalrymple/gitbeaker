@@ -1,15 +1,7 @@
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  BaseServiceOptions,
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  ResourceId,
-  ResourceType,
-  KeyId,
-} from '../../typings';
 
 class ResourceVariables extends BaseService {
-  constructor(resourceType: ResourceType, options: BaseServiceOptions) {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 

@@ -1,17 +1,6 @@
 import FormData from 'form-data';
 import randomstring from 'randomstring';
 import { BaseService, RequestHelper } from '../infrastructure';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  EventOptions,
-  Sudo,
-  ProjectId,
-  UserId,
-  GroupId,
-  NamespaceId,
-  ProjectUploadMetadata,
-} from '../../typings';
 
 class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
