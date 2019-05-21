@@ -1,5 +1,5 @@
 import Ky from 'ky-universal';
-import { camelizeKeys, decamelizeKeys } from 'humps';
+import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
 
@@ -47,7 +47,7 @@ methods.forEach(m => {
     let body = await response.json();
 
     if (typeof body === 'object') {
-      body = camelizeKeys(body || {});
+      body = body || {};
     }
 
     return { body, headers, status };
