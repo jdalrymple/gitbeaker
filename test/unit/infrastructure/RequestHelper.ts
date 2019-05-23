@@ -27,7 +27,7 @@ const mockedGetExtended = (url, {query}) => {
       headers: {
         link: `<https://www.test.com/api/v4/test?page=2&per_page=2>; rel="next",
         <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=3&per_page=2>; rel="last"`,
+        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
         'x-next-page': 2,
         'x-page': 1,
         'x-per-page': 2,
@@ -51,7 +51,7 @@ const mockedGetExtended = (url, {query}) => {
         link: `<https://www.test.com/api/v4/test?page=1&per_page=2>; rel="prev",
         <https://www.test.com/api/v4/test?page=3&per_page=2>; rel="next",
         <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=3&per_page=2>; rel="last"`,
+        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
         'x-next-page': 3,
         'x-page': 2,
         'x-per-page': 2,
@@ -76,7 +76,7 @@ const mockedGetExtended = (url, {query}) => {
         <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="next",
         <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
         <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
-        'x-next-page': '',
+        'x-next-page': 4,
         'x-page': 3,
         'x-per-page': 2,
         'x-prev-page': 2,
@@ -124,7 +124,7 @@ const service = new BaseService({
 });
 
 describe('RequestHelper.get()', () => {
-  it('should respond with the proper get url without pagination', async () => {
+  it('Should respond with the proper get url without pagination', async () => {
     KyRequester.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(service, 'test');
@@ -135,7 +135,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should respond with an object', async () => {
+  it('Should respond with an object', async () => {
     KyRequester.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(service, 'test');
@@ -144,7 +144,7 @@ describe('RequestHelper.get()', () => {
     expect(response.prop2).toBe('test property');
   });
 
-  it('should be paginated when links are present', async () => {
+  it('Should be paginated when links are present', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test');
@@ -154,10 +154,10 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property${1 + index}`);
     });
 
-    expect(response.length).toBe(6);
+    expect(response).toHaveLength(8);
   });
 
-  it('should be paginated but limited by the maxPages option', async () => {
+  it('Should be paginated but limited by the maxPages option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { maxPages: 3 });
@@ -170,7 +170,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should be paginated but limited by the page option', async () => {
+  it('Should be paginated but limited by the page option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2 });
@@ -183,7 +183,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the page option is given', async () => {
+  it('Should show the pagination information when the page option is given', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2, showPagination: true });
@@ -200,6 +200,28 @@ describe('RequestHelper.get()', () => {
       previous: 1,
       current: 2,
       next: 3,
+      perPage: 2,
+      totalPages: 4,
+    });
+  });
+
+  it('Should show the pagination information when the maxPages option is given', async () => {
+    KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
+
+    const response = await RequestHelper.get(service, 'test', { maxPages: 3, showPagination: true });
+
+    expect(response.data).toHaveLength(6);
+
+    response.data.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property${1 + index}`);
+    });
+
+    expect(response.pagination).toMatchObject({
+      total: 8,
+      previous: 2,
+      current: 3,
+      next: 4,
       perPage: 2,
       totalPages: 4,
     });

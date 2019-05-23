@@ -44,7 +44,7 @@ jobs:
         ## Spin up container
         - cd test/docker/
         - docker-compose -f docker-compose.test.yml up -d
-        - sleep 240
+        - sleep 260
         - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
         - export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
         - echo $GITLAB_URL

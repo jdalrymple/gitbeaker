@@ -4,6 +4,7 @@ export class BaseService {
   public readonly url: string;
   public readonly requester: Requester;
   public readonly headers: { [header: string]: string };
+  public readonly camelize: boolean;
   public readonly rejectUnauthorized: boolean;
 
   constructor({
@@ -14,12 +15,14 @@ export class BaseService {
     host = 'https://gitlab.com',
     url = '',
     version = 'v4',
+    camelize = false,
     rejectUnauthorized = true,
     requester = KyRequester,
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
+    this.camelize = camelize;
     this.requester = requester;
 
     // Handle auth tokens
