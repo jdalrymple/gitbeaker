@@ -4,7 +4,7 @@
 /bin/bash init/init
 
 echo Sleep for 30 seconds to ensure all services are running
-sleep 30
+sleep 45
 
 echo Initalize test token and user
 PERSONAL_ACCESS_TOKEN="$(gitlab-rails r /init/test.rb)"
