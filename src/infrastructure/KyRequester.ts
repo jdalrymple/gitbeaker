@@ -41,16 +41,22 @@ function defaultRequest(
 
 methods.forEach(m => {
   KyRequester[m] = async function(service, endpoint, options) {
-    const response = await Ky[m](...defaultRequest(service, endpoint, options));
-    const { status } = response;
-    const headers = responseHeadersAsObject(response) || {};
-    let body = await response.json();
+    try {
+      const response = await Ky[m](...defaultRequest(service, endpoint, options));
+      const { status } = response;
+      const headers = responseHeadersAsObject(response) || {};
+      let body = await response.json();
 
-    if (typeof body === 'object') {
-      body = body || {};
+      if (typeof body === 'object') {
+        body = body || {};
+      }
+
+      return { body, headers, status };
+    } catch(e) {
+      console.log('Arguments');
+      console.log(...defaultRequest(service, endpoint, options))
+      throw(e)
     }
-
-    return { body, headers, status };
   };
 });
 
