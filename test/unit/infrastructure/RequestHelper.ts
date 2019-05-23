@@ -124,7 +124,7 @@ const service = new BaseService({
 });
 
 describe('RequestHelper.get()', () => {
-  it('should respond with the proper get url without pagination', async () => {
+  it('Should respond with the proper get url without pagination', async () => {
     KyRequester.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(service, 'test');
@@ -135,7 +135,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should respond with an object', async () => {
+  it('Should respond with an object', async () => {
     KyRequester.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(service, 'test');
@@ -144,7 +144,7 @@ describe('RequestHelper.get()', () => {
     expect(response.prop2).toBe('test property');
   });
 
-  it('should be paginated when links are present', async () => {
+  it('Should be paginated when links are present', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test');
@@ -157,7 +157,7 @@ describe('RequestHelper.get()', () => {
     expect(response.length).toBe(6);
   });
 
-  it('should be paginated but limited by the maxPages option', async () => {
+  it('Should be paginated but limited by the maxPages option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { maxPages: 3 });
@@ -170,7 +170,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should be paginated but limited by the page option', async () => {
+  it('Should be paginated but limited by the page option', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2 });
@@ -183,7 +183,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the page option is given', async () => {
+  it('Should show the pagination information when the page option is given', async () => {
     KyRequester.get = jest.fn((service, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2, showPagination: true });
