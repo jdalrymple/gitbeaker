@@ -147,43 +147,26 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 
 ```javascript
 // ES6 (>=node 8.9.0)
-import { Gitlab } from 'gitlab';
+import { Gitlab } from 'gitlab';   // All Resources
+import { Projects } from 'gitlab'; // Just the Project Resource
+//...etc
 
 // ES5, assuming native or polyfilled Promise is available
 const { Gitlab } = require('gitlab');
-
-// Instantiating
-const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
-});
-
-// Or, use a OAuth token instead!
-
-const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  oauthToken: 'abcdefghij123456',
-});
-
-// You can also use a CI job token:
-
-const api = new Gitlab({
-  url: 'http://example.com', // Defaults to https://gitlab.com
-  jobToken: process.env.CI_JOB_TOKEN,
-});
 ```
 
-#### Specific Imports
-
-Sometimes you don't want to import and instantiate the whole Gitlab API, perhaps you only want access to the Projects API. To do this, one only needs to import and instantiate this specific API:
-
+Instatiating options:
 ```javascript
-import { Projects } from 'gitlab';
-
-const service = new Projects({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
+const api = new Gitlab({
+  host: 'http://gl.com',    //Optional, Default: https://gitlab.com
+  token: 'personaltoken',   //Personal Token. Required (one of the three tokens are required)
+  oauthToken: 'oauthtoken', //OAuth Token. Required (one of the three tokens are required)
+  jobToken: 'myJobToken',   //CI job token. Required (one of the three tokens are required)
+  rejectUnauthorized: false //Http Certificate setting. Optional, Default: false
+  sudo: false               //Sudo query parameter. Optional, Default: false
+  version = 'v4',           //API Version ID. Optional, Default: v4
   camelize = false,         //Response Key Camelize. Camelizes all response body keys. Optional, Default: false
+  requester = KyRequester,  //Request Library Wrapper. Optional, Default: Currently wraps Ky.
 });
 ```
 

@@ -1,29 +1,15 @@
-import URLJoin from 'url-join';
-import Request from 'request-promise';
-import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
+import { KyRequester } from './KyRequester';
 
-interface BaseModelOptions {
+export class BaseService {
   public readonly url: string;
-  token?: string;
-  oauthToken?: string;
+  public readonly requester: Requester;
+  public readonly headers: { [header: string]: string };
   public readonly camelize: boolean;
-  version?: string;
-  sudo?: string | number;
-  rejectUnauthorized?: boolean;
-}
-
-export type BaseModelContructorOptions =
-  | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
-  | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
-class BaseModel {
-  public url: string;
-  public readonly headers: { [header: string]: string | number};
   public readonly rejectUnauthorized: boolean;
-  public readonly requester: XhrStaticPromisified;
-  public readonly useXMLHttpRequest: boolean;
 
   constructor({
     token,
+    jobToken,
     oauthToken,
     sudo,
     host = 'https://gitlab.com',
@@ -31,23 +17,20 @@ class BaseModel {
     version = 'v4',
     camelize = false,
     rejectUnauthorized = true,
-  }: BaseModelContructorOptions) {
+    requester = KyRequester,
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
-    this.requester = useXMLHttpRequest
-      ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
-    this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
+    this.requester = requester;
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
+    else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
 
     // Set sudo
     if (sudo) this.headers['Sudo'] = `${sudo}`;
   }
 }
-
-export default BaseModel;
