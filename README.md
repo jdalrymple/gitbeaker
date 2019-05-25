@@ -22,7 +22,6 @@
 - [Usage](#usage)
   - [Supported APIs](#supported-apis)
   - [Import](#import)
-    - [Specific Imports](#specific-imports)
     - [Bundle Imports](#bundle-imports)
   - [Examples](#examples)
   - [Pagination](#pagination)
@@ -147,7 +146,7 @@ Instantiate the library using a basic token created in your [Gitlab Profile](htt
 
 ```javascript
 // ES6 (>=node 8.9.0)
-import { Gitlab } from 'gitlab';   // All Resources
+import { Gitlab } from 'gitlab'; // All Resources
 import { Projects } from 'gitlab'; // Just the Project Resource
 //...etc
 
@@ -156,6 +155,7 @@ const { Gitlab } = require('gitlab');
 ```
 
 Instatiating options:
+
 ```javascript
 const api = new Gitlab({
   host: 'http://gl.com',    //Optional, Default: https://gitlab.com

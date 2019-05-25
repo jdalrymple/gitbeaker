@@ -7,21 +7,17 @@ const methods = ['get', 'post', 'put', 'delete'];
 const KyRequester = {} as Requester;
 
 function responseHeadersAsObject(response) {
-    const headers = {}
-    const keyVals = [...response.headers.entries()]
-   
-    keyVals.forEach(([key, val]) => {
-        headers[key] = val
-    })
+  const headers = {};
+  const keyVals = [...response.headers.entries()];
 
-    return headers
+  keyVals.forEach(([key, val]) => {
+    headers[key] = val;
+  });
+
+  return headers;
 }
 
-function defaultRequest(
-  service: any,
-  endpoint: string,
-  { body, query, sudo }: DefaultRequestOptions,
-) {
+function defaultRequest(service: any, endpoint: string, { body, query, sudo }) {
   const headers = new Headers(service.headers);
 
   if (sudo) headers.append('sudo', `${sudo}`);
@@ -31,7 +27,7 @@ function defaultRequest(
     {
       timeout: 30000,
       headers,
-      searchParams: stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
+      searchParams: stringify(decamelizeKeys(query || {}), { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
       json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : body,
       rejectUnauthorized: service.rejectUnauthorized,
@@ -50,10 +46,10 @@ methods.forEach(m => {
       if (typeof body === 'object') body = body || {};
 
       return { body, headers, status };
-    } catch(e) {
-      console.error(e)
-      console.error(...defaultRequest(service, endpoint, options))
-      throw(e)
+    } catch (e) {
+      console.error(e);
+      console.error(...defaultRequest(service, endpoint, options));
+      throw e;
     }
   };
 });

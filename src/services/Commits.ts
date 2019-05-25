@@ -81,7 +81,7 @@ class Commits extends BaseService {
   mergeRequests(projectId: ProjectId, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/merge_requests`);
+    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/merge_requests`, options);
   }
 }
 
