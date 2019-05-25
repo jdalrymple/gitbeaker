@@ -182,11 +182,10 @@ class MergeRequests extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIId}/participants`, options);
   }
 
-  pipelines(projectId: ProjectId, { mergerequestId }: { mergerequestId?: string } = {}) {
-    const pId = encodeURIComponent(projectId);
-    const mergeRequest = mergerequestId ? `merge_requests/${encodeURIComponent(mergerequestId)}` : '';
+  pipelines(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
+    const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/${mergeRequest}/pipelines`);
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIId}/pipelines`, options);
   }
 
   remove(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
