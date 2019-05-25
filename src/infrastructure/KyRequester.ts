@@ -44,12 +44,10 @@ methods.forEach(m => {
     try {
       const response = await Ky[m](...defaultRequest(service, endpoint, options));
       const { status } = response;
-      const headers = responseHeadersAsObject(response) || {};
+      const headers = responseHeadersAsObject(response);
       let body = await response.json();
 
-      if (typeof body === 'object') {
-        body = body || {};
-      }
+      if (typeof body === 'object') body = body || {};
 
       return { body, headers, status };
     } catch(e) {
