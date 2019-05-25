@@ -1,200 +1,298 @@
-# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+## [4.5.1](https://github.com/jdalrymple/node-gitlab/compare/4.5.0...4.5.1) (2019-03-22)
 
+### Bug Fixes
+
+- Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
+
+# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
 
 ### Features
 
-* **services:** add protected tags ([8203830](https://github.com/jdalrymple/node-gitlab/commit/8203830))
+- Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
+
+# [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
+
+### Features
+
+- **Projects:**
+
+  - Add support for DELETE /projects/:id/fork ([ef53a2](https://github.com/jdalrymple/node-gitlab/commit/ef53a2))
+
+- **MergeRequests:**
+
+  - Add MergeRequest.participants request ([b11a4f](https://github.com/jdalrymple/node-gitlab/commit/b11a4f))
+
+- **Triggers:**
+  - Add missing method for triggering pipelines ([5858fc](https://github.com/jdalrymple/node-gitlab/commit/5858fc))
+
+### Bug Fixes
+
+- Add missing / from unshare in Projects ([6fb7f5](https://github.com/jdalrymple/node-gitlab/commit/6fb7f5))
+- Change lint api url. ([1d6e6e](https://github.com/jdalrymple/node-gitlab/commit/1d6e6e))
+- Implement jobToken property to allow authentication via CI job token ([8f551f](https://github.com/jdalrymple/node-gitlab/commit/8f551f))
+
+### Docs
+
+- Update README.md with `rejectUnauthorized`
+- Fixing typo in the host url
+
+# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+
+### Breaking
+
+- Added content as a required parameter for RepositoryFiles
+- Removed projectId from System Hooks API since it wasn't required
+- Removed dependency on FS. Now the Projects API takes in two arguments `projectId` and `content` as well as an option fileName argument
+- Changing everything to named exports for simplicity
+- Switching required initialization argument from 'url' to 'host'
+- Updated Approvals API support to match https://docs.gitlab.com/ee/api/merge_request_approvals.html
+- MergeRequest Pipelines require the mergeRequestId
+- NotificationSettings API edit function now takes one parameter, `options`
+- Changing the access level enum property from master to maintainer as per https://gitlab.com/gitlab-org/gitlab-ce/issues/42751
+- Notes now require a body argument instead of checking the options argument for a body parameter
+- Bumped min node version to > v10 LTS
+
+### Bug Fixes
+
+- #227 (https://github.com/jdalrymple/node-gitlab/issues/227) Fixing array syntax thanks to Lukas Eipert (https://github.com/leipert) (f9bc34d (https://github.com/jdalrymple/node-gitlab/commit/f9bc34d))
+- Fixing Todos support. If todoId was not passed, an undefined value would be introduced into the url (cbeef18 (https://github.com/jdalrymple/node-gitlab/commit/cbeef18))
+- ResourceAwardEmojis API wasn't properly filtering based on awardId (70f4315 (https://github.com/jdalrymple/node-gitlab/commit/70f4315))
+- Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality
+- Fixing ci lint url (#278)
+- Fixing form data (#272)
+- Fixing randomstring usage (#271)
+- Incorrect http method used to update MR approvers #262
+
+### Features
+
+- Added the ability to add sudo to specific requests (780244f (https://github.com/jdalrymple/node-gitlab/commit/780244f))
+- Added the missing edit function to the Groups API
+- Added LDAP support to the Groups API
+- Added missing method for triggering pipelines (#275)
+- Implement jobToken property to allow authentication via CI job token (#269)
+
+### Documentation
+
+- Removing xml request docs
+- Updating imports to be named imports
+
+### Tests
+
+- Fixing integration test for ApplicationSettings (#273)
+
+## [4.5.1](https://github.com/jdalrymple/node-gitlab/compare/4.5.0...4.5.1) (2019-03-22)
+
+### Bug Fixes
+
+- Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
+
+# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
+
+### Features
+
+- Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
+
+# [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
+
+### Features
+
+- **Projects:**
+
+  - Add support for DELETE /projects/:id/fork ([ef53a2](https://github.com/jdalrymple/node-gitlab/commit/ef53a2))
+
+- **MergeRequests:**
+
+  - Add MergeRequest.participants request ([b11a4f](https://github.com/jdalrymple/node-gitlab/commit/b11a4f))
+
+- **Triggers:**
+  - Add missing method for triggering pipelines ([5858fc](https://github.com/jdalrymple/node-gitlab/commit/5858fc))
+
+### Bug Fixes
+
+- Add missing / from unshare in Projects ([6fb7f5](https://github.com/jdalrymple/node-gitlab/commit/6fb7f5))
+- Change lint api url. ([1d6e6e](https://github.com/jdalrymple/node-gitlab/commit/1d6e6e))
+- Implement jobToken property to allow authentication via CI job token ([8f551f](https://github.com/jdalrymple/node-gitlab/commit/8f551f))
+
+### Docs
+
+- Update README.md with `rejectUnauthorized`
+- Fixing typo in the host url
+
+# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+
+### Features
+
+- **services:** Add protected tags ([8203830](https://github.com/jdalrymple/node-gitlab/commit/8203830))
 
 ## [4.2.7](https://github.com/jdalrymple/node-gitlab/compare/4.2.6...4.2.7) (2018-11-26)
 
-
 ### Bug Fixes
 
-* handing the function arguments in the incorrect order ([26235ff](https://github.com/jdalrymple/node-gitlab/commit/26235ff))
+- Handing the function arguments in the incorrect order ([26235ff](https://github.com/jdalrymple/node-gitlab/commit/26235ff))
 
 ## [4.2.6](https://github.com/jdalrymple/node-gitlab/compare/4.2.5...4.2.6) (2018-11-26)
 
-
 ### Bug Fixes
 
-* Update pagination docs and conditions [#238](https://github.com/jdalrymple/node-gitlab/issues/238) ([266de00](https://github.com/jdalrymple/node-gitlab/commit/266de00))
+- Update pagination docs and conditions [#238](https://github.com/jdalrymple/node-gitlab/issues/238) ([266de00](https://github.com/jdalrymple/node-gitlab/commit/266de00))
 
 ## [4.2.5](https://github.com/jdalrymple/node-gitlab/compare/4.2.4...4.2.5) (2018-11-26)
 
-
 ### Bug Fixes
 
-* Project variables urls were being generated incorrectly ([28b28cf](https://github.com/jdalrymple/node-gitlab/commit/28b28cf))
+- Project variables urls were being generated incorrectly ([28b28cf](https://github.com/jdalrymple/node-gitlab/commit/28b28cf))
 
 ## [4.2.4](https://github.com/jdalrymple/node-gitlab/compare/4.2.3...4.2.4) (2018-11-26)
 
-
 ### Bug Fixes
 
-* Event properties using the incorrect boolean operator ([5f21a46](https://github.com/jdalrymple/node-gitlab/commit/5f21a46))
+- Event properties using the incorrect boolean operator ([5f21a46](https://github.com/jdalrymple/node-gitlab/commit/5f21a46))
 
 ## [4.2.3](https://github.com/jdalrymple/node-gitlab/compare/4.2.2...4.2.3) (2018-11-26)
 
-
 ### Bug Fixes
 
-* Filtering all events shouldnt require an action or a target [#61](https://github.com/jdalrymple/node-gitlab/issues/61) ([cda23b8](https://github.com/jdalrymple/node-gitlab/commit/cda23b8))
+- Filtering all events shouldnt require an action or a target [#61](https://github.com/jdalrymple/node-gitlab/issues/61) ([cda23b8](https://github.com/jdalrymple/node-gitlab/commit/cda23b8))
 
 ## [4.2.1](https://github.com/jdalrymple/node-gitlab/compare/4.2.0...4.2.1) (2018-10-29)
 
-
 ### Bug Fixes
 
-* Updating application settings test to match updated API ([dececa6](https://github.com/jdalrymple/node-gitlab/commit/dececa6))
+- Updating application settings test to match updated API ([dececa6](https://github.com/jdalrymple/node-gitlab/commit/dececa6))
 
 # [4.2.0](https://github.com/jdalrymple/node-gitlab/compare/4.1.1...4.2.0) (2018-10-10)
 
-
 ### Bug Fixes
 
-* jest.config file to properly run tests again. Follow up issue to fix these exceptions ([dcee7ac](https://github.com/jdalrymple/node-gitlab/commit/dcee7ac))
-
+- jest.config file to properly run tests again. Follow up issue to fix these exceptions ([dcee7ac](https://github.com/jdalrymple/node-gitlab/commit/dcee7ac))
 
 ### Features
 
-* Add sudo abilities [#203](https://github.com/jdalrymple/node-gitlab/issues/203) ([4bf574c](https://github.com/jdalrymple/node-gitlab/commit/4bf574c))
+- Add sudo abilities [#203](https://github.com/jdalrymple/node-gitlab/issues/203) ([4bf574c](https://github.com/jdalrymple/node-gitlab/commit/4bf574c))
 
 ## [4.1.1](https://github.com/jdalrymple/node-gitlab/compare/4.1.0...4.1.1) (2018-09-25)
 
-
 ### Bug Fixes
 
-* Updating ApplicationSettings test ([0d345b7](https://github.com/jdalrymple/node-gitlab/commit/0d345b7))
+- Updating ApplicationSettings test ([0d345b7](https://github.com/jdalrymple/node-gitlab/commit/0d345b7))
 
 # [4.1.0](https://github.com/jdalrymple/node-gitlab/compare/4.0.1...4.1.0) (2018-09-19)
 
-
 ### Features
 
-* Added user edit support [#186](https://github.com/jdalrymple/node-gitlab/issues/186) ([95e8999](https://github.com/jdalrymple/node-gitlab/commit/95e8999))
-* Adding markdown support [#182](https://github.com/jdalrymple/node-gitlab/issues/182) ([#193](https://github.com/jdalrymple/node-gitlab/issues/193)) ([2113e8e](https://github.com/jdalrymple/node-gitlab/commit/2113e8e))
-* Re-add list all project members endpoint ([#190](https://github.com/jdalrymple/node-gitlab/issues/190)) ([5b07b6a](https://github.com/jdalrymple/node-gitlab/commit/5b07b6a)), closes [/github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9#diff-379104d7d595f3793c2d7380496cc3c3](https://github.com//github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9/issues/diff-379104d7d595f3793c2d7380496cc3c3) [#141](https://github.com/jdalrymple/node-gitlab/issues/141)
+- Added user edit support [#186](https://github.com/jdalrymple/node-gitlab/issues/186) ([95e8999](https://github.com/jdalrymple/node-gitlab/commit/95e8999))
+- Adding markdown support [#182](https://github.com/jdalrymple/node-gitlab/issues/182) ([#193](https://github.com/jdalrymple/node-gitlab/issues/193)) ([2113e8e](https://github.com/jdalrymple/node-gitlab/commit/2113e8e))
+- Re-add list all project members endpoint ([#190](https://github.com/jdalrymple/node-gitlab/issues/190)) ([5b07b6a](https://github.com/jdalrymple/node-gitlab/commit/5b07b6a)), closes [/github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9#diff-379104d7d595f3793c2d7380496cc3c3](https://github.com//github.com/jdalrymple/node-gitlab/commit/e081a1629f33e3af172101b94977f281879539c9/issues/diff-379104d7d595f3793c2d7380496cc3c3) [#141](https://github.com/jdalrymple/node-gitlab/issues/141)
 
 ## [4.0.1](https://github.com/jdalrymple/node-gitlab/compare/4.0.0...4.0.1) (2018-09-06)
 
-
 ### Bug Fixes
 
-* Updating the package.lock ([9b4b6f9](https://github.com/jdalrymple/node-gitlab/commit/9b4b6f9))
+- Updating the package.lock ([9b4b6f9](https://github.com/jdalrymple/node-gitlab/commit/9b4b6f9))
 
 # [4.0.0-beta](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...4.0.0-beta) (2018-08-22)
 
-
 ### Major Update
+
 - Migration to Typescript
 
 ## [3.11.3](https://github.com/jdalrymple/node-gitlab/compare/3.11.2...3.11.3) (2018-08-31)
 
-
 ### Bug Fixes
 
-* Camelcasing broke the body params ([e50f588](https://github.com/jdalrymple/node-gitlab/commit/e50f588))
+- Camelcasing broke the body params ([e50f588](https://github.com/jdalrymple/node-gitlab/commit/e50f588))
 
 ## [3.11.2](https://github.com/jdalrymple/node-gitlab/compare/3.11.1...3.11.2) (2018-08-28)
 
-
 ### Bug Fixes
 
-* obey rate limits for all request types correctly ([#170](https://github.com/jdalrymple/node-gitlab/issues/170)) ([4bc7c69](https://github.com/jdalrymple/node-gitlab/commit/4bc7c69)), closes [#165](https://github.com/jdalrymple/node-gitlab/issues/165)
-* Testing negated npmignore ([86960c4](https://github.com/jdalrymple/node-gitlab/commit/86960c4))
+- obey rate limits for all request types correctly ([#170](https://github.com/jdalrymple/node-gitlab/issues/170)) ([4bc7c69](https://github.com/jdalrymple/node-gitlab/commit/4bc7c69)), closes [#165](https://github.com/jdalrymple/node-gitlab/issues/165)
+- Testing negated npmignore ([86960c4](https://github.com/jdalrymple/node-gitlab/commit/86960c4))
 
 ## [3.11.1](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...3.11.1) (2018-08-28)
 
-
 ### Bug Fixes
 
-* **applications-settings:** Edit of application settings not working ([#169](https://github.com/jdalrymple/node-gitlab/issues/169)) ([f0213ca](https://github.com/jdalrymple/node-gitlab/commit/f0213ca))
-* **test:** Application settings api updated ([#177](https://github.com/jdalrymple/node-gitlab/issues/177)) ([0723a7a](https://github.com/jdalrymple/node-gitlab/commit/0723a7a))
+- **applications-settings:** Edit of application settings not working ([#169](https://github.com/jdalrymple/node-gitlab/issues/169)) ([f0213ca](https://github.com/jdalrymple/node-gitlab/commit/f0213ca))
+- **test:** Application settings api updated ([#177](https://github.com/jdalrymple/node-gitlab/issues/177)) ([0723a7a](https://github.com/jdalrymple/node-gitlab/commit/0723a7a))
 
 # [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
 
-
 ### Bug Fixes
 
-* Revert "fix(api): Updating project members all function to include the inherited members.  [#141](https://github.com/jdalrymple/node-gitlab/issues/141)" until properly implemented by GitLab (https://gitlab.com/gitlab-org/gitlab-ee/merge_requests/6669)  ([24d9bcd](https://github.com/jdalrymple/node-gitlab/commit/24d9bcd))
-
+- Revert "fix(api): Updating project members all function to include the inherited members. [#141](https://github.com/jdalrymple/node-gitlab/issues/141)" until properly implemented by GitLab (https://gitlab.com/gitlab-org/gitlab-ee/merge_requests/6669) ([24d9bcd](https://github.com/jdalrymple/node-gitlab/commit/24d9bcd))
 
 ### Features
 
-* **projects:** add archive/unarchive functionality ([#168](https://github.com/jdalrymple/node-gitlab/issues/168)) ([5e7b1bd](https://github.com/jdalrymple/node-gitlab/commit/5e7b1bd)), closes [#166](https://github.com/jdalrymple/node-gitlab/issues/166)
+- **projects:** add archive/unarchive functionality ([#168](https://github.com/jdalrymple/node-gitlab/issues/168)) ([5e7b1bd](https://github.com/jdalrymple/node-gitlab/commit/5e7b1bd)), closes [#166](https://github.com/jdalrymple/node-gitlab/issues/166)
 
 ## [3.10.1](https://github.com/jdalrymple/node-gitlab/compare/3.10.0...3.10.1) (2018-08-16)
 
-
 ### Bug Fixes
 
-* Typo in PagesDomains all() method ([#162](https://github.com/jdalrymple/node-gitlab/issues/162)) ([128f150](https://github.com/jdalrymple/node-gitlab/commit/128f150))
+- Typo in PagesDomains all() method ([#162](https://github.com/jdalrymple/node-gitlab/issues/162)) ([128f150](https://github.com/jdalrymple/node-gitlab/commit/128f150))
 
 # [3.10.0](https://github.com/jdalrymple/node-gitlab/compare/3.9.0...3.10.0) (2018-08-15)
 
-
 ### Features
 
-* Expose reject unauthorized in request helper ([#160](https://github.com/jdalrymple/node-gitlab/issues/160)) ([01a2ce2](https://github.com/jdalrymple/node-gitlab/commit/01a2ce2)), closes [#142](https://github.com/jdalrymple/node-gitlab/issues/142)
+- Expose reject unauthorized in request helper ([#160](https://github.com/jdalrymple/node-gitlab/issues/160)) ([01a2ce2](https://github.com/jdalrymple/node-gitlab/commit/01a2ce2)), closes [#142](https://github.com/jdalrymple/node-gitlab/issues/142)
 
 # [3.9.0](https://github.com/jdalrymple/node-gitlab/compare/3.8.0...3.9.0) (2018-08-15)
 
-
 ### Bug Fixes
 
-* Fix error while throwing an error in RequestHelper ([#156](https://github.com/jdalrymple/node-gitlab/issues/156)) ([177d7fd](https://github.com/jdalrymple/node-gitlab/commit/177d7fd))
-* Handling errors before retrying request ([#142](https://github.com/jdalrymple/node-gitlab/issues/142)) [skip-ci] ([bc3b366](https://github.com/jdalrymple/node-gitlab/commit/bc3b366))
-* Linting Master ([#157](https://github.com/jdalrymple/node-gitlab/issues/157)) ([ab14ed7](https://github.com/jdalrymple/node-gitlab/commit/ab14ed7))
-
+- Fix error while throwing an error in RequestHelper ([#156](https://github.com/jdalrymple/node-gitlab/issues/156)) ([177d7fd](https://github.com/jdalrymple/node-gitlab/commit/177d7fd))
+- Handling errors before retrying request ([#142](https://github.com/jdalrymple/node-gitlab/issues/142)) [skip-ci](<[bc3b366](https://github.com/jdalrymple/node-gitlab/commit/bc3b366)>)
+- Linting Master ([#157](https://github.com/jdalrymple/node-gitlab/issues/157)) ([ab14ed7](https://github.com/jdalrymple/node-gitlab/commit/ab14ed7))
 
 ### Features
 
-* Add deploy keys enable functionality ([#155](https://github.com/jdalrymple/node-gitlab/issues/155)) thanks to [Michael Matzka](https://github.com/mimaidms ) ([66547ad](https://github.com/jdalrymple/node-gitlab/commit/66547ad))
+- Add deploy keys enable functionality ([#155](https://github.com/jdalrymple/node-gitlab/issues/155)) thanks to [Michael Matzka](https://github.com/mimaidms) ([66547ad](https://github.com/jdalrymple/node-gitlab/commit/66547ad))
 
 # [3.8.0](https://github.com/jdalrymple/node-gitlab/compare/3.7.0...3.8.0) (2018-08-14)
 
-
 ### Bug Fixes
 
-* **api:** Updating project members all function to include the inherited members.  [#141](https://github.com/jdalrymple/node-gitlab/issues/141) ([e081a16](https://github.com/jdalrymple/node-gitlab/commit/e081a16))
-* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.0 ([dc9748d](https://github.com/jdalrymple/node-gitlab/commit/dc9748d))
-* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.1 ([12b6ca1](https://github.com/jdalrymple/node-gitlab/commit/12b6ca1)), closes [#139](https://github.com/jdalrymple/node-gitlab/issues/139)
-* **package:** Updating packages and fixing [#140](https://github.com/jdalrymple/node-gitlab/issues/140) due to a babel update ([04d1769](https://github.com/jdalrymple/node-gitlab/commit/04d1769))
-
+- **api:** Updating project members all function to include the inherited members. [#141](https://github.com/jdalrymple/node-gitlab/issues/141) ([e081a16](https://github.com/jdalrymple/node-gitlab/commit/e081a16))
+- **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.0 ([dc9748d](https://github.com/jdalrymple/node-gitlab/commit/dc9748d))
+- **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 5.0.1 ([12b6ca1](https://github.com/jdalrymple/node-gitlab/commit/12b6ca1)), closes [#139](https://github.com/jdalrymple/node-gitlab/issues/139)
+- **package:** Updating packages and fixing [#140](https://github.com/jdalrymple/node-gitlab/issues/140) due to a babel update ([04d1769](https://github.com/jdalrymple/node-gitlab/commit/04d1769))
 
 ### Features
 
-* Add push rule service ([#143](https://github.com/jdalrymple/node-gitlab/issues/143)) ([395f83c](https://github.com/jdalrymple/node-gitlab/commit/395f83c))
-* Add transfer a project to a new namespace ([#145](https://github.com/jdalrymple/node-gitlab/issues/145)) ([87e9f55](https://github.com/jdalrymple/node-gitlab/commit/87e9f55))
+- Add push rule service ([#143](https://github.com/jdalrymple/node-gitlab/issues/143)) ([395f83c](https://github.com/jdalrymple/node-gitlab/commit/395f83c))
+- Add transfer a project to a new namespace ([#145](https://github.com/jdalrymple/node-gitlab/issues/145)) ([87e9f55](https://github.com/jdalrymple/node-gitlab/commit/87e9f55))
 
 # [3.7.0](https://github.com/jdalrymple/node-gitlab/compare/3.6.0...3.7.0) (2018-08-02)
 
-
 ### Features
 
-* Adding update push rules to Projects, and updating the Protected Branches service to match the updated API thanks to [jennparise](https://github.com/jennparise)([#134](https://github.com/jdalrymple/node-gitlab/issues/134))  ([9f3de02](https://github.com/jdalrymple/node-gitlab/commit/9f3de02))
-* Updating Project Snippets API [#138](https://github.com/jdalrymple/node-gitlab/issues/138) ([a7858bd](https://github.com/jdalrymple/node-gitlab/commit/a7858bd))
+- Adding update push rules to Projects, and updating the Protected Branches service to match the updated API thanks to [jennparise](https://github.com/jennparise)([#134](https://github.com/jdalrymple/node-gitlab/issues/134)) ([9f3de02](https://github.com/jdalrymple/node-gitlab/commit/9f3de02))
+- Updating Project Snippets API [#138](https://github.com/jdalrymple/node-gitlab/issues/138) ([a7858bd](https://github.com/jdalrymple/node-gitlab/commit/a7858bd))
 
 # [3.6.0](https://github.com/jdalrymple/node-gitlab/compare/3.5.1...3.6.0) (2018-07-24)
 
 ### Bug Fixes
 
-* **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 4.0.0 ([#122](https://github.com/jdalrymple/node-gitlab/issues/122)) ([5351dcc](https://github.com/jdalrymple/node-gitlab/commit/5351dcc))
+- **package:** update [@semantic-release](https://github.com/semantic-release)/npm to version 4.0.0 ([#122](https://github.com/jdalrymple/node-gitlab/issues/122)) ([5351dcc](https://github.com/jdalrymple/node-gitlab/commit/5351dcc))
 
 ### Features
 
-* Add mirror pull trigger ([#130](https://github.com/jdalrymple/node-gitlab/issues/130)) ([b6ccb80](https://github.com/jdalrymple/node-gitlab/commit/b6ccb80)) thanks to [Joseph Petersen](https://github.com/casz)
-* Making API version modifyable ([a2732b9](https://github.com/jdalrymple/node-gitlab/commit/a2732b9))
-* Updating Jobs API ([03a2f2d](https://github.com/jdalrymple/node-gitlab/commit/03a2f2d))
-* Updating participants function for issues ([f60e7ed](https://github.com/jdalrymple/node-gitlab/commit/f60e7ed)) thanks to [Fabian Aussems](https://github.com/mozinator)
-* Added pipelines to MergeRequests in [#128](https://github.com/jdalrymple/node-gitlab/pull/128) thanks to [jnovick](https://github.com/jnovick)
+- Add mirror pull trigger ([#130](https://github.com/jdalrymple/node-gitlab/issues/130)) ([b6ccb80](https://github.com/jdalrymple/node-gitlab/commit/b6ccb80)) thanks to [Joseph Petersen](https://github.com/casz)
+- Making API version modifyable ([a2732b9](https://github.com/jdalrymple/node-gitlab/commit/a2732b9))
+- Updating Jobs API ([03a2f2d](https://github.com/jdalrymple/node-gitlab/commit/03a2f2d))
+- Updating participants function for issues ([f60e7ed](https://github.com/jdalrymple/node-gitlab/commit/f60e7ed)) thanks to [Fabian Aussems](https://github.com/mozinator)
+- Added pipelines to MergeRequests in [#128](https://github.com/jdalrymple/node-gitlab/pull/128) thanks to [jnovick](https://github.com/jnovick)
 
 # [3.5.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-08)
+
 - Fixed migrating-from-node-gitlab link in Table of Contents #118 thanks to [Quentin Dreyer](https://github.com/qkdreyer)
 - Fix methods for editing MR approval/approver settings #119 thanks to [Norm MacLennan](https://github.com/maclennann)
 - Removed codcov patch coverage until a larger portion of the codebase is covered
 
 # [3.5.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-04)
+
 - Obey the rate limit (9b46250), closes #73 thanks to [Max Wittig](https://github.com/max-wittig)
 
 # [3.4.6](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
@@ -235,7 +333,7 @@
 # [3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
 
 - Typo fix and branch id encoding thanks to [Igor Katsuba](https://github.com/Defenderbass)
- in [#92](https://github.com/jdalrymple/node-gitlab/pull/92) and [#91](https://github.com/jdalrymple/node-gitlab/pull/91)
+  in [#92](https://github.com/jdalrymple/node-gitlab/pull/92) and [#91](https://github.com/jdalrymple/node-gitlab/pull/91)
 - Removal of non standard babel plugins in prep for move to Typescript thanks to [Pavel Birukov](https://github.com/r00ger) in [#90](https://github.com/jdalrymple/node-gitlab/pull/90)
 - Docs update pointing to the wrong npm package thanks to [Joseph Petersen](https://github.com/casz) in [#88](https://github.com/jdalrymple/node-gitlab/pull/88)
 - Licence update (to match the year) thanks to [Sharma-Rajat](https://github.com/Sharma-Rajat) in [#87](https://github.com/jdalrymple/node-gitlab/pull/87)
@@ -269,7 +367,7 @@
 
 # [3.2.1](https://github.com/jdalrymple/node-gitlab/tags/3.2.1) (2018-4-23)
 
-- Fixed incorrectly named bundles 
+- Fixed incorrectly named bundles
 
 # [3.2.0](https://github.com/jdalrymple/node-gitlab/tags/3.2.0) (2018-4-21)
 
@@ -310,16 +408,20 @@
 - Completed support for all Gitlab APIs, [#49](https://github.com/jdalrymple/node-gitlab/pull/49), [#53](https://github.com/jdalrymple/node-gitlab/pull/53)
 
 ### Breaking Changes between 2.2.6 and 3.0.0
+
 - Instantiation of the API must use the new operator consistently. See usage above.
 - All services being exported are not capitalized for clarity that they are themselves api's and not properties. ie. Gitlab.Projects vs Gitlab.projects
 - All subservices (services exposed as properties of other services) have been moved out into their own service
+
 ```
 ProjectRepository -> Repositories, Tags, Commits, Branches and RepositoryFiles
 Users -> Users, UserKeys, UserGPGKeys, UserCustomAttributes, UserVariables
 
 ```
+
 - Moved createTodo function from MergeRequests API to Todos API
 - Many services have been renamed:
+
 ```
 ProjectProtectedBranches -> ProtectedBranches
 ProjectDeployKeys -> DeployKeys
@@ -333,6 +435,7 @@ ProjectTriggers -> Triggers
 ```
 
 - Some services were merged:
+
 ```
 Issues = ProjectIssues + Issues.  ProjectId is optional for all()
 MergeRequests = ProjectMergeRequests + MergeRequests + MergeRequestsChanges + MergeRequestsCommits + MergeRequestVersions. ProjectId is optional for all()
@@ -379,12 +482,13 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 - Fixed the missing options parameter for the ProjectRepositoryCommitComment's model thanks to [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab/pull/21)
 - Removal of the left over debug console.logs's within project issues again by [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab/pull/22)
 - Added proper docs for ProjectRepositoryFiles, enabled default urlEncoding for the passed in file paths and also documented
-how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab/pull/23)
+  how to run locally via npm linking for Development testing thanks to [Adam Dehnel](https://github.com/arsdehnel) in [PR #23](https://github.com/jdalrymple/node-gitlab/pull/23)
 - Exposed the Merge Requests resource which was missing from the exports list thanks to [fewieden](https://github.com/fewieden) in [PR #26](https://github.com/jdalrymple/node-gitlab/pull/26)
 - Added support for the Project Environments API and the Project Jobs API thanks to [Jeff Pelton](https://github.com/comster) in [PR #28](https://github.com/jdalrymple/node-gitlab/pull/28)
 - Fixing parse function to handle encoded urls that don't include '/' such as in groups #24
 
 ### Breaking Changes between 2.1.0 and 2.2.0
+
 - Fixed a problem with the get responses where the response contained the full request response and not just the body
 
 # [2.1.0](https://github.com/jdalrymple/node-gitlab/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
@@ -396,8 +500,9 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Added Owned Runners and Runner Jobs API
 
 ### Breaking Changes between 1.3.3 and 2.1.0
+
 - The `list` functions are no longer supported and have all been renamed to `all`
-- The `update` functions are no longer supported and have all been renamed to  `edit`
+- The `update` functions are no longer supported and have all been renamed to `edit`
 - The `addKey` function has been renamed to `add` in UserKeys class
 - The deploy_keys and merge_requests properties have been renamed to deployKeys and mergeRequests
 - Removed old group member functions from the groups class as they have been moved to the GroupMembers class. This includes the addMember, listMembers, editMember, and removeMember. These functions can now be access via group.members.add, group.members.all, group.members.edit and group.members.remove respectively.
@@ -405,18 +510,16 @@ how to run locally via npm linking for Development testing thanks to [Adam Dehne
 - Updated the structure of the ProjectRepository class such that its commits, branches, tags and files are properties and can be accessed like `repository.commits.all()` etc.
 - Removed unused labels endpoint since it already exists under projects.labels
 
-
 # [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
 
 - Updating pagination changes into v2.0.1
 - Removed unused labels endpoint since it already exists under projects.labels
 - Added a mergeRequests class for the merge_requests endpoints
 - Extended the ProjectMergeRequests class for additional functionality that was missing for project merge requests such as
-accepting merge requests, canceling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
+  accepting merge requests, canceling merges when the pipeline succeeds, listing issues that will close on merge, subscribing/unsubscribing to merges, creating todos, time spent and time estimates as well as time stats.
 - Fixed the notes endpoints for ProjectMergeRequests. This can now be access via projects.mergeRequests.notes.[command here]
 - Added comments endpoints to the ProjectRepositoryCommits class
 - Added the ability to post a status to a specific commit to the Project class
-
 
 # [1.3.3](https://github.com/jdalrymple/node-gitlab/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
 
@@ -456,7 +559,6 @@ accepting merge requests, canceling merges when the pipeline succeeds, listing i
 
 - Extending the Groups API, see docs for a full overview.
 
-
 # [1.2.0](https://github.com/jdalrymple/node-gitlab/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
 
 - Adding fix to the API constructor to include the [missing oauthToken](https://github.com/jdalrymple/node-gitlab/pulls?q=is%3Apr+is%3Aclosed) thanks to [Salim Benabbou](https://github.com/Salimlou).
@@ -481,7 +583,7 @@ accepting merge requests, canceling merges when the pipeline succeeds, listing i
 # [1.1.1](https://github.com/jdalrymple/node-gitlab/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
 
 - Patch, fixed a broken pagination property
-- Adding in missing options parameter  in the groups API thanks to a pull request from [Cory Zibell](https://github.com/coryzibell)
+- Adding in missing options parameter in the groups API thanks to a pull request from [Cory Zibell](https://github.com/coryzibell)
 
 # [1.1.0](https://github.com/jdalrymple/node-gitlab/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
 
@@ -490,7 +592,7 @@ accepting merge requests, canceling merges when the pipeline succeeds, listing i
 # [1.0.14](https://github.com/jdalrymple/node-gitlab/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 
 - Adding default file name for file uploads. If none is supplied, the file name is
-inferred from the file path
+  inferred from the file path
 
 # [1.0.13](https://github.com/jdalrymple/node-gitlab/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
 
@@ -507,7 +609,6 @@ inferred from the file path
 - Fixing the naming convention for Project Issues
 - Standardized the use of parseInt in the code base
 - Removed instances of duplicate code found by code climate
-
 
 # [1.0.10](https://github.com/jdalrymple/node-gitlab/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
 
