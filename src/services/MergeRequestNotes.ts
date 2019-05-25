@@ -1,8 +1,7 @@
 import { ResourceNotes } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class MergeRequestNotes extends ResourceNotes {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', 'merge_requests', options);
   }
 }

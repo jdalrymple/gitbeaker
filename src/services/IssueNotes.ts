@@ -1,7 +1,7 @@
 import { ResourceNotes } from '../templates';
 
 class IssueNotes extends ResourceNotes {
-  constructor(options: temporaryAny) {
+  constructor(options: BaseServiceOptions) {
     super('projects', 'issues', options);
   }
 }
