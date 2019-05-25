@@ -53,8 +53,8 @@ methods.forEach(m => {
 
       return { body, headers, status };
     } catch(e) {
-      console.log('Arguments');
-      console.log(...defaultRequest(service, endpoint, options))
+      console.error(e)
+      console.error(...defaultRequest(service, endpoint, options))
       throw(e)
     }
   };

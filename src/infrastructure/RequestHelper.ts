@@ -32,7 +32,8 @@ export async function get(
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
     const more = await get(service, next.replace(/.+\/api\/v\d\//, ''), {
-      ...options,
+      maxPages,
+      sudo,
       showPagination: true
     }) as PaginationResponse;
 

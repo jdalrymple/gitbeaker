@@ -32,7 +32,7 @@
   "browser": "dist/index.browser.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c && tsc",
+    "build": "tsc && rollup -c",
     "commit": "npx git-cz",
     "coverage": "codecov",
     "lint": "tslint -p . -t stylish",
