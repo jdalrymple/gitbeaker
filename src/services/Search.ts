@@ -1,11 +1,15 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-interface SearchOptions {
-  projectId: ProjectId;
-  groupId: string | number;
-}
 class Search extends BaseService {
-  all(scope: string, search: string, { projectId, groupId }: SearchOptions) {
+  all(
+    scope: string,
+    search: string,
+    {
+      projectId,
+      groupId,
+      ...options
+    }: { projectId?: ProjectId; groupId?: GroupId } & BaseRequestOptions,
+  ) {
     let url = '';
 
     if (projectId) {
@@ -14,7 +18,7 @@ class Search extends BaseService {
       url += `groups/${encodeURIComponent(groupId)}/`;
     }
 
-    return RequestHelper.get(this, `${url}search`, { scope, search });
+    return RequestHelper.get(this, `${url}search`, { scope, search, ...options });
   }
 }
 

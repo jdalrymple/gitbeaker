@@ -1,10 +1,10 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Keys extends BaseService {
-  show(keyId: KeyId) {
+  show(keyId: KeyId, options?: Sudo) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `keys/${kId}`);
+    return RequestHelper.get(this, `keys/${kId}`, options);
   }
 }
 

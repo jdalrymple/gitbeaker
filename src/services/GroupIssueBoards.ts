@@ -1,8 +1,7 @@
 import { ResourceIssueBoards } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class GroupIssueBoards extends ResourceIssueBoards {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('groups', options);
   }
 }

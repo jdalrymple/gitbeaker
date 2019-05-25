@@ -1,8 +1,7 @@
 import { ResourceTemplates } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class GitLabCIYMLTemplates extends ResourceTemplates {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('gitlab_ci_ymls', options);
   }
 }
