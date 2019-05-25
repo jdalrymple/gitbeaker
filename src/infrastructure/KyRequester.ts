@@ -31,7 +31,7 @@ function defaultRequest(
     {
       timeout: 30000,
       headers,
-      searchParams: stringify(decamelizeKeys(query || {}), { arrayFormat: 'bracket' }),
+      searchParams: stringify(decamelizeKeys(query), { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
       json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : body,
       rejectUnauthorized: service.rejectUnauthorized,

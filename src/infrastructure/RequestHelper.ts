@@ -9,7 +9,7 @@ export async function get(
 ): Promise<GetResponse> {
   const { showPagination, maxPages, sudo, ...query } = options;
   const response = await service.requester.get(service, endpoint, {
-    query,
+    query: query || {},
     sudo,
   });
   const { headers } = response;
