@@ -183,6 +183,7 @@ import { Projects } from 'gitlab';
 const service = new Projects({
   host: 'http://example.com', // Defaults to https://gitlab.com
   token: 'abcdefghij123456', // Can be created in your profile.
+  camelize = false,         //Response Key Camelize. Camelizes all response body keys. Optional, Default: false
 });
 ```
 

@@ -6,7 +6,7 @@ interface BaseModelOptions {
   public readonly url: string;
   token?: string;
   oauthToken?: string;
-  useXMLHttpRequest?: boolean;
+  public readonly camelize: boolean;
   version?: string;
   sudo?: string | number;
   rejectUnauthorized?: boolean;
@@ -29,6 +29,7 @@ class BaseModel {
     host = 'https://gitlab.com',
     url = '',
     version = 'v4',
+    camelize = false,
     rejectUnauthorized = true,
   }: BaseModelContructorOptions) {
   }: BaseServiceOptions) {
@@ -38,6 +39,7 @@ class BaseModel {
       ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
     this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
+    this.camelize = camelize;
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;

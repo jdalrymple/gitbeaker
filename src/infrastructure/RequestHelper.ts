@@ -1,5 +1,5 @@
 import Humps from 'humps';
-import LinkParser from 'parse-link-header';
+import { camelizeKeys } from 'humps';
 import QS from 'qs';
 import URLJoin from 'url-join';
 import StreamableRequest from 'request';
@@ -46,8 +46,8 @@ function defaultRequest(
 
   if (body) params.body = Humps.decamelizeKeys(body);
 
-  if (qs) {
-    if (useXMLHttpRequest) {
+  // Camelize response body if specified
+  if (service.camelize) body = camelizeKeys(body);
       // The xhr package doesn't have a way of passing in a qs object until v3
       params.url = URLJoin(params.url, `?${QS.stringify(Humps.decamelizeKeys(qs), { arrayFormat: 'brackets' })}`);
     } else {
