@@ -1,8 +1,7 @@
 import { ResourceDiscussions } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class EpicDiscussions extends ResourceDiscussions {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('groups', 'epics', options);
   }
 }

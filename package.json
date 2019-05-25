@@ -1,83 +1,94 @@
 {
   "name": "gitlab",
-  "version": "4.5.1",
+  "version": "5.0.0-rc.17",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "main": "dist/latest/index.js",
-  "engines": {
-    "node": ">=8.9.0"
-  },
-  "scripts": {
-    "prepush": "npm run lint",
-    "commit": "npx git-cz",
-    "build:clean": "rimraf -rf dist && mkdirp dist",
-    "build:es6": "tsc -p tsconfig.dist.json",
-    "build:es5": "tsc -p tsconfig-es5.dist.json",
-    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
-    "lint": "tslint 'src/**/*.{ts,tsx}' --format stylish --project tsconfig.json",
-    "test:bundles": "jest test/tests/bundles",
-    "test:infrastructure": "jest test/tests/infrastructure",
-    "test:services": "jest test/tests/services",
-    "test": "jest --debug --runInBand && codecov",
-    "test-with-token": "PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${PERSONAL_ACCESS_TOKEN}\"') GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf \"%q\" \"${GITLAB_URL}\"') npm run test",
-    "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release"
+  "keywords": [
+    "api",
+    "browser",
+    "es5",
+    "es6",
+    "gitlab",
+    "ky"
+  ],
+  "homepage": "https://github.com/jdalrymple/node-gitlab#readme",
+  "bugs": {
+    "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/node-gitlab"
   },
-  "keywords": [
-    "gitlab",
-    "api",
-    "es6",
-    "es5",
-    "request"
-  ],
-  "bugs": {
-    "url": "https://github.com/jdalrymple/node-gitlab/issues"
-  },
-  "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "license": "MIT",
-  "readmeFilename": "README.md",
+  "author": {
+    "name": "Justin Dalrymple",
+    "email": "justin.s.dalrymple@gmail.com"
+  },
+  "files": [
+    "dist",
+    "typings"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "browser": "dist/index.browser.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "commit": "npx git-cz",
+    "coverage": "codecov",
+    "lint": "tslint -p . -t stylish",
+    "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md'",
+    "lint:fix": "npm run lint -- --fix",
+    "prepublishOnly": "npm run build",
+    "release": "semantic-release",
+    "test:integration": "jest test/integration -c=jest.config.json",
+    "test:unit": "jest test/unit --debug -c=jest.config.json"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "dependencies": {
+    "form-data": "^2.3.3",
+    "humps": "^2.0.1",
+    "ky": "^0.11.0",
+    "ky-universal": "^0.2.1",
+    "li": "^1.3.0",
+    "lint-staged": "^8.1.7",
+    "query-string": "^6.5.0",
+    "randomstring": "^1.1.5",
+    "universal-url": "^2.0.0"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.8",
-    "@semantic-release/npm": "^5.1.4",
+    "@semantic-release/npm": "^5.1.7",
+    "@types/form-data": "^2.2.1",
     "@types/humps": "^1.1.2",
-    "@types/jest": "^24.0.11",
-    "@types/parse-link-header": "^1.0.0",
-    "@types/qs": "^6.5.2",
-    "@types/request-promise": "^4.1.42",
-    "@types/url-join": "^4.0.0",
-    "@types/util.promisify": "^1.0.0",
-    "codecov": "^3.2.0",
+    "@types/jest": "^24.0.13",
+    "codecov": "^3.5.0",
     "cz-conventional-changelog": "^2.1.0",
-    "husky": "^2.0.0",
-    "jest": "^24.5.0",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
     "jest-extended": "^0.11.1",
     "jest-tap-reporter": "^1.9.0",
-    "semantic-release": "^15.13.3",
-    "ts-jest": "^24.0.0",
-    "tslint": "^5.14.0",
+    "prettier": "^1.17.1",
+    "rollup": "^1.12.3",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-terser": "^5.0.0",
+    "rollup-plugin-typescript2": "^0.21.1",
+    "semantic-release": "^15.13.13",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.3.4000"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
   },
-  "dependencies": {
-    "humps": "^2.0.1",
-    "parse-link-header": "^1.0.1",
-    "qs": "^6.6.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "request-promise-core": "^1.1.2",
-    "url-join": "^4.0.0",
-    "xhr": "^2.5.0"
+  "engines": {
+    "node": ">=8.9.0"
   }
 }

@@ -1,8 +1,7 @@
 import { ResourceDiscussions } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class MergeRequestDiscussions extends ResourceDiscussions {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', 'merge_requests', options);
   }
 }

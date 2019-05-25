@@ -1,8 +1,7 @@
 import { ResourceBadges } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class ProjectBadges extends ResourceBadges {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', options);
   }
 }

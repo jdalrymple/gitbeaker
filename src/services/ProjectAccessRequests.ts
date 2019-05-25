@@ -1,8 +1,7 @@
 import { ResourceAccessRequests } from '../templates';
-import { BaseModelContructorOptions } from '../infrastructure/BaseService';
 
 class ProjectAccessRequests extends ResourceAccessRequests {
-  constructor(options: BaseModelContructorOptions) {
+  constructor(options: BaseServiceOptions) {
     super('projects', options);
   }
 }

@@ -1,8 +1,8 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
 class Version extends BaseService {
-  show() {
-    return RequestHelper.get(this, 'version');
+  show(options?: Sudo) {
+    return RequestHelper.get(this, 'version', options);
   }
 }
 

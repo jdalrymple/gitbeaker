@@ -1,45 +1,29 @@
-import URLJoin from 'url-join';
-import Request from 'request-promise';
-import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
+import { KyRequester } from './KyRequester';
 
-interface BaseModelOptions {
-  url?: string;
-  token?: string;
-  jobToken?: string;
-  oauthToken?: string;
-  useXMLHttpRequest?: boolean;
-  version?: string;
-  sudo?: string | number;
-  rejectUnauthorized?: boolean;
-}
-
-export type BaseModelContructorOptions =
-  | BaseModelOptions & Required<Pick<BaseModelOptions, 'token'>>
-  | BaseModelOptions & Required<Pick<BaseModelOptions, 'jobToken'>>
-  | BaseModelOptions & Required<Pick<BaseModelOptions, 'oauthToken'>>;
-class BaseModel {
-  public url: string;
-  public readonly headers: { [header: string]: string | number};
+export class BaseService {
+  public readonly url: string;
+  public readonly requester: Requester;
+  public readonly headers: { [header: string]: string };
+  public readonly camelize: boolean;
   public readonly rejectUnauthorized: boolean;
-  public readonly requester: XhrStaticPromisified;
-  public readonly useXMLHttpRequest: boolean;
 
   constructor({
     token,
     jobToken,
     oauthToken,
     sudo,
-    url = 'https://gitlab.com',
-    useXMLHttpRequest = false,
+    host = 'https://gitlab.com',
+    url = '',
     version = 'v4',
+    camelize = false,
     rejectUnauthorized = true,
-  }: BaseModelContructorOptions) {
-    this.url = URLJoin(url, 'api', version);
+    requester = KyRequester,
+  }: BaseServiceOptions) {
+    this.url = [host, 'api', version, url].join('/');
     this.headers = {};
-    this.requester = useXMLHttpRequest
-      ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
-    this.useXMLHttpRequest = useXMLHttpRequest;
     this.rejectUnauthorized = rejectUnauthorized;
+    this.camelize = camelize;
+    this.requester = requester;
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
@@ -47,8 +31,6 @@ class BaseModel {
     else if (token) this.headers['private-token'] = token;
 
     // Set sudo
-    if (sudo) this.headers['Sudo'] = sudo;
+    if (sudo) this.headers['Sudo'] = `${sudo}`;
   }
 }
-
-export default BaseModel;
