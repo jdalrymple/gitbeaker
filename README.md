@@ -403,6 +403,7 @@ pagination: {
   totalPages: 3,
 }
 ```
+
 > Not supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
 
 ### Sudo
