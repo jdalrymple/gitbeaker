@@ -1,8 +1,8 @@
----
-extends: tslint-config-airbnb
+extends:
+  - tslint-config-airbnb
+  - tslint-config-prettier
 rules:
+  variable-name: [true, 'ban-keywords', 'check-format', 'allow-pascal-case']
   object-shorthand-properties-first: false
-  variable-name: [true, "ban-keywords", "check-format", "allow-pascal-case"]
+  max-line-length: [true, { 'limit': 100, 'ignore-pattern': '`[^`]+`' }]
   import-name: false
-  max-line-length: [true, { "limit": 100, "ignore-pattern": "`[^`]+`"}]
-  function-name: false
