@@ -46,7 +46,7 @@ class BaseModel {
     else if (token) this.headers['private-token'] = token;
 
     // Set sudo
-    if (sudo) this.headers['Sudo'] = sudo;
+    if (sudo) this.headers['Sudo'] = `${sudo}`;
   }
 }
 

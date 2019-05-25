@@ -41,7 +41,7 @@ function defaultRequest(
   const params: RequestParametersOutput = {
     url: URLJoin(url, endpoint),
     headers,
-    json: true,
+    sudo,
   };
 
   if (body) params.body = Humps.decamelizeKeys(body);
