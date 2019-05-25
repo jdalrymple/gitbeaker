@@ -54,12 +54,12 @@
     "ky": "^0.11.0",
     "ky-universal": "^0.2.1",
     "li": "^1.3.0",
-    "lint-staged": "^8.1.7",
     "query-string": "^6.5.0",
     "randomstring": "^1.1.5",
     "universal-url": "^2.0.0"
   },
   "devDependencies": {
+    "lint-staged": "^8.1.7",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.8",
     "@semantic-release/npm": "^5.1.7",
