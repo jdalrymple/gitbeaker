@@ -3,7 +3,7 @@ import Request from 'request-promise';
 import XMLHttpRequester, { XhrStaticPromisified } from './XMLHttpRequester';
 
 interface BaseModelOptions {
-  url?: string;
+  public readonly url: string;
   token?: string;
   oauthToken?: string;
   useXMLHttpRequest?: boolean;
@@ -26,12 +26,13 @@ class BaseModel {
     token,
     oauthToken,
     sudo,
-    url = 'https://gitlab.com',
-    useXMLHttpRequest = false,
+    host = 'https://gitlab.com',
+    url = '',
     version = 'v4',
     rejectUnauthorized = true,
   }: BaseModelContructorOptions) {
-    this.url = URLJoin(url, 'api', version);
+  }: BaseServiceOptions) {
+    this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.requester = useXMLHttpRequest
       ? XMLHttpRequester : (Request as temporaryAny as XhrStaticPromisified);
