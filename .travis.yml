@@ -12,7 +12,7 @@ notifications:
 
 cache:
   directories:
-    - '${HOME}/coverage/'
+    - coverage
 
 jobs:
   include:
