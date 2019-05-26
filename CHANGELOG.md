@@ -1,49 +1,45 @@
 # [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.5.1...5.0.0) (2019-05-25)
 
-
 ### Bug Fixes
 
-* [#227](https://github.com/jdalrymple/node-gitlab/issues/227) Fixing array syntax thanks to Lukas Eipert (https://github.com/leipert) ([aa6acb1](https://github.com/jdalrymple/node-gitlab/commit/aa6acb1))
-* Fixing Todos support. If todoId was not passed, an undefined value would be introduced into the url ([cea5a2b](https://github.com/jdalrymple/node-gitlab/commit/cea5a2b))
-* Fixing typing structure and configuration ([a79dabe](https://github.com/jdalrymple/node-gitlab/commit/a79dabe))
-* Merge Request Approvals API did not match official API ([e4ba731](https://github.com/jdalrymple/node-gitlab/commit/e4ba731))
-* Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality ([ee4730f](https://github.com/jdalrymple/node-gitlab/commit/ee4730f))
-* ResourceAwardEmojis API wasn't properly filtering based on awardId ([a7b29c1](https://github.com/jdalrymple/node-gitlab/commit/a7b29c1))
-
+- [#227](https://github.com/jdalrymple/node-gitlab/issues/227) Fixing array syntax thanks to Lukas Eipert (https://github.com/leipert) ([aa6acb1](https://github.com/jdalrymple/node-gitlab/commit/aa6acb1))
+- Fixing Todos support. If todoId was not passed, an undefined value would be introduced into the url ([cea5a2b](https://github.com/jdalrymple/node-gitlab/commit/cea5a2b))
+- Fixing typing structure and configuration ([a79dabe](https://github.com/jdalrymple/node-gitlab/commit/a79dabe))
+- Merge Request Approvals API did not match official API ([e4ba731](https://github.com/jdalrymple/node-gitlab/commit/e4ba731))
+- Removed xhr library in favour of ky, and switched request for got for a smaller package size and retry functionality ([ee4730f](https://github.com/jdalrymple/node-gitlab/commit/ee4730f))
+- ResourceAwardEmojis API wasn't properly filtering based on awardId ([a7b29c1](https://github.com/jdalrymple/node-gitlab/commit/a7b29c1))
 
 ### Code Refactoring
 
-* Expose optional parameters for the NotiicationSettings API ([1ba9126](https://github.com/jdalrymple/node-gitlab/commit/1ba9126))
-* Removed Fs dependency for better browser support ([037f4ed](https://github.com/jdalrymple/node-gitlab/commit/037f4ed))
-* Removed inconsistent export strategies ([03e85ef](https://github.com/jdalrymple/node-gitlab/commit/03e85ef))
-* Removed the confusing url parameter from BaseService ([26e2e52](https://github.com/jdalrymple/node-gitlab/commit/26e2e52))
-* Requiring content for the Note related APIs ([7453779](https://github.com/jdalrymple/node-gitlab/commit/7453779))
-* Similar to the RepositoryFiles API changes ([97dd060](https://github.com/jdalrymple/node-gitlab/commit/97dd060))
-* SystemHooks API function header updates ([6ea90d3](https://github.com/jdalrymple/node-gitlab/commit/6ea90d3))
-* Triggers API required arguments exposed as optional ([62e032b](https://github.com/jdalrymple/node-gitlab/commit/62e032b))
-* Updating the MergeRequest API's pipeline function header ([46a541b](https://github.com/jdalrymple/node-gitlab/commit/46a541b))
-
+- Expose optional parameters for the NotiicationSettings API ([1ba9126](https://github.com/jdalrymple/node-gitlab/commit/1ba9126))
+- Removed Fs dependency for better browser support ([037f4ed](https://github.com/jdalrymple/node-gitlab/commit/037f4ed))
+- Removed inconsistent export strategies ([03e85ef](https://github.com/jdalrymple/node-gitlab/commit/03e85ef))
+- Removed the confusing url parameter from BaseService ([26e2e52](https://github.com/jdalrymple/node-gitlab/commit/26e2e52))
+- Requiring content for the Note related APIs ([7453779](https://github.com/jdalrymple/node-gitlab/commit/7453779))
+- Similar to the RepositoryFiles API changes ([97dd060](https://github.com/jdalrymple/node-gitlab/commit/97dd060))
+- SystemHooks API function header updates ([6ea90d3](https://github.com/jdalrymple/node-gitlab/commit/6ea90d3))
+- Triggers API required arguments exposed as optional ([62e032b](https://github.com/jdalrymple/node-gitlab/commit/62e032b))
+- Updating the MergeRequest API's pipeline function header ([46a541b](https://github.com/jdalrymple/node-gitlab/commit/46a541b))
 
 ### Features
 
-* Added LDAP support to the Groups API ([3f6d409](https://github.com/jdalrymple/node-gitlab/commit/3f6d409))
-* Added the ability to add sudo to specific requests ([18effa2](https://github.com/jdalrymple/node-gitlab/commit/18effa2))
-* Added the missing edit function to the Groups API ([ee6d490](https://github.com/jdalrymple/node-gitlab/commit/ee6d490))
-* Adding the option to conditionally camelize response body ([5f97193](https://github.com/jdalrymple/node-gitlab/commit/5f97193))
-
+- Added LDAP support to the Groups API ([3f6d409](https://github.com/jdalrymple/node-gitlab/commit/3f6d409))
+- Added the ability to add sudo to specific requests ([18effa2](https://github.com/jdalrymple/node-gitlab/commit/18effa2))
+- Added the missing edit function to the Groups API ([ee6d490](https://github.com/jdalrymple/node-gitlab/commit/ee6d490))
+- Adding the option to conditionally camelize response body ([5f97193](https://github.com/jdalrymple/node-gitlab/commit/5f97193))
 
 ### BREAKING CHANGES
 
-* Triggers API pipeline function requires the ref and token
-* Notes now require a body argument
-* NotificationSettings API edit function now takes one parameter, `options`
-* MergeRequest Pipelines require the mergeRequestId
-* Updated Approvals API support to match https://docs.gitlab.com/ee/api/merge_request_approvals.html
-* Removed dependency on FS. Now the Projects API takes in two arguments `projectId` and `content` as well as an option fileName argument
-* Removed projectId from System Hooks API since it wasn't required
-* Added content as a required parameter for RepositoryFiles
-* Changing everything to named exports for simplicity
-* Switching required initialization argument from 'url' to 'host'
+- Triggers API pipeline function requires the ref and token
+- Notes now require a body argument
+- NotificationSettings API edit function now takes one parameter, `options`
+- MergeRequest Pipelines require the mergeRequestId
+- Updated Approvals API support to match https://docs.gitlab.com/ee/api/merge_request_approvals.html
+- Removed dependency on FS. Now the Projects API takes in two arguments `projectId` and `content` as well as an option fileName argument
+- Removed projectId from System Hooks API since it wasn't required
+- Added content as a required parameter for RepositoryFiles
+- Changing everything to named exports for simplicity
+- Switching required initialization argument from 'url' to 'host'
 
 ## [4.5.1](https://github.com/jdalrymple/node-gitlab/compare/4.5.0...4.5.1) (2019-03-22)
 
