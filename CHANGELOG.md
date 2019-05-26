@@ -1,10 +1,9 @@
 ## [5.0.1](https://github.com/jdalrymple/node-gitlab/compare/5.0.0...5.0.1) (2019-05-26)
 
-
 ### Bug Fixes
 
-* **package:** Making lint-staged a dev dependency ([5c949b2](https://github.com/jdalrymple/node-gitlab/commit/5c949b2))
-* **package:** Missing dependency ([40f5d21](https://github.com/jdalrymple/node-gitlab/commit/40f5d21))
+- **package:** Making lint-staged a dev dependency ([5c949b2](https://github.com/jdalrymple/node-gitlab/commit/5c949b2))
+- **package:** Missing dependency ([40f5d21](https://github.com/jdalrymple/node-gitlab/commit/40f5d21))
 
 # [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.5.1...5.0.0) (2019-05-25)
 
