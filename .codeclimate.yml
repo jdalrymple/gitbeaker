@@ -9,7 +9,8 @@ engines:
     config:
       languages:
         typescript:
-          mass_threshold: 65
+          mass_threshold: 70
+          count_threshold: 3
 
 ratings:
   paths:
