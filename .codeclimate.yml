@@ -1,7 +1,7 @@
 engines:
   tslint:
     enabled: true
-    config: tslint.yml
+    config: tslint.json
   shellcheck:
     enabled: true
   duplication:
