@@ -5,6 +5,7 @@
     "target": "es5",
     "module": "es6",
     "outDir": "dist",
+    "noEmit": true,
     "pretty": true,
     "declaration": true,
     "lib": ["ES2015", "ES2016", "ES2017", "DOM"],
