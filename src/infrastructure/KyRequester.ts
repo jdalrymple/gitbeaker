@@ -3,7 +3,7 @@ import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
 
-const methods = ['get', 'post', 'put', 'delete'];
+const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {} as Requester;
 
 function responseHeadersAsObject(response) {
@@ -17,38 +17,54 @@ function responseHeadersAsObject(response) {
   return headers;
 }
 
-function defaultRequest(service: any, endpoint: string, { body, query, sudo }) {
+function defaultRequest(service: any, { body, query, sudo, method }) {
   const headers = new Headers(service.headers);
 
   if (sudo) headers.append('sudo', `${sudo}`);
 
-  return [
-    endpoint,
-    {
-      timeout: 30000,
+  return {
+      timeout: 300000,
       headers,
+      method: (method === 'stream') ? 'get' : method,
+      onProgress: (method === 'stream') ? () => {} : undefined,
       searchParams: stringify(decamelizeKeys(query || {}), { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
       json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : body,
       rejectUnauthorized: service.rejectUnauthorized,
-    },
-  ];
+    }
+}
+
+async function processBody(response) {
+  const contentType = response.headers.get('content-type');
+  const content = await response.text();
+
+  if(contentType.includes('json')) {
+    try {
+      return JSON.parse(content || {});
+    } catch {
+      return {};
+    }
+  }
+
+  return content;
 }
 
 methods.forEach(m => {
   KyRequester[m] = async function(service, endpoint, options) {
+    const requestOptions = defaultRequest(service, { ...options, method: m });
+
     try {
-      const response = await Ky[m](...defaultRequest(service, endpoint, options));
+      const response = await Ky(endpoint, requestOptions);
       const { status } = response;
       const headers = responseHeadersAsObject(response);
-      let body = await response.json();
-
-      if (typeof body === 'object') body = body || {};
+      const body = await processBody(response);
 
       return { body, headers, status };
     } catch (e) {
-      console.error(e);
-      console.error(...defaultRequest(service, endpoint, options));
+      const output = await e.response.json();
+        
+      e.description = output.error || output.message;
+
       throw e;
     }
   };
