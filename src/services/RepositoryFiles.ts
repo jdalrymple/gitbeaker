@@ -37,7 +37,13 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  remove(projectId: ProjectId, filePath: string, branch: string, commitMessage: string, options?: BaseRequestOptions) {
+  remove(
+    projectId: ProjectId,
+    filePath: string,
+    branch: string,
+    commitMessage: string,
+    options?: BaseRequestOptions,
+  ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/repository/files/${path}`, {
