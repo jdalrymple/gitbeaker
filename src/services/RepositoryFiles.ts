@@ -6,6 +6,7 @@ class RepositoryFiles extends BaseService {
     filePath: string,
     branch: string,
     content: string,
+    commitMessage: string,
     options?: BaseRequestOptions,
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
@@ -13,6 +14,7 @@ class RepositoryFiles extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       content,
+      commitMessage,
       ...options,
     });
   }
@@ -22,6 +24,7 @@ class RepositoryFiles extends BaseService {
     filePath: string,
     branch: string,
     content: string,
+    commitMessage: string,
     options?: BaseRequestOptions,
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
@@ -29,15 +32,23 @@ class RepositoryFiles extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       content,
+      commitMessage,
       ...options,
     });
   }
 
-  remove(projectId: ProjectId, filePath: string, branch: string, options?: BaseRequestOptions) {
+  remove(
+    projectId: ProjectId,
+    filePath: string,
+    branch: string,
+    commitMessage: string,
+    options?: BaseRequestOptions,
+  ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/repository/files/${path}`, {
       branch,
+      commitMessage,
       ...options,
     });
   }
