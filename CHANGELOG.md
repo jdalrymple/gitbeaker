@@ -1,14 +1,12 @@
 # [6.0.0](https://github.com/jdalrymple/node-gitlab/compare/5.0.2...6.0.0) (2019-06-02)
 
-
 ### Code Refactoring
 
-* **RepositoryFiles:** Missing a required argument from the function headers ([e13c593](https://github.com/jdalrymple/node-gitlab/commit/e13c593))
-
+- **RepositoryFiles:** Missing a required argument from the function headers ([e13c593](https://github.com/jdalrymple/node-gitlab/commit/e13c593))
 
 ### BREAKING CHANGES
 
-* **RepositoryFiles:** create, edit and remove functions now require the commitMessage function argument
+- **RepositoryFiles:** create, edit and remove functions now require the commitMessage function argument
 
 ## [5.0.2](https://github.com/jdalrymple/node-gitlab/compare/5.0.1...5.0.2) (2019-05-31)
 
