@@ -58,6 +58,7 @@ export { default as ProtectedBranches } from './ProtectedBranches';
 export { default as ProtectedTags } from './ProtectedTags';
 export { default as ProjectVariables } from './ProjectVariables';
 export { default as Releases } from './Releases';
+export { default as ReleaseLinks } from './ReleaseLinks';
 export { default as Repositories } from './Repositories';
 export { default as RepositoryFiles } from './RepositoryFiles';
 export { default as Runners } from './Runners';
