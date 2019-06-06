@@ -31,7 +31,7 @@ class Pipelines extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
   }
 
-  showJobs(projectId: ProjectId, pipelineId: PipelineId, options: { scope: JobScope } & Sudo) {
+  showJobs(projectId: ProjectId, pipelineId: PipelineId, options?: { scope: JobScope } & Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
