@@ -40,7 +40,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
-    "test:integration": "jest test/integration -c=jest.config.json",
+    "test:integration": "jest test/integration -c=jest.config.json --detectOpenHandles",
     "test:unit": "jest test/unit --debug -c=jest.config.json"
   },
   "config": {

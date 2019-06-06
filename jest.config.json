@@ -9,8 +9,6 @@
   "coverageDirectory": "./coverage/",
   "collectCoverage": true,
 
-  "detectOpenHandles": true,
-
   "setupFilesAfterEnv": ["jest-extended"],
 
   "globals": {
