@@ -1,3 +1,16 @@
+# [6.1.0](https://github.com/jdalrymple/node-gitlab/compare/6.0.0...6.1.0) (2019-06-06)
+
+
+### Bug Fixes
+
+* Make the options argument optional [#336](https://github.com/jdalrymple/node-gitlab/issues/336) ([cf3c17e](https://github.com/jdalrymple/node-gitlab/commit/cf3c17e))
+
+
+### Features
+
+* Adding support for ReleaseLinks API ([d6a2248](https://github.com/jdalrymple/node-gitlab/commit/d6a2248))
+* Adding support for Releases API [#295](https://github.com/jdalrymple/node-gitlab/issues/295) ([7191e81](https://github.com/jdalrymple/node-gitlab/commit/7191e81))
+
 # [6.0.0](https://github.com/jdalrymple/node-gitlab/compare/5.0.2...6.0.0) (2019-06-02)
 
 ### Code Refactoring
