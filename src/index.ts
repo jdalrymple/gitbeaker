@@ -42,6 +42,7 @@ export const ProjectsBundle = bundler({
   Branches: APIServices.Branches,
   Commits: APIServices.Commits,
   CommitDiscussions: APIServices.CommitDiscussions,
+  ContainerRegistry: APIServices.ContainerRegistry,
   DeployKeys: APIServices.DeployKeys,
   Deployments: APIServices.Deployments,
   Environments: APIServices.Environments,
