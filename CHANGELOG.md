@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/jdalrymple/node-gitlab/compare/6.1.0...6.2.0) (2019-06-07)
+
+
+### Features
+
+* Adding support for Container Registry API [#274](https://github.com/jdalrymple/node-gitlab/issues/274) ([59f9286](https://github.com/jdalrymple/node-gitlab/commit/59f9286))
+
 # [6.1.0](https://github.com/jdalrymple/node-gitlab/compare/6.0.0...6.1.0) (2019-06-06)
 
 ### Bug Fixes
