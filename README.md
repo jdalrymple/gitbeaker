@@ -90,17 +90,20 @@ EpicDiscussions
 // Projects
 Branches
 Commits
-Deployments
+CommitDiscussions
+ContainerRegistry
 DeployKeys
+Deployments
 Environments
 Issues
+IssueAwardEmojis
 IssueNotes
 IssueDiscussions
-IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
 MergeRequestAwardEmojis
+MergeRequestDiscussions
 MergeRequestNotes
 Pipelines
 PipelineSchedules
@@ -121,12 +124,13 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+Releases
+ReleaseLinks
 Repositories
 RepositoryFiles
 Runners
 Services
 Tags
-Todos
 Triggers
 
 // Users
