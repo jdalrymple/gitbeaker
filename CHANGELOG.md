@@ -1,3 +1,10 @@
+# [6.3.0](https://github.com/jdalrymple/node-gitlab/compare/6.2.0...6.3.0) (2019-06-08)
+
+
+### Features
+
+* Add configurable request timeout ([#341](https://github.com/jdalrymple/node-gitlab/issues/341)) ([4d99902](https://github.com/jdalrymple/node-gitlab/commit/4d99902))
+
 # [6.2.0](https://github.com/jdalrymple/node-gitlab/compare/6.1.0...6.2.0) (2019-06-07)
 
 
