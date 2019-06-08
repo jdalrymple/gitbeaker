@@ -34,6 +34,7 @@ interface BaseServiceOptions extends Sudo {
   rejectUnauthorized?: boolean;
   camelize?: boolean;
   requester?: Requester;
+  requestTimeout?: number;
 }
 
 // RequestHelper

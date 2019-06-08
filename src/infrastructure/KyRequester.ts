@@ -23,7 +23,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
   if (sudo) headers.append('sudo', `${sudo}`);
 
   return {
-      timeout: 300000,
+      timeout: service.requestTimeout,
       headers,
       method: (method === 'stream') ? 'get' : method,
       onProgress: (method === 'stream') ? () => {} : undefined,

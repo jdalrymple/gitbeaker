@@ -3,6 +3,7 @@ import { KyRequester } from './KyRequester';
 export class BaseService {
   public readonly url: string;
   public readonly requester: Requester;
+  public readonly requestTimeout: number;
   public readonly headers: { [header: string]: string };
   public readonly camelize: boolean;
   public readonly rejectUnauthorized: boolean;
@@ -18,12 +19,14 @@ export class BaseService {
     camelize = false,
     rejectUnauthorized = true,
     requester = KyRequester,
+    requestTimeout = 300000
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
     this.requester = requester;
+    this.requestTimeout = requestTimeout;
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
