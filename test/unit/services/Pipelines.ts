@@ -22,6 +22,7 @@ let service: Pipelines;
 beforeEach(() => {
   service = new Pipelines({
     token: 'abcdefg',
+    requestTimeout: 3000,
   });
 });
 
@@ -31,6 +32,7 @@ describe('Instantiating Pipelines service', () => {
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();
     expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
+    expect(service.requestTimeout).toBe(3000);
   });
 });
 

@@ -171,6 +171,7 @@ const api = new Gitlab({
   version = 'v4',           //API Version ID. Optional, Default: v4
   camelize = false,         //Response Key Camelize. Camelizes all response body keys. Optional, Default: false
   requester = KyRequester,  //Request Library Wrapper. Optional, Default: Currently wraps Ky.
+  requestTimeout = 300000   //Request Library Timeout. Optional, Default: 300,000 milliseconds.
 });
 ```
 
