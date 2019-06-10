@@ -1,3 +1,10 @@
+## [6.3.3](https://github.com/jdalrymple/node-gitlab/compare/6.3.2...6.3.3) (2019-06-10)
+
+
+### Bug Fixes
+
+* Handle edge cases where content-type headers are missing or the content text is null ([dabcb3d](https://github.com/jdalrymple/node-gitlab/commit/dabcb3d)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
+
 ## [6.3.2](https://github.com/jdalrymple/node-gitlab/compare/6.3.1...6.3.2) (2019-06-10)
 
 
