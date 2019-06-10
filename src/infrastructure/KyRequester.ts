@@ -52,21 +52,25 @@ async function processBody(response) {
 methods.forEach(m => {
   KyRequester[m] = async function(service, endpoint, options) {
     const requestOptions = defaultRequest(service, { ...options, method: m });
+    let response;
 
     try {
-      const response = await Ky(endpoint, requestOptions);
-      const { status } = response;
-      const headers = responseHeadersAsObject(response);
-      const body = await processBody(response);
-
-      return { body, headers, status };
+      response = await Ky(endpoint, requestOptions);
     } catch (e) {
-      const output = await e.response.json();
-        
-      e.description = output.error || output.message;
+      if (e.response) {
+        const output = await e.response.json();
+          
+        e.description = output.error || output.message;
+      }
 
       throw e;
     }
+
+    const { status } = response;
+    const headers = responseHeadersAsObject(response);
+    const body = await processBody(response);
+
+    return { body, headers, status };
   };
 });
 
