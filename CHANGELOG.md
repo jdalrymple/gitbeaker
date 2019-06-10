@@ -1,3 +1,10 @@
+## [6.3.2](https://github.com/jdalrymple/node-gitlab/compare/6.3.1...6.3.2) (2019-06-10)
+
+
+### Bug Fixes
+
+* Moving the error wrapper for the Ky Requester to be only around the Ky function request. Also checking to see if the error contains a response before looking for an error message. ([a54a6ae](https://github.com/jdalrymple/node-gitlab/commit/a54a6ae)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
+
 ## [6.3.1](https://github.com/jdalrymple/node-gitlab/compare/6.3.0...6.3.1) (2019-06-10)
 
 
