@@ -1,3 +1,10 @@
+## [6.3.1](https://github.com/jdalrymple/node-gitlab/compare/6.3.0...6.3.1) (2019-06-10)
+
+
+### Bug Fixes
+
+* Resource Discussion API was using the incorrect url to add a note ([#345](https://github.com/jdalrymple/node-gitlab/issues/345)) ([c6ff86d](https://github.com/jdalrymple/node-gitlab/commit/c6ff86d)), closes [#342](https://github.com/jdalrymple/node-gitlab/issues/342)
+
 # [6.3.0](https://github.com/jdalrymple/node-gitlab/compare/6.2.0...6.3.0) (2019-06-08)
 
 
