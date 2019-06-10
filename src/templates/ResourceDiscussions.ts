@@ -27,10 +27,10 @@ class ResourceDiscussions extends BaseService {
       encodeURIComponent,
     );
 
-    return RequestHelper.put(
+    return RequestHelper.post(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
-      { body: content, ...options },
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes`,
+      { body: content, noteId: nId, ...options },
     );
   }
 
