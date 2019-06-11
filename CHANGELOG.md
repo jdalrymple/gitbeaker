@@ -1,3 +1,10 @@
+## [6.3.4](https://github.com/jdalrymple/node-gitlab/compare/6.3.3...6.3.4) (2019-06-11)
+
+
+### Bug Fixes
+
+* Wrong endpoint being passed during pagination ([a2a6126](https://github.com/jdalrymple/node-gitlab/commit/a2a6126)), closes [#344](https://github.com/jdalrymple/node-gitlab/issues/344)
+
 ## [6.3.3](https://github.com/jdalrymple/node-gitlab/compare/6.3.2...6.3.3) (2019-06-10)
 
 
