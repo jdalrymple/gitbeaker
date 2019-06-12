@@ -1,4 +1,10 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
+import { GroupProjectId, ProjectId } from '.';
 
 class GroupProjects extends BaseService {
   all(groupId: GroupProjectId, options?: PaginatedRequestOptions) {

@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo } from '../infrastructure';
+import { KeyId } from '.';
 
 class Keys extends BaseService {
   show(keyId: KeyId, options?: Sudo) {

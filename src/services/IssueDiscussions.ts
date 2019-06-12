@@ -1,4 +1,5 @@
 import { ResourceDiscussions } from '../templates';
+import { BaseServiceOptions } from '../infrastructure';
 
 class IssueDiscussions extends ResourceDiscussions {
   constructor(options: BaseServiceOptions) {

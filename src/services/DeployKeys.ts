@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo, PaginatedRequestOptions } from '../infrastructure';
+import { ProjectId, KeyId } from '.';
 
 class DeployKeys extends BaseService {
   add(projectId: ProjectId, options?: Sudo) {

@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo } from '../infrastructure';
 
 class Licence extends BaseService {
   all(options?: Sudo) {

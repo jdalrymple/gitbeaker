@@ -2,6 +2,7 @@ import Ky from 'ky-universal';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
+import { Requester } from '.';
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {} as Requester;
@@ -27,7 +28,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
       headers,
       method: (method === 'stream') ? 'get' : method,
       onProgress: (method === 'stream') ? () => {} : undefined,
-      searchParams: stringify(decamelizeKeys(query || {}), { arrayFormat: 'bracket' }),
+      searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
       json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : body,
       rejectUnauthorized: service.rejectUnauthorized,
@@ -59,7 +60,7 @@ methods.forEach(m => {
     } catch (e) {
       if (e.response) {
         const output = await e.response.json();
-          
+
         e.description = output.error || output.message;
       }
 

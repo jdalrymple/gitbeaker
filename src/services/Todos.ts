@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ProjectId, MergeRequestId, TodoId } from '.';
 
 class Todos extends BaseService {
   all(options?: PaginatedRequestOptions) {

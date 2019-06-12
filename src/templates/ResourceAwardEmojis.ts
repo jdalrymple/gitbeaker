@@ -1,4 +1,11 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseService,
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { ProjectId, ResourceId, NoteId, AwardId } from '..';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);

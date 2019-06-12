@@ -1,4 +1,11 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { HookId } from '.';
 
 class SystemHooks extends BaseService {
   add(url: string, options?: BaseRequestOptions) {

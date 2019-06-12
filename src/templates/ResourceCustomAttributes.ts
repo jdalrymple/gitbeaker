@@ -1,4 +1,11 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseService,
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { ResourceId, CustomAttributeId } from '..';
 
 class ResourceCustomAttributes extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {

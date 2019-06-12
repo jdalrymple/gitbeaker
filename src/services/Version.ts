@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo } from '../infrastructure';
 
 class Version extends BaseService {
   show(options?: Sudo) {

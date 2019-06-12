@@ -1,4 +1,12 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { ResourceId, BadgeId } from '..';
 
 class ResourceBadges extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {

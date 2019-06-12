@@ -1,4 +1,3 @@
-/// <reference types="../typings" />
 import { shim } from 'universal-url';
 
 // Add URL shim

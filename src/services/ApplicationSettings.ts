@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 class ApplicationSettings extends BaseService {
   all(options?: Sudo) {

@@ -1,4 +1,10 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
+import { ProjectId, PipelineScheduleId, KeyId } from '.';
 
 class PipelineScheduleVariables extends BaseService {
   all(

@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { NamespaceId } from '.';
 
 class Namespaces extends BaseService {
   all(options?: PaginatedRequestOptions) {

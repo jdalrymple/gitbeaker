@@ -1,4 +1,11 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { GroupId, EpicId } from '.';
 
 class Epics extends BaseService {
   all(groupId: GroupId, options?: PaginatedRequestOptions) {

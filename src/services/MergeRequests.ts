@@ -1,4 +1,20 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import {
+  AcceptMergeRequestOptions,
+  CreateMergeRequestOptions,
+  GroupId,
+  MergeRequestId,
+  ProjectId,
+  ShowMergeRequestOptions,
+  UpdateMergeRequestOptions,
+  UserId,
+} from '.';
 
 class MergeRequests extends BaseService {
   accept(
@@ -71,11 +87,12 @@ class MergeRequests extends BaseService {
     projectId: ProjectId,
     { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
-    const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
+    const pId = encodeURIComponent(projectId);
 
     let url;
 
     if (mergerequestIId) {
+      const  mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvals`;
     } else {
       url = `projects/${pId}/approvals`;
@@ -90,11 +107,12 @@ class MergeRequests extends BaseService {
     approverGroupIds: GroupId[],
     { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
-    const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
+    const pId = encodeURIComponent(projectId);
 
     let url;
 
     if (mergerequestIId) {
+      const  mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvers`;
     } else {
       url = `projects/${pId}/approvers`;
@@ -163,11 +181,12 @@ class MergeRequests extends BaseService {
     projectId: ProjectId,
     { mergerequestIId, ...options }: { mergerequestIId?: MergeRequestId } & BaseRequestOptions,
   ) {
-    const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
+    const pId = encodeURIComponent(projectId);
 
     let url;
 
     if (mergerequestIId) {
+      const  mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvals`;
     } else {
       url = `projects/${pId}/approvals`;
