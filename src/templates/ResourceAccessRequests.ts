@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, BaseServiceOptions, Sudo } from '../infrastructure';
+import { ResourceId, UserId, AccessLevel } from '..';
 
 class ResourceAccessRequests extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {

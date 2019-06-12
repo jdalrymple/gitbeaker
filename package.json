@@ -24,8 +24,7 @@
     "email": "justin.s.dalrymple@gmail.com"
   },
   "files": [
-    "dist",
-    "typings"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",

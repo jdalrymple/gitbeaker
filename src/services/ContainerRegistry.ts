@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ProjectId } from '.';
 
 class ContainerRegistry extends BaseService {
   repositories(projectId: ProjectId, options?: PaginatedRequestOptions) {

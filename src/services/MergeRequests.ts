@@ -1,4 +1,20 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import {
+  AcceptMergeRequestOptions,
+  CreateMergeRequestOptions,
+  GroupId,
+  MergeRequestId,
+  ProjectId,
+  ShowMergeRequestOptions,
+  UpdateMergeRequestOptions,
+  UserId,
+} from '.';
 
 class MergeRequests extends BaseService {
   accept(

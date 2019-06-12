@@ -1,5 +1,6 @@
 import FormData from 'form-data';
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
+import { ProjectId } from '.';
 
 class ProjectImportExport extends BaseService {
   download(projectId: ProjectId, options?: Sudo) {

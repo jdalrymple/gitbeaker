@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ProjectId, DeploymentId } from '.';
 
 class Deployments extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {

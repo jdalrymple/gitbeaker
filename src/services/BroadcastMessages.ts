@@ -1,4 +1,10 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
+import { BroadcastMessageId } from '.';
 
 class BroadcastMessages extends BaseService {
   all(options?: PaginatedRequestOptions) {

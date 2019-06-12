@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo } from '../infrastructure';
 
 class Lint extends BaseService {
   lint(content: string, options?: Sudo) {

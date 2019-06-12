@@ -1,6 +1,15 @@
 import Li from 'li';
 import { camelizeKeys } from 'humps';
 import { BaseService } from './BaseService';
+import {
+  BaseRequestOptions,
+  DelResponse,
+  GetResponse,
+  PaginatedRequestOptions,
+  PaginationResponse,
+  PostResponse,
+  PutResponse,
+} from '.';
 
 export async function get(
   service: BaseService,

@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, PaginatedRequestOptions } from '../infrastructure';
+import { EventOptions } from '.';
 
 class Events extends BaseService {
   all(options?: PaginatedRequestOptions & EventOptions) {

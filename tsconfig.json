@@ -29,5 +29,5 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["typings/*", "src/**/*"]
+  "include": ["src/**/*"]
 }

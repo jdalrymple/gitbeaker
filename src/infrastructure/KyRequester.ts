@@ -2,6 +2,7 @@ import Ky from 'ky-universal';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
+import { Requester } from '.';
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {} as Requester;

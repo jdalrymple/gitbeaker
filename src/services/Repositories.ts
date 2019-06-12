@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
+import { ProjectId } from '.';
 
 class Repositories extends BaseService {
   compare(projectId: ProjectId, from: string, to: string, options?: Sudo) {

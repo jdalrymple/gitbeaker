@@ -1,4 +1,12 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  BaseService,
+  BaseServiceOptions,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+import { ResourceId, DiscussionId, NoteId } from '..';
 
 class ResourceDiscussions extends BaseService {
   protected resource2Type: string;
