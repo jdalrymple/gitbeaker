@@ -60,7 +60,7 @@ methods.forEach(m => {
     } catch (e) {
       if (e.response) {
         const output = await e.response.json();
-          
+
         e.description = output.error || output.message;
       }
 

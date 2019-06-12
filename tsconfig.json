@@ -8,7 +8,7 @@
     "noEmit": true,
     "pretty": true,
     "declaration": true,
-    "lib": ["ES2015", "ES2016", "ES2017", "DOM"],
+    "lib": ["es2015", "es2016", "es2017", "dom"],
 
     /* Module Resolution Options */
 
