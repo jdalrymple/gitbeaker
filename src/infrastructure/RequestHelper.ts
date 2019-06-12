@@ -40,7 +40,9 @@ export async function get(
   // Rescurse through pagination results
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
-    const more = await get(service, next.replace(`${service.url}/`, ''), {
+    const leaf = service.url.split('/').pop() || ""
+    const regex = new RegExp(`.+\/api\/v\d(\/${leaf})?\/`)
+    const more = await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
       showPagination: true
