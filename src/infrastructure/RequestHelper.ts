@@ -41,7 +41,7 @@ export async function get(
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
     const leaf = service.url.split('/').pop() || ""
-    const regex = new RegExp(`.+\/api\/v\d(\/${leaf})?\/`)
+    const regex = new RegExp(`.+\/api\/v\\d(\/${leaf})?\/`)
     const more = await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
