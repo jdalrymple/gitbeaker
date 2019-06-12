@@ -1,3 +1,13 @@
+## [6.3.5](https://github.com/jdalrymple/node-gitlab/compare/6.3.4...6.3.5) (2019-06-12)
+
+
+### Bug Fixes
+
+* Fix error due to Typescript 3.5.1 ([bd4e141](https://github.com/jdalrymple/node-gitlab/commit/bd4e141))
+* Fix error due to Typescript 3.5.1 ([5474f06](https://github.com/jdalrymple/node-gitlab/commit/5474f06))
+* Make package Typescript-conformant ([da1a8f6](https://github.com/jdalrymple/node-gitlab/commit/da1a8f6))
+* Update Typescript to 3.5.1 ([8f5fec5](https://github.com/jdalrymple/node-gitlab/commit/8f5fec5))
+
 ## [6.3.4](https://github.com/jdalrymple/node-gitlab/compare/6.3.3...6.3.4) (2019-06-11)
 
 
