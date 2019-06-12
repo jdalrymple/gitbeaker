@@ -29,7 +29,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "browser": "dist/index.browser.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && rollup -c",
     "commit": "npx git-cz",
@@ -85,7 +85,7 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.1"
   },
   "engines": {
     "node": ">=8.9.0"
