@@ -1,6 +1,6 @@
 {
   "name": "gitlab",
-  "version": "6.3.5",
+  "version": "6.3.6",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
   "keywords": [
     "api",

@@ -1,3 +1,10 @@
+## [6.3.6](https://github.com/jdalrymple/node-gitlab/compare/6.3.5...6.3.6) (2019-06-12)
+
+
+### Bug Fixes
+
+* Use improved pagination regex to remove service url + leaf ([2b290b5](https://github.com/jdalrymple/node-gitlab/commit/2b290b5)), closes [#352](https://github.com/jdalrymple/node-gitlab/issues/352)
+
 ## [6.3.5](https://github.com/jdalrymple/node-gitlab/compare/6.3.4...6.3.5) (2019-06-12)
 
 
