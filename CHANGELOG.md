@@ -1,3 +1,10 @@
+## [6.3.7](https://github.com/jdalrymple/node-gitlab/compare/6.3.6...6.3.7) (2019-06-12)
+
+
+### Bug Fixes
+
+* string regex :sob: ([7e94e0b](https://github.com/jdalrymple/node-gitlab/commit/7e94e0b))
+
 ## [6.3.6](https://github.com/jdalrymple/node-gitlab/compare/6.3.5...6.3.6) (2019-06-12)
 
 
