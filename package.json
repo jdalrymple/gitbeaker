@@ -72,7 +72,7 @@
     "jest-extended": "^0.11.1",
     "jest-tap-reporter": "^1.9.0",
     "prettier": "^1.17.1",
-    "rollup": "^1.15.1",
+    "rollup": "^1.15.3",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
