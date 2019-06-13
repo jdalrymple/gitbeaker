@@ -58,7 +58,7 @@
     "universal-url": "^2.0.0"
   },
   "devDependencies": {
-    "lint-staged": "^8.1.7",
+    "lint-staged": "^8.2.1",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.12",
     "@semantic-release/npm": "^5.1.7",
