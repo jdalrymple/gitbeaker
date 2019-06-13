@@ -1,43 +1,65 @@
 # API Services
 
-It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
+## General
+- ApplicationSettings
+- BroadcastMessages
+- Events
+- FeatureFlags
+- GeoNodes
+- GitignoreTemplates
+- GitLabCIYMLTemplates
+- Keys
+- Licence
+- LicenceTemplates
+- Lint
+- Markdown
+- Namespaces
+- NotificationSettings
+- PagesDomains
+- Search
+- SidekiqMetrics
+- Snippets
+- SystemHooks
+- Version
+- Wikis
 
-```typescript
-import { ProjectsBundle } from 'gitlab';
+## Groups
+- [Groups](Groups.md)
+- GroupAccessRequests
+- GroupBadges
+- GroupCustomAttributes
+- GroupIssueBoards
+- GroupMembers
+- GroupMilestones
+- GroupProjects
+- GroupVariables
+- Epics
+- EpicIssues
+- EpicNotes
+- EpicDiscussions
 
-const services = new ProjectsBundle({
-  url:   'http://example.com', // Defaults to http://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
-});
-
-services.Projects.all();
-services.MergeRequests.all();
-// etc...
-```
-
-Currently there are three Bundles:
-
-ProjectsBundle which includes:
-- [Branches](projects/Branches.md)
-- [Commits](projects/Commits.md)
+## Projects
+- [Branches](Branches.md)
+- [Commits](Commits.md)
 - CommitDiscussions
-- Deployments
+- ContainerRegistry
 - DeployKeys
+- Deployments
 - Environments
 - Issues
+- IssueAwardEmojis
 - IssueNotes
 - IssueDiscussions
-- IssueAwardEmojis
 - Jobs
 - Labels
-- [MergeRequests](projects/MergeRequests.md)
+- [MergeRequests](MergeRequests.md)
 - MergeRequestAwardEmojis
 - MergeRequestDiscussions
 - MergeRequestNotes
 - Pipelines
 - PipelineSchedules
 - PipelineScheduleVariables
-- [Projects](projects/Projects.md)
+- [Projects](Projects.md)
 - ProjectAccessRequests
 - ProjectBadges
 - ProjectCustomAttributes
@@ -51,34 +73,20 @@ ProjectsBundle which includes:
 - ProjectSnippetDiscussions
 - ProjectSnippetAwardEmojis
 - ProtectedBranches
+- ProtectedTags
 - ProjectVariables
+- Releases
+- ReleaseLinks
 - Repositories
 - RepositoryFiles
 - Runners
 - Services
 - Tags
-- Todos
 - Triggers
 
-UsersBundle which includes:
-- Users,
-- UserCustomAttributes,
-- UserEmails,
-- UserImpersonationTokens,
-- UserKeys,
-- UserGPGKeys
-
-GroupsBundle which includes:
-- [Groups](groups/Groups.md)
-- GroupAccessRequests
-- GroupBadges
-- GroupCustomAttributes
-- GroupIssueBoards
-- GroupMembers
-- GroupMilestones
-- GroupProjects
-- GroupVariables
-- Epics
-- EpicIssues
-- EpicNotes
-- EpicDiscussions
+## Users
+- Users
+- UserEmails
+- UserImpersonationTokens
+- UserKeys
+- UserGPGKey
