@@ -96,6 +96,7 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/star`, options);
   }
 
+  // TODO: confirm removal - not found in docs v4
   statuses(projectId: ProjectId, sha: string, state: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

@@ -40,7 +40,9 @@
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
     "test:integration": "jest test/integration -c=jest.config.json --detectOpenHandles",
-    "test:unit": "jest test/unit --debug -c=jest.config.json"
+    "test:unit": "jest test/unit --debug -c=jest.config.json",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "config": {
     "commitizen": {
@@ -58,7 +60,6 @@
     "universal-url": "^2.0.0"
   },
   "devDependencies": {
-    "lint-staged": "^8.1.7",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.12",
     "@semantic-release/npm": "^5.1.7",
@@ -71,6 +72,7 @@
     "jest": "^24.8.0",
     "jest-extended": "^0.11.1",
     "jest-tap-reporter": "^1.9.0",
+    "lint-staged": "^8.1.7",
     "prettier": "^1.17.1",
     "rollup": "^1.15.1",
     "rollup-plugin-commonjs": "^10.0.0",
@@ -85,7 +87,8 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.1",
+    "vuepress": "^1.0.1"
   },
   "engines": {
     "node": ">=8.9.0"
