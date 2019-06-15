@@ -1,4 +1,5 @@
 import Ky from 'ky-universal';
+import FormData from 'form-data';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
@@ -22,6 +23,10 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
   const headers = new Headers(service.headers);
 
   if (sudo) headers.append('sudo', `${sudo}`);
+  
+  if (typeof body === 'object' && !(body instanceof FormData)){
+    body = JSON.stringify(decamelizeKeys(body, skipAllCaps));
+  }
 
   return {
       timeout: service.requestTimeout,
@@ -30,7 +35,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
       onProgress: (method === 'stream') ? () => {} : undefined,
       searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
-      json: typeof body === 'object' ? decamelizeKeys(body, skipAllCaps) : body,
+      body,
       rejectUnauthorized: service.rejectUnauthorized,
     }
 }
