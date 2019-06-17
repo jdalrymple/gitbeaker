@@ -4,6 +4,7 @@ import { decamelizeKeys } from 'humps';
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
 import { Requester } from '.';
+import { Agent } from 'https';
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {} as Requester;
@@ -36,7 +37,9 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
       searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
       body,
-      rejectUnauthorized: service.rejectUnauthorized,
+      agent: new Agent({
+        rejectUnauthorized: service.rejectUnauthorized
+      })
     }
 }
 
