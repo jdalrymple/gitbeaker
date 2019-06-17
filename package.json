@@ -79,7 +79,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.0.3",
     "rollup-plugin-terser": "^5.0.0",
-    "rollup-plugin-typescript2": "^0.21.1",
+    "rollup-plugin-typescript2": "^0.21.2",
     "semantic-release": "^15.13.13",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
