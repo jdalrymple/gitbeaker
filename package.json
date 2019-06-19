@@ -48,7 +48,7 @@
     }
   },
   "dependencies": {
-    "form-data": "^2.3.3",
+    "form-data": "^2.4.0",
     "humps": "^2.0.1",
     "ky": "^0.11.0",
     "ky-universal": "^0.2.1",
