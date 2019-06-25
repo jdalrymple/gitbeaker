@@ -80,7 +80,7 @@
     "rollup-plugin-node-resolve": "^5.0.4",
     "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-typescript2": "^0.21.1",
-    "semantic-release": "^15.13.13",
+    "semantic-release": "^15.13.17",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
