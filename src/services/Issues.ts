@@ -26,8 +26,20 @@ class Issues extends BaseService {
     });
   }
 
-  all({ projectId, ...options }: { projectId?: ProjectId } & PaginatedRequestOptions = {}) {
-    const url = projectId ? `projects/${encodeURIComponent(projectId)}/issues` : 'issues';
+  all({
+    projectId,
+    groupId,
+    ...options
+  }: ({ projectId: ProjectId } | { groupId: GroupId } | {}) & PaginatedRequestOptions) {
+    let url;
+
+    if (projectId) {
+      url = `projects/${encodeURIComponent(projectId)}/issues`;
+    } else if (groupId) {
+      url = `groups/${encodeURIComponent(groupId)}/issues`;
+    } else {
+      url = 'issues';
+    }
 
     return RequestHelper.get(this, url, options);
   }
