@@ -61,7 +61,7 @@
     "lint-staged": "^8.2.1",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.12",
-    "@semantic-release/npm": "^5.1.7",
+    "@semantic-release/npm": "^5.1.12",
     "@types/form-data": "^2.2.1",
     "@types/humps": "^1.1.2",
     "@types/jest": "^24.0.15",
