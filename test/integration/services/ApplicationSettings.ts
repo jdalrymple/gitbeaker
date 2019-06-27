@@ -7,6 +7,7 @@ describe('ApplicationSettings.all', () => {
     const service = new ApplicationSettings({
       host: process.env.GITLAB_URL,
       token: process.env.PERSONAL_ACCESS_TOKEN,
+      rejectUnauthorized: false, // Testing with localhost
     });
 
     settings = await service.all();

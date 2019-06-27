@@ -3,6 +3,7 @@ import { Issues, Projects } from '../../../src';
 const config = {
   host: process.env.GITLAB_URL,
   token: process.env.PERSONAL_ACCESS_TOKEN,
+  rejectUnauthorized: false, // Testing with localhost
 };
 let project;
 let service: Issues;
