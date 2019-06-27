@@ -31,6 +31,8 @@ describe('Issues.create', () => {
 
     expect(issue1).toBeInstanceOf(Object);
     expect(issue1.title).toBe('Issue Integration test1');
+    expect(issue2).toBeInstanceOf(Object);
+    expect(issue2.title).toBe('Issue Integration test2');
   });
 });
 
