@@ -22,11 +22,12 @@ function responseHeadersAsObject(response) {
 
 function defaultRequest(service: any, { body, query, sudo, method }) {
   const headers = new Headers(service.headers);
+  let bod = body;
 
   if (sudo) headers.append('sudo', `${sudo}`);
   
   if (typeof body === 'object' && !(body instanceof FormData)){
-    body = JSON.stringify(decamelizeKeys(body, skipAllCaps));
+    bod = JSON.stringify(decamelizeKeys(body, skipAllCaps));
   }
 
   return {
@@ -36,7 +37,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
       onProgress: (method === 'stream') ? () => {} : undefined,
       searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
       prefixUrl: service.url,
-      body,
+      body: bod,
       agent: new Agent({
         rejectUnauthorized: service.rejectUnauthorized
       })

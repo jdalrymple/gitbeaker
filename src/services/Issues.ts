@@ -5,7 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, IssueId } from '.';
+import { GroupId, ProjectId, IssueId } from '.';
 
 class Issues extends BaseService {
   addSpentTime(projectId: ProjectId, issueId: IssueId, duration: string, options?: Sudo) {

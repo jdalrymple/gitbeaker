@@ -1,68 +1,59 @@
 ## [6.3.7](https://github.com/jdalrymple/node-gitlab/compare/6.3.6...6.3.7) (2019-06-12)
 
-
 ### Bug Fixes
 
-* string regex :sob: ([7e94e0b](https://github.com/jdalrymple/node-gitlab/commit/7e94e0b))
+- string regex :sob: ([7e94e0b](https://github.com/jdalrymple/node-gitlab/commit/7e94e0b))
 
 ## [6.3.6](https://github.com/jdalrymple/node-gitlab/compare/6.3.5...6.3.6) (2019-06-12)
 
-
 ### Bug Fixes
 
-* Use improved pagination regex to remove service url + leaf ([2b290b5](https://github.com/jdalrymple/node-gitlab/commit/2b290b5)), closes [#352](https://github.com/jdalrymple/node-gitlab/issues/352)
+- Use improved pagination regex to remove service url + leaf ([2b290b5](https://github.com/jdalrymple/node-gitlab/commit/2b290b5)), closes [#352](https://github.com/jdalrymple/node-gitlab/issues/352)
 
 ## [6.3.5](https://github.com/jdalrymple/node-gitlab/compare/6.3.4...6.3.5) (2019-06-12)
 
-
 ### Bug Fixes
 
-* Fix error due to Typescript 3.5.1 ([bd4e141](https://github.com/jdalrymple/node-gitlab/commit/bd4e141))
-* Fix error due to Typescript 3.5.1 ([5474f06](https://github.com/jdalrymple/node-gitlab/commit/5474f06))
-* Make package Typescript-conformant ([da1a8f6](https://github.com/jdalrymple/node-gitlab/commit/da1a8f6))
-* Update Typescript to 3.5.1 ([8f5fec5](https://github.com/jdalrymple/node-gitlab/commit/8f5fec5))
+- Fix error due to Typescript 3.5.1 ([bd4e141](https://github.com/jdalrymple/node-gitlab/commit/bd4e141))
+- Fix error due to Typescript 3.5.1 ([5474f06](https://github.com/jdalrymple/node-gitlab/commit/5474f06))
+- Make package Typescript-conformant ([da1a8f6](https://github.com/jdalrymple/node-gitlab/commit/da1a8f6))
+- Update Typescript to 3.5.1 ([8f5fec5](https://github.com/jdalrymple/node-gitlab/commit/8f5fec5))
 
 ## [6.3.4](https://github.com/jdalrymple/node-gitlab/compare/6.3.3...6.3.4) (2019-06-11)
 
-
 ### Bug Fixes
 
-* Wrong endpoint being passed during pagination ([a2a6126](https://github.com/jdalrymple/node-gitlab/commit/a2a6126)), closes [#344](https://github.com/jdalrymple/node-gitlab/issues/344)
+- Wrong endpoint being passed during pagination ([a2a6126](https://github.com/jdalrymple/node-gitlab/commit/a2a6126)), closes [#344](https://github.com/jdalrymple/node-gitlab/issues/344)
 
 ## [6.3.3](https://github.com/jdalrymple/node-gitlab/compare/6.3.2...6.3.3) (2019-06-10)
 
-
 ### Bug Fixes
 
-* Handle edge cases where content-type headers are missing or the content text is null ([dabcb3d](https://github.com/jdalrymple/node-gitlab/commit/dabcb3d)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
+- Handle edge cases where content-type headers are missing or the content text is null ([dabcb3d](https://github.com/jdalrymple/node-gitlab/commit/dabcb3d)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
 
 ## [6.3.2](https://github.com/jdalrymple/node-gitlab/compare/6.3.1...6.3.2) (2019-06-10)
 
-
 ### Bug Fixes
 
-* Moving the error wrapper for the Ky Requester to be only around the Ky function request. Also checking to see if the error contains a response before looking for an error message. ([a54a6ae](https://github.com/jdalrymple/node-gitlab/commit/a54a6ae)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
+- Moving the error wrapper for the Ky Requester to be only around the Ky function request. Also checking to see if the error contains a response before looking for an error message. ([a54a6ae](https://github.com/jdalrymple/node-gitlab/commit/a54a6ae)), closes [#343](https://github.com/jdalrymple/node-gitlab/issues/343)
 
 ## [6.3.1](https://github.com/jdalrymple/node-gitlab/compare/6.3.0...6.3.1) (2019-06-10)
 
-
 ### Bug Fixes
 
-* Resource Discussion API was using the incorrect url to add a note ([#345](https://github.com/jdalrymple/node-gitlab/issues/345)) ([c6ff86d](https://github.com/jdalrymple/node-gitlab/commit/c6ff86d)), closes [#342](https://github.com/jdalrymple/node-gitlab/issues/342)
+- Resource Discussion API was using the incorrect url to add a note ([#345](https://github.com/jdalrymple/node-gitlab/issues/345)) ([c6ff86d](https://github.com/jdalrymple/node-gitlab/commit/c6ff86d)), closes [#342](https://github.com/jdalrymple/node-gitlab/issues/342)
 
 # [6.3.0](https://github.com/jdalrymple/node-gitlab/compare/6.2.0...6.3.0) (2019-06-08)
 
-
 ### Features
 
-* Add configurable request timeout ([#341](https://github.com/jdalrymple/node-gitlab/issues/341)) ([4d99902](https://github.com/jdalrymple/node-gitlab/commit/4d99902))
+- Add configurable request timeout ([#341](https://github.com/jdalrymple/node-gitlab/issues/341)) ([4d99902](https://github.com/jdalrymple/node-gitlab/commit/4d99902))
 
 # [6.2.0](https://github.com/jdalrymple/node-gitlab/compare/6.1.0...6.2.0) (2019-06-07)
 
-
 ### Features
 
-* Adding support for Container Registry API [#274](https://github.com/jdalrymple/node-gitlab/issues/274) ([59f9286](https://github.com/jdalrymple/node-gitlab/commit/59f9286))
+- Adding support for Container Registry API [#274](https://github.com/jdalrymple/node-gitlab/issues/274) ([59f9286](https://github.com/jdalrymple/node-gitlab/commit/59f9286))
 
 # [6.1.0](https://github.com/jdalrymple/node-gitlab/compare/6.0.0...6.1.0) (2019-06-06)
 
