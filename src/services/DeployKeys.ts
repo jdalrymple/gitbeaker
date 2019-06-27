@@ -1,4 +1,4 @@
-import { BaseService, RequestHelper, Sudo, PaginatedRequestOptions } from '../infrastructure';
+import { BaseService, RequestHelper, Sudo, BaseRequestOptions, PaginatedRequestOptions } from '../infrastructure';
 import { ProjectId, KeyId } from '.';
 
 class DeployKeys extends BaseService {
@@ -8,22 +8,43 @@ class DeployKeys extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/deploy_keys`, options);
   }
 
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
+  all({
+    projectId,
+    ...options
+  }:{ projectId?: ProjectId } & PaginatedRequestOptions) {
+    let url;
 
-    return RequestHelper.get(this, `projects/${pId}/deploy_keys`, options);
+    if (projectId) {
+      url = `projects/${encodeURIComponent(projectId)}/deploy_keys`;
+    } else {
+      url = 'deploy_keys';
+    }
+
+    return RequestHelper.get(this, url, options);
   }
 
-  show(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
+  edit(projectId: ProjectId, keyId: KeyId, options?:BaseRequestOptions) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.put(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
   enable(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/deploy_keys/${kId}/enable`, options);
+  }
+
+  remove(projectId: ProjectId, keyId: KeyId, options?:Sudo) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.del(this, `projects/${pId}/deploy_keys/${kId}`, options);
+  }
+
+  show(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
+    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 }
 
