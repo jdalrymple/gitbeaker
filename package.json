@@ -58,7 +58,6 @@
     "universal-url": "^2.0.0"
   },
   "devDependencies": {
-    "lint-staged": "^8.2.1",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.12",
     "@semantic-release/npm": "^5.1.12",
@@ -71,6 +70,7 @@
     "jest": "^24.8.0",
     "jest-extended": "^0.11.1",
     "jest-tap-reporter": "^1.9.0",
+    "lint-staged": "^8.2.1",
     "prettier": "^1.17.1",
     "rollup": "^1.15.6",
     "rollup-plugin-commonjs": "^10.0.0",
@@ -85,7 +85,7 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "engines": {
     "node": ">=8.9.0"
