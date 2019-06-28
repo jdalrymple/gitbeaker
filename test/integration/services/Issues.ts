@@ -9,13 +9,14 @@ let project;
 let service: Issues;
 
 beforeAll(async () => {
+  // Crease project service
   const projectService = new Projects(config);
 
-  project = await projectService.create({ name: 'Issue Integration test' });
-});
-
-beforeEach(() => {
+  // Create issue service
   service = new Issues(config);
+
+  // Create a template project
+  project = await projectService.create({ name: 'Issue Integration test' });
 });
 
 describe('Issues.create', () => {
