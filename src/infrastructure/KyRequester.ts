@@ -29,6 +29,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
 
   if (typeof body === 'object' && !(body instanceof FormData)) {
     bod = JSON.stringify(decamelizeKeys(body, skipAllCaps));
+    headers.append('content-type', 'application/json');
   }
 
   if (service.rejectUnauthorized) {
