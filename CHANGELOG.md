@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
+
+
+### Features
+
+* Adding missing endpoints for deploy keys [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([b23dd29](https://github.com/jdalrymple/node-gitlab/commit/b23dd29))
+
+
+### BREAKING CHANGES
+
+* all method now takes an optional object since projectId is no longer required. If no projectId is passed, the all method returns all deploy keys across all projects of the GitLab instance
+
 # [6.4.0](https://github.com/jdalrymple/node-gitlab/compare/6.3.7...6.4.0) (2019-06-28)
 
 
