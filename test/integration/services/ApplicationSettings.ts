@@ -1,15 +1,19 @@
 import { ApplicationSettings } from '../../../src';
 
+let service;
+
+beforeAll(async () => {
+  service = new ApplicationSettings({
+    host: process.env.GITLAB_URL,
+    token: process.env.PERSONAL_ACCESS_TOKEN,
+    rejectUnauthorized: false, // Testing with localhost
+  });
+});
+
 describe('ApplicationSettings.all', () => {
-  let settings: ReturnType<ApplicationSettings['all']>;
-
+  let settings;
+  
   beforeEach(async () => {
-    const service = new ApplicationSettings({
-      host: process.env.GITLAB_URL,
-      token: process.env.PERSONAL_ACCESS_TOKEN,
-      rejectUnauthorized: false, // Testing with localhost
-    });
-
     settings = await service.all();
   });
 
