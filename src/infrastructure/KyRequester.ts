@@ -23,34 +23,39 @@ function responseHeadersAsObject(response) {
 function defaultRequest(service: any, { body, query, sudo, method }) {
   const headers = new Headers(service.headers);
   let bod = body;
+  let agent;
 
   if (sudo) headers.append('sudo', `${sudo}`);
-  
-  if (typeof body === 'object' && !(body instanceof FormData)){
+
+  if (typeof body === 'object' && !(body instanceof FormData)) {
     bod = JSON.stringify(decamelizeKeys(body, skipAllCaps));
   }
 
+  if (service.rejectUnauthorized) {
+    agent = new Agent({
+      rejectUnauthorized: service.rejectUnauthorized,
+    });
+  }
+
   return {
-      timeout: service.requestTimeout,
-      headers,
-      method: (method === 'stream') ? 'get' : method,
-      onProgress: (method === 'stream') ? () => {} : undefined,
-      searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
-      prefixUrl: service.url,
-      body: bod,
-      agent: new Agent({
-        rejectUnauthorized: service.rejectUnauthorized
-      })
-    }
+    timeout: service.requestTimeout,
+    headers,
+    method: method === 'stream' ? 'get' : method,
+    onProgress: method === 'stream' ? () => {} : undefined,
+    searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
+    prefixUrl: service.url,
+    body: bod,
+    agent,
+  };
 }
 
 async function processBody(response) {
   const contentType = response.headers.get('content-type') || '';
   const content = await response.text();
 
-  if(contentType.includes('json')) {
+  if (contentType.includes('json')) {
     try {
-      return JSON.parse(content || "{}");
+      return JSON.parse(content || '{}');
     } catch {
       return {};
     }
