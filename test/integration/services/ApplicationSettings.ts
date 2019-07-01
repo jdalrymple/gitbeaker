@@ -1,4 +1,4 @@
-import { ApplicationSettings } from '../../../src';
+import { ApplicationSettings } from '../../../dist';
 
 let service;
 
