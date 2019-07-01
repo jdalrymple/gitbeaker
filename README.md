@@ -158,22 +158,28 @@ import { Projects } from 'gitlab'; // Just the Project Resource
 const { Gitlab } = require('gitlab');
 ```
 
-Instatiating options:
+Basic Example
 
 ```javascript
 const api = new Gitlab({
-  host: 'http://gl.com',    //Optional, Default: https://gitlab.com
-  token: 'personaltoken',   //Personal Token. Required (one of the three tokens are required)
-  oauthToken: 'oauthtoken', //OAuth Token. Required (one of the three tokens are required)
-  jobToken: 'myJobToken',   //CI job token. Required (one of the three tokens are required)
-  rejectUnauthorized: false //Http Certificate setting. Optional, Default: false
-  sudo: false               //Sudo query parameter. Optional, Default: false
-  version = 'v4',           //API Version ID. Optional, Default: v4
-  camelize = false,         //Response Key Camelize. Camelizes all response body keys. Optional, Default: false
-  requester = KyRequester,  //Request Library Wrapper. Optional, Default: Currently wraps Ky.
-  requestTimeout = 300000   //Request Library Timeout. Optional, Default: 300,000 milliseconds.
+  token: 'personaltoken',
 });
 ```
+
+Available instatiating options:
+
+| Name                 | Optional | Default                                               | Description                                                     |
+| -------------------- | -------- | ----------------------------------------------------- | --------------------------------------------------------------- |
+| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                        |
+| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required) |
+| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)    |
+| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)   |
+| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                        |
+| `sudo`               | Yes      | `false`                                               | Sudo query parameter                                            |
+| `version`            | Yes      | `v4`                                                  | API Version ID                                                  |
+| `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys         |
+| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                    |
+| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                   |
 
 #### Bundle Imports
 
@@ -183,8 +189,8 @@ It can be annoying to have to import all the API's pertaining to a specific reso
 import { ProjectsBundle } from 'gitlab';
 
 const services = new ProjectsBundle({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host:   'http://example.com',
+  token: 'abcdefghij123456'
 })
 
 services.Projects.all()
@@ -303,8 +309,8 @@ Using the await/async method
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
+  host: 'http://example.com',
+  token: 'abcdefghij123456',
 });
 
 // Listing users
@@ -327,8 +333,8 @@ ie.
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
+  host: 'http://example.com',
+  token: 'abcdefghij123456',
 });
 
 api.Projects.create(projectId, {
@@ -344,8 +350,8 @@ For any .all() function on a resource, it will return all the items from Gitlab.
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
+  host: 'http://example.com',
+  token: 'abcdefghij123456',
 });
 
 let projects = await api.Projects.all({ maxPages: 2 });
@@ -357,8 +363,8 @@ You can also use this in conjunction to the perPage argument which would overrid
 import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
-  host: 'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456', // Can be created in your profile.
+  host: 'http://example.com',
+  token: 'abcdefghij123456',
 });
 
 let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
@@ -405,8 +411,8 @@ For example, if you want to disable notifications for a specific user:
 import { NotificationSettings } from 'gitlab';
 
 const service = new NotificationSettings({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
+  host:   'http://example.com',
+  token: 'abcdefghij123456'
   sudo: 8 // Can be the user ID or a username
 });
 
@@ -428,11 +434,10 @@ import { Gitlab } from 'gitlab';
 import YourCustomRequester from 'custom-requester';
 
 const api = new Gitlab({
-  host:   'http://example.com', // Defaults to https://gitlab.com
-  token: 'abcdefghij123456' // Can be created in your profile.
-  requester: YourCustomRequester
+  host: 'http://example.com',
+  token: 'abcdefghij123456',
+  requester: YourCustomRequester,
 });
-
 ```
 
 ## Docs

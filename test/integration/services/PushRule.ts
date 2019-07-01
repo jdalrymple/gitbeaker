@@ -6,7 +6,6 @@ describe('PushRule.edit', () => {
     const service = new PushRule({
       host: process.env.GITLAB_URL,
       token: process.env.PERSONAL_ACCESS_TOKEN,
-      rejectUnauthorized: false, // Testing with localhost
     });
 
     const result = await service.edit(1, {

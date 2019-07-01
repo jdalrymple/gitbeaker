@@ -1,28 +1,24 @@
 # [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
 
-
 ### Features
 
-* Adding missing endpoints for deploy keys [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([b23dd29](https://github.com/jdalrymple/node-gitlab/commit/b23dd29))
-
+- Adding missing endpoints for deploy keys [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([b23dd29](https://github.com/jdalrymple/node-gitlab/commit/b23dd29))
 
 ### BREAKING CHANGES
 
-* all method now takes an optional object since projectId is no longer required. If no projectId is passed, the all method returns all deploy keys across all projects of the GitLab instance
+- all method now takes an optional object since projectId is no longer required. If no projectId is passed, the all method returns all deploy keys across all projects of the GitLab instance
 
 # [6.4.0](https://github.com/jdalrymple/node-gitlab/compare/6.3.7...6.4.0) (2019-06-28)
 
-
 ### Bug Fixes
 
-* Handle body types properly if not JSON ie formData ([a135841](https://github.com/jdalrymple/node-gitlab/commit/a135841)), closes [#355](https://github.com/jdalrymple/node-gitlab/issues/355)
-* Missing headers when posting json data ([861f89e](https://github.com/jdalrymple/node-gitlab/commit/861f89e))
-* Use the correct agent configuration for the rejectUnauthorized option ([775d755](https://github.com/jdalrymple/node-gitlab/commit/775d755)), closes [#357](https://github.com/jdalrymple/node-gitlab/issues/357)
-
+- Handle body types properly if not JSON ie formData ([a135841](https://github.com/jdalrymple/node-gitlab/commit/a135841)), closes [#355](https://github.com/jdalrymple/node-gitlab/issues/355)
+- Missing headers when posting json data ([861f89e](https://github.com/jdalrymple/node-gitlab/commit/861f89e))
+- Use the correct agent configuration for the rejectUnauthorized option ([775d755](https://github.com/jdalrymple/node-gitlab/commit/775d755)), closes [#357](https://github.com/jdalrymple/node-gitlab/issues/357)
 
 ### Features
 
-* Adding support for Group Issues ([00068c9](https://github.com/jdalrymple/node-gitlab/commit/00068c9)), closes [#306](https://github.com/jdalrymple/node-gitlab/issues/306)
+- Adding support for Group Issues ([00068c9](https://github.com/jdalrymple/node-gitlab/commit/00068c9)), closes [#306](https://github.com/jdalrymple/node-gitlab/issues/306)
 
 ## [6.3.7](https://github.com/jdalrymple/node-gitlab/compare/6.3.6...6.3.7) (2019-06-12)
 
