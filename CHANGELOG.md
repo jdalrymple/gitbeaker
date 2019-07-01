@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/jdalrymple/node-gitlab/compare/7.0.0...7.0.1) (2019-07-01)
+
+
+### Bug Fixes
+
+* Revert support for the rejectUnauthorized option until issues in [#377](https://github.com/jdalrymple/node-gitlab/issues/377) are sorted. ([f9a47c7](https://github.com/jdalrymple/node-gitlab/commit/f9a47c7))
+
 # [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
 
 ### Features
