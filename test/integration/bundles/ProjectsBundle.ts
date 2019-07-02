@@ -1,4 +1,4 @@
-import { ProjectsBundle } from '../../../src';
+import { ProjectsBundle } from '../../../dist';
 
 const config = {
   host: process.env.GITLAB_URL,
