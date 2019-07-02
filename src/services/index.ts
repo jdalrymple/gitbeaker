@@ -58,6 +58,7 @@ export { default as ProjectSnippetAwardEmojis } from './ProjectSnippetAwardEmoji
 export { default as ProtectedBranches } from './ProtectedBranches';
 export { default as ProtectedTags } from './ProtectedTags';
 export { default as ProjectVariables } from './ProjectVariables';
+export { default as PushRules } from './PushRules';
 export { default as Releases } from './Releases';
 export { default as ReleaseLinks } from './ReleaseLinks';
 export { default as Repositories } from './Repositories';
@@ -67,7 +68,6 @@ export { default as Services } from './Services';
 export { default as Tags } from './Tags';
 export { default as Todos } from './Todos';
 export { default as Triggers } from './Triggers';
-export { default as PushRule } from './PushRule';
 
 // General
 export { default as ApplicationSettings } from './ApplicationSettings';
