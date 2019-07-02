@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 import { ProjectId } from '.';
 
-class PushRule extends BaseService {
+class PushRules extends BaseService {
   create(projectId: ProjectId, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
@@ -36,4 +36,4 @@ class PushRule extends BaseService {
   }
 }
 
-export default PushRule;
+export default PushRules;

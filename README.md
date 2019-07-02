@@ -124,6 +124,7 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+PushRules
 Releases
 ReleaseLinks
 Repositories
@@ -239,6 +240,7 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+PushRules
 Repositories
 RepositoryFiles
 Runners
