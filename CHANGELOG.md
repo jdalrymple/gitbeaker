@@ -1,3 +1,15 @@
+# [8.0.0](https://github.com/jdalrymple/node-gitlab/compare/7.0.1...8.0.0) (2019-07-03)
+
+
+### Bug Fixes
+
+* PushRules were missing from the ProjectBundle export and the README. [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([f7425a7](https://github.com/jdalrymple/node-gitlab/commit/f7425a7))
+
+
+### BREAKING CHANGES
+
+* PushRule export was renamed to PushRules to match the plurality of the export names
+
 ## [7.0.1](https://github.com/jdalrymple/node-gitlab/compare/7.0.0...7.0.1) (2019-07-01)
 
 
