@@ -20,7 +20,7 @@ describe('Projects.create', () => {
 describe('Projects.upload', () => {
 	let project: object;
 
-	beforeAll(() => {
+	beforeAll(async () => {
 		project = await service.create({ name: 'Project Upload Integration test' });
 	});
 
