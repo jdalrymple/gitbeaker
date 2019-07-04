@@ -7,7 +7,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, UserId, EventOptions, GroupId, NamespaceId, ProjectUploadMetadata } from '.';
+import { ProjectId, UserId, EventOptions, GroupId, NamespaceId, UploadMetadata } from '.';
 
 class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
@@ -131,18 +131,18 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, metadata: ProjectUploadMetadata = {}) {
+  upload(projectId, content, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {    
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 
-    const defaultMetadata: ProjectUploadMetadata = {
+    const defaultMetadata: UploadMetadata = {
       filename: randomstring.generate(8),
       contentType: 'application/octet-stream',
     };
 
     form.append('file', content, Object.assign(defaultMetadata, metadata));
 
-    return RequestHelper.post(this, `projects/${pId}/uploads`, form);
+    return RequestHelper.post(this, `projects/${pId}/uploads`, { sudo, form });
   }
 }
 

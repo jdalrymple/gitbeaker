@@ -1,6 +1,7 @@
 import FormData from 'form-data';
+import randomstring from 'randomstring';
 import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
-import { ProjectId } from '.';
+import { ProjectId, UploadMetadata } from '.';
 
 class ProjectImportExport extends BaseService {
   download(projectId: ProjectId, options?: Sudo) {
@@ -15,15 +16,17 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, path: string) {
+  import(content: string, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {
     const form = new FormData();
 
-    form.append('file', content, {
-      filename: path,
+    const defaultMetadata: UploadMetadata = {
+      filename: randomstring.generate(8),
       contentType: 'application/octet-stream',
-    });
+    };
 
-    return RequestHelper.post(this, 'projects/import', form);
+    form.append('file', content, Object.assign(defaultMetadata, metadata));
+
+    return RequestHelper.post(this, 'projects/import', { sudo, form });
   }
 
   importStatus(projectId: ProjectId, options?: Sudo) {

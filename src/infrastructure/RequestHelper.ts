@@ -74,9 +74,10 @@ export async function post(
   endpoint: string,
   options: BaseRequestOptions = {},
 ): Promise<PostResponse> {
-  const { sudo, ...body } = options;
+  const { sudo, form, ...body } = options;
+
   const response = await service.requester.post(service, endpoint, {
-    body,
+    body: form || body,
     sudo,
   });
 
