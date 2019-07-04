@@ -13,7 +13,7 @@ describe('Projects.create', () => {
 	it('should create a valid project', async () => {
 		const p = await service.create({ name: 'Project Creation Integration test' });
 		expect(p).toBeInstanceOf(Object);
-		expect(p.name).toEqual('Project Integration test');
+		expect(p.name).toEqual('Project Creation Integration test');
 	});
 });
 
