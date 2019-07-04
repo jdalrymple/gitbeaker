@@ -266,7 +266,7 @@ export type SnippetVisibility = 'private' | 'public' | 'internal';
 export type ImpersonationTokenScope = 'api' | 'read_user';
 
 // Project upload metadata
-export interface ProjectUploadMetadata {
+export interface UploadMetadata {
   filename?: string;
   contentType?: string;
 }
