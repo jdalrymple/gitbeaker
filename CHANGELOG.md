@@ -1,3 +1,22 @@
+# [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
+
+
+### Bug Fixes
+
+* Fixing project upload [#355](https://github.com/jdalrymple/node-gitlab/issues/355) ([184253e](https://github.com/jdalrymple/node-gitlab/commit/184253e))
+
+
+### Code Refactoring
+
+* Standardizing the upload argument header ([aa33061](https://github.com/jdalrymple/node-gitlab/commit/aa33061))
+
+
+### BREAKING CHANGES
+
+* path argument is no longer required/available. Now, it follows a similar function header to Project.upload with an optional metadata argument
+Missing dependency
+dede
+
 # [8.0.0](https://github.com/jdalrymple/node-gitlab/compare/7.0.1...8.0.0) (2019-07-03)
 
 
