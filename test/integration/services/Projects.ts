@@ -27,8 +27,10 @@ describe('Projects.upload', () => {
 	it('should upload a text file', async () => {
 		const content = 'TESTING FILE UPLOAD :D';
 		const results = await service.upload(project.id, content, {
-			filename: 'testfile.txt',
-			contentType: 'text/plain'
+			metadata: {
+				filename: 'testfile.txt',
+				contentType: 'text/plain',
+			},
 		});
 
 		expect(results).toContainKeys(['alt', 'url', 'markdown']);
