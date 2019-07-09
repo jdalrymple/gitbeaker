@@ -49,20 +49,20 @@ describe('Issues.all', () => {
     const issues = await service.all();
 
     expect(issues).toBeInstanceOf(Array);
-    expect(issues.length).toEqual(2);
+    expect(issues).toHaveLength(2);
   });
 
   it('should return a list filtered to a specfic page', async () => {
     const issues1 = await service.all({projectId: project.id, perPage: 1, page: 1 });
 
     expect(issues1).toBeInstanceOf(Array);
-    expect(issues1.length).toEqual(1);
+    expect(issues1).toHaveLength(1);
     expect(issues1[0].title).toBe('Issue Integration test2');
 
     const issues2 = await service.all({ projectId: project.id, perPage: 1, page: 2 });
 
     expect(issues2).toBeInstanceOf(Array);
-    expect(issues2.length).toEqual(1);
+    expect(issues2).toHaveLength(1);
     expect(issues2[0].title).toBe('Issue Integration test1');
   });
 });
