@@ -21,6 +21,7 @@ export async function get(
     query: query || {},
     sudo,
   });
+
   const { headers } = response;
   let { body } = response;
   let pagination = {

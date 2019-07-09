@@ -11,112 +11,59 @@ const mockedGetBasic = () => ({
   },
 });
 
-const mockedGetExtended = (url, { query }) => {
-  const pages = [
-    {
-      body: [
-        {
-          prop1: 1,
-          prop2: 'test property1',
-        },
-        {
-          prop1: 2,
-          prop2: 'test property2',
-        },
-      ],
-      headers: {
-        link: `<https://www.test.com/api/v4/test?page=2&per_page=2>; rel="next",
-        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
-        'x-next-page': 2,
-        'x-page': 1,
-        'x-per-page': 2,
-        'x-prev-page': '',
-        'x-total': 8,
-        'x-total-pages': 4,
-      },
-    },
-    {
-      body: [
-        {
-          prop1: 3,
-          prop2: 'test property3',
-        },
-        {
-          prop1: 4,
-          prop2: 'test property4',
-        },
-      ],
-      headers: {
-        link: `<https://www.test.com/api/v4/test?page=1&per_page=2>; rel="prev",
-        <https://www.test.com/api/v4/test?page=3&per_page=2>; rel="next",
-        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
-        'x-next-page': 3,
-        'x-page': 2,
-        'x-per-page': 2,
-        'x-prev-page': 1,
-        'x-total': 8,
-        'x-total-pages': 4,
-      },
-    },
-    {
-      body: [
-        {
-          prop1: 5,
-          prop2: 'test property5',
-        },
-        {
-          prop1: 6,
-          prop2: 'test property6',
-        },
-      ],
-      headers: {
-        link: `<https://www.test.com/api/v4/test?page=2&per_page=2>; rel="prev",
-        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="next",
-        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
-        'x-next-page': 4,
-        'x-page': 3,
-        'x-per-page': 2,
-        'x-prev-page': 2,
-        'x-total': 8,
-        'x-total-pages': 4,
-      },
-    },
-    {
-      body: [
-        {
-          prop1: 7,
-          prop2: 'test property7',
-        },
-        {
-          prop1: 8,
-          prop2: 'test property8',
-        },
-      ],
-      headers: {
-        link: `<https://www.test.com/api/v4/test?page=3&per_page=2>; rel="prev",
-        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=4&per_page=2>; rel="last"`,
-        'x-next-page': '',
-        'x-page': 4,
-        'x-per-page': 2,
-        'x-prev-page': 3,
-        'x-total': 8,
-        'x-total-pages': 4,
-      },
-    },
-  ];
-
+const mockedGetExtended = (url, { query }, limit=30) => {
+  const pages: object[] = [];
   const q = url.match(/page=([0-9]+)/);
   let page = 1;
 
   if (q != null) page = q[1];
   else if (query.page) page = query.page;
 
+  // Only load pages needed for the test
+  // TODO: modify this to only generate the required response, without the loop
+  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i++, a+=2, b+=2) {
+    let next = '';
+    let prev = '';
+    let nextPage;
+    let prevPage;
+
+    if ((i+1) <= limit ) {
+      next = `<https://www.test.com/api/v4/test?page=${i+1}&per_page=2>; rel="next",`;
+      nextPage = i+1
+    }
+
+    if ((i-1) >= 1) {
+      prev = `<https://www.test.com/api/v4/test?page=${i-1}&per_page=2>; rel="prev",`;
+      prevPage = i-1
+    }
+
+    pages.push({
+      body: [
+        {
+          prop1: a,
+          prop2: `test property ${a}`,
+        },
+        {
+          prop1: b,
+          prop2: `test property ${b}`,
+        },
+      ],
+      headers: {
+        link: next + prev + `
+        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
+        <https://www.test.com/api/v4/test?page=${limit}&per_page=2>; rel="last"`,
+        'x-next-page': nextPage,
+        'x-page': i,
+        'x-per-page': 2,
+        'x-prev-page': prevPage,
+        'x-total': limit * 2,
+        'x-total-pages': limit,
+      },
+    });
+  }
+
   return pages[page - 1];
-};
+}
 
 const service = new BaseService({
   host: 'https://testing.com',
@@ -151,10 +98,23 @@ describe('RequestHelper.get()', () => {
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
-      expect(l.prop2).toBe(`test property${1 + index}`);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
     });
 
-    expect(response).toHaveLength(8);
+    expect(response).toHaveLength(60);
+  });
+
+  it('Should handle large paginated (50 pages) results when links are present', async () => {
+    KyRequester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options, 70));
+
+    const response = await RequestHelper.get(service, 'test');
+
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
+    });
+
+    expect(response).toHaveLength(140);
   });
 
   it('Should be paginated but limited by the maxPages option', async () => {
@@ -166,7 +126,7 @@ describe('RequestHelper.get()', () => {
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
-      expect(l.prop2).toBe(`test property${1 + index}`);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
     });
   });
 
@@ -179,7 +139,7 @@ describe('RequestHelper.get()', () => {
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(3 + index);
-      expect(l.prop2).toBe(`test property${3 + index}`);
+      expect(l.prop2).toBe(`test property ${3 + index}`);
     });
   });
 
@@ -192,16 +152,16 @@ describe('RequestHelper.get()', () => {
 
     response.data.forEach((l, index) => {
       expect(l.prop1).toBe(3 + index);
-      expect(l.prop2).toBe(`test property${3 + index}`);
+      expect(l.prop2).toBe(`test property ${3 + index}`);
     });
 
     expect(response.pagination).toMatchObject({
-      total: 8,
+      total: 60,
       previous: 1,
       current: 2,
       next: 3,
       perPage: 2,
-      totalPages: 4,
+      totalPages: 30,
     });
   });
 
@@ -217,16 +177,16 @@ describe('RequestHelper.get()', () => {
 
     response.data.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
-      expect(l.prop2).toBe(`test property${1 + index}`);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
     });
 
     expect(response.pagination).toMatchObject({
-      total: 8,
+      total: 60,
       previous: 2,
       current: 3,
       next: 4,
       perPage: 2,
-      totalPages: 4,
+      totalPages: 30,
     });
   });
 });
