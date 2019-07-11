@@ -1,40 +1,34 @@
 # [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
 
-
 ### Bug Fixes
 
-* Fixing project upload [#355](https://github.com/jdalrymple/node-gitlab/issues/355) ([184253e](https://github.com/jdalrymple/node-gitlab/commit/184253e))
-
+- Fixing project upload [#355](https://github.com/jdalrymple/node-gitlab/issues/355) ([184253e](https://github.com/jdalrymple/node-gitlab/commit/184253e))
 
 ### Code Refactoring
 
-* Standardizing the upload argument header ([aa33061](https://github.com/jdalrymple/node-gitlab/commit/aa33061))
-
+- Standardizing the upload argument header ([aa33061](https://github.com/jdalrymple/node-gitlab/commit/aa33061))
 
 ### BREAKING CHANGES
 
-* path argument is no longer required/available. Now, it follows a similar function header to Project.upload with an optional metadata argument
-Missing dependency
-dede
+- path argument is no longer required/available. Now, it follows a similar function header to Project.upload with an optional metadata argument
+  Missing dependency
+  dede
 
 # [8.0.0](https://github.com/jdalrymple/node-gitlab/compare/7.0.1...8.0.0) (2019-07-03)
 
-
 ### Bug Fixes
 
-* PushRules were missing from the ProjectBundle export and the README. [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([f7425a7](https://github.com/jdalrymple/node-gitlab/commit/f7425a7))
-
+- PushRules were missing from the ProjectBundle export and the README. [#373](https://github.com/jdalrymple/node-gitlab/issues/373) ([f7425a7](https://github.com/jdalrymple/node-gitlab/commit/f7425a7))
 
 ### BREAKING CHANGES
 
-* PushRule export was renamed to PushRules to match the plurality of the export names
+- PushRule export was renamed to PushRules to match the plurality of the export names
 
 ## [7.0.1](https://github.com/jdalrymple/node-gitlab/compare/7.0.0...7.0.1) (2019-07-01)
 
-
 ### Bug Fixes
 
-* Revert support for the rejectUnauthorized option until issues in [#377](https://github.com/jdalrymple/node-gitlab/issues/377) are sorted. ([f9a47c7](https://github.com/jdalrymple/node-gitlab/commit/f9a47c7))
+- Revert support for the rejectUnauthorized option until issues in [#377](https://github.com/jdalrymple/node-gitlab/issues/377) are sorted. ([f9a47c7](https://github.com/jdalrymple/node-gitlab/commit/f9a47c7))
 
 # [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
 

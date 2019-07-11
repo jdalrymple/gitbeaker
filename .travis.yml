@@ -18,33 +18,31 @@ cache:
 jobs:
   include:
     - stage: lint
-      node_js: 10.15.3
+      node_js: node
       script:
         - npm run lint
         - prettier --check './*.json' './*.yml'
 
     - &build
       stage: build
-      node_js: 10.15.3
+      node_js: lts/*
       script:
         - npm run build
+
     - <<: *build
-      node_js: 8.9.0
+      node_js: node
 
     - &test-unit
       stage: test
-      node_js: 10.15.3
-      name: 'Unit Tests 10.15.3'
+      node_js: lts/*
+      name: 'Unit Tests  Latest LTS'
       script:
         - npm run test:unit
-    - <<: *test-unit
-      name: 'Unit Tests 8.9.0'
-      node_js: 8.9.0
 
     - &test-integration
       stage: test
-      node_js: 10.15.3
-      name: 'Integration Tests 10.15.3'
+      node_js: lts/*
+      name: 'Integration Tests Latest LTS'
       before_script:
         ## Spin up container
         - cd test/docker/
@@ -56,16 +54,21 @@ jobs:
         - echo $PERSONAL_ACCESS_TOKEN
       script:
         - npm run test:integration
+
+    - <<: *test-unit
+      name: 'Unit Tests Latest'
+      node_js: node
+
     - <<: *test-integration
-      name: 'Integration Tests 8.9.0'
-      node_js: 8.9.0
+      name: 'Integration Tests Latest'
+      node_js: node
 
     - stage: coverage
-      node_js: 10.15.3
+      node_js: node
       script:
         - npm run coverage
 
     - stage: release
-      node_js: 10.15.3
+      node_js: node
       script:
         - npm run release
