@@ -1,4 +1,4 @@
-import { Constructor, Bundle } from ".";
+import { Constructor, Bundle } from '.';
 
 export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(services: T) {
   return (function Bundle(options?: any) {
@@ -9,5 +9,5 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
 }
 
 export function skipAllCaps(key, convert, options) {
-  return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
+  return /^([A-Z0-9])+_*/.test(key) ? key : convert(key, options);
 }
