@@ -1,3 +1,10 @@
+## [9.0.1](https://github.com/jdalrymple/node-gitlab/compare/9.0.0...9.0.1) (2019-07-11)
+
+
+### Bug Fixes
+
+* Accept any variables that begin with uppercase letters and include an underscore [#254](https://github.com/jdalrymple/node-gitlab/issues/254) ([fe39590](https://github.com/jdalrymple/node-gitlab/commit/fe39590))
+
 # [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
 
 ### Bug Fixes
