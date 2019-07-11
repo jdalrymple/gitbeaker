@@ -30,6 +30,8 @@ jobs:
         - npm run build
     - <<: *build
       node_js: 8.9.0
+      before_install:
+        npm install npm@5.8.0 -g
 
     - &test-unit
       stage: test
@@ -40,6 +42,8 @@ jobs:
     - <<: *test-unit
       name: 'Unit Tests 8.9.0'
       node_js: 8.9.0
+      before_install:
+        npm install npm@5.8.0 -g
 
     - &test-integration
       stage: test
@@ -59,6 +63,8 @@ jobs:
     - <<: *test-integration
       name: 'Integration Tests 8.9.0'
       node_js: 8.9.0
+      before_install:
+        npm install npm@5.8.0 -g
 
     - stage: coverage
       node_js: 10.15.3
