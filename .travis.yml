@@ -25,7 +25,7 @@ jobs:
 
     - &build
       stage: build
-      node_js:  8.9.0
+      node_js: 8.9.0
       script:
         - npm run build
     - <<: *build
@@ -33,7 +33,7 @@ jobs:
 
     - &test-unit
       stage: test
-      node_js:  8.9.0
+      node_js: 8.9.0
       name: 'Unit Tests  8.9.0'
       script:
         - npm run test:unit
