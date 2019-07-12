@@ -1,3 +1,10 @@
+# [9.1.0](https://github.com/jdalrymple/node-gitlab/compare/9.0.1...9.1.0) (2019-07-12)
+
+
+### Features
+
+* Adding support for branchName key seen in the Gitlab API v3 ([356466f](https://github.com/jdalrymple/node-gitlab/commit/356466f))
+
 ## [9.0.1](https://github.com/jdalrymple/node-gitlab/compare/9.0.0...9.0.1) (2019-07-11)
 
 
