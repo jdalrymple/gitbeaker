@@ -31,15 +31,26 @@ describe('Labels.remove', () => {
   it('should remove/delete a valid label on a project', async () => {
     const label = await service.create(project.id, 'Test Label3', '#FFAABB');
 
-    expect(service.remove(project.id, label.name)).resolves.toBeTruthy();
+    expect(service.remove(project.id, label.name)).resolves.toEqual("");
   });
 });
 
-// describe('Labels.all', () => {
-//   it('should return a list of labels on a project', async () => {
-//     const labels = await service.all(project.id);
+describe('Labels.all', () => {
+  beforeAll(async () => {
+    const labels = [];
 
-//     expect(labels).toBeInstanceOf(Array);
-//     expect(issues).toHaveLength(2);
-//   });
-// });
+    for (let i = 0; i < 50; i++) {
+      lables.push(service.create(project.id, `All Labels ${i}`, '#FFAABB'));
+    }
+
+    return Promise.all(labels);
+  });
+
+  it('should return a list of labels on a project', async () => {
+    const labels = await service.all(project.id, { perPage: 3 });
+    const filtered = labels.filter(l => l.name.includes('All Labels'));
+
+    expect(labels).toBeInstanceOf(Array);
+    expect(filtered).toHaveLength(50);
+  });
+});
