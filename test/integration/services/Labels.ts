@@ -37,10 +37,10 @@ describe('Labels.remove', () => {
 
 describe('Labels.all', () => {
   beforeAll(async () => {
-    const labels = [];
+    const labels: object[] = [];
 
     for (let i = 0; i < 50; i++) {
-      lables.push(service.create(project.id, `All Labels ${i}`, '#FFAABB'));
+      labels.push(service.create(project.id, `All Labels ${i}`, '#FFAABB'));
     }
 
     return Promise.all(labels);
