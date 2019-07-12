@@ -31,13 +31,15 @@ export interface Requester {
   stream?: Function;
 }
 
+export type SupportedVersions = 'v3' | 'v4';
+
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
   host?: string;
   url?: string;
-  version?: string;
+  version?: SupportedVersions;
   rejectUnauthorized?: boolean;
   camelize?: boolean;
   requester?: Requester;
