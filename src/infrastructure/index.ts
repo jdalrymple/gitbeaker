@@ -11,7 +11,7 @@ export interface Constructor {
 }
 
 export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
-  [name in P]: InstanceType<T[name]>
+  [name in P]: InstanceType<T[name]>;
 };
 
 export interface Bundle<T extends { [name: string]: Constructor }, P extends keyof T> {
@@ -31,15 +31,13 @@ export interface Requester {
   stream?: Function;
 }
 
-export type SupportedVersions = 'v3' | 'v4';
-
 export interface BaseServiceOptions extends Sudo {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
   host?: string;
   url?: string;
-  version?: SupportedVersions;
+  version?: 'v3' | 'v4';
   rejectUnauthorized?: boolean;
   camelize?: boolean;
   requester?: Requester;
@@ -72,7 +70,7 @@ export interface PaginatedRequestOptions extends BaseRequestOptions {
   perPage?: number;
 }
 
-export type PaginationResponse = { data: object[], pagination: PaginationOptions }
+export type PaginationResponse = { data: object[]; pagination: PaginationOptions };
 export type GetResponse = PaginationResponse | object | object[];
 export type PostResponse = object;
 export type PutResponse = object;

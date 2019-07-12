@@ -92,7 +92,7 @@ class MergeRequests extends BaseService {
     let url;
 
     if (mergerequestIId) {
-      const  mIId = encodeURIComponent(mergerequestIId);
+      const mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvals`;
     } else {
       url = `projects/${pId}/approvals`;
@@ -112,7 +112,7 @@ class MergeRequests extends BaseService {
     let url;
 
     if (mergerequestIId) {
-      const  mIId = encodeURIComponent(mergerequestIId);
+      const mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvers`;
     } else {
       url = `projects/${pId}/approvers`;
@@ -186,7 +186,7 @@ class MergeRequests extends BaseService {
     let url;
 
     if (mergerequestIId) {
-      const  mIId = encodeURIComponent(mergerequestIId);
+      const mIId = encodeURIComponent(mergerequestIId);
       url = `projects/${pId}/merge_requests/${mIId}/approvals`;
     } else {
       url = `projects/${pId}/approvals`;

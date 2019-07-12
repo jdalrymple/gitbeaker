@@ -16,7 +16,7 @@ class Branches extends BaseService {
 
   create(projectId: ProjectId, branchName: string, ref: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
-    const branchKey = this.version === 'v3' ? 'branchName' : 'branch';
+    const branchKey = this.url.includes('v3') ? 'branchName' : 'branch';
 
     return RequestHelper.post(this, `projects/${pId}/repository/branches`, {
       [branchKey]: branchName,
