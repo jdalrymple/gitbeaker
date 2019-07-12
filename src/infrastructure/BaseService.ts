@@ -20,7 +20,7 @@ export class BaseService {
     camelize = false,
     rejectUnauthorized = true,
     requester = KyRequester,
-    requestTimeout = 300000
+    requestTimeout = 300000,
   }: BaseServiceOptions) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
