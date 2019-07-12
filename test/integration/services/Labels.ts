@@ -53,4 +53,26 @@ describe('Labels.all', () => {
     expect(labels).toBeInstanceOf(Array);
     expect(filtered).toHaveLength(50);
   });
+
+  it('should return a list of labels on a project restricted to page 5', async () => {
+    const labels = await service.all(project.id, { perPage: 5, page: 5});
+
+    expect(labels).toBeInstanceOf(Array);
+    expect(labels).toHaveLength(5);
+  });
+
+  it('should return a list of labels on a project restricted to page 5 and show the pagination object', async () => {
+    const { data, pagination } = await service.all(project.id, { perPage: 5, page: 5, showPagination: true});
+
+    expect(data).toBeInstanceOf(Array);
+    expect(data).toHaveLength(5);
+    expect(pagination).toMatchObject({
+      total: 51, // TODO: change this to not depend on previous data
+      previous: 4,
+      current: 5,
+      next: 6,
+      perPage: 5,
+      totalPages: 11,
+    });
+  });
 });
