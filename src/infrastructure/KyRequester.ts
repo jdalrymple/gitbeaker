@@ -69,7 +69,7 @@ methods.forEach(m => {
 
         e.description = output.error || output.message;
       }
-
+      
       throw e;
     }
 

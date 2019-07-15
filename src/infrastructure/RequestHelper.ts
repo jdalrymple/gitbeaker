@@ -21,15 +21,16 @@ export async function get(
     query: query || {},
     sudo,
   });
+
   const { headers } = response;
   let { body } = response;
   let pagination = {
-    total: headers['x-total'],
+    total: parseInt(headers['x-total'], 10),
     next: parseInt(headers['x-next-page'], 10) || null,
     current: parseInt(headers['x-page'], 10) || 1,
-    previous: headers['x-prev-page'] || null,
-    perPage: headers['x-per-page'],
-    totalPages: headers['x-total-pages'],
+    previous: parseInt(headers['x-prev-page'], 10) || null,
+    perPage: parseInt(headers['x-per-page'], 10),
+    totalPages: parseInt(headers['x-total-pages'], 10),
   };
 
   const underLimit = maxPages ? pagination.current < maxPages : true;
