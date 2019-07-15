@@ -69,9 +69,6 @@ methods.forEach(m => {
 
         e.description = output.error || output.message;
       }
-
-      console.log(requestOptions)
-      console.log(endpoint)
       
       throw e;
     }
