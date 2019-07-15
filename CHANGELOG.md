@@ -1,3 +1,15 @@
+# [10.0.0](https://github.com/jdalrymple/node-gitlab/compare/9.1.0...10.0.0) (2019-07-15)
+
+
+### Code Refactoring
+
+* Adding required labelName and colour option to the create method ([199e32d](https://github.com/jdalrymple/node-gitlab/commit/199e32d))
+
+
+### BREAKING CHANGES
+
+* Labels require a colour and a name to be created. Now the create method takes a second and third argument: 'labelName' and 'color'
+
 # [9.1.0](https://github.com/jdalrymple/node-gitlab/compare/9.0.1...9.1.0) (2019-07-12)
 
 
