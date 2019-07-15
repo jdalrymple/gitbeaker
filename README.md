@@ -289,16 +289,6 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 },
 ```
 
-Although we don't encourage it, if you absolutely must allow insecure certificates, you can instantiate the API with `rejectAuthorized` set to `false` like this:
-
-```
-const api = new Gitlab({
-  url: '...',
-  token: '...',
-  rejectUnauthorized: false
-})
-```
-
 > **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
 ### Examples
