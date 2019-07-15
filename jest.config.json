@@ -7,7 +7,6 @@
   "testURL": "http://localhost/",
 
   "coverageDirectory": "./coverage/",
-  "collectCoverage": true,
 
   "setupFilesAfterEnv": ["jest-extended"],
 

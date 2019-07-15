@@ -37,7 +37,7 @@ jobs:
       node_js: lts/*
       name: 'Unit Tests  Latest LTS'
       script:
-        - npm run test:unit
+        - npm run test:unit -- --collectCoverage
 
     - &test-integration
       stage: test
@@ -53,15 +53,19 @@ jobs:
         - echo $GITLAB_URL
         - echo $PERSONAL_ACCESS_TOKEN
       script:
-        - npm run test:integration
+        - npm run test:integration -- --collectCoverage
 
     - <<: *test-unit
       name: 'Unit Tests Latest'
       node_js: node
+      script:
+        - npm run test:unit
 
     - <<: *test-integration
       name: 'Integration Tests Latest'
       node_js: node
+      script:
+        - npm run test:integration
 
     - stage: coverage
       node_js: node
