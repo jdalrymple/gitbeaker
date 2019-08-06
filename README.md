@@ -27,7 +27,6 @@
   - [Pagination](#pagination)
   - [Sudo](#sudo)
   - [Custom Request Libraries](#custom-request-libraries)
-- [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
 - [Docs](#docs)
 - [Development](#development)
 - [Testing](#testing)
