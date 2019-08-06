@@ -18,6 +18,12 @@ class Repositories extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/contributors`, options);
   }
 
+  mergeBase(projectId: ProjectId, refs: string[], options?: Sudo) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(this, `projects/${pId}/repository/merge_base`, { refs, ...options });
+  }
+
   showArchive(projectId: ProjectId, options?: { sha: string } & Sudo) {
     const pId = encodeURIComponent(projectId);
 
