@@ -1,3 +1,10 @@
+## [10.0.2](https://github.com/jdalrymple/node-gitlab/compare/10.0.1...10.0.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* Adding missing TS type import 'FormData' ([a907c7c](https://github.com/jdalrymple/node-gitlab/commit/a907c7c)), closes [#401](https://github.com/jdalrymple/node-gitlab/issues/401)
+
 ## [10.0.1](https://github.com/jdalrymple/node-gitlab/compare/10.0.0...10.0.1) (2019-07-30)
 
 
