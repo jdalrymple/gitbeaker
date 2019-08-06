@@ -1,3 +1,10 @@
+# [10.1.0](https://github.com/jdalrymple/node-gitlab/compare/10.0.3...10.1.0) (2019-08-06)
+
+
+### Features
+
+* Adding Merge Base endpoint for the Repositories API ([040fc78](https://github.com/jdalrymple/node-gitlab/commit/040fc78)), closes [#400](https://github.com/jdalrymple/node-gitlab/issues/400)
+
 ## [10.0.3](https://github.com/jdalrymple/node-gitlab/compare/10.0.2...10.0.3) (2019-08-06)
 
 
