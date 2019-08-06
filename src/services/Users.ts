@@ -48,14 +48,6 @@ class Users extends BaseService {
     return RequestHelper.get(this, `users/${uId}/events`, options);
   }
 
-  session(email: string, password: string, options?: Sudo) {
-    return RequestHelper.post(this, 'session', {
-      email,
-      password,
-      ...options,
-    });
-  }
-
   search(emailOrUsername: string, options?: Sudo) {
     return RequestHelper.get(this, 'users', {
       search: emailOrUsername,
