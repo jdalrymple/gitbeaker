@@ -1,3 +1,10 @@
+## [10.0.3](https://github.com/jdalrymple/node-gitlab/compare/10.0.2...10.0.3) (2019-08-06)
+
+
+### Bug Fixes
+
+* Removing deprecated Session endpoint (since GitLab 10.2.0) ([fe720d8](https://github.com/jdalrymple/node-gitlab/commit/fe720d8)), closes [#404](https://github.com/jdalrymple/node-gitlab/issues/404)
+
 ## [10.0.2](https://github.com/jdalrymple/node-gitlab/compare/10.0.1...10.0.2) (2019-08-06)
 
 
