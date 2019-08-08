@@ -1,5 +1,4 @@
 import FormData from 'form-data';
-import randomstring from 'randomstring';
 import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 import { ProjectId, UploadMetadata } from '.';
 
@@ -20,7 +19,7 @@ class ProjectImportExport extends BaseService {
     const form = new FormData();
 
     const defaultMetadata: UploadMetadata = {
-      filename: randomstring.generate(8),
+      filename: Date.now().toString(),
       contentType: 'application/octet-stream',
     };
 
