@@ -1,3 +1,10 @@
+## [10.1.1](https://github.com/jdalrymple/node-gitlab/compare/10.1.0...10.1.1) (2019-08-09)
+
+
+### Bug Fixes
+
+* Removing randomstring dependency to improve support for Angular 8 ([c47564b](https://github.com/jdalrymple/node-gitlab/commit/c47564b)), closes [#407](https://github.com/jdalrymple/node-gitlab/issues/407)
+
 # [10.1.0](https://github.com/jdalrymple/node-gitlab/compare/10.0.3...10.1.0) (2019-08-06)
 
 
