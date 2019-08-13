@@ -63,6 +63,12 @@ class RepositoryFiles extends BaseService {
     });
   }
 
+  showBlame(projectId: ProjectId, filePath: string, options?: Sudo) {
+    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/blame`, options);
+  }
+
   showRaw(projectId: ProjectId, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
