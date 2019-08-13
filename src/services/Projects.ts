@@ -37,10 +37,13 @@ class Projects extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
-  fork(projectId: ProjectId, options?: BaseRequestOptions) {
+  fork(projectId: ProjectId, { forkedFromId, ...options }: { forkedFromId?: number } & BaseRequestOptions = {}) {
     const pId = encodeURIComponent(projectId);
+    let url = `projects/${pId}/fork`;
 
-    return RequestHelper.post(this, `projects/${pId}/fork`, options);
+    if (forkedFromId) url += `/${encodeURIComponent(forkedFromId)}`;
+
+    return RequestHelper.post(this, url, options);
   }
 
   forks(projectId: ProjectId, options?: BaseRequestOptions) {
