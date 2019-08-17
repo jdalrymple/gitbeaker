@@ -273,7 +273,7 @@ class MergeRequests extends BaseService {
   unapprove(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIId}/approve`, options);
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIId}/unapprove`, options);
   }
 
   unsubscribe(projectId: ProjectId, mergerequestIId: MergeRequestId, options?: Sudo) {
