@@ -21,7 +21,7 @@ jobs:
       node_js: node
       script:
         - npm run lint
-        - prettier --check './*.json' './*.yml' './*.js'" # Semantic release modified the md files that are not styled correctly.
+        - prettier --check './*.json' './*.yml' './*.js' # Semantic release modified the md files that are not styled correctly.
 
     - &build
       stage: build
