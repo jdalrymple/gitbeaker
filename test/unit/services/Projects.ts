@@ -98,6 +98,6 @@ describe('Projects.fork', () => {
   it('should request POST /projects/:id/fork', async () => {
     await service.fork(12);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/12/fork', undefined);
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/12/fork', {});
   });
 });

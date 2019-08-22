@@ -1,6 +1,7 @@
 '*.{js,ts}':
-  - 'npm run lint:fix'
+  - 'prettier --write'
+  - 'tslint --fix'
   - 'git add'
 '*.{json,md,yml}':
-  - 'npm run lint:doc:fix'
+  - 'prettier --write'
   - 'git add'
