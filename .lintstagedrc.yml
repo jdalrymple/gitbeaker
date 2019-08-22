@@ -1,4 +1,4 @@
-'*.{js, ts}':
+'*.{js,ts}':
   - 'npm run lint:fix'
   - 'git add'
 '*.{json,md,yml}':
