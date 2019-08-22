@@ -41,13 +41,13 @@ export async function get(
   // Rescurse through pagination results
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
-    const leaf = service.url.split('/').pop() || ""
-    const regex = new RegExp(`.+\/api\/v\\d(\/${leaf})?\/`)
-    const more = await get(service, next.replace(regex, ''), {
+    const leaf = service.url.split('/').pop() || '';
+    const regex = new RegExp(`.+\/api\/v\\d(\/${leaf})?\/`);
+    const more = (await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
-      showPagination: true
-    }) as PaginationResponse;
+      showPagination: true,
+    })) as PaginationResponse;
 
     pagination = more.pagination;
     body = [...body, ...more.data];
@@ -56,11 +56,7 @@ export async function get(
   return (query.page || body.length > 0) && showPagination ? { data: body, pagination } : body;
 }
 
-export function stream(
-  service: BaseService,
-  endpoint: string,
-  options: BaseRequestOptions = {},
-) {
+export function stream(service: BaseService, endpoint: string, options: BaseRequestOptions = {}) {
   if (typeof service.requester.stream !== 'function') {
     throw new Error('Stream method is not implementated in requester!');
   }

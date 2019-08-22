@@ -11,11 +11,7 @@ import { ResourceId, NoteId } from '..';
 class ResourceNotes extends BaseService {
   protected resource2Type: string;
 
-  constructor(
-    resourceType: string,
-    resource2Type: string,
-    options: BaseServiceOptions,
-  ) {
+  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
 
     this.resource2Type = resource2Type;

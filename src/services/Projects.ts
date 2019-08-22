@@ -37,7 +37,10 @@ class Projects extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
-  fork(projectId: ProjectId, { forkedFromId, ...options }: { forkedFromId?: number } & BaseRequestOptions = {}) {
+  fork(
+    projectId: ProjectId,
+    { forkedFromId, ...options }: { forkedFromId?: number } & BaseRequestOptions = {},
+  ) {
     const pId = encodeURIComponent(projectId);
     let url = `projects/${pId}/fork`;
 
@@ -133,7 +136,7 @@ class Projects extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
-  upload(projectId, content, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {    
+  upload(projectId, content, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
 

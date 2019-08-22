@@ -11,7 +11,7 @@ beforeAll(async () => {
 
 describe('ApplicationSettings.all', () => {
   let settings;
-  
+
   beforeEach(async () => {
     settings = await service.all();
   });

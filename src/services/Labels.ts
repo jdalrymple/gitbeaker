@@ -17,7 +17,11 @@ class Labels extends BaseService {
   create(projectId: ProjectId, labelName: string, color: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/labels`, { name: labelName, color, ...options });
+    return RequestHelper.post(this, `projects/${pId}/labels`, {
+      name: labelName,
+      color,
+      ...options,
+    });
   }
 
   edit(projectId: ProjectId, labelName: string, options?: BaseRequestOptions) {

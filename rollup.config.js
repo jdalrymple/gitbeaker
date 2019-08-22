@@ -2,7 +2,7 @@ import ts from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
 import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'typescript';
@@ -18,14 +18,14 @@ export default [
       format: 'umd',
       exports: 'named',
       globals: {
-        'li': 'Li',
-        'humps': 'Humps',
+        li: 'Li',
+        humps: 'Humps',
         'query-string': 'QueryString',
-        'randomstring': 'RandomString',
+        randomstring: 'RandomString',
         'ky-universal': 'Ky',
         'form-data': 'FormData',
-        'universal-url':'universal-url'
-      }
+        'universal-url': 'universal-url',
+      },
     },
     external: [...Object.keys(pkg.dependencies)],
     plugins: [
@@ -47,12 +47,7 @@ export default [
       format: 'cjs',
     },
     external: [...Object.keys(pkg.dependencies)],
-    plugins: [
-      globals(),
-      builtins(),
-      ts({ typescript }),
-      terser(),
-    ],
+    plugins: [globals(), builtins(), ts({ typescript }), terser()],
   },
 
   // ES module (for bundlers) build.
@@ -63,9 +58,6 @@ export default [
       format: 'es',
     },
     external: [...Object.keys(pkg.dependencies)],
-    plugins: [
-      ts({ typescript }),
-      terser(),
-    ],
+    plugins: [ts({ typescript }), terser()],
   },
 ];

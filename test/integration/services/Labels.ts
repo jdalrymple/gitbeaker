@@ -31,7 +31,7 @@ describe('Labels.remove', () => {
   it('should remove/delete a valid label on a project', async () => {
     const label = await service.create(project.id, 'Test Label3', '#FFAABB');
 
-    expect(service.remove(project.id, label.name)).resolves.toEqual("");
+    expect(service.remove(project.id, label.name)).resolves.toEqual('');
   });
 });
 
@@ -55,14 +55,18 @@ describe('Labels.all', () => {
   });
 
   it('should return a list of labels on a project restricted to page 5', async () => {
-    const labels = await service.all(project.id, { perPage: 5, page: 5});
+    const labels = await service.all(project.id, { perPage: 5, page: 5 });
 
     expect(labels).toBeInstanceOf(Array);
     expect(labels).toHaveLength(5);
   });
 
   it('should return a list of labels on a project restricted to page 5 and show the pagination object', async () => {
-    const { data, pagination } = await service.all(project.id, { perPage: 5, page: 5, showPagination: true});
+    const { data, pagination } = await service.all(project.id, {
+      perPage: 5,
+      page: 5,
+      showPagination: true,
+    });
 
     expect(data).toBeInstanceOf(Array);
     expect(data).toHaveLength(5);

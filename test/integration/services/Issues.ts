@@ -53,7 +53,7 @@ describe('Issues.all', () => {
   });
 
   it('should return a list filtered to a specfic page', async () => {
-    const issues1 = await service.all({projectId: project.id, perPage: 1, page: 1 });
+    const issues1 = await service.all({ projectId: project.id, perPage: 1, page: 1 });
 
     expect(issues1).toBeInstanceOf(Array);
     expect(issues1).toHaveLength(1);

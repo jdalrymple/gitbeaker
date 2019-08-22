@@ -39,41 +39,41 @@ describe('Creation of BaseService instance', () => {
   });
 
   test('Camelize option should return simple response with camelized keys', async () => {
-    const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true});
+    const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true });
 
     service.show = jest.fn(() => RequestHelper.get(service, 'test'));
     KyRequester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
 
     const results = await service.show();
 
-    expect(results).toMatchObject({ id: 3, gravatarEnable: true })
+    expect(results).toMatchObject({ id: 3, gravatarEnable: true });
   });
 
   test('Camelize option should return simple response with camelized keys', async () => {
-    const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true});
+    const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true });
 
     service.show = jest.fn(() => RequestHelper.get(service, 'test'));
     KyRequester.get = jest.fn(() => ({
-      body: [
-        { id: 3, gravatar_enable: true },
-        { id: 4, gravatar_enable: false },
-      ],
-      headers: {}
+      body: [{ id: 3, gravatar_enable: true }, { id: 4, gravatar_enable: false }],
+      headers: {},
     }));
 
     const results = await service.show();
 
-    expect(results).toIncludeSameMembers([{ id: 3, gravatarEnable: true }, { id: 4, gravatarEnable: false }])
+    expect(results).toIncludeSameMembers([
+      { id: 3, gravatarEnable: true },
+      { id: 4, gravatarEnable: false },
+    ]);
   });
 
   test('Camelize option unset should return simple response with default keys', async () => {
-    const service = new BaseService({ host: 'https://testing.com', token: '1234'});
+    const service = new BaseService({ host: 'https://testing.com', token: '1234' });
 
     service.show = jest.fn(() => RequestHelper.get(service, 'test'));
     KyRequester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
 
     const results = await service.show();
 
-    expect(results).toMatchObject({ id: 3, gravatar_enable: true })
+    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
   });
 });

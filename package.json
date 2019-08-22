@@ -22,6 +22,7 @@
     "ky-universal": "^0.3.0",
     "li": "^1.3.0",
     "query-string": "^6.8.2",
+    "tslint-plugin-prettier": "^2.0.1",
     "universal-url": "^2.0.0"
   },
   "devDependencies": {
@@ -80,9 +81,9 @@
     "build": "tsc && rollup -c",
     "commit": "npx git-cz",
     "coverage": "codecov",
-    "lint": "tslint -p . -t stylish",
-    "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md'",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "tslint -p . -t stylish && prettier --check './**/*.ts'",
+    "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md' './*.js'",
+    "lint:fix": "prettier --write './**/*.ts' && npm run lint -- --fix",
     "prepublishOnly": "npm run build",
     "release": "semantic-release",
     "test:integration": "jest test/integration -c=jest.config.json --detectOpenHandles",

@@ -11,7 +11,7 @@ const mockedGetBasic = () => ({
   },
 });
 
-const mockedGetExtended = (url, { query }, limit=30) => {
+const mockedGetExtended = (url, { query }, limit = 30) => {
   const pages: object[] = [];
   const q = url.match(/page=([0-9]+)/);
   let page = 1;
@@ -21,20 +21,20 @@ const mockedGetExtended = (url, { query }, limit=30) => {
 
   // Only load pages needed for the test
   // TODO: modify this to only generate the required response, without the loop
-  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i++, a+=2, b+=2) {
+  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i++, a += 2, b += 2) {
     let next = '';
     let prev = '';
     let nextPage;
     let prevPage;
 
-    if ((i+1) <= limit ) {
-      next = `<https://www.test.com/api/v4/test?page=${i+1}&per_page=2>; rel="next",`;
-      nextPage = i+1
+    if (i + 1 <= limit) {
+      next = `<https://www.test.com/api/v4/test?page=${i + 1}&per_page=2>; rel="next",`;
+      nextPage = i + 1;
     }
 
-    if ((i-1) >= 1) {
-      prev = `<https://www.test.com/api/v4/test?page=${i-1}&per_page=2>; rel="prev",`;
-      prevPage = i-1
+    if (i - 1 >= 1) {
+      prev = `<https://www.test.com/api/v4/test?page=${i - 1}&per_page=2>; rel="prev",`;
+      prevPage = i - 1;
     }
 
     pages.push({
@@ -49,7 +49,10 @@ const mockedGetExtended = (url, { query }, limit=30) => {
         },
       ],
       headers: {
-        link: next + prev + `
+        link:
+          next +
+          prev +
+          `
         <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
         <https://www.test.com/api/v4/test?page=${limit}&per_page=2>; rel="last"`,
         'x-next-page': nextPage,
@@ -63,7 +66,7 @@ const mockedGetExtended = (url, { query }, limit=30) => {
   }
 
   return pages[page - 1];
-}
+};
 
 const service = new BaseService({
   host: 'https://testing.com',
