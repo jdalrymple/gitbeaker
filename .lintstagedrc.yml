@@ -1,7 +1,6 @@
-linters:
-  ./*.{js, ts}:
-    - 'npm run lint:fix'
-    - 'git add'
-  ./*.{json,md,yml}:
-    - 'prettier --write'
-    - 'git add'
+'*.{js, ts}':
+  - 'npm run lint:fix'
+  - 'git add'
+'*.{json,md,yml}':
+  - 'npm run lint:doc:fix'
+  - 'git add'
