@@ -1,71 +1,61 @@
 ## [10.1.2](https://github.com/jdalrymple/node-gitlab/compare/10.1.1...10.1.2) (2019-08-13)
 
-
 ### Bug Fixes
 
-* **package:** update ky to version 0.12.0 ([55fdb7a](https://github.com/jdalrymple/node-gitlab/commit/55fdb7a))
-* **package:** update ky-universal to version 0.3.0 ([3767c66](https://github.com/jdalrymple/node-gitlab/commit/3767c66))
+- **package:** update ky to version 0.12.0 ([55fdb7a](https://github.com/jdalrymple/node-gitlab/commit/55fdb7a))
+- **package:** update ky-universal to version 0.3.0 ([3767c66](https://github.com/jdalrymple/node-gitlab/commit/3767c66))
 
 ## [10.1.1](https://github.com/jdalrymple/node-gitlab/compare/10.1.0...10.1.1) (2019-08-09)
 
-
 ### Bug Fixes
 
-* Removing randomstring dependency to improve support for Angular 8 ([c47564b](https://github.com/jdalrymple/node-gitlab/commit/c47564b)), closes [#407](https://github.com/jdalrymple/node-gitlab/issues/407)
+- Removing randomstring dependency to improve support for Angular 8 ([c47564b](https://github.com/jdalrymple/node-gitlab/commit/c47564b)), closes [#407](https://github.com/jdalrymple/node-gitlab/issues/407)
 
 # [10.1.0](https://github.com/jdalrymple/node-gitlab/compare/10.0.3...10.1.0) (2019-08-06)
 
-
 ### Features
 
-* Adding Merge Base endpoint for the Repositories API ([040fc78](https://github.com/jdalrymple/node-gitlab/commit/040fc78)), closes [#400](https://github.com/jdalrymple/node-gitlab/issues/400)
+- Adding Merge Base endpoint for the Repositories API ([040fc78](https://github.com/jdalrymple/node-gitlab/commit/040fc78)), closes [#400](https://github.com/jdalrymple/node-gitlab/issues/400)
 
 ## [10.0.3](https://github.com/jdalrymple/node-gitlab/compare/10.0.2...10.0.3) (2019-08-06)
 
-
 ### Bug Fixes
 
-* Removing deprecated Session endpoint (since GitLab 10.2.0) ([fe720d8](https://github.com/jdalrymple/node-gitlab/commit/fe720d8)), closes [#404](https://github.com/jdalrymple/node-gitlab/issues/404)
+- Removing deprecated Session endpoint (since GitLab 10.2.0) ([fe720d8](https://github.com/jdalrymple/node-gitlab/commit/fe720d8)), closes [#404](https://github.com/jdalrymple/node-gitlab/issues/404)
 
 ## [10.0.2](https://github.com/jdalrymple/node-gitlab/compare/10.0.1...10.0.2) (2019-08-06)
 
-
 ### Bug Fixes
 
-* Adding missing TS type import 'FormData' ([a907c7c](https://github.com/jdalrymple/node-gitlab/commit/a907c7c)), closes [#401](https://github.com/jdalrymple/node-gitlab/issues/401)
+- Adding missing TS type import 'FormData' ([a907c7c](https://github.com/jdalrymple/node-gitlab/commit/a907c7c)), closes [#401](https://github.com/jdalrymple/node-gitlab/issues/401)
 
 ## [10.0.1](https://github.com/jdalrymple/node-gitlab/compare/10.0.0...10.0.1) (2019-07-30)
 
-
 ### Bug Fixes
 
-* Update to Ky 0.11.2 ([74e2b62](https://github.com/jdalrymple/node-gitlab/commit/74e2b62))
+- Update to Ky 0.11.2 ([74e2b62](https://github.com/jdalrymple/node-gitlab/commit/74e2b62))
 
 # [10.0.0](https://github.com/jdalrymple/node-gitlab/compare/9.1.0...10.0.0) (2019-07-15)
 
-
 ### Code Refactoring
 
-* Adding required labelName and colour option to the create method ([199e32d](https://github.com/jdalrymple/node-gitlab/commit/199e32d))
-
+- Adding required labelName and colour option to the create method ([199e32d](https://github.com/jdalrymple/node-gitlab/commit/199e32d))
 
 ### BREAKING CHANGES
 
-* Labels require a colour and a name to be created. Now the create method takes a second and third argument: 'labelName' and 'color'
+- Labels require a colour and a name to be created. Now the create method takes a second and third argument: 'labelName' and 'color'
 
 # [9.1.0](https://github.com/jdalrymple/node-gitlab/compare/9.0.1...9.1.0) (2019-07-12)
 
-
 ### Features
 
-* Adding support for branchName key seen in the Gitlab API v3 ([356466f](https://github.com/jdalrymple/node-gitlab/commit/356466f))
+- Adding support for branchName key seen in the Gitlab API v3 ([356466f](https://github.com/jdalrymple/node-gitlab/commit/356466f))
 
 ## [9.0.1](https://github.com/jdalrymple/node-gitlab/compare/9.0.0...9.0.1) (2019-07-11)
 
-
 ### Bug Fixes
 
-* Accept any variables that begin with uppercase letters and include an underscore [#254](https://github.com/jdalrymple/node-gitlab/issues/254) ([fe39590](https://github.com/jdalrymple/node-gitlab/commit/fe39590))
+- Accept any variables that begin with uppercase letters and include an underscore [#254](https://github.com/jdalrymple/node-gitlab/issues/254) ([fe39590](https://github.com/jdalrymple/node-gitlab/commit/fe39590))
 
 # [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
 
