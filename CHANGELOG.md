@@ -1,3 +1,16 @@
+# [10.2.0](https://github.com/jdalrymple/node-gitlab/compare/10.1.2...10.2.0) (2019-08-22)
+
+
+### Bug Fixes
+
+* incorrect url path for mr unapprove ([85c3329](https://github.com/jdalrymple/node-gitlab/commit/85c3329))
+
+
+### Features
+
+* Add Gitlab Blame endpoint to the RespositoryFiles API ([ac670cc](https://github.com/jdalrymple/node-gitlab/commit/ac670cc)), closes [#409](https://github.com/jdalrymple/node-gitlab/issues/409)
+* Adding fork relationship support ([76cb783](https://github.com/jdalrymple/node-gitlab/commit/76cb783)), closes [#410](https://github.com/jdalrymple/node-gitlab/issues/410)
+
 ## [10.1.2](https://github.com/jdalrymple/node-gitlab/compare/10.1.1...10.1.2) (2019-08-13)
 
 ### Bug Fixes
