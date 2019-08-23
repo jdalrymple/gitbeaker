@@ -45,7 +45,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-typescript2": "^0.22.1",
+    "rollup-plugin-typescript2": "^0.23.0",
     "semantic-release": "^15.13.24",
     "ts-jest": "24.0.2",
     "tslint": "5.19.0",
