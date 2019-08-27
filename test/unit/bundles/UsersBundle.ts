@@ -2,7 +2,7 @@ import { UsersBundle } from '../../../src';
 import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the users bundle', async () => {
-  const bundle = new UsersBundle({ token: 'test' });
+  const bundle: UsersBundle = new UsersBundle({ token: 'test' });
   const services = [
     'Users',
     'UserEmails',
