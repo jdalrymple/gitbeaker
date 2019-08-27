@@ -43,17 +43,19 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
 
 async function processBody(response) {
   const contentType = response.headers.get('content-type') || '';
-  const content = await response.text();
 
-  if (contentType.includes('json')) {
-    try {
-      return JSON.parse(content || '{}');
-    } catch {
-      return {};
-    }
+  switch (contentType) {
+    case 'application/json':
+      const json = await response.json();
+
+      return json || {};
+    case 'application/octet-stream':
+      const blob = await response.blob();
+
+      return new Response(blob).arrayBuffer().then(Buffer.from);
+    default:
+      return response.text();
   }
-
-  return content;
 }
 
 methods.forEach(m => {
