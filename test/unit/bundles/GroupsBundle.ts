@@ -2,7 +2,7 @@ import { GroupsBundle } from '../../../src';
 import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the groups bundle', async () => {
-  const bundle = new GroupsBundle({ token: 'test' });
+  const bundle: GroupsBundle = new GroupsBundle({ token: 'test' });
   const services = [
     'Groups',
     'GroupAccessRequests',

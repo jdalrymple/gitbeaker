@@ -5,7 +5,7 @@ const { Gitlab: GitlabCommon } = require('../../../src');
 
 describe('Instantiating All services', () => {
   it('should create a valid gitlab service object using import', async () => {
-    const bundle = new GitlabModule({
+    const bundle: GitlabModule = new GitlabModule({
       token: 'abcdefg',
     });
 
