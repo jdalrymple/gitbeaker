@@ -435,6 +435,19 @@ const api = new Gitlab({
 
 Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
 
+### Misc
+
+#### Non JSON/Text Responses
+
+For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example when trying to write a file, this can be done like:
+
+```
+let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test);
+
+fs.writeFileSync("test.zip", bufferedData);
+
+```
+
 ## Development
 
 To get this running locally rather than from your `node_modules` folder:
