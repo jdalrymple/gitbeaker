@@ -104,6 +104,7 @@ MergeRequests
 MergeRequestAwardEmojis
 MergeRequestDiscussions
 MergeRequestNotes
+Packages
 Pipelines
 PipelineSchedules
 PipelineScheduleVariables
@@ -220,6 +221,7 @@ MergeRequests
 MergeRequestAwardEmojis
 MergeRequestDiscussions
 MergeRequestNotes
+Packages
 Pipelines
 PipelineSchedules
 PipelineScheduleVariables
