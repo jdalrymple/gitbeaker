@@ -1,3 +1,10 @@
+## [10.2.1](https://github.com/jdalrymple/node-gitlab/compare/10.2.0...10.2.1) (2019-08-28)
+
+
+### Bug Fixes
+
+* Adding proper support for the buffer responses ([8bbab73](https://github.com/jdalrymple/node-gitlab/commit/8bbab73))
+
 # [10.2.0](https://github.com/jdalrymple/node-gitlab/compare/10.1.2...10.2.0) (2019-08-22)
 
 
