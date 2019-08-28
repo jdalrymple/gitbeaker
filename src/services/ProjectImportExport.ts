@@ -15,7 +15,7 @@ class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {
+  import(content: string, path: string, options?: Sudo) {
     const form = new FormData();
 
     const defaultMetadata: UploadMetadata = {
@@ -23,9 +23,10 @@ class ProjectImportExport extends BaseService {
       contentType: 'application/octet-stream',
     };
 
-    form.append('file', content, Object.assign(defaultMetadata, metadata));
+    form.append('file', content, defaultMetadata);
+    form.append('path', path);
 
-    return RequestHelper.post(this, 'projects/import', { sudo, form });
+    return RequestHelper.post(this, 'projects/import', { ...options, form });
   }
 
   importStatus(projectId: ProjectId, options?: Sudo) {
