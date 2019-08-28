@@ -39,6 +39,7 @@ export { default as MergeRequests } from './MergeRequests';
 export { default as MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
 export { default as MergeRequestDiscussions } from './MergeRequestDiscussions';
 export { default as MergeRequestNotes } from './MergeRequestNotes';
+export { default as Packages } from './Packages';
 export { default as Pipelines } from './Pipelines';
 export { default as PipelineSchedules } from './PipelineSchedules';
 export { default as PipelineScheduleVariables } from './PipelineScheduleVariables';
