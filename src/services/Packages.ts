@@ -5,7 +5,7 @@ class Packages extends BaseService {
   all(projectId: ProjectId, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${gId}/packages`, options);
+    return RequestHelper.get(this, `projects/${pId}/packages`, options);
   }
 
   remove(projectId: ProjectId, packageId: number, options?: Sudo) {
