@@ -1,3 +1,20 @@
+# [11.0.0](https://github.com/jdalrymple/node-gitlab/compare/10.2.1...11.0.0) (2019-08-28)
+
+
+### Bug Fixes
+
+* Adding path argument to the Project Imports API ([97a7c59](https://github.com/jdalrymple/node-gitlab/commit/97a7c59))
+
+
+### Features
+
+* Add support for the Packages API [#430](https://github.com/jdalrymple/node-gitlab/issues/430) ([47e1ff4](https://github.com/jdalrymple/node-gitlab/commit/47e1ff4))
+
+
+### BREAKING CHANGES
+
+* Added the path argument to the function header.
+
 ## [10.2.1](https://github.com/jdalrymple/node-gitlab/compare/10.2.0...10.2.1) (2019-08-28)
 
 
