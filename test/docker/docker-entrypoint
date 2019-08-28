@@ -13,6 +13,10 @@ GITLAB_URL="http://localhost:$EXTERNAL_PORT"
 echo "export PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN" >> ~/.profile
 echo "export GITLAB_URL=$GITLAB_URL" >> ~/.profile
 
+echo Checking that variables are set
+echo $PERSONAL_ACCESS_TOKEN
+echo $GITLAB_URL
+
 echo Tail and wait
 gitlab-ctl tail&
 wait
