@@ -55,7 +55,9 @@ async function processBody(response) {
 
       return Buffer.from(arrayBuffer);
     default:
-      return response.text();
+      const text = response.text();
+
+      return Promise.resolve(text || '');
   }
 }
 
