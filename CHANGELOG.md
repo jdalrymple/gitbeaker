@@ -1,3 +1,10 @@
+## [11.0.1](https://github.com/jdalrymple/node-gitlab/compare/11.0.0...11.0.1) (2019-08-29)
+
+
+### Bug Fixes
+
+* Handling empty text responses ([c8deaa2](https://github.com/jdalrymple/node-gitlab/commit/c8deaa2))
+
 # [11.0.0](https://github.com/jdalrymple/node-gitlab/compare/10.2.1...11.0.0) (2019-08-28)
 
 
