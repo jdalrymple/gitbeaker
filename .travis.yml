@@ -4,7 +4,6 @@ stages:
   - lint
   - build
   - test
-  - coverage
   - release
 
 notifications:
@@ -12,7 +11,6 @@ notifications:
 
 cache:
   directories:
-    - coverage
     - dist
 
 jobs:
@@ -21,7 +19,7 @@ jobs:
       node_js: node
       script:
         - npm run lint
-        - npm run lint:doc # Semantic release modified the md files that are not styled correctly.
+        - prettier --check './*.json' './*.yml'
 
     - &build
       stage: build
@@ -37,7 +35,8 @@ jobs:
       node_js: lts/*
       name: 'Unit Tests  Latest LTS'
       script:
-        - npm run test:unit -- --collectCoverage
+        - npm run test:unit -- --coverage
+        - npm run coverage
 
     - &test-integration
       stage: test
@@ -53,7 +52,8 @@ jobs:
         - echo $GITLAB_URL
         - echo $PERSONAL_ACCESS_TOKEN
       script:
-        - npm run test:integration -- --collectCoverage
+        - npm run test:integration -- --coverage
+        - npm run coverage
 
     - <<: *test-unit
       name: 'Unit Tests Latest'
@@ -66,11 +66,6 @@ jobs:
       node_js: node
       script:
         - npm run test:integration
-
-    - stage: coverage
-      node_js: node
-      script:
-        - npm run coverage
 
     - stage: release
       node_js: node
