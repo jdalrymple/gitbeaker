@@ -21,7 +21,7 @@ export class BaseService {
     rejectUnauthorized = true,
     requester = KyRequester,
     requestTimeout = 300000,
-  }: BaseServiceOptions) {
+  }: BaseServiceOptions = {}) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
@@ -31,8 +31,8 @@ export class BaseService {
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
-    else if (jobToken) this.headers['job-token'] = jobToken;
-    else if (token) this.headers['private-token'] = token;
+    if (jobToken) this.headers['job-token'] = jobToken;
+    if (token) this.headers['private-token'] = token;
 
     // Set sudo
     if (sudo) this.headers['Sudo'] = `${sudo}`;

@@ -1,5 +1,5 @@
-import { GroupsBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import { GroupsBundle } from '../../../src/core';
+import * as Services from '../../../src/core/services';
 
 test('All the correct service keys are included in the groups bundle', async () => {
   const bundle: GroupsBundle = new GroupsBundle({ token: 'test' });

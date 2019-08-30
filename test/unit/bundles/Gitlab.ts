@@ -1,7 +1,7 @@
-import { Gitlab as GitlabModule } from '../../../src';
-import * as Services from '../../../src/services';
+import { Gitlab as GitlabModule } from '../../../src/core';
+import * as Services from '../../../src/core/services';
 
-const { Gitlab: GitlabCommon } = require('../../../src');
+const { Gitlab: GitlabCommon } = require('../../../src/core');
 
 describe('Instantiating All services', () => {
   it('should create a valid gitlab service object using import', async () => {

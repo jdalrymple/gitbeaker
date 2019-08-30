@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+import { camelizeKeys } from 'humps';
+import paramCase from 'param-case';
+import program from 'yargs';
+import pkg from '../../package.json';
+import map from '../../dist/map.json';
+import * as core from '../core';
+
+// Add default options
+program
+  .alias('v', 'version')
+  .version(pkg.version)
+  .describe('v', 'Show version information')
+
+  .alias('h', 'help')
+  .help('help')
+  .showHelpOnFail(false, 'Specify --help for available options');
+
+// Add all supported API's
+Object.entries(map).forEach(([name, methods]: [string, { name: string; args: string[] }[]]) => {
+  const baseArgs: string[] = methods[0].args;
+
+  program.command(paramCase(name), `The ${name} API`, cmdYargs => {
+    cmdYargs
+      .option('gl-token', { describe: 'Your Gitlab Personal Token', type: 'string' })
+      .option('gl-oauth-token', { describe: 'Your Gitlab OAuth Token', type: 'string' })
+      .option('gl-job-token', { describe: 'Your Gitlab Job Token', type: 'string' })
+      .option('gl-host', {
+        describe: 'Your Gitlab API host (Defaults to https://www.gitlab.com)',
+        type: 'string',
+      })
+      .option('gl-version', {
+        describe: 'The targetted Gitlab API version (Defaults to v4)',
+        type: 'number',
+      })
+      .option('gl-sudo', { type: 'string' })
+      .option('gl-camelize', { type: 'boolean' });
+
+    for (let i = 1; i < methods.length; i += 1) {
+      const m = methods[i];
+
+      cmdYargs.command(
+        paramCase(m.name),
+        '',
+        subCmdYargs => {
+          m.args.forEach(arg => {
+            if (arg === 'options') return;
+
+            subCmdYargs.option(`${paramCase(arg)}`, {
+              demandOption: true,
+            });
+          });
+
+          return subCmdYargs;
+        },
+        args => {
+          const casedArgs = camelizeKeys(args);
+          const coreArgs = {};
+          const optionalArgs = {};
+          const initArgs = {};
+
+          for (const [name, value] of Object.entries(casedArgs)) {
+            const baseOption = baseArgs.find(x => x === name.replace('gl-', ''));
+
+            if (baseOption) initArgs[baseOption] = value;
+            else if (m.args.includes(name)) coreArgs[name] = value;
+            else optionalArgs[name] = value;
+          }
+
+          // Create service
+          const s = new core[name](initArgs);
+
+          // Execute function
+          return s[m.name](...Object.values(coreArgs), optionalArgs);
+        },
+      );
+    }
+
+    return cmdYargs;
+  });
+});
+
+program.epilog('Copyright 2019').argv;

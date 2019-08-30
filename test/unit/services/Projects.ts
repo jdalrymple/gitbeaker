@@ -1,5 +1,5 @@
-import { Projects } from '../../../src';
-import { RequestHelper } from '../../../src/infrastructure';
+import { Projects } from '../../../src/core';
+import { RequestHelper } from '../../../src/core/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 jest.mock('../../../src/infrastructure/KyRequester', () => ({

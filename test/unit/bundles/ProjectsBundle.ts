@@ -1,5 +1,5 @@
-import { ProjectsBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import { ProjectsBundle } from '../../../src/core';
+import * as Services from '../../../src/core/services';
 
 test('All the correct service keys are included in the projects bundle', async () => {
   const bundle: ProjectsBundle = new ProjectsBundle({ token: 'test' });

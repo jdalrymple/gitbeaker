@@ -1,4 +1,4 @@
-import { RequestHelper, KyRequester, BaseService } from '../../../src/infrastructure';
+import { RequestHelper, KyRequester, BaseService } from '../../../src/core/infrastructure';
 
 const mockedGetBasic = () => ({
   body: {
@@ -21,7 +21,7 @@ const mockedGetExtended = (url, { query }, limit = 30) => {
 
   // Only load pages needed for the test
   // TODO: modify this to only generate the required response, without the loop
-  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i++, a += 2, b += 2) {
+  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i += 1, a += 2, b += 2) {
     let next = '';
     let prev = '';
     let nextPage;
@@ -49,12 +49,7 @@ const mockedGetExtended = (url, { query }, limit = 30) => {
         },
       ],
       headers: {
-        link:
-          next +
-          prev +
-          `
-        <https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",
-        <https://www.test.com/api/v4/test?page=${limit}&per_page=2>; rel="last"`,
+        link: `${next}${prev}<https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",<https://www.test.com/api/v4/test?page=${limit}&per_page=2>; rel="last"`,
         'x-next-page': nextPage,
         'x-page': i,
         'x-per-page': 2,
