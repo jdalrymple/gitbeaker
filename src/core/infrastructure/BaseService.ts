@@ -31,8 +31,8 @@ export class BaseService {
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
-    if (jobToken) this.headers['job-token'] = jobToken;
-    if (token) this.headers['private-token'] = token;
+    else if (jobToken) this.headers['job-token'] = jobToken;
+    else if (token) this.headers['private-token'] = token;
 
     // Set sudo
     if (sudo) this.headers['Sudo'] = `${sudo}`;
