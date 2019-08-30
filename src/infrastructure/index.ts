@@ -1,5 +1,5 @@
 import * as RequestHelper from './RequestHelper';
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 
 export { BaseService } from './BaseService';
 export { bundler } from './Utils';
