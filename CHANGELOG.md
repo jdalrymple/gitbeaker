@@ -1,3 +1,10 @@
+## [11.0.2](https://github.com/jdalrymple/node-gitlab/compare/11.0.1...11.0.2) (2019-08-30)
+
+
+### Bug Fixes
+
+* Switching type import to hopefully fix [#417](https://github.com/jdalrymple/node-gitlab/issues/417) ([91cfbf2](https://github.com/jdalrymple/node-gitlab/commit/91cfbf2))
+
 ## [11.0.1](https://github.com/jdalrymple/node-gitlab/compare/11.0.0...11.0.1) (2019-08-29)
 
 
