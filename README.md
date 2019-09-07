@@ -19,15 +19,16 @@
 ## Table of Contents
 
 - [Install](#install)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
+  - [CLI Support](#cli-support)
+- [Docs](#docs)
   - [Supported APIs](#supported-apis)
-  - [Import](#import)
-    - [Bundle Imports](#bundle-imports)
+  - [Bundle Imports](#bundle-imports)
   - [Examples](#examples)
   - [Pagination](#pagination)
   - [Sudo](#sudo)
   - [Custom Request Libraries](#custom-request-libraries)
-- [Docs](#docs)
+  - [Misc](#misc)
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
@@ -41,7 +42,64 @@
 npm install gitlab
 ```
 
-## Usage
+## Getting Started
+
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+
+```javascript
+// ES6 (>=node 10.16.0 LTS)
+import { Gitlab } from 'gitlab'; // All Resources
+import { Projects } from 'gitlab'; // Just the Project Resource
+//...etc
+
+// ES5, assuming native or polyfilled Promise is available
+const { Gitlab } = require('gitlab');
+```
+
+```javascript
+const api = new Gitlab({
+  token: 'personaltoken',
+});
+```
+
+Available instantiating options:
+
+| Name                 | Optional | Default                                               | Description                                                     |
+| -------------------- | -------- | ----------------------------------------------------- | --------------------------------------------------------------- |
+| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                        |
+| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required) |
+| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)    |
+| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)   |
+| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                        |
+| `sudo`               | Yes      | `false`                                               | Sudo query parameter                                            |
+| `version`            | Yes      | `v4`                                                  | API Version ID                                                  |
+| `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys         |
+| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                    |
+| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                   |
+
+### CLI Support
+
+The CLI export functions in a similar manner, following the pattern:
+
+```bash
+gitlab [service name] [method name] --arg1 --arg2 --arg3
+```
+
+Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments who's names should match what the GitLab API docs request.
+
+There is one small exception with the instantiating arguments however, which must be supplied using a `gl` prefix. ie.
+
+```bash
+# To get all the projects
+gitlab projects all --gl-token="My Personal Token"
+
+# To get a project with id = 2
+gitlab projects show --gl-token="My Personal Token" --projectId=2
+```
+
+## Docs
+
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
 
 ### Supported APIs
 
@@ -143,46 +201,7 @@ UserGPGKeys
 
 ```
 
-### Import
-
-URL to your GitLab instance should not include `/api/v4` path.
-
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
-
-```javascript
-// ES6 (>=node 10.16.0 LTS)
-import { Gitlab } from 'gitlab'; // All Resources
-import { Projects } from 'gitlab'; // Just the Project Resource
-//...etc
-
-// ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('gitlab');
-```
-
-Basic Example
-
-```javascript
-const api = new Gitlab({
-  token: 'personaltoken',
-});
-```
-
-Available instatiating options:
-
-| Name                 | Optional | Default                                               | Description                                                     |
-| -------------------- | -------- | ----------------------------------------------------- | --------------------------------------------------------------- |
-| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                        |
-| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required) |
-| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)    |
-| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)   |
-| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                        |
-| `sudo`               | Yes      | `false`                                               | Sudo query parameter                                            |
-| `version`            | Yes      | `v4`                                                  | API Version ID                                                  |
-| `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys         |
-| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                    |
-| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                   |
-
-#### Bundle Imports
+### Bundle Imports
 
 It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
 
@@ -279,18 +298,6 @@ EpicIssues
 EpicNotes
 EpicDiscussions
 ```
-
-#### Handling HTTPS certificates
-
-If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
-
-```js
-"scripts": {
-    "start": "NODE_EXTRA_CA_CERTS=./secrets/3ShapeCA.pem node bot.js"
-},
-```
-
-> **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
 ### Examples
 
@@ -433,17 +440,25 @@ const api = new Gitlab({
 });
 ```
 
-## Docs
-
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
-
 ### Misc
+
+#### Handling HTTPS certificates
+
+If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
+
+```js
+"scripts": {
+    "start": "NODE_EXTRA_CA_CERTS=./secrets/3ShapeCA.pem node bot.js"
+},
+```
+
+> **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
 #### Non JSON/Text Responses
 
 For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example when trying to write a file, this can be done like:
 
-```
+```javascript
 let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test);
 
 fs.writeFileSync("test.zip", bufferedData);
