@@ -21,7 +21,7 @@ program
 Object.entries(map).forEach(([name, methods]: [string, { name: string; args: string[] }[]]) => {
   const baseArgs: string[] = methods[0].args;
 
-  program.command(paramCase(name), `The ${name} API`, cmdYargs => {
+  program.command(param(name), `The ${name} API`, cmdYargs => {
     cmdYargs
       .option('gl-token', { describe: 'Your Gitlab Personal Token', type: 'string' })
       .option('gl-oauth-token', { describe: 'Your Gitlab OAuth Token', type: 'string' })
@@ -41,7 +41,7 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
       const m = methods[i];
 
       cmdYargs.command(
-        paramCase(m.name),
+        param(m.name),
         '',
         subCmdYargs => {
           m.args.forEach(arg => {
