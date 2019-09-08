@@ -64,7 +64,7 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
             const baseOption = baseArgs.find(x => x === name.replace('gl-', ''));
 
             if (baseOption) {
-              initArgs[baseOption] = value || process.env[constant(baseOption)];
+              initArgs[baseOption] = value || process.env[`GITLAB_${constant(baseOption)}`];
             } else if (m.args.includes(name)) coreArgs[name] = value;
             else optionalArgs[name] = value;
           }
