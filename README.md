@@ -91,10 +91,17 @@ There is one small exception with the instantiating arguments however, which mus
 
 ```bash
 # To get all the projects
-gitlab projects all --gl-token="My Personal Token"
+gitlab projects all --gl-token="personaltoken"
 
 # To get a project with id = 2
-gitlab projects show --gl-token="My Personal Token" --projectId=2
+gitlab projects show --gl-token="personaltoken" --projectId=2
+```
+
+To reduce the annoyance of having to pass those configuration properties each time, it is also possible to pass the token and host information through environment variables in the form of `GITLAB_[option name]` ie:
+
+```bash
+GITLAB_HOST=http://example.com
+GITLAB_TOKEN=personaltoken
 ```
 
 ## Docs
@@ -210,7 +217,7 @@ import { ProjectsBundle } from 'gitlab';
 
 const services = new ProjectsBundle({
   host:   'http://example.com',
-  token: 'abcdefghij123456'
+  token: 'personaltoken'
 })
 
 services.Projects.all()
@@ -310,7 +317,7 @@ import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   host: 'http://example.com',
-  token: 'abcdefghij123456',
+  token: 'personaltoken',
 });
 
 // Listing users
@@ -334,7 +341,7 @@ import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   host: 'http://example.com',
-  token: 'abcdefghij123456',
+  token: 'personaltoken',
 });
 
 api.Projects.create(projectId, {
@@ -351,7 +358,7 @@ import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   host: 'http://example.com',
-  token: 'abcdefghij123456',
+  token: 'personaltoken',
 });
 
 let projects = await api.Projects.all({ maxPages: 2 });
@@ -364,7 +371,7 @@ import { Gitlab } from 'gitlab';
 
 const api = new Gitlab({
   host: 'http://example.com',
-  token: 'abcdefghij123456',
+  token: 'personaltoken',
 });
 
 let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
@@ -412,7 +419,7 @@ import { NotificationSettings } from 'gitlab';
 
 const service = new NotificationSettings({
   host:   'http://example.com',
-  token: 'abcdefghij123456'
+  token: 'personaltoken'
   sudo: 8 // Can be the user ID or a username
 });
 
@@ -435,7 +442,7 @@ import YourCustomRequester from 'custom-requester';
 
 const api = new Gitlab({
   host: 'http://example.com',
-  token: 'abcdefghij123456',
+  token: 'personaltoken',
   requester: YourCustomRequester,
 });
 ```
@@ -479,17 +486,17 @@ $ npm build
 And then inside whatever project you are using `node-gitlab` in you change your references to use that repo. In your package.json of that upstream project change:
 
 ```json
-  "dependencies": {
-    "gitlab": "5.0.0"
-  }
+"dependencies": {
+  "gitlab": "5.0.0"
+}
 ```
 
 to this
 
 ```json
-  "dependencies": {
-    "gitlab": "<path-to-your-clone>"
-  }
+"dependencies": {
+  "gitlab": "<path-to-your-clone>"
+}
 ```
 
 ## Testing
