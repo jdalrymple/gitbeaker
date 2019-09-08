@@ -104,6 +104,8 @@ GITLAB_HOST=http://example.com
 GITLAB_TOKEN=personaltoken
 ```
 
+This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
+
 ## Docs
 
 Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
