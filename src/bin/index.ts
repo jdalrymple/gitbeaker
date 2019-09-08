@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+import 'dotenv';
 import { camelizeKeys } from 'humps';
-import paramCase from 'param-case';
+import { param, constant } from 'change-case';
 import program from 'yargs';
 import pkg from '../../package.json';
 import map from '../../dist/map.json';
@@ -46,7 +47,7 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
           m.args.forEach(arg => {
             if (arg === 'options') return;
 
-            subCmdYargs.option(`${paramCase(arg)}`, {
+            subCmdYargs.option(`${param(arg)}`, {
               demandOption: true,
             });
           });
@@ -62,8 +63,9 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
           for (const [name, value] of Object.entries(casedArgs)) {
             const baseOption = baseArgs.find(x => x === name.replace('gl-', ''));
 
-            if (baseOption) initArgs[baseOption] = value;
-            else if (m.args.includes(name)) coreArgs[name] = value;
+            if (baseOption) {
+              initArgs[baseOption] = value || process.env[constant(baseOption)];
+            } else if (m.args.includes(name)) coreArgs[name] = value;
             else optionalArgs[name] = value;
           }
 
