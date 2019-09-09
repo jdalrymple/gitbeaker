@@ -1,3 +1,10 @@
+# [11.1.0](https://github.com/jdalrymple/node-gitlab/compare/11.0.2...11.1.0) (2019-09-09)
+
+
+### Features
+
+* Adding support for CLI ([6f90f4c](https://github.com/jdalrymple/node-gitlab/commit/6f90f4c)), closes [#146](https://github.com/jdalrymple/node-gitlab/issues/146)
+
 ## [11.0.2](https://github.com/jdalrymple/node-gitlab/compare/11.0.1...11.0.2) (2019-08-30)
 
 
