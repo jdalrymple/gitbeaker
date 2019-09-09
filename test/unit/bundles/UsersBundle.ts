@@ -1,5 +1,5 @@
-import { UsersBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import { UsersBundle } from '../../../src/core';
+import * as Services from '../../../src/core/services';
 
 test('All the correct service keys are included in the users bundle', async () => {
   const bundle: UsersBundle = new UsersBundle({ token: 'test' });

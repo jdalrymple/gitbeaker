@@ -1,4 +1,4 @@
-import { RequestHelper, KyRequester, BaseService } from '../../../src/infrastructure';
+import { RequestHelper, KyRequester, BaseService } from '../../../src/core/infrastructure';
 
 describe('Creation of BaseService instance', () => {
   test('host defaults to https://gitlab.com/api/v4/', async () => {

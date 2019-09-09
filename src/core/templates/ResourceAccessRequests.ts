@@ -21,7 +21,7 @@ class ResourceAccessRequests extends BaseService {
   approve(
     resourceId: ResourceId,
     userId: UserId,
-    { accessLevel }: { accessLevel: AccessLevel } & Sudo,
+    { accessLevel }: { accessLevel?: AccessLevel } & Sudo = {},
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 

@@ -5,13 +5,38 @@ import json from 'rollup-plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
+import replace from 'rollup-plugin-replace';
 import typescript from 'typescript';
 import pkg from './package.json';
 
 export default [
+  // CLI build
+  {
+    input: 'src/bin/index.ts',
+    output: {
+      banner: '#!/usr/bin/env node',
+      file: pkg.bin.gitlab,
+      format: 'cjs',
+    },
+    external: [...Object.keys(pkg.dependencies)],
+    plugins: [
+      replace({
+        delimiters: ['', ''],
+        '#!/usr/bin/env node': '',
+      }),
+      globals(),
+      builtins(),
+      resolve(),
+      commonjs(),
+      json(),
+      ts({ typescript }),
+      terser(),
+    ],
+  },
+
   // Browser-friendly UMD build
   {
-    input: 'src/index.ts',
+    input: 'src/core/index.ts',
     output: {
       file: pkg.browser,
       name: 'node-gitlab',
@@ -31,8 +56,8 @@ export default [
     plugins: [
       globals(),
       builtins(),
-      resolve({ browser: true }), // so Rollup can find `ms`
-      commonjs(), // so Rollup can convert `ms` to an ES module
+      resolve({ browser: true }),
+      commonjs(),
       json(),
       ts({ typescript }),
       terser(),
@@ -41,7 +66,7 @@ export default [
 
   // CommonJS (for Node) (for bundlers) build.
   {
-    input: 'src/index.ts',
+    input: 'src/core/index.ts',
     output: {
       file: pkg.main,
       format: 'cjs',
@@ -52,7 +77,7 @@ export default [
 
   // ES module (for bundlers) build.
   {
-    input: 'src/index.ts',
+    input: 'src/core/index.ts',
     output: {
       file: pkg.module,
       format: 'es',

@@ -21,7 +21,7 @@ export class BaseService {
     rejectUnauthorized = true,
     requester = KyRequester,
     requestTimeout = 300000,
-  }: BaseServiceOptions) {
+  }: BaseServiceOptions = {}) {
     this.url = [host, 'api', version, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
