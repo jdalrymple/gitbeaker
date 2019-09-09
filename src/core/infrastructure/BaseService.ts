@@ -28,6 +28,7 @@ export class BaseService {
     this.camelize = camelize;
     this.requester = requester;
     this.requestTimeout = requestTimeout;
+    this.middleware = [];
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
@@ -37,4 +38,13 @@ export class BaseService {
     // Set sudo
     if (sudo) this.headers['Sudo'] = `${sudo}`;
   }
+
+  use(fn) {
+    if (typeof fn !== 'function') throw new TypeError('middleware must be a function!');
+
+    this.middleware.push(fn);
+  }
+
+  // Need to reoganize how the request helper is used. Why use a stateless system? Create a
+  // plugins section and include the KyRequester in there
 }
