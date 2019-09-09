@@ -1,3 +1,10 @@
+## [11.1.1](https://github.com/jdalrymple/node-gitlab/compare/11.1.0...11.1.1) (2019-09-09)
+
+
+### Bug Fixes
+
+* **package:** update ky to version 0.14.0 ([b907f54](https://github.com/jdalrymple/node-gitlab/commit/b907f54))
+
 # [11.1.0](https://github.com/jdalrymple/node-gitlab/compare/11.0.2...11.1.0) (2019-09-09)
 
 
