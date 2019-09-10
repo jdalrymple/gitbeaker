@@ -1,3 +1,10 @@
+## [11.1.2](https://github.com/jdalrymple/node-gitlab/compare/11.1.1...11.1.2) (2019-09-10)
+
+
+### Bug Fixes
+
+* Forgot to await for the response [#426](https://github.com/jdalrymple/node-gitlab/issues/426) ([8c673c3](https://github.com/jdalrymple/node-gitlab/commit/8c673c3))
+
 ## [11.1.1](https://github.com/jdalrymple/node-gitlab/compare/11.1.0...11.1.1) (2019-09-09)
 
 
