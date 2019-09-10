@@ -46,18 +46,18 @@ async function processBody(response) {
 
   switch (contentType) {
     case 'application/json':
-      const json = response.json();
+      const json = await response.json();
 
-      return Promise.resolve(json || {});
+      return json || {};
     case 'application/octet-stream':
       const blob = await response.blob();
       const arrayBuffer = await new Response(blob).arrayBuffer();
 
       return Buffer.from(arrayBuffer);
     default:
-      const text = response.text();
+      const text = await response.text();
 
-      return Promise.resolve(text || '');
+      return text || '';
   }
 }
 
