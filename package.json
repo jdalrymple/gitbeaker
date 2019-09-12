@@ -57,7 +57,7 @@
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.24.1",
     "semantic-release": "^15.13.24",
-    "ts-jest": "24.0.2",
+    "ts-jest": "24.1.0",
     "tslint": "5.20.0",
     "tslint-config-airbnb": "5.11.1",
     "tslint-config-prettier": "1.18.0",
