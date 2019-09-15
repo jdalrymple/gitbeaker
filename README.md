@@ -482,7 +482,7 @@ To get this running locally rather than from your `node_modules` folder:
 $ git clone https://github.com/jdalrymple/node-gitlab.git
 $ cd node-gitlab
 $ npm install
-$ npm build
+$ npm run-script build
 ```
 
 And then inside whatever project you are using `node-gitlab` in you change your references to use that repo. In your package.json of that upstream project change:
