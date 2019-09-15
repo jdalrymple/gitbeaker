@@ -14,6 +14,12 @@ class Environments extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/environments`, options);
   }
 
+  show(projectId: ProjectId, environmentId: EnvironmentId, options?: Sudo) {
+    const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/environments/${eId}`, options);
+  }
+
   create(projectId: ProjectId, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
