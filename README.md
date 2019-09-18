@@ -346,7 +346,7 @@ const api = new Gitlab({
   token: 'personaltoken',
 });
 
-api.Projects.create(projectId, {
+api.Projects.create({
   //options defined in the Gitlab API documentation
 });
 ```
