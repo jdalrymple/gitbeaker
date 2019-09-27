@@ -1,3 +1,5 @@
+# gitlab
+
 [![npm @latest](https://img.shields.io/npm/v/gitlab.svg)](https://www.npmjs.com/package/gitlab)
 [![npm downloads](https://img.shields.io/npm/dt/gitlab.svg)](https://www.npmjs.com/package/gitlab)
 [![dependencies Status](https://david-dm.org/jdalrymple/node-gitlab/status.svg)](https://david-dm.org/jdalrymple/node-gitlab)
@@ -20,13 +22,15 @@
 
 - [Install](#install)
 - [Usage](#usage)
-  - [Supported Services](SupportedServices.md)
+  - [Supported APIs](#supported-apis)
   - [Import](#import)
     - [Bundle Imports](#bundle-imports)
   - [Examples](#examples)
   - [Pagination](#pagination)
   - [Sudo](#sudo)
   - [Custom Request Libraries](#custom-request-libraries)
+- [Migrating from node-gitlab](#migrating-from-node-gitlabnode-gitlab)
+- [Docs](#docs)
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
@@ -41,6 +45,104 @@ npm install gitlab
 ```
 
 ## Usage
+
+### Supported APIs
+
+The API's that are currently supported are:
+
+```
+// General
+ApplicationSettings
+BroadcastMessages
+Events
+FeatureFlags
+GeoNodes
+GitignoreTemplates
+GitLabCIYMLTemplates
+Keys
+Licence
+LicenceTemplates
+Lint
+Markdown
+Namespaces
+NotificationSettings
+PagesDomains
+Search
+SidekiqMetrics
+Snippets
+SystemHooks
+Version
+Wikis
+
+// Groups
+Groups
+GroupAccessRequests
+GroupBadges
+GroupCustomAttributes
+GroupIssueBoards
+GroupMembers
+GroupMilestones
+GroupProjects
+GroupVariables
+Epics
+EpicIssues
+EpicNotes
+EpicDiscussions
+
+// Projects
+Branches
+Commits
+CommitDiscussions
+ContainerRegistry
+DeployKeys
+Deployments
+Environments
+Issues
+IssueAwardEmojis
+IssueNotes
+IssueDiscussions
+Jobs
+Labels
+MergeRequests
+MergeRequestAwardEmojis
+MergeRequestDiscussions
+MergeRequestNotes
+Pipelines
+PipelineSchedules
+PipelineScheduleVariables
+Projects
+ProjectAccessRequests
+ProjectBadges
+ProjectCustomAttributes
+ProjectImportExport
+ProjectIssueBoards
+ProjectHooks
+ProjectMembers
+ProjectMilestones
+ProjectSnippets
+ProjectSnippetNotes
+ProjectSnippetDiscussions
+ProjectSnippetAwardEmojis
+ProtectedBranches
+ProtectedTags
+ProjectVariables
+Releases
+ReleaseLinks
+Repositories
+RepositoryFiles
+Runners
+Services
+Tags
+Triggers
+
+// Users
+Users
+UserEmails
+UserImpersonationTokens
+UserKeys
+UserGPGKeys
+
+```
 
 ### Import
 
@@ -175,15 +277,15 @@ EpicDiscussions
 
 If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
 
-```javascript
+```js
 "scripts": {
     "start": "NODE_EXTRA_CA_CERTS=./secrets/3ShapeCA.pem node bot.js"
-}
+},
 ```
 
 Although we don't encourage it, if you absolutely must allow insecure certificates, you can instantiate the API with `rejectAuthorized` set to `false` like this:
 
-```javascript
+```
 const api = new Gitlab({
   url: '...',
   token: '...',
@@ -337,7 +439,7 @@ const api = new Gitlab({
 
 ## Docs
 
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! To see more of this information in detail, check out our [docs](SupportedServices.md).
+Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
 
 ## Development
 
