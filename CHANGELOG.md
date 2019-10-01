@@ -1,3 +1,10 @@
+# [11.2.0](https://github.com/jdalrymple/node-gitlab/compare/11.1.2...11.2.0) (2019-10-01)
+
+
+### Features
+
+* **Merge Request:** Add Approval State endpoint ([41c4653](https://github.com/jdalrymple/node-gitlab/commit/41c4653))
+
 ## [11.1.2](https://github.com/jdalrymple/node-gitlab/compare/11.1.1...11.1.2) (2019-09-10)
 
 
