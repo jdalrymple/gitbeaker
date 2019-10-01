@@ -101,6 +101,20 @@ class MergeRequests extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 
+  approvalState(
+    projectId: ProjectId,
+    mergerequestIId: MergeRequestId,
+    options: { sha?: string } & BaseRequestOptions,
+  ) {
+    const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
+
+    return RequestHelper.post(
+      this,
+      `projects/${pId}/merge_requests/${mIId}/approval_state`,
+      options,
+    );
+  }
+
   approvers(
     projectId: ProjectId,
     approverIds: UserId[],
