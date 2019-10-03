@@ -14,7 +14,6 @@ class Labels extends BaseService {
     ...options
   }: ({ projectId: ProjectId } | { groupId: GroupId } | {}) & PaginatedRequestOptions) {
     let url;
-    
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/labels`;
     } else if (groupId) {
