@@ -148,6 +148,7 @@ GroupMembers
 GroupMilestones
 GroupProjects
 GroupVariables
+GroupLabels
 Epics
 EpicIssues
 EpicNotes
@@ -302,6 +303,7 @@ GroupMembers
 GroupMilestones
 GroupProjects
 GroupVariables
+GroupLabels
 Epics
 EpicIssues
 EpicNotes

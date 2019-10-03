@@ -13,6 +13,7 @@ test('All the correct service keys are included in the groups bundle', async () 
     'GroupMilestones',
     'GroupProjects',
     'GroupVariables',
+    'GroupLabels',
     'Epics',
     'EpicIssues',
     'EpicNotes',

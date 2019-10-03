@@ -8,6 +8,7 @@ export { default as GroupMembers } from './GroupMembers';
 export { default as GroupMilestones } from './GroupMilestones';
 export { default as GroupProjects } from './GroupProjects';
 export { default as GroupVariables } from './GroupVariables';
+export { default as GroupLabels } from './GroupLabels';
 export { default as Epics } from './Epics';
 export { default as EpicIssues } from './EpicIssues';
 export { default as EpicNotes } from './EpicNotes';

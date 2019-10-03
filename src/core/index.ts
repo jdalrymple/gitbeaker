@@ -20,6 +20,7 @@ export const GroupsBundle = bundler({
   GroupMilestones: APIServices.GroupMilestones,
   GroupProjects: APIServices.GroupProjects,
   GroupVariables: APIServices.GroupVariables,
+  GroupLabels: APIServices.GroupLabels,
   Epics: APIServices.Epics,
   EpicIssues: APIServices.EpicIssues,
   EpicNotes: APIServices.EpicNotes,
