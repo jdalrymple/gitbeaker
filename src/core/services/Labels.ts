@@ -5,13 +5,24 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, LabelId } from '.';
+import { GroupId, ProjectId, LabelId } from '.';
 
 class Labels extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
+  all({
+    projectId,
+    groupId,
+    ...options
+  }: ({ projectId: ProjectId } | { groupId: GroupId } | {}) & PaginatedRequestOptions) {
+    let url;
+    
+    if (projectId) {
+      url = `projects/${encodeURIComponent(projectId)}/labels`;
+    }
+    else if (groupId) {
+      url = `groups/${encodeURIComponent(groupId)}/labels`;
+    }
 
-    return RequestHelper.get(this, `projects/${pId}/labels`, options);
+    return RequestHelper.get(this, url, options);
   }
 
   create(projectId: ProjectId, labelName: string, color: string, options?: BaseRequestOptions) {
