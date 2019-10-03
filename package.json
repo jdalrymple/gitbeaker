@@ -101,6 +101,5 @@
     "test:integration": "jest test/integration -c=jest.config.json --detectOpenHandles",
     "test:unit": "jest test/unit --debug -c=jest.config.json"
   },
-  "type": "module",
   "types": "dist/index.d.ts"
 }
