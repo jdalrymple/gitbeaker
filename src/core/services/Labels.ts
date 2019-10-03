@@ -17,8 +17,7 @@ class Labels extends BaseService {
     
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/labels`;
-    }
-    else if (groupId) {
+    } else if (groupId) {
       url = `groups/${encodeURIComponent(groupId)}/labels`;
     }
 
