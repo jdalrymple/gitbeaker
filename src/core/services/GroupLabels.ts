@@ -1,11 +1,9 @@
-import { BaseService, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
-import { GroupProjectId } from './index';
+import { BaseServiceOptions } from '../infrastructure';
+import { ResourceLabels } from '../templates';
 
-class GroupLabels extends BaseService {
-  all(groupId: GroupProjectId, options?: PaginatedRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get(this, `groups/${gId}/labels`, options);
+class GroupLabels extends ResourceLabels {
+  constructor(options: BaseServiceOptions) {
+    super('groups', options);
   }
 }
 
