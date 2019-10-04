@@ -1,10 +1,10 @@
 import { BaseServiceOptions } from '../infrastructure';
 import { ResourceLabels } from '../templates';
 
-class Labels extends ResourceLabels {
+class GroupLabels extends ResourceLabels {
   constructor(options: BaseServiceOptions) {
-    super('projects', options);
+    super('groups', options);
   }
 }
 
-export default Labels;
+export default GroupLabels;

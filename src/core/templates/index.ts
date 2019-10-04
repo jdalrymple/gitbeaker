@@ -4,6 +4,7 @@ export { default as ResourceBadges } from './ResourceBadges';
 export { default as ResourceCustomAttributes } from './ResourceCustomAttributes';
 export { default as ResourceDiscussions } from './ResourceDiscussions';
 export { default as ResourceIssueBoards } from './ResourceIssueBoards';
+export { default as ResourceLabels } from './ResourceLabels';
 export { default as ResourceMembers } from './ResourceMembers';
 export { default as ResourceMilestones } from './ResourceMilestones';
 export { default as ResourceNotes } from './ResourceNotes';
