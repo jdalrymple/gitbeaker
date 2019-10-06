@@ -50,6 +50,7 @@ async function processBody(response) {
 
       return json || {};
     case 'application/octet-stream':
+    case 'application/gzip':
       const blob = await response.blob();
       const arrayBuffer = await new Response(blob).arrayBuffer();
 
