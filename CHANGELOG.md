@@ -1,3 +1,10 @@
+## [11.2.2](https://github.com/jdalrymple/node-gitlab/compare/11.2.1...11.2.2) (2019-10-06)
+
+
+### Bug Fixes
+
+* Missing gzip content type from body processing logic ([a684a1e](https://github.com/jdalrymple/node-gitlab/commit/a684a1e)), closes [#447](https://github.com/jdalrymple/node-gitlab/issues/447)
+
 ## [11.2.1](https://github.com/jdalrymple/node-gitlab/compare/11.2.0...11.2.1) (2019-10-03)
 
 
