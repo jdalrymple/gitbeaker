@@ -17,13 +17,13 @@ class EpicIssues extends BaseService {
   assign(groupId: GroupId, epicId: EpicId, issueId: IssueId, options?: Sudo) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.post(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 
   edit(groupId: GroupId, epicId: EpicId, issueId: IssueId, options?: BaseRequestOptions) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.put(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 
   remove(groupId: GroupId, epicId: EpicId, issueId: IssueId, options?: Sudo) {
