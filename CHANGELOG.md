@@ -1,3 +1,10 @@
+## [11.2.3](https://github.com/jdalrymple/node-gitlab/compare/11.2.2...11.2.3) (2019-10-09)
+
+
+### Bug Fixes
+
+* Epic issues HTTP methods are incorrect ([c63c691](https://github.com/jdalrymple/node-gitlab/commit/c63c691))
+
 ## [11.2.2](https://github.com/jdalrymple/node-gitlab/compare/11.2.1...11.2.2) (2019-10-06)
 
 
