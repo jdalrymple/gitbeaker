@@ -1,102 +1,91 @@
 ## [11.2.3](https://github.com/jdalrymple/node-gitlab/compare/11.2.2...11.2.3) (2019-10-09)
 
-
 ### Bug Fixes
 
-* Epic issues HTTP methods are incorrect ([c63c691](https://github.com/jdalrymple/node-gitlab/commit/c63c691))
+- Epic issues HTTP methods are incorrect ([c63c691](https://github.com/jdalrymple/node-gitlab/commit/c63c691))
 
 ## [11.2.2](https://github.com/jdalrymple/node-gitlab/compare/11.2.1...11.2.2) (2019-10-06)
 
+### Features
+
+- **Group Labels:** Add group label support ([39a23a1](https://github.com/jdalrymple/node-gitlab/commit/39a23a1))
 
 ### Bug Fixes
 
-* Missing gzip content type from body processing logic ([a684a1e](https://github.com/jdalrymple/node-gitlab/commit/a684a1e)), closes [#447](https://github.com/jdalrymple/node-gitlab/issues/447)
+- Missing gzip content type from body processing logic ([a684a1e](https://github.com/jdalrymple/node-gitlab/commit/a684a1e)), closes [#447](https://github.com/jdalrymple/node-gitlab/issues/447)
 
 ## [11.2.1](https://github.com/jdalrymple/node-gitlab/compare/11.2.0...11.2.1) (2019-10-03)
 
-
 ### Bug Fixes
 
-* **package:** update ky to version 0.15.0 ([203e7a9](https://github.com/jdalrymple/node-gitlab/commit/203e7a9))
+- **package:** update ky to version 0.15.0 ([203e7a9](https://github.com/jdalrymple/node-gitlab/commit/203e7a9))
 
 # [11.2.0](https://github.com/jdalrymple/node-gitlab/compare/11.1.2...11.2.0) (2019-10-01)
 
-
 ### Features
 
-* **Merge Request:** Add Approval State endpoint ([41c4653](https://github.com/jdalrymple/node-gitlab/commit/41c4653))
+- **Merge Request:** Add Approval State endpoint ([41c4653](https://github.com/jdalrymple/node-gitlab/commit/41c4653))
 
 ## [11.1.2](https://github.com/jdalrymple/node-gitlab/compare/11.1.1...11.1.2) (2019-09-10)
 
-
 ### Bug Fixes
 
-* Forgot to await for the response [#426](https://github.com/jdalrymple/node-gitlab/issues/426) ([8c673c3](https://github.com/jdalrymple/node-gitlab/commit/8c673c3))
+- Forgot to await for the response [#426](https://github.com/jdalrymple/node-gitlab/issues/426) ([8c673c3](https://github.com/jdalrymple/node-gitlab/commit/8c673c3))
 
 ## [11.1.1](https://github.com/jdalrymple/node-gitlab/compare/11.1.0...11.1.1) (2019-09-09)
 
-
 ### Bug Fixes
 
-* **package:** update ky to version 0.14.0 ([b907f54](https://github.com/jdalrymple/node-gitlab/commit/b907f54))
+- **package:** update ky to version 0.14.0 ([b907f54](https://github.com/jdalrymple/node-gitlab/commit/b907f54))
 
 # [11.1.0](https://github.com/jdalrymple/node-gitlab/compare/11.0.2...11.1.0) (2019-09-09)
 
-
 ### Features
 
-* Adding support for CLI ([6f90f4c](https://github.com/jdalrymple/node-gitlab/commit/6f90f4c)), closes [#146](https://github.com/jdalrymple/node-gitlab/issues/146)
+- Adding support for CLI ([6f90f4c](https://github.com/jdalrymple/node-gitlab/commit/6f90f4c)), closes [#146](https://github.com/jdalrymple/node-gitlab/issues/146)
 
 ## [11.0.2](https://github.com/jdalrymple/node-gitlab/compare/11.0.1...11.0.2) (2019-08-30)
 
-
 ### Bug Fixes
 
-* Switching type import to hopefully fix [#417](https://github.com/jdalrymple/node-gitlab/issues/417) ([91cfbf2](https://github.com/jdalrymple/node-gitlab/commit/91cfbf2))
+- Switching type import to hopefully fix [#417](https://github.com/jdalrymple/node-gitlab/issues/417) ([91cfbf2](https://github.com/jdalrymple/node-gitlab/commit/91cfbf2))
 
 ## [11.0.1](https://github.com/jdalrymple/node-gitlab/compare/11.0.0...11.0.1) (2019-08-29)
 
-
 ### Bug Fixes
 
-* Handling empty text responses ([c8deaa2](https://github.com/jdalrymple/node-gitlab/commit/c8deaa2))
+- Handling empty text responses ([c8deaa2](https://github.com/jdalrymple/node-gitlab/commit/c8deaa2))
 
 # [11.0.0](https://github.com/jdalrymple/node-gitlab/compare/10.2.1...11.0.0) (2019-08-28)
 
-
 ### Bug Fixes
 
-* Adding path argument to the Project Imports API ([97a7c59](https://github.com/jdalrymple/node-gitlab/commit/97a7c59))
-
+- Adding path argument to the Project Imports API ([97a7c59](https://github.com/jdalrymple/node-gitlab/commit/97a7c59))
 
 ### Features
 
-* Add support for the Packages API [#430](https://github.com/jdalrymple/node-gitlab/issues/430) ([47e1ff4](https://github.com/jdalrymple/node-gitlab/commit/47e1ff4))
-
+- Add support for the Packages API [#430](https://github.com/jdalrymple/node-gitlab/issues/430) ([47e1ff4](https://github.com/jdalrymple/node-gitlab/commit/47e1ff4))
 
 ### BREAKING CHANGES
 
-* Added the path argument to the function header.
+- Added the path argument to the function header.
 
 ## [10.2.1](https://github.com/jdalrymple/node-gitlab/compare/10.2.0...10.2.1) (2019-08-28)
 
-
 ### Bug Fixes
 
-* Adding proper support for the buffer responses ([8bbab73](https://github.com/jdalrymple/node-gitlab/commit/8bbab73))
+- Adding proper support for the buffer responses ([8bbab73](https://github.com/jdalrymple/node-gitlab/commit/8bbab73))
 
 # [10.2.0](https://github.com/jdalrymple/node-gitlab/compare/10.1.2...10.2.0) (2019-08-22)
 
-
 ### Bug Fixes
 
-* incorrect url path for mr unapprove ([85c3329](https://github.com/jdalrymple/node-gitlab/commit/85c3329))
-
+- incorrect url path for mr unapprove ([85c3329](https://github.com/jdalrymple/node-gitlab/commit/85c3329))
 
 ### Features
 
-* Add Gitlab Blame endpoint to the RespositoryFiles API ([ac670cc](https://github.com/jdalrymple/node-gitlab/commit/ac670cc)), closes [#409](https://github.com/jdalrymple/node-gitlab/issues/409)
-* Adding fork relationship support ([76cb783](https://github.com/jdalrymple/node-gitlab/commit/76cb783)), closes [#410](https://github.com/jdalrymple/node-gitlab/issues/410)
+- Add Gitlab Blame endpoint to the RespositoryFiles API ([ac670cc](https://github.com/jdalrymple/node-gitlab/commit/ac670cc)), closes [#409](https://github.com/jdalrymple/node-gitlab/issues/409)
+- Adding fork relationship support ([76cb783](https://github.com/jdalrymple/node-gitlab/commit/76cb783)), closes [#410](https://github.com/jdalrymple/node-gitlab/issues/410)
 
 ## [10.1.2](https://github.com/jdalrymple/node-gitlab/compare/10.1.1...10.1.2) (2019-08-13)
 
