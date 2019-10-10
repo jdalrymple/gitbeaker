@@ -4,6 +4,8 @@ import * as FormData from 'form-data';
 export { BaseService } from './BaseService';
 export { bundler } from './Utils';
 export { KyRequester } from './KyRequester';
+export { GraphQLRequester } from './GraphQLRequester';
+
 export { RequestHelper };
 
 // Bundler
