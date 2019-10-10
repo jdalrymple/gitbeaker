@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Requester } from '.';
 
 export GraphQLRequester = {
-  gqlQuery: async function(service, endpoint, query) {
+  async gqlQuery(service, endpoint, query) {
     let search = query;
     
     if (typeof query !== 'string') search = JSON.stringify(query);
