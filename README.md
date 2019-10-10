@@ -76,6 +76,7 @@ Available instantiating options:
 | `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys         |
 | `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                    |
 | `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                   |
+| `profileToken`       | Yes      | N/A                                                   | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 ### CLI Support
 
