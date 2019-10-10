@@ -4,7 +4,10 @@ import { shim } from 'universal-url';
 shim();
 
 import { bundler } from './infrastructure';
-import * as APIServices from './services';
+import * as Services from './services';
+
+// Seperate out GitlabQL
+const { GitlabQL, ...APIServices } = Services;
 
 // All separately
 export * from './services';
