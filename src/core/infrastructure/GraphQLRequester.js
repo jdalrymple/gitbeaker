@@ -1,4 +1,5 @@
-import { GraphQLClient } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request';
+import { join } from 'path';
 import { Requester } from '.';
 
 export GraphQLRequester = {
@@ -7,7 +8,7 @@ export GraphQLRequester = {
     
     if (typeof query !== 'string') search = JSON.stringify(query);
     
-    const client = new GraphQLClient(service.url + endpoint, {
+    const client = new GraphQLClient(join(service.url,endpoint), {
       headers: service.headers
     });
     
