@@ -35,7 +35,7 @@ export class BaseService {
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
     else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
-    
+
     // Profiling
     if (profileToken) this.headers['X-Profile-Token'] = profileToken;
     if (profileMode) this.headers['X-Profile-Mode'] = profileMode;

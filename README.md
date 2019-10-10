@@ -64,20 +64,20 @@ const api = new Gitlab({
 
 Available instantiating options:
 
-| Name                 | Optional | Default                                               | Description                                                     |
-| -------------------- | -------- | ----------------------------------------------------- | --------------------------------------------------------------- |
-| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                        |
-| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required) |
-| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)    |
-| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)   |
-| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                        |
-| `sudo`               | Yes      | `false`                                               | Sudo query parameter                                            |
-| `version`            | Yes      | `v4`                                                  | API Version ID                                                  |
-| `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys         |
-| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                    |
-| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                   |
+| Name                 | Optional | Default                                               | Description                                                                                                        |
+| -------------------- | -------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                                                                           |
+| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required)                                                    |
+| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)                                                       |
+| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                                                                           |
+| `sudo`               | Yes      | `false`                                               | Sudo query parameter                                                                                               |
+| `version`            | Yes      | `v4`                                                  | API Version ID                                                                                                     |
+| `camelize`           | Yes      | `false`                                               | Response Key Camelize. Camelizes all response body keys                                                            |
+| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                                                                       |
+| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                                                                      |
 | `profileToken`       | Yes      | N/A                                                   | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`       | Yes       |  `execution`                                          | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                           | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 ### CLI Support
 
