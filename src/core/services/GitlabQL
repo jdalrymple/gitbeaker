@@ -1,0 +1,11 @@
+import { BaseService, RequestHelper, GraphQLRequester } from '../infrastructure';
+
+export class GitlabQL extends BaseService {
+  constructor(...args) {
+    super({...args, requester: GraphQLRequester })
+  }
+  
+  query(queryString:string|object) {
+    return RequestHelper.gqlQuery(this, `graphql`, queryString);
+  }
+}
