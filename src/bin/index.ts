@@ -35,7 +35,9 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
         type: 'number',
       })
       .option('gl-sudo', { type: 'string' })
-      .option('gl-camelize', { type: 'boolean' });
+      .option('gl-camelize', { type: 'boolean' })
+      .option('gl-profile-token', { type: 'string' })
+      .option('gl-profile-mode', { type: 'string' });
 
     for (let i = 1; i < methods.length; i += 1) {
       const m = methods[i];
