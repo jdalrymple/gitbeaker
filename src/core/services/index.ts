@@ -79,6 +79,7 @@ export { default as FeatureFlags } from './FeatureFlags';
 export { default as GeoNodes } from './GeoNodes';
 export { default as GitignoreTemplates } from './GitignoreTemplates';
 export { default as GitLabCIYMLTemplates } from './GitLabCIYMLTemplates';
+export { GitlabQL } from './GitlabQL';
 export { default as Keys } from './Keys';
 export { default as Licence } from './Licence';
 export { default as LicenceTemplates } from './LicenceTemplates';
