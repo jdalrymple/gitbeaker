@@ -43,6 +43,8 @@ export interface BaseServiceOptions extends Sudo {
   camelize?: boolean;
   requester?: Requester;
   requestTimeout?: number;
+  profileToken?: string;
+  profileMode?: 'execution' | 'memory';
 }
 
 // RequestHelper
