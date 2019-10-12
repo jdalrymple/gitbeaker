@@ -31,7 +31,7 @@ class Triggers extends BaseService {
     projectId: ProjectId,
     ref: string,
     token: string,
-    { sudo, ...options }?: BaseRequestOptions,
+    { sudo, ...options }: BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
@@ -40,7 +40,7 @@ class Triggers extends BaseService {
     form.append('token', token);
 
     for (const o in options) {
-      form.append(`variables[${o}]=${options[o]}`);
+      form.append(`variables[${o}]`, options[o]);
     }
 
     return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, { sudo, form });
