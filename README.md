@@ -85,9 +85,9 @@ The CLI export functions in a similar manner, following the pattern:
 gitlab [service name] [method name] --arg1 --arg2 --arg3
 ```
 
-Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments whose names should match what the GitLab API docs request.
+Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments who's names should match what the GitLab API docs request.
 
-There is one small exception with the instantiating arguments, however, which must be supplied using a `gl` prefix. ie.
+There is one small exception with the instantiating arguments however, which must be supplied using a `gl` prefix. ie.
 
 ```bash
 # To get all the projects
@@ -124,7 +124,7 @@ GeoNodes
 GitignoreTemplates
 GitLabCIYMLTemplates
 Keys
-License
+Licence
 LicenceTemplates
 Lint
 Markdown
@@ -333,10 +333,10 @@ api.Projects.all().then(projects => {
 });
 ```
 
-A general rule about all the function parameters:
+The general rule about all the function parameters:
 
-- If it's a required parameter, it is a named argument in the functions
-- If it's an optional parameter, it is defined in a options object following the named arguments
+- If it is a required parameter, it is a named argument in the functions
+- If it is an optional parameter, it is defined in a options object following the named arguments
 
 ie.
 
@@ -434,7 +434,7 @@ await service.edit({
 
 ### Custom Request Libraries
 
-There is another constructor parameter that allows the user to specify their custom request library
+There is another constructor parameter that allows the user to specify their own custom request library
 as long as it has a similar API to ky. To specify the library, simply set the `requester` property when
 instatiating a service:
 
@@ -540,7 +540,7 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 
 ## Contributors
 
-This started as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
+This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
