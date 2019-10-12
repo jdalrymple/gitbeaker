@@ -39,10 +39,10 @@ export class BaseService {
     // Profiling
     if (profileToken) {
       this.headers['X-Profile-Token'] = profileToken;
-      
+
       if (profileMode) this.headers['X-Profile-Mode'] = profileMode;
     }
-    
+
     // Set sudo
     if (sudo) this.headers['Sudo'] = `${sudo}`;
   }
