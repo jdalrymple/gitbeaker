@@ -39,7 +39,7 @@ class Triggers extends BaseService {
     form.append('ref', ref);
     form.append('token', token);
 
-    for (let o in options) {
+    for (const o in options) {
       form.append(`variables[${o}]=${options[o]}`);
     }
 
