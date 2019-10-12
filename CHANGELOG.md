@@ -1,3 +1,10 @@
+# [11.3.0](https://github.com/jdalrymple/node-gitlab/compare/11.2.3...11.3.0) (2019-10-12)
+
+
+### Features
+
+* Adding support for profile tokens ([#462](https://github.com/jdalrymple/node-gitlab/issues/462)) ([30f246e](https://github.com/jdalrymple/node-gitlab/commit/30f246e))
+
 ## [11.2.3](https://github.com/jdalrymple/node-gitlab/compare/11.2.2...11.2.3) (2019-10-09)
 
 ### Bug Fixes

@@ -1,7 +1,7 @@
 {
   "name": "gitlab",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "11.2.3",
+  "version": "11.3.0",
   "author": {
     "name": "Justin Dalrymple",
     "email": "justin.s.dalrymple@gmail.com"
