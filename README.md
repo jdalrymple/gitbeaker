@@ -85,9 +85,9 @@ The CLI export functions in a similar manner, following the pattern:
 gitlab [service name] [method name] --arg1 --arg2 --arg3
 ```
 
-Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments who's names should match what the GitLab API docs request.
+Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments whose names should match what the GitLab API docs request.
 
-There is one small exception with the instantiating arguments however, which must be supplied using a `gl` prefix. ie.
+There is one small exception with the instantiating arguments, however, which must be supplied using a `gl` prefix. ie.
 
 ```bash
 # To get all the projects
@@ -124,7 +124,7 @@ GeoNodes
 GitignoreTemplates
 GitLabCIYMLTemplates
 Keys
-Licence
+License
 LicenceTemplates
 Lint
 Markdown
@@ -333,10 +333,10 @@ api.Projects.all().then(projects => {
 });
 ```
 
-General rule about all the function parameters:
+A general rule about all the function parameters:
 
-- If its a required parameter, it is a named argument in the functions
-- If its an optional parameter, it is defined in a options object following the named arguments
+- If it's a required parameter, it is a named argument in the functions
+- If it's an optional parameter, it is defined in a options object following the named arguments
 
 ie.
 
@@ -355,7 +355,7 @@ api.Projects.create({
 
 ### Pagination
 
-For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request it self can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
+For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request itself can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
 ```javascript
 import { Gitlab } from 'gitlab';
@@ -368,7 +368,7 @@ const api = new Gitlab({
 let projects = await api.Projects.all({ maxPages: 2 });
 ```
 
-You can also use this in conjunction to the perPage argument which would override the default of 30 per page set by Gitlab:
+You can also use this in conjunction with the perPage argument which would override the default of 30 per page set by Gitlab:
 
 ```javascript
 import { Gitlab } from 'gitlab';
@@ -414,7 +414,7 @@ pagination: {
 
 ### Sudo
 
-For private gitlab instances, administrators are able to impersonate users through the API. To do so, you have to set the 'Sudo' header on the services you want to impersonate the user for.
+For private gitlab instances, administrators can impersonate users through the API. To do so, you have to set the 'Sudo' header on the services you want to impersonate the user for.
 
 For example, if you want to disable notifications for a specific user:
 
@@ -434,7 +434,7 @@ await service.edit({
 
 ### Custom Request Libraries
 
-There is another constructor parameter that allows the user to specify their own custom request library
+There is another constructor parameter that allows the user to specify their custom request library
 as long as it has a similar API to ky. To specify the library, simply set the `requester` property when
 instatiating a service:
 
@@ -467,7 +467,7 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 
 #### Non JSON/Text Responses
 
-For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example when trying to write a file, this can be done like:
+For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example, when trying to write a file, this can be done like:
 
 ```javascript
 let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test);
@@ -507,7 +507,7 @@ to this
 
 Testing is a work-in-progress right now but here is the start.
 
-1. First run Gitlab in a docker container:
+1. First, run Gitlab in a docker container:
 
 ```bash
 docker-compose -f docker-compose.test.yml up
@@ -540,7 +540,7 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 
 ## Contributors
 
-This started off as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
+This started as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
