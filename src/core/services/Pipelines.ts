@@ -19,6 +19,12 @@ class Pipelines extends BaseService {
 
     return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
   }
+  
+  delete(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.del(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+  }
 
   show(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
