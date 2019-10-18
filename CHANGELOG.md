@@ -1,3 +1,10 @@
+## [11.3.1](https://github.com/jdalrymple/node-gitlab/compare/11.3.0...11.3.1) (2019-10-18)
+
+
+### Bug Fixes
+
+* Fixing missing form variables when triggering pipelines ([#465](https://github.com/jdalrymple/node-gitlab/issues/465)) ([3ac6978](https://github.com/jdalrymple/node-gitlab/commit/3ac6978))
+
 # [11.3.0](https://github.com/jdalrymple/node-gitlab/compare/11.2.3...11.3.0) (2019-10-12)
 
 
