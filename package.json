@@ -47,7 +47,7 @@
     "jest-tap-reporter": "^1.9.0",
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
-    "rollup": "^1.21.2",
+    "rollup": "^1.25.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
