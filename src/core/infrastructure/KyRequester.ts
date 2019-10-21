@@ -1,8 +1,7 @@
 import Ky from 'ky-universal';
 import FormData from 'form-data';
-import { decamelizeKeys } from 'humps';
+import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
-import { skipAllCaps } from './Utils';
 import { Requester } from '.';
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
@@ -26,7 +25,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
   if (sudo) headers.append('sudo', `${sudo}`);
 
   if (typeof body === 'object' && !(body instanceof FormData)) {
-    bod = JSON.stringify(decamelizeKeys(body, skipAllCaps));
+    bod = JSON.stringify(decamelizeKeys(body));
     headers.append('content-type', 'application/json');
   }
 

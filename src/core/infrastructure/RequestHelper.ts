@@ -1,5 +1,5 @@
 import Li from 'li';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys } from 'xcase';
 import { BaseService } from './BaseService';
 import {
   BaseRequestOptions,

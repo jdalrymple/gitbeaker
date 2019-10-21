@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "form-data": "^2.5.1",
-    "humps": "^2.0.1",
     "ky": "^0.15.0",
     "ky-universal": "^0.3.0",
     "li": "^1.3.0",
     "query-string": "^6.8.3",
     "universal-url": "^2.0.0",
+    "xcase": "^2.0.1",
     "yargs": "^14.2.0"
   },
   "devDependencies": {
