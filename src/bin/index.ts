@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import 'dotenv';
-import { camelizeKeys } from 'humps';
+const { camelizeKeys } = require('humps');
 import { param, constant } from 'change-case';
 import program from 'yargs';
 import pkg from '../../package.json';

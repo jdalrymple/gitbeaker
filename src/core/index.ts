@@ -1,4 +1,4 @@
-import { shim } from 'universal-url';
+const { shim } = require('universal-url');
 
 // Add URL shim
 shim();
