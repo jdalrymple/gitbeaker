@@ -1,6 +1,6 @@
 import Ky from 'ky-universal';
 import FormData from 'form-data';
-import { decamelizeKeys } from 'humps';
+const { decamelizeKeys } = require('humps');
 import { stringify } from 'query-string';
 import { skipAllCaps } from './Utils';
 import { Requester } from '.';

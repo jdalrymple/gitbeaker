@@ -1,5 +1,5 @@
 import Li from 'li';
-import { camelizeKeys } from 'humps';
+const { camelizeKeys } = require('humps');
 import { BaseService } from './BaseService';
 import {
   BaseRequestOptions,

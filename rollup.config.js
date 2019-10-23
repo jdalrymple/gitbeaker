@@ -52,7 +52,6 @@ export default [
         'universal-url': 'universal-url',
       },
     },
-    external: [...Object.keys(pkg.dependencies)],
     plugins: [
       globals(),
       builtins(),
