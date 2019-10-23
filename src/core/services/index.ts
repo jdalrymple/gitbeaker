@@ -31,6 +31,7 @@ export { default as Deployments } from './Deployments';
 export { default as DeployKeys } from './DeployKeys';
 export { default as Environments } from './Environments';
 export { default as Issues } from './Issues';
+export { default as IssuesStatistics } from './IssuesStatistics';
 export { default as IssueNotes } from './IssueNotes';
 export { default as IssueDiscussions } from './IssueDiscussions';
 export { default as IssueAwardEmojis } from './IssueAwardEmojis';
