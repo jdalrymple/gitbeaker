@@ -246,7 +246,6 @@ export type SupportedService =
   | 'kubernetes'
   | 'slack-slash-commands'
   | 'slack'
-  | 'mattermost-slash-commands'
   | 'packagist'
   | 'pipelines-email'
   | 'pivotaltracker'
