@@ -49,6 +49,12 @@ class Pipelines extends BaseService {
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
   }
+
+  allVariables(projectId: ProjectId, pipelineId: PipelineId, options?: PaginatedRequestOptions) {
+    const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
+  }
 }
 
 export default Pipelines;
