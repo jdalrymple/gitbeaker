@@ -33,7 +33,7 @@
     "@semantic-release/git": "^7.0.16",
     "@semantic-release/npm": "^5.1.15",
     "@types/humps": "^1.1.2",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^24.0.19",
     "change-case": "^3.1.0",
     "codecov": "^3.5.0",
     "cz-conventional-changelog": "^3.0.2",
