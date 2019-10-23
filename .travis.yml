@@ -47,7 +47,7 @@ jobs:
         - node test_readiness.js
 
         # Get the personal token
-        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf $(gitlab-rails r /tmp/init_data.rb)')
+        - export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "$(gitlab-rails r /tmp/init_data.rb)"')
 
         # Display configuration
         - echo $PERSONAL_ACCESS_TOKEN
