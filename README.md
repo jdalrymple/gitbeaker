@@ -106,8 +106,7 @@ GITLAB_HOST=http://example.com
 GITLAB_TOKEN=personaltoken
 ```
 
-This could be set globally or using a [.env](https://
-.com/motdotla/dotenv#readme) file in the project folder.
+This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
 
 ## Docs
 
