@@ -1,3 +1,11 @@
+## [11.3.2](https://github.com/jdalrymple/node-gitlab/compare/11.3.1...11.3.2) (2019-10-24)
+
+
+### Bug Fixes
+
+* include all modules for the browser bundle - closes [#475](https://github.com/jdalrymple/node-gitlab/issues/475) ([#476](https://github.com/jdalrymple/node-gitlab/issues/476)) ([cb582b8](https://github.com/jdalrymple/node-gitlab/commit/cb582b80c743f00af81ddd4b03e8f0e20515f894))
+* resolve import issues ([#477](https://github.com/jdalrymple/node-gitlab/issues/477)) ([dcfe466](https://github.com/jdalrymple/node-gitlab/commit/dcfe466a18aa3c043459df1514492e04e28ed10d))
+
 ## [11.3.1](https://github.com/jdalrymple/node-gitlab/compare/11.3.0...11.3.1) (2019-10-18)
 
 
