@@ -14,7 +14,7 @@
 
 # node-gitlab
 
-🤖 [GitLab](https://github.com/gitlabhq/gitlabhq) API NodeJS library with full support of all the [Gitlab API](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) services.
+🤖 [GitLab](https://gitlab.com/gitlab-org/gitlab/) API NodeJS library with full support of all the [Gitlab API](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) services.
 
 ## Table of Contents
 
@@ -110,7 +110,7 @@ This could be set globally or using a [.env](https://github.com/motdotla/dotenv#
 
 ## Docs
 
-Although there are the [official docs](https://github.com/gitlabhq/gitlabhq/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
+Although there are the [official docs](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) for the API, there are some extra goodies offered by this package! After the 3.0.0 release, the next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
 
 ### Supported APIs
 
