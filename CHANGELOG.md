@@ -1,3 +1,10 @@
+# [11.4.0](https://github.com/jdalrymple/node-gitlab/compare/11.3.2...11.4.0) (2019-10-25)
+
+
+### Features
+
+* Add support for Issue Statistics  ([#481](https://github.com/jdalrymple/node-gitlab/issues/481)) ([fdf2575](https://github.com/jdalrymple/node-gitlab/commit/fdf2575047ef533cccceda2ae8ea717afe8274e5))
+
 ## [11.3.2](https://github.com/jdalrymple/node-gitlab/compare/11.3.1...11.3.2) (2019-10-24)
 
 
