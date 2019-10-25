@@ -168,6 +168,7 @@ Issues
 IssueAwardEmojis
 IssueNotes
 IssueDiscussions
+IssuesStatistics
 Jobs
 Labels
 MergeRequests
@@ -246,6 +247,7 @@ Issues
 IssueNotes
 IssueDiscussions
 IssueAwardEmojis
+IssuesStatistics
 Jobs
 Labels
 MergeRequests
