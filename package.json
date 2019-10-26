@@ -49,7 +49,6 @@
     "prettier": "^1.18.2",
     "rollup": "^1.25.2",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-dts": "^1.1.10",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
@@ -89,7 +88,7 @@
     "url": "https://github.com/jdalrymple/node-gitlab"
   },
   "scripts": {
-    "build": "npm run build:cli && tsc && rollup -c",
+    "build": "npm run build:cli && tsc && rollup -c && mv dist/src dist/types",
     "build:cli": "tsc -p tsconfig.cli.json && node -r esm temp/bin/generate",
     "commit": "npx git-cz",
     "coverage": "codecov",
@@ -102,5 +101,5 @@
     "test:integration": "jest test/integration -c=jest.config.json --detectOpenHandles",
     "test:unit": "jest test/unit --debug -c=jest.config.json"
   },
-  "types": "dist/index.d.ts"
+  "types": "dist/types/core/index.d.ts"
 }

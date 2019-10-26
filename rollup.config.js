@@ -7,17 +7,9 @@ import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
 import replace from 'rollup-plugin-replace';
 import typescript from 'typescript';
-import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
 export default [
-  // .dts bulld
-  {
-    input: 'src/core/index.ts',
-    output: [{ file: 'dist/types.d.ts', format: 'es' }],
-    plugins: [dts()],
-  },
-
   // CLI build
   {
     input: 'src/bin/index.ts',
@@ -32,6 +24,9 @@ export default [
         delimiters: ['', ''],
         '#!/usr/bin/env node': '',
       }),
+      builtins(),
+      resolve(),
+      commonjs(),
       json(),
       ts({ typescript }),
       terser(),
