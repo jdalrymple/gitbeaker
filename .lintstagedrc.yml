@@ -1,7 +1,7 @@
-'*.{js,ts}':
+'*.{js, ts, !(generate).ts}':
   - 'prettier --write'
   - 'eslint --fix'
   - 'git add'
-'*.{json,md,yml}':
+'*.{json, md, yml}':
   - 'prettier --write'
   - 'git add'
