@@ -21,7 +21,6 @@
   "dependencies": {
     "change-case": "^3.1.0",
     "dotenv": "^8.2.0",
-    "eslint-plugin-jest": "^22.20.1",
     "form-data": "^2.5.1",
     "ky": "^0.15.0",
     "ky-universal": "^0.3.0",
@@ -31,6 +30,7 @@
     "yargs": "^14.2.0"
   },
   "devDependencies": {
+    "eslint-plugin-jest": "^22.20.1",
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.16",
     "@semantic-release/npm": "^5.2.0",
