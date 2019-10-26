@@ -15,6 +15,7 @@ export interface PaginationOptions {
   totalPages: number;
 }
 
+/* eslint @typescript-eslint/no-explicit-any: 0 */
 export interface BaseRequestOptions extends Sudo {
   [key: string]: any;
 }
@@ -63,7 +64,7 @@ async function get(
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
     const leaf = service.url.split('/').pop() || '';
-    const regex = new RegExp(`.+\/api\/v\\d(\/${leaf})?\/`);
+    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
@@ -110,6 +111,7 @@ async function put(
   const { sudo, ...body } = options;
   const response = await service.requester.put(service, endpoint, {
     body,
+    sudo,
   });
 
   return response.body;

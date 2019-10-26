@@ -26,10 +26,15 @@ export interface BaseServiceOptions {
 
 export class BaseService {
   public readonly url: string;
+
   public readonly requester: Requester;
+
   public readonly requestTimeout: number;
+
   public readonly headers: { [header: string]: string };
+
   public readonly camelize: boolean;
+
   public readonly rejectUnauthorized: boolean;
 
   constructor({
@@ -67,6 +72,6 @@ export class BaseService {
     }
 
     // Set sudo
-    if (sudo) this.headers['Sudo'] = `${sudo}`;
+    if (sudo) this.headers.Sudo = `${sudo}`;
   }
 }

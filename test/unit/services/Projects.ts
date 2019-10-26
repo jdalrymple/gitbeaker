@@ -3,18 +3,9 @@ import { RequestHelper } from '../../../src/core/infrastructure';
 
 jest.mock('../../../src/core/infrastructure/RequestHelper');
 jest.mock('../../../src/core/infrastructure/KyRequester', () => ({
-  // This wont work for all cases, but for the tests currently outlined below, it should be fine
-  get: jest.fn(() => {
-    body: [];
-  }),
-  post: jest.fn(() => {
-    body: {
-    }
-  }),
-  put: jest.fn(() => {
-    body: {
-    }
-  }),
+  get: jest.fn(() => []),
+  post: jest.fn(() => {}),
+  put: jest.fn(() => {}),
 }));
 
 let service: Projects;

@@ -324,5 +324,3 @@ export class MergeRequests extends BaseService {
     return RequestHelper.del(this, `projects/${pId}/merge_requests/${mIId}/unsubscribe`, options);
   }
 }
-
-export default MergeRequests;

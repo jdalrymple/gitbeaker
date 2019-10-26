@@ -30,8 +30,9 @@ describe('Labels.create', () => {
 describe('Labels.remove', () => {
   it('should remove/delete a valid label on a project', async () => {
     const label = await service.create(project.id, 'Test Label3', '#FFAABB');
+    const value = await service.remove(project.id, label.name);
 
-    expect(service.remove(project.id, label.name)).resolves.toEqual('');
+    expect(value).toEqual('');
   });
 });
 
@@ -39,7 +40,7 @@ describe('Labels.all', () => {
   beforeAll(async () => {
     const labels: object[] = [];
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 50; i += 1) {
       labels.push(service.create(project.id, `All Labels ${i}`, '#FFAABB'));
     }
 

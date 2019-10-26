@@ -3,10 +3,16 @@ import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
 
+interface Service {
+  headers: object;
+  requestTimeout: number;
+  url: string;
+}
+
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {};
 
-function responseHeadersAsObject(response) {
+function responseHeadersAsObject(response): object {
   const headers = {};
   const keyVals = [...response.headers.entries()];
 
@@ -17,7 +23,7 @@ function responseHeadersAsObject(response) {
   return headers;
 }
 
-function defaultRequest(service: any, { body, query, sudo, method }) {
+function defaultRequest(service: Service, { body, query, sudo, method }) {
   const headers = new Headers(service.headers);
   let bod = body;
 
@@ -33,7 +39,7 @@ function defaultRequest(service: any, { body, query, sudo, method }) {
     headers,
     method: method === 'stream' ? 'get' : method,
     onProgress: method === 'stream' ? () => {} : undefined,
-    searchParams: stringify(decamelizeKeys(query || {}) as any, { arrayFormat: 'bracket' }),
+    searchParams: stringify(decamelizeKeys(query || {}) as object, { arrayFormat: 'bracket' }),
     prefixUrl: service.url,
     body: bod,
   };
@@ -43,24 +49,28 @@ async function processBody(response) {
   const contentType = response.headers.get('content-type') || '';
 
   switch (contentType) {
-    case 'application/json':
+    case 'application/json': {
       const json = await response.json();
 
       return json || {};
+    }
     case 'application/octet-stream':
-    case 'application/gzip':
+    case 'application/gzip': {
       const blob = await response.blob();
       const arrayBuffer = await new Response(blob).arrayBuffer();
 
       return Buffer.from(arrayBuffer);
-    default:
+    }
+    default: {
       const text = await response.text();
 
       return text || '';
+    }
   }
 }
 
 methods.forEach(m => {
+  /* eslint func-names:0 */
   KyRequester[m] = async function(service, endpoint, options) {
     const requestOptions = defaultRequest(service, { ...options, method: m });
     let response;

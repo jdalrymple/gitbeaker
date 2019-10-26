@@ -38,9 +38,9 @@ export class Triggers extends BaseService {
     form.append('ref', ref);
     form.append('token', token);
 
-    for (const o in options) {
-      form.append(`variables[${o}]`, options[o]);
-    }
+    Object.entries(options).forEach(([k, v]) => {
+      form.append(`variables[${k}]`, v);
+    });
 
     return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, { sudo, form });
   }

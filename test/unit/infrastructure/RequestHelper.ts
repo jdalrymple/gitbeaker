@@ -1,5 +1,8 @@
 import { RequestHelper, KyRequester, BaseService } from '../../../src/core/infrastructure';
 
+/* eslint no-empty-pattern: 0 */
+/* eslint prefer-destructuring: 0 */
+
 const mockedGetBasic = () => ({
   body: {
     prop1: 5,

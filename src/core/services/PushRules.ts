@@ -7,10 +7,7 @@ export class PushRules extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);
   }
 
-  edit(
-    projectId: string | number,
-    { upsert = false, ...options }: { upsert: boolean } & BaseRequestOptions,
-  ) {
+  edit(projectId: string | number, options: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     try {

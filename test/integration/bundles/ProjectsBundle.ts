@@ -23,7 +23,7 @@ describe('ProjectsBundle.Issues.create', () => {
     expect(issue.title).toBe('ProjectsBundle Integration test');
   });
 
-  it('should create a valid issue on a project', async () => {
+  it('should get a valid issue of a project', async () => {
     const issue = await api.Issues.all(project.id);
 
     expect(issue).toBeInstanceOf(Array);
