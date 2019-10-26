@@ -27,5 +27,3 @@ export class SystemHooks extends BaseService {
     return RequestHelper.del(this, `hooks/${hId}`, options);
   }
 }
-
-export default SystemHooks;

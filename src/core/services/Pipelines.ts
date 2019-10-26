@@ -57,5 +57,3 @@ export class Pipelines extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
   }
 }
-
-export default Pipelines;
