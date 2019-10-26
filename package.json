@@ -49,6 +49,7 @@
     "prettier": "^1.18.2",
     "rollup": "^1.25.2",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-dts": "^1.1.10",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",

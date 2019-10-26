@@ -1,14 +1,13 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId } from '.';
 
-class ReleaseLinks extends BaseService {
-  all(projectId: ProjectId, tagName: string, options?: PaginatedRequestOptions) {
+export class ReleaseLinks extends BaseService {
+  all(projectId: string | number, tagName: string, options?: PaginatedRequestOptions) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/releases/${tId}/assets/links`, options);
   }
 
-  create(projectId: ProjectId, tagName: string, name: string, url: string, options?: Sudo) {
+  create(projectId: string | number, tagName: string, name: string, url: string, options?: Sudo) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/releases/${tId}/assets/links`, {
@@ -19,7 +18,7 @@ class ReleaseLinks extends BaseService {
   }
 
   edit(
-    projectId: ProjectId,
+    projectId: string | number,
     tagName: string,
     linkId: number,
     options: Sudo & ({ name: string } | { url: string }),
@@ -29,17 +28,15 @@ class ReleaseLinks extends BaseService {
     return RequestHelper.put(this, `projects/${pId}/releases/${tId}/assets/links/${lId}`, options);
   }
 
-  remove(projectId: ProjectId, tagName: string, linkId: number, options?: Sudo) {
+  remove(projectId: string | number, tagName: string, linkId: number, options?: Sudo) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/releases/${tId}/assets/links/${lId}`, options);
   }
 
-  show(projectId: ProjectId, tagName: string, linkId: number, options?: Sudo) {
+  show(projectId: string | number, tagName: string, linkId: number, options?: Sudo) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/releases/${tId}/assets/links/${lId}`, options);
   }
 }
-
-export default ReleaseLinks;

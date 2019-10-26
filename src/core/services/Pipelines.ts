@@ -5,52 +5,53 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, PipelineId, JobScope } from '.';
 
-class Pipelines extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+import { JobScope } from './Jobs';
+
+export class Pipelines extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines`, options);
   }
 
-  create(projectId: ProjectId, ref: string, options?: BaseRequestOptions) {
+  create(projectId: string | number, ref: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
   }
 
-  delete(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+  delete(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.del(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
-  show(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+  show(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
-  retry(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+  retry(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
   }
 
-  cancel(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+  cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
   }
 
-  showJobs(projectId: ProjectId, pipelineId: PipelineId, options?: { scope: JobScope } & Sudo) {
+  showJobs(projectId: string | number, pipelineId: number, options?: { scope: JobScope } & Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
   }
 
-  allVariables(projectId: ProjectId, pipelineId: PipelineId, options?: PaginatedRequestOptions) {
+  allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {
     const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);

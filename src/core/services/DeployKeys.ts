@@ -5,16 +5,15 @@ import {
   BaseRequestOptions,
   PaginatedRequestOptions,
 } from '../infrastructure';
-import { ProjectId, KeyId } from '.';
 
-class DeployKeys extends BaseService {
-  add(projectId: ProjectId, options?: Sudo) {
+export class DeployKeys extends BaseService {
+  add(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/deploy_keys`, options);
   }
 
-  all({ projectId, ...options }: { projectId?: ProjectId } & PaginatedRequestOptions) {
+  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions) {
     let url;
 
     if (projectId) {
@@ -26,29 +25,27 @@ class DeployKeys extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 
-  edit(projectId: ProjectId, keyId: KeyId, options?: BaseRequestOptions) {
+  edit(projectId: string | number, keyId: string, options?: BaseRequestOptions) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  enable(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
+  enable(projectId: string | number, keyId: string, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/deploy_keys/${kId}/enable`, options);
   }
 
-  remove(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
+  remove(projectId: string | number, keyId: string, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  show(projectId: ProjectId, keyId: KeyId, options?: Sudo) {
+  show(projectId: string | number, keyId: string, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 }
-
-export default DeployKeys;

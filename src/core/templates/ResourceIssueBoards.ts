@@ -5,39 +5,38 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ResourceId, LabelId } from '..';
 
 export class ResourceIssueBoards extends BaseService {
   constructor(resourceType: string, options) {
     super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
+  all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/boards`, options);
   }
 
-  create(resourceId: ResourceId, name: string, options?: Sudo) {
+  create(resourceId: string | number, name: string, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}/boards`, { name, ...options });
   }
 
-  createList(resourceId: ResourceId, boardId: number, labelId: LabelId, options?: Sudo) {
+  createList(resourceId: string | number, boardId: number, labelId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/boards/${bId}/lists`, { labelId, ...options });
   }
 
-  edit(resourceId: ResourceId, boardId: number, options?: BaseRequestOptions) {
+  edit(resourceId: string | number, boardId: number, options?: BaseRequestOptions) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/boards/${bId}`, options);
   }
 
   editList(
-    resourceId: ResourceId,
+    resourceId: string | number,
     boardId: number,
     listId: number,
     position: number,
@@ -48,31 +47,31 @@ export class ResourceIssueBoards extends BaseService {
     return RequestHelper.put(this, `${rId}/boards/${bId}/lists/${lId}`, { position, ...options });
   }
 
-  lists(resourceId: ResourceId, boardId: number, options?: Sudo) {
+  lists(resourceId: string | number, boardId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/boards/${bId}/lists`, options);
   }
 
-  remove(resourceId: ResourceId, boardId: number, options?: Sudo) {
+  remove(resourceId: string | number, boardId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/boards/${bId}`, options);
   }
 
-  removeList(resourceId: ResourceId, boardId: number, listId: number, options?: Sudo) {
+  removeList(resourceId: string | number, boardId: number, listId: number, options?: Sudo) {
     const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/boards/${bId}/lists/${lId}`, options);
   }
 
-  show(resourceId: ResourceId, boardId: number, options?: Sudo) {
+  show(resourceId: string | number, boardId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/boards/${bId}`, options);
   }
 
-  showList(resourceId: ResourceId, boardId: number, listId: number, options?: Sudo) {
+  showList(resourceId: string | number, boardId: number, listId: number, options?: Sudo) {
     const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/boards/${bId}/lists/${lId}`, options);

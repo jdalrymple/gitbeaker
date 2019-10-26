@@ -1,15 +1,14 @@
 import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId } from '.';
 
-class PushRules extends BaseService {
-  create(projectId: ProjectId, options?: BaseRequestOptions) {
+export class PushRules extends BaseService {
+  create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/push_rule`, options);
   }
 
   edit(
-    projectId: ProjectId,
+    projectId: string | number,
     { upsert = false, ...options }: { upsert: boolean } & BaseRequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
@@ -23,17 +22,15 @@ class PushRules extends BaseService {
     }
   }
 
-  remove(projectId: ProjectId, options?: Sudo) {
+  remove(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.del(this, `projects/${pId}/push_rule`, options);
   }
 
-  show(projectId: ProjectId, options?: Sudo) {
+  show(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/push_rule`, options);
   }
 }
-
-export default PushRules;

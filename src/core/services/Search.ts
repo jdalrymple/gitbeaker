@@ -1,7 +1,6 @@
 import { BaseService, RequestHelper, BaseRequestOptions } from '../infrastructure';
-import { ProjectId, GroupId } from '.';
 
-class Search extends BaseService {
+export class Search extends BaseService {
   all(
     scope: string,
     search: string,
@@ -9,7 +8,7 @@ class Search extends BaseService {
       projectId,
       groupId,
       ...options
-    }: { projectId?: ProjectId; groupId?: GroupId } & BaseRequestOptions,
+    }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions,
   ) {
     let url = '';
 
@@ -22,5 +21,3 @@ class Search extends BaseService {
     return RequestHelper.get(this, `${url}search`, { scope, search, ...options });
   }
 }
-
-export default Search;

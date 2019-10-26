@@ -5,38 +5,37 @@ import {
   PaginatedRequestOptions,
   BaseRequestOptions,
 } from '../infrastructure';
-import { ResourceId, KeyId } from '..';
 
 export class ResourceVariables extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
+  all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/variables`, options);
   }
 
-  create(resourceId: ResourceId, options?: BaseRequestOptions) {
+  create(resourceId: string | number, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}/variables`, options);
   }
 
-  edit(resourceId: ResourceId, keyId: KeyId, options?: BaseRequestOptions) {
+  edit(resourceId: string | number, keyId: number, options?: BaseRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
   }
 
-  show(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+  show(resourceId: string | number, keyId: number, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/variables/${kId}`, options);
   }
 
-  remove(resourceId: ResourceId, keyId: KeyId, options?: PaginatedRequestOptions) {
+  remove(resourceId: string | number, keyId: number, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/variables/${kId}`, options);

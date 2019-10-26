@@ -5,7 +5,6 @@ import {
   PaginatedRequestOptions,
   Sudo,
 } from '../infrastructure';
-import { ResourceId } from '..';
 
 export class ResourceTemplates extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
@@ -16,7 +15,7 @@ export class ResourceTemplates extends BaseService {
     return RequestHelper.get(this, '', options);
   }
 
-  show(resourceId: ResourceId, options?: Sudo) {
+  show(resourceId: string | number, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}`, options);

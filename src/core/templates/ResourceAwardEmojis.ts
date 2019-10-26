@@ -5,7 +5,6 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, ResourceId, NoteId, AwardId } from '..';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
@@ -30,9 +29,9 @@ export class ResourceAwardEmojis extends BaseService {
   }
 
   all(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    noteId: number,
     options?: PaginatedRequestOptions,
   ) {
     return RequestHelper.get(
@@ -43,10 +42,10 @@ export class ResourceAwardEmojis extends BaseService {
   }
 
   award(
-    projectId: ProjectId,
-    resourceId: ResourceId,
+    projectId: string | number,
+    resourceId: string | number,
     name: string,
-    noteId: NoteId,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, null, noteId), {
@@ -56,10 +55,10 @@ export class ResourceAwardEmojis extends BaseService {
   }
 
   remove(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    awardId: AwardId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    awardId: number,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.del(
@@ -70,10 +69,10 @@ export class ResourceAwardEmojis extends BaseService {
   }
 
   show(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    awardId: AwardId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    awardId: number,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.get(

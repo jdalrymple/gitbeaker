@@ -5,17 +5,16 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, PipelineScheduleId } from '.';
 
-class PipelineSchedules extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export class PipelineSchedules extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipeline_schedules`, options);
   }
 
   create(
-    projectId: ProjectId,
+    projectId: string | number,
     description: string,
     ref: string,
     cron: string,
@@ -31,25 +30,25 @@ class PipelineSchedules extends BaseService {
     });
   }
 
-  edit(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: BaseRequestOptions) {
+  edit(projectId: string | number, scheduleId: number, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  remove(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
+  remove(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  show(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
+  show(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
-  takeOwnership(projectId: ProjectId, scheduleId: PipelineScheduleId, options?: Sudo) {
+  takeOwnership(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
     return RequestHelper.post(
@@ -59,5 +58,3 @@ class PipelineSchedules extends BaseService {
     );
   }
 }
-
-export default PipelineSchedules;

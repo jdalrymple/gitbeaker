@@ -5,16 +5,15 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId } from '.';
 
-class ProtectedTags extends BaseService {
-  all(projectId: ProjectId, options: PaginatedRequestOptions) {
+export class ProtectedTags extends BaseService {
+  all(projectId: string | number, options: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/protected_tags`, options);
   }
 
-  protect(projectId: ProjectId, tagName: string, options: BaseRequestOptions) {
+  protect(projectId: string | number, tagName: string, options: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_tags`, {
@@ -23,17 +22,15 @@ class ProtectedTags extends BaseService {
     });
   }
 
-  show(projectId: ProjectId, tagName: string, options: Sudo) {
+  show(projectId: string | number, tagName: string, options: Sudo) {
     const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/protected_tags/${tName}`, options);
   }
 
-  unprotect(projectId: ProjectId, tagName: string, options: Sudo) {
+  unprotect(projectId: string | number, tagName: string, options: Sudo) {
     const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/protected_tags/${tName}`, options);
   }
 }
-
-export default ProtectedTags;

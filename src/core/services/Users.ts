@@ -5,9 +5,10 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { UserId, EventOptions } from '.';
 
-class Users extends BaseService {
+import { EventOptions } from './Events';
+
+export class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'users', options);
   }
@@ -16,13 +17,13 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'users/activities', options);
   }
 
-  projects(userId: UserId, options?: Sudo) {
+  projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/projects`, options);
   }
 
-  block(userId: UserId, options?: Sudo) {
+  block(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.post(this, `users/${uId}/block`, options);
@@ -36,13 +37,13 @@ class Users extends BaseService {
     return RequestHelper.get(this, 'user', options);
   }
 
-  edit(userId: UserId, options?: BaseRequestOptions) {
+  edit(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.put(this, `users/${uId}`, options);
   }
 
-  events(userId: UserId, options?: BaseRequestOptions & EventOptions) {
+  events(userId: number, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/events`, options);
@@ -55,23 +56,21 @@ class Users extends BaseService {
     });
   }
 
-  show(userId: UserId, options?: BaseRequestOptions) {
+  show(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}`, options);
   }
 
-  remove(userId: UserId, options?: Sudo) {
+  remove(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.del(this, `users/${uId}`, options);
   }
 
-  unblock(userId: UserId, options?: Sudo) {
+  unblock(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.post(this, `users/${uId}/unblock`, options);
   }
 }
-
-export default Users;

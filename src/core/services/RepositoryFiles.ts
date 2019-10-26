@@ -1,9 +1,8 @@
 import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId } from '.';
 
-class RepositoryFiles extends BaseService {
+export class RepositoryFiles extends BaseService {
   create(
-    projectId: ProjectId,
+    projectId: string | number,
     filePath: string,
     branch: string,
     content: string,
@@ -21,7 +20,7 @@ class RepositoryFiles extends BaseService {
   }
 
   edit(
-    projectId: ProjectId,
+    projectId: string | number,
     filePath: string,
     branch: string,
     content: string,
@@ -39,7 +38,7 @@ class RepositoryFiles extends BaseService {
   }
 
   remove(
-    projectId: ProjectId,
+    projectId: string | number,
     filePath: string,
     branch: string,
     commitMessage: string,
@@ -54,7 +53,7 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  show(projectId: ProjectId, filePath: string, ref: string, options?: Sudo) {
+  show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
@@ -63,13 +62,13 @@ class RepositoryFiles extends BaseService {
     });
   }
 
-  showBlame(projectId: ProjectId, filePath: string, options?: Sudo) {
+  showBlame(projectId: string | number, filePath: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/blame`, options);
   }
 
-  showRaw(projectId: ProjectId, filePath: string, ref: string, options?: Sudo) {
+  showRaw(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, {
@@ -78,5 +77,3 @@ class RepositoryFiles extends BaseService {
     });
   }
 }
-
-export default RepositoryFiles;

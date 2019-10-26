@@ -7,9 +7,17 @@ import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
 import replace from 'rollup-plugin-replace';
 import typescript from 'typescript';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
 export default [
+  // .dts bulld
+  {
+    input: 'src/core/index.ts',
+    output: [{ file: 'dist/types.d.ts', format: 'es' }],
+    plugins: [dts()],
+  },
+
   // CLI build
   {
     input: 'src/bin/index.ts',
@@ -18,16 +26,12 @@ export default [
       file: pkg.bin.gitlab,
       format: 'cjs',
     },
-    external: [...Object.keys(pkg.dependencies)],
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       replace({
         delimiters: ['', ''],
         '#!/usr/bin/env node': '',
       }),
-      globals(),
-      builtins(),
-      resolve(),
-      commonjs(),
       json(),
       ts({ typescript }),
       terser(),
@@ -44,7 +48,6 @@ export default [
       exports: 'named',
       globals: {
         li: 'Li',
-        humps: 'Humps',
         'query-string': 'QueryString',
         randomstring: 'RandomString',
         'ky-universal': 'Ky',
@@ -63,25 +66,20 @@ export default [
     ],
   },
 
-  // CommonJS (for Node) (for bundlers) build.
   {
     input: 'src/core/index.ts',
-    output: {
-      file: pkg.main,
-      format: 'cjs',
-    },
-    external: [...Object.keys(pkg.dependencies)],
-    plugins: [globals(), builtins(), ts({ typescript }), terser()],
-  },
+    output: [
+      {
+        file: pkg.main, // CommonJS (for Node) (for bundlers) build.
+        format: 'cjs',
+      },
+      {
+        file: pkg.module, // ES module (for bundlers) build.
 
-  // ES module (for bundlers) build.
-  {
-    input: 'src/core/index.ts',
-    output: {
-      file: pkg.module,
-      format: 'es',
-    },
-    external: [...Object.keys(pkg.dependencies)],
+        format: 'es',
+      },
+    ],
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [ts({ typescript }), terser()],
   },
 ];

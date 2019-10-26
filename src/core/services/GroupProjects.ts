@@ -4,20 +4,17 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
 } from '../infrastructure';
-import { GroupProjectId, ProjectId } from '.';
 
-class GroupProjects extends BaseService {
-  all(groupId: GroupProjectId, options?: PaginatedRequestOptions) {
+export class GroupProjects extends BaseService {
+  all(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get(this, `groups/${gId}/projects`, options);
   }
 
-  add(groupId: GroupProjectId, projectId: ProjectId, options?: BaseRequestOptions) {
+  add(groupId: string | number, projectId: string | number, options?: BaseRequestOptions) {
     const [gId, pId] = [groupId, projectId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `groups/${gId}/projects/${pId}`, options);
   }
 }
-
-export default GroupProjects;

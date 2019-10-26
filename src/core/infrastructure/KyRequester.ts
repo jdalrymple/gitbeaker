@@ -2,10 +2,9 @@ import Ky from 'ky-universal';
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
-import { Requester } from '.';
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
-const KyRequester = {} as Requester;
+const KyRequester = {};
 
 function responseHeadersAsObject(response) {
   const headers = {};

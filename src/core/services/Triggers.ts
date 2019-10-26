@@ -6,29 +6,28 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, TriggerId } from '.';
 
-class Triggers extends BaseService {
-  add(projectId: ProjectId, options?: BaseRequestOptions) {
+export class Triggers extends BaseService {
+  add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/triggers`, options);
   }
 
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/triggers`, options);
   }
 
-  edit(projectId: ProjectId, triggerId: TriggerId, options?: BaseRequestOptions) {
+  edit(projectId: string | number, triggerId: number, options?: BaseRequestOptions) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   pipeline(
-    projectId: ProjectId,
+    projectId: string | number,
     ref: string,
     token: string,
     { sudo, ...options }: BaseRequestOptions = {},
@@ -46,17 +45,15 @@ class Triggers extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, { sudo, form });
   }
 
-  remove(projectId: ProjectId, triggerId: TriggerId, options?: Sudo) {
+  remove(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
-  show(projectId: ProjectId, triggerId: TriggerId, options?: Sudo) {
+  show(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/triggers/${tId}`, options);
   }
 }
-
-export default Triggers;

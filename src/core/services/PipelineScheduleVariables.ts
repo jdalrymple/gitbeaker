@@ -4,24 +4,15 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
 } from '../infrastructure';
-import { ProjectId, PipelineScheduleId, KeyId } from '.';
 
-class PipelineScheduleVariables extends BaseService {
-  all(
-    projectId: ProjectId,
-    pipelineScheduleId: PipelineScheduleId,
-    options?: PaginatedRequestOptions,
-  ) {
+export class PipelineScheduleVariables extends BaseService {
+  all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${psId}/variables`, options);
   }
 
-  create(
-    projectId: ProjectId,
-    pipelineScheduleId: PipelineScheduleId,
-    options?: BaseRequestOptions,
-  ) {
+  create(projectId: string | number, pipelineScheduleId: number, options?: BaseRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
     return RequestHelper.post(
@@ -32,9 +23,9 @@ class PipelineScheduleVariables extends BaseService {
   }
 
   edit(
-    projectId: ProjectId,
-    pipelineScheduleId: PipelineScheduleId,
-    keyId: KeyId,
+    projectId: string | number,
+    pipelineScheduleId: number,
+    keyId: string,
     options?: BaseRequestOptions,
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
@@ -47,9 +38,9 @@ class PipelineScheduleVariables extends BaseService {
   }
 
   show(
-    projectId: ProjectId,
-    pipelineScheduleId: PipelineScheduleId,
-    keyId: KeyId,
+    projectId: string | number,
+    pipelineScheduleId: number,
+    keyId: string,
     options?: BaseRequestOptions,
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
@@ -62,9 +53,9 @@ class PipelineScheduleVariables extends BaseService {
   }
 
   remove(
-    projectId: ProjectId,
-    pipelineScheduleId: PipelineScheduleId,
-    keyId: KeyId,
+    projectId: string | number,
+    pipelineScheduleId: number,
+    keyId: string,
     options?: BaseRequestOptions,
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
@@ -76,5 +67,3 @@ class PipelineScheduleVariables extends BaseService {
     );
   }
 }
-
-export default PipelineScheduleVariables;

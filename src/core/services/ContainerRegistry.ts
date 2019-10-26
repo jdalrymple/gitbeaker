@@ -1,26 +1,25 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId } from '.';
 
-class ContainerRegistry extends BaseService {
-  repositories(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export class ContainerRegistry extends BaseService {
+  repositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/registry/repositories`, options);
   }
 
-  tags(projectId: ProjectId, repositoryId: number, options?: PaginatedRequestOptions) {
+  tags(projectId: string | number, repositoryId: number, options?: PaginatedRequestOptions) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/registry/repositories/${rId}/tags`, options);
   }
 
-  removeRepository(projectId: ProjectId, repositoryId: number, options?: Sudo) {
+  removeRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/registry/repositories/${rId}`, options);
   }
 
-  removeTag(projectId: ProjectId, repositoryId: number, tagName: string, options?: Sudo) {
+  removeTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
     const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
 
     return RequestHelper.del(
@@ -31,7 +30,7 @@ class ContainerRegistry extends BaseService {
   }
 
   removeTags(
-    projectId: ProjectId,
+    projectId: string | number,
     repositoryId: number,
     tagNameRegex: string,
     options?: Sudo & { keepN: string; olderThan: string },
@@ -44,7 +43,7 @@ class ContainerRegistry extends BaseService {
     });
   }
 
-  showTag(projectId: ProjectId, repositoryId: number, tagName: string, options?: Sudo) {
+  showTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
     const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
 
     return RequestHelper.get(
@@ -54,5 +53,3 @@ class ContainerRegistry extends BaseService {
     );
   }
 }
-
-export default ContainerRegistry;

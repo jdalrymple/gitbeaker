@@ -5,10 +5,9 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { GroupId, ProjectId, IssueId } from '.';
 
-class Issues extends BaseService {
-  addSpentTime(projectId: ProjectId, issueId: IssueId, duration: string, options?: Sudo) {
+export class Issues extends BaseService {
+  addSpentTime(projectId: string | number, issueId: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/add_spent_time`, {
@@ -17,7 +16,7 @@ class Issues extends BaseService {
     });
   }
 
-  addTimeEstimate(projectId: ProjectId, issueId: IssueId, duration: string, options?: Sudo) {
+  addTimeEstimate(projectId: string | number, issueId: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/time_estimate`, {
@@ -30,7 +29,8 @@ class Issues extends BaseService {
     projectId,
     groupId,
     ...options
-  }: ({ projectId?: ProjectId } | { groupId?: GroupId } | {}) & PaginatedRequestOptions = {}) {
+  }: ({ projectId?: string | number } | { groupId?: string | number } | {}) &
+    PaginatedRequestOptions = {}) {
     let url;
 
     if (projectId) {
@@ -44,23 +44,23 @@ class Issues extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 
-  create(projectId: ProjectId, options?: BaseRequestOptions) {
+  create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/issues`, options);
   }
 
-  edit(projectId: ProjectId, issueId: IssueId, options?: BaseRequestOptions) {
+  edit(projectId: string | number, issueId: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
   }
 
   link(
-    projectId: ProjectId,
-    issueIId: IssueId,
-    targetProjectId: ProjectId,
-    targetIssueId: IssueId,
+    projectId: string | number,
+    issueIId: number,
+    targetProjectId: string | number,
+    targetIssueId: number,
     options?: BaseRequestOptions,
   ) {
     const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
@@ -73,53 +73,51 @@ class Issues extends BaseService {
     });
   }
 
-  participants(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  participants(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`, options);
   }
 
-  remove(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  remove(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/issues/${iId}`, options);
   }
 
-  resetSpentTime(projectId: ProjectId, issueId: IssueId, options?: BaseRequestOptions) {
+  resetSpentTime(projectId: string | number, issueId: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/reset_spent_time`, options);
   }
 
-  resetTimeEstimate(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  resetTimeEstimate(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/reset_time_estimate`, options);
   }
 
-  show(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  show(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${iId}`, options);
   }
 
-  subscribe(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  subscribe(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
-  timeStats(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  timeStats(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/issues/${iId}/time_stats`, options);
   }
 
-  unsubscribe(projectId: ProjectId, issueId: IssueId, options?: Sudo) {
+  unsubscribe(projectId: string | number, issueId: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
   }
 }
-
-export default Issues;

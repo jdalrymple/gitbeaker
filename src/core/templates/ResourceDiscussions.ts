@@ -6,7 +6,6 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ResourceId, DiscussionId, NoteId } from '..';
 
 export class ResourceDiscussions extends BaseService {
   protected resource2Type: string;
@@ -18,10 +17,10 @@ export class ResourceDiscussions extends BaseService {
   }
 
   addNote(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
-    discussionId: DiscussionId,
-    noteId: NoteId,
+    resourceId: string | number,
+    resource2Id: string | number,
+    discussionId: number,
+    noteId: number,
     content: string,
     options?: BaseRequestOptions,
   ) {
@@ -38,15 +37,19 @@ export class ResourceDiscussions extends BaseService {
     );
   }
 
-  all(resourceId: ResourceId, resource2Id: ResourceId, options?: PaginatedRequestOptions) {
+  all(
+    resourceId: string | number,
+    resource2Id: string | number,
+    options?: PaginatedRequestOptions,
+  ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
   }
 
   create(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
+    resourceId: string | number,
+    resource2Id: string | number,
     content: string,
     options?: BaseRequestOptions,
   ) {
@@ -61,10 +64,10 @@ export class ResourceDiscussions extends BaseService {
   }
 
   editNote(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
-    discussionId: DiscussionId,
-    noteId: NoteId,
+    resourceId: string | number,
+    resource2Id: string | number,
+    discussionId: number,
+    noteId: number,
     options?: BaseRequestOptions,
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
@@ -79,10 +82,10 @@ export class ResourceDiscussions extends BaseService {
   }
 
   removeNote(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
-    discussionId: DiscussionId,
-    noteId: NoteId,
+    resourceId: string | number,
+    resource2Id: string | number,
+    discussionId: number,
+    noteId: number,
     options?: Sudo,
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
@@ -97,9 +100,9 @@ export class ResourceDiscussions extends BaseService {
   }
 
   show(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
-    discussionId: DiscussionId,
+    resourceId: string | number,
+    resource2Id: string | number,
+    discussionId: number,
     options?: Sudo,
   ) {
     const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);

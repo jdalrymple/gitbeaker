@@ -6,14 +6,15 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ResourceId, UserId, AccessLevel } from '..';
+
+import { AccessLevel } from './ResourceAccessRequests';
 
 export class ResourceMembers extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 
-  all(resourceId: ResourceId, includeInherited = false, options?: PaginatedRequestOptions) {
+  all(resourceId: string | number, includeInherited = false, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
     const url = [rId, 'members'];
 
@@ -23,8 +24,8 @@ export class ResourceMembers extends BaseService {
   }
 
   add(
-    resourceId: ResourceId,
-    userId: UserId,
+    resourceId: string | number,
+    userId: number,
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
   ) {
@@ -38,8 +39,8 @@ export class ResourceMembers extends BaseService {
   }
 
   edit(
-    resourceId: ResourceId,
-    userId: UserId,
+    resourceId: string | number,
+    userId: number,
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
   ) {
@@ -51,13 +52,13 @@ export class ResourceMembers extends BaseService {
     });
   }
 
-  show(resourceId: ResourceId, userId: UserId, options?: Sudo) {
+  show(resourceId: string | number, userId: number, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/members/${uId}`, options);
   }
 
-  remove(resourceId: ResourceId, userId: UserId, options?: Sudo) {
+  remove(resourceId: string | number, userId: number, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/members/${uId}`, options);

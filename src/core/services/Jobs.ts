@@ -5,24 +5,33 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, JobId, PipelineId, JobScope } from '.';
 
-class Jobs extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export type JobScope =
+  | 'created'
+  | 'pending'
+  | 'running'
+  | 'failed'
+  | 'success'
+  | 'canceled'
+  | 'skipped'
+  | 'manual';
+
+export class Jobs extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/jobs`, options);
   }
 
-  cancel(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  cancel(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/cancel`, options);
   }
 
   downloadSingleArtifactFile(
-    projectId: ProjectId,
-    jobId: JobId,
+    projectId: string | number,
+    jobId: number,
     artifactPath: string,
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
   ) {
@@ -44,7 +53,7 @@ class Jobs extends BaseService {
   }
 
   downloadLatestArtifactFile(
-    projectId: ProjectId,
+    projectId: string | number,
     ref: string,
     name: string,
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
@@ -66,51 +75,51 @@ class Jobs extends BaseService {
     );
   }
 
-  downloadTraceFile(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  downloadTraceFile(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}/trace`, options);
   }
 
-  erase(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  erase(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/erase`, options);
   }
 
-  eraseArtifacts(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  eraseArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
   }
 
-  keepArtifacts(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  keepArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/artifacts/keep`, options);
   }
 
-  play(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  play(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/play`, options);
   }
 
-  retry(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  retry(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/retry`, options);
   }
 
-  show(projectId: ProjectId, jobId: JobId, options?: Sudo) {
+  show(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/jobs/${jId}`, options);
   }
 
   showPipelineJobs(
-    projectId: ProjectId,
-    pipelineId: PipelineId,
+    projectId: string | number,
+    pipelineId: number,
     options: { scope: JobScope } & Sudo,
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
@@ -118,5 +127,3 @@ class Jobs extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
 }
-
-export default Jobs;

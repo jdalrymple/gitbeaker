@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper } from '../infrastructure';
 
-class SidekiqMetrics extends BaseService {
+export class SidekiqMetrics extends BaseService {
   queueMetrics() {
     return RequestHelper.get(this, 'sidekiq/queue_metrics');
   }
@@ -17,5 +17,3 @@ class SidekiqMetrics extends BaseService {
     return RequestHelper.get(this, 'sidekiq/compound_metrics');
   }
 }
-
-export default SidekiqMetrics;

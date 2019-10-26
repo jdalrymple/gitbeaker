@@ -5,16 +5,17 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { SnippetId, SnippetVisibility } from '.';
 
-class Snippets extends BaseService {
+export type SnippetVisibility = 'private' | 'public' | 'internal';
+
+export class Snippets extends BaseService {
   all({ public: p, ...options }: { public: boolean } & PaginatedRequestOptions) {
     const url = p ? 'snippets/public' : 'snippets';
 
     return RequestHelper.get(this, url, options);
   }
 
-  content(snippetId: SnippetId, options?: Sudo) {
+  content(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.get(this, `snippets/${sId}/raw`, options);
@@ -36,29 +37,27 @@ class Snippets extends BaseService {
     });
   }
 
-  edit(snippetId: SnippetId, options?: BaseRequestOptions) {
+  edit(snippetId: number, options?: BaseRequestOptions) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.put(this, `snippets/${sId}`, options);
   }
 
-  remove(snippetId: SnippetId, options?: Sudo) {
+  remove(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.del(this, `snippets/${sId}`, options);
   }
 
-  show(snippetId: SnippetId, options?: Sudo) {
+  show(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.get(this, `snippets/${sId}`, options);
   }
 
-  userAgentDetails(snippetId: SnippetId, options?: Sudo) {
+  userAgentDetails(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
     return RequestHelper.get(this, `snippets/${sId}/user_agent_detail`, options);
   }
 }
-
-export default Snippets;

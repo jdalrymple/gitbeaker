@@ -5,38 +5,35 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, HookId } from '.';
 
-class ProjectHooks extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export class ProjectHooks extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/hooks`, options);
   }
 
-  show(projectId: ProjectId, hookId: HookId, options?: Sudo) {
+  show(projectId: string | number, hookId: number, options?: Sudo) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/hooks/${hId}`, options);
   }
 
-  add(projectId: ProjectId, url: string, options?: BaseRequestOptions) {
+  add(projectId: string | number, url: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/hooks`, { url, ...options });
   }
 
-  edit(projectId: ProjectId, hookId: HookId, url: string, options?: BaseRequestOptions) {
+  edit(projectId: string | number, hookId: number, url: string, options?: BaseRequestOptions) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/hooks/${hId}`, { url, ...options });
   }
 
-  remove(projectId: ProjectId, hookId: HookId, options?: Sudo) {
+  remove(projectId: string | number, hookId: number, options?: Sudo) {
     const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/hooks/${hId}`, options);
   }
 }
-
-export default ProjectHooks;
