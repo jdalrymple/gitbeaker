@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import 'dotenv';
-const { camelizeKeys } = require('humps');
+import { camelizeKeys } from 'xcase';
 import { param, constant } from 'change-case';
 import program from 'yargs';
-import pkg from '../../package.json';
-import map from '../../dist/map.json';
 import * as core from '../core';
+import pkg from '../../package.json';
 
 // Add default options
 program
@@ -18,6 +17,8 @@ program
   .showHelpOnFail(false, 'Specify --help for available options');
 
 // Add all supported API's
+const map = require('../../dist/map.json') || {};
+
 Object.entries(map).forEach(([name, methods]: [string, { name: string; args: string[] }[]]) => {
   const baseArgs: string[] = methods[0].args;
 
