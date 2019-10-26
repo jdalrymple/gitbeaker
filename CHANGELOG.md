@@ -1,31 +1,27 @@
 # [11.4.0](https://github.com/jdalrymple/node-gitlab/compare/11.3.2...11.4.0) (2019-10-25)
 
-
 ### Features
 
-* Add support for Issue Statistics  ([#481](https://github.com/jdalrymple/node-gitlab/issues/481)) ([fdf2575](https://github.com/jdalrymple/node-gitlab/commit/fdf2575047ef533cccceda2ae8ea717afe8274e5))
+- Add support for Issue Statistics ([#481](https://github.com/jdalrymple/node-gitlab/issues/481)) ([fdf2575](https://github.com/jdalrymple/node-gitlab/commit/fdf2575047ef533cccceda2ae8ea717afe8274e5))
 
 ## [11.3.2](https://github.com/jdalrymple/node-gitlab/compare/11.3.1...11.3.2) (2019-10-24)
 
-
 ### Bug Fixes
 
-* include all modules for the browser bundle - closes [#475](https://github.com/jdalrymple/node-gitlab/issues/475) ([#476](https://github.com/jdalrymple/node-gitlab/issues/476)) ([cb582b8](https://github.com/jdalrymple/node-gitlab/commit/cb582b80c743f00af81ddd4b03e8f0e20515f894))
-* resolve import issues ([#477](https://github.com/jdalrymple/node-gitlab/issues/477)) ([dcfe466](https://github.com/jdalrymple/node-gitlab/commit/dcfe466a18aa3c043459df1514492e04e28ed10d))
+- include all modules for the browser bundle - closes [#475](https://github.com/jdalrymple/node-gitlab/issues/475) ([#476](https://github.com/jdalrymple/node-gitlab/issues/476)) ([cb582b8](https://github.com/jdalrymple/node-gitlab/commit/cb582b80c743f00af81ddd4b03e8f0e20515f894))
+- resolve import issues ([#477](https://github.com/jdalrymple/node-gitlab/issues/477)) ([dcfe466](https://github.com/jdalrymple/node-gitlab/commit/dcfe466a18aa3c043459df1514492e04e28ed10d))
 
 ## [11.3.1](https://github.com/jdalrymple/node-gitlab/compare/11.3.0...11.3.1) (2019-10-18)
 
-
 ### Bug Fixes
 
-* Fixing missing form variables when triggering pipelines ([#465](https://github.com/jdalrymple/node-gitlab/issues/465)) ([3ac6978](https://github.com/jdalrymple/node-gitlab/commit/3ac6978))
+- Fixing missing form variables when triggering pipelines ([#465](https://github.com/jdalrymple/node-gitlab/issues/465)) ([3ac6978](https://github.com/jdalrymple/node-gitlab/commit/3ac6978))
 
 # [11.3.0](https://github.com/jdalrymple/node-gitlab/compare/11.2.3...11.3.0) (2019-10-12)
 
-
 ### Features
 
-* Adding support for profile tokens ([#462](https://github.com/jdalrymple/node-gitlab/issues/462)) ([30f246e](https://github.com/jdalrymple/node-gitlab/commit/30f246e))
+- Adding support for profile tokens ([#462](https://github.com/jdalrymple/node-gitlab/issues/462)) ([30f246e](https://github.com/jdalrymple/node-gitlab/commit/30f246e))
 
 ## [11.2.3](https://github.com/jdalrymple/node-gitlab/compare/11.2.2...11.2.3) (2019-10-09)
 
