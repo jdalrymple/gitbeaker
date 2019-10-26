@@ -1,8 +1,3 @@
-const { shim } = require('universal-url');
-
-// Add URL shim
-shim();
-
 import { bundler } from './infrastructure';
 import * as APIServices from './services';
 
