@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, CustomAttributeId } from '..';
 
-class ResourceCustomAttributes extends BaseService {
+export class ResourceCustomAttributes extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -39,5 +39,3 @@ class ResourceCustomAttributes extends BaseService {
     return RequestHelper.get(this, `${rId}/custom_attributes/${cId}`, options);
   }
 }
-
-export default ResourceCustomAttributes;

@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, DiscussionId, NoteId } from '..';
 
-class ResourceDiscussions extends BaseService {
+export class ResourceDiscussions extends BaseService {
   protected resource2Type: string;
 
   constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
@@ -111,5 +111,3 @@ class ResourceDiscussions extends BaseService {
     );
   }
 }
-
-export default ResourceDiscussions;

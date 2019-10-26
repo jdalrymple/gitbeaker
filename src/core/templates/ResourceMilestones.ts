@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, MilestoneId } from '..';
 
-class ResourceMilestones extends BaseService {
+export class ResourceMilestones extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -49,5 +49,3 @@ class ResourceMilestones extends BaseService {
     return RequestHelper.get(this, `${rId}/milestones/${mId}`, options);
   }
 }
-
-export default ResourceMilestones;

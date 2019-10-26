@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, BadgeId } from '..';
 
-class ResourceBadges extends BaseService {
+export class ResourceBadges extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -49,5 +49,3 @@ class ResourceBadges extends BaseService {
     return RequestHelper.get(this, `${rId}/badges/${bId}`, options);
   }
 }
-
-export default ResourceBadges;

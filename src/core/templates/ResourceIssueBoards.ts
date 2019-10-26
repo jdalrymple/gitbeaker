@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, LabelId } from '..';
 
-class ResourceIssueBoards extends BaseService {
+export class ResourceIssueBoards extends BaseService {
   constructor(resourceType: string, options) {
     super({ url: resourceType, ...options });
   }
@@ -78,5 +78,3 @@ class ResourceIssueBoards extends BaseService {
     return RequestHelper.get(this, `${rId}/boards/${bId}/lists/${lId}`, options);
   }
 }
-
-export default ResourceIssueBoards;

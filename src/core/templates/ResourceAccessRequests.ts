@@ -1,7 +1,7 @@
 import { BaseService, RequestHelper, BaseServiceOptions, Sudo } from '../infrastructure';
 import { ResourceId, UserId, AccessLevel } from '..';
 
-class ResourceAccessRequests extends BaseService {
+export class ResourceAccessRequests extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -36,5 +36,3 @@ class ResourceAccessRequests extends BaseService {
     return RequestHelper.del(this, `${rId}/access_requests/${uId}`);
   }
 }
-
-export default ResourceAccessRequests;

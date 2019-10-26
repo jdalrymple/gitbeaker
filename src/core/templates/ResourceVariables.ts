@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, KeyId } from '..';
 
-class ResourceVariables extends BaseService {
+export class ResourceVariables extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -42,5 +42,3 @@ class ResourceVariables extends BaseService {
     return RequestHelper.del(this, `${rId}/variables/${kId}`, options);
   }
 }
-
-export default ResourceVariables;

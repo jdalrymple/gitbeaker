@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, LabelId } from '../services';
 
-class ResourceLabels extends BaseService {
+export class ResourceLabels extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -53,5 +53,3 @@ class ResourceLabels extends BaseService {
     return RequestHelper.del(this, `${rId}/issues/${lId}/unsubscribe`, options);
   }
 }
-
-export default ResourceLabels;

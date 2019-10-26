@@ -20,7 +20,7 @@ function url(projectId, resourceType, resourceId, awardId, noteId) {
   return output.join('/');
 }
 
-class ResourceAwardsEmojis extends BaseService {
+export class ResourceAwardEmojis extends BaseService {
   protected resourceType: string;
 
   constructor(resourceType: string, options: BaseServiceOptions) {
@@ -83,5 +83,3 @@ class ResourceAwardsEmojis extends BaseService {
     );
   }
 }
-
-export default ResourceAwardsEmojis;

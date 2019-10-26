@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, NoteId } from '..';
 
-class ResourceNotes extends BaseService {
+export class ResourceNotes extends BaseService {
   protected resource2Type: string;
 
   constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
@@ -64,5 +64,3 @@ class ResourceNotes extends BaseService {
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 }
-
-export default ResourceNotes;

@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 import { ResourceId, UserId, AccessLevel } from '..';
 
-class ResourceMembers extends BaseService {
+export class ResourceMembers extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
@@ -63,5 +63,3 @@ class ResourceMembers extends BaseService {
     return RequestHelper.del(this, `${rId}/members/${uId}`, options);
   }
 }
-
-export default ResourceMembers;
