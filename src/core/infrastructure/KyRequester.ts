@@ -12,7 +12,7 @@ interface Service {
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {};
 
-function responseHeadersAsObject(response): object {
+function responseHeadersAsObject(response): Record<string,string> {
   const headers = {};
   const keyVals = [...response.headers.entries()];
 
@@ -24,7 +24,7 @@ function responseHeadersAsObject(response): object {
 }
 
 function defaultRequest(service: Service, { body, query, sudo, method }) {
-  const headers = new Headers(service.headers);
+  const headers = new Headers(service.headers as Record<string, string>);
   let bod = body;
 
   if (sudo) headers.append('sudo', `${sudo}`);

@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '../infrastructure';
 import { ResourceLabels } from '../templates';
 
 export class Labels extends ResourceLabels {
-  constructor(options: BaseServiceOptions) {
+  constructor(options: BaseServiceOptions = {}) {
     super('projects', options);
   }
 }

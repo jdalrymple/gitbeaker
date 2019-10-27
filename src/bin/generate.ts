@@ -21,7 +21,7 @@ function deepFunctions(x) {
   );
 }
 
-function distinctDeepFunctions(x) {
+function distinctDeepFunctions(x): string[] {
   return Array.from(new Set(deepFunctions(x)));
 }
 
