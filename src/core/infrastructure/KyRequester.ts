@@ -12,7 +12,7 @@ interface Service {
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 const KyRequester = {};
 
-function responseHeadersAsObject(response): Record<string,string> {
+function responseHeadersAsObject(response): Record<string, string> {
   const headers = {};
   const keyVals = [...response.headers.entries()];
 
