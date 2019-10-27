@@ -1,12 +1,11 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId, MergeRequestId, TodoId } from '.';
 
-class Todos extends BaseService {
+export class Todos extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'todos', options);
   }
 
-  create(projectId: ProjectId, mergerequestId: MergeRequestId, options?: Sudo) {
+  create(projectId: string | number, mergerequestId: number, options?: Sudo) {
     return RequestHelper.post(
       this,
       `projects/${projectId}/merge_requests/${mergerequestId}/todo`,
@@ -14,7 +13,7 @@ class Todos extends BaseService {
     );
   }
 
-  done({ todoId, ...options }: { todoId?: TodoId } & Sudo) {
+  done({ todoId, ...options }: { todoId?: number } & Sudo) {
     let url = 'mark_as_done';
 
     if (todoId) url = `${todoId}/${url}`;
@@ -22,5 +21,3 @@ class Todos extends BaseService {
     return RequestHelper.del(this, `todos/${url}`, options);
   }
 }
-
-export default Todos;

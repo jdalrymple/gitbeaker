@@ -5,9 +5,8 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { GroupId } from '.';
 
-class Groups extends BaseService {
+export class Groups extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'groups', options);
   }
@@ -16,7 +15,7 @@ class Groups extends BaseService {
     return RequestHelper.post(this, 'groups', options);
   }
 
-  createLDAPLink(groupId: GroupId, cn, groupAccess, provider: string, options?: Sudo) {
+  createLDAPLink(groupId: string | number, cn, groupAccess, provider: string, options?: Sudo) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.post(this, `groups/${gId}/ldap_group_links`, {
@@ -27,20 +26,20 @@ class Groups extends BaseService {
     });
   }
 
-  edit(groupId: GroupId, options?: BaseRequestOptions) {
+  edit(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.put(this, `groups/${gId}`, options);
   }
 
-  remove(groupId: GroupId, options?: Sudo) {
+  remove(groupId: string | number, options?: Sudo) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.del(this, `groups/${gId}`, options);
   }
 
   removeLDAPLink(
-    groupId: GroupId,
+    groupId: string | number,
     cn,
     { provider, ...options }: Sudo & { provider?: string } = {},
   ) {
@@ -57,23 +56,21 @@ class Groups extends BaseService {
     });
   }
 
-  show(groupId: GroupId, options?: BaseRequestOptions) {
+  show(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get(this, `groups/${gId}`, options);
   }
 
-  subgroups(groupId: GroupId, options?: PaginatedRequestOptions) {
+  subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get(this, `groups/${gId}/subgroups`, options);
   }
 
-  syncLDAP(groupId: GroupId, options?: Sudo) {
+  syncLDAP(groupId: string | number, options?: Sudo) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.post(this, `groups/${gId}/ldap_sync`, options);
   }
 }
-
-export default Groups;

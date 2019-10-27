@@ -5,7 +5,6 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, ResourceId, NoteId, AwardId } from '..';
 
 function url(projectId, resourceType, resourceId, awardId, noteId) {
   const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
@@ -20,7 +19,7 @@ function url(projectId, resourceType, resourceId, awardId, noteId) {
   return output.join('/');
 }
 
-class ResourceAwardsEmojis extends BaseService {
+export class ResourceAwardEmojis extends BaseService {
   protected resourceType: string;
 
   constructor(resourceType: string, options: BaseServiceOptions) {
@@ -30,9 +29,9 @@ class ResourceAwardsEmojis extends BaseService {
   }
 
   all(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    noteId: number,
     options?: PaginatedRequestOptions,
   ) {
     return RequestHelper.get(
@@ -43,10 +42,10 @@ class ResourceAwardsEmojis extends BaseService {
   }
 
   award(
-    projectId: ProjectId,
-    resourceId: ResourceId,
+    projectId: string | number,
+    resourceId: string | number,
     name: string,
-    noteId: NoteId,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, null, noteId), {
@@ -56,10 +55,10 @@ class ResourceAwardsEmojis extends BaseService {
   }
 
   remove(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    awardId: AwardId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    awardId: number,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.del(
@@ -70,10 +69,10 @@ class ResourceAwardsEmojis extends BaseService {
   }
 
   show(
-    projectId: ProjectId,
-    resourceId: ResourceId,
-    awardId: AwardId,
-    noteId: NoteId,
+    projectId: string | number,
+    resourceId: string | number,
+    awardId: number,
+    noteId: number,
     options?: Sudo,
   ) {
     return RequestHelper.get(
@@ -83,5 +82,3 @@ class ResourceAwardsEmojis extends BaseService {
     );
   }
 }
-
-export default ResourceAwardsEmojis;

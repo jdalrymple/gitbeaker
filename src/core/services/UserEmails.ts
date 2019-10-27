@@ -4,16 +4,15 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
 } from '../infrastructure';
-import { UserId } from '.';
 
 const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 
-class UserEmails extends BaseService {
-  all({ userId, ...options }: { userId?: UserId } & PaginatedRequestOptions = {}) {
+export class UserEmails extends BaseService {
+  all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get(this, url(userId), options);
   }
 
-  add(email, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
+  add(email, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     return RequestHelper.post(this, url(userId), {
       email,
       ...options,
@@ -26,11 +25,9 @@ class UserEmails extends BaseService {
     return RequestHelper.get(this, `user/emails/${eId}`, options);
   }
 
-  remove(emailId, { userId, ...options }: { userId?: UserId } & BaseRequestOptions = {}) {
+  remove(emailId, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const eId = encodeURIComponent(emailId);
 
     return RequestHelper.del(this, `${url(userId)}/${eId}`, options);
   }
 }
-
-export default UserEmails;

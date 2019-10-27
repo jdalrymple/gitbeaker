@@ -4,7 +4,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import builtins from 'rollup-plugin-node-builtins';
-import globals from 'rollup-plugin-node-globals';
 import replace from 'rollup-plugin-replace';
 import typescript from 'typescript';
 import pkg from './package.json';
@@ -18,13 +17,12 @@ export default [
       file: pkg.bin.gitlab,
       format: 'cjs',
     },
-    external: [...Object.keys(pkg.dependencies)],
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       replace({
         delimiters: ['', ''],
         '#!/usr/bin/env node': '',
       }),
-      globals(),
       builtins(),
       resolve(),
       commonjs(),
@@ -39,49 +37,27 @@ export default [
     input: 'src/core/index.ts',
     output: {
       file: pkg.browser,
-      name: 'node-gitlab',
+      name: 'gitlab',
       format: 'umd',
       exports: 'named',
-      globals: {
-        li: 'Li',
-        humps: 'Humps',
-        'query-string': 'QueryString',
-        randomstring: 'RandomString',
-        'ky-universal': 'Ky',
-        'form-data': 'FormData',
-        'universal-url': 'universal-url',
+    },
+    plugins: [resolve({ browser: true }), commonjs(), ts({ typescript }), terser()],
+  },
+
+  {
+    input: 'src/core/index.ts',
+    output: [
+      {
+        file: pkg.main, // CommonJS (for Node) (for bundlers) build.
+        format: 'cjs',
       },
-    },
-    plugins: [
-      globals(),
-      builtins(),
-      resolve({ browser: true }),
-      commonjs(),
-      json(),
-      ts({ typescript }),
-      terser(),
+      {
+        file: pkg.module, // ES module (for bundlers) build.
+
+        format: 'es',
+      },
     ],
-  },
-
-  // CommonJS (for Node) (for bundlers) build.
-  {
-    input: 'src/core/index.ts',
-    output: {
-      file: pkg.main,
-      format: 'cjs',
-    },
-    external: [...Object.keys(pkg.dependencies)],
-    plugins: [globals(), builtins(), ts({ typescript }), terser()],
-  },
-
-  // ES module (for bundlers) build.
-  {
-    input: 'src/core/index.ts',
-    output: {
-      file: pkg.module,
-      format: 'es',
-    },
-    external: [...Object.keys(pkg.dependencies)],
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [ts({ typescript }), terser()],
   },
 ];

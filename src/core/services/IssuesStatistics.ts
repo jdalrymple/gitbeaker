@@ -1,12 +1,12 @@
 import { BaseService, RequestHelper, BaseRequestOptions } from '../infrastructure';
-import { GroupId, ProjectId } from '.';
 
-class IssuesStatistics extends BaseService {
+export class IssuesStatistics extends BaseService {
   all({
     projectId,
     groupId,
     ...options
-  }: ({ projectId?: ProjectId } | { groupId?: GroupId } | {}) & BaseRequestOptions = {}) {
+  }: ({ projectId?: string | number } | { groupId?: string | number } | {}) &
+    BaseRequestOptions = {}) {
     let url;
 
     if (projectId) {
@@ -20,5 +20,3 @@ class IssuesStatistics extends BaseService {
     return RequestHelper.get(this, url, options);
   }
 }
-
-export default IssuesStatistics;

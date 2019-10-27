@@ -5,38 +5,35 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId } from '.';
 
-class Wikis extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export class Wikis extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/wikis`, options);
   }
 
-  create(projectId: ProjectId, options?: BaseRequestOptions) {
+  create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/wikis`, options);
   }
 
-  edit(projectId: ProjectId, slug: string, options?: BaseRequestOptions) {
+  edit(projectId: string | number, slug: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/wikis/${slug}`, options);
   }
 
-  show(projectId: ProjectId, slug: string, options?: Sudo) {
+  show(projectId: string | number, slug: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/wikis/${slug}`, options);
   }
 
-  remove(projectId: ProjectId, slug: string, options?: Sudo) {
+  remove(projectId: string | number, slug: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.del(this, `projects/${pId}/wikis/${slug}`, options);
   }
 }
-
-export default Wikis;

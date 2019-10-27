@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import 'dotenv';
-const { camelizeKeys } = require('humps');
+import { camelizeKeys } from 'xcase';
 import { param, constant } from 'change-case';
 import program from 'yargs';
-import pkg from '../../package.json';
-import map from '../../dist/map.json';
 import * as core from '../core';
+import pkg from '../../package.json';
 
 // Add default options
 program
@@ -18,6 +17,10 @@ program
   .showHelpOnFail(false, 'Specify --help for available options');
 
 // Add all supported API's
+
+/* eslint global-require: 0 import/no-unresolved: 0 */
+const map = require('../../dist/map.json') || {};
+
 Object.entries(map).forEach(([name, methods]: [string, { name: string; args: string[] }[]]) => {
   const baseArgs: string[] = methods[0].args;
 
@@ -62,14 +65,14 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
           const optionalArgs = {};
           const initArgs = {};
 
-          for (const [name, value] of Object.entries(casedArgs)) {
-            const baseOption = baseArgs.find(x => x === name.replace('gl-', ''));
+          Object.entries(casedArgs).forEach(([n, v]) => {
+            const baseOption = baseArgs.find(x => x === n.replace('gl-', ''));
 
             if (baseOption) {
-              initArgs[baseOption] = value || process.env[`GITLAB_${constant(baseOption)}`];
-            } else if (m.args.includes(name)) coreArgs[name] = value;
-            else optionalArgs[name] = value;
-          }
+              initArgs[baseOption] = v || process.env[`GITLAB_${constant(baseOption)}`];
+            } else if (m.args.includes(n)) coreArgs[n] = v;
+            else optionalArgs[n] = v;
+          });
 
           // Create service
           const s = new core[name](initArgs);
@@ -84,4 +87,5 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
   });
 });
 
-program.epilog('Copyright 2019').argv;
+program.epilog('Copyright 2019');
+program.parse();

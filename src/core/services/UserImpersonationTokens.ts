@@ -1,15 +1,16 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { UserId, ImpersonationTokenScope, ImpersonationTokenId } from '.';
 
-class UserImpersonationTokens extends BaseService {
-  all(userId: UserId, options?: PaginatedRequestOptions) {
+type ImpersonationTokenScope = 'api' | 'read_user';
+
+export class UserImpersonationTokens extends BaseService {
+  all(userId: number, options?: PaginatedRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get(this, `users/${uId}/impersonation_tokens`, options);
   }
 
   add(
-    userId: UserId,
+    userId: number,
     name: string,
     scopes: ImpersonationTokenScope,
     expiresAt: string,
@@ -25,17 +26,15 @@ class UserImpersonationTokens extends BaseService {
     });
   }
 
-  show(userId: UserId, tokenId: ImpersonationTokenId, options?: Sudo) {
+  show(userId: number, tokenId: number, options?: Sudo) {
     const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `users/${uId}/impersonation_tokens/${tId}`, options);
   }
 
-  revoke(userId: UserId, tokenId: ImpersonationTokenId, options?: Sudo) {
+  revoke(userId: number, tokenId: number, options?: Sudo) {
     const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `users/${uId}/impersonation_tokens/${tId}`, options);
   }
 }
-
-export default UserImpersonationTokens;

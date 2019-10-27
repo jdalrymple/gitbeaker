@@ -1,17 +1,39 @@
 import Li from 'li';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from './BaseService';
-import {
-  BaseRequestOptions,
-  DelResponse,
-  GetResponse,
-  PaginatedRequestOptions,
-  PaginationResponse,
-  PostResponse,
-  PutResponse,
-} from '.';
 
-export async function get(
+export interface Sudo {
+  sudo?: string | number;
+}
+
+export interface PaginationOptions {
+  total: number;
+  next: number | null;
+  current: number;
+  previous: number | null;
+  perPage: number;
+  totalPages: number;
+}
+
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+export interface BaseRequestOptions extends Sudo {
+  [key: string]: any;
+}
+
+export interface PaginatedRequestOptions extends BaseRequestOptions {
+  showPagination?: boolean;
+  maxPages?: number;
+  page?: number;
+  perPage?: number;
+}
+
+export type PaginationResponse = { data: object[]; pagination: PaginationOptions };
+export type GetResponse = PaginationResponse | object | object[];
+export type PostResponse = object;
+export type PutResponse = object;
+export type DelResponse = object;
+
+async function get(
   service: BaseService,
   endpoint: string,
   options: PaginatedRequestOptions = {},
@@ -42,7 +64,7 @@ export async function get(
   if (!query.page && underLimit && pagination.next) {
     const { next } = Li.parse(headers.link);
     const leaf = service.url.split('/').pop() || '';
-    const regex = new RegExp(`.+\/api\/v\\d(\/${leaf})?\/`);
+    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
@@ -56,7 +78,7 @@ export async function get(
   return (query.page || body.length > 0) && showPagination ? { data: body, pagination } : body;
 }
 
-export function stream(service: BaseService, endpoint: string, options: BaseRequestOptions = {}) {
+function stream(service: BaseService, endpoint: string, options: BaseRequestOptions = {}) {
   if (typeof service.requester.stream !== 'function') {
     throw new Error('Stream method is not implementated in requester!');
   }
@@ -66,7 +88,7 @@ export function stream(service: BaseService, endpoint: string, options: BaseRequ
   });
 }
 
-export async function post(
+async function post(
   service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
@@ -81,7 +103,7 @@ export async function post(
   return response.body;
 }
 
-export async function put(
+async function put(
   service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
@@ -89,12 +111,13 @@ export async function put(
   const { sudo, ...body } = options;
   const response = await service.requester.put(service, endpoint, {
     body,
+    sudo,
   });
 
   return response.body;
 }
 
-export async function del(
+async function del(
   service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
@@ -107,3 +130,11 @@ export async function del(
 
   return response.body;
 }
+
+export const RequestHelper = {
+  post,
+  put,
+  get,
+  del,
+  stream,
+};

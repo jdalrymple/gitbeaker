@@ -4,14 +4,21 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
 } from '../infrastructure';
-import { ProjectId, GroupId, NotificationSettingLevel } from '.';
 
-class NotificationSettings extends BaseService {
+type NotificationSettingLevel =
+  | 'disabled'
+  | 'participating'
+  | 'watch'
+  | 'global'
+  | 'mention'
+  | 'custom';
+
+export class NotificationSettings extends BaseService {
   all({
     projectId,
     groupId,
     ...options
-  }: ({ projectId: ProjectId } | { groupId: GroupId }) & PaginatedRequestOptions) {
+  }: ({ projectId: string | number } | { groupId: string | number }) & PaginatedRequestOptions) {
     let url = '';
 
     if (projectId) {
@@ -27,7 +34,9 @@ class NotificationSettings extends BaseService {
     projectId,
     groupId,
     ...options
-  }: { level?: NotificationSettingLevel } & ({ projectId: ProjectId } | { groupId: GroupId }) &
+  }: { level?: NotificationSettingLevel } & (
+    | { projectId: string | number }
+    | { groupId: string | number }) &
     BaseRequestOptions) {
     let url = '';
 
@@ -40,5 +49,3 @@ class NotificationSettings extends BaseService {
     return RequestHelper.put(this, `${url}notification_settings`, options);
   }
 }
-
-export default NotificationSettings;

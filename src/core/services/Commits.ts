@@ -5,16 +5,30 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, CommitAction } from '.';
 
-class Commits extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+interface CommitAction {
+  /** The action to perform */
+  action: 'create' | 'delete' | 'move' | 'update';
+  /** Full path to the file. Ex. lib/class.rb */
+  filePath: string;
+  /** Original full path to the file being moved.Ex.lib / class1.rb */
+  previousPath?: string;
+  /** File content, required for all except delete. Optional for move */
+  content?: string;
+  /** text or base64. text is default. */
+  encoding?: string;
+  /** Last known file commit id. Will be only considered in update, move and delete actions. */
+  lastCommitId?: string;
+}
+
+export class Commits extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits`, options);
   }
 
-  cherryPick(projectId: ProjectId, sha: string, branch: string, options?: Sudo) {
+  cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
@@ -23,14 +37,14 @@ class Commits extends BaseService {
     });
   }
 
-  comments(projectId: ProjectId, sha: string, options?: Sudo) {
+  comments(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/comments`, options);
   }
 
   create(
-    projectId: ProjectId,
+    projectId: string | number,
     branch: string,
     message: string,
     actions: CommitAction[] = [],
@@ -46,7 +60,12 @@ class Commits extends BaseService {
     });
   }
 
-  createComment(projectId: ProjectId, sha: string, note: string, options?: BaseRequestOptions) {
+  createComment(
+    projectId: string | number,
+    sha: string,
+    note: string,
+    options?: BaseRequestOptions,
+  ) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/comments`, {
@@ -55,37 +74,37 @@ class Commits extends BaseService {
     });
   }
 
-  diff(projectId: ProjectId, sha: string, options?: Sudo) {
+  diff(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/diff`, options);
   }
 
-  editStatus(projectId: ProjectId, sha: string, options?: BaseRequestOptions) {
+  editStatus(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, options);
   }
 
-  references(projectId: ProjectId, sha: string, options?: Sudo) {
+  references(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
   }
 
-  show(projectId: ProjectId, sha: string, options?: BaseRequestOptions) {
+  show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`, options);
   }
 
-  status(projectId: ProjectId, sha: string, options?: BaseRequestOptions) {
+  status(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
   }
 
-  mergeRequests(projectId: ProjectId, sha: string, options?: BaseRequestOptions) {
+  mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(
@@ -95,5 +114,3 @@ class Commits extends BaseService {
     );
   }
 }
-
-export default Commits;

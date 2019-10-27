@@ -6,9 +6,8 @@ import {
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
-import { ResourceId, NoteId } from '..';
 
-class ResourceNotes extends BaseService {
+export class ResourceNotes extends BaseService {
   protected resource2Type: string;
 
   constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
@@ -17,15 +16,19 @@ class ResourceNotes extends BaseService {
     this.resource2Type = resource2Type;
   }
 
-  all(resourceId: ResourceId, resource2Id: ResourceId, options?: PaginatedRequestOptions) {
+  all(
+    resourceId: string | number,
+    resource2Id: string | number,
+    options?: PaginatedRequestOptions,
+  ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
   create(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
+    resourceId: string | number,
+    resource2Id: string | number,
     body: string,
     options?: BaseRequestOptions,
   ) {
@@ -38,9 +41,9 @@ class ResourceNotes extends BaseService {
   }
 
   edit(
-    resourceId: ResourceId,
-    resource2Id: ResourceId,
-    noteId: NoteId,
+    resourceId: string | number,
+    resource2Id: string | number,
+    noteId: number,
     body: string,
     options?: BaseRequestOptions,
   ) {
@@ -52,17 +55,20 @@ class ResourceNotes extends BaseService {
     });
   }
 
-  remove(resourceId: ResourceId, resource2Id: ResourceId, noteId: NoteId, options?: Sudo) {
+  remove(
+    resourceId: string | number,
+    resource2Id: string | number,
+    noteId: number,
+    options?: Sudo,
+  ) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 
-  show(resourceId: ResourceId, resource2Id: ResourceId, noteId: NoteId, options?: Sudo) {
+  show(resourceId: string | number, resource2Id: string | number, noteId: number, options?: Sudo) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 }
-
-export default ResourceNotes;

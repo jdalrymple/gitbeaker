@@ -5,7 +5,7 @@ import {
   RequestHelper,
 } from '../infrastructure';
 
-class FeatureFlags extends BaseService {
+export class FeatureFlags extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'features', options);
   }
@@ -16,5 +16,3 @@ class FeatureFlags extends BaseService {
     return RequestHelper.post(this, `features/${encodedName}`, options);
   }
 }
-
-export default FeatureFlags;

@@ -5,9 +5,8 @@ import {
   PaginatedRequestOptions,
   Sudo,
 } from '../infrastructure';
-import { ResourceId } from '..';
 
-class ResourceTemplates extends BaseService {
+export class ResourceTemplates extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: ['templates', resourceType].join('/'), ...options });
   }
@@ -16,11 +15,9 @@ class ResourceTemplates extends BaseService {
     return RequestHelper.get(this, '', options);
   }
 
-  show(resourceId: ResourceId, options?: Sudo) {
+  show(resourceId: string | number, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}`, options);
   }
 }
-
-export default ResourceTemplates;

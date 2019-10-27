@@ -38,17 +38,7 @@ describe('Creation of BaseService instance', () => {
     expect(service.url).toBe('https://testing.com/api/v3/');
   });
 
-  test('Camelize option should return simple response with camelized keys', async () => {
-    const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true });
-
-    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
-    KyRequester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
-
-    const results = await service.show();
-
-    expect(results).toMatchObject({ id: 3, gravatarEnable: true });
-  });
-
+  /* eslint @typescript-eslint/camelcase: 0 */
   test('Camelize option should return simple response with camelized keys', async () => {
     const service = new BaseService({ host: 'https://testing.com', token: '1234', camelize: true });
 
@@ -66,6 +56,7 @@ describe('Creation of BaseService instance', () => {
     ]);
   });
 
+  /* eslint @typescript-eslint/camelcase: 0 */
   test('Camelize option unset should return simple response with default keys', async () => {
     const service = new BaseService({ host: 'https://testing.com', token: '1234' });
 

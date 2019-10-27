@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper, Sudo } from '../infrastructure';
 
-class Licence extends BaseService {
+export class Licence extends BaseService {
   all(options?: Sudo) {
     return RequestHelper.get(this, 'licence', options);
   }
@@ -9,5 +9,3 @@ class Licence extends BaseService {
     return RequestHelper.post(this, 'licence', options);
   }
 }
-
-export default Licence;

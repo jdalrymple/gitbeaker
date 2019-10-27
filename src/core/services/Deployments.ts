@@ -1,18 +1,15 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ProjectId, DeploymentId } from '.';
 
-class Deployments extends BaseService {
-  all(projectId: ProjectId, options?: PaginatedRequestOptions) {
+export class Deployments extends BaseService {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/deployments`, options);
   }
 
-  show(projectId: ProjectId, deploymentId: DeploymentId, options?: Sudo) {
+  show(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/deployments/${dId}`, options);
   }
 }
-
-export default Deployments;

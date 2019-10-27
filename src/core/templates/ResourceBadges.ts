@@ -6,48 +6,45 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ResourceId, BadgeId } from '..';
 
-class ResourceBadges extends BaseService {
+export class ResourceBadges extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 
-  add(resourceId: ResourceId, options?: BaseRequestOptions) {
+  add(resourceId: string | number, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.post(this, `${rId}/badges`, options);
   }
 
-  all(resourceId: ResourceId, options?: PaginatedRequestOptions) {
+  all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/badges`, options);
   }
 
-  edit(resourceId: ResourceId, badgeId: BadgeId, options?: BaseRequestOptions) {
+  edit(resourceId: string | number, badgeId: number, options?: BaseRequestOptions) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `${rId}/badges/${bId}`, options);
   }
 
-  preview(resourceId: ResourceId, linkUrl: string, imageUrl: string, options?: Sudo) {
+  preview(resourceId: string | number, linkUrl: string, imageUrl: string, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/badges/render`, { linkUrl, imageUrl, ...options });
   }
 
-  remove(resourceId: ResourceId, badgeId: BadgeId, options?: Sudo) {
+  remove(resourceId: string | number, badgeId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `${rId}/badges/${bId}`, options);
   }
 
-  show(resourceId: ResourceId, badgeId: BadgeId, options?: Sudo) {
+  show(resourceId: string | number, badgeId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
 
     return RequestHelper.get(this, `${rId}/badges/${bId}`, options);
   }
 }
-
-export default ResourceBadges;

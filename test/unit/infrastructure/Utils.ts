@@ -1,5 +1,7 @@
 import { bundler } from '../../../src/core/infrastructure';
 
+/* eslint max-classes-per-file: 0 */
+
 class Test1 {
   constructor(value: number) {
     this.value = value * 3;

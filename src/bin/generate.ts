@@ -21,12 +21,11 @@ function deepFunctions(x) {
   );
 }
 
-function distinctDeepFunctions(x) {
+function distinctDeepFunctions(x): string[] {
   return Array.from(new Set(deepFunctions(x)));
 }
 
 function getInstanceMethods(x) {
-  // @ts-ignore
   return distinctDeepFunctions(x).filter(name => name !== 'constructor' && !~name.indexOf('__'));
 }
 
@@ -36,7 +35,6 @@ function removeOptionalArg(list) {
   return list;
 }
 
-// @ts-ignore
 function buildMap() {
   const map = {};
   const baseArgs = Object.keys(getParamNames(BaseService)[0]);
@@ -44,7 +42,6 @@ function buildMap() {
   for (const [name, service] of Object.entries(core)) {
     if (name.includes('Bundle') || name === 'Gitlab') continue;
 
-    // @ts-ignore
     const s = new service();
 
     map[name] = [{ name: 'constructor', args: baseArgs }];

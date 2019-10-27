@@ -5,16 +5,15 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId } from '.';
 
-class Branches extends BaseService {
-  all(projectId: ProjectId, options?: { search?: string } & PaginatedRequestOptions) {
+export class Branches extends BaseService {
+  all(projectId: string | number, options?: { search?: string } & PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches`, options);
   }
 
-  create(projectId: ProjectId, branchName: string, ref: string, options?: Sudo) {
+  create(projectId: string | number, branchName: string, ref: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
     const branchKey = this.url.includes('v3') ? 'branchName' : 'branch';
 
@@ -25,7 +24,7 @@ class Branches extends BaseService {
     });
   }
 
-  protect(projectId: ProjectId, branchName: string, options?: BaseRequestOptions) {
+  protect(projectId: string | number, branchName: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/protected_branches`, {
@@ -34,19 +33,19 @@ class Branches extends BaseService {
     });
   }
 
-  remove(projectId: ProjectId, branchName: string, options?: Sudo) {
+  remove(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/repository/branches/${bName}`, options);
   }
 
-  show(projectId: ProjectId, branchName: string, options?: Sudo) {
+  show(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/branches/${bName}`, options);
   }
 
-  unprotect(projectId: ProjectId, branchName: string, options?: Sudo) {
+  unprotect(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
     return RequestHelper.put(
@@ -56,5 +55,3 @@ class Branches extends BaseService {
     );
   }
 }
-
-export default Branches;

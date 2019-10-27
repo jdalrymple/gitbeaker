@@ -21,6 +21,7 @@
 - [Install](#install)
 - [Getting Started](#getting-started)
   - [CLI Support](#cli-support)
+  - [Browser Support](#browser-support)
 - [Docs](#docs)
   - [Supported APIs](#supported-apis)
   - [Bundle Imports](#bundle-imports)
@@ -107,6 +108,23 @@ GITLAB_TOKEN=personaltoken
 ```
 
 This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
+
+### Browser Support
+
+The library is exported as `gitlab` and can be used by simply adding this script to your html file:
+
+```html
+<script src="node_modules/gitlab/dist/index.browser.js" />
+<script>
+  const { Gitlab } = gitlab;
+
+  const api = new Gitlab({
+    token: 'personaltoken',
+  });
+
+  //etc
+</script>
+```
 
 ## Docs
 

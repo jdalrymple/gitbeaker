@@ -4,9 +4,8 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
 } from '../infrastructure';
-import { BroadcastMessageId } from '.';
 
-class BroadcastMessages extends BaseService {
+export class BroadcastMessages extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'broadcast_messages', options);
   }
@@ -15,23 +14,21 @@ class BroadcastMessages extends BaseService {
     return RequestHelper.post(this, 'broadcast_messages', options);
   }
 
-  edit(broadcastMessageId: BroadcastMessageId, options?: BaseRequestOptions) {
+  edit(broadcastMessageId: number, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
     return RequestHelper.put(this, `broadcast_messages/${bId}`, options);
   }
 
-  remove(broadcastMessageId: BroadcastMessageId) {
+  remove(broadcastMessageId: number) {
     const bId = encodeURIComponent(broadcastMessageId);
 
     return RequestHelper.del(this, `broadcast_messages/${bId}`);
   }
 
-  show(broadcastMessageId: BroadcastMessageId, options?: BaseRequestOptions) {
+  show(broadcastMessageId: number, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
     return RequestHelper.get(this, `broadcast_messages/${bId}`, options);
   }
 }
-
-export default BroadcastMessages;

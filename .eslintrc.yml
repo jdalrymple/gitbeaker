@@ -1,0 +1,41 @@
+env:
+  node: true
+  browser: true
+  jest/globals: true
+
+extends:
+  - airbnb-base
+  - plugin:@typescript-eslint/recommended
+  - plugin:prettier/recommended
+  - prettier/@typescript-eslint
+  - plugin:jest/recommended
+
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  project: tsconfig.eslint.json
+  sourceType: module
+
+plugins:
+  - '@typescript-eslint'
+  - import
+
+rules:
+  import/no-default-export: error
+  import/prefer-default-export: off
+  '@typescript-eslint/explicit-function-return-type': off
+
+overrides:
+  - files:
+      - 'test/**/*.ts'
+    rules:
+      import/no-unresolved: 0
+
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .jsx
+        - .ts
+        - .tsx

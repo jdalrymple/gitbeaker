@@ -6,39 +6,40 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectId, UserId, EventOptions, GroupId, NamespaceId, UploadMetadata } from '.';
+import { EventOptions } from './Events';
+import { UploadMetadata } from './ProjectImportExport';
 
-class Projects extends BaseService {
+export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'projects', options);
   }
 
-  archive(projectId: ProjectId, options?: Sudo) {
+  archive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/archive`, options);
   }
 
-  create({ userId, ...options }: { userId?: UserId } & BaseRequestOptions) {
+  create({ userId, ...options }: { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
 
     return RequestHelper.post(this, url, options);
   }
 
-  edit(projectId: ProjectId, options?: BaseRequestOptions) {
+  edit(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}`, options);
   }
 
-  events(projectId: ProjectId, options?: BaseRequestOptions & EventOptions) {
+  events(projectId: string | number, options?: BaseRequestOptions & EventOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/events`, options);
   }
 
   fork(
-    projectId: ProjectId,
+    projectId: string | number,
     { forkedFromId, ...options }: { forkedFromId?: number } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
@@ -49,31 +50,31 @@ class Projects extends BaseService {
     return RequestHelper.post(this, url, options);
   }
 
-  forks(projectId: ProjectId, options?: BaseRequestOptions) {
+  forks(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/forks`, options);
   }
 
-  languages(projectId: ProjectId, options?: Sudo) {
+  languages(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/languages`, options);
   }
 
-  mirrorPull(projectId: ProjectId, options?: Sudo) {
+  mirrorPull(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/mirror/pull`, options);
   }
 
-  remove(projectId: ProjectId, options?: Sudo) {
+  remove(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.del(this, `projects/${pId}`, options);
   }
 
-  removeFork(projectId: ProjectId, options?: Sudo) {
+  removeFork(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.del(this, `projects/${pId}/fork`, options);
@@ -83,54 +84,59 @@ class Projects extends BaseService {
     return RequestHelper.get(this, 'projects', { search: projectName });
   }
 
-  share(projectId: ProjectId, groupId: GroupId, groupAccess: number, options?: BaseRequestOptions) {
+  share(
+    projectId: string | number,
+    groupId: string | number,
+    groupAccess: number,
+    options?: BaseRequestOptions,
+  ) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/share`, { groupId, groupAccess, ...options });
   }
 
-  show(projectId: ProjectId, options?: BaseRequestOptions) {
+  show(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}`, options);
   }
 
-  star(projectId: ProjectId, options?: Sudo) {
+  star(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/star`, options);
   }
 
-  statuses(projectId: ProjectId, sha: string, state: string, options?: BaseRequestOptions) {
+  statuses(projectId: string | number, sha: string, state: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
   }
 
-  transfer(projectId: ProjectId, namespaceId: NamespaceId) {
+  transfer(projectId: string | number, namespaceId: string | number) {
     const pId = encodeURIComponent(projectId);
     return RequestHelper.put(this, `projects/${pId}/transfer`, { namespace: namespaceId });
   }
 
-  unarchive(projectId: ProjectId, options?: Sudo) {
+  unarchive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/unarchive`, options);
   }
 
-  unshare(projectId: ProjectId, groupId: GroupId, options?: Sudo) {
+  unshare(projectId: string | number, groupId: string | number, options?: Sudo) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/share/${gId}`, options);
   }
 
-  unstar(projectId: ProjectId, options?: Sudo) {
+  unstar(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/unstar`, options);
   }
 
-  updatePushRule(projectId: ProjectId, options?: BaseRequestOptions) {
+  updatePushRule(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
@@ -150,5 +156,3 @@ class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/uploads`, { sudo, form });
   }
 }
-
-export default Projects;

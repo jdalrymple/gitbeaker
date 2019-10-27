@@ -5,9 +5,8 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { HookId } from '.';
 
-class SystemHooks extends BaseService {
+export class SystemHooks extends BaseService {
   add(url: string, options?: BaseRequestOptions) {
     return RequestHelper.post(this, 'hooks', { url, ...options });
   }
@@ -16,17 +15,15 @@ class SystemHooks extends BaseService {
     return RequestHelper.get(this, 'hooks', options);
   }
 
-  edit(hookId: HookId, url: string, options?: BaseRequestOptions) {
+  edit(hookId: number, url: string, options?: BaseRequestOptions) {
     const hId = encodeURIComponent(hookId);
 
     return RequestHelper.put(this, `hooks/${hId}`, { url, ...options });
   }
 
-  remove(hookId: HookId, options?: Sudo) {
+  remove(hookId: number, options?: Sudo) {
     const hId = encodeURIComponent(hookId);
 
     return RequestHelper.del(this, `hooks/${hId}`, options);
   }
 }
-
-export default SystemHooks;
