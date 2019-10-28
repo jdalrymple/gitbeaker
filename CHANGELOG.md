@@ -1,3 +1,10 @@
+## [11.4.2](https://github.com/jdalrymple/node-gitlab/compare/11.4.1...11.4.2) (2019-10-28)
+
+
+### Bug Fixes
+
+* Non standard mimetype was not handled ([01d17e8](https://github.com/jdalrymple/node-gitlab/commit/01d17e827004dcef0beb11b7520e02b54d89d898)), closes [#424](https://github.com/jdalrymple/node-gitlab/issues/424)
+
 ## [11.4.1](https://github.com/jdalrymple/node-gitlab/compare/11.4.0...11.4.1) (2019-10-28)
 
 
