@@ -1,3 +1,10 @@
+## [11.4.1](https://github.com/jdalrymple/node-gitlab/compare/11.4.0...11.4.1) (2019-10-28)
+
+
+### Bug Fixes
+
+* Fixing some minor bugs ([#486](https://github.com/jdalrymple/node-gitlab/issues/486)) ([15c841c](https://github.com/jdalrymple/node-gitlab/commit/15c841c15b11c56a735a6ff41db7aa15fe259125)), closes [#485](https://github.com/jdalrymple/node-gitlab/issues/485) [#475](https://github.com/jdalrymple/node-gitlab/issues/475)
+
 # [11.4.0](https://github.com/jdalrymple/node-gitlab/compare/11.3.2...11.4.0) (2019-10-25)
 
 ### Features
