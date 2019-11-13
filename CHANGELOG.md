@@ -1,3 +1,10 @@
+# [11.5.0](https://github.com/jdalrymple/node-gitlab/compare/11.4.2...11.5.0) (2019-11-13)
+
+
+### Features
+
+* Add downloadSingleArtifactFileFromRef method ([#493](https://github.com/jdalrymple/node-gitlab/issues/493)) ([1967984](https://github.com/jdalrymple/node-gitlab/commit/196798472ae79018132f02ab3cfa3bbb60535148))
+
 ## [11.4.2](https://github.com/jdalrymple/node-gitlab/compare/11.4.1...11.4.2) (2019-10-28)
 
 
