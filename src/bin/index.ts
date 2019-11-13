@@ -78,8 +78,8 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
           const s = new core[name](initArgs);
 
           // Execute function
-          return s[m.name](...Object.values(coreArgs), optionalArgs)
-            .then(console.log);
+          // eslint-disable-next-line no-console
+          return s[m.name](...Object.values(coreArgs), optionalArgs).then(console.log);
         },
       );
     }
