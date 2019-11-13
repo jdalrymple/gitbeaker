@@ -52,6 +52,30 @@ export class Jobs extends BaseService {
     );
   }
 
+  downloadSingleArtifactFileFromRef(
+    projectId: string | number,
+    ref: string,
+    artifactPath: string,
+    name: string,
+    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
+  ) {
+    const [pId, rId, jobName] = [projectId, ref, name].map(encodeURIComponent);
+
+    if (stream) {
+      return RequestHelper.stream(
+        this,
+        `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${jobName}`,
+        options,
+      );
+    }
+
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${jobName}`,
+      options,
+    );
+  }
+
   downloadLatestArtifactFile(
     projectId: string | number,
     ref: string,
