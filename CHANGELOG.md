@@ -1,3 +1,10 @@
+## [11.5.1](https://github.com/jdalrymple/node-gitlab/compare/11.5.0...11.5.1) (2019-11-14)
+
+
+### Bug Fixes
+
+* Fixing the map.json file location ([ced9415](https://github.com/jdalrymple/node-gitlab/commit/ced94153d2437c28f4e171ece7573eaf50f7848c)), closes [#491](https://github.com/jdalrymple/node-gitlab/issues/491)
+
 # [11.5.0](https://github.com/jdalrymple/node-gitlab/compare/11.4.2...11.5.0) (2019-11-13)
 
 
