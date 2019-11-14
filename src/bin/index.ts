@@ -19,7 +19,7 @@ program
 // Add all supported API's
 
 /* eslint global-require: 0 import/no-unresolved: 0 */
-const map = require('../../dist/map.json') || {};
+const map = require('./map.json') || {};
 
 Object.entries(map).forEach(([name, methods]: [string, { name: string; args: string[] }[]]) => {
   const baseArgs: string[] = methods[0].args;
@@ -78,7 +78,8 @@ Object.entries(map).forEach(([name, methods]: [string, { name: string; args: str
           const s = new core[name](initArgs);
 
           // Execute function
-          return s[m.name](...Object.values(coreArgs), optionalArgs);
+          // eslint-disable-next-line no-console
+          return s[m.name](...Object.values(coreArgs), optionalArgs).then(console.log);
         },
       );
     }
