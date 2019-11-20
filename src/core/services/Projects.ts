@@ -159,12 +159,6 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/unstar`, options);
   }
 
-  updatePushRule(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
-  }
-
   upload(projectId, content, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {
     const pId = encodeURIComponent(projectId);
     const form = new FormData();
