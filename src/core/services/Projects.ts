@@ -9,6 +9,29 @@ import {
 import { EventOptions } from './Events';
 import { UploadMetadata } from './ProjectImportExport';
 
+export interface NamespaceInfoSchema {
+  id: number;
+  name: string;
+  path: string;
+  kind: string;
+  full_path: string;
+}
+
+export interface ProjectSchema {
+  id: number;
+
+  name: string;
+  name_with_namespace: string;
+  path: string;
+  path_with_namespace: string;
+
+  namespace: NamespaceInfoSchema;
+
+  ssh_url_to_repo: string;
+  http_url_to_repo: string;
+  archived: boolean;
+}
+
 export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'projects', options);

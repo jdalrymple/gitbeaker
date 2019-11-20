@@ -5,6 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
+import { ProjectSchema } from './Projects';
 
 export class Groups extends BaseService {
   all(options?: PaginatedRequestOptions) {
@@ -30,6 +31,12 @@ export class Groups extends BaseService {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.put(this, `groups/${gId}`, options);
+  }
+
+  projects(groupId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema[]> {
+    const gId = encodeURIComponent(groupId);
+
+    return RequestHelper.get(this, `groups/${gId}/projects`, options) as Promise<ProjectSchema[]>;
   }
 
   remove(groupId: string | number, options?: Sudo) {
