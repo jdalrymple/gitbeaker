@@ -1,3 +1,10 @@
+# [11.6.0](https://github.com/jdalrymple/node-gitlab/compare/11.5.1...11.6.0) (2019-11-20)
+
+
+### Features
+
+* Add Group.projects ([#494](https://github.com/jdalrymple/node-gitlab/issues/494)) ([9def4e7](https://github.com/jdalrymple/node-gitlab/commit/9def4e7f8e7956413b40f159fddefb989fd34628)), closes [#384](https://github.com/jdalrymple/node-gitlab/issues/384)
+
 ## [11.5.1](https://github.com/jdalrymple/node-gitlab/compare/11.5.0...11.5.1) (2019-11-14)
 
 
