@@ -1,3 +1,18 @@
+# [12.0.0](https://github.com/jdalrymple/node-gitlab/compare/11.6.0...12.0.0) (2019-11-21)
+
+
+* Switching version option type ([6558f09](https://github.com/jdalrymple/node-gitlab/commit/6558f09522ccb27d4314d99394086301fe5ae85e))
+
+
+### Bug Fixes
+
+* Fixing the inability to use environment variables in the cli export ([#463](https://github.com/jdalrymple/node-gitlab/issues/463)) ([79d8c71](https://github.com/jdalrymple/node-gitlab/commit/79d8c718b03946e4fc02d57032f37747b1a783f7)), closes [#458](https://github.com/jdalrymple/node-gitlab/issues/458)
+
+
+### BREAKING CHANGES
+
+* Switch the version option to be a number and not a string. For example 4 instead of 'v4'.
+
 # [11.6.0](https://github.com/jdalrymple/node-gitlab/compare/11.5.1...11.6.0) (2019-11-20)
 
 
