@@ -1,9 +1,7 @@
 import ts from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import json from 'rollup-plugin-json';
 import { terser } from 'rollup-plugin-terser';
-import builtins from 'rollup-plugin-node-builtins';
 import replace from 'rollup-plugin-replace';
 import typescript from 'typescript';
 import pkg from './package.json';
@@ -23,11 +21,7 @@ export default [
         delimiters: ['', ''],
         '#!/usr/bin/env node': '',
       }),
-      builtins(),
-      resolve(),
-      commonjs(),
-      json(),
-      ts({ typescript }),
+      ts({ typescript, useTsconfigDeclarationDir: true }),
       terser(),
     ],
   },
@@ -41,7 +35,12 @@ export default [
       format: 'umd',
       exports: 'named',
     },
-    plugins: [resolve({ browser: true }), commonjs(), ts({ typescript }), terser()],
+    plugins: [
+      resolve({ browser: true }),
+      commonjs(),
+      ts({ typescript, useTsconfigDeclarationDir: true }),
+      terser(),
+    ],
   },
 
   {
@@ -53,11 +52,10 @@ export default [
       },
       {
         file: pkg.module, // ES module (for bundlers) build.
-
         format: 'es',
       },
     ],
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
-    plugins: [ts({ typescript }), terser()],
+    plugins: [ts({ typescript, useTsconfigDeclarationDir: true }), terser()],
   },
 ];

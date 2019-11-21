@@ -33,7 +33,7 @@ describe('Creation of BaseService instance', () => {
   });
 
   test('API version should be modified', async () => {
-    const service = new BaseService({ host: 'https://testing.com', token: '1234', version: 'v3' });
+    const service = new BaseService({ host: 'https://testing.com', token: '1234', version: 3 });
 
     expect(service.url).toBe('https://testing.com/api/v3/');
   });
@@ -44,7 +44,10 @@ describe('Creation of BaseService instance', () => {
 
     service.show = jest.fn(() => RequestHelper.get(service, 'test'));
     KyRequester.get = jest.fn(() => ({
-      body: [{ id: 3, gravatar_enable: true }, { id: 4, gravatar_enable: false }],
+      body: [
+        { id: 3, gravatar_enable: true },
+        { id: 4, gravatar_enable: false },
+      ],
       headers: {},
     }));
 

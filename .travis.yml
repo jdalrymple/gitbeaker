@@ -19,13 +19,17 @@ jobs:
         - npm run lint
         - prettier --check './*.json' './*.yml'
 
-    - stage: test
+    - &test-unit
+      stage: test
       name: Unit Test LFS
       node_js: lts/*
+      before_script:
+        - npm run build
+        - npm link
       script:
         - npm run test:unit
 
-    - stage: test
+    - <<: *test-unit
       name: Unit Test Latest
       node_js: node
       script:
@@ -51,21 +55,24 @@ jobs:
 
         # Display configuration
         - echo $PERSONAL_ACCESS_TOKEN
-      script:
+
+        # Build library
         - npm run build
+        - npm link
+      script:
         - npm run test:integration
 
     - <<: *test-integration
       name: Integration Test Latest
       node_js: node
       script:
-        - npm run build
         - npm run test:integration -- --coverage
       after_success:
         - npm run coverage
 
     - stage: release
       node_js: node
-      script:
+      before_script:
         - npm run build
+      script:
         - npm run release
