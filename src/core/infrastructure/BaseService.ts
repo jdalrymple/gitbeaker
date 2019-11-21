@@ -14,7 +14,7 @@ export interface BaseServiceOptions {
   jobToken?: string;
   host?: string;
   url?: string;
-  version?: 'v3' | 'v4';
+  version?: 3 | 4;
   rejectUnauthorized?: boolean;
   camelize?: boolean;
   requester?: Requester;
@@ -46,13 +46,13 @@ export class BaseService {
     profileMode = 'execution',
     host = 'https://gitlab.com',
     url = '',
-    version = 'v4',
+    version = 4,
     camelize = false,
     rejectUnauthorized = true,
     requester = KyRequester as Requester,
     requestTimeout = 300000,
   }: BaseServiceOptions = {}) {
-    this.url = [host, 'api', version, url].join('/');
+    this.url = [host, 'api', `v${version}`, url].join('/');
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
