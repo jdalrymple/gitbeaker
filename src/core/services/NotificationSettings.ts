@@ -36,7 +36,8 @@ export class NotificationSettings extends BaseService {
     ...options
   }: { level?: NotificationSettingLevel } & (
     | { projectId: string | number }
-    | { groupId: string | number }) &
+    | { groupId: string | number }
+  ) &
     BaseRequestOptions) {
     let url = '';
 
