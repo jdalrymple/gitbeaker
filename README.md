@@ -73,7 +73,7 @@ Available instantiating options:
 | `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)                                                      |
 | `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                                                                           |
 | `sudo`               | Yes      | `false`                                               | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
-| `version`            | Yes      | `v4`                                                  | API Version ID                                                                                                     |
+| `version`            | Yes      | `4`                                                  | API Version ID                                                                                                     |
 | `camelize`           | Yes      | `false`                                               | Camelizes all response body keys                                                                                   |
 | `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                                                                       |
 | `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                                                                      |
