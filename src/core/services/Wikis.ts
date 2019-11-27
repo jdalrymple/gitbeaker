@@ -20,20 +20,20 @@ export class Wikis extends BaseService {
   }
 
   edit(projectId: string | number, slug: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, s] = [projectId, slug].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/wikis/${slug}`, options);
+    return RequestHelper.put(this, `projects/${pId}/wikis/${s}`, options);
   }
 
   show(projectId: string | number, slug: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, s] = [projectId, slug].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/wikis/${slug}`, options);
+    return RequestHelper.get(this, `projects/${pId}/wikis/${s}`, options);
   }
 
   remove(projectId: string | number, slug: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
+    const [pId, s] = [projectId, slug].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/wikis/${slug}`, options);
+    return RequestHelper.del(this, `projects/${pId}/wikis/${s}`, options);
   }
 }
