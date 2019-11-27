@@ -1,3 +1,10 @@
+## [12.0.1](https://github.com/jdalrymple/node-gitlab/compare/12.0.0...12.0.1) (2019-11-27)
+
+
+### Bug Fixes
+
+* Encode slug value for Wikis API ([#501](https://github.com/jdalrymple/node-gitlab/issues/501)) ([9c56d48](https://github.com/jdalrymple/node-gitlab/commit/9c56d4819ba120a1ea338fceb950733f0f59f886)), closes [#490](https://github.com/jdalrymple/node-gitlab/issues/490)
+
 # [12.0.0](https://github.com/jdalrymple/node-gitlab/compare/11.6.0...12.0.0) (2019-11-21)
 
 
