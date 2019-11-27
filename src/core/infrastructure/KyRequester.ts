@@ -2,11 +2,13 @@ import Ky from 'ky-universal';
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
+import { Agent } from 'https';
 
 interface Service {
   headers: object;
   requestTimeout: number;
   url: string;
+  rejectUnauthorized?: boolean;
 }
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
@@ -26,6 +28,7 @@ function responseHeadersAsObject(response): Record<string, string> {
 function defaultRequest(service: Service, { body, query, sudo, method }) {
   const headers = new Headers(service.headers as Record<string, string>);
   let bod = body;
+  let agent;
 
   if (sudo) headers.append('sudo', `${sudo}`);
 
@@ -34,9 +37,16 @@ function defaultRequest(service: Service, { body, query, sudo, method }) {
     headers.append('content-type', 'application/json');
   }
 
+  if (service.rejectUnauthorized) {
+    agent = new Agent({
+      rejectUnauthorized: service.rejectUnauthorized,
+    });
+  }
+
   return {
-    timeout: service.requestTimeout,
     headers,
+    agent,
+    timeout: service.requestTimeout,
     method: method === 'stream' ? 'get' : method,
     onProgress: method === 'stream' ? () => {} : undefined,
     searchParams: stringify(decamelizeKeys(query || {}) as object, { arrayFormat: 'bracket' }),

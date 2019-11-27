@@ -48,7 +48,7 @@ export class BaseService {
     url = '',
     version = 4,
     camelize = false,
-    rejectUnauthorized = true,
+    rejectUnauthorized = false,
     requester = KyRequester as Requester,
     requestTimeout = 300000,
   }: BaseServiceOptions = {}) {
