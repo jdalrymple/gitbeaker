@@ -71,7 +71,7 @@ Available instantiating options:
 | `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required)                                                    |
 | `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)                                                       |
 | `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)                                                      |
-| `rejectUnauthorized` | Yes      | `false`                                               | Http Certificate setting                                                                                           |
+| `rejectUnauthorized` | Yes      | `true`                                               | Http Certificate setting, Only applies to HTTPS hosts urls                                                                                           |
 | `sudo`               | Yes      | `false`                                               | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
 | `version`            | Yes      | `4`                                                  | API Version ID                                                                                                     |
 | `camelize`           | Yes      | `false`                                               | Camelizes all response body keys                                                                                   |
