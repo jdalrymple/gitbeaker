@@ -109,7 +109,7 @@ export class MergeRequests extends BaseService {
   approve(
     projectId: string | number,
     mergerequestIId: number,
-    options: { sha?: string } & BaseRequestOptions,
+    options?: { sha?: string } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
@@ -118,7 +118,7 @@ export class MergeRequests extends BaseService {
 
   approvals(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -137,7 +137,7 @@ export class MergeRequests extends BaseService {
   approvalState(
     projectId: string | number,
     mergerequestIId: number,
-    options: { sha?: string } & BaseRequestOptions,
+    options?: { sha?: string } & BaseRequestOptions,
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
@@ -152,7 +152,7 @@ export class MergeRequests extends BaseService {
     projectId: string | number,
     approverIds: number[],
     approverGroupIds: (string | number)[],
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
 
@@ -226,7 +226,7 @@ export class MergeRequests extends BaseService {
 
   editApprovals(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions,
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
 

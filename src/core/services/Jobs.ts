@@ -144,7 +144,7 @@ export class Jobs extends BaseService {
   showPipelineJobs(
     projectId: string | number,
     pipelineId: number,
-    options: { scope: JobScope } & Sudo,
+    options?: { scope?: JobScope } & Sudo,
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 

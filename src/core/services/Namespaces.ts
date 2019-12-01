@@ -5,7 +5,7 @@ export class Namespaces extends BaseService {
     return RequestHelper.get(this, 'namespaces', options);
   }
 
-  show(namespaceId: string | number, options: { search?: string } & Sudo) {
+  show(namespaceId: string | number, options?: { search?: string } & Sudo) {
     const nId = encodeURIComponent(namespaceId);
 
     return RequestHelper.get(this, `namespaces/${nId}`, options);

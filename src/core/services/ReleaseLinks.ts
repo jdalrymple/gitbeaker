@@ -21,7 +21,7 @@ export class ReleaseLinks extends BaseService {
     projectId: string | number,
     tagName: string,
     linkId: number,
-    options: Sudo & ({ name: string } | { url: string }),
+    options?: Sudo & ({ name: string } | { url: string }),
   ) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
