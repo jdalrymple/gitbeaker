@@ -1,3 +1,15 @@
+# [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
+
+
+### Bug Fixes
+
+* Removing required options object in a few of the API methods ([#505](https://github.com/jdalrymple/node-gitlab/issues/505)) ([b709ef6](https://github.com/jdalrymple/node-gitlab/commit/b709ef6716d15368c8775d77e5eb0cf22d6369a7))
+
+
+### Features
+
+* Add Group/File schemas ([#506](https://github.com/jdalrymple/node-gitlab/issues/506)) ([f467816](https://github.com/jdalrymple/node-gitlab/commit/f467816070bffcd3776e5dc3e6074c92bf6d644e))
+
 ## [12.0.1](https://github.com/jdalrymple/node-gitlab/compare/12.0.0...12.0.1) (2019-11-27)
 
 
