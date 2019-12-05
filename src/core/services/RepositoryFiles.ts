@@ -1,5 +1,18 @@
 import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
+export interface RepositoryFileSchema {
+  file_name: string;
+  file_path: string;
+  size: number;
+  encoding: string;
+  content: string;
+  content_sha256: string;
+  ref: string;
+  blob_id: string;
+  commit_id: string;
+  last_commit_id: string;
+}
+
 export class RepositoryFiles extends BaseService {
   create(
     projectId: string | number,
@@ -53,13 +66,18 @@ export class RepositoryFiles extends BaseService {
     });
   }
 
-  show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
+  show(
+    projectId: string | number,
+    filePath: string,
+    ref: string,
+    options?: Sudo,
+  ): Promise<RepositoryFileSchema> {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
       ref,
       ...options,
-    });
+    }) as Promise<RepositoryFileSchema>;
   }
 
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {

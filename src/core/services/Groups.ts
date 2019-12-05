@@ -7,9 +7,25 @@ import {
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
+export interface GroupSchema {
+  id: number;
+  name: string;
+  path: string;
+  full_name: string;
+  full_path: string;
+  parent_id: number;
+  visibility: string;
+  avatar_url: string;
+  web_url: string;
+}
+
+export interface GroupDetailSchema extends GroupSchema {
+  projects: ProjectSchema[];
+}
+
 export class Groups extends BaseService {
-  all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'groups', options);
+  all(options?: PaginatedRequestOptions): Promise<GroupSchema[]> {
+    return RequestHelper.get(this, 'groups', options) as Promise<GroupSchema[]>;
   }
 
   create(options?: BaseRequestOptions) {
@@ -63,10 +79,10 @@ export class Groups extends BaseService {
     });
   }
 
-  show(groupId: string | number, options?: BaseRequestOptions) {
+  show(groupId: string | number, options?: BaseRequestOptions): Promise<GroupDetailSchema> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get(this, `groups/${gId}`, options);
+    return RequestHelper.get(this, `groups/${gId}`, options) as Promise<GroupDetailSchema>;
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
