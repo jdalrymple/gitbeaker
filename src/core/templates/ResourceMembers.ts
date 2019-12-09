@@ -6,15 +6,21 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
 import { AccessLevel } from './ResourceAccessRequests';
+
+interface IncludeInherited {
+  includeInherited?: boolean;
+}
 
 export class ResourceMembers extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 
-  all(resourceId: string | number, includeInherited = false, options?: PaginatedRequestOptions) {
+  all(
+    resourceId: string | number,
+    { includeInherited, ...options }: IncludeInherited & PaginatedRequestOptions = {},
+  ) {
     const rId = encodeURIComponent(resourceId);
     const url = [rId, 'members'];
 
@@ -52,10 +58,19 @@ export class ResourceMembers extends BaseService {
     });
   }
 
-  show(resourceId: string | number, userId: number, options?: Sudo) {
+  show(
+    resourceId: string | number,
+    userId: number,
+    { includeInherited, ...options }: IncludeInherited & Sudo = {},
+  ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
+    const url = [rId, 'members'];
 
-    return RequestHelper.get(this, `${rId}/members/${uId}`, options);
+    if (includeInherited) url.push('all');
+
+    url.push(uId);
+
+    return RequestHelper.get(this, url.join('/'), { options });
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {
