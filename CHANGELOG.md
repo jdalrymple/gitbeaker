@@ -1,3 +1,15 @@
+# [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
+
+
+### Features
+
+* Adding ability to get a singular member of a project or group, including inheritedMemebrs ([#508](https://github.com/jdalrymple/node-gitlab/issues/508)) ([807171c](https://github.com/jdalrymple/node-gitlab/commit/807171c3ff29977e8f6f5faa9603c550334c2192)), closes [#507](https://github.com/jdalrymple/node-gitlab/issues/507)
+
+
+### BREAKING CHANGES
+
+* Updated the Members.all function to have the inheritedMembers option to be in the optional object.
+
 # [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
 
 
