@@ -1,3 +1,16 @@
+# [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
+
+
+### Bug Fixes
+
+* Typing on GPGKey method arguments was missing ([#514](https://github.com/jdalrymple/node-gitlab/issues/514)) ([234c9a7](https://github.com/jdalrymple/node-gitlab/commit/234c9a75db9be752e6d4febee171e3b44be6a30a))
+* Typing on Group and Project variable keys was incorrect [#512](https://github.com/jdalrymple/node-gitlab/issues/512) ([#515](https://github.com/jdalrymple/node-gitlab/issues/515)) ([c7afca5](https://github.com/jdalrymple/node-gitlab/commit/c7afca523160ac19707d0207b9892a81b799e645))
+
+
+### BREAKING CHANGES
+
+* The title property is not required for the add method.
+
 # [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
 
 
