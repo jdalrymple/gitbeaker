@@ -37,7 +37,7 @@ function defaultRequest(service: Service, { body, query, sudo, method }) {
     headers.append('content-type', 'application/json');
   }
 
-  if (service.url.includes('https') && service.rejectUnauthorized) {
+  if (service.url.includes('https')) {
     agent = new Agent({
       rejectUnauthorized: service.rejectUnauthorized,
     });
