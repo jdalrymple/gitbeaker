@@ -37,32 +37,27 @@
 
 ## [12.0.1](https://github.com/jdalrymple/node-gitlab/compare/12.0.0...12.0.1) (2019-11-27)
 
-
 ### Bug Fixes
 
-* Encode slug value for Wikis API ([#501](https://github.com/jdalrymple/node-gitlab/issues/501)) ([9c56d48](https://github.com/jdalrymple/node-gitlab/commit/9c56d4819ba120a1ea338fceb950733f0f59f886)), closes [#490](https://github.com/jdalrymple/node-gitlab/issues/490)
+- Encode slug value for Wikis API ([#501](https://github.com/jdalrymple/node-gitlab/issues/501)) ([9c56d48](https://github.com/jdalrymple/node-gitlab/commit/9c56d4819ba120a1ea338fceb950733f0f59f886)), closes [#490](https://github.com/jdalrymple/node-gitlab/issues/490)
 
 # [12.0.0](https://github.com/jdalrymple/node-gitlab/compare/11.6.0...12.0.0) (2019-11-21)
 
-
-* Switching version option type ([6558f09](https://github.com/jdalrymple/node-gitlab/commit/6558f09522ccb27d4314d99394086301fe5ae85e))
-
+- Switching version option type ([6558f09](https://github.com/jdalrymple/node-gitlab/commit/6558f09522ccb27d4314d99394086301fe5ae85e))
 
 ### Bug Fixes
 
-* Fixing the inability to use environment variables in the cli export ([#463](https://github.com/jdalrymple/node-gitlab/issues/463)) ([79d8c71](https://github.com/jdalrymple/node-gitlab/commit/79d8c718b03946e4fc02d57032f37747b1a783f7)), closes [#458](https://github.com/jdalrymple/node-gitlab/issues/458)
-
+- Fixing the inability to use environment variables in the cli export ([#463](https://github.com/jdalrymple/node-gitlab/issues/463)) ([79d8c71](https://github.com/jdalrymple/node-gitlab/commit/79d8c718b03946e4fc02d57032f37747b1a783f7)), closes [#458](https://github.com/jdalrymple/node-gitlab/issues/458)
 
 ### BREAKING CHANGES
 
-* Switch the version option to be a number and not a string. For example 4 instead of 'v4'.
+- Switch the version option to be a number and not a string. For example 4 instead of 'v4'.
 
 # [11.6.0](https://github.com/jdalrymple/node-gitlab/compare/11.5.1...11.6.0) (2019-11-20)
 
-
 ### Features
 
-* Add Group.projects ([#494](https://github.com/jdalrymple/node-gitlab/issues/494)) ([9def4e7](https://github.com/jdalrymple/node-gitlab/commit/9def4e7f8e7956413b40f159fddefb989fd34628)), closes [#384](https://github.com/jdalrymple/node-gitlab/issues/384)
+- Add Group.projects ([#494](https://github.com/jdalrymple/node-gitlab/issues/494)) ([9def4e7](https://github.com/jdalrymple/node-gitlab/commit/9def4e7f8e7956413b40f159fddefb989fd34628)), closes [#384](https://github.com/jdalrymple/node-gitlab/issues/384)
 
 ## [11.5.1](https://github.com/jdalrymple/node-gitlab/compare/11.5.0...11.5.1) (2019-11-14)
 
