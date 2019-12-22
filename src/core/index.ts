@@ -81,6 +81,7 @@ export const ProjectsBundle = bundler({
   Services: APIServices.Services,
   Tags: APIServices.Tags,
   Triggers: APIServices.Triggers,
+  VulnerabilityFindings: APIServices.VulnerabilityFindings,
 });
 
 // All initialized
