@@ -1,3 +1,10 @@
+## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
+
+
+### Bug Fixes
+
+* Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
+
 # [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
 
 
