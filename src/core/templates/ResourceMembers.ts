@@ -26,7 +26,7 @@ export class ResourceMembers extends BaseService {
 
     if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url.join('/'), { options });
+    return RequestHelper.get(this, url.join('/'), { ...options });
   }
 
   add(
@@ -70,7 +70,7 @@ export class ResourceMembers extends BaseService {
 
     url.push(uId);
 
-    return RequestHelper.get(this, url.join('/'), { options });
+    return RequestHelper.get(this, url.join('/'), { ...options });
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {
