@@ -26,7 +26,7 @@ export class ResourceMembers extends BaseService {
 
     if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url.join('/'), { ...options });
+    return RequestHelper.get(this, url.join('/'), options);
   }
 
   add(
