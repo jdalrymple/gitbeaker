@@ -1,3 +1,15 @@
+# [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
+
+
+### Bug Fixes
+
+* make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
+
+
+### Features
+
+* Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
+
 ## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
 
 
