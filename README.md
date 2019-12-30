@@ -222,6 +222,7 @@ Runners
 Services
 Tags
 Triggers
+VulnerabilityFindings
 
 // Users
 Users
@@ -300,6 +301,7 @@ Services
 Tags
 Todos
 Triggers
+VulnerabilityFindings
 ```
 
 2. UsersBundle which includes:
@@ -492,7 +494,7 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example, when trying to write a file, this can be done like:
 
 ```javascript
-let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test);
+let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test");
 
 fs.writeFileSync("test.zip", bufferedData);
 
