@@ -19,7 +19,7 @@ export class ResourceDiscussions extends BaseService {
   addNote(
     resourceId: string | number,
     resource2Id: string | number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -66,8 +66,9 @@ export class ResourceDiscussions extends BaseService {
   editNote(
     resourceId: string | number,
     resource2Id: string | number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
+    content: string,
     options?: BaseRequestOptions,
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
@@ -77,14 +78,17 @@ export class ResourceDiscussions extends BaseService {
     return RequestHelper.put(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
-      { body: options },
+      {
+        body: content,
+        ...options,
+      },
     );
   }
 
   removeNote(
     resourceId: string | number,
     resource2Id: string | number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
     options?: Sudo,
   ) {
@@ -102,7 +106,7 @@ export class ResourceDiscussions extends BaseService {
   show(
     resourceId: string | number,
     resource2Id: string | number,
-    discussionId: number,
+    discussionId: string | number,
     options?: Sudo,
   ) {
     const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);
