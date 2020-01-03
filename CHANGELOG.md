@@ -1,3 +1,10 @@
+## [14.1.1](https://github.com/jdalrymple/node-gitlab/compare/14.1.0...14.1.1) (2020-01-03)
+
+
+### Bug Fixes
+
+* resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
+
 # [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
 
 
