@@ -5,6 +5,17 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
+import { ProjectSchema } from './Projects';
+
+// As of GitLab v12.6.2
+export interface EnvironmentSchema {
+  id: number;
+  name: string;
+  slug: string;
+  external_url: string;
+  project: ProjectSchema;
+  state: string;
+}
 
 export class Environments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

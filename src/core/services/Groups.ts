@@ -7,20 +7,34 @@ import {
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
+// As of GitLab v12.6.2
 export interface GroupSchema {
   id: number;
+  web_url: string;
   name: string;
   path: string;
+  description: string;
+  visibility: string;
+  share_with_group_lock: boolean;
+  require_two_factor_authentication: boolean;
+  two_factor_grace_period: number;
+  project_creation_level: string;
+  auto_devops_enabled?: boolean;
+  subgroup_creation_level: string;
+  emails_disabled?: boolean;
+  lfs_enabled: boolean;
+  avatar_url: string;
+  request_access_enabled: boolean;
   full_name: string;
   full_path: string;
-  parent_id: number;
-  visibility: string;
-  avatar_url: string;
-  web_url: string;
+  parent_id?: number;
 }
 
+// As of GitLab v12.6.2
 export interface GroupDetailSchema extends GroupSchema {
   projects: ProjectSchema[];
+  shared_projects: ProjectSchema[];
+  runners_token: string;
 }
 
 export class Groups extends BaseService {

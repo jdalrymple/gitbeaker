@@ -6,6 +6,18 @@ import {
   Sudo,
 } from '../infrastructure';
 
+// As of GitLab v12.6.2
+export interface RunnerSchema {
+  id: number;
+  description: string;
+  ip_address: string;
+  active: boolean;
+  is_shared: boolean;
+  name: string;
+  online: boolean;
+  status: string;
+}
+
 export class Runners extends BaseService {
   all({ projectId, ...options }: { projectId: string | number } & PaginatedRequestOptions) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
