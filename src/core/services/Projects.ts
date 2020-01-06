@@ -11,6 +11,7 @@ import { GroupSchema } from './Groups';
 import { UploadMetadata } from './ProjectImportExport';
 import { UserSchema } from './Users';
 
+// ref: https://docs.gitlab.com/12.6/ee/api/namespaces.html#list-namespaces
 export interface NamespaceInfoSchema {
   id: number;
   name: string;
@@ -22,7 +23,7 @@ export interface NamespaceInfoSchema {
   web_url: string;
 }
 
-// As of GitLab v12.6.2
+// Ref: https://docs.gitlab.com/12.6/ee/api/projects.html#list-all-projects
 export interface ProjectSchema {
   id: number;
   description: string;
@@ -63,8 +64,8 @@ export interface ProjectSchema {
   import_status: string;
   open_issues_count: number;
   ci_default_git_depth: number;
-  public_jobs: boolean;
   build_timeout: number;
+  public_jobs: boolean;
   auto_cancel_pending_pipelines?: string;
   build_coverage_regex?: string;
   ci_config_path?: string;
@@ -82,8 +83,8 @@ export interface ProjectSchema {
 }
 
 export class Projects extends BaseService {
-  all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'projects', options);
+  all(options?: PaginatedRequestOptions): Promise<ProjectSchema[]> {
+    return RequestHelper.get(this, 'projects', options) as Promise<ProjectSchema[]>;
   }
 
   archive(projectId: string | number, options?: Sudo) {
@@ -167,10 +168,10 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/share`, { groupId, groupAccess, ...options });
   }
 
-  show(projectId: string | number, options?: BaseRequestOptions) {
+  show(projectId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema> {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}`, options);
+    return RequestHelper.get(this, `projects/${pId}`, options) as Promise<ProjectSchema>;
   }
 
   star(projectId: string | number, options?: Sudo) {

@@ -99,10 +99,15 @@ export class Groups extends BaseService {
     return RequestHelper.get(this, `groups/${gId}`, options) as Promise<GroupDetailSchema>;
   }
 
-  subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
+  subgroups(
+    groupId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<GroupDetailSchema[]> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get(this, `groups/${gId}/subgroups`, options);
+    return RequestHelper.get(this, `groups/${gId}/subgroups`, options) as Promise<
+      GroupDetailSchema[]
+    >;
   }
 
   syncLDAP(groupId: string | number, options?: Sudo) {

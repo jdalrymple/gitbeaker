@@ -21,14 +21,14 @@ export interface UserSchema {
 // As of GitLab v12.6.2
 export interface UserDetailSchema extends UserSchema {
   created_at: Date;
-  bio?: any;
-  location?: any;
+  bio?: string;
+  location?: string;
   public_email: string;
   skype: string;
   linkedin: string;
   twitter: string;
-  website_url: string;
-  organization?: any;
+  website_url?: string;
+  organization?: string;
 }
 
 export class Users extends BaseService {
