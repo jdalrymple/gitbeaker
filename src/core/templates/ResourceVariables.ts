@@ -6,15 +6,26 @@ import {
   BaseRequestOptions,
 } from '../infrastructure';
 
+export interface ResourceVariableSchema {
+  key: string;
+  variable_type: 'env_var' | 'file';
+  value: string;
+}
+
 export class ResourceVariables extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
     super({ url: resourceType, ...options });
   }
 
-  all(resourceId: string | number, options?: PaginatedRequestOptions) {
+  all(
+    resourceId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<ResourceVariableSchema[]> {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${rId}/variables`, options);
+    return RequestHelper.get(this, `${rId}/variables`, options) as Promise<
+      ResourceVariableSchema[]
+    >;
   }
 
   create(resourceId: string | number, options?: BaseRequestOptions) {
@@ -29,10 +40,16 @@ export class ResourceVariables extends BaseService {
     return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
   }
 
-  show(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
+  show(
+    resourceId: string | number,
+    keyId: string,
+    options?: PaginatedRequestOptions,
+  ): Promise<ResourceVariableSchema> {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.get(this, `${rId}/variables/${kId}`, options) as Promise<
+      ResourceVariableSchema
+    >;
   }
 
   remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
