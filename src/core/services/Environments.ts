@@ -18,16 +18,24 @@ export interface EnvironmentSchema {
 }
 
 export class Environments extends BaseService {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all(projectId: string | number, options?: PaginatedRequestOptions): Promise<EnvironmentSchema[]> {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/environments`, options);
+    return RequestHelper.get(this, `projects/${pId}/environments`, options) as Promise<
+      EnvironmentSchema[]
+    >;
   }
 
-  show(projectId: string | number, environmentId: number, options?: Sudo) {
+  show(
+    projectId: string | number,
+    environmentId: number,
+    options?: Sudo,
+  ): Promise<EnvironmentSchema> {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/environments/${eId}`, options);
+    return RequestHelper.get(this, `projects/${pId}/environments/${eId}`, options) as Promise<
+      EnvironmentSchema
+    >;
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
