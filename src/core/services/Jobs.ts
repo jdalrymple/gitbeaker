@@ -5,6 +5,10 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
+import { CommitSchema } from './Commits';
+import { PipelineSchema } from './Pipelines';
+import { RunnerSchema } from './Runners';
+import { UserSchema } from './Users';
 
 export type JobScope =
   | 'created'
@@ -15,6 +19,37 @@ export type JobScope =
   | 'canceled'
   | 'skipped'
   | 'manual';
+
+// As of GitLab v12.6.2
+export interface ArtifactSchema {
+  file_type: string;
+  size: number;
+  filename: string;
+  file_format?: string;
+}
+
+// As of GitLab v12.6.2
+export interface JobSchema {
+  id: number;
+  status: string;
+  stage: string;
+  name: string;
+  ref: string;
+  tag: boolean;
+  coverage?: string;
+  allow_failure: boolean;
+  created_at: Date;
+  started_at?: Date;
+  finished_at?: Date;
+  duration?: number;
+  user: UserSchema;
+  commit: CommitSchema;
+  pipeline: PipelineSchema;
+  web_url: string;
+  artifacts: ArtifactSchema[];
+  runner: RunnerSchema;
+  artifacts_expire_at?: Date;
+}
 
 export class Jobs extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

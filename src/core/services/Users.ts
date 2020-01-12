@@ -8,6 +8,29 @@ import {
 
 import { EventOptions } from './Events';
 
+// As of GitLab v12.6.2
+export interface UserSchema {
+  id: number;
+  name: string;
+  username: string;
+  state: string;
+  avatar_url: string;
+  web_url: string;
+}
+
+// As of GitLab v12.6.2
+export interface UserDetailSchema extends UserSchema {
+  created_at: Date;
+  bio?: string;
+  location?: string;
+  public_email: string;
+  skype: string;
+  linkedin: string;
+  twitter: string;
+  website_url?: string;
+  organization?: string;
+}
+
 export class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'users', options);
