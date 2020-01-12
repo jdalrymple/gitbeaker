@@ -62,7 +62,7 @@
     "rollup-plugin-typescript2": "^0.25.2",
     "semantic-release": "^15.13.31",
     "strip-ansi": "^6.0.0",
-    "ts-jest": "24.1.0",
+    "ts-jest": "24.3.0",
     "typescript": "3.7.2"
   },
   "engines": {
