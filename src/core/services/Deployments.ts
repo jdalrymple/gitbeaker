@@ -43,6 +43,12 @@ export class Deployments extends BaseService {
   show(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/deployments/${dId}`, options);
+    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}`, options);
+  }
+
+  mergeRequests(projectId: string | number, deploymentId: number, options?: Sudo) {
+    const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}/merge_requests`, options);
   }
 }
