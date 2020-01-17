@@ -12,9 +12,12 @@ extends:
 
 parser: '@typescript-eslint/parser'
 
-parserOptions:
-  project: tsconfig.eslint.json
-  sourceType: module
+ignorePatterns:
+  - node_modules/
+  - dist/
+  - '**/rollup.config.js'
+  - '**/scripts/*.ts'
+  - '*d.ts'
 
 plugins:
   - '@typescript-eslint'
@@ -24,18 +27,22 @@ rules:
   import/no-default-export: error
   import/prefer-default-export: off
   '@typescript-eslint/explicit-function-return-type': off
-
-overrides:
-  - files:
-      - 'test/**/*.ts'
-    rules:
-      import/no-unresolved: 0
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies:
+        - '**/test/**/*.ts'
+  import/no-unresolved:
+    - error
+    - ignore:
+        - dist
+  import/extensions:
+    - error
+    - never
+    - json: always
 
 settings:
   import/resolver:
     node:
       extensions:
         - .js
-        - .jsx
         - .ts
-        - .tsx

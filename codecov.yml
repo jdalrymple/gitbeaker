@@ -1,0 +1,25 @@
+codecov:
+  max_report_age: off
+
+comment: false
+
+coverage:
+  precision: 2
+  round: down
+  status:
+    project:
+      default: off
+      cli:
+        target: 60%
+        flags: cli
+      core:
+        target: 60%
+        flags: core
+
+flags:
+  cli:
+    paths:
+      - packages/cli/src
+  core:
+    paths:
+      - packages/core/src
