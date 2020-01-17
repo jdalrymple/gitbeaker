@@ -81,7 +81,7 @@ export * from './GeoNodes';
 export * from './GitignoreTemplates';
 export * from './GitLabCIYMLTemplates';
 export * from './Keys';
-export * from './Licence';
+export * from './License';
 export * from './LicenceTemplates';
 export * from './Lint';
 export * from './Namespaces';
