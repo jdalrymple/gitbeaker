@@ -1,3 +1,10 @@
+# [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
+
+
+### Features
+
+* Adding support for merge_requests in the Deployments API ([911078b](https://github.com/jdalrymple/node-gitlab/commit/911078bba30145a98ba051e672963dbbe8816a6a)), closes [#554](https://github.com/jdalrymple/node-gitlab/issues/554)
+
 ## [14.1.1](https://github.com/jdalrymple/node-gitlab/compare/14.1.0...14.1.1) (2020-01-03)
 
 
