@@ -1,3 +1,5 @@
+commitPaths": 
+  - ./
 tagFormat: '${version}'
 verifyConditions:
   - '@semantic-release/changelog'

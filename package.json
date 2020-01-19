@@ -8,6 +8,8 @@
     }
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^3.0.6",
+    "@semantic-release/git": "^8.0.0",
     "@types/jest": "^24.0.25",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
@@ -27,6 +29,7 @@
     "lint-staged": "^10.0.0-beta.15",
     "prettier": "^1.19.1",
     "semantic-release": "^16.0.1",
+    "semantic-release-plus": "^17.0.0",
     "ts-jest": "^24.3.0",
     "typescript": "^3.7.4"
   },
@@ -44,6 +47,6 @@
     "test:unit": "jest test/unit",
     "commit": "npx git-cz",
     "prepublishOnly": "lerna run build",
-    "release": "lerna-semantic-release pre && lerna-semantic-release perform && lerna-semantic-release post"
+    "release": "npx semantic-release"
   }
 }
