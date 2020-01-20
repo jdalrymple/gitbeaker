@@ -1,3 +1,10 @@
+## [14.2.1](https://github.com/jdalrymple/node-gitlab/compare/14.2.0...14.2.1) (2020-01-20)
+
+
+### Bug Fixes
+
+* added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
+
 # [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
 
 
