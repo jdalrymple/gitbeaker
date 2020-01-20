@@ -1,8 +1,8 @@
 import { ResourceDiscussions } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/core/infrastructure/RequestHelper');
-jest.mock('../../../src/core/infrastructure/KyRequester', () => ({
+jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock('../../../src/infrastructure/GotRequester', () => ({
   get: jest.fn(() => []),
   post: jest.fn(() => ({})),
   put: jest.fn(() => ({})),
