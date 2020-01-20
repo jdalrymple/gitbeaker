@@ -23,7 +23,7 @@ export class ProjectImportExport extends BaseService {
     const form = new FormData();
 
     const defaultMetadata: UploadMetadata = {
-      filename: Date.now().toString(),
+      filename: `${Date.now().toString()}.tar.gz`,
       contentType: 'application/octet-stream',
     };
 
