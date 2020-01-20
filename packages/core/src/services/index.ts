@@ -71,6 +71,7 @@ export * from './Services';
 export * from './Tags';
 export * from './Todos';
 export * from './Triggers';
+export * from './VulnerabilityFindings';
 
 // General
 export * from './ApplicationSettings';

@@ -5,6 +5,10 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
+import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
+import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
+import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
+import { UserSchemaDefault, UserSchemaCamelized } from './Users';
 
 export type JobScope =
   | 'created'
@@ -15,6 +19,70 @@ export type JobScope =
   | 'canceled'
   | 'skipped'
   | 'manual';
+
+// As of GitLab v12.6.2
+export type ArtifactSchema = ArtifactSchemaDefault | ArtifactSchemaCamelized;
+
+export interface ArtifactSchemaDefault {
+  file_type: string;
+  size: number;
+  filename: string;
+  file_format?: string;
+}
+
+export interface ArtifactSchemaCamelized {
+  fileType: string;
+  size: number;
+  filename: string;
+  fileFormat?: string;
+}
+
+// As of GitLab v12.6.2
+export type JobSchema = JobSchemaDefault | JobSchemaCamelized;
+
+export interface JobSchemaDefault {
+  id: number;
+  status: string;
+  stage: string;
+  name: string;
+  ref: string;
+  tag: boolean;
+  coverage?: string;
+  allow_failure: boolean;
+  created_at: Date;
+  started_at?: Date;
+  finished_at?: Date;
+  duration?: number;
+  user: UserSchemaDefault;
+  commit: CommitSchemaDefault;
+  pipeline: PipelineSchemaDefault;
+  web_url: string;
+  artifacts: ArtifactSchemaDefault[];
+  runner: RunnerSchemaDefault;
+  artifacts_expire_at?: Date;
+}
+
+export interface JobSchemaCamelized {
+  id: number;
+  status: string;
+  stage: string;
+  name: string;
+  ref: string;
+  tag: boolean;
+  coverage?: string;
+  allowFailure: boolean;
+  createdAt: Date;
+  startedAt?: Date;
+  finishedAt?: Date;
+  duration?: number;
+  user: UserSchemaCamelized;
+  commit: CommitSchemaCamelized;
+  pipeline: PipelineSchemaCamelized;
+  webUrl: string;
+  artifacts: ArtifactSchemaCamelized[];
+  runner: RunnerSchemaCamelized;
+  artifactsExpireAt?: Date;
+}
 
 export class Jobs extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

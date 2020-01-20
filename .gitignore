@@ -5,3 +5,4 @@ coverage
 .rpt2_cache
 .idea
 .DS_Store
+yarn-error.log

@@ -8,6 +8,54 @@ import {
 
 import { EventOptions } from './Events';
 
+// As of GitLab v12.6.2
+export type UserSchema = UserSchemaDefault | UserSchemaCamelized;
+
+export interface UserSchemaDefault {
+  id: number;
+  name: string;
+  username: string;
+  state: string;
+  avatar_url: string;
+  web_url: string;
+}
+
+export interface UserSchemaCamelized {
+  id: number;
+  name: string;
+  username: string;
+  state: string;
+  avatarUrl: string;
+  webUrl: string;
+}
+
+// As of GitLab v12.6.2
+export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
+
+export interface UserDetailSchemaDefault extends UserSchemaDefault {
+  created_at: Date;
+  bio?: string;
+  location?: string;
+  public_email: string;
+  skype: string;
+  linkedin: string;
+  twitter: string;
+  website_url?: string;
+  organization?: string;
+}
+
+export interface UserDetailSchemaCamelized extends UserSchemaCamelized {
+  createdAt: Date;
+  bio?: string;
+  location?: string;
+  publicEmail: string;
+  skype: string;
+  linkedin: string;
+  twitter: string;
+  websiteUrl?: string;
+  organization?: string;
+}
+
 export class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'users', options);

@@ -5,8 +5,30 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
 import { JobScope } from './Jobs';
+
+// As of GitLab v12.6.2
+export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
+
+export interface PipelineSchemaDefault {
+  id: number;
+  sha: string;
+  ref: string;
+  status: string;
+  created_at: Date;
+  updated_at: Date;
+  web_url: string;
+}
+
+export interface PipelineSchemaCamelized {
+  id: number;
+  sha: string;
+  ref: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  webUrl: string;
+}
 
 export class Pipelines extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

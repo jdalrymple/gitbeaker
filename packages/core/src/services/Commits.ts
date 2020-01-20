@@ -6,6 +6,39 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
+
+// As of GitLab v12.6.2
+export interface CommitSchemaDefault {
+  id: string;
+  short_id: string;
+  created_at: Date;
+  parent_ids?: string[];
+  title: string;
+  message: string;
+  author_name: string;
+  author_email: string;
+  authored_date?: Date;
+  committer_name?: string;
+  committer_email?: string;
+  committed_date?: Date;
+}
+
+export interface CommitSchemaCamelized {
+  id: string;
+  shortId: string;
+  createdAt: Date;
+  parentIds?: string[];
+  title: string;
+  message: string;
+  authorName: string;
+  authorEmail: string;
+  authoredDate?: Date;
+  committerName?: string;
+  committerEmail?: string;
+  committedDate?: Date;
+}
+
 interface CommitAction {
   /** The action to perform */
   action: 'create' | 'delete' | 'move' | 'update';
