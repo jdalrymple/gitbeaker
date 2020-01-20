@@ -27,7 +27,7 @@ export interface NamespaceInfoSchemaCamelize {
   fullPath: string;
 }
 
-export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelize;
+export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
 
 export interface ProjectSchemaDefault {
   id: number;
@@ -41,7 +41,7 @@ export interface ProjectSchemaDefault {
   archived: boolean;
 }
 
-export interface ProjectSchemaCamelize {
+export interface ProjectSchemaCamelized {
   id: number;
   name: string;
   nameWithNamespace: string;

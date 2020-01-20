@@ -1,11 +1,11 @@
-import { ResourceDiscussions } from '../../../src/core/templates';
-import { RequestHelper } from '../../../src/core/infrastructure';
+import { ResourceDiscussions } from '../../../src/templates';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/core/infrastructure/RequestHelper');
 jest.mock('../../../src/core/infrastructure/KyRequester', () => ({
   get: jest.fn(() => []),
-  post: jest.fn(() => {}),
-  put: jest.fn(() => {}),
+  post: jest.fn(() => ({})),
+  put: jest.fn(() => ({})),
 }));
 
 let issuesService: ResourceDiscussions;
