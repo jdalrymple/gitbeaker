@@ -107,7 +107,7 @@ Available instantiating options:
 | `sudo`               | Yes      | `false`                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
 | `version`            | Yes      | `4`                                                     | API Version ID                                                                                                     |
 | `camelize`           | Yes      | `false`                                                 | Camelizes all response body keys                                                                                   |
-| `requester`          | Yes      | [GotRequester.ts](./src/infrastructure/GotRequester.ts) | Request Library Wrapper. Currently wraps Ky.                                                                       |
+| `requester`          | Yes      | [GotRequester.ts](./src/infrastructure/GotRequester.ts) | Request Library Wrapper. Currently wraps Got.                                                                       |
 | `requestTimeout`     | Yes      | `300000`                                                | Request Library Timeout in ms                                                                                      |
 | `profileToken`       | Yes      | N/A                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 | `profileMode`        | Yes      | `execution`                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
