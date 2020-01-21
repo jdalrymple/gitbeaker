@@ -10,20 +10,20 @@
   },
   "dependencies": {
     "@gitbeaker/core": "^15.0.0",
-    "ky": "^0.16.1",
+    "ky": "^0.16.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-replace": "^2.3.0",
-    "@types/node": "^13.1.6",
-    "rollup": "^1.29.0",
+    "@types/node": "^13.1.8",
+    "rollup": "^1.29.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
-    "ts-node": "^8.6.1",
-    "typescript": "^3.7.4"
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -47,6 +47,6 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "tsc && rollup -c"
   }
 }

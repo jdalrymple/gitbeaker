@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@gitbeaker/core": "^15.0.0",
-    "got": "^0.16.1",
+    "got": "^10.2.2"
   },
   "devDependencies": {
     "@types/node": "^13.1.6",
@@ -42,6 +42,6 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "tsc && rollup -c"
   }
 }
