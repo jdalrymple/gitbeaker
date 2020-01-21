@@ -1,8 +1,11 @@
-import { bundler } from './infrastructure';
+import { bundler, BaseRequester } from './infrastructure';
+
 import * as APIServices from './services';
 
-// All separately
+/* -------------- Single Services ------------- */
 export * from './services';
+
+/* ------------------ Bundles ----------------- */
 
 // Groups
 export const GroupsBundle = bundler({
@@ -87,8 +90,12 @@ export const ProjectsBundle = bundler({
 // All initialized
 export const Gitlab = bundler(APIServices);
 
-// Types
+/* ---------------- Bundles Types-------------- */
 export type UsersBundle = InstanceType<typeof UsersBundle>;
 export type GroupsBundle = InstanceType<typeof GroupsBundle>;
 export type ProjectsBundle = InstanceType<typeof ProjectsBundle>;
 export type Gitlab = InstanceType<typeof Gitlab>;
+
+/* --------------- Infrastructure ------------- */
+
+export { BaseRequester };

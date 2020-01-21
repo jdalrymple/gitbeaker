@@ -65,3 +65,5 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
 
   return requester;
 }
+
+export abstract class Requester implements RequesterType {}

@@ -1,7 +1,9 @@
 import Got from 'got';
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
-import { Service, createInstance, defaultRequest as baseDefaultRequest } from './BaseRequester';
+import { BaseRequester } from '@gitbeaker/core';
+
+const { Service, createInstance, defaultRequest as baseDefaultRequest } = BaseRequester;
 
 function defaultRequest(service: Service, { body, query, sudo, method }) {
   const options = baseDefaultRequest(service, { body, query, sudo, method });
@@ -55,5 +57,3 @@ export async function handler(endpoint, options) {
 }
 
 export const Requester = createInstance(defaultRequest, handler);
-
-export { RequesterType } from './BaseRequester';

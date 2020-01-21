@@ -1,7 +1,7 @@
-import got from 'got';
-import { processBody, handler } from '../../../src/infrastructure/GotRequester';
+import ky from 'ky';
+import { processBody, handler } from '../src/KyRequester';
 
-jest.mock('got');
+jest.mock('ky');
 
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
@@ -61,7 +61,7 @@ describe('processBody', () => {
 
 describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
-    got.mockImplementationOnce(() => {
+    ky.mockImplementationOnce(() => {
       const e = { response: { body: { error: 'msg' } } };
       return Promise.reject(e);
     });
@@ -77,7 +77,7 @@ describe('handler', () => {
   });
 
   it('should return an error with a description when response has an message prop', async () => {
-    got.mockImplementationOnce(() => {
+    ky.mockImplementationOnce(() => {
       const e = { response: { body: { message: 'msg' } } };
       return Promise.reject(e);
     });
@@ -93,7 +93,7 @@ describe('handler', () => {
   });
 
   it('should return correct properties if request is valid', async () => {
-    got.mockImplementationOnce(() => ({
+    ky.mockImplementationOnce(() => ({
       statusCode: 404,
       headers: {},
       body: {},

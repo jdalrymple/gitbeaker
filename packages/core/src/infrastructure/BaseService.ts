@@ -1,4 +1,4 @@
-import { Requester, RequesterType } from './GotRequester';
+import { RequesterType } from './BaseRequester';
 
 export interface BaseServiceOptions {
   oauthToken?: string;
@@ -35,15 +35,17 @@ export class BaseService {
     oauthToken,
     sudo,
     profileToken,
+    requester,
     profileMode = 'execution',
     host = 'https://gitlab.com',
     url = '',
     version = 4,
     camelize = false,
     rejectUnauthorized = true,
-    requester = Requester,
     requestTimeout = 300000,
   }: BaseServiceOptions = {}) {
+    if (!requester) throw new ReferenceError('Requester must be passed');
+
     this.url = [host, 'api', `v${version}`, url].join('/');
     this.headers = {
       'user-agent': 'gitbeaker',

@@ -1,5 +1,7 @@
 import Ky from 'ky';
-import { Service, createInstance, defaultRequest as baseDefaultRequest } from './BaseRequester';
+import { BaseRequester } from '@gitbeaker/core';
+
+const { Service, createInstance, defaultRequest as baseDefaultRequest } = BaseRequester;
 
 function responseHeadersAsObject(response): Record<string, string> {
   const headers = {};
@@ -18,7 +20,7 @@ function defaultRequest(service: Service, { body, query, sudo, method }) {
   return { ...options, headers: new Headers(service.headers as Record<string, string>) };
 }
 
-function processBody(response) {
+export function processBody(response) {
   const contentType = response.headers.get('content-type') || '';
 
   switch (contentType) {
@@ -39,7 +41,7 @@ function processBody(response) {
   }
 }
 
-async function handler(endpoint, options) {
+export async function handler(endpoint, options) {
   let response;
 
   try {
@@ -62,5 +64,3 @@ async function handler(endpoint, options) {
 }
 
 export const Requester = createInstance(defaultRequest, handler);
-
-export { RequesterType } from './BaseRequester';
