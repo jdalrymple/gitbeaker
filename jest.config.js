@@ -12,6 +12,10 @@ module.exports = {
 
   setupFilesAfterEnv: ['jest-extended'],
 
+  moduleNameMapper: {
+    '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
+  },
+
   globals: {
     'ts-jest': {
       diagnostics: {

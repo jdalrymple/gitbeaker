@@ -32,10 +32,7 @@ export function processBody(response) {
     case 'application/octet-stream':
     case 'binary/octet-stream':
     case 'application/gzip': {
-      return response
-        .blob()
-        .then(b => new Response(b).arrayBuffer())
-        .then(Buffer.from);
+      return response.blob().then(Buffer.from);
     }
     default: {
       return response.text().then(t => t || '');

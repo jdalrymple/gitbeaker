@@ -5,54 +5,84 @@ jest.mock('ky');
 
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
-    const output = processBody({
-      body: JSON.stringify({ test: 5 }),
-      headers: { 'content-type': 'application/json' },
+    const output = await processBody({
+      json() {
+        return Promise.resolve({ test: 5 });
+      },
+      headers: {
+        get() {
+          return 'application/json';
+        },
+      },
     });
 
     expect(output).toMatchObject({ test: 5 });
   });
 
-  it('should return a empty json object if type is application/json and body length is 0', async () => {
-    const output = processBody({
-      body: JSON.stringify({}),
-      headers: { 'content-type': 'application/json' },
-    });
-
-    expect(output).toMatchObject({});
-  });
-
   it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
     const output = [
       processBody({
-        body: 'test',
-        headers: { 'content-type': 'application/octet-stream' },
+        blob() {
+          return Promise.resolve('test');
+        },
+        headers: {
+          get() {
+            return 'application/octet-stream';
+          },
+        },
       }),
       processBody({
-        body: 'test',
-        headers: { 'content-type': 'binary/octet-stream' },
+        blob() {
+          return Promise.resolve('test');
+        },
+        headers: {
+          get() {
+            return 'binary/octet-stream';
+          },
+        },
       }),
       processBody({
-        body: 'test',
-        headers: { 'content-type': 'application/gzip' },
+        blob() {
+          return Promise.resolve('test');
+        },
+        headers: {
+          get() {
+            return 'application/gzip';
+          },
+        },
       }),
     ];
 
-    output.forEach(o => expect(o).toBeInstanceOf(Buffer));
+    const fulfilled = await Promise.all(output);
+
+    fulfilled.forEach(o => expect(o).toBeInstanceOf(Buffer));
   });
 
-  it('should return a the exact body given when presented with an unknown content-type', async () => {
-    const output = processBody({
-      body: 6,
-      headers: { 'content-type': 'fake' },
+  it('should return a text body given when presented with an unknown content-type', async () => {
+    const output = await processBody({
+      text() {
+        return Promise.resolve('6');
+      },
+      headers: {
+        get() {
+          return 'fake';
+        },
+      },
     });
 
-    expect(output).toBe(6);
+    expect(output).toBe('6');
   });
 
   it('should return a empty string when presented with an unknown content-type and undefined body', async () => {
-    const output = processBody({
-      headers: { 'content-type': 'fake' },
+    const output = await processBody({
+      text() {
+        return Promise.resolve(null);
+      },
+      headers: {
+        get() {
+          return 'fake';
+        },
+      },
     });
 
     expect(output).toBe('');
@@ -62,41 +92,48 @@ describe('processBody', () => {
 describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
     ky.mockImplementationOnce(() => {
-      const e = { response: { body: { error: 'msg' } } };
+      const e = {
+        response: {
+          json() {
+            return Promise.resolve({ error: 'msg' });
+          },
+        },
+      };
       return Promise.reject(e);
     });
 
-    await expect(handler('http://test.com', {})).rejects.toStrictEqual({
-      description: 'msg',
-      response: {
-        body: {
-          error: 'msg',
-        },
-      },
-    });
+    await expect(handler('http://test.com', {})).rejects.toContainEntry(['description', 'msg']);
   });
 
   it('should return an error with a description when response has an message prop', async () => {
     ky.mockImplementationOnce(() => {
-      const e = { response: { body: { message: 'msg' } } };
+      const e = {
+        response: {
+          json() {
+            return Promise.resolve({ message: 'msg' });
+          },
+        },
+      };
       return Promise.reject(e);
     });
 
-    await expect(handler('http://test.com', {})).rejects.toStrictEqual({
-      description: 'msg',
-      response: {
-        body: {
-          message: 'msg',
-        },
-      },
-    });
+    await expect(handler('http://test.com', {})).rejects.toContainEntry(['description', 'msg']);
   });
 
   it('should return correct properties if request is valid', async () => {
     ky.mockImplementationOnce(() => ({
-      statusCode: 404,
-      headers: {},
-      body: {},
+      status: 404,
+      headers: {
+        get() {
+          return 'application/json';
+        },
+        entries() {
+          return [];
+        },
+      },
+      json() {
+        return Promise.resolve({});
+      },
     }));
 
     const output = await handler('http://test.com', {});
