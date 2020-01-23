@@ -70,7 +70,10 @@
 
 ```bash
 # Install from npm
-npm install @gitbeaker/core # NodeJS default, index.es.js for esm, and index.umd.js for Browser
+npm install @gitbeaker/node # NodeJS default, index.es.js for esm
+
+npm install @gitbeaker/browser # UMD default
+
 npm install @gitbeaker/cli  # CLI
 
 ```
@@ -107,7 +110,7 @@ Available instantiating options:
 | `sudo`               | Yes      | `false`                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
 | `version`            | Yes      | `4`                                                     | API Version ID                                                                                                     |
 | `camelize`           | Yes      | `false`                                                 | Camelizes all response body keys                                                                                   |
-| `requester`          | Yes      | [GotRequester.ts](./src/infrastructure/GotRequester.ts) | Request Library Wrapper. Currently wraps Got.                                                                       |
+| `requester`          | Yes      | [GotRequester.ts](./src/infrastructure/GotRequester.ts) | Request Library Wrapper. Currently wraps Got.                                                                      |
 | `requestTimeout`     | Yes      | `300000`                                                | Request Library Timeout in ms                                                                                      |
 | `profileToken`       | Yes      | N/A                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 | `profileMode`        | Yes      | `execution`                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
@@ -527,10 +530,9 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example, when trying to write a file, this can be done like:
 
 ```javascript
-let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test");
+let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, 'test', 'job_test');
 
-fs.writeFileSync("test.zip", bufferedData);
-
+fs.writeFileSync('test.zip', bufferedData);
 ```
 
 ## Development
