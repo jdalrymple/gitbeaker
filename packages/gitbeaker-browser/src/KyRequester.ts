@@ -3,7 +3,7 @@ import {
   Service,
   createInstance,
   defaultRequest as baseDefaultRequest,
-} from '@gitbeaker/requester-base';
+} from '@gitbeaker/requester-utils';
 
 function responseHeadersAsObject(response): Record<string, string> {
   const headers = {};

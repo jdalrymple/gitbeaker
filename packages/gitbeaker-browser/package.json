@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@gitbeaker/core": "^15.0.0",
-    "@gitbeaker/requester-base": "^15.0.0",
+    "@gitbeaker/requester-utils": "^15.0.0",
     "ky": "^0.16.2"
   },
   "devDependencies": {

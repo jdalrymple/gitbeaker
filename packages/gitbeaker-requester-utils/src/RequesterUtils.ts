@@ -3,10 +3,6 @@ import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import { stringify } from 'query-string';
 
-export function formatQuery(options) {
-  return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
-}
-
 export interface RequesterType {
   get(service: object, endpoint: string, options?: object): Promise<any>;
   post(service: object, endpoint: string, options?: object): Promise<any>;
@@ -23,6 +19,10 @@ export interface Service {
 }
 
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
+
+export function formatQuery(options) {
+  return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
+}
 
 export function defaultRequest(
   service: Service,
@@ -69,5 +69,3 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
 
   return requester;
 }
-
-export const Requester = {} as RequesterType;

@@ -1,9 +1,9 @@
+import { formatQuery } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   BaseService,
   PaginatedRequestOptions,
   RequestHelper,
-  formatQuery,
 } from '../infrastructure';
 
 type NotificationSettingLevel =

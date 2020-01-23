@@ -1,6 +1,6 @@
 {
-  "name": "@gitbeaker/requester-base",
-  "description": "BaseRequester for @gitbeaker implementatons",
+  "name": "@gitbeaker/requester-utils",
+  "description": "Utility functions for requester implementatons used in @gitbeaker",
   "version": "15.0.0",
   "author": {
     "name": "Justin Dalrymple"

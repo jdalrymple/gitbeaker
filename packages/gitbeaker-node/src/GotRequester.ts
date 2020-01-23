@@ -5,7 +5,7 @@ import {
   Service,
   createInstance,
   defaultRequest as baseDefaultRequest,
-} from '@gitbeaker/requester-base';
+} from '@gitbeaker/requester-utils';
 
 function defaultRequest(service: Service, { body, query, sudo, method }) {
   const options = baseDefaultRequest(service, { body, query, sudo, method });

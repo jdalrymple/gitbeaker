@@ -1,6 +1,3 @@
-import { decamelizeKeys } from 'xcase';
-import { stringify } from 'query-string';
-
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
   new (...args: any): any;
@@ -29,8 +26,4 @@ export function appendFormFromObject(object) {
     if (Array.isArray(v)) form.append(k, v[0], v[1]);
     else form.append(k, v as any);
   });
-}
-
-export function formatQuery(options) {
-  return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
 }

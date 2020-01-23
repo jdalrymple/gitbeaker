@@ -1,4 +1,4 @@
-import { RequesterType } from '@gitbeaker/requester-base';
+import { RequesterType } from '@gitbeaker/requester-utils';
 
 export interface BaseServiceOptions {
   oauthToken?: string;

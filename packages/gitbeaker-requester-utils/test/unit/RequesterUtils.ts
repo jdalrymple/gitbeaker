@@ -1,6 +1,6 @@
 import FormData from 'form-data';
 import { Agent } from 'https';
-import { createInstance, defaultRequest } from '../../src/BaseRequester';
+import { createInstance, defaultRequest } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
 
