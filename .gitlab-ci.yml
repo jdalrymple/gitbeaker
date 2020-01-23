@@ -54,10 +54,6 @@ test:core:unit:
   stage: test
   script: yarn jest core/test/unit && yarn codecov -F core
 
-test:cli:unit:
-  stage: test
-  script: yarn jest cli/test/unit && yarn codecov -F cli
-
 test:node:unit:
   stage: test
   script: yarn jest node/test/unit && yarn codecov -F node
