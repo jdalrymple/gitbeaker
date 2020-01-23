@@ -14,8 +14,8 @@ cache:
 
 stages:
   - install
-  - lint
   - build
+  - lint
   - test
   - release
 
@@ -26,15 +26,6 @@ install:
   script:
     - yarn
 
-# Lint all code, tests and supporting documentation (README, CHANGELOG etc)
-lint:src:
-  stage: lint
-  script: yarn lint
-
-lint:docs:
-  stage: lint
-  script: yarn lint:doc
-
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
 build:
@@ -43,8 +34,20 @@ build:
     - yarn build
   artifacts:
     paths:
-      - packages/core/dist/
-      - packages/cli/dist/
+      - packages/gitbeaker-core/dist/
+      - packages/gitbeaker-cli/dist/
+      - packages/gitbeaker-browser/dist/
+      - packages/gitbeaker-node/dist/
+      - packages/gitbeaker-requester-utils/dist/
+
+# Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+lint:src:
+  stage: lint
+  script: yarn lint
+
+lint:docs:
+  stage: lint
+  script: yarn lint:doc
 
 # Test packages and builds
 test:core:unit:
