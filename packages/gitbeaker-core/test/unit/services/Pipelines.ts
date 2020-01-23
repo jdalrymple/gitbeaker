@@ -1,19 +1,19 @@
-import { Requester } from '@gitbeaker/requester-base';
 import { Pipelines } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
-jest.mock('@gitbeaker/requester-base', () => ({
-  get: jest.fn(() => []),
-  post: jest.fn(() => ({})),
-  put: jest.fn(() => ({})),
-}));
 
 let service: Pipelines;
 
 beforeEach(() => {
+  const requester = {
+    get: jest.fn(() => []),
+    post: jest.fn(() => ({})),
+    put: jest.fn(() => ({})),
+  };
+
   service = new Pipelines({
-    requester: Requester,
+    requester,
     token: 'abcdefg',
     requestTimeout: 3000,
   });

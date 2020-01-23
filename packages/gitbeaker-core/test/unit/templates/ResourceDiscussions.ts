@@ -1,19 +1,19 @@
-import { Requester } from '@gitbeaker/requester-base';
 import { ResourceDiscussions } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
-jest.mock('@gitbeaker/requester-base', () => ({
-  get: jest.fn(() => []),
-  post: jest.fn(() => ({})),
-  put: jest.fn(() => ({})),
-}));
 
 let issuesService: ResourceDiscussions;
 
 beforeEach(() => {
+  const requester = {
+    get: jest.fn(() => []),
+    post: jest.fn(() => ({})),
+    put: jest.fn(() => ({})),
+  };
+
   issuesService = new ResourceDiscussions('projects', 'issues', {
-    requester: Requester,
+    requester,
     token: 'abcdefg',
   });
 });

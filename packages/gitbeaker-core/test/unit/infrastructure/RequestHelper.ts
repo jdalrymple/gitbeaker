@@ -1,4 +1,3 @@
-import { Requester } from '@gitbeaker/requester-base';
 import { RequestHelper, BaseService } from '../../../src/infrastructure';
 
 /* eslint no-empty-pattern: 0 */
@@ -67,25 +66,32 @@ const mockedGetExtended = (url, { query }, limit = 30) => {
   return pages[page - 1];
 };
 
-const service = new BaseService({
-  host: 'https://testing.com',
-  token: 'token',
+let requester;
+let service;
+
+beforeEach(() => {
+  requester = {};
+  service = new BaseService({
+    requester,
+    host: 'https://testing.com',
+    token: 'token',
+  });
 });
 
 describe('RequestHelper.get()', () => {
   it('should respond with the proper get url without pagination', async () => {
-    Requester.get = jest.fn(() => mockedGetBasic());
+    requester.get = jest.fn(() => mockedGetBasic());
 
     await RequestHelper.get(service, 'test');
 
-    expect(Requester.get).toHaveBeenCalledWith(service, 'test', {
+    expect(requester.get).toHaveBeenCalledWith(service, 'test', {
       query: {},
       sudo: undefined,
     });
   });
 
   it('should respond with an object', async () => {
-    Requester.get = jest.fn(() => mockedGetBasic());
+    requester.get = jest.fn(() => mockedGetBasic());
 
     const response = await RequestHelper.get(service, 'test');
 
@@ -94,7 +100,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated when links are present', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test');
 
@@ -107,7 +113,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should handle large paginated (50 pages) results when links are present', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options, 70));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options, 70));
 
     const response = await RequestHelper.get(service, 'test');
 
@@ -120,7 +126,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the maxPages option', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { maxPages: 3 });
 
@@ -133,7 +139,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the page option', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2 });
 
@@ -146,7 +152,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should show the pagination information when the page option is given', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', { page: 2, showExpanded: true });
 
@@ -168,7 +174,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should show the pagination information when the maxPages option is given', async () => {
-    Requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = await RequestHelper.get(service, 'test', {
       maxPages: 3,
@@ -195,7 +201,7 @@ describe('RequestHelper.get()', () => {
 
 describe('RequestHelper.stream()', () => {
   it('should throw an error when the stream function isnt available', async () => {
-    Requester.stream = undefined;
+    requester.stream = undefined;
 
     expect(() => RequestHelper.stream(service, 'test')).toThrow(
       'Stream method is not implementated in requester!',
@@ -203,48 +209,48 @@ describe('RequestHelper.stream()', () => {
   });
 
   it('should not throw an error when the stream function is available', async () => {
-    Requester.stream = jest.fn();
+    requester.stream = jest.fn();
 
     RequestHelper.stream(service, 'test');
 
-    expect(Requester.stream).toBeCalled();
+    expect(requester.stream).toBeCalled();
   });
 });
 
 describe('RequestHelper.post()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    Requester.post = jest.fn(() => ({ body: '' }));
+    requester.post = jest.fn(() => ({ body: '' }));
 
     await RequestHelper.post(service, 'test', { sudo: 'yes' });
 
-    expect(Requester.post).toBeCalledWith(service, 'test', { body: {}, sudo: 'yes' });
+    expect(requester.post).toBeCalledWith(service, 'test', { body: {}, sudo: 'yes' });
   });
 
   it('should by default pass the form, before the body if passed', async () => {
-    Requester.post = jest.fn(() => ({ body: '' }));
+    requester.post = jest.fn(() => ({ body: '' }));
 
     RequestHelper.post(service, 'test', { form: 1, test: 3 });
 
-    expect(Requester.post).toBeCalledWith(service, 'test', { body: 1, sudo: undefined });
+    expect(requester.post).toBeCalledWith(service, 'test', { body: 1, sudo: undefined });
   });
 });
 
 describe('RequestHelper.put()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    Requester.put = jest.fn(() => ({ body: '' }));
+    requester.put = jest.fn(() => ({ body: '' }));
 
     await RequestHelper.put(service, 'test', { sudo: 'yes' });
 
-    expect(Requester.put).toBeCalledWith(service, 'test', { body: {}, sudo: 'yes' });
+    expect(requester.put).toBeCalledWith(service, 'test', { body: {}, sudo: 'yes' });
   });
 });
 
 describe('RequestHelper.del()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    Requester.delete = jest.fn(() => ({ body: '' }));
+    requester.delete = jest.fn(() => ({ body: '' }));
 
     await RequestHelper.del(service, 'test', { sudo: 'yes' });
 
-    expect(Requester.delete).toBeCalledWith(service, 'test', { query: {}, sudo: 'yes' });
+    expect(requester.delete).toBeCalledWith(service, 'test', { query: {}, sudo: 'yes' });
   });
 });

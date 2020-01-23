@@ -1,20 +1,21 @@
-import { Requester } from '@gitbeaker/requester-base';
 import { Projects } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
-jest.mock('@gitbeaker/requester-base', () => ({
-  get: jest.fn(() => []),
-  post: jest.fn(() => ({})),
-  put: jest.fn(() => ({})),
-}));
 
 let service: Projects;
 
 beforeEach(() => {
+  const requester = {
+    get: jest.fn(() => []),
+    post: jest.fn(() => ({})),
+    put: jest.fn(() => ({})),
+  };
+
   service = new Projects({
-    requester: Requester,
+    requester,
     token: 'abcdefg',
+    requestTimeout: 3000,
   });
 });
 
