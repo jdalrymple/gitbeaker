@@ -15,11 +15,29 @@ coverage:
       core:
         target: 60%
         flags: core
+      browser:
+        target: 60%
+        flags: browser
+      node:
+        target: 60%
+        flags: node
+      requester-base:
+        target: 60%
+        flags: requester-base
 
 flags:
   cli:
     paths:
-      - packages/cli/src
+      - packages/gitbeaker-cli/src
   core:
     paths:
-      - packages/core/src
+      - packages/gitbeaker-core/src
+  browser:
+    paths:
+      - packages/gitbeaker-browser/src
+  node:
+    paths:
+      - packages/gitbeaker-node/src
+  requester-base:
+    paths:
+      - packages/gitbeaker-requester-base/src

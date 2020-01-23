@@ -31,10 +31,6 @@ rules:
     - error
     - devDependencies:
         - '**/test/**/*.ts'
-  import/no-unresolved:
-    - error
-    - ignore:
-        - dist
   import/extensions:
     - error
     - never
