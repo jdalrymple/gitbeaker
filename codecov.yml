@@ -21,9 +21,9 @@ coverage:
       node:
         target: 60%
         flags: node
-      requester-base:
+      utils:
         target: 60%
-        flags: requester-base
+        flags: utils
 
 flags:
   cli:
@@ -38,6 +38,6 @@ flags:
   node:
     paths:
       - packages/gitbeaker-node/src
-  requester-base:
+  utils:
     paths:
-      - packages/gitbeaker-requester-base/src
+      - packages/gitbeaker-requester-utils/src

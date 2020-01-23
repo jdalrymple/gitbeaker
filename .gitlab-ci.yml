@@ -54,6 +54,22 @@ test:core:unit:
   stage: test
   script: yarn jest core/test/unit && yarn codecov -F core
 
+test:cli:unit:
+  stage: test
+  script: yarn jest cli/test/unit && yarn codecov -F cli
+
+test:node:unit:
+  stage: test
+  script: yarn jest node/test/unit && yarn codecov -F node
+
+test:browser:unit:
+  stage: test
+  script: yarn jest browser/test/unit && yarn codecov -F browser
+
+test:utils:unit:
+  stage: test
+  script: yarn jest utils/test/unit && yarn codecov -F utils
+
 # test:core:integration: &integration
 #   image:
 #     name: docker/compose:latest
