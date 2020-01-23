@@ -1,35 +1,30 @@
 ## [14.2.1](https://github.com/jdalrymple/node-gitlab/compare/14.2.0...14.2.1) (2020-01-20)
 
-
 ### Bug Fixes
 
-* added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
+- added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
 
 # [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
 
-
 ### Features
 
-* Adding support for merge_requests in the Deployments API ([911078b](https://github.com/jdalrymple/node-gitlab/commit/911078bba30145a98ba051e672963dbbe8816a6a)), closes [#554](https://github.com/jdalrymple/node-gitlab/issues/554)
+- Adding support for merge_requests in the Deployments API ([911078b](https://github.com/jdalrymple/node-gitlab/commit/911078bba30145a98ba051e672963dbbe8816a6a)), closes [#554](https://github.com/jdalrymple/node-gitlab/issues/554)
 
 ## [14.1.1](https://github.com/jdalrymple/node-gitlab/compare/14.1.0...14.1.1) (2020-01-03)
 
-
 ### Bug Fixes
 
-* resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
+- resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
 
 # [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
 
-
 ### Bug Fixes
 
-* make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
-
+- make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
 
 ### Features
 
-* Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
+- Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
 
 ## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
 

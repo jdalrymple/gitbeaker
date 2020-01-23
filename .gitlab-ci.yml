@@ -5,8 +5,11 @@ default:
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - packages/core/node_modules/
-    - packages/cli/node_modules/
+    - packages/gitbeaker-core/node_modules/
+    - packages/gitbeaker-cli/node_modules/
+    - packages/gitbeaker-browser/node_modules/
+    - packages/gitbeaker-node/node_modules/
+    - packages/gitbeaker-requester-utils/node_modules/
     - node_modules/
 
 stages:
@@ -26,11 +29,11 @@ install:
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:src:
   stage: lint
-  script: yarn run lint
+  script: yarn lint
 
 lint:docs:
   stage: lint
-  script: yarn run lint:doc
+  script: yarn lint:doc
 
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
