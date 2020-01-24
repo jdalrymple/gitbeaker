@@ -22,13 +22,11 @@ export class ResourceAccessRequests extends BaseService {
   approve(
     resourceId: string | number,
     userId: number,
-    { accessLevel }: { accessLevel?: AccessLevel } & Sudo = {},
+    options?: { accessLevel?: AccessLevel } & Sudo,
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/access_requests/${uId}/approve`, {
-      accessLevel,
-    });
+    return RequestHelper.post(this, `${rId}/access_requests/${uId}/approve`, options);
   }
 
   deny(resourceId: string | number, userId: number) {

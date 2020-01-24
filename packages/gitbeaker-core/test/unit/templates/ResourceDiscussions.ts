@@ -18,7 +18,7 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Projects service', () => {
+describe('Instantiating ResourceDiscussions service', () => {
   it('should create a valid service object', async () => {
     expect(issuesService).toBeInstanceOf(ResourceDiscussions);
     expect(issuesService.url).toBeDefined();

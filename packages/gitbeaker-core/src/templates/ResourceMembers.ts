@@ -17,18 +17,6 @@ export class ResourceMembers extends BaseService {
     super({ url: resourceType, ...options });
   }
 
-  all(
-    resourceId: string | number,
-    { includeInherited, ...options }: IncludeInherited & PaginatedRequestOptions = {},
-  ) {
-    const rId = encodeURIComponent(resourceId);
-    const url = [rId, 'members'];
-
-    if (includeInherited) url.push('all');
-
-    return RequestHelper.get(this, url.join('/'), options);
-  }
-
   add(
     resourceId: string | number,
     userId: number,
@@ -42,6 +30,18 @@ export class ResourceMembers extends BaseService {
       accessLevel,
       ...options,
     });
+  }
+
+  all(
+    resourceId: string | number,
+    { includeInherited, ...options }: IncludeInherited & PaginatedRequestOptions = {},
+  ) {
+    const rId = encodeURIComponent(resourceId);
+    const url = [rId, 'members'];
+
+    if (includeInherited) url.push('all');
+
+    return RequestHelper.get(this, url.join('/'), options);
   }
 
   edit(
