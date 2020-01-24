@@ -4,12 +4,6 @@
 </div>
 <br>
 <p align="center">
-  <a href="https://www.npmjs.com/package/@gitbeaker/core">
-    <img src="https://img.shields.io/npm/v/@gitbeaker/core.svg" alt="latest">
-  </a>
-  <a href="https://www.npmjs.com/package/@gitbeaker/core">
-    <img src="https://img.shields.io/npm/dt/@gitbeaker/core.svg" alt="downloads">
-  </a>
   <a href="https://gitlab.com/jdalrymple/gitbeaker/pipelines">
     <img src="https://img.shields.io/gitlab/pipeline/jdalrymple/gitbeaker/master" alt="Gitlab Pipeline Status">
   </a>
@@ -35,6 +29,12 @@
   <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
   <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
     <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/core" alt="Install Size: Core">
+  </a>
+  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/node">
+    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/node" alt="Install Size: Node">
+  </a>
+  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
+    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/browser" alt="Install Size: Browser">
   </a>
   <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
     <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
@@ -100,20 +100,20 @@ const api = new Gitlab({
 
 Available instantiating options:
 
-| Name                 | Optional | Default                                                 | Description                                                                                                        |
-| -------------------- | -------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `host`               | Yes      | `https://gitlab.com`                                    | Gitlab Instance Host URL                                                                                           |
-| `token`              | No\*     | N/A                                                     | Personal Token. Required (one of the three tokens are required)                                                    |
-| `oauthToken`         | No\*     | N/A                                                     | OAuth Token. Required (one of the three tokens are required)                                                       |
-| `jobToken`           | No\*     | N/A                                                     | CI Job Token. Required (one of the three tokens are required)                                                      |
-| `rejectUnauthorized` | Yes      | `true`                                                  | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
-| `sudo`               | Yes      | `false`                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
-| `version`            | Yes      | `4`                                                     | API Version ID                                                                                                     |
-| `camelize`           | Yes      | `false`                                                 | Camelizes all response body keys                                                                                   |
-| `requester`          | Yes      | [GotRequester.ts](./src/infrastructure/GotRequester.ts) | Request Library Wrapper. Currently wraps Got.                                                                      |
-| `requestTimeout`     | Yes      | `300000`                                                | Request Library Timeout in ms                                                                                      |
-| `profileToken`       | Yes      | N/A                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| Name                 | Optional | Default                                                                                                                                                                                                              | Description                                                                                                        |
+| -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                                                                 | Gitlab Instance Host URL                                                                                           |
+| `token`              | No\*     | N/A                                                                                                                                                                                                                  | Personal Token. Required (one of the three tokens are required)                                                    |
+| `oauthToken`         | No\*     | N/A                                                                                                                                                                                                                  | OAuth Token. Required (one of the three tokens are required)                                                       |
+| `jobToken`           | No\*     | N/A                                                                                                                                                                                                                  | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                                                                               | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
+| `sudo`               | Yes      | `false`                                                                                                                                                                                                              | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `version`            | Yes      | `4`                                                                                                                                                                                                                  | API Version ID                                                                                                     |
+| `camelize`           | Yes      | `false`                                                                                                                                                                                                              | Camelizes all response body keys                                                                                   |
+| `requester`          | Yes\*    | For @gitbeaker/node and @gitbeaker/cli, it uses a Got based requester, for @gitbeaker/browser, it uses a ky based requester. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
+| `requestTimeout`     | Yes      | `300000`                                                                                                                                                                                                             | Request Library Timeout in ms                                                                                      |
+| `profileToken`       | Yes      | N/A                                                                                                                                                                                                                  | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                                                                                                          | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 ### CLI Support
 
