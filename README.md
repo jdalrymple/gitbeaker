@@ -80,17 +80,31 @@ npm install @gitbeaker/cli  # CLI
 
 ## Getting Started
 
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+**NodeJS**
 
 ```javascript
 // ES6 (>=node 10.16.0 LTS)
-import { Gitlab } from 'gitlab'; // All Resources
-import { Projects } from 'gitlab'; // Just the Project Resource
+import { Gitlab } from '@gitbeaker/node'; // All Resources
+import { Projects } from '@gitbeaker/node'; // Just the Project Resource
 //...etc
 
 // ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('gitlab');
+const { Gitlab } = require('@gitbeaker/node');
 ```
+
+**Browser**
+
+```javascript
+// ES6 (>=node 10.16.0 LTS)
+import { Gitlab } from '@gitbeaker/browser'; // All Resources
+import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
+//...etc
+
+// ES5, assuming native or polyfilled Promise is available
+const { Gitlab } = require('@gitbeaker/browser');
+```
+
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 
 ```javascript
 const api = new Gitlab({
