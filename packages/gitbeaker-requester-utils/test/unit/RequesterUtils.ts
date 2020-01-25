@@ -15,10 +15,8 @@ describe('defaultRequest', () => {
   it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
     const { body, headers } = defaultRequest(service, {
+      method: 'post',
       body: testBody,
-      sudo: '',
-      query: {},
-      method: '',
     });
 
     expect(headers).toContainEntry(['content-type', 'application/json']);
@@ -27,22 +25,19 @@ describe('defaultRequest', () => {
 
   it('should not stringify body if it of type FormData', async () => {
     const testBody = new FormData();
-    const { body } = defaultRequest(service, { body: testBody, sudo: '', query: {}, method: '' });
+    const { body } = defaultRequest(service, { body: testBody, method: 'post' });
 
     expect(body).toBeInstanceOf(FormData);
   });
 
   it('should not assign the agent property if given http url', async () => {
-    const options = defaultRequest(service, { body: {}, sudo: '', query: {}, method: '' });
+    const options = defaultRequest(service, { method: 'post' });
 
     expect(options.agent).toBeUndefined();
   });
 
   it('should assign the agent property if given https url', async () => {
-    const options = defaultRequest(
-      { ...service, url: 'https://test.com' },
-      { body: {}, sudo: '', query: {}, method: '' },
-    );
+    const options = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
 
     expect(options.agent).toBeInstanceOf(Agent);
     expect(options.agent.rejectUnauthorized).toBeFalsy();
@@ -50,10 +45,8 @@ describe('defaultRequest', () => {
 
   it('should not assign the sudo property if omitted', async () => {
     const { headers } = defaultRequest(service, {
-      body: '',
       sudo: undefined,
-      query: {},
-      method: '',
+      method: 'get',
     });
 
     expect(headers.sudo).toBeUndefined();
@@ -61,10 +54,8 @@ describe('defaultRequest', () => {
 
   it('should default searchParams to an empty string if undefined', async () => {
     const { searchParams } = defaultRequest(service, {
-      body: '',
-      sudo: undefined,
       query: undefined,
-      method: '',
+      method: 'get',
     });
 
     expect(searchParams).toBe('');
