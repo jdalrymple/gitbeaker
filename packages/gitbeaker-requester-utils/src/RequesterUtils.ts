@@ -18,6 +18,13 @@ export interface Service {
   rejectUnauthorized?: boolean;
 }
 
+export type DefaultRequestOptions = {
+  body?: FormData | object;
+  query?: object;
+  sudo?: string;
+  method: string;
+};
+
 const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
 export function formatQuery(options) {
@@ -26,17 +33,19 @@ export function formatQuery(options) {
 
 export function defaultRequest(
   service: Service,
-  { body, query, sudo, method },
-): Record<string, string | number | Record<string, string | string[]>> {
+  { body, query, sudo, method }: DefaultRequestOptions = { method: 'get' },
+): Record<string, string | number | FormData | Record<string, string | string[]>> {
   const { headers } = service;
   let agent;
-  let bod = body;
+  let bod;
 
   if (sudo) headers.sudo = sudo;
 
   if (typeof body === 'object' && !(body instanceof FormData)) {
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
+  } else {
+    bod = body;
   }
 
   if (service.url.includes('https')) {

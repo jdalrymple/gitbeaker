@@ -1,5 +1,15 @@
 import ky from 'ky';
-import { processBody, handler } from '../../src/KyRequester';
+import fetch from 'node-fetch';
+import { processBody, handler, defaultRequest } from '../../src/KyRequester';
+
+// Set globals for testing purposes
+if (!global.fetch) {
+  global.fetch = fetch;
+}
+
+if (!global.Headers) {
+  global.Headers = fetch.Headers;
+}
 
 jest.mock('ky');
 
@@ -128,7 +138,7 @@ describe('handler', () => {
           return 'application/json';
         },
         entries() {
-          return [];
+          return [['token', '1234']];
         },
       },
       json() {
@@ -143,5 +153,24 @@ describe('handler', () => {
       headers: {},
       status: 404,
     });
+  });
+});
+
+describe('defaultRequest', () => {
+  const service = {
+    headers: { test: '5' },
+    url: 'testurl',
+    rejectUnauthorized: false,
+    requestTimeout: 50,
+  };
+
+  it('should stringify body if it isnt of type FormData', async () => {
+    const testBody = { test: 6 };
+    const { body, headers } = defaultRequest(service, {
+      body: testBody,
+    });
+
+    expect(headers).toBeInstanceOf(Headers);
+    expect(body).toBe(JSON.stringify(testBody));
   });
 });

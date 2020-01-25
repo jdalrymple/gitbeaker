@@ -1,6 +1,7 @@
 import Ky from 'ky';
 import {
   Service,
+  DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
 } from '@gitbeaker/requester-utils';
@@ -16,10 +17,10 @@ function responseHeadersAsObject(response): Record<string, string> {
   return headers;
 }
 
-function defaultRequest(service: Service, { body, query, sudo, method }) {
-  const options = baseDefaultRequest(service, { body, query, sudo, method });
+export function defaultRequest(service: Service, options: DefaultRequestOptions = {}) {
+  const opts = baseDefaultRequest(service, options);
 
-  return { ...options, headers: new Headers(service.headers as Record<string, string>) };
+  return { ...opts, headers: new Headers(service.headers as Record<string, string>) };
 }
 
 export function processBody(response) {

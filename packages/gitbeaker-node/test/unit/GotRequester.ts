@@ -1,5 +1,6 @@
 import got from 'got';
-import { processBody, handler } from '../../src/GotRequester';
+import FormData from 'form-data';
+import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 
 jest.mock('got');
 
@@ -106,5 +107,26 @@ describe('handler', () => {
       headers: {},
       status: 404,
     });
+  });
+});
+
+describe('defaultRequest', () => {
+  const service = {
+    headers: { test: '5' },
+    url: 'testurl',
+    rejectUnauthorized: false,
+    requestTimeout: 50,
+  };
+
+  it('should replace body property with json property if the body type is an object but not FormData', () => {
+    const output1 = defaultRequest(service, { body: { key: 1 } });
+
+    expect(output1.body).toBeUndefined();
+    expect(output1.json).toMatchObject({ key: 1 });
+
+    const output2 = defaultRequest(service, { body: new FormData() });
+
+    expect(output2.body).toBeInstanceOf(FormData);
+    expect(output2.json).toBeUndefined();
   });
 });

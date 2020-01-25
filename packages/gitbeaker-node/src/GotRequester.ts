@@ -3,11 +3,15 @@ import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import {
   Service,
+  DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
 } from '@gitbeaker/requester-utils';
 
-function defaultRequest(service: Service, { body, query, sudo, method }) {
+export function defaultRequest(
+  service: Service,
+  { body, query, sudo, method }: DefaultRequestOptions = {},
+) {
   const options = baseDefaultRequest(service, { body, query, sudo, method });
 
   if (typeof body === 'object' && !(body instanceof FormData)) {
