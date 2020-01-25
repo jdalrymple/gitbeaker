@@ -3,7 +3,7 @@ import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
-let issuesService: ResourceDiscussions;
+let service: ResourceDiscussions;
 
 beforeEach(() => {
   const requester = {
@@ -12,7 +12,7 @@ beforeEach(() => {
     put: jest.fn(() => ({})),
   };
 
-  issuesService = new ResourceDiscussions('projects', 'issues', {
+  service = new ResourceDiscussions('resource1', 'resource2', {
     requester,
     token: 'abcdefg',
   });
@@ -20,51 +20,72 @@ beforeEach(() => {
 
 describe('Instantiating ResourceDiscussions service', () => {
   it('should create a valid service object', async () => {
-    expect(issuesService).toBeInstanceOf(ResourceDiscussions);
-    expect(issuesService.url).toBeDefined();
-    expect(issuesService.rejectUnauthorized).toBeTruthy();
-    expect(issuesService.headers).toMatchObject({ 'private-token': 'abcdefg' });
+    expect(service).toBeInstanceOf(ResourceDiscussions);
+    expect(service.url).toBeDefined();
+    expect(service.rejectUnauthorized).toBeTruthy();
+    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
+  });
+});
+
+describe('ResourceDiscussions.addNote', () => {
+  it('should call the correct url', async () => {
+    await service.addNote(1, 2, 3, 4, 'test');
+
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, '1/resource2/2/discussions/3/notes', {
+      noteId: '4',
+      body: 'test',
+    });
+  });
+});
+
+describe('ResourceCustomAttributes.all', () => {
+  it('should call the correct url with a resource id', async () => {
+    await service.all(1, 2);
+
+    expect(RequestHelper.get).toBeCalledWith(service, '1/resource2/2/discussions', undefined);
+  });
+});
+
+describe('ResourceDiscussions.create', () => {
+  it('should call the correct url', async () => {
+    await service.create(1, 2, 'test');
+
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
+      body: 'test',
+    });
   });
 });
 
 describe('ResourceDiscussions.editNote', () => {
-  it('should request PUT /projects/:id/issues/:issue_iid/discussions/:discussion_id/notes/:note_id', async () => {
-    const projectId = 75159;
-    const issueIid = 1;
-    const discussionId = 'xxxx';
-    const noteId = 11236631;
-    const body = 'add note from gitbeaker';
+  it('should call the correct url', async () => {
+    await service.editNote(1, 2, 3, 4, 'test');
 
-    await issuesService.editNote(projectId, issueIid, discussionId, noteId, body);
+    expect(RequestHelper.put).toHaveBeenCalledWith(service, '1/resource2/2/discussions/3/notes/4', {
+      body: 'test',
+    });
+  });
+});
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(
-      issuesService,
-      `${projectId}/issues/${issueIid}/discussions/${discussionId}/notes/${noteId}`,
-      {
-        body,
-      },
+describe('ResourceDiscussions.removeNote', () => {
+  it('should call the correct url', async () => {
+    await service.removeNote(1, 2, 3, 4);
+
+    expect(RequestHelper.del).toHaveBeenCalledWith(
+      service,
+      '1/resource2/2/discussions/3/notes/4',
+      undefined,
     );
   });
+});
 
-  it('should use body property in options', async () => {
-    const projectId = 75159;
-    const issueIid = 1;
-    const discussionId = 'xxxx';
-    const noteId = 11236631;
-    const body = 'add note from gitbeaker';
-    const optionsBody = 'add note from gitbeaker in options';
+describe('ResourceDiscussions.show', () => {
+  it('should call the correct url', async () => {
+    await service.show(1, 2, 3);
 
-    await issuesService.editNote(projectId, issueIid, discussionId, noteId, body, {
-      hah: 1,
-      body: optionsBody,
-    });
-
-    expect(RequestHelper.put).toHaveBeenLastCalledWith(
-      issuesService,
-      `${projectId}/issues/${issueIid}/discussions/${discussionId}/notes/${noteId}`,
-      expect.objectContaining({
-        body: optionsBody,
-      }),
+    expect(RequestHelper.get).toHaveBeenCalledWith(
+      service,
+      '1/resource2/2/discussions/3',
+      undefined,
     );
   });
 });

@@ -24,8 +24,6 @@ export class ResourceDiscussions extends BaseService {
     content: string,
     options?: BaseRequestOptions,
   ) {
-    if (!content) throw new Error('Missing required content argument');
-
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
       encodeURIComponent,
     );
@@ -53,8 +51,6 @@ export class ResourceDiscussions extends BaseService {
     content: string,
     options?: BaseRequestOptions,
   ) {
-    if (!content) throw new Error('Missing required content argument');
-
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
     return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, {
