@@ -31,13 +31,13 @@ describe('Instantiating ResourceAccessRequests service', () => {
 });
 
 describe('ResourceAccessRequests.all', () => {
-  it('should call correct url and prepend string identifer', async () => {
+  it('should call the correct url for getting all access requests with a string identifer', async () => {
     await service.all('5');
 
     expect(RequestHelper.get).toBeCalledWith(service, '5/access_requests');
   });
 
-  it('should call correct url and prepend number identifer', async () => {
+  it('should call the correct url for getting all access requests with a number identifer', async () => {
     await service.all(5);
 
     expect(RequestHelper.get).toBeCalledWith(service, '5/access_requests');
@@ -45,13 +45,13 @@ describe('ResourceAccessRequests.all', () => {
 });
 
 describe('ResourceAccessRequests.request', () => {
-  it('should call correct url and prepend string identifer', async () => {
+  it('should call the correct url for requesting access requests with a string identifer', async () => {
     await service.request('5');
 
     expect(RequestHelper.post).toBeCalledWith(service, '5/access_requests');
   });
 
-  it('should call correct url and prepend number identifer', async () => {
+  it('should call the correct url for requesting access requests with a number identifer', async () => {
     await service.request(5);
 
     expect(RequestHelper.post).lastCalledWith(service, '5/access_requests');
@@ -59,7 +59,7 @@ describe('ResourceAccessRequests.request', () => {
 });
 
 describe('ResourceAccessRequests.approve', () => {
-  it('should call correct url with the resource id and user id', async () => {
+  it('should call the correct url for approving access requests with the resource id and user id', async () => {
     await service.approve('5', 1);
 
     expect(RequestHelper.post).toBeCalledWith(service, '5/access_requests/1/approve', undefined);
@@ -83,7 +83,7 @@ describe('ResourceAccessRequests.approve', () => {
 });
 
 describe('ResourceAccessRequests.deny', () => {
-  it('should call correct url with the resource id and user id', async () => {
+  it('should call the correct url denying access requests with the resource id and user id', async () => {
     await service.deny('5', 1);
 
     expect(RequestHelper.del).toBeCalledWith(service, '5/access_requests/1');

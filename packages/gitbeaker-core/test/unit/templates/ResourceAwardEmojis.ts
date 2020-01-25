@@ -31,7 +31,7 @@ describe('Instantiating ResourceAwardEmojis service', () => {
 });
 
 describe('ResourceAwardEmojis.all', () => {
-  it('should call correct url with a project id, resource id, and note id', async () => {
+  it('should call the correct url with a project id, resource id, and note id', async () => {
     await service.all('5', 6, 7);
 
     expect(RequestHelper.get).toBeCalledWith(
@@ -43,7 +43,7 @@ describe('ResourceAwardEmojis.all', () => {
 });
 
 describe('ResourceAccessRequests.award', () => {
-  it('should call correct url with a project id, name, resource id, and note id', async () => {
+  it('should call the correct url with a project id, name, resource id, and note id', async () => {
     await service.award('5', 6, 7, 'frank');
 
     expect(RequestHelper.post).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji', {
@@ -62,7 +62,7 @@ describe('ResourceAccessRequests.award', () => {
 });
 
 describe('ResourceAccessRequests.remove', () => {
-  it('should call correct url with a project id, resource id, award_id, and note id', async () => {
+  it('should call the correct url with a project id, resource id, award_id, and note id', async () => {
     await service.remove('5', 6, 7, 9);
 
     expect(RequestHelper.del).toBeCalledWith(
@@ -82,7 +82,7 @@ describe('ResourceAccessRequests.remove', () => {
 });
 
 describe('ResourceAccessRequests.show', () => {
-  it('should call correct url with a project id, resource id, award_id, and note id', async () => {
+  it('should call the correct url with a project id, resource id, award_id, and note id', async () => {
     await service.show('5', 6, 7, 9);
 
     expect(RequestHelper.get).toBeCalledWith(

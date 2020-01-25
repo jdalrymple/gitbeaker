@@ -31,7 +31,7 @@ describe('Instantiating ResourceBadges service', () => {
 });
 
 describe('ResourceBadges.add', () => {
-  it('should call correct url with a resource id', async () => {
+  it('should call the correct url with a resource id', async () => {
     await service.add('5');
 
     expect(RequestHelper.post).toBeCalledWith(service, '5/badges', undefined);
@@ -39,7 +39,7 @@ describe('ResourceBadges.add', () => {
 });
 
 describe('ResourceBadges.all', () => {
-  it('should call correct url with a resource id', async () => {
+  it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
     expect(RequestHelper.get).toBeCalledWith(service, '5/badges', undefined);
@@ -47,7 +47,7 @@ describe('ResourceBadges.all', () => {
 });
 
 describe('ResourceBadges.edit', () => {
-  it('should call correct url with a resource id and badge id', async () => {
+  it('should call the correct url with a resource id and badge id', async () => {
     await service.edit('5', 6);
 
     expect(RequestHelper.put).toBeCalledWith(service, '5/badges/6', undefined);
@@ -55,7 +55,7 @@ describe('ResourceBadges.edit', () => {
 });
 
 describe('ResourceBadges.preview', () => {
-  it('should call correct url with a resource id, linkUrl and imageUrl', async () => {
+  it('should call the correct url with a resource id, linkUrl and imageUrl', async () => {
     await service.preview('5', 'https://url.com', 'https://image.com');
 
     expect(RequestHelper.get).toBeCalledWith(service, '5/badges/render', {
@@ -66,7 +66,7 @@ describe('ResourceBadges.preview', () => {
 });
 
 describe('ResourceBadges.remove', () => {
-  it('should call correct url with a resource id and badge id', async () => {
+  it('should call the correct url with a resource id and badge id', async () => {
     await service.remove('5', 6);
 
     expect(RequestHelper.del).toBeCalledWith(service, '5/badges/6', undefined);
@@ -74,7 +74,7 @@ describe('ResourceBadges.remove', () => {
 });
 
 describe('ResourceBadges.show', () => {
-  it('should call correct url with a resource id and badge id', async () => {
+  it('should call the correct url with a resource id and badge id', async () => {
     await service.show('5', 6);
 
     expect(RequestHelper.get).toBeCalledWith(service, '5/badges/6', undefined);
