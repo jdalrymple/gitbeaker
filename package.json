@@ -30,7 +30,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^3.0.5",
+    "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^7.0.18",
     "@semantic-release/npm": "^5.3.4",
     "@types/jest": "^24.0.23",
