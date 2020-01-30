@@ -33,7 +33,7 @@
     "@semantic-release/changelog": "^3.0.5",
     "@semantic-release/git": "^7.0.18",
     "@semantic-release/npm": "^5.3.4",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^25.1.1",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "codecov": "^3.6.1",
