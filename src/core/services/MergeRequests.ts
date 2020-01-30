@@ -141,7 +141,7 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIId] = [projectId, mergerequestIId].map(encodeURIComponent);
 
-    return RequestHelper.post(
+    return RequestHelper.get(
       this,
       `projects/${pId}/merge_requests/${mIId}/approval_state`,
       options,
