@@ -14,12 +14,12 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^13.1.6",
-    "rollup": "^1.29.0",
+    "@types/node": "^13.7.0",
+    "rollup": "^1.31.0",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
-    "ts-node": "^8.6.1",
-    "typescript": "^3.7.4"
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "engines": {
     "node": ">=10.0.0"
