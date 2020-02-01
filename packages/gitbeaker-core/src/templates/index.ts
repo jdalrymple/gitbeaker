@@ -8,5 +8,5 @@ export * from './ResourceLabels';
 export * from './ResourceMembers';
 export * from './ResourceMilestones';
 export * from './ResourceNotes';
-// export * from './ResourceTemplates';
+export * from './ResourceTemplates';
 export * from './ResourceVariables';

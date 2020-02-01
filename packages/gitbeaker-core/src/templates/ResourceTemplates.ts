@@ -18,6 +18,6 @@ export class ResourceTemplates extends BaseService {
   show(resourceId: string | number, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}`, options);
+    return RequestHelper.get(this, `${rId}`, options);
   }
 }
