@@ -1,3 +1,9 @@
+## [14.2.2](https://github.com/jdalrymple/node-gitlab/compare/14.2.1...14.2.2) (2020-01-30)
+
+### Bug Fixes
+
+- Incorrect request method in MergeRequests.approvalState() method ([#586](https://github.com/jdalrymple/node-gitlab/issues/586)) ([cb5f822](https://github.com/jdalrymple/node-gitlab/commit/cb5f8228ca1f64cc55b79e1ef475c3d49568267a))
+
 ## [14.2.1](https://github.com/jdalrymple/node-gitlab/compare/14.2.0...14.2.1) (2020-01-20)
 
 ### Bug Fixes
