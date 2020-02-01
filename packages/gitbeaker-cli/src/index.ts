@@ -5,10 +5,8 @@ import program, { Options } from 'sywac';
 import ora from 'ora';
 import chalk from 'chalk';
 import { camelize, decamelize, depascalize } from 'xcase';
-import * as core from '../core';
-
-/* eslint global-require: 0 import/no-unresolved: 0 */
-const map: [string, { name: string; args: string[] }[]] = require('./map.json') || {};
+import * as Gitbeaker from '@gitbeaker/node';
+import * as map from '@gitbeaker/core/dist/map.json';
 
 // Styling settings
 const commandStyle = chalk.hex('#e34329').bold;
@@ -20,58 +18,75 @@ const hintStyle = chalk.hex('#6a5f88');
 
 // Globally configurable arguments
 const globalConfig: { [name: string]: Options } = {
-  'gl-token': {
+  'gb-token': {
+    alias: 'gl-token',
     desc: 'Your Gitlab Personal Token',
     type: 'string',
-    defaultValue: process.env.GITLAB_TOKEN,
+    defaultValue: process.env.GITBEAKER_TOKEN || process.env.GITLAB_TOKEN,
   },
-  'gl-oauth-token': {
+  'gb-oauth-token': {
+    alias: 'gl-oauth-token',
     desc: 'Your Gitlab OAuth Token',
     type: 'string',
-    defaultValue: process.env.GITLAB_OAUTH_TOKEN,
+    defaultValue: process.env.GITBEAKER_OAUTH_TOKEN || process.env.GITLAB_OAUTH_TOKEN,
   },
-  'gl-job-token': {
+  'gb-job-token': {
+    alias: 'gl-job-token',
     desc: 'Your Gitlab Job Token',
     type: 'string',
-    defaultValue: process.env.GITLAB_JOB_TOKEN,
+    defaultValue: process.env.GITBEAKER_JOB_TOKEN || process.env.GITLAB_JOB_TOKEN,
   },
-  'gl-host': {
+  'gb-host': {
+    alias: 'gl-host',
     desc: 'Your Gitlab API host (Defaults to https://www.gitlab.com)',
     type: 'string',
-    defaultValue: process.env.GITLAB_HOST,
+    defaultValue: process.env.GITBEAKER_HOST || process.env.GITLAB_HOST,
   },
-  'gl-version': {
+  'gb-version': {
+    alias: 'gl-version',
     desc: 'The targetted Gitlab API version (Defaults to 4)',
     type: 'number',
-    defaultValue: process.env.GITLAB_VERSION && parseInt(process.env.GITLAB_VERSION, 10),
+    defaultValue:
+      (process.env.GITBEAKER_VERSION && parseInt(process.env.GITBEAKER_VERSION, 10)) ||
+      (process.env.GITLAB_VERSION && parseInt(process.env.GITLAB_VERSION, 10)),
   },
-  'gl-sudo': {
+  'gb-sudo': {
+    alias: 'gl-sudo',
     desc: '[Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter',
     type: 'string',
-    defaultValue: process.env.GITLAB_SUDO,
+    defaultValue: process.env.GITBEAKER_SUDO || process.env.GITLAB_SUDO,
   },
-  'gl-camelize': {
+  'gb-camelize': {
+    alias: 'gl-camelize',
     desc: 'Camelizes all response body keys',
     type: 'boolean',
-    defaultValue: process.env.GITLAB_CAMELIZE && process.env.GITLAB_CAMELIZE === 'true',
+    defaultValue:
+      (process.env.GITBEAKER_CAMELIZE && process.env.GITBEAKER_CAMELIZE === 'true') ||
+      (process.env.GITLAB_CAMELIZE && process.env.GITLAB_CAMELIZE === 'true'),
   },
-  'gl-request-timeout': {
+  'gb-request-timeout': {
+    alias: 'gl-request-timeout',
     desc: 'Timeout for API requests. Measured in ms',
     type: 'number',
     defaultValue:
-      process.env.GITLAB_REQUEST_TIMEOUT && parseInt(process.env.GITLAB_REQUEST_TIMEOUT, 10),
+      (process.env.GITBEAKER_REQUEST_TIMEOUT &&
+        parseInt(process.env.GITBEAKER_REQUEST_TIMEOUT, 10)) ||
+      (process.env.GITBEAKER_REQUEST_TIMEOUT &&
+        parseInt(process.env.GITBEAKER_REQUEST_TIMEOUT, 10)),
   },
-  'gl-profile-token': {
+  'gb-profile-token': {
+    alias: 'gl-profile-token',
     desc:
       '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
     type: 'string',
-    defaultValue: process.env.GITLAB_PROFILE_TOKEN,
+    defaultValue: process.env.GITBEAKER_PROFILE_TOKEN || process.env.GITLAB_PROFILE_TOKEN,
   },
-  'gl-profile-mode': {
+  'gb-profile-mode': {
+    alias: 'gl-profile-mode',
     desc:
       '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
     type: 'string',
-    defaultValue: process.env.GITLAB_PROFILE_MODE,
+    defaultValue: process.env.GITBEAKER_PROFILE_MODE || process.env.GITLAB_PROFILE_MODE,
   },
 };
 
@@ -106,7 +121,7 @@ function runAPIMethod(args, apiName, method) {
   Object.entries(args).forEach(([argName, value]) => {
     if (ignoreOptions.includes(argName)) return;
 
-    const camelCased = camelize(argName.replace('gl-', ''), '-');
+    const camelCased = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
 
     if (globalConfig[argName]) {
       initArgs[camelCased] = value;
@@ -115,7 +130,7 @@ function runAPIMethod(args, apiName, method) {
   });
 
   // Create service
-  const s = new core[apiName](initArgs);
+  const s = new Gitbeaker[apiName](initArgs);
 
   // Execute function
   const spinner = ora({ text: 'Calling Gitlab', color: 'yellow' }).start();
@@ -126,6 +141,7 @@ function runAPIMethod(args, apiName, method) {
       console.log(JSON.stringify(r, null, 3));
     })
     .catch(e => {
+      console.debug(e);
       spinner.fail(e.description);
     });
 }
@@ -188,6 +204,7 @@ program.parse().then(({ argv, output }) => {
       if (v.defaultValue === undefined) return;
 
       display[k] = {
+        alias: v.alias,
         description: v.desc,
         value: v.defaultValue,
       };
