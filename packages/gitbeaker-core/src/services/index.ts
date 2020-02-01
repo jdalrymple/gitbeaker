@@ -1,5 +1,5 @@
 // Groups
-// export * from './Groups';
+export * from './Groups';
 export * from './GroupAccessRequests';
 export * from './GroupBadges';
 export * from './GroupCustomAttributes';
@@ -82,7 +82,7 @@ export * from './GeoNodes';
 export * from './GitignoreTemplates';
 export * from './GitLabCIYMLTemplates';
 export * from './Keys';
-// export * from './License';
+export * from './License';
 export * from './LicenceTemplates';
 export * from './Lint';
 export * from './Namespaces';
