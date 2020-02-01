@@ -86,7 +86,7 @@ export * from './License';
 export * from './LicenceTemplates';
 export * from './Lint';
 export * from './Namespaces';
-// export * from './NotificationSettings';
+export * from './NotificationSettings';
 export * from './Markdown';
 export * from './PagesDomains';
 export * from './Search';
