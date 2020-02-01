@@ -1,46 +1,73 @@
-## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
-
+## [14.2.2](https://github.com/jdalrymple/node-gitlab/compare/14.2.1...14.2.2) (2020-01-30)
 
 ### Bug Fixes
 
-* Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
+- Incorrect request method in MergeRequests.approvalState() method ([#586](https://github.com/jdalrymple/node-gitlab/issues/586)) ([cb5f822](https://github.com/jdalrymple/node-gitlab/commit/cb5f8228ca1f64cc55b79e1ef475c3d49568267a))
+
+## [14.2.1](https://github.com/jdalrymple/node-gitlab/compare/14.2.0...14.2.1) (2020-01-20)
+
+### Bug Fixes
+
+- added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
+
+# [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
+
+### Features
+
+- Adding support for merge_requests in the Deployments API ([911078b](https://github.com/jdalrymple/node-gitlab/commit/911078bba30145a98ba051e672963dbbe8816a6a)), closes [#554](https://github.com/jdalrymple/node-gitlab/issues/554)
+
+## [14.1.1](https://github.com/jdalrymple/node-gitlab/compare/14.1.0...14.1.1) (2020-01-03)
+
+### Bug Fixes
+
+- resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
+
+# [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
+
+### Bug Fixes
+
+- make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
+
+### Features
+
+- Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
+
+## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
+
+### Bug Fixes
+
+- Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
 
 # [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
 
-
 ### Bug Fixes
 
-* Typing on GPGKey method arguments was missing ([#514](https://github.com/jdalrymple/node-gitlab/issues/514)) ([234c9a7](https://github.com/jdalrymple/node-gitlab/commit/234c9a75db9be752e6d4febee171e3b44be6a30a))
-* Typing on Group and Project variable keys was incorrect [#512](https://github.com/jdalrymple/node-gitlab/issues/512) ([#515](https://github.com/jdalrymple/node-gitlab/issues/515)) ([c7afca5](https://github.com/jdalrymple/node-gitlab/commit/c7afca523160ac19707d0207b9892a81b799e645))
-
+- Typing on GPGKey method arguments was missing ([#514](https://github.com/jdalrymple/node-gitlab/issues/514)) ([234c9a7](https://github.com/jdalrymple/node-gitlab/commit/234c9a75db9be752e6d4febee171e3b44be6a30a))
+- Typing on Group and Project variable keys was incorrect [#512](https://github.com/jdalrymple/node-gitlab/issues/512) ([#515](https://github.com/jdalrymple/node-gitlab/issues/515)) ([c7afca5](https://github.com/jdalrymple/node-gitlab/commit/c7afca523160ac19707d0207b9892a81b799e645))
 
 ### BREAKING CHANGES
 
-* The title property is not required for the add method.
+- The title property is not required for the add method.
 
 # [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
 
-
 ### Features
 
-* Adding ability to get a singular member of a project or group, including inheritedMemebrs ([#508](https://github.com/jdalrymple/node-gitlab/issues/508)) ([807171c](https://github.com/jdalrymple/node-gitlab/commit/807171c3ff29977e8f6f5faa9603c550334c2192)), closes [#507](https://github.com/jdalrymple/node-gitlab/issues/507)
-
+- Adding ability to get a singular member of a project or group, including inheritedMemebrs ([#508](https://github.com/jdalrymple/node-gitlab/issues/508)) ([807171c](https://github.com/jdalrymple/node-gitlab/commit/807171c3ff29977e8f6f5faa9603c550334c2192)), closes [#507](https://github.com/jdalrymple/node-gitlab/issues/507)
 
 ### BREAKING CHANGES
 
-* Updated the Members.all function to have the inheritedMembers option to be in the optional object.
+- Updated the Members.all function to have the inheritedMembers option to be in the optional object.
 
 # [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
 
-
 ### Bug Fixes
 
-* Removing required options object in a few of the API methods ([#505](https://github.com/jdalrymple/node-gitlab/issues/505)) ([b709ef6](https://github.com/jdalrymple/node-gitlab/commit/b709ef6716d15368c8775d77e5eb0cf22d6369a7))
-
+- Removing required options object in a few of the API methods ([#505](https://github.com/jdalrymple/node-gitlab/issues/505)) ([b709ef6](https://github.com/jdalrymple/node-gitlab/commit/b709ef6716d15368c8775d77e5eb0cf22d6369a7))
 
 ### Features
 
-* Add Group/File schemas ([#506](https://github.com/jdalrymple/node-gitlab/issues/506)) ([f467816](https://github.com/jdalrymple/node-gitlab/commit/f467816070bffcd3776e5dc3e6074c92bf6d644e))
+- Add Group/File schemas ([#506](https://github.com/jdalrymple/node-gitlab/issues/506)) ([f467816](https://github.com/jdalrymple/node-gitlab/commit/f467816070bffcd3776e5dc3e6074c92bf6d644e))
 
 ## [12.0.1](https://github.com/jdalrymple/node-gitlab/compare/12.0.0...12.0.1) (2019-11-27)
 
