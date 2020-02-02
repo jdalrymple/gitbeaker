@@ -1,6 +1,16 @@
 {
   "packages": ["packages/*"],
-  "version": "14.2.1",
+  "version": "14.2.2",
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "tagVersionPrefix": "",
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "message": "chore(release): release %s"
+    },
+    "version": {
+      "push": false
+    }
+  }
 }
