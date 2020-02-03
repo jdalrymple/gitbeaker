@@ -31,6 +31,7 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
+    "semantic-release": "^17.0.2",
     "ts-jest": "^25.1.0",
     "typescript": "^3.7.5"
   },
@@ -48,6 +49,6 @@
     "test:unit": "jest test/unit",
     "commit": "git-cz --retry",
     "prepublishOnly": "lerna run build",
-    "release": "npx semantic-release"
+    "release": "semantic-release --dry-run"
   }
 }
