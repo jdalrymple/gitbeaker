@@ -4,7 +4,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "cz-conventional-changelog"
     }
   },
   "repository": "github:jdalrymple/gitbeaker",
@@ -16,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "codecov": "^3.6.4",
+    "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -45,7 +46,7 @@
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit",
-    "commit": "npx git-cz",
+    "commit": "git-cz --retry",
     "prepublishOnly": "lerna run build",
     "release": "npx semantic-release"
   }
