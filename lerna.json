@@ -6,6 +6,7 @@
   "tagVersionPrefix": "",
   "command": {
     "publish": {
+      "createRelease": "github",
       "conventionalCommits": true,
       "message": "chore: Release %s"
     },
