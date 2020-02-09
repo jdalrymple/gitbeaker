@@ -49,6 +49,6 @@
     "test:unit": "jest test/unit",
     "commit": "git-cz --retry",
     "prepublishOnly": "lerna run build",
-    "release": "semantic-release --dry-run"
+    "release": "semantic-release --no-ci --debug"
   }
 }
