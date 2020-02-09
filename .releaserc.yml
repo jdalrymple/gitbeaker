@@ -4,7 +4,8 @@ plugins:
   - '@semantic-release/release-notes-generator'
   - 'semantic-release-mnpm'
   # - '@semantic-release/github'
-  - '@semantic-release/git'
+  - - '@semantic-release/git'
+    - message: "chore: Release -- ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
 branches:
   - test-release
   - test
