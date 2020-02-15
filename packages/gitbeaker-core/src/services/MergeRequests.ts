@@ -48,6 +48,30 @@ export interface UpdateMergeRequestOptions {
   allow_maintainer_to_push?: boolean;
 }
 
+export interface AllMergeRequestsOptions {
+  state?: 'opened' | 'closed' | 'locked' | 'merged';
+  order_by?: 'created_at' | 'updated_at';
+  sort?: 'asc' | 'desc';
+  milestone?: 'None' | string;
+  view?: string;
+  labels?: string;
+  with_labels_details?: boolean;
+  created_after?: string;
+  created_before?: string;
+  updated_before?: string;
+  updated_after?: string;
+  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
+  author_id?: number;
+  asignee_id?: number;
+  approver_ids?: Array<number>;
+  approved_by_ids?: Array<number>;
+  my_reaction_emoji?: string;
+  source_branch?: string;
+  target_branch?: string;
+  in?: string;
+  wip?: string;
+}
+
 export class MergeRequests extends BaseService {
   accept(
     projectId: string | number,
@@ -91,7 +115,8 @@ export class MergeRequests extends BaseService {
     projectId,
     groupId,
     ...options
-  }: ({ projectId: string | number } | { groupId: string | number } | {}) &
+  }: ({ projectId: string | number } | { groupId: string | number }) &
+    AllMergeRequestsOptions &
     PaginatedRequestOptions) {
     let url;
 
