@@ -3,13 +3,19 @@ import {
   RequestHelper,
   BaseServiceOptions,
   PaginatedRequestOptions,
-  BaseRequestOptions,
 } from '../infrastructure';
 
-export interface ResourceVariableSchema {
-  key: string;
+export interface BaseResourceVariableSchema {
   variable_type: 'env_var' | 'file';
   value: string;
+  protected: boolean;
+  masked: boolean;
+  // Environment scope is only available for projects.
+  environment_scope?: string;
+}
+
+export interface ResourceVariableSchema extends BaseResourceVariableSchema {
+  key: string;
 }
 
 export class ResourceVariables extends BaseService {
@@ -28,16 +34,25 @@ export class ResourceVariables extends BaseService {
     >;
   }
 
-  create(resourceId: string | number, options?: BaseRequestOptions) {
+  create(
+    resourceId: string | number,
+    options?: ResourceVariableSchema,
+  ): Promise<ResourceVariableSchema> {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}/variables`, options);
+    return RequestHelper.post(this, `${rId}/variables`, options) as Promise<ResourceVariableSchema>;
   }
 
-  edit(resourceId: string | number, keyId: string, options?: BaseRequestOptions) {
+  edit(
+    resourceId: string | number,
+    keyId: string,
+    options?: BaseResourceVariableSchema,
+  ): Promise<ResourceVariableSchema> {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.put(this, `${rId}/variables/${kId}`, options) as Promise<
+      ResourceVariableSchema
+    >;
   }
 
   show(
