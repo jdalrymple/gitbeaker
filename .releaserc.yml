@@ -2,8 +2,8 @@ tagFormat: '${version}'
 plugins:
   - '@semantic-release/commit-analyzer'
   - '@semantic-release/release-notes-generator'
-  - 'semantic-release-mnpm'
-  # - '@semantic-release/github'
+  - 'semantic-release-npmx'
+  - '@semantic-release/github'
   - - '@semantic-release/git'
     - message: "chore: Release 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       assets:
@@ -11,6 +11,3 @@ plugins:
         - '*.lock'
         - - '**/package.json'
           - '!**/node_modules/**/package.json'
-branches:
-  - test-release
-  - test

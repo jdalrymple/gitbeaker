@@ -33,7 +33,7 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "semantic-release": "^17.0.2",
-    "semantic-release-mnpm": "^0.0.0",
+    "semantic-release-npmx": "^0.0.1",
     "ts-jest": "^25.1.0",
     "typescript": "^3.7.5"
   },
