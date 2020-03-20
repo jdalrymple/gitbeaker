@@ -45,7 +45,7 @@
     "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-prettier": "^3.1.1",
     "esm": "^3.2.25",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "husky": "^4.0.0-beta.1",
     "jest": "24.9.0",
