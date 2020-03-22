@@ -9500,10 +9500,10 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
-semantic-release-npmx@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/semantic-release-npmx/-/semantic-release-npmx-1.0.2.tgz#b080d99f662798340fe5130d57bd8d97b356ef3b"
-  integrity sha512-+EgMzoOSj532+GrTEoIHF0lYa+qNOT1pMy8l5EC2Go++c+62YqkbyM0iWV/BHZNQgoBqN8SGPvizl8hDnC2E+g==
+semantic-release-npmx@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/semantic-release-npmx/-/semantic-release-npmx-1.0.4.tgz#577508d590dff9e79b14d9a7685b33e4167d6edb"
+  integrity sha512-JWY0pMH6bbW2DWGMnX1RrfV926Vk4sKgptlvEgisP9r/LISPwhhtvqyCFN4DzKUuW2z04He13d9p/1KWSAjQaA==
   dependencies:
     aggregate-error "^3.0.1"
     execa "^4.0.0"
