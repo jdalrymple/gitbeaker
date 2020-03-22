@@ -1,3 +1,10 @@
+# [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
+
+
+### Features
+
+* Add typing to project and group variables ([#620](https://github.com/jdalrymple/gitbeaker/issues/620)) ([70f39ab](https://github.com/jdalrymple/gitbeaker/commit/70f39ab4310722ea8e61b0309f445ebea758f833))
+
 # [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
 
 
