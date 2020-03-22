@@ -33,7 +33,7 @@
     "lint-staged": "^10.0.8",
     "prettier": "^2.0.1",
     "semantic-release": "^17.0.4",
-    "semantic-release-npmx": "^1.0.4",
+    "semantic-release-npmx": "^1.1.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
   },
@@ -51,6 +51,7 @@
     "test:unit": "jest test/unit",
     "commit": "git-cz --retry",
     "prepublishOnly": "lerna run build",
-    "release": "semantic-release --no-ci --debug"
-  }
+    "release": "semantic-release --no-ci"
+  },
+  "version": "15.0.3"
 }
