@@ -75,7 +75,7 @@ describe('createInstance', () => {
 
     expect(requester).toContainAllKeys(methods);
 
-    methods.forEach(m => {
+    methods.forEach((m) => {
       expect(requester[m]).toBeFunction();
     });
   });
@@ -90,7 +90,7 @@ describe('createInstance', () => {
     };
     const testEndpoint = 'test endpoint';
 
-    methods.forEach(m => {
+    methods.forEach((m) => {
       requester[m](service, testEndpoint, {});
 
       expect(handler).toBeCalledWith(testEndpoint, {});

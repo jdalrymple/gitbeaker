@@ -101,7 +101,7 @@ function param(string) {
 }
 
 function setupAPIMethods(setupArgs, methodArgs) {
-  methodArgs.forEach(name => {
+  methodArgs.forEach((name) => {
     if (name === 'options') return;
 
     setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
@@ -136,11 +136,11 @@ function runAPIMethod(args, apiName, method) {
   const spinner = ora({ text: 'Calling Gitlab', color: 'yellow' }).start();
 
   return s[method.name](...Object.values(coreArgs), optionalArgs)
-    .then(r => {
+    .then((r) => {
       spinner.succeed('Success!');
       console.log(JSON.stringify(r, null, 3));
     })
-    .catch(e => {
+    .catch((e) => {
       console.debug(e);
       spinner.fail(e.description);
     });
@@ -158,8 +158,8 @@ function setupAPIs(setupArgs, apiName, methods) {
     const method = methods[i];
 
     setupArgs.command(param(method.name), {
-      setup: setupMethodArgs => setupAPIMethods(setupMethodArgs, method.args),
-      run: args => runAPIMethod(args, apiName, method),
+      setup: (setupMethodArgs) => setupAPIMethods(setupMethodArgs, method.args),
+      run: (args) => runAPIMethod(args, apiName, method),
     });
   }
 
@@ -172,13 +172,13 @@ program
   .help('-h, --help')
   .epilogue('Copyright 2019')
   .style({
-    usagePrefix: s => usageStyle(s),
-    group: s => groupStyle(s),
-    flags: s => optionStyle(s),
-    usageCommandPlaceholder: s => commandStyle(s),
-    usageOptionsPlaceholder: s => optionStyle(s),
-    desc: s => descriptionStyle(s),
-    hints: s => hintStyle(s),
+    usagePrefix: (s) => usageStyle(s),
+    group: (s) => groupStyle(s),
+    flags: (s) => optionStyle(s),
+    usageCommandPlaceholder: (s) => commandStyle(s),
+    usageOptionsPlaceholder: (s) => optionStyle(s),
+    desc: (s) => descriptionStyle(s),
+    hints: (s) => hintStyle(s),
   });
 
 program.option('-g, --global-args', {
@@ -190,7 +190,7 @@ program.option('-g, --global-args', {
 Object.entries(map).forEach(([apiName, methods]) => {
   program.command(param(apiName), {
     desc: `The ${apiName} API`,
-    setup: setupArgs => setupAPIs(setupArgs, apiName, methods),
+    setup: (setupArgs) => setupAPIs(setupArgs, apiName, methods),
   });
 });
 

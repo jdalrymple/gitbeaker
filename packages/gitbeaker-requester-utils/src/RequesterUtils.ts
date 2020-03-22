@@ -68,9 +68,9 @@ export function defaultRequest(
 export function createInstance(optionsHandler, requestHandler): RequesterType {
   const requester: RequesterType = {} as RequesterType;
 
-  methods.forEach(m => {
+  methods.forEach((m) => {
     /* eslint func-names:0 */
-    requester[m] = function(service, endpoint, options) {
+    requester[m] = function (service, endpoint, options) {
       const requestOptions = optionsHandler(service, { ...options, method: m });
       return requestHandler(endpoint, requestOptions);
     };

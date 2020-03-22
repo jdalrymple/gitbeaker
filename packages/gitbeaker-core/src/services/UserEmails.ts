@@ -5,7 +5,7 @@ import {
   RequestHelper,
 } from '../infrastructure';
 
-const url = userId => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
+const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 
 export class UserEmails extends BaseService {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {

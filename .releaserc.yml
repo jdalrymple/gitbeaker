@@ -1,11 +1,13 @@
-commitPaths":
-  - ./
 tagFormat: '${version}'
-verifyConditions:
-  - '@semantic-release/changelog'
-  - '@semantic-release/npm'
-  - '@semantic-release/git'
-prepare:
-  - '@semantic-release/changelog'
-  - '@semantic-release/npm'
-  - '@semantic-release/git'
+plugins:
+  - '@semantic-release/commit-analyzer'
+  - '@semantic-release/release-notes-generator'
+  - 'semantic-release-npmx'
+  - '@semantic-release/github'
+  - - '@semantic-release/git'
+    - message: "chore: Release 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      assets:
+        - 'CHANGELOG.md'
+        - '*.lock'
+        - - '**/package.json'
+          - '!**/node_modules/**/package.json'

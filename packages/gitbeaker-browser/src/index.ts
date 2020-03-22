@@ -3,8 +3,8 @@ import { Requester } from './KyRequester';
 
 const output = {};
 
-Object.keys(Gitbeaker).forEach(name => {
-  output[name] = args =>
+Object.keys(Gitbeaker).forEach((name) => {
+  output[name] = (args) =>
     new Gitbeaker[name]({
       requester: Requester,
       ...args,
