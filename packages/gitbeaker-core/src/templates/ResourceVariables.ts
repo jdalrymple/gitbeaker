@@ -3,13 +3,31 @@ import {
   RequestHelper,
   BaseServiceOptions,
   PaginatedRequestOptions,
-  BaseRequestOptions,
 } from '../infrastructure';
 
-export interface ResourceVariableSchema {
-  key: string;
+export type ResourceVariableSchema =
+  | ResourceVariableSchemaDefault
+  | ResourceVariableSchemaCamelized;
+
+export interface ResourceVariableSchemaDefault {
   variable_type: 'env_var' | 'file';
   value: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope?: string; // Environment scope is only available for projects.
+  key: string;
+}
+
+export interface ResourceVariableSchemaCamelizedNoKey {
+  variableType: 'env_var' | 'file';
+  value: string;
+  protected: boolean;
+  masked: boolean;
+  environmentScope?: string;
+}
+
+export interface ResourceVariableSchemaCamelized extends ResourceVariableSchemaCamelizedNoKey {
+  key: string;
 }
 
 export class ResourceVariables extends BaseService {
@@ -28,16 +46,25 @@ export class ResourceVariables extends BaseService {
     >;
   }
 
-  create(resourceId: string | number, options?: BaseRequestOptions) {
+  create(
+    resourceId: string | number,
+    options?: ResourceVariableSchemaCamelized,
+  ): Promise<ResourceVariableSchema> {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}/variables`, options);
+    return RequestHelper.post(this, `${rId}/variables`, options) as Promise<ResourceVariableSchema>;
   }
 
-  edit(resourceId: string | number, keyId: string, options?: BaseRequestOptions) {
+  edit(
+    resourceId: string | number,
+    keyId: string,
+    options?: ResourceVariableSchemaCamelizedNoKey,
+  ): Promise<ResourceVariableSchema> {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.put(this, `${rId}/variables/${kId}`, options) as Promise<
+      ResourceVariableSchema
+    >;
   }
 
   show(
