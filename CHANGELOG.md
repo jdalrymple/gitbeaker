@@ -1,3 +1,10 @@
+# [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
+
+
+### Features
+
+* **core:** Override arguments in all template children ([#597](https://github.com/jdalrymple/gitbeaker/issues/597)) ([d9c97d4](https://github.com/jdalrymple/gitbeaker/commit/d9c97d44d1a64aafbe0fed9404a714dd2de010cb))
+
 # [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
 
 
