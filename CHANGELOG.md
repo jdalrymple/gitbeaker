@@ -1,3 +1,34 @@
+# [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
+
+
+### Bug Fixes
+
+* **gitbeaker-core:** 🐛 Notification Settings API special PUT requests ([6c748ec](https://github.com/jdalrymple/gitbeaker/commit/6c748eceb441209a1862bad2790c4c4c1d0bd5e6))
+* **gitbeaker-core:** 🐛 ResourceTemplate.show was using the wrong http method ([e068e6a](https://github.com/jdalrymple/gitbeaker/commit/e068e6a0e2ccbaa307d82e8ccecede6d05133805))
+
+
+### Code Refactoring
+
+* **gitbeaker-core:** 💡 Adjusted the argument order for ResourceAwardEmojis ([348f6c1](https://github.com/jdalrymple/gitbeaker/commit/348f6c1870636d2e3b774c382d1b34e63e9c2aaa))
+* **gitbeaker-core:** 💡 Updated the function header for Group.create ([4a3906a](https://github.com/jdalrymple/gitbeaker/commit/4a3906ad358c3903604a44e3278053befd95bef8))
+* **gitbeaker-core:** 💡 Updated the License API ([2e9e580](https://github.com/jdalrymple/gitbeaker/commit/2e9e58013bad81187f6bd648905f072c240538a9))
+* 💡 Migrated to a monorepo structure ([d9cd4c9](https://github.com/jdalrymple/gitbeaker/commit/d9cd4c9a913d62da7d8337a989bc7bf97d9cc015))
+
+
+### Features
+
+* **gitbeaker-cli:** 🎸 Added support for GITBEAKER_[Property] env variable ([6851800](https://github.com/jdalrymple/gitbeaker/commit/6851800ca84e6c26ab555558d07ce38d069d5705))
+
+
+### BREAKING CHANGES
+
+* **gitbeaker-core:** 🧨 The order of arguments that include both the awardId and noteId has changed. It is now projectId, resourceId, noteId, and then awardId. This affects the award, remove and show functions.
+* **gitbeaker-core:** 🧨 Changed the spelling of the License API from Licence to License. Additionally the license.create method has been replaced with license.add and has a required first parameter that is the license. The license.all method now returns all licenses and no longer the license
+for the current user. This is now done by license.show.
+* **gitbeaker-core:** 🧨 Group.create takes an additional argument
+* 🧨 This migration requires users to import specific subpackages. For NodeJS
+usage, that would be @gitbeaker/node.
+
 ## [14.2.2](https://github.com/jdalrymple/node-gitlab/compare/14.2.1...14.2.2) (2020-01-30)
 
 ### Bug Fixes
