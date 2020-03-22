@@ -52,5 +52,6 @@
     "commit": "git-cz --retry",
     "prepublishOnly": "lerna run build",
     "release": "semantic-release --no-ci --debug"
-  }
+  },
+  "version": "15.0.0"
 }
