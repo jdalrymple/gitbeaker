@@ -5,16 +5,28 @@ import {
   PaginatedRequestOptions,
 } from '../infrastructure';
 
-export interface BaseResourceVariableSchema {
+export type ResourceVariableSchema =
+  | ResourceVariableSchemaDefault
+  | ResourceVariableSchemaCamelized;
+
+export interface ResourceVariableSchemaDefault {
   variable_type: 'env_var' | 'file';
   value: string;
   protected: boolean;
   masked: boolean;
-  // Environment scope is only available for projects.
-  environment_scope?: string;
+  environment_scope?: string; // Environment scope is only available for projects.
+  key: string;
 }
 
-export interface ResourceVariableSchema extends BaseResourceVariableSchema {
+export interface ResourceVariableSchemaCamelizedNoKey {
+  variableType: 'env_var' | 'file';
+  value: string;
+  protected: boolean;
+  masked: boolean;
+  environmentScope?: string;
+}
+
+export interface ResourceVariableSchemaCamelized extends ResourceVariableSchemaCamelizedNoKey {
   key: string;
 }
 
@@ -36,7 +48,7 @@ export class ResourceVariables extends BaseService {
 
   create(
     resourceId: string | number,
-    options?: ResourceVariableSchema,
+    options?: ResourceVariableSchemaCamelized,
   ): Promise<ResourceVariableSchema> {
     const rId = encodeURIComponent(resourceId);
 
@@ -46,7 +58,7 @@ export class ResourceVariables extends BaseService {
   edit(
     resourceId: string | number,
     keyId: string,
-    options?: BaseResourceVariableSchema,
+    options?: ResourceVariableSchemaCamelizedNoKey,
   ): Promise<ResourceVariableSchema> {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
