@@ -1,0 +1,54 @@
+{
+  "name": "@gitbeaker/browser",
+  "description": "Full Browser implementation of the GitLab API. Supports Promises, Async/Await.",
+  "version": "15.0.3",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "dependencies": {
+    "@gitbeaker/core": "^15.0.3",
+    "@gitbeaker/requester-utils": "^15.0.3",
+    "ky": "^0.16.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@rollup/plugin-replace": "^2.3.0",
+    "@types/node": "^13.7.0",
+    "node-fetch": "^2.6.0",
+    "rollup": "^1.31.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "keywords": [
+    "api",
+    "es5",
+    "es6",
+    "gitlab",
+    "gitbeaker",
+    "ky"
+  ],
+  "license": "MIT",
+  "browser": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/gitbeaker"
+  },
+  "scripts": {
+    "build": "tsc && rollup -c"
+  }
+}
