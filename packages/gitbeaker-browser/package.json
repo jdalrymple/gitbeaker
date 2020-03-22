@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/browser",
   "description": "Full Browser implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "15.0.1",
+  "version": "15.0.2",
   "author": {
     "name": "Justin Dalrymple"
   },
