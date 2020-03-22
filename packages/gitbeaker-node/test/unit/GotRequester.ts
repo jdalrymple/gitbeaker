@@ -39,7 +39,7 @@ describe('processBody', () => {
       }),
     ];
 
-    output.forEach(o => expect(o).toBeInstanceOf(Buffer));
+    output.forEach((o) => expect(o).toBeInstanceOf(Buffer));
   });
 
   it('should return a the exact body given when presented with an unknown content-type', async () => {

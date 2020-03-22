@@ -28,7 +28,7 @@ export function processBody(response) {
 
   switch (contentType) {
     case 'application/json': {
-      return response.json().then(v => v || {});
+      return response.json().then((v) => v || {});
     }
     case 'application/octet-stream':
     case 'binary/octet-stream':
@@ -36,7 +36,7 @@ export function processBody(response) {
       return response.blob().then(Buffer.from);
     }
     default: {
-      return response.text().then(t => t || '');
+      return response.text().then((t) => t || '');
     }
   }
 }

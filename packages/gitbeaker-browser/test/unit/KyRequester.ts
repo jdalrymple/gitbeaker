@@ -65,7 +65,7 @@ describe('processBody', () => {
 
     const fulfilled = await Promise.all(output);
 
-    fulfilled.forEach(o => expect(o).toBeInstanceOf(Buffer));
+    fulfilled.forEach((o) => expect(o).toBeInstanceOf(Buffer));
   });
 
   it('should return a text body given when presented with an unknown content-type', async () => {
