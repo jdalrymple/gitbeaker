@@ -1972,9 +1972,9 @@ acorn-walk@^6.0.1:
   integrity sha512-7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==
 
 acorn@^5.7.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
-  integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.4.tgz#3e8d8a9947d0599a1796d10225d7432f4a4acf5e"
+  integrity sha512-1D++VG7BhrtvQpNbBzovKNc1FLGGEE/oGe7b9xJm/RFHMBeUaUGpluV9RLjZa47YFdPcDAenEYuq9pQPcMdLJg==
 
 acorn@^6.0.1:
   version "6.4.0"
@@ -9510,10 +9510,10 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
-semantic-release-npmx@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/semantic-release-npmx/-/semantic-release-npmx-1.0.4.tgz#577508d590dff9e79b14d9a7685b33e4167d6edb"
-  integrity sha512-JWY0pMH6bbW2DWGMnX1RrfV926Vk4sKgptlvEgisP9r/LISPwhhtvqyCFN4DzKUuW2z04He13d9p/1KWSAjQaA==
+semantic-release-npmx@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/semantic-release-npmx/-/semantic-release-npmx-1.1.0.tgz#c55fbf329366c24d107e377eeaf6827229bccb70"
+  integrity sha512-Cxe2VJO0O2BVxKzKSOSG23Qe/mbNX5eX7K9DpbkEWt83l1j2ZswocoEPSDaPywmJVZLdO+WKDe/1Q3LwslKB6Q==
   dependencies:
     aggregate-error "^3.0.1"
     execa "^4.0.0"

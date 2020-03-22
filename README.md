@@ -134,7 +134,7 @@ Available instantiating options:
 The CLI export functions in a similar manner, following the pattern:
 
 ```bash
-gitlab [service name] [method name] --arg1 --arg2 --arg3
+gitbeaker [service name] [method name] --arg1 --arg2 --arg3
 ```
 
 Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments whose names should match what the GitLab API docs request.
@@ -143,10 +143,10 @@ There is one small exception with the instantiating arguments, however, which mu
 
 ```bash
 # To get all the projects
-gitlab projects all --gb-token="personaltoken"
+gitbeaker projects all --gb-token="personaltoken"
 
 # To get a project with id = 2
-gitlab projects show --gl-token="personaltoken" --projectId=2
+gitbeaker projects show --gl-token="personaltoken" --projectId=2
 ```
 
 To reduce the annoyance of having to pass those configuration properties each time, it is also possible to pass the token and host information through environment variables in the form of `GITLAB_[option name]` or `GITBEAKER_[option name]` ie:
@@ -402,7 +402,7 @@ const api = new Gitlab({
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all().then(projects => {
+api.Projects.all().then((projects) => {
   console.log(projects);
 });
 ```
