@@ -1,0 +1,12 @@
+extends:
+  - '@commitlint/config-lerna-scopes'
+  - '@commitlint/config-conventional'
+rules:
+  subject-case:
+    - 0
+    - always
+    - 'sentence-case'
+  header-case:
+    - 0
+    - always
+    - 'sentence-case'
