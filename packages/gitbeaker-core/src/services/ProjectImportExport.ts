@@ -5,7 +5,7 @@ export interface UploadMetadata {
   contentType?: string;
 }
 
-export const defaultMetadata: UploadMetadata = {
+export const defaultMetadata = {
   filename: `${Date.now().toString()}.tar.gz`,
   contentType: 'application/octet-stream',
 };
@@ -23,11 +23,15 @@ export class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, path: string, options?: BaseRequestOptions) {
+  import(
+    content: string,
+    path: string,
+    { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
+  ) {
     return RequestHelper.post(this, 'projects/import', {
       isForm: true,
       ...options,
-      file: { content, metadata: defaultMetadata },
+      file: { content, metadata: { ...defaultMetadata, ...metadata } },
       path,
     });
   }
