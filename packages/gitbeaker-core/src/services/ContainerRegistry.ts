@@ -39,8 +39,7 @@ export class ContainerRegistry extends BaseService {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      name_regex,
+      nameRegex,
       ...options,
     });
   }
