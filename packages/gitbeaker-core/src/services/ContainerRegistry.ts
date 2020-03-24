@@ -33,7 +33,7 @@ export class ContainerRegistry extends BaseService {
     projectId: string | number,
     repositoryId: number,
     nameRegex: string,
-    options?: Sudo & { nameRegexKeep: string, keepN: string; olderThan: string },
+    options?: Sudo & { keepN: string; olderThan: string },
   ) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
