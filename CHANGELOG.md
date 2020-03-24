@@ -1,3 +1,15 @@
+# [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
+
+
+### Bug Fixes
+
+* **core:** Adding better handling for form type arguments ([#570](https://github.com/jdalrymple/gitbeaker/issues/570)) ([4751ed2](https://github.com/jdalrymple/gitbeaker/commit/4751ed225fd8df6ac23200e92473ba8346901dbe)), closes [#568](https://github.com/jdalrymple/gitbeaker/issues/568)
+
+
+### BREAKING CHANGES
+
+* **core:** Trigger.pipeline now has a defined variables property to house all the pipeline variables to be set. Before these variables were set on the root object, but this made it difficult to parse any future options that may be added to this function.
+
 # [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
 
 
