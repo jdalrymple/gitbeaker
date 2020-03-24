@@ -32,9 +32,8 @@ export class ContainerRegistry extends BaseService {
   removeTags(
     projectId: string | number,
     repositoryId: number,
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    name_regex: string,
-    options?: Sudo & { keep_n: string; older_than: string },
+    nameRegex: string,
+    options?: Sudo & { keepN: string; olderThan: string },
   ) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
