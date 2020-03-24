@@ -1,3 +1,10 @@
+## [17.0.1](https://github.com/jdalrymple/gitbeaker/compare/17.0.0...17.0.1) (2020-03-24)
+
+
+### Bug Fixes
+
+* Version updates ([2db0be8](https://github.com/jdalrymple/gitbeaker/commit/2db0be83099be589af956dbac5e201e29e09f7cf))
+
 # [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
 
 
