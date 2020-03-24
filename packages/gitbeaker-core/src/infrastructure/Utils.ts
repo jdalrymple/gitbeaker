@@ -1,3 +1,5 @@
+import FormData from 'form-data';
+
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
   new (...args: any): any;
@@ -26,4 +28,6 @@ export function appendFormFromObject(object) {
     if (Array.isArray(v)) form.append(k, v[0], v[1]);
     else form.append(k, v as any);
   });
+
+  return form;
 }

@@ -1,6 +1,7 @@
 import Li from 'li';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from './BaseService';
+import { appendFormFromObject } from './Utils';
 
 export interface Sudo {
   sudo?: string | number;
@@ -49,9 +50,8 @@ export type DelResponse = ExpandedResponse | object;
 async function get(
   service: BaseService,
   endpoint: string,
-  options: PaginatedRequestOptions = {},
+  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
 ): Promise<GetResponse> {
-  const { showExpanded, maxPages, sudo, ...query } = options;
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
     sudo,
@@ -117,12 +117,12 @@ function stream(service: BaseService, endpoint: string, options: BaseRequestOpti
 async function post(
   service: BaseService,
   endpoint: string,
-  options: BaseRequestOptions = {},
+  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
 ): Promise<PostResponse> {
-  const { sudo, form, showExpanded, ...body } = options;
+  const body = isForm ? appendFormFromObject(options) : options;
 
   const r = await service.requester.post(service, endpoint, {
-    body: form || body,
+    body,
     sudo,
   });
 
@@ -132,9 +132,8 @@ async function post(
 async function put(
   service: BaseService,
   endpoint: string,
-  options: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
 ): Promise<PutResponse> {
-  const { sudo, showExpanded, ...body } = options;
   const r = await service.requester.put(service, endpoint, {
     body,
     sudo,
@@ -146,9 +145,8 @@ async function put(
 async function del(
   service: BaseService,
   endpoint: string,
-  options: BaseRequestOptions = {},
+  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
 ): Promise<DelResponse> {
-  const { sudo, showExpanded, ...query } = options;
   const r = await service.requester.delete(service, endpoint, {
     query,
     sudo,

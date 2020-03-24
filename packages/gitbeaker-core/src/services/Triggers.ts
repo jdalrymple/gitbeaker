@@ -1,4 +1,3 @@
-import FormData from 'form-data';
 import {
   BaseRequestOptions,
   BaseService,
@@ -30,19 +29,23 @@ export class Triggers extends BaseService {
     projectId: string | number,
     ref: string,
     token: string,
-    { sudo, ...options }: BaseRequestOptions = {},
+    { variables }: { variables?: Record<string, string> } = {},
   ) {
     const pId = encodeURIComponent(projectId);
-    const form = new FormData();
+    const hapiVariables = {};
 
-    form.append('ref', ref);
-    form.append('token', token);
+    if (variables) {
+      Object.entries(variables).forEach(([k, v]) => {
+        hapiVariables[`variables[${k}]`] = v;
+      });
+    }
 
-    Object.entries(options).forEach(([k, v]) => {
-      form.append(`variables[${k}]`, v);
+    return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, {
+      isForm: true,
+      ref,
+      token,
+      ...hapiVariables,
     });
-
-    return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, { sudo, form });
   }
 
   remove(projectId: string | number, triggerId: number, options?: Sudo) {

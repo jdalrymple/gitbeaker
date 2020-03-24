@@ -1,3 +1,4 @@
+import FormData from 'form-data';
 import { RequestHelper, BaseService } from '../../../src/infrastructure';
 
 /* eslint no-empty-pattern: 0 */
@@ -226,12 +227,15 @@ describe('RequestHelper.post()', () => {
     expect(requester.post).toBeCalledWith(service, 'test', { body: {}, sudo: 'yes' });
   });
 
-  it('should by default pass the form, before the body if passed', async () => {
+  it('should pass arguments as form arguments if the isForm flag is passed', async () => {
     requester.post = jest.fn(() => ({ body: '' }));
 
-    RequestHelper.post(service, 'test', { form: 1, test: 3 });
+    RequestHelper.post(service, 'test', { isForm: true, test: 3 });
 
-    expect(requester.post).toBeCalledWith(service, 'test', { body: 1, sudo: undefined });
+    expect(requester.post).toBeCalledWith(service, 'test', {
+      body: expect.any(FormData),
+      sudo: undefined,
+    });
   });
 });
 
