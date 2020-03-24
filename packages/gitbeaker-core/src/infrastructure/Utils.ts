@@ -28,4 +28,6 @@ export function appendFormFromObject(object) {
     if (Array.isArray(v)) form.append(k, v[0], v[1]);
     else form.append(k, v as any);
   });
+
+  return form;
 }
