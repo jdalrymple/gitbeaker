@@ -32,13 +32,15 @@ export class ContainerRegistry extends BaseService {
   removeTags(
     projectId: string | number,
     repositoryId: number,
-    tagNameRegex: string,
-    options?: Sudo & { keepN: string; olderThan: string },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    name_regex: string,
+    options?: Sudo & { keep_n: string; older_than: string },
   ) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
-      tagNameRegex,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      name_regex,
       ...options,
     });
   }
