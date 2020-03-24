@@ -32,13 +32,13 @@ export class ContainerRegistry extends BaseService {
   removeTags(
     projectId: string | number,
     repositoryId: number,
-    nameRegex: string,
-    options?: Sudo & { keepN: string; olderThan: string },
+    nameRegexDelete: string,
+    options?: Sudo & { nameRegexKeep: string; keepN: string; olderThan: string },
   ) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.del(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
-      nameRegex,
+      nameRegexDelete,
       ...options,
     });
   }
