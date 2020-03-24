@@ -1,3 +1,15 @@
+# [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
+
+
+* Fixed variable name for registry method, as per … (#646) ([992b809](https://github.com/jdalrymple/gitbeaker/commit/992b809cb10959ea8c5c8d16ab7f8713b102da72)), closes [#646](https://github.com/jdalrymple/gitbeaker/issues/646)
+
+
+### BREAKING CHANGES
+
+* 🧨 A `removeTags` method parameter name changed from tagNameRegex to nameRegex. Works with GitLab 12.x.
+
+Co-authored-by: Joseph Petersen <josephp90@gmail.com>
+
 # [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
 
 

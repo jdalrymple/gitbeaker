@@ -54,5 +54,5 @@
     "prepublishOnly": "lerna run build",
     "release": "semantic-release --no-ci"
   },
-  "version": "15.2.0"
+  "version": "16.0.0"
 }
