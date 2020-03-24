@@ -431,6 +431,36 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@gitbeaker/core@^15.1.0":
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/@gitbeaker/core/-/core-15.2.0.tgz#b511c415068fd5660c8747a4b6ef46fdbc974b12"
+  integrity sha512-h16HJylDRLeOkBCB3l4X3xv/sOWtuEILWH3btrtfU71imNOTajLn/JEKliCknJ5GBEjMrguqzHfwnt01kFAVbw==
+  dependencies:
+    "@gitbeaker/requester-utils" "^15.1.0"
+    form-data "^3.0.0"
+    li "^1.3.0"
+    xcase "^2.0.1"
+
+"@gitbeaker/node@^15.1.0":
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/@gitbeaker/node/-/node-15.2.0.tgz#ac44325edf835d528eabc13cb0d1a3893b4376f4"
+  integrity sha512-YKhYI0iHH/LhDYH/MKhIehbEQRwslUcaPA8peUtkEa4Tpdx6rKFXiRbyd+hJLewtJxgb6EivruhrXDXvKEzU+w==
+  dependencies:
+    "@gitbeaker/core" "^15.1.0"
+    "@gitbeaker/requester-utils" "^15.1.0"
+    form-data "^3.0.0"
+    got "^10.6.0"
+    xcase "^2.0.1"
+
+"@gitbeaker/requester-utils@^15.1.0":
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/@gitbeaker/requester-utils/-/requester-utils-15.2.0.tgz#e4e17e1a81ffcb1a9f70364e7e7b2eb15dd6e9b3"
+  integrity sha512-Q6W2l8YpufVuhq3HBmR1H84+J3g3JJIt3AuqV05rlNXl1qmkOLoOZMqW5KrRuIHxNcmDLhRDAVd/7bkOK5fhJA==
+  dependencies:
+    form-data "^3.0.0"
+    query-string "^6.11.1"
+    xcase "^2.0.1"
+
 "@iarna/cli@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@iarna/cli/-/cli-1.2.0.tgz#0f7af5e851afe895104583c4ca07377a8094d641"
@@ -1861,15 +1891,6 @@
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.24.0":
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.24.0.tgz#a5cb2ed89fedf8b59638dc83484eb0c8c35e1143"
-  integrity sha512-DXrwuXTdVh3ycNCMYmWhUzn/gfqu9N0VzNnahjiDJvcyhfBy4gb59ncVZVxdp5XzBC77dCncu0daQgOkbvPwBw==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.24.0"
-    eslint-scope "^5.0.0"
-
 "@typescript-eslint/experimental-utils@2.25.0", "@typescript-eslint/experimental-utils@^2.5.0":
   version "2.25.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.25.0.tgz#13691c4fe368bd377b1e5b1e4ad660b220bf7714"
@@ -1889,19 +1910,6 @@
     "@typescript-eslint/experimental-utils" "2.25.0"
     "@typescript-eslint/typescript-estree" "2.25.0"
     eslint-visitor-keys "^1.1.0"
-
-"@typescript-eslint/typescript-estree@2.24.0":
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.24.0.tgz#38bbc8bb479790d2f324797ffbcdb346d897c62a"
-  integrity sha512-RJ0yMe5owMSix55qX7Mi9V6z2FDuuDpN6eR5fzRJrp+8in9UF41IGNQHbg5aMK4/PjVaEQksLvz0IA8n+Mr/FA==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^6.3.0"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@2.25.0":
   version "2.25.0"

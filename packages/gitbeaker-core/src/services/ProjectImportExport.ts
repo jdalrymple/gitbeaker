@@ -1,10 +1,14 @@
-import FormData from 'form-data';
 import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 export interface UploadMetadata {
   filename?: string;
   contentType?: string;
 }
+
+export const defaultMetadata: UploadMetadata = {
+  filename: `${Date.now().toString()}.tar.gz`,
+  contentType: 'application/octet-stream',
+};
 
 export class ProjectImportExport extends BaseService {
   download(projectId: string | number, options?: Sudo) {
@@ -19,18 +23,13 @@ export class ProjectImportExport extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/export`, options);
   }
 
-  import(content: string, path: string, options?: Sudo) {
-    const form = new FormData();
-
-    const defaultMetadata: UploadMetadata = {
-      filename: `${Date.now().toString()}.tar.gz`,
-      contentType: 'application/octet-stream',
-    };
-
-    form.append('file', content, defaultMetadata);
-    form.append('path', path);
-
-    return RequestHelper.post(this, 'projects/import', { ...options, form });
+  import(content: string, path: string, options?: BaseRequestOptions) {
+    return RequestHelper.post(this, 'projects/import', {
+      isForm: true,
+      ...options,
+      file: { content, metadata: defaultMetadata },
+      path,
+    });
   }
 
   importStatus(projectId: string | number, options?: Sudo) {

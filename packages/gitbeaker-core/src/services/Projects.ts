@@ -1,4 +1,3 @@
-import FormData from 'form-data';
 import {
   BaseRequestOptions,
   BaseService,
@@ -7,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 import { EventOptions } from './Events';
-import { UploadMetadata } from './ProjectImportExport';
+import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 
 export type NamespaceInfoSchema = NamespaceInfoSchemaDefault | NamespaceInfoSchemaCamelize;
 
@@ -55,7 +54,7 @@ export interface ProjectSchemaCamelized {
 
 export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'projects', options);
+    return RequestHelper.get(this, 'projects', options) as Promise<ProjectSchema[]>;
   }
 
   archive(projectId: string | number, options?: Sudo) {
@@ -180,17 +179,17 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/unstar`, options);
   }
 
-  upload(projectId, content, { metadata, sudo }: { metadata?: UploadMetadata } & Sudo = {}) {
+  upload(
+    projectId,
+    content,
+    { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
+  ) {
     const pId = encodeURIComponent(projectId);
-    const form = new FormData();
 
-    const defaultMetadata: UploadMetadata = {
-      filename: Date.now().toString(),
-      contentType: 'application/octet-stream',
-    };
-
-    form.append('file', content, Object.assign(defaultMetadata, metadata));
-
-    return RequestHelper.post(this, `projects/${pId}/uploads`, { sudo, form });
+    return RequestHelper.post(this, `projects/${pId}/uploads`, {
+      isForm: true,
+      file: { content, metadata: { ...defaultMetadata, ...metadata } },
+      ...options,
+    });
   }
 }
