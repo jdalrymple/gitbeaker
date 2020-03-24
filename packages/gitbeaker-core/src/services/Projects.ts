@@ -8,8 +8,6 @@ import {
 import { EventOptions } from './Events';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 
-export type NamespaceInfoSchema = NamespaceInfoSchemaDefault | NamespaceInfoSchemaCamelize;
-
 export interface NamespaceInfoSchemaDefault {
   id: number;
   name: string;
@@ -34,7 +32,7 @@ export interface ProjectSchemaDefault {
   name_with_namespace: string;
   path: string;
   path_with_namespace: string;
-  namespace: NamespaceInfoSchema;
+  namespace: NamespaceInfoSchemaDefault;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   archived: boolean;
@@ -46,7 +44,7 @@ export interface ProjectSchemaCamelized {
   nameWithNamespace: string;
   path: string;
   pathWithNamespace: string;
-  namespace: NamespaceInfoSchema;
+  namespace: NamespaceInfoSchemaCamelize;
   sshUrlToRepo: string;
   httpUrlToRepo: string;
   archived: boolean;
