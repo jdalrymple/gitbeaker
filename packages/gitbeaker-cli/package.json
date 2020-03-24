@@ -22,7 +22,7 @@
   "devDependencies": {
     "@rollup/plugin-json": "^4.0.2",
     "rollup": "^2.1.0",
-    "rollup-plugin-preserve-shebangs": "^0.1.2",
+    "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.26.0",
     "strip-ansi": "^6.0.0",
