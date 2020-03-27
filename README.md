@@ -402,8 +402,15 @@ const api = new Gitlab({
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all().then((projects) => {
+api.Projects.all().then(projects => {
   console.log(projects);
+  for (let project of projects) {
+    // Listing project members(including inherited members)
+    // see. https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members
+    api.ProjectMembers.all(project.id, { includeInherited: true }).then(members => {
+      console.log(members);
+    });
+  }
 });
 ```
 
