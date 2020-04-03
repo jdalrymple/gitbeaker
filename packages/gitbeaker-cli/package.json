@@ -14,7 +14,7 @@
   "dependencies": {
     "@gitbeaker/core": "^17.0.0",
     "@gitbeaker/node": "^17.0.0",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "ora": "^4.0.3",
     "sywac": "^1.2.2",
     "xcase": "^2.0.1"
