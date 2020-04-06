@@ -94,14 +94,11 @@ const { Gitlab } = require('@gitbeaker/node');
 
 **Browser**
 
-```javascript
-// ES6 (>=node 10.16.0 LTS)
-import { Gitlab } from '@gitbeaker/browser'; // All Resources
-import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
-//...etc
-
-// ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('@gitbeaker/browser');
+```html
+<script src="node_modules/@gitbeaker/browser/dist/index.js" />
+<script>
+  const { Gitlab } = gitbeaker;
+  ...
 ```
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
