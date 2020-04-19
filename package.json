@@ -44,7 +44,7 @@
     "release": "auto shipit",
     "info": "auto info"
   },
-  "version": "17.0.1",
+  "version": "17.0.3",
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "name": "gitbeaker"
 }
