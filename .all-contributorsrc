@@ -1,0 +1,14 @@
+{
+  "projectName": "gitbeaker",
+  "projectOwner": "Justin Dalrymple",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [],
+  "contributorsPerLine": 7
+}

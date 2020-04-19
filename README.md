@@ -1,4 +1,7 @@
 <div align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <br>
   <img alt="gitbeaker" src=".github/ASSETS/header.svg">
 </div>
@@ -20,8 +23,8 @@
     <img src="https://david-dm.org/jdalrymple/gitbeaker/dev-status.svg.svg" alt="Dev Dependency Status" />
   </a>
   <img src="https://flat.badgen.net/dependabot/jdalrymple/gitbeaker?icon=dependabot" alt="Dependabot Badge" />
-  <a href="https://github.com/semantic-release/semantic-release">
-    <img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="Semantic Release">
+  <a href="https://github.com/intuit/auto">
+    <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
   <a href="http://commitizen.github.io/cz-cli/">
     <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen">
@@ -94,11 +97,14 @@ const { Gitlab } = require('@gitbeaker/node');
 
 **Browser**
 
-```html
-<script src="node_modules/@gitbeaker/browser/dist/index.js" />
-<script>
-  const { Gitlab } = gitbeaker;
-  ...
+```javascript
+// ES6 (>=node 10.16.0 LTS)
+import { Gitlab } from '@gitbeaker/browser'; // All Resources
+import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
+//...etc
+
+// ES5, assuming native or polyfilled Promise is available
+const { Gitlab } = require('@gitbeaker/browser');
 ```
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
@@ -399,15 +405,8 @@ const api = new Gitlab({
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all().then(projects => {
+api.Projects.all().then((projects) => {
   console.log(projects);
-  for (let project of projects) {
-    // Listing project members(including inherited members)
-    // see. https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members
-    api.ProjectMembers.all(project.id, { includeInherited: true }).then(members => {
-      console.log(members);
-    });
-  }
 });
 ```
 
@@ -618,6 +617,14 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 ## Contributors
 
 This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/node-gitlab-legacy) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab-legacy#contributors).
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
