@@ -37,7 +37,7 @@ labels:
 
   - name: technical debt
     changelogTitle: 👷🏼‍♀️ Technical Debt
-    description: Changes that affect the internal code, improving performance/quaility
+    description: Changes only affect the internal code, improving performance/quaility
     releaseType: patch
 
   - name: dependencies
