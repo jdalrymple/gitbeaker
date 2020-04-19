@@ -9,6 +9,27 @@
   "imageSize": 50,
   "commit": false,
   "commitConvention": "angular",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "jdalrymple",
+      "name": "Justin Dalrymple",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3743662?v=4",
+      "profile": "https://github.com/jdalrymple",
+      "contributions": [
+        "doc",
+        "code",
+        "infra"
+      ]
+    },
+    {
+      "login": "akira345",
+      "name": "akira345",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/655764?v=4",
+      "profile": "https://github.com/akira345",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
