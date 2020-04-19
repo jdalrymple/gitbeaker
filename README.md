@@ -1,7 +1,4 @@
 <div align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <br>
   <img alt="gitbeaker" src=".github/ASSETS/header.svg">
 </div>
@@ -26,8 +23,8 @@
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
-  <a href="http://commitizen.github.io/cz-cli/">
-    <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen">
+  <a href="#contributors-">
+    <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square" alt="All Contributors" />
   </a>
   <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
   <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
@@ -630,6 +627,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)

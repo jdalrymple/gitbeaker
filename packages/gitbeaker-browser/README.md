@@ -20,11 +20,8 @@
     <img src="https://david-dm.org/jdalrymple/gitbeaker/dev-status.svg.svg" alt="Dev Dependency Status" />
   </a>
   <img src="https://flat.badgen.net/dependabot/jdalrymple/gitbeaker?icon=dependabot" alt="Dependabot Badge" />
-  <a href="https://github.com/semantic-release/semantic-release">
-    <img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="Semantic Release">
-  </a>
-  <a href="http://commitizen.github.io/cz-cli/">
-    <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen">
+  <a href="https://github.com/intuit/auto">
+    <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
   <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
   <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
