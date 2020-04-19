@@ -94,14 +94,11 @@ const { Gitlab } = require('@gitbeaker/node');
 
 **Browser**
 
-```javascript
-// ES6 (>=node 10.16.0 LTS)
-import { Gitlab } from '@gitbeaker/browser'; // All Resources
-import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
-//...etc
-
-// ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('@gitbeaker/browser');
+```html
+<script src="node_modules/@gitbeaker/browser/dist/index.js" />
+<script>
+  const { Gitlab } = gitbeaker;
+  ...
 ```
 
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
@@ -402,8 +399,15 @@ const api = new Gitlab({
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all().then((projects) => {
+api.Projects.all().then(projects => {
   console.log(projects);
+  for (let project of projects) {
+    // Listing project members(including inherited members)
+    // see. https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members
+    api.ProjectMembers.all(project.id, { includeInherited: true }).then(members => {
+      console.log(members);
+    });
+  }
 });
 ```
 
