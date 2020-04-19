@@ -125,4 +125,5 @@ release:
   before_script:
     - apk add --no-cache git
     - git checkout master
+    - yarn all-contributors check
   script: yarn release
