@@ -124,4 +124,5 @@ release:
   stage: release
   before_script:
     - apk add --no-cache git
+    - git checkout master
   script: yarn release
