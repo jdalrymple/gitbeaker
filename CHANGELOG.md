@@ -1,3 +1,44 @@
+# v17.0.2 (Sun Apr 19 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Testing out auto as a release system [#693](https://github.com/jdalrymple/gitbeaker/pull/693) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️  Pushed to `master`
+
+- Label configuration updates ([@jdalrymple](https://github.com/jdalrymple))
+- docs: Update documentation for browser imports ([@jdalrymple](https://github.com/jdalrymple))
+- Create FUNDING.yml ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @semantic-release/changelog from 5.0.0 to 5.0.1 [#650](https://github.com/jdalrymple/gitbeaker/pull/650) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-import from 2.20.1 to 2.20.2 [#655](https://github.com/jdalrymple/gitbeaker/pull/655) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump sywac from 1.2.2 to 1.3.0 [#657](https://github.com/jdalrymple/gitbeaker/pull/657) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.25.0 to 2.26.0 [#661](https://github.com/jdalrymple/gitbeaker/pull/661) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-jest from 25.2.1 to 25.3.0 [#662](https://github.com/jdalrymple/gitbeaker/pull/662) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.9.3 to 13.9.8 [#663](https://github.com/jdalrymple/gitbeaker/pull/663) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.0.9 to 10.1.1 [#664](https://github.com/jdalrymple/gitbeaker/pull/664) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.2.0 to 2.3.2 [#665](https://github.com/jdalrymple/gitbeaker/pull/665) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump rollup-plugin-typescript2 from 0.26.0 to 0.27.0 [#654](https://github.com/jdalrymple/gitbeaker/pull/654) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Add example code into README.md [#639](https://github.com/jdalrymple/gitbeaker/pull/639) ([@akira345](https://github.com/akira345))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- akira345 ([@akira345](https://github.com/akira345))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 ## [17.0.1](https://github.com/jdalrymple/gitbeaker/compare/17.0.0...17.0.1) (2020-03-24)
 
 
