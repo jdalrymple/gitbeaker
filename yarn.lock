@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@auto-canary/auto@9.28.1-canary.1159.15008.0":
-  version "9.28.1-canary.1159.15008.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/auto/-/auto-9.28.1-canary.1159.15008.0.tgz#8361ce3078ce68a97dcf4050e5d1bc0ee5c37e3d"
-  integrity sha512-4Ca89GSUmb0PmB206gkGoSDD3OMAO4KNnmEmF2XlozHGY/y/qyo7DziiZg7ZJ7P0fG8NaWEmZCjuo4xwojvNcA==
+"@auto-canary/auto@9.28.2-canary.1160.15021.0":
+  version "9.28.2-canary.1160.15021.0"
+  resolved "https://registry.yarnpkg.com/@auto-canary/auto/-/auto-9.28.2-canary.1160.15021.0.tgz#9774c1b483e79cb3637f22abe0ff6160d9f76ffb"
+  integrity sha512-CJvl0VBB8cGYCi2sHAJLQ2/qWGyoM+WiBENdZMF103uFsrFrRr16Q3UFSzStTKRjXhKRFFsP1u9507TbEG7QXw==
   dependencies:
-    "@auto-canary/core" "9.28.1-canary.1159.15008.0"
-    "@auto-canary/npm" "9.28.1-canary.1159.15008.0"
-    "@auto-canary/released" "9.28.1-canary.1159.15008.0"
+    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
+    "@auto-canary/npm" "9.28.2-canary.1160.15021.0"
+    "@auto-canary/released" "9.28.2-canary.1160.15021.0"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
     command-line-application "^0.9.3"
@@ -19,17 +19,17 @@
     terminal-link "^2.1.1"
     tslib "1.11.1"
 
-"@auto-canary/bot-list@9.28.1-canary.1159.15008.0":
-  version "9.28.1-canary.1159.15008.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/bot-list/-/bot-list-9.28.1-canary.1159.15008.0.tgz#9cfe0b2b3952cd1aab53a7e6881f78291eef70a5"
-  integrity sha512-yY/w1PgcTwZKND7kgtsUoj/6NlQlej5P25FE+bRAV+HBFMgW595aSlmeR1kU8g6aG/MDdJYPgZT8pu7gG9KtUg==
+"@auto-canary/bot-list@9.28.2-canary.1160.15021.0":
+  version "9.28.2-canary.1160.15021.0"
+  resolved "https://registry.yarnpkg.com/@auto-canary/bot-list/-/bot-list-9.28.2-canary.1160.15021.0.tgz#8081a80b0cba6e7661814ae23ee1a6fe0f3e49c0"
+  integrity sha512-dWJpNMZ1zhfJqKWbLooZY5QvABtrAH1RYXoJbt4Wfv1A9Jr4IDi2Vw7e0OQajyR4MeraaAUFs11JlhKmSwnj1A==
 
-"@auto-canary/core@9.28.1-canary.1159.15008.0":
-  version "9.28.1-canary.1159.15008.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/core/-/core-9.28.1-canary.1159.15008.0.tgz#43afd0fb1ddf9566055590f40285917c1d59606a"
-  integrity sha512-m/zPnfi/i1fOcBlIwOvEbhwlGGiOIyYS8F4riArF4DuraIsBYdB5Cs0SY29oIYMaTsx/NyiTmwu/nHIKE0NQyA==
+"@auto-canary/core@9.28.2-canary.1160.15021.0":
+  version "9.28.2-canary.1160.15021.0"
+  resolved "https://registry.yarnpkg.com/@auto-canary/core/-/core-9.28.2-canary.1160.15021.0.tgz#b008eec883c5fe143b8e9ee0a07546e65821d89b"
+  integrity sha512-KInBokb2OM2ZL6CmVPVS1zFp51BX3W9ZxvP9l8TWXZ/IfSLAk0YFFKQOfaYSlVBKL8r155AHlYVmXbcVOzmb/g==
   dependencies:
-    "@auto-canary/bot-list" "9.28.1-canary.1159.15008.0"
+    "@auto-canary/bot-list" "9.28.2-canary.1160.15021.0"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -65,12 +65,12 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-canary/npm@9.28.1-canary.1159.15008.0":
-  version "9.28.1-canary.1159.15008.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/npm/-/npm-9.28.1-canary.1159.15008.0.tgz#3d3691f1bb97ea7bfbd217c9cbd446f8ae5e135d"
-  integrity sha512-0Rirbp3ngPfbF2FyY8Nk6MfLCX02Smu02TjIG3LrgQNrlr9KXSbWNLDm73pQKT9k3FdYIGhWUeACd+uUaAQWDg==
+"@auto-canary/npm@9.28.2-canary.1160.15021.0":
+  version "9.28.2-canary.1160.15021.0"
+  resolved "https://registry.yarnpkg.com/@auto-canary/npm/-/npm-9.28.2-canary.1160.15021.0.tgz#98685bb9c0c56eb1a7df2bf4372bc55e42645c26"
+  integrity sha512-fNTKOOdGslDYbSPniGnvYylNbQMpjeedtPNGxiv82nR0E82EUE4CCQgFdEKHqKKKH9zaxVm2OdTguBZw9TTZzg==
   dependencies:
-    "@auto-canary/core" "9.28.1-canary.1159.15008.0"
+    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
     get-monorepo-packages "^1.1.0"
@@ -84,12 +84,12 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-canary/released@9.28.1-canary.1159.15008.0":
-  version "9.28.1-canary.1159.15008.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/released/-/released-9.28.1-canary.1159.15008.0.tgz#1cebd47e7705111ea749c025cf91db797f68d9ac"
-  integrity sha512-TOYxm2u7EQAqjZ0NeojDYqKZvCeISAf1qG5z9j/ffP7PCuJzaJo0EBFunJRiXdu3GFMAhSKVQ4RRDq2VUzAc0w==
+"@auto-canary/released@9.28.2-canary.1160.15021.0":
+  version "9.28.2-canary.1160.15021.0"
+  resolved "https://registry.yarnpkg.com/@auto-canary/released/-/released-9.28.2-canary.1160.15021.0.tgz#5b65d9c69cf217caf73c5449380ce7bbd8518b5e"
+  integrity sha512-fhB+qFEXPshmr6Spap5POy/Jrat2GvzbK4vCfVc9kK0GEltpulQhNifsNOVTDamt5uF4npugvf/YwpDgcMKGHw==
   dependencies:
-    "@auto-canary/core" "9.28.1-canary.1159.15008.0"
+    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
