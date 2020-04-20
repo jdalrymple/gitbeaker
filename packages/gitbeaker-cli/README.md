@@ -24,11 +24,11 @@
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
   <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: Core">
-  </a>
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
+  </a>
+  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
+    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: Core">
   </a>
 </p>
 

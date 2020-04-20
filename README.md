@@ -24,24 +24,33 @@
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
   <a href="#contributors-">
-    <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square" alt="All Contributors" />
+    <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=round" alt="All Contributors" />
   </a>
   <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/core" alt="Install Size: Core">
-  </a>
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/node">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/node" alt="Install Size: Node">
-  </a>
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/browser" alt="Install Size: Browser">
-  </a>
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
-  </a>
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
   </a>
+
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
+      Core: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/core" alt="Install Size: Core">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/node">
+      Node: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/node" alt="Install Size: Node">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
+      Browser <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/browser" alt="Install Size: Browser">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
+      CLI <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
+    </a>
+  </p>
 </p>
 
 🤖 [GitLab](https://gitlab.com/gitlab-org/gitlab/) API NodeJS library with full support of all the [Gitlab API](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) services.
