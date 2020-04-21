@@ -127,5 +127,6 @@ release:
     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
     - echo '//registry.npmjs.org/:_authToken=$NPM_TOKEN'>.npmrc
     - cat .npmrc
+    - npm whoami
     - git checkout master
   script: yarn release
