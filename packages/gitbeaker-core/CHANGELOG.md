@@ -1,3 +1,21 @@
+# v18.0.0 (Tue Apr 21 2020)
+
+#### 💥 Breaking Change
+
+- feat: Updated an API parameter for GitLab 12.9 [#647](https://github.com/jdalrymple/gitbeaker/pull/647) ([@schindld](https://github.com/schindld))
+
+#### 🐛 Bug Fix
+
+- Testing with verbose logs ([@jdalrymple](https://github.com/jdalrymple))
+- docs: Updating README badges ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@schindld](https://github.com/schindld)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v17.0.2 (Sun Apr 19 2020)
 
 #### 🔩 Dependencies
