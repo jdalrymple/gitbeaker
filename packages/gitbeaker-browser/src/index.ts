@@ -11,5 +11,5 @@ Object.keys(Gitbeaker).forEach((name) => {
     });
 });
 
-/* eslint-disable */
+/* eslint-disable import/no-default-export */
 export default output;

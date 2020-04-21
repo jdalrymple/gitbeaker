@@ -49,6 +49,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c"
+    "build": "tsc && rollup -c",
+    "test:integration": "jest test/integration",
+    "test:unit": "jest test/unit"
   }
 }
