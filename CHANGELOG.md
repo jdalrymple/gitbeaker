@@ -6,29 +6,6 @@
   - feat: Updated an API parameter for GitLab 12.9 [#647](https://github.com/jdalrymple/gitbeaker/pull/647) ([@schindld](https://github.com/schindld))
 
 #### ⚠️  Pushed to `master`
-
-- Set always auth to true ([@jdalrymple](https://github.com/jdalrymple))
-- Trying to figure out why npm isnt logged in ([@jdalrymple](https://github.com/jdalrymple))
-- Ensure file contents are correct ([@jdalrymple](https://github.com/jdalrymple))
-- Remove brackets ([@jdalrymple](https://github.com/jdalrymple))
-- Set npmrc ([@jdalrymple](https://github.com/jdalrymple))
-- print npm user ([@jdalrymple](https://github.com/jdalrymple))
-- explicitly set npm registry ([@jdalrymple](https://github.com/jdalrymple))
-- explicitly set remote for auto ([@jdalrymple](https://github.com/jdalrymple))
-- Print remote ([@jdalrymple](https://github.com/jdalrymple))
-- Double up verbosity ([@jdalrymple](https://github.com/jdalrymple))
-- Print git version ([@jdalrymple](https://github.com/jdalrymple))
-- Trying git reset ([@jdalrymple](https://github.com/jdalrymple))
-- Updating all contributors ([@jdalrymple](https://github.com/jdalrymple))
-- Package updates ([@jdalrymple](https://github.com/jdalrymple))
-- Updating package version ([@jdalrymple](https://github.com/jdalrymple))
-- Check contributors ([@jdalrymple](https://github.com/jdalrymple))
-- Updating root version ([@jdalrymple](https://github.com/jdalrymple))
-- Remove v prefix on release tag ([@jdalrymple](https://github.com/jdalrymple))
-- Ensure checkout of master ([@jdalrymple](https://github.com/jdalrymple))
-- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
-  - Testing with verbose logs ([@jdalrymple](https://github.com/jdalrymple))
-- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
   - docs: Updating README badges ([@jdalrymple](https://github.com/jdalrymple))
 
 #### Authors: 2
