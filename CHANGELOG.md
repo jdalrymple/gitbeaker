@@ -5,31 +5,9 @@
 - `@gitbeaker/core`
   - feat: Updated an API parameter for GitLab 12.9 [#647](https://github.com/jdalrymple/gitbeaker/pull/647) ([@schindld](https://github.com/schindld))
 
-#### ⚠️  Pushed to `master`
+#### ⚠️ Pushed to `master`
 
-- Set always auth to true ([@jdalrymple](https://github.com/jdalrymple))
-- Trying to figure out why npm isnt logged in ([@jdalrymple](https://github.com/jdalrymple))
-- Ensure file contents are correct ([@jdalrymple](https://github.com/jdalrymple))
-- Remove brackets ([@jdalrymple](https://github.com/jdalrymple))
-- Set npmrc ([@jdalrymple](https://github.com/jdalrymple))
-- print npm user ([@jdalrymple](https://github.com/jdalrymple))
-- explicitly set npm registry ([@jdalrymple](https://github.com/jdalrymple))
-- explicitly set remote for auto ([@jdalrymple](https://github.com/jdalrymple))
-- Print remote ([@jdalrymple](https://github.com/jdalrymple))
-- Double up verbosity ([@jdalrymple](https://github.com/jdalrymple))
-- Print git version ([@jdalrymple](https://github.com/jdalrymple))
-- Trying git reset ([@jdalrymple](https://github.com/jdalrymple))
-- Updating all contributors ([@jdalrymple](https://github.com/jdalrymple))
-- Package updates ([@jdalrymple](https://github.com/jdalrymple))
-- Updating package version ([@jdalrymple](https://github.com/jdalrymple))
-- Check contributors ([@jdalrymple](https://github.com/jdalrymple))
-- Updating root version ([@jdalrymple](https://github.com/jdalrymple))
-- Remove v prefix on release tag ([@jdalrymple](https://github.com/jdalrymple))
-- Ensure checkout of master ([@jdalrymple](https://github.com/jdalrymple))
-- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
-  - Testing with verbose logs ([@jdalrymple](https://github.com/jdalrymple))
-- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
-  - docs: Updating README badges ([@jdalrymple](https://github.com/jdalrymple))
+- docs: Updating README badges ([@jdalrymple](https://github.com/jdalrymple))
 
 #### Authors: 2
 
@@ -48,7 +26,7 @@ Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your wor
 
 - Testing out auto as a release system [#693](https://github.com/jdalrymple/gitbeaker/pull/693) ([@jdalrymple](https://github.com/jdalrymple))
 
-#### ⚠️  Pushed to `master`
+#### ⚠️ Pushed to `master`
 
 - Label configuration updates ([@jdalrymple](https://github.com/jdalrymple))
 - docs: Update documentation for browser imports ([@jdalrymple](https://github.com/jdalrymple))
@@ -81,79 +59,68 @@ Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your wor
 
 ## [17.0.1](https://github.com/jdalrymple/gitbeaker/compare/17.0.0...17.0.1) (2020-03-24)
 
-
 ### Bug Fixes
 
-* Version updates ([2db0be8](https://github.com/jdalrymple/gitbeaker/commit/2db0be83099be589af956dbac5e201e29e09f7cf))
+- Version updates ([2db0be8](https://github.com/jdalrymple/gitbeaker/commit/2db0be83099be589af956dbac5e201e29e09f7cf))
 
 # [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
 
-
 ### Bug Fixes
 
-* **core:** Adding better handling for form type arguments ([#570](https://github.com/jdalrymple/gitbeaker/issues/570)) ([4751ed2](https://github.com/jdalrymple/gitbeaker/commit/4751ed225fd8df6ac23200e92473ba8346901dbe)), closes [#568](https://github.com/jdalrymple/gitbeaker/issues/568)
-
+- **core:** Adding better handling for form type arguments ([#570](https://github.com/jdalrymple/gitbeaker/issues/570)) ([4751ed2](https://github.com/jdalrymple/gitbeaker/commit/4751ed225fd8df6ac23200e92473ba8346901dbe)), closes [#568](https://github.com/jdalrymple/gitbeaker/issues/568)
 
 ### BREAKING CHANGES
 
-* **core:** Trigger.pipeline now has a defined variables property to house all the pipeline variables to be set. Before these variables were set on the root object, but this made it difficult to parse any future options that may be added to this function.
+- **core:** Trigger.pipeline now has a defined variables property to house all the pipeline variables to be set. Before these variables were set on the root object, but this made it difficult to parse any future options that may be added to this function.
 
 # [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
 
-
-* Fixed variable name for registry method, as per … (#646) ([992b809](https://github.com/jdalrymple/gitbeaker/commit/992b809cb10959ea8c5c8d16ab7f8713b102da72)), closes [#646](https://github.com/jdalrymple/gitbeaker/issues/646)
-
+- Fixed variable name for registry method, as per … (#646) ([992b809](https://github.com/jdalrymple/gitbeaker/commit/992b809cb10959ea8c5c8d16ab7f8713b102da72)), closes [#646](https://github.com/jdalrymple/gitbeaker/issues/646)
 
 ### BREAKING CHANGES
 
-* 🧨 A `removeTags` method parameter name changed from tagNameRegex to nameRegex. Works with GitLab 12.x.
+- 🧨 A `removeTags` method parameter name changed from tagNameRegex to nameRegex. Works with GitLab 12.x.
 
 Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 # [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
 
-
 ### Features
 
-* **core:** Override arguments in all template children ([#597](https://github.com/jdalrymple/gitbeaker/issues/597)) ([d9c97d4](https://github.com/jdalrymple/gitbeaker/commit/d9c97d44d1a64aafbe0fed9404a714dd2de010cb))
+- **core:** Override arguments in all template children ([#597](https://github.com/jdalrymple/gitbeaker/issues/597)) ([d9c97d4](https://github.com/jdalrymple/gitbeaker/commit/d9c97d44d1a64aafbe0fed9404a714dd2de010cb))
 
 # [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
 
-
 ### Features
 
-* Add typing to project and group variables ([#620](https://github.com/jdalrymple/gitbeaker/issues/620)) ([70f39ab](https://github.com/jdalrymple/gitbeaker/commit/70f39ab4310722ea8e61b0309f445ebea758f833))
+- Add typing to project and group variables ([#620](https://github.com/jdalrymple/gitbeaker/issues/620)) ([70f39ab](https://github.com/jdalrymple/gitbeaker/commit/70f39ab4310722ea8e61b0309f445ebea758f833))
 
 # [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
 
-
 ### Bug Fixes
 
-* **gitbeaker-core:** 🐛 Notification Settings API special PUT requests ([6c748ec](https://github.com/jdalrymple/gitbeaker/commit/6c748eceb441209a1862bad2790c4c4c1d0bd5e6))
-* **gitbeaker-core:** 🐛 ResourceTemplate.show was using the wrong http method ([e068e6a](https://github.com/jdalrymple/gitbeaker/commit/e068e6a0e2ccbaa307d82e8ccecede6d05133805))
-
+- **gitbeaker-core:** 🐛 Notification Settings API special PUT requests ([6c748ec](https://github.com/jdalrymple/gitbeaker/commit/6c748eceb441209a1862bad2790c4c4c1d0bd5e6))
+- **gitbeaker-core:** 🐛 ResourceTemplate.show was using the wrong http method ([e068e6a](https://github.com/jdalrymple/gitbeaker/commit/e068e6a0e2ccbaa307d82e8ccecede6d05133805))
 
 ### Code Refactoring
 
-* **gitbeaker-core:** 💡 Adjusted the argument order for ResourceAwardEmojis ([348f6c1](https://github.com/jdalrymple/gitbeaker/commit/348f6c1870636d2e3b774c382d1b34e63e9c2aaa))
-* **gitbeaker-core:** 💡 Updated the function header for Group.create ([4a3906a](https://github.com/jdalrymple/gitbeaker/commit/4a3906ad358c3903604a44e3278053befd95bef8))
-* **gitbeaker-core:** 💡 Updated the License API ([2e9e580](https://github.com/jdalrymple/gitbeaker/commit/2e9e58013bad81187f6bd648905f072c240538a9))
-* 💡 Migrated to a monorepo structure ([d9cd4c9](https://github.com/jdalrymple/gitbeaker/commit/d9cd4c9a913d62da7d8337a989bc7bf97d9cc015))
-
+- **gitbeaker-core:** 💡 Adjusted the argument order for ResourceAwardEmojis ([348f6c1](https://github.com/jdalrymple/gitbeaker/commit/348f6c1870636d2e3b774c382d1b34e63e9c2aaa))
+- **gitbeaker-core:** 💡 Updated the function header for Group.create ([4a3906a](https://github.com/jdalrymple/gitbeaker/commit/4a3906ad358c3903604a44e3278053befd95bef8))
+- **gitbeaker-core:** 💡 Updated the License API ([2e9e580](https://github.com/jdalrymple/gitbeaker/commit/2e9e58013bad81187f6bd648905f072c240538a9))
+- 💡 Migrated to a monorepo structure ([d9cd4c9](https://github.com/jdalrymple/gitbeaker/commit/d9cd4c9a913d62da7d8337a989bc7bf97d9cc015))
 
 ### Features
 
-* **gitbeaker-cli:** 🎸 Added support for GITBEAKER_[Property] env variable ([6851800](https://github.com/jdalrymple/gitbeaker/commit/6851800ca84e6c26ab555558d07ce38d069d5705))
-
+- **gitbeaker-cli:** 🎸 Added support for GITBEAKER\_[Property] env variable ([6851800](https://github.com/jdalrymple/gitbeaker/commit/6851800ca84e6c26ab555558d07ce38d069d5705))
 
 ### BREAKING CHANGES
 
-* **gitbeaker-core:** 🧨 The order of arguments that include both the awardId and noteId has changed. It is now projectId, resourceId, noteId, and then awardId. This affects the award, remove and show functions.
-* **gitbeaker-core:** 🧨 Changed the spelling of the License API from Licence to License. Additionally the license.create method has been replaced with license.add and has a required first parameter that is the license. The license.all method now returns all licenses and no longer the license
-for the current user. This is now done by license.show.
-* **gitbeaker-core:** 🧨 Group.create takes an additional argument
-* 🧨 This migration requires users to import specific subpackages. For NodeJS
-usage, that would be @gitbeaker/node.
+- **gitbeaker-core:** 🧨 The order of arguments that include both the awardId and noteId has changed. It is now projectId, resourceId, noteId, and then awardId. This affects the award, remove and show functions.
+- **gitbeaker-core:** 🧨 Changed the spelling of the License API from Licence to License. Additionally the license.create method has been replaced with license.add and has a required first parameter that is the license. The license.all method now returns all licenses and no longer the license
+  for the current user. This is now done by license.show.
+- **gitbeaker-core:** 🧨 Group.create takes an additional argument
+- 🧨 This migration requires users to import specific subpackages. For NodeJS
+  usage, that would be @gitbeaker/node.
 
 ## [14.2.2](https://github.com/jdalrymple/node-gitlab/compare/14.2.1...14.2.2) (2020-01-30)
 
