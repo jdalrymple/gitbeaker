@@ -1,6 +1,6 @@
 {
   "projectName": "gitbeaker",
-  "projectOwner": "Justin Dalrymple",
+  "projectOwner": "jdalrymple",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -16,9 +16,11 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/3743662?v=4",
       "profile": "https://github.com/jdalrymple",
       "contributions": [
-        "doc",
         "code",
-        "infra"
+        "review",
+        "maintenance",
+        "bug",
+        "ideas"
       ]
     },
     {
@@ -27,7 +29,125 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/655764?v=4",
       "profile": "https://github.com/akira345",
       "contributions": [
-        "doc"
+        "doc",
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "pablobirukov",
+      "name": "Pavel Birukov ",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1861546?v=4",
+      "profile": "https://birukov.me",
+      "contributions": [
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "jetersen",
+      "name": "Joseph Petersen",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1661688?v=4",
+      "profile": "http://jetersen.dev",
+      "contributions": [
+        "review",
+        "ideas",
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "Musinux",
+      "name": "Louis Cherel",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/563373?v=4",
+      "profile": "https://github.com/Musinux",
+      "contributions": [
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "arsdehnel",
+      "name": "Adam Dehnel",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1697162?v=4",
+      "profile": "http://www.arsdehnel.net",
+      "contributions": [
+        "review",
+        "maintenance",
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "EvHaus",
+      "name": "Ev Haus",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/226640?v=4",
+      "profile": "http://www.haus.gg/",
+      "contributions": [
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "LoicMahieu",
+      "name": "Loïc Mahieu",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/900947?v=4",
+      "profile": "http://iGLOO.be",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "giuseppeangri",
+      "name": "Giuseppe Angri",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/9075163?v=4",
+      "profile": "http://www.giuseppeangri.com",
+      "contributions": [
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "jennparise",
+      "name": "jennparise",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4134086?v=4",
+      "profile": "https://github.com/jennparise",
+      "contributions": [
+        "review",
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "obartra",
+      "name": "Oscar",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3877773?v=4",
+      "profile": "http://obartra.github.io",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "DanielRuf",
+      "name": "Daniel Ruf",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/827205?v=4",
+      "profile": "https://daniel-ruf.de",
+      "contributions": [
+        "review",
+        "doc",
+        "bug",
+        "maintenance",
+        "code"
+      ]
+    },
+    {
+      "login": "schindld",
+      "name": "schindld",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1659632?v=4",
+      "profile": "https://github.com/schindld",
+      "contributions": [
+        "review",
+        "code"
       ]
     }
   ],
