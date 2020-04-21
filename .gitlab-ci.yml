@@ -125,6 +125,6 @@ release:
   before_script:
     - apk add --no-cache git
     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-    - git remote show origin
+    - npm set //registry.npmjs.org/:_authToken $NPM_TOKEN -g
     - git checkout master
   script: yarn release
