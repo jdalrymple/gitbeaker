@@ -42,7 +42,7 @@
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit",
-    "release": "auto shipit --verbose"
+    "release": "auto shipit --verbose --verbose"
   },
   "version": "17.0.3",
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
