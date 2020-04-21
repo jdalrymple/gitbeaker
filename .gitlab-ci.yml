@@ -118,6 +118,7 @@ test:utils:unit:
 
 # Release
 release:
+  image: alekzonder/puppeteer:latest
   only:
     refs:
       - master
