@@ -124,5 +124,7 @@ release:
   stage: release
   before_script:
     - apk add --no-cache git
+    - git fetch origin +refs/heads/master:refs/remotes/origin/master
     - git checkout master
+    - git reset --hard "$CI_COMMIT_SHORT_SHA"
   script: yarn release
