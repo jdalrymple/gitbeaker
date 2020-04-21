@@ -113,6 +113,15 @@ import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
 const { Gitlab } = require('@gitbeaker/browser');
 ```
 
+OR through the script tag:
+
+```html
+<script src="node_modules/@gitbeaker/browser/dist/index.js" />
+<script>
+  const { Gitlab } = gitbeaker.default;
+</script>
+```
+
 Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 
 ```javascript
@@ -167,23 +176,6 @@ GITBEAKER_CAMELIZE=true
 ```
 
 This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
-
-### Browser Support
-
-The library is exported as `gitlab` and can be used by simply adding this script to your html file:
-
-```html
-<script src="node_modules/@gitbeaker/browser/index.js" />
-<script>
-  const { Gitlab } = gitlab;
-
-  const api = new Gitlab({
-    token: 'personaltoken',
-  });
-
-  //etc
-</script>
-```
 
 ## Docs
 
