@@ -105,9 +105,7 @@ test:integration:node: &integration
 test:integration:cli: &integration
   <<: *integration
   script:
-    - node -v
-    - ls /builds/jdalrymple/gitbeaker/packages/gitbeaker-cli/dist
-    - yarn jest cli/test/integration && yarn codecov -F cli
+    - yarn jest cli/test/integration --runInBand && yarn codecov -F cli
 
 # test:cli:integration:dist:
 #   <<: *integration
