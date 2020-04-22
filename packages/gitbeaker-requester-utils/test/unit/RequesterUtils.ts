@@ -1,5 +1,4 @@
 import FormData from 'form-data';
-import { Agent } from 'https';
 import { createInstance, defaultRequest } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
@@ -34,13 +33,6 @@ describe('defaultRequest', () => {
     const options = defaultRequest(service, { method: 'post' });
 
     expect(options.agent).toBeUndefined();
-  });
-
-  it('should assign the agent property if given https url', async () => {
-    const options = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
-
-    expect(options.agent).toBeInstanceOf(Agent);
-    expect(options.agent.rejectUnauthorized).toBeFalsy();
   });
 
   it('should not assign the sudo property if omitted', async () => {

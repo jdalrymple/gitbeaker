@@ -1,5 +1,6 @@
 import ky from 'ky';
 import fetch from 'node-fetch';
+import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/KyRequester';
 
 // Set globals for testing purposes
@@ -172,5 +173,12 @@ describe('defaultRequest', () => {
 
     expect(headers).toBeInstanceOf(Headers);
     expect(body).toBe(JSON.stringify(testBody));
+  });
+
+  it('should assign the agent property if given https url', async () => {
+    const options = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
+
+    expect(options.agent).toBeInstanceOf(Agent);
+    expect(options.agent.rejectUnauthorized).toBeFalsy();
   });
 });

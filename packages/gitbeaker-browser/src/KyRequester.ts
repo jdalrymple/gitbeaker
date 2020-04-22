@@ -1,4 +1,5 @@
 import Ky from 'ky';
+import { Agent } from 'https';
 import {
   Service,
   DefaultRequestOptions,
@@ -19,6 +20,12 @@ function responseHeadersAsObject(response): Record<string, string> {
 
 export function defaultRequest(service: Service, options: DefaultRequestOptions = {}) {
   const opts = baseDefaultRequest(service, options);
+
+  if (service.url.includes('https')) {
+    opts.agent = new Agent({
+      rejectUnauthorized: service.rejectUnauthorized,
+    });
+  }
 
   return { ...opts, headers: new Headers(service.headers as Record<string, string>) };
 }

@@ -1,6 +1,7 @@
 import Got from 'got';
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
+import { Agent } from 'https';
 import {
   Service,
   DefaultRequestOptions,
@@ -18,6 +19,14 @@ export function defaultRequest(
     options.json = decamelizeKeys(body);
 
     delete options.body;
+  }
+
+  if (service.url.includes('https')) {
+    options.agent = {
+      https: new Agent({
+        rejectUnauthorized: service.rejectUnauthorized,
+      }),
+    };
   }
 
   return options;
