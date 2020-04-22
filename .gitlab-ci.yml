@@ -67,6 +67,9 @@ test:utils:unit:
   stage: test
   script: yarn jest utils/test/unit && yarn codecov -F utils
 
+test:cli:integration:
+  stage: test
+  script: yarn jest cli/test/integration && yarn codecov -F cli
 test:node:integration: &integration
   image:
     name: docker/compose:latest

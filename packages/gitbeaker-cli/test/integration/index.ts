@@ -232,3 +232,24 @@ describe('gitbeaker projects create', () => {
     expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test4');
   });
 });
+
+describe('gitbeaker projects all', () => {
+  it('should create a valid project using configuration from environment variables', async () => {
+    env.GITBEAKER_HOST = process.env.GITLAB_URL;
+    env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
+
+    // Create a project first
+    await cli('gitbeaker projects create --name="Project Creation CLI all1"', {
+      env,
+    });
+
+    // Get all projects
+    const { stdout } = await cli('gitbeaker projects all --simple=true', {
+      env,
+    });
+
+    const found = JSON.parse(stdout).some((p) => p.name === 'Project Creation CLI all1');
+
+    expect(found).toBeTruthy();
+  });
+});
