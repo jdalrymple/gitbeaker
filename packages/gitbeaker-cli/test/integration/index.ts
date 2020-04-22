@@ -24,6 +24,13 @@ beforeEach(() => {
 });
 
 describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
+  it('should be true', async () => {
+    const { stdout } = await execP('node -v');
+
+    console.log(stdout);
+    expect(true).toBeTruthy();
+  });
+
   it('should return an object of available gitbeaker cli environment variables', async () => {
     const { stdout } = await cli('gitbeaker -g', { env });
 
