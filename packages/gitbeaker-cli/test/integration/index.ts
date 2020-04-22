@@ -1,9 +1,9 @@
 /* eslint no-console: 0 */
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { resolve } from 'path';
 import strip from 'strip-ansi';
 import pkg from '../../package.json';
-import bin from '../../src';
 
 const execP = promisify(exec);
 let env: Record<string, string | undefined> = {};
@@ -11,10 +11,11 @@ let env: Record<string, string | undefined> = {};
 function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
   const args = cmd.replace(name, '').trim();
+  const binary = resolve(pkg.bin[name]);
 
   expect(pkg.bin).toHaveProperty(name);
 
-  return execP(`node ${bin} ${args}`, options);
+  return execP(`node ${binary} ${args}`, options);
 }
 
 beforeEach(() => {
