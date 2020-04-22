@@ -96,12 +96,12 @@
     tslib "1.11.1"
 
 "@auto-it/all-contributors@^9.28.3":
-  version "9.28.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.28.3.tgz#933b830ca0522eba0070c8f06cdc65852eb15246"
-  integrity sha512-HDvHLCaKjpjZQXotZgNN+aNFdDlUg8CrhT7R5jGKTSqYl5V3Het+GhH2v1axb2PvmE+sUiYOPkSPsAZsEa1fQA==
+  version "9.29.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.29.0.tgz#ce473e717b13d06ba55dd5e8eb65fa1e05dc62c2"
+  integrity sha512-aIrnP+RN/1DhJfcpAPk3/3DdYdriSPWkdi5jz4m0z5wOzyRm+okoNpTb+lR+ehhrgzxTvxbxciVwK6A3olQ24Q==
   dependencies:
-    "@auto-it/bot-list" "^9.28.3"
-    "@auto-it/core" "^9.28.3"
+    "@auto-it/bot-list" "^9.29.0"
+    "@auto-it/core" "^9.29.0"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     fp-ts "^2.5.3"
@@ -109,17 +109,17 @@
     io-ts "^2.1.2"
     tslib "1.11.1"
 
-"@auto-it/bot-list@^9.28.3":
-  version "9.28.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.28.3.tgz#aa36180e53ed59cae55e923659d7154655102ffd"
-  integrity sha512-PCKvowPpltlIKGWKcX+DhRfxP9V/vUWYsCC7ltBwq+dXHhq9BL8tTRKu7XiByMf773cKgYMCCAo4QTJwQF5fbw==
+"@auto-it/bot-list@^9.29.0":
+  version "9.29.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.29.0.tgz#258f6af48a3e001e15d2f058533e4027c5ca9ca5"
+  integrity sha512-9ohDLpG79FpiUxzfKlr5tdnBEWwgSmYkY3wC8RfHsFqaH0Pn4RTmJsIMh/vbu1oAu7K5LefRvy+Bq3xfd3+Y/g==
 
-"@auto-it/core@^9.28.3":
-  version "9.28.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.28.3.tgz#a6a7906ec0117e7c71e8bab5c4290acfd0e94469"
-  integrity sha512-3GBlENwLwT+1b2HGK3Jk2SH3dyiag2mXwVZA1VfYYoBMAD4mncptlEWEQKxJhyUFMvjYrJxtPaoHsHbZU5wUSQ==
+"@auto-it/core@^9.28.3", "@auto-it/core@^9.29.0":
+  version "9.29.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.29.0.tgz#77f617f3f574bd933de083e18bdd8353a40b0b06"
+  integrity sha512-QJTgo3EVDlyI2tV6cGpj3VzbpFJu0iiSQnQETdTXTLvenaqsTEGOndHEg6j8U2Coh3JisbtwD69uXLmup+7JXg==
   dependencies:
-    "@auto-it/bot-list" "^9.28.3"
+    "@auto-it/bot-list" "^9.29.0"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
