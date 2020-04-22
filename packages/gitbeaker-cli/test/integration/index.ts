@@ -12,7 +12,7 @@ function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
   const args = cmd.replace(name, '').trim();
 
-  console.log(pkg.bin);
+  console.log(name);
   console.log(pkg.bin[name]);
 
   const binary = resolve('packages', 'gitbeaker-cli', pkg.bin[name]);
