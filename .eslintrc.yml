@@ -3,6 +3,11 @@ env:
   browser: true
   jest/globals: true
 
+globals:
+  page: true
+  browser: true
+  context: true
+
 extends:
   - airbnb-base
   - plugin:@typescript-eslint/recommended
@@ -16,6 +21,7 @@ ignorePatterns:
   - node_modules/
   - dist/
   - '**/rollup.config.js'
+  - '**/jest.config*.js'
   - '**/scripts/*.ts'
   - '*d.ts'
 

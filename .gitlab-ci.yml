@@ -59,6 +59,7 @@ test:node:unit:
   script: yarn jest node/test/unit && yarn codecov -F node
 
 test:browser:unit:
+  image: buildkite/puppeteer
   stage: test
   script: yarn jest browser/test/unit && yarn codecov -F browser
 
