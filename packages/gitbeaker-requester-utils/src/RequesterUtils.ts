@@ -77,7 +77,10 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export function modifyServices<T>(services: DictionaryOfConstructors<T>, customConfig: object): T {
+export function modifyServices<T>(
+  services: DictionaryOfConstructors<T>,
+  customConfig: object,
+): DictionaryOfConstructors<T> {
   const result: any = {};
 
   Object.keys(services).forEach((name: string) => {
