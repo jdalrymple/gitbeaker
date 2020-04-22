@@ -12,12 +12,9 @@ function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
   const args = cmd.replace(name, '').trim();
 
-  console.log(name);
-  console.log(pkg.bin[name]);
-
-  const binary = resolve('packages', 'gitbeaker-cli', pkg.bin[name]);
-
   expect(pkg.bin).toHaveProperty(name);
+
+  const binary = resolve(__dirname, '..', '..', pkg.bin[name]);
 
   return execP(`node ${binary} ${args}`, options);
 }
