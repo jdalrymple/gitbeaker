@@ -2,10 +2,10 @@
 
 #### 🚀 Enhancement
 
-- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+- `@gitbeaker/browser`
   - Adding integration tests for the browser usage [#697](https://github.com/jdalrymple/gitbeaker/pull/697) ([@jdalrymple](https://github.com/jdalrymple))
 
-#### 🐛 Bug Fix
+#### 📝 Documentation
 
 - Update CHANGELOG.md [#696](https://github.com/jdalrymple/gitbeaker/pull/696) ([@jdalrymple](https://github.com/jdalrymple))
 
