@@ -1,5 +1,6 @@
 import got from 'got';
 import FormData from 'form-data';
+import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 
 jest.mock('got');
@@ -128,5 +129,12 @@ describe('defaultRequest', () => {
 
     expect(output2.body).toBeInstanceOf(FormData);
     expect(output2.json).toBeUndefined();
+  });
+
+  it('should assign the agent property if given https url', async () => {
+    const options = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
+
+    expect(options.agent.https).toBeInstanceOf(Agent);
+    expect(options.agent.https.rejectUnauthorized).toBeFalsy();
   });
 });
