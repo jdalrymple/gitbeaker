@@ -11,6 +11,10 @@ let env: Record<string, string | undefined> = {};
 function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
   const args = cmd.replace(name, '').trim();
+
+  console.log(pkg.bin);
+  console.log(pkg.bin[name]);
+
   const binary = resolve('packages', 'gitbeaker-cli', pkg.bin[name]);
 
   expect(pkg.bin).toHaveProperty(name);

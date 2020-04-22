@@ -50,28 +50,28 @@ lint:docs:
   script: yarn lint:doc
 
 # Test packages and builds
-test:core:unit:
+test:unit:core:
   stage: test
   script: yarn jest core/test/unit && yarn codecov -F core
 
-test:node:unit:
+test:unit:node:
   stage: test
   script: yarn jest node/test/unit && yarn codecov -F node
 
-test:browser:unit:
+test:unit:browser:
   image: buildkite/puppeteer
   stage: test
   script: yarn jest browser/test/unit && yarn codecov -F browser
 
-test:utils:unit:
+test:unit:utils:
   stage: test
   script: yarn jest utils/test/unit && yarn codecov -F utils
 
-test:cli:integration:
+test:integration:browser:
   stage: test
   script: yarn jest cli/test/integration && yarn codecov -F cli
 
-test:node:integration: &integration
+test:integration:node: &integration
   image:
     name: docker/compose:latest
     entrypoint: ['/bin/sh', '-c']
@@ -101,9 +101,9 @@ test:node:integration: &integration
     - echo $CODECOV_TOKEN
   script: yarn jest node/test/integration && yarn codecov -F node
 
-# test:cli:integration:
-#   <<: *integration
-#   script: yarn jest core/test/integration --runInBand && yarn codecov
+test:integration:cli: &integration
+  <<: *integration
+  script: yarn jest cli/test/integration && yarn codecov -F cli
 
 # test:cli:integration:dist:
 #   <<: *integration
@@ -116,10 +116,6 @@ test:node:integration: &integration
 # test:core:integration:dist-es
 #   <<: *integration
 #   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
-
-# test:core:integration:browser:
-#   <<: *integration
-#   script: npm run test:integration -- --scope=core --moduleNameMapper="{dist:dist/index.umd.js}" && codecov
 
 # Release
 release:
