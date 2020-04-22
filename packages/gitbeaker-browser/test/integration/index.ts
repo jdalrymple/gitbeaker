@@ -8,7 +8,7 @@ describe('Browser Import', () => {
     /* eslint-disable */
     const importObject = await page.evaluate(() => {
       // @ts-ignore
-      const { Gitlab } = gitbeaker.default;
+      const { Gitlab } = gitbeaker;
 
       return Gitlab;
     });
