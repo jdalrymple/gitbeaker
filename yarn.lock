@@ -2,7 +2,6 @@
 # yarn lockfile v1
 
 
-<<<<<<< integration-tests
 "@auto-it/all-contributors@^9.29.0":
   version "9.30.1"
   resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.30.1.tgz#2f3ace9426bc4d5e2de45a485adefc9e431ec648"
@@ -10,108 +9,6 @@
   dependencies:
     "@auto-it/bot-list" "^9.30.1"
     "@auto-it/core" "^9.30.1"
-=======
-"@auto-canary/auto@9.28.2-canary.1160.15021.0":
-  version "9.28.2-canary.1160.15021.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/auto/-/auto-9.28.2-canary.1160.15021.0.tgz#9774c1b483e79cb3637f22abe0ff6160d9f76ffb"
-  integrity sha512-CJvl0VBB8cGYCi2sHAJLQ2/qWGyoM+WiBENdZMF103uFsrFrRr16Q3UFSzStTKRjXhKRFFsP1u9507TbEG7QXw==
-  dependencies:
-    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
-    "@auto-canary/npm" "9.28.2-canary.1160.15021.0"
-    "@auto-canary/released" "9.28.2-canary.1160.15021.0"
-    await-to-js "^2.1.1"
-    chalk "^4.0.0"
-    command-line-application "^0.9.3"
-    endent "^1.3.0"
-    module-alias "^2.2.2"
-    signale "^1.4.0"
-    terminal-link "^2.1.1"
-    tslib "1.11.1"
-
-"@auto-canary/bot-list@9.28.2-canary.1160.15021.0":
-  version "9.28.2-canary.1160.15021.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/bot-list/-/bot-list-9.28.2-canary.1160.15021.0.tgz#8081a80b0cba6e7661814ae23ee1a6fe0f3e49c0"
-  integrity sha512-dWJpNMZ1zhfJqKWbLooZY5QvABtrAH1RYXoJbt4Wfv1A9Jr4IDi2Vw7e0OQajyR4MeraaAUFs11JlhKmSwnj1A==
-
-"@auto-canary/core@9.28.2-canary.1160.15021.0":
-  version "9.28.2-canary.1160.15021.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/core/-/core-9.28.2-canary.1160.15021.0.tgz#b008eec883c5fe143b8e9ee0a07546e65821d89b"
-  integrity sha512-KInBokb2OM2ZL6CmVPVS1zFp51BX3W9ZxvP9l8TWXZ/IfSLAk0YFFKQOfaYSlVBKL8r155AHlYVmXbcVOzmb/g==
-  dependencies:
-    "@auto-canary/bot-list" "9.28.2-canary.1160.15021.0"
-    "@octokit/core" "2.4.2"
-    "@octokit/graphql" "4.3.1"
-    "@octokit/plugin-enterprise-compatibility" "1.2.2"
-    "@octokit/plugin-retry" "3.0.1"
-    "@octokit/plugin-throttling" "^3.2.0"
-    "@octokit/rest" "16.43.1"
-    await-to-js "^2.1.1"
-    chalk "^4.0.0"
-    cosmiconfig "6.0.0"
-    deepmerge "^4.0.0"
-    dotenv "^8.0.0"
-    endent "^1.3.0"
-    enquirer "^2.3.4"
-    env-ci "^5.0.1"
-    fast-glob "^3.1.1"
-    fp-ts "^2.5.3"
-    fromentries "^1.2.0"
-    gitlog "^4.0.0"
-    https-proxy-agent "^5.0.0"
-    import-cwd "^3.0.0"
-    import-from "^3.0.0"
-    io-ts "^2.1.2"
-    lodash.chunk "^4.2.0"
-    log-symbols "^3.0.0"
-    node-fetch "2.6.0"
-    parse-github-url "1.0.2"
-    semver "^7.0.0"
-    signale "^1.4.0"
-    tapable "^2.0.0-beta.2"
-    terminal-link "^2.1.1"
-    tinycolor2 "^1.4.1"
-    tslib "1.11.1"
-    typescript-memoize "^1.0.0-alpha.3"
-    url-join "^4.0.0"
-
-"@auto-canary/npm@9.28.2-canary.1160.15021.0":
-  version "9.28.2-canary.1160.15021.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/npm/-/npm-9.28.2-canary.1160.15021.0.tgz#98685bb9c0c56eb1a7df2bf4372bc55e42645c26"
-  integrity sha512-fNTKOOdGslDYbSPniGnvYylNbQMpjeedtPNGxiv82nR0E82EUE4CCQgFdEKHqKKKH9zaxVm2OdTguBZw9TTZzg==
-  dependencies:
-    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
-    env-ci "^5.0.1"
-    fp-ts "^2.5.3"
-    get-monorepo-packages "^1.1.0"
-    io-ts "^2.1.2"
-    parse-author "^2.0.0"
-    parse-github-url "1.0.2"
-    registry-url "^5.1.0"
-    semver "^7.0.0"
-    tslib "1.11.1"
-    typescript-memoize "^1.0.0-alpha.3"
-    url-join "^4.0.0"
-    user-home "^2.0.0"
-
-"@auto-canary/released@9.28.2-canary.1160.15021.0":
-  version "9.28.2-canary.1160.15021.0"
-  resolved "https://registry.yarnpkg.com/@auto-canary/released/-/released-9.28.2-canary.1160.15021.0.tgz#5b65d9c69cf217caf73c5449380ce7bbd8518b5e"
-  integrity sha512-fhB+qFEXPshmr6Spap5POy/Jrat2GvzbK4vCfVc9kK0GEltpulQhNifsNOVTDamt5uF4npugvf/YwpDgcMKGHw==
-  dependencies:
-    "@auto-canary/core" "9.28.2-canary.1160.15021.0"
-    deepmerge "^4.0.0"
-    fp-ts "^2.5.3"
-    io-ts "^2.1.2"
-    tslib "1.11.1"
-
-"@auto-it/all-contributors@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.29.0.tgz#ce473e717b13d06ba55dd5e8eb65fa1e05dc62c2"
-  integrity sha512-aIrnP+RN/1DhJfcpAPk3/3DdYdriSPWkdi5jz4m0z5wOzyRm+okoNpTb+lR+ehhrgzxTvxbxciVwK6A3olQ24Q==
-  dependencies:
-    "@auto-it/bot-list" "^9.29.0"
-    "@auto-it/core" "^9.29.0"
->>>>>>> Updating lock
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     fp-ts "^2.5.3"
@@ -119,7 +16,6 @@
     io-ts "^2.1.2"
     tslib "1.11.1"
 
-<<<<<<< integration-tests
 "@auto-it/bot-list@^9.30.1":
   version "9.30.1"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.1.tgz#5f540e8c7799c3641057dcf8cd3577a20c11f7f9"
@@ -131,19 +27,6 @@
   integrity sha512-ZQAGlJVBxTfeKk/waFfZ4zUVN5CB/zkDGTOMH5ygFBmt1L0Gx+gXFmbonx8rJxb9H68fvjsrfybxo/wBeceQpw==
   dependencies:
     "@auto-it/bot-list" "^9.30.1"
-=======
-"@auto-it/bot-list@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.29.0.tgz#258f6af48a3e001e15d2f058533e4027c5ca9ca5"
-  integrity sha512-9ohDLpG79FpiUxzfKlr5tdnBEWwgSmYkY3wC8RfHsFqaH0Pn4RTmJsIMh/vbu1oAu7K5LefRvy+Bq3xfd3+Y/g==
-
-"@auto-it/core@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.29.0.tgz#77f617f3f574bd933de083e18bdd8353a40b0b06"
-  integrity sha512-QJTgo3EVDlyI2tV6cGpj3VzbpFJu0iiSQnQETdTXTLvenaqsTEGOndHEg6j8U2Coh3JisbtwD69uXLmup+7JXg==
-  dependencies:
-    "@auto-it/bot-list" "^9.29.0"
->>>>>>> Updating lock
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -155,11 +38,7 @@
     cosmiconfig "6.0.0"
     deepmerge "^4.0.0"
     dotenv "^8.0.0"
-<<<<<<< integration-tests
     endent "^2.0.1"
-=======
-    endent "^1.3.0"
->>>>>>> Updating lock
     enquirer "^2.3.4"
     env-ci "^5.0.1"
     fast-glob "^3.1.1"
@@ -184,7 +63,6 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-<<<<<<< integration-tests
   version "9.30.1"
   resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.30.1.tgz#5b2436d993152c39b79ec50013a54a463a867d35"
   integrity sha512-KuyAGZpgEyXnl3ocNGQsEIenPzAl5ThdTVKKxaNUlY75x9ehkHNiJJGHxyavMi0TCEIOdsHnYjWS46KbEAczlQ==
@@ -201,24 +79,6 @@
   integrity sha512-8DdUbQZGhw8+tZMyVXkt5KcSGxwHr3FDYE34LQfV/a33WSStL4xasmvYf/71g1FWph0XK5Dk9hF0cv0JOcqvEQ==
   dependencies:
     "@auto-it/core" "^9.30.1"
-=======
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.29.0.tgz#d12385c5c1bdd2e4654096c37f5ed4858cad3566"
-  integrity sha512-LCrugOqlSVzCJmdF7zNVwSe+dt791iaRKA3gVSK944AdNsJjOuEK2p1BDgJUTgo+9ixOZ6sJEsCd+bD3Eu09Pw==
-  dependencies:
-    "@auto-it/core" "^9.29.0"
-    array.prototype.flatmap "^1.2.2"
-    endent "^1.3.0"
-    tslib "1.11.1"
-    url-join "^4.0.0"
-
-"@auto-it/npm@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.29.0.tgz#857b312ddd36265628fa10f1a2458ce45c1a0c8c"
-  integrity sha512-gOylsl4Nhv3JazHlowXuaY+NaJMw2kmRdrveGI89Hkg5FJfUN96LYbNg+VfAOBtzR1XSqNvFB0pOoaZVF7gA4g==
-  dependencies:
-    "@auto-it/core" "^9.29.0"
->>>>>>> Updating lock
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
     get-monorepo-packages "^1.1.0"
@@ -232,21 +92,12 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-<<<<<<< integration-tests
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.30.1":
   version "9.30.1"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.30.1.tgz#a34c769d686e52ceeb7306df0096497d1cf2e44b"
   integrity sha512-YoeUOFKHUpGhu5Wr9KmAq/C7X9iw9KS+wpBR04U01rcNlLjoPaNxDVO4V2341+Fd6hHsNZdDUYTmHV5C5gfZ2Q==
   dependencies:
     "@auto-it/core" "^9.30.1"
-=======
-"@auto-it/released@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.29.0.tgz#cc3d231f9ec2a2aa18f5b6af1f55a7d9295aede8"
-  integrity sha512-8UWQLB4UVhy8XAL3KKhMAe/AXGrvFGY6G+VhGnqMY6NP/Asukiyopfa68QBN6r5gtqeJ6ivp3dvUr3K4jUnIug==
-  dependencies:
-    "@auto-it/core" "^9.29.0"
->>>>>>> Updating lock
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -1737,15 +1588,9 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/types@^2.0.0", "@octokit/types@^2.0.1", "@octokit/types@^2.11.1":
-<<<<<<< integration-tests
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/@octokit/types/-/types-2.12.0.tgz#3780ee594898a168f0dbeeb6f8912f22b4ec1ea7"
   integrity sha512-T1of7Gln/XzPGTqlCO6bRAll93snD2+DozhChxCqlMNE5s2zkAoJmmrG2Kg2Nq0BTN/76o6/zpnRNwGjmAtkzQ==
-=======
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-2.11.1.tgz#bd5b059596b42845be3f8e66065667aff8c8bf8b"
-  integrity sha512-QaLoLkmFdfoNbk3eOzPv7vKrUY0nRJIYmZDoz/pTer4ICpqu80aSQTVHnnUxEFuURCiidig76CcxUOYC/bY3RQ==
->>>>>>> Updating lock
   dependencies:
     "@types/node" ">= 8"
 
@@ -2513,7 +2358,6 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.29.0:
-<<<<<<< integration-tests
   version "9.30.1"
   resolved "https://registry.yarnpkg.com/auto/-/auto-9.30.1.tgz#b04960c065fd20b9ec358881d0e6a2ec9bf87767"
   integrity sha512-5DGIcCxhrE1P1BSGbPJsZ1Rba0TDagY0ctx67lGLFReiEbtuWk1b67WF4djAziLSlglLHM9HlTdiycbiq3wJYg==
@@ -2525,19 +2369,6 @@ auto@^9.29.0:
     chalk "^4.0.0"
     command-line-application "^0.9.3"
     endent "^2.0.1"
-=======
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.29.0.tgz#b643b8a4cef76ced0d547127785c646dfb3a3871"
-  integrity sha512-I22eWnB5Al8YzDWgsoVODAPwya1nupdrAoUZwJtMmFNQKaCgw0JXPWXMsMCzKO0qFmUWiUx9uyTw7OZcKgkSTg==
-  dependencies:
-    "@auto-it/core" "^9.29.0"
-    "@auto-it/npm" "^9.29.0"
-    "@auto-it/released" "^9.29.0"
-    await-to-js "^2.1.1"
-    chalk "^4.0.0"
-    command-line-application "^0.9.3"
-    endent "^1.3.0"
->>>>>>> Updating lock
     module-alias "^2.2.2"
     signale "^1.4.0"
     terminal-link "^2.1.1"
@@ -3650,7 +3481,7 @@ debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0:
+debug@^3.1.0, debug@^3.2.6:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -3782,6 +3613,11 @@ detect-indent@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
   integrity sha1-OHHMCmoALow+Wzz38zYmRnXwa50=
+
+detect-libc@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
+  integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
 detect-newline@^3.0.0:
   version "3.1.0"
@@ -3938,17 +3774,10 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1:
   dependencies:
     once "^1.4.0"
 
-<<<<<<< integration-tests
 endent@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/endent/-/endent-2.0.1.tgz#fb18383a3f37ae3213a5d9f6c4a880d1061eb4c5"
   integrity sha512-mADztvcC+vCk4XEZaCz6xIPO2NHQuprv5CAEjuVAu6aZwqAj7nVNlMyl1goPFYqCCpS2OJV9jwpumJLkotZrNw==
-=======
-endent@^1.3.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/endent/-/endent-1.4.1.tgz#c58cc13dfc432d0b2c7faf74c13ffdca60b2d1c8"
-  integrity sha512-buHTb5c8AC9NshtP6dgmNLYkiT+olskbq1z6cEGvfGCF3Qphbu/1zz5Xu+yjTDln8RbxNhPoUyJ5H8MSrp1olQ==
->>>>>>> Updating lock
   dependencies:
     dedent "^0.7.0"
     fast-json-parse "^1.0.3"
@@ -4785,15 +4614,9 @@ fsevents@^1.2.7:
     nan "^2.12.1"
 
 fsevents@^2.1.2, fsevents@~2.1.2:
-<<<<<<< integration-tests
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.3.tgz#fb738703ae8d2f9fe900c33836ddebee8b97f23e"
   integrity sha512-Auw9a4AxqWpa9GUfj370BMPzzyncfBABW8Mab7BGWBYDj4Isgq+cDKtx0i6u9jcX9pQDnswsaaOTgTmA5pEjuQ==
-=======
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.2.tgz#4c0a1fb34bc68e543b4b82a9ec392bfbda840805"
-  integrity sha512-R4wDiBwZ0KzpgOWetKDug1FZcYhqYnUYKtfZYt4mD5SBz76q0KR4Q9o7GIPamsVPGmW3EYPPJ0dOOjvx32ldZA==
->>>>>>> Updating lock
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -5058,15 +4881,9 @@ globby@^9.2.0:
     slash "^2.0.0"
 
 got@^11.0.1:
-<<<<<<< integration-tests
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/got/-/got-11.0.2.tgz#55613d6a1b7040ff9c26cb075defea39eed58d7a"
   integrity sha512-zOanxiJs1LaBAiKsV43UUw/oRlyRNtJFeuATahfi4c3MTremj09eAeJBSJ7GR2oEMhrLLRSJpz8fQaojVDijjw==
-=======
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/got/-/got-11.0.1.tgz#515ed43867a2b49d2dfa7b920092fd9299188f28"
-  integrity sha512-yxoJ0Mo8IV0bcrDaT9OaQ3dB514e26r+0V16TK7cqbcotbAwuOq5IIr2WJl75CvZ3oIRtpHVftYAQLF1lqrC5A==
->>>>>>> Updating lock
   dependencies:
     "@sindresorhus/is" "^2.1.0"
     "@szmarczak/http-timer" "^4.0.0"
@@ -5076,11 +4893,7 @@ got@^11.0.1:
     cacheable-request "^7.0.1"
     decompress-response "^5.0.0"
     get-stream "^5.0.0"
-<<<<<<< integration-tests
     http2-wrapper "^1.0.0-beta.4.4"
-=======
-    http2-wrapper "^1.0.0-beta.4.3"
->>>>>>> Updating lock
     lowercase-keys "^2.0.0"
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
@@ -5270,11 +5083,7 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-<<<<<<< integration-tests
 http2-wrapper@^1.0.0-beta.4.4:
-=======
-http2-wrapper@^1.0.0-beta.4.3:
->>>>>>> Updating lock
   version "1.0.0-beta.4.4"
   resolved "https://registry.yarnpkg.com/http2-wrapper/-/http2-wrapper-1.0.0-beta.4.4.tgz#6e1c71b5ddff3037ce16053b20d1044b1e8c0df5"
   integrity sha512-CHpjljc2VeZQ1Lk02dwAfOq0k7uY+MSmt9or0zQiyPr++BIngUKIDRoy/MfX0jVZbpG/GjGVZK3K9ac5pBS//A==
@@ -5334,7 +5143,7 @@ husky@^4.2.5:
     slash "^3.0.0"
     which-pm-runs "^1.0.0"
 
-iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@~0.4.13:
+iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
@@ -7057,15 +6866,9 @@ make-dir@^2.1.0:
     semver "^5.6.0"
 
 make-dir@^3.0.0, make-dir@^3.0.2:
-<<<<<<< integration-tests
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
-=======
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.0.2.tgz#04a1acbf22221e1d6ef43559f43e05a90dbb4392"
-  integrity sha512-rYKABKutXa6vXTXhoV18cBE7PaewPXHe/Bdq4v+ZLMhxbWApkFFplT0LcbMW+6BbjnQXzZ/sAvSE/JdguApG5w==
->>>>>>> Updating lock
   dependencies:
     semver "^6.0.0"
 
@@ -7460,6 +7263,15 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
+needle@^2.2.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.4.1.tgz#14af48732463d7475696f937626b1b993247a56a"
+  integrity sha512-x/gi6ijr4B7fwl6WYL9FwlCvRQKGlUNvnceho8wxkwXqN8jvVmmmATTmZPRRG7b/yC1eode26C2HO9jl78Du9g==
+  dependencies:
+    debug "^3.2.6"
+    iconv-lite "^0.4.4"
+    sax "^1.2.4"
+
 neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
@@ -7528,6 +7340,22 @@ node-notifier@^6.0.0:
     semver "^6.3.0"
     shellwords "^0.1.1"
     which "^1.3.1"
+
+node-pre-gyp@*:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.14.0.tgz#9a0596533b877289bcad4e143982ca3d904ddc83"
+  integrity sha512-+CvDC7ZttU/sSt9rFjix/P05iS43qHCOOGzcr3Ry99bXG7VX953+vFyEuph/tfqoYu8dttBkE86JSKBO2OzcxA==
+  dependencies:
+    detect-libc "^1.0.2"
+    mkdirp "^0.5.1"
+    needle "^2.2.1"
+    nopt "^4.0.1"
+    npm-packlist "^1.1.6"
+    npmlog "^4.0.2"
+    rc "^1.2.7"
+    rimraf "^2.6.1"
+    semver "^5.3.0"
+    tar "^4.4.2"
 
 nopt@^4.0.1:
   version "4.0.3"
@@ -7605,7 +7433,7 @@ npm-normalize-package-bin@^1.0.0, npm-normalize-package-bin@^1.0.1:
     semver "^5.6.0"
     validate-npm-package-name "^3.0.0"
 
-npm-packlist@^1.4.4:
+npm-packlist@^1.1.6, npm-packlist@^1.4.4:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-1.4.8.tgz#56ee6cc135b9f98ad3d51c1c95da22bbb9b2ef3e"
   integrity sha512-5+AZgwru5IevF5ZdnFglB5wNlHG1AOOuw28WhUq8/8emhBmLv6jX5by4WJCh7lW0uSYZYS6DXqIsyZVIXRZU9A==
@@ -7637,7 +7465,7 @@ npm-run-path@^4.0.0:
   dependencies:
     path-key "^3.0.0"
 
-npmlog@^4.1.2:
+npmlog@^4.0.2, npmlog@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.1.2.tgz#08a7f2a8bf734604779a9efa4ad5cc717abb954b"
   integrity sha512-2uUqazuKlTaSI/dC8AzicUck7+IrEaOnN/e0jd3Xtt1KcGpwx30v50mL7oPyr/h9bL3E4aZccVwpwP+5W9Vjkg==
@@ -7794,21 +7622,9 @@ opencollective-postinstall@^2.0.2:
   integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
 
 openpgp@^4.10.3:
-<<<<<<< integration-tests
-<<<<<<< integration-tests
   version "4.10.4"
   resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.4.tgz#453ae856052bcedc78ac1556ffbc2210348151f3"
   integrity sha512-JMceIvDDE9Qko2AsMpVgf4YM7h7zPt3sZT0qnOIvwynuDuTs+wL5ht37t894hirgzSHr2d+64nEnKbBtwoYwSQ==
-=======
-  version "4.10.3"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.3.tgz#3754c57e525b461d65ccd34fcc3b8d3e9f8d113b"
-  integrity sha512-mr0Gs+0xC2BVNtVzyxOYCLo/p1LWvSKbqih7273ochM//m87XPXg/A0ubaJPcxR/y4GUivQ9Awq2s39z521WCA==
->>>>>>> Add suite of integration tests
-=======
-  version "4.10.3"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.3.tgz#3754c57e525b461d65ccd34fcc3b8d3e9f8d113b"
-  integrity sha512-mr0Gs+0xC2BVNtVzyxOYCLo/p1LWvSKbqih7273ochM//m87XPXg/A0ubaJPcxR/y4GUivQ9Awq2s39z521WCA==
->>>>>>> Updating lock
   dependencies:
     asn1.js "^5.0.0"
     node-fetch "^2.1.2"
@@ -8424,15 +8240,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 puppeteer@^3.0.0:
-<<<<<<< integration-tests
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-3.0.1.tgz#dce04a0b742fbf29f81ff423b2164e84647b4379"
   integrity sha512-DxNnI9n4grVHC+9irUfNK2T6YFuRECJnvG7VzdVolxpVwWC5DQqI5ho9Z0af48K5MQW4sJY5cq3qQ5g6NkAjvw==
-=======
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-3.0.0.tgz#844c714d074c7ea63cfa3744501c1ab6ea60722e"
-  integrity sha512-ArmIS8w+XhL4KGP05kxMousA9SFxmeirMkNNcVe5LjK4iGCbZ8qKnG4byuXMru7Ty7a9QwiMUIf80X+zmJuf2A==
->>>>>>> Updating lock
   dependencies:
     "@types/mime-types" "^2.1.0"
     debug "^4.1.0"
@@ -8491,7 +8301,7 @@ randomfill@^1.0.3:
     randombytes "^2.0.5"
     safe-buffer "^5.1.0"
 
-rc@^1.2.8:
+rc@^1.2.7, rc@^1.2.8:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
   integrity sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
@@ -8924,7 +8734,7 @@ rimraf@2.6.3:
   dependencies:
     glob "^7.1.3"
 
-rimraf@^2.5.4, rimraf@^2.6.2, rimraf@^2.6.3:
+rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
@@ -9005,15 +8815,9 @@ rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.8.2:
     estree-walker "^0.6.1"
 
 rollup@^2.6.1:
-<<<<<<< integration-tests
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.2.tgz#0f8ee6216d33e83c0750116312c2c92b94cc7f72"
   integrity sha512-SdtTZVMMVSPe7SNv4exUyPXARe5v/p3TeeG3LRA5WabLPJt4Usi3wVrvVlyAUTG40JJmqS6zbIHt2vWTss2prw==
-=======
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.1.tgz#d571e49a35b1c923fe9cf6f7290dba2482864fdc"
-  integrity sha512-c1FCjY8HK1nAq0bTZHaR72ZknpP7p0EjxbcVc6BcmtOosurK//P5jtwxX+f/4fgtbrjczqf0uvR+EdtxpriE8g==
->>>>>>> Updating lock
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -9090,6 +8894,11 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
+sax@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+  integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
 saxes@^3.1.9:
   version "3.1.11"
   resolved "https://registry.yarnpkg.com/saxes/-/saxes-3.1.11.tgz#d59d1fd332ec92ad98a2e0b2ee644702384b1c5b"
@@ -9107,7 +8916,7 @@ semver-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/semver-regex/-/semver-regex-2.0.0.tgz#a93c2c5844539a770233379107b38c7b4ac9d338"
   integrity sha512-mUdIBBvdn0PLOeP3TEkMH7HHeUP3GjsXCwKarjv/kGmUFOYg1VqEemKhoQpWMu6X2I8kHeuVdGibLGkVK+/5Qw==
 
-"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0, semver@^5.7.0, semver@^5.7.1:
+"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0, semver@^5.7.0, semver@^5.7.1:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
@@ -9789,7 +9598,7 @@ tar-stream@^2.0.0:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
 
-tar@^4.4.10, tar@^4.4.12, tar@^4.4.8:
+tar@^4.4.10, tar@^4.4.12, tar@^4.4.2, tar@^4.4.8:
   version "4.4.13"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.13.tgz#43b364bc52888d555298637b10d60790254ab525"
   integrity sha512-w2VwSrBoHa5BsSyH+KxEqeQBAllHhccyMFVHtGtdMpF4W7IRWfZjFiQceJPChOeTsSDVUpER2T8FA93pr0L+QA==
@@ -10494,10 +10303,6 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
-<<<<<<< integration-tests
-<<<<<<< master
-=======
->>>>>>> Updating lock
 write-file-atomic@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-2.4.1.tgz#d0b05463c188ae804396fd5ab2a370062af87529"
@@ -10506,19 +10311,6 @@ write-file-atomic@2.4.1:
     graceful-fs "^4.1.11"
     imurmurhash "^0.1.4"
     signal-exit "^3.0.2"
-<<<<<<< integration-tests
-=======
-write-file-atomic@^1.1.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-1.3.4.tgz#f807a4f0b1d9e913ae7a48112e6cc3af1991b45f"
-  integrity sha1-+Aek8LHZ6ROuekgRLmzDrxmRtF8=
-  dependencies:
-    graceful-fs "^4.1.11"
-    imurmurhash "^0.1.4"
-    slide "^1.1.5"
->>>>>>> Add suite of integration tests
-=======
->>>>>>> Updating lock
 
 write-file-atomic@^1.1.4:
   version "1.3.4"
