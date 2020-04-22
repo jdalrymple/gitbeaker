@@ -1,22 +1,11 @@
 import * as Gitbeaker from '@gitbeaker/core';
+import { modifyServices } from '@gitbeaker/requester-utils';
 import { Requester } from './GotRequester';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
-type DictionaryOfConstructors<T> = { [K in keyof T]: Constructor<T[K]> };
+const APIServices = modifyServices(Gitbeaker, { requester: Requester });
 
-const APIServices = {} as DictionaryOfConstructors<T>;
-
-Object.keys(Gitbeaker as DictionaryOfConstructors<T>).forEach((name: string) => {
-  APIServices[name] = (args: { [key: string]: any }) =>
-    new Gitbeaker[name]({
-      requester: Requester,
-      ...args,
-    });
-});
-
-/* -------------- Single Services ------------- */
-// Groups
 export const {
+  // Groups
   Groups,
   GroupAccessRequests,
   GroupBadges,
@@ -31,20 +20,16 @@ export const {
   EpicIssues,
   EpicNotes,
   EpicDiscussions,
-} = APIServices;
 
-// Users
-export const {
+  // Users
   Users,
   UserCustomAttributes,
   UserEmails,
   UserImpersonationTokens,
   UserKeys,
   UserGPGKeys,
-} = APIServices;
 
-// Projects
-export const {
+  // Projects
   Branches,
   Commits,
   CommitDiscussions,
@@ -94,10 +79,8 @@ export const {
   Todos,
   Triggers,
   VulnerabilityFindings,
-} = APIServices;
 
-// Genral
-export const {
+  // Genral
   ApplicationSettings,
   BroadcastMessages,
   Events,
@@ -119,7 +102,10 @@ export const {
   SystemHooks,
   Version,
   Wikis,
-} = APIServices;
 
-/* ------------------ Bundles ----------------- */
-export const { GroupsBundle, UsersBundle, ProjectsBundle, Gitlab } = APIServices;
+  // Bundles
+  GroupsBundle,
+  UsersBundle,
+  ProjectsBundle,
+  Gitlab,
+} = APIServices;

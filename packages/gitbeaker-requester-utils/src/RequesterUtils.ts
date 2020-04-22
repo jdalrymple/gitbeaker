@@ -2,6 +2,7 @@ import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
 
+// Types
 export interface RequesterType {
   get(service: object, endpoint: string, options?: object): Promise<any>;
   post(service: object, endpoint: string, options?: object): Promise<any>;
@@ -24,8 +25,11 @@ export type DefaultRequestOptions = {
   method: string;
 };
 
-const methods = ['get', 'post', 'put', 'delete', 'stream'];
+export type Constructor<T = {}> = new (...args: any[]) => T;
 
+export type DictionaryOfConstructors<T> = { [K in keyof T]: Constructor<T[K]> };
+
+// Utility methods
 export function formatQuery(options) {
   return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
 }
@@ -60,6 +64,7 @@ export function defaultRequest(
 
 export function createInstance(optionsHandler, requestHandler): RequesterType {
   const requester: RequesterType = {} as RequesterType;
+  const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
   methods.forEach((m) => {
     /* eslint func-names:0 */
@@ -70,4 +75,18 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   });
 
   return requester;
+}
+
+export function modifyServices<T>(services: DictionaryOfConstructors<T>, customConfig: object): T {
+  const result: any = {};
+
+  Object.keys(services).forEach((name: string) => {
+    result[name] = (args: { [key: string]: any }) =>
+      new services[name]({
+        ...args,
+        ...customConfig,
+      });
+  });
+
+  return result;
 }
