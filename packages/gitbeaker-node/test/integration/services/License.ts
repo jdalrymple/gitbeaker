@@ -1,15 +1,15 @@
-import { Licence } from '../../../src';
+import { License } from '../../../src';
 
 let service;
 
 beforeAll(async () => {
-  service = new Licence({
+  service = new License({
     host: process.env.GITLAB_URL,
     token: process.env.PERSONAL_ACCESS_TOKEN,
   });
 });
 
-describe.skip('Licence.all', () => {
+describe.skip('License.all', () => {
   it('should return an array of licences', async () => {
     const settings = await service.all();
 
@@ -17,7 +17,7 @@ describe.skip('Licence.all', () => {
   });
 });
 
-describe.skip('Licence.add', () => {
+describe.skip('License.add', () => {
   it('should add a licence', async () => {
     const licence = await service.add('A cool licence');
 
@@ -25,7 +25,7 @@ describe.skip('Licence.add', () => {
   });
 });
 
-describe.skip('Licence.show', () => {
+describe.skip('License.show', () => {
   it('should show a specific licence', async () => {
     const licence = await service.add('My fake licence');
     const licenceshow = await service.show(licence.id);
@@ -34,7 +34,7 @@ describe.skip('Licence.show', () => {
   });
 });
 
-describe.skip('Licence.remove', () => {
+describe.skip('License.remove', () => {
   it('should show a specific licence', async () => {
     const licence = await service.add('My deleted licence');
 
