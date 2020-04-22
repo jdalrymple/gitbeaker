@@ -1,3 +1,15 @@
+# v18.1.0 (Wed Apr 22 2020)
+
+#### 🚀 Enhancement
+
+- Adding integration tests for the browser usage [#697](https://github.com/jdalrymple/gitbeaker/pull/697) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v18.0.0 (Tue Apr 21 2020)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,25 @@
+# 18.1.0 (Wed Apr 22 2020)
+
+#### 🚀 Enhancement
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Adding integration tests for the browser usage [#697](https://github.com/jdalrymple/gitbeaker/pull/697) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Update CHANGELOG.md [#696](https://github.com/jdalrymple/gitbeaker/pull/696) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump ts-node from 8.8.2 to 8.9.0 [#695](https://github.com/jdalrymple/gitbeaker/pull/695) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v18.0.0 (Tue Apr 21 2020)
 
 #### 💥 Breaking Change
