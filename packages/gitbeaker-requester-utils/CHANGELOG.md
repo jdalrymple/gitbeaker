@@ -1,3 +1,15 @@
+# v18.2.0 (Wed Apr 22 2020)
+
+#### 🐛 Bug Fix
+
+- Updating agent property based on new changes in Got [#712](https://github.com/jdalrymple/gitbeaker/pull/712) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement

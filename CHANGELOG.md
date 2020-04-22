@@ -1,3 +1,22 @@
+# 18.2.0 (Wed Apr 22 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating agent property based on new changes in Got [#712](https://github.com/jdalrymple/gitbeaker/pull/712) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @types/node from 13.13.1 to 13.13.2 [#700](https://github.com/jdalrymple/gitbeaker/pull/700) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.6.1 to 2.7.1 [#703](https://github.com/jdalrymple/gitbeaker/pull/703) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement
