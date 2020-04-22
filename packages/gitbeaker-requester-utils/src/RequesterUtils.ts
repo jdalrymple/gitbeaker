@@ -1,6 +1,5 @@
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
-import { Agent } from 'https';
 import { stringify } from 'query-string';
 
 export interface RequesterType {
@@ -46,12 +45,6 @@ export function defaultRequest(
     headers['content-type'] = 'application/json';
   } else {
     bod = body;
-  }
-
-  if (service.url.includes('https')) {
-    agent = new Agent({
-      rejectUnauthorized: service.rejectUnauthorized,
-    });
   }
 
   return {
