@@ -114,12 +114,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.29.0.tgz#258f6af48a3e001e15d2f058533e4027c5ca9ca5"
   integrity sha512-9ohDLpG79FpiUxzfKlr5tdnBEWwgSmYkY3wC8RfHsFqaH0Pn4RTmJsIMh/vbu1oAu7K5LefRvy+Bq3xfd3+Y/g==
 
-"@auto-it/core@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.29.0.tgz#77f617f3f574bd933de083e18bdd8353a40b0b06"
-  integrity sha512-QJTgo3EVDlyI2tV6cGpj3VzbpFJu0iiSQnQETdTXTLvenaqsTEGOndHEg6j8U2Coh3JisbtwD69uXLmup+7JXg==
+"@auto-it/bot-list@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.1.tgz#5f540e8c7799c3641057dcf8cd3577a20c11f7f9"
+  integrity sha512-8K6hnBZvgIy74h8D8FOVMxoEHxPVXEf+0c8KMLb8tMCAR+e4Mg55Qs2L9So02IlM2Bu+FtFPwWEXrWs1GfOyYg==
+
+"@auto-it/core@^9.29.0", "@auto-it/core@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.30.1.tgz#297c67d402eb531ca14853d66bb011e6a7ae0563"
+  integrity sha512-ZQAGlJVBxTfeKk/waFfZ4zUVN5CB/zkDGTOMH5ygFBmt1L0Gx+gXFmbonx8rJxb9H68fvjsrfybxo/wBeceQpw==
   dependencies:
-    "@auto-it/bot-list" "^9.29.0"
+    "@auto-it/bot-list" "^9.30.1"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -131,7 +136,7 @@
     cosmiconfig "6.0.0"
     deepmerge "^4.0.0"
     dotenv "^8.0.0"
-    endent "^1.3.0"
+    endent "^2.0.1"
     enquirer "^2.3.4"
     env-ci "^5.0.1"
     fast-glob "^3.1.1"
@@ -166,12 +171,12 @@
     tslib "1.11.1"
     url-join "^4.0.0"
 
-"@auto-it/npm@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.29.0.tgz#857b312ddd36265628fa10f1a2458ce45c1a0c8c"
-  integrity sha512-gOylsl4Nhv3JazHlowXuaY+NaJMw2kmRdrveGI89Hkg5FJfUN96LYbNg+VfAOBtzR1XSqNvFB0pOoaZVF7gA4g==
+"@auto-it/npm@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.30.1.tgz#d0ecbcf49b3d60327d775f4467da8314423c484a"
+  integrity sha512-8DdUbQZGhw8+tZMyVXkt5KcSGxwHr3FDYE34LQfV/a33WSStL4xasmvYf/71g1FWph0XK5Dk9hF0cv0JOcqvEQ==
   dependencies:
-    "@auto-it/core" "^9.29.0"
+    "@auto-it/core" "^9.30.1"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
     get-monorepo-packages "^1.1.0"
@@ -185,12 +190,12 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.29.0.tgz#cc3d231f9ec2a2aa18f5b6af1f55a7d9295aede8"
-  integrity sha512-8UWQLB4UVhy8XAL3KKhMAe/AXGrvFGY6G+VhGnqMY6NP/Asukiyopfa68QBN6r5gtqeJ6ivp3dvUr3K4jUnIug==
+"@auto-it/released@^9.29.0", "@auto-it/released@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.30.1.tgz#a34c769d686e52ceeb7306df0096497d1cf2e44b"
+  integrity sha512-YoeUOFKHUpGhu5Wr9KmAq/C7X9iw9KS+wpBR04U01rcNlLjoPaNxDVO4V2341+Fd6hHsNZdDUYTmHV5C5gfZ2Q==
   dependencies:
-    "@auto-it/core" "^9.29.0"
+    "@auto-it/core" "^9.30.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2441,17 +2446,17 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.29.0:
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.29.0.tgz#b643b8a4cef76ced0d547127785c646dfb3a3871"
-  integrity sha512-I22eWnB5Al8YzDWgsoVODAPwya1nupdrAoUZwJtMmFNQKaCgw0JXPWXMsMCzKO0qFmUWiUx9uyTw7OZcKgkSTg==
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-9.30.1.tgz#b04960c065fd20b9ec358881d0e6a2ec9bf87767"
+  integrity sha512-5DGIcCxhrE1P1BSGbPJsZ1Rba0TDagY0ctx67lGLFReiEbtuWk1b67WF4djAziLSlglLHM9HlTdiycbiq3wJYg==
   dependencies:
-    "@auto-it/core" "^9.29.0"
-    "@auto-it/npm" "^9.29.0"
-    "@auto-it/released" "^9.29.0"
+    "@auto-it/core" "^9.30.1"
+    "@auto-it/npm" "^9.30.1"
+    "@auto-it/released" "^9.30.1"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
     command-line-application "^0.9.3"
-    endent "^1.3.0"
+    endent "^2.0.1"
     module-alias "^2.2.2"
     signale "^1.4.0"
     terminal-link "^2.1.1"
@@ -3856,6 +3861,15 @@ endent@^1.3.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/endent/-/endent-1.4.1.tgz#c58cc13dfc432d0b2c7faf74c13ffdca60b2d1c8"
   integrity sha512-buHTb5c8AC9NshtP6dgmNLYkiT+olskbq1z6cEGvfGCF3Qphbu/1zz5Xu+yjTDln8RbxNhPoUyJ5H8MSrp1olQ==
+  dependencies:
+    dedent "^0.7.0"
+    fast-json-parse "^1.0.3"
+    objectorarray "^1.0.4"
+
+endent@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/endent/-/endent-2.0.1.tgz#fb18383a3f37ae3213a5d9f6c4a880d1061eb4c5"
+  integrity sha512-mADztvcC+vCk4XEZaCz6xIPO2NHQuprv5CAEjuVAu6aZwqAj7nVNlMyl1goPFYqCCpS2OJV9jwpumJLkotZrNw==
   dependencies:
     dedent "^0.7.0"
     fast-json-parse "^1.0.3"
