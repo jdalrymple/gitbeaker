@@ -105,7 +105,7 @@ test:integration:node: &integration
 test:integration:cli: &integration
   <<: *integration
   script:
-    - yarn jest cli/test/integration --runInBand && yarn codecov -F cli
+    - yarn jest cli/test/integration
 
 # test:cli:integration:dist:
 #   <<: *integration
