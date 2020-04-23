@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
+// import strip from 'strip-ansi';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { resolve } from 'path';
-import strip from 'strip-ansi';
 import pkg from '../../package.json';
 
 const execP = promisify(exec);
