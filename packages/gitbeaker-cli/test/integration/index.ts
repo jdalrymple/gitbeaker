@@ -6,7 +6,6 @@ import strip from 'strip-ansi';
 import pkg from '../../package.json';
 
 const execP = promisify(exec);
-let env: Record<string, string | undefined>;
 
 function cli(cmd, options = {}) {
   const args = cmd.replace('gitbeaker', '').trim();
@@ -14,10 +13,6 @@ function cli(cmd, options = {}) {
 
   return execP(`node ${binary} ${args}`, options);
 }
-
-beforeEach(() => {
-  env = process.env;
-});
 
 describe('General', () => {
   it('should return the expose a gitbeaker commnad', async () => {
@@ -27,153 +22,153 @@ describe('General', () => {
 
 describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   it('should return an object of available gitbeaker cli environment variables', async () => {
-    const { stdout } = await cli('gitbeaker -g', { env });
+    const { stdout } = await cli('gitbeaker -g');
 
     expect(strip(stdout)).toBe('No global variables have been set!\n');
   });
 
   it('should only have the personal token set', async () => {
-    env.GITBEAKER_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_TOKEN: 'gbfaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-token'].value).toBe('gbfaketoken');
   });
 
   it('should only have the personal token set by alias', async () => {
-    env.GITLAB_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_TOKEN: 'glfaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-token'].value).toBe('glfaketoken');
   });
 
   it('should only have the oauth token set', async () => {
-    env.GITBEAKER_OAUTH_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_OAUTH_TOKEN: 'gboafaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-oauth-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-oauth-token'].value).toBe('gboafaketoken');
   });
 
   it('should only have the oauth token set by alias', async () => {
-    env.GITLAB_OAUTH_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_OAUTH_TOKEN: 'gloafaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-oauth-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-oauth-token'].value).toBe('gloafaketoken');
   });
 
   it('should  only have the job token set', async () => {
-    env.GITBEAKER_JOB_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_JOB_TOKEN: 'gbjfaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-job-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-job-token'].value).toBe('gbjfaketoken');
   });
 
   it('should only have the job token set by alias', async () => {
-    env.GITLAB_JOB_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_JOB_TOKEN: 'gljfaketoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-job-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-job-token'].value).toBe('gljfaketoken');
   });
 
   it('should only have the host set', async () => {
-    env.GITBEAKER_HOST = 'www.fakehost.com';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_HOST: 'www.gbfakehost.com' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-host'].value).toBe('www.fakehost.com');
+    expect(JSON.parse(stdout)['gb-host'].value).toBe('www.gbfakehost.com');
   });
 
   it('should only have the host set by alias', async () => {
-    env.GITLAB_HOST = 'www.fakehost.com';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_HOST: 'www.ghfakehost.com' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-host'].value).toBe('www.fakehost.com');
+    expect(JSON.parse(stdout)['gb-host'].value).toBe('www.ghfakehost.com');
   });
 
   it('should only have the version set', async () => {
-    env.GITBEAKER_VERSION = '4';
-
-    const { stdout } = await cli('gitbeaker -g', { env });
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_VERSION: '4' },
+    });
 
     expect(JSON.parse(stdout)['gb-version'].value).toBe(4);
   });
 
   it('should only have the version set by alias', async () => {
-    env.GITLAB_VERSION = '4';
-
-    const { stdout } = await cli('gitbeaker -g', { env });
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_VERSION: '4' },
+    });
 
     expect(JSON.parse(stdout)['gb-version'].value).toBe(4);
   });
 
   it('should only have sudo set', async () => {
-    env.GITBEAKER_SUDO = 'sudoaccount';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_SUDO: 'gbsudoaccount' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-sudo'].value).toBe('sudoaccount');
+    expect(JSON.parse(stdout)['gb-sudo'].value).toBe('gbsudoaccount');
   });
 
   it('should only have sudo set by alias', async () => {
-    env.GITLAB_SUDO = 'sudoaccount';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_SUDO: 'glsudoaccount' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-sudo'].value).toBe('sudoaccount');
+    expect(JSON.parse(stdout)['gb-sudo'].value).toBe('glsudoaccount');
   });
 
   it('should only have the camelize set', async () => {
-    env.GITBEAKER_CAMELIZE = 'true';
-
-    const { stdout } = await cli('gitbeaker -g', { env });
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_CAMELIZE: 'true' },
+    });
 
     expect(JSON.parse(stdout)['gb-camelize'].value).toBe(true);
   });
 
   it('should only have the camelize set by alias', async () => {
-    env.GITLAB_CAMELIZE = 'true';
-
-    const { stdout } = await cli('gitbeaker -g', { env });
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_CAMELIZE: 'true' },
+    });
 
     expect(JSON.parse(stdout)['gb-camelize'].value).toBe(true);
   });
 
   it('should only have the profile token set', async () => {
-    env.GITBEAKER_PROFILE_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_PROFILE_TOKEN: 'gbptoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-profile-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-profile-token'].value).toBe('gbptoken');
   });
 
   it('should only have the profile token set by alias', async () => {
-    env.GITLAB_PROFILE_TOKEN = 'faketoken';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_PROFILE_TOKEN: 'glptoken' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-profile-token'].value).toBe('faketoken');
+    expect(JSON.parse(stdout)['gb-profile-token'].value).toBe('glptoken');
   });
 
   it('should only have the profile mode set', async () => {
-    env.GITBEAKER_PROFILE_MODE = 'mode1';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITBEAKER_PROFILE_MODE: 'gbpmode' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-profile-mode'].value).toBe('mode1');
+    expect(JSON.parse(stdout)['gb-profile-mode'].value).toBe('gbpmode');
   });
 
   it('should only have the profile mode set by alias', async () => {
-    env.GITLAB_PROFILE_MODE = 'mode1';
+    const { stdout } = await cli('gitbeaker -g', {
+      env: { ...process.env, GITLAB_PROFILE_MODE: 'glpmode' },
+    });
 
-    const { stdout } = await cli('gitbeaker -g', { env });
-
-    expect(JSON.parse(stdout)['gb-profile-mode'].value).toBe('mode1');
+    expect(JSON.parse(stdout)['gb-profile-mode'].value).toBe('glpmode');
   });
 });
 
@@ -187,13 +182,12 @@ describe('gitbeaker -v -- Package Version', () => {
 
 describe('gitbeaker projects create', () => {
   it('should create a valid project using configuration from environment variables', async () => {
-    env.GITBEAKER_HOST = process.env.GITLAB_URL;
-    env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
-
-    console.log(env);
-
     const output = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
-      env,
+      env: {
+        ...process.env,
+        GITBEAKER_HOST: process.env.GITLAB_URL,
+        GITBEAKER_TOKEN: process.env.PERSONAL_ACCESS_TOKEN,
+      },
     });
 
     console.log(output);
