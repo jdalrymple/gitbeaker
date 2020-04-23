@@ -102,7 +102,7 @@ test:integration:node: &integration
     - echo $CODECOV_TOKEN
   script: yarn jest node/test/integration && yarn codecov -F node
 
-test:integration:cli: &integration
+test:integration:cli:
   <<: *integration
   script:
     - yarn jest cli/test/integration
