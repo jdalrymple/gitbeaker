@@ -1,3 +1,15 @@
+# v19.0.0 (Thu Apr 23 2020)
+
+#### 💥 Breaking Change
+
+- Adding CLI Integration Tests and Preferring named exports [#711](https://github.com/jdalrymple/gitbeaker/pull/711) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v18.2.0 (Wed Apr 22 2020)
 
 #### 🐛 Bug Fix
