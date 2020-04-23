@@ -190,70 +190,74 @@ describe('gitbeaker projects create', () => {
     env.GITBEAKER_HOST = process.env.GITLAB_URL;
     env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
 
-    const { stdout } = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
+    const output = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
       env,
     });
+
+    console.log(output);
+
+    const { stdout } = output;
 
     expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test1');
   });
 
-  it('should create a valid project using configuration passed in arguments', async () => {
-    const { stdout } = await cli(
-      `gitbeaker projects create --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --gl-host=${process.env.GITLAB_URL} --name="Project Creation CLI test2"`,
-      {
-        env: process.env,
-      },
-    );
+  // it('should create a valid project using configuration passed in arguments', async () => {
+  //   const { stdout } = await cli(
+  //     `gitbeaker projects create --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --gl-host=${process.env.GITLAB_URL} --name="Project Creation CLI test2"`,
+  //     {
+  //       env: process.env,
+  //     },
+  //   );
 
-    expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test2');
-  });
+  //   expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test2');
+  // });
 
-  it('should create a valid project using configuration passed in arguments and defined in the environment variables', async () => {
-    process.env.GITLAB_HOST = process.env.GITLAB_URL;
+  // it('should create a valid project using configuration passed in arguments and defined in the environment variables', async () => {
+  //   process.env.GITLAB_HOST = process.env.GITLAB_URL;
 
-    const { stdout } = await cli(
-      `
-      gitbeaker projects create --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --name="Project Creation CLI test3"`,
-      {
-        env: process.env,
-      },
-    );
+  //   const { stdout } = await cli(
+  //     `
+  //     gitbeaker projects create --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --name="Project Creation CLI test3"`,
+  //     {
+  //       env: process.env,
+  //     },
+  //   );
 
-    expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test3');
-  });
+  //   expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test3');
+  // });
 
-  it('should create a valid project using configuration passed in arguments, overriding those defined in the environment variables', async () => {
-    process.env.GITLAB_TOKEN = 'faketoken';
+  // it('should create a valid project using configuration passed in arguments, overriding those defined in the environment variables', async () => {
+  //   process.env.GITLAB_TOKEN = 'faketoken';
 
-    const { stdout } = await cli(
-      `
-      gitbeaker projects create --gl-host=${process.env.GITLAB_URL} --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --name="Project Creation CLI test4"`,
-      {
-        env: process.env,
-      },
-    );
+  //   const { stdout } = await cli(
+  //     `
+  //     gitbeaker projects create --gl-host=${process.env.GITLAB_URL} --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --name="Project Creation CLI test4"`,
+  //     {
+  //       env: process.env,
+  //     },
+  //   );
 
-    expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test4');
-  });
+  //   expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test4');
+  // });
 });
 
-describe('gitbeaker projects all', () => {
-  it('should create a valid project using configuration from environment variables', async () => {
-    env.GITBEAKER_HOST = process.env.GITLAB_URL;
-    env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
+// describe('gitbeaker projects all', () => {
+//   it('should create a valid project using configuration from environment variables', async () => {
+//     env.GITBEAKER_HOST = process.env.GITLAB_URL;
+//     env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
 
-    // Create a project first
-    await cli('gitbeaker projects create --name="Project Creation CLI all1"', {
-      env,
-    });
+//     // Create a project first
+//     await cli('gitbeaker projects create --name="Project Creation CLI all1"', {
+//       env,
+//     });
 
-    // Get all projects
-    const { stdout } = await cli('gitbeaker projects all --simple=true', {
-      env,
-    });
+//     // Get all projects
+//     const { stdout } = await cli('gitbeaker projects all --simple=true', {
+//       env,
+//     });
 
-    const found = JSON.parse(stdout).some((p) => p.name === 'Project Creation CLI all1');
+//     const found = JSON.parse(stdout).some((p) => p.name === 'Project Creation CLI all1');
 
-    expect(found).toBeTruthy();
-  });
-});
+//     expect(found).toBeTruthy();
+//   });
+// });
