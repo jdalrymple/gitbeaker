@@ -121,7 +121,7 @@ function runAPIMethod(args, apiName, method) {
   Object.entries(args).forEach(([argName, value]) => {
     if (ignoreOptions.includes(argName)) return;
 
-    console.log(argName);
+    console.log(`${argName}:${value}`);
 
     const camelCased = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
 
