@@ -49,7 +49,7 @@ lint:docs:
   stage: lint
   script: yarn lint:doc
 
-# Test packages and builds
+# Unit Tests
 test:unit:core:
   stage: test
   script: yarn jest core/test/unit && yarn codecov -F core
@@ -67,12 +67,8 @@ test:unit:utils:
   stage: test
   script: yarn jest utils/test/unit && yarn codecov -F utils
 
-test:integration:browser:
-  image: buildkite/puppeteer
-  stage: test
-  script: yarn jest browser/test/integration
-
-test:integration:node: &integration
+# Integration Tests
+.test:integration: &integration
   image:
     name: docker/compose:latest
     entrypoint: ['/bin/sh', '-c']
@@ -100,12 +96,19 @@ test:integration:node: &integration
     - echo $PERSONAL_ACCESS_TOKEN
     - echo $GITLAB_URL
     - echo $CODECOV_TOKEN
-  script: yarn jest node/test/integration && yarn codecov -F node
+
+test:integration:browser:
+  image: buildkite/puppeteer
+  stage: test
+  script: yarn jest browser/test/integration
 
 test:integration:cli:
   <<: *integration
-  script:
-    - yarn jest cli/test/integration
+  script: yarn jest cli/test/integration
+
+# test:integration:node:
+#   <<: *integration
+#   script: yarn jest node/test/integration && yarn codecov -F node
 
 # test:cli:integration:dist:
 #   <<: *integration
