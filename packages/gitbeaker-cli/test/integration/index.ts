@@ -11,9 +11,6 @@ let env: Record<string, string | undefined>;
 function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
   const args = cmd.replace(name, '').trim();
-
-  expect(pkg.bin).toHaveProperty(name);
-
   const binary = resolve(__dirname, '..', '..', pkg.bin[name]);
 
   return execP(`node ${binary} -- ${args}`, options);
@@ -21,6 +18,12 @@ function cli(cmd, options = {}) {
 
 beforeEach(() => {
   env = process.env;
+});
+
+describe('General', () => {
+  it('should return the expose a gitbeaker commnad', async () => {
+    expect(pkg.bin).toHaveProperty('gitbeaker');
+  });
 });
 
 describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
