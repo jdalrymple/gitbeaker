@@ -6,7 +6,7 @@ import strip from 'strip-ansi';
 import pkg from '../../package.json';
 
 const execP = promisify(exec);
-let env: Record<string, string | undefined> = {};
+let env: Record<string, string | undefined>;
 
 function cli(cmd, options = {}) {
   const name = cmd.split(' ').shift();
