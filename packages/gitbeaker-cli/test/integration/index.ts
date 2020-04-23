@@ -190,6 +190,8 @@ describe('gitbeaker projects create', () => {
     env.GITBEAKER_HOST = process.env.GITLAB_URL;
     env.GITBEAKER_TOKEN = process.env.PERSONAL_ACCESS_TOKEN;
 
+    console.log(env);
+
     const output = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
       env,
     });
