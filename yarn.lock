@@ -114,12 +114,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.29.0.tgz#258f6af48a3e001e15d2f058533e4027c5ca9ca5"
   integrity sha512-9ohDLpG79FpiUxzfKlr5tdnBEWwgSmYkY3wC8RfHsFqaH0Pn4RTmJsIMh/vbu1oAu7K5LefRvy+Bq3xfd3+Y/g==
 
-"@auto-it/core@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.29.0.tgz#77f617f3f574bd933de083e18bdd8353a40b0b06"
-  integrity sha512-QJTgo3EVDlyI2tV6cGpj3VzbpFJu0iiSQnQETdTXTLvenaqsTEGOndHEg6j8U2Coh3JisbtwD69uXLmup+7JXg==
+"@auto-it/bot-list@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.1.tgz#5f540e8c7799c3641057dcf8cd3577a20c11f7f9"
+  integrity sha512-8K6hnBZvgIy74h8D8FOVMxoEHxPVXEf+0c8KMLb8tMCAR+e4Mg55Qs2L9So02IlM2Bu+FtFPwWEXrWs1GfOyYg==
+
+"@auto-it/core@^9.29.0", "@auto-it/core@^9.30.1":
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.30.1.tgz#297c67d402eb531ca14853d66bb011e6a7ae0563"
+  integrity sha512-ZQAGlJVBxTfeKk/waFfZ4zUVN5CB/zkDGTOMH5ygFBmt1L0Gx+gXFmbonx8rJxb9H68fvjsrfybxo/wBeceQpw==
   dependencies:
-    "@auto-it/bot-list" "^9.29.0"
+    "@auto-it/bot-list" "^9.30.1"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -131,7 +136,7 @@
     cosmiconfig "6.0.0"
     deepmerge "^4.0.0"
     dotenv "^8.0.0"
-    endent "^1.3.0"
+    endent "^2.0.1"
     enquirer "^2.3.4"
     env-ci "^5.0.1"
     fast-glob "^3.1.1"
@@ -156,13 +161,13 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.29.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.29.0.tgz#d12385c5c1bdd2e4654096c37f5ed4858cad3566"
-  integrity sha512-LCrugOqlSVzCJmdF7zNVwSe+dt791iaRKA3gVSK944AdNsJjOuEK2p1BDgJUTgo+9ixOZ6sJEsCd+bD3Eu09Pw==
+  version "9.30.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.30.1.tgz#5b2436d993152c39b79ec50013a54a463a867d35"
+  integrity sha512-KuyAGZpgEyXnl3ocNGQsEIenPzAl5ThdTVKKxaNUlY75x9ehkHNiJJGHxyavMi0TCEIOdsHnYjWS46KbEAczlQ==
   dependencies:
-    "@auto-it/core" "^9.29.0"
+    "@auto-it/core" "^9.30.1"
     array.prototype.flatmap "^1.2.2"
-    endent "^1.3.0"
+    endent "^2.0.1"
     tslib "1.11.1"
     url-join "^4.0.0"
 
@@ -3856,6 +3861,15 @@ endent@^1.3.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/endent/-/endent-1.4.1.tgz#c58cc13dfc432d0b2c7faf74c13ffdca60b2d1c8"
   integrity sha512-buHTb5c8AC9NshtP6dgmNLYkiT+olskbq1z6cEGvfGCF3Qphbu/1zz5Xu+yjTDln8RbxNhPoUyJ5H8MSrp1olQ==
+  dependencies:
+    dedent "^0.7.0"
+    fast-json-parse "^1.0.3"
+    objectorarray "^1.0.4"
+
+endent@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/endent/-/endent-2.0.1.tgz#fb18383a3f37ae3213a5d9f6c4a880d1061eb4c5"
+  integrity sha512-mADztvcC+vCk4XEZaCz6xIPO2NHQuprv5CAEjuVAu6aZwqAj7nVNlMyl1goPFYqCCpS2OJV9jwpumJLkotZrNw==
   dependencies:
     dedent "^0.7.0"
     fast-json-parse "^1.0.3"
