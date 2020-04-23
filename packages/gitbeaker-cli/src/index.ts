@@ -119,9 +119,7 @@ function runAPIMethod(args, apiName, method) {
   const initArgs = {};
 
   Object.entries(args).forEach(([argName, value]) => {
-    if (ignoreOptions.includes(argName)) return;
-
-    console.log(`${argName}:${value}`);
+    if (ignoreOptions.includes(argName) || value == null) return;
 
     const camelCased = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
 
@@ -130,8 +128,6 @@ function runAPIMethod(args, apiName, method) {
     } else if (method.args.includes(camelCased)) coreArgs[camelCased] = value;
     else optionalArgs[camelCased] = value;
   });
-
-  console.debug(initArgs);
 
   // Create service
   const s = new Gitbeaker[apiName](initArgs);
