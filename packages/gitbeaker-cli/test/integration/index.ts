@@ -9,11 +9,10 @@ const execP = promisify(exec);
 let env: Record<string, string | undefined>;
 
 function cli(cmd, options = {}) {
-  const name = cmd.split(' ').shift();
-  const args = cmd.replace(name, '').trim();
-  const binary = resolve(__dirname, '..', '..', pkg.bin[name]);
+  const args = cmd.replace('gitbeaker', '').trim();
+  const binary = resolve(__dirname, '..', '..', pkg.bin.gitbeaker);
 
-  return execP(`node ${binary} -- ${args}`, options);
+  return execP(`node ${binary} ${args}`, options);
 }
 
 beforeEach(() => {
