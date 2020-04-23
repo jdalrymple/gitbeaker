@@ -20,7 +20,7 @@ function cli(cmd, options = {}) {
 }
 
 beforeEach(() => {
-  env = {};
+  env = process.env;
 });
 
 // describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
