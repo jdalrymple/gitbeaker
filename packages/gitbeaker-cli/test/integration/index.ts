@@ -11,9 +11,6 @@ function cli(cmd, options = {}) {
   const args = cmd.replace('gitbeaker', '').trim();
   const binary = resolve(__dirname, '..', '..', pkg.bin.gitbeaker);
 
-  console.log(`node ${binary} ${args}`);
-  console.log(options);
-
   return execP(`node ${binary} ${args}`, options);
 }
 
@@ -185,7 +182,7 @@ describe('gitbeaker -v -- Package Version', () => {
 
 describe('gitbeaker projects create', () => {
   it('should create a valid project using configuration from environment variables', async () => {
-    const output = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
+    const { stdout } = await cli('gitbeaker projects create --name="Project Creation CLI test1"', {
       env: {
         ...process.env,
         GITBEAKER_HOST: process.env.GITLAB_URL,
@@ -193,19 +190,13 @@ describe('gitbeaker projects create', () => {
       },
     });
 
-    const { stdout } = output;
-
     expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test1');
   });
 
   it('should create a valid project using configuration passed in arguments', async () => {
-    const output = await cli(
+    const { stdout } = await cli(
       `gitbeaker projects create --gl-token=${process.env.PERSONAL_ACCESS_TOKEN} --gb-host=${process.env.GITLAB_URL} --name="Project Creation CLI test2"`,
     );
-
-    const { stdout } = output;
-
-    console.log(output);
 
     expect(JSON.parse(stdout).name).toEqual('Project Creation CLI test2');
   });
