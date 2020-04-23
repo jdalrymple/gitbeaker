@@ -4,7 +4,6 @@
   },
   "repository": "github:jdalrymple/gitbeaker",
   "devDependencies": {
-    "@auto-canary/auto": "9.28.2-canary.1160.15021.0",
     "@auto-it/all-contributors": "^9.29.0",
     "@auto-it/first-time-contributor": "^9.29.0",
     "@auto-it/released": "^9.29.0",

@@ -119,11 +119,11 @@ function runAPIMethod(args, apiName, method) {
   const initArgs = {};
 
   Object.entries(args).forEach(([argName, value]) => {
-    if (ignoreOptions.includes(argName)) return;
+    if (ignoreOptions.includes(argName) || value == null) return;
 
     const camelCased = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
 
-    if (globalConfig[argName]) {
+    if (globalConfig[argName.replace('gl-', 'gb-')]) {
       initArgs[camelCased] = value;
     } else if (method.args.includes(camelCased)) coreArgs[camelCased] = value;
     else optionalArgs[camelCased] = value;

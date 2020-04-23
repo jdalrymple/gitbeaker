@@ -49,57 +49,66 @@ lint:docs:
   stage: lint
   script: yarn lint:doc
 
-# Test packages and builds
-test:core:unit:
+# Unit Tests
+test:unit:core:
   stage: test
   script: yarn jest core/test/unit && yarn codecov -F core
 
-test:node:unit:
+test:unit:node:
   stage: test
   script: yarn jest node/test/unit && yarn codecov -F node
 
-test:browser:unit:
+test:unit:browser:
   image: buildkite/puppeteer
   stage: test
   script: yarn jest browser/test/unit && yarn codecov -F browser
 
-test:utils:unit:
+test:unit:utils:
   stage: test
   script: yarn jest utils/test/unit && yarn codecov -F utils
 
-# test:core:integration: &integration
-#   image:
-#     name: docker/compose:latest
-#     entrypoint: ['/bin/sh', '-c']
-#   variables:
-#     DOCKER_HOST: tcp://docker:2375
-#     GITLAB_URL: http://docker:8080
-#   services:
-#     - docker:dind
-#   stage: test
-#   before_script:
-#     # Install docker compose
-#     - apk add --no-cache nodejs yarn git
+# Integration Tests
+.test:integration: &integration
+  image:
+    name: docker/compose:latest
+    entrypoint: ['/bin/sh', '-c']
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    GITLAB_URL: http://docker:8080
+  services:
+    - docker:dind
+  stage: test
+  before_script:
+    # Install docker compose
+    - apk add --no-cache nodejs yarn git
 
-#     # Spin up container
-#     - cd scripts
-#     - docker-compose -f docker-compose.yml up -d
+    # Spin up container
+    - cd scripts
+    - docker-compose -f docker-compose.yml up -d
 
-#     # Verify Gitlab instance is up and running
-#     - node probe.js
+    # Verify Gitlab instance is up and running
+    - node probe.js
 
-#     # Get the personal token
-#     - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
+    # Get the personal token
+    - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
 
-#     - cd ..
-#     - echo $PERSONAL_ACCESS_TOKEN
-#     - echo $GITLAB_URL
-#     - echo $CODECOV_TOKEN
-#   script: yarn jest core/test/integration --runInBand && yarn codecov -F core
+    - cd ..
+    - echo $PERSONAL_ACCESS_TOKEN
+    - echo $GITLAB_URL
+    - echo $CODECOV_TOKEN
 
-# test:cli:integration:
+test:integration:browser:
+  image: buildkite/puppeteer
+  stage: test
+  script: yarn jest browser/test/integration
+
+test:integration:cli:
+  <<: *integration
+  script: yarn jest cli/test/integration
+
+# test:integration:node:
 #   <<: *integration
-#   script: yarn jest core/test/integration --runInBand && yarn codecov
+#   script: yarn jest node/test/integration && yarn codecov -F node
 
 # test:cli:integration:dist:
 #   <<: *integration
@@ -112,10 +121,6 @@ test:utils:unit:
 # test:core:integration:dist-es
 #   <<: *integration
 #   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
-
-# test:core:integration:browser:
-#   <<: *integration
-#   script: npm run test:integration -- --scope=core --moduleNameMapper="{dist:dist/index.umd.js}" && codecov
 
 # Release
 release:
