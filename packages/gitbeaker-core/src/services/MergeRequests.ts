@@ -7,45 +7,69 @@ import {
 } from '../infrastructure';
 
 export interface AcceptMergeRequestOptions {
-  merge_commit_message?: string;
-  squash_commit_message?: string;
+  mergeCommitMessage?: string;
+  squashCommitMessage?: string;
   squash?: boolean;
-  should_remove_source_branch?: boolean;
-  merge_when_pipeline_succeeds?: boolean;
+  shouldRemoveSourceBranch?: boolean;
+  mergeWhenPipelineSucceeds?: boolean;
   sha?: string;
 }
 
 export interface ShowMergeRequestOptions {
-  render_html?: boolean;
-  include_diverged_commits_count?: true;
-  include_rebase_in_progress?: boolean;
+  renderHtml?: boolean;
+  includeDivergedCommitsCount?: true;
+  includeRebaseInProgress?: boolean;
 }
 
 export interface CreateMergeRequestOptions {
-  assignee_id?: number;
+  assigneeId?: number;
   description?: string;
-  target_project_id?: number;
+  targetProjectId?: number;
   labels?: string;
-  milestone_id?: number;
-  remove_source_branch?: boolean;
-  allow_collaboration?: boolean;
-  allow_maintainer_to_push?: boolean;
+  milestoneId?: number;
+  removeSourceBranch?: boolean;
+  allowCollaboration?: boolean;
+  allowMaintainerToPush?: boolean;
   squash?: boolean;
 }
 
 export interface UpdateMergeRequestOptions {
-  target_branch?: number;
+  targetBranch?: number;
   title?: string;
-  assignee_id?: number;
-  milestone_id?: number;
+  assigneeId?: number;
+  milestoneId?: number;
   labels?: string;
   description?: string;
-  state_event?: string;
-  remove_source_branch?: boolean;
+  stateEvent?: string;
+  removeSourceBranch?: boolean;
   squash?: boolean;
-  discussion_locked?: boolean;
-  allow_collaboration?: boolean;
-  allow_maintainer_to_push?: boolean;
+  discussionLocked?: boolean;
+  allowCollaboration?: boolean;
+  allowMaintainerToPush?: boolean;
+}
+
+export interface AllMergeRequestsOptions {
+  state?: 'opened' | 'closed' | 'locked' | 'merged';
+  orderBy?: 'created_at' | 'updated_at';
+  sort?: 'asc' | 'desc';
+  milestone?: 'None' | string;
+  view?: string;
+  labels?: string;
+  withLabelsDetails?: boolean;
+  createdAfter?: string;
+  createdBefore?: string;
+  updatedBefore?: string;
+  updatedAfter?: string;
+  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
+  authorId?: number;
+  asigneeId?: number;
+  approverIds?: Array<number>;
+  approvedByIds?: Array<number>;
+  myReactionEmoji?: string;
+  sourceBranch?: string;
+  targetBranch?: string;
+  in?: string;
+  wip?: string;
 }
 
 export class MergeRequests extends BaseService {
@@ -91,7 +115,8 @@ export class MergeRequests extends BaseService {
     projectId,
     groupId,
     ...options
-  }: ({ projectId: string | number } | { groupId: string | number } | {}) &
+  }: ({ projectId: string | number } | { groupId: string | number }) &
+    AllMergeRequestsOptions &
     PaginatedRequestOptions) {
     let url;
 
