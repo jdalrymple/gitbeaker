@@ -1,3 +1,16 @@
+# v19.1.0 (Mon Apr 27 2020)
+
+#### 🚀 Enhancement
+
+- feats: adds options interface for MergeRequest.all() [#606](https://github.com/jdalrymple/gitbeaker/pull/606) ([@AlvaroBernalG](https://github.com/AlvaroBernalG) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Alvaro ([@AlvaroBernalG](https://github.com/AlvaroBernalG))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change

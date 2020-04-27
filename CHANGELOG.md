@@ -1,3 +1,29 @@
+# 19.1.0 (Mon Apr 27 2020)
+
+#### 🚀 Enhancement
+
+- `@gitbeaker/core`
+  - feats: adds options interface for MergeRequest.all() [#606](https://github.com/jdalrymple/gitbeaker/pull/606) ([@AlvaroBernalG](https://github.com/AlvaroBernalG) [@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️  Pushed to `master`
+
+- Linting [skip-ci] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.1 to 9.30.2 [#722](https://github.com/jdalrymple/gitbeaker/pull/722) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.13.2 to 13.13.4 [#724](https://github.com/jdalrymple/gitbeaker/pull/724) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.30.1 to 9.30.2 [#725](https://github.com/jdalrymple/gitbeaker/pull/725) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-node from 8.9.0 to 8.9.1 [#726](https://github.com/jdalrymple/gitbeaker/pull/726) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Alvaro ([@AlvaroBernalG](https://github.com/AlvaroBernalG))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change
