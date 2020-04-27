@@ -151,6 +151,15 @@
         "review",
         "code"
       ]
+    },
+    {
+      "login": "AlvaroBernalG",
+      "name": "Alvaro",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12004383?v=4",
+      "profile": "https://alvarobg.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

@@ -636,12 +636,12 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="http://obartra.github.io"><img src="https://avatars0.githubusercontent.com/u/3877773?v=4" width="50px;" alt=""/><br /><sub><b>Oscar</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aobartra" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://daniel-ruf.de"><img src="https://avatars1.githubusercontent.com/u/827205?v=4" width="50px;" alt=""/><br /><sub><b>Daniel Ruf</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3ADanielRuf" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=DanielRuf" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3ADanielRuf" title="Bug reports">🐛</a> <a href="#maintenance-DanielRuf" title="Maintenance">🚧</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=DanielRuf" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/schindld"><img src="https://avatars0.githubusercontent.com/u/1659632?v=4" width="50px;" alt=""/><br /><sub><b>schindld</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aschindld" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=schindld" title="Code">💻</a></td>
+    <td align="center"><a href="https://alvarobg.com"><img src="https://avatars0.githubusercontent.com/u/12004383?v=4" width="50px;" alt=""/><br /><sub><b>Alvaro</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=AlvaroBernalG" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
