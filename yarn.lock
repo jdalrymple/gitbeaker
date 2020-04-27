@@ -3,23 +3,18 @@
 
 
 "@auto-it/all-contributors@^9.29.0":
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.30.1.tgz#2f3ace9426bc4d5e2de45a485adefc9e431ec648"
-  integrity sha512-MjLQSQjlU7bnW+V3qMKQfm8SkaPDYjHd7pk2Cp400kQgweP96m96LCvjfuajNiFzqvf4VBGQc2IWVtO8JeVe1w==
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.30.2.tgz#5b6b16bf42634bd2df38b3e8bf65ef7878abe115"
+  integrity sha512-vJJcw5q7EQO85cnOLHVFwMlIWe8n2YSVtwgfszwd5F3bm7zca3c5IZaDJ1/XhFLvI61MqEAPT5Rz0PrgCq6Ikw==
   dependencies:
-    "@auto-it/bot-list" "^9.30.1"
-    "@auto-it/core" "^9.30.1"
+    "@auto-it/bot-list" "^9.30.2"
+    "@auto-it/core" "^9.30.2"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     fp-ts "^2.5.3"
     fromentries "^1.2.0"
     io-ts "^2.1.2"
     tslib "1.11.1"
-
-"@auto-it/bot-list@^9.30.1":
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.1.tgz#5f540e8c7799c3641057dcf8cd3577a20c11f7f9"
-  integrity sha512-8K6hnBZvgIy74h8D8FOVMxoEHxPVXEf+0c8KMLb8tMCAR+e4Mg55Qs2L9So02IlM2Bu+FtFPwWEXrWs1GfOyYg==
 
 "@auto-it/bot-list@^9.30.2":
   version "9.30.2"
