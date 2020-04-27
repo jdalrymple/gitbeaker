@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.1.tgz#5f540e8c7799c3641057dcf8cd3577a20c11f7f9"
   integrity sha512-8K6hnBZvgIy74h8D8FOVMxoEHxPVXEf+0c8KMLb8tMCAR+e4Mg55Qs2L9So02IlM2Bu+FtFPwWEXrWs1GfOyYg==
 
-"@auto-it/core@^9.30.1":
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.30.1.tgz#297c67d402eb531ca14853d66bb011e6a7ae0563"
-  integrity sha512-ZQAGlJVBxTfeKk/waFfZ4zUVN5CB/zkDGTOMH5ygFBmt1L0Gx+gXFmbonx8rJxb9H68fvjsrfybxo/wBeceQpw==
+"@auto-it/bot-list@^9.30.2":
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.2.tgz#102e078fd631822ecfbec5a5fc3b806fb2490ebb"
+  integrity sha512-qBIDKEkNpYDOxHuMx2GHwgyL1FHOBQy8RGd3Zuy3O9eAYtmIZwYLeKAZlJRyVgnEiWZW+dLWTMnxTwfCe7me5Q==
+
+"@auto-it/core@^9.30.1", "@auto-it/core@^9.30.2":
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.30.2.tgz#3bf7d24daff49cc403d1807e0970617ef85a050c"
+  integrity sha512-3t1ugDu4pYQg93zokxlu5sUaOOWcwaKFgSidvRIcqaEufNVYSqsxkbuSZmE8FefTjv9Jc6BGzqhYRgKOgZy8gA==
   dependencies:
-    "@auto-it/bot-list" "^9.30.1"
+    "@auto-it/bot-list" "^9.30.2"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -93,11 +98,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.30.1":
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.30.1.tgz#a34c769d686e52ceeb7306df0096497d1cf2e44b"
-  integrity sha512-YoeUOFKHUpGhu5Wr9KmAq/C7X9iw9KS+wpBR04U01rcNlLjoPaNxDVO4V2341+Fd6hHsNZdDUYTmHV5C5gfZ2Q==
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.30.2.tgz#6b15ad2428da7f2cfb41397441a2d45476c35345"
+  integrity sha512-MaAoM0GL5p6lfmEhaQdXP3tPXBF78mxSof0PIaIuIOiXUHYqdrv33ZCXsmxZwNCGFjviULQQnBDAoW37VFlS2w==
   dependencies:
-    "@auto-it/core" "^9.30.1"
+    "@auto-it/core" "^9.30.2"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
