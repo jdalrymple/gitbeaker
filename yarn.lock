@@ -78,12 +78,12 @@
     tslib "1.11.1"
     url-join "^4.0.0"
 
-"@auto-it/npm@^9.30.1":
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.30.1.tgz#d0ecbcf49b3d60327d775f4467da8314423c484a"
-  integrity sha512-8DdUbQZGhw8+tZMyVXkt5KcSGxwHr3FDYE34LQfV/a33WSStL4xasmvYf/71g1FWph0XK5Dk9hF0cv0JOcqvEQ==
+"@auto-it/npm@^9.30.2":
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.30.2.tgz#ce891780d60744caf0e7d0af9b41e7a79e3d8863"
+  integrity sha512-WvWWPrt8cGcB2TGrlSRhTNQbJ9qr4ilTVpYIo/MZqZ7aGOS9PQ4T20FchhIwHtH87aIQ7Ry/f8yKMyu1EYua+g==
   dependencies:
-    "@auto-it/core" "^9.30.1"
+    "@auto-it/core" "^9.30.2"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
     get-monorepo-packages "^1.1.0"
@@ -97,7 +97,7 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@^9.29.0", "@auto-it/released@^9.30.1":
+"@auto-it/released@^9.29.0", "@auto-it/released@^9.30.2":
   version "9.30.2"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.30.2.tgz#6b15ad2428da7f2cfb41397441a2d45476c35345"
   integrity sha512-MaAoM0GL5p6lfmEhaQdXP3tPXBF78mxSof0PIaIuIOiXUHYqdrv33ZCXsmxZwNCGFjviULQQnBDAoW37VFlS2w==
@@ -2363,13 +2363,13 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.29.0:
-  version "9.30.1"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.30.1.tgz#b04960c065fd20b9ec358881d0e6a2ec9bf87767"
-  integrity sha512-5DGIcCxhrE1P1BSGbPJsZ1Rba0TDagY0ctx67lGLFReiEbtuWk1b67WF4djAziLSlglLHM9HlTdiycbiq3wJYg==
+  version "9.30.2"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-9.30.2.tgz#ba32765a6f008320007cc6c20a5aad71210a000e"
+  integrity sha512-d1/iFVeHu5Lj7NuRO/tqQT6/OA7KaHUx49z4+9Fbh1F5392Uy4uxryP9D1un9miwSZL4N+dF0tqzmUGOMNemoA==
   dependencies:
-    "@auto-it/core" "^9.30.1"
-    "@auto-it/npm" "^9.30.1"
-    "@auto-it/released" "^9.30.1"
+    "@auto-it/core" "^9.30.2"
+    "@auto-it/npm" "^9.30.2"
+    "@auto-it/released" "^9.30.2"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
     command-line-application "^0.9.3"
