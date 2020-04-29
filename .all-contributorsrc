@@ -160,6 +160,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "danielmoore",
+      "name": "Daniel Moore",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/616152?v=4",
+      "profile": "http://northhorizon.net",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
