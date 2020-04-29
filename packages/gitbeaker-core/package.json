@@ -41,6 +41,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
@@ -51,6 +52,5 @@
     "generate-map": "ESM_DISABLE_CACHE=true TS_NODE_PROJECT=scripts/tsconfig.json node -r esm -r ts-node/register scripts/generate.ts",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"
-  },
-  "types": "dist/types/index.d.ts"
+  }
 }
