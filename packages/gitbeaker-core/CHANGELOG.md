@@ -1,3 +1,19 @@
+# v19.2.0 (Wed Apr 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add types field to node and browser package.json [#737](https://github.com/jdalrymple/gitbeaker/pull/737) ([@danielmoore](https://github.com/danielmoore))
+
+#### Authors: 1
+
+- Daniel Moore ([@danielmoore](https://github.com/danielmoore))
+
+---
+
 # v19.1.0 (Mon Apr 27 2020)
 
 #### 🚀 Enhancement

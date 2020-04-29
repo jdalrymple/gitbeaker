@@ -1,3 +1,39 @@
+# 19.2.0 (Wed Apr 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Add types field to node and browser package.json [#737](https://github.com/jdalrymple/gitbeaker/pull/737) ([@danielmoore](https://github.com/danielmoore))
+
+#### ⚠️  Pushed to `master`
+
+- Linting [skip-ci] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-9.30.3' [#730](https://github.com/jdalrymple/gitbeaker/pull/730) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/puppeteer-3.0.2' [#735](https://github.com/jdalrymple/gitbeaker/pull/735) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/all-contributors-9.30.3' [#731](https://github.com/jdalrymple/gitbeaker/pull/731) ([@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.2 to 9.30.3 [#729](https://github.com/jdalrymple/gitbeaker/pull/729) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.7.2 to 2.7.3 [#733](https://github.com/jdalrymple/gitbeaker/pull/733) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.29.0 to 2.30.0 [#732](https://github.com/jdalrymple/gitbeaker/pull/732) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.4.0 to 25.5.0 [#734](https://github.com/jdalrymple/gitbeaker/pull/734) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.1.7 to 10.2.0 [#736](https://github.com/jdalrymple/gitbeaker/pull/736) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.29.0 to 2.30.0 [#728](https://github.com/jdalrymple/gitbeaker/pull/728) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.30.2 to 9.30.3 [#727](https://github.com/jdalrymple/gitbeaker/pull/727) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Daniel Moore ([@danielmoore](https://github.com/danielmoore))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.1.0 (Mon Apr 27 2020)
 
 #### 🚀 Enhancement
