@@ -5,9 +5,9 @@
 - `@gitbeaker/core`
   - feats: adds options interface for MergeRequest.all() [#606](https://github.com/jdalrymple/gitbeaker/pull/606) ([@AlvaroBernalG](https://github.com/AlvaroBernalG) [@jdalrymple](https://github.com/jdalrymple))
 
-#### ⚠️  Pushed to `master`
+#### ⚠️ Pushed to `master`
 
-- Linting [skip-ci] ([@jdalrymple](https://github.com/jdalrymple))
+- Linting [skip-ci](<[@jdalrymple](https://github.com/jdalrymple)>)
 
 #### 🔩 Dependencies
 
