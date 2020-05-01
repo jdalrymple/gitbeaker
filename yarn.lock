@@ -21,7 +21,7 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.30.3.tgz#2929c2e91ef0c302e1421be318e1102408566ea2"
   integrity sha512-QiTSJNwlaQU1bA367Ol4zHxxuz6ASbySR5cCv7sycYuVShc0CJex1VldNL76SHQy8/uNjRnXtQLHJJVzbn5BUw==
 
-"@auto-it/core@^9.30.1", "@auto-it/core@^9.30.3":
+"@auto-it/core@^9.30.3":
   version "9.30.3"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.30.3.tgz#131c8de8bdeea0c399a77ec46c52993defa896e3"
   integrity sha512-zz79K3C7ytxthKlwWyX0vOir4G+IcfIdrmhan2CU5dVATVqLMxzrjPCuJuW2np+ZWgFx99rVombtkPzVEKbyug==
@@ -8807,9 +8807,9 @@ rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.8.2:
     estree-walker "^0.6.1"
 
 rollup@^2.6.1:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.3.tgz#24ebb08533b9ca6bc5a7aef8100e155e50035c31"
-  integrity sha512-lAWJGZ5BQzcu/5fhMKGJrh5oy9LQUoaCid8cQV8k+E2vE9E/UWptzcM+bSBg+u8akORsvnybsqQUE/wVChIazg==
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.6.tgz#8e6682e64ca65eb33b896dcce902696f0415ce1a"
+  integrity sha512-AdHosxHBKyBsdtbT1/AqbWNQ87O4SSxS4N9iMwEpoCDAT6e4Du3uJSy83mp3ckgmCxly5VeXGx0WHsm21Djytg==
   optionalDependencies:
     fsevents "~2.1.2"
 
