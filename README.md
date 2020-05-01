@@ -645,6 +645,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)

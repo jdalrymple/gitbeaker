@@ -9,9 +9,9 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 - `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
   - Add types field to node and browser package.json [#737](https://github.com/jdalrymple/gitbeaker/pull/737) ([@danielmoore](https://github.com/danielmoore))
 
-#### ⚠️  Pushed to `master`
+#### ⚠️ Pushed to `master`
 
-- Linting [skip-ci] ([@jdalrymple](https://github.com/jdalrymple))
+- Linting [skip-ci](<[@jdalrymple](https://github.com/jdalrymple)>)
 
 #### 🔩 Dependencies
 

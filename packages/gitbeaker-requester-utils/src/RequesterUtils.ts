@@ -1,3 +1,4 @@
+import { Agent } from 'https';
 import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
@@ -22,7 +23,7 @@ export type DefaultRequestOptions = {
   body?: FormData | object;
   query?: object;
   sudo?: string;
-  method: string;
+  method?: string;
 };
 
 export type Constructor<T = {}> = new (...args: any[]) => T;
@@ -36,8 +37,8 @@ export function formatQuery(options) {
 
 export function defaultRequest(
   service: Service,
-  { body, query, sudo, method }: DefaultRequestOptions = { method: 'get' },
-): Record<string, string | number | FormData | Record<string, string | string[]>> {
+  { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
+): Record<string, string | number | FormData | Agent | Record<string, string | string[] | Agent>> {
   const { headers } = service;
   let agent;
   let bod;
