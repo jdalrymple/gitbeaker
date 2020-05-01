@@ -1,3 +1,15 @@
+# v19.3.0 (Fri May 01 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing types field to utils and browser package.json [#742](https://github.com/jdalrymple/gitbeaker/pull/742) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change

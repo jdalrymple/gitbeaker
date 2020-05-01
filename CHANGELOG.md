@@ -1,3 +1,24 @@
+# 19.3.0 (Fri May 01 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/requester-utils`
+  - Fixing types field to utils and browser package.json [#742](https://github.com/jdalrymple/gitbeaker/pull/742) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump rollup from 2.7.3 to 2.7.6 [#738](https://github.com/jdalrymple/gitbeaker/pull/738) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.0.2 to 11.0.3 [#741](https://github.com/jdalrymple/gitbeaker/pull/741) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.5.0 to 25.5.3 [#740](https://github.com/jdalrymple/gitbeaker/pull/740) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.2.0 to 10.2.2 [#739](https://github.com/jdalrymple/gitbeaker/pull/739) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.2.0 (Wed Apr 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
