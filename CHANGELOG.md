@@ -1,3 +1,36 @@
+# 19.3.1 (Tue May 05 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Add Prettierignore file [#761](https://github.com/jdalrymple/gitbeaker/pull/761) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Fixing a merge conflict ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @auto-it/all-contributors from 9.30.3 to 9.31.1 [#752](https://github.com/jdalrymple/gitbeaker/pull/752) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.3 to 9.31.1 [#755](https://github.com/jdalrymple/gitbeaker/pull/755) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.30.0 to 2.31.0 [#756](https://github.com/jdalrymple/gitbeaker/pull/756) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.8.2 to 23.9.0 [#753](https://github.com/jdalrymple/gitbeaker/pull/753) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-node from 8.9.1 to 8.10.1 [#746](https://github.com/jdalrymple/gitbeaker/pull/746) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.0.3 to 11.1.0 [#745](https://github.com/jdalrymple/gitbeaker/pull/745) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.5.3 to 25.5.4 [#744](https://github.com/jdalrymple/gitbeaker/pull/744) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.30.3 to 9.31.1 [#754](https://github.com/jdalrymple/gitbeaker/pull/754) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.30.3 to 9.31.1 [#758](https://github.com/jdalrymple/gitbeaker/pull/758) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Updating the pagination documentation [#760](https://github.com/jdalrymple/gitbeaker/pull/760) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix
