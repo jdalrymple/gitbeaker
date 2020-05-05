@@ -698,6 +698,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 - [Kyrylo Fedorov](https://github.com/Kyr)
 - [Claudio Vellage](https://github.com/jdalrymple/LRH539)
 - [Seb0uil](https://github.com/seb0uil)
+- [Dylan Taylor](https://github.com/dylanmtaylor)
 
 ## License
 
