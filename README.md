@@ -456,15 +456,14 @@ const api = new Gitlab({
 let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
 ```
 
-Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option `showPagination` in addition to either the
-`maxPages` or `page` properties.
+Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the option `showExtended`. If there are multiple results the pagination property will be included as shown below:
 
 ```javascript
 ...
 const { data, pagination } = await api.Projects.all({
   perPage:40,
   maxPages:2,
-  showPagination: true
+  showExtended: true
 });
 ...
 ```
@@ -485,7 +484,7 @@ pagination: {
 }
 ```
 
-> Note: supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
+> Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
 
 ### Sudo
 
