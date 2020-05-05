@@ -38,11 +38,11 @@ export class ResourceDeployTokens extends BaseService {
     if (resourceId) {
       url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
     } else {
-      // https://docs.gitlab.com/ee/api/deploy_tokens.html#list-all-deploy-tokens (FIXME?) This needs to be at the root of the webserver, not after the resource type
+      // https://docs.gitlab.com/ee/api/deploy_tokens.html#list-all-deploy-tokens
       url = 'deploy_tokens';
     }
 
-    return RequestHelper.get(this, url.join('/'), options);
+    return RequestHelper.get(this, url, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
