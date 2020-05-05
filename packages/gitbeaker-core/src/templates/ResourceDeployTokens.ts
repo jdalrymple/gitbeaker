@@ -11,6 +11,8 @@ interface IncludeInherited {
   includeInherited?: boolean;
 }
 
+type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry';
+
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
 export class ResourceDeployTokens extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
@@ -20,7 +22,7 @@ export class ResourceDeployTokens extends BaseService {
   add(
     resourceId: string | number,
     tokenName: string,
-    tokenScopes: string[],
+    tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
 
@@ -36,7 +38,7 @@ export class ResourceDeployTokens extends BaseService {
     if (resourceId) {
       url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
     } else {
-      // For getting all deploy tokens. (FIXME?) This needs to be at the root of the webserver, not after the resource type
+      // https://docs.gitlab.com/ee/api/deploy_tokens.html#list-all-deploy-tokens (FIXME?) This needs to be at the root of the webserver, not after the resource type
       url = 'deploy_tokens';
     }
 
