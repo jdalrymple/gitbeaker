@@ -34,11 +34,11 @@ export class ResourceDeployTokens extends BaseService {
   }
 
   all({ resourceId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions) {
-
+    let url;
+    
     if (resourceId) {
       url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
     } else {
-      // https://docs.gitlab.com/ee/api/deploy_tokens.html#list-all-deploy-tokens
       url = 'deploy_tokens';
     }
 
