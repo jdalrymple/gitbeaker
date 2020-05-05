@@ -68,11 +68,11 @@
     url-join "^4.0.0"
 
 "@auto-it/exec@^9.30.3":
-  version "9.30.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.30.3.tgz#e8554bd2b266c3369e4b4615f46d492859ef3f12"
-  integrity sha512-Ub2ekPheUQyFjqQy9KCPGZtS6h8T7CPUDlCRpQdwKVG5d3WoOl8Hdw4nMMIR2brrRWemnYQves1juRWBvYO4sQ==
+  version "9.31.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.31.1.tgz#5275bd3e8aeaf266553a0c7fcf9d79bdcbcb84fe"
+  integrity sha512-KiPab5Li7T7aour+stuDkDsmxIUC1Pbp3Htz2Q15GH2ZNYGfuBUCP5ZYda4xA+hSohD2gy3dV9grc8emG9m4zw==
   dependencies:
-    "@auto-it/core" "^9.30.3"
+    "@auto-it/core" "^9.31.1"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "1.10.0"
