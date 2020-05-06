@@ -18,6 +18,7 @@ export const GroupsBundle = bundler({
   GroupProjects: APIServices.GroupProjects,
   GroupVariables: APIServices.GroupVariables,
   GroupLabels: APIServices.GroupLabels,
+  GroupDeployTokens: APIServices.GroupDeployTokens,
   Epics: APIServices.Epics,
   EpicIssues: APIServices.EpicIssues,
   EpicNotes: APIServices.EpicNotes,
@@ -74,6 +75,7 @@ export const ProjectsBundle = bundler({
   ProtectedBranches: APIServices.ProtectedBranches,
   ProtectedTags: APIServices.ProtectedTags,
   ProjectVariables: APIServices.ProjectVariables,
+  ProjectDeployTokens: APIServices.ProjectDeployTokens,
   PushRules: APIServices.PushRules,
   Releases: APIServices.Releases,
   ReleaseLinks: APIServices.ReleaseLinks,
@@ -82,6 +84,7 @@ export const ProjectsBundle = bundler({
   Runners: APIServices.Runners,
   Services: APIServices.Services,
   Tags: APIServices.Tags,
+  Todos: APIServices.Todos,
   Triggers: APIServices.Triggers,
   VulnerabilityFindings: APIServices.VulnerabilityFindings,
 });
