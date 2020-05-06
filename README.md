@@ -647,12 +647,12 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
   </tr>
   <tr>
     <td align="center"><a href="http://northhorizon.net"><img src="https://avatars3.githubusercontent.com/u/616152?v=4" width="50px;" alt=""/><br /><sub><b>Daniel Moore</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=danielmoore" title="Code">💻</a></td>
+    <td align="center"><a href="https://dylanmtaylor.com"><img src="https://avatars2.githubusercontent.com/u/277927?v=4" width="50px;" alt=""/><br /><sub><b>Dylan M. Taylor</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)

@@ -169,6 +169,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dylanmtaylor",
+      "name": "Dylan M. Taylor",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/277927?v=4",
+      "profile": "https://dylanmtaylor.com",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
