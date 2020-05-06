@@ -220,6 +220,7 @@ GroupMilestones
 GroupProjects
 GroupVariables
 GroupLabels
+GroupDeployTokens
 Epics
 EpicIssues
 EpicNotes
@@ -230,14 +231,14 @@ Branches
 Commits
 CommitDiscussions
 ContainerRegistry
-DeployKeys
 Deployments
+DeployKeys
 Environments
 Issues
-IssueAwardEmojis
+IssuesStatistics
 IssueNotes
 IssueDiscussions
-IssuesStatistics
+IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
@@ -264,6 +265,7 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+ProjectDeployTokens
 PushRules
 Releases
 ReleaseLinks
@@ -272,6 +274,7 @@ RepositoryFiles
 Runners
 Services
 Tags
+Todos
 Triggers
 VulnerabilityFindings
 
@@ -310,14 +313,15 @@ Currently there are three Bundles:
 Branches
 Commits
 CommitDiscussions
+ContainerRegistry
 Deployments
 DeployKeys
 Environments
 Issues
+IssuesStatistics
 IssueNotes
 IssueDiscussions
 IssueAwardEmojis
-IssuesStatistics
 Jobs
 Labels
 MergeRequests
@@ -344,7 +348,10 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+ProjectDeployTokens
 PushRules
+Releases
+ReleaseLinks
 Repositories
 RepositoryFiles
 Runners
@@ -379,6 +386,7 @@ GroupMilestones
 GroupProjects
 GroupVariables
 GroupLabels
+GroupDeployTokens
 Epics
 EpicIssues
 EpicNotes
@@ -698,6 +706,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 - [Kyrylo Fedorov](https://github.com/Kyr)
 - [Claudio Vellage](https://github.com/jdalrymple/LRH539)
 - [Seb0uil](https://github.com/seb0uil)
+- [Dylan Taylor](https://github.com/dylanmtaylor)
 
 ## License
 
