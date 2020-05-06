@@ -21,7 +21,7 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.31.1.tgz#d76e3c1cb7252bde9dc4f30f696cbdec3261cbd0"
   integrity sha512-mHcF/Nth4ZAHwlojaJjr8Dka0y7u+zkwSB3Z63siL0NXw91TYWoraPOY6tydUC59cflEzjuYxGlHN9ZWQ2tRVw==
 
-"@auto-it/core@^9.30.3", "@auto-it/core@^9.31.1":
+"@auto-it/core@^9.31.1":
   version "9.31.1"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.31.1.tgz#932007341d67bc22c39bb8974cf5cbbefa18f849"
   integrity sha512-nHMQHL0T2LMnRWn/RQiFTc049JndXfza981FPb84RSxDH1z8pylblwo+Af6LnnAbg7GMd0JfEJmbKt9lq/AHuQ==
@@ -1869,9 +1869,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*", "@types/node@>= 8", "@types/node@^13.13.1":
-  version "13.13.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.4.tgz#1581d6c16e3d4803eb079c87d4ac893ee7501c2c"
-  integrity sha512-x26ur3dSXgv5AwKS0lNfbjpCakGIduWU1DU91Zz58ONRWrIKGunmZBNv4P7N+e27sJkiGDsw/3fT4AtsqQBrBA==
+  version "13.13.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
+  integrity sha512-3ySmiBYJPqgjiHA7oEaIo2Rzz0HrOZ7yrNO5HWyaE5q0lQ3BppDZ3N53Miz8bw2I7gh1/zir2MGVZBvpb1zq9g==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
