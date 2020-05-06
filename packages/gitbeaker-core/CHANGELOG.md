@@ -1,3 +1,24 @@
+# v19.4.0 (Wed May 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), for all your work!
+
+#### 💥 Feature
+
+- Add Deploy tokens API [#762](https://github.com/jdalrymple/gitbeaker/pull/762) ([@jdalrymple](https://github.com/jdalrymple) [@dylanmtaylor](https://github.com/dylanmtaylor))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'deploy-fix' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix

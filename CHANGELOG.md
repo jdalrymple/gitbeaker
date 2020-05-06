@@ -1,3 +1,33 @@
+# 19.4.0 (Wed May 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - Add Deploy tokens API [#762](https://github.com/jdalrymple/gitbeaker/pull/762) ([@jdalrymple](https://github.com/jdalrymple) [@dylanmtaylor](https://github.com/dylanmtaylor))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/core`
+  - Merge branch 'deploy-fix' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump rollup from 2.7.6 to 2.8.0 [#765](https://github.com/jdalrymple/gitbeaker/pull/765) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.30.0 to 2.31.0 [#767](https://github.com/jdalrymple/gitbeaker/pull/767) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.13.4 to 13.13.5 [#766](https://github.com/jdalrymple/gitbeaker/pull/766) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.3.1 (Tue May 05 2020)
 
 #### 👷🏼‍♀️ Technical Debt
