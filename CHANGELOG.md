@@ -1,3 +1,32 @@
+# 19.5.0 (Mon May 11 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Corentin Mors ([@Mikescops](https://github.com/Mikescops)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix: Update DELETE method to POST in todos.done() [#780](https://github.com/jdalrymple/gitbeaker/pull/780) ([@Mikescops](https://github.com/Mikescops))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump ts-jest from 25.5.0 to 25.5.1 [#775](https://github.com/jdalrymple/gitbeaker/pull/775) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.8.2 to 2.9.1 [#776](https://github.com/jdalrymple/gitbeaker/pull/776) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.9.0 to 23.10.0 [#777](https://github.com/jdalrymple/gitbeaker/pull/777) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.1.1 to 11.1.3 [#778](https://github.com/jdalrymple/gitbeaker/pull/778) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.1.0 to 11.1.1 [#769](https://github.com/jdalrymple/gitbeaker/pull/769) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-jest from 25.4.0 to 25.5.0 [#771](https://github.com/jdalrymple/gitbeaker/pull/771) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 3.0.2 to 3.0.4 [#773](https://github.com/jdalrymple/gitbeaker/pull/773) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.8.0 to 2.8.2 [#774](https://github.com/jdalrymple/gitbeaker/pull/774) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Corentin Mors ([@Mikescops](https://github.com/Mikescops))
+
+---
+
 # 19.4.0 (Wed May 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:

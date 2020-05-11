@@ -1,3 +1,19 @@
+# v19.5.0 (Mon May 11 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Corentin Mors ([@Mikescops](https://github.com/Mikescops)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix: Update DELETE method to POST in todos.done() [#780](https://github.com/jdalrymple/gitbeaker/pull/780) ([@Mikescops](https://github.com/Mikescops))
+
+#### Authors: 1
+
+- Corentin Mors ([@Mikescops](https://github.com/Mikescops))
+
+---
+
 # v19.4.0 (Wed May 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:
