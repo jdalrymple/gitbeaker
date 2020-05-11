@@ -179,6 +179,15 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "Mikescops",
+      "name": "Corentin Mors",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4266283?v=4",
+      "profile": "https://pixelswap.fr/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
