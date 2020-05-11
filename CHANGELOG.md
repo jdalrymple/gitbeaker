@@ -1,3 +1,7 @@
+# 19.5.1 (Mon May 11 2020)
+
+---
+
 # 19.5.0 (Mon May 11 2020)
 
 :tada: This release contains work from a new contributor! :tada:
