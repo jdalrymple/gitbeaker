@@ -18,6 +18,6 @@ export class Todos extends BaseService {
 
     if (todoId) url = `${todoId}/${url}`;
 
-    return RequestHelper.del(this, `todos/${url}`, options);
+    return RequestHelper.post(this, `todos/${url}`, options);
   }
 }
