@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.31.1.tgz#d76e3c1cb7252bde9dc4f30f696cbdec3261cbd0"
   integrity sha512-mHcF/Nth4ZAHwlojaJjr8Dka0y7u+zkwSB3Z63siL0NXw91TYWoraPOY6tydUC59cflEzjuYxGlHN9ZWQ2tRVw==
 
-"@auto-it/core@^9.31.1":
-  version "9.31.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.31.1.tgz#932007341d67bc22c39bb8974cf5cbbefa18f849"
-  integrity sha512-nHMQHL0T2LMnRWn/RQiFTc049JndXfza981FPb84RSxDH1z8pylblwo+Af6LnnAbg7GMd0JfEJmbKt9lq/AHuQ==
+"@auto-it/bot-list@^9.32.0":
+  version "9.32.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.32.0.tgz#bfd3f15fd39f94558af2c9b98f1696930dff1980"
+  integrity sha512-RfOeMy/iv9oIr2yi9wXgvjBnTmmTym+Sq0dQkNfvQHQcAT2EQ7CQ2/L+bLbudPY0JEXTW2UddP3QNdQ/3CvGsQ==
+
+"@auto-it/core@^9.31.1", "@auto-it/core@^9.32.0":
+  version "9.32.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.32.0.tgz#0c9525f5897af9a2c9968177688d7435deacea89"
+  integrity sha512-6E5jogFI1+uuLi2Vs9S9UQcoBUOioArhwTAClwS63avUKhmOgT9WfZapK3uLhD6FYL6e1gzHw4VWeGtseVAhAg==
   dependencies:
-    "@auto-it/bot-list" "^9.31.1"
+    "@auto-it/bot-list" "^9.32.0"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
@@ -73,11 +78,11 @@
     tslib "1.10.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.31.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.31.1.tgz#ba27a3e3b1cb7f217c6070fcdf23fab4c7ebdd1d"
-  integrity sha512-eYWq48OmykR1CKA2Wp8GFrif9YLbzkDspnubBfqvMiUZuLqK2Osbrse8TdlVoNOlWTvQe3xzT1KW19mE28om2g==
+  version "9.32.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.32.0.tgz#fcd7cc6f4aac9f082c36307885939a65f171614c"
+  integrity sha512-bxvzobDadMVHGr9oxyvYwoBLV95qDGNY30sRh3fgPXmcHRvlp3sSQvUQGBwNwCFA+IB5+f1AXFDiN5cS8ApP4g==
   dependencies:
-    "@auto-it/core" "^9.31.1"
+    "@auto-it/core" "^9.32.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "1.11.1"
