@@ -186,7 +186,7 @@ export class Projects extends BaseService {
 
     return RequestHelper.post(this, `projects/${pId}/uploads`, {
       isForm: true,
-      file: { content, metadata: { ...defaultMetadata, ...metadata } },
+      file: [content, { ...defaultMetadata, ...metadata }],
       ...options,
     });
   }
