@@ -78,11 +78,11 @@
     tslib "1.10.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.31.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.31.1.tgz#ba27a3e3b1cb7f217c6070fcdf23fab4c7ebdd1d"
-  integrity sha512-eYWq48OmykR1CKA2Wp8GFrif9YLbzkDspnubBfqvMiUZuLqK2Osbrse8TdlVoNOlWTvQe3xzT1KW19mE28om2g==
+  version "9.32.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.32.0.tgz#fcd7cc6f4aac9f082c36307885939a65f171614c"
+  integrity sha512-bxvzobDadMVHGr9oxyvYwoBLV95qDGNY30sRh3fgPXmcHRvlp3sSQvUQGBwNwCFA+IB5+f1AXFDiN5cS8ApP4g==
   dependencies:
-    "@auto-it/core" "^9.31.1"
+    "@auto-it/core" "^9.32.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "1.11.1"
