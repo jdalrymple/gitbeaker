@@ -109,11 +109,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.31.1":
-  version "9.31.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.31.1.tgz#ed21d4bec75451fb87e49fe56e98e27928528bff"
-  integrity sha512-opWCWp2uj0feoSbrsOTNWF2lJGt6dAzzPkyCvY2C8bBj8m7mCUuIxCodl+x8NnQBCocNnerpCr4kQ14RzBLKqQ==
+  version "9.32.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.32.0.tgz#ca6bf9f421e5d2f3538ddbf3c4484bc5d76860f0"
+  integrity sha512-Xw6YZTURWKU8fNtYzYcu+fDBTEk1By2d8iWOCyWzkoBDMes0HDLZh4wThf6tzmjrEuO9ERhalAaZ9VnS8EV3PQ==
   dependencies:
-    "@auto-it/core" "^9.31.1"
+    "@auto-it/core" "^9.32.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
