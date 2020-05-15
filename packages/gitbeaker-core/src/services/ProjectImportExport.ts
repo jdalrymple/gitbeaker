@@ -31,7 +31,7 @@ export class ProjectImportExport extends BaseService {
     return RequestHelper.post(this, 'projects/import', {
       isForm: true,
       ...options,
-      file: { content, metadata: { ...defaultMetadata, ...metadata } },
+      file: [content, { ...defaultMetadata, ...metadata }],
       path,
     });
   }
