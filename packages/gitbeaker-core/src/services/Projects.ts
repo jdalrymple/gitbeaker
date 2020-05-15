@@ -61,7 +61,10 @@ export class Projects extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/archive`, options);
   }
 
-  create({ userId, ...options }: { userId?: number } & BaseRequestOptions) {
+  create({
+    userId,
+    ...options
+  }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
 
     return RequestHelper.post(this, url, options);
