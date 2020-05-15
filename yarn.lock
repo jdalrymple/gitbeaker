@@ -1889,9 +1889,9 @@
   integrity sha512-5qOlnZscTn4xxM5MeGXAMOsIOIKIbh9e85zJWfBRVPlRMEVawzoPhINYbRGkBZCI8LxvBe7tJCdWiarA99OZfQ==
 
 "@types/puppeteer@*", "@types/puppeteer@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-2.0.1.tgz#83a1d7f0a1c2e0edbbb488b4d8fb54b14ec9d455"
-  integrity sha512-G8vEyU83Bios+dzs+DZGpAirDmMqRhfFBJCkFrg+A5+6n5EPPHxwBLImJto3qjh0mrBXbLBCyuahhhtTrAfR5g==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-2.1.0.tgz#31367580654632f87f86df565f1bde0533577401"
+  integrity sha512-QIRQXl0VaSgnwOZ1LwxD321Tfb1jLOzCWuF2BrwjEkWq2IhxSicPOddUywLV7dRSO6mcU4sWKRdoGdci6gk0Aw==
   dependencies:
     "@types/node" "*"
 
@@ -1950,16 +1950,6 @@
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.31.0":
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.31.0.tgz#a9ec514bf7fd5e5e82bc10dcb6a86d58baae9508"
-  integrity sha512-MI6IWkutLYQYTQgZ48IVnRXmLR/0Q6oAyJgiOror74arUMh7EWjJkADfirZhRsUMHeLJ85U2iySDwHTSnNi9vA==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.31.0"
-    eslint-scope "^5.0.0"
-    eslint-utils "^2.0.0"
-
 "@typescript-eslint/experimental-utils@2.33.0", "@typescript-eslint/experimental-utils@^2.5.0":
   version "2.33.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.33.0.tgz#000f1e5f344fbea1323dc91cc174805d75f99a03"
@@ -1979,19 +1969,6 @@
     "@typescript-eslint/experimental-utils" "2.33.0"
     "@typescript-eslint/typescript-estree" "2.33.0"
     eslint-visitor-keys "^1.1.0"
-
-"@typescript-eslint/typescript-estree@2.31.0":
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.31.0.tgz#ac536c2d46672aa1f27ba0ec2140d53670635cfd"
-  integrity sha512-vxW149bXFXXuBrAak0eKHOzbcu9cvi6iNcJDzEtOkRwGHxJG15chiAQAwhLOsk+86p9GTr/TziYvw+H9kMaIgA==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^6.3.0"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@2.33.0":
   version "2.33.0"
