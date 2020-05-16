@@ -1,3 +1,24 @@
+# v19.6.0 (Sat May 16 2020)
+
+#### 🐛 Bug Fix
+
+- Project upload is not formatting form-data correctly [#797](https://github.com/jdalrymple/gitbeaker/pull/797) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @types/node from 13.13.5 to 14.0.1 [#790](https://github.com/jdalrymple/gitbeaker/pull/790) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Update typing to specify that the path or name property must be passed [#796](https://github.com/jdalrymple/gitbeaker/pull/796) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.5.0 (Mon May 11 2020)
 
 :tada: This release contains work from a new contributor! :tada:

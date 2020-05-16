@@ -1,3 +1,15 @@
+# v19.6.0 (Sat May 16 2020)
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @types/node from 13.13.5 to 14.0.1 [#790](https://github.com/jdalrymple/gitbeaker/pull/790) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix

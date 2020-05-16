@@ -1,3 +1,36 @@
+# 19.6.0 (Sat May 16 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Project upload is not formatting form-data correctly [#797](https://github.com/jdalrymple/gitbeaker/pull/797) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump auto from 9.31.1 to 9.32.0 [#787](https://github.com/jdalrymple/gitbeaker/pull/787) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.27.0 to 0.27.1 [#789](https://github.com/jdalrymple/gitbeaker/pull/789) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 2.0.1 to 2.1.0 [#783](https://github.com/jdalrymple/gitbeaker/pull/783) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.31.1 to 9.32.0 [#786](https://github.com/jdalrymple/gitbeaker/pull/786) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.31.1 to 9.32.0 [#788](https://github.com/jdalrymple/gitbeaker/pull/788) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.31.1 to 9.32.0 [#784](https://github.com/jdalrymple/gitbeaker/pull/784) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.31.1 to 9.32.0 [#782](https://github.com/jdalrymple/gitbeaker/pull/782) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.31.0 to 2.33.0 [#791](https://github.com/jdalrymple/gitbeaker/pull/791) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.31.0 to 2.33.0 [#792](https://github.com/jdalrymple/gitbeaker/pull/792) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump @types/node from 13.13.5 to 14.0.1 [#790](https://github.com/jdalrymple/gitbeaker/pull/790) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- `@gitbeaker/core`
+  - Update typing to specify that the path or name property must be passed [#796](https://github.com/jdalrymple/gitbeaker/pull/796) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 19.5.1 (Mon May 11 2020)
 
 ---
