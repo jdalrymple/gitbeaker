@@ -56,28 +56,28 @@ describe('Projects.archive', () => {
 
 describe('Projects.create', () => {
   it('should request POST /projects when userId undefined', async () => {
-    await service.create({ title: 'test proj' });
+    await service.create({ name: 'test proj' });
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects', {
-      title: 'test proj',
+      name: 'test proj',
     });
   });
 
   it('should request POST /projects/user/:id when userId defined', async () => {
-    await service.create({ userId: 2, title: 'test proj' });
+    await service.create({ userId: 2, name: 'test proj' });
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/user/2', {
-      title: 'test proj',
+      name: 'test proj',
     });
   });
 });
 
 describe('Projects.edit', () => {
   it('should request PUT /projects', async () => {
-    await service.edit(12, { title: 'test proj 2' });
+    await service.edit(12, { name: 'test proj 2' });
 
     expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/12', {
-      title: 'test proj 2',
+      name: 'test proj 2',
     });
   });
 });
