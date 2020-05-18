@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^9.29.0":
-  version "9.32.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.32.0.tgz#19359b4e37f42704ffcba21cea7d6a39c49be13f"
-  integrity sha512-9EKHNZXQI+9Wp+Tzq3yLmuiD3mndvUQcDzdvOcNGQ++FxCB5q9gjo8L9odCAh0XGAWAP1vWFRRfmXe762R3VKA==
+  version "9.32.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.32.3.tgz#fa1bd7ee246882e692dd1938f7b231ae93854b5a"
+  integrity sha512-luJmOztAw69apOECRSzBpEJv46CxKo9biMl15XAT1DLBYAsACPRcI6Ck3MQv2sIN+/SAdC2QiLPKCcULpRCWlw==
   dependencies:
-    "@auto-it/bot-list" "^9.32.0"
-    "@auto-it/core" "^9.32.0"
+    "@auto-it/bot-list" "^9.32.3"
+    "@auto-it/core" "^9.32.3"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     fp-ts "^2.5.3"
@@ -16,17 +16,17 @@
     io-ts "^2.1.2"
     tslib "1.11.1"
 
-"@auto-it/bot-list@^9.32.0":
-  version "9.32.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.32.0.tgz#bfd3f15fd39f94558af2c9b98f1696930dff1980"
-  integrity sha512-RfOeMy/iv9oIr2yi9wXgvjBnTmmTym+Sq0dQkNfvQHQcAT2EQ7CQ2/L+bLbudPY0JEXTW2UddP3QNdQ/3CvGsQ==
+"@auto-it/bot-list@^9.32.3":
+  version "9.32.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.32.3.tgz#aa2423baf0568a6eede7b7fa35a3b3cca45c178d"
+  integrity sha512-Tv75dlKDWBfr9ZtY7uAwrWPcINnuo2efTOjCgHunTIOFPBGDftMR/CF6n7W3C3hOjKPQF7dHHv2RnybEjyqybw==
 
-"@auto-it/core@^9.32.0":
-  version "9.32.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.32.0.tgz#0c9525f5897af9a2c9968177688d7435deacea89"
-  integrity sha512-6E5jogFI1+uuLi2Vs9S9UQcoBUOioArhwTAClwS63avUKhmOgT9WfZapK3uLhD6FYL6e1gzHw4VWeGtseVAhAg==
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3":
+  version "9.32.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.32.3.tgz#abc1cad66261d0f810eb5e34a1647a54aec37f28"
+  integrity sha512-N5wodaPKQYSv5zY4ZIm1hM4X+PN7HDdlGONWaGZKdJyovdJz9sNVXvKHmftJiUXZKcujAW89i4y11iFfwk+sxg==
   dependencies:
-    "@auto-it/bot-list" "^9.32.0"
+    "@auto-it/bot-list" "^9.32.3"
     "@octokit/core" "2.4.2"
     "@octokit/graphql" "4.3.1"
     "@octokit/plugin-enterprise-compatibility" "1.2.2"
