@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.33.2.tgz#8b149c4e18b97c28755b783367a7f37102c0309c"
   integrity sha512-PSFiRwiATx3rCJ8P8UXjASfQfR5ue28lHvTOMFsPlf2YlA9d6YdqAhD0UOLWiKqbOQAjH83maqdZ+czlyCN3Yw==
 
-"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2":
-  version "9.33.2"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.33.2.tgz#0e40d5dd100e9a6770b89bf3285720f98ad99502"
-  integrity sha512-Mmx8kFXYpDtd4ZUw/VvzoSLw7KwAsIlpSpyDG6ZG5sXqFu1CiVFlk17MWR0m4o3CQQN52HcT/9dQB4OS4H84zw==
+"@auto-it/bot-list@^9.34.1":
+  version "9.34.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.34.1.tgz#fd2b6e3f7d9371f04bac689ded2d963ec88d260c"
+  integrity sha512-8ui59rRY2JEYAaJMzlaN/wUpPRAH+TxYFluXKXcOrPXPgtrQ6ohChC0+CyIVDIgzkaV80mJcyXIg0rejOnW3KQ==
+
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2", "@auto-it/core@^9.34.1":
+  version "9.34.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.34.1.tgz#c86f95fdecc5c101ee71b4f3a44ec859ce02f684"
+  integrity sha512-xGwhgYPyAQaVlxjzePfV1ojtTya05MJoGh4M5EX/HZ9MLBT/0bgoCMJL0mT40rfiAhTTr6sr2Pmgl5rQ+a6IfQ==
   dependencies:
-    "@auto-it/bot-list" "^9.33.2"
+    "@auto-it/bot-list" "^9.34.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -103,11 +108,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.32.0":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.32.3.tgz#93ea823eef15f18dce09ad2be2d204c836193628"
-  integrity sha512-5KclcOOTp8z+SksxJOyuumrxAtN9VnS5YvCHZkyQd3uTi0oPw076rN9OB26ERYDYQbCDpS8neCdpoR0v820xYA==
+  version "9.34.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.34.1.tgz#5451d965de7d2b1931f63ef0ef8f939847a9b791"
+  integrity sha512-mkYc2mgdiHljSvWPjvu6loJWHhFg9A9httkq9i1bCjCYW9vQmKX0MJb7j9EkSxGpvCcsGSX6ZEGxxh0teIjEaA==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.34.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
