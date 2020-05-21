@@ -10,7 +10,7 @@ beforeEach(() => {
   });
 });
 
-describe('UserGPGKeys.add', () => {
+describe.skip('UserGPGKeys.add', () => {
   it('should add a new gpg key to the user', async () => {
     const { publicKeyArmored } = await generateKey({
       userIds: [
@@ -26,7 +26,7 @@ describe('UserGPGKeys.add', () => {
   });
 });
 
-describe('UserGPGKeys.all', () => {
+describe.skip('UserGPGKeys.all', () => {
   it('should get all user gcp keys', async () => {
     const keys = await service.all();
 
@@ -34,7 +34,7 @@ describe('UserGPGKeys.all', () => {
   });
 });
 
-describe('UserGPGKeys.show', () => {
+describe.skip('UserGPGKeys.show', () => {
   it('should get one user gcp key', async () => {
     const { publicKeyArmored } = await generateKey({
       userIds: [
@@ -50,7 +50,7 @@ describe('UserGPGKeys.show', () => {
   });
 });
 
-describe('UserGPGKeys.remove', () => {
+describe.skip('UserGPGKeys.remove', () => {
   it('should get one user gcp key', async () => {
     const { publicKeyArmored } = await generateKey({
       userIds: [

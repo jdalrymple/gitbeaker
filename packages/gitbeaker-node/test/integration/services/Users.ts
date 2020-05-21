@@ -14,7 +14,7 @@ describe('Users.current', () => {
     const u = await service.current();
 
     expect(u).toBeInstanceOf(Object);
-    expect(u.name).toEqual('admin');
+    expect(u.name).toEqual('Administrator');
     expect(u.is_admin).toBeTruthy();
   });
 });
@@ -29,8 +29,8 @@ describe('Users.all', () => {
 
 describe('Users.search', () => {
   it('should search for a specific user', async () => {
-    const users = await service.search('admin');
-    const user = users.find((u) => u.name === 'admin');
+    const users = await service.search('Administrator');
+    const user = users.find((u) => u.name === 'Administrator');
 
     expect(users).toBeInstanceOf(Array);
     expect(user).toBeObject();
