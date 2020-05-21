@@ -1,6 +1,6 @@
 import { Groups } from '../../../src';
 
-let service: Groups;
+let service;
 
 beforeEach(() => {
   service = new Groups({

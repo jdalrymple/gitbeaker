@@ -1,7 +1,7 @@
 import { Commits, Projects } from '../../../src';
 
 let project;
-let service: Commits;
+let service;
 
 beforeAll(async () => {
   const config = {

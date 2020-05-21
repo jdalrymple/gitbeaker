@@ -1,6 +1,6 @@
 import { Users } from '../../../src';
 
-let service: Users;
+let service;
 
 beforeEach(() => {
   service = new Users({

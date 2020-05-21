@@ -1,10 +1,7 @@
-global.TextEncoder = undefined;
-
-/*eslint-disable*/
 import { generateKey } from 'openpgp';
 import { UserGPGKeys } from '../../../src';
 
-let service: UserGPGKeys;
+let service;
 
 beforeEach(() => {
   service = new UserGPGKeys({

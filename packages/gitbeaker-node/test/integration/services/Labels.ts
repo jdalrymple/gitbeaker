@@ -1,7 +1,7 @@
 import { Labels, Projects } from '../../../src';
 
 let project;
-let service: Labels;
+let service;
 
 beforeAll(async () => {
   const config = {

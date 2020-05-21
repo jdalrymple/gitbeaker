@@ -1,14 +1,14 @@
 import { IssuesStatistics, Projects, Groups } from '../../../src';
 
-const config = {
-  host: process.env.GITLAB_URL,
-  token: process.env.PERSONAL_ACCESS_TOKEN,
-};
 let service;
 let group;
 let project;
 
 beforeAll(async () => {
+  const config = {
+    host: process.env.GITLAB_URL,
+    token: process.env.PERSONAL_ACCESS_TOKEN,
+  };
   const projectService = new Projects(config);
   const groupService = new Groups(config);
 

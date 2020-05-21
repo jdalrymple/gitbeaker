@@ -1,6 +1,6 @@
 import { Snippets } from '../../../src';
 
-let service: Snippets;
+let service;
 
 beforeEach(() => {
   service = new Snippets({
