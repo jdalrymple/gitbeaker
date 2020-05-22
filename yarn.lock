@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.33.2.tgz#8b149c4e18b97c28755b783367a7f37102c0309c"
   integrity sha512-PSFiRwiATx3rCJ8P8UXjASfQfR5ue28lHvTOMFsPlf2YlA9d6YdqAhD0UOLWiKqbOQAjH83maqdZ+czlyCN3Yw==
 
-"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2":
-  version "9.33.2"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.33.2.tgz#0e40d5dd100e9a6770b89bf3285720f98ad99502"
-  integrity sha512-Mmx8kFXYpDtd4ZUw/VvzoSLw7KwAsIlpSpyDG6ZG5sXqFu1CiVFlk17MWR0m4o3CQQN52HcT/9dQB4OS4H84zw==
+"@auto-it/bot-list@^9.35.1":
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.35.1.tgz#b727b6f89b072843aae3fa4f68f16e6c47b2c15b"
+  integrity sha512-ASiqtuID9xxSAzRM5mfmDUGw8Xt4fopbk9Geduhc4meHypZDfCGPM1B7caApo+hwGOXY4pc5qlRHPTBPpk6kSQ==
+
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2", "@auto-it/core@^9.35.1":
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.35.1.tgz#3c8043903fd3273fa1b278dc78f82d79d52c9b2f"
+  integrity sha512-H0WNtllZu6p1mBBGPXcBy6Rroc0+Ug27KgSgi5aHPwtzJAkiJ0AMwzoY6JsG5mQ3Q57bcqmK6a39uUFrCHAmdg==
   dependencies:
-    "@auto-it/bot-list" "^9.33.2"
+    "@auto-it/bot-list" "^9.35.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -72,11 +77,11 @@
     tslib "1.10.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.32.3.tgz#65e86466502393868ec7d3657bff4276d28a9dd7"
-  integrity sha512-MK31jyRKoB1THuOvlUcpJHm9M1ydz1WxZ4IFuqnaHoEJuUfetP7qlNIXHUZ7jlRL5QphIrm82MEozTAbbfkwfA==
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.35.1.tgz#81a3102cdc451eff32b776ec466083ad1c381a73"
+  integrity sha512-qNe5jazKfwPyZit02uoD6B577mZY8hsqneEUim58km5sMNqsbg7BwCBCavUMSdPB7aJk99UzPq9ao31UaQ8J3Q==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.35.1"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "1.11.1"
