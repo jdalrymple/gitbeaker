@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.33.2.tgz#8b149c4e18b97c28755b783367a7f37102c0309c"
   integrity sha512-PSFiRwiATx3rCJ8P8UXjASfQfR5ue28lHvTOMFsPlf2YlA9d6YdqAhD0UOLWiKqbOQAjH83maqdZ+czlyCN3Yw==
 
-"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2":
-  version "9.33.2"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.33.2.tgz#0e40d5dd100e9a6770b89bf3285720f98ad99502"
-  integrity sha512-Mmx8kFXYpDtd4ZUw/VvzoSLw7KwAsIlpSpyDG6ZG5sXqFu1CiVFlk17MWR0m4o3CQQN52HcT/9dQB4OS4H84zw==
+"@auto-it/bot-list@^9.35.1":
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.35.1.tgz#b727b6f89b072843aae3fa4f68f16e6c47b2c15b"
+  integrity sha512-ASiqtuID9xxSAzRM5mfmDUGw8Xt4fopbk9Geduhc4meHypZDfCGPM1B7caApo+hwGOXY4pc5qlRHPTBPpk6kSQ==
+
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2", "@auto-it/core@^9.35.1":
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.35.1.tgz#3c8043903fd3273fa1b278dc78f82d79d52c9b2f"
+  integrity sha512-H0WNtllZu6p1mBBGPXcBy6Rroc0+Ug27KgSgi5aHPwtzJAkiJ0AMwzoY6JsG5mQ3Q57bcqmK6a39uUFrCHAmdg==
   dependencies:
-    "@auto-it/bot-list" "^9.33.2"
+    "@auto-it/bot-list" "^9.35.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -62,11 +67,11 @@
     url-join "^4.0.0"
 
 "@auto-it/exec@^9.30.3":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.32.3.tgz#6a81923c635cff43a966aac342f77a817fa7c265"
-  integrity sha512-3lNsonbeAarmnyZB+B0eKB+6NWtyKq4O1F8dVX1+dols++jizVa/d7VZj6xxRDdy6GDyicavmJjv+tpij3mp2w==
+  version "9.35.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.35.1.tgz#51a4f721df8e251b966d43783885fe8ee51d8a34"
+  integrity sha512-A41gdK5iXA9w5q/pyX3FJHbC+Um3jC60UhZ4tSJqcTStctap9EnN/pAvGYffpLo3A2RX+QVNqOIN2QQmadBX8Q==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.35.1"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "1.10.0"
