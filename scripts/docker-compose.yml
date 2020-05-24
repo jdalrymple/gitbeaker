@@ -1,0 +1,15 @@
+version: '3'
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce'
+    container_name: 'gitlab'
+    environment:
+      PERSONAL_ACCESS_TOKEN: ''
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
+      GITLAB_ROOT_PASSWORD: 'password'
+    ports:
+      - '8080:80'
+      - '8443:443'
+    volumes:
+      - './init.rb:/mnt/init.rb'

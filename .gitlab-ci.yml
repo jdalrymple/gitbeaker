@@ -1,0 +1,137 @@
+default:
+  image: node:lts-alpine
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - packages/gitbeaker-core/node_modules/
+    - packages/gitbeaker-cli/node_modules/
+    - packages/gitbeaker-browser/node_modules/
+    - packages/gitbeaker-node/node_modules/
+    - packages/gitbeaker-requester-utils/node_modules/
+    - node_modules/
+
+stages:
+  - install
+  - build
+  - lint
+  - test
+  - release
+
+#Link and Install all required dependancies
+install:
+  image: node:lts
+  stage: install
+  script:
+    - yarn
+
+# Build core (cjs, es, and browser) and cli packages
+# Uses work around to allow for linking of the cli packages
+build:
+  stage: build
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - packages/gitbeaker-core/dist/
+      - packages/gitbeaker-cli/dist/
+      - packages/gitbeaker-browser/dist/
+      - packages/gitbeaker-node/dist/
+      - packages/gitbeaker-requester-utils/dist/
+
+# Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+lint:src:
+  stage: lint
+  script: yarn lint
+
+lint:docs:
+  stage: lint
+  script: yarn lint:doc
+
+# Unit Tests
+test:unit:core:
+  stage: test
+  script: yarn jest core/test/unit && yarn codecov -F core
+
+test:unit:node:
+  stage: test
+  script: yarn jest node/test/unit && yarn codecov -F node
+
+test:unit:browser:
+  image: buildkite/puppeteer
+  stage: test
+  script: yarn jest browser/test/unit && yarn codecov -F browser
+
+test:unit:utils:
+  stage: test
+  script: yarn jest utils/test/unit && yarn codecov -F utils
+
+# Integration Tests
+.test:integration: &integration
+  image:
+    name: docker/compose:latest
+    entrypoint: ['/bin/sh', '-c']
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    GITLAB_URL: http://docker:8080
+  services:
+    - docker:dind
+  stage: test
+  before_script:
+    # Install docker compose
+    - apk add --no-cache nodejs yarn git
+
+    # Spin up container
+    - cd scripts
+    - docker-compose -f docker-compose.yml up -d
+
+    # Verify Gitlab instance is up and running
+    - node probe.js
+
+    # Get the personal token
+    - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
+
+    - cd ..
+    - echo $PERSONAL_ACCESS_TOKEN
+    - echo $GITLAB_URL
+    - echo $CODECOV_TOKEN
+
+test:integration:browser:
+  image: buildkite/puppeteer
+  stage: test
+  script: yarn jest browser/test/integration
+
+test:integration:cli:
+  <<: *integration
+  script: yarn jest cli/test/integration
+
+# test:integration:node:
+#   <<: *integration
+#   script: yarn jest node/test/integration && yarn codecov -F node
+
+# test:cli:integration:dist:
+#   <<: *integration
+#   script: yarn jest core/test/integration --runInBand && yarn codecov
+
+# test:core:integration:dist-cjs:
+#   <<: *integration
+#   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
+
+# test:core:integration:dist-es
+#   <<: *integration
+#   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
+
+# Release
+release:
+  only:
+    refs:
+      - master
+  stage: release
+  before_script:
+    - apk add --no-cache git
+    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+    - git checkout master
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm config set always-auth=true
+  script: yarn release

@@ -6,17 +6,19 @@
     "module": "es6",
     "noEmit": true,
     "pretty": true,
-    "declaration": true,
-    "declarationDir": "dist/types",
-    "incremental": true,
     "lib": ["es2015", "es2016", "es2017", "dom"],
+    "sourceMap": true,
+    "inlineSources": true,
 
     /* Module Resolution Options */
 
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gitbeaker/*": ["packages/*/src"]
+    },
 
     /* Strict Type-Checking Options */
 
@@ -31,7 +33,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["generate.ts"]
+  }
 }

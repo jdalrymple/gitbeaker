@@ -1,0 +1,54 @@
+{
+  "name": "@gitbeaker/node",
+  "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
+  "version": "19.7.0",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "dependencies": {
+    "@gitbeaker/core": "^19.7.0",
+    "@gitbeaker/requester-utils": "^19.7.0",
+    "form-data": "^3.0.0",
+    "got": "^11.0.1",
+    "xcase": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "openpgp": "^4.10.3",
+    "rollup": "^2.6.1",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "ts-node": "^8.9.0",
+    "typescript": "^3.8.3"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "keywords": [
+    "api",
+    "es5",
+    "es6",
+    "gitlab",
+    "got"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/gitbeaker"
+  },
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "test:integration": "jest test/integration",
+    "test:unit": "jest test/unit"
+  }
+}

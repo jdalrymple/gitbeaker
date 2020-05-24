@@ -5,4 +5,6 @@ coverage
 .rpt2_cache
 .idea
 .DS_Store
-temp
+yarn-error.log
+.env
+.npmrc

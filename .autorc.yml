@@ -1,0 +1,59 @@
+noVersionPrefix: true
+
+plugins:
+  - npm
+  - released
+  - first-time-contributor
+  - all-contributors
+  - - exec
+    - beforeCommitChangelog: 'yarn lint:doc:fix && git add .'
+
+labels:
+  - name: breaking
+    changelogTitle: 💥 Breaking Change
+    description: Increment the major version when merged
+    releaseType: major
+
+  - name: feature
+    changelogTitle: 💥 Feature
+    description: A new feature addtion
+    releaseType: minor
+
+  - name: enhancement
+    changelogTitle: 🚀 Enhancement
+    description: Increment the minor version when merged
+    releaseType: minor
+
+  - name: bug
+    changelogTitle: 🐛 Bug Fix
+    description: Fixing a minor bug
+    releaseType: minor
+
+  - name: patch
+    changelogTitle: 🤷 Misc
+    description: Increment the patch version when merged
+    releaseType: patch
+
+  - name: security
+    changelogTitle: 🏿‍♀️ Security
+    description: Changes improve the code security
+    releaseType: patch
+
+  - name: technical debt
+    changelogTitle: 👷🏼‍♀️ Technical Debt
+    description: Changes only affect the internal code, improving performance/quaility
+    releaseType: patch
+
+  - name: dependencies
+    changelogTitle: 🔩 Dependencies
+    description: Dependencies Updates
+    releaseType: none
+
+  - name: documentation
+    changelogTitle: 📝 Documentation
+    description: Changes only affect the documentation
+    releaseType: none
+
+  - name: skip-release
+    description: Preserve the current version when merged
+    releaseType: skip

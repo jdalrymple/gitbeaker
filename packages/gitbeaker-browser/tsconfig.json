@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "types": ["puppeteer", "jest-environment-puppeteer", "expect-puppeteer"]
+  },
+  "include": ["src"]
+}

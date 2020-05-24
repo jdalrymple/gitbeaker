@@ -1,18 +1,57 @@
-[![npm @latest](https://img.shields.io/npm/v/gitlab.svg)](https://www.npmjs.com/package/gitlab)
-[![npm downloads](https://img.shields.io/npm/dt/gitlab.svg)](https://www.npmjs.com/package/gitlab)
-[![dependencies Status](https://david-dm.org/jdalrymple/node-gitlab/status.svg)](https://david-dm.org/jdalrymple/node-gitlab)
-[![devDependencies Status](https://david-dm.org/jdalrymple/node-gitlab/dev-status.svg)](https://david-dm.org/jdalrymple/node-gitlab?type=dev)
-[![Greenkeeper badge](https://badges.greenkeeper.io/jdalrymple/node-gitlab.svg)](https://greenkeeper.io/)
-[![Code Climate](https://codeclimate.com/github/jdalrymple/node-gitlab/badges/gpa.svg)](https://codeclimate.com/github/jdalrymple/node-gitlab)
-[![Build Status](https://img.shields.io/travis/jdalrymple/node-gitlab/master.svg)](https://travis-ci.org/jdalrymple/node-gitlab)
-[![Coverage](https://img.shields.io/codecov/c/github/jdalrymple/node-gitlab/master.svg)](https://codecov.io/gh/jdalrymple/node-gitlab)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Code Style: Prettier](https://img.shields.io/badge/code%20style-prettier-ff69b4.svg)](https://img.shields.io/badge/code%20style-prettier-ff69b4.svg)
-[![Install Size](https://packagephobia.now.sh/badge?p=gitlab)](https://packagephobia.now.sh/result?p=gitlab)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jdalrymple/node-gitlab/blob/master/LICENSE.md)
+<div align="center">
+  <br>
+  <img alt="gitbeaker" src=".github/ASSETS/header.svg">
+</div>
+<br>
+<p align="center">
+  <a href="https://gitlab.com/jdalrymple/gitbeaker/pipelines">
+    <img src="https://img.shields.io/gitlab/pipeline/jdalrymple/gitbeaker/master" alt="Gitlab Pipeline Status">
+  </a>
+  <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
+    <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
+  </a>
+  <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
+    <img src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker/master.svg" alt="CodeCov test coverage">
+  </a>
+  <a href="https://david-dm.org/jdalrymple/gitbeaker">
+    <img src="https://david-dm.org/jdalrymple/gitbeaker/status.svg" alt="Dependency Status" />
+  </a>
+  <a href="https://david-dm.org/jdalrymple/gitbeaker?type=dev">
+    <img src="https://david-dm.org/jdalrymple/gitbeaker/dev-status.svg.svg" alt="Dev Dependency Status" />
+  </a>
+  <img src="https://flat.badgen.net/dependabot/jdalrymple/gitbeaker?icon=dependabot" alt="Dependabot Badge" />
+  <a href="https://github.com/intuit/auto">
+    <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
+  </a>
+  <a href="#contributors-">
+    <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=round" alt="All Contributors" />
+  </a>
+  <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
+  <a href="LICENSE.md">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
+  </a>
 
-# node-gitlab
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
+      Core: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/core" alt="Install Size: Core">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/node">
+      Node: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/node" alt="Install Size: Node">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
+      Browser <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/browser" alt="Install Size: Browser">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
+      CLI <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
+    </a>
+  </p>
+</p>
 
 🤖 [GitLab](https://gitlab.com/gitlab-org/gitlab/) API NodeJS library with full support of all the [Gitlab API](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) services.
 
@@ -40,22 +79,50 @@
 
 ```bash
 # Install from npm
-npm install gitlab
+npm install @gitbeaker/node # NodeJS default, index.es.js for esm
+
+npm install @gitbeaker/browser # UMD default
+
+npm install @gitbeaker/cli  # CLI
+
 ```
 
 ## Getting Started
 
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+**NodeJS**
 
 ```javascript
 // ES6 (>=node 10.16.0 LTS)
-import { Gitlab } from 'gitlab'; // All Resources
-import { Projects } from 'gitlab'; // Just the Project Resource
+import { Gitlab } from '@gitbeaker/node'; // All Resources
+import { Projects } from '@gitbeaker/node'; // Just the Project Resource
 //...etc
 
 // ES5, assuming native or polyfilled Promise is available
-const { Gitlab } = require('gitlab');
+const { Gitlab } = require('@gitbeaker/node');
 ```
+
+**Browser**
+
+```javascript
+// ES6 (>=node 10.16.0 LTS)
+import { Gitlab } from '@gitbeaker/browser'; // All Resources
+import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
+//...etc
+
+// ES5, assuming native or polyfilled Promise is available
+const { Gitlab } = require('@gitbeaker/browser');
+```
+
+OR through the script tag:
+
+```html
+<script src="node_modules/@gitbeaker/browser/dist/index.js" />
+<script>
+  const { Gitlab } = gitbeaker.default;
+</script>
+```
+
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 
 ```javascript
 const api = new Gitlab({
@@ -65,66 +132,50 @@ const api = new Gitlab({
 
 Available instantiating options:
 
-| Name                 | Optional | Default                                               | Description                                                                                                        |
-| -------------------- | -------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `host`               | Yes      | `https://gitlab.com`                                  | Gitlab Instance Host URL                                                                                           |
-| `token`              | No\*     | N/A                                                   | Personal Token. Required (one of the three tokens are required)                                                    |
-| `oauthToken`         | No\*     | N/A                                                   | OAuth Token. Required (one of the three tokens are required)                                                       |
-| `jobToken`           | No\*     | N/A                                                   | CI Job Token. Required (one of the three tokens are required)                                                      |
-| `rejectUnauthorized` | Yes      | `true`                                               | Http Certificate setting, Only applies to HTTPS hosts urls                                                                                           |
-| `sudo`               | Yes      | `false`                                               | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
-| `version`            | Yes      | `4`                                                   | API Version ID                                                                                                     |
-| `camelize`           | Yes      | `false`                                               | Camelizes all response body keys                                                                                   |
-| `requester`          | Yes      | [KyRequester.ts](./src/infrastructure/KyRequester.ts) | Request Library Wrapper. Currently wraps Ky.                                                                       |
-| `requestTimeout`     | Yes      | `300000`                                              | Request Library Timeout in ms                                                                                      |
-| `profileToken`       | Yes      | N/A                                                   | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                           | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| Name                 | Optional | Default                                                                                                                                                                                                              | Description                                                                                                        |
+| -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                                                                 | Gitlab Instance Host URL                                                                                           |
+| `token`              | No\*     | N/A                                                                                                                                                                                                                  | Personal Token. Required (one of the three tokens are required)                                                    |
+| `oauthToken`         | No\*     | N/A                                                                                                                                                                                                                  | OAuth Token. Required (one of the three tokens are required)                                                       |
+| `jobToken`           | No\*     | N/A                                                                                                                                                                                                                  | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                                                                               | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
+| `sudo`               | Yes      | `false`                                                                                                                                                                                                              | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `version`            | Yes      | `4`                                                                                                                                                                                                                  | API Version ID                                                                                                     |
+| `camelize`           | Yes      | `false`                                                                                                                                                                                                              | Camelizes all response body keys                                                                                   |
+| `requester`          | Yes\*    | For @gitbeaker/node and @gitbeaker/cli, it uses a Got based requester, for @gitbeaker/browser, it uses a ky based requester. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
+| `requestTimeout`     | Yes      | `300000`                                                                                                                                                                                                             | Request Library Timeout in ms                                                                                      |
+| `profileToken`       | Yes      | N/A                                                                                                                                                                                                                  | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                                                                                                          | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 ### CLI Support
 
 The CLI export functions in a similar manner, following the pattern:
 
 ```bash
-gitlab [service name] [method name] --arg1 --arg2 --arg3
+gitbeaker [service name] [method name] --arg1 --arg2 --arg3
 ```
 
 Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments whose names should match what the GitLab API docs request.
 
-There is one small exception with the instantiating arguments, however, which must be supplied using a `gl` prefix. ie.
+There is one small exception with the instantiating arguments, however, which must be supplied using a `gb` or `gl` prefix. ie.
 
 ```bash
 # To get all the projects
-gitlab projects all --gl-token="personaltoken"
+gitbeaker projects all --gb-token="personaltoken"
 
 # To get a project with id = 2
-gitlab projects show --gl-token="personaltoken" --projectId=2
+gitbeaker projects show --gl-token="personaltoken" --projectId=2
 ```
 
-To reduce the annoyance of having to pass those configuration properties each time, it is also possible to pass the token and host information through environment variables in the form of `GITLAB_[option name]` ie:
+To reduce the annoyance of having to pass those configuration properties each time, it is also possible to pass the token and host information through environment variables in the form of `GITLAB_[option name]` or `GITBEAKER_[option name]` ie:
 
 ```bash
 GITLAB_HOST=http://example.com
 GITLAB_TOKEN=personaltoken
+GITBEAKER_CAMELIZE=true
 ```
 
 This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
-
-### Browser Support
-
-The library is exported as `gitlab` and can be used by simply adding this script to your html file:
-
-```html
-<script src="node_modules/gitlab/dist/index.browser.js" />
-<script>
-  const { Gitlab } = gitlab;
-
-  const api = new Gitlab({
-    token: 'personaltoken',
-  });
-
-  //etc
-</script>
-```
 
 ## Docs
 
@@ -169,6 +220,7 @@ GroupMilestones
 GroupProjects
 GroupVariables
 GroupLabels
+GroupDeployTokens
 Epics
 EpicIssues
 EpicNotes
@@ -179,14 +231,14 @@ Branches
 Commits
 CommitDiscussions
 ContainerRegistry
-DeployKeys
 Deployments
+DeployKeys
 Environments
 Issues
-IssueAwardEmojis
+IssuesStatistics
 IssueNotes
 IssueDiscussions
-IssuesStatistics
+IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
@@ -213,6 +265,7 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+ProjectDeployTokens
 PushRules
 Releases
 ReleaseLinks
@@ -221,6 +274,7 @@ RepositoryFiles
 Runners
 Services
 Tags
+Todos
 Triggers
 VulnerabilityFindings
 
@@ -259,14 +313,15 @@ Currently there are three Bundles:
 Branches
 Commits
 CommitDiscussions
+ContainerRegistry
 Deployments
 DeployKeys
 Environments
 Issues
+IssuesStatistics
 IssueNotes
 IssueDiscussions
 IssueAwardEmojis
-IssuesStatistics
 Jobs
 Labels
 MergeRequests
@@ -293,7 +348,10 @@ ProjectSnippetAwardEmojis
 ProtectedBranches
 ProtectedTags
 ProjectVariables
+ProjectDeployTokens
 PushRules
+Releases
+ReleaseLinks
 Repositories
 RepositoryFiles
 Runners
@@ -328,6 +386,7 @@ GroupMilestones
 GroupProjects
 GroupVariables
 GroupLabels
+GroupDeployTokens
 Epics
 EpicIssues
 EpicNotes
@@ -352,7 +411,7 @@ const api = new Gitlab({
 let users = await api.Users.all();
 
 // Or using Promise-Then notation
-api.Projects.all().then(projects => {
+api.Projects.all().then((projects) => {
   console.log(projects);
 });
 ```
@@ -405,15 +464,14 @@ const api = new Gitlab({
 let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
 ```
 
-Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the pagination option `showPagination` in addition to either the
-`maxPages` or `page` properties.
+Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the option `showExtended`. If there are multiple results the pagination property will be included as shown below:
 
 ```javascript
 ...
 const { data, pagination } = await api.Projects.all({
   perPage:40,
   maxPages:2,
-  showPagination: true
+  showExtended: true
 });
 ...
 ```
@@ -434,7 +492,7 @@ pagination: {
 }
 ```
 
-> Note: supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
+> Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
 
 ### Sudo
 
@@ -494,10 +552,9 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example, when trying to write a file, this can be done like:
 
 ```javascript
-let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, "test", "job_test");
+let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, 'test', 'job_test');
 
-fs.writeFileSync("test.zip", bufferedData);
-
+fs.writeFileSync('test.zip', bufferedData);
 ```
 
 ## Development
@@ -505,13 +562,13 @@ fs.writeFileSync("test.zip", bufferedData);
 To get this running locally rather than from your `node_modules` folder:
 
 ```bash
-$ git clone https://github.com/jdalrymple/node-gitlab.git
-$ cd node-gitlab
+$ git clone https://github.com/jdalrymple/gitbeaker.git
+$ cd gitbeaker
 $ npm install
 $ npm run-script build
 ```
 
-And then inside whatever project you are using `node-gitlab` in you change your references to use that repo. In your package.json of that upstream project change:
+And then inside whatever project you are using `gitbeaker` in you change your references to use that repo. In your package.json of that upstream project change:
 
 ```json
 "dependencies": {
@@ -564,7 +621,41 @@ PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
 
 ## Contributors
 
-This started as a fork from [node-gitlab](https://github.com/node-gitlab/node-gitlab) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab#contributors).
+This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/node-gitlab-legacy) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab-legacy#contributors).
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/jdalrymple"><img src="https://avatars3.githubusercontent.com/u/3743662?v=4" width="50px;" alt=""/><br /><sub><b>Justin Dalrymple</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=jdalrymple" title="Code">💻</a> <a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Ajdalrymple" title="Reviewed Pull Requests">👀</a> <a href="#maintenance-jdalrymple" title="Maintenance">🚧</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3Ajdalrymple" title="Bug reports">🐛</a> <a href="#ideas-jdalrymple" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=jdalrymple" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=jdalrymple" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/akira345"><img src="https://avatars0.githubusercontent.com/u/655764?v=4" width="50px;" alt=""/><br /><sub><b>akira345</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=akira345" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aakira345" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=akira345" title="Code">💻</a></td>
+    <td align="center"><a href="https://birukov.me"><img src="https://avatars2.githubusercontent.com/u/1861546?v=4" width="50px;" alt=""/><br /><sub><b>Pavel Birukov </b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Apablobirukov" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=pablobirukov" title="Code">💻</a></td>
+    <td align="center"><a href="http://jetersen.dev"><img src="https://avatars2.githubusercontent.com/u/1661688?v=4" width="50px;" alt=""/><br /><sub><b>Joseph Petersen</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Ajetersen" title="Reviewed Pull Requests">👀</a> <a href="#ideas-jetersen" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3Ajetersen" title="Bug reports">🐛</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=jetersen" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Musinux"><img src="https://avatars3.githubusercontent.com/u/563373?v=4" width="50px;" alt=""/><br /><sub><b>Louis Cherel</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3AMusinux" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=Musinux" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.arsdehnel.net"><img src="https://avatars3.githubusercontent.com/u/1697162?v=4" width="50px;" alt=""/><br /><sub><b>Adam Dehnel</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aarsdehnel" title="Reviewed Pull Requests">👀</a> <a href="#maintenance-arsdehnel" title="Maintenance">🚧</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3Aarsdehnel" title="Bug reports">🐛</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=arsdehnel" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.haus.gg/"><img src="https://avatars3.githubusercontent.com/u/226640?v=4" width="50px;" alt=""/><br /><sub><b>Ev Haus</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3AEvHaus" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=EvHaus" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://iGLOO.be"><img src="https://avatars0.githubusercontent.com/u/900947?v=4" width="50px;" alt=""/><br /><sub><b>Loïc Mahieu</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3ALoicMahieu" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="http://www.giuseppeangri.com"><img src="https://avatars2.githubusercontent.com/u/9075163?v=4" width="50px;" alt=""/><br /><sub><b>Giuseppe Angri</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Agiuseppeangri" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=giuseppeangri" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jennparise"><img src="https://avatars1.githubusercontent.com/u/4134086?v=4" width="50px;" alt=""/><br /><sub><b>jennparise</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Ajennparise" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3Ajennparise" title="Bug reports">🐛</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=jennparise" title="Code">💻</a></td>
+    <td align="center"><a href="http://obartra.github.io"><img src="https://avatars0.githubusercontent.com/u/3877773?v=4" width="50px;" alt=""/><br /><sub><b>Oscar</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aobartra" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://daniel-ruf.de"><img src="https://avatars1.githubusercontent.com/u/827205?v=4" width="50px;" alt=""/><br /><sub><b>Daniel Ruf</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3ADanielRuf" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=DanielRuf" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/issues?q=author%3ADanielRuf" title="Bug reports">🐛</a> <a href="#maintenance-DanielRuf" title="Maintenance">🚧</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=DanielRuf" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/schindld"><img src="https://avatars0.githubusercontent.com/u/1659632?v=4" width="50px;" alt=""/><br /><sub><b>schindld</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/pulls?q=is%3Apr+reviewed-by%3Aschindld" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=schindld" title="Code">💻</a></td>
+    <td align="center"><a href="https://alvarobg.com"><img src="https://avatars0.githubusercontent.com/u/12004383?v=4" width="50px;" alt=""/><br /><sub><b>Alvaro</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=AlvaroBernalG" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://northhorizon.net"><img src="https://avatars3.githubusercontent.com/u/616152?v=4" width="50px;" alt=""/><br /><sub><b>Daniel Moore</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=danielmoore" title="Code">💻</a></td>
+    <td align="center"><a href="https://dylanmtaylor.com"><img src="https://avatars2.githubusercontent.com/u/277927?v=4" width="50px;" alt=""/><br /><sub><b>Dylan M. Taylor</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Code">💻</a></td>
+    <td align="center"><a href="https://pixelswap.fr/"><img src="https://avatars1.githubusercontent.com/u/4266283?v=4" width="50px;" alt=""/><br /><sub><b>Corentin Mors</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Mikescops" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/xatavian"><img src="https://avatars1.githubusercontent.com/u/17217965?v=4" width="50px;" alt=""/><br /><sub><b>xatavian</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=xatavian" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
 - [Mike Wyatt](https://github.com/mikew)
@@ -617,11 +708,12 @@ This started as a fork from [node-gitlab](https://github.com/node-gitlab/node-gi
 - [Kyrylo Fedorov](https://github.com/Kyr)
 - [Claudio Vellage](https://github.com/jdalrymple/LRH539)
 - [Seb0uil](https://github.com/seb0uil)
+- [Dylan Taylor](https://github.com/dylanmtaylor)
 
 ## License
 
-[MIT](https://github.com/jdalrymple/node-gitlab/blob/master/LICENSE.md)
+[MIT](https://github.com/jdalrymple/gitbeaker/blob/master/LICENSE.md)
 
 ## Changelog
 
-[Here](https://github.com/jdalrymple/node-gitlab/blob/master/CHANGELOG.md)
+[Here](https://github.com/jdalrymple/gitbeaker/blob/master/CHANGELOG.md)

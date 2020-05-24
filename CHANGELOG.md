@@ -1,58 +1,481 @@
-# [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
+# 19.7.0 (Sun May 17 2020)
 
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
+
+#### 🚀 Enhancement
+
+- `@gitbeaker/core`
+  - Feature: Arbitrary parameters for Projects.search [#801](https://github.com/jdalrymple/gitbeaker/pull/801) (avi.szychter@trialog.com [@xatavian](https://github.com/xatavian))
+
+#### Authors: 2
+
+- [@xatavian](https://github.com/xatavian)
+- Avi SZYCHTER (avi.szychter@trialog.com)
+
+---
+
+# 19.6.0 (Sat May 16 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Project upload is not formatting form-data correctly [#797](https://github.com/jdalrymple/gitbeaker/pull/797) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump auto from 9.31.1 to 9.32.0 [#787](https://github.com/jdalrymple/gitbeaker/pull/787) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.27.0 to 0.27.1 [#789](https://github.com/jdalrymple/gitbeaker/pull/789) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 2.0.1 to 2.1.0 [#783](https://github.com/jdalrymple/gitbeaker/pull/783) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.31.1 to 9.32.0 [#786](https://github.com/jdalrymple/gitbeaker/pull/786) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.31.1 to 9.32.0 [#788](https://github.com/jdalrymple/gitbeaker/pull/788) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.31.1 to 9.32.0 [#784](https://github.com/jdalrymple/gitbeaker/pull/784) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.31.1 to 9.32.0 [#782](https://github.com/jdalrymple/gitbeaker/pull/782) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.31.0 to 2.33.0 [#791](https://github.com/jdalrymple/gitbeaker/pull/791) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.31.0 to 2.33.0 [#792](https://github.com/jdalrymple/gitbeaker/pull/792) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump @types/node from 13.13.5 to 14.0.1 [#790](https://github.com/jdalrymple/gitbeaker/pull/790) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- `@gitbeaker/core`
+  - Update typing to specify that the path or name property must be passed [#796](https://github.com/jdalrymple/gitbeaker/pull/796) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.5.1 (Mon May 11 2020)
+
+---
+
+# 19.5.0 (Mon May 11 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Corentin Mors ([@Mikescops](https://github.com/Mikescops)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix: Update DELETE method to POST in todos.done() [#780](https://github.com/jdalrymple/gitbeaker/pull/780) ([@Mikescops](https://github.com/Mikescops))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump ts-jest from 25.5.0 to 25.5.1 [#775](https://github.com/jdalrymple/gitbeaker/pull/775) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.8.2 to 2.9.1 [#776](https://github.com/jdalrymple/gitbeaker/pull/776) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.9.0 to 23.10.0 [#777](https://github.com/jdalrymple/gitbeaker/pull/777) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.1.1 to 11.1.3 [#778](https://github.com/jdalrymple/gitbeaker/pull/778) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.1.0 to 11.1.1 [#769](https://github.com/jdalrymple/gitbeaker/pull/769) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-jest from 25.4.0 to 25.5.0 [#771](https://github.com/jdalrymple/gitbeaker/pull/771) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 3.0.2 to 3.0.4 [#773](https://github.com/jdalrymple/gitbeaker/pull/773) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.8.0 to 2.8.2 [#774](https://github.com/jdalrymple/gitbeaker/pull/774) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Corentin Mors ([@Mikescops](https://github.com/Mikescops))
+
+---
+
+# 19.4.0 (Wed May 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - Add Deploy tokens API [#762](https://github.com/jdalrymple/gitbeaker/pull/762) ([@jdalrymple](https://github.com/jdalrymple) [@dylanmtaylor](https://github.com/dylanmtaylor))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/core`
+  - Merge branch 'deploy-fix' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump rollup from 2.7.6 to 2.8.0 [#765](https://github.com/jdalrymple/gitbeaker/pull/765) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.30.0 to 2.31.0 [#767](https://github.com/jdalrymple/gitbeaker/pull/767) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.13.4 to 13.13.5 [#766](https://github.com/jdalrymple/gitbeaker/pull/766) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.3.1 (Tue May 05 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Add Prettierignore file [#761](https://github.com/jdalrymple/gitbeaker/pull/761) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Fixing a merge conflict ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @auto-it/all-contributors from 9.30.3 to 9.31.1 [#752](https://github.com/jdalrymple/gitbeaker/pull/752) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.3 to 9.31.1 [#755](https://github.com/jdalrymple/gitbeaker/pull/755) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.30.0 to 2.31.0 [#756](https://github.com/jdalrymple/gitbeaker/pull/756) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.8.2 to 23.9.0 [#753](https://github.com/jdalrymple/gitbeaker/pull/753) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-node from 8.9.1 to 8.10.1 [#746](https://github.com/jdalrymple/gitbeaker/pull/746) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.0.3 to 11.1.0 [#745](https://github.com/jdalrymple/gitbeaker/pull/745) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.5.3 to 25.5.4 [#744](https://github.com/jdalrymple/gitbeaker/pull/744) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.30.3 to 9.31.1 [#754](https://github.com/jdalrymple/gitbeaker/pull/754) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.30.3 to 9.31.1 [#758](https://github.com/jdalrymple/gitbeaker/pull/758) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Updating the pagination documentation [#760](https://github.com/jdalrymple/gitbeaker/pull/760) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.3.0 (Fri May 01 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/requester-utils`
+  - Fixing types field to utils and browser package.json [#742](https://github.com/jdalrymple/gitbeaker/pull/742) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump rollup from 2.7.3 to 2.7.6 [#738](https://github.com/jdalrymple/gitbeaker/pull/738) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.0.2 to 11.0.3 [#741](https://github.com/jdalrymple/gitbeaker/pull/741) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.5.0 to 25.5.3 [#740](https://github.com/jdalrymple/gitbeaker/pull/740) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.2.0 to 10.2.2 [#739](https://github.com/jdalrymple/gitbeaker/pull/739) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.2.0 (Wed Apr 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Add types field to node and browser package.json [#737](https://github.com/jdalrymple/gitbeaker/pull/737) ([@danielmoore](https://github.com/danielmoore))
+
+#### ⚠️ Pushed to `master`
+
+- Linting [skip-ci](<[@jdalrymple](https://github.com/jdalrymple)>)
+
+#### 🔩 Dependencies
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-9.30.3' [#730](https://github.com/jdalrymple/gitbeaker/pull/730) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/puppeteer-3.0.2' [#735](https://github.com/jdalrymple/gitbeaker/pull/735) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/all-contributors-9.30.3' [#731](https://github.com/jdalrymple/gitbeaker/pull/731) ([@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.2 to 9.30.3 [#729](https://github.com/jdalrymple/gitbeaker/pull/729) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.7.2 to 2.7.3 [#733](https://github.com/jdalrymple/gitbeaker/pull/733) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.29.0 to 2.30.0 [#732](https://github.com/jdalrymple/gitbeaker/pull/732) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 25.4.0 to 25.5.0 [#734](https://github.com/jdalrymple/gitbeaker/pull/734) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.1.7 to 10.2.0 [#736](https://github.com/jdalrymple/gitbeaker/pull/736) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.29.0 to 2.30.0 [#728](https://github.com/jdalrymple/gitbeaker/pull/728) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.30.2 to 9.30.3 [#727](https://github.com/jdalrymple/gitbeaker/pull/727) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Daniel Moore ([@danielmoore](https://github.com/danielmoore))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.1.0 (Mon Apr 27 2020)
+
+#### 🚀 Enhancement
+
+- `@gitbeaker/core`
+  - feats: adds options interface for MergeRequest.all() [#606](https://github.com/jdalrymple/gitbeaker/pull/606) ([@AlvaroBernalG](https://github.com/AlvaroBernalG) [@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Linting [skip-ci](<[@jdalrymple](https://github.com/jdalrymple)>)
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.30.1 to 9.30.2 [#722](https://github.com/jdalrymple/gitbeaker/pull/722) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.13.2 to 13.13.4 [#724](https://github.com/jdalrymple/gitbeaker/pull/724) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.30.1 to 9.30.2 [#725](https://github.com/jdalrymple/gitbeaker/pull/725) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-node from 8.9.0 to 8.9.1 [#726](https://github.com/jdalrymple/gitbeaker/pull/726) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Alvaro ([@AlvaroBernalG](https://github.com/AlvaroBernalG))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 19.0.0 (Thu Apr 23 2020)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Adding CLI Integration Tests and Preferring named exports [#711](https://github.com/jdalrymple/gitbeaker/pull/711) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 18.2.0 (Wed Apr 22 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating agent property based on new changes in Got [#712](https://github.com/jdalrymple/gitbeaker/pull/712) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @types/node from 13.13.1 to 13.13.2 [#700](https://github.com/jdalrymple/gitbeaker/pull/700) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.6.1 to 2.7.1 [#703](https://github.com/jdalrymple/gitbeaker/pull/703) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 18.1.0 (Wed Apr 22 2020)
+
+#### 🚀 Enhancement
+
+- `@gitbeaker/browser`
+  - Adding integration tests for the browser usage [#697](https://github.com/jdalrymple/gitbeaker/pull/697) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📝 Documentation
+
+- Update CHANGELOG.md [#696](https://github.com/jdalrymple/gitbeaker/pull/696) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump ts-node from 8.8.2 to 8.9.0 [#695](https://github.com/jdalrymple/gitbeaker/pull/695) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v18.0.0 (Tue Apr 21 2020)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - feat: Updated an API parameter for GitLab 12.9 [#647](https://github.com/jdalrymple/gitbeaker/pull/647) ([@schindld](https://github.com/schindld))
+
+#### ⚠️ Pushed to `master`
+
+- docs: Updating README badges ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@schindld](https://github.com/schindld)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v17.0.2 (Sun Apr 19 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Testing out auto as a release system [#693](https://github.com/jdalrymple/gitbeaker/pull/693) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Label configuration updates ([@jdalrymple](https://github.com/jdalrymple))
+- docs: Update documentation for browser imports ([@jdalrymple](https://github.com/jdalrymple))
+- Create FUNDING.yml ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependencies
+
+- chore(deps-dev): bump @semantic-release/changelog from 5.0.0 to 5.0.1 [#650](https://github.com/jdalrymple/gitbeaker/pull/650) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-import from 2.20.1 to 2.20.2 [#655](https://github.com/jdalrymple/gitbeaker/pull/655) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump sywac from 1.2.2 to 1.3.0 [#657](https://github.com/jdalrymple/gitbeaker/pull/657) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.25.0 to 2.26.0 [#661](https://github.com/jdalrymple/gitbeaker/pull/661) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-jest from 25.2.1 to 25.3.0 [#662](https://github.com/jdalrymple/gitbeaker/pull/662) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 13.9.3 to 13.9.8 [#663](https://github.com/jdalrymple/gitbeaker/pull/663) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.0.9 to 10.1.1 [#664](https://github.com/jdalrymple/gitbeaker/pull/664) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.2.0 to 2.3.2 [#665](https://github.com/jdalrymple/gitbeaker/pull/665) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump rollup-plugin-typescript2 from 0.26.0 to 0.27.0 [#654](https://github.com/jdalrymple/gitbeaker/pull/654) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Add example code into README.md [#639](https://github.com/jdalrymple/gitbeaker/pull/639) ([@akira345](https://github.com/akira345))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- akira345 ([@akira345](https://github.com/akira345))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+## [17.0.1](https://github.com/jdalrymple/gitbeaker/compare/17.0.0...17.0.1) (2020-03-24)
 
 ### Bug Fixes
 
-* make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
+- Version updates ([2db0be8](https://github.com/jdalrymple/gitbeaker/commit/2db0be83099be589af956dbac5e201e29e09f7cf))
 
+# [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
+
+### Bug Fixes
+
+- **core:** Adding better handling for form type arguments ([#570](https://github.com/jdalrymple/gitbeaker/issues/570)) ([4751ed2](https://github.com/jdalrymple/gitbeaker/commit/4751ed225fd8df6ac23200e92473ba8346901dbe)), closes [#568](https://github.com/jdalrymple/gitbeaker/issues/568)
+
+### BREAKING CHANGES
+
+- **core:** Trigger.pipeline now has a defined variables property to house all the pipeline variables to be set. Before these variables were set on the root object, but this made it difficult to parse any future options that may be added to this function.
+
+# [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
+
+- Fixed variable name for registry method, as per … (#646) ([992b809](https://github.com/jdalrymple/gitbeaker/commit/992b809cb10959ea8c5c8d16ab7f8713b102da72)), closes [#646](https://github.com/jdalrymple/gitbeaker/issues/646)
+
+### BREAKING CHANGES
+
+- 🧨 A `removeTags` method parameter name changed from tagNameRegex to nameRegex. Works with GitLab 12.x.
+
+Co-authored-by: Joseph Petersen <josephp90@gmail.com>
+
+# [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
 
 ### Features
 
-* Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
+- **core:** Override arguments in all template children ([#597](https://github.com/jdalrymple/gitbeaker/issues/597)) ([d9c97d4](https://github.com/jdalrymple/gitbeaker/commit/d9c97d44d1a64aafbe0fed9404a714dd2de010cb))
+
+# [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
+
+### Features
+
+- Add typing to project and group variables ([#620](https://github.com/jdalrymple/gitbeaker/issues/620)) ([70f39ab](https://github.com/jdalrymple/gitbeaker/commit/70f39ab4310722ea8e61b0309f445ebea758f833))
+
+# [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
+
+### Bug Fixes
+
+- **gitbeaker-core:** 🐛 Notification Settings API special PUT requests ([6c748ec](https://github.com/jdalrymple/gitbeaker/commit/6c748eceb441209a1862bad2790c4c4c1d0bd5e6))
+- **gitbeaker-core:** 🐛 ResourceTemplate.show was using the wrong http method ([e068e6a](https://github.com/jdalrymple/gitbeaker/commit/e068e6a0e2ccbaa307d82e8ccecede6d05133805))
+
+### Code Refactoring
+
+- **gitbeaker-core:** 💡 Adjusted the argument order for ResourceAwardEmojis ([348f6c1](https://github.com/jdalrymple/gitbeaker/commit/348f6c1870636d2e3b774c382d1b34e63e9c2aaa))
+- **gitbeaker-core:** 💡 Updated the function header for Group.create ([4a3906a](https://github.com/jdalrymple/gitbeaker/commit/4a3906ad358c3903604a44e3278053befd95bef8))
+- **gitbeaker-core:** 💡 Updated the License API ([2e9e580](https://github.com/jdalrymple/gitbeaker/commit/2e9e58013bad81187f6bd648905f072c240538a9))
+- 💡 Migrated to a monorepo structure ([d9cd4c9](https://github.com/jdalrymple/gitbeaker/commit/d9cd4c9a913d62da7d8337a989bc7bf97d9cc015))
+
+### Features
+
+- **gitbeaker-cli:** 🎸 Added support for GITBEAKER\_[Property] env variable ([6851800](https://github.com/jdalrymple/gitbeaker/commit/6851800ca84e6c26ab555558d07ce38d069d5705))
+
+### BREAKING CHANGES
+
+- **gitbeaker-core:** 🧨 The order of arguments that include both the awardId and noteId has changed. It is now projectId, resourceId, noteId, and then awardId. This affects the award, remove and show functions.
+- **gitbeaker-core:** 🧨 Changed the spelling of the License API from Licence to License. Additionally the license.create method has been replaced with license.add and has a required first parameter that is the license. The license.all method now returns all licenses and no longer the license
+  for the current user. This is now done by license.show.
+- **gitbeaker-core:** 🧨 Group.create takes an additional argument
+- 🧨 This migration requires users to import specific subpackages. For NodeJS
+  usage, that would be @gitbeaker/node.
+
+## [14.2.2](https://github.com/jdalrymple/node-gitlab/compare/14.2.1...14.2.2) (2020-01-30)
+
+### Bug Fixes
+
+- Incorrect request method in MergeRequests.approvalState() method ([#586](https://github.com/jdalrymple/node-gitlab/issues/586)) ([cb5f822](https://github.com/jdalrymple/node-gitlab/commit/cb5f8228ca1f64cc55b79e1ef475c3d49568267a))
+
+## [14.2.1](https://github.com/jdalrymple/node-gitlab/compare/14.2.0...14.2.1) (2020-01-20)
+
+### Bug Fixes
+
+- added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
+
+# [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
+
+### Features
+
+- Adding support for merge_requests in the Deployments API ([911078b](https://github.com/jdalrymple/node-gitlab/commit/911078bba30145a98ba051e672963dbbe8816a6a)), closes [#554](https://github.com/jdalrymple/node-gitlab/issues/554)
+
+## [14.1.1](https://github.com/jdalrymple/node-gitlab/compare/14.1.0...14.1.1) (2020-01-03)
+
+### Bug Fixes
+
+- resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
+
+# [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
+
+### Bug Fixes
+
+- make ResourceMembers.all/show delivery correct options params ([#521](https://github.com/jdalrymple/node-gitlab/issues/521)) ([505b407](https://github.com/jdalrymple/node-gitlab/commit/505b4072f3441440fd4903089d83d000e701e84c)), closes [#518](https://github.com/jdalrymple/node-gitlab/issues/518)
+
+### Features
+
+- Added support for the Vulnerability Findings API ([#517](https://github.com/jdalrymple/node-gitlab/issues/517)) ([497bf94](https://github.com/jdalrymple/node-gitlab/commit/497bf948d97d58dbe0bc2f57c47c92d646a29790))
 
 ## [14.0.1](https://github.com/jdalrymple/node-gitlab/compare/14.0.0...14.0.1) (2019-12-23)
 
-
 ### Bug Fixes
 
-* Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
+- Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
 
 # [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
 
-
 ### Bug Fixes
 
-* Typing on GPGKey method arguments was missing ([#514](https://github.com/jdalrymple/node-gitlab/issues/514)) ([234c9a7](https://github.com/jdalrymple/node-gitlab/commit/234c9a75db9be752e6d4febee171e3b44be6a30a))
-* Typing on Group and Project variable keys was incorrect [#512](https://github.com/jdalrymple/node-gitlab/issues/512) ([#515](https://github.com/jdalrymple/node-gitlab/issues/515)) ([c7afca5](https://github.com/jdalrymple/node-gitlab/commit/c7afca523160ac19707d0207b9892a81b799e645))
-
+- Typing on GPGKey method arguments was missing ([#514](https://github.com/jdalrymple/node-gitlab/issues/514)) ([234c9a7](https://github.com/jdalrymple/node-gitlab/commit/234c9a75db9be752e6d4febee171e3b44be6a30a))
+- Typing on Group and Project variable keys was incorrect [#512](https://github.com/jdalrymple/node-gitlab/issues/512) ([#515](https://github.com/jdalrymple/node-gitlab/issues/515)) ([c7afca5](https://github.com/jdalrymple/node-gitlab/commit/c7afca523160ac19707d0207b9892a81b799e645))
 
 ### BREAKING CHANGES
 
-* The title property is not required for the add method.
+- The title property is not required for the add method.
 
 # [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
 
-
 ### Features
 
-* Adding ability to get a singular member of a project or group, including inheritedMemebrs ([#508](https://github.com/jdalrymple/node-gitlab/issues/508)) ([807171c](https://github.com/jdalrymple/node-gitlab/commit/807171c3ff29977e8f6f5faa9603c550334c2192)), closes [#507](https://github.com/jdalrymple/node-gitlab/issues/507)
-
+- Adding ability to get a singular member of a project or group, including inheritedMemebrs ([#508](https://github.com/jdalrymple/node-gitlab/issues/508)) ([807171c](https://github.com/jdalrymple/node-gitlab/commit/807171c3ff29977e8f6f5faa9603c550334c2192)), closes [#507](https://github.com/jdalrymple/node-gitlab/issues/507)
 
 ### BREAKING CHANGES
 
-* Updated the Members.all function to have the inheritedMembers option to be in the optional object.
+- Updated the Members.all function to have the inheritedMembers option to be in the optional object.
 
 # [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
 
-
 ### Bug Fixes
 
-* Removing required options object in a few of the API methods ([#505](https://github.com/jdalrymple/node-gitlab/issues/505)) ([b709ef6](https://github.com/jdalrymple/node-gitlab/commit/b709ef6716d15368c8775d77e5eb0cf22d6369a7))
-
+- Removing required options object in a few of the API methods ([#505](https://github.com/jdalrymple/node-gitlab/issues/505)) ([b709ef6](https://github.com/jdalrymple/node-gitlab/commit/b709ef6716d15368c8775d77e5eb0cf22d6369a7))
 
 ### Features
 
-* Add Group/File schemas ([#506](https://github.com/jdalrymple/node-gitlab/issues/506)) ([f467816](https://github.com/jdalrymple/node-gitlab/commit/f467816070bffcd3776e5dc3e6074c92bf6d644e))
+- Add Group/File schemas ([#506](https://github.com/jdalrymple/node-gitlab/issues/506)) ([f467816](https://github.com/jdalrymple/node-gitlab/commit/f467816070bffcd3776e5dc3e6074c92bf6d644e))
 
 ## [12.0.1](https://github.com/jdalrymple/node-gitlab/compare/12.0.0...12.0.1) (2019-11-27)
 

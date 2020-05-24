@@ -1,0 +1,84 @@
+import { RequesterType } from '@gitbeaker/requester-utils';
+import { ResourceLabels } from '../../../src/templates';
+import { RequestHelper } from '../../../src/infrastructure';
+
+jest.mock('../../../src/infrastructure/RequestHelper');
+
+let service: ResourceLabels;
+
+beforeEach(() => {
+  const requester = {
+    get: jest.fn(() => Promise.resolve([])),
+    post: jest.fn(() => Promise.resolve({})),
+    put: jest.fn(() => Promise.resolve({})),
+    delete: jest.fn(() => Promise.resolve({})),
+  } as RequesterType;
+
+  service = new ResourceLabels('resource', {
+    requester,
+    token: 'abcdefg',
+  });
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+describe('Instantiating ResourceLabels service', () => {
+  it('should create a valid service object', async () => {
+    expect(service).toBeInstanceOf(ResourceLabels);
+    expect(service.url).toBeDefined();
+    expect(service.url).toContain('resource');
+  });
+});
+
+describe('ResourceLabels.all', () => {
+  it('should call the correct url with a resource id', async () => {
+    await service.all('5');
+
+    expect(RequestHelper.get).toBeCalledWith(service, '5/labels', undefined);
+  });
+});
+
+describe('ResourceLabels.create', () => {
+  it('should call the correct url with a resource id', async () => {
+    await service.create('5', 'review', '#888888');
+
+    expect(RequestHelper.post).toBeCalledWith(service, '5/labels', {
+      name: 'review',
+      color: '#888888',
+    });
+  });
+});
+
+describe('ResourceLabels.edit', () => {
+  it('should call the correct url with a resource id and label name', async () => {
+    await service.edit('5', 'review');
+
+    expect(RequestHelper.put).toBeCalledWith(service, '5/labels', { name: 'review' });
+  });
+});
+
+describe('ResourceLabels.remove', () => {
+  it('should call the correct url with a resource id and label name', async () => {
+    await service.remove('5', 'review');
+
+    expect(RequestHelper.del).toBeCalledWith(service, '5/labels', { name: 'review' });
+  });
+});
+
+describe('ResourceLabels.subscribe', () => {
+  it('should call the correct url with a resource id and label id', async () => {
+    await service.subscribe('5', 6);
+
+    expect(RequestHelper.post).toBeCalledWith(service, '5/issues/6/subscribe', undefined);
+  });
+});
+
+describe('ResourceLabels.unsubscribe', () => {
+  it('should call the correct url with a resource id and label id', async () => {
+    await service.unsubscribe('5', 6);
+
+    expect(RequestHelper.del).toBeCalledWith(service, '5/issues/6/unsubscribe', undefined);
+  });
+});
