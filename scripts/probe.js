@@ -18,9 +18,9 @@ async function checkReadiness() {
 async function run() {
   let attempt = 0;
 
-  await sleep(120000);
+  await sleep(170000);
 
-  while (attempt < 25) {
+  while (attempt < 10) {
     try {
       const ready = await checkReadiness();
 
