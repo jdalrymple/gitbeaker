@@ -21,12 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.33.2.tgz#8b149c4e18b97c28755b783367a7f37102c0309c"
   integrity sha512-PSFiRwiATx3rCJ8P8UXjASfQfR5ue28lHvTOMFsPlf2YlA9d6YdqAhD0UOLWiKqbOQAjH83maqdZ+czlyCN3Yw==
 
-"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2":
-  version "9.33.2"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.33.2.tgz#0e40d5dd100e9a6770b89bf3285720f98ad99502"
-  integrity sha512-Mmx8kFXYpDtd4ZUw/VvzoSLw7KwAsIlpSpyDG6ZG5sXqFu1CiVFlk17MWR0m4o3CQQN52HcT/9dQB4OS4H84zw==
+"@auto-it/bot-list@^9.36.4":
+  version "9.36.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.36.4.tgz#69af9dcf2a53961c29a7f78f1ea47fc705400347"
+  integrity sha512-18G0jgVW50IfHnU0rbHcAW9qMSjqrn7lV53vlR19Ukn1a4BQ7vzqgp0z+GAX0xTEVevVhsbHQGfD1rkE2W8bag==
+
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2", "@auto-it/core@^9.36.4":
+  version "9.36.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.36.4.tgz#14a6caf9efcd2f71e927182e61eaaade75736f21"
+  integrity sha512-zi+pQ8Gy38J8eGm9l2DDbl3lzkesGEsgDSi8n1v2Khi3AnNHmHu2Z25WoqBe/gMPcCN5QqZDigII2MpnMAXUmQ==
   dependencies:
-    "@auto-it/bot-list" "^9.33.2"
+    "@auto-it/bot-list" "^9.36.4"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -72,11 +77,11 @@
     tslib "1.10.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.32.3.tgz#65e86466502393868ec7d3657bff4276d28a9dd7"
-  integrity sha512-MK31jyRKoB1THuOvlUcpJHm9M1ydz1WxZ4IFuqnaHoEJuUfetP7qlNIXHUZ7jlRL5QphIrm82MEozTAbbfkwfA==
+  version "9.36.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.36.4.tgz#bf752dcc1b1ff3a496aff12c0d9eb18fd8addce6"
+  integrity sha512-NTXnuizeH4KoebTV5nzQI4+wLv07yrUKyxtVcl9O81Q/QzUWAVKJfV2iyQSpuJFZ8GtHVBFCZ1AIKts/faynkg==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.36.4"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "1.11.1"
