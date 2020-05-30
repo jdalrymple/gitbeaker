@@ -124,8 +124,10 @@ export class Projects extends BaseService {
     return RequestHelper.del(this, `projects/${pId}/fork`, options);
   }
 
-  search(projectName: string) {
-    return RequestHelper.get(this, 'projects', { search: projectName });
+  search(projectName: string, options?: BaseRequestOptions) {
+    return RequestHelper.get(this, 'projects', { search: projectName, ...options }) as Promise<
+      ProjectSchema[]
+    >;
   }
 
   share(

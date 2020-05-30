@@ -1,3 +1,20 @@
+# v19.7.0 (Sun May 17 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
+
+#### 🚀 Enhancement
+
+- Feature: Arbitrary parameters for Projects.search [#801](https://github.com/jdalrymple/gitbeaker/pull/801) (avi.szychter@trialog.com [@xatavian](https://github.com/xatavian))
+
+#### Authors: 2
+
+- [@xatavian](https://github.com/xatavian)
+- Avi SZYCHTER (avi.szychter@trialog.com)
+
+---
+
 # v19.6.0 (Sat May 16 2020)
 
 #### 🐛 Bug Fix
