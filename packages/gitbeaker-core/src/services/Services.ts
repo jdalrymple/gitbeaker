@@ -31,7 +31,8 @@ export type SupportedService =
   | 'teamcity'
   | 'jenkins'
   | 'jenkins-deprecated'
-  | 'mock-ci';
+  | 'mock-ci'
+  | 'youtrack';
 
 export class Services extends BaseService {
   edit(projectId: string | number, serviceName: SupportedService, options?: BaseRequestOptions) {
