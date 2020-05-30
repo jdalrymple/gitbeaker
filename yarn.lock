@@ -21,17 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.33.2.tgz#8b149c4e18b97c28755b783367a7f37102c0309c"
   integrity sha512-PSFiRwiATx3rCJ8P8UXjASfQfR5ue28lHvTOMFsPlf2YlA9d6YdqAhD0UOLWiKqbOQAjH83maqdZ+czlyCN3Yw==
 
-"@auto-it/bot-list@^9.36.4":
-  version "9.36.4"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.36.4.tgz#69af9dcf2a53961c29a7f78f1ea47fc705400347"
-  integrity sha512-18G0jgVW50IfHnU0rbHcAW9qMSjqrn7lV53vlR19Ukn1a4BQ7vzqgp0z+GAX0xTEVevVhsbHQGfD1rkE2W8bag==
+"@auto-it/bot-list@^9.37.0":
+  version "9.37.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.37.0.tgz#f060fa1348d0b401cddc84861c5cc3f75b96bb46"
+  integrity sha512-wpJn7jm5Ym8TgQ2ST1NIdFdbWOHW4KG8Q87pB8G3GBAncjYnDPGHza6gelmmdRQyCAL0Qng44lWHRql802CI7g==
 
-"@auto-it/core@^9.32.0", "@auto-it/core@^9.32.3", "@auto-it/core@^9.33.2", "@auto-it/core@^9.36.4":
-  version "9.36.4"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.36.4.tgz#14a6caf9efcd2f71e927182e61eaaade75736f21"
-  integrity sha512-zi+pQ8Gy38J8eGm9l2DDbl3lzkesGEsgDSi8n1v2Khi3AnNHmHu2Z25WoqBe/gMPcCN5QqZDigII2MpnMAXUmQ==
+"@auto-it/core@^9.32.0", "@auto-it/core@^9.33.2", "@auto-it/core@^9.36.4", "@auto-it/core@^9.37.0":
+  version "9.37.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.37.0.tgz#358b6e7bf3963a28be403822d2cdf878d8ecf9a4"
+  integrity sha512-FeFeviV/I09JTd4xQIVOz+jaHyZB21OwF/7cCC/hRrZnXBw8lURPzh/CD59aSa6oa1PpxQ2L9Eb2YL5uRkim0A==
   dependencies:
-    "@auto-it/bot-list" "^9.36.4"
+    "@auto-it/bot-list" "^9.37.0"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -67,11 +67,11 @@
     url-join "^4.0.0"
 
 "@auto-it/exec@^9.30.3":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.32.3.tgz#6a81923c635cff43a966aac342f77a817fa7c265"
-  integrity sha512-3lNsonbeAarmnyZB+B0eKB+6NWtyKq4O1F8dVX1+dols++jizVa/d7VZj6xxRDdy6GDyicavmJjv+tpij3mp2w==
+  version "9.36.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.36.4.tgz#1dcdf5362cecc5bb5ffa7fee74e8f53dffd32949"
+  integrity sha512-wTPaRaXiLEupN6bSnsGNdScP+6UPKBdEEIRtgWXcAhUAa80IWN/U3I4a4qa/Zd6/FniH5LJgqDlrA0Frx0WNYQ==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.36.4"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "1.10.0"
@@ -108,11 +108,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.32.0":
-  version "9.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.32.3.tgz#93ea823eef15f18dce09ad2be2d204c836193628"
-  integrity sha512-5KclcOOTp8z+SksxJOyuumrxAtN9VnS5YvCHZkyQd3uTi0oPw076rN9OB26ERYDYQbCDpS8neCdpoR0v820xYA==
+  version "9.37.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.37.0.tgz#a51b4494a565d69b20af24ff64638f61c45f7b5d"
+  integrity sha512-LERMdwm8h/jd9JlnrjcwDdA8rTRpnKR9NnRka3vSSdOj3lf3kKZimFIltUc42P9xWdBWXn7INftSp4K1+sDGNQ==
   dependencies:
-    "@auto-it/core" "^9.32.3"
+    "@auto-it/core" "^9.37.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -1881,9 +1881,9 @@
     jest-mock "^24"
 
 "@types/jest@*", "@types/jest@^25.2.1":
-  version "25.2.2"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-25.2.2.tgz#6a752e7a00f69c3e790ea00c345029d5cefa92bf"
-  integrity sha512-aRctFbG8Pb7DSLzUt/fEtL3q/GKb9mretFuYhRub2J0q6NhzBYbx9HTQzHrWgBNIxYOlxGNVe6Z54cpbUt+Few==
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-25.2.3.tgz#33d27e4c4716caae4eced355097a47ad363fdcaf"
+  integrity sha512-JXc1nK/tXHiDhV55dvfzqtmP4S3sy3T3ouV2tkViZgxY/zeUkcpQcQPGRlgF4KmWzWW5oiWYSZwtCB+2RsE4Fw==
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
@@ -1978,24 +1978,14 @@
     "@types/node" "*"
 
 "@typescript-eslint/eslint-plugin@^2.29.0":
-  version "2.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.33.0.tgz#d6c8319d5011b4783bb3d2dadf105d8bdd499bd5"
-  integrity sha512-QV6P32Btu1sCI/kTqjTNI/8OpCYyvlGjW5vD8MpTIg+HGE5S88HtT1G+880M4bXlvXj/NjsJJG0aGcVh0DdbeQ==
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.34.0.tgz#6f8ce8a46c7dea4a6f1d171d2bb8fbae6dac2be9"
+  integrity sha512-4zY3Z88rEE99+CNvTbXSyovv2z9PNOVffTWD2W8QF5s2prBQtwN2zadqERcrHpcR7O/+KMI3fcTAmUUhK/iQcQ==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.33.0"
+    "@typescript-eslint/experimental-utils" "2.34.0"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     tsutils "^3.17.1"
-
-"@typescript-eslint/experimental-utils@2.33.0":
-  version "2.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.33.0.tgz#000f1e5f344fbea1323dc91cc174805d75f99a03"
-  integrity sha512-qzPM2AuxtMrRq78LwyZa8Qn6gcY8obkIrBs1ehqmQADwkYzTE1Pb4y2W+U3rE/iFkSWcWHG2LS6MJfj6SmHApg==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.33.0"
-    eslint-scope "^5.0.0"
-    eslint-utils "^2.0.0"
 
 "@typescript-eslint/experimental-utils@2.34.0", "@typescript-eslint/experimental-utils@^2.5.0":
   version "2.34.0"
@@ -2016,19 +2006,6 @@
     "@typescript-eslint/experimental-utils" "2.34.0"
     "@typescript-eslint/typescript-estree" "2.34.0"
     eslint-visitor-keys "^1.1.0"
-
-"@typescript-eslint/typescript-estree@2.33.0":
-  version "2.33.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.33.0.tgz#33504c050ccafd38f397a645d4e9534d2eccbb5c"
-  integrity sha512-d8rY6/yUxb0+mEwTShCQF2zYQdLlqihukNfG9IUlLYz5y1CH6G/9XYbrxQLq3Z14RNvkCC6oe+OcFlyUpwUbkg==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^7.3.2"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@2.34.0":
   version "2.34.0"
@@ -3101,9 +3078,9 @@ code-point-at@^1.0.0:
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
 codecov@^3.6.5:
-  version "3.6.5"
-  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.6.5.tgz#d73ce62e8a021f5249f54b073e6f2d6a513f172a"
-  integrity sha512-v48WuDMUug6JXwmmfsMzhCHRnhUf8O3duqXvltaYJKrO1OekZWpB/eH6iIoaxMl8Qli0+u3OxptdsBOYiD7VAQ==
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.7.0.tgz#4a09939cde24447a43f36d068e8b4e0188dc3f27"
+  integrity sha512-uIixKofG099NbUDyzRk1HdGtaG8O+PBUAg3wfmjwXw2+ek+PZp+puRvbTohqrVfuudaezivJHFgTtSC3M8MXww==
   dependencies:
     argv "0.0.2"
     ignore-walk "3.0.3"
