@@ -108,15 +108,19 @@ describe('Issues.links', () => {
 
 describe('Issues.participants', () => {
   it('should request GET /projects/:id/issues/:id/participants', async () => {
-    await service.participants(1,2);
+    await service.participants(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/issues/2/participants', undefined);
+    expect(RequestHelper.get).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/participants',
+      undefined,
+    );
   });
 });
 
 describe('Issues.remove', () => {
   it('should request DEL /projects/:id/issues/:id', async () => {
-    await service.remove(1,2);
+    await service.remove(1, 2);
 
     expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/issues/2', undefined);
   });
@@ -126,22 +130,27 @@ describe('Issues.resetSpentTime', () => {
   it('should request POST projects/:id/issues/:iid/reset_spent_time', async () => {
     await service.resetSpentTime(2, 3);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/reset_spent_time');
+    expect(RequestHelper.post).toHaveBeenCalledWith(
+      service,
+      'projects/2/issues/3/reset_spent_time',
+    );
   });
 });
-
 
 describe('Issues.resetTimeEstimate', () => {
   it('should request POST projects/:id/issues/:iid/reset_time_estimate', async () => {
     await service.resetTimeEstimate(2, 3);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/reset_time_estimate');
+    expect(RequestHelper.post).toHaveBeenCalledWith(
+      service,
+      'projects/2/issues/3/reset_time_estimate',
+    );
   });
 });
 
 describe('Issues.show', () => {
   it('should request GET /projects/:id/issues/:id', async () => {
-    await service.show(1,2);
+    await service.show(1, 2);
 
     expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/issues/2', undefined);
   });
@@ -157,9 +166,13 @@ describe('Issues.subscribe', () => {
 
 describe('Issues.timeStats', () => {
   it('should request GET /projects/:id/issues/:id/time_stats', async () => {
-    await service.timeStats(1,2);
+    await service.timeStats(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/issues/2/time_stats', undefined);
+    expect(RequestHelper.get).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/time_stats',
+      undefined,
+    );
   });
 });
 
