@@ -74,7 +74,7 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-interface Constructable {
+export interface Constructable {
   new (...args: any[]): any;
 }
 

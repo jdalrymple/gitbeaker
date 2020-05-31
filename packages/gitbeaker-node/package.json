@@ -9,8 +9,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^19.7.1",
-    "@gitbeaker/requester-utils": "^19.7.1",
+    "@gitbeaker/core": "^19.7.0",
+    "@gitbeaker/requester-utils": "^19.7.0",
     "form-data": "^3.0.0",
     "got": "^11.1.4",
     "xcase": "^2.0.1"
