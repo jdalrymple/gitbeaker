@@ -32,10 +32,10 @@ describe('Instantiating ApplicationSettings service', () => {
 });
 
 describe('ApplicationSettings.all', () => {
-  it('should request GET /application_settings', async () => {
+  it('should request GET /application/settings', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'application_settings', {});
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'application/settings', {});
   });
 });
 
@@ -43,7 +43,7 @@ describe('ApplicationSettings.edit', () => {
   it('should request PUT /application_settings with a terms property', async () => {
     await service.edit({ terms: 'Testing terms' });
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'application_settings', {
+    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'application/settings', {
       terms: 'Testing terms',
     });
   });
