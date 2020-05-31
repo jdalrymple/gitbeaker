@@ -95,11 +95,11 @@ describe('Issues.create', () => {
   });
 });
 
-describe('Issues.links', () => {
+describe('Issues.link', () => {
   it('should request POST projects/:id/issues/:id/links', async () => {
-    await service.link(2, 3, 4, 5);
+    await service.link(8, 3, 4, 5);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/links', {
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/8/issues/3/links', {
       targetProjectId: 4,
       targetIssueId: 5,
     });
