@@ -56,11 +56,13 @@ describe('Commits.create', () => {
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/repository/commits', {
       branch: 'master',
       commitMessage: 'Test API commit creation',
-      actions: {
-        action: 'create',
-        filePath: 'foo/bar',
-        content: 'some content',
-      },
+      actions: [
+        {
+          action: 'create',
+          filePath: 'foo/bar',
+          content: 'some content',
+        },
+      ],
     });
   });
 });

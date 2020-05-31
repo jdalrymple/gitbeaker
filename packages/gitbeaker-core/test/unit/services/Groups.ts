@@ -43,7 +43,7 @@ describe('Groups.create', () => {
   it('should request POST /groups', async () => {
     await service.create('test group', 'test-group');
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects', {
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'groups', {
       name: 'test group',
       path: 'test-group',
     });
@@ -64,7 +64,7 @@ describe('Groups.projects', () => {
   it('should request GET /groups/:id/projects', async () => {
     await service.projects(12);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/12/projects');
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/12/projects', undefined);
   });
 });
 
@@ -72,7 +72,7 @@ describe('Groups.show', () => {
   it('should request GET /groups/:id', async () => {
     await service.show(12);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/12');
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/12', undefined);
   });
 });
 
@@ -80,7 +80,7 @@ describe('Groups.remove', () => {
   it('should request DEL /groups/:id', async () => {
     await service.remove(12);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'groups/12');
+    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'groups/12', undefined);
   });
 });
 

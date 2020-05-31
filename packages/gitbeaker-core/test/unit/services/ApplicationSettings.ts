@@ -35,7 +35,7 @@ describe('ApplicationSettings.all', () => {
   it('should request GET /application/settings', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'application/settings', {});
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'application/settings', undefined);
   });
 });
 
