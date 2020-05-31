@@ -47,6 +47,6 @@ describe('IssuesStatistics.all', () => {
   it('should request GET /group/:id/issues_statistics when group Id is passed', async () => {
     await service.all({ groupId: 2 });
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/1/issues_statistics', {});
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/2/issues_statistics', {});
   });
 });

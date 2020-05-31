@@ -33,7 +33,7 @@ describe('Instantiating Issues service', () => {
 
 describe('Issues.addSpentTime', () => {
   it('should request POST projects/:id/issues:id/add_spent_time', async () => {
-    await service.create(2, '10m');
+    await service.addSpentTime(2, 3, '10m');
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/add_spent_time', {
       duration: '10m',
@@ -43,7 +43,7 @@ describe('Issues.addSpentTime', () => {
 
 describe('Issues.addTimeEstimate', () => {
   it('should request POST projects/:id/issues:id/add_spent_time', async () => {
-    await service.create(2, '10m');
+    await service.addTimeEstimate(2, 3, '10m');
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/time_estimate', {
       duration: '10m',
