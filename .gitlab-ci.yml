@@ -17,6 +17,7 @@ stages:
   - build
   - lint
   - test
+  - canary
   - release
 
 #Link and Install all required dependancies
@@ -121,6 +122,17 @@ test:integration:cli:
 # test:core:integration:dist-es
 #   <<: *integration
 #   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
+
+# Canary
+canary:
+  stage: canary
+  script: |
+    if yarn auto label | grep 'canary'; then
+      echo "canary label found, starting canary deployment!"
+      yarn auto canary
+    else
+      echo "Skipping, canary label isn't present."
+    fi
 
 # Release
 release:
