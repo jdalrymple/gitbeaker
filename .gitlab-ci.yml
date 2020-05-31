@@ -129,8 +129,11 @@ canary:
   only:
     - external_pull_requests
   before_script:
-    - echo $CI_EXTERNAL_PULL_REQUEST_IID
-    - yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID
+    - apk add --no-cache git
+    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+    - git checkout master
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm config set always-auth=true
   script: |
     if yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID | grep 'canary'; then
       echo "canary label found, starting canary deployment!"
