@@ -160,7 +160,11 @@ describe('Issues.subscribe', () => {
   it('should request POST projects/:id/issues/:iid/subscribe', async () => {
     await service.subscribe(2, 3);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/2/issues/3/subscribe');
+    expect(RequestHelper.post).toHaveBeenCalledWith(
+      service,
+      'projects/2/issues/3/subscribe',
+      undefined,
+    );
   });
 });
 
@@ -180,6 +184,10 @@ describe('Issues.unsubscribe', () => {
   it('should request DEL projects/:id/issues/:iid/unsubscribe', async () => {
     await service.subscribe(2, 3);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/2/issues/3/unsubscribe');
+    expect(RequestHelper.del).toHaveBeenCalledWith(
+      service,
+      'projects/2/issues/3/unsubscribe',
+      undefined,
+    );
   });
 });
