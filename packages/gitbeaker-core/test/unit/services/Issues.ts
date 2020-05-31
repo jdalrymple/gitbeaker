@@ -55,7 +55,7 @@ describe('Issues.all', () => {
   it('should request GET /issues', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'issues', undefined);
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'issues', {});
   });
 
   it('should request GET /projects/:id/issues when project Id is passed', async () => {
@@ -133,6 +133,7 @@ describe('Issues.resetSpentTime', () => {
     expect(RequestHelper.post).toHaveBeenCalledWith(
       service,
       'projects/2/issues/3/reset_spent_time',
+      undefined,
     );
   });
 });
@@ -144,6 +145,7 @@ describe('Issues.resetTimeEstimate', () => {
     expect(RequestHelper.post).toHaveBeenCalledWith(
       service,
       'projects/2/issues/3/reset_time_estimate',
+      undefined,
     );
   });
 });
