@@ -61,13 +61,13 @@ describe('Issues.all', () => {
   it('should request GET /projects/:id/issues when project Id is passed', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/issues', undefined);
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/issues', {});
   });
 
   it('should request GET /group/:id/issues when group Id is passed', async () => {
     await service.all({ groupId: 2 });
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/1/issues', undefined);
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'groups/1/issues', {});
   });
 });
 
@@ -184,7 +184,7 @@ describe('Issues.timeStats', () => {
 
 describe('Issues.unsubscribe', () => {
   it('should request DEL projects/:id/issues/:iid/unsubscribe', async () => {
-    await service.subscribe(2, 3);
+    await service.unsubscribe(2, 3);
 
     expect(RequestHelper.del).toHaveBeenCalledWith(
       service,
