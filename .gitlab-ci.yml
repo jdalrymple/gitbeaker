@@ -126,7 +126,7 @@ test:integration:cli:
 # Canary
 canary:
   stage: canary
-  only: 
+  only:
     - external_pull_requests
   before_script:
     - echo $CI_EXTERNAL_PULL_REQUEST_IID
