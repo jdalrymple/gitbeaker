@@ -126,8 +126,13 @@ test:integration:cli:
 # Canary
 canary:
   stage: canary
+  only: 
+    - external_pull_requests
+  before_script:
+    - echo $CI_EXTERNAL_PULL_REQUEST_IID
+    - yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID
   script: |
-    if yarn auto label | grep 'canary'; then
+    if yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID | grep 'canary'; then
       echo "canary label found, starting canary deployment!"
       yarn auto canary
     else
