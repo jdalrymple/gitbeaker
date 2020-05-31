@@ -10,20 +10,20 @@ import {
 export interface MergeRequestNotes extends ResourceNotes {
   all(
     projectId: string | number,
-    mergerequestIId: string | number,
+    mergerequestIid: string | number,
     options: PaginatedRequestOptions,
   ): Promise<GetResponse>;
 
   create(
     projectId: string | number,
-    mergerequestIId: string | number,
+    mergerequestIid: string | number,
     body: string,
     options?: BaseRequestOptions,
   ): Promise<object>;
 
   edit(
     projectId: string | number,
-    mergerequestIId: string | number,
+    mergerequestIid: string | number,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
@@ -31,14 +31,14 @@ export interface MergeRequestNotes extends ResourceNotes {
 
   remove(
     projectId: string | number,
-    mergerequestIId: string | number,
+    mergerequestIid: string | number,
     noteId: number,
     options?: Sudo,
   ): Promise<object>;
 
   show(
     projectId: string | number,
-    mergerequestIId: string | number,
+    mergerequestIid: string | number,
     noteId: number,
     options?: Sudo,
   ): Promise<GetResponse>;
