@@ -76,7 +76,7 @@ export class Issues extends BaseService {
     });
   }
   
-  deleteLink(
+  removeLink(
     projectId: string | number,
     issueIId: number,
     issueLinkId: string | number,
