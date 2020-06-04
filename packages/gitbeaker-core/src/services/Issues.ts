@@ -52,6 +52,12 @@ export class Issues extends BaseService {
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
   }
+  
+  links(projectId: string | number, issueIId: number) {
+    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/links`);
+  }
 
   link(
     projectId: string | number,
@@ -66,6 +72,19 @@ export class Issues extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/links`, {
       targetProjectId: targetpId,
       targetIssueId: targetIId,
+      ...options,
+    });
+  }
+  
+  deleteLink(
+    projectId: string | number,
+    issueIId: number,
+    issueLinkId: string | number,
+    options?: BaseRequestOptions,
+  ) {
+    const [pId, iId, iLinkId] = [projectId, issueIId, issueLinkId].map(encodeURIComponent);
+
+    return RequestHelper.delete(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
       ...options,
     });
   }
