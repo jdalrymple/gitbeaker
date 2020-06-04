@@ -84,7 +84,7 @@ export class Issues extends BaseService {
   ) {
     const [pId, iId, iLinkId] = [projectId, issueIId, issueLinkId].map(encodeURIComponent);
 
-    return RequestHelper.delete(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
+    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
       ...options,
     });
   }
