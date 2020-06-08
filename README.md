@@ -118,7 +118,7 @@ OR through the script tag:
 ```html
 <script src="node_modules/@gitbeaker/browser/dist/index.js" />
 <script>
-  const { Gitlab } = gitbeaker.default;
+  const { Gitlab } = gitbeaker;
 </script>
 ```
 
