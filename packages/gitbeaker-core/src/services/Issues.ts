@@ -52,20 +52,39 @@ export class Issues extends BaseService {
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
   }
+  
+  links(projectId: string | number, issueIId: number) {
+    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/links`);
+  }
 
   link(
     projectId: string | number,
-    issueIId: number,
+    issueIid: number,
     targetProjectId: string | number,
     targetIssueId: number,
     options?: BaseRequestOptions,
   ) {
-    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
-    const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(encodeURIComponent);
+    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
+    const [targetpId, targetIid] = [targetProjectId, targetIssueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/links`, {
       targetProjectId: targetpId,
-      targetIssueId: targetIId,
+      targetIssueId: targetIid,
+      ...options,
+    });
+  }
+  
+  removeLink(
+    projectId: string | number,
+    issueIId: number,
+    issueLinkId: string | number,
+    options?: BaseRequestOptions,
+  ) {
+    const [pId, iId, iLinkId] = [projectId, issueIId, issueLinkId].map(encodeURIComponent);
+
+    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
       ...options,
     });
   }
