@@ -52,7 +52,7 @@ export class Issues extends BaseService {
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
   }
-  
+
   links(projectId: string | number, issueIId: number) {
     const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
 
@@ -75,7 +75,7 @@ export class Issues extends BaseService {
       ...options,
     });
   }
-  
+
   removeLink(
     projectId: string | number,
     issueIId: number,
