@@ -44,7 +44,7 @@
     "test:unit": "jest test/unit",
     "release": "auto shipit --verbose --verbose"
   },
-  "version": "17.0.3",
+  "version": "19.7.0",
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "name": "gitbeaker"
 }
