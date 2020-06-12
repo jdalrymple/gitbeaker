@@ -26,10 +26,6 @@ export type DefaultRequestOptions = {
   method?: string;
 };
 
-export type Constructor<T = {}> = new (...args: any[]) => T;
-
-export type DictionaryOfConstructors<T> = { [K in keyof T]: Constructor<T[K]> };
-
 // Utility methods
 export function formatQuery(options) {
   return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
@@ -78,19 +74,27 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export function modifyServices<T>(
-  services: DictionaryOfConstructors<T>,
-  customConfig: object,
-): DictionaryOfConstructors<T> {
-  const result: any = {};
+export interface Constructable {
+  new (...args: any[]): any;
+}
 
-  Object.keys(services).forEach((name: string) => {
-    result[name] = (args: { [key: string]: any }) =>
-      new services[name]({
-        ...args,
-        ...customConfig,
-      });
+function extendClass<T extends Constructable>(Base: T, customConfig: object): T {
+  return class extends Base {
+    constructor(...options: any[]) {
+      super({ ...options, ...customConfig });
+    }
+  };
+}
+
+export function modifyServices<T extends { [name: string]: Constructable }>(
+  services: T,
+  customConfig: object,
+) {
+  const updated: { [name: string]: Constructable } = {};
+
+  Object.entries(services).forEach(([k, s]) => {
+    updated[k] = extendClass(s, customConfig);
   });
 
-  return result;
+  return updated as T;
 }
