@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/core",
   "description": "Core API implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "21.0.0",
+  "version": "21.0.1",
   "author": {
     "name": "Justin Dalrymple"
   },
