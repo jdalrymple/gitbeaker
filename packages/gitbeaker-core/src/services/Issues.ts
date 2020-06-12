@@ -61,17 +61,17 @@ export class Issues extends BaseService {
 
   link(
     projectId: string | number,
-    issueIId: number,
+    issueIid: number,
     targetProjectId: string | number,
     targetIssueId: number,
     options?: BaseRequestOptions,
   ) {
-    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
-    const [targetpId, targetIId] = [targetProjectId, targetIssueId].map(encodeURIComponent);
+    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
+    const [targetpId, targetIid] = [targetProjectId, targetIssueId].map(encodeURIComponent);
 
     return RequestHelper.post(this, `projects/${pId}/issues/${iId}/links`, {
       targetProjectId: targetpId,
-      targetIssueId: targetIId,
+      targetIssueId: targetIid,
       ...options,
     });
   }
