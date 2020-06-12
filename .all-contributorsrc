@@ -197,6 +197,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yepninja",
+      "name": "Yevgeny Petukhov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11796206?v=4",
+      "profile": "https://stackoverflow.com/story/yepninja",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mickaeltr",
+      "name": "Mickaël Tricot",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/378910?v=4",
+      "profile": "https://about.me/mickaeltr",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "andreasciamanna",
+      "name": "Andrea",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/181780?v=4",
+      "profile": "https://github.com/andreasciamanna",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
