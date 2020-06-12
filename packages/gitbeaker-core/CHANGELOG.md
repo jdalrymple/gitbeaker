@@ -1,3 +1,35 @@
+# v20.0.0 (Fri Jun 12 2020)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+:heart: Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 💥 Breaking Change
+
+- Adjust casing to be properly handled by the conversion to snake case in the CLI [#857](https://github.com/jdalrymple/gitbeaker/pull/857) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Additional linting ([@jdalrymple](https://github.com/jdalrymple))
+- Issue links (get, delete) [#868](https://github.com/jdalrymple/gitbeaker/pull/868) ([@yepninja](https://github.com/yepninja) [@jdalrymple](https://github.com/jdalrymple))
+- Add YouTrack to the supported services [#853](https://github.com/jdalrymple/gitbeaker/pull/853) ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+---
+
 # v19.7.0 (Sun May 17 2020)
 
 :tada: This release contains work from a new contributor! :tada:

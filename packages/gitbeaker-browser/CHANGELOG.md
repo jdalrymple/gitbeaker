@@ -1,3 +1,21 @@
+# v20.0.0 (Fri Jun 12 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-commonjs from 11.1.0 to 13.0.0 [#876](https://github.com/jdalrymple/gitbeaker/pull/876) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps): bump ky from 0.19.1 to 0.20.0 [#804](https://github.com/jdalrymple/gitbeaker/pull/804) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.6.0 (Sat May 16 2020)
 
 #### 🔩 Dependencies

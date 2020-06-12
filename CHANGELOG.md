@@ -1,3 +1,81 @@
+# 20.0.0 (Fri Jun 12 2020)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+:heart: Mickaël Tricot ([@mickaeltr](https://github.com/mickaeltr))
+
+:heart: Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - Adjust casing to be properly handled by the conversion to snake case in the CLI [#857](https://github.com/jdalrymple/gitbeaker/pull/857) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Documentation update for 19.x [#879](https://github.com/jdalrymple/gitbeaker/pull/879) ([@mickaeltr](https://github.com/mickaeltr) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Issue links (get, delete) [#868](https://github.com/jdalrymple/gitbeaker/pull/868) ([@yepninja](https://github.com/yepninja) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Add YouTrack to the supported services [#853](https://github.com/jdalrymple/gitbeaker/pull/853) ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Create SECURITY.md ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Additional linting ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump auto from 9.37.0 to 9.39.0 [#884](https://github.com/jdalrymple/gitbeaker/pull/884) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.36.4 to 9.39.0 [#877](https://github.com/jdalrymple/gitbeaker/pull/877) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 7.1.3 to 8.0.1 [#874](https://github.com/jdalrymple/gitbeaker/pull/874) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/exec from 9.36.4 to 9.39.0 [#875](https://github.com/jdalrymple/gitbeaker/pull/875) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump rollup from 2.10.2 to 2.15.0 [#878](https://github.com/jdalrymple/gitbeaker/pull/878) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump lerna from 3.21.0 to 3.22.1 [#880](https://github.com/jdalrymple/gitbeaker/pull/880) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump lint-staged from 10.2.2 to 10.2.7 [#848](https://github.com/jdalrymple/gitbeaker/pull/848) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/jest from 25.2.2 to 25.2.3 [#824](https://github.com/jdalrymple/gitbeaker/pull/824) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump codecov from 3.6.5 to 3.7.0 [#820](https://github.com/jdalrymple/gitbeaker/pull/820) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.32.3 to 9.37.0 [#855](https://github.com/jdalrymple/gitbeaker/pull/855) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 2.33.0 to 2.34.0 [#818](https://github.com/jdalrymple/gitbeaker/pull/818) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.32.3 to 9.36.4 [#851](https://github.com/jdalrymple/gitbeaker/pull/851) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump puppeteer from 3.0.4 to 3.2.0 [#856](https://github.com/jdalrymple/gitbeaker/pull/856) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.32.3 to 9.36.4 [#852](https://github.com/jdalrymple/gitbeaker/pull/852) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @typescript-eslint/parser from 2.33.0 to 2.34.0 [#821](https://github.com/jdalrymple/gitbeaker/pull/821) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.32.0 to 9.33.2 [#814](https://github.com/jdalrymple/gitbeaker/pull/814) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.9.1 to 2.10.2 [#802](https://github.com/jdalrymple/gitbeaker/pull/802) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lerna from 3.20.2 to 3.21.0 [#803](https://github.com/jdalrymple/gitbeaker/pull/803) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.10.0 to 23.13.1 [#805](https://github.com/jdalrymple/gitbeaker/pull/805) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.32.0 to 9.32.3 [#806](https://github.com/jdalrymple/gitbeaker/pull/806) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump typescript from 3.8.3 to 3.9.2 [#809](https://github.com/jdalrymple/gitbeaker/pull/809) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.1.3 to 11.1.4 [#808](https://github.com/jdalrymple/gitbeaker/pull/808) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.32.0 to 9.32.3 [#811](https://github.com/jdalrymple/gitbeaker/pull/811) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 25.2.1 to 25.2.2 [#812](https://github.com/jdalrymple/gitbeaker/pull/812) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.32.0 to 9.32.3 [#810](https://github.com/jdalrymple/gitbeaker/pull/810) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump @rollup/plugin-commonjs from 11.1.0 to 13.0.0 [#876](https://github.com/jdalrymple/gitbeaker/pull/876) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps): bump ky from 0.19.1 to 0.20.0 [#804](https://github.com/jdalrymple/gitbeaker/pull/804) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 5
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Mickaël Tricot ([@mickaeltr](https://github.com/mickaeltr))
+- Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+---
+
 # 19.7.0 (Sun May 17 2020)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -1,3 +1,15 @@
+# v20.0.0 (Fri Jun 12 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.6.0 (Sat May 16 2020)
 
 #### 🔩 Dependencies
