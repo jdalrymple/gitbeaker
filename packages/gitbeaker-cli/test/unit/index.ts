@@ -1,6 +1,4 @@
-import { Projects } from '@gitbeaker/node';
 import pkg from '../../package.json';
-import { cli } from '../../src/cli';
 
 jest.mock('@gitbeaker/node');
 jest.mock('ora', () => ({
@@ -11,11 +9,15 @@ jest.mock('ora', () => ({
 }));
 
 const OLD_ENV = process.env;
+let Projects;
 
-beforeEach(() => {
+beforeEach(async () => {
+  jest.resetModules();
+
+  // eslint-disable-next-line
+  ({ Projects } = await import('@gitbeaker/node'));
+
   process.env = { ...OLD_ENV };
-
-  Projects.mockClear();
 });
 
 afterEach(() => {
@@ -29,21 +31,18 @@ describe('General', () => {
 });
 
 describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
-  let gcli;
-
-  beforeEach(() => {
-    // eslint-disable-next-line
-    ({ cli: gcli } = require('../../src/cli'));
-  });
-
   it('should return an object of available gitbeaker cli.parse environment variables -- --global-args alias', async () => {
-    const result = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-    expect(result.output).toBe('No global variables have been set!');
+    expect(output).toBe('No global variables have been set!');
   });
 
   it('should return an object of available gitbeaker cli.parse environment variables -- -g alias', async () => {
-    const { output } = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
     expect(output).toBe('No global variables have been set!');
   });
@@ -51,7 +50,9 @@ describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   it('should only have the personal token set', async () => {
     process.env.GITBEAKER_TOKEN = 'token1';
 
-    const { output } = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
     expect(JSON.parse(output)['gb-token'].value).toBe('token1');
   });
@@ -59,7 +60,9 @@ describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   it('should only have the personal token set by alias', async () => {
     process.env.GITLAB_TOKEN = 'glfaketoken';
 
-    const { output } = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
     expect(JSON.parse(output)['gb-token'].value).toBe('glfaketoken');
   });
@@ -67,7 +70,9 @@ describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   it('should only have the oauth token set', async () => {
     process.env.GITBEAKER_OAUTH_TOKEN = 'gboafaketoken';
 
-    const { output } = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
     expect(JSON.parse(output)['gb-oauth-token'].value).toBe('gboafaketoken');
   });
@@ -75,126 +80,158 @@ describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   it('should only have the oauth token set by alias', async () => {
     process.env.GITLAB_OAUTH_TOKEN = 'gloafaketoken';
 
-    const { output } = await gcli.parse('-g');
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
     expect(JSON.parse(output)['gb-oauth-token'].value).toBe('gloafaketoken');
   });
 
-  // it('should  only have the job token set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_JOB_TOKEN: 'gbjfaketoken' },
-  //   });
+  it('should  only have the job token set', async () => {
+    process.env.GITBEAKER_JOB_TOKEN = 'gbjfaketoken';
 
-  //   expect(JSON.parse(output)['gb-job-token'].value).toBe('gbjfaketoken');
-  // });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  // it('should only have the job token set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_JOB_TOKEN: 'gljfaketoken' },
-  //   });
+    expect(JSON.parse(output)['gb-job-token'].value).toBe('gbjfaketoken');
+  });
 
-  //   expect(JSON.parse(output)['gb-job-token'].value).toBe('gljfaketoken');
-  // });
+  it('should only have the job token set by alias', async () => {
+    process.env.GITLAB_JOB_TOKEN = 'gljfaketoken';
 
-  // it('should only have the host set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_HOST: 'www.gbfakehost.com' },
-  //   });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  //   expect(JSON.parse(output)['gb-host'].value).toBe('www.gbfakehost.com');
-  // });
+    expect(JSON.parse(output)['gb-job-token'].value).toBe('gljfaketoken');
+  });
 
-  // it('should only have the host set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_HOST: 'www.ghfakehost.com' },
-  //   });
+  it('should only have the host set', async () => {
+    process.env.GITBEAKER_HOST = 'www.gbfakehost.com';
 
-  //   expect(JSON.parse(output)['gb-host'].value).toBe('www.ghfakehost.com');
-  // });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  // it('should only have the version set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_VERSION: '4' },
-  //   });
+    expect(JSON.parse(output)['gb-host'].value).toBe('www.gbfakehost.com');
+  });
 
-  //   expect(JSON.parse(output)['gb-version'].value).toBe(4);
-  // });
+  it('should only have the host set by alias', async () => {
+    process.env.GITLAB_HOST = 'www.ghfakehost.com';
 
-  // it('should only have the version set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_VERSION: '4' },
-  //   });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  //   expect(JSON.parse(output)['gb-version'].value).toBe(4);
-  // });
+    expect(JSON.parse(output)['gb-host'].value).toBe('www.ghfakehost.com');
+  });
 
-  // it('should only have sudo set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_SUDO: 'gbsudoaccount' },
-  //   });
+  it('should only have the version set', async () => {
+    process.env.GITBEAKER_VERSION = '4';
 
-  //   expect(JSON.parse(output)['gb-sudo'].value).toBe('gbsudoaccount');
-  // });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  // it('should only have sudo set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_SUDO: 'glsudoaccount' },
-  //   });
+    expect(JSON.parse(output)['gb-version'].value).toBe(4);
+  });
 
-  //   expect(JSON.parse(output)['gb-sudo'].value).toBe('glsudoaccount');
-  // });
+  it('should only have the version set by alias', async () => {
+    process.env.GITLAB_VERSION = '4';
 
-  // it('should only have the camelize set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_CAMELIZE: 'true' },
-  //   });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  //   expect(JSON.parse(output)['gb-camelize'].value).toBe(true);
-  // });
+    expect(JSON.parse(output)['gb-version'].value).toBe(4);
+  });
 
-  // it('should only have the camelize set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_CAMELIZE: 'true' },
-  //   });
+  it('should only have sudo set', async () => {
+    process.env.GITBEAKER_SUDO = 'gbsudoaccount';
 
-  //   expect(JSON.parse(output)['gb-camelize'].value).toBe(true);
-  // });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  // it('should only have the profile token set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_PROFILE_TOKEN: 'gbptoken' },
-  //   });
+    expect(JSON.parse(output)['gb-sudo'].value).toBe('gbsudoaccount');
+  });
 
-  //   expect(JSON.parse(output)['gb-profile-token'].value).toBe('gbptoken');
-  // });
+  it('should only have sudo set by alias', async () => {
+    process.env.GITLAB_SUDO = 'glsudoaccount';
 
-  // it('should only have the profile token set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_PROFILE_TOKEN: 'glptoken' },
-  //   });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  //   expect(JSON.parse(output)['gb-profile-token'].value).toBe('glptoken');
-  // });
+    expect(JSON.parse(output)['gb-sudo'].value).toBe('glsudoaccount');
+  });
 
-  // it('should only have the profile mode set', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITBEAKER_PROFILE_MODE: 'gbpmode' },
-  //   });
+  it('should only have the camelize set', async () => {
+    process.env.GITBEAKER_CAMELIZE = 'true';
 
-  //   expect(JSON.parse(output)['gb-profile-mode'].value).toBe('gbpmode');
-  // });
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
 
-  // it('should only have the profile mode set by alias', async () => {
-  //   const { output } = await cli.parse('gitbeaker -g', {
-  //     env: { ...process.env, GITLAB_PROFILE_MODE: 'glpmode' },
-  //   });
+    expect(JSON.parse(output)['gb-camelize'].value).toBe(true);
+  });
 
-  //   expect(JSON.parse(output)['gb-profile-mode'].value).toBe('glpmode');
-  // });
+  it('should only have the camelize set by alias', async () => {
+    process.env.GITLAB_CAMELIZE = 'true';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
+
+    expect(JSON.parse(output)['gb-camelize'].value).toBe(true);
+  });
+
+  it('should only have the profile token set', async () => {
+    process.env.GITBEAKER_PROFILE_TOKEN = 'gbptoken';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
+
+    expect(JSON.parse(output)['gb-profile-token'].value).toBe('gbptoken');
+  });
+
+  it('should only have the profile token set by alias', async () => {
+    process.env.GITLAB_PROFILE_TOKEN = 'glptoken';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
+
+    expect(JSON.parse(output)['gb-profile-token'].value).toBe('glptoken');
+  });
+
+  it('should only have the profile mode set', async () => {
+    process.env.GITBEAKER_PROFILE_MODE = 'gbpmode';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
+
+    expect(JSON.parse(output)['gb-profile-mode'].value).toBe('gbpmode');
+  });
+
+  it('should only have the profile mode set by alias', async () => {
+    process.env.GITLAB_PROFILE_MODE = 'glpmode';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+    const { output } = await cli.parse('-g');
+
+    expect(JSON.parse(output)['gb-profile-mode'].value).toBe('glpmode');
+  });
 });
 
 describe('gitbeaker -v -- Package Version', () => {
   it('should return the current version number of the package', async () => {
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
     const { output } = await cli.parse('-v');
 
     expect(output).toBe(pkg.version);
@@ -202,12 +239,13 @@ describe('gitbeaker -v -- Package Version', () => {
 });
 
 describe('gitbeaker projects create', () => {
-  beforeEach(() => {
+  it('should create a valid project using configuration from environment variables', async () => {
     process.env.GITBEAKER_HOST = 'host';
     process.env.GITBEAKER_TOKEN = 'token';
-  });
 
-  it('should create a valid project using configuration from environment variables', async () => {
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+
     await cli.parse('projects create --name="Project Creation CLI test"');
 
     expect(Projects).toHaveBeenCalledWith({
@@ -222,6 +260,9 @@ describe('gitbeaker projects create', () => {
   });
 
   it('should create a valid project using configuration passed in arguments', async () => {
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+
     await cli.parse(
       'projects create --gb-token=token1 --gb-host=host1 --name="Project Creation CLI test1"',
     );
@@ -238,10 +279,15 @@ describe('gitbeaker projects create', () => {
   });
 
   it('should create a valid project using configuration passed in arguments and defined in the environment variables', async () => {
+    process.env.GITBEAKER_HOST = 'host2';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+
     await cli.parse('projects create --gb-token=token2 --name="Project Creation CLI test2"');
 
     expect(Projects).toHaveBeenCalledWith({
-      host: 'host',
+      host: 'host2',
       token: 'token2',
       camelize: false,
     });
@@ -252,6 +298,12 @@ describe('gitbeaker projects create', () => {
   });
 
   it('should create a valid project using configuration passed in arguments, overriding those defined in the environment variables', async () => {
+    process.env.GITBEAKER_HOST = 'host';
+    process.env.GITBEAKER_TOKEN = 'token';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+
     await cli.parse(
       'projects create --gb-token=token3  --gb-host=host3 --name="Project Creation CLI test3"',
     );
@@ -270,6 +322,12 @@ describe('gitbeaker projects create', () => {
 
 describe('gitbeaker projects all', () => {
   it('should create a valid project using configuration from environment variables', async () => {
+    process.env.GITBEAKER_HOST = 'host';
+    process.env.GITBEAKER_TOKEN = 'token';
+
+    // eslint-disable-next-line
+    const { cli } = require('../../src/cli');
+
     await cli.parse('projects all --simple=true');
 
     expect(Projects.mock.instances[0].all).toHaveBeenCalledWith({
