@@ -1,5 +1,5 @@
 import FormData from 'form-data';
-import { createInstance, defaultRequest } from '../../src/RequesterUtils';
+import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
 
@@ -42,6 +42,14 @@ describe('defaultRequest', () => {
     });
 
     expect(headers.sudo).toBeUndefined();
+  });
+
+  it('should assign the sudo property if passed', async () => {
+    const { headers } = defaultRequest(service, {
+      sudo: 'testsudo',
+    });
+
+    expect(headers.sudo).toBe('testsudo');
   });
 
   it('should default searchParams to an empty string if undefined', async () => {
@@ -87,5 +95,21 @@ describe('createInstance', () => {
 
       expect(handler).toBeCalledWith(testEndpoint, {});
     });
+  });
+});
+
+describe('modifyServices', () => {
+  it('should modify class with default properties', async () => {
+    class A {
+      constructor({ x, y }: { x?: number; y?: number } = {}) {
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    const { A: B } = modifyServices({ A }, { x: 3 });
+    const b = new B();
+
+    expect(b.x).toBe(3);
   });
 });

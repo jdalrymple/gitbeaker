@@ -1,7 +1,7 @@
 import { Agent } from 'https';
-import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
+import FormDataC from 'form-data';
 
 // Types
 export interface RequesterType {
@@ -41,7 +41,7 @@ export function defaultRequest(
 
   if (sudo) headers.sudo = sudo;
 
-  if (typeof body === 'object' && !(body instanceof FormData)) {
+  if (typeof body === 'object' && !(body instanceof FormDataC)) {
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
   } else {
