@@ -1,3 +1,16 @@
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Adding more tests and adjusting Form Data import [#887](https://github.com/jdalrymple/gitbeaker/pull/887) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v21.3.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
