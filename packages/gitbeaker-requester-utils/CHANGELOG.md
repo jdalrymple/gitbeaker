@@ -1,3 +1,19 @@
+# v21.3.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Bump version to: 21.2.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- Update CHANGELOG.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing package versions again \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- Updating CHANGELOG.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v21.2.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix

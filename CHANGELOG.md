@@ -7,6 +7,34 @@
 
 #### ⚠️ Pushed to `master`
 
+- Updating auto config to include test PRs ([@jdalrymple](https://github.com/jdalrymple))
+- Adding back auto config ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 21.1.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Fixing missing CLI tests and modifyServices function [#886](https://github.com/jdalrymple/gitbeaker/pull/886) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
 - Adding back auto config ([@jdalrymple](https://github.com/jdalrymple))
 - `@gitbeaker/node`
   - v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
