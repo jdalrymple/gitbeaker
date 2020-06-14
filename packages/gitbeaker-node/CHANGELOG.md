@@ -2,12 +2,7 @@
 
 #### 🐛 Bug Fix
 
-- Fixing missing CLI tests and modifyServices function [#886](https://github.com/jdalrymple/gitbeaker/pull/886) ([@jdalrymple](https://github.com/jdalrymple))
-- Bump version to: 21.2.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- Update CHANGELOG.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- Fixing package versions again \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- Updating CHANGELOG.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- Bump version to: 21.3.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
 
 #### Authors: 1
 
@@ -20,9 +15,7 @@
 #### 🐛 Bug Fix
 
 - Fixing missing CLI tests and modifyServices function [#886](https://github.com/jdalrymple/gitbeaker/pull/886) ([@jdalrymple](https://github.com/jdalrymple))
-- Fixing package versions again \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- Updating CHANGELOG.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
-- v21.0.1 ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing package versions \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
 
 #### Authors: 1
 
