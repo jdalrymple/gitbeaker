@@ -98,7 +98,7 @@ function param(string) {
 
 function setupAPIMethods(setupArgs, methodArgs) {
   methodArgs.forEach((name) => {
-    if (name === 'options') return;
+    // if (name === 'options') return; CHECKME: Doesnt seem to be included :/
 
     setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
       group: 'Required Options',

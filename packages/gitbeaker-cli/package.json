@@ -12,8 +12,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^21.0.0",
-    "@gitbeaker/node": "^21.0.0",
+    "@gitbeaker/core": "21.0.1",
+    "@gitbeaker/node": "21.0.1",
     "chalk": "^4.0.0",
     "ora": "^4.0.4",
     "sywac": "^1.3.0",
