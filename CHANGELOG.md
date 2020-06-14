@@ -1,3 +1,16 @@
+# 21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`
+  - Adding more tests and adjusting Form Data import [#887](https://github.com/jdalrymple/gitbeaker/pull/887) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 21.3.0 (Sun Jun 14 2020)
 
 #### ⚠️ Pushed to `master`

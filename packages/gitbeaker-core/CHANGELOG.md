@@ -1,3 +1,15 @@
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v21.3.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
