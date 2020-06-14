@@ -100,7 +100,7 @@ function setupAPIMethods(setupArgs, methodArgs) {
   methodArgs.forEach((name) => {
     // if (name === 'options') return; CHECKME: Doesnt seem to be included :/
 
-    setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
+    setupArgs.positional(`<${param(name)}>`, {
       group: 'Required Options',
       type: 'string',
     });
@@ -162,6 +162,7 @@ function setupAPIs(setupArgs, apiName, methods) {
 const cli = program
   .version('-v, --version')
   .help('-h, --help')
+  .showHelpByDefault()
   .epilogue('Copyright 2019')
   .style({
     usagePrefix: (s) => usageStyle(s),
