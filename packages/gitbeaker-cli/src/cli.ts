@@ -162,6 +162,7 @@ function setupAPIs(setupArgs, apiName, methods) {
 const cli = program
   .version('-v, --version')
   .help('-h, --help')
+  .showHelpByDefault()
   .epilogue('Copyright 2019')
   .style({
     usagePrefix: (s) => usageStyle(s),
