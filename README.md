@@ -156,11 +156,12 @@ gitbeaker [service name] [method name] --config_args pos_arg1 pos_arg2 --opts_ar
 ```
 
 Where:
-`service name` is any of the supported API names
-`method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update)
-`--config_args` is any of general configuration arguments such as your personal token. These are outlined in the table above or by looking at the cli help menu
-`pos_arg1 pos_arg2..etc` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers.
-`--opts_arg1...etc` Are any of the optional arguments that you would normally supply to the function. Their names should match what the GitLab API docs request.
+
+- `service name` is any of the supported API names
+- `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update)
+- `--config_args` is any of general configuration arguments such as your personal token. These are outlined in the table above or by looking at the cli help menu
+  `pos_arg1 pos_arg2..etc` is any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers. These positional arguments can also be written as flag arguments, `--pos_arg1 --pos_arg2..etc` **BUT** must be written in the correct order.
+- `--opts_arg1...etc` is any of the optional arguments that you would normally supply to the function. Their names should match what the GitLab API docs request.
 
 There is one small exception with the instantiating arguments, however, which must be supplied using a `gb` or `gl` prefix. ie.
 
