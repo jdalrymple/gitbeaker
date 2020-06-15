@@ -1,3 +1,16 @@
+# 21.5.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/cli`
+  - Update docs for positional args and switch to parseAndExit [#888](https://github.com/jdalrymple/gitbeaker/pull/888) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 21.4.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
