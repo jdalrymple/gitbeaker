@@ -1,5 +1,5 @@
-import got from 'got';
-import FormData from 'form-data';
+import * as got from 'got';
+import * as FormData from 'form-data';
 import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 

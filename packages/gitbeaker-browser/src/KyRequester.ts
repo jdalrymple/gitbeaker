@@ -1,4 +1,4 @@
-import Ky from 'ky';
+import ky from 'ky';
 import { Agent } from 'https';
 import {
   Service,
@@ -52,7 +52,7 @@ export async function handler(endpoint, options) {
   let response;
 
   try {
-    response = await Ky(endpoint, options);
+    response = await ky(endpoint, options);
   } catch (e) {
     if (e.response) {
       const output = await e.response.json();
