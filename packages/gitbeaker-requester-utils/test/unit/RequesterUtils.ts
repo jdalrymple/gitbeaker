@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import FormData from 'form-data';
 import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
 
@@ -10,6 +11,12 @@ describe('defaultRequest', () => {
     rejectUnauthorized: false,
     requestTimeout: 50,
   };
+
+  it('should not use default request options if not passed', async () => {
+    const options = defaultRequest(service);
+
+    expect(options.method).toBe('get');
+  });
 
   it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
@@ -55,10 +62,25 @@ describe('defaultRequest', () => {
   it('should default searchParams to an empty string if undefined', async () => {
     const { searchParams } = defaultRequest(service, {
       query: undefined,
-      method: 'get',
     });
 
     expect(searchParams).toBe('');
+  });
+
+  it('should format searchParams to an stringified object', async () => {
+    const { searchParams } = defaultRequest(service, {
+      query: { a: 5 },
+    });
+
+    expect(searchParams).toBe('a=5');
+  });
+
+  it('should format searchParams to an stringified object and decamelize properties', async () => {
+    const { searchParams } = defaultRequest(service, {
+      query: { thisSearchTerm: 5 },
+    });
+
+    expect(searchParams).toBe('this_search_term=5');
   });
 });
 
@@ -99,8 +121,12 @@ describe('createInstance', () => {
 });
 
 describe('modifyServices', () => {
-  it('should modify class with default properties', async () => {
+  it('should preset class with extended properties', async () => {
     class A {
+      x?: number;
+
+      y?: number;
+
       constructor({ x, y }: { x?: number; y?: number } = {}) {
         this.x = x;
         this.y = y;
@@ -111,5 +137,77 @@ describe('modifyServices', () => {
     const b = new B();
 
     expect(b.x).toBe(3);
+  });
+
+  it('should preset class with default properties', async () => {
+    class A {
+      x: number;
+
+      y?: number;
+
+      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    const { A: B } = modifyServices({ A });
+    const b = new B();
+
+    expect(b.x).toBe(8);
+  });
+
+  it('should overwrite default properties with extended properties', async () => {
+    class A {
+      x: number;
+
+      y?: number;
+
+      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    const { A: B } = modifyServices({ A }, { x: 3 });
+    const b = new B();
+
+    expect(b.x).toBe(3);
+  });
+
+  it('should overwrite default properties with custom properties', async () => {
+    class A {
+      x: number;
+
+      y?: number;
+
+      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    const { A: B } = modifyServices({ A });
+    const b = new B({ x: 5 });
+
+    expect(b.x).toBe(5);
+  });
+
+  it('should overwrite default and extended properties with custom properties', async () => {
+    class A {
+      x: number;
+
+      y?: number;
+
+      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    const { A: B } = modifyServices({ A }, { x: 2 });
+    const b = new B({ x: 5 });
+
+    expect(b.x).toBe(5);
   });
 });

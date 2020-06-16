@@ -81,14 +81,17 @@ export interface Constructable {
 function extendClass<T extends Constructable>(Base: T, customConfig: object): T {
   return class extends Base {
     constructor(...options: any[]) {
-      super({ ...options, ...customConfig });
+      // FIXME: Write this is a better format
+      const config = options[0];
+
+      super({ ...customConfig, ...config });
     }
   };
 }
 
 export function modifyServices<T extends { [name: string]: Constructable }>(
   services: T,
-  customConfig: object,
+  customConfig: object = {},
 ) {
   const updated: { [name: string]: Constructable } = {};
 
