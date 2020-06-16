@@ -13,7 +13,7 @@
     /* Module Resolution Options */
 
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    // "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {

@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
