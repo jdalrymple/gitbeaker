@@ -1,5 +1,5 @@
 import Got from 'got';
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import {

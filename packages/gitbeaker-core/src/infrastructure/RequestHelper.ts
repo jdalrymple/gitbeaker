@@ -1,4 +1,4 @@
-import Li from 'li';
+import { parse as parseLink } from 'li';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from './BaseService';
 import { appendFormFromObject } from './Utils';
@@ -75,7 +75,7 @@ async function get(
 
   // Rescurse through pagination results
   if (!query.page && underLimit && pagination.next) {
-    const { next } = Li.parse(headers.link);
+    const { next } = parseLink(headers.link);
     const leaf = service.url.split('/').pop() || '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
