@@ -1,3 +1,16 @@
+# 21.6.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Removal of esinterlop to prefer namespace imports over default exports [#893](https://github.com/jdalrymple/gitbeaker/pull/893) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 21.5.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
