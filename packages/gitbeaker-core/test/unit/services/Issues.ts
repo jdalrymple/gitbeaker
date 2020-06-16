@@ -95,9 +95,9 @@ describe('Issues.create', () => {
   });
 });
 
-// Seems to error out with the correct # of calls but incorrect # recieved
+// FIXME: Seems to error out with the correct # of calls but incorrect # recieved
 // https://gitlab.com/jdalrymple/gitbeaker/-/jobs/574881954#L253
-describe.skip('Issues.links', () => {
+describe.skip('Issues.link', () => {
   it('should request POST projects/:id/issues/:id/links', async () => {
     await service.link(8, 3, 4, 5);
 
