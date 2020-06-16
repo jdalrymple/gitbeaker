@@ -1,3 +1,15 @@
+# v21.7.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing extendClass function to properly handle custom configuration passed to constructor [#896](https://github.com/jdalrymple/gitbeaker/pull/896) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
