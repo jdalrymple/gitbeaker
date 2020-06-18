@@ -46,7 +46,7 @@ describe('Snippets.all', () => {
 });
 
 describe('Snippets.content', () => {
-  it('should request DELETE /snippets/:id/raw', async () => {
+  it('should request GET /snippets/:id/raw', async () => {
     await service.content(12);
 
     expect(RequestHelper.get).toHaveBeenCalledWith(service, 'snippets/12/raw', undefined);
