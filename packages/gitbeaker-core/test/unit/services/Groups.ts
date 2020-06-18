@@ -84,6 +84,20 @@ describe('Groups.remove', () => {
   });
 });
 
+describe('Groups.removeLDAPLink', () => {
+  it('should request DEL /groups/:id/ldap_group_links/:id without provider', async () => {
+    await service.removeLDAPLink(1, 2);
+
+    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'groups/1/ldap_group_links/2', {});
+  });
+
+  it('should request DEL /groups/:id/ldap_group_links/:provider/:id with provider', async () => {
+    await service.removeLDAPLink(1, 2, { provider: 'test' });
+
+    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'groups/1/ldap_group_links/test/2', {});
+  });
+});
+
 describe('Groups.search', () => {
   it('should request GET /groups', async () => {
     await service.search('keywords');

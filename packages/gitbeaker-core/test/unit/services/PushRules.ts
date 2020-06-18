@@ -21,6 +21,8 @@ beforeEach(() => {
   });
 });
 
+// the feature is not available for CE users https://gitlab.com/gitlab-org/gitlab-ee/issues/3825
+
 describe('Instantiating PushRules service', () => {
   it('should create a valid service object', async () => {
     expect(service).toBeInstanceOf(PushRules);
@@ -30,17 +32,38 @@ describe('Instantiating PushRules service', () => {
   });
 });
 
+describe('PushRules.create', () => {
+  it('should request PUT projects/:id/push_rule', async () => {
+    await service.create(1, { prop: 1 });
+
+    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/push_rule', { prop: 1 });
+  });
+});
+
 describe('PushRules.edit', () => {
-  // the feature is not available for CE users https://gitlab.com/gitlab-org/gitlab-ee/issues/3825
   it('should request PUT projects/:id/push_rule', async () => {
     await service.edit(1, {
-      upsert: true,
       memberCheck: true,
     });
 
     expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/1/push_rule', {
-      upsert: true,
       memberCheck: true,
     });
+  });
+});
+
+describe('PushRules.remove', () => {
+  it('should request DELETE projects/:id/push_rule', async () => {
+    await service.remove(1);
+
+    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/push_rule', undefined);
+  });
+});
+
+describe('PushRules.show', () => {
+  it('should request GET projects/:id/push_rule', async () => {
+    await service.show(1);
+
+    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/push_rule', undefined);
   });
 });
