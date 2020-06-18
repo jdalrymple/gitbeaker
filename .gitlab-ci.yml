@@ -113,11 +113,11 @@ test:integration:node:src:
 
 test:integration:node:dist-cjs:
   <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper="{src:dist/index.js}"" && yarn codecov -F node
+  script: yarn jest node/test/integration --moduleNameMapper="{src:dist/index.js}"
 
 test:integration:node:dist-es:
   <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper="{src:dist/index.es.js}"" && yarn codecov -F node
+  script: yarn jest node/test/integration --moduleNameMapper="{src:dist/index.es.js}"
 
 # Canary
 canary:
