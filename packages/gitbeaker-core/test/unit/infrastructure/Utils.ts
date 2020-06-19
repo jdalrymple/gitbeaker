@@ -1,4 +1,4 @@
-import { default as FormData } from 'formdata-node'; // eslint-disable-line
+import * as FormData from 'form-data';
 import { bundler, appendFormFromObject } from '../../../src/infrastructure';
 
 describe('bundler', () => {
@@ -40,20 +40,14 @@ describe('appendFormFromObject', () => {
   it('should convert object key/values to formdata instance', async () => {
     const data = { a: 5, b: 'test' };
     const form = appendFormFromObject(data);
-    const results = Array.from(form.entries());
 
     expect(form).toBeInstanceOf(FormData);
-    expect(results[0]).toStrictEqual(['a', '5']);
-    expect(results[1]).toStrictEqual(['b', 'test']);
   });
 
   it('should convert object key/values with metadata to formdata instance', async () => {
     const data = { a: 5, b: ['test', { filename: 'name.jpg' }] };
     const form = appendFormFromObject(data);
-    const results = Array.from(form.entries());
 
     expect(form).toBeInstanceOf(FormData);
-    expect(results[0]).toStrictEqual(['a', '5']);
-    expect(results[1]).toStrictEqual(['b', 'test']);
   });
 });

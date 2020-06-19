@@ -1,7 +1,7 @@
 import { Agent } from 'https';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
-import { default as FormData } from 'formdata-node'; // eslint-disable-line
+import * as FormData from 'form-data';
 
 // Types
 export interface RequesterType {

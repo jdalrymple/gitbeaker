@@ -1,4 +1,4 @@
-import { default as FormData } from 'formdata-node'; // eslint-disable-line
+import * as FormData from 'form-data';
 import { RequestHelper, BaseService } from '../../../src/infrastructure';
 
 /* eslint no-empty-pattern: 0 */

@@ -1,5 +1,5 @@
 import * as got from 'got';
-import { default as FormData } from 'formdata-node'; // eslint-disable-line
+import * as FormData from 'form-data';
 import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 

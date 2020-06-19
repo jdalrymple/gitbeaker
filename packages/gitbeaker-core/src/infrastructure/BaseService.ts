@@ -43,7 +43,7 @@ export class BaseService {
     camelize = false,
     rejectUnauthorized = true,
     requestTimeout = 300000,
-  }: BaseServiceOptions) {
+  }: BaseServiceOptions = {}) {
     if (!requester) throw new ReferenceError('Requester must be passed');
 
     this.url = [host, 'api', `v${version}`, url].join('/');
