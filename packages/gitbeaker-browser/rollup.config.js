@@ -18,10 +18,10 @@ export default [
     plugins: [
       globals(),
       builtins(),
+      json(),
       resolve({ browser: true }),
       commonjs(),
       ...commonPlugins,
-      json(),
     ],
   },
 ];
