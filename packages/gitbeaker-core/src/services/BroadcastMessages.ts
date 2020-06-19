@@ -3,6 +3,7 @@ import {
   BaseService,
   PaginatedRequestOptions,
   RequestHelper,
+  Sudo,
 } from '../infrastructure';
 
 export class BroadcastMessages extends BaseService {
@@ -20,10 +21,10 @@ export class BroadcastMessages extends BaseService {
     return RequestHelper.put(this, `broadcast_messages/${bId}`, options);
   }
 
-  remove(broadcastMessageId: number) {
+  remove(broadcastMessageId: number, options?: Sudo) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.del(this, `broadcast_messages/${bId}`);
+    return RequestHelper.del(this, `broadcast_messages/${bId}`, options);
   }
 
   show(broadcastMessageId: number, options?: BaseRequestOptions) {

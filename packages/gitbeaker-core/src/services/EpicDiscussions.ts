@@ -51,7 +51,7 @@ export interface EpicDiscussions extends ResourceDiscussions {
 }
 
 export class EpicDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions = {}) {
+  constructor(options: BaseServiceOptions) {
     super('groups', 'epics', options);
   }
 }
