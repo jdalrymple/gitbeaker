@@ -2,12 +2,12 @@ import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrast
 
 export interface UploadMetadata {
   filename?: string;
-  contentType?: string;
+  type?: string;
 }
 
 export const defaultMetadata = {
   filename: `${Date.now().toString()}.tar.gz`,
-  contentType: 'application/octet-stream',
+  type: 'application/octet-stream',
 };
 
 export class ProjectImportExport extends BaseService {

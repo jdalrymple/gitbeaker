@@ -9,8 +9,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "form-data": "^3.0.0",
     "query-string": "^6.12.1",
+    "formdata-node": "^2.2.1",
     "xcase": "^2.0.1"
   },
   "devDependencies": {

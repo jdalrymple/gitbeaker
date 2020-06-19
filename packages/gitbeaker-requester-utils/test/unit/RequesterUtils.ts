@@ -1,6 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import * as FormData from 'form-data';
+import { default as FormData } from 'formdata-node'; // eslint-disable-line
 import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
+
+/* eslint-disable max-classes-per-file */
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
 
