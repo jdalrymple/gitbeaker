@@ -1,6 +1,6 @@
 import { Projects } from '../../../src';
 
-let service: Projects;
+let service;
 
 beforeEach(() => {
   service = new Projects({
@@ -19,7 +19,7 @@ describe('Projects.create', () => {
 });
 
 describe('Projects.upload', () => {
-  let project: object;
+  let project;
 
   beforeAll(async () => {
     project = await service.create({ name: 'Project Upload Integration Test' });

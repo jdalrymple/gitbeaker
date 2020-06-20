@@ -8,7 +8,7 @@ export class Search extends BaseService {
       projectId,
       groupId,
       ...options
-    }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions,
+    }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions = {},
   ) {
     let url = '';
 

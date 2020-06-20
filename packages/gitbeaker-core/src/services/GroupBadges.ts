@@ -21,7 +21,7 @@ export interface GroupBadges extends ResourceBadges {
 }
 
 export class GroupBadges extends ResourceBadges {
-  constructor(options: BaseServiceOptions = {}) {
+  constructor(options: BaseServiceOptions) {
     super('groups', options);
   }
 }

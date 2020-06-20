@@ -45,7 +45,7 @@ export interface EpicNotes extends ResourceNotes {
 }
 
 export class EpicNotes extends ResourceNotes {
-  constructor(options: BaseServiceOptions = {}) {
+  constructor(options: BaseServiceOptions) {
     super('groups', 'epics', options);
   }
 }

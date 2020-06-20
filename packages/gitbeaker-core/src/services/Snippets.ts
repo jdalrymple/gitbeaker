@@ -9,7 +9,7 @@ import {
 export type SnippetVisibility = 'private' | 'public' | 'internal';
 
 export class Snippets extends BaseService {
-  all({ public: p, ...options }: { public: boolean } & PaginatedRequestOptions) {
+  all({ public: p, ...options }: { public?: boolean } & PaginatedRequestOptions = {}) {
     const url = p ? 'snippets/public' : 'snippets';
 
     return RequestHelper.get(this, url, options);
