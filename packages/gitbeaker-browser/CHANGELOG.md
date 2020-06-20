@@ -1,3 +1,15 @@
+# v22.0.0 (Sat Jun 20 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 3.1.0 to 4.0.0 [#895](https://github.com/jdalrymple/gitbeaker/pull/895) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
