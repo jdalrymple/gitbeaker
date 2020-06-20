@@ -47,16 +47,16 @@ export class Issues extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/issues`, options);
   }
 
+  closedBy(projectId: string | number, issueId: number, options?: BaseRequestOptions) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/closed_by`, options);
+  }
+
   edit(projectId: string | number, issueId: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
 
     return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
-  }
-
-  links(projectId: string | number, issueIId: number) {
-    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/links`);
   }
 
   link(
@@ -76,6 +76,24 @@ export class Issues extends BaseService {
     });
   }
 
+  links(projectId: string | number, issueIId: number) {
+    const [pId, iId] = [projectId, issueIId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/links`);
+  }
+
+  participants(projectId: string | number, issueId: number, options?: Sudo) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`, options);
+  }
+
+  relatedMergeRequests(projectId: string | number, issueId: number, options?: BaseRequestOptions) {
+    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/related_merge_requests`, options);
+  }
+
   removeLink(
     projectId: string | number,
     issueIId: number,
@@ -87,12 +105,6 @@ export class Issues extends BaseService {
     return RequestHelper.del(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
       ...options,
     });
-  }
-
-  participants(projectId: string | number, issueId: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueId].map(encodeURIComponent);
-
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`, options);
   }
 
   remove(projectId: string | number, issueId: number, options?: Sudo) {
