@@ -330,7 +330,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/runtime@7.10.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.9.6":
+"@babel/runtime@^7.7.6", "@babel/runtime@^7.9.6":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
   integrity sha512-6sF3uQw2ivImfVIl62RZ7MXhO2tap69WeWK57vAaimT6AZbE4FbqjdEJIN1UqoD6wI6B+1n9UiagafH1sxjOtg==
@@ -4017,9 +4017,9 @@ eslint-plugin-import@^2.20.2:
     tsconfig-paths "^3.9.0"
 
 eslint-plugin-jest@^23.8.2:
-  version "23.13.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.13.2.tgz#7b7993b4e09be708c696b02555083ddefd7e4cc7"
-  integrity sha512-qZit+moTXTyZFNDqSIR88/L3rdBlTU7CuW6XmyErD2FfHEkdoLgThkRbiQjzgYnX6rfgLx3Ci4eJmF4Ui5v1Cw==
+  version "23.16.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.16.0.tgz#fada00f765b5e32a1fb10a7490f75ebf673133b3"
+  integrity sha512-51KcQup31S2NBm+Yqg3rxZIPETd+wZ/gU2rb034RpdXLcZYsa2+uwubqbbDAYIpQw3m+wywF/A56OMEouBY/wA==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -4604,14 +4604,6 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
-
-formdata-node@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/formdata-node/-/formdata-node-2.2.1.tgz#4d24abe9f05c9bbd392db347510a0b428e757eb6"
-  integrity sha512-8Z2P27AHOxIZeFDq+9i/7ce5/481eXaYDgCKL1o97Zb0HTXTxE/a3aQoASa9C96m4bkHb45svpfBdOpVcsbRzA==
-  dependencies:
-    "@babel/runtime" "7.10.2"
-    mime-types "2.1.27"
 
 fp-ts@^2.5.3:
   version "2.6.5"
@@ -7142,7 +7134,7 @@ mime-db@1.44.0:
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.44.0.tgz#fa11c5eb0aca1334b4233cb4d52f10c5a6272f92"
   integrity sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==
 
-mime-types@2.1.27, mime-types@^2.1.12, mime-types@~2.1.19:
+mime-types@^2.1.12, mime-types@~2.1.19:
   version "2.1.27"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.27.tgz#47949f98e279ea53119f5722e0f34e529bec009f"
   integrity sha512-JIhqnCasI9yD+SsmkquHBxTSEuZdQX5BuQnS2Vc7puQQQ+8yiP5AY5uWhpdv4YL4VM5c6iliiYWPgJ/nJQLp7w==
