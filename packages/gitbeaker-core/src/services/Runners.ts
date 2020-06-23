@@ -32,7 +32,7 @@ export interface RunnerSchemaCamelized {
 }
 
 export class Runners extends BaseService {
-  all({ projectId, ...options }: { projectId: string | number } & PaginatedRequestOptions) {
+  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 
     return RequestHelper.get(this, url, options);

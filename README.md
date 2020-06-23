@@ -118,7 +118,7 @@ OR through the script tag:
 ```html
 <script src="node_modules/@gitbeaker/browser/dist/index.js" />
 <script>
-  const { Gitlab } = gitbeaker.default;
+  const { Gitlab } = gitbeaker;
 </script>
 ```
 
@@ -152,10 +152,16 @@ Available instantiating options:
 The CLI export functions in a similar manner, following the pattern:
 
 ```bash
-gitbeaker [service name] [method name] --arg1 --arg2 --arg3
+gitbeaker [service name] [method name] --config_args pos_arg1 pos_arg2 --opts_arg1
 ```
 
-Where `service name` is any of the supported API names, `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update) and `--arg1...--arg3` are any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers **EXCEPT** all the optional arguments whose names should match what the GitLab API docs request.
+Where:
+
+- `service name` is any of the supported API names
+- `method name` is any of the supported commands on that API service (See source for exceptions, but generally all, show, remove, update)
+- `--config_args` is any of general configuration arguments such as your personal token. These are outlined in the table above or by looking at the cli help menu
+  `pos_arg1 pos_arg2..etc` is any of the arguments you would normally supply to the function. The names of the args should match the names in the method headers. These positional arguments can also be written as flag arguments, `--pos_arg1 --pos_arg2..etc` **BUT** must be written in the correct order.
+- `--opts_arg1...etc` is any of the optional arguments that you would normally supply to the function. Their names should match what the GitLab API docs request.
 
 There is one small exception with the instantiating arguments, however, which must be supplied using a `gb` or `gl` prefix. ie.
 
@@ -164,7 +170,7 @@ There is one small exception with the instantiating arguments, however, which mu
 gitbeaker projects all --gb-token="personaltoken"
 
 # To get a project with id = 2
-gitbeaker projects show --gl-token="personaltoken" --projectId=2
+gitbeaker projects show --gl-token="personaltoken" 2
 ```
 
 To reduce the annoyance of having to pass those configuration properties each time, it is also possible to pass the token and host information through environment variables in the form of `GITLAB_[option name]` or `GITBEAKER_[option name]` ie:
@@ -650,6 +656,9 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://dylanmtaylor.com"><img src="https://avatars2.githubusercontent.com/u/277927?v=4" width="50px;" alt=""/><br /><sub><b>Dylan M. Taylor</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=dylanmtaylor" title="Code">💻</a></td>
     <td align="center"><a href="https://pixelswap.fr/"><img src="https://avatars1.githubusercontent.com/u/4266283?v=4" width="50px;" alt=""/><br /><sub><b>Corentin Mors</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Mikescops" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/xatavian"><img src="https://avatars1.githubusercontent.com/u/17217965?v=4" width="50px;" alt=""/><br /><sub><b>xatavian</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=xatavian" title="Code">💻</a></td>
+    <td align="center"><a href="https://stackoverflow.com/story/yepninja"><img src="https://avatars3.githubusercontent.com/u/11796206?v=4" width="50px;" alt=""/><br /><sub><b>Yevgeny Petukhov</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=yepninja" title="Code">💻</a></td>
+    <td align="center"><a href="https://about.me/mickaeltr"><img src="https://avatars2.githubusercontent.com/u/378910?v=4" width="50px;" alt=""/><br /><sub><b>Mickaël Tricot</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=mickaeltr" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/andreasciamanna"><img src="https://avatars0.githubusercontent.com/u/181780?v=4" width="50px;" alt=""/><br /><sub><b>Andrea</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=andreasciamanna" title="Code">💻</a></td>
   </tr>
 </table>
 

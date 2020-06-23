@@ -12,7 +12,7 @@ export interface GroupCustomAttributes extends ResourceCustomAttributes {
 }
 
 export class GroupCustomAttributes extends ResourceCustomAttributes {
-  constructor(options: BaseServiceOptions = {}) {
+  constructor(options: BaseServiceOptions) {
     super('groups', options);
   }
 }

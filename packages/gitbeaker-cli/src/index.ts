@@ -2,4 +2,4 @@
 import { cli } from './cli';
 
 // Parse input
-cli.parse();
+cli.parseAndExit();

@@ -1,3 +1,81 @@
+# v22.0.0 (Sat Jun 20 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 3.1.0 to 4.0.0 [#895](https://github.com/jdalrymple/gitbeaker/pull/895) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v21.6.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Removal of esinterlop to prefer namespace imports over default exports [#893](https://github.com/jdalrymple/gitbeaker/pull/893) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.3.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Bump version to: 21.3.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.2.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing package versions \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.0.1 (Fri Jun 12 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-commonjs from 11.1.0 to 13.0.0 [#876](https://github.com/jdalrymple/gitbeaker/pull/876) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps): bump ky from 0.19.1 to 0.20.0 [#804](https://github.com/jdalrymple/gitbeaker/pull/804) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.6.0 (Sat May 16 2020)
 
 #### 🔩 Dependencies

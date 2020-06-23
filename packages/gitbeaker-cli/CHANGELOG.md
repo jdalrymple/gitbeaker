@@ -1,3 +1,76 @@
+# v21.6.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Removal of esinterlop to prefer namespace imports over default exports [#893](https://github.com/jdalrymple/gitbeaker/pull/893) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.5.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Update docs for positional args and switch to parseAndExit [#888](https://github.com/jdalrymple/gitbeaker/pull/888) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.3.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Bump version to: 21.3.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.2.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing missing CLI tests and modifyServices function [#886](https://github.com/jdalrymple/gitbeaker/pull/886) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing package versions \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.0.1 (Fri Jun 12 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change

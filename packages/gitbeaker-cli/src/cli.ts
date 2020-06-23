@@ -1,19 +1,19 @@
-import program, { Options } from 'sywac';
-import chalk from 'chalk';
+import * as Sywac from 'sywac';
+import * as Chalk from 'chalk';
 import { camelize, decamelize, depascalize } from 'xcase';
 import * as Gitbeaker from '@gitbeaker/node';
 import * as map from '@gitbeaker/core/dist/map.json';
 
 // Styling settings
-const commandStyle = chalk.hex('#e34329').bold;
-const groupStyle = chalk.hex('#fca325').bold;
-const usageStyle = chalk.hex('#fc6e26').bold;
-const optionStyle = chalk.white.bold;
-const descriptionStyle = chalk.hex('#848484');
-const hintStyle = chalk.hex('#6a5f88');
+const commandStyle = Chalk.hex('#e34329').bold;
+const groupStyle = Chalk.hex('#fca325').bold;
+const usageStyle = Chalk.hex('#fc6e26').bold;
+const optionStyle = Chalk.white.bold;
+const descriptionStyle = Chalk.hex('#848484');
+const hintStyle = Chalk.hex('#6a5f88');
 
 // Globally configurable arguments
-function globalConfig(env = process.env): { [name: string]: Options } {
+function globalConfig(env = process.env): { [name: string]: Sywac.Options } {
   return {
     'gb-token': {
       alias: 'gl-token',
@@ -98,7 +98,7 @@ function param(string) {
 
 function setupAPIMethods(setupArgs, methodArgs) {
   methodArgs.forEach((name) => {
-    if (name === 'options') return;
+    // if (name === 'options') return; CHECKME: Doesnt seem to be included :/
 
     setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
       group: 'Required Options',
@@ -159,9 +159,9 @@ function setupAPIs(setupArgs, apiName, methods) {
 }
 
 // Add default settings
-const cli = program
-  .version('-v, --version')
+const cli = Sywac.version('-v, --version')
   .help('-h, --help')
+  .showHelpByDefault()
   .epilogue('Copyright 2019')
   .style({
     usagePrefix: (s) => usageStyle(s),

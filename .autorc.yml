@@ -49,6 +49,11 @@ labels:
     description: Dependencies Updates
     releaseType: none
 
+  - name: test
+    changelogTitle: 🔩 Tests
+    description: Test Updates
+    releaseType: none
+
   - name: documentation
     changelogTitle: 📝 Documentation
     description: Changes only affect the documentation

@@ -10,13 +10,7 @@ export class PushRules extends BaseService {
   edit(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    try {
-      return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
-    } catch (e) {
-      if (e.message.includes('exist')) return this.create(projectId, options);
-
-      throw e;
-    }
+    return RequestHelper.put(this, `projects/${pId}/push_rule`, options);
   }
 
   remove(projectId: string | number, options?: Sudo) {

@@ -1,3 +1,96 @@
+# v22.0.0 (Sat Jun 20 2020)
+
+#### 💥 Breaking Change
+
+- Reach > 90% coverage and add Integration Testing [#709](https://github.com/jdalrymple/gitbeaker/pull/709) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.6.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Removal of esinterlop to prefer namespace imports over default exports [#893](https://github.com/jdalrymple/gitbeaker/pull/893) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.3.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Bump version to: 21.3.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.2.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing missing CLI tests and modifyServices function [#886](https://github.com/jdalrymple/gitbeaker/pull/886) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing package versions \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.0.1 (Fri Jun 12 2020)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+:heart: Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 💥 Breaking Change
+
+- Adjust casing to be properly handled by the conversion to snake case in the CLI [#857](https://github.com/jdalrymple/gitbeaker/pull/857) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Additional linting ([@jdalrymple](https://github.com/jdalrymple))
+- Issue links (get, delete) [#868](https://github.com/jdalrymple/gitbeaker/pull/868) ([@yepninja](https://github.com/yepninja) [@jdalrymple](https://github.com/jdalrymple))
+- Add YouTrack to the supported services [#853](https://github.com/jdalrymple/gitbeaker/pull/853) ([@andreasciamanna](https://github.com/andreasciamanna))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Andrea ([@andreasciamanna](https://github.com/andreasciamanna))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Yevgeny Petukhov ([@yepninja](https://github.com/yepninja))
+
+---
+
 # v19.7.0 (Sun May 17 2020)
 
 :tada: This release contains work from a new contributor! :tada:

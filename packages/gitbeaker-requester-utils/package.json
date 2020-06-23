@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/requester-utils",
   "description": "Utility functions for requester implementatons used in @gitbeaker",
-  "version": "19.7.0",
+  "version": "22.0.0",
   "author": {
     "name": "Justin Dalrymple"
   },

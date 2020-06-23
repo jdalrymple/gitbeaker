@@ -1,3 +1,88 @@
+# v22.0.0 (Sat Jun 20 2020)
+
+#### 💥 Breaking Change
+
+- Reach > 90% coverage and add Integration Testing [#709](https://github.com/jdalrymple/gitbeaker/pull/709) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.7.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing extendClass function to properly handle custom configuration passed to constructor [#896](https://github.com/jdalrymple/gitbeaker/pull/896) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.6.0 (Tue Jun 16 2020)
+
+#### 🐛 Bug Fix
+
+- Removal of esinterlop to prefer namespace imports over default exports [#893](https://github.com/jdalrymple/gitbeaker/pull/893) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.4.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Adding more tests and adjusting Form Data import [#887](https://github.com/jdalrymple/gitbeaker/pull/887) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating Changelog.md \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.3.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Bump version to: 21.3.0 \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.2.0 (Sun Jun 14 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing package versions \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v21.0.1 (Fri Jun 12 2020)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Remove Gitlab Instance dependency for CLI tests [#883](https://github.com/jdalrymple/gitbeaker/pull/883) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v19.6.0 (Sat May 16 2020)
 
 #### 🔩 Dependencies

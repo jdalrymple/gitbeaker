@@ -1,7 +1,7 @@
 import { Agent } from 'https';
-import FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
+import * as FormData from 'form-data';
 
 // Types
 export interface RequesterType {
@@ -83,14 +83,14 @@ function extendClass<T extends Constructable>(Base: T, customConfig: object): T 
     constructor(...options: any[]) {
       const [config, ...opts] = options;
 
-      super({ ...config, ...customConfig }, ...opts);
+      super({ ...customConfig, ...config }, ...opts);
     }
   };
 }
 
 export function modifyServices<T extends { [name: string]: Constructable }>(
   services: T,
-  customConfig: object,
+  customConfig: object = {},
 ) {
   const updated: { [name: string]: Constructable } = {};
 
