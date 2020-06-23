@@ -1,7 +1,7 @@
 version: '3'
 services:
   gitlab:
-    image: 'gitlab/gitlab-ce'
+    image: 'gitlab/gitlab-ce:latest'
     container_name: 'gitlab'
     environment:
       PERSONAL_ACCESS_TOKEN: ''

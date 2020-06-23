@@ -1,4 +1,3 @@
-import { formatQuery } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   BaseService,
@@ -16,35 +15,28 @@ type NotificationSettingLevel =
 
 type ProjectOrGroup = { projectId: string | number } | { groupId: string | number } | {};
 
+function url({ projectId, groupId }) {
+  let uri = '';
+
+  if (projectId) {
+    uri += `projects/${encodeURIComponent(projectId)}/`;
+  } else if (groupId) {
+    uri += `groups/${encodeURIComponent(groupId)}/`;
+  }
+
+  return `${uri}notification_settings`;
+}
+
 export class NotificationSettings extends BaseService {
-  all({ projectId, groupId, sudo, ...query }: ProjectOrGroup & PaginatedRequestOptions = {}) {
-    const q = formatQuery(query);
-    let url = '';
-
-    if (projectId) {
-      url += `projects/${encodeURIComponent(projectId)}/`;
-    } else if (groupId) {
-      url += `groups/${encodeURIComponent(groupId)}/`;
-    }
-
-    return RequestHelper.get(this, `${url}notification_settings?${q}`, { sudo });
+  all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
+    return RequestHelper.get(this, url({ groupId, projectId }), options);
   }
 
   edit({
     projectId,
     groupId,
-    sudo,
-    ...query
+    ...options
   }: { level?: NotificationSettingLevel } & ProjectOrGroup & BaseRequestOptions = {}) {
-    const q = formatQuery(query);
-    let url = '';
-
-    if (projectId) {
-      url += `projects/${encodeURIComponent(projectId)}/`;
-    } else if (groupId) {
-      url += `groups/${encodeURIComponent(groupId)}/`;
-    }
-
-    return RequestHelper.put(this, `${url}notification_settings?${q}`, { sudo });
+    return RequestHelper.put(this, url({ groupId, projectId }), options);
   }
 }

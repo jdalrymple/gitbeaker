@@ -13,7 +13,7 @@ coverage:
         target: 60%
         flags: cli
       core:
-        target: 60%
+        target: 90%
         flags: core
       browser:
         target: 60%

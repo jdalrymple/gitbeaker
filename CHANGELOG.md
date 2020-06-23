@@ -1,3 +1,25 @@
+# 22.0.0 (Sat Jun 20 2020)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Reach > 90% coverage and add Integration Testing [#709](https://github.com/jdalrymple/gitbeaker/pull/709) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup from 2.16.0 to 2.16.1 [#889](https://github.com/jdalrymple/gitbeaker/pull/889) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump eslint-plugin-prettier from 3.1.3 to 3.1.4 [#891](https://github.com/jdalrymple/gitbeaker/pull/891) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/jest from 25.2.3 to 26.0.0 [#892](https://github.com/jdalrymple/gitbeaker/pull/892) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump puppeteer from 3.1.0 to 4.0.0 [#895](https://github.com/jdalrymple/gitbeaker/pull/895) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 21.7.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix

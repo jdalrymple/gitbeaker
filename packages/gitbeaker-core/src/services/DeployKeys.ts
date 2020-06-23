@@ -13,7 +13,7 @@ export class DeployKeys extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/deploy_keys`, options);
   }
 
-  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions) {
+  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     let url;
 
     if (projectId) {

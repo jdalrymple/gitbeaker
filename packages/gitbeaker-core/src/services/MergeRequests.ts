@@ -115,9 +115,9 @@ export class MergeRequests extends BaseService {
     projectId,
     groupId,
     ...options
-  }: ({ projectId: string | number } | { groupId: string | number }) &
+  }: ({ projectId?: string | number } | { groupId?: string | number }) &
     AllMergeRequestsOptions &
-    PaginatedRequestOptions) {
+    PaginatedRequestOptions = {}) {
     let url;
 
     if (projectId) {
@@ -212,7 +212,11 @@ export class MergeRequests extends BaseService {
   closesIssues(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/closes_issues`, options);
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/merge_requests/${mIid}/closes_merge_requests`,
+      options,
+    );
   }
 
   commits(projectId: string | number, mergerequestIid: number, options?: Sudo) {
@@ -313,6 +317,12 @@ export class MergeRequests extends BaseService {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}`, options);
+  }
+
+  subscribe(projectId: string | number, mergerequestIid: number, options?: Sudo) {
+    const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
+
+    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/subscribe`, options);
   }
 
   timeStats(projectId: string | number, mergerequestIid: number, options?: Sudo) {

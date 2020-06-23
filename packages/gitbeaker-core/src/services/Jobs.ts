@@ -101,19 +101,12 @@ export class Jobs extends BaseService {
     projectId: string | number,
     jobId: number,
     artifactPath: string,
-    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
+    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
+    const method = stream ? 'stream' : 'get';
 
-    if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
-        options,
-      );
-    }
-
-    return RequestHelper.get(
+    return RequestHelper[method](
       this,
       `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
       options,
@@ -124,22 +117,15 @@ export class Jobs extends BaseService {
     projectId: string | number,
     ref: string,
     artifactPath: string,
-    name: string,
-    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
+    jobName: string,
+    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
-    const [pId, rId, jobName] = [projectId, ref, name].map(encodeURIComponent);
+    const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
+    const method = stream ? 'stream' : 'get';
 
-    if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${jobName}`,
-        options,
-      );
-    }
-
-    return RequestHelper.get(
+    return RequestHelper[method](
       this,
-      `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${jobName}`,
+      `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
       options,
     );
   }
@@ -147,22 +133,15 @@ export class Jobs extends BaseService {
   downloadLatestArtifactFile(
     projectId: string | number,
     ref: string,
-    name: string,
-    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions,
+    jobName: string,
+    { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
-    const [pId, rId, jobName] = [projectId, ref, name].map(encodeURIComponent);
+    const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
+    const method = stream ? 'stream' : 'get';
 
-    if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/artifacts/${rId}/download?job=${jobName}`,
-        options,
-      );
-    }
-
-    return RequestHelper.get(
+    return RequestHelper[method](
       this,
-      `projects/${pId}/jobs/artifacts/${rId}/download?job=${jobName}`,
+      `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
       options,
     );
   }

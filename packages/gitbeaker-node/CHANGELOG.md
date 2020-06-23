@@ -1,3 +1,15 @@
+# v22.0.0 (Sat Jun 20 2020)
+
+#### 💥 Breaking Change
+
+- Reach > 90% coverage and add Integration Testing [#709](https://github.com/jdalrymple/gitbeaker/pull/709) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
