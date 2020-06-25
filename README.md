@@ -660,11 +660,13 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://about.me/mickaeltr"><img src="https://avatars2.githubusercontent.com/u/378910?v=4" width="50px;" alt=""/><br /><sub><b>Mickaël Tricot</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=mickaeltr" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/andreasciamanna"><img src="https://avatars0.githubusercontent.com/u/181780?v=4" width="50px;" alt=""/><br /><sub><b>Andrea</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=andreasciamanna" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://www.ircad.fr/"><img src="https://avatars0.githubusercontent.com/u/8638653?v=4" width="50px;" alt=""/><br /><sub><b>Flavien Bridault</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=fbridault" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=fbridault" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
