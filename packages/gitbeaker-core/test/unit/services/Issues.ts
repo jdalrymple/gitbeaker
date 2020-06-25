@@ -103,7 +103,7 @@ describe.skip('Issues.link', () => {
 
     expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/8/issues/3/links', {
       targetProjectId: 4,
-      targetIssueId: 5,
+      targetIssueIid: 5,
     });
   });
 });
