@@ -5,12 +5,20 @@ export class Todos extends BaseService {
     return RequestHelper.get(this, 'todos', options);
   }
 
-  create(projectId: string | number, mergerequestId: number, options?: Sudo) {
+  createMergeRequest(projectId: string | number, mergerequestId: number, options?: Sudo) {
     return RequestHelper.post(
       this,
       `projects/${projectId}/merge_requests/${mergerequestId}/todo`,
       options,
     );
+  }
+
+  createIssue(projectId: string | number, issueId: number, options?: Sudo) {
+    return RequestHelper.post(this, `projects/${projectId}/issuess/${issueId}/todo`, options);
+  }
+
+  create(projectId: string | number, mergerequestId: number, options?: Sudo) {
+    return this.createMergeRequest(projectId, mergerequestId, options);
   }
 
   done({ todoId, ...options }: { todoId?: number } & Sudo) {
