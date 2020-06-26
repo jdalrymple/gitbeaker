@@ -14,7 +14,7 @@ export class Todos extends BaseService {
   }
 
   createIssue(projectId: string | number, issueId: number, options?: Sudo) {
-    return RequestHelper.post(this, `projects/${projectId}/issuess/${issueId}/todo`, options);
+    return RequestHelper.post(this, `projects/${projectId}/issues/${issueId}/todo`, options);
   }
 
   create(projectId: string | number, mergerequestId: number, options?: Sudo) {
