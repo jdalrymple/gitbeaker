@@ -1,3 +1,28 @@
+# 22.0.1 (Thu Jun 25 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Add `related merge requests` and `closed by` in Issues service [#903](https://github.com/jdalrymple/gitbeaker/pull/903) ([@fbridault](https://github.com/fbridault) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump lint-staged from 10.2.10 to 10.2.11 [#899](https://github.com/jdalrymple/gitbeaker/pull/899) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.16.1 to 2.18.0 [#905](https://github.com/jdalrymple/gitbeaker/pull/905) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.13.2 to 23.16.0 [#906](https://github.com/jdalrymple/gitbeaker/pull/906) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Flavien Bridault ([@fbridault](https://github.com/fbridault))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change

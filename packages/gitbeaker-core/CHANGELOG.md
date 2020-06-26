@@ -1,3 +1,20 @@
+# v22.0.1 (Thu Jun 25 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add `related merge requests` and `closed by` in Issues service [#903](https://github.com/jdalrymple/gitbeaker/pull/903) ([@fbridault](https://github.com/fbridault) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Flavien Bridault ([@fbridault](https://github.com/fbridault))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change
