@@ -1,5 +1,9 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
+interface CreateTodoOptions extends Sudo {
+  resourceName?: 'mergerequest' | 'issue';
+}
+
 export class Todos extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get(this, 'todos', options);
@@ -17,8 +21,15 @@ export class Todos extends BaseService {
     return RequestHelper.post(this, `projects/${projectId}/issues/${issueId}/todo`, options);
   }
 
-  create(projectId: string | number, mergerequestId: number, options?: Sudo) {
-    return this.createMergeRequest(projectId, mergerequestId, options);
+  create(
+    projectId: string | number,
+    resourceId: number,
+    { resourceName, ...options }: CreateTodoOptions = {},
+  ) {
+    if (resourceName === 'issue') {
+      return this.createIssue(projectId, resourceId, options);
+    }
+    return this.createMergeRequest(projectId, resourceId, options);
   }
 
   done({ todoId, ...options }: { todoId?: number } & Sudo) {
