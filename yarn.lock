@@ -26,7 +26,7 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.41.1.tgz#d7d9000d34a3b3dc603b04367ace27e373adc60f"
   integrity sha512-jsl6JYi4hchjaEPEZFvQ5nR0Q5nAhEXb8As714o+t7kjh4LSBPTh1pjN+C8PIgYuLp7PavI1QSMTug3NRV+XfA==
 
-"@auto-it/core@^9.39.0", "@auto-it/core@^9.40.5", "@auto-it/core@^9.41.1":
+"@auto-it/core@^9.39.0", "@auto-it/core@^9.41.1":
   version "9.41.1"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.41.1.tgz#6b1caff74f21b5a0ec0b5fd0b31f592d04206b49"
   integrity sha512-i4Vi/CQvRJcf6N8yBL1jaAZn47e1Lkt0aG3L1YpERBHfiqQzwiF9UqWtYbzkNwKt4mZqckR66J9vqyG6EGlp1w==
@@ -77,22 +77,22 @@
     tslib "2.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.39.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.39.0.tgz#608c30022b694479b78553af857fe156ca570700"
-  integrity sha512-BySvUVbzDB1v8ZbLIgaXfdfJp0+jHKVscey5uVSnA9hZWqxVbQ8roFunmekBOQqWsujB2kClyWyMTheG1x2hUg==
+  version "9.41.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.41.1.tgz#45b4b4ffbaacec830e2273619c13967bb1583a19"
+  integrity sha512-1hUnCBTFu3IPP6IhzTlSuh7sdMqY03Q23L7h4LQicEm073/TssvqbJ2bsjpwhR9DTdGKGAI6RgMcuJRihhmzeA==
   dependencies:
-    "@auto-it/core" "^9.39.0"
+    "@auto-it/core" "^9.41.1"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
-    tslib "1.11.1"
+    tslib "2.0.0"
     url-join "^4.0.0"
 
-"@auto-it/npm@^9.39.0":
-  version "9.39.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.39.0.tgz#165069c5d5942aaf126e30ce4f7e3fffca122b7f"
-  integrity sha512-ktjspMTnSvZThYB9m36uS4+hAkBm8FdvIQbaiCUypDduzUnWtrwnV2ZhLR3KG3GyFkCgpAzYnxKY6OugQJ/U1w==
+"@auto-it/npm@^9.41.1":
+  version "9.41.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.41.1.tgz#a402da86daeaabd5c301ae26929cf1ed9d27a095"
+  integrity sha512-kfdb/k3d4akmsVgCRbxFm0gIWdwr3Qel2cZNA2p9Nk9ILvFH9bIDuOBbDOa4fI9A9OVupP/KhXp3kYI2CXK5lg==
   dependencies:
-    "@auto-it/core" "^9.39.0"
+    "@auto-it/core" "^9.41.1"
     await-to-js "^2.1.1"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
@@ -102,17 +102,17 @@
     parse-github-url "1.0.2"
     registry-url "^5.1.0"
     semver "^7.0.0"
-    tslib "1.11.1"
+    tslib "2.0.0"
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@^9.29.0", "@auto-it/released@^9.39.0":
-  version "9.40.5"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.40.5.tgz#c7be442f355e0f0984528e18be7d56a16c0ff482"
-  integrity sha512-z+sFrQFzbaHrDtIEfQkFzyAtAJBwyTG8S2S4ry22wHSk4oDkgc8YyteEuRxtmL3L3zYx2T3KTMA3hraACqA8yA==
+"@auto-it/released@^9.29.0", "@auto-it/released@^9.41.1":
+  version "9.41.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.41.1.tgz#b1d42e8e0ea60be7a549c25505d0aa92611c15f4"
+  integrity sha512-ycxeowza0fsVW16Fr9D1RCDCkAhUhIsvNvl04U7kSdeHp0ELcXFvwL4I/zSgpZ45PHV+XcUW3+9NcOElDmTZug==
   dependencies:
-    "@auto-it/core" "^9.40.5"
+    "@auto-it/core" "^9.41.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -1681,9 +1681,9 @@
     "@rollup/pluginutils" "^3.0.8"
 
 "@rollup/plugin-node-resolve@^8.0.0":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-8.0.1.tgz#364b5938808ee6b5164dea5ef7291be3f7395199"
-  integrity sha512-KIeAmueDDaYMqMBnUngLVVZhURwxA12nq/YB6nGm5/JpVyOMwI1fCVU3oL/dAnnLBG7oiPXntO5LHOiMrfNXCA==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-8.1.0.tgz#1da5f3d0ccabc8f66f5e3c74462aad76cfd96c47"
+  integrity sha512-ovq7ZM3JJYUUmEjjO+H8tnUdmQmdQudJB7xruX8LFZ1W2q8jXdPUS6SsIYip8ByOApu4RR7729Am9WhCeCMiHA==
   dependencies:
     "@rollup/pluginutils" "^3.0.8"
     "@types/resolve" "0.0.8"
@@ -2438,21 +2438,21 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.29.0:
-  version "9.39.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.39.0.tgz#1cf174541ea1d3a7432d315fed521fd4d15154c1"
-  integrity sha512-ebJXsceHcZKM3h2erTxkMnGjnypruS0xHLJEHi9GIB8+yVe/6Iwz/qeNcUelemzmJzenqv0wH+fJE2kikuQVqw==
+  version "9.41.1"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-9.41.1.tgz#57e722789bff1a0281bd946dc7fd0686b7acd37d"
+  integrity sha512-fzmscsYuj5tpqXHwyi1XTv2y8lKxfSW9Dx/1wM7Y8f4PHmmq6FN+Z0l+qGnBk/KokOnzngV+FyEEr3idxtFG0Q==
   dependencies:
-    "@auto-it/core" "^9.39.0"
-    "@auto-it/npm" "^9.39.0"
-    "@auto-it/released" "^9.39.0"
+    "@auto-it/core" "^9.41.1"
+    "@auto-it/npm" "^9.41.1"
+    "@auto-it/released" "^9.41.1"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
-    command-line-application "^0.9.3"
+    command-line-application "^0.10.1"
     endent "^2.0.1"
     module-alias "^2.2.2"
     signale "^1.4.0"
     terminal-link "^2.1.1"
-    tslib "1.11.1"
+    tslib "2.0.0"
 
 await-to-js@^2.1.1:
   version "2.1.1"
@@ -3157,10 +3157,10 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-command-line-application@^0.9.3:
-  version "0.9.6"
-  resolved "https://registry.yarnpkg.com/command-line-application/-/command-line-application-0.9.6.tgz#03da3db29a0dbee1af601f03198a2f2425d67803"
-  integrity sha512-7wc7YX7s/hqZWKp4r37IBlW/Bhh92HWeQW2VV++Mt9x35AKFntz9f7A94Zz+AsImHZmRGHd8iNW5m0jUd4GQpg==
+command-line-application@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/command-line-application/-/command-line-application-0.10.1.tgz#9ee0db7e41fe69f532eef0747e9ae958c0d348ae"
+  integrity sha512-PWZ4nRkz09MbBRocqEe/Fil3RjTaMNqw0didl1n/i3flDcw/vecVfvsw3r+ZHhGs4BOuW7sk3cEYSdfM3Wv5/Q==
   dependencies:
     "@types/command-line-args" "^5.0.0"
     "@types/command-line-usage" "^5.0.1"
