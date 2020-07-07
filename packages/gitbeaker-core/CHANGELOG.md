@@ -1,3 +1,19 @@
+# v23.0.0 (Tue Jul 07 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, s-kazuki ([@s-kazuki](https://github.com/s-kazuki)), for all your work!
+
+#### 💥 Breaking Change
+
+- :up: create todos for issues [#925](https://github.com/jdalrymple/gitbeaker/pull/925) ([@s-kazuki](https://github.com/s-kazuki))
+
+#### Authors: 1
+
+- s-kazuki ([@s-kazuki](https://github.com/s-kazuki))
+
+---
+
 # v22.0.1 (Thu Jun 25 2020)
 
 :tada: This release contains work from a new contributor! :tada:
