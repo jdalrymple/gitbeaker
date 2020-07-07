@@ -1,3 +1,25 @@
+# 23.0.0 (Tue Jul 07 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, s-kazuki ([@s-kazuki](https://github.com/s-kazuki)), for all your work!
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - :up: create todos for issues [#925](https://github.com/jdalrymple/gitbeaker/pull/925) ([@s-kazuki](https://github.com/s-kazuki))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/released from 9.39.0 to 9.40.5 [#922](https://github.com/jdalrymple/gitbeaker/pull/922) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- s-kazuki ([@s-kazuki](https://github.com/s-kazuki))
+
+---
+
 # 22.0.1 (Thu Jun 25 2020)
 
 :tada: This release contains work from a new contributor! :tada:

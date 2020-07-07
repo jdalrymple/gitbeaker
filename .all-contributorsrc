@@ -234,6 +234,15 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "s-kazuki",
+      "name": "s-kazuki",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/9253374?v=4",
+      "profile": "https://github.com/s-kazuki",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
