@@ -1,3 +1,20 @@
+# v23.1.0 (Wed Jul 08 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing up the Type exports for all the distributed libraries [#795](https://github.com/jdalrymple/gitbeaker/pull/795) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 4.0.0 to 5.0.0 [#928](https://github.com/jdalrymple/gitbeaker/pull/928) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v22.0.0 (Sat Jun 20 2020)
 
 #### 🔩 Dependency Updates

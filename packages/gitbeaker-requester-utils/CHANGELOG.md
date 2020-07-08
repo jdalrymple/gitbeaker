@@ -1,3 +1,15 @@
+# v23.1.0 (Wed Jul 08 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing up the Type exports for all the distributed libraries [#795](https://github.com/jdalrymple/gitbeaker/pull/795) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change

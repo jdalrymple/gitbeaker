@@ -1,3 +1,37 @@
+# 23.1.0 (Wed Jul 08 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/requester-utils`
+  - Fixing up the Type exports for all the distributed libraries [#795](https://github.com/jdalrymple/gitbeaker/pull/795) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Removing exec plugin for auto in favour of local plugin ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/exec from 9.41.1 to 9.43.0 [#948](https://github.com/jdalrymple/gitbeaker/pull/948) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump auto from 9.41.1 to 9.43.0 [#942](https://github.com/jdalrymple/gitbeaker/pull/942) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.0 to 26.0.4 [#937](https://github.com/jdalrymple/gitbeaker/pull/937) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/jest-environment-puppeteer from 4.3.1 to 4.3.2 [#910](https://github.com/jdalrymple/gitbeaker/pull/910) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/puppeteer from 3.0.0 to 3.0.1 [#926](https://github.com/jdalrymple/gitbeaker/pull/926) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/node from 14.0.13 to 14.0.18 [#936](https://github.com/jdalrymple/gitbeaker/pull/936) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 23.16.0 to 23.18.0 [#933](https://github.com/jdalrymple/gitbeaker/pull/933) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.39.0 to 9.41.1 [#935](https://github.com/jdalrymple/gitbeaker/pull/935) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 8.0.1 to 8.1.0 [#909](https://github.com/jdalrymple/gitbeaker/pull/909) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump auto from 9.39.0 to 9.41.1 [#934](https://github.com/jdalrymple/gitbeaker/pull/934) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/exec from 9.39.0 to 9.41.1 [#938](https://github.com/jdalrymple/gitbeaker/pull/938) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump puppeteer from 4.0.0 to 5.0.0 [#928](https://github.com/jdalrymple/gitbeaker/pull/928) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.0.0 (Tue Jul 07 2020)
 
 :tada: This release contains work from a new contributor! :tada:
