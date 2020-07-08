@@ -1856,9 +1856,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/jest-environment-puppeteer@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@types/jest-environment-puppeteer/-/jest-environment-puppeteer-4.3.1.tgz#597d16fa0594a5daf1b3c08262bfbb011e146c2d"
-  integrity sha512-e7G12WRw525gsiz7NW3tKY+YWyNR08r3QvyC31rzMrnn7CkyGbsiskBjnR3koY/6jwIASgxO5knm4xJQ1KtbQQ==
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@types/jest-environment-puppeteer/-/jest-environment-puppeteer-4.3.2.tgz#630ad931d433b8197d29e0c6cb42a9faa91f591e"
+  integrity sha512-QVR49cGaQMOrWRN7CXlvtPMuVAxa3Z+W3APxhWoSQLG/lvz1y03ECPvS7Y9eK+hgfndK+39400rO6IifDJV9YA==
   dependencies:
     "@jest/environment" "^24"
     "@jest/fake-timers" "^24"
