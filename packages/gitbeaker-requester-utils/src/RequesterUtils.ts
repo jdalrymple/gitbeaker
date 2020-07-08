@@ -74,8 +74,8 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export interface Constructable {
-  new (...args: any[]): any;
+export interface Constructable<T = {}> {
+  new (...args: any[]): T;
 }
 
 function extendClass<T extends Constructable>(Base: T, customConfig: object): T {
