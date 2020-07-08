@@ -37,15 +37,15 @@ export function processBody(response) {
 
   switch (contentType) {
     case 'application/json': {
-      return response.body.length === 0 ? {} : JSON.parse(response.body.toString());
+      return response.json().then((j) => j || {});
     }
     case 'application/octet-stream':
     case 'binary/octet-stream':
     case 'application/gzip': {
-      return Buffer.from(response.body);
+      return response.buffer();
     }
     default: {
-      return response.body || '';
+      return response.text().then((t) => t || '');
     }
   }
 }
