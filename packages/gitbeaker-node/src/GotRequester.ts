@@ -66,7 +66,7 @@ export async function handler(endpoint, options) {
   }
 
   const { statusCode, headers } = response;
-  const body = processBody(response);
+  const body = await processBody(response);
 
   return { body, headers, status: statusCode };
 }
