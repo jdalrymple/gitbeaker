@@ -5,8 +5,7 @@ plugins:
   - released
   - first-time-contributor
   - all-contributors
-  - - exec
-    - beforeCommitChangelog: 'yarn lint:doc:fix && git add .'
+  - ./scripts/auto-before-commit-changelog-plugin.js
 
 labels:
   - name: breaking
