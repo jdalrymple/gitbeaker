@@ -183,12 +183,12 @@ describe('MergeRequests.changes', () => {
 });
 
 describe('MergeRequests.closesIssues', () => {
-  it('should request GET projects/:id/merge_requests/:id/closes_merge_requests', async () => {
+  it('should request GET projects/:id/merge_requests/:id/closes_issues', async () => {
     await service.closesIssues(2, 3);
 
     expect(RequestHelper.get).toHaveBeenCalledWith(
       service,
-      'projects/2/merge_requests/3/closes_merge_requests',
+      'projects/2/merge_requests/3/closes_issues',
       undefined,
     );
   });
