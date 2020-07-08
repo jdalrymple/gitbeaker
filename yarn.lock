@@ -21,17 +21,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.39.0.tgz#cdfca23b47918ab988f99d08d1214d3754cd1ea5"
   integrity sha512-MEEUmqi0tIR6vkvErpgEbzCKK9BHVYd4GGe9vKNxH8BffhZi2br9EOCMZTb494SdTpP8hV8e36jCMZdx1g/gZA==
 
-"@auto-it/bot-list@^9.41.1":
-  version "9.41.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.41.1.tgz#d7d9000d34a3b3dc603b04367ace27e373adc60f"
-  integrity sha512-jsl6JYi4hchjaEPEZFvQ5nR0Q5nAhEXb8As714o+t7kjh4LSBPTh1pjN+C8PIgYuLp7PavI1QSMTug3NRV+XfA==
+"@auto-it/bot-list@^9.43.0":
+  version "9.43.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.43.0.tgz#25d856ed26c7342e84eb74888a25459bbc50a936"
+  integrity sha512-zBqzcuAwBRJ/THICxM+TYZ5A01HI225FbaTGaroJYv2bKB19WO2/eQEZMCOwlGmMjVqcOnLXRSC/cV9LgcbxgA==
 
-"@auto-it/core@^9.39.0", "@auto-it/core@^9.41.1":
-  version "9.41.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.41.1.tgz#6b1caff74f21b5a0ec0b5fd0b31f592d04206b49"
-  integrity sha512-i4Vi/CQvRJcf6N8yBL1jaAZn47e1Lkt0aG3L1YpERBHfiqQzwiF9UqWtYbzkNwKt4mZqckR66J9vqyG6EGlp1w==
+"@auto-it/core@^9.39.0", "@auto-it/core@^9.41.1", "@auto-it/core@^9.43.0":
+  version "9.43.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.43.0.tgz#5ed63303de863085a5d4988b8ed51557d573c914"
+  integrity sha512-vjL167F8cBw4E3eaRbIHmwKmrIdqqzExGSy46D0s3lciKN+DaWnoVv+wyaYGRZ3Lvi3Klt5RDZs+7VQVWSip4g==
   dependencies:
-    "@auto-it/bot-list" "^9.41.1"
+    "@auto-it/bot-list" "^9.43.0"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -67,11 +67,11 @@
     url-join "^4.0.0"
 
 "@auto-it/exec@^9.30.3":
-  version "9.41.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.41.1.tgz#d1affdc78022b12def282fb5b2341689db39c8ff"
-  integrity sha512-jPSV/r9QcNY4bPTGfWxP0uyrYjEyPq9QzJOa4Dw1WOdSf/KhRUNM4fjZCS39CmKvn2fl3NgPzoUUNC7wqTIV2Q==
+  version "9.43.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/exec/-/exec-9.43.0.tgz#4fc0d63bae506e85f1f0eeaa3932618ab123dd22"
+  integrity sha512-OKmNcJ+16aTaM1C3RDAtXGDyIuhM+QPcLb1X5P+ZVspvFxlV/QHwLlIRFKZkZjwLYNcB0XyYVpr88lkapZQIbQ==
   dependencies:
-    "@auto-it/core" "^9.41.1"
+    "@auto-it/core" "^9.43.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "2.0.0"
