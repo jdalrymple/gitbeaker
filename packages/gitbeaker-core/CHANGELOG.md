@@ -1,3 +1,15 @@
+# v23.2.0 (Wed Jul 08 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing closes_issues endpoint [#953](https://github.com/jdalrymple/gitbeaker/pull/953) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.0.0 (Tue Jul 07 2020)
 
 :tada: This release contains work from a new contributor! :tada:

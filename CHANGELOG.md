@@ -1,3 +1,16 @@
+# 23.2.0 (Wed Jul 08 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing closes_issues endpoint [#953](https://github.com/jdalrymple/gitbeaker/pull/953) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.1.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
