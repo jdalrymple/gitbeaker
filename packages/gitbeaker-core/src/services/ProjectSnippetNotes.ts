@@ -11,7 +11,7 @@ export interface ProjectSnippetNotes extends ResourceNotes {
   all(
     projectId: string | number,
     snippetId: string | number,
-    options: PaginatedRequestOptions,
+    options?: PaginatedRequestOptions,
   ): Promise<GetResponse>;
 
   create(

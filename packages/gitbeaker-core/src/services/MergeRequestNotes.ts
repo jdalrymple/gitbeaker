@@ -11,7 +11,7 @@ export interface MergeRequestNotes extends ResourceNotes {
   all(
     projectId: string | number,
     mergerequestIid: string | number,
-    options: PaginatedRequestOptions,
+    options?: PaginatedRequestOptions,
   ): Promise<GetResponse>;
 
   create(
