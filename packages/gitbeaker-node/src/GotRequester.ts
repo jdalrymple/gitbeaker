@@ -34,18 +34,19 @@ export function defaultRequest(
 
 export function processBody(response) {
   const contentType = response.headers['content-type'] || '';
+  const { rawBody } = response;
 
   switch (contentType) {
     case 'application/json': {
-      return response.json().then((j) => j || {});
+      return rawBody.length === 0 ? {} : JSON.parse(rawBody.toString());
     }
     case 'application/octet-stream':
     case 'binary/octet-stream':
     case 'application/gzip': {
-      return response.buffer();
+      return Buffer.from(rawBody);
     }
     default: {
-      return response.text().then((t) => t || '');
+      return rawBody.toString();
     }
   }
 }
@@ -66,7 +67,7 @@ export async function handler(endpoint, options) {
   }
 
   const { statusCode, headers } = response;
-  const body = await processBody(response);
+  const body = processBody(response);
 
   return { body, headers, status: statusCode };
 }
