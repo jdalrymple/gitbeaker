@@ -11,7 +11,7 @@ export interface IssueNotes extends ResourceNotes {
   all(
     projectId: string | number,
     issueId: string | number,
-    options: PaginatedRequestOptions,
+    options?: PaginatedRequestOptions,
   ): Promise<GetResponse>;
 
   create(
