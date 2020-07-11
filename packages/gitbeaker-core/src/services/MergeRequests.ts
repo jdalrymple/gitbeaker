@@ -212,11 +212,7 @@ export class MergeRequests extends BaseService {
   closesIssues(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(
-      this,
-      `projects/${pId}/merge_requests/${mIid}/closes_merge_requests`,
-      options,
-    );
+    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/closes_issues`, options);
   }
 
   commits(projectId: string | number, mergerequestIid: number, options?: Sudo) {
