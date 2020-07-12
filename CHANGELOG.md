@@ -1,3 +1,18 @@
+# 23.4.0 (Sun Jul 12 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating min node version supported [#957](https://github.com/jdalrymple/gitbeaker/pull/957) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`, `@gitbeaker/node`
+  - Fixing encoding for requests of archive data [#954](https://github.com/jdalrymple/gitbeaker/pull/954) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.3.0 (Sat Jul 11 2020)
 
 #### 🐛 Bug Fix

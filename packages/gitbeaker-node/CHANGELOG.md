@@ -1,3 +1,16 @@
+# v23.4.0 (Sun Jul 12 2020)
+
+#### 🐛 Bug Fix
+
+- Updating min node version supported [#957](https://github.com/jdalrymple/gitbeaker/pull/957) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing encoding for requests of archive data [#954](https://github.com/jdalrymple/gitbeaker/pull/954) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change

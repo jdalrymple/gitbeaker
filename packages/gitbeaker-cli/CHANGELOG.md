@@ -1,3 +1,15 @@
+# v23.4.0 (Sun Jul 12 2020)
+
+#### 🐛 Bug Fix
+
+- Updating min node version supported [#957](https://github.com/jdalrymple/gitbeaker/pull/957) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.1.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
