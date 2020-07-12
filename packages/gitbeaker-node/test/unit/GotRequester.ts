@@ -8,16 +8,16 @@ jest.mock('got');
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
     const output = processBody({
-      body: JSON.stringify({ test: 5 }),
+      rawBody: Buffer.from(JSON.stringify({ test: 5 })),
       headers: { 'content-type': 'application/json' },
     });
 
     expect(output).toMatchObject({ test: 5 });
   });
 
-  it('should return a empty json object if type is application/json and body length is 0', async () => {
+  it('should return a empty json object if type is application/json and rawBody length is 0', async () => {
     const output = processBody({
-      body: JSON.stringify({}),
+      rawBody: Buffer.from(''),
       headers: { 'content-type': 'application/json' },
     });
 
@@ -27,15 +27,15 @@ describe('processBody', () => {
   it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
     const output = [
       processBody({
-        body: 'test',
+        rawBody: Buffer.from('test'),
         headers: { 'content-type': 'application/octet-stream' },
       }),
       processBody({
-        body: 'test',
+        rawBody: Buffer.from('test'),
         headers: { 'content-type': 'binary/octet-stream' },
       }),
       processBody({
-        body: 'test',
+        rawBody: Buffer.from('test'),
         headers: { 'content-type': 'application/gzip' },
       }),
     ];
@@ -43,17 +43,18 @@ describe('processBody', () => {
     output.forEach((o) => expect(o).toBeInstanceOf(Buffer));
   });
 
-  it('should return a the exact body given when presented with an unknown content-type', async () => {
+  it('should return a the exact rawBody given when presented with an unknown content-type', async () => {
     const output = processBody({
-      body: 6,
+      rawBody: Buffer.from('6'),
       headers: { 'content-type': 'fake' },
     });
 
-    expect(output).toBe(6);
+    expect(output).toBe('6');
   });
 
-  it('should return a empty string when presented with an unknown content-type and undefined body', async () => {
+  it('should return a empty string when presented with an unknown content-type and undefined rawBody', async () => {
     const output = processBody({
+      rawBody: Buffer.from(''),
       headers: { 'content-type': 'fake' },
     });
 
@@ -78,6 +79,15 @@ describe('handler', () => {
     });
   });
 
+  it('should throw error without description if no response information is present', async () => {
+    got.mockImplementationOnce(() => {
+      const e = {};
+      return Promise.reject(e);
+    });
+
+    await expect(handler('http://test.com', {})).rejects.toStrictEqual({});
+  });
+
   it('should return an error with a description when response has an message prop', async () => {
     got.mockImplementationOnce(() => {
       const e = { response: { body: { message: 'msg' } } };
@@ -98,7 +108,7 @@ describe('handler', () => {
     got.mockImplementationOnce(() => ({
       statusCode: 404,
       headers: {},
-      body: {},
+      rawBody: '{}',
     }));
 
     const output = await handler('http://test.com', {});
@@ -119,7 +129,7 @@ describe('defaultRequest', () => {
     requestTimeout: 50,
   };
 
-  it('should replace body property with json property if the body type is an object but not FormData', () => {
+  it('should replace rawBody property with json property if the rawBody type is an object but not FormData', () => {
     const output1 = defaultRequest(service, { body: { key: 1 } });
 
     expect(output1.body).toBeUndefined();
