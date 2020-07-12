@@ -32,9 +32,8 @@ export function defaultRequest(
   return options;
 }
 
-export function processBody(response) {
-  const contentType = response.headers['content-type'] || '';
-  const { rawBody } = response;
+export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: object }) {
+  const contentType = headers['content-type'] || '';
 
   switch (contentType) {
     case 'application/json': {
@@ -67,6 +66,7 @@ export async function handler(endpoint, options) {
   }
 
   const { statusCode, headers } = response;
+
   const body = processBody(response);
 
   return { body, headers, status: statusCode };
