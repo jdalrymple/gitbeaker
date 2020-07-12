@@ -1,5 +1,7 @@
 import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
+type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
+
 export class Repositories extends BaseService {
   compare(projectId: string | number, from: string, to: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
@@ -23,10 +25,13 @@ export class Repositories extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/merge_base`, { refs, ...options });
   }
 
-  showArchive(projectId: string | number, options?: { sha: string } & Sudo) {
+  showArchive(
+    projectId: string | number,
+    { fileType = 'tar.gz', ...options }: { fileType?: ArchiveType } & Sudo = {},
+  ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/archive`, options);
+    return RequestHelper.get(this, `projects/${pId}/repository/archive.${fileType}`, options);
   }
 
   showBlob(projectId: string | number, sha: string, options?: Sudo) {

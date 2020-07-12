@@ -32,20 +32,20 @@ export function defaultRequest(
   return options;
 }
 
-export function processBody(response) {
-  const contentType = response.headers['content-type'] || '';
+export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: object }) {
+  const contentType = headers['content-type'] || '';
 
   switch (contentType) {
     case 'application/json': {
-      return response.body.length === 0 ? {} : JSON.parse(response.body.toString());
+      return rawBody.length === 0 ? {} : JSON.parse(rawBody.toString());
     }
     case 'application/octet-stream':
     case 'binary/octet-stream':
     case 'application/gzip': {
-      return Buffer.from(response.body);
+      return Buffer.from(rawBody);
     }
     default: {
-      return response.body || '';
+      return rawBody.toString();
     }
   }
 }
@@ -66,6 +66,7 @@ export async function handler(endpoint, options) {
   }
 
   const { statusCode, headers } = response;
+
   const body = processBody(response);
 
   return { body, headers, status: statusCode };
