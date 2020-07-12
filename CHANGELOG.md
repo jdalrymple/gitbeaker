@@ -1,3 +1,16 @@
+# 23.3.0 (Sat Jul 11 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing type definitions for optional arguments [#956](https://github.com/jdalrymple/gitbeaker/pull/956) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.2.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix

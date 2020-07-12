@@ -11,7 +11,7 @@ export interface EpicNotes extends ResourceNotes {
   all(
     groupId: string | number,
     epicId: string | number,
-    options: PaginatedRequestOptions,
+    options?: PaginatedRequestOptions,
   ): Promise<GetResponse>;
 
   create(
