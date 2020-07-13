@@ -22,12 +22,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.43.1.tgz#9322d5a32312f6f06060bdf76b4f6aab038a25a8"
   integrity sha512-6G2qTS7oH7QD9grwiTPEv387t/MasKLmr8r896ZY9W8UTGVBV0pJf/WEeLopQkuvAn3W9NFhUeFrZ7I4tV5iDQ==
 
-"@auto-it/core@^9.43.1":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.43.1.tgz#ba0f1a159bcc5f647061225b3916903a9ac12e31"
-  integrity sha512-7EdtYafT7cRNMPpdhRpGJJ8I6bhAHLH9YqoKl5nYujlJriBSmE7ym3hyQgrtHjVPskzWYIqrZLhf47iAK5laXw==
+"@auto-it/bot-list@^9.44.0":
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.44.0.tgz#ddb7bdc6bae3b12f8154ded162bc44b6d6fcb244"
+  integrity sha512-FlTDJjbVdXJ0tAT1zoFSAOQpZiRJQNrnFB8yu3Z6LdfLnGC/dgkSsmkbO3BjgvmmNUXmZBxr67DH/Afdu94tzw==
+
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.44.0":
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.44.0.tgz#ec7a5e3331b654cf816c9216c378983804459499"
+  integrity sha512-PLE6haTjIFjeV4gEEt5/96zgLPfxVSGjI+lDEm4P8zb+ONUHwtLOq2IZ/XKflt8iXl+uS4TlrzYk8gPau8nWaA==
   dependencies:
-    "@auto-it/bot-list" "^9.43.1"
+    "@auto-it/bot-list" "^9.44.0"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -52,6 +57,7 @@
     lodash.chunk "^4.2.0"
     log-symbols "^4.0.0"
     node-fetch "2.6.0"
+    parse-author "^2.0.0"
     parse-github-url "1.0.2"
     semver "^7.0.0"
     signale "^1.4.0"
@@ -94,11 +100,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.43.1":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.43.1.tgz#0ce94282bd6265b0c18ee2a6134018cf54a9f5b7"
-  integrity sha512-Pwf9clpP91PHE4E698vpDyR7NBeHnDi46eOibBChz5TB0JTrSkcz0JW6+vNipda0Rr5fLz7DdYohNtuJLRl1UA==
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.44.0.tgz#0e21850eac6c153e985f3460b0e0bf9275f77b43"
+  integrity sha512-Gc0TRT7+KBcaL54uCeODbvaKy2qCJHbJfvDuWDZuK9U6FNRv2VbA0VpqSvpO0MRosFwxFRKYmbOdQ5EzIEh7Lg==
   dependencies:
-    "@auto-it/core" "^9.43.1"
+    "@auto-it/core" "^9.44.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
