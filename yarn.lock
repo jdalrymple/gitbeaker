@@ -22,12 +22,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.43.1.tgz#9322d5a32312f6f06060bdf76b4f6aab038a25a8"
   integrity sha512-6G2qTS7oH7QD9grwiTPEv387t/MasKLmr8r896ZY9W8UTGVBV0pJf/WEeLopQkuvAn3W9NFhUeFrZ7I4tV5iDQ==
 
-"@auto-it/core@^9.43.1":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.43.1.tgz#ba0f1a159bcc5f647061225b3916903a9ac12e31"
-  integrity sha512-7EdtYafT7cRNMPpdhRpGJJ8I6bhAHLH9YqoKl5nYujlJriBSmE7ym3hyQgrtHjVPskzWYIqrZLhf47iAK5laXw==
+"@auto-it/bot-list@^9.44.0":
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.44.0.tgz#ddb7bdc6bae3b12f8154ded162bc44b6d6fcb244"
+  integrity sha512-FlTDJjbVdXJ0tAT1zoFSAOQpZiRJQNrnFB8yu3Z6LdfLnGC/dgkSsmkbO3BjgvmmNUXmZBxr67DH/Afdu94tzw==
+
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.44.0":
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.44.0.tgz#ec7a5e3331b654cf816c9216c378983804459499"
+  integrity sha512-PLE6haTjIFjeV4gEEt5/96zgLPfxVSGjI+lDEm4P8zb+ONUHwtLOq2IZ/XKflt8iXl+uS4TlrzYk8gPau8nWaA==
   dependencies:
-    "@auto-it/bot-list" "^9.43.1"
+    "@auto-it/bot-list" "^9.44.0"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -52,6 +57,7 @@
     lodash.chunk "^4.2.0"
     log-symbols "^4.0.0"
     node-fetch "2.6.0"
+    parse-author "^2.0.0"
     parse-github-url "1.0.2"
     semver "^7.0.0"
     signale "^1.4.0"
@@ -63,11 +69,11 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.43.1.tgz#f43c09ccacbbb29b5648916d417300d4a1099038"
-  integrity sha512-wUZSmzTUNcA0iUlkIyebOVqvS07wAUIR/flUlA2LniZlmPFJsI2xBREQ0/DjGRyxOnythowI5QipnZnu5Ugaog==
+  version "9.44.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.44.0.tgz#53412aa9734ec7e5aa169b6f127f00f091570191"
+  integrity sha512-abml1SRq2Z2k2v/FlX8prZE3jk+CxwxxpNtAResOK7QF1FtVrgdAqiWsD09ug7C9WaU0Gri9bhxNN/QvLSWfEA==
   dependencies:
-    "@auto-it/core" "^9.43.1"
+    "@auto-it/core" "^9.44.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.0"
