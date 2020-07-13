@@ -10,7 +10,7 @@
     "@auto-it/released": "^9.29.0",
     "@types/jest": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
+    "@typescript-eslint/parser": "^3.6.0",
     "all-contributors-cli": "^6.14.2",
     "auto": "^9.29.0",
     "codecov": "^3.6.5",
