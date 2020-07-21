@@ -17,22 +17,17 @@
     io-ts "^2.1.2"
     tslib "2.0.0"
 
-"@auto-it/bot-list@^9.43.1":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.43.1.tgz#9322d5a32312f6f06060bdf76b4f6aab038a25a8"
-  integrity sha512-6G2qTS7oH7QD9grwiTPEv387t/MasKLmr8r896ZY9W8UTGVBV0pJf/WEeLopQkuvAn3W9NFhUeFrZ7I4tV5iDQ==
-
-"@auto-it/bot-list@^9.47.0":
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.0.tgz#c08cd67002f5acd7f686a4108c9cdc99770807c3"
-  integrity sha512-Zo6OFR5aSpU/7f7nv/e3EF1Or0v1BUaJaGYIVCGMD7yJrWc2X7SR5bZ+j0HojaZwvLej8qELNB4ZUV+SXJFhRA==
+"@auto-it/bot-list@^9.43.1", "@auto-it/bot-list@^9.47.1":
+  version "9.47.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
+  integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
 "@auto-it/core@^9.43.1", "@auto-it/core@^9.47.0":
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.47.0.tgz#6609e5f77255300fff4f2609eff8caa3857bda60"
-  integrity sha512-C7kLRrnTwWB9lBiwTAJLXr3wvhg/+zchC7bCOC8FAtIwZxWV/s0peFKaN0RAKerxGzO940yciNzkYKVRvG9EFQ==
+  version "9.47.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.47.1.tgz#0d51c78f43a9688252f485c25156f919a304fbb7"
+  integrity sha512-jqNIz6aTlc2f2RwK598PVXYMyusHSiEWqp/aoH6B+e0oQwIzU9xkbxEaSR9fMSirnQNLFEO49hr/MakFBMC1Ng==
   dependencies:
-    "@auto-it/bot-list" "^9.47.0"
+    "@auto-it/bot-list" "^9.47.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
