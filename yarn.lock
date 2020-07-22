@@ -3,13 +3,13 @@
 
 
 "@auto-it/all-contributors@^9.29.0":
-  version "9.43.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.43.1.tgz#c0e0795f7890bf238859eb858e49f67df8a3a1a6"
-  integrity sha512-u67tfDhvBM3mtR5vZ1KQoGNkWw6skL9MDhSCK4q8Hh5z1nM82ujxcviRneiNqAd9yDrJWd4/xftjJNRuCaQwFA==
+  version "9.47.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.47.1.tgz#b8b83da3a5ceeb08aafbe9b6f1e4915cf87fc4dc"
+  integrity sha512-qJgnLqB7Iod1hBIYxNn1e07P1BwC1YfjnfevBmqdakb9jJzF+8pi2gVAJ7YhRaPI6gn6vBP7U1oYW2Ws5/iKVw==
   dependencies:
-    "@auto-it/bot-list" "^9.43.1"
-    "@auto-it/core" "^9.43.1"
-    all-contributors-cli "6.16.0"
+    "@auto-it/bot-list" "^9.47.1"
+    "@auto-it/core" "^9.47.1"
+    all-contributors-cli "6.16.1"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     fp-ts "^2.5.3"
@@ -17,12 +17,12 @@
     io-ts "^2.1.2"
     tslib "2.0.0"
 
-"@auto-it/bot-list@^9.43.1", "@auto-it/bot-list@^9.47.1":
+"@auto-it/bot-list@^9.47.1":
   version "9.47.1"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
   integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
-"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.0":
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.0", "@auto-it/core@^9.47.1":
   version "9.47.1"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.47.1.tgz#0d51c78f43a9688252f485c25156f919a304fbb7"
   integrity sha512-jqNIz6aTlc2f2RwK598PVXYMyusHSiEWqp/aoH6B+e0oQwIzU9xkbxEaSR9fMSirnQNLFEO49hr/MakFBMC1Ng==
@@ -95,11 +95,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.47.0":
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.47.0.tgz#f8baf8c06f81329627188d44771a00d4f011bf9a"
-  integrity sha512-YQfMT21ZY3pEJUu46mZP4mJWZ1X1RbFX15ObvkNNa5/CixIGPbGTprvS/cmnEm8m32DS/db1eQ3OcHfqdnaeLg==
+  version "9.47.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.47.1.tgz#85f481a9dacbad86f735d461836db15f1e823e0a"
+  integrity sha512-wOa72zDR+JvUPnIfH55DraiElAoFLgwaRsATTcK5APUY8rPyTinsxA1mlbokNKoGPI4wAnkf5WlRBEw13oV6iA==
   dependencies:
-    "@auto-it/core" "^9.47.0"
+    "@auto-it/core" "^9.47.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2129,23 +2129,7 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-contributors-cli@6.16.0:
-  version "6.16.0"
-  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.16.0.tgz#c998634778f0e2ba5ac1784df6fc3837b34a7c43"
-  integrity sha512-CHBqxhC31G3LY3gBiTl93+tVMI/QBfqqBf3/HN1T0O1WSVxx60JX9kvG+rsk7YRMaOqL/0yF6wV5cMtfL4gS7w==
-  dependencies:
-    "@babel/runtime" "^7.7.6"
-    async "^3.0.1"
-    chalk "^4.0.0"
-    didyoumean "^1.2.1"
-    inquirer "^7.0.4"
-    json-fixer "^1.4.0"
-    lodash "^4.11.2"
-    pify "^5.0.0"
-    request "^2.72.0"
-    yargs "^15.0.1"
-
-all-contributors-cli@^6.14.2:
+all-contributors-cli@6.16.1, all-contributors-cli@^6.14.2:
   version "6.16.1"
   resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.16.1.tgz#a08ff137df63a22a6f6bf20a8df3fdf79b1b6ca8"
   integrity sha512-8Hu4vHwW8VF28EBmgCpyfleOG8jCU0RB5sEFMuHzIKy8lUidV2Qo/1GfQ1b78ekB4mYMgdMvfDJd5IKtfzUeGg==
@@ -3112,9 +3096,9 @@ code-point-at@^1.0.0:
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
 codecov@^3.6.5:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.7.1.tgz#434cb8d55f18ef01672e5739d3d266696bebc202"
-  integrity sha512-JHWxyPTkMLLJn9SmKJnwAnvY09kg2Os2+Ux+GG7LwZ9g8gzDDISpIN5wAsH1UBaafA/yGcd3KofMaorE8qd6Lw==
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.7.2.tgz#998e68c8c1ef4b55cfcf11cd456866d35e13d693"
+  integrity sha512-fmCjAkTese29DUX3GMIi4EaKGflHa4K51EoMc29g8fBHawdk/+KEq5CWOeXLdd9+AT7o1wO4DIpp/Z1KCqCz1g==
   dependencies:
     argv "0.0.2"
     ignore-walk "3.0.3"
@@ -6438,7 +6422,7 @@ json-buffer@3.0.1:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
   integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
 
-json-fixer@^1.4.0, json-fixer@^1.5.1:
+json-fixer@^1.5.1:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/json-fixer/-/json-fixer-1.5.2.tgz#1c99f7f2e93106a105f1311fec7c13c6925a0a93"
   integrity sha512-J5NurfFCzJuSEErPKGTLTTwBk3WQ6GtuaqBovkJxcYha2PHU6//HM/YXO5bTDdAOe9LzLhaBaZO2FAtNjk4/Tg==
@@ -6560,10 +6544,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-ky@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.21.0.tgz#341eafec690f8a314392a9869074cc4665992bfa"
-  integrity sha512-b0byZCPvuikmLj3vSH7V/LdkzBC5rpiRr75ZD9PLg9nGMO1u3o1kmzaMPvVvQolyZnNqtuvm0eq3h3nMUzg98A==
+ky@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
+  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
 
 lazy-cache@^0.2.3:
   version "0.2.7"
