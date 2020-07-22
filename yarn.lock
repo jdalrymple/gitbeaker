@@ -95,11 +95,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.47.0":
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.47.0.tgz#f8baf8c06f81329627188d44771a00d4f011bf9a"
-  integrity sha512-YQfMT21ZY3pEJUu46mZP4mJWZ1X1RbFX15ObvkNNa5/CixIGPbGTprvS/cmnEm8m32DS/db1eQ3OcHfqdnaeLg==
+  version "9.47.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.47.1.tgz#85f481a9dacbad86f735d461836db15f1e823e0a"
+  integrity sha512-wOa72zDR+JvUPnIfH55DraiElAoFLgwaRsATTcK5APUY8rPyTinsxA1mlbokNKoGPI4wAnkf5WlRBEw13oV6iA==
   dependencies:
-    "@auto-it/core" "^9.47.0"
+    "@auto-it/core" "^9.47.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -6544,10 +6544,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-ky@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.21.0.tgz#341eafec690f8a314392a9869074cc4665992bfa"
-  integrity sha512-b0byZCPvuikmLj3vSH7V/LdkzBC5rpiRr75ZD9PLg9nGMO1u3o1kmzaMPvVvQolyZnNqtuvm0eq3h3nMUzg98A==
+ky@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
+  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
 
 lazy-cache@^0.2.3:
   version "0.2.7"
