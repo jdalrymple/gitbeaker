@@ -1,3 +1,27 @@
+# 23.4.1 (Wed Jul 22 2020)
+
+#### 🏿‍♀️ Security
+
+- [security] chore(deps-dev): bump codecov from 3.7.0 to 3.7.1 [#991](https://github.com/jdalrymple/gitbeaker/pull/991) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump typescript from 3.9.6 to 3.9.7 [#992](https://github.com/jdalrymple/gitbeaker/pull/992) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/core from 9.47.0 to 9.47.1 [#995](https://github.com/jdalrymple/gitbeaker/pull/995) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.46.0 to 9.47.0 [#988](https://github.com/jdalrymple/gitbeaker/pull/988) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump openpgp from 4.10.4 to 4.10.6 [#989](https://github.com/jdalrymple/gitbeaker/pull/989) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps): bump got from 11.5.0 to 11.5.1 [#990](https://github.com/jdalrymple/gitbeaker/pull/990) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.43.1 to 9.46.0 [#981](https://github.com/jdalrymple/gitbeaker/pull/981) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps): bump ky from 0.20.0 to 0.21.0 [#961](https://github.com/jdalrymple/gitbeaker/pull/961) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,16 @@
+# v23.4.1 (Wed Jul 22 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump ky from 0.20.0 to 0.21.0 [#961](https://github.com/jdalrymple/gitbeaker/pull/961) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
