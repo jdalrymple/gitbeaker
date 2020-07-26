@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^9.29.0":
-  version "9.47.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.47.1.tgz#b8b83da3a5ceeb08aafbe9b6f1e4915cf87fc4dc"
-  integrity sha512-qJgnLqB7Iod1hBIYxNn1e07P1BwC1YfjnfevBmqdakb9jJzF+8pi2gVAJ7YhRaPI6gn6vBP7U1oYW2Ws5/iKVw==
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.48.1.tgz#8ed22bfd8cba94d6621f536c0dc77d2a8b55deee"
+  integrity sha512-cCxWEtqmYp8mVUKTgQwt7zlo4qxgf6YHqXO3ifDmIl2o9XvwapBHgGeBAYmGM1wTBU06T5gvlQ/Co3ePUFt60A==
   dependencies:
-    "@auto-it/bot-list" "^9.47.1"
-    "@auto-it/core" "^9.47.1"
+    "@auto-it/bot-list" "^9.48.1"
+    "@auto-it/core" "^9.48.1"
     all-contributors-cli "6.16.1"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
@@ -16,11 +16,6 @@
     fromentries "^1.2.0"
     io-ts "^2.1.2"
     tslib "2.0.0"
-
-"@auto-it/bot-list@^9.47.1":
-  version "9.47.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
-  integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
 "@auto-it/bot-list@^9.48.1":
   version "9.48.1"
