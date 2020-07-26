@@ -22,12 +22,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
   integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
-"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.0", "@auto-it/core@^9.47.1":
-  version "9.47.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.47.1.tgz#0d51c78f43a9688252f485c25156f919a304fbb7"
-  integrity sha512-jqNIz6aTlc2f2RwK598PVXYMyusHSiEWqp/aoH6B+e0oQwIzU9xkbxEaSR9fMSirnQNLFEO49hr/MakFBMC1Ng==
+"@auto-it/bot-list@^9.48.1":
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.48.1.tgz#686e57ca2c16750e60ca14f1f6a461cc21cd8a6c"
+  integrity sha512-3ompaZzPQE4EcqBWK+/sByKiakIDuYRzNp7mAlMD8WsE1VS+w8PG74LAamC5KtA1uvQOrrlgvG/u+V+N5f0UFA==
+
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.1", "@auto-it/core@^9.48.1":
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.48.1.tgz#6bdafe6aa2b6d68926129dcba3a0ff5a8205eb80"
+  integrity sha512-MtES3sjGnQTAYHV10Oe4gcyrDI0MxeXCD5Dpqsosw/EGC9hw7uwHlkLKgmUohuQOgFJyF1aZ2RV089C8xHuTgQ==
   dependencies:
-    "@auto-it/bot-list" "^9.47.1"
+    "@auto-it/bot-list" "^9.48.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -74,12 +79,12 @@
     tslib "2.0.0"
     url-join "^4.0.0"
 
-"@auto-it/npm@^9.47.0":
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.47.0.tgz#1c8d87c5488569c0a8a6468315e87b10c8797187"
-  integrity sha512-Gy5dIMDto3BaZVGb78fr5Il4JABbQM7r3XrazC46JTKnSN13y2IpFqmNG4/inBCY2PD5hcVlDPKwqXlUc0SKdg==
+"@auto-it/npm@^9.48.1":
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.48.1.tgz#943d990fa80b8c4026626a50bdad1b730823d97d"
+  integrity sha512-RREsNyNsuy9Lp8nycUaXl/cwaBgpl6n80nXtW6024sfrCVHQj38q6vf4jVuUMoUHK867vcwl3MCWnnUx/f2Z1Q==
   dependencies:
-    "@auto-it/core" "^9.47.0"
+    "@auto-it/core" "^9.48.1"
     await-to-js "^2.1.1"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
@@ -94,12 +99,12 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@^9.29.0", "@auto-it/released@^9.47.0":
-  version "9.47.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.47.1.tgz#85f481a9dacbad86f735d461836db15f1e823e0a"
-  integrity sha512-wOa72zDR+JvUPnIfH55DraiElAoFLgwaRsATTcK5APUY8rPyTinsxA1mlbokNKoGPI4wAnkf5WlRBEw13oV6iA==
+"@auto-it/released@^9.29.0", "@auto-it/released@^9.48.1":
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.48.1.tgz#da901ac455d1366baa12e4411bd33be6a1c02fcf"
+  integrity sha512-aPQoYEc55T0aorIgW5rDDYBII58d0YtscGdfuF1L4ZBZgArISO2KqT/mi0zwYJORiOVej86agtPucnGX9pU+ZQ==
   dependencies:
-    "@auto-it/core" "^9.47.1"
+    "@auto-it/core" "^9.48.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2433,13 +2438,13 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.29.0:
-  version "9.47.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.47.0.tgz#10fcb452e2a790f47ef8e20a32796c8d80d35250"
-  integrity sha512-BiF1crto0KU0TN5YbOWL52CWsLZUj0N2fqy0gBaKFmUxEPql6Tlam+teqtTzLOFv/6ew1Z8Ot4sdXu7UZNweyQ==
+  version "9.48.1"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-9.48.1.tgz#65defe0dc1f47fd6bb93e5ba54e798c10bed82e6"
+  integrity sha512-6WRwQfzsGzioX9p7wpHuPceA5bAmyn4H6Decv6AjmSCggtQTNOPWRwVyVWylcaa97QIwh8imbVq+gSYHfcrQ4w==
   dependencies:
-    "@auto-it/core" "^9.47.0"
-    "@auto-it/npm" "^9.47.0"
-    "@auto-it/released" "^9.47.0"
+    "@auto-it/core" "^9.48.1"
+    "@auto-it/npm" "^9.48.1"
+    "@auto-it/released" "^9.48.1"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
     command-line-application "^0.10.1"
@@ -8929,9 +8934,9 @@ rollup-pluginutils@^2.3.1:
     estree-walker "^0.6.1"
 
 rollup@^2.12.0, rollup@^2.18.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.21.0.tgz#d2e114533812043d5c9b7b0a83f1b2a242e4e1d6"
-  integrity sha512-BEGgy+wSzux7Ycq58pRiWEOBZaXRXTuvzl1gsm7gqmsAHxkWf9nyA5V2LN9fGSHhhDQd0/C13iRzSh4bbIpWZQ==
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.23.0.tgz#b7ab1fee0c0e60132fd0553c4df1e9cdacfada9d"
+  integrity sha512-vLNmZFUGVwrnqNAJ/BvuLk1MtWzu4IuoqsH9UWK5AIdO3rt8/CSiJNvPvCIvfzrbNsqKbNzPAG1V2O4eTe2XZg==
   optionalDependencies:
     fsevents "~2.1.2"
 
