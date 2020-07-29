@@ -22,17 +22,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
   integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
-"@auto-it/bot-list@^9.48.1":
-  version "9.48.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.48.1.tgz#686e57ca2c16750e60ca14f1f6a461cc21cd8a6c"
-  integrity sha512-3ompaZzPQE4EcqBWK+/sByKiakIDuYRzNp7mAlMD8WsE1VS+w8PG74LAamC5KtA1uvQOrrlgvG/u+V+N5f0UFA==
+"@auto-it/bot-list@^9.48.2":
+  version "9.48.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.48.2.tgz#ef24292efae12c54a69c21db73d58f54003cdecf"
+  integrity sha512-H45NuFiCVJtoD/zNGJC6davdrS0C7e7OxTRCHeAlRKnDBIGa+d1OTlJTboAmkQQJFXhuIKMRDJsLTm3N30wt5Q==
 
-"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.1", "@auto-it/core@^9.48.1":
-  version "9.48.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.48.1.tgz#6bdafe6aa2b6d68926129dcba3a0ff5a8205eb80"
-  integrity sha512-MtES3sjGnQTAYHV10Oe4gcyrDI0MxeXCD5Dpqsosw/EGC9hw7uwHlkLKgmUohuQOgFJyF1aZ2RV089C8xHuTgQ==
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.1", "@auto-it/core@^9.48.1", "@auto-it/core@^9.48.2":
+  version "9.48.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.48.2.tgz#b1dac5afc45df6eb2d3f0ae2269ea93b7abbcd8a"
+  integrity sha512-2jtoceKp9kW+vxz/jDQ4TFrfBgDJzkSUlMv6jS+Y2+nmf9cX4p8adsjsLUMfdpoFY4cyWs7TwLmoC/rbcK648Q==
   dependencies:
-    "@auto-it/bot-list" "^9.48.1"
+    "@auto-it/bot-list" "^9.48.2"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -100,11 +100,11 @@
     user-home "^2.0.0"
 
 "@auto-it/released@^9.29.0", "@auto-it/released@^9.48.1":
-  version "9.48.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.48.1.tgz#da901ac455d1366baa12e4411bd33be6a1c02fcf"
-  integrity sha512-aPQoYEc55T0aorIgW5rDDYBII58d0YtscGdfuF1L4ZBZgArISO2KqT/mi0zwYJORiOVej86agtPucnGX9pU+ZQ==
+  version "9.48.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.48.2.tgz#c98938d5b21b3a77f98856d5e14511fd4a18dbe5"
+  integrity sha512-JXChuhjTGs6dpP1BQOv9seTymUW0Mo4g49XElQ2ikDSYbV++vKEkVz/kGCsGh5ye2pehU/F079xiKDef2Jj/QA==
   dependencies:
-    "@auto-it/core" "^9.48.1"
+    "@auto-it/core" "^9.48.2"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
