@@ -1,5 +1,4 @@
 import Got from 'got';
-import * as FormData from 'form-data';
 import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import {
@@ -15,7 +14,8 @@ export function defaultRequest(
 ) {
   const options = baseDefaultRequest(service, { body, query, sudo, method });
 
-  if (typeof body === 'object' && !(body instanceof FormData)) {
+  // FIXME: Not the best comparison, but...it will have to do for now.
+  if (typeof body === 'object' && body.constructor.name !== 'FormData') {
     options.json = decamelizeKeys(body);
 
     delete options.body;
