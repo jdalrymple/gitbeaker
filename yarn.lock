@@ -22,17 +22,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.47.1.tgz#1a6a0137cdbc070207672309a835fe474b0ae9df"
   integrity sha512-QriSPhziHVdzqoQMTvFUkT7SHPmY7YfZt/JC0fiwwzh9cGGgwqVdS6BB1btW1zLsz4MZiZxSHBzXmuOeQOaj6Q==
 
-"@auto-it/bot-list@^9.48.1":
-  version "9.48.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.48.1.tgz#686e57ca2c16750e60ca14f1f6a461cc21cd8a6c"
-  integrity sha512-3ompaZzPQE4EcqBWK+/sByKiakIDuYRzNp7mAlMD8WsE1VS+w8PG74LAamC5KtA1uvQOrrlgvG/u+V+N5f0UFA==
+"@auto-it/bot-list@^9.49.5":
+  version "9.49.5"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.49.5.tgz#13445883e5856c6426b19180e61c51b459b997f7"
+  integrity sha512-q3ZAlGH5QOcHxRFD7k3tV4vnxo1VSstW80xPN9BYg1CJbbrGSEHXRRz2yCZEAuk67s3m4UuSAlQ7Fydac10sIQ==
 
-"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.1", "@auto-it/core@^9.48.1":
-  version "9.48.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.48.1.tgz#6bdafe6aa2b6d68926129dcba3a0ff5a8205eb80"
-  integrity sha512-MtES3sjGnQTAYHV10Oe4gcyrDI0MxeXCD5Dpqsosw/EGC9hw7uwHlkLKgmUohuQOgFJyF1aZ2RV089C8xHuTgQ==
+"@auto-it/core@^9.43.1", "@auto-it/core@^9.47.1", "@auto-it/core@^9.48.1", "@auto-it/core@^9.49.5":
+  version "9.49.5"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.49.5.tgz#0e91d954b664a591f312d4a6fc17475232977606"
+  integrity sha512-CA/XIazoBYyM6JnmPzkT2Pt1KSyY5vYh3i1a+UY88N9jKhHv2vwiTrQv6b8NgEcy0mTUk3/+WVFuuaWNCQsQVg==
   dependencies:
-    "@auto-it/bot-list" "^9.48.1"
+    "@auto-it/bot-list" "^9.49.5"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -59,21 +59,23 @@
     node-fetch "2.6.0"
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
     semver "^7.0.0"
     signale "^1.4.0"
     tapable "^2.0.0-beta.2"
     terminal-link "^2.1.1"
     tinycolor2 "^1.4.1"
     tslib "2.0.0"
+    type-fest "^0.16.0"
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.47.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.47.1.tgz#f9a734f448a19e954996f255b4475c2432e9fd6f"
-  integrity sha512-EstFTc/N48sW0DxuBhRp7LYBc4aTFG0KPNQyvF09NwyXyRleZYlhbwd7s+es99gF1oX+Ma0w00EMr6HQbThZbA==
+  version "9.49.5"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.49.5.tgz#8e0d86190fddb4e9598c79be72d92ac30ca8da83"
+  integrity sha512-oTLWbllc/f7rDdLrw4OzdoAm2/BkpxTLv4V2E+s5NmfEBuJ9HbpgL3JsfE8r68avEjXmJ3e/6KigzAGVSuBzqw==
   dependencies:
-    "@auto-it/core" "^9.47.1"
+    "@auto-it/core" "^9.49.5"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.0"
@@ -2134,10 +2136,26 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-contributors-cli@6.16.1, all-contributors-cli@^6.14.2:
+all-contributors-cli@6.16.1:
   version "6.16.1"
   resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.16.1.tgz#a08ff137df63a22a6f6bf20a8df3fdf79b1b6ca8"
   integrity sha512-8Hu4vHwW8VF28EBmgCpyfleOG8jCU0RB5sEFMuHzIKy8lUidV2Qo/1GfQ1b78ekB4mYMgdMvfDJd5IKtfzUeGg==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+    async "^3.0.1"
+    chalk "^4.0.0"
+    didyoumean "^1.2.1"
+    inquirer "^7.0.4"
+    json-fixer "^1.5.1"
+    lodash "^4.11.2"
+    pify "^5.0.0"
+    request "^2.72.0"
+    yargs "^15.0.1"
+
+all-contributors-cli@^6.14.2:
+  version "6.17.0"
+  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.17.0.tgz#cd671f224e5e54c9c13b6e4ffc2b71c6523056d1"
+  integrity sha512-sFU794ve7oo3l6D14LkJBPzWZ5RopLcjfhymOZeiud1KP7BNrOJxjB1WSJLVWlD8h2tzxERbotdt8PcCHO9ApQ==
   dependencies:
     "@babel/runtime" "^7.7.6"
     async "^3.0.1"
@@ -4045,9 +4063,9 @@ eslint-plugin-import@^2.20.2:
     tsconfig-paths "^3.9.0"
 
 eslint-plugin-jest@^23.8.2:
-  version "23.18.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.18.0.tgz#4813eacb181820ed13c5505f400956d176b25af8"
-  integrity sha512-wLPM/Rm1SGhxrFQ2TKM/BYsYPhn7ch6ZEK92S2o/vGkAAnDXM0I4nTIo745RIX+VlCRMFgBuJEax6XfTHMdeKg==
+  version "23.20.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.20.0.tgz#e1d69c75f639e99d836642453c4e75ed22da4099"
+  integrity sha512-+6BGQt85OREevBDWCvhqj1yYA4+BFK4XnRZSGJionuEYmcglMZYLNNBBemwzbqUAckURaHdJSBcjHPyrtypZOw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -7722,9 +7740,9 @@ opencollective-postinstall@^2.0.2:
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
 openpgp@^4.10.4:
-  version "4.10.6"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.6.tgz#847dc08e4c668a4b08afe50af1d2d0a966b3cf41"
-  integrity sha512-xSV5lmaKtHOltsCW0cA++GoOZ6zEuJ1lASsFsUIeWssipsN3yW7WaPNzNI2YUbY5l5C9VI6wTNOPZhOj+k8n5w==
+  version "4.10.7"
+  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.7.tgz#e969239ebb689093c5a73ea97e73a7d9c2a565eb"
+  integrity sha512-+7EkD/btnvIyGkslB0p3W123u/dajMBcfzMfOIevlZBPvCWLJXGzgNFMM5CYXUNITeBUpxCxwgHeniqr+UfESQ==
   dependencies:
     asn1.js "^5.0.0"
     node-fetch "^2.1.2"
@@ -7959,6 +7977,11 @@ parse-json@^5.0.0:
     error-ex "^1.3.1"
     json-parse-better-errors "^1.0.1"
     lines-and-columns "^1.1.6"
+
+parse-ms@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/parse-ms/-/parse-ms-2.1.0.tgz#348565a753d4391fa524029956b172cb7753097d"
+  integrity sha512-kHt7kzLoS9VBZfUsiKjv43mr91ea+U05EyKkEtqp7vNbHxmaVuEqN7XxeEVnGrMtYOAxGrDElSi96K7EgO1zCA==
 
 parse-passwd@^1.0.0:
   version "1.0.0"
@@ -8223,6 +8246,13 @@ pretty-format@^25.2.1, pretty-format@^25.5.0:
     ansi-regex "^5.0.0"
     ansi-styles "^4.0.0"
     react-is "^16.12.0"
+
+pretty-ms@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pretty-ms/-/pretty-ms-7.0.0.tgz#45781273110caf35f55cab21a8a9bd403a233dc0"
+  integrity sha512-J3aPWiC5e9ZeZFuSeBraGxSkGMOvulSWsxDByOcbD1Pr75YL3LSNIKIb52WXbCLE1sS5s4inBBbryjF4Y05Ceg==
+  dependencies:
+    parse-ms "^2.1.0"
 
 process-es6@^0.11.2, process-es6@^0.11.6:
   version "0.11.6"
@@ -10031,6 +10061,11 @@ type-fest@^0.13.1:
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.13.1.tgz#0172cb5bce80b0bd542ea348db50c7e21834d934"
   integrity sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==
+
+type-fest@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.16.0.tgz#3240b891a78b0deae910dbeb86553e552a148860"
+  integrity sha512-eaBzG6MxNzEn9kiwvtre90cXaNLkmadMWa1zQMs3XORCXNbsH/OewwbxC5ia9dCxIxnTAsSxXJaa/p5y8DlvJg==
 
 type-fest@^0.3.0:
   version "0.3.1"
