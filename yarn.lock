@@ -1904,9 +1904,9 @@
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
 "@types/node@*", "@types/node@>= 8", "@types/node@^14.0.14", "@types/node@^14.0.6":
-  version "14.0.20"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.20.tgz#0da05cddbc761e1fa98af88a17244c8c1ff37231"
-  integrity sha512-MRn/NP3dee8yL5QhbSA6riuwkS+UOcsPUMOIOG3KMUQpuor/2TopdRBu8QaaB4fGU+gz/bzyDWt0FtUbeJ8H1A==
+  version "14.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.27.tgz#a151873af5a5e851b51b3b065c9e63390a9e0eb1"
+  integrity sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -4063,9 +4063,9 @@ eslint-plugin-import@^2.20.2:
     tsconfig-paths "^3.9.0"
 
 eslint-plugin-jest@^23.8.2:
-  version "23.18.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.18.0.tgz#4813eacb181820ed13c5505f400956d176b25af8"
-  integrity sha512-wLPM/Rm1SGhxrFQ2TKM/BYsYPhn7ch6ZEK92S2o/vGkAAnDXM0I4nTIo745RIX+VlCRMFgBuJEax6XfTHMdeKg==
+  version "23.20.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.20.0.tgz#e1d69c75f639e99d836642453c4e75ed22da4099"
+  integrity sha512-+6BGQt85OREevBDWCvhqj1yYA4+BFK4XnRZSGJionuEYmcglMZYLNNBBemwzbqUAckURaHdJSBcjHPyrtypZOw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -7740,9 +7740,9 @@ opencollective-postinstall@^2.0.2:
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
 openpgp@^4.10.4:
-  version "4.10.6"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.6.tgz#847dc08e4c668a4b08afe50af1d2d0a966b3cf41"
-  integrity sha512-xSV5lmaKtHOltsCW0cA++GoOZ6zEuJ1lASsFsUIeWssipsN3yW7WaPNzNI2YUbY5l5C9VI6wTNOPZhOj+k8n5w==
+  version "4.10.7"
+  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.7.tgz#e969239ebb689093c5a73ea97e73a7d9c2a565eb"
+  integrity sha512-+7EkD/btnvIyGkslB0p3W123u/dajMBcfzMfOIevlZBPvCWLJXGzgNFMM5CYXUNITeBUpxCxwgHeniqr+UfESQ==
   dependencies:
     asn1.js "^5.0.0"
     node-fetch "^2.1.2"
