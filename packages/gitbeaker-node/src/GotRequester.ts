@@ -56,8 +56,12 @@ export async function handler(endpoint, options) {
   try {
     response = await Got(endpoint, options);
   } catch (e) {
-    if (e.response) {
-      const output = e.response.body;
+    if (
+      e.response &&
+      typeof e.response.body === 'string' &&
+      e.response.body.length > 0
+    ) {
+      const output = JSON.parse(e.response.body);
 
       e.description = output.error || output.message;
     }
