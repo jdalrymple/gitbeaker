@@ -7740,9 +7740,9 @@ opencollective-postinstall@^2.0.2:
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
 openpgp@^4.10.4:
-  version "4.10.6"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.6.tgz#847dc08e4c668a4b08afe50af1d2d0a966b3cf41"
-  integrity sha512-xSV5lmaKtHOltsCW0cA++GoOZ6zEuJ1lASsFsUIeWssipsN3yW7WaPNzNI2YUbY5l5C9VI6wTNOPZhOj+k8n5w==
+  version "4.10.7"
+  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-4.10.7.tgz#e969239ebb689093c5a73ea97e73a7d9c2a565eb"
+  integrity sha512-+7EkD/btnvIyGkslB0p3W123u/dajMBcfzMfOIevlZBPvCWLJXGzgNFMM5CYXUNITeBUpxCxwgHeniqr+UfESQ==
   dependencies:
     asn1.js "^5.0.0"
     node-fetch "^2.1.2"
