@@ -11,7 +11,7 @@ function responseHeadersAsObject(response): Record<string, string> {
   if (!response.headers.entries().length) {
     return {};
   }
-  
+
   const headers = {};
   const keyVals = [...response.headers.entries()];
 

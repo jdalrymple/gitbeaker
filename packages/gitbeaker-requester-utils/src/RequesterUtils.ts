@@ -1,7 +1,6 @@
 import { Agent } from 'https';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
-import * as FormData from 'form-data';
 
 // Types
 export interface RequesterType {
@@ -41,7 +40,8 @@ export function defaultRequest(
 
   if (sudo) headers.sudo = sudo;
 
-  if (typeof body === 'object' && !(body instanceof FormData)) {
+  // FIXME: Not the best comparison, but...it will have to do for now.
+  if (typeof body === 'object' && body.constructor.name !== 'FormData') {
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
   } else {
@@ -67,6 +67,7 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
     /* eslint func-names:0 */
     requester[m] = function (service, endpoint, options) {
       const requestOptions = optionsHandler(service, { ...options, method: m });
+
       return requestHandler(endpoint, requestOptions);
     };
   });
