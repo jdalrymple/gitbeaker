@@ -1,3 +1,28 @@
+# v23.5.0 (Sun Aug 09 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fixing check for FormData [#1056](https://github.com/jdalrymple/gitbeaker/pull/1056) ([@jdalrymple](https://github.com/jdalrymple))
+- fix(browser): return early if response headers empty [#1034](https://github.com/jdalrymple/gitbeaker/pull/1034) ([@kiprasmel](https://github.com/kiprasmel))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 5.0.0 to 5.2.1 [#1000](https://github.com/jdalrymple/gitbeaker/pull/1000) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @rollup/plugin-commonjs from 13.0.0 to 14.0.0 [#973](https://github.com/jdalrymple/gitbeaker/pull/973) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps): bump ky from 0.21.0 to 0.23.0 [#1001](https://github.com/jdalrymple/gitbeaker/pull/1001) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+
+---
+
 # v23.4.1 (Wed Jul 22 2020)
 
 #### 🔩 Dependency Updates

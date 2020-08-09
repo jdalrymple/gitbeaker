@@ -1,3 +1,49 @@
+# 23.5.0 (Sun Aug 09 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Fixing check for FormData [#1056](https://github.com/jdalrymple/gitbeaker/pull/1056) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - fix(browser): return early if response headers empty [#1034](https://github.com/jdalrymple/gitbeaker/pull/1034) ([@kiprasmel](https://github.com/kiprasmel))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump auto from 9.48.1 to 9.49.5 [#1052](https://github.com/jdalrymple/gitbeaker/pull/1052) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.48.1 to 9.50.0 [#1053](https://github.com/jdalrymple/gitbeaker/pull/1053) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/jest from 26.0.4 to 26.0.9 [#1047](https://github.com/jdalrymple/gitbeaker/pull/1047) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/node from 14.0.20 to 14.0.27 [#1024](https://github.com/jdalrymple/gitbeaker/pull/1024) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump eslint-plugin-jest from 23.18.0 to 23.20.0 [#1033](https://github.com/jdalrymple/gitbeaker/pull/1033) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump openpgp from 4.10.6 to 4.10.7 [#1005](https://github.com/jdalrymple/gitbeaker/pull/1005) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.47.1 to 9.49.5 [#1051](https://github.com/jdalrymple/gitbeaker/pull/1051) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump all-contributors-cli from 6.16.1 to 6.17.0 [#1019](https://github.com/jdalrymple/gitbeaker/pull/1019) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps): bump ora from 4.0.4 to 4.0.5 [#1008](https://github.com/jdalrymple/gitbeaker/pull/1008) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump rollup from 2.21.0 to 2.23.0 [#1012](https://github.com/jdalrymple/gitbeaker/pull/1012) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump auto from 9.47.0 to 9.48.1 [#1014](https://github.com/jdalrymple/gitbeaker/pull/1014) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.43.1 to 9.47.1 [#997](https://github.com/jdalrymple/gitbeaker/pull/997) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 8.1.0 to 8.4.0 [#965](https://github.com/jdalrymple/gitbeaker/pull/965) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump codecov from 3.7.1 to 3.7.2 [#999](https://github.com/jdalrymple/gitbeaker/pull/999) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.43.1 to 9.47.1 [#996](https://github.com/jdalrymple/gitbeaker/pull/996) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/released from 9.47.0 to 9.47.1 [#994](https://github.com/jdalrymple/gitbeaker/pull/994) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump puppeteer from 5.0.0 to 5.2.1 [#1000](https://github.com/jdalrymple/gitbeaker/pull/1000) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump @rollup/plugin-commonjs from 13.0.0 to 14.0.0 [#973](https://github.com/jdalrymple/gitbeaker/pull/973) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps): bump ky from 0.21.0 to 0.23.0 [#1001](https://github.com/jdalrymple/gitbeaker/pull/1001) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+
+---
+
 # 23.4.2 (Wed Jul 22 2020)
 
 ---

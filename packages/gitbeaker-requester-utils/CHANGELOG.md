@@ -1,3 +1,15 @@
+# v23.5.0 (Sun Aug 09 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing check for FormData [#1056](https://github.com/jdalrymple/gitbeaker/pull/1056) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
