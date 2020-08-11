@@ -20,17 +20,17 @@
     io-ts "^2.1.2"
     tslib "2.0.0"
 
-"@auto-it/bot-list@^9.50.0":
-  version "9.50.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.50.0.tgz#06b3d8685747f0b02dbf6dfeb17ee9d16ca51876"
-  integrity sha512-85x4SOjies1b/GFAED9FSIn/w5u+QBfzKKkmJexjRy488K9ARiGDKPV/QU4gP1fxJZsGYxDKrE9wo5AdpAm4Hg==
+"@auto-it/bot-list@9.50.1", "@auto-it/bot-list@^9.50.0":
+  version "9.50.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.50.1.tgz#ced842c9ce9d96e66247d6cea2ba21e392caf89c"
+  integrity sha512-GILC1JZkskPvRHdN+mXsJci27YPWExGiReCa2NXYMTX4fCTLNTk85QuNuOs9ts2cfgECF1Q+nP5dtLIIqJeuzg==
 
 "@auto-it/core@^9.43.1", "@auto-it/core@^9.50.0":
-  version "9.50.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.50.0.tgz#5d822cf11cc303ec8098febf9bae0d8c5fc3f0d0"
-  integrity sha512-mYmpWKgG34a8xLbd/Q5HvZt6P+Bss7WWKIaHFZ480pN0DIwhxVMajJTQSfd0vL6bibx/tCDS/mzcLD+gjJa02g==
+  version "9.50.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.50.1.tgz#d1667c1a503f4587b86532a551a3f0a85096bebb"
+  integrity sha512-HkkBRzFF5siJEyWoGHaVEEY8fBFZ8wV4tFy7pSr22SGoWZSB/q64oW6IvF6Po80fAvMdxLGZxjCkCaMEa6MTvQ==
   dependencies:
-    "@auto-it/bot-list" "^9.50.0"
+    "@auto-it/bot-list" "9.50.1"
     "@octokit/graphql" "^4.4.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
