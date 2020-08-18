@@ -52,6 +52,6 @@ export interface CommitDiscussions extends ResourceDiscussions {
 
 export class CommitDiscussions extends ResourceDiscussions {
   constructor(options: BaseServiceOptions) {
-    super('projects', 'commits', options);
+    super('projects', 'repository/commits', options);
   }
 }
