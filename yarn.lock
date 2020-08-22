@@ -20,12 +20,12 @@
     io-ts "^2.1.2"
     tslib "2.0.1"
 
-"@auto-it/bot-list@9.52.0", "@auto-it/bot-list@^9.50.0":
+"@auto-it/bot-list@9.52.0":
   version "9.52.0"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.52.0.tgz#8c2eabab35fb7387a9d3a5a0f41970fc8c79d263"
   integrity sha512-WaBGTCV+a2jrO3NVGU6+6VTYj+8dsYtodfS8OWTl/DmjcxCCvkxxAxTxvJKLXhff9Qrs6xGu6zkQ2GSoq1AKRA==
 
-"@auto-it/core@9.52.0", "@auto-it/core@^9.43.1", "@auto-it/core@^9.50.0":
+"@auto-it/core@9.52.0", "@auto-it/core@^9.43.1":
   version "9.52.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.52.0.tgz#6f4bc64421c0546c78404045396dd776a33eda08"
   integrity sha512-BYZl48PRbBjOLmCfPzaxyVBiu3TWq7lbT+no71lG9Ffb0RoH3pkTQIItnBbZRTegPYX7pxfkTEHTikMDmuwQkQ==
@@ -9975,11 +9975,6 @@ tslib@1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
-
-tslib@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
-  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
 
 tslib@2.0.1:
   version "2.0.1"
