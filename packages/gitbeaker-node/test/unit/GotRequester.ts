@@ -64,17 +64,17 @@ describe('processBody', () => {
 
 describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
+    const stringBody = JSON.stringify({ error: 'msg' });
+
     got.mockImplementationOnce(() => {
-      const e = { response: { body: { error: 'msg' } } };
+      const e = { response: { body: stringBody } };
       return Promise.reject(e);
     });
 
     await expect(handler('http://test.com', {})).rejects.toStrictEqual({
       description: 'msg',
       response: {
-        body: {
-          error: 'msg',
-        },
+        body: stringBody,
       },
     });
   });
@@ -89,17 +89,17 @@ describe('handler', () => {
   });
 
   it('should return an error with a description when response has an message prop', async () => {
+    const stringBody = JSON.stringify({ message: 'msg' });
+
     got.mockImplementationOnce(() => {
-      const e = { response: { body: { message: 'msg' } } };
+      const e = { response: { body: stringBody } };
       return Promise.reject(e);
     });
 
     await expect(handler('http://test.com', {})).rejects.toStrictEqual({
       description: 'msg',
       response: {
-        body: {
-          message: 'msg',
-        },
+        body: stringBody,
       },
     });
   });
