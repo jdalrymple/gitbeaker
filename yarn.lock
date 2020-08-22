@@ -3,14 +3,14 @@
 
 
 "@auto-it/all-contributors@^9.29.0":
-  version "9.50.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.50.0.tgz#941303bb65737b57973d74d0b533b20d257d198d"
-  integrity sha512-6czwa0diQxHu/fvGJVGOdWZSgTw0DERWkeL2Vhh92iIg0bGuChIL7Eo3SixTjdlD/HzFKFT1qLBvZq5mnVWtmQ==
+  version "9.52.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.52.0.tgz#10114704539f7bb250c601f051446095ca2c0825"
+  integrity sha512-YHF0NzvajJ/jTbVaaBIlmE7ZDodZ1aJ2GWV21qB5NLc9ARtV7B+nXsL380E7nHl7r6Hozni5cAH9v+V4v/j2ng==
   dependencies:
-    "@auto-it/bot-list" "^9.50.0"
-    "@auto-it/core" "^9.50.0"
+    "@auto-it/bot-list" "9.52.0"
+    "@auto-it/core" "9.52.0"
     "@octokit/rest" "^18.0.0"
-    all-contributors-cli "6.17.0"
+    all-contributors-cli "6.17.2"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     endent "^2.0.1"
@@ -18,7 +18,7 @@
     fp-ts "^2.5.3"
     fromentries "^1.2.0"
     io-ts "^2.1.2"
-    tslib "2.0.0"
+    tslib "2.0.1"
 
 "@auto-it/bot-list@9.52.0", "@auto-it/bot-list@^9.50.0":
   version "9.52.0"
@@ -2125,10 +2125,10 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-contributors-cli@6.17.0, all-contributors-cli@^6.14.2:
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.17.0.tgz#cd671f224e5e54c9c13b6e4ffc2b71c6523056d1"
-  integrity sha512-sFU794ve7oo3l6D14LkJBPzWZ5RopLcjfhymOZeiud1KP7BNrOJxjB1WSJLVWlD8h2tzxERbotdt8PcCHO9ApQ==
+all-contributors-cli@6.17.2, all-contributors-cli@^6.14.2:
+  version "6.17.2"
+  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.17.2.tgz#fb3461de56c378d1846e0b982ca0bd7ce4359c18"
+  integrity sha512-1ip57waUGz92HWbM5VgiGOjBz25fWXOtCRtCFbjCuuiCuiYbygnvcb9iFYiyNz28RlECg1VPXWrXOJABq+h+MQ==
   dependencies:
     "@babel/runtime" "^7.7.6"
     async "^3.0.1"
@@ -2137,8 +2137,8 @@ all-contributors-cli@6.17.0, all-contributors-cli@^6.14.2:
     inquirer "^7.0.4"
     json-fixer "^1.5.1"
     lodash "^4.11.2"
+    node-fetch "^2.6.0"
     pify "^5.0.0"
-    request "^2.72.0"
     yargs "^15.0.1"
 
 ansi-colors@^4.1.1:
@@ -8715,7 +8715,7 @@ request-promise-native@^1.0.7:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.72.0, request@^2.88.0:
+request@^2.88.0:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
