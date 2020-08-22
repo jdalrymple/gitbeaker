@@ -20,7 +20,7 @@
     io-ts "^2.1.2"
     tslib "2.0.1"
 
-"@auto-it/bot-list@9.52.0":
+"@auto-it/bot-list@9.52.0", "@auto-it/bot-list@^9.50.0":
   version "9.52.0"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.52.0.tgz#8c2eabab35fb7387a9d3a5a0f41970fc8c79d263"
   integrity sha512-WaBGTCV+a2jrO3NVGU6+6VTYj+8dsYtodfS8OWTl/DmjcxCCvkxxAxTxvJKLXhff9Qrs6xGu6zkQ2GSoq1AKRA==
@@ -68,14 +68,15 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.29.0":
-  version "9.50.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.50.0.tgz#79d69e1f43d6bf6146dde9260aafb769f3c5d851"
-  integrity sha512-6MA+9z7wgUrVNiL1SXdU29BARxY72V2lMUcMD5cdKGcQAiWYOghnxcXbvA5HKjPyPxbgw7lOD43CmDybqoB7Tw==
+  version "9.52.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.52.0.tgz#e114b492ff8dc839830a485abe8b8ba68a570b25"
+  integrity sha512-e/ah0+7oqy4M5T3WozuZFzx19EfIYZg8Fdu7K/RV0jOveHHm3sHmBOXI1NlKeyjR3mHN+Y5w0KEGtOBA9CUGEg==
   dependencies:
-    "@auto-it/core" "^9.50.0"
+    "@auto-it/bot-list" "9.52.0"
+    "@auto-it/core" "9.52.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
-    tslib "2.0.0"
+    tslib "2.0.1"
     url-join "^4.0.0"
 
 "@auto-it/npm@9.52.0":
