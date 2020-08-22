@@ -1,6 +1,10 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
+export type RepositoryFileSchema<C> = C extends true
+  ? RepositoryFileSchemaDefault
+  : RepositoryFileSchemaCamelized;
+
 export interface RepositoryFileSchemaDefault {
   file_name: string;
   file_path: string;
@@ -82,18 +86,13 @@ export class RepositoryFiles extends BaseService {
     });
   }
 
-  show(
-    projectId: string | number,
-    filePath: string,
-    ref: string,
-    options?: Sudo,
-  ): Promise<RepositoryFileSchema> {
+  show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
       ref,
       ...options,
-    }) as Promise<RepositoryFileSchema>;
+    }) as Promise<RepositoryFileSchema<C>>;
   }
 
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {

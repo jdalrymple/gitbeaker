@@ -16,7 +16,7 @@ export interface BaseServiceOptions {
   profileMode?: 'execution' | 'memory';
 }
 
-export class BaseService {
+export class BaseService<C extends boolean> {
   public readonly url: string;
 
   public readonly requester: RequesterType;
@@ -25,7 +25,7 @@ export class BaseService {
 
   public readonly headers: { [header: string]: string };
 
-  public readonly camelize: boolean;
+  public readonly camelize: C;
 
   public readonly rejectUnauthorized: boolean;
 
@@ -51,7 +51,7 @@ export class BaseService {
       'user-agent': 'gitbeaker',
     };
     this.rejectUnauthorized = rejectUnauthorized;
-    this.camelize = camelize;
+    this.camelize = camelize as C;
     this.requestTimeout = requestTimeout;
 
     // Handle auth tokens
