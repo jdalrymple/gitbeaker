@@ -20,6 +20,7 @@ export type DefaultResourceOptions = {
   requestTimeout: number;
   url: string;
   rejectUnauthorized: boolean;
+  additionalBody?: FormData | object;
 };
 
 export type DefaultRequestOptions = {
@@ -53,16 +54,17 @@ export function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): DefaultRequestReturn {
-  const { headers, requestTimeout, url } = resourceOptions;
+  const { headers, requestTimeout, url, additionalBody = {} } = resourceOptions;
   let bod: FormData | string;
 
   if (sudo) headers.sudo = sudo;
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (typeof body === 'object' && body.constructor.name !== 'FormData') {
-    bod = JSON.stringify(decamelizeKeys(body));
+    bod = JSON.stringify(decamelizeKeys({ ...body, ...additionalBody }));
     headers['content-type'] = 'application/json';
   } else {
+    /** TODO - what do I do here with the additionalBody? */
     bod = body as FormData;
   }
 
