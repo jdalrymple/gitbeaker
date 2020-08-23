@@ -1,9 +1,17 @@
 import { RequesterType, DefaultServiceOptions } from './RequesterUtils';
 
+export interface NativeAuth {
+  gitlabSessionCookieKey?: string;
+  gitlabSessionCookieValue: string;
+  gitlabCSRFTokenKey?: string;
+  gitlabCSRFTokenValue: string;
+}
+
 export interface BaseServiceOptions {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
+  nativeAuth?: NativeAuth;
   host?: string;
   prefixUrl?: string;
   version?: 3 | 4;
@@ -29,10 +37,18 @@ export class BaseService {
 
   public readonly rejectUnauthorized: boolean;
 
+  public readonly additionalBody: FormData | object;
+
   constructor({
     token,
     jobToken,
     oauthToken,
+    nativeAuth = {
+      gitlabSessionCookieKey: '_gitlab_session',
+      gitlabSessionCookieValue: '',
+      gitlabCSRFTokenKey: 'authenticity_token',
+      gitlabCSRFTokenValue: '',
+    },
     sudo,
     profileToken,
     requesterFn,
@@ -54,11 +70,29 @@ export class BaseService {
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
     this.requestTimeout = requestTimeout;
+    this.additionalBody = {};
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
     else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
+
+    else if (nativeAuth.gitlabSessionCookieValue && nativeAuth.gitlabCSRFTokenValue) {
+      const {
+        gitlabSessionCookieKey,
+        gitlabSessionCookieValue,
+        gitlabCSRFTokenKey,
+        gitlabCSRFTokenValue,
+      } = nativeAuth;
+
+      if (!this.headers.cookie) {
+        this.headers.cookie = 'cookie: ';
+      }
+
+      this.headers.cookie += `${gitlabSessionCookieKey}=${gitlabSessionCookieValue}; `;
+
+      this.additionalBody = {...this.additionalBody, [gitlabCSRFTokenKey]: gitlabCSRFTokenValue}
+    }
 
     // Profiling
     if (profileToken) {
