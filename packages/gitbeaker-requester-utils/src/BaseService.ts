@@ -43,12 +43,7 @@ export class BaseService {
     token,
     jobToken,
     oauthToken,
-    nativeAuth = {
-      gitlabSessionCookieKey: '_gitlab_session',
-      gitlabSessionCookieValue: '',
-      gitlabCSRFTokenKey: 'authenticity_token',
-      gitlabCSRFTokenValue: '',
-    },
+    nativeAuth,
     sudo,
     profileToken,
     requesterFn,
@@ -77,21 +72,26 @@ export class BaseService {
     else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
 
-    else if (nativeAuth.gitlabSessionCookieValue && nativeAuth.gitlabCSRFTokenValue) {
+    else if (nativeAuth?.gitlabSessionCookieValue && nativeAuth?.gitlabCSRFTokenValue) {
+      /**
+      * handle the defaults here, since if the `nativeAuth` is an object,
+      * and if these fields aren't provided but others are -
+      * the defaults @ param initialization would get overridden.
+      */
       const {
-        gitlabSessionCookieKey,
+        gitlabSessionCookieKey = '_gitlab_session',
         gitlabSessionCookieValue,
-        gitlabCSRFTokenKey,
+        gitlabCSRFTokenKey = 'authenticity_token',
         gitlabCSRFTokenValue,
       } = nativeAuth;
+
+      this.additionalBody = { ...this.additionalBody, [gitlabCSRFTokenKey]: gitlabCSRFTokenValue };
 
       if (!this.headers.cookie) {
         this.headers.cookie = 'cookie: ';
       }
 
       this.headers.cookie += `${gitlabSessionCookieKey}=${gitlabSessionCookieValue}; `;
-
-      this.additionalBody = {...this.additionalBody, [gitlabCSRFTokenKey]: gitlabCSRFTokenValue}
     }
 
     // Profiling
