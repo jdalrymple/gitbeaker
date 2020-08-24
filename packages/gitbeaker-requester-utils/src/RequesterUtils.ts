@@ -117,3 +117,7 @@ export function modifyServices<T extends { [name: string]: Constructable }>(
 
   return updated as T;
 }
+
+export async function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
