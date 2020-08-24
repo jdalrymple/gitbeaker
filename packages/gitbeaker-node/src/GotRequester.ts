@@ -6,6 +6,7 @@ import {
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
+  wait,
 } from '@gitbeaker/requester-utils';
 
 export function defaultRequest(
@@ -51,18 +52,29 @@ export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: ob
 }
 
 export async function handler(endpoint, options) {
+  const obeyRateLimit = true;
+  const maxRetries = 10;
   let response;
 
-  try {
-    response = await Got(endpoint, options);
-  } catch (e) {
-    if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
-      const output = JSON.parse(e.response.body);
+  for (let i = 0; i < maxRetries; i += 1) {
+    const waitTime = 2 ** i * 0.1;
+    try {
+      response = await Got(endpoint, options); // eslint-disable-line
+      break;
+    } catch (e) {
+      if (obeyRateLimit && e.response.statusCode === 429) {
+        await wait(waitTime); // eslint-disable-line
+        continue; // eslint-disable-line
+      }
 
-      e.description = output.error || output.message;
+      if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
+        const output = JSON.parse(e.response.body);
+
+        e.description = output.error || output.message;
+      }
+
+      throw e;
     }
-
-    throw e;
   }
 
   const { statusCode, headers } = response;

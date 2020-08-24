@@ -5,6 +5,7 @@ import {
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
+  wait,
 } from '@gitbeaker/requester-utils';
 
 function responseHeadersAsObject(response): Record<string, string> {
@@ -53,18 +54,26 @@ export function processBody(response) {
 }
 
 export async function handler(endpoint, options) {
+  const obeyRateLimit = true;
+  const maxRetries = 10;
   let response;
 
-  try {
-    response = await ky(endpoint, options);
-  } catch (e) {
-    if (e.response) {
-      const output = await e.response.json();
-
-      e.description = output.error || output.message;
+  for (let i = 0; i < maxRetries; i += 1) {
+    try {
+      response = await ky(endpoint, options); // eslint-disable-line
+      break;
+    } catch (e) {
+      const waitTime = 2 ** i * 0.1;
+      if (e.response) {
+        if (obeyRateLimit && e.response.status === 429) {
+          await wait(waitTime); // eslint-disable-line
+          continue; // eslint-disable-line
+        }
+        const output = await e.response.json(); // eslint-disable-line
+        e.description = output.error || output.message;
+      }
+      throw e;
     }
-
-    throw e;
   }
 
   const { status } = response;
