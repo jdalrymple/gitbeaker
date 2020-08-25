@@ -85,8 +85,20 @@ export class BaseService {
         gitlabCSRFTokenValue,
       } = nativeAuth;
 
+      /**
+       *
+       * step 1 - handle CSRF
+       *
+       * some gitlab instances need the CSRF token to be added via the body,
+       * and some need the `X-CSRF-Token` header. We handle both.
+       */
       this.additionalBody = { ...this.additionalBody, [gitlabCSRFTokenKey]: gitlabCSRFTokenValue };
 
+      this.headers['X-CSRF-Token'] = gitlabCSRFTokenValue;
+
+      /**
+       * step 2 - handle the session cookie
+       */
       if (!this.headers.cookie) {
         this.headers.cookie = 'cookie: ';
       }
