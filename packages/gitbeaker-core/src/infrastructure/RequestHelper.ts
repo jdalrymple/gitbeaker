@@ -68,14 +68,12 @@ async function get(
     totalPages: parseInt(headers['x-total-pages'], 10),
   };
 
-  const underLimit = maxPages ? pagination.current < maxPages : true;
-
   // Camelize response body if specified
   if (service.camelize) body = camelizeKeys(body);
 
-  // Rescurse through pagination results
-  if (!query.page && underLimit && pagination.next) {
-    const { next } = parseLink(headers.link);
+  // Recourse through pagination results
+  const { next } = parseLink(headers.link);
+  if (!query.page && next) {
     const leaf = service.url.split('/').pop() || '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
