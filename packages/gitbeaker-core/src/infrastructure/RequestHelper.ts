@@ -32,20 +32,24 @@ export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpande
 }
 
 export interface ExpandedResponse {
-  data: object;
-  headers: object;
+  data: Record<any, unknown>;
+  headers: Record<string, unknown>;
   status: number;
 }
 
 export interface PaginationResponse {
-  data: object[];
+  data: Record<any, unknown>[];
   pagination: PaginationOptions;
 }
 
-export type GetResponse = PaginationResponse | ExpandedResponse | object | object[];
-export type PostResponse = ExpandedResponse | object;
-export type PutResponse = ExpandedResponse | object;
-export type DelResponse = ExpandedResponse | object;
+export type GetResponse =
+  | PaginationResponse
+  | ExpandedResponse
+  | Record<any, unknown>
+  | Record<any, unknown>[];
+export type PostResponse = ExpandedResponse | Record<any, unknown>;
+export type PutResponse = ExpandedResponse | Record<any, unknown>;
+export type DelResponse = ExpandedResponse | Record<any, unknown>;
 
 async function get(
   service: BaseService,
@@ -104,7 +108,11 @@ async function get(
   return output;
 }
 
-function stream(service: BaseService, endpoint: string, options: BaseRequestOptions = {}) {
+function stream(
+  service: BaseService,
+  endpoint: string,
+  options: BaseRequestOptions = {},
+): Readable {
   if (typeof service.requester.stream !== 'function') {
     throw new Error('Stream method is not implementated in requester!');
   }

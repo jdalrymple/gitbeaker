@@ -13,7 +13,9 @@ export interface Bundle<T extends { [name: string]: Constructor }, P extends key
   new (options?: any): Mapper<T, P>;
 }
 
-export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(services: T) {
+export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
+  services: T,
+): Bundle<T, P> {
   return (function Bundle(options?: any) {
     Object.entries(services).forEach(([name, Ser]) => {
       this[name] = new Ser(options);
@@ -21,7 +23,7 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
   } as any) as Bundle<T, P>;
 }
 
-export function appendFormFromObject(object) {
+export function appendFormFromObject(object: Record<string, unknown>): FormData {
   const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {
