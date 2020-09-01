@@ -16,7 +16,7 @@ const mockedGetBasic = () => ({
 });
 
 const mockedGetExtended = (url, { query }, limit = 30) => {
-  const pages: object[] = [];
+  const pages: Record<string, unknown>[] = [];
   const q = url.match(/page=([0-9]+)/);
   let page = 1;
 

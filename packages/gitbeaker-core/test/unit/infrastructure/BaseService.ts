@@ -70,7 +70,6 @@ describe('Creation of BaseService instance', () => {
     expect(service.url).toBe('https://testing.com/api/v3/');
   });
 
-  /* eslint @typescript-eslint/camelcase: 0 */
   it('should return simple response with camelized keys when using the camelize option', async () => {
     const requester = {} as any;
     const service = new BaseService({
@@ -97,7 +96,6 @@ describe('Creation of BaseService instance', () => {
     ]);
   });
 
-  /* eslint @typescript-eslint/camelcase: 0 */
   it('should return simple response with default keys without camelize option', async () => {
     const requester = {} as any;
     const service = new BaseService({ requester, host: 'https://testing.com', token: '1234' });

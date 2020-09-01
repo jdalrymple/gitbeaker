@@ -1,5 +1,10 @@
 import { ResourceNotes } from '../templates';
-import { GetResponse } from '../infrastructure/RequestHelper';
+import {
+  GetResponse,
+  PostResponse,
+  PutResponse,
+  DelResponse,
+} from '../infrastructure/RequestHelper';
 import {
   BaseServiceOptions,
   PaginatedRequestOptions,
@@ -19,7 +24,7 @@ export interface ProjectSnippetNotes extends ResourceNotes {
     snippetId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<object>;
+  ): Promise<PostResponse>;
 
   edit(
     projectId: string | number,
@@ -27,14 +32,14 @@ export interface ProjectSnippetNotes extends ResourceNotes {
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<object>;
+  ): Promise<PutResponse>;
 
   remove(
     projectId: string | number,
     snippetId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<object>;
+  ): Promise<DelResponse>;
 
   show(
     projectId: string | number,

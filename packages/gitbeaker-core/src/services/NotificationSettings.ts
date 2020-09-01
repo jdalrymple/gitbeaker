@@ -13,7 +13,7 @@ type NotificationSettingLevel =
   | 'mention'
   | 'custom';
 
-type ProjectOrGroup = { projectId: string | number } | { groupId: string | number } | {};
+type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
 function url({ projectId, groupId }) {
   let uri = '';

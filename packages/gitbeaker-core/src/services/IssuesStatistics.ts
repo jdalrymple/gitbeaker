@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-type ProjectOrGroup = { projectId: string | number } | { groupId: string | number } | {};
+type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
 export class IssuesStatistics extends BaseService {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {

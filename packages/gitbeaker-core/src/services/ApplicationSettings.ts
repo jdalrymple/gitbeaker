@@ -1,11 +1,11 @@
 import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 export class ApplicationSettings extends BaseService {
-  all(options?: Sudo) {
+  all(options?: Sudo): Promise<RequestHelper.GetResponse> {
     return RequestHelper.get(this, 'application/settings', options);
   }
 
-  edit(options?: BaseRequestOptions) {
+  edit(options?: BaseRequestOptions): Promise<RequestHelper.PutResponse> {
     return RequestHelper.put(this, 'application/settings', options);
   }
 }

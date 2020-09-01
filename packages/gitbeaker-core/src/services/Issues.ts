@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-type ProjectOrGroup = { projectId: string | number } | { groupId: string | number } | {};
+type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
 export class Issues extends BaseService {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
