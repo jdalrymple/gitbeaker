@@ -1,6 +1,6 @@
 import { parse as parseLink } from 'li';
 import { camelizeKeys } from 'xcase';
-import { BaseService } from './BaseService';
+import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';
 
 export interface Sudo {
@@ -31,22 +31,22 @@ export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpande
   perPage?: number;
 }
 
-export interface ExpandedResponse {
-  data: Record<any, unknown>;
+export interface ExpandedResponse<T = Record<any, unknown>> {
+  data: T | T[];
   headers: Record<string, unknown>;
   status: number;
 }
 
-export interface PaginationResponse {
-  data: Record<any, unknown>[];
+export interface PaginationResponse<T = Record<any, unknown>> {
+  data: T[];
   pagination: PaginationOptions;
 }
 
-export type GetResponse =
-  | PaginationResponse
-  | ExpandedResponse
-  | Record<any, unknown>
-  | Record<any, unknown>[];
+export type GetResponse<T = Record<any, unknown>> =
+  | PaginationResponse<T>
+  | ExpandedResponse<T>
+  | T
+  | T[];
 export type PostResponse = ExpandedResponse | Record<any, unknown>;
 export type PutResponse = ExpandedResponse | Record<any, unknown>;
 export type DelResponse = ExpandedResponse | Record<any, unknown>;
@@ -96,7 +96,7 @@ async function get(
   if (!showExpanded) return body;
 
   // Else build the expanded response
-  const output = { data: body } as Record<string, any>;
+  const output = { data: body };
 
   if (body.length > 0 || query.page) {
     output.pagination = pagination;

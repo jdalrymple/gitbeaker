@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, BaseRequestOptions } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
 type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 

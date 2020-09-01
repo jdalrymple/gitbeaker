@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export class PushRules extends BaseService {
   create(projectId: string | number, options?: BaseRequestOptions) {

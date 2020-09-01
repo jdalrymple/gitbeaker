@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 interface CreateTodoOptions extends Sudo {
   resourceName?: 'mergerequest' | 'issue';

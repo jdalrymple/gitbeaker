@@ -1,40 +1,18 @@
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
+import { BaseService } from './BaseService';
 
 // Types
 export interface RequesterType {
-  get(
-    service: Record<string, unknown>,
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<any>;
-  post(
-    service: Record<string, unknown>,
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<any>;
-  put(
-    service: Record<string, unknown>,
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<any>;
-  delete(
-    service: Record<string, unknown>,
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<any>;
+  get(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  post(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  put(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  delete(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
   stream?(
-    service: Record<string, unknown>,
+    service: BaseService,
     endpoint: string,
     options?: Record<string, unknown>,
   ): NodeJS.ReadableStream;
-}
-
-export interface Service {
-  headers: Record<string, string | string[]>;
-  requestTimeout: number;
-  url: string;
-  rejectUnauthorized?: boolean;
 }
 
 export type DefaultRequestOptions = {
@@ -52,7 +30,7 @@ export function formatQuery(options) {
 }
 
 export function defaultRequest(
-  service: Service,
+  service: BaseService,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): Record<string, unknown> {
   const { headers } = service;
@@ -96,7 +74,7 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export interface Constructable<T = Record<string, unknown>> {
+export interface Constructable<T = any> {
   new (...args: any[]): T;
 }
 

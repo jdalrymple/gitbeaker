@@ -1,5 +1,4 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseService } from '../../../src/infrastructure';
+import { RequesterType, BaseService } from '../../src';
 
 describe('Creation of BaseService instance', () => {
   it('should default host to https://gitlab.com/api/v4/', async () => {

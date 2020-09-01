@@ -1,3 +1,4 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
 import {
   BaseRequestOptions,

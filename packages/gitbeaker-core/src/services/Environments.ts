@@ -1,6 +1,6 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
-  BaseService,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -30,13 +30,13 @@ export interface EnvironmentSchemaCamelized {
 export type EnvironmentSchema = EnvironmentSchemaDefault | EnvironmentSchemaCamelized;
 
 export interface EnvironmentDetailSchemaDefault extends EnvironmentSchemaDefault {
-  last_deployment?: DeploymentSchema;
-  deployable?: DeploymentSchema;
+  last_deployment?: DeploymentSchemaDefault;
+  deployable?: DeployableSchemaDefault;
 }
 
 export interface EnvironmentDetailSchemaCamelized extends EnvironmentSchemaCamelized {
-  lastDeployment?: DeploymentSchema;
-  deployable?: DeploymentSchema;
+  lastDeployment?: DeploymentSchemaCamelized;
+  deployable?: DeployableSchemaCamelized;
 }
 
 export type EnvironmentDetailSchema =

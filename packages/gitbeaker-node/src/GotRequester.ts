@@ -2,14 +2,14 @@ import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import {
-  Service,
+  BaseService,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
 } from '@gitbeaker/requester-utils';
 
 export function defaultRequest(
-  service: Service,
+  service: BaseService,
   { body, query, sudo, method }: DefaultRequestOptions = {},
 ) {
   const options = baseDefaultRequest(service, { body, query, sudo, method });
