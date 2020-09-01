@@ -1,6 +1,6 @@
 import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-import { CommitSchema } from './Commits';
+import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
 import { PipelineSchema } from './Pipelines';
 import { UserSchema } from './Users';
 import { RunnerSchema } from './Runners';
@@ -27,7 +27,7 @@ export interface DeployableDefault {
   started_at?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchema;
+  commit?: CommitSchemaDefault;
   coverage?: string;
   created_at?: Date;
   finished_at?: Date;
@@ -44,7 +44,7 @@ export interface DeployableCamelized {
   startedAt?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchema;
+  commit?: CommitSchemaCamelized;
   coverage?: string;
   createdAt?: Date;
   finishedAt?: Date;

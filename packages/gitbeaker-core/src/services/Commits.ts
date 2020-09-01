@@ -55,13 +55,21 @@ interface CommitAction {
 }
 
 export class Commits extends BaseService {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all(
+    projectId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits`, options);
   }
 
-  cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
+  cherryPick(
+    projectId: string | number,
+    sha: string,
+    branch: string,
+    options?: Sudo,
+  ): Promise<RequestHelper.PostResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
@@ -70,7 +78,11 @@ export class Commits extends BaseService {
     });
   }
 
-  comments(projectId: string | number, sha: string, options?: Sudo) {
+  comments(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/comments`, options);
@@ -82,7 +94,7 @@ export class Commits extends BaseService {
     message: string,
     actions: CommitAction[] = [],
     options?: BaseRequestOptions,
-  ) {
+  ): Promise<RequestHelper.PostResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits`, {
@@ -98,7 +110,7 @@ export class Commits extends BaseService {
     sha: string,
     note: string,
     options?: BaseRequestOptions,
-  ) {
+  ): Promise<RequestHelper.PostResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/comments`, {
@@ -107,37 +119,61 @@ export class Commits extends BaseService {
     });
   }
 
-  diff(projectId: string | number, sha: string, options?: Sudo) {
+  diff(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/diff`, options);
   }
 
-  editStatus(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  editStatus(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<RequestHelper.PostResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, options);
   }
 
-  references(projectId: string | number, sha: string, options?: Sudo) {
+  references(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
   }
 
-  show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  show(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`, options);
   }
 
-  status(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  status(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
   }
 
-  mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  mergeRequests(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<RequestHelper.GetResponse> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(
