@@ -24,8 +24,6 @@ export interface NamespaceInfoSchemaCamelize {
   fullPath: string;
 }
 
-export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
-
 export interface ProjectSchemaDefault {
   id: number;
   name: string;
@@ -49,6 +47,8 @@ export interface ProjectSchemaCamelized {
   httpUrlToRepo: string;
   archived: boolean;
 }
+
+export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
 
 export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {

@@ -16,8 +16,6 @@ export interface DeploymentSchema {
   user: UserSchema;
 }
 
-export type Deployable = DeployableDefault | DeployableCamelized;
-
 export interface DeployableDefault {
   id: number;
   ref: string;
@@ -51,6 +49,8 @@ export interface DeployableCamelized {
   user?: UserSchema;
   pipeline?: PipelineSchema;
 }
+
+export type Deployable = DeployableDefault | DeployableCamelized;
 
 export class Deployments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

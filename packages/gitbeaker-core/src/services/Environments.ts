@@ -8,9 +8,6 @@ import {
 import { DeploymentSchema } from './Deployments';
 import { ProjectSchemaDefault, ProjectSchemaCamelized } from './Projects';
 
-// ref: https://docs.gitlab.com/12.6/ee/api/environments.html#list-environments
-export type EnvironmentSchema = EnvironmentSchemaDefault | EnvironmentSchemaCamelized;
-
 export interface EnvironmentSchemaDefault {
   id: number;
   name: string;
@@ -29,9 +26,8 @@ export interface EnvironmentSchemaCamelized {
   state?: string;
 }
 
-export type EnvironmentDetailSchema =
-  | EnvironmentDetailSchemaDefault
-  | EnvironmentDetailSchemaCamelized;
+// ref: https://docs.gitlab.com/12.6/ee/api/environments.html#list-environments
+export type EnvironmentSchema = EnvironmentSchemaDefault | EnvironmentSchemaCamelized;
 
 export interface EnvironmentDetailSchemaDefault extends EnvironmentSchemaDefault {
   last_deployment?: DeploymentSchema;
@@ -42,6 +38,10 @@ export interface EnvironmentDetailSchemaCamelized extends EnvironmentSchemaCamel
   lastDeployment?: DeploymentSchema;
   deployable?: DeploymentSchema;
 }
+
+export type EnvironmentDetailSchema =
+  | EnvironmentDetailSchemaDefault
+  | EnvironmentDetailSchemaCamelized;
 
 export class Environments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions): Promise<EnvironmentSchema[]> {

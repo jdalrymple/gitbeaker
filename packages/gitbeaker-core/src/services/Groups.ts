@@ -8,8 +8,6 @@ import {
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
-export type GroupSchema = GroupSchemaDefault | GroupSchemaCamelized;
-
 export interface GroupSchemaDefault {
   id: number;
   name: string;
@@ -33,6 +31,8 @@ export interface GroupSchemaCamelized {
   avatarUrl: string;
   webUrl: string;
 }
+
+export type GroupSchema = GroupSchemaDefault | GroupSchemaCamelized;
 
 export type GroupDetailSchema = GroupSchema & {
   projects: ProjectSchema[];

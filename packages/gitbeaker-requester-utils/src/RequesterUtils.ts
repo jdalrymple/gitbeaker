@@ -1,14 +1,33 @@
-import { Agent } from 'https';
 import { decamelizeKeys } from 'xcase';
 import { stringify } from 'query-string';
 
 // Types
 export interface RequesterType {
-  get(service: object, endpoint: string, options?: object): Promise<any>;
-  post(service: object, endpoint: string, options?: object): Promise<any>;
-  put(service: object, endpoint: string, options?: object): Promise<any>;
-  delete(service: object, endpoint: string, options?: object): Promise<any>;
-  stream?(service: object, endpoint: string, options?: object): Promise<any>;
+  get(
+    service: Record<string, unknown>,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<any>;
+  post(
+    service: Record<string, unknown>,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<any>;
+  put(
+    service: Record<string, unknown>,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<any>;
+  delete(
+    service: Record<string, unknown>,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<any>;
+  stream?(
+    service: Record<string, unknown>,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): NodeJS.ReadableStream;
 }
 
 export interface Service {
@@ -19,21 +38,23 @@ export interface Service {
 }
 
 export type DefaultRequestOptions = {
-  body?: FormData | object;
-  query?: object;
+  body?: FormData | Record<string, unknown>;
+  query?: Record<string, unknown>;
   sudo?: string;
   method?: string;
 };
 
 // Utility methods
 export function formatQuery(options) {
-  return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
+  return stringify(decamelizeKeys(options || {}) as Record<string, unknown>, {
+    arrayFormat: 'bracket',
+  });
 }
 
 export function defaultRequest(
   service: Service,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
-): Record<string, string | number | FormData | Agent | Record<string, string | string[] | Agent>> {
+): Record<string, unknown> {
   const { headers } = service;
   let agent;
   let bod;
@@ -75,11 +96,11 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export interface Constructable<T = {}> {
+export interface Constructable<T = Record<string, unknown>> {
   new (...args: any[]): T;
 }
 
-function extendClass<T extends Constructable>(Base: T, customConfig: object): T {
+function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
   return class extends Base {
     constructor(...options: any[]) {
       const [config, ...opts] = options;
@@ -91,7 +112,7 @@ function extendClass<T extends Constructable>(Base: T, customConfig: object): T 
 
 export function modifyServices<T extends { [name: string]: Constructable }>(
   services: T,
-  customConfig: object = {},
+  customConfig: Record<string, unknown> = {},
 ) {
   const updated: { [name: string]: Constructable } = {};
 

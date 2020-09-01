@@ -112,7 +112,7 @@ function stream(
   service: BaseService,
   endpoint: string,
   options: BaseRequestOptions = {},
-): Readable {
+): NodeJS.ReadableStream {
   if (typeof service.requester.stream !== 'function') {
     throw new Error('Stream method is not implementated in requester!');
   }

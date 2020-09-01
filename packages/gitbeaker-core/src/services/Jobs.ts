@@ -20,9 +20,6 @@ export type JobScope =
   | 'skipped'
   | 'manual';
 
-// As of GitLab v12.6.2
-export type ArtifactSchema = ArtifactSchemaDefault | ArtifactSchemaCamelized;
-
 export interface ArtifactSchemaDefault {
   file_type: string;
   size: number;
@@ -38,7 +35,7 @@ export interface ArtifactSchemaCamelized {
 }
 
 // As of GitLab v12.6.2
-export type JobSchema = JobSchemaDefault | JobSchemaCamelized;
+export type ArtifactSchema = ArtifactSchemaDefault | ArtifactSchemaCamelized;
 
 export interface JobSchemaDefault {
   id: number;
@@ -83,6 +80,9 @@ export interface JobSchemaCamelized {
   runner: RunnerSchemaCamelized;
   artifactsExpireAt?: Date;
 }
+
+// As of GitLab v12.6.2
+export type JobSchema = JobSchemaDefault | JobSchemaCamelized;
 
 export class Jobs extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

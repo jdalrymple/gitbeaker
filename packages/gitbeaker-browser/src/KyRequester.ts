@@ -56,6 +56,8 @@ export async function handler(endpoint, options) {
   let response;
 
   try {
+    if (options.method === 'stream') return ky(endpoint, options);
+
     response = await ky(endpoint, options);
   } catch (e) {
     if (e.response) {

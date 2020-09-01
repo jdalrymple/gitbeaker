@@ -5,10 +5,6 @@ import {
   PaginatedRequestOptions,
 } from '../infrastructure';
 
-export type ResourceVariableSchema =
-  | ResourceVariableSchemaDefault
-  | ResourceVariableSchemaCamelized;
-
 export interface ResourceVariableSchemaDefault {
   variable_type: 'env_var' | 'file';
   value: string;
@@ -29,6 +25,10 @@ export interface ResourceVariableSchemaCamelizedNoKey {
 export interface ResourceVariableSchemaCamelized extends ResourceVariableSchemaCamelizedNoKey {
   key: string;
 }
+
+export type ResourceVariableSchema =
+  | ResourceVariableSchemaDefault
+  | ResourceVariableSchemaCamelized;
 
 export class ResourceVariables extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {

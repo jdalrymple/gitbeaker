@@ -6,8 +6,6 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
-
 // As of GitLab v12.6.2
 export interface CommitSchemaDefault {
   id: string;
@@ -38,6 +36,8 @@ export interface CommitSchemaCamelized {
   committerEmail?: string;
   committedDate?: Date;
 }
+
+export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
 
 interface CommitAction {
   /** The action to perform */

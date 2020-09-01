@@ -1,7 +1,5 @@
 import { BaseService, RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export type RepositoryFileSchema = RepositoryFileSchemaDefault | RepositoryFileSchemaCamelized;
-
 export interface RepositoryFileSchemaDefault {
   file_name: string;
   file_path: string;
@@ -27,6 +25,8 @@ export interface RepositoryFileSchemaCamelized {
   commitId: string;
   lastCommitId: string;
 }
+
+export type RepositoryFileSchema = RepositoryFileSchemaDefault | RepositoryFileSchemaCamelized;
 
 export class RepositoryFiles extends BaseService {
   create(

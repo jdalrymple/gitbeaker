@@ -32,7 +32,13 @@ export function defaultRequest(
   return options;
 }
 
-export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: object }) {
+export function processBody({
+  rawBody,
+  headers,
+}: {
+  rawBody: Buffer;
+  headers: Record<string, unknown>;
+}) {
   const contentType = headers['content-type'] || '';
 
   switch (contentType) {
@@ -54,6 +60,8 @@ export async function handler(endpoint, options) {
   let response;
 
   try {
+    if (options.method === 'stream') return Got(endpoint, options);
+
     response = await Got(endpoint, options);
   } catch (e) {
     if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
