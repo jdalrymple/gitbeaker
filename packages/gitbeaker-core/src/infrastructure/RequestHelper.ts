@@ -31,31 +31,62 @@ export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpande
   perPage?: number;
 }
 
-export interface ExpandedResponse<T = Record<any, unknown>> {
-  data: T | T[];
+export interface ExpandedResponse<T> {
+  data: T;
   headers: Record<string, unknown>;
   status: number;
 }
 
-export interface PaginationResponse<T = Record<any, unknown>> {
-  data: T[];
+export interface PaginationResponse<T> {
+  data: T;
   pagination: PaginationOptions;
 }
 
-export type GetResponse<T = Record<any, unknown>> =
-  | PaginationResponse<T>
+export type GetResponse<T> =
+  | PaginationResponse<T[]>
   | ExpandedResponse<T>
+  | ExpandedResponse<T[]>
   | T
   | T[];
-export type PostResponse = ExpandedResponse | Record<any, unknown>;
-export type PutResponse = ExpandedResponse | Record<any, unknown>;
-export type DelResponse = ExpandedResponse | Record<any, unknown>;
+export type PostResponse<T> = ExpandedResponse<T> | T;
+export type PutResponse<T> = ExpandedResponse<T> | T;
+export type DelResponse<T> = ExpandedResponse<T> | T;
 
-async function get(
+// 1 normal object response
+// 2. normal array of objects response
+// 3. expanded normal object response
+// 4. array of objects response + pagination infromation
+
+async function get<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, ...query }: BaseRequestOptions = {},
+): Promise<T>;
+async function get<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, ...query }: BaseRequestOptions = {},
+): Promise<T[]>;
+async function get<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded = {},
+): Promise<ExpandedResponse<T>>;
+async function get<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded = {},
+): Promise<ExpandedResponse<T[]>>;
+async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
   { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
-): Promise<GetResponse> {
+): Promise<PaginationResponse<T[]>>;
+async function get<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
+): Promise<GetResponse<T>> {
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
     sudo,
@@ -108,6 +139,77 @@ async function get(
   return output;
 }
 
+async function post<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+): Promise<ExpandedResponse<T>>;
+async function post<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+): Promise<T>;
+async function post<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+): Promise<PostResponse<T>> {
+  const body = isForm ? appendFormFromObject(options) : options;
+
+  const r = await service.requester.post(service, endpoint, {
+    body,
+    sudo,
+  });
+
+  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+}
+
+async function put<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+): Promise<ExpandedResponse<T>>;
+async function put<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+): Promise<T>;
+async function put<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+): Promise<PutResponse<T>> {
+  const r = await service.requester.put(service, endpoint, {
+    body,
+    sudo,
+  });
+
+  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+}
+
+async function del<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+): Promise<ExpandedResponse<T>>;
+async function del<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+): Promise<T>;
+async function del<T = Record<any, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
+): Promise<DelResponse<T>> {
+  const r = await service.requester.delete(service, endpoint, {
+    query,
+    sudo,
+  });
+
+  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+}
+
 function stream(
   service: BaseService,
   endpoint: string,
@@ -120,47 +222,6 @@ function stream(
   return service.requester.stream(service, endpoint, {
     query: options,
   });
-}
-
-async function post(
-  service: BaseService,
-  endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
-): Promise<PostResponse> {
-  const body = isForm ? appendFormFromObject(options) : options;
-
-  const r = await service.requester.post(service, endpoint, {
-    body,
-    sudo,
-  });
-
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
-}
-
-async function put(
-  service: BaseService,
-  endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
-): Promise<PutResponse> {
-  const r = await service.requester.put(service, endpoint, {
-    body,
-    sudo,
-  });
-
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
-}
-
-async function del(
-  service: BaseService,
-  endpoint: string,
-  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
-): Promise<DelResponse> {
-  const r = await service.requester.delete(service, endpoint, {
-    query,
-    sudo,
-  });
-
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
 export const RequestHelper = {
