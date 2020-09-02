@@ -7,6 +7,10 @@ export interface Sudo {
   sudo?: string | number;
 }
 
+export interface IsForm {
+  isForm?: boolean;
+}
+
 export interface ShowExpanded {
   showExpanded?: boolean;
 }
@@ -52,41 +56,36 @@ export type PostResponse<T> = ExpandedResponse<T> | T;
 export type PutResponse<T> = ExpandedResponse<T> | T;
 export type DelResponse<T> = ExpandedResponse<T> | T;
 
-// 1 normal object response
-// 2. normal array of objects response
-// 3. expanded normal object response
-// 4. array of objects response + pagination infromation
-
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, ...query }: BaseRequestOptions = {},
+  { sudo, ...query }: BaseRequestOptions,
 ): Promise<T>;
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, ...query }: BaseRequestOptions = {},
+  { sudo, ...query }: BaseRequestOptions,
 ): Promise<T[]>;
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded = {},
+  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded,
 ): Promise<ExpandedResponse<T>>;
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded = {},
+  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded,
 ): Promise<ExpandedResponse<T[]>>;
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
+  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions,
 ): Promise<PaginationResponse<T[]>>;
 async function get<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
   { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
-): Promise<GetResponse<T>> {
+): Promise<any> {
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
     sudo,
@@ -117,7 +116,7 @@ async function get<T = Record<any, unknown>>(
       maxPages,
       sudo,
       showExpanded: true,
-    })) as PaginationResponse;
+    })) as PaginationResponse<T[]>;
 
     pagination = more.pagination;
     body = [...body, ...more.data];
@@ -127,7 +126,7 @@ async function get<T = Record<any, unknown>>(
   if (!showExpanded) return body;
 
   // Else build the expanded response
-  const output = { data: body };
+  const output: Record<string, unknown> = { data: body };
 
   if (body.length > 0 || query.page) {
     output.pagination = pagination;
@@ -142,17 +141,17 @@ async function get<T = Record<any, unknown>>(
 async function post<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
 async function post<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
 async function post<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
+  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions = {},
 ): Promise<PostResponse<T>> {
   const body = isForm ? appendFormFromObject(options) : options;
 
@@ -167,17 +166,17 @@ async function post<T = Record<any, unknown>>(
 async function put<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
 async function put<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
 async function put<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<PutResponse<T>> {
   const r = await service.requester.put(service, endpoint, {
     body,
@@ -190,17 +189,17 @@ async function put<T = Record<any, unknown>>(
 async function del<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
 async function del<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
 async function del<T = Record<any, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
+  { sudo, showExpanded, ...query }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<DelResponse<T>> {
   const r = await service.requester.delete(service, endpoint, {
     query,

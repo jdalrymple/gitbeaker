@@ -1,5 +1,5 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDeployTokens } from '../templates';
-import { BaseServiceOptions } from '../infrastructure';
 
 export class GroupDeployTokens extends ResourceDeployTokens {
   constructor(options: BaseServiceOptions = {}) {
