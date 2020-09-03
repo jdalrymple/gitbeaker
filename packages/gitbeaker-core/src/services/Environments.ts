@@ -5,7 +5,12 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { DeploymentSchema } from './Deployments';
+import {
+  DeploymentSchemaDefault,
+  DeploymentSchemaCamelized,
+  DeployableDefault,
+  DeployableCamelized,
+} from './Deployments';
 import { ProjectSchemaDefault, ProjectSchemaCamelized } from './Projects';
 
 export interface EnvironmentSchemaDefault {
@@ -31,12 +36,12 @@ export type EnvironmentSchema = EnvironmentSchemaDefault | EnvironmentSchemaCame
 
 export interface EnvironmentDetailSchemaDefault extends EnvironmentSchemaDefault {
   last_deployment?: DeploymentSchemaDefault;
-  deployable?: DeployableSchemaDefault;
+  deployable?: DeployableDefault;
 }
 
 export interface EnvironmentDetailSchemaCamelized extends EnvironmentSchemaCamelized {
   lastDeployment?: DeploymentSchemaCamelized;
-  deployable?: DeployableSchemaCamelized;
+  deployable?: DeployableCamelized;
 }
 
 export type EnvironmentDetailSchema =

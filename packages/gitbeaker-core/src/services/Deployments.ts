@@ -2,7 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
 import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
-import { UserSchema, UserSchemaDefault, UserSchemaCamelized } from './Users';
+import { UserSchemaDefault, UserSchemaCamelized } from './Users';
 import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';

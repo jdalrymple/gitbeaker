@@ -24,10 +24,8 @@ export interface PaginationOptions {
   totalPages: number;
 }
 
-/* eslint @typescript-eslint/no-explicit-any: 0 */
-export interface BaseRequestOptions extends Sudo {
-  [key: string]: any;
-}
+/* eslint @typescript-eslint/no-explicit-any:0 */
+export type BaseRequestOptions = Sudo & Record<string, any>;
 
 export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpanded {
   maxPages?: number;
@@ -56,32 +54,32 @@ export type PostResponse<T> = ExpandedResponse<T> | T;
 export type PutResponse<T> = ExpandedResponse<T> | T;
 export type DelResponse<T> = ExpandedResponse<T> | T;
 
-async function get<T = Record<any, unknown>>(
+async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, ...query }: BaseRequestOptions,
+  options?: BaseRequestOptions,
 ): Promise<T>;
-async function get<T = Record<any, unknown>>(
+async function get<T = Record<string, unknown>[]>(
   service: BaseService,
   endpoint: string,
-  { sudo, ...query }: BaseRequestOptions,
-): Promise<T[]>;
-async function get<T = Record<any, unknown>>(
+  options?: BaseRequestOptions,
+): Promise<T>;
+async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded,
+  options?: BaseRequestOptions & ShowExpanded,
 ): Promise<ExpandedResponse<T>>;
-async function get<T = Record<any, unknown>>(
+async function get<T = Record<string, unknown>[]>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, sudo, ...query }: BaseRequestOptions & ShowExpanded,
-): Promise<ExpandedResponse<T[]>>;
-async function get<T = Record<any, unknown>>(
+  options?: BaseRequestOptions & ShowExpanded,
+): Promise<ExpandedResponse<T>>;
+async function get<T = Record<any, unknown>[]>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions,
-): Promise<PaginationResponse<T[]>>;
-async function get<T = Record<any, unknown>>(
+  options?: PaginatedRequestOptions,
+): Promise<PaginationResponse<T>>;
+async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
@@ -138,17 +136,17 @@ async function get<T = Record<any, unknown>>(
   return output;
 }
 
-async function post<T = Record<any, unknown>>(
+async function post<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions,
+  options?: IsForm & ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
-async function post<T = Record<any, unknown>>(
+async function post<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions,
+  options?: IsForm & ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
-async function post<T = Record<any, unknown>>(
+async function post<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions = {},
@@ -163,17 +161,17 @@ async function post<T = Record<any, unknown>>(
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
-async function put<T = Record<any, unknown>>(
+async function put<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
+  options?: ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
-async function put<T = Record<any, unknown>>(
+async function put<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
+  options?: ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
-async function put<T = Record<any, unknown>>(
+async function put<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions = {},
@@ -186,17 +184,17 @@ async function put<T = Record<any, unknown>>(
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
-async function del<T = Record<any, unknown>>(
+async function del<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
+  options: ShowExpanded & BaseRequestOptions,
 ): Promise<ExpandedResponse<T>>;
-async function del<T = Record<any, unknown>>(
+async function del<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions,
+  options?: ShowExpanded & BaseRequestOptions,
 ): Promise<T>;
-async function del<T = Record<any, unknown>>(
+async function del<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   { sudo, showExpanded, ...query }: ShowExpanded & BaseRequestOptions = {},

@@ -1,7 +1,7 @@
 import ky from 'ky';
 import { Agent } from 'https';
 import {
-  Service,
+  BaseService,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
@@ -22,7 +22,7 @@ function responseHeadersAsObject(response): Record<string, string> {
   return headers;
 }
 
-export function defaultRequest(service: Service, options: DefaultRequestOptions = {}) {
+export function defaultRequest(service: BaseService, options: DefaultRequestOptions = {}) {
   const opts = baseDefaultRequest(service, options);
 
   if (service.url.includes('https')) {

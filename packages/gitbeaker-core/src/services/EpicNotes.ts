@@ -1,30 +1,16 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
-import {
-  GetResponse,
-  PostResponse,
-  PutResponse,
-  DelResponse,
-} from '../infrastructure/RequestHelper';
-import {
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface EpicNotes extends ResourceNotes {
-  all(
-    groupId: string | number,
-    epicId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<GetResponse>;
+  all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
 
   create(
     groupId: string | number,
     epicId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<PostResponse>;
+  );
 
   edit(
     groupId: string | number,
@@ -32,21 +18,11 @@ export interface EpicNotes extends ResourceNotes {
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<PutResponse>;
+  );
 
-  remove(
-    groupId: string | number,
-    epicId: string | number,
-    noteId: number,
-    options?: Sudo,
-  ): Promise<DelResponse>;
+  remove(groupId: string | number, epicId: string | number, noteId: number, options?: Sudo);
 
-  show(
-    groupId: string | number,
-    epicId: string | number,
-    noteId: number,
-    options?: Sudo,
-  ): Promise<GetResponse>;
+  show(groupId: string | number, epicId: string | number, noteId: number, options?: Sudo);
 }
 
 export class EpicNotes extends ResourceNotes {

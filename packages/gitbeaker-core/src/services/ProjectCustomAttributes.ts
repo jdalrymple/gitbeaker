@@ -1,5 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceCustomAttributes } from '../templates';
-import { BaseServiceOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectCustomAttributes extends ResourceCustomAttributes {
   all(projectId: string | number, options?: PaginatedRequestOptions);

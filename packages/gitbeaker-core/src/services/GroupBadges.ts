@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
