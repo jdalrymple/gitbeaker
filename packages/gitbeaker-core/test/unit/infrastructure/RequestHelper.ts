@@ -1,5 +1,6 @@
 import * as FormData from 'form-data';
-import { RequestHelper, BaseService } from '../../../src/infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../../../src/infrastructure';
 
 /* eslint no-empty-pattern: 0 */
 /* eslint prefer-destructuring: 0 */
