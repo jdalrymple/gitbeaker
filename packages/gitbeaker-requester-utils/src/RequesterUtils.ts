@@ -1,4 +1,5 @@
 import { decamelizeKeys } from 'xcase';
+import * as FormData from 'form-data';
 import { stringify } from 'query-string';
 import { BaseService } from './BaseService';
 
@@ -15,6 +16,11 @@ export interface RequesterType {
   ): NodeJS.ReadableStream;
 }
 
+export type DefaultRequestService = Pick<
+  BaseService,
+  'headers' | 'requestTimeout' | 'url' | 'rejectUnauthorized'
+>;
+
 export type DefaultRequestOptions = {
   body?: FormData | Record<string, unknown>;
   query?: Record<string, unknown>;
@@ -22,20 +28,28 @@ export type DefaultRequestOptions = {
   method?: string;
 };
 
+export type DefaultRequestReturn = {
+  headers: Record<string, string> | Headers;
+  timeout?: number;
+  method: string;
+  searchParams?: string;
+  prefixUrl?: string;
+  body?: string | FormData;
+};
+
 // Utility methods
-export function formatQuery(options) {
-  return stringify(decamelizeKeys(options || {}) as Record<string, unknown>, {
+export function formatQuery(options?: Record<string, unknown>) {
+  return stringify(decamelizeKeys(options || {}), {
     arrayFormat: 'bracket',
   });
 }
 
 export function defaultRequest(
-  service: BaseService,
+  service: DefaultRequestService,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
-): Record<string, unknown> {
+): DefaultRequestReturn {
   const { headers } = service;
-  let agent;
-  let bod;
+  let bod: FormData | string;
 
   if (sudo) headers.sudo = sudo;
 
@@ -44,11 +58,10 @@ export function defaultRequest(
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
   } else {
-    bod = body;
+    bod = body as FormData;
   }
 
   return {
-    agent,
     headers,
     timeout: service.requestTimeout,
     method,
@@ -64,7 +77,11 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
 
   methods.forEach((m) => {
     /* eslint func-names:0 */
-    requester[m] = function (service, endpoint, options) {
+    requester[m] = function (
+      service: BaseService,
+      endpoint: string,
+      options: Record<string, unknown>,
+    ) {
       const requestOptions = optionsHandler(service, { ...options, method: m });
 
       return requestHandler(endpoint, requestOptions);

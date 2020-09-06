@@ -1,7 +1,8 @@
 import ky from 'ky';
 import { Agent } from 'https';
 import {
-  BaseService,
+  DefaultRequestService,
+  DefaultRequestReturn,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
@@ -22,8 +23,11 @@ function responseHeadersAsObject(response): Record<string, string> {
   return headers;
 }
 
-export function defaultRequest(service: BaseService, options: DefaultRequestOptions = {}) {
-  const opts = baseDefaultRequest(service, options);
+export function defaultRequest(
+  service: DefaultRequestService,
+  options: DefaultRequestOptions = {},
+): DefaultRequestReturn & { agent?: Agent } {
+  const opts: DefaultRequestReturn & { agent?: Agent } = baseDefaultRequest(service, options);
 
   if (service.url.includes('https')) {
     opts.agent = new Agent({
@@ -52,7 +56,7 @@ export function processBody(response) {
   }
 }
 
-export async function handler(endpoint, options) {
+export async function handler(endpoint: string, options: Record<string, unknown>) {
   let response;
 
   try {

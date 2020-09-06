@@ -2,17 +2,21 @@ import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import {
-  BaseService,
+  DefaultRequestService,
+  DefaultRequestReturn,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
 } from '@gitbeaker/requester-utils';
 
 export function defaultRequest(
-  service: BaseService,
+  service: DefaultRequestService,
   { body, query, sudo, method }: DefaultRequestOptions = {},
-) {
-  const options = baseDefaultRequest(service, { body, query, sudo, method });
+): DefaultRequestReturn & { json?: Record<string, unknown>; agent?: { https: Agent } } {
+  const options: DefaultRequestReturn & {
+    json?: Record<string, unknown>;
+    agent?: { https: Agent };
+  } = baseDefaultRequest(service, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (typeof body === 'object' && body.constructor.name !== 'FormData') {
@@ -56,7 +60,7 @@ export function processBody({
   }
 }
 
-export async function handler(endpoint, options) {
+export async function handler(endpoint: string, options: Record<string, unknown>) {
   let response;
 
   try {
