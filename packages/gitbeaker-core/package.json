@@ -15,12 +15,12 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.6.4",
     "esm": "^3.2.25",
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "rollup": "2.26.8",
-    "rollup-plugin-terser": "^7.0.1",
+    "rollup": "2.26.10",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"

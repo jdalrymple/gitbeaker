@@ -40,10 +40,10 @@ export type GroupDetailSchema = GroupSchema & {
 
 export class Groups extends BaseService {
   all(options?: PaginatedRequestOptions): Promise<GroupSchema[]> {
-    return RequestHelper.get(this, 'groups', options) as Promise<GroupSchema[]>;
+    return RequestHelper.get<GroupSchema>(this, 'groups', options) as Promise<GroupSchema[]>;
   }
 
-  create(name, path, options?: BaseRequestOptions & ShowExpanded) {
+  create(name: string, path: string, options?: BaseRequestOptions & ShowExpanded) {
     return RequestHelper.post(this, 'groups', { name, path, ...options });
   }
 
@@ -73,7 +73,9 @@ export class Groups extends BaseService {
   projects(groupId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema[]> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get(this, `groups/${gId}/projects`, options) as Promise<ProjectSchema[]>;
+    return RequestHelper.get<ProjectSchema>(this, `groups/${gId}/projects`, options) as Promise<
+      ProjectSchema[]
+    >;
   }
 
   remove(groupId: string | number, options?: Sudo & ShowExpanded) {
@@ -103,7 +105,9 @@ export class Groups extends BaseService {
   show(groupId: string | number, options?: BaseRequestOptions): Promise<GroupDetailSchema> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get(this, `groups/${gId}`, options);
+    return RequestHelper.get<GroupDetailSchema>(this, `groups/${gId}`, options) as Promise<
+      GroupDetailSchema
+    >;
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
