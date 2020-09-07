@@ -11,7 +11,7 @@
   "dependencies": {
     "query-string": "^6.13.1",
     "xcase": "^2.0.1",
-    "form-data": "^3.0.0"
+    "form-data": "https://github.com/nonoyona/form-data#patch-1"
   },
   "devDependencies": {
     "@types/node": "^14.6.4",

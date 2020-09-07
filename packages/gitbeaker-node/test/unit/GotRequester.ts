@@ -1,5 +1,5 @@
 import * as got from 'got';
-import * as FormData from 'form-data';
+import FormDataI from 'form-data';
 import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 
@@ -135,9 +135,9 @@ describe('defaultRequest', () => {
     expect(output1.body).toBeUndefined();
     expect(output1.json).toMatchObject({ key: 1 });
 
-    const output2 = defaultRequest(service, { body: new FormData() });
+    const output2 = defaultRequest(service, { body: new FormDataI() });
 
-    expect(output2.body).toBeInstanceOf(FormData);
+    expect(output2.body).toBeInstanceOf(FormDataI);
     expect(output2.json).toBeUndefined();
   });
 

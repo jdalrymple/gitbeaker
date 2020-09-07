@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@gitbeaker/requester-utils": "^23.5.0",
-    "form-data": "^3.0.0",
+    "form-data": "https://github.com/nonoyona/form-data#patch-1",
     "li": "^1.3.0",
     "xcase": "^2.0.1"
   },

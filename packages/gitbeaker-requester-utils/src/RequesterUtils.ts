@@ -1,5 +1,5 @@
 import { decamelizeKeys } from 'xcase';
-import * as FormData from 'form-data';
+import FormDataI from 'form-data';
 import { stringify } from 'query-string';
 import { BaseService } from './BaseService';
 
@@ -22,7 +22,7 @@ export type DefaultRequestService = Pick<
 >;
 
 export type DefaultRequestOptions = {
-  body?: FormData | Record<string, unknown>;
+  body?: FormDataI | FormData | Record<string, unknown>;
   query?: Record<string, unknown>;
   sudo?: string;
   method?: string;

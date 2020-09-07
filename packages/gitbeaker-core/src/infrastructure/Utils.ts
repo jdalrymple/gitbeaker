@@ -1,4 +1,4 @@
-import * as FormData from 'form-data';
+import FormDataI from 'form-data';
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
@@ -23,8 +23,8 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
   } as any) as BundleType<T, P>;
 }
 
-export function appendFormFromObject(object: Record<string, unknown>): FormData {
-  const form = new FormData();
+export function appendFormFromObject(object: Record<string, unknown>): FormDataI {
+  const form = new FormDataI();
 
   Object.entries(object).forEach(([k, v]) => {
     if (Array.isArray(v)) form.append(k, v[0], v[1]);
