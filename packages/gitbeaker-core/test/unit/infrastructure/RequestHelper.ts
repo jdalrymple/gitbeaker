@@ -1,4 +1,4 @@
-import FormDataI from 'form-data';
+import FormDataI from 'formdata-node';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginationResponse } from '../../../src/infrastructure/RequestHelper';
 

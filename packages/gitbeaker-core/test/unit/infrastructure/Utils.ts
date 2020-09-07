@@ -1,4 +1,4 @@
-import FormDataI from 'form-data';
+import FormDataI from 'formdata-node';
 import { bundler, appendFormFromObject } from '../../../src/infrastructure';
 
 describe('bundler', () => {
