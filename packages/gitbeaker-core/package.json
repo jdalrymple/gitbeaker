@@ -20,7 +20,6 @@
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "rollup": "2.26.10",
-    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
