@@ -9,9 +9,9 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
+    "formdata-node": "^2.4.0",
     "query-string": "^6.13.1",
-    "xcase": "^2.0.1",
-    "form-data": "https://github.com/nonoyona/form-data#patch-1"
+    "xcase": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.6.4",
@@ -43,6 +43,8 @@
   "scripts": {
     "build": "tsc && rollup -c",
     "test:integration": "jest test/integration",
-    "test:unit": "jest test/unit"
+    "test:unit": "jest test/unit",
+    "test:unit:dist-cjs": "jest test/unit --moduleNameMapper='{\"src\":\"<rootDir>/dist/index.js\"}'",
+    "test:unit:dist-es": "jest test/unit --moduleNameMapper='{\"src\":\"<rootDir>/dist/index.es.js\"}'"
   }
 }

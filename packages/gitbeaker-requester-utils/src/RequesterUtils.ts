@@ -1,5 +1,5 @@
 import { decamelizeKeys } from 'xcase';
-import FormDataI from 'form-data';
+import FormDataI from 'formdata-node';
 import { stringify } from 'query-string';
 import { BaseService } from './BaseService';
 
@@ -34,7 +34,7 @@ export type DefaultRequestReturn = {
   method: string;
   searchParams?: string;
   prefixUrl?: string;
-  body?: string | FormData;
+  body?: string | FormDataI;
 };
 
 // Utility methods
@@ -49,7 +49,7 @@ export function defaultRequest(
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): DefaultRequestReturn {
   const { headers } = service;
-  let bod: FormData | string;
+  let bod: FormDataI | string;
 
   if (sudo) headers.sudo = sudo;
 
@@ -58,7 +58,7 @@ export function defaultRequest(
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
   } else {
-    bod = body as FormData;
+    bod = body as FormDataI;
   }
 
   return {

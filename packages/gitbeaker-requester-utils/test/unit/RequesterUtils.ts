@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import * as FormData from 'form-data';
+import FormDataI from 'formdata-node';
 import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
@@ -30,10 +30,10 @@ describe('defaultRequest', () => {
   });
 
   it('should not stringify body if it of type FormData', async () => {
-    const testBody = new FormData();
+    const testBody = new FormDataI();
     const { body } = defaultRequest(service, { body: testBody, method: 'post' });
 
-    expect(body).toBeInstanceOf(FormData);
+    expect(body).toBeInstanceOf(FormDataI);
   });
 
   it('should not assign the sudo property if omitted', async () => {
