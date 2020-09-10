@@ -19,8 +19,10 @@
     "esm": "^3.2.25",
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
+    "esbuild": "^0.6.32",
     "rollup": "2.26.10",
-    "rollup-plugin-typescript2": "^0.27.2",
+    "rollup-plugin-dts": "^1.4.13",
+    "rollup-plugin-esbuild": "^2.5.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
