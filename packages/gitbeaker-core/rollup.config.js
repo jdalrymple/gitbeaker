@@ -4,7 +4,7 @@ import esbuild from 'rollup-plugin-esbuild';
 
 export default [
   {
-    import: 'src/index.ts',
+    input: 'src/index.ts',
     external: (id) => !/^[./]/.test(id),
     output: {
       file: pkg.main, // CommonJS (for Node) build.
@@ -14,7 +14,7 @@ export default [
     plugins: [esbuild()],
   },
   {
-    import: 'src/index.ts',
+    input: 'src/index.ts',
     external: (id) => !/^[./]/.test(id),
     output: {
       file: pkg.module, // ES Module (for bundlers) build.
@@ -24,7 +24,7 @@ export default [
     plugins: [esbuild()],
   },
   {
-    import: 'src/index.ts',
+    input: 'src/index.ts',
     external: (id) => !/^[./]/.test(id),
     output: {
       file: pkg.types, // Typings (for typescript) build.

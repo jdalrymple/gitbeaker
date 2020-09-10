@@ -1,11 +1,11 @@
 import FormDataI from 'formdata-node';
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-interface Constructor {
+export interface Constructor {
   new (...args: any): any;
 }
 
-type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
+export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
   [name in P]: InstanceType<T[name]>;
 };
 
