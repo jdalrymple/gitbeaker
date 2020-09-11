@@ -1,4 +1,4 @@
-import LinkHeader from 'http-link-header';
+import * as LinkHeader from 'http-link-header';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';
@@ -88,7 +88,7 @@ export async function get<T = Record<string, unknown>>(
     const link = LinkHeader.parse(headers.link);
     const leaf = '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
-    const more = (await get(service, link.rel('next').uri.replace(regex, ''), {
+    const more = (await get(service, link.rel('next')[0].uri.replace(regex, ''), {
       maxPages,
       sudo,
       showExpanded: true,
