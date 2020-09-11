@@ -20,9 +20,7 @@ module.exports = {
 
   globals: {
     'ts-jest': {
-      diagnostics: {
-        ignoreCodes: [2339],
-      },
+      tsconfig: 'tsconfig.jest.json',
     },
   },
 };

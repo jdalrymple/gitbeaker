@@ -21,11 +21,6 @@ beforeEach(() => {
   });
 });
 
-it.only('wtf', async () => {
-  console.log(Issues)
-  expect(true).toBeTruthy()
-});
-
 describe('Instantiating Issues service', () => {
   it('should create a valid service object', async () => {
     expect(service).toBeInstanceOf(Issues);
