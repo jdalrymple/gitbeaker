@@ -1,4 +1,4 @@
-import { RequesterType } from './RequesterUtils';
+import type { RequesterType } from './RequesterUtils';
 
 export interface BaseServiceOptions {
   oauthToken?: string;

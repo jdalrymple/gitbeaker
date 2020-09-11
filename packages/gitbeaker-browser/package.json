@@ -11,7 +11,10 @@
   "dependencies": {
     "@gitbeaker/core": "^23.5.0",
     "@gitbeaker/requester-utils": "^23.5.0",
-    "ky": "^0.23.0"
+    "@rollup/plugin-json": "^4.1.0",
+    "ky": "^0.23.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^9.0.0",

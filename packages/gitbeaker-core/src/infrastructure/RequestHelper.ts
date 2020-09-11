@@ -1,4 +1,4 @@
-import { parse as parseLink } from 'li';
+import LinkHeader from 'http-link-header';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';
@@ -85,10 +85,10 @@ export async function get<T = Record<string, unknown>>(
 
   // Rescurse through pagination results
   if (Array.isArray(body) && !query.page && underLimit && pagination.next) {
-    const { next } = parseLink(headers.link);
+    const link = LinkHeader.parse(headers.link);
     const leaf = '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
-    const more = (await get(service, next.replace(regex, ''), {
+    const more = (await get(service, link.rel('next').uri.replace(regex, ''), {
       maxPages,
       sudo,
       showExpanded: true,

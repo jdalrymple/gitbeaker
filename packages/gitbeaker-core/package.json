@@ -11,15 +11,15 @@
   "dependencies": {
     "@gitbeaker/requester-utils": "^23.5.0",
     "formdata-node": "^2.4.0",
-    "li": "^1.3.0",
+    "http-link-header": "^1.0.2",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.6.4",
+    "esbuild": "^0.6.32",
     "esm": "^3.2.25",
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "esbuild": "^0.6.32",
     "rollup": "2.26.10",
     "rollup-plugin-dts": "^1.4.13",
     "rollup-plugin-esbuild": "^2.5.0",
