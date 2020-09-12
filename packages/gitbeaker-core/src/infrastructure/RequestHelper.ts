@@ -1,4 +1,4 @@
-import * as LinkHeader from 'http-link-header';
+import LinkHeader from 'http-link-header';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';

@@ -1,9 +1,11 @@
-import * as got from 'got';
-import FormDataI from 'formdata-node';
+import * as Got from 'got';
+import FormData from 'formdata-node';
 import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 
 jest.mock('got');
+
+const got = (Got as unknown) as jest.Mock;
 
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
@@ -135,9 +137,9 @@ describe('defaultRequest', () => {
     expect(output1.body).toBeUndefined();
     expect(output1.json).toMatchObject({ key: 1 });
 
-    const output2 = defaultRequest(service, { body: new FormDataI() });
+    const output2 = defaultRequest(service, { body: new FormData() });
 
-    expect(output2.body).toBeInstanceOf(FormDataI);
+    expect(output2.body).toBeInstanceOf(FormData);
     expect(output2.json).toBeUndefined();
   });
 
@@ -148,6 +150,6 @@ describe('defaultRequest', () => {
     );
 
     expect(agent.https).toBeInstanceOf(Agent);
-    expect(agent.https.rejectUnauthorized).toBeFalsy();
+    expect((agent.https as Record<string, unknown>).rejectUnauthorized).toBeFalsy();
   });
 });
