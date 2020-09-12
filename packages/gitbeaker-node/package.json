@@ -11,15 +11,15 @@
   "dependencies": {
     "@gitbeaker/core": "^23.5.0",
     "@gitbeaker/requester-utils": "^23.5.0",
-    "got": "^11.6.0",
+    "got": "^11.6.2",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.6.4",
+    "@types/node": "^14.10.1",
     "formdata-node": "^2.4.0",
     "openpgp": "^4.10.8",
-    "esbuild": "^0.6.32",
-    "rollup": "2.26.10",
+    "esbuild": "^0.7.0",
+    "rollup": "2.26.11",
     "rollup-plugin-dts": "^1.4.13",
     "rollup-plugin-esbuild": "^2.5.0",
     "ts-node": "^9.0.0",

@@ -15,12 +15,12 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.6.4",
-    "esbuild": "^0.6.32",
+    "@types/node": "^14.10.1",
+    "esbuild": "^0.7.0",
     "esm": "^3.2.25",
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "rollup": "2.26.10",
+    "rollup": "2.26.11",
     "rollup-plugin-dts": "^1.4.13",
     "rollup-plugin-esbuild": "^2.5.0",
     "ts-node": "^9.0.0",
