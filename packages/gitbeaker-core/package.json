@@ -15,16 +15,16 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.10.1",
-    "esbuild": "^0.7.0",
+    "@types/node": "^14.11.2",
+    "esbuild": "0.7.4",
     "esm": "^3.2.25",
     "fs-extra": "^9.0.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "rollup": "2.26.11",
+    "rollup": "2.28.1",
     "rollup-plugin-dts": "^1.4.13",
     "rollup-plugin-esbuild": "^2.5.0",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10.19.0"
