@@ -1,18 +1,35 @@
 import pkg from './package.json';
-import { commonConfig, commonPlugins } from '../../rollup.config';
+import dts from 'rollup-plugin-dts';
+import esbuild from 'rollup-plugin-esbuild';
 
-export default {
-  ...commonConfig,
-  external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
-  output: [
-    {
-      file: pkg.main, // CommonJS (for Node) (for bundlers) build.
+export default [
+  {
+    input: 'src/index.ts',
+    external: (id) => !/^[./]/.test(id),
+    output: {
+      file: pkg.main, // CommonJS (for Node) build.
       format: 'cjs',
+      sourcemap: true,
     },
-    {
-      file: pkg.module, // ES module (for bundlers) build.
+    plugins: [esbuild()],
+  },
+  {
+    input: 'src/index.ts',
+    external: (id) => !/^[./]/.test(id),
+    output: {
+      file: pkg.module, // ES Module (for bundlers) build.
+      format: 'es',
+      sourcemap: true,
+    },
+    plugins: [esbuild()],
+  },
+  {
+    input: 'src/index.ts',
+    external: (id) => !/^[./]/.test(id),
+    output: {
+      file: pkg.types, // Typings (for typescript) build.
       format: 'es',
     },
-  ],
-  plugins: commonPlugins,
-};
+    plugins: [dts()],
+  },
+];

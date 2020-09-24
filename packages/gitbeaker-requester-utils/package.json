@@ -10,15 +10,16 @@
   },
   "dependencies": {
     "formdata-node": "^2.4.0",
-    "query-string": "^6.13.1",
+    "query-string": "^6.13.2",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.6.4",
-    "rollup": "2.26.10",
-    "rollup-plugin-typescript2": "^0.27.2",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "@types/node": "^14.11.2",
+    "esbuild": "0.6.15",
+    "rollup": "2.28.1",
+    "rollup-plugin-dts": "^1.4.13",
+    "rollup-plugin-esbuild": "^2.5.0",
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10.19.0"
@@ -35,16 +36,15 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit",
-    "test:unit:dist-cjs": "jest test/unit --moduleNameMapper='{\"src\":\"<rootDir>/dist/index.js\"}'",
-    "test:unit:dist-es": "jest test/unit --moduleNameMapper='{\"src\":\"<rootDir>/dist/index.es.js\"}'"
+    "test:unit:dist-cjs": "jest test/unit --moduleNameMapper='{\"src\":\"<rootDir>/dist/index.js\"}'"
   }
 }

@@ -15,17 +15,18 @@
     "@gitbeaker/core": "^23.5.0",
     "@gitbeaker/node": "^23.5.0",
     "chalk": "^4.1.0",
-    "ora": "^5.0.0",
+    "ora": "^5.1.0",
     "sywac": "^1.3.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
+    "esbuild": "0.7.4",
+    "rollup": "2.28.1",
     "@rollup/plugin-json": "^4.1.0",
-    "rollup": "2.26.10",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
-    "rollup-plugin-typescript2": "^0.27.2",
+    "rollup-plugin-esbuild": "^2.5.0",
     "strip-ansi": "^6.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10.19.0"
@@ -47,7 +48,7 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"
   }

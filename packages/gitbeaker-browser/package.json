@@ -15,22 +15,21 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@types/expect-puppeteer": "^4.4.3",
     "@types/jest-environment-puppeteer": "^4.3.2",
-    "@types/node": "^14.6.4",
-    "@types/puppeteer": "^3.0.1",
+    "@types/node": "^14.11.2",
+    "@types/puppeteer": "^3.0.2",
+    "esbuild": "0.7.4",
     "jest-puppeteer": "^4.4.0",
     "node-fetch": "^2.6.1",
-    "puppeteer": "5.2.1",
-    "rollup": "2.26.10",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.27.2",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "puppeteer": "5.3.1",
+    "rollup": "2.28.1",
+    "rollup-plugin-dts": "^1.4.13",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10.19.0"
@@ -48,14 +47,16 @@
     "ky"
   ],
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "browser": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"
   }

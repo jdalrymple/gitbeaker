@@ -1,7 +1,9 @@
-import * as ky from 'ky';
-import * as fetch from 'node-fetch';
+import Ky from 'ky';
+import fetch from 'node-fetch';
 import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/KyRequester';
+
+const ky = (Ky as unknown) as jest.Mock;
 
 // Set globals for testing purposes
 if (!global.fetch) {
@@ -182,6 +184,6 @@ describe('defaultRequest', () => {
     );
 
     expect(agent).toBeInstanceOf(Agent);
-    expect(agent.rejectUnauthorized).toBeFalsy();
+    expect((agent as Record<string, unknown>).rejectUnauthorized).toBeFalsy();
   });
 });

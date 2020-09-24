@@ -56,13 +56,15 @@ export function processBody(response) {
   }
 }
 
-export async function handler(endpoint: string, options: Record<string, unknown>) {
+export async function handler(endpoint: string, options: Record<string, any>) {
   let response;
 
   try {
-    if (options.method === 'stream') return ky(endpoint, options);
+    const call = ky(endpoint, options);
 
-    response = await ky(endpoint, options);
+    if (options.method === 'stream') return call;
+
+    response = await call;
   } catch (e) {
     if (e.response) {
       const output = await e.response.json();

@@ -1,27 +1,33 @@
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import builtins from 'rollup-plugin-node-builtins';
-import globals from 'rollup-plugin-node-globals';
+// // import { terser } from 'rollup-plugin-terser';
+import commonjs from 'rollup-plugin-commonjs'
+import polyfills from 'rollup-plugin-node-polyfills';
 import pkg from './package.json';
-import { terser } from 'rollup-plugin-terser';
-import { commonConfig, commonPlugins } from '../../rollup.config';
+import dts from 'rollup-plugin-dts';
+import esbuild from 'rollup-plugin-esbuild';
+import json from '@rollup/plugin-json';
 
 export default [
   {
-    ...commonConfig,
+    input: 'src/index.ts',
     output: {
-      file: pkg.browser,
+      file: pkg.browser, // Browser (for Node) build.
+      format: 'iife',
       name: 'gitbeaker',
-      format: 'umd',
-      exports: 'named',
+      sourcemap: true,
+      globals: {
+        'formdata-node': 'FormData',
+      },
     },
-    plugins: [
-      globals(),
-      builtins(),
-      resolve({ browser: true }),
-      commonjs(),
-      ...commonPlugins,
-      terser(),
-    ],
+    plugins: [resolve(), commonjs(), json(), polyfills(), esbuild()],
+  },
+  {
+    input: 'src/index.ts',
+    external: (id) => !/^[./]/.test(id),
+    output: {
+      file: pkg.types, // Typings (for typescript) build.
+      format: 'es',
+    },
+    plugins: [dts()],
   },
 ];

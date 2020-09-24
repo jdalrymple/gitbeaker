@@ -13,7 +13,6 @@
     /* Module Resolution Options */
 
     "moduleResolution": "node",
-    // "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
@@ -33,5 +32,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }

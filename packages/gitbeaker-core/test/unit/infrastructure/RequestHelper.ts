@@ -1,4 +1,4 @@
-import FormDataI from 'formdata-node';
+import FormData from 'formdata-node';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginationResponse } from '../../../src/infrastructure/RequestHelper';
 
@@ -272,7 +272,7 @@ describe('RequestHelper.post()', () => {
     RequestHelper.post(service, 'test', { isForm: true, test: 3 });
 
     expect(requester.post).toBeCalledWith(service, 'test', {
-      body: expect.any(FormDataI),
+      body: expect.any(FormData),
       sudo: undefined,
     });
   });

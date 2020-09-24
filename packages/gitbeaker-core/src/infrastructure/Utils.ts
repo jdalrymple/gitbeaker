@@ -1,17 +1,17 @@
-import FormDataI from 'formdata-node';
+import FormData from 'formdata-node';
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-interface Constructor {
+export type Constructor = {
   new (...args: any): any;
-}
+};
 
-type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
+export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
   [name in P]: InstanceType<T[name]>;
 };
 
-export interface BundleType<T extends { [name: string]: Constructor }, P extends keyof T> {
+export type BundleType<T extends { [name: string]: Constructor }, P extends keyof T> = {
   new (options?: any): Mapper<T, P>;
-}
+};
 
 export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
   services: T,
@@ -23,8 +23,8 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
   } as any) as BundleType<T, P>;
 }
 
-export function appendFormFromObject(object: Record<string, unknown>): FormDataI {
-  const form = new FormDataI();
+export function appendFormFromObject(object: Record<string, unknown>): FormData {
+  const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {
     if (Array.isArray(v)) form.append(k, v[0], v[1]);
