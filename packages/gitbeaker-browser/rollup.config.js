@@ -14,6 +14,8 @@ export default [
       name: 'gitbeaker',
       format: 'umd',
       exports: 'named',
+      globals: { 'form-data': 'FormData' },
+      external: ['form-data'],
     },
     plugins: [
       globals(),
