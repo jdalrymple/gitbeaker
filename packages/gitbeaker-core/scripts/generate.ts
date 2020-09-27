@@ -1,7 +1,7 @@
 import getParamNames from 'get-param-names';
 import { outputJsonSync } from 'fs-extra';
+import { BaseService } from '@gitbeaker/requester-utils';
 import * as Gitbeaker from '../src';
-import { BaseService } from '../src/infrastructure';
 
 function isGetter(x, name) {
   return (Object.getOwnPropertyDescriptor(x, name) || {}).get;

@@ -1,56 +1,64 @@
-import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-
-import { CommitSchema } from './Commits';
-import { PipelineSchema } from './Pipelines';
-import { UserSchema } from './Users';
-import { RunnerSchema } from './Runners';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
+import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
+import { UserSchemaDefault, UserSchemaCamelized } from './Users';
+import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
 // Ref: https://docs.gitlab.com/12.6/ee/api/deployments.html#list-project-deployments
-export interface DeploymentSchema {
+export interface DeploymentSchemaDefault {
   id: number;
   iid: number;
   ref: string;
   sha: string;
-  user: UserSchema;
+  user: UserSchemaDefault;
 }
 
-export type Deployable = DeployableDefault | DeployableCamelized;
+export interface DeploymentSchemaCamelized {
+  id: number;
+  iid: number;
+  ref: string;
+  sha: string;
+  user: UserSchemaCamelized;
+}
 
 export interface DeployableDefault {
   id: number;
   ref: string;
   name: string;
-  runner?: RunnerSchema;
+  runner?: RunnerSchemaDefault;
   stage?: string;
   started_at?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchema;
+  commit?: CommitSchemaDefault;
   coverage?: string;
   created_at?: Date;
   finished_at?: Date;
-  user?: UserSchema;
-  pipeline?: PipelineSchema;
+  user?: UserSchemaDefault;
+  pipeline?: PipelineSchemaDefault;
 }
 
 export interface DeployableCamelized {
   id: number;
   ref: string;
   name: string;
-  runner?: RunnerSchema;
+  runner?: RunnerSchemaCamelized;
   stage?: string;
   startedAt?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchema;
+  commit?: CommitSchemaCamelized;
   coverage?: string;
   createdAt?: Date;
   finishedAt?: Date;
-  user?: UserSchema;
-  pipeline?: PipelineSchema;
+  user?: UserSchemaCamelized;
+  pipeline?: PipelineSchemaCamelized;
 }
+
+export type Deployable = DeployableDefault | DeployableCamelized;
 
 export class Deployments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

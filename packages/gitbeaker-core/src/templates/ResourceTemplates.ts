@@ -1,10 +1,5 @@
-import {
-  BaseService,
-  RequestHelper,
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export class ResourceTemplates extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {

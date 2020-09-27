@@ -1,5 +1,4 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseService } from '../../../src/infrastructure';
+import { RequesterType, BaseService } from '../../src';
 
 describe('Creation of BaseService instance', () => {
   it('should default host to https://gitlab.com/api/v4/', async () => {
@@ -68,46 +67,6 @@ describe('Creation of BaseService instance', () => {
     });
 
     expect(service.url).toBe('https://testing.com/api/v3/');
-  });
-
-  /* eslint @typescript-eslint/camelcase: 0 */
-  it('should return simple response with camelized keys when using the camelize option', async () => {
-    const requester = {} as any;
-    const service = new BaseService({
-      requester,
-      host: 'https://testing.com',
-      token: '1234',
-      camelize: true,
-    });
-
-    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
-    requester.get = jest.fn(() => ({
-      body: [
-        { id: 3, gravatar_enable: true },
-        { id: 4, gravatar_enable: false },
-      ],
-      headers: {},
-    }));
-
-    const results = await service.show();
-
-    expect(results).toIncludeSameMembers([
-      { id: 3, gravatarEnable: true },
-      { id: 4, gravatarEnable: false },
-    ]);
-  });
-
-  /* eslint @typescript-eslint/camelcase: 0 */
-  it('should return simple response with default keys without camelize option', async () => {
-    const requester = {} as any;
-    const service = new BaseService({ requester, host: 'https://testing.com', token: '1234' });
-
-    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
-    requester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
-
-    const results = await service.show();
-
-    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
   });
 
   it('should set the X-Profile-Token header if the profileToken option is given', async () => {

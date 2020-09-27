@@ -1,42 +1,55 @@
-import { Agent } from 'https';
 import { decamelizeKeys } from 'xcase';
+import * as FormData from 'form-data';
 import { stringify } from 'query-string';
+import { BaseService } from './BaseService';
 
 // Types
 export interface RequesterType {
-  get(service: object, endpoint: string, options?: object): Promise<any>;
-  post(service: object, endpoint: string, options?: object): Promise<any>;
-  put(service: object, endpoint: string, options?: object): Promise<any>;
-  delete(service: object, endpoint: string, options?: object): Promise<any>;
-  stream?(service: object, endpoint: string, options?: object): Promise<any>;
+  get(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  post(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  put(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  delete(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  stream?(
+    service: BaseService,
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): NodeJS.ReadableStream;
 }
 
-export interface Service {
-  headers: Record<string, string | string[]>;
-  requestTimeout: number;
-  url: string;
-  rejectUnauthorized?: boolean;
-}
+export type DefaultRequestService = Pick<
+  BaseService,
+  'headers' | 'requestTimeout' | 'url' | 'rejectUnauthorized'
+>;
 
 export type DefaultRequestOptions = {
-  body?: FormData | object;
-  query?: object;
+  body?: FormData | Record<string, unknown>;
+  query?: Record<string, unknown>;
   sudo?: string;
   method?: string;
 };
 
+export type DefaultRequestReturn = {
+  headers: Record<string, string> | Headers;
+  timeout?: number;
+  method: string;
+  searchParams?: string;
+  prefixUrl?: string;
+  body?: string | FormData;
+};
+
 // Utility methods
-export function formatQuery(options) {
-  return stringify(decamelizeKeys(options || {}) as object, { arrayFormat: 'bracket' });
+export function formatQuery(options?: Record<string, unknown>) {
+  return stringify(decamelizeKeys(options || {}), {
+    arrayFormat: 'bracket',
+  });
 }
 
 export function defaultRequest(
-  service: Service,
+  service: DefaultRequestService,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
-): Record<string, string | number | FormData | Agent | Record<string, string | string[] | Agent>> {
+): DefaultRequestReturn {
   const { headers } = service;
-  let agent;
-  let bod;
+  let bod: FormData | string;
 
   if (sudo) headers.sudo = sudo;
 
@@ -45,11 +58,10 @@ export function defaultRequest(
     bod = JSON.stringify(decamelizeKeys(body));
     headers['content-type'] = 'application/json';
   } else {
-    bod = body;
+    bod = body as FormData;
   }
 
   return {
-    agent,
     headers,
     timeout: service.requestTimeout,
     method,
@@ -65,7 +77,11 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
 
   methods.forEach((m) => {
     /* eslint func-names:0 */
-    requester[m] = function (service, endpoint, options) {
+    requester[m] = function (
+      service: BaseService,
+      endpoint: string,
+      options: Record<string, unknown>,
+    ) {
       const requestOptions = optionsHandler(service, { ...options, method: m });
 
       return requestHandler(endpoint, requestOptions);
@@ -75,11 +91,11 @@ export function createInstance(optionsHandler, requestHandler): RequesterType {
   return requester;
 }
 
-export interface Constructable<T = {}> {
+export interface Constructable<T = any> {
   new (...args: any[]): T;
 }
 
-function extendClass<T extends Constructable>(Base: T, customConfig: object): T {
+function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
   return class extends Base {
     constructor(...options: any[]) {
       const [config, ...opts] = options;
@@ -91,7 +107,7 @@ function extendClass<T extends Constructable>(Base: T, customConfig: object): T 
 
 export function modifyServices<T extends { [name: string]: Constructable }>(
   services: T,
-  customConfig: object = {},
+  customConfig: Record<string, unknown> = {},
 ) {
   const updated: { [name: string]: Constructable } = {};
 

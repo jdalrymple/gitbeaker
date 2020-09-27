@@ -1,7 +1,6 @@
+import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import {
-  BaseService,
   RequestHelper,
-  BaseServiceOptions,
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,

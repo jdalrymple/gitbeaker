@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, BaseServiceOptions, Sudo } from '../infrastructure';
+import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, Sudo } from '../infrastructure';
 
 export type AccessLevel = 10 | 20 | 30 | 40 | 50;
 
