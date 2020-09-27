@@ -1,9 +1,5 @@
-import {
-  BaseRequestOptions,
-  BaseService,
-  PaginatedRequestOptions,
-  RequestHelper,
-} from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
 const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 

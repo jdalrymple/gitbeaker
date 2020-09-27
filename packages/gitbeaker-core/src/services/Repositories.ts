@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
 

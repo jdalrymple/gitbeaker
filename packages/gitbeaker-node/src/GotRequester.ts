@@ -2,17 +2,21 @@ import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import { Agent } from 'https';
 import {
-  Service,
+  DefaultRequestService,
+  DefaultRequestReturn,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
 } from '@gitbeaker/requester-utils';
 
 export function defaultRequest(
-  service: Service,
+  service: DefaultRequestService,
   { body, query, sudo, method }: DefaultRequestOptions = {},
-) {
-  const options = baseDefaultRequest(service, { body, query, sudo, method });
+): DefaultRequestReturn & { json?: Record<string, unknown>; agent?: { https: Agent } } {
+  const options: DefaultRequestReturn & {
+    json?: Record<string, unknown>;
+    agent?: { https: Agent };
+  } = baseDefaultRequest(service, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (typeof body === 'object' && body.constructor.name !== 'FormData') {
@@ -32,7 +36,13 @@ export function defaultRequest(
   return options;
 }
 
-export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: object }) {
+export function processBody({
+  rawBody,
+  headers,
+}: {
+  rawBody: Buffer;
+  headers: Record<string, unknown>;
+}) {
   const contentType = headers['content-type'] || '';
 
   switch (contentType) {
@@ -50,10 +60,12 @@ export function processBody({ rawBody, headers }: { rawBody: Buffer; headers: ob
   }
 }
 
-export async function handler(endpoint, options) {
+export async function handler(endpoint: string, options: Record<string, unknown>) {
   let response;
 
   try {
+    if (options.method === 'stream') return Got(endpoint, options);
+
     response = await Got(endpoint, options);
   } catch (e) {
     if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {

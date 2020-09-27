@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, PaginatedRequestOptions } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, PaginatedRequestOptions } from '../infrastructure';
 
 export interface EventOptions {
   action?:
