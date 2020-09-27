@@ -11,11 +11,11 @@
   "dependencies": {
     "@gitbeaker/core": "^23.5.0",
     "@gitbeaker/requester-utils": "^23.5.0",
-    "got": "^11.1.4",
+    "got": "^11.7.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.0.6",
+    "@types/node": "^14.11.2",
     "form-data": "^3.0.0",
     "openpgp": "^4.10.4",
     "rollup": "^2.12.0",
