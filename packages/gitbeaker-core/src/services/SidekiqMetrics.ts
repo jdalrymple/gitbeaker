@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export class SidekiqMetrics extends BaseService {
   queueMetrics() {

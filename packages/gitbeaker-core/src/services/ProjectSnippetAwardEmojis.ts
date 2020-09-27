@@ -1,5 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis } from '../templates';
-import { BaseServiceOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectSnippetAwardEmojis extends ResourceAwardEmojis {
   all(

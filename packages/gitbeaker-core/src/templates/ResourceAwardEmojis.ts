@@ -1,10 +1,5 @@
-import {
-  BaseService,
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  RequestHelper,
-  Sudo,
-} from '../infrastructure';
+import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 function url(
   projectId: number | string,

@@ -1,5 +1,4 @@
 /* eslint-disable max-classes-per-file */
-
 import * as FormData from 'form-data';
 import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
 
@@ -35,12 +34,6 @@ describe('defaultRequest', () => {
     const { body } = defaultRequest(service, { body: testBody, method: 'post' });
 
     expect(body).toBeInstanceOf(FormData);
-  });
-
-  it('should not assign the agent property if given http url', async () => {
-    const options = defaultRequest(service, { method: 'post' });
-
-    expect(options.agent).toBeUndefined();
   });
 
   it('should not assign the sudo property if omitted', async () => {

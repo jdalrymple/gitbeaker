@@ -1,12 +1,10 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
-  BaseService,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
 
 // As of GitLab v12.6.2
 export interface CommitSchemaDefault {
@@ -38,6 +36,8 @@ export interface CommitSchemaCamelized {
   committerEmail?: string;
   committedDate?: Date;
 }
+
+export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
 
 interface CommitAction {
   /** The action to perform */

@@ -176,9 +176,12 @@ describe('defaultRequest', () => {
   });
 
   it('should assign the agent property if given https url', async () => {
-    const options = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
+    const { agent = {} } = defaultRequest(
+      { ...service, url: 'https://test.com' },
+      { method: 'post' },
+    );
 
-    expect(options.agent).toBeInstanceOf(Agent);
-    expect(options.agent.rejectUnauthorized).toBeFalsy();
+    expect(agent).toBeInstanceOf(Agent);
+    expect(agent.rejectUnauthorized).toBeFalsy();
   });
 });

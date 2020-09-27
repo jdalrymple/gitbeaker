@@ -1,5 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables, ResourceVariableSchema } from '../templates';
-import { BaseServiceOptions, PaginatedRequestOptions, BaseRequestOptions } from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions } from '../infrastructure';
 
 export interface GroupVariables extends ResourceVariables {
   all(
