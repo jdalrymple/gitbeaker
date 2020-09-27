@@ -570,8 +570,8 @@ To get this running locally rather than from your `node_modules` folder:
 ```bash
 $ git clone https://github.com/jdalrymple/gitbeaker.git
 $ cd gitbeaker
-$ npm install
-$ npm run-script build
+$ yarn install
+$ yarn build
 ```
 
 And then inside whatever project you are using `gitbeaker` in you change your references to use that repo. In your package.json of that upstream project change:
@@ -611,16 +611,16 @@ export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"
 1. Now run the tests
 
 ```bash
-npm run test
+yarn test
 
 # or, alternatively
-npm run test-with-token # sets PERSONAL_ACCESS_TOKEN and GITLAB_URL from above, before running tests
+yarn test-with-token # sets PERSONAL_ACCESS_TOKEN and GITLAB_URL from above, before running tests
 ```
 
-You can also define them in front of the npm script
+You can also define them in front of the yarn script
 
 ```
-PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' npm run test
+PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' yarn test
 ```
 
 > Note it may take about 3 minutes to get the variables while Gitlab is starting up in the container
