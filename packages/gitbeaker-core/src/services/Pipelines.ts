@@ -1,14 +1,11 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
-  BaseService,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
 import { JobScope } from './Jobs';
-
-// As of GitLab v12.6.2
-export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
 
 export interface PipelineSchemaDefault {
   id: number;
@@ -29,6 +26,9 @@ export interface PipelineSchemaCamelized {
   updatedAt: Date;
   webUrl: string;
 }
+
+// As of GitLab v12.6.2
+export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
 
 export class Pipelines extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

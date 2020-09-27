@@ -1,9 +1,5 @@
-import {
-  BaseRequestOptions,
-  BaseService,
-  PaginatedRequestOptions,
-  RequestHelper,
-} from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
 type NotificationSettingLevel =
   | 'disabled'
@@ -13,7 +9,7 @@ type NotificationSettingLevel =
   | 'mention'
   | 'custom';
 
-type ProjectOrGroup = { projectId: string | number } | { groupId: string | number } | {};
+type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
 function url({ projectId, groupId }) {
   let uri = '';

@@ -1,10 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
-import {
-  BaseServiceOptions,
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface GroupIssueBoards extends ResourceIssueBoards {
   all(groupId: string | number, options?: PaginatedRequestOptions);

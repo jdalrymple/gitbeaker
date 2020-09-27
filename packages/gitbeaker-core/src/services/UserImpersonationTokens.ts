@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 type ImpersonationTokenScope = 'api' | 'read_user';
 

@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, Sudo } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, Sudo } from '../infrastructure';
 
 export class Version extends BaseService {
   show(options?: Sudo) {

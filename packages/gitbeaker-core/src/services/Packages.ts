@@ -1,4 +1,5 @@
-import { BaseService, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export class Packages extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

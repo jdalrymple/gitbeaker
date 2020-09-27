@@ -1,10 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
-import {
-  BaseRequestOptions,
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectBadges extends ResourceBadges {
   add(projectId: string | number, options?: BaseRequestOptions);

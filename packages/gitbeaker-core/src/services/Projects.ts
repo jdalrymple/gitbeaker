@@ -1,6 +1,6 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
-  BaseService,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -23,8 +23,6 @@ export interface NamespaceInfoSchemaCamelize {
   kind: string;
   fullPath: string;
 }
-
-export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
 
 export interface ProjectSchemaDefault {
   id: number;
@@ -49,6 +47,8 @@ export interface ProjectSchemaCamelized {
   httpUrlToRepo: string;
   archived: boolean;
 }
+
+export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
 
 export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {

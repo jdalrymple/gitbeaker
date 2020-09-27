@@ -1,5 +1,5 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
-  BaseService,
   RequestHelper,
   Sudo,
   BaseRequestOptions,
