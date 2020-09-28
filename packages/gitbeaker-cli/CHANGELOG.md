@@ -1,13 +1,13 @@
-# v24.0.0 (Mon Sep 28 2020)
+# v23.6.0 (Mon Sep 28 2020)
 
-#### 💥 Breaking Change
+#### 🚀 Enhancement
 
-- Updating cli deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
 - Updating terser usage to be only on the browser release [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
-- chore(deps-dev): bump typescript from 3.9.7 to 4.0.3 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 
 #### 🔩 Dependency Updates
 
+- chore(deps-dev): bump typescript from 3.9.7 to 4.0.3 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Updating cli deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
 - chore(deps-dev): bump rollup-plugin-terser from 6.1.0 to 7.0.0 [#1058](https://github.com/jdalrymple/gitbeaker/pull/1058) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
 - chore(deps): bump ora from 4.1.1 to 5.0.0 [#1059](https://github.com/jdalrymple/gitbeaker/pull/1059) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 
