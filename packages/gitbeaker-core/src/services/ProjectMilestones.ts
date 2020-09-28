@@ -1,10 +1,6 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../templates';
-import {
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectMilestones extends ResourceMilestones {
   all(projectId: string | number, options?: PaginatedRequestOptions);

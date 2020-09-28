@@ -1,4 +1,5 @@
-import { BaseService, RequestHelper, BaseRequestOptions } from '../infrastructure';
+import { BaseService } from '@gitbeaker/requester-utils';
+import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
 export class Search extends BaseService {
   all(

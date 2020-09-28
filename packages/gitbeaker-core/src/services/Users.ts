@@ -1,15 +1,12 @@
+import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
-  BaseService,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
 
 import { EventOptions } from './Events';
-
-// As of GitLab v12.6.2
-export type UserSchema = UserSchemaDefault | UserSchemaCamelized;
 
 export interface UserSchemaDefault {
   id: number;
@@ -30,7 +27,7 @@ export interface UserSchemaCamelized {
 }
 
 // As of GitLab v12.6.2
-export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
+export type UserSchema = UserSchemaDefault | UserSchemaCamelized;
 
 export interface UserDetailSchemaDefault extends UserSchemaDefault {
   created_at: Date;
@@ -55,6 +52,9 @@ export interface UserDetailSchemaCamelized extends UserSchemaCamelized {
   websiteUrl?: string;
   organization?: string;
 }
+
+// As of GitLab v12.6.2
+export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
 
 export class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {

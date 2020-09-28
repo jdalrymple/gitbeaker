@@ -1,17 +1,12 @@
 import { parse as parseLink } from 'li';
 import { camelizeKeys } from 'xcase';
-import { BaseService } from './BaseService';
+import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';
 
-export interface Sudo {
-  sudo?: string | number;
-}
+export type True = true;
+export type False = false;
 
-export interface ShowExpanded {
-  showExpanded?: boolean;
-}
-
-export interface PaginationOptions {
+export interface PaginationInformation {
   total: number;
   next: number | null;
   current: number;
@@ -20,38 +15,53 @@ export interface PaginationOptions {
   totalPages: number;
 }
 
-/* eslint @typescript-eslint/no-explicit-any: 0 */
-export interface BaseRequestOptions extends Sudo {
-  [key: string]: any;
+// Options
+export interface Sudo {
+  sudo?: string | number;
+}
+export interface IsForm {
+  isForm?: boolean;
+}
+export interface ShowExpanded {
+  showExpanded?: boolean;
 }
 
+/* eslint @typescript-eslint/no-explicit-any:0 */
+export type BaseRequestOptions = Sudo & Record<string, any>;
 export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpanded {
   maxPages?: number;
   page?: number;
   perPage?: number;
 }
 
-export interface ExpandedResponse {
-  data: object;
-  headers: object;
+// Response Formats
+export interface ExpandedResponse<T> {
+  data: T;
+  headers: Record<string, unknown>;
   status: number;
 }
-
-export interface PaginationResponse {
-  data: object[];
-  pagination: PaginationOptions;
+export interface PaginationResponse<T = Record<string, unknown>[]> {
+  data: T;
+  pagination: PaginationInformation;
 }
 
-export type GetResponse = PaginationResponse | ExpandedResponse | object | object[];
-export type PostResponse = ExpandedResponse | object;
-export type PutResponse = ExpandedResponse | object;
-export type DelResponse = ExpandedResponse | object;
+export async function get<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: BaseRequestOptions,
+): Promise<T | T[]>;
+export async function get<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: PaginatedRequestOptions & { showExpanded: true },
+): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
 
-async function get(
+/* eslint @typescript-eslint/no-explicit-any:0 */
+export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
-): Promise<GetResponse> {
+): Promise<any> {
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
     sudo,
@@ -74,15 +84,15 @@ async function get(
   if (service.camelize) body = camelizeKeys(body);
 
   // Rescurse through pagination results
-  if (!query.page && underLimit && pagination.next) {
+  if (Array.isArray(body) && !query.page && underLimit && pagination.next) {
     const { next } = parseLink(headers.link);
-    const leaf = service.url.split('/').pop() || '';
+    const leaf = '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
       maxPages,
       sudo,
       showExpanded: true,
-    })) as PaginationResponse;
+    })) as PaginationResponse<T[]>;
 
     pagination = more.pagination;
     body = [...body, ...more.data];
@@ -92,33 +102,42 @@ async function get(
   if (!showExpanded) return body;
 
   // Else build the expanded response
-  const output = { data: body } as Record<string, any>;
+  const output: {
+    data: T | T[];
+    pagination?: PaginationInformation;
+    headers?: Record<string, string>;
+    status?: number;
+  } = {
+    data: body as T | T[],
+  };
 
-  if (body.length > 0 || query.page) {
+  if ((Array.isArray(body) && body.length > 0) || query.page) {
     output.pagination = pagination;
   } else {
     output.headers = headers;
     output.status = status;
   }
 
-  return output;
+  return output as ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>;
 }
 
-function stream(service: BaseService, endpoint: string, options: BaseRequestOptions = {}) {
-  if (typeof service.requester.stream !== 'function') {
-    throw new Error('Stream method is not implementated in requester!');
-  }
+async function post<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: IsForm & BaseRequestOptions,
+): Promise<T>;
+async function post<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: IsForm & BaseRequestOptions & { showExpanded: true },
+): Promise<ExpandedResponse<T>>;
 
-  return service.requester.stream(service, endpoint, {
-    query: options,
-  });
-}
-
+/* eslint @typescript-eslint/no-explicit-any:0 */
 async function post(
   service: BaseService,
   endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: { isForm?: boolean } & BaseRequestOptions = {},
-): Promise<PostResponse> {
+  { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions = {},
+): Promise<any> {
   const body = isForm ? appendFormFromObject(options) : options;
 
   const r = await service.requester.post(service, endpoint, {
@@ -126,14 +145,32 @@ async function post(
     sudo,
   });
 
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+  return showExpanded
+    ? {
+        data: r.body,
+        status: r.status,
+        headers: r.headers,
+      }
+    : r.body;
 }
 
+async function put<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: BaseRequestOptions,
+): Promise<T>;
+async function put<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { showExpanded }: BaseRequestOptions & { showExpanded: true },
+): Promise<ExpandedResponse<T>>;
+
+/* eslint @typescript-eslint/no-explicit-any:0 */
 async function put(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
-): Promise<PutResponse> {
+  { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions = {},
+): Promise<any> {
   const r = await service.requester.put(service, endpoint, {
     body,
     sudo,
@@ -142,17 +179,43 @@ async function put(
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
+async function del<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: BaseRequestOptions,
+): Promise<T>;
+async function del<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  { showExpanded }: BaseRequestOptions & { showExpanded: true },
+): Promise<ExpandedResponse<T>>;
+
+/* eslint @typescript-eslint/no-explicit-any:0 */
 async function del(
   service: BaseService,
   endpoint: string,
-  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
-): Promise<DelResponse> {
+  { sudo, showExpanded, ...query }: ShowExpanded & BaseRequestOptions = {},
+): Promise<any> {
   const r = await service.requester.delete(service, endpoint, {
     query,
     sudo,
   });
 
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+}
+
+function stream(
+  service: BaseService,
+  endpoint: string,
+  options?: BaseRequestOptions,
+): NodeJS.ReadableStream {
+  if (typeof service.requester.stream !== 'function') {
+    throw new Error('Stream method is not implementated in requester!');
+  }
+
+  return service.requester.stream(service, endpoint, {
+    query: options,
+  });
 }
 
 export const RequestHelper = {

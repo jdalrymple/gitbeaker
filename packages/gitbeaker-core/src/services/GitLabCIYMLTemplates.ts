@@ -1,5 +1,5 @@
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceTemplates } from '../templates';
-import { BaseServiceOptions } from '../infrastructure';
 
 export class GitLabCIYMLTemplates extends ResourceTemplates {
   constructor(options: BaseServiceOptions) {

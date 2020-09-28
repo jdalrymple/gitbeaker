@@ -1,10 +1,12 @@
 import ky from 'ky';
 import { Agent } from 'https';
 import {
-  Service,
+  DefaultRequestService,
+  DefaultRequestReturn,
   DefaultRequestOptions,
   createInstance,
   defaultRequest as baseDefaultRequest,
+  wait,
 } from '@gitbeaker/requester-utils';
 
 function responseHeadersAsObject(response): Record<string, string> {
@@ -22,8 +24,11 @@ function responseHeadersAsObject(response): Record<string, string> {
   return headers;
 }
 
-export function defaultRequest(service: Service, options: DefaultRequestOptions = {}) {
-  const opts = baseDefaultRequest(service, options);
+export function defaultRequest(
+  service: DefaultRequestService,
+  options: DefaultRequestOptions = {},
+): DefaultRequestReturn & { agent?: Agent } {
+  const opts: DefaultRequestReturn & { agent?: Agent } = baseDefaultRequest(service, options);
 
   if (service.url.includes('https')) {
     opts.agent = new Agent({
@@ -52,19 +57,33 @@ export function processBody(response) {
   }
 }
 
-export async function handler(endpoint, options) {
+export async function handler(endpoint: string, options: Record<string, unknown>) {
+  const obeyRateLimit = true;
+  const maxRetries = 10;
   let response;
 
-  try {
-    response = await ky(endpoint, options);
-  } catch (e) {
-    if (e.response) {
-      const output = await e.response.json();
+  for (let i = 0; i < maxRetries; i += 1) {
+    try {
+      if (options.method === 'stream') return ky(endpoint, options);
 
-      e.description = output.error || output.message;
+      response = await ky(endpoint, options); // eslint-disable-line
+      break;
+    } catch (e) {
+      const waitTime = 2 ** i * 0.1;
+
+      if (e.response) {
+        if (obeyRateLimit && e.response.status === 429) {
+          await wait(waitTime); // eslint-disable-line
+          continue; // eslint-disable-line
+        }
+
+        const output = await e.response.json(); // eslint-disable-line
+
+        e.description = output.error || output.message;
+      }
+
+      throw e;
     }
-
-    throw e;
   }
 
   const { status } = response;

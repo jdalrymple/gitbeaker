@@ -1,9 +1,5 @@
-import {
-  BaseRequestOptions,
-  BaseServiceOptions,
-  PaginatedRequestOptions,
-  Sudo,
-} from '../infrastructure';
+import { BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 import { ResourceLabels } from '../templates';
 
 export interface GroupLabels extends ResourceLabels {
