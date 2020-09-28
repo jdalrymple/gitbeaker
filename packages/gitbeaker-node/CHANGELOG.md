@@ -1,3 +1,43 @@
+# v24.0.0 (Mon Sep 28 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, xieyu ([@Gkxie](https://github.com/Gkxie)), for all your work!
+
+#### 💥 Breaking Change
+
+- Updating openpgp [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge branch 'restructure' into backitup [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Restructing the requester utils and update the related typings [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating node deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge branch 'ts-node' into backitup [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Update ts-node [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating terser usage to be only on the browser release [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump typescript from 3.9.7 to 4.0.3 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Linting [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- fix(node): response body needs parse firstly when it's type is json [#1057](https://github.com/jdalrymple/gitbeaker/pull/1057) ([@Gkxie](https://github.com/Gkxie) [@jdalrymple](https://github.com/jdalrymple))
+- Updating unit tests \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- feat: apply exponental backoff for 429 errors ([@max-wittig](https://github.com/max-wittig))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-terser from 6.1.0 to 7.0.0 [#1058](https://github.com/jdalrymple/gitbeaker/pull/1058) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Max Wittig ([@max-wittig](https://github.com/max-wittig))
+- xieyu ([@Gkxie](https://github.com/Gkxie))
+
+---
+
 # v23.5.0 (Sun Aug 09 2020)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,88 @@
+# 24.0.0 (Mon Sep 28 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, xieyu ([@Gkxie](https://github.com/Gkxie)), for all your work!
+
+#### 💥 Breaking Change
+
+- Updating linting deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Dependency Updates [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- Further package updates [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): [security] bump node-fetch from 2.6.0 to 2.6.1 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump prettier from 2.0.5 to 2.1.2 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.10 to 26.0.14 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.2.11 to 10.4.0 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.5.2 to 11.7.0 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.0.27 to 14.11.2 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Updating auto deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Updating openpgp [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - update rollup for requester utils [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Merge branch 'restructure' into backitup [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Restructing the requester utils and update the related typings [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Updating node deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - Updating browser deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Updating cli deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Updating core deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - Updating requester-utils deps [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Merge branch 'ts-node' into backitup [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - Externalize formdata [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Update ts-node [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating terser usage to be only on the browser release [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump typescript from 3.9.7 to 4.0.3 [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/node`
+  - Linting [#1163](https://github.com/jdalrymple/gitbeaker/pull/1163) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/node`
+  - fix(node): response body needs parse firstly when it's type is json [#1057](https://github.com/jdalrymple/gitbeaker/pull/1057) ([@Gkxie](https://github.com/Gkxie) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🏿‍♀️ Security
+
+- chore(deps): [security] bump dot-prop from 4.2.0 to 4.2.1 [#1089](https://github.com/jdalrymple/gitbeaker/pull/1089) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/browser`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - feat: apply exponental backoff for 429 errors ([@max-wittig](https://github.com/max-wittig))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/jest from 26.0.9 to 26.0.10 [#1087](https://github.com/jdalrymple/gitbeaker/pull/1087) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump rollup-plugin-terser from 6.1.0 to 7.0.0 [#1058](https://github.com/jdalrymple/gitbeaker/pull/1058) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - chore(deps): bump ora from 4.1.1 to 5.0.0 [#1059](https://github.com/jdalrymple/gitbeaker/pull/1059) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- fix(docs): Change `npm` to `yarn` for development [#1107](https://github.com/jdalrymple/gitbeaker/pull/1107) ([@kiprasmel](https://github.com/kiprasmel) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 5
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+- Max Wittig ([@max-wittig](https://github.com/max-wittig))
+- xieyu ([@Gkxie](https://github.com/Gkxie))
+
+---
+
 # 23.5.0 (Sun Aug 09 2020)
 
 :tada: This release contains work from a new contributor! :tada:
