@@ -665,12 +665,12 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/s-kazuki"><img src="https://avatars2.githubusercontent.com/u/9253374?v=4?s=50" width="50px;" alt=""/><br /><sub><b>s-kazuki</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=s-kazuki" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/kiprasmel"><img src="https://avatars3.githubusercontent.com/u/29430509?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Kipras Melnikovas</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=kiprasmel" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Gkxie"><img src="https://avatars0.githubusercontent.com/u/27680715?v=4?s=50" width="50px;" alt=""/><br /><sub><b>xieyu</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Gkxie" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/st1gok"><img src="https://avatars1.githubusercontent.com/u/13641693?v=4?s=50" width="50px;" alt=""/><br /><sub><b>st1gok</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=st1gok" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
