@@ -1,3 +1,21 @@
+# v23.7.0 (Tue Sep 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
+
+#### 🐛 Bug Fix
+
+- Update CommitDiscussions.ts [#1168](https://github.com/jdalrymple/gitbeaker/pull/1168) ([@st1gok](https://github.com/st1gok) [@jdalrymple](https://github.com/jdalrymple))
+- Updating changelog \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@st1gok](https://github.com/st1gok)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.6.0 (Mon Sep 28 2020)
 
 #### 🚀 Enhancement

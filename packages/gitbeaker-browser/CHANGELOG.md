@@ -1,3 +1,21 @@
+# v23.7.0 (Tue Sep 29 2020)
+
+#### 🐛 Bug Fix
+
+- Updating changelog \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-commonjs from 14.0.0 to 15.1.0 [#1166](https://github.com/jdalrymple/gitbeaker/pull/1166) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 8.4.0 to 9.0.0 [#1164](https://github.com/jdalrymple/gitbeaker/pull/1164) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.6.0 (Mon Sep 28 2020)
 
 #### 🚀 Enhancement

@@ -1,3 +1,30 @@
+# 23.7.0 (Tue Sep 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Update CommitDiscussions.ts [#1168](https://github.com/jdalrymple/gitbeaker/pull/1168) ([@st1gok](https://github.com/st1gok) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump eslint-plugin-import from 2.22.0 to 2.22.1 [#1165](https://github.com/jdalrymple/gitbeaker/pull/1165) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump @rollup/plugin-commonjs from 14.0.0 to 15.1.0 [#1166](https://github.com/jdalrymple/gitbeaker/pull/1166) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump @rollup/plugin-node-resolve from 8.4.0 to 9.0.0 [#1164](https://github.com/jdalrymple/gitbeaker/pull/1164) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@st1gok](https://github.com/st1gok)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 23.6.0 (Mon Sep 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:

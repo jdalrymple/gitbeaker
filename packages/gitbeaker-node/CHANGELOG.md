@@ -1,3 +1,15 @@
+# v23.7.0 (Tue Sep 29 2020)
+
+#### 🐛 Bug Fix
+
+- Updating changelog \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v23.6.0 (Mon Sep 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:
