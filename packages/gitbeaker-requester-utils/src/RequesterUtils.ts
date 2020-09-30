@@ -62,8 +62,7 @@ export function defaultOptionsHandler(
     bod = JSON.stringify(decamelizeKeys({ ...body, ...additionalBody }));
     headers['content-type'] = 'application/json';
   } else {
-    /** TODO - what do I do here with the additionalBody? */
-    bod = body as FormData;
+    bod = { ...body, ...additionalBody } as FormData;
   }
 
   return {
