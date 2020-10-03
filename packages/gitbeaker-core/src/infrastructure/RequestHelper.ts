@@ -90,7 +90,7 @@ export async function get<T = Record<string, unknown>>(
 
   // Paginate if necessary
   const { next } = parseLink(headers.link);
-  let withinBounds = true; // Used for offset pagination
+  let withinBounds = true;
   let paginationInfo: PaginationInformation | undefined; // Used for offset pagination
 
   if (query.pagination !== 'keyset') {
@@ -103,7 +103,9 @@ export async function get<T = Record<string, unknown>>(
       totalPages: parseInt(headers['x-total-pages'], 10),
     };
 
-    if (maxPages) withinBounds = paginationInfo.current < maxPages;
+    // TODO: Add support for maxPages in keyset pagination
+    withinBounds =
+      maxPages && Array.isArray(body) ? body.length / (query.perPage || 20) < maxPages : true;
   }
 
   // Recurse through pagination results
