@@ -174,7 +174,7 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property ${3 + index}`);
     });
 
-    expect(response.pagination).toMatchObject({
+    expect(response.paginationInfo).toMatchObject({
       total: 60,
       previous: 1,
       current: 2,
@@ -199,7 +199,7 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property ${1 + index}`);
     });
 
-    expect(response.pagination).toMatchObject({
+    expect(response.paginationInfo).toMatchObject({
       total: 60,
       previous: 2,
       current: 3,
