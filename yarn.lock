@@ -3,14 +3,14 @@
 
 
 "@auto-it/all-contributors@^9.53.1":
-  version "9.53.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.53.1.tgz#c791ecc4a8a5ac73257bc2bc9285039d986ddb87"
-  integrity sha512-o8gxAzo0u3om0fn6t1i/HJXmSncA6KCTfK/P4YsgGpAxNuTEjkRVPPbcbq4tW84W/yErqKwTtSMCP+pSXev/rw==
+  version "9.54.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-9.54.0.tgz#1152b5bcc8a486bcf22697220a78878b0049d34e"
+  integrity sha512-eL+dgUbhPkyRqnLgSuH88jkJBIqo1iKpjCM6BTvdMT9HfbDzuw5WvtSSIzJNmHd6LCVELZiDNIUsodnFXWn85w==
   dependencies:
-    "@auto-it/bot-list" "9.53.1"
-    "@auto-it/core" "9.53.1"
+    "@auto-it/bot-list" "9.54.0"
+    "@auto-it/core" "9.54.0"
     "@octokit/rest" "^18.0.0"
-    all-contributors-cli "6.17.2"
+    all-contributors-cli "6.17.4"
     anymatch "^3.1.1"
     await-to-js "^2.1.1"
     endent "^2.0.1"
@@ -20,57 +20,10 @@
     io-ts "^2.1.2"
     tslib "2.0.1"
 
-"@auto-it/bot-list@9.53.1":
-  version "9.53.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.53.1.tgz#1d24ef4d3d2c202acccadd7e0d425a50e5b06e1c"
-  integrity sha512-zoQe27iSpGb6jRstaCbBMzU3UqcwzINX4Pi4hJLBrzA9Gd8K4BV7uKnlEqlDZruD+b4YBnrlqNsuQEB03UXP+A==
-
 "@auto-it/bot-list@9.54.0":
   version "9.54.0"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.54.0.tgz#4e32499955b5c3e3d6de4d34f92ed108101ed8d3"
   integrity sha512-3iBgLtvWNffXAYetcq1euyjsVxa9OfGGJqxRC6yKlvKOXDWpIigYBj833ompQbsd1IvTXzEiY6lQRcWVS7eAJA==
-
-"@auto-it/core@9.53.1":
-  version "9.53.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.53.1.tgz#8b49e37f66a940c5ebc0cdfb83774633c16f0006"
-  integrity sha512-KZbWmhKsIn6bd/k6OjIhba+akCNTbst46ELdjLTu149jzGqzMn0vWONBFf1OtNJeLS1VUNfH6pjx7225GuZXTw==
-  dependencies:
-    "@auto-it/bot-list" "9.53.1"
-    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
-    "@octokit/plugin-retry" "^3.0.1"
-    "@octokit/plugin-throttling" "^3.2.0"
-    "@octokit/rest" "^18.0.0"
-    await-to-js "^2.1.1"
-    chalk "^4.0.0"
-    cosmiconfig "7.0.0"
-    deepmerge "^4.0.0"
-    dotenv "^8.0.0"
-    endent "^2.0.1"
-    enquirer "^2.3.4"
-    env-ci "^5.0.1"
-    fast-glob "^3.1.1"
-    fp-ts "^2.5.3"
-    fromentries "^1.2.0"
-    gitlog "^4.0.0"
-    https-proxy-agent "^5.0.0"
-    import-cwd "^3.0.0"
-    import-from "^3.0.0"
-    io-ts "^2.1.2"
-    lodash.chunk "^4.2.0"
-    log-symbols "^4.0.0"
-    node-fetch "2.6.0"
-    parse-author "^2.0.0"
-    parse-github-url "1.0.2"
-    pretty-ms "^7.0.0"
-    semver "^7.0.0"
-    signale "^1.4.0"
-    tapable "^2.0.0-beta.2"
-    terminal-link "^2.1.1"
-    tinycolor2 "^1.4.1"
-    tslib "2.0.1"
-    type-fest "^0.16.0"
-    typescript-memoize "^1.0.0-alpha.3"
-    url-join "^4.0.0"
 
 "@auto-it/core@9.54.0", "@auto-it/core@^9.53.1":
   version "9.54.0"
@@ -2209,23 +2162,7 @@ ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-contributors-cli@6.17.2:
-  version "6.17.2"
-  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.17.2.tgz#fb3461de56c378d1846e0b982ca0bd7ce4359c18"
-  integrity sha512-1ip57waUGz92HWbM5VgiGOjBz25fWXOtCRtCFbjCuuiCuiYbygnvcb9iFYiyNz28RlECg1VPXWrXOJABq+h+MQ==
-  dependencies:
-    "@babel/runtime" "^7.7.6"
-    async "^3.0.1"
-    chalk "^4.0.0"
-    didyoumean "^1.2.1"
-    inquirer "^7.0.4"
-    json-fixer "^1.5.1"
-    lodash "^4.11.2"
-    node-fetch "^2.6.0"
-    pify "^5.0.0"
-    yargs "^15.0.1"
-
-all-contributors-cli@^6.17.4:
+all-contributors-cli@6.17.4, all-contributors-cli@^6.17.4:
   version "6.17.4"
   resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.17.4.tgz#5d942479c8a1704b6ef772fd087c533dc90c326d"
   integrity sha512-fv55BHQu1cna2/pJJdv/ULp1C7vfUMxnW8ZRm16RE0brTR3RmuEa4NPY180vHwFjGF5vBZdZsjX/+XxAyapazA==
@@ -7431,11 +7368,6 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
-  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
-
 node-fetch@2.6.1, node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0, node-fetch@^2.6.0, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
@@ -8432,9 +8364,9 @@ qs@~6.5.2:
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
 query-string@^6.13.3:
-  version "6.13.4"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.4.tgz#b35a9a3bd4955bce55f94feb0e819b3d0be6f66f"
-  integrity sha512-E2NPIeJoBEJGQNy3ib1k/Z/OkDBUKIo8IV2ZVwbKfoa65IS9unqWWUlLcbfU70Da0qNoxUZZA8CfKUjKLE641Q==
+  version "6.13.5"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.5.tgz#99e95e2fb7021db90a6f373f990c0c814b3812d8"
+  integrity sha512-svk3xg9qHR39P3JlHuD7g3nRnyay5mHbrPctEBDUxUkHRifPHXJDhBUycdCC0NBjXoDf44Gb+IsOZL1Uwn8M/Q==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
