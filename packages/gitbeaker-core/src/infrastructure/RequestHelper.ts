@@ -29,7 +29,7 @@ export interface ShowExpanded {
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export type BaseRequestOptions = Sudo & Record<string, any>;
 
-export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpanded {
+export interface PaginatedRequestOptions extends BaseRequestOptions {
   pagination?: 'keyset' | 'offset';
   perPage?: number;
 }
@@ -59,7 +59,12 @@ export async function get<T = Record<string, unknown>>(
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  options?: (PaginatedRequestOptions | OffsetPaginatedRequestOptions) & { showExpanded: true },
+  options?: PaginatedRequestOptions,
+): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
+export async function get<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: OffsetPaginatedRequestOptions & { showExpanded: true },
 ): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
@@ -116,7 +121,7 @@ export async function get<T = Record<string, unknown>>(
   }
 
   // If expanded version is not requested, return body
-  if (!showExpanded) return body;
+  if (!showExpanded || query.pagination === 'keyset') return body;
 
   // Else build the expanded response
   const expandedOutput: {
