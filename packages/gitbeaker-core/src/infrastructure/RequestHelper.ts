@@ -28,10 +28,16 @@ export interface ShowExpanded {
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export type BaseRequestOptions = Sudo & Record<string, any>;
+
 export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpanded {
-  maxPages?: number;
-  page?: number;
+  pagination?: 'keyset' | 'offset';
   perPage?: number;
+}
+
+export interface OffsetPaginatedRequestOptions extends PaginatedRequestOptions {
+  pagination: 'offset';
+  page?: number;
+  maxPages?: number;
 }
 
 // Response Formats
@@ -42,7 +48,7 @@ export interface ExpandedResponse<T> {
 }
 export interface PaginationResponse<T = Record<string, unknown>[]> {
   data: T;
-  pagination: PaginationInformation;
+  paginationInfo: PaginationInformation;
 }
 
 export async function get<T = Record<string, unknown>>(
@@ -53,37 +59,50 @@ export async function get<T = Record<string, unknown>>(
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  options?: PaginatedRequestOptions & { showExpanded: true },
+  options?: (PaginatedRequestOptions | OffsetPaginatedRequestOptions) & { showExpanded: true },
 ): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
+  {
+    sudo,
+    showExpanded,
+    maxPages,
+    ...query
+  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = { paginationType: 'offset' },
 ): Promise<any> {
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
     sudo,
   });
-
   const { headers, status } = response;
   let { body } = response;
-  let pagination = {
-    total: parseInt(headers['x-total'], 10),
-    next: parseInt(headers['x-next-page'], 10) || null,
-    current: parseInt(headers['x-page'], 10) || 1,
-    previous: parseInt(headers['x-prev-page'], 10) || null,
-    perPage: parseInt(headers['x-per-page'], 10),
-    totalPages: parseInt(headers['x-total-pages'], 10),
-  };
 
   // Camelize response body if specified
   if (service.camelize) body = camelizeKeys(body);
 
-  // Recourse through pagination results
+  // Paginate if necessary
   const { next } = parseLink(headers.link);
-  if (!query.page && next) {
+  let withinBounds = true; // Used for offset pagination
+  let paginationInfo: PaginationInformation | undefined; // Used for offset pagination
+
+  if (query.pagination === 'offset') {
+    paginationInfo = {
+      total: parseInt(headers['x-total'], 10),
+      next: parseInt(headers['x-next-page'], 10) || null,
+      current: parseInt(headers['x-page'], 10) || 1,
+      previous: parseInt(headers['x-prev-page'], 10) || null,
+      perPage: parseInt(headers['x-per-page'], 10),
+      totalPages: parseInt(headers['x-total-pages'], 10),
+    };
+
+    if (maxPages) withinBounds = paginationInfo.current < maxPages;
+  }
+
+  // Recurse through pagination results
+  if (!query.page && Array.isArray(body) && next && withinBounds) {
     const leaf = service.url.split('/').pop() || '';
     const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
     const more = (await get(service, next.replace(regex, ''), {
@@ -92,7 +111,7 @@ export async function get<T = Record<string, unknown>>(
       showExpanded: true,
     })) as PaginationResponse<T[]>;
 
-    pagination = more.pagination;
+    ({ paginationInfo } = more);
     body = [...body, ...more.data];
   }
 
@@ -100,23 +119,21 @@ export async function get<T = Record<string, unknown>>(
   if (!showExpanded) return body;
 
   // Else build the expanded response
-  const output: {
+  const expandedOutput: {
     data: T | T[];
-    pagination?: PaginationInformation;
+    paginationInfo?: PaginationInformation;
     headers?: Record<string, string>;
     status?: number;
-  } = {
-    data: body as T | T[],
-  };
+  } = { data: body as T | T[] };
 
-  if ((Array.isArray(body) && body.length > 0) || query.page) {
-    output.pagination = pagination;
+  if (query.pagination === 'offset') {
+    expandedOutput.paginationInfo = paginationInfo;
   } else {
-    output.headers = headers;
-    output.status = status;
+    expandedOutput.headers = headers;
+    expandedOutput.status = status;
   }
 
-  return output as ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>;
+  return expandedOutput as ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>;
 }
 
 async function post<T = Record<string, unknown>>(
