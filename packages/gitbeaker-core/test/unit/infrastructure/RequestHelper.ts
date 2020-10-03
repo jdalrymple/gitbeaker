@@ -232,34 +232,33 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  //   it('should return simple response with camelized keys when using the camelize option', async () => {
-  //     service.camelize = true;
-  //     service['show'] = jest.fn(() => RequestHelper.get(service, 'test'));
-  //     requester.get = jest.fn(() => ({
-  //       body: [
-  //         { id: 3, gravatar_enable: true },
-  //         { id: 4, gravatar_enable: false },
-  //       ],
-  //       headers: {},
-  //     }));
-  //
-  //     const results = await service['show']();
-  //
-  //     expect(results).toIncludeSameMembers([
-  //       { id: 3, gravatarEnable: true },
-  //       { id: 4, gravatarEnable: false },
-  //     ]);
-  //   });
-  // });
-  //
-  // it('should return simple response with default keys without camelize option', async () => {
-  //   service['show'] = jest.fn(() => RequestHelper.get(service, 'test'));
-  //   requester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
-  //
-  //   const results = await service['show']();
-  //
-  //   expect(results).toMatchObject({ id: 3, gravatar_enable: true });
-  // });
+  it('should return simple response with camelized keys when using the camelize option', async () => {
+    service.camelize = true;
+    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
+    requester.get = jest.fn(() => ({
+      body: [
+        { id: 3, gravatar_enable: true },
+        { id: 4, gravatar_enable: false },
+      ],
+      headers: {},
+    }));
+
+    const results = await service.show();
+
+    expect(results).toIncludeSameMembers([
+      { id: 3, gravatarEnable: true },
+      { id: 4, gravatarEnable: false },
+    ]);
+  });
+
+  it('should return simple response with default keys without camelize option', async () => {
+    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
+    requester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
+
+    const results = await service.show();
+
+    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
+  });
 });
 
 describe('RequestHelper.stream()', () => {
