@@ -159,7 +159,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the page option is given', async () => {
+  it('should show the pagination information when the showExtended option is given', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
@@ -184,28 +184,51 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the maxPages option is given', async () => {
+  it('should not show the pagination information when the showExtended option is undefined or false', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
-      maxPages: 3,
-      showExpanded: true,
-    })) as PaginationResponse;
+      page: 2,
+      showExpanded: false,
+    })) as Record<string, unknown>[];
 
-    expect(response.data).toHaveLength(6);
+    expect(response).toHaveLength(2);
 
-    response.data.forEach((l, index) => {
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(3 + index);
+      expect(l.prop2).toBe(`test property ${3 + index}`);
+    });
+  });
+
+  it('should not show the pagination information when using keyset pagination', async () => {
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+
+    const response = (await RequestHelper.get(service, 'test', {
+      pagination: 'keyset',
+      showExpanded: false,
+    })) as Record<string, unknown>[];
+
+    expect(response).toHaveLength(60);
+
+    response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
       expect(l.prop2).toBe(`test property ${1 + index}`);
     });
+  });
 
-    expect(response.paginationInfo).toMatchObject({
-      total: 60,
-      previous: 2,
-      current: 3,
-      next: 4,
-      perPage: 2,
-      totalPages: 30,
+  it('should not show the pagination information when using keyset pagination and showExpanded is given', async () => {
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+
+    const response = (await RequestHelper.get(service, 'test', {
+      pagination: 'keyset',
+      showExpanded: true,
+    })) as Record<string, unknown>[];
+
+    expect(response).toHaveLength(60);
+
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
     });
   });
 

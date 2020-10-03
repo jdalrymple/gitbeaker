@@ -76,7 +76,7 @@ export async function get<T = Record<string, unknown>>(
     showExpanded,
     maxPages,
     ...query
-  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = { paginationType: 'offset' },
+  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
 ): Promise<any> {
   const response = await service.requester.get(service, endpoint, {
     query: query || {},
@@ -93,7 +93,7 @@ export async function get<T = Record<string, unknown>>(
   let withinBounds = true; // Used for offset pagination
   let paginationInfo: PaginationInformation | undefined; // Used for offset pagination
 
-  if (query.pagination === 'offset') {
+  if (query.pagination !== 'keyset') {
     paginationInfo = {
       total: parseInt(headers['x-total'], 10),
       next: parseInt(headers['x-next-page'], 10) || null,
@@ -131,7 +131,7 @@ export async function get<T = Record<string, unknown>>(
     status?: number;
   } = { data: body as T | T[] };
 
-  if (query.pagination === 'offset') {
+  if (Array.isArray(body)) {
     expandedOutput.paginationInfo = paginationInfo;
   } else {
     expandedOutput.headers = headers;
