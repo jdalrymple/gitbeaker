@@ -444,6 +444,8 @@ api.Projects.create({
 
 ### Pagination
 
+#### Offset Pagination
+
 For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request itself can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
 ```javascript
@@ -474,7 +476,7 @@ Additionally, if you would like to get back the pagination information, to know 
 
 ```javascript
 ...
-const { data, pagination } = await api.Projects.all({
+const { data, paginationInfo } = await api.Projects.all({
   perPage:40,
   maxPages:2,
   showExtended: true
@@ -488,7 +490,7 @@ This will result in a response in this format:
 data: [
 ...
 ],
-pagination: {
+paginationInfo: {
   total: 20,
   next: 4,
   current: 2,
@@ -499,6 +501,18 @@ pagination: {
 ```
 
 > Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
+
+#### Keyset Pagination
+
+Similarly, support for [Keyset pagination](https://docs.gitlab.com/ee/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
+
+```js
+const { data } = await api.Projects.all({
+  pagination: 'keyset',
+});
+```
+
+Note that for keyset pagination, the only other pagination option available is `perPage`. `maxPage`, and `showExtended` are **not supported**.
 
 ### Sudo
 
@@ -671,6 +685,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
