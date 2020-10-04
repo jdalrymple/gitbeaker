@@ -37,7 +37,7 @@ export class BaseService {
 
   public readonly rejectUnauthorized: boolean;
 
-  public readonly additionalBody: FormData | object;
+  public readonly additionalBody: FormData | Record<string, unknown>;
 
   constructor({
     token,
@@ -71,13 +71,12 @@ export class BaseService {
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
     else if (jobToken) this.headers['job-token'] = jobToken;
     else if (token) this.headers['private-token'] = token;
-
     else if (nativeAuth?.gitlabSessionCookieValue && nativeAuth?.gitlabCSRFTokenValue) {
       /**
-      * handle the defaults here, since if the `nativeAuth` is an object,
-      * and if these fields aren't provided but others are -
-      * the defaults @ param initialization would get overridden.
-      */
+       * handle the defaults here, since if the `nativeAuth` is an object,
+       * and if these fields aren't provided but others are -
+       * the defaults @ param initialization would get overridden.
+       */
       const {
         gitlabSessionCookieKey = '_gitlab_session',
         gitlabSessionCookieValue,
@@ -86,22 +85,18 @@ export class BaseService {
       } = nativeAuth;
 
       /**
-       *
-       * step 1 - handle CSRF
+       * Step 1 - handle CSRF
        *
        * some gitlab instances need the CSRF token to be added via the body,
        * and some need the `X-CSRF-Token` header. We handle both.
        */
       this.additionalBody = { ...this.additionalBody, [gitlabCSRFTokenKey]: gitlabCSRFTokenValue };
-
       this.headers['X-CSRF-Token'] = gitlabCSRFTokenValue;
 
       /**
-       * step 2 - handle the session cookie
+       * Step 2 - handle the session cookie
        */
-      if (!this.headers.cookie) {
-        this.headers.cookie = 'cookie: ';
-      }
+      if (!this.headers.cookie) this.headers.cookie = 'cookie: ';
 
       this.headers.cookie += `${gitlabSessionCookieKey}=${gitlabSessionCookieValue}; `;
     }

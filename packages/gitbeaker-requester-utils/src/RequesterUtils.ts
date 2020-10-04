@@ -20,7 +20,7 @@ export type DefaultServiceOptions = {
   requestTimeout: number;
   url: string;
   rejectUnauthorized: boolean;
-  additionalBody?: FormData | object;
+  additionalBody?: FormData | Record<string, unknown>;
 };
 
 export type DefaultRequestOptions = {
