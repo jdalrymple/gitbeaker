@@ -41,7 +41,7 @@ export interface OffsetPaginatedRequestOptions extends PaginatedRequestOptions {
 }
 
 // Response Formats
-export interface ExpandedResponse<T> {
+export interface ExpandedResponse<T = Record<string, unknown>> {
   data: T;
   headers: Record<string, unknown>;
   status: number;
@@ -49,6 +49,72 @@ export interface ExpandedResponse<T> {
 export interface PaginationResponse<T = Record<string, unknown>[]> {
   data: T;
   paginationInfo: PaginationInformation;
+}
+
+/* eslint @typescript-eslint/no-explicit-any:0 */
+async function getHelper<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  {
+    sudo,
+    showExpanded,
+    maxPages,
+    ...query
+  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
+  acc: any[] = [],
+): Promise<any> {
+  const response = await service.requester.get(service, endpoint, { query, sudo });
+  const { headers, status } = response;
+  let { body } = response;
+
+  // Camelize response body if specified
+  if (service.camelize) body = camelizeKeys(body);
+
+  // Handle object responses
+  if (!Array.isArray(body)) {
+    if (!showExpanded) return body as T;
+
+    return {
+      data: body,
+      headers,
+      status,
+    } as ExpandedResponse<T>;
+  }
+
+  // Handle array responses
+  const newAcc = [...acc, ...body] as T[];
+  const { next } = parseLink(headers.link);
+  const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
+
+  // Recurse through pagination results
+  if (!query.page && next && withinBounds) {
+    const leaf = service.url.split('/').pop() || '';
+    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
+
+    return getHelper(
+      service,
+      next.replace(regex, ''),
+      {
+        maxPages,
+        sudo,
+      },
+      newAcc,
+    );
+  }
+
+  if (!showExpanded || query.pagination === 'keyset') return newAcc as T[];
+
+  return {
+    data: newAcc,
+    paginationInfo: {
+      total: parseInt(headers['x-total'], 10),
+      next: parseInt(headers['x-next-page'], 10) || null,
+      current: parseInt(headers['x-page'], 10) || 1,
+      previous: parseInt(headers['x-prev-page'], 10) || null,
+      perPage: parseInt(headers['x-per-page'], 10),
+      totalPages: parseInt(headers['x-total-pages'], 10),
+    },
+  } as PaginationResponse<T[]>;
 }
 
 export async function get<T = Record<string, unknown>>(
@@ -60,87 +126,19 @@ export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   options?: PaginatedRequestOptions,
-): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
+): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
   options?: OffsetPaginatedRequestOptions & { showExpanded: true },
-): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
-
+): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  {
-    sudo,
-    showExpanded,
-    maxPages,
-    ...query
-  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
+  options: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
 ): Promise<any> {
-  const response = await service.requester.get(service, endpoint, {
-    query: query || {},
-    sudo,
-  });
-  const { headers, status } = response;
-  let { body } = response;
-
-  // Camelize response body if specified
-  if (service.camelize) body = camelizeKeys(body);
-
-  // Paginate if necessary
-  const { next } = parseLink(headers.link);
-  let withinBounds = true;
-  let paginationInfo: PaginationInformation | undefined; // Used for offset pagination
-
-  if (query.pagination !== 'keyset') {
-    paginationInfo = {
-      total: parseInt(headers['x-total'], 10),
-      next: parseInt(headers['x-next-page'], 10) || null,
-      current: parseInt(headers['x-page'], 10) || 1,
-      previous: parseInt(headers['x-prev-page'], 10) || null,
-      perPage: parseInt(headers['x-per-page'], 10),
-      totalPages: parseInt(headers['x-total-pages'], 10),
-    };
-
-    // TODO: Add support for maxPages in keyset pagination
-    withinBounds =
-      maxPages && Array.isArray(body) ? body.length / (query.perPage || 20) < maxPages : true;
-  }
-
-  // Recurse through pagination results
-  if (!query.page && Array.isArray(body) && next && withinBounds) {
-    const leaf = service.url.split('/').pop() || '';
-    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
-    const more = (await get(service, next.replace(regex, ''), {
-      maxPages,
-      sudo,
-      showExpanded: true,
-    })) as PaginationResponse<T[]>;
-
-    ({ paginationInfo } = more);
-    body = [...body, ...more.data];
-  }
-
-  // If expanded version is not requested, return body
-  if (!showExpanded || query.pagination === 'keyset') return body;
-
-  // Else build the expanded response
-  const expandedOutput: {
-    data: T | T[];
-    paginationInfo?: PaginationInformation;
-    headers?: Record<string, string>;
-    status?: number;
-  } = { data: body as T | T[] };
-
-  if (Array.isArray(body)) {
-    expandedOutput.paginationInfo = paginationInfo;
-  } else {
-    expandedOutput.headers = headers;
-    expandedOutput.status = status;
-  }
-
-  return expandedOutput as ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>;
+  return getHelper<T>(service, endpoint, options);
 }
 
 async function post<T = Record<string, unknown>>(

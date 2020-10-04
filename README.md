@@ -450,7 +450,7 @@ Available pagination options:
 | -------------- | ------ | ------ | -------------------- | -------- | --------------------------------------------------------------- |
 | `pagination`   | X      | X      | 'offset' or 'keyset' | 'offset' | Defines which pagination type should be used                    |
 | `perPage`      | X      | X      | Number               | 20       | Amount of results per request                                   |
-| `maxPages`     |        | X      | Number               | N/A      | Maximum amount of requests that should be made                  |
+| `maxPages`     | X      | X      | Number               | N/A      | Maximum amount of requests that should be made                  |
 | `page`         |        | X      | Number               | N/A      | Specific page to be retrieved                                   |
 | `showExtended` |        | X      | Boolean              | false    | Returns with the pagination information in addition to the data |
 
@@ -522,7 +522,7 @@ const { data } = await api.Projects.all({
 });
 ```
 
-Note that for keyset pagination, `page`, `maxPages`, and `showExtended` are **not supported**.
+Note that for keyset pagination, `page`, and `showExtended` are **not supported**.
 
 ### Sudo
 
