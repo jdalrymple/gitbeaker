@@ -16,6 +16,7 @@ export const GroupsBundle = bundler({
   GroupMembers: APIServices.GroupMembers,
   GroupMilestones: APIServices.GroupMilestones,
   GroupProjects: APIServices.GroupProjects,
+  GroupRunners: APIServices.GroupRunners,
   GroupVariables: APIServices.GroupVariables,
   GroupLabels: APIServices.GroupLabels,
   GroupDeployTokens: APIServices.GroupDeployTokens,

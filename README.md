@@ -224,6 +224,7 @@ GroupIssueBoards
 GroupMembers
 GroupMilestones
 GroupProjects
+GroupRunners
 GroupVariables
 GroupLabels
 GroupDeployTokens
@@ -390,6 +391,7 @@ GroupIssueBoards
 GroupMembers
 GroupMilestones
 GroupProjects
+GroupRunners
 GroupVariables
 GroupLabels
 GroupDeployTokens

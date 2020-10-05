@@ -14,6 +14,7 @@ export const {
   GroupMembers,
   GroupMilestones,
   GroupProjects,
+  GroupRunners,
   GroupVariables,
   GroupLabels,
   Epics,
