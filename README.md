@@ -132,20 +132,20 @@ const api = new Gitlab({
 
 Available instantiating options:
 
-| Name                 | Optional | Default                                                                                                                                                                                                              | Description                                                                                                        |
-| -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                                                                 | Gitlab Instance Host URL                                                                                           |
-| `token`              | No\*     | N/A                                                                                                                                                                                                                  | Personal Token. Required (one of the three tokens are required)                                                    |
-| `oauthToken`         | No\*     | N/A                                                                                                                                                                                                                  | OAuth Token. Required (one of the three tokens are required)                                                       |
-| `jobToken`           | No\*     | N/A                                                                                                                                                                                                                  | CI Job Token. Required (one of the three tokens are required)                                                      |
-| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                                                                               | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
-| `sudo`               | Yes      | `false`                                                                                                                                                                                                              | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
-| `version`            | Yes      | `4`                                                                                                                                                                                                                  | API Version ID                                                                                                     |
-| `camelize`           | Yes      | `false`                                                                                                                                                                                                              | Camelizes all response body keys                                                                                   |
-| `requester`          | Yes\*    | For @gitbeaker/node and @gitbeaker/cli, it uses a Got based requester, for @gitbeaker/browser, it uses a ky based requester. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
-| `requestTimeout`     | Yes      | `300000`                                                                                                                                                                                                             | Request Library Timeout in ms                                                                                      |
-| `profileToken`       | Yes      | N/A                                                                                                                                                                                                                  | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                                                                                                                                                                                          | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| Name                 | Optional | Default                                                                                                                                                             | Description                                                                                                        |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                | Gitlab Instance Host URL                                                                                           |
+| `token`              | No\*     | N/A                                                                                                                                                                 | Personal Token. Required (one of the three tokens are required)                                                    |
+| `oauthToken`         | No\*     | N/A                                                                                                                                                                 | OAuth Token. Required (one of the three tokens are required)                                                       |
+| `jobToken`           | No\*     | N/A                                                                                                                                                                 | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                              | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
+| `sudo`               | Yes      | `false`                                                                                                                                                             | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `version`            | Yes      | `4`                                                                                                                                                                 | API Version ID                                                                                                     |
+| `camelize`           | Yes      | `false`                                                                                                                                                             | Camelizes all response body keys                                                                                   |
+| `requester`          | Yes\*    | @gitbeaker/node & @gitbeaker/cli : Got-based, @gitbeaker/browser: Ky-based. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |  |
+| `requestTimeout`     | Yes      | `300000`                                                                                                                                                            | Request Library Timeout in ms                                                                                      |
+| `profileToken`       | Yes      | N/A                                                                                                                                                                 | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                                                         | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 ### CLI Support
 
@@ -446,6 +446,18 @@ api.Projects.create({
 
 ### Pagination
 
+Available pagination options:
+
+| Name           | Keyset | Offset | Type                 | Default  | Description                                                     |
+| -------------- | ------ | ------ | -------------------- | -------- | --------------------------------------------------------------- |
+| `pagination`   | X      | X      | 'offset' or 'keyset' | 'offset' | Defines which pagination type should be used                    |
+| `perPage`      | X      | X      | Number               | 20       | Amount of results per request                                   |
+| `maxPages`     | X      | X      | Number               | N/A      | Maximum amount of requests that should be made                  |
+| `page`         |        | X      | Number               | N/A      | Specific page to be retrieved                                   |
+| `showExtended` |        | X      | Boolean              | false    | Returns with the pagination information in addition to the data |
+
+#### Offset Pagination
+
 For any .all() function on a resource, it will return all the items from Gitlab. This can be troublesome if there are many items, as the request itself can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
 ```javascript
@@ -476,7 +488,7 @@ Additionally, if you would like to get back the pagination information, to know 
 
 ```javascript
 ...
-const { data, pagination } = await api.Projects.all({
+const { data, paginationInfo } = await api.Projects.all({
   perPage:40,
   maxPages:2,
   showExtended: true
@@ -490,7 +502,7 @@ This will result in a response in this format:
 data: [
 ...
 ],
-pagination: {
+paginationInfo: {
   total: 20,
   next: 4,
   current: 2,
@@ -501,6 +513,18 @@ pagination: {
 ```
 
 > Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
+
+#### Keyset Pagination
+
+Similarly, support for [Keyset pagination](https://docs.gitlab.com/ee/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
+
+```js
+const { data } = await api.Projects.all({
+  pagination: 'keyset',
+});
+```
+
+Note that for keyset pagination, `page`, and `showExtended` are **not supported**.
 
 ### Sudo
 
