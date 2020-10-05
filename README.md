@@ -224,6 +224,7 @@ GroupIssueBoards
 GroupMembers
 GroupMilestones
 GroupProjects
+GroupRunners
 GroupVariables
 GroupLabels
 GroupDeployTokens
@@ -390,6 +391,7 @@ GroupIssueBoards
 GroupMembers
 GroupMilestones
 GroupProjects
+GroupRunners
 GroupVariables
 GroupLabels
 GroupDeployTokens
@@ -671,6 +673,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 - [Dylan DesRosier](https://github.com/ddesrosier)
