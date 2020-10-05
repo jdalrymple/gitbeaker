@@ -28,21 +28,93 @@ export interface ShowExpanded {
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export type BaseRequestOptions = Sudo & Record<string, any>;
-export interface PaginatedRequestOptions extends BaseRequestOptions, ShowExpanded {
-  maxPages?: number;
-  page?: number;
+
+export interface PaginatedRequestOptions extends BaseRequestOptions {
+  pagination?: 'keyset' | 'offset';
   perPage?: number;
 }
 
+export interface OffsetPaginatedRequestOptions extends PaginatedRequestOptions {
+  pagination: 'offset';
+  page?: number;
+  maxPages?: number;
+}
+
 // Response Formats
-export interface ExpandedResponse<T> {
+export interface ExpandedResponse<T = Record<string, unknown>> {
   data: T;
   headers: Record<string, unknown>;
   status: number;
 }
 export interface PaginationResponse<T = Record<string, unknown>[]> {
   data: T;
-  pagination: PaginationInformation;
+  paginationInfo: PaginationInformation;
+}
+
+/* eslint @typescript-eslint/no-explicit-any:0 */
+async function getHelper<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  {
+    sudo,
+    showExpanded,
+    maxPages,
+    ...query
+  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
+  acc: any[] = [],
+): Promise<any> {
+  const response = await service.requester.get(service, endpoint, { query, sudo });
+  const { headers, status } = response;
+  let { body } = response;
+
+  // Camelize response body if specified
+  if (service.camelize) body = camelizeKeys(body);
+
+  // Handle object responses
+  if (!Array.isArray(body)) {
+    if (!showExpanded) return body as T;
+
+    return {
+      data: body,
+      headers,
+      status,
+    } as ExpandedResponse<T>;
+  }
+
+  // Handle array responses
+  const newAcc = [...acc, ...body] as T[];
+  const { next } = parseLink(headers.link);
+  const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
+
+  // Recurse through pagination results
+  if (!query.page && next && withinBounds) {
+    const leaf = service.url.split('/').pop() || '';
+    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
+
+    return getHelper(
+      service,
+      next.replace(regex, ''),
+      {
+        maxPages,
+        sudo,
+      },
+      newAcc,
+    );
+  }
+
+  if (!showExpanded || query.pagination === 'keyset') return newAcc as T[];
+
+  return {
+    data: newAcc,
+    paginationInfo: {
+      total: parseInt(headers['x-total'], 10),
+      next: parseInt(headers['x-next-page'], 10) || null,
+      current: parseInt(headers['x-page'], 10) || 1,
+      previous: parseInt(headers['x-prev-page'], 10) || null,
+      perPage: parseInt(headers['x-per-page'], 10),
+      totalPages: parseInt(headers['x-total-pages'], 10),
+    },
+  } as PaginationResponse<T[]>;
 }
 
 export async function get<T = Record<string, unknown>>(
@@ -53,72 +125,20 @@ export async function get<T = Record<string, unknown>>(
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  options?: PaginatedRequestOptions & { showExpanded: true },
-): Promise<ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>>;
-
+  options?: PaginatedRequestOptions,
+): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
+export async function get<T = Record<string, unknown>>(
+  service: BaseService,
+  endpoint: string,
+  options?: OffsetPaginatedRequestOptions & { showExpanded: true },
+): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
 /* eslint @typescript-eslint/no-explicit-any:0 */
 export async function get<T = Record<string, unknown>>(
   service: BaseService,
   endpoint: string,
-  { showExpanded, maxPages, sudo, ...query }: PaginatedRequestOptions = {},
+  options: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
 ): Promise<any> {
-  const response = await service.requester.get(service, endpoint, {
-    query: query || {},
-    sudo,
-  });
-
-  const { headers, status } = response;
-  let { body } = response;
-  let pagination = {
-    total: parseInt(headers['x-total'], 10),
-    next: parseInt(headers['x-next-page'], 10) || null,
-    current: parseInt(headers['x-page'], 10) || 1,
-    previous: parseInt(headers['x-prev-page'], 10) || null,
-    perPage: parseInt(headers['x-per-page'], 10),
-    totalPages: parseInt(headers['x-total-pages'], 10),
-  };
-
-  const underLimit = maxPages ? pagination.current < maxPages : true;
-
-  // Camelize response body if specified
-  if (service.camelize) body = camelizeKeys(body);
-
-  // Rescurse through pagination results
-  if (Array.isArray(body) && !query.page && underLimit && pagination.next) {
-    const { next } = parseLink(headers.link);
-    const leaf = '';
-    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
-    const more = (await get(service, next.replace(regex, ''), {
-      maxPages,
-      sudo,
-      showExpanded: true,
-    })) as PaginationResponse<T[]>;
-
-    pagination = more.pagination;
-    body = [...body, ...more.data];
-  }
-
-  // If expanded version is not requested, return body
-  if (!showExpanded) return body;
-
-  // Else build the expanded response
-  const output: {
-    data: T | T[];
-    pagination?: PaginationInformation;
-    headers?: Record<string, string>;
-    status?: number;
-  } = {
-    data: body as T | T[],
-  };
-
-  if ((Array.isArray(body) && body.length > 0) || query.page) {
-    output.pagination = pagination;
-  } else {
-    output.headers = headers;
-    output.status = status;
-  }
-
-  return output as ExpandedResponse<T> | ExpandedResponse<T[]> | PaginationResponse<T[]>;
+  return getHelper<T>(service, endpoint, options);
 }
 
 async function post<T = Record<string, unknown>>(

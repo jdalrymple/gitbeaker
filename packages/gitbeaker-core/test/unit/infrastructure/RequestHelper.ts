@@ -4,69 +4,57 @@ import { RequestHelper, PaginationResponse } from '../../../src/infrastructure/R
 
 /* eslint no-empty-pattern: 0 */
 /* eslint prefer-destructuring: 0 */
+function mockedGetBasic() {
+  return {
+    body: {
+      prop1: 5,
+      prop2: 'test property',
+    },
+    headers: {
+      'X-Page': 1,
+      'X-Total-Pages': 1,
+    },
+  };
+}
 
-const mockedGetBasic = () => ({
-  body: {
-    prop1: 5,
-    prop2: 'test property',
-  },
-  headers: {
-    'X-Page': 1,
-    'X-Total-Pages': 1,
-  },
-});
-
-const mockedGetExtended = (url, { query }, limit = 30) => {
-  const pages: Record<string, unknown>[] = [];
+function mockedGetExtended(url: string, { query }) {
   const q = url.match(/page=([0-9]+)/);
+  const perPage = query.perPage || 2;
+  const maxPages = query.maxPages || 10;
+
   let page = 1;
 
-  if (q != null) page = q[1];
+  if (q != null) page = Number(q[1]);
   else if (query.page) page = query.page;
 
   // Only load pages needed for the test
-  // TODO: modify this to only generate the required response, without the loop
-  for (let i = 1, a = 1, b = 2; i <= limit && i <= page; i += 1, a += 2, b += 2) {
-    let next = '';
-    let prev = '';
-    let nextPage;
-    let prevPage;
+  const nextPage = page < maxPages ? page + 1 : undefined;
+  const next =
+    page < maxPages
+      ? `<https://www.test.com/api/v4/test?page=${nextPage}&per_page=${perPage}>; rel="next",`
+      : '';
+  const prevPage = page > 1 ? page - 1 : undefined;
+  const prev =
+    page > 1
+      ? `<https://www.test.com/api/v4/test?page=${page - 1}&per_page=${perPage}>; rel="prev",`
+      : '';
 
-    if (i + 1 <= limit) {
-      next = `<https://www.test.com/api/v4/test?page=${i + 1}&per_page=2>; rel="next",`;
-      nextPage = i + 1;
-    }
-
-    if (i - 1 >= 1) {
-      prev = `<https://www.test.com/api/v4/test?page=${i - 1}&per_page=2>; rel="prev",`;
-      prevPage = i - 1;
-    }
-
-    pages.push({
-      body: [
-        {
-          prop1: a,
-          prop2: `test property ${a}`,
-        },
-        {
-          prop1: b,
-          prop2: `test property ${b}`,
-        },
-      ],
-      headers: {
-        link: `${next}${prev}<https://www.test.com/api/v4/test?page=1&per_page=2>; rel="first",<https://www.test.com/api/v4/test?page=${limit}&per_page=2>; rel="last"`,
-        'x-next-page': nextPage,
-        'x-page': i,
-        'x-per-page': 2,
-        'x-prev-page': prevPage,
-        'x-total': limit * 2,
-        'x-total-pages': limit,
-      },
-    });
-  }
-
-  return pages[page - 1];
-};
+  return {
+    body: new Array(perPage).fill(null).map((_, i) => ({
+      prop1: i + 1 + (prevPage || 0) * perPage,
+      prop2: `test property ${i + 1 + (prevPage || 0) * perPage}`,
+    })),
+    headers: {
+      link: `${next}${prev}<https://www.test.com/api/v4/test?page=1&per_page=${perPage}>; rel="first",<https://www.test.com/api/v4/test?page=${maxPages}&per_page=${perPage}>; rel="last"`,
+      'x-next-page': nextPage,
+      'x-page': page,
+      'x-per-page': perPage,
+      'x-prev-page': prevPage,
+      'x-total': maxPages * perPage,
+      'x-total-pages': maxPages,
+    },
+  };
+}
 
 let requester;
 let service;
@@ -111,11 +99,13 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property ${1 + index}`);
     });
 
-    expect(response).toHaveLength(60);
+    expect(response).toHaveLength(20);
   });
 
   it('should handle large paginated (50 pages) results when links are present', async () => {
-    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options, 70));
+    requester.get = jest.fn(({}, url, options) =>
+      mockedGetExtended(url, { query: { ...options.query, maxPages: 70 } }),
+    );
 
     const response = (await RequestHelper.get(service, 'test')) as Record<string, unknown>[];
 
@@ -128,7 +118,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the maxPages option', async () => {
-    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+    requester.get = jest.fn(({}, url, options) =>
+      mockedGetExtended(url, { query: { ...options.query, maxPages: 3 } }),
+    );
 
     const response = (await RequestHelper.get(service, 'test', { maxPages: 3 })) as Record<
       string,
@@ -159,7 +151,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the page option is given', async () => {
+  it('should show the pagination information when the showExtended option is given', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
@@ -174,69 +166,108 @@ describe('RequestHelper.get()', () => {
       expect(l.prop2).toBe(`test property ${3 + index}`);
     });
 
-    expect(response.pagination).toMatchObject({
-      total: 60,
+    expect(response.paginationInfo).toMatchObject({
+      total: 20,
       previous: 1,
       current: 2,
       next: 3,
       perPage: 2,
-      totalPages: 30,
+      totalPages: 10,
     });
   });
 
-  it('should show the pagination information when the maxPages option is given', async () => {
+  it('should not show the pagination information when the showExtended option is undefined or false', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
-      maxPages: 3,
-      showExpanded: true,
-    })) as PaginationResponse;
+      page: 2,
+      showExpanded: false,
+    })) as Record<string, unknown>[];
 
-    expect(response.data).toHaveLength(6);
+    expect(response).toHaveLength(2);
 
-    response.data.forEach((l, index) => {
-      expect(l.prop1).toBe(1 + index);
-      expect(l.prop2).toBe(`test property ${1 + index}`);
-    });
-
-    expect(response.pagination).toMatchObject({
-      total: 60,
-      previous: 2,
-      current: 3,
-      next: 4,
-      perPage: 2,
-      totalPages: 30,
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(3 + index);
+      expect(l.prop2).toBe(`test property ${3 + index}`);
     });
   });
 
-  //   it('should return simple response with camelized keys when using the camelize option', async () => {
-  //     service.camelize = true;
-  //     service['show'] = jest.fn(() => RequestHelper.get(service, 'test'));
-  //     requester.get = jest.fn(() => ({
-  //       body: [
-  //         { id: 3, gravatar_enable: true },
-  //         { id: 4, gravatar_enable: false },
-  //       ],
-  //       headers: {},
-  //     }));
-  //
-  //     const results = await service['show']();
-  //
-  //     expect(results).toIncludeSameMembers([
-  //       { id: 3, gravatarEnable: true },
-  //       { id: 4, gravatarEnable: false },
-  //     ]);
-  //   });
-  // });
-  //
-  // it('should return simple response with default keys without camelize option', async () => {
-  //   service['show'] = jest.fn(() => RequestHelper.get(service, 'test'));
-  //   requester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
-  //
-  //   const results = await service['show']();
-  //
-  //   expect(results).toMatchObject({ id: 3, gravatar_enable: true });
-  // });
+  it('should not show the pagination information when using keyset pagination', async () => {
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+
+    const response = (await RequestHelper.get(service, 'test', {
+      pagination: 'keyset',
+    })) as Record<string, unknown>[];
+
+    expect(response).toHaveLength(20);
+
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
+    });
+  });
+
+  it('should support maxPages when using keyset pagination', async () => {
+    requester.get = jest.fn(({}, url, options) =>
+      mockedGetExtended(url, { query: { ...options.query, maxPages: 2 } }),
+    );
+
+    const response = (await RequestHelper.get(service, 'test', {
+      pagination: 'keyset',
+      maxPages: 2,
+    })) as Record<string, unknown>[];
+
+    expect(response).toHaveLength(4);
+
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
+    });
+  });
+
+  it('should not show the pagination information when using keyset pagination and showExpanded is given', async () => {
+    requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
+
+    const response = (await RequestHelper.get(service, 'test', {
+      pagination: 'keyset',
+      showExpanded: true,
+    })) as Record<string, unknown>[];
+
+    expect(response).toHaveLength(20);
+
+    response.forEach((l, index) => {
+      expect(l.prop1).toBe(1 + index);
+      expect(l.prop2).toBe(`test property ${1 + index}`);
+    });
+  });
+
+  it('should return simple response with camelized keys when using the camelize option', async () => {
+    service.camelize = true;
+    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
+    requester.get = jest.fn(() => ({
+      body: [
+        { id: 3, gravatar_enable: true },
+        { id: 4, gravatar_enable: false },
+      ],
+      headers: {},
+    }));
+
+    const results = await service.show();
+
+    expect(results).toIncludeSameMembers([
+      { id: 3, gravatarEnable: true },
+      { id: 4, gravatarEnable: false },
+    ]);
+  });
+
+  it('should return simple response with default keys without camelize option', async () => {
+    service.show = jest.fn(() => RequestHelper.get(service, 'test'));
+    requester.get = jest.fn(() => ({ body: { id: 3, gravatar_enable: true }, headers: {} }));
+
+    const results = await service.show();
+
+    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
+  });
 });
 
 describe('RequestHelper.stream()', () => {
