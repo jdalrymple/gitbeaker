@@ -1,3 +1,25 @@
+# v24.0.0 (Mon Oct 05 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sander Cox ([@sandercox](https://github.com/sandercox)), for all your work!
+
+#### 💥 Breaking Change
+
+- Feature: Support keyset pagination [#1184](https://github.com/jdalrymple/gitbeaker/pull/1184) ([@max-wittig](https://github.com/max-wittig) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 💥 Feature
+
+- feat: Get runners for a group [#1182](https://github.com/jdalrymple/gitbeaker/pull/1182) ([@sandercox](https://github.com/sandercox) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Max Wittig ([@max-wittig](https://github.com/max-wittig))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # v23.7.0 (Tue Sep 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:

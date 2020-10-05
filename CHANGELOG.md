@@ -1,3 +1,44 @@
+# 24.0.0 (Mon Oct 05 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sander Cox ([@sandercox](https://github.com/sandercox)), for all your work!
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - Feature: Support keyset pagination [#1184](https://github.com/jdalrymple/gitbeaker/pull/1184) ([@max-wittig](https://github.com/max-wittig) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 💥 Feature
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - feat: Get runners for a group [#1182](https://github.com/jdalrymple/gitbeaker/pull/1182) ([@sandercox](https://github.com/sandercox) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump all-contributors-cli from 6.17.4 to 6.18.0 [#1185](https://github.com/jdalrymple/gitbeaker/pull/1185) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.53.1 to 9.54.0 [#1178](https://github.com/jdalrymple/gitbeaker/pull/1178) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump query-string from 6.13.4 to 6.13.5 [#1183](https://github.com/jdalrymple/gitbeaker/pull/1183) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor from 9.53.1 to 9.54.0 [#1180](https://github.com/jdalrymple/gitbeaker/pull/1180) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump auto from 9.53.1 to 9.54.0 [#1181](https://github.com/jdalrymple/gitbeaker/pull/1181) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin from 4.2.0 to 4.3.0 [#1170](https://github.com/jdalrymple/gitbeaker/pull/1170) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @types/jest-environment-puppeteer from 4.3.2 to 4.4.0 [#1169](https://github.com/jdalrymple/gitbeaker/pull/1169) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.2.0 to 4.3.0 [#1174](https://github.com/jdalrymple/gitbeaker/pull/1174) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.27.2 to 0.27.3 [#1175](https://github.com/jdalrymple/gitbeaker/pull/1175) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump query-string from 6.13.3 to 6.13.4 [#1172](https://github.com/jdalrymple/gitbeaker/pull/1172) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump ts-jest from 26.4.0 to 26.4.1 [#1173](https://github.com/jdalrymple/gitbeaker/pull/1173) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps): bump ky from 0.23.0 to 0.24.0 [#1171](https://github.com/jdalrymple/gitbeaker/pull/1171) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Max Wittig ([@max-wittig](https://github.com/max-wittig))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # 23.7.0 (Tue Sep 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:

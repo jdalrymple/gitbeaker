@@ -1,3 +1,25 @@
+# v24.0.0 (Mon Oct 05 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sander Cox ([@sandercox](https://github.com/sandercox)), for all your work!
+
+#### 💥 Feature
+
+- feat: Get runners for a group [#1182](https://github.com/jdalrymple/gitbeaker/pull/1182) ([@sandercox](https://github.com/sandercox) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump ky from 0.23.0 to 0.24.0 [#1171](https://github.com/jdalrymple/gitbeaker/pull/1171) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # v23.7.0 (Tue Sep 29 2020)
 
 #### 🐛 Bug Fix
