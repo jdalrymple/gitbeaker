@@ -270,6 +270,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "max-wittig",
+      "name": "Max Wittig",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6639323?v=4",
+      "profile": "https://github.com/max-wittig",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
