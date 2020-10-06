@@ -9,6 +9,22 @@ beforeEach(() => {
   });
 });
 
+describe('Projects.all', () => {
+  it('should get 40 projects using offset pagination', async () => {
+    const projects = await service.all({ maxPages: 2 });
+
+    expect(projects).toBeInstanceOf(Array);
+    expect(projects).toHaveLength(40);
+  });
+
+  it('should get 40 projects using keyset pagination', async () => {
+    const projects = await service.all({ maxPages: 2, pagination: 'keyset' });
+
+    expect(projects).toBeInstanceOf(Array);
+    expect(projects).toHaveLength(40);
+  });
+});
+
 describe('Projects.create', () => {
   it('should create a valid project', async () => {
     const p = await service.create({ name: 'Project Creation Integration Test' });
