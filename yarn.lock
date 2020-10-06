@@ -126,12 +126,12 @@
     tslib "2.0.1"
     url-join "^4.0.0"
 
-"@auto-it/npm@9.54.0":
-  version "9.54.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.54.0.tgz#34a995cc19eda59c0c27a03cd11ae26169a27dd6"
-  integrity sha512-Bs1JNmtpzi2Ojtc3fpJiuT9WHES11VoJXmHILEW5bcDJB1FPlA5wp+fO9N+d+YLJBFES3+KTNqS0e0ZSZpAe4Q==
+"@auto-it/npm@9.54.4":
+  version "9.54.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-9.54.4.tgz#7b68e07530eadf2884314a0bcadcaab6c980d218"
+  integrity sha512-c1xzs/629S9ML/Z7+3874yzGTvWfAA0nOlxT3nfiP4Scdq+gbab4Wjqmu/INlZWqhqQ24m5Bsa2Pk/IsZhiSEw==
   dependencies:
-    "@auto-it/core" "9.54.0"
+    "@auto-it/core" "9.54.4"
     await-to-js "^2.1.1"
     env-ci "^5.0.1"
     fp-ts "^2.5.3"
@@ -146,18 +146,7 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@9.54.0":
-  version "9.54.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.54.0.tgz#39c089ac75444395b01368c758f13780d8f70d0c"
-  integrity sha512-A9R9zbY5etwW/AVQV5eo3TMUC28ujFdRwav6DJy1b6ZtasyKTY1qAoEO3Ac5UMxRmZSqDNGOKIw9VlQGV9OTkQ==
-  dependencies:
-    "@auto-it/core" "9.54.0"
-    deepmerge "^4.0.0"
-    fp-ts "^2.5.3"
-    io-ts "^2.1.2"
-    tslib "2.0.1"
-
-"@auto-it/released@^9.53.1":
+"@auto-it/released@9.54.4", "@auto-it/released@^9.53.1":
   version "9.54.4"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.54.4.tgz#de2203e1824ce7e8b15fc6b9844be5ff6398aa57"
   integrity sha512-RMlmddKPxIuz0MVw2Enu+0pfNpXGAhBQp9B24td50EVuefnKePofuGdT7BbPBUVI2PDoB3Lhio+c57FQpIICNQ==
@@ -2575,13 +2564,13 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^9.53.1:
-  version "9.54.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-9.54.0.tgz#1ef356c4bf8f795e1ba160af82cf621af08261e0"
-  integrity sha512-Q/9fY6PZ2X8nQz3zVL0q2V5AScZNiqXRI0wQt1plONvcM5RC90GLDNlU1Wmf4888IQEO2NKnUCX9iWmEKUTXbQ==
+  version "9.54.4"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-9.54.4.tgz#56e9e051995b7a6ed5703057e599ef2306ad22c6"
+  integrity sha512-tk71FpDQ01XDhcTQBgE2p29dF9GUHslqbsFYvTbAgiKDYpTSVerV9VhsymsuOwj/LfojtnPP48+perqEItWvhA==
   dependencies:
-    "@auto-it/core" "9.54.0"
-    "@auto-it/npm" "9.54.0"
-    "@auto-it/released" "9.54.0"
+    "@auto-it/core" "9.54.4"
+    "@auto-it/npm" "9.54.4"
+    "@auto-it/released" "9.54.4"
     await-to-js "^2.1.1"
     chalk "^4.0.0"
     command-line-application "^0.10.1"
