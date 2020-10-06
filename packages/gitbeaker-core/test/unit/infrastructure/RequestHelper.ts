@@ -151,7 +151,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should show the pagination information when the showExtended option is given', async () => {
+  it('should show the pagination information when the showExpanded option is given', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
@@ -176,7 +176,7 @@ describe('RequestHelper.get()', () => {
     });
   });
 
-  it('should not show the pagination information when the showExtended option is undefined or false', async () => {
+  it('should not show the pagination information when the showExpanded option is undefined or false', async () => {
     requester.get = jest.fn(({}, url, options) => mockedGetExtended(url, options));
 
     const response = (await RequestHelper.get(service, 'test', {
