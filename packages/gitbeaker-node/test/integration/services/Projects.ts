@@ -1,6 +1,6 @@
 import { Projects } from '../../../src';
 
-let service;
+let service: InstanceType<typeof Projects>;
 
 beforeEach(() => {
   service = new Projects({
@@ -39,7 +39,7 @@ describe('Projects.all', () => {
 });
 
 describe('Projects.upload', () => {
-  let project;
+  let project: Record<string, unknown>;
 
   beforeAll(async () => {
     project = await service.create({ name: 'Project Upload Integration Test' });
@@ -47,7 +47,7 @@ describe('Projects.upload', () => {
 
   it('should upload a text file', async () => {
     const content = 'TESTING FILE UPLOAD :D';
-    const results = await service.upload(project.id, content, {
+    const results = await service.upload(project.id as number, content, {
       metadata: {
         filename: 'testfile.txt',
         contentType: 'text/plain',

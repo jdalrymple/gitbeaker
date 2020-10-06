@@ -1,7 +1,7 @@
 import { Issues, Projects } from '../../../src';
 
-let issueAPI;
-let projectAPI;
+let issueAPI: InstanceType<typeof Issues>;
+let projectAPI: InstanceType<typeof Projects>;
 
 beforeEach(async () => {
   issueAPI = new Issues({
@@ -21,7 +21,7 @@ describe('Issues.all', () => {
 
     for (let i = 0; i < 100; i += 1) {
       newIssues.push(
-        issueAPI.create(project.id, {
+        issueAPI.create(project.id as number, {
           title: `Issue.all Test ${i}`,
           description: 'A test issue',
         }),
