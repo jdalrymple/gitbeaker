@@ -454,7 +454,7 @@ Available pagination options:
 | `perPage`      | X      | X      | Number               | 20       | Amount of results per request                                   |
 | `maxPages`     | X      | X      | Number               | N/A      | Maximum amount of requests that should be made                  |
 | `page`         |        | X      | Number               | N/A      | Specific page to be retrieved                                   |
-| `showExtended` |        | X      | Boolean              | false    | Returns with the pagination information in addition to the data |
+| `showExpanded` |        | X      | Boolean              | false    | Returns with the pagination information in addition to the data |
 
 #### Offset Pagination
 
@@ -484,14 +484,14 @@ const api = new Gitlab({
 let projects = await api.Projects.all({ maxPages: 2, perPage: 40 });
 ```
 
-Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the option `showExtended`. If there are multiple results the pagination property will be included as shown below:
+Additionally, if you would like to get back the pagination information, to know how many total pages there are for example, pass the option `showExpanded`. If there are multiple results the pagination property will be included as shown below:
 
 ```javascript
 ...
 const { data, paginationInfo } = await api.Projects.all({
   perPage:40,
   maxPages:2,
-  showExtended: true
+  showExpanded: true
 });
 ...
 ```
@@ -524,7 +524,7 @@ const { data } = await api.Projects.all({
 });
 ```
 
-Note that for keyset pagination, `page`, and `showExtended` are **not supported**.
+Note that for keyset pagination, `page`, and `showExpanded` are **not supported**.
 
 ### Sudo
 
