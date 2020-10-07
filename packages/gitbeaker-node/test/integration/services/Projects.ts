@@ -20,8 +20,7 @@ describe('Projects.create', () => {
 
 describe('Projects.all', () => {
   beforeAll(async () => {
-    // Create test data
-    const newProjects = [];
+    const newProjects: any[] = [];
 
     for (let i = 0; i < 100; i += 1) {
       newProjects.push(service.create({ name: `Project All Integration Test${i}` }));

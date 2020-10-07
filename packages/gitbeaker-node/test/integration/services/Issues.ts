@@ -17,7 +17,7 @@ beforeEach(async () => {
 describe('Issues.all', () => {
   beforeAll(async () => {
     const project = await projectAPI.create({ name: 'Issues All Integration Test' });
-    const newIssues = [];
+    const newIssues: any[] = [];
 
     for (let i = 0; i < 100; i += 1) {
       newIssues.push(
