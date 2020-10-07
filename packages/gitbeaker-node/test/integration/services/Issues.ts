@@ -3,7 +3,7 @@ import { Issues, Projects } from '../../../src';
 let issueAPI: InstanceType<typeof Issues>;
 let projectAPI: InstanceType<typeof Projects>;
 
-beforeEach(async () => {
+beforeAll(async () => {
   issueAPI = new Issues({
     host: process.env.GITLAB_URL,
     token: process.env.PERSONAL_ACCESS_TOKEN,
