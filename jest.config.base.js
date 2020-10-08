@@ -7,7 +7,7 @@ module.exports = {
   testRegex: 'test\\/.*\\.ts$',
   testMatch: null,
   testURL: 'http://localhost/',
-  testTimeout: 15000,
+  testTimeout: 120000,
 
   coverageDirectory: 'coverage',
   collectCoverage: true,
