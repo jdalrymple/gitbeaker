@@ -1,6 +1,5 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
-import { Agent } from 'https';
 import {
   DefaultRequestService,
   DefaultRequestReturn,
