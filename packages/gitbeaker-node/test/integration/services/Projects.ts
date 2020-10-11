@@ -38,14 +38,9 @@ describe.skip('Projects.all', () => {
 });
 
 describe('Projects.upload', () => {
-  let project: Record<string, unknown>;
-
-  beforeAll(async () => {
-    project = await service.create({ name: 'Project Upload Integration Test' });
-  });
-
   it('should upload a text file', async () => {
     const content = 'TESTING FILE UPLOAD :D';
+    const project = await service.create({ name: 'Project Upload Integration Test' });
     const results = await service.upload(project.id as number, content, {
       metadata: {
         filename: 'testfile.txt',
