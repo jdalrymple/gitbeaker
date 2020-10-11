@@ -1,3 +1,27 @@
+# (Sun Oct 11 2020)
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/node`
+  - Merge branch '1222-integration-stability' ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Embedding project creation prior to upload ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.11.5 to 14.11.8 [#1215](https://github.com/jdalrymple/gitbeaker/pull/1215) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint from 7.10.0 to 7.11.0 [#1220](https://github.com/jdalrymple/gitbeaker/pull/1220) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.54.0 to 9.57.0 [#1213](https://github.com/jdalrymple/gitbeaker/pull/1213) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.54.4 to 9.57.0 [#1212](https://github.com/jdalrymple/gitbeaker/pull/1212) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.0.2 to 24.1.0 [#1190](https://github.com/jdalrymple/gitbeaker/pull/1190) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 24.0.1 (Sun Oct 11 2020)
 
 #### 🐛 Bug Fix
