@@ -58,7 +58,7 @@ export function processBody(response) {
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
-  const obeyRateLimit = true;
+  const retryCodes = [429, 502];
   const maxRetries = 10;
   let response;
 
@@ -72,7 +72,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
       const waitTime = 2 ** i * 0.1;
 
       if (e.response) {
-        if (obeyRateLimit && e.response.status === 429) {
+        if (retryCodes.includes(e.response.status)) {
           await wait(waitTime); // eslint-disable-line
           continue; // eslint-disable-line
         }

@@ -62,7 +62,7 @@ export function processBody({
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
-  const obeyRateLimit = true;
+  const retryCodes = [429, 502];
   const maxRetries = 10;
   let response;
 
@@ -73,17 +73,19 @@ export async function handler(endpoint: string, options: Record<string, unknown>
       response = await Got(endpoint, options); // eslint-disable-line
       break;
     } catch (e) {
-      if (obeyRateLimit && e.response && e.response.statusCode === 429) {
-        await wait(waitTime); // eslint-disable-line
-        continue; // eslint-disable-line
-      }
+      if (e.response) {
+        if (retryCodes.includes(e.response.statusCode)) {
+          await wait(waitTime); // eslint-disable-line
+          continue; // eslint-disable-line
+        }
 
-      if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
-        try {
-          const output = JSON.parse(e.response.body);
-          e.description = output.error || output.message;
-        } catch (err) {
-          e.description = e.response.body;
+        if (typeof e.response.body === 'string' && e.response.body.length > 0) {
+          try {
+            const output = JSON.parse(e.response.body);
+            e.description = output.error || output.message;
+          } catch (err) {
+            e.description = e.response.body;
+          }
         }
       }
 
