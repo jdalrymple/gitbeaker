@@ -2,6 +2,23 @@
 
 #### 🐛 Bug Fix
 
+- Locate 400 test error \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch '1222-integration-stability' ([@jdalrymple](https://github.com/jdalrymple))
+- Embedding project creation prior to upload ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Oct 11 2020)
+
+#### 🐛 Bug Fix
+
 - Adding pagination tests [#1186](https://github.com/jdalrymple/gitbeaker/pull/1186) ([@jdalrymple](https://github.com/jdalrymple))
 
 #### ⚠️ Pushed to `master`
