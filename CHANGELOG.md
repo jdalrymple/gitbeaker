@@ -1,3 +1,39 @@
+# 24.0.1 (Sun Oct 11 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/node`
+  - Adding pagination tests [#1186](https://github.com/jdalrymple/gitbeaker/pull/1186) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/node`
+  - Merge branch '1222-integration-stability' ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Skip pagination tests until stability is sorted ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1207](https://github.com/jdalrymple/gitbeaker/pull/1207) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1211](https://github.com/jdalrymple/gitbeaker/pull/1211) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 26.4.2 to 26.5.2 [#1192](https://github.com/jdalrymple/gitbeaker/pull/1192) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.11.2 to 14.11.5 [#1188](https://github.com/jdalrymple/gitbeaker/pull/1188) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump codecov from 3.7.2 to 3.8.0 [#1193](https://github.com/jdalrymple/gitbeaker/pull/1193) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 9.54.0 to 9.54.4 [#1199](https://github.com/jdalrymple/gitbeaker/pull/1199) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.3.0 to 4.4.0 [#1189](https://github.com/jdalrymple/gitbeaker/pull/1189) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- `@gitbeaker/core`
+  - Updating incorrect showExtended->showExpanded property documentation [#1205](https://github.com/jdalrymple/gitbeaker/pull/1205) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 24.0.0 (Mon Oct 05 2020)
 
 :tada: This release contains work from a new contributor! :tada:

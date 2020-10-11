@@ -1,3 +1,20 @@
+# vnull (Sun Oct 11 2020)
+
+#### 🐛 Bug Fix
+
+- Adding pagination tests [#1186](https://github.com/jdalrymple/gitbeaker/pull/1186) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch '1222-integration-stability' ([@jdalrymple](https://github.com/jdalrymple))
+- Skip pagination tests until stability is sorted ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v24.0.0 (Mon Oct 05 2020)
 
 :tada: This release contains work from a new contributor! :tada:

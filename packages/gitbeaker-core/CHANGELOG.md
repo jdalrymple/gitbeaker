@@ -1,3 +1,15 @@
+# vnull (Sun Oct 11 2020)
+
+#### 📝 Documentation
+
+- Updating incorrect showExtended->showExpanded property documentation [#1205](https://github.com/jdalrymple/gitbeaker/pull/1205) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v24.0.0 (Mon Oct 05 2020)
 
 :tada: This release contains work from a new contributor! :tada:
