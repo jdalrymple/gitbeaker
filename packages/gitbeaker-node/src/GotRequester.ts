@@ -79,9 +79,12 @@ export async function handler(endpoint: string, options: Record<string, unknown>
       }
 
       if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
-        const output = JSON.parse(e.response.body);
-
-        e.description = output.error || output.message;
+        try {
+          const output = JSON.parse(e.response.body);
+          e.description = output.error || output.message;
+        } catch (err) {
+          e.description = e.response.body;
+        }
       }
 
       throw e;

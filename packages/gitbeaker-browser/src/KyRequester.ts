@@ -77,9 +77,12 @@ export async function handler(endpoint: string, options: Record<string, unknown>
           continue; // eslint-disable-line
         }
 
-        const output = await e.response.json(); // eslint-disable-line
-
-        e.description = output.error || output.message;
+        try {
+          const output = await e.response.json(); // eslint-disable-line
+          e.description = output.error || output.message;
+        } catch (err) {
+          e.description = await e.response.text(); // eslint-disable-line
+        }
       }
 
       throw e;
