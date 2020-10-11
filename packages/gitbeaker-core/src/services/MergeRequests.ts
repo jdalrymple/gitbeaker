@@ -279,6 +279,12 @@ export class MergeRequests extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/pipelines`, options);
   }
 
+  rebase(projectId: string | number, mergerequestIid: number, options?: Sudo) {
+    const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
+
+    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mIid}/rebase`, options);
+  }
+
   remove(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
