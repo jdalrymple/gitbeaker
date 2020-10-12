@@ -1,3 +1,24 @@
+# 24.0.3 (Mon Oct 12 2020)
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/browser`, `@gitbeaker/node`
+  - perform retries on a wider range of error codes ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/node`
+  - Wrapping error messages to avoid JSON.parse non json responses ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump all-contributors-cli from 6.18.0 to 6.19.0 [#1219](https://github.com/jdalrymple/gitbeaker/pull/1219) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1216](https://github.com/jdalrymple/gitbeaker/pull/1216) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # (Sun Oct 11 2020)
 
 #### ⚠️ Pushed to `master`
