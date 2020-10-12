@@ -1,3 +1,20 @@
+# v24.0.3 (Mon Oct 12 2020)
+
+#### 🐛 Bug Fix
+
+- Merge branch '1222-integration-stability' \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- perform retries on a wider range of error codes ([@jdalrymple](https://github.com/jdalrymple))
+- Wrapping error messages to avoid JSON.parse non json responses ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # vnull (Sun Oct 11 2020)
 
 #### 🐛 Bug Fix

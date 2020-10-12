@@ -1,6 +1,5 @@
 import * as got from 'got';
 import * as FormData from 'form-data';
-import { Agent } from 'https';
 import { processBody, handler, defaultRequest } from '../../src/GotRequester';
 
 jest.mock('got');
@@ -141,13 +140,24 @@ describe('defaultRequest', () => {
     expect(output2.json).toBeUndefined();
   });
 
-  it('should assign the agent property if given https url', async () => {
-    const { agent = { https: {} } } = defaultRequest(
-      { ...service, url: 'https://test.com' },
+  it('should not assign the https property if given https url and not rejectUnauthorized', async () => {
+    const { https } = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
+
+    expect(https).toBeUndefined();
+  });
+
+  it('should not assign the https property if given http url and rejectUnauthorized', async () => {
+    const { https } = defaultRequest({ ...service, url: 'http://test.com' }, { method: 'post' });
+
+    expect(https).toBeUndefined();
+  });
+
+  it('should assign the https property if given https url and rejectUnauthorized', async () => {
+    const { https } = defaultRequest(
+      { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
     );
 
-    expect(agent.https).toBeInstanceOf(Agent);
-    expect(agent.https.rejectUnauthorized).toBeFalsy();
+    expect(https).toMatchObject({ rejectUnauthorized: true });
   });
 });

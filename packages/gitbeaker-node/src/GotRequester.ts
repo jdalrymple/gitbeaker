@@ -1,6 +1,5 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
-import { Agent } from 'https';
 import {
   DefaultRequestService,
   DefaultRequestReturn,
@@ -13,10 +12,13 @@ import {
 export function defaultRequest(
   service: DefaultRequestService,
   { body, query, sudo, method }: DefaultRequestOptions = {},
-): DefaultRequestReturn & { json?: Record<string, unknown>; agent?: { https: Agent } } {
+): DefaultRequestReturn & {
+  json?: Record<string, unknown>;
+  https?: { rejectUnauthorized: boolean };
+} {
   const options: DefaultRequestReturn & {
     json?: Record<string, unknown>;
-    agent?: { https: Agent };
+    https?: { rejectUnauthorized: boolean };
   } = baseDefaultRequest(service, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
@@ -26,11 +28,9 @@ export function defaultRequest(
     delete options.body;
   }
 
-  if (service.url.includes('https')) {
-    options.agent = {
-      https: new Agent({
-        rejectUnauthorized: service.rejectUnauthorized,
-      }),
+  if (service.url.includes('https') && service.rejectUnauthorized) {
+    options.https = {
+      rejectUnauthorized: service.rejectUnauthorized,
     };
   }
 
@@ -62,7 +62,7 @@ export function processBody({
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
-  const obeyRateLimit = true;
+  const retryCodes = [429, 502];
   const maxRetries = 10;
   let response;
 
@@ -73,15 +73,20 @@ export async function handler(endpoint: string, options: Record<string, unknown>
       response = await Got(endpoint, options); // eslint-disable-line
       break;
     } catch (e) {
-      if (obeyRateLimit && e.response && e.response.statusCode === 429) {
-        await wait(waitTime); // eslint-disable-line
-        continue; // eslint-disable-line
-      }
+      if (e.response) {
+        if (retryCodes.includes(e.response.statusCode)) {
+          await wait(waitTime); // eslint-disable-line
+          continue; // eslint-disable-line
+        }
 
-      if (e.response && typeof e.response.body === 'string' && e.response.body.length > 0) {
-        const output = JSON.parse(e.response.body);
-
-        e.description = output.error || output.message;
+        if (typeof e.response.body === 'string' && e.response.body.length > 0) {
+          try {
+            const output = JSON.parse(e.response.body);
+            e.description = output.error || output.message;
+          } catch (err) {
+            e.description = e.response.body;
+          }
+        }
       }
 
       throw e;
