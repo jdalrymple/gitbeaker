@@ -1,3 +1,26 @@
+# 24.1.0 (Mon Oct 12 2020)
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - Adding MR rebase endpoint [#1225](https://github.com/jdalrymple/gitbeaker/pull/1225) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/node`
+  - Agent-Type error for GotRequester [#1224](https://github.com/jdalrymple/gitbeaker/pull/1224) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup from 2.23.1 to 2.29.0 [#1206](https://github.com/jdalrymple/gitbeaker/pull/1206) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 24.0.3 (Mon Oct 12 2020)
 
 #### ⚠️ Pushed to `master`

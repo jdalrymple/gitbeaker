@@ -1,3 +1,15 @@
+# v24.1.0 (Mon Oct 12 2020)
+
+#### 🐛 Bug Fix
+
+- Agent-Type error for GotRequester [#1224](https://github.com/jdalrymple/gitbeaker/pull/1224) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v24.0.3 (Mon Oct 12 2020)
 
 #### 🐛 Bug Fix
