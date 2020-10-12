@@ -1,6 +1,5 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
-import { Agent } from 'https';
 import {
   DefaultRequestService,
   DefaultRequestReturn,
@@ -13,10 +12,13 @@ import {
 export function defaultRequest(
   service: DefaultRequestService,
   { body, query, sudo, method }: DefaultRequestOptions = {},
-): DefaultRequestReturn & { json?: Record<string, unknown>; agent?: { https: Agent } } {
+): DefaultRequestReturn & {
+  json?: Record<string, unknown>;
+  https?: { rejectUnauthorized: boolean };
+} {
   const options: DefaultRequestReturn & {
     json?: Record<string, unknown>;
-    agent?: { https: Agent };
+    https?: { rejectUnauthorized: boolean };
   } = baseDefaultRequest(service, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
@@ -26,11 +28,9 @@ export function defaultRequest(
     delete options.body;
   }
 
-  if (service.url.includes('https')) {
-    options.agent = {
-      https: new Agent({
-        rejectUnauthorized: service.rejectUnauthorized,
-      }),
+  if (service.url.includes('https') && service.rejectUnauthorized) {
+    options.https = {
+      rejectUnauthorized: service.rejectUnauthorized,
     };
   }
 
