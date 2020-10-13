@@ -1,3 +1,16 @@
+# 24.2.0 (Tue Oct 13 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`
+  - Handling nesting of not query parameter [#1223](https://github.com/jdalrymple/gitbeaker/pull/1223) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 24.1.0 (Mon Oct 12 2020)
 
 #### 💥 Feature
