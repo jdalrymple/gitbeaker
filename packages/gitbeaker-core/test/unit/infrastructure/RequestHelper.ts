@@ -244,8 +244,8 @@ describe('RequestHelper.get()', () => {
     service.show = jest.fn(() => RequestHelper.get(service, 'test'));
     service.requester.get = jest.fn(() => ({
       body: [
-        { id: 3, gravatar_enable: true },
-        { id: 4, gravatar_enable: false },
+        { id: 3, gravatar_enable: true }, // eslint-disable-line
+        { id: 4, gravatar_enable: false }, // eslint-disable-line
       ],
       headers: {},
     }));
@@ -267,7 +267,7 @@ describe('RequestHelper.get()', () => {
 
     const results = await service.show();
 
-    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
+    expect(results).toMatchObject({ id: 3, gravatar_enable: true }); // eslint-disable-line
   });
 });
 
