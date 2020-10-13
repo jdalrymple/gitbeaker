@@ -38,10 +38,12 @@ export type DefaultRequestReturn = {
 };
 
 // Utility methods
-export function formatQuery(options?: Record<string, unknown>) {
-  return stringify(decamelizeKeys(options || {}), {
-    arrayFormat: 'bracket',
-  });
+export function formatQuery(params: Record<string, unknown> = {}) {
+  const decamelized = decamelizeKeys(params);
+
+  if (decamelized.not) decamelized.not = JSON.stringify(decamelized.not);
+
+  return stringify(decamelized, { arrayFormat: 'bracket' });
 }
 
 export function defaultRequest(
