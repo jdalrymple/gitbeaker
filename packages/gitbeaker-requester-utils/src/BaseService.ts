@@ -16,7 +16,7 @@ export interface BaseServiceOptions {
   profileMode?: 'execution' | 'memory';
 }
 
-export class BaseService<C extends boolean> {
+export class BaseService<C extends boolean = false> {
   public readonly url: string;
 
   public readonly requester: RequesterType;
