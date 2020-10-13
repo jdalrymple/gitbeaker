@@ -1,3 +1,15 @@
+# v24.1.0 (Mon Oct 12 2020)
+
+#### 💥 Feature
+
+- Adding MR rebase endpoint [#1225](https://github.com/jdalrymple/gitbeaker/pull/1225) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # vnull (Sun Oct 11 2020)
 
 #### 📝 Documentation
