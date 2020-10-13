@@ -1,10 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export type RepositoryFileSchema<C = true> = C extends true
-  ? RepositoryFileSchemaDefault
-  : RepositoryFileSchemaCamelized;
-
 export interface RepositoryFileSchemaDefault {
   file_name: string;
   file_path: string;
@@ -30,6 +26,10 @@ export interface RepositoryFileSchemaCamelized {
   commitId: string;
   lastCommitId: string;
 }
+
+export type RepositoryFileSchema<C = true> = C extends true
+  ? RepositoryFileSchemaDefault
+  : RepositoryFileSchemaCamelized;
 
 export class RepositoryFiles<C> extends BaseService {
   create(
