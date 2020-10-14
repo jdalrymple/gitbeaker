@@ -31,7 +31,7 @@ export type RepositoryFileSchema<C = true> = C extends true
   ? RepositoryFileSchemaDefault
   : RepositoryFileSchemaCamelized;
 
-export class RepositoryFiles<C> extends BaseService {
+export class RepositoryFiles<C = false> extends BaseService {
   create(
     projectId: string | number,
     filePath: string,
