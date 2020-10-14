@@ -241,6 +241,7 @@ ContainerRegistry
 Deployments
 DeployKeys
 Environments
+FreezePeriods
 Issues
 IssuesStatistics
 IssueNotes
@@ -324,6 +325,7 @@ ContainerRegistry
 Deployments
 DeployKeys
 Environments
+FreezePeriods
 Issues
 IssuesStatistics
 IssueNotes

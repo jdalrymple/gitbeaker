@@ -32,6 +32,7 @@ export { ContainerRegistry } from './ContainerRegistry';
 export { Deployments } from './Deployments';
 export { DeployKeys } from './DeployKeys';
 export { Environments } from './Environments';
+export { FreezePeriods } from './FreezePeriods';
 export { Issues } from './Issues';
 export { IssuesStatistics } from './IssuesStatistics';
 export { IssueNotes } from './IssueNotes';
