@@ -17,6 +17,7 @@ test('All the correct service keys are included in the projects bundle', async (
     'Jobs',
     'Labels',
     'MergeRequests',
+    'MergeRequestApprovals',
     'MergeRequestAwardEmojis',
     'MergeRequestDiscussions',
     'MergeRequestNotes',

@@ -54,6 +54,7 @@ export const ProjectsBundle = bundler({
   Jobs: APIServices.Jobs,
   Labels: APIServices.Labels,
   MergeRequests: APIServices.MergeRequests,
+  MergeRequestApprovals: APIServices.MergeRequestApprovals,
   MergeRequestAwardEmojis: APIServices.MergeRequestAwardEmojis,
   MergeRequestDiscussions: APIServices.MergeRequestDiscussions,
   MergeRequestNotes: APIServices.MergeRequestNotes,

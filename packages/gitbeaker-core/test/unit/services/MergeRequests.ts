@@ -91,73 +91,6 @@ describe('MergeRequests.all', () => {
   });
 });
 
-describe('MergeRequests.approve', () => {
-  it('should request POST projects/:id/merge_requests:id/approve', async () => {
-    await service.approve(2, 3);
-
-    expect(RequestHelper.post).toHaveBeenCalledWith(
-      service,
-      'projects/2/merge_requests/3/approve',
-      undefined,
-    );
-  });
-});
-
-describe('MergeRequests.approvals', () => {
-  it('should request GET /projects/:id/approvals', async () => {
-    await service.approvals(3);
-
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/3/approvals', {});
-  });
-
-  it('should request GET /projects/:id/merge_requests/:id when mergerequestIid Id is passed', async () => {
-    await service.approvals(3, { mergerequestIid: 1 });
-
-    expect(RequestHelper.get).toHaveBeenCalledWith(
-      service,
-      'projects/3/merge_requests/1/approvals',
-      {},
-    );
-  });
-});
-
-describe('MergeRequests.approvalState', () => {
-  it('should request GET projects/:id/merge_requests/:id/approval_state', async () => {
-    await service.approvalState(2, 3);
-
-    expect(RequestHelper.get).toHaveBeenCalledWith(
-      service,
-      'projects/2/merge_requests/3/approval_state',
-      undefined,
-    );
-  });
-});
-
-describe('MergeRequests.approvers', () => {
-  it('should request PUT /projects/:id/approvers', async () => {
-    await service.approvers(3, [4, 5], [6, 7]);
-
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/3/approvers', {
-      approverIds: [4, 5],
-      approverGroupIds: [6, 7],
-    });
-  });
-
-  it('should request PUT /projects/:id/merge_requests/:id when mergerequestIid Id is passed', async () => {
-    await service.approvers(3, [4, 5], [6, 7], {
-      approverIds: [4, 5],
-      approverGroupIds: [6, 7],
-      mergerequestIid: 1,
-    });
-
-    expect(RequestHelper.put).toHaveBeenCalledWith(
-      service,
-      'projects/3/merge_requests/1/approvers',
-      { approverIds: [4, 5], approverGroupIds: [6, 7] },
-    );
-  });
-});
-
 describe('MergeRequests.cancelOnPipelineSucess', () => {
   it('should request PUT projects/:id/merge_requests/:id/cancel_merge_when_pipeline_succeeds', async () => {
     await service.cancelOnPipelineSucess(2, 3);
@@ -227,24 +160,6 @@ describe('MergeRequests.edit', () => {
     expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/1/merge_requests/2', {
       title: 'Testing MR',
     });
-  });
-});
-
-describe('MergeRequests.editApprovals', () => {
-  it('should request POST /projects/:id/approvals', async () => {
-    await service.editApprovals(3, { prop: 4 });
-
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/3/approvals', { prop: 4 });
-  });
-
-  it('should request POST /projects/:id/merge_requests/:id when mergerequestIid Id is passed', async () => {
-    await service.editApprovals(3, { mergerequestIid: 1, prop: 4 });
-
-    expect(RequestHelper.post).toHaveBeenCalledWith(
-      service,
-      'projects/3/merge_requests/1/approvals',
-      { prop: 4 },
-    );
   });
 });
 
@@ -363,18 +278,6 @@ describe('MergeRequests.versions', () => {
     expect(RequestHelper.get).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/versions',
-      undefined,
-    );
-  });
-});
-
-describe('MergeRequests.unapprove', () => {
-  it('should request POST projects/:id/merge_requests/:iid/unapprove', async () => {
-    await service.unapprove(2, 3);
-
-    expect(RequestHelper.post).toHaveBeenCalledWith(
-      service,
-      'projects/2/merge_requests/3/unapprove',
       undefined,
     );
   });
