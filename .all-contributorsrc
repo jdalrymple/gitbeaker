@@ -281,6 +281,17 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "nlochschmidt",
+      "name": "Niklas Lochschmidt",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/759624?v=4",
+      "profile": "https://github.com/nlochschmidt",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
