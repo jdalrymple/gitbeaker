@@ -25,11 +25,6 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.54.0.tgz#4e32499955b5c3e3d6de4d34f92ed108101ed8d3"
   integrity sha512-3iBgLtvWNffXAYetcq1euyjsVxa9OfGGJqxRC6yKlvKOXDWpIigYBj833ompQbsd1IvTXzEiY6lQRcWVS7eAJA==
 
-"@auto-it/bot-list@9.57.0":
-  version "9.57.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.57.0.tgz#e896001b48781596d5bb837c47972c481cea445a"
-  integrity sha512-IDPRKoKnBM5xT4Q1PawyQ9sw5QLS/Qn3Sq46Eq9pj1hyTn1OlB+dSjjA8KnrIzPqvznuOnlJjrInZO/YeV7Ryw==
-
 "@auto-it/bot-list@9.58.0":
   version "9.58.0"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.58.0.tgz#f62c447aae783c35dffe9e95630aecc84f55a1bf"
@@ -57,48 +52,6 @@
     fp-ts "^2.5.3"
     fromentries "^1.2.0"
     gitlog "^4.0.0"
-    https-proxy-agent "^5.0.0"
-    import-cwd "^3.0.0"
-    import-from "^3.0.0"
-    io-ts "^2.1.2"
-    lodash.chunk "^4.2.0"
-    log-symbols "^4.0.0"
-    node-fetch "2.6.1"
-    parse-author "^2.0.0"
-    parse-github-url "1.0.2"
-    pretty-ms "^7.0.0"
-    semver "^7.0.0"
-    signale "^1.4.0"
-    tapable "^2.0.0-beta.2"
-    terminal-link "^2.1.1"
-    tinycolor2 "^1.4.1"
-    tslib "2.0.1"
-    type-fest "^0.16.0"
-    typescript-memoize "^1.0.0-alpha.3"
-    url-join "^4.0.0"
-
-"@auto-it/core@9.57.0":
-  version "9.57.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.57.0.tgz#37821d818bde7b0cf580cebfc8f2d78ef0a60bd7"
-  integrity sha512-rzKHnW4UdGyi9fdX2LOxziXZjxZC/zwf2N+yYcnvqynF0ojAcgcLdl3QW7WOrVNVsLF5OEh7mtQXn2AIc35DkA==
-  dependencies:
-    "@auto-it/bot-list" "9.57.0"
-    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
-    "@octokit/plugin-retry" "^3.0.1"
-    "@octokit/plugin-throttling" "^3.2.0"
-    "@octokit/rest" "^18.0.0"
-    await-to-js "^2.1.1"
-    chalk "^4.0.0"
-    cosmiconfig "7.0.0"
-    deepmerge "^4.0.0"
-    dotenv "^8.0.0"
-    endent "^2.0.1"
-    enquirer "^2.3.4"
-    env-ci "^5.0.1"
-    fast-glob "^3.1.1"
-    fp-ts "^2.5.3"
-    fromentries "^1.2.0"
-    gitlog "^4.0.3"
     https-proxy-agent "^5.0.0"
     import-cwd "^3.0.0"
     import-from "^3.0.0"
@@ -162,12 +115,12 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^9.53.1":
-  version "9.57.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.57.0.tgz#92df6d83ae55a6ea813ae6fd2fc3faadad59436b"
-  integrity sha512-++C9IkPR/kjgp+3iavaAb5Jm5wwb0sq/74x7/NRd1KkFr2uZbIPX5gwtJuky1RqrIsAGNCALqkIvDAvywuSiRQ==
+  version "9.58.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.58.0.tgz#f48b1ea1925233d69e0d9f816d98cddc6ce7c1e9"
+  integrity sha512-hRwx9RE/Ipx6zPeSONykyPaqXcTaYlp5UiNpyWUJt154cnVnfheNj8BlCZykp2nxbppncoOyVxVHp0Zsx9enUw==
   dependencies:
-    "@auto-it/bot-list" "9.57.0"
-    "@auto-it/core" "9.57.0"
+    "@auto-it/bot-list" "9.58.0"
+    "@auto-it/core" "9.58.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.1"
