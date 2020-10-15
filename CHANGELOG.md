@@ -1,3 +1,32 @@
+# 24.3.0 (Thu Oct 15 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Add support for Freeze Periods [#1231](https://github.com/jdalrymple/gitbeaker/pull/1231) ([@nlochschmidt](https://github.com/nlochschmidt) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/all-contributors from 9.54.0 to 9.54.5 [#1204](https://github.com/jdalrymple/gitbeaker/pull/1204) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1237](https://github.com/jdalrymple/gitbeaker/pull/1237) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.57.0 to 9.58.0 [#1236](https://github.com/jdalrymple/gitbeaker/pull/1236) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/core from 9.57.0 to 9.58.0 [#1234](https://github.com/jdalrymple/gitbeaker/pull/1234) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.29.0 to 2.30.0 [#1229](https://github.com/jdalrymple/gitbeaker/pull/1229) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.4.0 to 4.4.1 [#1228](https://github.com/jdalrymple/gitbeaker/pull/1228) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1230](https://github.com/jdalrymple/gitbeaker/pull/1230) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
+
+---
+
 # 24.2.0 (Tue Oct 13 2020)
 
 #### 🐛 Bug Fix

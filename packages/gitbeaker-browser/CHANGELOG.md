@@ -1,3 +1,20 @@
+# v24.3.0 (Thu Oct 15 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt)), for all your work!
+
+#### 💥 Feature
+
+- Add support for Freeze Periods [#1231](https://github.com/jdalrymple/gitbeaker/pull/1231) ([@nlochschmidt](https://github.com/nlochschmidt) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
+
+---
+
 # v24.0.3 (Mon Oct 12 2020)
 
 #### 🐛 Bug Fix
