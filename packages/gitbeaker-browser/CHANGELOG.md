@@ -1,3 +1,15 @@
+# v25.0.0 (Thu Oct 15 2020)
+
+#### 💥 Breaking Change
+
+- Add approval rule management [#1233](https://github.com/jdalrymple/gitbeaker/pull/1233) ([@nlochschmidt](https://github.com/nlochschmidt))
+
+#### Authors: 1
+
+- Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
+
+---
+
 # v24.3.0 (Thu Oct 15 2020)
 
 :tada: This release contains work from a new contributor! :tada:
