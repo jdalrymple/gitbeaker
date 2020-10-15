@@ -250,6 +250,7 @@ IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
+MergeRequestApprovals
 MergeRequestAwardEmojis
 MergeRequestDiscussions
 MergeRequestNotes
@@ -334,6 +335,7 @@ IssueAwardEmojis
 Jobs
 Labels
 MergeRequests
+MergeRequestApprovals
 MergeRequestAwardEmojis
 MergeRequestDiscussions
 MergeRequestNotes

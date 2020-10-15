@@ -47,6 +47,7 @@ export const {
   Jobs,
   Labels,
   MergeRequests,
+  MergeRequestApprovals,
   MergeRequestAwardEmojis,
   MergeRequestDiscussions,
   MergeRequestNotes,

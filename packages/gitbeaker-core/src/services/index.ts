@@ -41,6 +41,7 @@ export { IssueAwardEmojis } from './IssueAwardEmojis';
 export { Jobs } from './Jobs';
 export { Labels } from './Labels';
 export { MergeRequests } from './MergeRequests';
+export { MergeRequestApprovals } from './MergeRequestApprovals';
 export { MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
 export { MergeRequestDiscussions } from './MergeRequestDiscussions';
 export { MergeRequestNotes } from './MergeRequestNotes';
