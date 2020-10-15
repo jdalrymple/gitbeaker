@@ -45,6 +45,7 @@ export const ProjectsBundle = bundler({
   DeployKeys: APIServices.DeployKeys,
   Deployments: APIServices.Deployments,
   Environments: APIServices.Environments,
+  FreezePeriods: APIServices.FreezePeriods,
   Issues: APIServices.Issues,
   IssuesStatistics: APIServices.IssuesStatistics,
   IssueAwardEmojis: APIServices.IssueAwardEmojis,

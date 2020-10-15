@@ -38,6 +38,7 @@ export const {
   Deployments,
   DeployKeys,
   Environments,
+  FreezePeriods,
   Issues,
   IssuesStatistics,
   IssueNotes,
