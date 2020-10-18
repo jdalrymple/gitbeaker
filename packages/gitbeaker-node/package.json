@@ -19,7 +19,7 @@
     "form-data": "^3.0.0",
     "openpgp": "^4.10.8",
     "rollup": "^2.12.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-typescript2": "^0.28.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
