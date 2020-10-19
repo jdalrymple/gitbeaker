@@ -5,6 +5,7 @@
   "author": {
     "name": "Justin Dalrymple"
   },
+  "main": "dist/index.js",
   "bin": {
     "gitbeaker": "dist/index.js"
   },
