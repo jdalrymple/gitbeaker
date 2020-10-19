@@ -161,8 +161,8 @@ describe('defaultRequest', () => {
   const service = {
     headers: { test: '5' },
     url: 'testurl',
-    rejectUnauthorized: false,
     requestTimeout: 50,
+    rejectUnauthorized: true,
   };
 
   it('should stringify body if it isnt of type FormData', async () => {
@@ -175,13 +175,27 @@ describe('defaultRequest', () => {
     expect(body).toBe(JSON.stringify(testBody));
   });
 
-  it('should assign the agent property if given https url', async () => {
+  it('should assign the agent property if given https url and rejectUnauthorized is false', async () => {
     const { agent = {} } = defaultRequest(
-      { ...service, url: 'https://test.com' },
+      { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },
     );
 
     expect(agent).toBeInstanceOf(Agent);
     expect(agent.rejectUnauthorized).toBeFalsy();
+
+    const { agent: agent2 } = defaultRequest(
+      { ...service, url: 'https://test.com', rejectUnauthorized: true },
+      { method: 'post' },
+    );
+
+    expect(agent2).toBeUndefined();
+
+    const { agent: agent3 } = defaultRequest(
+      { ...service, url: 'https://test.com' },
+      { method: 'post' },
+    );
+
+    expect(agent3).toBeUndefined();
   });
 });

@@ -30,7 +30,11 @@ export function defaultRequest(
 ): DefaultRequestReturn & { agent?: Agent } {
   const opts: DefaultRequestReturn & { agent?: Agent } = baseDefaultRequest(service, options);
 
-  if (service.url.includes('https') && service.rejectUnauthorized != null) {
+  if (
+    service.url.includes('https') &&
+    service.rejectUnauthorized != null &&
+    service.rejectUnauthorized === false
+  ) {
     opts.agent = new Agent({
       rejectUnauthorized: service.rejectUnauthorized,
     });
