@@ -28,7 +28,7 @@ export function defaultRequest(
     delete options.body;
   }
 
-  if (service.url.includes('https') && service.rejectUnauthorized) {
+  if (service.url.includes('https') && service.rejectUnauthorized != null) {
     options.https = {
       rejectUnauthorized: service.rejectUnauthorized,
     };
