@@ -124,8 +124,8 @@ describe('defaultRequest', () => {
   const service = {
     headers: { test: '5' },
     url: 'testurl',
-    rejectUnauthorized: false,
     requestTimeout: 50,
+    rejectUnauthorized: true,
   };
 
   it('should replace rawBody property with json property if the rawBody type is an object but not FormData', () => {
@@ -152,12 +152,26 @@ describe('defaultRequest', () => {
     expect(https).toBeUndefined();
   });
 
-  it('should assign the https property if given https url and rejectUnauthorized', async () => {
-    const { https } = defaultRequest(
+  it('should assign the https property if given https url and rejectUnauthorized is false', async () => {
+    const { https: https1 } = defaultRequest(
+      { ...service, url: 'https://test.com', rejectUnauthorized: false },
+      { method: 'post' },
+    );
+
+    expect(https1).toMatchObject({ rejectUnauthorized: false });
+
+    const { https: https2 } = defaultRequest(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
     );
 
-    expect(https).toMatchObject({ rejectUnauthorized: true });
+    expect(https2).toBeUndefined();
+
+    const { https: https3 } = defaultRequest(
+      { ...service, url: 'https://test.com' },
+      { method: 'post' },
+    );
+
+    expect(https3).toBeUndefined();
   });
 });
