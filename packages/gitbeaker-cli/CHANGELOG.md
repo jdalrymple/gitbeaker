@@ -1,3 +1,15 @@
+# v25.1.0 (Tue Oct 20 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.27.3 to 0.28.0 [#1248](https://github.com/jdalrymple/gitbeaker/pull/1248) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v24.0.3 (Mon Oct 12 2020)
 
 #### 🐛 Bug Fix
