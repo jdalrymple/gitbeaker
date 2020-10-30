@@ -20,22 +20,22 @@
     io-ts "^2.1.2"
     tslib "2.0.1"
 
-"@auto-it/bot-list@9.60.1":
-  version "9.60.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.60.1.tgz#fd34260f02c33142096d07b5e6bfe80975f4a87f"
-  integrity sha512-kgTjjgFvsvEeuFg0DrozYVUe2oCRhzAJZi6DG10hUUH6HC/ETbJAZ2iaONYhPdemT06xK02S50at0qP3cGqWDg==
+"@auto-it/bot-list@10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.0.2.tgz#b30f2a7c591bc90beeca9afb0cb7aff30705c16f"
+  integrity sha512-A7dL9tuKNr/KV+Fnls2O4L4zJY6qk/cN8ocRo//yDXwEoBlLhXSZOuZDoFvTFf7Uvg/IAM86krUkM36u8LTUZg==
 
 "@auto-it/bot-list@9.61.0":
   version "9.61.0"
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-9.61.0.tgz#71010eb8d52ef3c64e4c7605490693993df4b746"
   integrity sha512-/W7qeHFGO4M9vbiBWh5v80IwQsWN5j0mPkQL5bjY18QXwy1D/GsQ/SuGrZ12NYDMSwlMsa5NelVEicSkwYFAqQ==
 
-"@auto-it/core@9.60.1":
-  version "9.60.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-9.60.1.tgz#f2b510f4671919311343b641b7d34c8076e0e621"
-  integrity sha512-Vw4p3sT0n9gYSeh4+qdzc2pqosADMAkAhfrMIpxegagoIDOG9Rkxlm1fVq/AIpC6yxZPrFrd2nDVidzB7WT7Rg==
+"@auto-it/core@10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.0.2.tgz#e2643a478de851caad537c83e001e9bb81cf122c"
+  integrity sha512-GVGcv076B9S/y2o5U+Zy+WkEt96/QRaH8QdgkRspD5A1zFsT9kizf+53wTZeNlcPwbqrMtaPFY6Efn8lcA/iOw==
   dependencies:
-    "@auto-it/bot-list" "9.60.1"
+    "@auto-it/bot-list" "10.0.2"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
     "@octokit/plugin-throttling" "^3.2.0"
@@ -114,13 +114,13 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/first-time-contributor@^9.59.1":
-  version "9.60.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-9.60.1.tgz#4be8df30598169d1056e630ab8f28929ceea4e5d"
-  integrity sha512-ovorpm8T6XJxkiY+0j5ld6FGlEIYgsO5jZXor6W6iBbBXLFXQTvo+bWLlsmdpnfJJBNAqNTEpbAcFCOK8w9zOw==
+"@auto-it/first-time-contributor@^10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.0.2.tgz#4471f742f0d2e19d0a6aedd3004902860da5883d"
+  integrity sha512-6lOtvHykxCjhFZIhgvEbi8yTyCPzP1uTImBbl5lJqYU0fQHX+pPlaaacAYbzX8OaLDOVS0pLcHzJrRGogaHJXg==
   dependencies:
-    "@auto-it/bot-list" "9.60.1"
-    "@auto-it/core" "9.60.1"
+    "@auto-it/bot-list" "10.0.2"
+    "@auto-it/core" "10.0.2"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.1"
