@@ -12,7 +12,7 @@
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "all-contributors-cli": "^6.19.0",
-    "auto": "^9.59.1",
+    "auto": "^10.0.2",
     "codecov": "^3.8.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
