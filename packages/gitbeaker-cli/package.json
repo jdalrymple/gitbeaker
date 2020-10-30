@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/cli",
   "description": "Full NodeJS CLI implementation of the GitLab API.",
-  "version": "25.1.0",
+  "version": "25.2.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -12,8 +12,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^25.1.0",
-    "@gitbeaker/node": "^25.1.0",
+    "@gitbeaker/core": "^25.2.0",
+    "@gitbeaker/node": "^25.2.0",
     "chalk": "^4.1.0",
     "ora": "^5.1.0",
     "sywac": "^1.3.0",

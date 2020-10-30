@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/core",
   "description": "Core API implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "25.1.0",
+  "version": "25.2.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -9,7 +9,7 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/requester-utils": "^25.1.0",
+    "@gitbeaker/requester-utils": "^25.2.0",
     "form-data": "^3.0.0",
     "li": "^1.3.0",
     "xcase": "^2.0.1"
