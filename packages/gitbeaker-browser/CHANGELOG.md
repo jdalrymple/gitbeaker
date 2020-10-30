@@ -1,3 +1,21 @@
+# v25.2.0 (Fri Oct 30 2020)
+
+#### 🐛 Bug Fix
+
+- Fixing header conversion from Header to plain object [#1290](https://github.com/jdalrymple/gitbeaker/pull/1290) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 5.4.0 to 5.4.1 [#1274](https://github.com/jdalrymple/gitbeaker/pull/1274) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 5.3.1 to 5.4.0 [#1267](https://github.com/jdalrymple/gitbeaker/pull/1267) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v25.1.0 (Tue Oct 20 2020)
 
 #### 🐛 Bug Fix

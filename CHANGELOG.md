@@ -1,3 +1,43 @@
+# 25.2.0 (Fri Oct 30 2020)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`
+  - Fixing header conversion from Header to plain object [#1290](https://github.com/jdalrymple/gitbeaker/pull/1290) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump typescript from 4.0.3 to 4.0.5 [#1281](https://github.com/jdalrymple/gitbeaker/pull/1281) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.5.0 to 4.6.0 [#1287](https://github.com/jdalrymple/gitbeaker/pull/1287) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.60.1 to 9.61.0 [#1275](https://github.com/jdalrymple/gitbeaker/pull/1275) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.60.1 to 9.61.0 [#1277](https://github.com/jdalrymple/gitbeaker/pull/1277) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.2 to 14.14.5 [#1282](https://github.com/jdalrymple/gitbeaker/pull/1282) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint from 7.12.0 to 7.12.1 [#1278](https://github.com/jdalrymple/gitbeaker/pull/1278) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint from 7.11.0 to 7.12.0 [#1269](https://github.com/jdalrymple/gitbeaker/pull/1269) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1271](https://github.com/jdalrymple/gitbeaker/pull/1271) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.60.0 to 9.60.1 [#1272](https://github.com/jdalrymple/gitbeaker/pull/1272) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-jest from 26.4.1 to 26.4.2 [#1268](https://github.com/jdalrymple/gitbeaker/pull/1268) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 9.59.1 to 9.60.1 [#1266](https://github.com/jdalrymple/gitbeaker/pull/1266) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest from 26.6.0 to 26.6.1 [#1265](https://github.com/jdalrymple/gitbeaker/pull/1265) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1262](https://github.com/jdalrymple/gitbeaker/pull/1262) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.0 to 14.14.2 [#1263](https://github.com/jdalrymple/gitbeaker/pull/1263) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 9.59.1 to 9.60.0 [#1260](https://github.com/jdalrymple/gitbeaker/pull/1260) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-config-prettier from 6.13.0 to 6.14.0 [#1261](https://github.com/jdalrymple/gitbeaker/pull/1261) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.7.0 to 11.8.0 [#1256](https://github.com/jdalrymple/gitbeaker/pull/1256) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.11.10 to 14.14.0 [#1254](https://github.com/jdalrymple/gitbeaker/pull/1254) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/expect-puppeteer from 4.4.3 to 4.4.4 [#1255](https://github.com/jdalrymple/gitbeaker/pull/1255) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Root dependency updates [#1253](https://github.com/jdalrymple/gitbeaker/pull/1253) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump puppeteer from 5.4.0 to 5.4.1 [#1274](https://github.com/jdalrymple/gitbeaker/pull/1274) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+  - chore(deps-dev): bump puppeteer from 5.3.1 to 5.4.0 [#1267](https://github.com/jdalrymple/gitbeaker/pull/1267) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 25.1.0 (Tue Oct 20 2020)
 
 #### 🐛 Bug Fix
