@@ -1,3 +1,19 @@
+# v25.3.0 (Fri Nov 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
+
+#### 🐛 Bug Fix
+
+- refactor: export CommitAction interface [#1307](https://github.com/jdalrymple/gitbeaker/pull/1307) ([@illyaMs](https://github.com/illyaMs))
+
+#### Authors: 1
+
+- Ilya Dus ([@illyaMs](https://github.com/illyaMs))
+
+---
+
 # v25.1.0 (Tue Oct 20 2020)
 
 #### 🔩 Dependency Updates

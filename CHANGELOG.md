@@ -1,3 +1,25 @@
+# 25.3.0 (Fri Nov 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - refactor: export CommitAction interface [#1307](https://github.com/jdalrymple/gitbeaker/pull/1307) ([@illyaMs](https://github.com/illyaMs))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup from 2.32.0 to 2.32.1 [#1258](https://github.com/jdalrymple/gitbeaker/pull/1258) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Ilya Dus ([@illyaMs](https://github.com/illyaMs))
+
+---
+
 # 25.2.0 (Fri Oct 30 2020)
 
 #### 🐛 Bug Fix
