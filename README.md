@@ -699,6 +699,9 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/max-wittig"><img src="https://avatars3.githubusercontent.com/u/6639323?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Max Wittig</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=max-wittig" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=max-wittig" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=max-wittig" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/nlochschmidt"><img src="https://avatars3.githubusercontent.com/u/759624?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Niklas Lochschmidt</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=nlochschmidt" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=nlochschmidt" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=nlochschmidt" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/illyaMs"><img src="https://avatars3.githubusercontent.com/u/26578665?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Ilya Dus</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=illyaMs" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
