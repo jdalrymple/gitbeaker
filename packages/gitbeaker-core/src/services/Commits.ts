@@ -39,7 +39,7 @@ export interface CommitSchemaCamelized {
 
 export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
 
-interface CommitAction {
+export interface CommitAction {
   /** The action to perform */
   action: 'create' | 'delete' | 'move' | 'update';
   /** Full path to the file. Ex. lib/class.rb */
