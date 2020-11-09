@@ -146,7 +146,7 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@10.3.0":
+"@auto-it/released@10.3.0", "@auto-it/released@^10.3.0":
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.3.0.tgz#c0832d5ef7f5f031449b698b434bb23d799e6d8f"
   integrity sha512-6YS8hbbRJ+3WGTh9pwMiEnAdzkveXwgQpxgYlKhtgaYMpLmXT1C8K9YXxFqG9hnAknJoAhN/TRIp+CGGEsczFQ==
@@ -157,17 +157,6 @@
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "2.0.3"
-
-"@auto-it/released@^9.59.1":
-  version "9.61.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-9.61.0.tgz#87a4e51d719eacb72fd1558c370f2e4f2539bd8a"
-  integrity sha512-CLJT0a05ze7amKgwys+vBI3QA4D9d6mpisi0ibsICXdq1sK2iAiiB19f/ZxCSqIZS1FcivxYXefI4G8itnUH7A==
-  dependencies:
-    "@auto-it/core" "9.61.0"
-    deepmerge "^4.0.0"
-    fp-ts "^2.5.3"
-    io-ts "^2.1.2"
-    tslib "2.0.1"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
