@@ -4,7 +4,7 @@
   },
   "repository": "github:jdalrymple/gitbeaker",
   "devDependencies": {
-    "@auto-it/all-contributors": "^9.59.1",
+    "@auto-it/all-contributors": "^10.3.0",
     "@auto-it/core": "^10.3.0",
     "@auto-it/first-time-contributor": "^10.3.0",
     "@auto-it/released": "^10.3.0",
