@@ -35,7 +35,7 @@ function removeOptionalArg(list) {
   return list;
 }
 
-function buildMap() {
+export function buildMap() {
   const map = {};
   const baseArgs = Object.keys(getParamNames(BaseService)[0]);
 
