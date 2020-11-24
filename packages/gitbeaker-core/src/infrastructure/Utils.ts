@@ -18,14 +18,16 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
 ): BundleType<T, P> {
   return (function Bundle(options?: any) {
     Object.entries(services).forEach(([name, Ser]) => {
-      /** @ts-ignore */
+      /* eslint @typescript-eslint/ban-ts-comment: 0 */
+      // @ts-ignore
       this[name] = new Ser(options);
     });
   } as any) as BundleType<T, P>;
 }
 
 export function appendFormFromObject(object: Record<string, unknown>): FormData {
-  /** @ts-ignore */
+  /* eslint @typescript-eslint/ban-ts-comment: 0 */
+  // @ts-ignore
   const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {
