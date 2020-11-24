@@ -1,3 +1,20 @@
+# v25.4.0 (Tue Nov 24 2020)
+
+#### 🐛 Bug Fix
+
+- Supress Bundler typescript warnings [#1328](https://github.com/jdalrymple/gitbeaker/pull/1328) ([@kiprasmel](https://github.com/kiprasmel))
+
+#### ⚠️ Pushed to `master`
+
+- Temporary omission of ts error ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+
+---
+
 # v25.3.0 (Fri Nov 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -1,3 +1,17 @@
+# v25.4.0 (Tue Nov 24 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 9.0.0 to 10.0.0 [#1319](https://github.com/jdalrymple/gitbeaker/pull/1319) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @rollup/plugin-commonjs from 15.1.0 to 16.0.0 [#1314](https://github.com/jdalrymple/gitbeaker/pull/1314) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 3.0.2 to 5.4.0 [#1316](https://github.com/jdalrymple/gitbeaker/pull/1316) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v25.2.0 (Fri Oct 30 2020)
 
 #### 🐛 Bug Fix
