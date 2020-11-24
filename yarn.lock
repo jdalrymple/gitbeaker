@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.3.0.tgz#2561b36b0f930459978686c4f6e194bc7812a133"
-  integrity sha512-/2PC//BZGZLCjEzoyPG3x6EFheKxw/xBmehFLxH5ktpKFiE0cz7JixS87j7Aanm5SOs6i5Pjravn0O+9r/Obrw==
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.4.2.tgz#566402fc0cf54ee34e45da37de4b4d4f8e479139"
+  integrity sha512-Oez7KdY9Z01DmnY7s0CTBius+TvsPldNgLo9uo1Em7qg4yAgNTjdeRDcCAAUeWqi0EMb9nj9CkoLMJpjHT4hlQ==
   dependencies:
-    "@auto-it/bot-list" "10.3.0"
-    "@auto-it/core" "10.3.0"
+    "@auto-it/bot-list" "10.4.2"
+    "@auto-it/core" "10.4.2"
     "@octokit/rest" "^18.0.0"
     all-contributors-cli "6.17.4"
     anymatch "^3.1.1"
@@ -25,7 +25,12 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.3.0.tgz#7378db2a4e259f6ca0c71b997d5a0587b390d84a"
   integrity sha512-r6qwKi1paPLiKsAXtm0XiEQi0bmisspmWd5siNZNx6eMr41SOZ363I5L6CjaE4VKfrFKV3jkgHlel/URd+npcg==
 
-"@auto-it/core@10.3.0", "@auto-it/core@^10.3.0":
+"@auto-it/bot-list@10.4.2":
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.4.2.tgz#809efbf0598450732bc19f2e7b374c97e009db5f"
+  integrity sha512-LCDKoxI29qGfHS6UyZFs5Vs+LcnI4AUIpkla9FySTovpGu8KN8/0CGEhVsadt+wDKqQbYqfQKPepZ/D13uYfVQ==
+
+"@auto-it/core@10.3.0":
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.3.0.tgz#e83ccef60f69be5edb64c77bcf84a3b50e6ba494"
   integrity sha512-W3jOleQfVCo0+9+ECHEd+FeOqrUwddYegYSbguIjdygfXaxCKAbJYr+RUggHEH+rIDr8y4Ca+0tnxD5Hrwxjuw==
@@ -64,6 +69,48 @@
     tinycolor2 "^1.4.1"
     tslib "2.0.3"
     type-fest "^0.16.0"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@10.4.2", "@auto-it/core@^10.3.0":
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.4.2.tgz#d1e559cf514c899d088eee54d481558c698e81bd"
+  integrity sha512-3U6aCAur+utxSYFTkFeKTfkYzjcV2esznrtpD6ToWM9AAINu2DS01Le4gBmUn8Hwg51yKkNyiCU+afCrVVUsUg==
+  dependencies:
+    "@auto-it/bot-list" "10.4.2"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^2.1.1"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.0.0-beta.2"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    tslib "2.0.3"
+    type-fest "^0.18.0"
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
@@ -10142,6 +10189,11 @@ type-fest@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.16.0.tgz#3240b891a78b0deae910dbeb86553e552a148860"
   integrity sha512-eaBzG6MxNzEn9kiwvtre90cXaNLkmadMWa1zQMs3XORCXNbsH/OewwbxC5ia9dCxIxnTAsSxXJaa/p5y8DlvJg==
+
+type-fest@^0.18.0:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.18.1.tgz#db4bc151a4a2cf4eebf9add5db75508db6cc841f"
+  integrity sha512-OIAYXk8+ISY+qTOwkHtKqzAuxchoMiD9Udx+FSGQDuiRR+PJKJHc2NJAXlbhkGwTt/4/nKZxELY1w3ReWOL8mw==
 
 type-fest@^0.3.0:
   version "0.3.1"
