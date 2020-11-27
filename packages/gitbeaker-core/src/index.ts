@@ -3,7 +3,7 @@ import * as APIServices from './services';
 
 /* -------------- Export Map ------------- */
 export function getAPIMap() {
-  return JSON.parse('__apiMap__')
+  return JSON.parse('__apiMap__');
 }
 
 /* -------------- Single Services ------------- */
