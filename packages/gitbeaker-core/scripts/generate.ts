@@ -1,17 +1,17 @@
 import getParamNames from 'get-param-names';
-import { outputJsonSync } from 'fs-extra';
 import { BaseService } from '@gitbeaker/requester-utils';
+import { outputJsonSync } from 'fs-extra';
 import * as Gitbeaker from '../src';
 
-function isGetter(x, name) {
+function isGetter(x:object, name:string) {
   return (Object.getOwnPropertyDescriptor(x, name) || {}).get;
 }
 
-function isFunction(x, name) {
+function isFunction(x:object, name: string) {
   return typeof x[name] === 'function';
 }
 
-function deepFunctions(x) {
+function deepFunctions(x:object): string[] {
   return (
     x &&
     x !== Object.prototype &&
@@ -21,32 +21,32 @@ function deepFunctions(x) {
   );
 }
 
-function distinctDeepFunctions(x): string[] {
+function distinctDeepFunctions(x:object): string[] {
   return Array.from(new Set(deepFunctions(x)));
 }
 
-function getInstanceMethods(x) {
+function getInstanceMethods(x:object): string[] {
   return distinctDeepFunctions(x).filter((name) => name !== 'constructor' && !~name.indexOf('__'));
 }
 
-function removeOptionalArg(list) {
+function removeOptionalArg(list: string[]) {
   if (['options', '_a'].includes(list[list.length - 1])) list.pop();
 
   return list;
 }
 
-function buildMap() {
+export function buildMap() {
   const map = {};
   const baseArgs = Object.keys(getParamNames(BaseService)[0]);
 
   for (const [name, service] of Object.entries(Gitbeaker as object)) {
-    if (name.includes('Bundle') || name === 'Gitlab') continue;
+    if (name.includes('Bundle') || ['Gitlab', 'getAPIMap'].includes(name)) continue;
 
     const s = new service({ requester: {} });
 
     map[name] = [{ name: 'constructor', args: baseArgs }];
 
-    for (const m of getInstanceMethods(s) as string[]) {
+    for (const m of getInstanceMethods(s)) {
       map[name].push({
         name: m,
         args: removeOptionalArg(getParamNames(s[m])),

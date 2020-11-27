@@ -1,6 +1,11 @@
 import { bundler } from './infrastructure';
 import * as APIServices from './services';
 
+/* -------------- Export Map ------------- */
+export function getAPIMap() {
+  return JSON.parse('__apiMap__')
+}
+
 /* -------------- Single Services ------------- */
 export * from './services';
 
