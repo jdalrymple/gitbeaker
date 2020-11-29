@@ -64,8 +64,7 @@ export class Commits extends BaseService {
   cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper
-    this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
+    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
       branch,
       ...options,
     });
