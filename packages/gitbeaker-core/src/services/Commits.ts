@@ -64,7 +64,8 @@ export class Commits extends BaseService {
   cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
+    return RequestHelper
+    this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
       branch,
       ...options,
     });
@@ -128,7 +129,7 @@ export class Commits extends BaseService {
   revert(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
+    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
   }
 
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
