@@ -63,9 +63,11 @@ export class Environments extends BaseService {
     options?: Sudo,
   ): Promise<EnvironmentDetailSchema> {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
-    return RequestHelper.get(this, `projects/${pId}/environments/${eId}`, options) as Promise<
-      EnvironmentDetailSchema
-    >;
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/environments/${eId}`,
+      options,
+    ) as Promise<EnvironmentDetailSchema>;
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
