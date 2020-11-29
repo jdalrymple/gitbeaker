@@ -25,7 +25,7 @@ export interface CreateMergeRequestOptions {
   assigneeId?: number;
   description?: string;
   targetProjectId?: number;
-  labels?: string;
+  labels?: string | Array<string>;
   milestoneId?: number;
   removeSourceBranch?: boolean;
   allowCollaboration?: boolean;
@@ -38,7 +38,7 @@ export interface UpdateMergeRequestOptions {
   title?: string;
   assigneeId?: number;
   milestoneId?: number;
-  labels?: string;
+  labels?: string | Array<string>;
   description?: string;
   stateEvent?: string;
   removeSourceBranch?: boolean;
@@ -54,7 +54,7 @@ export interface AllMergeRequestsOptions {
   sort?: 'asc' | 'desc';
   milestone?: 'None' | string;
   view?: string;
-  labels?: string;
+  labels?: string | Array<string>;
   withLabelsDetails?: boolean;
   createdAfter?: string;
   createdBefore?: string;
