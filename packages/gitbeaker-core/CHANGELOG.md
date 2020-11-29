@@ -1,3 +1,24 @@
+# v25.5.0 (Sun Nov 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: change labels type in all MergeRequestPptions types [#1355](https://github.com/jdalrymple/gitbeaker/pull/1355) (omar.awamry@vodafone.com)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Omar Awamry ([@wamry](https://github.com/wamry))
+
+---
+
 # v25.4.0 (Tue Nov 24 2020)
 
 #### 🐛 Bug Fix

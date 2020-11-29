@@ -1,3 +1,17 @@
+# v25.5.0 (Sun Nov 29 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump ky from 0.24.0 to 0.25.0 [#1330](https://github.com/jdalrymple/gitbeaker/pull/1330) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 5.4.1 to 5.5.0 [#1334](https://github.com/jdalrymple/gitbeaker/pull/1334) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v25.4.0 (Tue Nov 24 2020)
 
 #### 🔩 Dependency Updates
