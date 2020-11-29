@@ -1,3 +1,40 @@
+# 25.5.0 (Sun Nov 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - fix: change labels type in all MergeRequestPptions types [#1355](https://github.com/jdalrymple/gitbeaker/pull/1355) (omar.awamry@vodafone.com)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump eslint from 7.13.0 to 7.14.0 [#1350](https://github.com/jdalrymple/gitbeaker/pull/1350) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.3.0 to 10.4.2 [#1349](https://github.com/jdalrymple/gitbeaker/pull/1349) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1346](https://github.com/jdalrymple/gitbeaker/pull/1346) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump lint-staged from 10.5.1 to 10.5.2 [#1347](https://github.com/jdalrymple/gitbeaker/pull/1347) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump typescript from 4.0.5 to 4.1.2 [#1345](https://github.com/jdalrymple/gitbeaker/pull/1345) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.33.1 to 2.33.3 [#1339](https://github.com/jdalrymple/gitbeaker/pull/1339) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1343](https://github.com/jdalrymple/gitbeaker/pull/1343) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.7.0 to 4.8.2 [#1342](https://github.com/jdalrymple/gitbeaker/pull/1342) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.7 to 14.14.9 [#1340](https://github.com/jdalrymple/gitbeaker/pull/1340) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.1.0 to 24.1.3 [#1329](https://github.com/jdalrymple/gitbeaker/pull/1329) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.3.0 to 10.4.2 [#1341](https://github.com/jdalrymple/gitbeaker/pull/1341) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps): bump ky from 0.24.0 to 0.25.0 [#1330](https://github.com/jdalrymple/gitbeaker/pull/1330) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+  - chore(deps-dev): bump puppeteer from 5.4.1 to 5.5.0 [#1334](https://github.com/jdalrymple/gitbeaker/pull/1334) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Omar Awamry ([@wamry](https://github.com/wamry))
+
+---
+
 # 25.4.0 (Tue Nov 24 2020)
 
 #### 🐛 Bug Fix
