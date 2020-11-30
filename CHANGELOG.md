@@ -1,3 +1,28 @@
+# 25.6.0 (Mon Nov 30 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - Revert project to commit [#1353](https://github.com/jdalrymple/gitbeaker/pull/1353) ([@Sumragen](https://github.com/Sumragen) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup from 2.33.3 to 2.34.0 [#1357](https://github.com/jdalrymple/gitbeaker/pull/1357) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.3.0 to 10.4.2 [#1344](https://github.com/jdalrymple/gitbeaker/pull/1344) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.9 to 14.14.10 [#1351](https://github.com/jdalrymple/gitbeaker/pull/1351) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Hennadii Varava ([@Sumragen](https://github.com/Sumragen))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 25.5.0 (Sun Nov 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:

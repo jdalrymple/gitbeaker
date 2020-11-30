@@ -1,3 +1,20 @@
+# v25.6.0 (Mon Nov 30 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all your work!
+
+#### 💥 Feature
+
+- Revert project to commit [#1353](https://github.com/jdalrymple/gitbeaker/pull/1353) ([@Sumragen](https://github.com/Sumragen) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Hennadii Varava ([@Sumragen](https://github.com/Sumragen))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v25.5.0 (Sun Nov 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
