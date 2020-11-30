@@ -702,6 +702,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
   <tr>
     <td align="center"><a href="https://github.com/illyaMs"><img src="https://avatars3.githubusercontent.com/u/26578665?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Ilya Dus</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=illyaMs" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/wamry"><img src="https://avatars0.githubusercontent.com/u/32439651?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Omar Awamry</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=wamry" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Sumragen"><img src="https://avatars0.githubusercontent.com/u/15640910?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Hennadii Varava</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Sumragen" title="Code">💻</a></td>
   </tr>
 </table>
 
