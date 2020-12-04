@@ -14,7 +14,7 @@
     "ky": "^0.25.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@types/expect-puppeteer": "^4.4.3",
