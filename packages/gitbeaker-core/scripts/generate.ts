@@ -3,29 +3,29 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { outputJsonSync } from 'fs-extra';
 import * as Gitbeaker from '../src';
 
-function isGetter(x:object, name:string) {
+function isGetter(x: object, name: string) {
   return (Object.getOwnPropertyDescriptor(x, name) || {}).get;
 }
 
-function isFunction(x:object, name: string) {
+function isFunction(x: object, name: string) {
   return typeof x[name] === 'function';
 }
 
-function deepFunctions(x:object): string[] {
-  return (
-    x &&
-    x !== Object.prototype &&
-    Object.getOwnPropertyNames(x)
+function deepFunctions(x: object): string[] {
+  if (x !== Object.prototype) {
+    return Object.getOwnPropertyNames(x)
       .filter((name) => isGetter(x, name) || isFunction(x, name))
-      .concat(deepFunctions(Object.getPrototypeOf(x)) || [])
-  );
+      .concat(deepFunctions(Object.getPrototypeOf(x)) || []);
+  }
+
+  return [];
 }
 
-function distinctDeepFunctions(x:object): string[] {
+function distinctDeepFunctions(x: object): string[] {
   return Array.from(new Set(deepFunctions(x)));
 }
 
-function getInstanceMethods(x:object): string[] {
+function getInstanceMethods(x: object): string[] {
   return distinctDeepFunctions(x).filter((name) => name !== 'constructor' && !~name.indexOf('__'));
 }
 
