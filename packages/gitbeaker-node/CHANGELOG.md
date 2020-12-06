@@ -1,3 +1,15 @@
+# v26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v25.5.0 (Sun Nov 29 2020)
 
 #### 🔩 Dependency Updates

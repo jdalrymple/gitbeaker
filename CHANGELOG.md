@@ -1,3 +1,30 @@
+# 26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump ts-node from 9.0.0 to 9.1.0 [#1363](https://github.com/jdalrymple/gitbeaker/pull/1363) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.34.0 to 2.34.1 [#1366](https://github.com/jdalrymple/gitbeaker/pull/1366) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-prettier from 3.1.4 to 3.2.0 [#1365](https://github.com/jdalrymple/gitbeaker/pull/1365) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.15 to 26.0.16 [#1362](https://github.com/jdalrymple/gitbeaker/pull/1362) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 5.4.0 to 5.4.1 [#1364](https://github.com/jdalrymple/gitbeaker/pull/1364) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.8.2 to 4.9.0 [#1360](https://github.com/jdalrymple/gitbeaker/pull/1360) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1359](https://github.com/jdalrymple/gitbeaker/pull/1359) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump @rollup/plugin-node-resolve from 10.0.0 to 11.0.0 [#1361](https://github.com/jdalrymple/gitbeaker/pull/1361) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+  - chore(deps-dev): bump @rollup/plugin-commonjs from 16.0.0 to 17.0.0 [#1358](https://github.com/jdalrymple/gitbeaker/pull/1358) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 25.6.0 (Mon Nov 30 2020)
 
 :tada: This release contains work from a new contributor! :tada:

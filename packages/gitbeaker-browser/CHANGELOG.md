@@ -1,3 +1,21 @@
+# v26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 10.0.0 to 11.0.0 [#1361](https://github.com/jdalrymple/gitbeaker/pull/1361) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @rollup/plugin-commonjs from 16.0.0 to 17.0.0 [#1358](https://github.com/jdalrymple/gitbeaker/pull/1358) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v25.5.0 (Sun Nov 29 2020)
 
 #### 🔩 Dependency Updates
