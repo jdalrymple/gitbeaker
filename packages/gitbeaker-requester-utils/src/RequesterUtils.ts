@@ -107,11 +107,8 @@ function extendClass<T extends Constructable>(Base: T, customConfig: Record<stri
   };
 }
 
-export function modifyServices<T extends { [name: string]: Constructable }>(
-  services: T,
-  customConfig: Record<string, unknown> = {},
-) {
-  const updated: { [name: string]: Constructable } = {};
+export function modifyServices<T>(services: T, customConfig: Record<string, unknown> = {}) {
+  const updated = {};
 
   Object.entries(services).forEach(([k, s]) => {
     updated[k] = extendClass(s, customConfig);
