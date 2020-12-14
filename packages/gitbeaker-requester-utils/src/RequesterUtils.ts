@@ -75,7 +75,7 @@ export function defaultOptionsHandler(
 }
 
 export function createRequesterFn(
-  optionsHandler: (s: DefaultServiceOptions, r: DefaultRequestOptions) => DefaultRequestReturn,
+  optionsHandler,
   requestHandler,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
   const requester: RequesterType = {} as RequesterType;
