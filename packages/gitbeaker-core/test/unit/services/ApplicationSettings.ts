@@ -1,21 +1,14 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 import { ApplicationSettings } from '../../../src';
+import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
 let service: ApplicationSettings;
 
 beforeEach(() => {
-  const requester = {
-    get: jest.fn(() => Promise.resolve([])),
-    post: jest.fn(() => Promise.resolve({})),
-    put: jest.fn(() => Promise.resolve({})),
-    delete: jest.fn(() => Promise.resolve({})),
-  } as RequesterType;
-
   service = new ApplicationSettings({
-    requester,
+    requesterFn: mockRequesterFn,
     token: 'abcdefg',
     requestTimeout: 3000,
   });

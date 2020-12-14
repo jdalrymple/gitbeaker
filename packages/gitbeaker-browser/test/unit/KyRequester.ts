@@ -1,7 +1,7 @@
 import * as ky from 'ky';
 import * as fetch from 'node-fetch';
 import { Agent } from 'https';
-import { processBody, handler, defaultRequest } from '../../src/KyRequester';
+import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 
 // Set globals for testing purposes
 if (!global.fetch) {
@@ -167,7 +167,7 @@ describe('defaultRequest', () => {
 
   it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
-    const { body, headers } = defaultRequest(service, {
+    const { body, headers } = defaultOptionsHandler(service, {
       body: testBody,
     });
 
@@ -176,7 +176,7 @@ describe('defaultRequest', () => {
   });
 
   it('should assign the agent property if given https url and rejectUnauthorized is false', async () => {
-    const { agent = {} } = defaultRequest(
+    const { agent = {} } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },
     );
@@ -184,14 +184,14 @@ describe('defaultRequest', () => {
     expect(agent).toBeInstanceOf(Agent);
     expect(agent.rejectUnauthorized).toBeFalsy();
 
-    const { agent: agent2 } = defaultRequest(
+    const { agent: agent2 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
     );
 
     expect(agent2).toBeUndefined();
 
-    const { agent: agent3 } = defaultRequest(
+    const { agent: agent3 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
       { method: 'post' },
     );

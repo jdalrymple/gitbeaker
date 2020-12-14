@@ -105,9 +105,11 @@ export class Groups extends BaseService {
   show(groupId: string | number, options?: BaseRequestOptions): Promise<GroupDetailSchema> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<GroupDetailSchema>(this, `groups/${gId}`, options) as Promise<
-      GroupDetailSchema
-    >;
+    return RequestHelper.get<GroupDetailSchema>(
+      this,
+      `groups/${gId}`,
+      options,
+    ) as Promise<GroupDetailSchema>;
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {

@@ -6,9 +6,9 @@ import {
   Sudo,
 } from '../infrastructure';
 import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
-import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
 import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
 import { UserSchemaDefault, UserSchemaCamelized } from './Users';
+import { PipelineBase } from './Pipelines';
 
 export type JobScope =
   | 'created'
@@ -52,7 +52,7 @@ export interface JobSchemaDefault {
   duration?: number;
   user: UserSchemaDefault;
   commit: CommitSchemaDefault;
-  pipeline: PipelineSchemaDefault;
+  pipeline: PipelineBase;
   web_url: string;
   artifacts: ArtifactSchemaDefault[];
   runner: RunnerSchemaDefault;
@@ -74,7 +74,7 @@ export interface JobSchemaCamelized {
   duration?: number;
   user: UserSchemaCamelized;
   commit: CommitSchemaCamelized;
-  pipeline: PipelineSchemaCamelized;
+  pipeline: PipelineBase;
   webUrl: string;
   artifacts: ArtifactSchemaCamelized[];
   runner: RunnerSchemaCamelized;
