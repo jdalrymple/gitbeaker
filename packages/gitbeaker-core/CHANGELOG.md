@@ -1,3 +1,53 @@
+# v26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v25.6.0 (Mon Nov 30 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all your work!
+
+#### 💥 Feature
+
+- Revert project to commit [#1353](https://github.com/jdalrymple/gitbeaker/pull/1353) ([@Sumragen](https://github.com/Sumragen) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Hennadii Varava ([@Sumragen](https://github.com/Sumragen))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v25.5.0 (Sun Nov 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: change labels type in all MergeRequestPptions types [#1355](https://github.com/jdalrymple/gitbeaker/pull/1355) (omar.awamry@vodafone.com)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Omar Awamry ([@wamry](https://github.com/wamry))
+
+---
+
 # v25.4.0 (Tue Nov 24 2020)
 
 #### 🐛 Bug Fix

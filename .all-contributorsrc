@@ -301,6 +301,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wamry",
+      "name": "Omar Awamry",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32439651?v=4",
+      "profile": "https://github.com/wamry",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Sumragen",
+      "name": "Hennadii Varava",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/15640910?v=4",
+      "profile": "https://github.com/Sumragen",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

@@ -125,6 +125,12 @@ export class Commits extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
   }
 
+  revert(projectId: string | number, sha: string, options?: Sudo) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
+  }
+
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
