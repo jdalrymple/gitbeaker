@@ -1,3 +1,39 @@
+# 26.0.1 (Mon Dec 14 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@xiezht](https://github.com/xiezht), for all your work!
+
+#### 🏿‍♀️ Security
+
+- chore(deps): [security] bump ini from 1.3.5 to 1.3.7 [#1382](https://github.com/jdalrymple/gitbeaker/pull/1382) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.10 to 14.14.12 [#1383](https://github.com/jdalrymple/gitbeaker/pull/1383) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest-environment-puppeteer [#1369](https://github.com/jdalrymple/gitbeaker/pull/1369) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump ky from 0.25.0 to 0.25.1 [#1379](https://github.com/jdalrymple/gitbeaker/pull/1379) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 5.4.1 to 5.4.2 [#1378](https://github.com/jdalrymple/gitbeaker/pull/1378) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.17 to 26.0.18 [#1377](https://github.com/jdalrymple/gitbeaker/pull/1377) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.16 to 26.0.17 [#1370](https://github.com/jdalrymple/gitbeaker/pull/1370) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.9.0 to 4.9.1 [#1374](https://github.com/jdalrymple/gitbeaker/pull/1374) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump husky from 4.3.4 to 4.3.5 [#1371](https://github.com/jdalrymple/gitbeaker/pull/1371) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-config-prettier from 6.15.0 to 7.0.0 [#1368](https://github.com/jdalrymple/gitbeaker/pull/1368) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump openpgp from 4.10.8 to 4.10.9 [#1372](https://github.com/jdalrymple/gitbeaker/pull/1372) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1373](https://github.com/jdalrymple/gitbeaker/pull/1373) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 📝 Documentation
+
+- Fix table markdown format in README [#1376](https://github.com/jdalrymple/gitbeaker/pull/1376) ([@xiezht](https://github.com/xiezht) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@xiezht](https://github.com/xiezht)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change
