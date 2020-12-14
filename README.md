@@ -132,8 +132,8 @@ const api = new Gitlab({
 
 Available instantiating options:
 
-| Name                 | Optional | Default | Description    |
-| -------------------- | -------- | ------- | -------------- |
+| Name                 | Optional | Default                                                                                                                                                             | Description                                                                                                        |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --- |
 | `host`               | Yes      | `https://gitlab.com`                                                                                                                                                | Gitlab Instance Host URL                                                                                           |
 | `token`              | No\*     | N/A                                                                                                                                                                 | Personal Token. Required (one of the three tokens are required)                                                    |
 | `oauthToken`         | No\*     | N/A                                                                                                                                                                 | OAuth Token. Required (one of the three tokens are required)                                                       |
