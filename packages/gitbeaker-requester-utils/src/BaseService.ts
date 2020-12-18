@@ -1,4 +1,4 @@
-import { RequesterType } from './RequesterUtils';
+import { RequesterType, DefaultServiceOptions } from './RequesterUtils';
 
 export interface BaseServiceOptions {
   oauthToken?: string;
@@ -9,7 +9,7 @@ export interface BaseServiceOptions {
   version?: 3 | 4;
   rejectUnauthorized?: boolean;
   camelize?: boolean;
-  requester?: RequesterType;
+  requesterFn?: (serviceOptions: DefaultServiceOptions) => RequesterType;
   requestTimeout?: number;
   profileToken?: string;
   sudo?: string | number;
@@ -35,7 +35,7 @@ export class BaseService {
     oauthToken,
     sudo,
     profileToken,
-    requester,
+    requesterFn,
     profileMode = 'execution',
     host = 'https://gitlab.com',
     url = '',
@@ -44,7 +44,7 @@ export class BaseService {
     rejectUnauthorized = true,
     requestTimeout = 300000,
   }: BaseServiceOptions = {}) {
-    if (!requester) throw new ReferenceError('Requester must be passed');
+    if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
     this.url = [host, 'api', `v${version}`, url].join('/');
     this.headers = {
@@ -52,7 +52,6 @@ export class BaseService {
     };
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
-    this.requester = requester;
     this.requestTimeout = requestTimeout;
 
     // Handle auth tokens
@@ -68,5 +67,8 @@ export class BaseService {
 
     // Set sudo
     if (sudo) this.headers.Sudo = `${sudo}`;
+
+    // Set requester instance using this information
+    this.requester = requesterFn(this);
   }
 }

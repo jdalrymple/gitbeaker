@@ -42,7 +42,7 @@ export function buildMap() {
   for (const [name, service] of Object.entries(Gitbeaker as object)) {
     if (name.includes('Bundle') || ['Gitlab', 'getAPIMap'].includes(name)) continue;
 
-    const s = new service({ requester: {} });
+    const s = new service({ requesterFn: () => ({}) });
 
     map[name] = [{ name: 'constructor', args: baseArgs }];
 

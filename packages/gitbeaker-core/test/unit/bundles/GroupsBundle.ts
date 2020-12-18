@@ -2,7 +2,7 @@ import { GroupsBundle } from '../../../src';
 import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the groups bundle', async () => {
-  const bundle: GroupsBundle = new GroupsBundle({ requester: {}, token: 'test' });
+  const bundle: GroupsBundle = new GroupsBundle({ requesterFn: () => ({}), token: 'test' });
   const services = [
     'Groups',
     'GroupAccessRequests',
@@ -24,7 +24,7 @@ test('All the correct service keys are included in the groups bundle', async () 
 });
 
 test('All the correct service instances are included in the groups bundle', async () => {
-  const bundle = new GroupsBundle({ requester: {}, token: 'test' });
+  const bundle = new GroupsBundle({ requesterFn: () => ({}), token: 'test' });
 
   (Object.keys(bundle) as (keyof typeof bundle)[]).forEach((key) => {
     expect(bundle[key]).toBeInstanceOf(Services[key]);

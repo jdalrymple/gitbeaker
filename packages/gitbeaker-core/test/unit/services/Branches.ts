@@ -1,20 +1,14 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 import { Branches } from '../../../src';
+import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
-const requester = {
-  get: jest.fn(() => Promise.resolve([])),
-  post: jest.fn(() => Promise.resolve({})),
-  put: jest.fn(() => Promise.resolve({})),
-  delete: jest.fn(() => Promise.resolve({})),
-} as RequesterType;
 let service: Branches;
 
 beforeEach(() => {
   service = new Branches({
-    requester,
+    requesterFn: mockRequesterFn,
     token: 'abcdefg',
     requestTimeout: 3000,
   });
@@ -54,7 +48,7 @@ describe('Branches.create', () => {
 
   it('should request POST /projects/:id/repository/branches in v3', async () => {
     const v3Service = new Branches({
-      requester,
+      requesterFn: mockRequesterFn,
       token: 'abcdefg',
       requestTimeout: 3000,
       version: 3,

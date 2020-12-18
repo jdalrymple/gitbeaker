@@ -1,16 +1,16 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import {
-  DefaultRequestService,
+  DefaultServiceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
-  createInstance,
-  defaultRequest as baseDefaultRequest,
+  createRequesterFn,
+  defaultOptionsHandler as baseOptionsHandler,
   wait,
 } from '@gitbeaker/requester-utils';
 
-export function defaultRequest(
-  service: DefaultRequestService,
+export function defaultOptionsHandler(
+  serviceOptions: DefaultServiceOptions,
   { body, query, sudo, method }: DefaultRequestOptions = {},
 ): DefaultRequestReturn & {
   json?: Record<string, unknown>;
@@ -19,7 +19,7 @@ export function defaultRequest(
   const options: DefaultRequestReturn & {
     json?: Record<string, unknown>;
     https?: { rejectUnauthorized: boolean };
-  } = baseDefaultRequest(service, { body, query, sudo, method });
+  } = baseOptionsHandler(serviceOptions, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (typeof body === 'object' && body.constructor.name !== 'FormData') {
@@ -29,12 +29,12 @@ export function defaultRequest(
   }
 
   if (
-    service.url.includes('https') &&
-    service.rejectUnauthorized != null &&
-    service.rejectUnauthorized === false
+    serviceOptions.url.includes('https') &&
+    serviceOptions.rejectUnauthorized != null &&
+    serviceOptions.rejectUnauthorized === false
   ) {
     options.https = {
-      rejectUnauthorized: service.rejectUnauthorized,
+      rejectUnauthorized: serviceOptions.rejectUnauthorized,
     };
   }
 
@@ -104,4 +104,4 @@ export async function handler(endpoint: string, options: Record<string, unknown>
   return { body, headers, status: statusCode };
 }
 
-export const Requester = createInstance(defaultRequest, handler);
+export const requesterFn = createRequesterFn(defaultOptionsHandler, handler);

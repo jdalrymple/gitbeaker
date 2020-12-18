@@ -1,9 +1,9 @@
 import * as Gitbeaker from '@gitbeaker/core';
 import { modifyServices } from '@gitbeaker/requester-utils';
-import { Requester } from './KyRequester';
+import { requesterFn } from './KyRequester';
 
 const { getAPIMap, ...services } = Gitbeaker;
-const APIServices = modifyServices(services, { requester: Requester });
+const APIServices = modifyServices(services, { requesterFn });
 
 export const {
   // Groups

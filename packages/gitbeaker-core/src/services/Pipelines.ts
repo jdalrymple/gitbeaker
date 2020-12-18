@@ -5,23 +5,34 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { JobScope } from './Jobs';
 
-export interface PipelineSchemaDefault {
+export type PipelineStatus =
+  | 'created'
+  | 'waiting_for_resource'
+  | 'preparing'
+  | 'pending'
+  | 'running'
+  | 'failed'
+  | 'success'
+  | 'canceled'
+  | 'skipped'
+  | 'manual'
+  | 'scheduled';
+
+export interface PipelineBase {
   id: number;
   sha: string;
   ref: string;
-  status: string;
+  status: PipelineStatus;
+}
+
+export interface PipelineSchemaDefault extends PipelineBase {
   created_at: Date;
   updated_at: Date;
   web_url: string;
 }
 
-export interface PipelineSchemaCamelized {
-  id: number;
-  sha: string;
-  ref: string;
-  status: string;
+export interface PipelineSchemaCamelized extends PipelineBase {
   createdAt: Date;
   updatedAt: Date;
   webUrl: string;
@@ -65,12 +76,6 @@ export class Pipelines extends BaseService {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
-  }
-
-  showJobs(projectId: string | number, pipelineId: number, options?: { scope: JobScope } & Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
   }
 
   allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {

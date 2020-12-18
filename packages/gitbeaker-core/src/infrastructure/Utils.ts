@@ -1,4 +1,4 @@
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
