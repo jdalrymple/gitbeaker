@@ -1,11 +1,11 @@
 import ky from 'ky';
 import { Agent } from 'https';
 import {
-  DefaultRequestService,
+  DefaultServiceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
-  createInstance,
-  defaultRequest as baseDefaultRequest,
+  createRequesterFn,
+  defaultOptionsHandler as baseOptionsHandler,
   wait,
 } from '@gitbeaker/requester-utils';
 
@@ -19,23 +19,26 @@ function responseHeadersAsObject(response): Record<string, string> {
   return headers;
 }
 
-export function defaultRequest(
-  service: DefaultRequestService,
+export function defaultOptionsHandler(
+  serviceOptions: DefaultServiceOptions,
   options: DefaultRequestOptions = {},
 ): DefaultRequestReturn & { agent?: Agent } {
-  const opts: DefaultRequestReturn & { agent?: Agent } = baseDefaultRequest(service, options);
+  const opts: DefaultRequestReturn & { agent?: Agent } = baseOptionsHandler(
+    serviceOptions,
+    options,
+  );
 
   if (
-    service.url.includes('https') &&
-    service.rejectUnauthorized != null &&
-    service.rejectUnauthorized === false
+    serviceOptions.url.includes('https') &&
+    serviceOptions.rejectUnauthorized != null &&
+    serviceOptions.rejectUnauthorized === false
   ) {
     opts.agent = new Agent({
-      rejectUnauthorized: service.rejectUnauthorized,
+      rejectUnauthorized: serviceOptions.rejectUnauthorized,
     });
   }
 
-  return { ...opts, headers: new Headers(service.headers as Record<string, string>) };
+  return { ...opts, headers: new Headers(serviceOptions.headers as Record<string, string>) };
 }
 
 export function processBody(response) {
@@ -95,4 +98,4 @@ export async function handler(endpoint: string, options: Record<string, unknown>
   return { body, headers, status };
 }
 
-export const Requester = createInstance(defaultRequest, handler);
+export const requesterFn = createRequesterFn(defaultOptionsHandler, handler);

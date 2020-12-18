@@ -1,20 +1,13 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import { EpicNotes } from '../../../src';
+import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
 let service: EpicNotes;
 
 beforeEach(() => {
-  const requester = {
-    get: jest.fn(() => Promise.resolve([])),
-    post: jest.fn(() => Promise.resolve({})),
-    put: jest.fn(() => Promise.resolve({})),
-    delete: jest.fn(() => Promise.resolve({})),
-  } as RequesterType;
-
   service = new EpicNotes({
-    requester,
+    requesterFn: mockRequesterFn,
     token: 'abcdefg',
     requestTimeout: 3000,
   });

@@ -63,7 +63,7 @@ async function getHelper<T = Record<string, unknown>>(
   }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
   acc: any[] = [],
 ): Promise<any> {
-  const response = await service.requester.get(service, endpoint, { query, sudo });
+  const response = await service.requester.get(endpoint, { query, sudo });
   const { headers, status } = response;
   let { body } = response;
 
@@ -160,7 +160,7 @@ async function post(
 ): Promise<any> {
   const body = isForm ? appendFormFromObject(options) : options;
 
-  const r = await service.requester.post(service, endpoint, {
+  const r = await service.requester.post(endpoint, {
     body,
     sudo,
   });
@@ -191,7 +191,7 @@ async function put(
   endpoint: string,
   { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<any> {
-  const r = await service.requester.put(service, endpoint, {
+  const r = await service.requester.put(endpoint, {
     body,
     sudo,
   });
@@ -216,7 +216,7 @@ async function del(
   endpoint: string,
   { sudo, showExpanded, ...query }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<any> {
-  const r = await service.requester.delete(service, endpoint, {
+  const r = await service.requester.delete(endpoint, {
     query,
     sudo,
   });
@@ -233,7 +233,7 @@ function stream(
     throw new Error('Stream method is not implementated in requester!');
   }
 
-  return service.requester.stream(service, endpoint, {
+  return service.requester.stream(endpoint, {
     query: options,
   });
 }

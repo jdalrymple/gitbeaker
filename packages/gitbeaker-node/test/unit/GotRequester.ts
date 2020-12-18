@@ -1,6 +1,6 @@
 import * as got from 'got';
-import * as FormData from 'form-data';
-import { processBody, handler, defaultRequest } from '../../src/GotRequester';
+import FormData from 'form-data';
+import { processBody, handler, defaultOptionsHandler } from '../../src/GotRequester';
 
 jest.mock('got');
 
@@ -129,45 +129,51 @@ describe('defaultRequest', () => {
   };
 
   it('should replace rawBody property with json property if the rawBody type is an object but not FormData', () => {
-    const output1 = defaultRequest(service, { body: { key: 1 } });
+    const output1 = defaultOptionsHandler(service, { body: { key: 1 } });
 
     expect(output1.body).toBeUndefined();
     expect(output1.json).toMatchObject({ key: 1 });
 
-    const output2 = defaultRequest(service, { body: new FormData() });
+    const output2 = defaultOptionsHandler(service, { body: new FormData() });
 
     expect(output2.body).toBeInstanceOf(FormData);
     expect(output2.json).toBeUndefined();
   });
 
   it('should not assign the https property if given https url and not rejectUnauthorized', async () => {
-    const { https } = defaultRequest({ ...service, url: 'https://test.com' }, { method: 'post' });
+    const { https } = defaultOptionsHandler(
+      { ...service, url: 'https://test.com' },
+      { method: 'post' },
+    );
 
     expect(https).toBeUndefined();
   });
 
   it('should not assign the https property if given http url and rejectUnauthorized', async () => {
-    const { https } = defaultRequest({ ...service, url: 'http://test.com' }, { method: 'post' });
+    const { https } = defaultOptionsHandler(
+      { ...service, url: 'http://test.com' },
+      { method: 'post' },
+    );
 
     expect(https).toBeUndefined();
   });
 
   it('should assign the https property if given https url and rejectUnauthorized is false', async () => {
-    const { https: https1 } = defaultRequest(
+    const { https: https1 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },
     );
 
     expect(https1).toMatchObject({ rejectUnauthorized: false });
 
-    const { https: https2 } = defaultRequest(
+    const { https: https2 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
     );
 
     expect(https2).toBeUndefined();
 
-    const { https: https3 } = defaultRequest(
+    const { https: https3 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
       { method: 'post' },
     );
