@@ -1,3 +1,15 @@
+# v27.0.0 (Fri Dec 18 2020)
+
+#### 💥 Breaking Change
+
+- Removed circular references [#1387](https://github.com/jdalrymple/gitbeaker/pull/1387) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change

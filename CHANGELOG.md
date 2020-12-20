@@ -1,3 +1,32 @@
+# 27.0.0 (Fri Dec 18 2020)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Removed circular references [#1387](https://github.com/jdalrymple/gitbeaker/pull/1387) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1396](https://github.com/jdalrymple/gitbeaker/pull/1396) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 11.0.0 to 11.0.1 [#1393](https://github.com/jdalrymple/gitbeaker/pull/1393) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.34.2 to 2.35.1 [#1394](https://github.com/jdalrymple/gitbeaker/pull/1394) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.13 to 14.14.14 [#1397](https://github.com/jdalrymple/gitbeaker/pull/1397) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.9.1 to 4.10.0 [#1395](https://github.com/jdalrymple/gitbeaker/pull/1395) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump husky from 4.3.5 to 4.3.6 [#1390](https://github.com/jdalrymple/gitbeaker/pull/1390) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.12 to 14.14.13 [#1391](https://github.com/jdalrymple/gitbeaker/pull/1391) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-prettier from 3.2.0 to 3.3.0 [#1389](https://github.com/jdalrymple/gitbeaker/pull/1389) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump typescript from 4.1.2 to 4.1.3 [#1388](https://github.com/jdalrymple/gitbeaker/pull/1388) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.18 to 26.0.19 [#1385](https://github.com/jdalrymple/gitbeaker/pull/1385) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump got from 11.8.0 to 11.8.1 [#1384](https://github.com/jdalrymple/gitbeaker/pull/1384) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump ts-node from 9.1.0 to 9.1.1 [#1375](https://github.com/jdalrymple/gitbeaker/pull/1375) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 26.0.1 (Mon Dec 14 2020)
 
 :tada: This release contains work from a new contributor! :tada:
