@@ -146,13 +146,25 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/released@10.4.2", "@auto-it/released@^10.3.0":
+"@auto-it/released@10.4.2":
   version "10.4.2"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.4.2.tgz#8e0c64750a94e7a4727bd848ca0ee255efe15b90"
   integrity sha512-EeQHIlX37RHjclZdHtyy95oj9NT27yEhbatb9CekvD/0fF0GBcD/eYHR4i6zqbYR8CBOxv01EgRAO7M+jtBDlw==
   dependencies:
     "@auto-it/bot-list" "10.4.2"
     "@auto-it/core" "10.4.2"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.0.3"
+
+"@auto-it/released@^10.3.0":
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.5.0.tgz#cb5824ca814bc336c5dcc95af81c14fd16bf2960"
+  integrity sha512-iA5M5FRzgrb2dR0fcQ7Uf9lIwDHl5ZhzciPkuw4QV/OrUGKhM3/ETM64R8jQLKFF6kJRQrfxRZv08nCJ3+cpYg==
+  dependencies:
+    "@auto-it/bot-list" "10.5.0"
+    "@auto-it/core" "10.5.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
