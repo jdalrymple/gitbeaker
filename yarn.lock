@@ -115,12 +115,12 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^10.3.0":
-  version "10.4.2"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.4.2.tgz#1077bd111c61670240d81f6c5c70a3ece4697b72"
-  integrity sha512-XMXuvdCoMvRQjIyJUAoX0+a77U9nCof0jRZiCWT0dDJjiXx4zgWlNE7UP+CHuDTT3f6IogVnTKOTFIKMeGtRYQ==
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.5.0.tgz#a2e94f9fd142fe979b1b1ebbe83d7cb978263e27"
+  integrity sha512-tiq7PtD6vch1Bew8FJmuRs9g5tYO+/G1IYb76ifdwFw3XtXTyJTX3pczgDImrfOBSOERKyS04gYIFkRVUgW6ng==
   dependencies:
-    "@auto-it/bot-list" "10.4.2"
-    "@auto-it/core" "10.4.2"
+    "@auto-it/bot-list" "10.5.0"
+    "@auto-it/core" "10.5.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.3"
