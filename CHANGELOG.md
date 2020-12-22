@@ -1,3 +1,19 @@
+# 27.0.1 (Mon Dec 21 2020)
+
+#### 🏿‍♀️ Security
+
+- chore(deps): [security] bump node-notifier from 8.0.0 to 8.0.1 [#1402](https://github.com/jdalrymple/gitbeaker/pull/1402) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump eslint-config-prettier from 7.0.0 to 7.1.0 [#1401](https://github.com/jdalrymple/gitbeaker/pull/1401) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # 27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change
