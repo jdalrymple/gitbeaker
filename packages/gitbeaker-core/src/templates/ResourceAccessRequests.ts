@@ -5,7 +5,7 @@ export type AccessLevel = 10 | 20 | 30 | 40 | 50;
 
 export class ResourceAccessRequests extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
-    super({ url: resourceType, ...options });
+    super({ prefixUrl: resourceType, ...options });
   }
 
   all(resourceId: string | number) {
