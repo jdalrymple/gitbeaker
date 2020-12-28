@@ -55,8 +55,8 @@ export interface CommitAction {
 }
 
 export interface GPGSignature {
-  signature_type: "PGP",
-  verification_status: "verified"|"unverified";
+  signature_type: 'PGP';
+  verification_status: 'verified' | 'unverified';
   gpg_key_id: number;
   gpg_key_primary_keyid: string;
   gpg_key_user_name: string;
@@ -66,8 +66,8 @@ export interface GPGSignature {
 }
 
 export interface X509Signature {
-  signature_type: "X509";
-  verification_status: "verified"|"unverified",
+  signature_type: 'X509';
+  verification_status: 'verified' | 'unverified';
   x509_certificate: {
     id: number;
     subject: string;
@@ -190,7 +190,11 @@ export class Commits extends BaseService {
     );
   }
 
-  signature(projectId: string | number, sha: string, options?: BaseRequestOptions): Promise<CommitSignature> {
+  signature(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<CommitSignature> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(

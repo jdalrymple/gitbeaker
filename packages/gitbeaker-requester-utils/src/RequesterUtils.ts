@@ -78,13 +78,13 @@ export function createRequesterFn(
   optionsHandler,
   requestHandler,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
-  const requester: RequesterType = {} as RequesterType;
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
   return (serviceOptions) => {
+    const requester: RequesterType = {} as RequesterType;
+
     methods.forEach((m) => {
-      /* eslint func-names:0 */
-      requester[m] = function (endpoint: string, options: Record<string, unknown>) {
+      requester[m] = (endpoint: string, options: Record<string, unknown>) => {
         const requestOptions = optionsHandler(serviceOptions, { ...options, method: m });
 
         return requestHandler(endpoint, requestOptions);
@@ -110,6 +110,7 @@ export function modifyServices<T>(services: T, customConfig: Record<string, unkn
 
   Object.entries(services).forEach(([k, s]) => {
     updated[k] = extendClass(s, customConfig);
+    if (k === 'GroupMembers') console.log(updated[k]);
   });
 
   return updated as T;
