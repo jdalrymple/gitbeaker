@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { License } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: License;
 
 beforeEach(() => {
   service = new License({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

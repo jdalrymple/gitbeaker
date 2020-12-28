@@ -3,7 +3,7 @@ import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure'
 
 export class ResourceTemplates extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
-    super({ url: ['templates', resourceType].join('/'), ...options });
+    super({ prefixUrl: ['templates', resourceType].join('/'), ...options });
   }
 
   all(options?: PaginatedRequestOptions) {

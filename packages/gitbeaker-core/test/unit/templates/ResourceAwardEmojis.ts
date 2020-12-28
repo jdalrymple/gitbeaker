@@ -1,6 +1,5 @@
 import { ResourceAwardEmojis } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: ResourceAwardEmojis;
 
 beforeEach(() => {
   service = new ResourceAwardEmojis('resource', {
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
   });
 });

@@ -1,6 +1,5 @@
 import { ResourceBadges } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: ResourceBadges;
 
 beforeEach(() => {
   service = new ResourceBadges('resource', {
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
   });
 });

@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { PipelineScheduleVariables } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: PipelineScheduleVariables;
 
 beforeEach(() => {
   service = new PipelineScheduleVariables({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });
