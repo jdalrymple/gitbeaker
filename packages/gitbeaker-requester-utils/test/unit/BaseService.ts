@@ -1,15 +1,16 @@
-import { RequesterType, BaseService } from '../../src';
+import { BaseService } from '../../src';
+import { createRequesterFn } from '../../src/RequesterUtils';
 
 describe('Creation of BaseService instance', () => {
   it('should default host to https://gitlab.com/api/v4/', async () => {
-    const service = new BaseService({ requesterFn: () => ({} as RequesterType), token: 'test' });
+    const service = new BaseService({ requesterFn: jest.fn(), token: 'test' });
 
     expect(service.url).toBe('https://gitlab.com/api/v4/');
   });
 
   it('should use the Oauth Token when a given both a Private Token and a Oauth Token', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       token: 'test',
       oauthToken: '1234',
     });
@@ -20,7 +21,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should append api and version number to host when using a custom host url', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       host: 'https://testing.com',
       token: 'test',
     });
@@ -28,9 +29,15 @@ describe('Creation of BaseService instance', () => {
     expect(service.url).toBe('https://testing.com/api/v4/');
   });
 
+  it('should allow a camelize option to set', async () => {
+    const service = new BaseService({ requesterFn: jest.fn(), camelize: true });
+
+    expect(service.camelize).toBe(true);
+  });
+
   it('should add Oauth token to authorization header as a bearer token', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       host: 'https://testing.com',
       oauthToken: '1234',
     });
@@ -40,7 +47,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should add Private token to private-token header', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       host: 'https://testing.com',
       token: '1234',
     });
@@ -50,7 +57,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should add Job token to job-token header', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       host: 'https://testing.com',
       jobToken: '1234',
     });
@@ -60,7 +67,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should allow for the API version to be modified', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       host: 'https://testing.com',
       token: '1234',
       version: 3,
@@ -71,7 +78,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should set the X-Profile-Token header if the profileToken option is given', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       profileToken: 'abcd',
     });
 
@@ -80,7 +87,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should defult the profileMode option to execution', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       profileToken: 'abcd',
     });
 
@@ -90,7 +97,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should set the X-Profile-Token and X-Profile-Mode header if the profileToken and profileMode options are given', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       profileToken: 'abcd',
       profileMode: 'memory',
     });
@@ -101,7 +108,7 @@ describe('Creation of BaseService instance', () => {
 
   it('should default the https reject unauthorized option to true', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       rejectUnauthorized: true,
     });
 
@@ -110,31 +117,76 @@ describe('Creation of BaseService instance', () => {
 
   it('should allow for the https reject unauthorized option to be set', async () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       rejectUnauthorized: false,
     });
 
     expect(service.rejectUnauthorized).toBeFalsy();
   });
 
-  it('should default the requestTimeout to 300s', async () => {
-    const service = new BaseService({ requesterFn: () => ({} as RequesterType) });
+  it('should default the requestTimeout to 300s', () => {
+    const service = new BaseService({ requesterFn: jest.fn() });
 
     expect(service.requestTimeout).toBe(300000);
   });
 
-  it('should allow for the requestTimeout to be set', async () => {
+  it('should allow for the requestTimeout to be set', () => {
     const service = new BaseService({
-      requesterFn: () => ({} as RequesterType),
+      requesterFn: jest.fn(),
       requestTimeout: 10,
     });
 
     expect(service.requestTimeout).toBe(10);
   });
 
-  it('should allow for the sudo user to be set', async () => {
-    const service = new BaseService({ requesterFn: () => ({} as RequesterType), sudo: 'test' });
+  it('should allow for the sudo user to be set', () => {
+    const service = new BaseService({ requesterFn: jest.fn(), sudo: 'test' });
 
     expect(service.headers.Sudo).toBe('test');
+  });
+
+  it('should allow for prefix resource urls to be set', () => {
+    const service = new BaseService({ requesterFn: jest.fn(), prefixUrl: 'test' });
+
+    expect(service.url).toBe('https://gitlab.com/api/v4/test');
+  });
+
+  it('should allow for prefix resource urls to be set without host or version defaults', async () => {
+    const service = new BaseService({
+      requesterFn: jest.fn(),
+      version: 3,
+      host: 'https://fakehost.com',
+      prefixUrl: 'test',
+    });
+
+    expect(service.url).toBe('https://fakehost.com/api/v3/test');
+  });
+
+  it('should throw an error if requesterFn is not passed', async () => {
+    expect(() => {
+      new BaseService(); // eslint-disable-line
+    }).toThrow();
+  });
+
+  it('should set the internal requester based on the required requesterFn parameter', async () => {
+    const requestHandler = jest.fn();
+    const optionsHandler = jest.fn();
+    const requesterFn = createRequesterFn(optionsHandler, requestHandler);
+    const serviceA = new BaseService({ requesterFn, prefixUrl: 'test' });
+    const serviceB = new BaseService({ requesterFn, prefixUrl: 'test2' });
+
+    serviceA.requester.get('test');
+
+    expect(optionsHandler).toBeCalledWith(
+      expect.objectContaining({ url: 'https://gitlab.com/api/v4/test' }),
+      { method: 'get' },
+    );
+
+    serviceB.requester.get('test');
+
+    expect(optionsHandler).toBeCalledWith(
+      expect.objectContaining({ url: 'https://gitlab.com/api/v4/test2' }),
+      { method: 'get' },
+    );
   });
 });
