@@ -328,6 +328,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "martin-helmich",
+      "name": "Martin Helmich",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2538958?v=4",
+      "profile": "http://www.martin-helmich.de/en",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
