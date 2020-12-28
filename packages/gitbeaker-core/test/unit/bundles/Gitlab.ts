@@ -4,7 +4,7 @@ import * as Services from '../../../src/services';
 describe('Instantiating All services', () => {
   it('should create a valid gitlab service object using import', async () => {
     const bundle = new Gitlab({
-      requesterFn: () => ({}),
+      requesterFn: jest.fn(),
       token: 'abcdefg',
     });
 

@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { Branches } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: Branches;
 
 beforeEach(() => {
   service = new Branches({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });
@@ -48,7 +47,7 @@ describe('Branches.create', () => {
 
   it('should request POST /projects/:id/repository/branches in v3', async () => {
     const v3Service = new Branches({
-      requesterFn: mockRequesterFn,
+      requesterFn: jest.fn(),
       token: 'abcdefg',
       requestTimeout: 3000,
       version: 3,

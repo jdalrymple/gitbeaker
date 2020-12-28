@@ -1,5 +1,4 @@
 import { EpicNotes } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -7,7 +6,7 @@ let service: EpicNotes;
 
 beforeEach(() => {
   service = new EpicNotes({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });
