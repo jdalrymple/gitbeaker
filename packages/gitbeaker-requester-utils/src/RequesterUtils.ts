@@ -110,7 +110,6 @@ export function modifyServices<T>(services: T, customConfig: Record<string, unkn
 
   Object.entries(services).forEach(([k, s]) => {
     updated[k] = extendClass(s, customConfig);
-    if (k === 'GroupMembers') console.log(updated[k]);
   });
 
   return updated as T;
