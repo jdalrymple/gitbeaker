@@ -1,3 +1,29 @@
+# 28.0.1 (Thu Dec 31 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sean McGivern ([@smcgivern](https://github.com/smcgivern)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: markdown for options table in README [#1416](https://github.com/jdalrymple/gitbeaker/pull/1416) ([@smcgivern](https://github.com/smcgivern))
+
+#### ⚠️ Pushed to `master`
+
+- ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.14 to 14.14.16 [#1410](https://github.com/jdalrymple/gitbeaker/pull/1410) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Sean McGivern ([@smcgivern](https://github.com/smcgivern))
+
+---
+
 # 28.0.0 (Mon Dec 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:
