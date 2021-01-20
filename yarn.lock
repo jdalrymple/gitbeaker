@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^10.3.0":
-  version "10.10.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.10.0.tgz#ff43568483583007e0bdbe2e98bd61816569e201"
-  integrity sha512-AFN5WvhivPlCoAjfj4RSZ4SQzZSDefKYs7PkiNXsSmxf0Jg4qcyQwnd2w5VkLfEPVJgaKeDU05Ls9DjQVI7bew==
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.11.0.tgz#bd3ee672ad3854e740f5ebd2cc49e634c2aca315"
+  integrity sha512-qRexsUhF91xtP6SPbOHFQhqyeE7zRFoe2dI9nInsWOIj6r9JlajF00D5uZUC5hO2qvm4t72bFdk8RMetCJIpgg==
   dependencies:
-    "@auto-it/bot-list" "10.10.0"
-    "@auto-it/core" "10.10.0"
+    "@auto-it/bot-list" "10.11.0"
+    "@auto-it/core" "10.11.0"
     "@octokit/rest" "^18.0.0"
     all-contributors-cli "6.19.0"
     anymatch "^3.1.1"
