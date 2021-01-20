@@ -25,12 +25,59 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.10.0.tgz#4208cac46a01e5764946c0ba5b1320c0828a4fe9"
   integrity sha512-iGlsMl/u18n2BZPPqjbrXEGGuiiQqLOZUzNVifk9zqOLfPxeArc7Iy/ezXtrnspgA4gW+tP/MwdsHP1FtCj2qw==
 
-"@auto-it/core@10.10.0", "@auto-it/core@^10.3.0":
+"@auto-it/bot-list@10.11.0":
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.11.0.tgz#84a4da7d832883c51ad831ca1fc58a5dc6864eb5"
+  integrity sha512-8qLYZMwNPZ8f/6lFvCxNPNDn8Osn8G3KsH3zpWkq9Byy+St5b6z3Qdf3PeKaGqJP+4BNv/7sA9A7ZhGJVv9TSQ==
+
+"@auto-it/core@10.10.0":
   version "10.10.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.10.0.tgz#0572410f7ed5e05421e46080f15276059c0b0884"
   integrity sha512-HP/SoTBOLnOHQ0vWOzCXzKx7XYJ+ELOWYs96NgKPGk6/rbIrw1+khDFnQu0XRPgE2nMoBX71QORH9PVQX4e+Ig==
   dependencies:
     "@auto-it/bot-list" "10.10.0"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^2.1.1"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.0.0-beta.2"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    tslib "2.0.3"
+    type-fest "^0.18.0"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@^10.3.0":
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.11.0.tgz#9cfa95d639e652faf9ccfee1e496228a9457bc37"
+  integrity sha512-q5on8EKKfyHxP5OXKWB/fJv6jgoMLky98yfdev7FeFrP1DUotPLgnbHIyo93LNGvvrBxUFDtk39Dka3SrPR7bw==
+  dependencies:
+    "@auto-it/bot-list" "10.11.0"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
     "@octokit/plugin-throttling" "^3.2.0"
