@@ -112,9 +112,9 @@ test:integration:browser:
 test:integration:node:
   <<: *integration
   script:
-    - TEST_ID=$(uuid) yarn jest node/test/integration && yarn codecov -F node
-    - TEST_ID=$(uuid) yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    - TEST_ID=$(uuid) yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}'
+    - yarn test:integration:node && yarn codecov -F node
+    - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}'
 
 # Canary
 canary:
