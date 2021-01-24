@@ -98,9 +98,13 @@ test:unit:utils:
     - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
 
     - cd ..
-    - echo $PERSONAL_ACCESS_TOKEN
-    - echo $GITLAB_URL
-    - echo $CODECOV_TOKEN
+  after_script:
+    - docker cp gitlab:/var/log/gitlab runner_logs
+    - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
+  artifacts:
+    when: on_failure
+    paths:
+      - runner_logs
 
 test:integration:browser:
   image: buildkite/puppeteer
