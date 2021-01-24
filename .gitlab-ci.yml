@@ -114,7 +114,7 @@ test:integration:node:
   script:
     - yarn test:integration:node && yarn codecov -F node
     - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}'
+    # - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
 
 # Canary
 canary:
