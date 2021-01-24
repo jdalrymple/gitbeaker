@@ -83,6 +83,7 @@ test:unit:utils:
   services:
     - docker:dind
   stage: test
+  retry: 2
   before_script:
     # Install docker compose
     - apk add --no-cache nodejs yarn git
@@ -111,17 +112,12 @@ test:integration:browser:
   stage: test
   script: yarn jest browser/test/integration
 
-test:integration:node:src:
+test:integration:node:
   <<: *integration
-  script: yarn jest node/test/integration && yarn codecov -F node
-
-test:integration:node:dist-cjs:
-  <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-
-test:integration:node:dist-es:
-  <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+  script:
+    - TEST_ID=$(uuid) yarn jest node/test/integration && yarn codecov -F node
+    - TEST_ID=$(uuid) yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    - TEST_ID=$(uuid) yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}'
 
 # Canary
 canary:
