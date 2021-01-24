@@ -75,7 +75,7 @@ test:unit:utils:
 #Integration Tests
 .test:integration: &integration
   image:
-    name: docker/compose:latest
+    name: jdalrymple/docker-compose-with-node
     entrypoint: ['/bin/sh', '-c']
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -85,9 +85,6 @@ test:unit:utils:
   stage: test
   retry: 2
   before_script:
-    # Install docker compose
-    - apk add --no-cache nodejs yarn git
-
     # Spin up container
     - cd scripts
     - docker-compose -f docker-compose.yml up -d
