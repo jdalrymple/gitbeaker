@@ -1,3 +1,15 @@
+# v28.0.3 (Sun Jan 24 2021)
+
+#### 🐛 Bug Fix
+
+- Remove possibility of char type information polluting check of content-type [#1467](https://github.com/jdalrymple/gitbeaker/pull/1467) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # vnull (Sun Jan 03 2021)
 
 #### ⚠️ Pushed to `master`
