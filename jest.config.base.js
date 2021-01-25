@@ -14,9 +14,7 @@ module.exports = {
 
   setupFilesAfterEnv: ['jest-extended'],
 
-  moduleNameMapper: {
-    '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
-  },
+  transformIgnorePatterns: ['/node_modules/(?!(ky))'],
 
   globals: {
     'ts-jest': {
