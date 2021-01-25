@@ -1,3 +1,26 @@
+# 28.0.4 (Mon Jan 25 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Remove module test ([@jdalrymple](https://github.com/jdalrymple))
+- Move into pkg script ([@jdalrymple](https://github.com/jdalrymple))
+- Updating image being used ([@jdalrymple](https://github.com/jdalrymple))
+- Adding artifact logs for failures ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Merge branch 'extend-probe-check' ([@jdalrymple](https://github.com/jdalrymple))
+  - Add unique test id and add retry to integration builds ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1479](https://github.com/jdalrymple/gitbeaker/pull/1479) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 28.0.3 (Sun Jan 24 2021)
 
 #### 🐛 Bug Fix

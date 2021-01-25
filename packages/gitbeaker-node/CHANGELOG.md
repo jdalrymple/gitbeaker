@@ -1,3 +1,16 @@
+# v28.0.4 (Mon Jan 25 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'extend-probe-check' ([@jdalrymple](https://github.com/jdalrymple))
+- Add unique test id and add retry to integration builds ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.0.3 (Sun Jan 24 2021)
 
 #### 🐛 Bug Fix
