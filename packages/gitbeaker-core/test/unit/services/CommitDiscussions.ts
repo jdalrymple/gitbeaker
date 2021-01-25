@@ -1,5 +1,4 @@
 import { CommitDiscussions } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -7,7 +6,7 @@ let service: CommitDiscussions;
 
 beforeEach(() => {
   service = new CommitDiscussions({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

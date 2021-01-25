@@ -5,7 +5,7 @@ export interface BaseServiceOptions {
   token?: string;
   jobToken?: string;
   host?: string;
-  url?: string;
+  prefixUrl?: string;
   version?: 3 | 4;
   rejectUnauthorized?: boolean;
   camelize?: boolean;
@@ -38,7 +38,7 @@ export class BaseService<C extends boolean = false> {
     requesterFn,
     profileMode = 'execution',
     host = 'https://gitlab.com',
-    url = '',
+    prefixUrl = '',
     version = 4,
     camelize = false,
     rejectUnauthorized = true,
@@ -46,7 +46,8 @@ export class BaseService<C extends boolean = false> {
   }: BaseServiceOptions = {}) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
-    this.url = [host, 'api', `v${version}`, url].join('/');
+    this.url = [host, 'api', `v${version}`, prefixUrl].join('/');
+
     this.headers = {
       'user-agent': 'gitbeaker',
     };
@@ -69,6 +70,6 @@ export class BaseService<C extends boolean = false> {
     if (sudo) this.headers.Sudo = `${sudo}`;
 
     // Set requester instance using this information
-    this.requester = requesterFn(this);
+    this.requester = requesterFn({ ...this });
   }
 }

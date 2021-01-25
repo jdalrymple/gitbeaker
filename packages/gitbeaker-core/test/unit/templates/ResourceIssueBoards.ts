@@ -1,6 +1,5 @@
 import { ResourceIssueBoards } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: ResourceIssueBoards;
 
 beforeEach(() => {
   service = new ResourceIssueBoards('resource', {
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
   });
 });

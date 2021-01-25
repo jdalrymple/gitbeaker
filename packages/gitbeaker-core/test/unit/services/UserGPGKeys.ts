@@ -1,6 +1,5 @@
 import { UserGPGKeys } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: UserGPGKeys;
 
 beforeEach(() => {
   service = new UserGPGKeys({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

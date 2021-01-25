@@ -20,7 +20,7 @@ export class ResourceAwardEmojis extends BaseService {
   protected resourceType: string;
 
   constructor(resourceType: string, options: BaseServiceOptions) {
-    super({ url: 'projects', ...options });
+    super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;
   }

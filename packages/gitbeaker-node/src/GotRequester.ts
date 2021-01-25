@@ -48,7 +48,8 @@ export function processBody({
   rawBody: Buffer;
   headers: Record<string, unknown>;
 }) {
-  const contentType = headers['content-type'] || '';
+  // Split to remove potential charset info from the content type
+  const contentType = ((headers['content-type'] as string) || '').split(';')[0].trim();
 
   switch (contentType) {
     case 'application/json': {

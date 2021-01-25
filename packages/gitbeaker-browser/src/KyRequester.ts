@@ -42,7 +42,8 @@ export function defaultOptionsHandler(
 }
 
 export function processBody(response) {
-  const contentType = response.headers.get('content-type') || '';
+  // Split to remove potential charset info from the content type
+  const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
 
   switch (contentType) {
     case 'application/json': {

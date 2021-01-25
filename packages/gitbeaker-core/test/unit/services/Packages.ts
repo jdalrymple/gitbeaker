@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { Packages } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: Packages;
 
 beforeEach(() => {
   service = new Packages({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

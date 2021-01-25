@@ -78,13 +78,13 @@ export function createRequesterFn(
   optionsHandler,
   requestHandler,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
-  const requester: RequesterType = {} as RequesterType;
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
   return (serviceOptions) => {
+    const requester: RequesterType = {} as RequesterType;
+
     methods.forEach((m) => {
-      /* eslint func-names:0 */
-      requester[m] = function (endpoint: string, options: Record<string, unknown>) {
+      requester[m] = (endpoint: string, options: Record<string, unknown>) => {
         const requestOptions = optionsHandler(serviceOptions, { ...options, method: m });
 
         return requestHandler(endpoint, requestOptions);
