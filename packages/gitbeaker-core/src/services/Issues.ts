@@ -8,11 +8,11 @@ import {
 
 type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
-export class Issues extends BaseService {
+export class Issues<C extends boolean> extends BaseService<C> {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/add_spent_time`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/issues/${iId}/add_spent_time`, {
       duration,
       ...options,
     });
@@ -21,7 +21,7 @@ export class Issues extends BaseService {
   addTimeEstimate(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/time_estimate`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/issues/${iId}/time_estimate`, {
       duration,
       ...options,
     });
@@ -38,25 +38,25 @@ export class Issues extends BaseService {
       url = 'issues';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<C>(this, url, options);
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/issues`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/issues`, options);
   }
 
   closedBy(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/closed_by`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/issues/${iId}/closed_by`, options);
   }
 
   edit(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/issues/${iId}`, options);
   }
 
   link(
@@ -69,7 +69,7 @@ export class Issues extends BaseService {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
     const [targetpId, targetIid] = [targetProjectId, targetIssueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/links`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/issues/${iId}/links`, {
       targetProjectId: targetpId,
       targetIssueIid: targetIid,
       ...options,
@@ -79,19 +79,23 @@ export class Issues extends BaseService {
   links(projectId: string | number, issueIid: number) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/links`);
+    return RequestHelper.get<C>(this, `projects/${pId}/issues/${iId}/links`);
   }
 
   participants(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/participants`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/issues/${iId}/participants`, options);
   }
 
   relatedMergeRequests(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/related_merge_requests`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/issues/${iId}/related_merge_requests`,
+      options,
+    );
   }
 
   removeLink(
@@ -102,7 +106,7 @@ export class Issues extends BaseService {
   ) {
     const [pId, iId, iLinkId] = [projectId, issueIid, issueLinkId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
+    return RequestHelper.del<C>(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
       ...options,
     });
   }
@@ -110,42 +114,46 @@ export class Issues extends BaseService {
   remove(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/issues/${iId}`, options);
   }
 
   resetSpentTime(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/reset_spent_time`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/issues/${iId}/reset_spent_time`, options);
   }
 
   resetTimeEstimate(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/reset_time_estimate`, options);
+    return RequestHelper.post<C>(
+      this,
+      `projects/${pId}/issues/${iId}/reset_time_estimate`,
+      options,
+    );
   }
 
   show(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/issues/${iId}`, options);
   }
 
   subscribe(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/subscribe`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/issues/${iId}/subscribe`, options);
   }
 
   timeStats(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/issues/${iId}/time_stats`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/issues/${iId}/time_stats`, options);
   }
 
   unsubscribe(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
   }
 }

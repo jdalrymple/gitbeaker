@@ -16,10 +16,10 @@ function url(
   return output.join('/');
 }
 
-export class ResourceAwardEmojis extends BaseService {
+export class ResourceAwardEmojis<C extends boolean> extends BaseService<C> {
   protected resourceType: string;
 
-  constructor(resourceType: string, options: BaseServiceOptions) {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;

@@ -7,7 +7,7 @@ export type ApprovalRulesRequestOptions = {
   protectedBranchIds?: number[];
 };
 
-export class MergeRequestApprovals extends BaseService {
+export class MergeRequestApprovals<C extends boolean> extends BaseService<C> {
   addApprovalRule(
     projectId: string | number,
     name: string,
@@ -28,7 +28,7 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approval_rules`;
     }
 
-    return RequestHelper.post(this, url, { name, approvalsRequired, ...options });
+    return RequestHelper.post<C>(this, url, { name, approvalsRequired, ...options });
   }
 
   approvalRules(
@@ -45,7 +45,7 @@ export class MergeRequestApprovals extends BaseService {
     } else {
       url = `projects/${pId}/approval_rules`;
     }
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<C>(this, url, options);
   }
 
   approvals(
@@ -63,7 +63,7 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approvals`;
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<C>(this, url, options);
   }
 
   approvalState(
@@ -73,7 +73,7 @@ export class MergeRequestApprovals extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/merge_requests/${mIid}/approval_state`,
       options,
@@ -87,7 +87,7 @@ export class MergeRequestApprovals extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/approve`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests/${mIid}/approve`, options);
   }
 
   approvers(
@@ -107,7 +107,7 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approvers`;
     }
 
-    return RequestHelper.put(this, url, { approverIds, approverGroupIds, ...options });
+    return RequestHelper.put<C>(this, url, { approverIds, approverGroupIds, ...options });
   }
 
   editApprovalRule(
@@ -131,7 +131,7 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approval_rules/${aId}`;
     }
 
-    return RequestHelper.put(this, url, { name, approvalsRequired, ...options });
+    return RequestHelper.put<C>(this, url, { name, approvalsRequired, ...options });
   }
 
   editApprovals(
@@ -149,7 +149,7 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approvals`;
     }
 
-    return RequestHelper.post(this, url, options);
+    return RequestHelper.post<C>(this, url, options);
   }
 
   removeApprovalRule(
@@ -168,12 +168,12 @@ export class MergeRequestApprovals extends BaseService {
       url = `projects/${pId}/approval_rules/${aId}`;
     }
 
-    return RequestHelper.del(this, url, options);
+    return RequestHelper.del<C>(this, url, options);
   }
 
   unapprove(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/unapprove`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests/${mIid}/unapprove`, options);
   }
 }

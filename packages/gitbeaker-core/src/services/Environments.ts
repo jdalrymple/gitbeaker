@@ -48,11 +48,11 @@ export type EnvironmentDetailSchema =
   | EnvironmentDetailSchemaDefault
   | EnvironmentDetailSchemaCamelized;
 
-export class Environments extends BaseService {
+export class Environments<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions): Promise<EnvironmentSchema[]> {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/environments`, options) as Promise<
+    return RequestHelper.get<C>(this, `projects/${pId}/environments`, options) as Promise<
       EnvironmentSchema[]
     >;
   }
@@ -63,7 +63,7 @@ export class Environments extends BaseService {
     options?: Sudo,
   ): Promise<EnvironmentDetailSchema> {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/environments/${eId}`,
       options,
@@ -73,24 +73,24 @@ export class Environments extends BaseService {
   create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/environments`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/environments`, options);
   }
 
   edit(projectId: string | number, environmentId: number, options?: BaseRequestOptions) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/environments/${eId}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/environments/${eId}`, options);
   }
 
   remove(projectId: string | number, environmentId: number, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/environments/${eId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/environments/${eId}`, options);
   }
 
   stop(projectId: string | number, environmentId: number, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/environments/${eId}/stop`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/environments/${eId}/stop`, options);
   }
 }

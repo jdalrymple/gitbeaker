@@ -6,17 +6,17 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ProtectedTags extends BaseService {
+export class ProtectedTags<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/protected_tags`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/protected_tags`, options);
   }
 
   protect(projectId: string | number, tagName: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/protected_tags`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/protected_tags`, {
       name: tagName,
       ...options,
     });
@@ -25,12 +25,12 @@ export class ProtectedTags extends BaseService {
   show(projectId: string | number, tagName: string, options?: Sudo) {
     const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/protected_tags/${tName}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/protected_tags/${tName}`, options);
   }
 
   unprotect(projectId: string | number, tagName: string, options?: Sudo) {
     const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/protected_tags/${tName}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/protected_tags/${tName}`, options);
   }
 }

@@ -9,8 +9,8 @@ import {
 type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry';
 
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
-export class ResourceDeployTokens extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export class ResourceDeployTokens<C extends boolean> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

@@ -72,7 +72,7 @@ export interface AllMergeRequestsOptions {
   wip?: string;
 }
 
-export class MergeRequests extends BaseService {
+export class MergeRequests<C extends boolean> extends BaseService<C> {
   accept(
     projectId: string | number,
     mergerequestIid: number,
@@ -80,7 +80,7 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mIid}/merge`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/merge_requests/${mIid}/merge`, options);
   }
 
   addSpentTime(
@@ -91,7 +91,7 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/add_spent_time`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests/${mIid}/add_spent_time`, {
       duration,
       ...options,
     });
@@ -105,7 +105,7 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/time_estimate`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests/${mIid}/time_estimate`, {
       duration,
       ...options,
     });
@@ -128,13 +128,13 @@ export class MergeRequests extends BaseService {
       url = 'merge_requests';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<C>(this, url, options);
   }
 
   cancelOnPipelineSucess(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.put(
+    return RequestHelper.put<C>(
       this,
       `projects/${pId}/merge_requests/${mIid}/cancel_merge_when_pipeline_succeeds`,
       options,
@@ -144,19 +144,23 @@ export class MergeRequests extends BaseService {
   changes(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/changes`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}/changes`, options);
   }
 
   closesIssues(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/closes_issues`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/merge_requests/${mIid}/closes_issues`,
+      options,
+    );
   }
 
   commits(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/commits`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}/commits`, options);
   }
 
   create(
@@ -168,7 +172,7 @@ export class MergeRequests extends BaseService {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests`, {
       id: pId,
       sourceBranch,
       targetBranch,
@@ -184,37 +188,41 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mIid}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/merge_requests/${mIid}`, options);
   }
 
   participants(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/participants`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/merge_requests/${mIid}/participants`,
+      options,
+    );
   }
 
   pipelines(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/pipelines`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}/pipelines`, options);
   }
 
   rebase(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/merge_requests/${mIid}/rebase`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/merge_requests/${mIid}/rebase`, options);
   }
 
   remove(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/merge_requests/${mIid}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/merge_requests/${mIid}`, options);
   }
 
   resetSpentTime(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(
+    return RequestHelper.post<C>(
       this,
       `projects/${pId}/merge_requests/${mIid}/reset_spent_time`,
       options,
@@ -224,7 +232,7 @@ export class MergeRequests extends BaseService {
   resetTimeEstimate(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(
+    return RequestHelper.post<C>(
       this,
       `projects/${pId}/merge_requests/${mIid}/reset_time_estimate`,
       options,
@@ -238,25 +246,25 @@ export class MergeRequests extends BaseService {
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}`, options);
   }
 
   subscribe(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/merge_requests/${mIid}/subscribe`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/merge_requests/${mIid}/subscribe`, options);
   }
 
   timeStats(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/time_stats`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}/time_stats`, options);
   }
 
   version(projectId: string | number, mergerequestIid: number, versionId: number, options?: Sudo) {
     const [pId, mIid, vId] = [projectId, mergerequestIid, versionId].map(encodeURIComponent);
 
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/merge_requests/${mIid}/versions/${vId}`,
       options,
@@ -266,12 +274,16 @@ export class MergeRequests extends BaseService {
   versions(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/merge_requests/${mIid}/versions`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/merge_requests/${mIid}/versions`, options);
   }
 
   unsubscribe(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/merge_requests/${mIid}/unsubscribe`, options);
+    return RequestHelper.del<C>(
+      this,
+      `projects/${pId}/merge_requests/${mIid}/unsubscribe`,
+      options,
+    );
   }
 }

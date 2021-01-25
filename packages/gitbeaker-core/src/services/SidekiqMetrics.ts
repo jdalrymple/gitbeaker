@@ -1,20 +1,20 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 
-export class SidekiqMetrics extends BaseService {
+export class SidekiqMetrics<C extends boolean> extends BaseService<C> {
   queueMetrics() {
-    return RequestHelper.get(this, 'sidekiq/queue_metrics');
+    return RequestHelper.get<C>(this, 'sidekiq/queue_metrics');
   }
 
   processMetrics() {
-    return RequestHelper.get(this, 'sidekiq/process_metrics');
+    return RequestHelper.get<C>(this, 'sidekiq/process_metrics');
   }
 
   jobStats() {
-    return RequestHelper.get(this, 'sidekiq/job_stats');
+    return RequestHelper.get<C>(this, 'sidekiq/job_stats');
   }
 
   compoundMetrics() {
-    return RequestHelper.get(this, 'sidekiq/compound_metrics');
+    return RequestHelper.get<C>(this, 'sidekiq/compound_metrics');
   }
 }

@@ -84,17 +84,17 @@ export interface JobSchemaCamelized {
 // As of GitLab v12.6.2
 export type JobSchema = JobSchemaDefault | JobSchemaCamelized;
 
-export class Jobs extends BaseService {
+export class Jobs<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/jobs`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/jobs`, options);
   }
 
   cancel(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/cancel`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/cancel`, options);
   }
 
   downloadSingleArtifactFile(
@@ -149,43 +149,43 @@ export class Jobs extends BaseService {
   downloadTraceFile(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/jobs/${jId}/trace`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/jobs/${jId}/trace`, options);
   }
 
   erase(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/erase`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/erase`, options);
   }
 
   eraseArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
   }
 
   keepArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/artifacts/keep`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/artifacts/keep`, options);
   }
 
   play(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/play`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/play`, options);
   }
 
   retry(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/jobs/${jId}/retry`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/retry`, options);
   }
 
   show(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/jobs/${jId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/jobs/${jId}`, options);
   }
 
   showPipelineJobs(
@@ -195,6 +195,6 @@ export class Jobs extends BaseService {
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
 }

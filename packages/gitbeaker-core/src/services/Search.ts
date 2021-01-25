@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-export class Search extends BaseService {
+export class Search<C extends boolean> extends BaseService<C> {
   all(
     scope: string,
     search: string,
@@ -19,6 +19,6 @@ export class Search extends BaseService {
       url += `groups/${encodeURIComponent(groupId)}/`;
     }
 
-    return RequestHelper.get(this, `${url}search`, { scope, search, ...options });
+    return RequestHelper.get<C>(this, `${url}search`, { scope, search, ...options });
   }
 }

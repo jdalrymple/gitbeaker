@@ -6,10 +6,10 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ResourceNotes extends BaseService {
+export class ResourceNotes<C extends boolean> extends BaseService<C> {
   protected resource2Type: string;
 
-  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
+  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;

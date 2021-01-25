@@ -23,9 +23,9 @@ function url({ projectId, groupId }) {
   return `${uri}notification_settings`;
 }
 
-export class NotificationSettings extends BaseService {
+export class NotificationSettings<C extends boolean> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
-    return RequestHelper.get(this, url({ groupId, projectId }), options);
+    return RequestHelper.get<C>(this, url({ groupId, projectId }), options);
   }
 
   edit({
@@ -33,6 +33,6 @@ export class NotificationSettings extends BaseService {
     groupId,
     ...options
   }: { level?: NotificationSettingLevel } & ProjectOrGroup & BaseRequestOptions = {}) {
-    return RequestHelper.put(this, url({ groupId, projectId }), options);
+    return RequestHelper.put<C>(this, url({ groupId, projectId }), options);
   }
 }

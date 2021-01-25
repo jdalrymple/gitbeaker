@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ResourceIssueBoards extends BaseService {
+export class ResourceIssueBoards<C extends boolean> extends BaseService<C> {
   constructor(resourceType: string, options) {
     super({ prefixUrl: resourceType, ...options });
   }

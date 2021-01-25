@@ -1,14 +1,14 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
-export class FeatureFlags extends BaseService {
+export class FeatureFlags<C extends boolean> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'features', options);
+    return RequestHelper.get<C>(this, 'features', options);
   }
 
   set(name: string, options?: BaseRequestOptions) {
     const encodedName = encodeURIComponent(name);
 
-    return RequestHelper.post(this, `features/${encodedName}`, options);
+    return RequestHelper.post<C>(this, `features/${encodedName}`, options);
   }
 }

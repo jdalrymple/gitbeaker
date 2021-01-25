@@ -6,11 +6,11 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class PipelineSchedules extends BaseService {
+export class PipelineSchedules<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipeline_schedules`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipeline_schedules`, options);
   }
 
   create(
@@ -22,7 +22,7 @@ export class PipelineSchedules extends BaseService {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipeline_schedules`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/pipeline_schedules`, {
       description,
       ref,
       cron,
@@ -33,25 +33,25 @@ export class PipelineSchedules extends BaseService {
   edit(projectId: string | number, scheduleId: number, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
   remove(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
   show(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipeline_schedules/${sId}`, options);
   }
 
   takeOwnership(projectId: string | number, scheduleId: number, options?: Sudo) {
     const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
 
-    return RequestHelper.post(
+    return RequestHelper.post<C>(
       this,
       `projects/${pId}/pipeline_schedules/${sId}/take_ownership`,
       options,

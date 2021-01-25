@@ -4,9 +4,9 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
 
-// As of GitLab v12.6.2
 export interface CommitSchemaDefault {
   id: string;
   short_id: string;
@@ -22,22 +22,9 @@ export interface CommitSchemaDefault {
   committed_date?: Date;
 }
 
-export interface CommitSchemaCamelized {
-  id: string;
-  shortId: string;
-  createdAt: Date;
-  parentIds?: string[];
-  title: string;
-  message: string;
-  authorName: string;
-  authorEmail: string;
-  authoredDate?: Date;
-  committerName?: string;
-  committerEmail?: string;
-  committedDate?: Date;
-}
-
-export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
+export type CommitSchema<C extends boolean> = C extends true
+  ? CommitSchemaDefault
+  : Camelize<CommitSchemaDefault>;
 
 export interface CommitAction {
   /** The action to perform */
@@ -89,19 +76,21 @@ export interface MissingSignature {
   message: string;
 }
 
-export type CommitSignature = GPGSignature | X509Signature | MissingSignature;
+export type CommitSignature<C extends boolean> = C extends true
+  ? GPGSignature | X509Signature | MissingSignature
+  : Camelize<GPGSignature> | Camelize<X509Signature> | MissingSignature;
 
-export class Commits extends BaseService {
+export class Commits<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/repository/commits`, options);
   }
 
   cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/repository/commits/${sha}/cherry_pick`, {
       branch,
       ...options,
     });
@@ -110,7 +99,11 @@ export class Commits extends BaseService {
   comments(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/comments`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/repository/commits/${sha}/comments`,
+      options,
+    );
   }
 
   create(
@@ -122,7 +115,7 @@ export class Commits extends BaseService {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/commits`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/repository/commits`, {
       branch,
       commitMessage: message,
       actions,
@@ -138,7 +131,7 @@ export class Commits extends BaseService {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/comments`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/repository/commits/${sha}/comments`, {
       note,
       ...options,
     });
@@ -147,43 +140,47 @@ export class Commits extends BaseService {
   diff(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/diff`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/repository/commits/${sha}/diff`, options);
   }
 
   editStatus(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/statuses/${sha}`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/statuses/${sha}`, options);
   }
 
   references(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
   }
 
   revert(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
   }
 
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/repository/commits/${sha}`, options);
   }
 
   status(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/statuses`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/repository/commits/${sha}/statuses`,
+      options,
+    );
   }
 
   mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/repository/commits/${sha}/merge_requests`,
       options,
@@ -194,13 +191,13 @@ export class Commits extends BaseService {
     projectId: string | number,
     sha: string,
     options?: BaseRequestOptions,
-  ): Promise<CommitSignature> {
+  ): Promise<CommitSignature<C>> {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/repository/commits/${sha}/signature`,
       options,
-    ) as Promise<CommitSignature>;
+    ) as Promise<CommitSignature<C>>;
   }
 }

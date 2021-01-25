@@ -3,11 +3,11 @@ import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure'
 
 type ImpersonationTokenScope = 'api' | 'read_user';
 
-export class UserImpersonationTokens extends BaseService {
+export class UserImpersonationTokens<C extends boolean> extends BaseService<C> {
   all(userId: number, options?: PaginatedRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/impersonation_tokens`, options);
+    return RequestHelper.get<C>(this, `users/${uId}/impersonation_tokens`, options);
   }
 
   add(
@@ -19,7 +19,7 @@ export class UserImpersonationTokens extends BaseService {
   ) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/impersonation_tokens`, {
+    return RequestHelper.post<C>(this, `users/${uId}/impersonation_tokens`, {
       name,
       expiresAt,
       scopes,
@@ -30,12 +30,12 @@ export class UserImpersonationTokens extends BaseService {
   show(userId: number, tokenId: number, options?: Sudo) {
     const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `users/${uId}/impersonation_tokens/${tId}`, options);
+    return RequestHelper.get<C>(this, `users/${uId}/impersonation_tokens/${tId}`, options);
   }
 
   revoke(userId: number, tokenId: number, options?: Sudo) {
     const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `users/${uId}/impersonation_tokens/${tId}`, options);
+    return RequestHelper.del<C>(this, `users/${uId}/impersonation_tokens/${tId}`, options);
   }
 }

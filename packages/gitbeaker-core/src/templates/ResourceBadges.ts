@@ -6,8 +6,8 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ResourceBadges extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export class ResourceBadges<C extends boolean> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

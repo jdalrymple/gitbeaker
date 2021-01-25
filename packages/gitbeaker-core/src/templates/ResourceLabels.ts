@@ -7,8 +7,8 @@ import {
   ShowExpanded,
 } from '../infrastructure';
 
-export class ResourceLabels extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions & ShowExpanded) {
+export class ResourceLabels<C extends boolean> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C> & ShowExpanded) {
     super({ prefixUrl: resourceType, ...options });
   }
 

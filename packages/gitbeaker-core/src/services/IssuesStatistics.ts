@@ -3,7 +3,7 @@ import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
 type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
-export class IssuesStatistics extends BaseService {
+export class IssuesStatistics<C extends boolean> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
     let url;
 
@@ -15,6 +15,6 @@ export class IssuesStatistics extends BaseService {
       url = 'issues_statistics';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<C>(this, url, options);
   }
 }

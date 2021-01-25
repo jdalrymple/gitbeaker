@@ -1,8 +1,8 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessRequests } from '../templates';
 
-export class GroupAccessRequests extends ResourceAccessRequests {
-  constructor(options: BaseServiceOptions) {
+export class GroupAccessRequests<C extends boolean> extends ResourceAccessRequests<C> {
+  constructor(options: BaseServiceOptions<C>) {
     super('groups', options);
   }
 }

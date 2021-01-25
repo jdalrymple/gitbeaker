@@ -35,22 +35,22 @@ export type SupportedService =
   | 'mock-ci'
   | 'youtrack';
 
-export class Services extends BaseService {
+export class Services<C extends boolean> extends BaseService<C> {
   edit(projectId: string | number, serviceName: SupportedService, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put(this, `projects/${pId}/services/${serviceName}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
   remove(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del(this, `projects/${pId}/services/${serviceName}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
   show(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/services/${serviceName}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/services/${serviceName}`, options);
   }
 }

@@ -52,8 +52,8 @@ export interface PaginationResponse<T = Record<string, unknown>[]> {
 }
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
-async function getHelper<T = Record<string, unknown>>(
-  service: BaseService,
+async function getHelper<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   {
     sudo,
@@ -117,44 +117,44 @@ async function getHelper<T = Record<string, unknown>>(
   } as PaginationResponse<T[]>;
 }
 
-export async function get<T = Record<string, unknown>>(
-  service: BaseService,
+export async function get<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: BaseRequestOptions,
 ): Promise<T | T[]>;
-export async function get<T = Record<string, unknown>>(
-  service: BaseService,
+export async function get<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: PaginatedRequestOptions,
 ): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
-export async function get<T = Record<string, unknown>>(
-  service: BaseService,
+export async function get<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: OffsetPaginatedRequestOptions & { showExpanded: true },
 ): Promise<ExpandedResponse<T> | PaginationResponse<T>>;
 /* eslint @typescript-eslint/no-explicit-any:0 */
-export async function get<T = Record<string, unknown>>(
-  service: BaseService,
+export async function get<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options: PaginatedRequestOptions | OffsetPaginatedRequestOptions = {},
 ): Promise<any> {
-  return getHelper<T>(service, endpoint, options);
+  return getHelper<C, T>(service, endpoint, options);
 }
 
-async function post<T = Record<string, unknown>>(
-  service: BaseService,
+async function post<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: IsForm & BaseRequestOptions,
 ): Promise<T>;
-async function post<T = Record<string, unknown>>(
-  service: BaseService,
+async function post<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: IsForm & BaseRequestOptions & { showExpanded: true },
 ): Promise<ExpandedResponse<T>>;
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
-async function post(
-  service: BaseService,
+async function post<C extends boolean>(
+  service: BaseService<C>,
   endpoint: string,
   { isForm, sudo, showExpanded, ...options }: IsForm & ShowExpanded & BaseRequestOptions = {},
 ): Promise<any> {
@@ -174,20 +174,20 @@ async function post(
     : r.body;
 }
 
-async function put<T = Record<string, unknown>>(
-  service: BaseService,
+async function put<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: BaseRequestOptions,
 ): Promise<T>;
-async function put<T = Record<string, unknown>>(
-  service: BaseService,
+async function put<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   { showExpanded }: BaseRequestOptions & { showExpanded: true },
 ): Promise<ExpandedResponse<T>>;
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
-async function put(
-  service: BaseService,
+async function put<C extends boolean>(
+  service: BaseService<C>,
   endpoint: string,
   { sudo, showExpanded, ...body }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<any> {
@@ -199,20 +199,20 @@ async function put(
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
-async function del<T = Record<string, unknown>>(
-  service: BaseService,
+async function del<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   options?: BaseRequestOptions,
 ): Promise<T>;
-async function del<T = Record<string, unknown>>(
-  service: BaseService,
+async function del<C extends boolean, T = Record<string, unknown>>(
+  service: BaseService<C>,
   endpoint: string,
   { showExpanded }: BaseRequestOptions & { showExpanded: true },
 ): Promise<ExpandedResponse<T>>;
 
 /* eslint @typescript-eslint/no-explicit-any:0 */
-async function del(
-  service: BaseService,
+async function del<C extends boolean>(
+  service: BaseService<C>,
   endpoint: string,
   { sudo, showExpanded, ...query }: ShowExpanded & BaseRequestOptions = {},
 ): Promise<any> {
@@ -224,8 +224,8 @@ async function del(
   return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
 }
 
-function stream(
-  service: BaseService,
+function stream<C extends boolean>(
+  service: BaseService<C>,
   endpoint: string,
   options?: BaseRequestOptions,
 ): NodeJS.ReadableStream {

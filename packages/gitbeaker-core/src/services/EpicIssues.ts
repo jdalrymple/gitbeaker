@@ -6,28 +6,28 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class EpicIssues extends BaseService {
+export class EpicIssues<C extends boolean> extends BaseService<C> {
   all(groupId: string | number, epicId: number, options?: PaginatedRequestOptions) {
     const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `groups/${gId}/epics/${eId}/issues`, options);
+    return RequestHelper.get<C>(this, `groups/${gId}/epics/${eId}/issues`, options);
   }
 
   assign(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.post<C>(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 
   edit(groupId: string | number, epicId: number, issueId: number, options?: BaseRequestOptions) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.put<C>(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 
   remove(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
     const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.del<C>(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 }

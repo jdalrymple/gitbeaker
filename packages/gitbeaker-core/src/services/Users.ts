@@ -56,49 +56,49 @@ export interface UserDetailSchemaCamelized extends UserSchemaCamelized {
 // As of GitLab v12.6.2
 export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
 
-export class Users extends BaseService {
+export class Users<C extends boolean> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'users', options);
+    return RequestHelper.get<C>(this, 'users', options);
   }
 
   activities(options?: Sudo) {
-    return RequestHelper.get(this, 'users/activities', options);
+    return RequestHelper.get<C>(this, 'users/activities', options);
   }
 
   projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/projects`, options);
+    return RequestHelper.get<C>(this, `users/${uId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/block`, options);
+    return RequestHelper.post<C>(this, `users/${uId}/block`, options);
   }
 
   create(options?: BaseRequestOptions) {
-    return RequestHelper.post(this, 'users', options);
+    return RequestHelper.post<C>(this, 'users', options);
   }
 
   current(options?: Sudo) {
-    return RequestHelper.get(this, 'user', options);
+    return RequestHelper.get<C>(this, 'user', options);
   }
 
   edit(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.put(this, `users/${uId}`, options);
+    return RequestHelper.put<C>(this, `users/${uId}`, options);
   }
 
   events(userId: number, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/events`, options);
+    return RequestHelper.get<C>(this, `users/${uId}/events`, options);
   }
 
   search(emailOrUsername: string, options?: Sudo) {
-    return RequestHelper.get(this, 'users', {
+    return RequestHelper.get<C>(this, 'users', {
       search: emailOrUsername,
       ...options,
     });
@@ -107,18 +107,18 @@ export class Users extends BaseService {
   show(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}`, options);
+    return RequestHelper.get<C>(this, `users/${uId}`, options);
   }
 
   remove(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.del(this, `users/${uId}`, options);
+    return RequestHelper.del<C>(this, `users/${uId}`, options);
   }
 
   unblock(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/unblock`, options);
+    return RequestHelper.post<C>(this, `users/${uId}/unblock`, options);
   }
 }

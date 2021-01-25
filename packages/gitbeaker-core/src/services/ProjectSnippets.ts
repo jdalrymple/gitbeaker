@@ -8,17 +8,17 @@ import {
 
 import { SnippetVisibility } from './Snippets';
 
-export class ProjectSnippets extends BaseService {
+export class ProjectSnippets<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/snippets`, options);
   }
 
   content(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/raw`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/snippets/${sId}/raw`, options);
   }
 
   create(
@@ -31,7 +31,7 @@ export class ProjectSnippets extends BaseService {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/snippets`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/snippets`, {
       title,
       fileName,
       code,
@@ -43,24 +43,24 @@ export class ProjectSnippets extends BaseService {
   edit(projectId: string | number, snippetId: number, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
   remove(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
   show(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/snippets/${sId}`, options);
   }
 
   userAgentDetails(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/snippets/${sId}/user_agent_detail`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/snippets/${sId}/user_agent_detail`, options);
   }
 }

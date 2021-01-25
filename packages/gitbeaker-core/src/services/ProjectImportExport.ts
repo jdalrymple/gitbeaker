@@ -11,17 +11,17 @@ export const defaultMetadata = {
   contentType: 'application/octet-stream',
 };
 
-export class ProjectImportExport extends BaseService {
+export class ProjectImportExport<C extends boolean> extends BaseService<C> {
   download(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/export/download`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/export/download`, options);
   }
 
   exportStatus(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/export`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/export`, options);
   }
 
   import(
@@ -29,7 +29,7 @@ export class ProjectImportExport extends BaseService {
     path: string,
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {
-    return RequestHelper.post(this, 'projects/import', {
+    return RequestHelper.post<C>(this, 'projects/import', {
       isForm: true,
       ...options,
       file: [content, { ...defaultMetadata, ...metadata }],
@@ -40,12 +40,12 @@ export class ProjectImportExport extends BaseService {
   importStatus(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/import`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/import`, options);
   }
 
   schedule(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/export`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/export`, options);
   }
 }

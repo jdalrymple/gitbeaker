@@ -6,23 +6,23 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class Triggers extends BaseService {
+export class Triggers<C extends boolean> extends BaseService<C> {
   add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/triggers`, options);
   }
 
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/triggers`, options);
   }
 
   edit(projectId: string | number, triggerId: number, options?: BaseRequestOptions) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.put<C>(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   pipeline(
@@ -40,7 +40,7 @@ export class Triggers extends BaseService {
       });
     }
 
-    return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, {
+    return RequestHelper.post<C>(this, `projects/${pId}/trigger/pipeline`, {
       isForm: true,
       ref,
       token,
@@ -51,12 +51,12 @@ export class Triggers extends BaseService {
   remove(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   show(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/triggers/${tId}`, options);
   }
 }

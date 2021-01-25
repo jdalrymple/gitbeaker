@@ -1,17 +1,21 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
-export class PipelineScheduleVariables extends BaseService {
+export class PipelineScheduleVariables<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipeline_schedules/${psId}/variables`, options);
+    return RequestHelper.get<C>(
+      this,
+      `projects/${pId}/pipeline_schedules/${psId}/variables`,
+      options,
+    );
   }
 
   create(projectId: string | number, pipelineScheduleId: number, options?: BaseRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
-    return RequestHelper.post(
+    return RequestHelper.post<C>(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables`,
       options,
@@ -26,7 +30,7 @@ export class PipelineScheduleVariables extends BaseService {
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(
+    return RequestHelper.put<C>(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,
@@ -41,7 +45,7 @@ export class PipelineScheduleVariables extends BaseService {
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,
@@ -56,7 +60,7 @@ export class PipelineScheduleVariables extends BaseService {
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.del(
+    return RequestHelper.del<C>(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,

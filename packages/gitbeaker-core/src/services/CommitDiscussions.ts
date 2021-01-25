@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface CommitDiscussions extends ResourceDiscussions {
+export interface CommitDiscussions<C extends boolean> extends ResourceDiscussions<C> {
   addNote(
     projectId: string | number,
     commitId: string | number,
@@ -46,8 +46,8 @@ export interface CommitDiscussions extends ResourceDiscussions {
   );
 }
 
-export class CommitDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions) {
+export class CommitDiscussions<C extends boolean> extends ResourceDiscussions<C> {
+  constructor(options: BaseServiceOptions<C>) {
     super('projects', 'repository/commits', options);
   }
 }

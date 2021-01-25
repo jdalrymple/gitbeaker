@@ -3,8 +3,8 @@ import { RequestHelper, Sudo } from '../infrastructure';
 
 export type AccessLevel = 10 | 20 | 30 | 40 | 50;
 
-export class ResourceAccessRequests extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export class ResourceAccessRequests<C extends boolean> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

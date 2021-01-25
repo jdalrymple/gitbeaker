@@ -60,22 +60,22 @@ export interface DeployableCamelized {
 
 export type Deployable = DeployableDefault | DeployableCamelized;
 
-export class Deployments extends BaseService {
+export class Deployments<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/deployments`, options);
   }
 
   show(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/deployments/${dId}`, options);
   }
 
   mergeRequests(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}/merge_requests`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/deployments/${dId}/merge_requests`, options);
   }
 }

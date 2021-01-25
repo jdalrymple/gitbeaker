@@ -41,46 +41,46 @@ export interface PipelineSchemaCamelized extends PipelineBase {
 // As of GitLab v12.6.2
 export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
 
-export class Pipelines extends BaseService {
+export class Pipelines<C extends boolean> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipelines`, options);
   }
 
   create(projectId: string | number, ref: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
+    return RequestHelper.post<C>(this, `projects/${pId}/pipeline`, { ref, ...options });
   }
 
   delete(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+    return RequestHelper.del<C>(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
   show(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
   retry(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
   }
 
   cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
+    return RequestHelper.post<C>(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
   }
 
   allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {
     const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
+    return RequestHelper.get<C>(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
   }
 }

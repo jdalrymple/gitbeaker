@@ -4,13 +4,13 @@ import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../i
 const url = (userId) =>
   userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
-export class UserGPGKeys extends BaseService {
+export class UserGPGKeys<C extends boolean> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
-    return RequestHelper.get(this, url(userId), options);
+    return RequestHelper.get<C>(this, url(userId), options);
   }
 
   add(key: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
-    return RequestHelper.post(this, url(userId), {
+    return RequestHelper.post<C>(this, url(userId), {
       key,
       ...options,
     });
@@ -19,12 +19,12 @@ export class UserGPGKeys extends BaseService {
   show(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.get<C>(this, `${url(userId)}/${kId}`, options);
   }
 
   remove(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.del(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.del<C>(this, `${url(userId)}/${kId}`, options);
   }
 }
