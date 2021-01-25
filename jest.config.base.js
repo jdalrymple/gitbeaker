@@ -14,8 +14,6 @@ module.exports = {
 
   setupFilesAfterEnv: ['jest-extended'],
 
-  transformIgnorePatterns: ['/node_modules/(?!(ky))'],
-
   globals: {
     'ts-jest': {
       diagnostics: {

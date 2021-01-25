@@ -8,4 +8,5 @@ module.exports = {
   globalTeardown: 'jest-environment-puppeteer/teardown',
   testEnvironment: 'jest-environment-puppeteer',
   displayName: 'Gitbeaker Browser',
+  transformIgnorePatterns: ['/node_modules/(?!(ky))'],
 };
