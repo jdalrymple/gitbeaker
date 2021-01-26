@@ -6,7 +6,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
   all(
     projectId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema[]>;
+  ): Promise<ResourceVariableSchema<C>[]>;
 
   create(projectId: string | number, options?: BaseRequestOptions);
 
@@ -16,7 +16,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
     projectId: string | number,
     keyId: string,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema>;
+  ): Promise<ResourceVariableSchema<C>>;
 
   remove(projectId: string | number, keyId: string, options?: PaginatedRequestOptions);
 }

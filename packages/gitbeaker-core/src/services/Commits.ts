@@ -22,9 +22,7 @@ export interface CommitSchemaDefault {
   committed_date?: Date;
 }
 
-export type CommitSchema<C extends boolean> = C extends true
-  ? Camelize<CommitSchemaDefault>
-  : CommitSchemaDefault;
+export type CommitSchema<C> = C extends true ? Camelize<CommitSchemaDefault> : CommitSchemaDefault;
 
 export interface CommitAction {
   /** The action to perform */

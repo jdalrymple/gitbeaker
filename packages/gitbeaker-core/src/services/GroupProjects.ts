@@ -3,7 +3,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../i
 import { ProjectSchema } from './Projects';
 
 export class GroupProjects<C extends boolean = false> extends BaseService<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions): Promise<ProjectSchema[]> {
+  all(groupId: string | number, options?: PaginatedRequestOptions): Promise<ProjectSchema<C>[]> {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get<C>(this, `groups/${gId}/projects`, options) as Promise<

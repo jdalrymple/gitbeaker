@@ -2,7 +2,8 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface ProjectSnippetDiscussions extends ResourceDiscussions {
+export interface ProjectSnippetDiscussions<C extends boolean = false>
+  extends ResourceDiscussions<C> {
   addNote(
     projectId: string | number,
     snippetId: string | number,
@@ -46,8 +47,8 @@ export interface ProjectSnippetDiscussions extends ResourceDiscussions {
   );
 }
 
-export class ProjectSnippetDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions = {}) {
+export class ProjectSnippetDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', 'snippets', options);
   }
 }

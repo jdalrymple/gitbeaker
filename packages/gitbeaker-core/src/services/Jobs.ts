@@ -9,7 +9,7 @@ import {
 import { CommitSchema } from './Commits';
 import { RunnerSchema } from './Runners';
 import { UserSchema } from './Users';
-import { PipelineBase } from './Pipelines';
+import { PipelineSchema } from './Pipelines';
 
 export type JobScope =
   | 'created'
@@ -47,9 +47,9 @@ export interface JobSchemaDefault<C> {
   duration?: number;
   user: UserSchema<C>;
   commit: CommitSchema<C>;
-  pipeline: PipelineBase;
+  pipeline: PipelineSchema<C>;
   web_url: string;
-  artifacts: ArtifactSchemaDefault[];
+  artifacts: ArtifactSchema<C>[];
   runner: RunnerSchema<C>;
   artifacts_expire_at?: Date;
 }
@@ -76,9 +76,15 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-    const method = stream ? 'stream' : 'get';
 
-    return RequestHelper[method]<C>(
+    if (stream) {
+      return RequestHelper.stream<C>(
+        this,
+        `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
+        options,
+      );
+    }
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
       options,

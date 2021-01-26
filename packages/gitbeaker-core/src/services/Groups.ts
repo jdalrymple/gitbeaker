@@ -61,12 +61,14 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.put<C>(this, `groups/${gId}`, options);
   }
 
-  projects(groupId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema[]> {
+  projects(groupId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema<C>[]> {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, ProjectSchema>(this, `groups/${gId}/projects`, options) as Promise<
-      ProjectSchema[]
-    >;
+    return RequestHelper.get<C, ProjectSchema<C>>(
+      this,
+      `groups/${gId}/projects`,
+      options,
+    ) as Promise<ProjectSchema<C>[]>;
   }
 
   remove(groupId: string | number, options?: Sudo & ShowExpanded) {
