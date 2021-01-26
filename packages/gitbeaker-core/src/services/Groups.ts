@@ -24,7 +24,7 @@ export interface GroupSchemaDefault {
 export type GroupSchema<C> = C extends true ? Camelize<GroupSchemaDefault> : GroupSchemaDefault;
 
 export type GroupDetailSchema<C> = GroupSchema<C> & {
-  projects: ProjectSchema[];
+  projects: ProjectSchema<C>[];
 };
 
 export class Groups<C extends boolean = false> extends BaseService<C> {

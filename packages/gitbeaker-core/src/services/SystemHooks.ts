@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class SystemHooks<C extends boolean> extends BaseService<C> {
+export class SystemHooks<C extends boolean = false> extends BaseService<C> {
   add(url: string, options?: BaseRequestOptions) {
     return RequestHelper.post<C>(this, 'hooks', { url, ...options });
   }

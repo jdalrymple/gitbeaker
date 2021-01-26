@@ -4,6 +4,7 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
 import { EventOptions } from './Events';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
@@ -16,43 +17,29 @@ export interface NamespaceInfoSchemaDefault {
   full_path: string;
 }
 
-export interface NamespaceInfoSchemaCamelize {
-  id: number;
-  name: string;
-  path: string;
-  kind: string;
-  fullPath: string;
-}
+export type NamespaceInfoSchema<C> = C extends true
+  ? Camelize<NamespaceInfoSchemaDefault>
+  : NamespaceInfoSchemaDefault;
 
-export interface ProjectSchemaDefault {
+export interface ProjectSchemaDefault<C> {
   id: number;
   name: string;
   name_with_namespace: string;
   path: string;
   path_with_namespace: string;
-  namespace: NamespaceInfoSchemaDefault;
+  namespace: NamespaceInfoSchema<C>;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   archived: boolean;
 }
 
-export interface ProjectSchemaCamelized {
-  id: number;
-  name: string;
-  nameWithNamespace: string;
-  path: string;
-  pathWithNamespace: string;
-  namespace: NamespaceInfoSchemaCamelize;
-  sshUrlToRepo: string;
-  httpUrlToRepo: string;
-  archived: boolean;
-}
-
-export type ProjectSchema = ProjectSchemaDefault | ProjectSchemaCamelized;
+export type ProjectSchema<C> = C extends true
+  ? Camelize<ProjectSchemaDefault<C>>
+  : ProjectSchemaDefault<C>;
 
 export class Projects<C extends boolean> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C>(this, 'projects', options) as Promise<ProjectSchema[]>;
+    return RequestHelper.get<C>(this, 'projects', options) as Promise<ProjectSchema<C>[]>;
   }
 
   archive(projectId: string | number, options?: Sudo) {
@@ -126,7 +113,7 @@ export class Projects<C extends boolean> extends BaseService<C> {
 
   search(projectName: string, options?: BaseRequestOptions) {
     return RequestHelper.get<C>(this, 'projects', { search: projectName, ...options }) as Promise<
-      ProjectSchema[]
+      ProjectSchema<C>[]
     >;
   }
 
@@ -187,7 +174,7 @@ export class Projects<C extends boolean> extends BaseService<C> {
   }
 
   upload(
-    projectId,
+    projectId: string | number,
     content,
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {

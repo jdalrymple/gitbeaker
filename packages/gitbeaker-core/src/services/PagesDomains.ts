@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class PagesDomains<C extends boolean> extends BaseService<C> {
+export class PagesDomains<C extends boolean = false> extends BaseService<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 

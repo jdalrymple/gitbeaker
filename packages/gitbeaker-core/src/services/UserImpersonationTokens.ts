@@ -3,7 +3,7 @@ import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure'
 
 type ImpersonationTokenScope = 'api' | 'read_user';
 
-export class UserImpersonationTokens<C extends boolean> extends BaseService<C> {
+export class UserImpersonationTokens<C extends boolean = false> extends BaseService<C> {
   all(userId: number, options?: PaginatedRequestOptions) {
     const uId = encodeURIComponent(userId);
 

@@ -11,7 +11,7 @@ export const defaultMetadata = {
   contentType: 'application/octet-stream',
 };
 
-export class ProjectImportExport<C extends boolean> extends BaseService<C> {
+export class ProjectImportExport<C extends boolean = false> extends BaseService<C> {
   download(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 

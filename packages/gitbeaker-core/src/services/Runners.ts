@@ -4,6 +4,7 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
 
 export interface RunnerSchemaDefault {
@@ -17,21 +18,9 @@ export interface RunnerSchemaDefault {
   status: string;
 }
 
-export interface RunnerSchemaCamelized {
-  id: number;
-  description: string;
-  ipAddress: string;
-  active: boolean;
-  isShared: boolean;
-  name: string;
-  online: boolean;
-  status: string;
-}
+export type RunnerSchema<C> = C extends true ? Camelize<RunnerSchemaDefault> : RunnerSchemaDefault;
 
-// As of GitLab v12.6.2
-export type RunnerSchema = RunnerSchemaDefault | RunnerSchemaCamelized;
-
-export class Runners<C extends boolean> extends BaseService<C> {
+export class Runners<C extends boolean = false> extends BaseService<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 

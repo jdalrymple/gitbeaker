@@ -8,7 +8,7 @@ import {
 
 import { SnippetVisibility } from './Snippets';
 
-export class ProjectSnippets<C extends boolean> extends BaseService<C> {
+export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

@@ -16,7 +16,7 @@ function url(
   return output.join('/');
 }
 
-export class ResourceAwardEmojis<C extends boolean> extends BaseService<C> {
+export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<C> {
   protected resourceType: string;
 
   constructor(resourceType: string, options: BaseServiceOptions<C>) {

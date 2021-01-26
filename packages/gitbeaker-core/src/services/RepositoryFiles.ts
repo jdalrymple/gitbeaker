@@ -18,7 +18,7 @@ export type RepositoryFileSchema<C = true> = C extends true
   ? RepositoryFileSchemaDefault
   : Camelize<RepositoryFileSchemaDefault>;
 
-export class RepositoryFiles<C extends boolean> extends BaseService<C> {
+export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   create(
     projectId: string | number,
     filePath: string,

@@ -3,12 +3,16 @@ import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../i
 
 const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
 
-export class UserKeys<C extends boolean> extends BaseService<C> {
+export class UserKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<C>(this, url(userId), options);
   }
 
-  create(title, key, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  create(
+    title: string,
+    key,
+    { userId, ...options }: { userId?: number } & BaseRequestOptions = {},
+  ) {
     return RequestHelper.post<C>(this, url(userId), {
       title,
       key,

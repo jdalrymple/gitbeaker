@@ -7,7 +7,7 @@ import {
   ShowExpanded,
 } from '../infrastructure';
 
-export class ResourceLabels<C extends boolean> extends BaseService<C> {
+export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C> & ShowExpanded) {
     super({ prefixUrl: resourceType, ...options });
   }

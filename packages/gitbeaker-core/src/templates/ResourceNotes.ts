@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ResourceNotes<C extends boolean> extends BaseService<C> {
+export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   protected resource2Type: string;
 
   constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions<C>) {

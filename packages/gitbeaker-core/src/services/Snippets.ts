@@ -8,7 +8,7 @@ import {
 
 export type SnippetVisibility = 'private' | 'public' | 'internal';
 
-export class Snippets<C extends boolean> extends BaseService<C> {
+export class Snippets<C extends boolean = false> extends BaseService<C> {
   all({ public: p, ...options }: { public?: boolean } & PaginatedRequestOptions = {}) {
     const url = p ? 'snippets/public' : 'snippets';
 

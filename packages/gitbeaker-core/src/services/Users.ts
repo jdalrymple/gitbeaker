@@ -4,6 +4,7 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
 
 import { EventOptions } from './Events';
@@ -17,46 +18,9 @@ export interface UserSchemaDefault {
   web_url: string;
 }
 
-export interface UserSchemaCamelized {
-  id: number;
-  name: string;
-  username: string;
-  state: string;
-  avatarUrl: string;
-  webUrl: string;
-}
+export type UserSchema<C> = C extends true ? Camelize<UserSchemaDefault> : UserSchemaDefault;
 
-// As of GitLab v12.6.2
-export type UserSchema = UserSchemaDefault | UserSchemaCamelized;
-
-export interface UserDetailSchemaDefault extends UserSchemaDefault {
-  created_at: Date;
-  bio?: string;
-  location?: string;
-  public_email: string;
-  skype: string;
-  linkedin: string;
-  twitter: string;
-  website_url?: string;
-  organization?: string;
-}
-
-export interface UserDetailSchemaCamelized extends UserSchemaCamelized {
-  createdAt: Date;
-  bio?: string;
-  location?: string;
-  publicEmail: string;
-  skype: string;
-  linkedin: string;
-  twitter: string;
-  websiteUrl?: string;
-  organization?: string;
-}
-
-// As of GitLab v12.6.2
-export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
-
-export class Users<C extends boolean> extends BaseService<C> {
+export class Users<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<C>(this, 'users', options);
   }

@@ -35,7 +35,7 @@ export type SupportedService =
   | 'mock-ci'
   | 'youtrack';
 
-export class Services<C extends boolean> extends BaseService<C> {
+export class Services<C extends boolean = false> extends BaseService<C> {
   edit(projectId: string | number, serviceName: SupportedService, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

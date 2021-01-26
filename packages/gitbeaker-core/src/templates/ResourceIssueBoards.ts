@@ -1,4 +1,4 @@
-import { BaseService } from '@gitbeaker/requester-utils';
+import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -6,8 +6,8 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ResourceIssueBoards<C extends boolean> extends BaseService<C> {
-  constructor(resourceType: string, options) {
+export class ResourceIssueBoards<C extends boolean = false> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

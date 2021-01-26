@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface ProjectBadges extends ResourceBadges {
+export interface ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
   add(projectId: string | number, options?: BaseRequestOptions);
 
   all(projectId: string | number, options?: PaginatedRequestOptions);
@@ -16,8 +16,8 @@ export interface ProjectBadges extends ResourceBadges {
   show(projectId: string | number, badgeId: number, options?: Sudo);
 }
 
-export class ProjectBadges extends ResourceBadges {
-  constructor(options: BaseServiceOptions = {}) {
+export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', options);
   }
 }

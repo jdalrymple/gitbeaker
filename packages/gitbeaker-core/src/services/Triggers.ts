@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class Triggers<C extends boolean> extends BaseService<C> {
+export class Triggers<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

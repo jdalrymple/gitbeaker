@@ -4,7 +4,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../i
 const url = (userId) =>
   userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'users/gpg_keys';
 
-export class UserGPGKeys<C extends boolean> extends BaseService<C> {
+export class UserGPGKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<C>(this, url(userId), options);
   }

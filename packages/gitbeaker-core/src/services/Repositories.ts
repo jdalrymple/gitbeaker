@@ -3,7 +3,7 @@ import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
 
-export class Repositories<C extends boolean> extends BaseService<C> {
+export class Repositories<C extends boolean = false> extends BaseService<C> {
   compare(projectId: string | number, from: string, to: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 

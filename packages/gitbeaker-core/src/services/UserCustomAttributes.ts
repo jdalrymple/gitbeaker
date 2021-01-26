@@ -2,7 +2,8 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceCustomAttributes } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface UserCustomAttributes extends ResourceCustomAttributes {
+export interface UserCustomAttributes<C extends boolean = false>
+  extends ResourceCustomAttributes<C> {
   all(userId: string | number, options?: PaginatedRequestOptions);
 
   set(userId: string | number, customAttributeId: number, value: string, options?: Sudo);
@@ -12,8 +13,8 @@ export interface UserCustomAttributes extends ResourceCustomAttributes {
   show(userId: string | number, customAttributeId: number, options?: Sudo);
 }
 
-export class UserCustomAttributes extends ResourceCustomAttributes {
-  constructor(options: BaseServiceOptions = {}) {
+export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('users', options);
   }
 }

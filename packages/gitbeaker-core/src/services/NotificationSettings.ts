@@ -23,7 +23,7 @@ function url({ projectId, groupId }) {
   return `${uri}notification_settings`;
 }
 
-export class NotificationSettings<C extends boolean> extends BaseService<C> {
+export class NotificationSettings<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
     return RequestHelper.get<C>(this, url({ groupId, projectId }), options);
   }

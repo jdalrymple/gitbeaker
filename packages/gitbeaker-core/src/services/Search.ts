@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-export class Search<C extends boolean> extends BaseService<C> {
+export class Search<C extends boolean = false> extends BaseService<C> {
   all(
     scope: string,
     search: string,

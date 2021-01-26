@@ -72,7 +72,7 @@ export interface AllMergeRequestsOptions {
   wip?: string;
 }
 
-export class MergeRequests<C extends boolean> extends BaseService<C> {
+export class MergeRequests<C extends boolean = false> extends BaseService<C> {
   accept(
     projectId: string | number,
     mergerequestIid: number,

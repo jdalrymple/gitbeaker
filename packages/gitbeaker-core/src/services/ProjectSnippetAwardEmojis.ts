@@ -2,7 +2,8 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface ProjectSnippetAwardEmojis extends ResourceAwardEmojis {
+export interface ProjectSnippetAwardEmojis<C extends boolean = false>
+  extends ResourceAwardEmojis<C> {
   all(
     projectId: string | number,
     issueId: string | number,
@@ -35,8 +36,8 @@ export interface ProjectSnippetAwardEmojis extends ResourceAwardEmojis {
   );
 }
 
-export class ProjectSnippetAwardEmojis extends ResourceAwardEmojis {
-  constructor(options: BaseServiceOptions = {}) {
+export class ProjectSnippetAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('issues', options);
   }
 }

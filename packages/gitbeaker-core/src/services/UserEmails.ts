@@ -3,7 +3,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../i
 
 const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails');
 
-export class UserEmails<C extends boolean> extends BaseService<C> {
+export class UserEmails<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<C>(this, url(userId), options);
   }

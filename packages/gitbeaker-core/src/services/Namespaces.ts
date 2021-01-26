@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export class Namespaces<C extends boolean> extends BaseService<C> {
+export class Namespaces<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<C>(this, 'namespaces', options);
   }

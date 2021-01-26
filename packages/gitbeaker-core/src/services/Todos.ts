@@ -5,7 +5,7 @@ interface CreateTodoOptions extends Sudo {
   resourceName?: 'mergerequest' | 'issue';
 }
 
-export class Todos<C extends boolean> extends BaseService<C> {
+export class Todos<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<C>(this, 'todos', options);
   }

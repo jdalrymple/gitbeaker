@@ -11,7 +11,7 @@ interface IncludeInherited {
   includeInherited?: boolean;
 }
 
-export class ResourceMembers<C extends boolean> extends BaseService<C> {
+export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }

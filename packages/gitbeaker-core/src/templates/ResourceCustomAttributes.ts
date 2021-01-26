@@ -1,7 +1,7 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
-export class ResourceCustomAttributes<C extends boolean> extends BaseService<C> {
+export class ResourceCustomAttributes<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }

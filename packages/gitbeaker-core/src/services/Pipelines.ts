@@ -4,6 +4,7 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
 
 export type PipelineStatus =
@@ -19,29 +20,21 @@ export type PipelineStatus =
   | 'manual'
   | 'scheduled';
 
-export interface PipelineBase {
+export interface PipelineSchemaDefault {
   id: number;
   sha: string;
   ref: string;
   status: PipelineStatus;
-}
-
-export interface PipelineSchemaDefault extends PipelineBase {
   created_at: Date;
   updated_at: Date;
   web_url: string;
 }
 
-export interface PipelineSchemaCamelized extends PipelineBase {
-  createdAt: Date;
-  updatedAt: Date;
-  webUrl: string;
-}
+export type PipelineSchema<C> = C extends true
+  ? Camelize<PipelineSchemaDefault>
+  : PipelineSchemaDefault;
 
-// As of GitLab v12.6.2
-export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
-
-export class Pipelines<C extends boolean> extends BaseService<C> {
+export class Pipelines<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

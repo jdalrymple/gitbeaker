@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class ProtectedBranches<C extends boolean> extends BaseService<C> {
+export class ProtectedBranches<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

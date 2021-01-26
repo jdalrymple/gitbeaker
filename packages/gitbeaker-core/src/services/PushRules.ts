@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export class PushRules<C extends boolean> extends BaseService<C> {
+export class PushRules<C extends boolean = false> extends BaseService<C> {
   create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
