@@ -37,9 +37,9 @@ export type ProjectSchema<C> = C extends true
   ? Camelize<ProjectSchemaDefault<C>>
   : ProjectSchemaDefault<C>;
 
-export class Projects<C extends boolean> extends BaseService<C> {
+export class Projects<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C>(this, 'projects', options) as Promise<ProjectSchema<C>[]>;
+    return RequestHelper.get<C, ProjectSchema<C>>(this, 'projects', options);
   }
 
   archive(projectId: string | number, options?: Sudo) {
@@ -135,7 +135,7 @@ export class Projects<C extends boolean> extends BaseService<C> {
   show(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}`, options);
+    return RequestHelper.get<C, ProjectSchema<C>>(this, `projects/${pId}`, options);
   }
 
   star(projectId: string | number, options?: Sudo) {
