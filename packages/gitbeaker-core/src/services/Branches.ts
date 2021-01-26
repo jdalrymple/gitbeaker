@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class Branches<C extends boolean> extends BaseService<C> {
+export class Branches<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: { search?: string } & PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

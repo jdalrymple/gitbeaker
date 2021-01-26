@@ -4,10 +4,11 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
-import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
-import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
-import { UserSchemaDefault, UserSchemaCamelized } from './Users';
+import { CommitSchema } from './Commits';
+import { RunnerSchema } from './Runners';
+import { UserSchema } from './Users';
 import { PipelineBase } from './Pipelines';
 
 export type JobScope =
@@ -27,17 +28,11 @@ export interface ArtifactSchemaDefault {
   file_format?: string;
 }
 
-export interface ArtifactSchemaCamelized {
-  fileType: string;
-  size: number;
-  filename: string;
-  fileFormat?: string;
-}
+export type ArtifactSchema<C> = C extends true
+  ? Camelize<ArtifactSchemaDefault>
+  : ArtifactSchemaDefault;
 
-// As of GitLab v12.6.2
-export type ArtifactSchema = ArtifactSchemaDefault | ArtifactSchemaCamelized;
-
-export interface JobSchemaDefault {
+export interface JobSchemaDefault<C> {
   id: number;
   status: string;
   stage: string;
@@ -50,41 +45,18 @@ export interface JobSchemaDefault {
   started_at?: Date;
   finished_at?: Date;
   duration?: number;
-  user: UserSchemaDefault;
-  commit: CommitSchemaDefault;
+  user: UserSchema<C>;
+  commit: CommitSchema<C>;
   pipeline: PipelineBase;
   web_url: string;
   artifacts: ArtifactSchemaDefault[];
-  runner: RunnerSchemaDefault;
+  runner: RunnerSchema<C>;
   artifacts_expire_at?: Date;
 }
 
-export interface JobSchemaCamelized {
-  id: number;
-  status: string;
-  stage: string;
-  name: string;
-  ref: string;
-  tag: boolean;
-  coverage?: string;
-  allowFailure: boolean;
-  createdAt: Date;
-  startedAt?: Date;
-  finishedAt?: Date;
-  duration?: number;
-  user: UserSchemaCamelized;
-  commit: CommitSchemaCamelized;
-  pipeline: PipelineBase;
-  webUrl: string;
-  artifacts: ArtifactSchemaCamelized[];
-  runner: RunnerSchemaCamelized;
-  artifactsExpireAt?: Date;
-}
+export type JobSchema<C> = C extends true ? Camelize<JobSchemaDefault<C>> : JobSchemaDefault<C>;
 
-// As of GitLab v12.6.2
-export type JobSchema = JobSchemaDefault | JobSchemaCamelized;
-
-export class Jobs<C extends boolean> extends BaseService<C> {
+export class Jobs<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
@@ -106,7 +78,7 @@ export class Jobs<C extends boolean> extends BaseService<C> {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
     const method = stream ? 'stream' : 'get';
 
-    return RequestHelper[method](
+    return RequestHelper[method]<C>(
       this,
       `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
       options,
@@ -121,9 +93,15 @@ export class Jobs<C extends boolean> extends BaseService<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
-    const method = stream ? 'stream' : 'get';
 
-    return RequestHelper[method](
+    if (stream) {
+      return RequestHelper.stream<C>(
+        this,
+        `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
+        options,
+      );
+    }
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
       options,
@@ -137,9 +115,15 @@ export class Jobs<C extends boolean> extends BaseService<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
-    const method = stream ? 'stream' : 'get';
 
-    return RequestHelper[method](
+    if (stream) {
+      return RequestHelper.stream<C>(
+        this,
+        `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
+        options,
+      );
+    }
+    return RequestHelper.get<C>(
       this,
       `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
       options,

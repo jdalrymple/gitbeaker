@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface MergeRequestDiscussions extends ResourceDiscussions {
+export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
     projectId: string | number,
     mergerequestId: string | number,
@@ -50,8 +50,8 @@ export interface MergeRequestDiscussions extends ResourceDiscussions {
   );
 }
 
-export class MergeRequestDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions = {}) {
+export class MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', 'merge_requests', options);
   }
 }

@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface EpicDiscussions extends ResourceDiscussions {
+export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
     groupId: string | number,
     epicId: string | number,
@@ -46,8 +46,8 @@ export interface EpicDiscussions extends ResourceDiscussions {
   );
 }
 
-export class EpicDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions) {
+export class EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+  constructor(options: BaseServiceOptions<C>) {
     super('groups', 'epics', options);
   }
 }

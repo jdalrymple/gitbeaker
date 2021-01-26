@@ -6,7 +6,7 @@ import {
   PaginatedRequestOptions,
 } from '../infrastructure';
 
-export class DeployKeys<C extends boolean> extends BaseService<C> {
+export class DeployKeys<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 

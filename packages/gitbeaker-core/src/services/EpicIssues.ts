@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class EpicIssues<C extends boolean> extends BaseService<C> {
+export class EpicIssues<C extends boolean = false> extends BaseService<C> {
   all(groupId: string | number, epicId: number, options?: PaginatedRequestOptions) {
     const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
 

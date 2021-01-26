@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo } from '../infrastructure';
 
-export class License<C extends boolean> extends BaseService<C> {
+export class License<C extends boolean = false> extends BaseService<C> {
   add(license: string, options?: Sudo) {
     return RequestHelper.post<C>(this, 'license', { license, ...options });
   }

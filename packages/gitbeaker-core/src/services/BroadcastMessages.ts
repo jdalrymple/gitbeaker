@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class BroadcastMessages<C extends boolean> extends BaseService<C> {
+export class BroadcastMessages<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<C>(this, 'broadcast_messages', options);
   }

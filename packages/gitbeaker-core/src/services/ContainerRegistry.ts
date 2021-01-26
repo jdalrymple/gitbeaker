@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export class ContainerRegistry<C extends boolean> extends BaseService<C> {
+export class ContainerRegistry<C extends boolean = false> extends BaseService<C> {
   repositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

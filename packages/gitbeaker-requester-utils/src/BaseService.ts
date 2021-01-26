@@ -1,6 +1,6 @@
 import { RequesterType, DefaultServiceOptions } from './RequesterUtils';
 
-export interface BaseServiceOptions<C extends boolean> {
+export interface BaseServiceOptions<C> {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
@@ -16,7 +16,7 @@ export interface BaseServiceOptions<C extends boolean> {
   profileMode?: 'execution' | 'memory';
 }
 
-export class BaseService<C extends boolean> {
+export class BaseService<C extends boolean = false> {
   public readonly url: string;
 
   public readonly requester: RequesterType;
@@ -52,7 +52,7 @@ export class BaseService<C extends boolean> {
       'user-agent': 'gitbeaker',
     };
     this.rejectUnauthorized = rejectUnauthorized;
-    this.camelize = camelize as C;
+    this.camelize = camelize;
     this.requestTimeout = requestTimeout;
 
     // Handle auth tokens

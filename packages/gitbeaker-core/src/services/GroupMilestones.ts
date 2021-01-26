@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface GroupMilestones extends ResourceMilestones {
+export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all(groupId: string | number, options?: PaginatedRequestOptions);
 
   create(groupId: string | number, title: string, options?: BaseRequestOptions);
@@ -16,8 +16,8 @@ export interface GroupMilestones extends ResourceMilestones {
   show(groupId: string | number, milestoneId: number, options?: Sudo);
 }
 
-export class GroupMilestones extends ResourceMilestones {
-  constructor(options: BaseServiceOptions = {}) {
+export class GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('groups', options);
   }
 }

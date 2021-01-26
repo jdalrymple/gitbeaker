@@ -8,7 +8,7 @@ import {
 
 type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
-export class Issues<C extends boolean> extends BaseService<C> {
+export class Issues<C extends boolean = false> extends BaseService<C> {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 

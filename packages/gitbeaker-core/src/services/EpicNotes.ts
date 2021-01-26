@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface EpicNotes extends ResourceNotes {
+export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
 
   create(
@@ -25,8 +25,8 @@ export interface EpicNotes extends ResourceNotes {
   show(groupId: string | number, epicId: string | number, noteId: number, options?: Sudo);
 }
 
-export class EpicNotes extends ResourceNotes {
-  constructor(options: BaseServiceOptions) {
+export class EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
+  constructor(options: BaseServiceOptions<C>) {
     super('groups', 'epics', options);
   }
 }

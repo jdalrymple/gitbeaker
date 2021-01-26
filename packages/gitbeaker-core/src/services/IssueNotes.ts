@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface IssueNotes extends ResourceNotes {
+export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(projectId: string | number, issueId: string | number, options?: PaginatedRequestOptions);
 
   create(
@@ -25,8 +25,8 @@ export interface IssueNotes extends ResourceNotes {
   show(projectId: string | number, issueId: string | number, noteId: number, options?: Sudo);
 }
 
-export class IssueNotes extends ResourceNotes {
-  constructor(options: BaseServiceOptions = {}) {
+export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', 'issues', options);
   }
 }

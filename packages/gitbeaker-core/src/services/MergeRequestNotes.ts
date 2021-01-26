@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface MergeRequestNotes extends ResourceNotes {
+export interface MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(
     projectId: string | number,
     mergerequestIid: string | number,
@@ -39,8 +39,8 @@ export interface MergeRequestNotes extends ResourceNotes {
   );
 }
 
-export class MergeRequestNotes extends ResourceNotes {
-  constructor(options: BaseServiceOptions = {}) {
+export class MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', 'merge_requests', options);
   }
 }

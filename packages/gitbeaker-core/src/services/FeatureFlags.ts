@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
-export class FeatureFlags<C extends boolean> extends BaseService<C> {
+export class FeatureFlags<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<C>(this, 'features', options);
   }

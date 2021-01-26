@@ -23,8 +23,8 @@ export interface CommitSchemaDefault {
 }
 
 export type CommitSchema<C extends boolean> = C extends true
-  ? CommitSchemaDefault
-  : Camelize<CommitSchemaDefault>;
+  ? Camelize<CommitSchemaDefault>
+  : CommitSchemaDefault;
 
 export interface CommitAction {
   /** The action to perform */
@@ -77,10 +77,10 @@ export interface MissingSignature {
 }
 
 export type CommitSignature<C extends boolean> = C extends true
-  ? GPGSignature | X509Signature | MissingSignature
-  : Camelize<GPGSignature> | Camelize<X509Signature> | MissingSignature;
+  ? Camelize<GPGSignature> | Camelize<X509Signature> | MissingSignature
+  : GPGSignature | X509Signature | MissingSignature;
 
-export class Commits<C extends boolean> extends BaseService<C> {
+export class Commits<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

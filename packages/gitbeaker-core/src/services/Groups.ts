@@ -21,15 +21,13 @@ export interface GroupSchemaDefault {
   web_url: string;
 }
 
-export type GroupSchema<C extends boolean> = C extends true
-  ? GroupSchemaDefault
-  : Camelize<GroupSchemaDefault>;
+export type GroupSchema<C> = C extends true ? Camelize<GroupSchemaDefault> : GroupSchemaDefault;
 
-export type GroupDetailSchema<C extends boolean> = GroupSchema<C> & {
+export type GroupDetailSchema<C> = GroupSchema<C> & {
   projects: ProjectSchema[];
 };
 
-export class Groups<C extends boolean> extends BaseService<C> {
+export class Groups<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions): Promise<GroupSchema<C>[]> {
     return RequestHelper.get<C, GroupSchema<C>>(this, 'groups', options) as Promise<
       GroupSchema<C>[]

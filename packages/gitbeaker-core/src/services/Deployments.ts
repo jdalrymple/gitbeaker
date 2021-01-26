@@ -1,66 +1,42 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
-import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
-import { UserSchemaDefault, UserSchemaCamelized } from './Users';
-import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
+import { RequestHelper, PaginatedRequestOptions, Sudo, Camelize } from '../infrastructure';
+import { CommitSchema } from './Commits';
+import { PipelineSchema } from './Pipelines';
+import { UserSchema } from './Users';
+import { RunnerSchema } from './Runners';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
-// Ref: https://docs.gitlab.com/12.6/ee/api/deployments.html#list-project-deployments
-export interface DeploymentSchemaDefault {
+export type DeploymentSchema<C extends boolean> = {
   id: number;
   iid: number;
   ref: string;
   sha: string;
-  user: UserSchemaDefault;
-}
+  user: UserSchema<C>;
+};
 
-export interface DeploymentSchemaCamelized {
-  id: number;
-  iid: number;
-  ref: string;
-  sha: string;
-  user: UserSchemaCamelized;
-}
-
-export interface DeployableDefault {
+export interface DeployableDefault<C extends boolean> {
   id: number;
   ref: string;
   name: string;
-  runner?: RunnerSchemaDefault;
+  runner?: RunnerSchema<C>;
   stage?: string;
   started_at?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchemaDefault;
+  commit?: CommitSchema<C>;
   coverage?: string;
   created_at?: Date;
   finished_at?: Date;
-  user?: UserSchemaDefault;
-  pipeline?: PipelineSchemaDefault;
+  user?: UserSchema<C>;
+  pipeline?: PipelineSchema<C>;
 }
 
-export interface DeployableCamelized {
-  id: number;
-  ref: string;
-  name: string;
-  runner?: RunnerSchemaCamelized;
-  stage?: string;
-  startedAt?: Date;
-  status?: DeploymentStatus;
-  tag: boolean;
-  commit?: CommitSchemaCamelized;
-  coverage?: string;
-  createdAt?: Date;
-  finishedAt?: Date;
-  user?: UserSchemaCamelized;
-  pipeline?: PipelineSchemaCamelized;
-}
+export type Deployable<C extends boolean> = C extends true
+  ? Camelize<DeployableDefault<C>>
+  : DeployableDefault<C>;
 
-export type Deployable = DeployableDefault | DeployableCamelized;
-
-export class Deployments<C extends boolean> extends BaseService<C> {
+export class Deployments<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

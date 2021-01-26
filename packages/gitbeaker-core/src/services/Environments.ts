@@ -4,56 +4,43 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
+  Camelize,
 } from '../infrastructure';
-import {
-  DeploymentSchemaDefault,
-  DeploymentSchemaCamelized,
-  DeployableDefault,
-  DeployableCamelized,
-} from './Deployments';
-import { ProjectSchemaDefault, ProjectSchemaCamelized } from './Projects';
+import { DeploymentSchema, Deployable } from './Deployments';
+import { ProjectSchema } from './Projects';
 
-export interface EnvironmentSchemaDefault {
+export interface EnvironmentSchemaDefault<C> {
   id: number;
   name: string;
   slug?: string;
   external_url?: string;
-  project?: ProjectSchemaDefault;
+  project?: ProjectSchema<C>;
   state?: string;
 }
 
-export interface EnvironmentSchemaCamelized {
-  id: number;
-  name: string;
-  slug?: string;
-  externalUrl?: string;
-  project?: ProjectSchemaCamelized;
-  state?: string;
+export type EnvironmentSchema<C extends boolean> = C extends true
+  ? Camelize<EnvironmentSchemaDefault<C>>
+  : EnvironmentSchemaDefault<C>;
+
+export interface EnvironmentDetailSchemaDefault<C extends boolean>
+  extends EnvironmentSchemaDefault<C> {
+  last_deployment?: DeploymentSchema<C>;
+  deployable?: Deployable<C>;
 }
 
-// ref: https://docs.gitlab.com/12.6/ee/api/environments.html#list-environments
-export type EnvironmentSchema = EnvironmentSchemaDefault | EnvironmentSchemaCamelized;
+export type EnvironmentDetailSchema<C extends boolean> = C extends true
+  ? Camelize<EnvironmentDetailSchemaDefault<C>>
+  : EnvironmentDetailSchemaDefault<C>;
 
-export interface EnvironmentDetailSchemaDefault extends EnvironmentSchemaDefault {
-  last_deployment?: DeploymentSchemaDefault;
-  deployable?: DeployableDefault;
-}
-
-export interface EnvironmentDetailSchemaCamelized extends EnvironmentSchemaCamelized {
-  lastDeployment?: DeploymentSchemaCamelized;
-  deployable?: DeployableCamelized;
-}
-
-export type EnvironmentDetailSchema =
-  | EnvironmentDetailSchemaDefault
-  | EnvironmentDetailSchemaCamelized;
-
-export class Environments<C extends boolean> extends BaseService<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions): Promise<EnvironmentSchema[]> {
+export class Environments<C extends boolean = false> extends BaseService<C> {
+  all(
+    projectId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<EnvironmentSchema<C>[]> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get<C>(this, `projects/${pId}/environments`, options) as Promise<
-      EnvironmentSchema[]
+      EnvironmentSchema<C>[]
     >;
   }
 
@@ -61,13 +48,11 @@ export class Environments<C extends boolean> extends BaseService<C> {
     projectId: string | number,
     environmentId: number,
     options?: Sudo,
-  ): Promise<EnvironmentDetailSchema> {
+  ): Promise<EnvironmentDetailSchema<C>> {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
-    return RequestHelper.get<C>(
-      this,
-      `projects/${pId}/environments/${eId}`,
-      options,
-    ) as Promise<EnvironmentDetailSchema>;
+    return RequestHelper.get<C>(this, `projects/${pId}/environments/${eId}`, options) as Promise<
+      EnvironmentDetailSchema<C>
+    >;
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {

@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 import { ResourceLabels } from '../templates';
 
-export interface Labels extends ResourceLabels {
+export interface Labels<C extends boolean = false> extends ResourceLabels<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions);
 
   create(
@@ -21,8 +21,8 @@ export interface Labels extends ResourceLabels {
   unsubscribe(projectId: string | number, labelId: number, options?: Sudo);
 }
 
-export class Labels extends ResourceLabels {
-  constructor(options: BaseServiceOptions = {}) {
+export class Labels<C extends boolean = false> extends ResourceLabels<C> {
+  constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', options);
   }
 }

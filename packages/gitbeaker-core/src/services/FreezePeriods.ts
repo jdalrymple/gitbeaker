@@ -11,7 +11,7 @@ export interface EditFreezePeriodOptions {
   freezeEnd?: string;
 }
 
-export class FreezePeriods<C extends boolean> extends BaseService<C> {
+export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

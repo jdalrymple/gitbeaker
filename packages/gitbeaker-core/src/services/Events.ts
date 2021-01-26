@@ -17,7 +17,7 @@ export interface EventOptions {
   targetType?: 'issue' | 'milestone' | 'merge_request' | 'note' | 'project' | 'snippet' | 'user';
 }
 
-export class Events<C extends boolean> extends BaseService<C> {
+export class Events<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions & EventOptions) {
     return RequestHelper.get<C>(this, 'events', options);
   }
