@@ -7,7 +7,7 @@ import {
   Camelize,
 } from '../infrastructure';
 
-export interface CommitSchemaDefault {
+export interface CommitSchemaDefault extends Record<string, unknown> {
   id: string;
   short_id: string;
   created_at: Date;
@@ -82,7 +82,11 @@ export class Commits<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/repository/commits`, options);
+    return RequestHelper.get<C, CommitSchema<C>[]>(
+      this,
+      `projects/${pId}/repository/commits`,
+      options,
+    );
   }
 
   cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {

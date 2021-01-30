@@ -1,7 +1,7 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Camelize } from '../infrastructure';
 
-export interface ResourceVariableSchemaDefault {
+export interface ResourceVariableSchemaDefault extends Record<string, unknown> {
   variable_type: 'env_var' | 'file';
   value: string;
   protected: boolean;

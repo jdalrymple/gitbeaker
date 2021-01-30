@@ -9,7 +9,7 @@ import {
 import { EventOptions } from './Events';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 
-export interface NamespaceInfoSchemaDefault {
+export interface NamespaceInfoSchemaDefault extends Record<string, unknown> {
   id: number;
   name: string;
   path: string;
@@ -21,7 +21,7 @@ export type NamespaceInfoSchema<C> = C extends true
   ? Camelize<NamespaceInfoSchemaDefault>
   : NamespaceInfoSchemaDefault;
 
-export interface ProjectSchemaDefault<C> {
+export interface ProjectSchemaDefault<C> extends Record<string, unknown> {
   id: number;
   name: string;
   name_with_namespace: string;
@@ -39,7 +39,7 @@ export type ProjectSchema<C> = C extends true
 
 export class Projects<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C, ProjectSchema<C>>(this, 'projects', options);
+    return RequestHelper.get<C, ProjectSchema<C>[]>(this, 'projects', options);
   }
 
   archive(projectId: string | number, options?: Sudo) {
@@ -112,9 +112,10 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   }
 
   search(projectName: string, options?: BaseRequestOptions) {
-    return RequestHelper.get<C>(this, 'projects', { search: projectName, ...options }) as Promise<
-      ProjectSchema<C>[]
-    >;
+    return RequestHelper.get<C, ProjectSchema<C>[]>(this, 'projects', {
+      search: projectName,
+      ...options,
+    });
   }
 
   share(

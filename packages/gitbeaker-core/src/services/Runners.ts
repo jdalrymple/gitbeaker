@@ -7,7 +7,7 @@ import {
   Camelize,
 } from '../infrastructure';
 
-export interface RunnerSchemaDefault {
+export interface RunnerSchemaDefault extends Record<string, unknown> {
   id: number;
   description: string;
   ip_address: string;
@@ -24,7 +24,7 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 
-    return RequestHelper.get<C>(this, url, options);
+    return RequestHelper.get<C, RunnerSchema<C>[]>(this, url, options);
   }
 
   allOwned(options?: BaseRequestOptions) {

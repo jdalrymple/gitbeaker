@@ -8,11 +8,11 @@ import {
 } from '../infrastructure';
 
 export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C> & ShowExpanded) {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 
-  all(resourceId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {
+  all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.get(this, `${rId}/labels`, options);
@@ -22,7 +22,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
     resourceId: string | number,
     labelName: string,
     color: string,
-    options?: BaseRequestOptions & ShowExpanded,
+    options?: BaseRequestOptions,
   ) {
     const rId = encodeURIComponent(resourceId);
 
@@ -33,11 +33,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  edit(
-    resourceId: string | number,
-    labelName: string,
-    options?: BaseRequestOptions & ShowExpanded,
-  ) {
+  edit(resourceId: string | number, labelName: string, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
     return RequestHelper.put(this, `${rId}/labels`, { name: labelName, ...options });

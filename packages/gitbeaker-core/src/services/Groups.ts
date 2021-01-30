@@ -4,12 +4,12 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
-  ShowExpanded,
   Camelize,
+  ShowExpanded,
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
-export interface GroupSchemaDefault {
+export interface GroupSchemaDefault extends Record<string, unknown> {
   id: number;
   name: string;
   path: string;
@@ -28,13 +28,11 @@ export type GroupDetailSchema<C> = GroupSchema<C> & {
 };
 
 export class Groups<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions): Promise<GroupSchema<C>[]> {
-    return RequestHelper.get<C, GroupSchema<C>>(this, 'groups', options) as Promise<
-      GroupSchema<C>[]
-    >;
+  all(options?: PaginatedRequestOptions) {
+    return RequestHelper.get<C, GroupSchema<C>[]>(this, 'groups', options);
   }
 
-  create(name: string, path: string, options?: BaseRequestOptions & ShowExpanded) {
+  create(name: string, path: string, options?: BaseRequestOptions) {
     return RequestHelper.post<C>(this, 'groups', { name, path, ...options });
   }
 
@@ -55,20 +53,16 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  edit(groupId: string | number, options?: BaseRequestOptions & ShowExpanded) {
+  edit(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.put<C>(this, `groups/${gId}`, options);
   }
 
-  projects(groupId: string | number, options?: BaseRequestOptions): Promise<ProjectSchema<C>[]> {
+  projects(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, ProjectSchema<C>>(
-      this,
-      `groups/${gId}/projects`,
-      options,
-    ) as Promise<ProjectSchema<C>[]>;
+    return RequestHelper.get<C, ProjectSchema<C>[]>(this, `groups/${gId}/projects`, options);
   }
 
   remove(groupId: string | number, options?: Sudo & ShowExpanded) {
@@ -95,12 +89,10 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  show(groupId: string | number, options?: BaseRequestOptions): Promise<GroupDetailSchema<C>> {
+  show(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, GroupDetailSchema<C>>(this, `groups/${gId}`, options) as Promise<
-      GroupDetailSchema<C>
-    >;
+    return RequestHelper.get<C, GroupDetailSchema<C>>(this, `groups/${gId}`, options);
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {

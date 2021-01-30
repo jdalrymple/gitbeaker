@@ -9,7 +9,7 @@ import {
 import { DeploymentSchema, Deployable } from './Deployments';
 import { ProjectSchema } from './Projects';
 
-export interface EnvironmentSchemaDefault<C> {
+export interface EnvironmentSchemaDefault<C> extends Record<string, unknown> {
   id: number;
   name: string;
   slug?: string;
@@ -33,26 +33,23 @@ export type EnvironmentDetailSchema<C extends boolean> = C extends true
   : EnvironmentDetailSchemaDefault<C>;
 
 export class Environments<C extends boolean = false> extends BaseService<C> {
-  all(
-    projectId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<EnvironmentSchema<C>[]> {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/environments`, options) as Promise<
-      EnvironmentSchema<C>[]
-    >;
+    return RequestHelper.get<C, EnvironmentSchema<C>[]>(
+      this,
+      `projects/${pId}/environments`,
+      options,
+    );
   }
 
-  show(
-    projectId: string | number,
-    environmentId: number,
-    options?: Sudo,
-  ): Promise<EnvironmentDetailSchema<C>> {
+  show(projectId: string | number, environmentId: number, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
-    return RequestHelper.get<C>(this, `projects/${pId}/environments/${eId}`, options) as Promise<
-      EnvironmentDetailSchema<C>
-    >;
+    return RequestHelper.get<C, EnvironmentDetailSchema<C>>(
+      this,
+      `projects/${pId}/environments/${eId}`,
+      options,
+    );
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
