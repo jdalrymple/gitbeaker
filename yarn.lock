@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^10.3.0":
-  version "10.13.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.13.3.tgz#9b30defaa82916412ca6f31643de69c2b1071c03"
-  integrity sha512-Kkk4/UgjUlLbIbw9l7EKY4ZzxOi8Yq6rTodHOd/cO570kS0qmVCgmtEHmbNLq0A05Q50w89AcZMOkVdUj4xH6A==
+  version "10.13.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.13.4.tgz#1db466e8c5698e739bc3cb76e6c71dfbd51575fc"
+  integrity sha512-QUZ/4Sf1rumEf4Oa6j65LgjW48IrqAbkDmOtA1c5/Iaxni8vYeYJ3x29Mse7z7kba0hrjgKWAEKidvN93Cn33Q==
   dependencies:
-    "@auto-it/bot-list" "10.13.3"
-    "@auto-it/core" "10.13.3"
+    "@auto-it/bot-list" "10.13.4"
+    "@auto-it/core" "10.13.4"
     "@octokit/rest" "^18.0.0"
     all-contributors-cli "6.19.0"
     anymatch "^3.1.1"
@@ -72,7 +72,7 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@^10.3.0":
+"@auto-it/core@10.13.4", "@auto-it/core@^10.3.0":
   version "10.13.4"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.13.4.tgz#26715dbf8c25e9cf04396e83c5c573b5f1aca01b"
   integrity sha512-uUNy1J2QCbyqFz7q+fx6nqEHQHorJzbp4R9jGjECR4Yj/3JejA64sl/Fg8oAm1/PxvFDeIWKuwwF2PztYkFu4A==
