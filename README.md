@@ -148,6 +148,14 @@ Available instantiating options:
 | `profileToken`       | Yes      | N/A                                                                                                                                                                 | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 | `profileMode`        | Yes      | `execution`                                                                                                                                                         | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
+Notes on `nativeAuth`:
+
+it allows you to pass in the credentials from the browser (assuming the user is authenticated) and use them to authenticate to the API.
+
+The default values for `gitlabSessionCookieKey` and `gitlabCSRFTokenKey` are provided, but you can override them if upstream updates them.
+
+The other two, `gitlabSessionCookieValue` and `gitlabCSRFTokenValue`, are required (if authenticating via "native auth"). The `gitlabCSRFTokenValue` is available in the webpage's DOM (see an example of how [refined-gitlab retrieves it](https://github.com/kiprasmel/refined-gitlab/blob/f771c78d747e9c91c13e2b0f6f69d49db4fef623/source/utils/getCSRFData.ts#L3)). The `gitlabSessionCookieValue`, however, is not easy to get - it's a [`httpOnly` cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies) and it's access is restricted (i.e. you cannot get it via javascript). The only way we were able to achieve it is via a browser extension with the [`cookies` permission](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/cookies). See how [refined-gitlab implemented](https://github.com/kiprasmel/refined-gitlab/blob/f771c78d747e9c91c13e2b0f6f69d49db4fef623/source/scripts-background/gitlab-session-cookie-sync.ts#L66-L70) it.
+
 ### CLI Support
 
 The CLI export functions in a similar manner, following the pattern:
