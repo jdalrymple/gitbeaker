@@ -72,7 +72,7 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@^10.3.0":
+"@auto-it/core@10.16.0", "@auto-it/core@^10.3.0":
   version "10.16.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.16.0.tgz#254386a3ed4965748153adc7e3830b6e039f6829"
   integrity sha512-Wgn99jtBeUU2V0pT5Ykdf2hjL363ksKgZ5AdcROMN9la4RF4IHytbINn/5qVdaToO6KLTLkCU6n2lqfaxP+EwQ==
@@ -115,12 +115,12 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^10.3.0":
-  version "10.15.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.15.0.tgz#3b88a44334b992ffe701c45bb611eae52dd6aed4"
-  integrity sha512-Lh6kePqU3MWGoEa3w9Qniq1aD8lgq9k4cQCLh0oSfCAMSlCGNSBWWIKJf+luCK5ZqJ8ftXrDbbujV1NMZiZdeg==
+  version "10.16.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.16.0.tgz#e61fdd1910949f916837691ec6284d6dd8c022a2"
+  integrity sha512-/tYpYfmcIbWKKaftK78ECBzPnS6kpwU2z1JnoF33U97QD8b+XqTRmN7ZfES/i7s7aDHHVEvuScVBF6pk/VaeUA==
   dependencies:
-    "@auto-it/bot-list" "10.15.0"
-    "@auto-it/core" "10.15.0"
+    "@auto-it/bot-list" "10.16.0"
+    "@auto-it/core" "10.16.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.0.3"
