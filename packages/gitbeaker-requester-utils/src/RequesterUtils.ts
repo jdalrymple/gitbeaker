@@ -62,7 +62,18 @@ export function defaultOptionsHandler(
     bod = JSON.stringify(decamelizeKeys({ ...body, ...additionalBody }));
     headers['content-type'] = 'application/json';
   } else {
-    /** TODO - what do I do here with the additionalBody? */
+    /**
+     * TODO - what do I do here with the additionalBody?
+     *
+     * Update: attempting to parse `body` like so:
+     *
+     * ```ts
+     * bod = { ...body, ...additionalBody } as FormData;
+     * ```
+     *
+     * did not work and broke everything. Modify cautiously.
+     *
+     */
     bod = body as FormData;
   }
 
