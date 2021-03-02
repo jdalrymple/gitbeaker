@@ -4,12 +4,11 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
-  Camelize,
 } from '../infrastructure';
 
 import { EventOptions } from './Events';
 
-export interface UserSchemaDefault {
+export interface UserSchema extends Record<string, unknown> {
   id: number;
   name: string;
   username: string;
@@ -18,51 +17,49 @@ export interface UserSchemaDefault {
   web_url: string;
 }
 
-export type UserSchema<C> = C extends true ? Camelize<UserSchemaDefault> : UserSchemaDefault;
-
 export class Users<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C>(this, 'users', options);
+    return RequestHelper.get<UserSchema[]>()(this, 'users', options);
   }
 
   activities(options?: Sudo) {
-    return RequestHelper.get<C>(this, 'users/activities', options);
+    return RequestHelper.get()(this, 'users/activities', options);
   }
 
   projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get<C>(this, `users/${uId}/projects`, options);
+    return RequestHelper.get()(this, `users/${uId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post<C>(this, `users/${uId}/block`, options);
+    return RequestHelper.post()(this, `users/${uId}/block`, options);
   }
 
   create(options?: BaseRequestOptions) {
-    return RequestHelper.post<C>(this, 'users', options);
+    return RequestHelper.post<UserSchema>()(this, 'users', options);
   }
 
   current(options?: Sudo) {
-    return RequestHelper.get<C>(this, 'user', options);
+    return RequestHelper.get<UserSchema>()(this, 'user', options);
   }
 
   edit(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.put<C>(this, `users/${uId}`, options);
+    return RequestHelper.put<UserSchema>()(this, `users/${uId}`, options);
   }
 
   events(userId: number, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get<C>(this, `users/${uId}/events`, options);
+    return RequestHelper.get()(this, `users/${uId}/events`, options);
   }
 
   search(emailOrUsername: string, options?: Sudo) {
-    return RequestHelper.get<C>(this, 'users', {
+    return RequestHelper.get<UserSchema>()(this, 'users', {
       search: emailOrUsername,
       ...options,
     });
@@ -71,18 +68,18 @@ export class Users<C extends boolean = false> extends BaseService<C> {
   show(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get<C>(this, `users/${uId}`, options);
+    return RequestHelper.get<UserSchema>()(this, `users/${uId}`, options);
   }
 
   remove(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.del<C>(this, `users/${uId}`, options);
+    return RequestHelper.del()(this, `users/${uId}`, options);
   }
 
   unblock(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post<C>(this, `users/${uId}/unblock`, options);
+    return RequestHelper.post()(this, `users/${uId}/unblock`, options);
   }
 }

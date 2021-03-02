@@ -3,7 +3,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastruc
 import { ResourceLabels } from '../templates';
 
 export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions);
+  all(groupId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
 
   create(groupId: string | number, labelName: string, color: string, options?: BaseRequestOptions);
 

@@ -19,6 +19,6 @@ export class Search<C extends boolean = false> extends BaseService<C> {
       url += `groups/${encodeURIComponent(groupId)}/`;
     }
 
-    return RequestHelper.get<C>(this, `${url}search`, { scope, search, ...options });
+    return RequestHelper.get()(this, `${url}search`, { scope, search, ...options });
   }
 }

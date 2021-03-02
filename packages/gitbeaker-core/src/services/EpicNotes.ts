@@ -3,7 +3,11 @@ import { ResourceNotes } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
-  all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
+  all(
+    groupId: string | number,
+    epicId: string | number,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  );
 
   create(
     groupId: string | number,

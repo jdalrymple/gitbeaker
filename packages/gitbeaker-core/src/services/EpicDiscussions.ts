@@ -12,7 +12,11 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     options?: BaseRequestOptions,
   );
 
-  all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
+  all(
+    groupId: string | number,
+    epicId: string | number,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  );
 
   create(
     groupId: string | number,

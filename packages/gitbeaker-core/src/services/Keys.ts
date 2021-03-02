@@ -5,6 +5,6 @@ export class Keys<C extends boolean = false> extends BaseService<C> {
   show(keyId: string, options?: Sudo) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get<C>(this, `keys/${kId}`, options);
+    return RequestHelper.get()(this, `keys/${kId}`, options);
   }
 }

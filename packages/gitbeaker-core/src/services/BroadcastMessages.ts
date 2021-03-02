@@ -7,29 +7,29 @@ import {
 } from '../infrastructure';
 
 export class BroadcastMessages<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C>(this, 'broadcast_messages', options);
+  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+    return RequestHelper.get()(this, 'broadcast_messages', options);
   }
 
   create(options?: BaseRequestOptions) {
-    return RequestHelper.post<C>(this, 'broadcast_messages', options);
+    return RequestHelper.post()(this, 'broadcast_messages', options);
   }
 
   edit(broadcastMessageId: number, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.put<C>(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.put()(this, `broadcast_messages/${bId}`, options);
   }
 
   remove(broadcastMessageId: number, options?: Sudo) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.del<C>(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.del()(this, `broadcast_messages/${bId}`, options);
   }
 
   show(broadcastMessageId: number, options?: BaseRequestOptions) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.get<C>(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.get()(this, `broadcast_messages/${bId}`, options);
   }
 }

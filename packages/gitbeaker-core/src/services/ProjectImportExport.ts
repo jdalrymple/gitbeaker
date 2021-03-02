@@ -15,13 +15,13 @@ export class ProjectImportExport<C extends boolean = false> extends BaseService<
   download(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/export/download`, options);
+    return RequestHelper.get()(this, `projects/${pId}/export/download`, options);
   }
 
   exportStatus(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/export`, options);
+    return RequestHelper.get()(this, `projects/${pId}/export`, options);
   }
 
   import(
@@ -29,7 +29,7 @@ export class ProjectImportExport<C extends boolean = false> extends BaseService<
     path: string,
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {
-    return RequestHelper.post<C>(this, 'projects/import', {
+    return RequestHelper.post()(this, 'projects/import', {
       isForm: true,
       ...options,
       file: [content, { ...defaultMetadata, ...metadata }],
@@ -40,12 +40,12 @@ export class ProjectImportExport<C extends boolean = false> extends BaseService<
   importStatus(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/import`, options);
+    return RequestHelper.get()(this, `projects/${pId}/import`, options);
   }
 
   schedule(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/export`, options);
+    return RequestHelper.post()(this, `projects/${pId}/export`, options);
   }
 }

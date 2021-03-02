@@ -1,44 +1,40 @@
 import { parse as parseLink } from 'li';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
-import { appendFormFromObject } from './Utils';
+import { appendFormFromObject, Camelize } from './Utils';
 
-export type True = true;
-export type False = false;
-
-export interface PaginationInformation {
-  total: number;
-  next: number | null;
-  current: number;
-  previous: number | null;
-  perPage: number;
-  totalPages: number;
-}
-
-// Options
-export interface Sudo {
-  sudo?: string | number;
-}
-export interface IsForm {
+// Request Options
+export type IsForm = {
   isForm?: boolean;
-}
-export interface ShowExpanded {
-  showExpanded?: boolean;
-}
+};
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-export type BaseRequestOptions = Sudo & ShowExpanded & Record<string, any>;
+export type Sudo = {
+  sudo?: string | number;
+};
 
-export interface PaginatedRequestOptions extends BaseRequestOptions {
-  pagination?: 'keyset' | 'offset';
+export type ShowExpanded<T extends boolean = boolean> = {
+  showExpanded?: T;
+};
+
+export type BaseRequestOptions = Sudo & Record<string, unknown>;
+
+export type BasePaginationRequestOptions<
+  P extends 'keyset' | 'offset' = 'keyset' | 'offset'
+> = BaseRequestOptions & {
+  pagination?: P;
   perPage?: number;
-}
+};
 
-export interface OffsetPaginatedRequestOptions extends PaginatedRequestOptions {
-  pagination: 'offset';
+export type OffsetPaginationRequestOptions = {
   page?: number;
   maxPages?: number;
-}
+};
+
+export type PaginatedRequestOptions<
+  P extends 'keyset' | 'offset' = 'keyset' | 'offset'
+> = P extends 'keyset'
+  ? BasePaginationRequestOptions<P>
+  : BasePaginationRequestOptions<P> & OffsetPaginationRequestOptions;
 
 // Response Formats
 export interface ExpandedResponse<T = Record<string, unknown>> {
@@ -48,19 +44,52 @@ export interface ExpandedResponse<T = Record<string, unknown>> {
 }
 export interface PaginationResponse<T = Record<string, unknown>[]> {
   data: T;
-  paginationInfo: PaginationInformation;
+  paginationInfo: {
+    total: number;
+    next: number | null;
+    current: number;
+    previous: number | null;
+    perPage: number;
+    totalPages: number;
+  };
 }
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-async function getHelper<C extends boolean, T>(
-  service: BaseService<C>,
+export type CamelizedRecord<C, T> = C extends true ? Camelize<T> : T;
+
+export type ExtendedRecordReturn<
+  C extends boolean,
+  E extends boolean,
+  T extends Record<string, unknown>
+> = E extends false ? CamelizedRecord<C, T> : ExpandedResponse<CamelizedRecord<C, T>>;
+
+// TODO infer T and camelize
+export type ExtendedArrayReturn<
+  C extends boolean,
+  E extends boolean,
+  T extends Record<string, unknown>[],
+  P extends 'keyset' | 'offset'
+> = E extends false ? T : P extends 'keyset' ? T : PaginationResponse<T>;
+
+export type ExtendedReturn<
+  C extends boolean,
+  E extends boolean,
+  P extends 'keyset' | 'offset',
+  T extends Record<string, unknown> | Record<string, unknown>[]
+> = T extends Record<string, unknown>
+  ? ExtendedRecordReturn<C, E, T>
+  : T extends Record<string, unknown>[]
+  ? ExtendedArrayReturn<C, E, T, P>
+  : never;
+
+async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
+  service: BaseService<boolean>,
   endpoint: string,
   {
     sudo,
     showExpanded,
     maxPages,
     ...query
-  }: PaginatedRequestOptions | OffsetPaginatedRequestOptions = { showExpanded: false },
+  }: BasePaginationRequestOptions<P> & ShowExpanded<E> & { maxPages?: number } = {},
   acc: any[] = [],
 ): Promise<any> {
   const response = await service.requester.get(endpoint, { query, sudo });
@@ -72,18 +101,18 @@ async function getHelper<C extends boolean, T>(
 
   // Handle object responses
   if (!Array.isArray(body)) {
-    if (!showExpanded) return body as T;
+    if (!showExpanded) return body;
 
     return {
       data: body,
       headers,
       status,
-    } as ExpandedResponse<T>;
+    };
   }
 
   // Handle array responses
   const newAcc = [...acc, ...body];
-  const { next } = parseLink(headers.link);
+  const next: string = parseLink(headers.link);
   const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
 
   // Recurse through pagination results
@@ -95,8 +124,6 @@ async function getHelper<C extends boolean, T>(
       service,
       next.replace(regex, ''),
       {
-        showExpanded: false,
-        pagination: 'offset',
         maxPages,
         sudo,
       },
@@ -106,7 +133,7 @@ async function getHelper<C extends boolean, T>(
 
   if (!showExpanded || query.pagination === 'keyset') return newAcc;
 
-  return ({
+  return {
     data: newAcc,
     paginationInfo: {
       total: parseInt(headers['x-total'], 10),
@@ -116,133 +143,90 @@ async function getHelper<C extends boolean, T>(
       perPage: parseInt(headers['x-per-page'], 10),
       totalPages: parseInt(headers['x-total-pages'], 10),
     },
-  } as unknown) as PaginationResponse<T>;
+  };
 }
 
-// Expecting single object response
-export async function get<
-  C extends boolean,
-  T extends Record<string, unknown> = Record<string, unknown>
->(service: BaseService<C>, endpoint: string, options?: BaseRequestOptions): Promise<T>;
-export async function get<
-  C extends boolean,
-  T extends Record<string, unknown> = Record<string, unknown>
->(
-  service: BaseService<C>,
-  endpoint: string,
-  options: { showExpanded: true },
-): Promise<ExpandedResponse<T>>;
-
-// Expecting Array response
-export async function get<
-  C extends boolean,
-  T extends Record<string, unknown>[] = Record<string, unknown>[]
->(
-  service: BaseService<C>,
-  endpoint: string,
-  options: { showExpanded: true },
-): Promise<PaginationResponse<T>>;
-
-export async function get<
-  C extends boolean,
-  T extends Record<string, unknown>[] = Record<string, unknown>[]
->(service: BaseService<C>, endpoint: string, options?: { showExpanded?: false }): Promise<T>;
-
-export async function get<
-  C extends boolean,
-  T extends Record<string, unknown>[] = Record<string, unknown>[]
->(service: BaseService<C>, endpoint: string, options: { pagination: 'keyset' }): Promise<T>;
-
-/* eslint @typescript-eslint/no-explicit-any:0 */
-export async function get<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  options?: PaginatedRequestOptions | OffsetPaginatedRequestOptions,
-): Promise<any> {
-  return getHelper<C, T>(service, endpoint, options);
+export function get<
+  T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>
+>() {
+  return async function <
+    C extends boolean,
+    P extends 'keyset' | 'offset' = 'offset',
+    E extends boolean = false
+  >(
+    service: BaseService<C>,
+    endpoint: string,
+    options?: PaginatedRequestOptions<P> & ShowExpanded<E> & Record<string, any>,
+  ): Promise<ExtendedReturn<C, E, P, T>> {
+    return getHelper(service, endpoint, options);
+  };
 }
 
-async function post<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  options?: IsForm & BaseRequestOptions,
-): Promise<T>;
-async function post<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  options?: IsForm & BaseRequestOptions & { showExpanded: true },
-): Promise<ExpandedResponse<T>>;
+export function post<T extends Record<string, unknown> = Record<string, unknown>>() {
+  return async function <C extends boolean, E extends boolean = false>(
+    service: BaseService<C>,
+    endpoint: string,
+    { isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
+  ): Promise<ExtendedRecordReturn<C, E, T>> {
+    const body = isForm ? appendFormFromObject(options) : options;
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-async function post<C extends boolean>(
-  service: BaseService<C>,
-  endpoint: string,
-  { isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions = {},
-): Promise<any> {
-  const body = isForm ? appendFormFromObject(options) : options;
+    const r = await service.requester.post(endpoint, {
+      body,
+      sudo,
+    });
 
-  const r = await service.requester.post(endpoint, {
-    body,
-    sudo,
-  });
-
-  return showExpanded
-    ? {
-        data: r.body,
-        status: r.status,
-        headers: r.headers,
-      }
-    : r.body;
+    return showExpanded
+      ? {
+          data: r.body,
+          status: r.status,
+          headers: r.headers,
+        }
+      : r.body;
+  };
 }
 
-async function put<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  options?: BaseRequestOptions,
-): Promise<T>;
-async function put<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  { showExpanded }: BaseRequestOptions & { showExpanded: true },
-): Promise<ExpandedResponse<T>>;
+export function put<T extends Record<string, unknown> = Record<string, unknown>>() {
+  return async function <C extends boolean, E extends boolean = false>(
+    service: BaseService<C>,
+    endpoint: string,
+    { isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
+  ): Promise<ExtendedRecordReturn<C, E, T>> {
+    const body = isForm ? appendFormFromObject(options) : options;
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-async function put<C extends boolean>(
-  service: BaseService<C>,
-  endpoint: string,
-  { sudo, showExpanded, ...body }: BaseRequestOptions = {},
-): Promise<any> {
-  const r = await service.requester.put(endpoint, {
-    body,
-    sudo,
-  });
+    const r = await service.requester.put(endpoint, {
+      body,
+      sudo,
+    });
 
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+    return showExpanded
+      ? {
+          data: r.body,
+          status: r.status,
+          headers: r.headers,
+        }
+      : r.body;
+  };
 }
 
-async function del<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  options?: BaseRequestOptions,
-): Promise<T>;
-async function del<C extends boolean, T = Record<string, unknown>>(
-  service: BaseService<C>,
-  endpoint: string,
-  { showExpanded }: BaseRequestOptions & { showExpanded: true },
-): Promise<ExpandedResponse<T>>;
+export function del<T extends Record<string, unknown> = Record<string, unknown>>() {
+  return async function <C extends boolean, E extends boolean = false>(
+    service: BaseService<C>,
+    endpoint: string,
+    { sudo, showExpanded, ...query }: BaseRequestOptions & ShowExpanded<E> = {},
+  ): Promise<ExtendedRecordReturn<C, E, T>> {
+    const r = await service.requester.delete(endpoint, {
+      query,
+      sudo,
+    });
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-async function del<C extends boolean>(
-  service: BaseService<C>,
-  endpoint: string,
-  { sudo, showExpanded, ...query }: BaseRequestOptions = {},
-): Promise<any> {
-  const r = await service.requester.delete(endpoint, {
-    query,
-    sudo,
-  });
-
-  return showExpanded ? { data: r.body, status: r.status, headers: r.headers } : r.body;
+    return showExpanded
+      ? {
+          data: r.body,
+          status: r.status,
+          headers: r.headers,
+        }
+      : r.body;
+  };
 }
 
 function stream<C extends boolean>(

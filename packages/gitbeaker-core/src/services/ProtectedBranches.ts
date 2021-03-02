@@ -7,16 +7,16 @@ import {
 } from '../infrastructure';
 
 export class ProtectedBranches<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/protected_branches`, options);
+    return RequestHelper.get()(this, `projects/${pId}/protected_branches`, options);
   }
 
   protect(projectId: string | number, branchName: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/protected_branches`, {
+    return RequestHelper.post()(this, `projects/${pId}/protected_branches`, {
       name: branchName,
       ...options,
     });
@@ -25,12 +25,12 @@ export class ProtectedBranches<C extends boolean = false> extends BaseService<C>
   show(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/protected_branches/${bName}`, options);
+    return RequestHelper.get()(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 
   unprotect(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/protected_branches/${bName}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 }

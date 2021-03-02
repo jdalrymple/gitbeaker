@@ -3,20 +3,20 @@ import { RequestHelper, Sudo } from '../infrastructure';
 
 export class License<C extends boolean = false> extends BaseService<C> {
   add(license: string, options?: Sudo) {
-    return RequestHelper.post<C>(this, 'license', { license, ...options });
+    return RequestHelper.post()(this, 'license', { license, ...options });
   }
 
   all(options?: Sudo) {
-    return RequestHelper.get<C>(this, 'licenses', options);
+    return RequestHelper.get()(this, 'licenses', options);
   }
 
   show(options?: Sudo) {
-    return RequestHelper.get<C>(this, 'license', options);
+    return RequestHelper.get()(this, 'license', options);
   }
 
   remove(licenceId: number, options?: Sudo) {
     const lId = encodeURIComponent(licenceId);
 
-    return RequestHelper.del<C>(this, `license/${lId}`, options);
+    return RequestHelper.del()(this, `license/${lId}`, options);
   }
 }

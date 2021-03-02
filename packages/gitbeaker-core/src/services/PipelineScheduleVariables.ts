@@ -2,10 +2,14 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
 export class PipelineScheduleVariables<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
+  all(
+    projectId: string | number,
+    pipelineScheduleId: number,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  ) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables`,
       options,
@@ -15,7 +19,7 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseSe
   create(projectId: string | number, pipelineScheduleId: number, options?: BaseRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(
+    return RequestHelper.post()(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables`,
       options,
@@ -30,7 +34,7 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseSe
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put<C>(
+    return RequestHelper.put()(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,
@@ -45,7 +49,7 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseSe
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,
@@ -60,7 +64,7 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseSe
   ) {
     const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(
+    return RequestHelper.del()(
       this,
       `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
       options,

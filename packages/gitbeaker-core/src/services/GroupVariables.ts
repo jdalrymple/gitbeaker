@@ -6,7 +6,7 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
   all(
     groupId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema<C>[]>;
+  ): Promise<ResourceVariableSchema[]>;
 
   create(groupId: string | number, options?: BaseRequestOptions);
 
@@ -16,7 +16,7 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
     groupId: string | number,
     keyId: string,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema<C>>;
+  ): Promise<ResourceVariableSchema>;
 
   remove(groupId: string | number, keyId: string, options?: PaginatedRequestOptions);
 }

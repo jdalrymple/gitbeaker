@@ -13,7 +13,11 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     options?: BaseRequestOptions,
   );
 
-  all(projectId: string | number, snippetId: string | number, options?: PaginatedRequestOptions);
+  all(
+    projectId: string | number,
+    snippetId: string | number,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  );
 
   create(
     projectId: string | number,

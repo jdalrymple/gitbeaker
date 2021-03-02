@@ -2,16 +2,20 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string | number, tagName: string, options?: PaginatedRequestOptions) {
+  all(
+    projectId: string | number,
+    tagName: string,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  ) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/releases/${tId}/assets/links`, options);
+    return RequestHelper.get()(this, `projects/${pId}/releases/${tId}/assets/links`, options);
   }
 
   create(projectId: string | number, tagName: string, name: string, url: string, options?: Sudo) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/releases/${tId}/assets/links`, {
+    return RequestHelper.post()(this, `projects/${pId}/releases/${tId}/assets/links`, {
       name,
       url,
       ...options,
@@ -26,7 +30,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
-    return RequestHelper.put<C>(
+    return RequestHelper.put()(
       this,
       `projects/${pId}/releases/${tId}/assets/links/${lId}`,
       options,
@@ -36,7 +40,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
   remove(projectId: string | number, tagName: string, linkId: number, options?: Sudo) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(
+    return RequestHelper.del()(
       this,
       `projects/${pId}/releases/${tId}/assets/links/${lId}`,
       options,
@@ -46,7 +50,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, tagName: string, linkId: number, options?: Sudo) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/releases/${tId}/assets/links/${lId}`,
       options,

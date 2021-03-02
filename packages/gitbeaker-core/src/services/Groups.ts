@@ -2,14 +2,13 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
+  ShowExpanded,
   RequestHelper,
   Sudo,
-  Camelize,
-  ShowExpanded,
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
-export interface GroupSchemaDefault extends Record<string, unknown> {
+export interface GroupSchema extends Record<string, unknown> {
   id: number;
   name: string;
   path: string;
@@ -21,19 +20,17 @@ export interface GroupSchemaDefault extends Record<string, unknown> {
   web_url: string;
 }
 
-export type GroupSchema<C> = C extends true ? Camelize<GroupSchemaDefault> : GroupSchemaDefault;
-
-export type GroupDetailSchema<C> = GroupSchema<C> & {
-  projects: ProjectSchema<C>[];
+export type GroupDetailSchema = GroupSchema & {
+  projects: ProjectSchema[];
 };
 
 export class Groups<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C, GroupSchema<C>[]>(this, 'groups', options);
+    return RequestHelper.get<GroupSchema[]>()(this, 'groups', options);
   }
 
   create(name: string, path: string, options?: BaseRequestOptions) {
-    return RequestHelper.post<C>(this, 'groups', { name, path, ...options });
+    return RequestHelper.post<GroupSchema>()(this, 'groups', { name, path, ...options });
   }
 
   createLDAPLink(
@@ -45,7 +42,7 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
   ) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.post<C>(this, `groups/${gId}/ldap_group_links`, {
+    return RequestHelper.post()(this, `groups/${gId}/ldap_group_links`, {
       cn,
       groupAccess,
       provider,
@@ -56,19 +53,19 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
   edit(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.put<C>(this, `groups/${gId}`, options);
+    return RequestHelper.put()(this, `groups/${gId}`, options);
   }
 
   projects(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, ProjectSchema<C>[]>(this, `groups/${gId}/projects`, options);
+    return RequestHelper.get<ProjectSchema[]>()(this, `groups/${gId}/projects`, options);
   }
 
   remove(groupId: string | number, options?: Sudo & ShowExpanded) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.del<C>(this, `groups/${gId}`, options);
+    return RequestHelper.del()(this, `groups/${gId}`, options);
   }
 
   removeLDAPLink(
@@ -79,11 +76,11 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
     const gId = encodeURIComponent(groupId);
     const url = provider ? `${provider}/${cn}` : `${cn}`;
 
-    return RequestHelper.del<C>(this, `groups/${gId}/ldap_group_links/${url}`, options);
+    return RequestHelper.del()(this, `groups/${gId}/ldap_group_links/${url}`, options);
   }
 
   search(nameOrPath: string, options?: Sudo) {
-    return RequestHelper.get<C>(this, 'groups', {
+    return RequestHelper.get()(this, 'groups', {
       search: nameOrPath,
       ...options,
     });
@@ -92,18 +89,18 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
   show(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, GroupDetailSchema<C>>(this, `groups/${gId}`, options);
+    return RequestHelper.get<GroupDetailSchema>()(this, `groups/${gId}`, options);
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C>(this, `groups/${gId}/subgroups`, options);
+    return RequestHelper.get()(this, `groups/${gId}/subgroups`, options);
   }
 
   syncLDAP(groupId: string | number, options?: Sudo & ShowExpanded) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.post<C>(this, `groups/${gId}/ldap_sync`, options);
+    return RequestHelper.post()(this, `groups/${gId}/ldap_sync`, options);
   }
 }

@@ -10,19 +10,19 @@ export class Triggers<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.post()(this, `projects/${pId}/triggers`, options);
   }
 
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.get()(this, `projects/${pId}/triggers`, options);
   }
 
   edit(projectId: string | number, triggerId: number, options?: BaseRequestOptions) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.put<C>(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.put()(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   pipeline(
@@ -40,7 +40,7 @@ export class Triggers<C extends boolean = false> extends BaseService<C> {
       });
     }
 
-    return RequestHelper.post<C>(this, `projects/${pId}/trigger/pipeline`, {
+    return RequestHelper.post()(this, `projects/${pId}/trigger/pipeline`, {
       isForm: true,
       ref,
       token,
@@ -51,12 +51,12 @@ export class Triggers<C extends boolean = false> extends BaseService<C> {
   remove(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   show(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.get()(this, `projects/${pId}/triggers/${tId}`, options);
   }
 }

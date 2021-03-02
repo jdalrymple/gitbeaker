@@ -15,13 +15,13 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/freeze_periods`, options);
+    return RequestHelper.get()(this, `projects/${pId}/freeze_periods`, options);
   }
 
   show(projectId: string | number, freezePeriodId: number, options?: BaseRequestOptions) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.get()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 
   create(
@@ -32,7 +32,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/freeze_periods`, {
+    return RequestHelper.post()(this, `projects/${pId}/freeze_periods`, {
       freezeStart,
       freezeEnd,
       ...options,
@@ -46,12 +46,12 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.put<C>(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.put()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 
   delete(projectId: number | string, freezePeriodId: number, options?: BaseRequestOptions) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 }

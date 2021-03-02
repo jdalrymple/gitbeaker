@@ -6,11 +6,11 @@ const url = (userId) =>
 
 export class UserGPGKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
-    return RequestHelper.get<C>(this, url(userId), options);
+    return RequestHelper.get()(this, url(userId), options);
   }
 
   add(key: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
-    return RequestHelper.post<C>(this, url(userId), {
+    return RequestHelper.post()(this, url(userId), {
       key,
       ...options,
     });
@@ -19,12 +19,12 @@ export class UserGPGKeys<C extends boolean = false> extends BaseService<C> {
   show(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get<C>(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.get()(this, `${url(userId)}/${kId}`, options);
   }
 
   remove(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.del<C>(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options);
   }
 }

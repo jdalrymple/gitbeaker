@@ -6,8 +6,8 @@ interface CreateTodoOptions extends Sudo {
 }
 
 export class Todos<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C>(this, 'todos', options);
+  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+    return RequestHelper.get()(this, 'todos', options);
   }
 
   create(
@@ -16,13 +16,9 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
     { resourceName, ...options }: CreateTodoOptions = {},
   ) {
     if (resourceName === 'issue') {
-      return RequestHelper.post<C>(
-        this,
-        `projects/${projectId}/issues/${resourceId}/todo`,
-        options,
-      );
+      return RequestHelper.post()(this, `projects/${projectId}/issues/${resourceId}/todo`, options);
     }
-    return RequestHelper.post<C>(
+    return RequestHelper.post()(
       this,
       `projects/${projectId}/merge_requests/${resourceId}/todo`,
       options,
@@ -34,6 +30,6 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
 
     if (todoId) url = `${todoId}/${url}`;
 
-    return RequestHelper.post<C>(this, `todos/${url}`, options);
+    return RequestHelper.post()(this, `todos/${url}`, options);
   }
 }

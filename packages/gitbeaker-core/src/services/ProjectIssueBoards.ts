@@ -2,8 +2,8 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions);
+export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards() {
+  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
 
   create(projectId: string | number, name: string, options?: Sudo);
 
@@ -30,7 +30,7 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
   showList(projectId: string | number, boardId: number, listId: number, options?: Sudo);
 }
 
-export class ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
+export class ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards() {
   constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', options);
   }

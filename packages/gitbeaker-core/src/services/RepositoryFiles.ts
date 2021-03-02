@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseRequestOptions, Sudo, Camelize } from '../infrastructure';
+import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface RepositoryFileSchemaDefault {
+export interface RepositoryFileSchema extends Record<string, unknown> {
   file_name: string;
   file_path: string;
   size: number;
@@ -14,10 +14,6 @@ export interface RepositoryFileSchemaDefault {
   last_commit_id: string;
 }
 
-export type RepositoryFileSchema<C = true> = C extends true
-  ? RepositoryFileSchemaDefault
-  : Camelize<RepositoryFileSchemaDefault>;
-
 export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   create(
     projectId: string | number,
@@ -29,7 +25,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.post()(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       content,
       commitMessage,
@@ -47,7 +43,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.put<C>(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.put()(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       content,
       commitMessage,
@@ -64,7 +60,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.del()(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       commitMessage,
       ...options,
@@ -74,22 +70,26 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/repository/files/${path}`, {
-      ref,
-      ...options,
-    }) as Promise<RepositoryFileSchema<C>>;
+    return RequestHelper.get<RepositoryFileSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        ref,
+        ...options,
+      },
+    );
   }
 
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/repository/files/${path}/blame`, options);
+    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/blame`, options);
   }
 
   showRaw(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/repository/files/${path}/raw`, {
+    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
       ref,
       ...options,
     });

@@ -3,7 +3,7 @@ import { ResourceAwardEmojis } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectSnippetAwardEmojis<C extends boolean = false>
-  extends ResourceAwardEmojis<C> {
+  extends ResourceAwardEmojis() {
   all(
     projectId: string | number,
     issueId: string | number,
@@ -36,7 +36,7 @@ export interface ProjectSnippetAwardEmojis<C extends boolean = false>
   );
 }
 
-export class ProjectSnippetAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
+export class ProjectSnippetAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis() {
   constructor(options: BaseServiceOptions<C> = {}) {
     super('issues', options);
   }

@@ -18,7 +18,7 @@ export interface EventOptions {
 }
 
 export class Events<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions & EventOptions) {
-    return RequestHelper.get<C>(this, 'events', options);
+  all(options?: PaginatedRequestOptions<'keyset' | 'offset'> & EventOptions) {
+    return RequestHelper.get()(this, 'events', options);
   }
 }

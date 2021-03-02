@@ -5,7 +5,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastruc
 export interface GroupBadges<C extends boolean = false> extends ResourceBadges<C> {
   add(groupId: string | number, options?: BaseRequestOptions);
 
-  all(groupId: string | number, options?: PaginatedRequestOptions);
+  all(groupId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
 
   edit(groupId: string | number, badgeId: number, options?: BaseRequestOptions);
 

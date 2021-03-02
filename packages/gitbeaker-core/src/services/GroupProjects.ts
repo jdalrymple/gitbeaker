@@ -1,17 +1,26 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  ShowExpanded,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
 export class GroupProjects<C extends boolean = false> extends BaseService<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions) {
+  all(groupId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<C, ProjectSchema<C>[]>(this, `groups/${gId}/projects`, options);
+    return RequestHelper.get<ProjectSchema[]>()(this, `groups/${gId}/projects`, options);
   }
 
-  add(groupId: string | number, projectId: string | number, options?: BaseRequestOptions) {
+  add(
+    groupId: string | number,
+    projectId: string | number,
+    options?: BaseRequestOptions & ShowExpanded,
+  ) {
     const [gId, pId] = [groupId, projectId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `groups/${gId}/projects/${pId}`, options);
+    return RequestHelper.post()(this, `groups/${gId}/projects/${pId}`, options);
   }
 }

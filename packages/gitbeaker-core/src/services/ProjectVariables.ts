@@ -5,8 +5,8 @@ import { PaginatedRequestOptions, BaseRequestOptions } from '../infrastructure';
 export interface ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
   all(
     projectId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema<C>[]>;
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  ): Promise<ResourceVariableSchema[]>;
 
   create(projectId: string | number, options?: BaseRequestOptions);
 
@@ -15,8 +15,8 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
   show(
     projectId: string | number,
     keyId: string,
-    options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema<C>>;
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  ): Promise<ResourceVariableSchema>;
 
   remove(projectId: string | number, keyId: string, options?: PaginatedRequestOptions);
 }

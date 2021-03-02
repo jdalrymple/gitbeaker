@@ -3,6 +3,6 @@ import { RequestHelper, Sudo } from '../infrastructure';
 
 export class Markdown<C extends boolean = false> extends BaseService<C> {
   render(text: string, options?: { gfm?: string; project?: string | number } & Sudo) {
-    return RequestHelper.post<C>(this, 'markdown', { text, ...options });
+    return RequestHelper.post()(this, 'markdown', { text, ...options });
   }
 }

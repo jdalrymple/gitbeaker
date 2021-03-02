@@ -4,12 +4,11 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
-  Camelize,
 } from '../infrastructure';
 import { EventOptions } from './Events';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 
-export interface NamespaceInfoSchemaDefault extends Record<string, unknown> {
+export interface NamespaceInfoSchema extends Record<string, unknown> {
   id: number;
   name: string;
   path: string;
@@ -17,35 +16,27 @@ export interface NamespaceInfoSchemaDefault extends Record<string, unknown> {
   full_path: string;
 }
 
-export type NamespaceInfoSchema<C> = C extends true
-  ? Camelize<NamespaceInfoSchemaDefault>
-  : NamespaceInfoSchemaDefault;
-
-export interface ProjectSchemaDefault<C> extends Record<string, unknown> {
+export interface ProjectSchema extends Record<string, unknown> {
   id: number;
   name: string;
   name_with_namespace: string;
   path: string;
   path_with_namespace: string;
-  namespace: NamespaceInfoSchema<C>;
+  namespace: NamespaceInfoSchema;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   archived: boolean;
 }
 
-export type ProjectSchema<C> = C extends true
-  ? Camelize<ProjectSchemaDefault<C>>
-  : ProjectSchemaDefault<C>;
-
 export class Projects<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<C, ProjectSchema<C>[]>(this, 'projects', options);
+    return RequestHelper.get<ProjectSchema[]>()(this, 'projects', options);
   }
 
   archive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/archive`, options);
+    return RequestHelper.post()(this, `projects/${pId}/archive`, options);
   }
 
   create({
@@ -54,19 +45,19 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
 
-    return RequestHelper.post<C>(this, url, options);
+    return RequestHelper.post()(this, url, options);
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put<C>(this, `projects/${pId}`, options);
+    return RequestHelper.put()(this, `projects/${pId}`, options);
   }
 
   events(projectId: string | number, options?: BaseRequestOptions & EventOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/events`, options);
+    return RequestHelper.get()(this, `projects/${pId}/events`, options);
   }
 
   fork(
@@ -78,41 +69,41 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
 
     if (forkedFromId) url += `/${encodeURIComponent(forkedFromId)}`;
 
-    return RequestHelper.post<C>(this, url, options);
+    return RequestHelper.post()(this, url, options);
   }
 
   forks(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/forks`, options);
+    return RequestHelper.get()(this, `projects/${pId}/forks`, options);
   }
 
   languages(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/languages`, options);
+    return RequestHelper.get()(this, `projects/${pId}/languages`, options);
   }
 
   mirrorPull(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/mirror/pull`, options);
+    return RequestHelper.post()(this, `projects/${pId}/mirror/pull`, options);
   }
 
   remove(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del<C>(this, `projects/${pId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}`, options);
   }
 
   removeFork(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/fork`, options);
+    return RequestHelper.del()(this, `projects/${pId}/fork`, options);
   }
 
   search(projectName: string, options?: BaseRequestOptions) {
-    return RequestHelper.get<C, ProjectSchema<C>[]>(this, 'projects', {
+    return RequestHelper.get<ProjectSchema[]>()(this, 'projects', {
       search: projectName,
       ...options,
     });
@@ -126,7 +117,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/share`, {
+    return RequestHelper.post()(this, `projects/${pId}/share`, {
       groupId,
       groupAccess,
       ...options,
@@ -136,52 +127,52 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C, ProjectSchema<C>>(this, `projects/${pId}`, options);
+    return RequestHelper.get<ProjectSchema>()(this, `projects/${pId}`, options);
   }
 
   star(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/star`, options);
+    return RequestHelper.post()(this, `projects/${pId}/star`, options);
   }
 
   statuses(projectId: string | number, sha: string, state: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
+    return RequestHelper.post()(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
   }
 
   transfer(projectId: string | number, namespaceId: string | number) {
     const pId = encodeURIComponent(projectId);
-    return RequestHelper.put<C>(this, `projects/${pId}/transfer`, { namespace: namespaceId });
+    return RequestHelper.put()(this, `projects/${pId}/transfer`, { namespace: namespaceId });
   }
 
   unarchive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/unarchive`, options);
+    return RequestHelper.post()(this, `projects/${pId}/unarchive`, options);
   }
 
   unshare(projectId: string | number, groupId: string | number, options?: Sudo) {
     const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/share/${gId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/share/${gId}`, options);
   }
 
   unstar(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/unstar`, options);
+    return RequestHelper.post()(this, `projects/${pId}/unstar`, options);
   }
 
   upload(
     projectId: string | number,
-    content,
+    content: string,
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/uploads`, {
+    return RequestHelper.post()(this, `projects/${pId}/uploads`, {
       isForm: true,
       file: [content, { ...defaultMetadata, ...metadata }],
       ...options,

@@ -21,18 +21,14 @@ export type JobScope =
   | 'skipped'
   | 'manual';
 
-export interface ArtifactSchemaDefault {
+export interface ArtifactSchema extends Record<string, unknown> {
   file_type: string;
   size: number;
   filename: string;
   file_format?: string;
 }
 
-export type ArtifactSchema<C> = C extends true
-  ? Camelize<ArtifactSchemaDefault>
-  : ArtifactSchemaDefault;
-
-export interface JobSchemaDefault<C> {
+export interface JobSchema extends Record<string, unknown> {
   id: number;
   status: string;
   stage: string;
@@ -45,28 +41,26 @@ export interface JobSchemaDefault<C> {
   started_at?: Date;
   finished_at?: Date;
   duration?: number;
-  user: UserSchema<C>;
-  commit: CommitSchema<C>;
-  pipeline: PipelineSchema<C>;
+  user: UserSchema;
+  commit: CommitSchema;
+  pipeline: PipelineSchema;
   web_url: string;
-  artifacts: ArtifactSchema<C>[];
-  runner: RunnerSchema<C>;
+  artifacts: ArtifactSchema[];
+  runner: RunnerSchema;
   artifacts_expire_at?: Date;
 }
-
-export type JobSchema<C> = C extends true ? Camelize<JobSchemaDefault<C>> : JobSchemaDefault<C>;
 
 export class Jobs<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/jobs`, options);
+    return RequestHelper.get<JobSchema[]>()(this, `projects/${pId}/jobs`, options);
   }
 
   cancel(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/cancel`, options);
+    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/cancel`, options);
   }
 
   downloadSingleArtifactFile(
@@ -78,13 +72,13 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     if (stream) {
-      return RequestHelper.stream<C>(
+      return RequestHelper.stream(
         this,
         `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
         options,
       );
     }
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
       options,
@@ -101,13 +95,13 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
 
     if (stream) {
-      return RequestHelper.stream<C>(
+      return RequestHelper.stream(
         this,
         `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
         options,
       );
     }
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
       options,
@@ -123,13 +117,13 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
 
     if (stream) {
-      return RequestHelper.stream<C>(
+      return RequestHelper.stream(
         this,
         `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
         options,
       );
     }
-    return RequestHelper.get<C>(
+    return RequestHelper.get()(
       this,
       `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
       options,
@@ -139,43 +133,43 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   downloadTraceFile(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/jobs/${jId}/trace`, options);
+    return RequestHelper.get()(this, `projects/${pId}/jobs/${jId}/trace`, options);
   }
 
   erase(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/erase`, options);
+    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/erase`, options);
   }
 
   eraseArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.del<C>(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
+    return RequestHelper.del()(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
   }
 
   keepArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/artifacts/keep`, options);
+    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/artifacts/keep`, options);
   }
 
   play(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/play`, options);
+    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/play`, options);
   }
 
   retry(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post<C>(this, `projects/${pId}/jobs/${jId}/retry`, options);
+    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/retry`, options);
   }
 
   show(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/jobs/${jId}`, options);
+    return RequestHelper.get()(this, `projects/${pId}/jobs/${jId}`, options);
   }
 
   showPipelineJobs(
@@ -185,6 +179,6 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get<C>(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
+    return RequestHelper.get()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
 }

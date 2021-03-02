@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
+type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
 
 export class IssuesStatistics<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
@@ -15,6 +15,6 @@ export class IssuesStatistics<C extends boolean = false> extends BaseService<C> 
       url = 'issues_statistics';
     }
 
-    return RequestHelper.get<C>(this, url, options);
+    return RequestHelper.get()(this, url, options);
   }
 }

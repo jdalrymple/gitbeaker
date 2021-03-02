@@ -12,13 +12,13 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
   all({ public: p, ...options }: { public?: boolean } & PaginatedRequestOptions = {}) {
     const url = p ? 'snippets/public' : 'snippets';
 
-    return RequestHelper.get<C>(this, url, options);
+    return RequestHelper.get()(this, url, options);
   }
 
   content(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get<C>(this, `snippets/${sId}/raw`, options);
+    return RequestHelper.get()(this, `snippets/${sId}/raw`, options);
   }
 
   create(
@@ -28,7 +28,7 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
     visibility: SnippetVisibility,
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post<C>(this, 'snippets', {
+    return RequestHelper.post()(this, 'snippets', {
       title,
       fileName,
       content,
@@ -40,24 +40,24 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
   edit(snippetId: number, options?: BaseRequestOptions) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.put<C>(this, `snippets/${sId}`, options);
+    return RequestHelper.put()(this, `snippets/${sId}`, options);
   }
 
   remove(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.del<C>(this, `snippets/${sId}`, options);
+    return RequestHelper.del()(this, `snippets/${sId}`, options);
   }
 
   show(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get<C>(this, `snippets/${sId}`, options);
+    return RequestHelper.get()(this, `snippets/${sId}`, options);
   }
 
   userAgentDetails(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get<C>(this, `snippets/${sId}/user_agent_detail`, options);
+    return RequestHelper.get()(this, `snippets/${sId}/user_agent_detail`, options);
   }
 }

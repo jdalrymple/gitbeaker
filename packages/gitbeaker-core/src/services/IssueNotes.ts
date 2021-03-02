@@ -3,7 +3,11 @@ import { ResourceNotes } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
-  all(projectId: string | number, issueId: string | number, options?: PaginatedRequestOptions);
+  all(
+    projectId: string | number,
+    issueId: string | number,
+    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
+  );
 
   create(
     projectId: string | number,
