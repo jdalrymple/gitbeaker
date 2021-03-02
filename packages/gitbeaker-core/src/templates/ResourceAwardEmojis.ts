@@ -31,7 +31,11 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<
     noteId: number,
     options?: PaginatedRequestOptions,
   ) {
-    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
+    return RequestHelper.get()(
+      this,
+      url(projectId, this.resourceType, resourceId, noteId),
+      options,
+    );
   }
 
   award(
@@ -41,7 +45,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<
     name: string,
     options?: Sudo,
   ) {
-    return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
+    return RequestHelper.post()(this, url(projectId, this.resourceType, resourceId, noteId), {
       name,
       ...options,
     });
@@ -54,7 +58,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<
     awardId: number,
     options?: Sudo,
   ) {
-    return RequestHelper.del(
+    return RequestHelper.del()(
       this,
       url(projectId, this.resourceType, resourceId, noteId, awardId),
       options,
@@ -68,7 +72,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<
     awardId: number,
     options?: Sudo,
   ) {
-    return RequestHelper.get(
+    return RequestHelper.get()(
       this,
       url(projectId, this.resourceType, resourceId, noteId, awardId),
       options,

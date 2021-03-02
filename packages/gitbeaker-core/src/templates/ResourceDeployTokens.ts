@@ -20,7 +20,7 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
+    return RequestHelper.post()(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
       name: tokenName,
       scopes: tokenScopes,
       ...options,
@@ -36,12 +36,12 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
       url = 'deploy_tokens';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get()(this, url, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
     const [rId, tId] = [resourceId, tokenId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/deploy_tokens/${tId}`, options);
+    return RequestHelper.del()(this, `${rId}/deploy_tokens/${tId}`, options);
   }
 }

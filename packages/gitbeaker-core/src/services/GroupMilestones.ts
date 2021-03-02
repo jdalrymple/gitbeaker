@@ -3,7 +3,7 @@ import { ResourceMilestones } from '../templates';
 import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
+  all(groupId: string | number, options?: PaginatedRequestOptions);
 
   create(groupId: string | number, title: string, options?: BaseRequestOptions);
 

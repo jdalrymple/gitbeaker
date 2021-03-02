@@ -27,7 +27,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
       encodeURIComponent,
     );
 
-    return RequestHelper.post(
+    return RequestHelper.post()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes`,
       { body: content, noteId: nId, ...options },
@@ -41,7 +41,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
+    return RequestHelper.get()(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
   }
 
   create(
@@ -52,7 +52,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, {
+    return RequestHelper.post()(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, {
       body: content,
       ...options,
     });
@@ -70,7 +70,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
       encodeURIComponent,
     );
 
-    return RequestHelper.put(
+    return RequestHelper.put()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
       {
@@ -91,7 +91,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
       encodeURIComponent,
     );
 
-    return RequestHelper.del(
+    return RequestHelper.del()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
       options,
@@ -106,7 +106,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);
 
-    return RequestHelper.get(
+    return RequestHelper.get()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`,
       options,

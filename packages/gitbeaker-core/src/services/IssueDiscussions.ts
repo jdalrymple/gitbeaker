@@ -12,11 +12,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
     options?: BaseRequestOptions,
   );
 
-  all(
-    projectId: string | number,
-    issueId: string | number,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  );
+  all(projectId: string | number, issueId: string | number, options?: PaginatedRequestOptions);
 
   create(
     projectId: string | number,

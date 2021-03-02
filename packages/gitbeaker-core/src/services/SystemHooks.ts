@@ -11,7 +11,7 @@ export class SystemHooks<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.post()(this, 'hooks', { url, ...options });
   }
 
-  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'hooks', options);
   }
 

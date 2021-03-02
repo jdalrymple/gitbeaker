@@ -24,7 +24,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/members`, {
+    return RequestHelper.post()(this, `${rId}/members`, {
       userId: uId,
       accessLevel,
       ...options,
@@ -40,7 +40,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
 
     if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url.join('/'), options);
+    return RequestHelper.get()(this, url.join('/'), options);
   }
 
   edit(
@@ -51,7 +51,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/members/${uId}`, {
+    return RequestHelper.put()(this, `${rId}/members/${uId}`, {
       accessLevel,
       ...options,
     });
@@ -69,12 +69,12 @@ export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
 
     url.push(uId);
 
-    return RequestHelper.get(this, url.join('/'), options);
+    return RequestHelper.get()(this, url.join('/'), options);
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/members/${uId}`, options);
+    return RequestHelper.del()(this, `${rId}/members/${uId}`, options);
   }
 }

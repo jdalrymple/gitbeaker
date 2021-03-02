@@ -7,11 +7,7 @@ import {
 } from '../infrastructure';
 
 export class EpicIssues<C extends boolean = false> extends BaseService<C> {
-  all(
-    groupId: string | number,
-    epicId: number,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  ) {
+  all(groupId: string | number, epicId: number, options?: PaginatedRequestOptions) {
     const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
 
     return RequestHelper.get()(this, `groups/${gId}/epics/${eId}/issues`, options);

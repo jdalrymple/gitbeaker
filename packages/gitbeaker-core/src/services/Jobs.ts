@@ -4,7 +4,6 @@ import {
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
-  Camelize,
 } from '../infrastructure';
 import { CommitSchema } from './Commits';
 import { RunnerSchema } from './Runners';

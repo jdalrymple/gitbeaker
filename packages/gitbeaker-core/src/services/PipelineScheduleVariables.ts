@@ -2,11 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
 export class PipelineScheduleVariables<C extends boolean = false> extends BaseService<C> {
-  all(
-    projectId: string | number,
-    pipelineScheduleId: number,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  ) {
+  all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
     const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
 
     return RequestHelper.get()(

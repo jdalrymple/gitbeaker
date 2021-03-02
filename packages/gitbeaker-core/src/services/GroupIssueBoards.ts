@@ -3,7 +3,7 @@ import { ResourceIssueBoards } from '../templates';
 import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
+  all(groupId: string | number, options?: PaginatedRequestOptions);
 
   create(groupId: string | number, name: string, options?: Sudo);
 

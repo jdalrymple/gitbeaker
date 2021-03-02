@@ -7,12 +7,12 @@ export class ResourceTemplates<C extends boolean = false> extends BaseService<C>
   }
 
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, '', options);
+    return RequestHelper.get()(this, '', options);
   }
 
   show(resourceId: string | number, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${rId}`, options);
+    return RequestHelper.get()(this, `${rId}`, options);
   }
 }

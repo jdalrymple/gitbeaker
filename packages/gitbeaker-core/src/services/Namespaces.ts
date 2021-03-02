@@ -2,7 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export class Namespaces<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'namespaces', options);
   }
 

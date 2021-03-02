@@ -2,7 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export class ContainerRegistry<C extends boolean = false> extends BaseService<C> {
-  repositories(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  repositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get<Record<string, unknown>[]>()(
@@ -12,11 +12,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseService<C>
     );
   }
 
-  tags(
-    projectId: string | number,
-    repositoryId: number,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  ) {
+  tags(projectId: string | number, repositoryId: number, options?: PaginatedRequestOptions) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
     return RequestHelper.get<Record<string, unknown>[]>()(

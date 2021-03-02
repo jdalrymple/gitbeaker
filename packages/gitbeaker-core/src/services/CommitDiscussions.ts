@@ -12,11 +12,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     options?: BaseRequestOptions,
   );
 
-  all(
-    projectId: string | number,
-    commitId: string | number,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  );
+  all(projectId: string | number, commitId: string | number, options?: PaginatedRequestOptions);
 
   create(
     projectId: string | number,

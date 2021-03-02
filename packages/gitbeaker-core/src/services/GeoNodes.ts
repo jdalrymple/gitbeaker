@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 
 export class GeoNodes<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'geo_nodes', options);
   }
 
@@ -45,7 +45,7 @@ export class GeoNodes<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.get()(this, `geo_nodes/${gId}/status`, options);
   }
 
-  statuses(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  statuses(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'geo_nodes/statuses', options);
   }
 }

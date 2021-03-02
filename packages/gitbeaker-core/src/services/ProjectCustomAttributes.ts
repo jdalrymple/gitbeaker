@@ -4,7 +4,7 @@ import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectCustomAttributes<C extends boolean = false>
   extends ResourceCustomAttributes() {
-  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
+  all(projectId: string | number, options?: PaginatedRequestOptions);
 
   set(projectId: string | number, customAttributeId: number, value: string, options?: Sudo);
 

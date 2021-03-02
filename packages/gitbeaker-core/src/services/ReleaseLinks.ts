@@ -2,11 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
-  all(
-    projectId: string | number,
-    tagName: string,
-    options?: PaginatedRequestOptions<'keyset' | 'offset'>,
-  ) {
+  all(projectId: string | number, tagName: string, options?: PaginatedRequestOptions) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
     return RequestHelper.get()(this, `projects/${pId}/releases/${tId}/assets/links`, options);

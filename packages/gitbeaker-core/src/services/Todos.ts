@@ -6,7 +6,7 @@ interface CreateTodoOptions extends Sudo {
 }
 
 export class Todos<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'todos', options);
   }
 
@@ -25,7 +25,7 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
     );
   }
 
-  done({ todoId, ...options }: { todoId?: number } & Sudo) {
+  done({ todoId, ...options }: { todoId?: number } & Sudo = {}) {
     let url = 'mark_as_done';
 
     if (todoId) url = `${todoId}/${url}`;

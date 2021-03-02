@@ -18,10 +18,7 @@ export interface RunnerSchema extends Record<string, unknown> {
 }
 
 export class Runners<C extends boolean = false> extends BaseService<C> {
-  all({
-    projectId,
-    ...options
-  }: { projectId?: string | number } & PaginatedRequestOptions<'keyset' | 'offset'> = {}) {
+  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 
     return RequestHelper.get<RunnerSchema[]>()(this, url, options);

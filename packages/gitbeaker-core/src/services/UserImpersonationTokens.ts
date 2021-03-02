@@ -4,7 +4,7 @@ import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure'
 type ImpersonationTokenScope = 'api' | 'read_user';
 
 export class UserImpersonationTokens<C extends boolean = false> extends BaseService<C> {
-  all(userId: number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(userId: number, options?: PaginatedRequestOptions) {
     const uId = encodeURIComponent(userId);
 
     return RequestHelper.get()(this, `users/${uId}/impersonation_tokens`, options);

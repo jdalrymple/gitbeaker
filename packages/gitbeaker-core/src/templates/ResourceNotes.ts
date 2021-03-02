@@ -22,7 +22,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, options);
+    return RequestHelper.get()(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, options);
   }
 
   create(
@@ -33,7 +33,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, {
+    return RequestHelper.post()(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, {
       body,
       ...options,
     });
@@ -48,7 +48,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, {
+    return RequestHelper.put()(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, {
       body,
       ...options,
     });
@@ -62,12 +62,12 @@ export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   ) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
+    return RequestHelper.del()(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 
   show(resourceId: string | number, resource2Id: string | number, noteId: number, options?: Sudo) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
+    return RequestHelper.get()(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
   }
 }

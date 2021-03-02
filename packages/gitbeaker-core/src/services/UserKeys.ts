@@ -1,7 +1,8 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
-const url = (userId) => (userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys');
+const url = (userId?: number) =>
+  userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys';
 
 export class UserKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
@@ -10,7 +11,7 @@ export class UserKeys<C extends boolean = false> extends BaseService<C> {
 
   create(
     title: string,
-    key,
+    key: string,
     { userId, ...options }: { userId?: number } & BaseRequestOptions = {},
   ) {
     return RequestHelper.post()(this, url(userId), {
@@ -20,13 +21,13 @@ export class UserKeys<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  show(keyId, options?: BaseRequestOptions) {
+  show(keyId: string, options?: BaseRequestOptions) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.get()(this, `user/keys/${kId}`, options);
   }
 
-  remove(keyId, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  remove(keyId: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.del()(this, `${url(userId)}/${kId}`, options);

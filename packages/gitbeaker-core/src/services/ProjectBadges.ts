@@ -5,7 +5,7 @@ import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastruc
 export interface ProjectBadges<C extends boolean = false> extends ResourceBadges() {
   add(projectId: string | number, options?: BaseRequestOptions);
 
-  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
+  all(projectId: string | number, options?: PaginatedRequestOptions);
 
   edit(projectId: string | number, badgeId: number, options?: BaseRequestOptions);
 

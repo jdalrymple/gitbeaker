@@ -13,10 +13,7 @@ export class DeployKeys<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.post()(this, `projects/${pId}/deploy_keys`, options);
   }
 
-  all({
-    projectId,
-    ...options
-  }: { projectId?: string | number } & PaginatedRequestOptions<'keyset' | 'offset'> = {}) {
+  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     let url: string;
 
     if (projectId) {

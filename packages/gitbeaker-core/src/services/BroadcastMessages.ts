@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 
 export class BroadcastMessages<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'broadcast_messages', options);
   }
 

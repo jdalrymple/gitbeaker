@@ -77,7 +77,7 @@ export type CommitSignatureSchema =
   | MissingSignatureSchema;
 
 export class Commits<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get<CommitSchema[]>()(this, `projects/${pId}/repository/commits`, options);

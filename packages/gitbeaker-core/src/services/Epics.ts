@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 
 export class Epics<C extends boolean = false> extends BaseService<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get()(this, `groups/${gId}/epics`, options);

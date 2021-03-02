@@ -11,13 +11,13 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseServi
   all(resourceId: string | number) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get(this, `${rId}/access_requests`);
+    return RequestHelper.get()(this, `${rId}/access_requests`);
   }
 
   request(resourceId: string | number) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post(this, `${rId}/access_requests`);
+    return RequestHelper.post()(this, `${rId}/access_requests`);
   }
 
   approve(
@@ -27,12 +27,12 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseServi
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/access_requests/${uId}/approve`, options);
+    return RequestHelper.post()(this, `${rId}/access_requests/${uId}/approve`, options);
   }
 
   deny(resourceId: string | number, userId: number) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/access_requests/${uId}`);
+    return RequestHelper.del()(this, `${rId}/access_requests/${uId}`);
   }
 }

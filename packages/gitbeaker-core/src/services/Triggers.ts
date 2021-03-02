@@ -13,7 +13,7 @@ export class Triggers<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.post()(this, `projects/${pId}/triggers`, options);
   }
 
-  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get()(this, `projects/${pId}/triggers`, options);

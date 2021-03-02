@@ -1,7 +1,7 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Camelize } from '../infrastructure';
 
-export interface ResourceVariableSchemaDefault extends Record<string, unknown> {
+export interface ResourceVariableSchema extends Record<string, unknown> {
   variable_type: 'env_var' | 'file';
   value: string;
   protected: boolean;
@@ -9,10 +9,6 @@ export interface ResourceVariableSchemaDefault extends Record<string, unknown> {
   environment_scope?: string; // Environment scope is only available for projects.
   key: string;
 }
-
-export type ResourceVariableSchema<C> = C extends true
-  ? Camelize<ResourceVariableSchemaDefault>
-  : ResourceVariableSchemaDefault;
 
 export class ResourceVariables<C extends boolean> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {
@@ -22,42 +18,34 @@ export class ResourceVariables<C extends boolean> extends BaseService<C> {
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get<C, ResourceVariableSchema<C>[]>(this, `${rId}/variables`, options);
+    return RequestHelper.get<ResourceVariableSchema[]>()(this, `${rId}/variables`, options);
   }
 
-  create(resourceId: string | number, options?: ResourceVariableSchema<true>) {
+  create(resourceId: string | number, options?: ResourceVariableSchema) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post<C, ResourceVariableSchema<C>>(this, `${rId}/variables`, options);
+    return RequestHelper.post<ResourceVariableSchema>()(this, `${rId}/variables`, options);
   }
 
   edit(
     resourceId: string | number,
     keyId: string,
-    options?: Exclude<ResourceVariableSchema<true>, 'key'>,
+    options?: Exclude<ResourceVariableSchema, 'key'>,
   ) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put<C, ResourceVariableSchema<C>>(
-      this,
-      `${rId}/variables/${kId}`,
-      options,
-    );
+    return RequestHelper.put<ResourceVariableSchema>()(this, `${rId}/variables/${kId}`, options);
   }
 
   show(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get<C, ResourceVariableSchema<C>>(
-      this,
-      `${rId}/variables/${kId}`,
-      options,
-    );
+    return RequestHelper.get<ResourceVariableSchema>()(this, `${rId}/variables/${kId}`, options);
   }
 
   remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.del()(this, `${rId}/variables/${kId}`, options);
   }
 }

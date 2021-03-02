@@ -7,7 +7,7 @@ import {
 } from '../infrastructure';
 
 export class Releases<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>) {
+  all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get()(this, `projects/${pId}/releases`, options);

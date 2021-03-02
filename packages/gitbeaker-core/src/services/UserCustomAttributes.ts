@@ -3,8 +3,8 @@ import { ResourceCustomAttributes } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface UserCustomAttributes<C extends boolean = false>
-  extends ResourceCustomAttributes() {
-  all(userId: string | number, options?: PaginatedRequestOptions<'keyset' | 'offset'>);
+  extends ResourceCustomAttributes<C> {
+  all(userId: string | number, options?: PaginatedRequestOptions);
 
   set(userId: string | number, customAttributeId: number, value: string, options?: Sudo);
 
@@ -13,7 +13,7 @@ export interface UserCustomAttributes<C extends boolean = false>
   show(userId: string | number, customAttributeId: number, options?: Sudo);
 }
 
-export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes() {
+export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes<C> {
   constructor(options: BaseServiceOptions<C> = {}) {
     super('users', options);
   }
