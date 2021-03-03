@@ -62,23 +62,26 @@ export type ExtendedRecordReturn<
   T extends Record<string, unknown>
 > = E extends false ? CamelizedRecord<C, T> : ExpandedResponse<CamelizedRecord<C, T>>;
 
-// TODO infer T and camelize
-export type ExtendedArrayReturn<
+type ExtendedArrayReturn<
   C extends boolean,
   E extends boolean,
-  T extends Record<string, unknown>[],
+  T,
   P extends 'keyset' | 'offset'
-> = E extends false ? T : P extends 'keyset' ? T : PaginationResponse<T>;
+> = E extends false
+  ? CamelizedRecord<C, T>[]
+  : P extends 'keyset'
+  ? CamelizedRecord<C, T>[]
+  : PaginationResponse<CamelizedRecord<C, T>[]>;
 
-export type ExtendedReturn<
+type ExtendedReturn<
   C extends boolean,
   E extends boolean,
   P extends 'keyset' | 'offset',
   T extends Record<string, unknown> | Record<string, unknown>[]
 > = T extends Record<string, unknown>
   ? ExtendedRecordReturn<C, E, T>
-  : T extends Record<string, unknown>[]
-  ? ExtendedArrayReturn<C, E, T, P>
+  : T extends (infer R)[]
+  ? ExtendedArrayReturn<C, E, R, P>
   : never;
 
 async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
