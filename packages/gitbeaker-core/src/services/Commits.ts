@@ -34,6 +34,7 @@ export interface CommitSchema extends Record<string, unknown> {
   committer_name?: string;
   committer_email?: string;
   committed_date?: Date;
+  web_url: string;
 }
 
 export interface GPGSignatureSchema extends Record<string, unknown> {

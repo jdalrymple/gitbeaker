@@ -59,7 +59,7 @@ export type CamelizedRecord<C, T> = C extends true ? Camelize<T> : T;
 export type ExtendedRecordReturn<
   C extends boolean,
   E extends boolean,
-  T extends Record<string, unknown>
+  T extends Record<string, unknown> | void
 > = E extends false ? CamelizedRecord<C, T> : ExpandedResponse<CamelizedRecord<C, T>>;
 
 type ExtendedArrayReturn<
@@ -211,7 +211,7 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
   };
 }
 
-export function del<T extends Record<string, unknown> = Record<string, unknown>>() {
+export function del<T extends Record<string, unknown> | void = Record<string, unknown>>() {
   return async function <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
