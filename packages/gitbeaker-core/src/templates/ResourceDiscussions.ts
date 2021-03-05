@@ -6,6 +6,49 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export interface AuthorSchema {
+  id: number;
+  name: string;
+  username: string;
+  state: string;
+  avatar_url: string;
+  web_url: string;
+  created_at?: string;
+}
+
+export interface PositionSchema {
+  base_sha: string;
+  start_sha: string;
+  head_sha: string;
+  old_path: string;
+  new_path: string;
+  position_type: string;
+  old_line: number;
+  new_line: number;
+}
+
+export interface NotesEntitySchema {
+  id: number;
+  type?: string | null;
+  body: string;
+  attachment?: null;
+  author: Omit<AuthorSchema, 'created_at'>;
+  created_at: string;
+  updated_at: string;
+  system: boolean;
+  noteable_id: number;
+  noteable_type: string;
+  noteable_iid?: null;
+  resolvable: boolean;
+  position?: PositionSchema;
+}
+
+export interface DiscussionSchema extends Record<string, unknown> {
+  id: string;
+  individual_note: boolean;
+  notes?: NotesEntitySchema[];
+}
+
 export class ResourceDiscussions<C extends boolean = false> extends BaseService<C> {
   protected resource2Type: string;
 
@@ -41,7 +84,11 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, options);
+    return RequestHelper.get<DiscussionSchema[]>()(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions`,
+      options,
+    );
   }
 
   create(
@@ -52,10 +99,14 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `${rId}/${this.resource2Type}/${r2Id}/discussions`, {
-      body: content,
-      ...options,
-    });
+    return RequestHelper.post<DiscussionSchema>()(
+      this,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions`,
+      {
+        body: content,
+        ...options,
+      },
+    );
   }
 
   editNote(
@@ -70,7 +121,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
       encodeURIComponent,
     );
 
-    return RequestHelper.put()(
+    return RequestHelper.put<DiscussionSchema>()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
       {
@@ -106,7 +157,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   ) {
     const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);
 
-    return RequestHelper.get()(
+    return RequestHelper.get<DiscussionSchema>()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`,
       options,
