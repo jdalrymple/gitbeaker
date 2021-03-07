@@ -15,9 +15,6 @@ export interface EnvironmentSchema extends Record<string, unknown> {
   external_url?: string;
   project?: ProjectSchema;
   state?: string;
-}
-
-export interface EnvironmentDetailSchema extends EnvironmentSchema {
   last_deployment?: DeploymentSchema;
   deployable?: DeployableSchema;
 }
@@ -26,12 +23,16 @@ export class Environments<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<EnvironmentSchema[]>()(this, `projects/${pId}/environments`, options);
+    return RequestHelper.get<Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>[]>()(
+      this,
+      `projects/${pId}/environments`,
+      options,
+    );
   }
 
   show(projectId: string | number, environmentId: number, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
-    return RequestHelper.get<EnvironmentDetailSchema>()(
+    return RequestHelper.get<EnvironmentSchema>()(
       this,
       `projects/${pId}/environments/${eId}`,
       options,
@@ -41,13 +42,21 @@ export class Environments<C extends boolean = false> extends BaseService<C> {
   create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/environments`, options);
+    return RequestHelper.post<Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>>()(
+      this,
+      `projects/${pId}/environments`,
+      options,
+    );
   }
 
   edit(projectId: string | number, environmentId: number, options?: BaseRequestOptions) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.put()(this, `projects/${pId}/environments/${eId}`, options);
+    return RequestHelper.put<Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>>()(
+      this,
+      `projects/${pId}/environments/${eId}`,
+      options,
+    );
   }
 
   remove(projectId: string | number, environmentId: number, options?: Sudo) {
@@ -59,6 +68,10 @@ export class Environments<C extends boolean = false> extends BaseService<C> {
   stop(projectId: string | number, environmentId: number, options?: Sudo) {
     const [pId, eId] = [projectId, environmentId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/environments/${eId}/stop`, options);
+    return RequestHelper.post<Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>>()(
+      this,
+      `projects/${pId}/environments/${eId}/stop`,
+      options,
+    );
   }
 }
