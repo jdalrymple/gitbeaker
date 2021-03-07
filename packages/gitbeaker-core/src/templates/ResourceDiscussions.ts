@@ -137,7 +137,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  ) {
+  ): Promise<void> {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
       encodeURIComponent,
     );

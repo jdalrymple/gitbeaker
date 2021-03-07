@@ -46,7 +46,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,

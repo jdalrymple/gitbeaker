@@ -1,6 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { DiscussionSchema } from '../templates/ResourceDiscussions';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
 
 export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
@@ -10,16 +16,20 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
-  all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
+  all(
+    groupId: string | number,
+    epicId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
   create(
     groupId: string | number,
     epicId: string | number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   editNote(
     groupId: string | number,
@@ -28,7 +38,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(
     groupId: string | number,
@@ -36,14 +46,14 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     groupId: string | number,
     epicId: string | number,
     discussionId: string | number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }
 
 export class EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
