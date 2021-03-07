@@ -211,7 +211,7 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
   };
 }
 
-export function del<T extends Record<string, unknown> | void = Record<string, unknown>>() {
+export function del<T extends Record<string, unknown> | void = void>() {
   return async function <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,

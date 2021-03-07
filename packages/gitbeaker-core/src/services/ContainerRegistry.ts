@@ -68,13 +68,13 @@ export class ContainerRegistry<C extends boolean = false> extends BaseService<C>
   removeRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
-    return RequestHelper.del<void>()(this, `projects/${pId}/registry/repositories/${rId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/registry/repositories/${rId}`, options);
   }
 
   removeTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
     const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.del<void>()(
+    return RequestHelper.del()(
       this,
       `projects/${pId}/registry/repositories/${rId}/tags/${tId}`,
       options,
@@ -89,7 +89,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseService<C>
   ) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
-    return RequestHelper.del<void>()(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
+    return RequestHelper.del()(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
       nameRegexDelete,
       ...options,
     });

@@ -39,7 +39,7 @@ export class Branches<C extends boolean = false> extends BaseService<C> {
   remove(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.del<void>()(this, `projects/${pId}/repository/branches/${bName}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/repository/branches/${bName}`, options);
   }
 
   show(projectId: string | number, branchName: string, options?: Sudo) {

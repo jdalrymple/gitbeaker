@@ -58,6 +58,6 @@ export class ProtectedBranches<C extends boolean = false> extends BaseService<C>
   unprotect(projectId: string | number, branchName: string, options?: Sudo) {
     const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
 
-    return RequestHelper.del<void>()(this, `projects/${pId}/protected_branches/${bName}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/protected_branches/${bName}`, options);
   }
 }

@@ -38,7 +38,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseService<C>
   remove(broadcastMessageId: number, options?: Sudo) {
     const bId = encodeURIComponent(broadcastMessageId);
 
-    return RequestHelper.del<void>()(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.del()(this, `broadcast_messages/${bId}`, options);
   }
 
   show(broadcastMessageId: number, options?: BaseRequestOptions) {
