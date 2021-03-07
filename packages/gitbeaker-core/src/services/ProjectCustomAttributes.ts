@@ -3,7 +3,7 @@ import { ResourceCustomAttributes } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectCustomAttributes<C extends boolean = false>
-  extends ResourceCustomAttributes() {
+  extends ResourceCustomAttributes<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions);
 
   set(projectId: string | number, customAttributeId: number, value: string, options?: Sudo);
@@ -13,7 +13,7 @@ export interface ProjectCustomAttributes<C extends boolean = false>
   show(projectId: string | number, customAttributeId: number, options?: Sudo);
 }
 
-export class ProjectCustomAttributes<C extends boolean> extends ResourceCustomAttributes() {
+export class ProjectCustomAttributes<C extends boolean> extends ResourceCustomAttributes<C> {
   constructor(options: BaseServiceOptions<C> = {}) {
     super('projects', options);
   }

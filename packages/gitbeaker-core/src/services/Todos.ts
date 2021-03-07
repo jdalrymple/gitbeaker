@@ -16,12 +16,16 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
     { resourceName, ...options }: CreateTodoOptions = {},
   ) {
     if (resourceName === 'issue') {
-      return RequestHelper.post()(this, `projects/${projectId}/issues/${resourceId}/todo`, options);
+      return RequestHelper.post()(
+        this,
+        `projects/${projectId}/issues/${resourceId}/todo`,
+        options as Record<string, unknown>,
+      );
     }
     return RequestHelper.post()(
       this,
       `projects/${projectId}/merge_requests/${resourceId}/todo`,
-      options,
+      options as Record<string, unknown>,
     );
   }
 
@@ -30,6 +34,6 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
 
     if (todoId) url = `${todoId}/${url}`;
 
-    return RequestHelper.post()(this, `todos/${url}`, options);
+    return RequestHelper.post()(this, `todos/${url}`, options as Record<string, unknown>);
   }
 }

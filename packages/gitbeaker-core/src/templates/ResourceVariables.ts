@@ -1,5 +1,5 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, Camelize } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions } from '../infrastructure';
 
 export interface ResourceVariableSchema extends Record<string, unknown> {
   variable_type: 'env_var' | 'file';
@@ -43,7 +43,11 @@ export class ResourceVariables<C extends boolean> extends BaseService<C> {
     return RequestHelper.get<ResourceVariableSchema>()(this, `${rId}/variables/${kId}`, options);
   }
 
-  remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
+  remove(
+    resourceId: string | number,
+    keyId: string,
+    options?: PaginatedRequestOptions,
+  ): Promise<void> {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `${rId}/variables/${kId}`, options);

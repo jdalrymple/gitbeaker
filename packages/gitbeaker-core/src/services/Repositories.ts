@@ -35,7 +35,11 @@ export class Repositories<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/repository/archive.${fileType}`, options);
+    return RequestHelper.get()(
+      this,
+      `projects/${pId}/repository/archive.${fileType}`,
+      options as Record<string, unknown>,
+    );
   }
 
   showBlob(projectId: string | number, sha: string, options?: Sudo) {

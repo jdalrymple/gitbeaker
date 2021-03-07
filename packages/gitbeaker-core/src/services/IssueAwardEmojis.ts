@@ -2,7 +2,7 @@ import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis } from '../templates';
 import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface IssueAwardEmojis<C extends boolean = false> extends ResourceAwardEmoji<C> {
+export interface IssueAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
   all(
     projectId: string | number,
     issueId: string | number,

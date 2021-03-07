@@ -105,7 +105,7 @@ export interface TimeStatsSchema {
   human_total_time_spent: string;
 }
 
-export interface MergeRequestSchema {
+export interface MergeRequestSchema extends Record<string, unknown> {
   id: number;
   iid: number;
   project_id: number;
@@ -144,7 +144,7 @@ export interface MergeRequestSchema {
   references: ReferenceSchema;
   time_stats: TimeStatsSchema;
   squash: boolean;
-  task_completion_status: TaskCompletionStatus;
+  task_completion_status: TaskCompletionStatusSchema;
   has_conflicts: boolean;
   blocking_discussions_resolved: boolean;
 }

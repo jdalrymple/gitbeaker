@@ -110,7 +110,11 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
     const gId = encodeURIComponent(groupId);
     const url = provider ? `${provider}/${cn}` : `${cn}`;
 
-    return RequestHelper.del()(this, `groups/${gId}/ldap_group_links/${url}`, options);
+    return RequestHelper.del()(
+      this,
+      `groups/${gId}/ldap_group_links/${url}`,
+      options as Record<string, unknown>,
+    );
   }
 
   search(nameOrPath: string, options?: Sudo) {

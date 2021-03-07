@@ -69,7 +69,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
 
     url.push(uId);
 
-    return RequestHelper.get()(this, url.join('/'), options);
+    return RequestHelper.get()(this, url.join('/'), options as Record<string, unknown>);
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {

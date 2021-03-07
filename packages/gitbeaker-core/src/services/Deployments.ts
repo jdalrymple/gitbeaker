@@ -5,7 +5,7 @@ import { PipelineSchema } from './Pipelines';
 import { UserSchema } from './Users';
 import { RunnerSchema } from './Runners';
 import { EnvironmentSchema } from './Environments';
-import { MergeRequestsSchema } from './MergeRequests';
+import { MergeRequestSchema } from './MergeRequests';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
@@ -89,7 +89,7 @@ export class Deployments<C extends boolean = false> extends BaseService<C> {
   mergeRequests(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.get<MergeRequestsSchema[]>()(
+    return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       `projects/${pId}/deployments/${dId}/merge_requests`,
       options,
