@@ -1,6 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { DiscussionSchema } from '../templates/ResourceDiscussions';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
 
 export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
@@ -10,20 +16,20 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   all(
     projectId: string | number,
-    mergerequestId: string | number,
+    issueId: string | number,
     options?: PaginatedRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
   create(
     projectId: string | number,
     mergerequestId: string | number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   editNote(
     projectId: string | number,
@@ -32,22 +38,22 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(
     projectId: string | number,
-    mergerequestId: string | number,
+    issueId: string | number,
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,
     mergerequestId: string | number,
     discussionId: string | number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }
 
 export class MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {

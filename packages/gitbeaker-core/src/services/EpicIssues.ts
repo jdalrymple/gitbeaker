@@ -1,6 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { MilestoneSchema } from '../templates/ResourceMilestones';
+import { IssueSchema } from './Issues';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -8,42 +7,8 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface EpicIssueSchema extends Record<string, unknown> {
-  id: number;
-  iid: number;
-  project_id: number;
-  title: string;
-  description: string;
-  state: string;
-  created_at: string;
-  updated_at: string;
-  closed_at?: string;
-  labels?: string[];
-  milestone: MilestoneSchema;
-  assignees?: Omit<UserSchema, 'created_at'>[];
-  assignee: Omit<UserSchema, 'created_at'>;
-  author: Omit<UserSchema, 'created_at'>;
-  user_notes_count: number;
-  upvotes: number;
-  downvotes: number;
-  due_date?: string;
-  confidential: boolean;
-  weight?: null;
-  discussion_locked?: boolean;
-  web_url: string;
-  time_stats: {
-    time_estimate: number;
-    total_time_spent: number;
-    human_time_estimate?: string;
-    human_total_time_spent?: string;
-  };
-  _links: {
-    self: string;
-    notes: string;
-    award_emoji: string;
-    project: string;
-  };
-  subscribed: boolean;
+export interface EpicIssueSchema
+  extends Exclude<IssueSchema, 'references' | 'task_completion_status'> {
   epic_issue_id: number;
 }
 

@@ -1,4 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { UserSchema } from './Users';
+import { MilestoneSchema } from '../templates/ResourceMilestones';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -7,6 +9,57 @@ import {
 } from '../infrastructure';
 
 type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
+
+export interface IssueSchema extends Record<string, unknown> {
+  state: string;
+  description: string;
+  author: Omit<UserSchema, 'created_at'>;
+  milestone: MilestoneSchema;
+  project_id: number;
+  assignees?: Omit<UserSchema, 'created_at'>[];
+  assignee: Omit<UserSchema, 'created_at'>;
+  updated_at: string;
+  closed_at?: null;
+  closed_by?: null;
+  id: number;
+  title: string;
+  created_at: string;
+  moved_to_id?: null;
+  iid: number;
+  labels?: string[] | null;
+  upvotes: number;
+  downvotes: number;
+  merge_requests_count: number;
+  user_notes_count: number;
+  due_date: string;
+  web_url: string;
+  references: {
+    short: string;
+    relative: string;
+    full: string;
+  };
+  time_stats: {
+    time_estimate: number;
+    total_time_spent: number;
+    human_time_estimate?: string;
+    human_total_time_spent?: string;
+  };
+  has_tasks: boolean;
+  task_status: string;
+  confidential: boolean;
+  discussion_locked: boolean;
+  _links: {
+    self: string;
+    notes: string;
+    award_emoji: string;
+    project: string;
+  };
+  task_completion_status: {
+    count: number;
+    completed_count: number;
+  };
+  subscribed: boolean;
+}
 
 export class Issues<C extends boolean = false> extends BaseService<C> {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
