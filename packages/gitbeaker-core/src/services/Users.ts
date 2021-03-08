@@ -15,6 +15,7 @@ export interface UserSchema extends Record<string, unknown> {
   state: string;
   avatar_url: string;
   web_url: string;
+  created_at?: string;
 }
 
 export class Users<C extends boolean = false> extends BaseService<C> {

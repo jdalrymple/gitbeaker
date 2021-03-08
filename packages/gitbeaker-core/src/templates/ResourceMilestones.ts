@@ -6,6 +6,21 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export interface MilestoneSchema extends Record<string, unknown> {
+  id: number;
+  iid: number;
+  project_id: number;
+  title: string;
+  description: string;
+  due_date: string;
+  start_date: string;
+  state: string;
+  updated_at: string;
+  created_at: string;
+  expired: boolean;
+  web_url?: string;
+}
+
 export class ResourceMilestones<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
@@ -14,19 +29,19 @@ export class ResourceMilestones<C extends boolean = false> extends BaseService<C
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get()(this, `${rId}/milestones`, options);
+    return RequestHelper.get<MilestoneSchema[]>()(this, `${rId}/milestones`, options);
   }
 
   create(resourceId: string | number, title: string, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.post()(this, `${rId}/milestones`, { title, ...options });
+    return RequestHelper.post<MilestoneSchema>()(this, `${rId}/milestones`, { title, ...options });
   }
 
   edit(resourceId: string | number, milestoneId: number, options?: BaseRequestOptions) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.put()(this, `${rId}/milestones/${mId}`, options);
+    return RequestHelper.put<MilestoneSchema>()(this, `${rId}/milestones/${mId}`, options);
   }
 
   issues(resourceId: string | number, milestoneId: number, options?: Sudo) {
@@ -44,6 +59,6 @@ export class ResourceMilestones<C extends boolean = false> extends BaseService<C
   show(resourceId: string | number, milestoneId: number, options?: Sudo) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `${rId}/milestones/${mId}`, options);
+    return RequestHelper.get<MilestoneSchema>()(this, `${rId}/milestones/${mId}`, options);
   }
 }

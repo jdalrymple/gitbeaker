@@ -1,5 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { AuthorSchema } from '../templates/ResourceDiscussions';
+import { UserSchema } from './Users';
+import { MilestoneSchema } from '../templates/ResourceMilestones';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -74,19 +75,6 @@ export interface AllMergeRequestsOptions {
 }
 
 // Response Schemas
-export interface Milestone {
-  id: number;
-  iid: number;
-  project_id: number;
-  title: string;
-  description: string;
-  state: string;
-  created_at: string;
-  updated_at: string;
-  due_date: string;
-  start_date: string;
-  web_url: string;
-}
 export interface ReferenceSchema {
   short: string;
   relative: string;
@@ -112,7 +100,7 @@ export interface MergeRequestSchema extends Record<string, unknown> {
   title: string;
   description: string;
   state: string;
-  merged_by: Omit<AuthorSchema, 'created_at'>;
+  merged_by: Omit<UserSchema, 'created_at'>;
   merged_at: string;
   closed_by?: string;
   closed_at?: string;
@@ -122,15 +110,15 @@ export interface MergeRequestSchema extends Record<string, unknown> {
   source_branch: string;
   upvotes: number;
   downvotes: number;
-  author: Omit<AuthorSchema, 'created_at'>;
-  assignee: Omit<AuthorSchema, 'created_at'>;
-  assignees?: Omit<AuthorSchema, 'created_at'>[];
-  reviewers?: Omit<AuthorSchema, 'created_at'>[];
+  author: Omit<UserSchema, 'created_at'>;
+  assignee: Omit<UserSchema, 'created_at'>;
+  assignees?: Omit<UserSchema, 'created_at'>[];
+  reviewers?: Omit<UserSchema, 'created_at'>[];
   source_project_id: number;
   target_project_id: number;
   labels?: string[];
   work_in_progress: boolean;
-  milestone: Milestone;
+  milestone: MilestoneSchema;
   merge_when_pipeline_succeeds: boolean;
   merge_status: string;
   sha: string;
