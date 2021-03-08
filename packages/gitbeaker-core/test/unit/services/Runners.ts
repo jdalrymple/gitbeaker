@@ -1,7 +1,10 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { Runners } from '../../../src';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: Runners;
 
@@ -27,13 +30,13 @@ describe('Runners.all', () => {
   it('should request GET /runners/all', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'runners/all', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/all', {});
   });
 
   it('should request GET /projects/:id/runners', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/runners', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/runners', {});
   });
 });
 
@@ -41,7 +44,7 @@ describe('Runners.allOwned', () => {
   it('should request GET /runners', async () => {
     await service.allOwned();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'runners', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners', undefined);
   });
 });
 
@@ -49,7 +52,7 @@ describe('Runners.edit', () => {
   it('should request PUT /runners/:id', async () => {
     await service.edit(2);
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'runners/2', undefined);
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'runners/2', undefined);
   });
 });
 
@@ -57,7 +60,7 @@ describe('Runners.enable', () => {
   it('should request POST /projects/:id/runners', async () => {
     await service.enable(1, 2);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/runners', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/runners', {
       runnerId: '2',
     });
   });
@@ -67,7 +70,7 @@ describe('Runners.disable', () => {
   it('should request DELETE /projects/:id/runners/:id', async () => {
     await service.disable(1, 2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/runners/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/runners/2', undefined);
   });
 });
 
@@ -75,7 +78,7 @@ describe('Runners.jobs', () => {
   it('should request GET /runners/:id/jobs', async () => {
     await service.jobs(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'runners/1/jobs', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/1/jobs', undefined);
   });
 });
 
@@ -83,7 +86,7 @@ describe('Runners.remove', () => {
   it('should request DEL /runners/:id', async () => {
     await service.remove(2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'runners/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners/2', undefined);
   });
 });
 
@@ -91,6 +94,6 @@ describe('Runners.show', () => {
   it('should request GET /runners/:id', async () => {
     await service.show(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'runners/1', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/1', undefined);
   });
 });

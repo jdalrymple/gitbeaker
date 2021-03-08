@@ -1,7 +1,10 @@
 import { ResourceAwardEmojis } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: ResourceAwardEmojis;
 
@@ -28,7 +31,7 @@ describe('ResourceAwardEmojis.all', () => {
   it('should call the correct url with a project id, resource id, and note id', async () => {
     await service.all('5', 6, 7);
 
-    expect(RequestHelper.get).toBeCalledWith(
+    expect(RequestHelper.get()).toBeCalledWith(
       service,
       '5/resource/6/notes/7/award_emoji',
       undefined,
@@ -40,7 +43,7 @@ describe('ResourceAccessRequests.award', () => {
   it('should call the correct url with a project id, name, resource id, and note id', async () => {
     await service.award('5', 6, 7, 'frank');
 
-    expect(RequestHelper.post).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji', {
+    expect(RequestHelper.post()).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji', {
       name: 'frank',
     });
   });
@@ -48,7 +51,7 @@ describe('ResourceAccessRequests.award', () => {
   it('should allow for sudo calls', async () => {
     await service.award('5', 6, 7, 'frank', { sudo: 'test' });
 
-    expect(RequestHelper.post).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji', {
+    expect(RequestHelper.post()).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji', {
       name: 'frank',
       sudo: 'test',
     });
@@ -59,7 +62,7 @@ describe('ResourceAccessRequests.remove', () => {
   it('should call the correct url with a project id, resource id, award_id, and note id', async () => {
     await service.remove('5', 6, 7, 9);
 
-    expect(RequestHelper.del).toBeCalledWith(
+    expect(RequestHelper.del()).toBeCalledWith(
       service,
       '5/resource/6/notes/7/award_emoji/9',
       undefined,
@@ -69,7 +72,7 @@ describe('ResourceAccessRequests.remove', () => {
   it('should allow for sudo calls', async () => {
     await service.remove('5', 6, 7, 9, { sudo: 'test' });
 
-    expect(RequestHelper.del).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji/9', {
+    expect(RequestHelper.del()).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji/9', {
       sudo: 'test',
     });
   });
@@ -79,7 +82,7 @@ describe('ResourceAccessRequests.show', () => {
   it('should call the correct url with a project id, resource id, award_id, and note id', async () => {
     await service.show('5', 6, 7, 9);
 
-    expect(RequestHelper.get).toBeCalledWith(
+    expect(RequestHelper.get()).toBeCalledWith(
       service,
       '5/resource/6/notes/7/award_emoji/9',
       undefined,
@@ -89,7 +92,7 @@ describe('ResourceAccessRequests.show', () => {
   it('should allow for sudo calls', async () => {
     await service.show('5', 6, 7, 9, { sudo: 'test' });
 
-    expect(RequestHelper.get).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji/9', {
+    expect(RequestHelper.get()).toBeCalledWith(service, '5/resource/6/notes/7/award_emoji/9', {
       sudo: 'test',
     });
   });

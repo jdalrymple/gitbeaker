@@ -1,7 +1,10 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { BroadcastMessages } from '../../../src';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: BroadcastMessages;
 
@@ -27,7 +30,7 @@ describe('BroadcastMessages.all', () => {
   it('should request GET /broadcast_messages', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'broadcast_messages', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'broadcast_messages', undefined);
   });
 });
 
@@ -35,7 +38,7 @@ describe('BroadcastMessages.create', () => {
   it('should request POST /broadcast_messages', async () => {
     await service.create({ prop: 'test epic' });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'broadcast_messages', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'broadcast_messages', {
       prop: 'test epic',
     });
   });
@@ -45,7 +48,7 @@ describe('BroadcastMessages.edit', () => {
   it('should request PUT /broadcast_messages', async () => {
     await service.edit(2, { prop: 4 });
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'broadcast_messages/2', { prop: 4 });
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'broadcast_messages/2', { prop: 4 });
   });
 });
 
@@ -53,7 +56,7 @@ describe('BroadcastMessages.remove', () => {
   it('should request DEL /broadcast_messages/:id', async () => {
     await service.remove(2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'broadcast_messages/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'broadcast_messages/2', undefined);
   });
 });
 
@@ -61,6 +64,6 @@ describe('BroadcastMessages.show', () => {
   it('should request GET /broadcast_messages/:id', async () => {
     await service.show(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'broadcast_messages/1', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'broadcast_messages/1', undefined);
   });
 });

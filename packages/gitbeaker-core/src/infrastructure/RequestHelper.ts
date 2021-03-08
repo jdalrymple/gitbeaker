@@ -115,7 +115,7 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
 
   // Handle array responses
   const newAcc = [...acc, ...body];
-  const next: string = parseLink(headers.link);
+  const { next }: { next: string } = parseLink(headers.link);
   const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
 
   // Recurse through pagination results
