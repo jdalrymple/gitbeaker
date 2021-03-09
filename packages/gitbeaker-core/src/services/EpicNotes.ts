@@ -1,16 +1,34 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes } from '../templates';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
+import { ResourceNotes, NoteSchema } from '../templates';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
+
+export interface EpicNoteSchema
+  extends Exclude<
+    NoteSchema,
+    'attachment' | 'system' | 'noteable_id' | 'noteable_type' | 'noteable_iid' | 'resolvable'
+  > {
+  file_name: string;
+  expires_at: string;
+}
 
 export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
-  all(groupId: string | number, epicId: string | number, options?: PaginatedRequestOptions);
+  all(
+    groupId: string | number,
+    epicId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, EpicNoteSchema>[]>;
 
   create(
     groupId: string | number,
     epicId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
 
   edit(
     groupId: string | number,
@@ -18,11 +36,21 @@ export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
 
-  remove(groupId: string | number, epicId: string | number, noteId: number, options?: Sudo);
+  remove(
+    groupId: string | number,
+    epicId: string | number,
+    noteId: number,
+    options?: Sudo,
+  ): Promise<void>;
 
-  show(groupId: string | number, epicId: string | number, noteId: number, options?: Sudo);
+  show(
+    groupId: string | number,
+    epicId: string | number,
+    noteId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
 }
 
 export class EpicNotes<C extends boolean = false> extends ResourceNotes<C> {

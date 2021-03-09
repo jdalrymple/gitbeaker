@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { AuthorSchema } from '../templates/ResourceDiscussions';
+import { UserSchema } from './Users';
 import { MergeRequestSchema } from './MergeRequests';
 import {
   BaseRequestOptions,
@@ -100,7 +100,7 @@ export interface CommentSchema extends Record<string, unknown> {
   line_type: 'new' | 'old';
   path: string;
   line: number;
-  author: AuthorSchema;
+  author: Omit<UserSchema, 'created_at'>;
 }
 
 export interface CommitDiffSchema extends Record<string, unknown> {
@@ -120,7 +120,7 @@ export interface CommitStatusSchema extends Record<string, unknown> {
   started_at?: null;
   name: string;
   allow_failure: boolean;
-  author: Omit<AuthorSchema, 'created_at'>;
+  author: Omit<UserSchema, 'created_at'>;
   description?: null;
   sha: string;
   target_url: string;

@@ -1,20 +1,11 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { UserSchema } from '../services/Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export interface AuthorSchema {
-  id: number;
-  name: string;
-  username: string;
-  state: string;
-  avatar_url: string;
-  web_url: string;
-  created_at?: string;
-}
 
 export interface PositionSchema {
   base_sha: string;
@@ -32,7 +23,7 @@ export interface NotesEntitySchema {
   type?: string | null;
   body: string;
   attachment?: null;
-  author: Omit<AuthorSchema, 'created_at'>;
+  author: Omit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;
