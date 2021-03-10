@@ -11,17 +11,26 @@ export interface EditFreezePeriodOptions {
   freezeEnd?: string;
 }
 
+export interface FreezePeriodSchema extends Record<string, unknown> {
+  id: number;
+  freeze_start: string;
+  freeze_end: string;
+  cron_timezone: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/freeze_periods`, options);
+    return RequestHelper.get<FreezePeriodSchema[]>()(this, `projects/${pId}/freeze_periods`, options);
   }
 
   show(projectId: string | number, freezePeriodId: number, options?: BaseRequestOptions) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.get<FreezePeriodSchema>()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 
   create(
@@ -32,7 +41,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/freeze_periods`, {
+    return RequestHelper.post<FreezePeriodSchema>()(this, `projects/${pId}/freeze_periods`, {
       freezeStart,
       freezeEnd,
       ...options,
@@ -46,7 +55,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.put()(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.put<FreezePeriodSchema>()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 
   delete(projectId: number | string, freezePeriodId: number, options?: BaseRequestOptions) {
