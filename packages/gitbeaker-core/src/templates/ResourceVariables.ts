@@ -47,7 +47,7 @@ export class ResourceVariables<C extends boolean> extends BaseService<C> {
     resourceId: string | number,
     keyId: string,
     options?: PaginatedRequestOptions,
-  ): Promise<void> {
+  ) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `${rId}/variables/${kId}`, options);

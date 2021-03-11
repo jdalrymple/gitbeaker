@@ -60,7 +60,11 @@ export type ExtendedRecordReturn<
   C extends boolean,
   E extends boolean,
   T extends Record<string, unknown> | void
-> = E extends false ? CamelizedRecord<C, T> : ExpandedResponse<CamelizedRecord<C, T>>;
+> = T extends void
+  ? void
+  : E extends false
+  ? CamelizedRecord<C, T>
+  : ExpandedResponse<CamelizedRecord<C, T>>;
 
 type ExtendedArrayReturn<
   C extends boolean,

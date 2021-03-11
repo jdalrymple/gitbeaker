@@ -34,7 +34,7 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     issueId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  );
 
   show(
     projectId: string | number,

@@ -1,23 +1,27 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceBadges } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceBadges, BadgeSchema } from '../templates';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
+
+export interface ProjectBadgeSchema extends BadgeSchema {
+  kind: 'project'
+}
 
 export interface ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
-  add(projectId: string | number, options?: BaseRequestOptions);
+  add(productId: string | number, options?: BaseRequestOptions): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
 
-  all(projectId: string | number, options?: PaginatedRequestOptions);
+  all(productId: string | number, options?: PaginatedRequestOptions): Promise<CamelizedRecord<C, ProjectBadgeSchema>[]>;
 
-  edit(projectId: string | number, badgeId: number, options?: BaseRequestOptions);
+  edit(productId: string | number, badgeId: number, options?: BaseRequestOptions): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
 
-  preview(projectId: string | number, linkUrl: string, imageUrl: string, options?: Sudo);
+  preview(productId: string | number, linkUrl: string, imageUrl: string, options?: Sudo): Promise<CamelizedRecord<C, Exclude<ProjectBadgeSchema, 'id' | 'name' | 'kind'>>>;
 
-  remove(projectId: string | number, badgeId: number, options?: Sudo);
+  remove(productId: string | number, badgeId: number, options?: Sudo): Promise<void>;
 
-  show(projectId: string | number, badgeId: number, options?: Sudo);
+  show(productId: string | number, badgeId: number, options?: Sudo): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
 }
 
 export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
-    super('projects', options);
+  constructor(options: BaseServiceOptions<C>) {
+    super('groups', options);
   }
 }

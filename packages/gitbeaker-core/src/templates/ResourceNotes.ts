@@ -83,7 +83,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
     resource2Id: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void> {
+  ) {
     const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);

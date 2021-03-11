@@ -46,7 +46,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  );
 
   show(
     projectId: string | number,

@@ -46,7 +46,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     discussionId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  );
 
   show(
     projectId: string | number,

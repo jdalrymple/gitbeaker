@@ -43,7 +43,7 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     snippetId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  );
 
   show(
     projectId: string | number,
