@@ -2,7 +2,6 @@
 
 #### ⚠️ Pushed to `master`
 
-- Use HTTP GET for `stream` requests in @gitbeaker/node ([@Vogel612](https://github.com/Vogel612))
 - Remove module test ([@jdalrymple](https://github.com/jdalrymple))
 - Move into pkg script ([@jdalrymple](https://github.com/jdalrymple))
 - Updating image being used ([@jdalrymple](https://github.com/jdalrymple))
