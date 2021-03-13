@@ -72,7 +72,7 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@10.18.3", "@auto-it/core@^10.3.0":
+"@auto-it/core@^10.3.0":
   version "10.18.3"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.18.3.tgz#770327ab59cf01c4c9e85e53008aa9155f58aeb9"
   integrity sha512-k6/CUhoZJPUSrhgwRX5gZxzdqqP3vk97A+pq8giwVldtP67pFuO6M1oCpEBCO6OzajLghDNLQHkc0ph596K66w==
