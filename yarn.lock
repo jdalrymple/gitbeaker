@@ -25,10 +25,10 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.16.5.tgz#b016da15c639485451e25cb04050856306e05ded"
   integrity sha512-1jlZoqAAE2uL27WT/jzeu+n5v8pCnY4x4WaLbXrm3iYL7bOrYiXcVhd/CLncC8U0/9nDYHdpNxt6gZppo0+vdQ==
 
-"@auto-it/bot-list@10.18.3":
-  version "10.18.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.18.3.tgz#6d2c445989198775e0bb78d011436af234a6ba57"
-  integrity sha512-eq93kNhV3RQEO/wx/d4SrHwv2q5D/Jh21Y1wX9UlhPwwIVPPYUL39XEj5jo6rz3gpPmVNvlMp8rknA9dSn4egw==
+"@auto-it/bot-list@10.18.4":
+  version "10.18.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.18.4.tgz#c6d66f03e79cf0c0c5cb35471b17eb1a072b2c47"
+  integrity sha512-V1NC3J7VlY6b4ugY1x8CO+Tj+V0jI10rds8CCh8ET3O1nKQJ/Vt0C9zGFwZDatw+1cfoLzTENgjPgq3b9QjrZw==
 
 "@auto-it/core@10.16.5":
   version "10.16.5"
@@ -73,11 +73,11 @@
     url-join "^4.0.0"
 
 "@auto-it/core@^10.3.0":
-  version "10.18.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.18.3.tgz#770327ab59cf01c4c9e85e53008aa9155f58aeb9"
-  integrity sha512-k6/CUhoZJPUSrhgwRX5gZxzdqqP3vk97A+pq8giwVldtP67pFuO6M1oCpEBCO6OzajLghDNLQHkc0ph596K66w==
+  version "10.18.4"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.18.4.tgz#88aa281b37bf75eae69690fcf72c0f9280869515"
+  integrity sha512-EGmetJLQ1Q/EdW5f6HRwUxMssSPf7pyBV31u0XTFL/7RnMNMfrVG2bvaOJOgmps3kKvE8A6JEXbXByaeKdGLqQ==
   dependencies:
-    "@auto-it/bot-list" "10.18.3"
+    "@auto-it/bot-list" "10.18.4"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
     "@octokit/plugin-throttling" "^3.2.0"
