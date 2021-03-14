@@ -1,3 +1,16 @@
+# 28.1.1 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- chore: add `root: true` to eslint [#1531](https://github.com/jdalrymple/gitbeaker/pull/1531) ([@kiprasmel](https://github.com/kiprasmel) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+
+---
+
 # 28.1.0 (Sun Mar 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:
