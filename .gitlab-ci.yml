@@ -1,3 +1,6 @@
+variables:
+  GIT_DEPTH: 0 #Temporary
+
 default:
   image: node:lts-alpine
 
