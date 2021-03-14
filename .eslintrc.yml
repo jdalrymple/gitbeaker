@@ -12,7 +12,6 @@ extends:
   - airbnb-base
   - plugin:@typescript-eslint/recommended
   - plugin:prettier/recommended
-  - prettier/@typescript-eslint
   - plugin:jest/recommended
 
 parser: '@typescript-eslint/parser'
