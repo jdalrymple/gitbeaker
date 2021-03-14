@@ -1,3 +1,152 @@
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump form-data from 3.0.0 to 4.0.0 [#1558](https://github.com/jdalrymple/gitbeaker/pull/1558) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.0 (Mon Dec 28 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich)), for all your work!
+
+#### 💥 Breaking Change
+
+- Replacing BaseService 'url' constructor argument with 'prefixUrl' for clarity [#1412](https://github.com/jdalrymple/gitbeaker/pull/1412) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 💥 Feature
+
+- Implement "Commits.signature" method [#1386](https://github.com/jdalrymple/gitbeaker/pull/1386) ([@martin-helmich](https://github.com/martin-helmich) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fixing incorrect scoping of the createRequesterFn function [#1413](https://github.com/jdalrymple/gitbeaker/pull/1413) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
+
+---
+
+# v27.0.0 (Fri Dec 18 2020)
+
+#### 💥 Breaking Change
+
+- Removed circular references [#1387](https://github.com/jdalrymple/gitbeaker/pull/1387) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v25.6.0 (Mon Nov 30 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all your work!
+
+#### 💥 Feature
+
+- Revert project to commit [#1353](https://github.com/jdalrymple/gitbeaker/pull/1353) ([@Sumragen](https://github.com/Sumragen) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Hennadii Varava ([@Sumragen](https://github.com/Sumragen))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v25.5.0 (Sun Nov 29 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: change labels type in all MergeRequestPptions types [#1355](https://github.com/jdalrymple/gitbeaker/pull/1355) (omar.awamry@vodafone.com)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Omar Awamry ([@wamry](https://github.com/wamry))
+
+---
+
+# v25.4.0 (Tue Nov 24 2020)
+
+#### 🐛 Bug Fix
+
+- Supress Bundler typescript warnings [#1328](https://github.com/jdalrymple/gitbeaker/pull/1328) ([@kiprasmel](https://github.com/kiprasmel))
+
+#### ⚠️ Pushed to `master`
+
+- Temporary omission of ts error ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel))
+
+---
+
+# v25.3.0 (Fri Nov 06 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
+
+#### 🐛 Bug Fix
+
+- refactor: export CommitAction interface [#1307](https://github.com/jdalrymple/gitbeaker/pull/1307) ([@illyaMs](https://github.com/illyaMs))
+
+#### Authors: 1
+
+- Ilya Dus ([@illyaMs](https://github.com/illyaMs))
+
+---
+
 # v25.1.0 (Tue Oct 20 2020)
 
 #### 🔩 Dependency Updates

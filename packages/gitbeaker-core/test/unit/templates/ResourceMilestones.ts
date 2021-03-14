@@ -1,4 +1,3 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
 
@@ -7,15 +6,8 @@ jest.mock('../../../src/infrastructure/RequestHelper');
 let service: ResourceMilestones;
 
 beforeEach(() => {
-  const requester = {
-    get: jest.fn(() => Promise.resolve([])),
-    post: jest.fn(() => Promise.resolve({})),
-    put: jest.fn(() => Promise.resolve({})),
-    delete: jest.fn(() => Promise.resolve({})),
-  } as RequesterType;
-
   service = new ResourceMilestones('resource', {
-    requester,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
   });
 });

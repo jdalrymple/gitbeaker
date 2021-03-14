@@ -39,7 +39,7 @@ export interface CommitSchemaCamelized {
 
 export type CommitSchema = CommitSchemaDefault | CommitSchemaCamelized;
 
-interface CommitAction {
+export interface CommitAction {
   /** The action to perform */
   action: 'create' | 'delete' | 'move' | 'update';
   /** Full path to the file. Ex. lib/class.rb */
@@ -53,6 +53,43 @@ interface CommitAction {
   /** Last known file commit id. Will be only considered in update, move and delete actions. */
   lastCommitId?: string;
 }
+
+export interface GPGSignature {
+  signature_type: 'PGP';
+  verification_status: 'verified' | 'unverified';
+  gpg_key_id: number;
+  gpg_key_primary_keyid: string;
+  gpg_key_user_name: string;
+  gpg_key_user_email: string;
+  gpg_key_subkey_id: number | null;
+  commit_source: string;
+}
+
+export interface X509Signature {
+  signature_type: 'X509';
+  verification_status: 'verified' | 'unverified';
+  x509_certificate: {
+    id: number;
+    subject: string;
+    subject_key_identifier: string;
+    email: string;
+    serial_number: string;
+    certificate_status: string;
+    x509_issuer: {
+      id: number;
+      subject: string;
+      subject_key_identifier: string;
+      crl_url: string;
+    };
+  };
+  commit_source: string;
+}
+
+export interface MissingSignature {
+  message: string;
+}
+
+export type CommitSignature = GPGSignature | X509Signature | MissingSignature;
 
 export class Commits extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
@@ -125,6 +162,12 @@ export class Commits extends BaseService {
     return RequestHelper.get(this, `projects/${pId}/repository/commits/${sha}/refs`, options);
   }
 
+  revert(projectId: string | number, sha: string, options?: Sudo) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.post(this, `projects/${pId}/repository/commits/${sha}/revert`, options);
+  }
+
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
@@ -145,5 +188,19 @@ export class Commits extends BaseService {
       `projects/${pId}/repository/commits/${sha}/merge_requests`,
       options,
     );
+  }
+
+  signature(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions,
+  ): Promise<CommitSignature> {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.get(
+      this,
+      `projects/${pId}/repository/commits/${sha}/signature`,
+      options,
+    ) as Promise<CommitSignature>;
   }
 }

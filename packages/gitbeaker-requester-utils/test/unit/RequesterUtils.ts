@@ -1,11 +1,16 @@
 /* eslint-disable max-classes-per-file */
-import * as FormData from 'form-data';
-import { createInstance, defaultRequest, modifyServices } from '../../src/RequesterUtils';
+import FormData from 'form-data';
+import {
+  createRequesterFn,
+  defaultOptionsHandler,
+  modifyServices,
+  formatQuery,
+} from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
 
-describe('defaultRequest', () => {
-  const service = {
+describe('defaultOptionsHandler', () => {
+  const serviceOptions = {
     headers: { test: '5' },
     url: 'testurl',
     rejectUnauthorized: false,
@@ -13,14 +18,14 @@ describe('defaultRequest', () => {
   };
 
   it('should not use default request options if not passed', async () => {
-    const options = defaultRequest(service);
+    const options = defaultOptionsHandler(serviceOptions);
 
     expect(options.method).toBe('get');
   });
 
   it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
-    const { body, headers } = defaultRequest(service, {
+    const { body, headers } = defaultOptionsHandler(serviceOptions, {
       method: 'post',
       body: testBody,
     });
@@ -31,13 +36,13 @@ describe('defaultRequest', () => {
 
   it('should not stringify body if it of type FormData', async () => {
     const testBody = new FormData();
-    const { body } = defaultRequest(service, { body: testBody, method: 'post' });
+    const { body } = defaultOptionsHandler(serviceOptions, { body: testBody, method: 'post' });
 
     expect(body).toBeInstanceOf(FormData);
   });
 
   it('should not assign the sudo property if omitted', async () => {
-    const { headers } = defaultRequest(service, {
+    const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
       method: 'get',
     });
@@ -46,15 +51,21 @@ describe('defaultRequest', () => {
   });
 
   it('should assign the sudo property if passed', async () => {
-    const { headers } = defaultRequest(service, {
+    const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
     });
 
     expect(headers.sudo).toBe('testsudo');
   });
 
+  it('should assign the prefixUrl property if passed', async () => {
+    const { prefixUrl } = defaultOptionsHandler(serviceOptions);
+
+    expect(prefixUrl).toBe('testurl');
+  });
+
   it('should default searchParams to an empty string if undefined', async () => {
-    const { searchParams } = defaultRequest(service, {
+    const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: undefined,
     });
 
@@ -62,7 +73,7 @@ describe('defaultRequest', () => {
   });
 
   it('should format searchParams to an stringified object', async () => {
-    const { searchParams } = defaultRequest(service, {
+    const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: { a: 5 },
     });
 
@@ -70,7 +81,7 @@ describe('defaultRequest', () => {
   });
 
   it('should format searchParams to an stringified object and decamelize properties', async () => {
-    const { searchParams } = defaultRequest(service, {
+    const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: { thisSearchTerm: 5 },
     });
 
@@ -81,13 +92,19 @@ describe('defaultRequest', () => {
 describe('createInstance', () => {
   const handler = jest.fn();
   const optionsHandler = jest.fn(() => ({}));
+  const serviceOptions = {
+    headers: { test: '5' },
+    url: 'testurl',
+    rejectUnauthorized: false,
+    requestTimeout: 50,
+  };
 
-  it('should have a createInstance function', async () => {
-    expect(createInstance).toBeFunction();
+  it('should have a createInstance function', () => {
+    expect(createRequesterFn).toBeFunction();
   });
 
-  it('should return an object with function names equal to those in the methods array when the createInstance function is called', async () => {
-    const requester = createInstance(optionsHandler, handler);
+  it('should return an object with function names equal to those in the methods array when the createInstance function is called', () => {
+    const requester = createRequesterFn(optionsHandler, handler)(serviceOptions);
 
     expect(requester).toContainAllKeys(methods);
 
@@ -96,21 +113,43 @@ describe('createInstance', () => {
     });
   });
 
-  it('should call the handler with the correct endpoint when passed to any of the method functions', async () => {
-    const requester = createInstance(optionsHandler, handler);
-    const service = {
+  it('should call the handler with the correct endpoint when passed to any of the method functions', () => {
+    const testEndpoint = 'test endpoint';
+    const requester = createRequesterFn(optionsHandler, handler)(serviceOptions);
+
+    methods.forEach((m) => {
+      requester[m](testEndpoint, {});
+
+      expect(optionsHandler).toBeCalledWith(serviceOptions, { method: m });
+      expect(handler).toBeCalledWith(testEndpoint, {});
+    });
+  });
+
+  it('should respect the closure variables', () => {
+    const serviceOptions1 = {
       headers: { test: '5' },
       url: 'testurl',
       rejectUnauthorized: false,
       requestTimeout: 50,
     };
-    const testEndpoint = 'test endpoint';
+    const serviceOptions2 = {
+      headers: { test: '5' },
+      url: 'testurl2',
+      rejectUnauthorized: true,
+      requestTimeout: 100,
+    };
 
-    methods.forEach((m) => {
-      requester[m](service, testEndpoint, {});
+    const requesterFn = createRequesterFn(optionsHandler, handler);
+    const requesterA = requesterFn(serviceOptions1);
+    const requesterB = requesterFn(serviceOptions2);
 
-      expect(handler).toBeCalledWith(testEndpoint, {});
-    });
+    requesterA.get('test');
+
+    expect(optionsHandler).toBeCalledWith(serviceOptions1, { method: 'get' });
+
+    requesterB.get('test');
+
+    expect(optionsHandler).toBeCalledWith(serviceOptions2, { method: 'get' });
   });
 });
 
@@ -203,5 +242,19 @@ describe('modifyServices', () => {
     const b = new B({ x: 5 });
 
     expect(b.x).toBe(5);
+  });
+});
+
+describe('formatQuery', () => {
+  it('should decamelize keys and stringify the object', async () => {
+    const string = formatQuery({ test: 6 });
+
+    expect(string).toBe('test=6');
+  });
+
+  it('should decamelize sub keys in not property and stringify the object', async () => {
+    const string = formatQuery({ test: 6, not: { test: 7 } });
+
+    expect(string).toBe('not=%7B%22test%22%3A7%7D&test=6');
   });
 });

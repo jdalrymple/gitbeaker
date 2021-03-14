@@ -292,6 +292,69 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "illyaMs",
+      "name": "Ilya Dus",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/26578665?v=4",
+      "profile": "https://github.com/illyaMs",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wamry",
+      "name": "Omar Awamry",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32439651?v=4",
+      "profile": "https://github.com/wamry",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Sumragen",
+      "name": "Hennadii Varava",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/15640910?v=4",
+      "profile": "https://github.com/Sumragen",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "xiezht",
+      "name": "xiezht",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/18051618?v=4",
+      "profile": "https://github.com/xiezht",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "martin-helmich",
+      "name": "Martin Helmich",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2538958?v=4",
+      "profile": "http://www.martin-helmich.de/en",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "smcgivern",
+      "name": "Sean McGivern",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1120328?v=4",
+      "profile": "https://github.com/smcgivern",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Vogel612",
+      "name": "Clemens Lieb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7288995?v=4",
+      "profile": "https://github.com/Vogel612",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

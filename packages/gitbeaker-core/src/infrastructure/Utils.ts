@@ -1,4 +1,4 @@
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
@@ -18,12 +18,16 @@ export function bundler<T extends { [name: string]: Constructor }, P extends key
 ): BundleType<T, P> {
   return (function Bundle(options?: any) {
     Object.entries(services).forEach(([name, Ser]) => {
+      /* eslint @typescript-eslint/ban-ts-comment: 0 */
+      // @ts-ignore
       this[name] = new Ser(options);
     });
   } as any) as BundleType<T, P>;
 }
 
 export function appendFormFromObject(object: Record<string, unknown>): FormData {
+  /* eslint @typescript-eslint/ban-ts-comment: 0 */
+  // @ts-ignore
   const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {

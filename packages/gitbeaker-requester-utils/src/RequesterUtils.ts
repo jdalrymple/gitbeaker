@@ -1,25 +1,26 @@
 import { decamelizeKeys } from 'xcase';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { stringify } from 'query-string';
-import { BaseService } from './BaseService';
 
 // Types
-export interface RequesterType {
-  get(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  post(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  put(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  delete(service: BaseService, endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  stream?(
-    service: BaseService,
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): NodeJS.ReadableStream;
+export interface Constructable<T = any> {
+  new (...args: any[]): T;
 }
 
-export type DefaultRequestService = Pick<
-  BaseService,
-  'headers' | 'requestTimeout' | 'url' | 'rejectUnauthorized'
->;
+export interface RequesterType {
+  get(endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  post(endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  put(endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  delete(endpoint: string, options?: Record<string, unknown>): Promise<any>;
+  stream?(endpoint: string, options?: Record<string, unknown>): NodeJS.ReadableStream;
+}
+
+export type DefaultServiceOptions = {
+  headers: { [header: string]: string };
+  requestTimeout: number;
+  url: string;
+  rejectUnauthorized: boolean;
+};
 
 export type DefaultRequestOptions = {
   body?: FormData | Record<string, unknown>;
@@ -46,11 +47,11 @@ export function formatQuery(params: Record<string, unknown> = {}) {
   return stringify(decamelized, { arrayFormat: 'bracket' });
 }
 
-export function defaultRequest(
-  service: DefaultRequestService,
+export function defaultOptionsHandler(
+  serviceOptions: DefaultServiceOptions,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): DefaultRequestReturn {
-  const { headers } = service;
+  const { headers, requestTimeout, url } = serviceOptions;
   let bod: FormData | string;
 
   if (sudo) headers.sudo = sudo;
@@ -65,36 +66,33 @@ export function defaultRequest(
 
   return {
     headers,
-    timeout: service.requestTimeout,
+    timeout: requestTimeout,
     method,
     searchParams: formatQuery(query),
-    prefixUrl: service.url,
+    prefixUrl: url,
     body: bod,
   };
 }
 
-export function createInstance(optionsHandler, requestHandler): RequesterType {
-  const requester: RequesterType = {} as RequesterType;
+export function createRequesterFn(
+  optionsHandler,
+  requestHandler,
+): (serviceOptions: DefaultServiceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
-  methods.forEach((m) => {
-    /* eslint func-names:0 */
-    requester[m] = function (
-      service: BaseService,
-      endpoint: string,
-      options: Record<string, unknown>,
-    ) {
-      const requestOptions = optionsHandler(service, { ...options, method: m });
+  return (serviceOptions) => {
+    const requester: RequesterType = {} as RequesterType;
 
-      return requestHandler(endpoint, requestOptions);
-    };
-  });
+    methods.forEach((m) => {
+      requester[m] = (endpoint: string, options: Record<string, unknown>) => {
+        const requestOptions = optionsHandler(serviceOptions, { ...options, method: m });
 
-  return requester;
-}
+        return requestHandler(endpoint, requestOptions);
+      };
+    });
 
-export interface Constructable<T = any> {
-  new (...args: any[]): T;
+    return requester;
+  };
 }
 
 function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
@@ -107,11 +105,8 @@ function extendClass<T extends Constructable>(Base: T, customConfig: Record<stri
   };
 }
 
-export function modifyServices<T extends { [name: string]: Constructable }>(
-  services: T,
-  customConfig: Record<string, unknown> = {},
-) {
-  const updated: { [name: string]: Constructable } = {};
+export function modifyServices<T>(services: T, customConfig: Record<string, unknown> = {}) {
+  const updated = {};
 
   Object.entries(services).forEach(([k, s]) => {
     updated[k] = extendClass(s, customConfig);

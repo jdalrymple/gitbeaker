@@ -1,3 +1,104 @@
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 7.0.0 to 7.1.0 [#1556](https://github.com/jdalrymple/gitbeaker/pull/1556) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 6.0.0 to 7.0.0 [#1522](https://github.com/jdalrymple/gitbeaker/pull/1522) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 5.5.0 to 6.0.0 [#1513](https://github.com/jdalrymple/gitbeaker/pull/1513) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.3 (Sun Jan 24 2021)
+
+#### 🐛 Bug Fix
+
+- Remove possibility of char type information polluting check of content-type [#1467](https://github.com/jdalrymple/gitbeaker/pull/1467) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v27.0.0 (Fri Dec 18 2020)
+
+#### 💥 Breaking Change
+
+- Removed circular references [#1387](https://github.com/jdalrymple/gitbeaker/pull/1387) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v26.0.0 (Sun Dec 06 2020)
+
+#### 💥 Breaking Change
+
+- Export the APIMap through a compile-time replacement [#1352](https://github.com/jdalrymple/gitbeaker/pull/1352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 10.0.0 to 11.0.0 [#1361](https://github.com/jdalrymple/gitbeaker/pull/1361) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @rollup/plugin-commonjs from 16.0.0 to 17.0.0 [#1358](https://github.com/jdalrymple/gitbeaker/pull/1358) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v25.5.0 (Sun Nov 29 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump rollup-plugin-typescript2 from 0.28.0 to 0.29.0 [#1324](https://github.com/jdalrymple/gitbeaker/pull/1324) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump ky from 0.24.0 to 0.25.0 [#1330](https://github.com/jdalrymple/gitbeaker/pull/1330) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 5.4.1 to 5.5.0 [#1334](https://github.com/jdalrymple/gitbeaker/pull/1334) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v25.4.0 (Tue Nov 24 2020)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-node-resolve from 9.0.0 to 10.0.0 [#1319](https://github.com/jdalrymple/gitbeaker/pull/1319) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @rollup/plugin-commonjs from 15.1.0 to 16.0.0 [#1314](https://github.com/jdalrymple/gitbeaker/pull/1314) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/puppeteer from 3.0.2 to 5.4.0 [#1316](https://github.com/jdalrymple/gitbeaker/pull/1316) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v25.2.0 (Fri Oct 30 2020)
 
 #### 🐛 Bug Fix

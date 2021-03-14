@@ -1,3 +1,4 @@
+import replace from '@rollup/plugin-replace';
 import pkg from './package.json';
 import { commonConfig, commonPlugins } from '../../rollup.config';
 
@@ -14,5 +15,10 @@ export default {
       format: 'es',
     },
   ],
-  plugins: commonPlugins,
+  plugins: [
+    replace({
+      __apiMap__: JSON.stringify(require('./dist/map.json'))
+    }),
+    ...commonPlugins,
+  ]
 };

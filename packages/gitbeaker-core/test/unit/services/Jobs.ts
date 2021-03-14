@@ -1,4 +1,3 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import { Jobs } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
@@ -7,15 +6,8 @@ jest.mock('../../../src/infrastructure/RequestHelper');
 let service: Jobs;
 
 beforeEach(() => {
-  const requester = {
-    get: jest.fn(() => Promise.resolve([])),
-    post: jest.fn(() => Promise.resolve({})),
-    put: jest.fn(() => Promise.resolve({})),
-    delete: jest.fn(() => Promise.resolve({})),
-  } as RequesterType;
-
   service = new Jobs({
-    requester,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

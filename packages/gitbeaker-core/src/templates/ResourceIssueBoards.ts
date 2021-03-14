@@ -8,7 +8,7 @@ import {
 
 export class ResourceIssueBoards extends BaseService {
   constructor(resourceType: string, options) {
-    super({ url: resourceType, ...options });
+    super({ prefixUrl: resourceType, ...options });
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {

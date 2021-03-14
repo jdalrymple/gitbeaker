@@ -1,5 +1,6 @@
 import { Issues, Projects } from '../../../src';
 
+const { TEST_ID } = process.env;
 let issueAPI: InstanceType<typeof Issues>;
 let projectAPI: InstanceType<typeof Projects>;
 
@@ -16,7 +17,7 @@ beforeAll(async () => {
 
 describe.skip('Issues.all', () => {
   beforeAll(async () => {
-    const project = await projectAPI.create({ name: 'Issues All Integration Test' });
+    const project = await projectAPI.create({ name: `Issues All Integration Test ${TEST_ID}` });
     const newIssues: any[] = [];
 
     for (let i = 0; i < 100; i += 1) {

@@ -1,6 +1,15 @@
 import { bundler } from './infrastructure';
 import * as APIServices from './services';
 
+/* -------------- Export Map ------------- */
+export function getAPIMap(): Record<string, unknown> {
+  if (!'__apiMap__'.includes('{')) {
+    throw new Error('This function is only available in the distributed code');
+  }
+
+  return JSON.parse('__apiMap__');
+}
+
 /* -------------- Single Services ------------- */
 export * from './services';
 
