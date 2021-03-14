@@ -1,3 +1,22 @@
+# v28.1.0 (Sun Mar 14 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Rewrite HTTP method for `stream` requests in GotRequester [#1602](https://github.com/jdalrymple/gitbeaker/pull/1602) ([@Vogel612](https://github.com/Vogel612))
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/stash' \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Clemens Lieb ([@Vogel612](https://github.com/Vogel612))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.0.4 (Mon Jan 25 2021)
 
 #### ⚠️ Pushed to `master`
