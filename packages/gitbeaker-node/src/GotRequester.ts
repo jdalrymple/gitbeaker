@@ -74,7 +74,11 @@ export async function handler(endpoint: string, options: Record<string, unknown>
   for (let i = 0; i < maxRetries; i += 1) {
     const waitTime = 2 ** i * 0.1;
     try {
-      if (options.method === 'stream') return Got(endpoint, options);
+      if (options.method === 'stream') {
+        options.method = 'get';
+        options.isStream = true;
+        return Got(endpoint, options);
+      }
       response = await Got(endpoint, options); // eslint-disable-line
       break;
     } catch (e) {
