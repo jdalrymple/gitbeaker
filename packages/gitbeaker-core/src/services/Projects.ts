@@ -18,14 +18,90 @@ export interface NamespaceInfoSchema extends Record<string, unknown> {
 
 export interface ProjectSchema extends Record<string, unknown> {
   id: number;
+  description: string;
+  default_branch: string;
+  ssh_url_to_repo: string;
+  http_url_to_repo: string;
+  web_url: string;
+  readme_url: string;
+  tag_list?: string[];
   name: string;
   name_with_namespace: string;
   path: string;
   path_with_namespace: string;
+  created_at: string;
+  last_activity_at: string;
+  forks_count: number;
+  avatar_url: string;
+  star_count: number;
+}
+
+export interface ProjectExpandedSchema extends ProjectSchema {
+  owner: {
+    id: number;
+    name: string;
+    created_at: string;
+  };
+  issues_enabled: boolean;
+  open_issues_count: number;
+  merge_requests_enabled: boolean;
+  jobs_enabled: boolean;
+  wiki_enabled: boolean;
+  snippets_enabled: boolean;
+  can_create_merge_request_in: boolean;
+  resolve_outdated_diff_discussions: boolean;
+  container_registry_enabled: boolean;
+  creator_id: number;
   namespace: NamespaceInfoSchema;
-  ssh_url_to_repo: string;
-  http_url_to_repo: string;
+  import_status: string;
+  import_error?: null;
+  permissions: {
+    project_access: AccessSchema;
+    group_access: AccessSchema;
+  };
   archived: boolean;
+  license_url: string;
+  license:  {
+    key: string;
+    name: string;
+    nickname: string;
+    html_url: string;
+    source_url: string;
+  };
+  shared_runners_enabled: boolean;
+  runners_token: string;
+  ci_default_git_depth: number;
+  ci_forward_deployment_enabled: boolean;
+  public_jobs: boolean;
+  shared_with_groups?: (null)[] | null;
+  only_allow_merge_if_pipeline_succeeds: boolean;
+  allow_merge_on_skipped_pipeline: boolean;
+  restrict_user_defined_variables: boolean;
+  only_allow_merge_if_all_discussions_are_resolved: boolean;
+  remove_source_branch_after_merge: boolean;
+  request_access_enabled: boolean;
+  merge_method: string;
+  autoclose_referenced_issues: boolean;
+  suggestion_commit_message?: null;
+  container_registry_image_prefix: string;
+  _links: {
+    self: string;
+    issues: string;
+    merge_requests: string;
+    repo_branches: string;
+    labels: string;
+    events: string;
+    members: string;
+  };
+}
+
+export interface AccessSchema {
+  access_level: number;
+  notification_level: number;
+}
+
+export interface LanguagesSchema extends Record<string, number> {
+  [name: string]: number
 }
 
 export class Projects<C extends boolean = false> extends BaseService<C> {
@@ -36,7 +112,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   archive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/archive`, options);
+    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/archive`, options);
   }
 
   create({
@@ -45,19 +121,13 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
 
-    return RequestHelper.post()(this, url, options);
+    return RequestHelper.post<ProjectExpandedSchema>()(this, url, options);
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put()(this, `projects/${pId}`, options);
-  }
-
-  events(projectId: string | number, options?: BaseRequestOptions & EventOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get()(this, `projects/${pId}/events`, options);
+    return RequestHelper.put<ProjectExpandedSchema>()(this, `projects/${pId}`, options);
   }
 
   fork(
@@ -69,19 +139,19 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
 
     if (forkedFromId) url += `/${encodeURIComponent(forkedFromId)}`;
 
-    return RequestHelper.post()(this, url, options);
+    return RequestHelper.post<ProjectExpandedSchema>()(this, url, options);
   }
 
   forks(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/forks`, options);
+    return RequestHelper.get<ProjectExpandedSchema[]>()(this, `projects/${pId}/forks`, options);
   }
 
   languages(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/languages`, options);
+    return RequestHelper.get<LanguagesSchema>()(this, `projects/${pId}/languages`, options);
   }
 
   mirrorPull(projectId: string | number, options?: Sudo) {
@@ -150,7 +220,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   unarchive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/unarchive`, options);
+    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/unarchive`, options);
   }
 
   unshare(projectId: string | number, groupId: string | number, options?: Sudo) {

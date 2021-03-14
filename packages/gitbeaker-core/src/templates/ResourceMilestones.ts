@@ -5,6 +5,8 @@ import {
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
+import type { IssueSchema } from '../services/Issues';
+import type { MergeRequestSchema } from '../services/MergeRequests';
 
 export interface MilestoneSchema extends Record<string, unknown> {
   id: number;
@@ -47,13 +49,13 @@ export class ResourceMilestones<C extends boolean = false> extends BaseService<C
   issues(resourceId: string | number, milestoneId: number, options?: Sudo) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `${rId}/milestones/${mId}/issues`, options);
+    return RequestHelper.get<IssueSchema[]>()(this, `${rId}/milestones/${mId}/issues`, options);
   }
 
   mergeRequests(resourceId: string | number, milestoneId: number, options?: Sudo) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `${rId}/milestones/${mId}/merge_requests`, options);
+    return RequestHelper.get<MergeRequestSchema[]>()(this, `${rId}/milestones/${mId}/merge_requests`, options);
   }
 
   show(resourceId: string | number, milestoneId: number, options?: Sudo) {

@@ -1,19 +1,19 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ResourceLabels } from '../templates';
+import { BaseRequestOptions, PaginatedRequestOptions, CamelizedRecord, Sudo } from '../infrastructure';
+import { ResourceLabels, LabelSchema } from '../templates';
 
 export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions);
+  all(groupId: string | number, options?: PaginatedRequestOptions): Promise<CamelizedRecord<C, LabelSchema>[]>
 
-  create(groupId: string | number, labelName: string, color: string, options?: BaseRequestOptions);
+  create(groupId: string | number, labelName: string, color: string, options?: BaseRequestOptions): Promise<CamelizedRecord<C, LabelSchema>>
 
-  edit(groupId: string | number, labelName: string, options?: BaseRequestOptions);
+  edit(groupId: string | number, labelName: string, options?: BaseRequestOptions): Promise<CamelizedRecord<C, LabelSchema>>
 
-  remove(groupId: string | number, labelName: string, options?: Sudo);
+  remove(groupId: string | number, labelName: string, options?: Sudo): Promise<void>
 
-  subscribe(groupId: string | number, labelId: number, options?: Sudo);
+  subscribe(groupId: string | number, labelId: number, options?: Sudo): Promise<CamelizedRecord<C, LabelSchema>>
 
-  unsubscribe(groupId: string | number, labelId: number, options?: Sudo);
+  unsubscribe(groupId: string | number, labelId: number, options?: Sudo): Promise<CamelizedRecord<C, LabelSchema>>
 }
 
 export class GroupLabels<C extends boolean = false> extends ResourceLabels<C> {

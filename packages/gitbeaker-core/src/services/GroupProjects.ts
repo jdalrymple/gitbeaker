@@ -8,7 +8,7 @@ import {
 import { ProjectSchema } from './Projects';
 
 export class GroupProjects<C extends boolean = false> extends BaseService<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {
+  all(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
     return RequestHelper.get<ProjectSchema[]>()(this, `groups/${gId}/projects`, options);

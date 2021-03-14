@@ -16,10 +16,10 @@ export interface EventOptions {
     | 'destroyed'
     | 'expired';
   targetType?: 'issue' | 'milestone' | 'merge_request' | 'note' | 'project' | 'snippet' | 'user';
-  before: string;
-  after: string;
-  scope: string;
-  sort: 'asc' | 'desc';
+  before?: string;
+  after?: string;
+  scope?: string;
+  sort?: 'asc' | 'desc';
 }
 
 export interface EventSchema extends Record<string, unknown> {
@@ -37,7 +37,17 @@ export interface EventSchema extends Record<string, unknown> {
 }
 
 export class Events<C extends boolean = false> extends BaseService<C> {
-  all(options?: PaginatedRequestOptions & EventOptions) {
-    return RequestHelper.get<EventSchema[]>()(this, 'events', options);
+  all({ projectId, ...options }: { projectId?: string|number } & PaginatedRequestOptions & EventOptions = {}) {
+    let url:string;
+
+    if (projectId) {
+      const pId = encodeURIComponent(projectId);
+
+      url = `projects/${pId}/events`;
+    } else {
+      url = 'events';
+    }
+
+    return RequestHelper.get<EventSchema[]>()(this, url, options);
   }
 }
