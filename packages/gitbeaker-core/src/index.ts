@@ -24,7 +24,6 @@ export const GroupsBundle = bundler({
   GroupIssueBoards: APIServices.GroupIssueBoards,
   GroupMembers: APIServices.GroupMembers,
   GroupMilestones: APIServices.GroupMilestones,
-  GroupProjects: APIServices.GroupProjects,
   GroupRunners: APIServices.GroupRunners,
   GroupVariables: APIServices.GroupVariables,
   GroupLabels: APIServices.GroupLabels,

@@ -25,7 +25,7 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
-  remove(groupId: string | number, keyId: string, options?: PaginatedRequestOptions);
+  remove(groupId: string | number, keyId: string, options?: PaginatedRequestOptions): Promise<void>;
 }
 
 export class GroupVariables<C extends boolean = false> extends ResourceVariables<C> {

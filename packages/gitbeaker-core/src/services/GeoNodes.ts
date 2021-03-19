@@ -139,7 +139,6 @@ export interface GeoNodeStatusSchema extends Record<string, unknown> {
   group_wiki_repositories_failed_count: number;
 }
 
-
 export class GeoNodes<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<GeoNodeSchema[]>()(this, 'geo_nodes', options);
@@ -172,7 +171,6 @@ export class GeoNodes<C extends boolean = false> extends BaseService<C> {
 
     return RequestHelper.del<GeoNodeSchema>()(this, `geo_nodes/${gId}`, options);
   }
-
 
   show(geonodeId: number, options?: Sudo) {
     const gId = encodeURIComponent(geonodeId);

@@ -33,13 +33,13 @@ export class DeployKeys<C extends boolean = false> extends BaseService<C> {
     return RequestHelper.get<Omit<DeployKey, 'can_push'>[]>()(this, url, options);
   }
 
-  edit(projectId: string | number, keyId: string, options?: BaseRequestOptions) {
+  edit(projectId: string | number, keyId: number, options?: BaseRequestOptions) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.put<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  enable(projectId: string | number, keyId: string, options?: Sudo) {
+  enable(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.post<Omit<DeployKey, 'can_push'>>()(
@@ -49,13 +49,13 @@ export class DeployKeys<C extends boolean = false> extends BaseService<C> {
     );
   }
 
-  remove(projectId: string | number, keyId: string, options?: Sudo) {
+  remove(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  show(projectId: string | number, keyId: string, options?: Sudo) {
+  show(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
     return RequestHelper.get<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);

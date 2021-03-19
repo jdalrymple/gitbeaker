@@ -7,6 +7,15 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export interface IssueBoardListSchema extends Record<string, unknown> {
+  id: number;
+  label: {
+    name: string;
+    color: string;
+    description?: null;
+  };
+  position: number;
+}
 export interface IssueBoardSchema extends Record<string, unknown> {
   id: number;
   name: string;
@@ -20,16 +29,6 @@ export interface IssueBoardSchema extends Record<string, unknown> {
     title: string;
   };
   lists?: IssueBoardListSchema[];
-}
-
-export interface IssueBoardListSchema extends Record<string, unknown> {
-  id: number;
-  label: {
-    name: string;
-    color: string;
-    description?: null;
-  };
-  position: number;
 }
 
 export interface IssueBoardListExpandedSchema extends IssueBoardSchema {
@@ -56,7 +55,10 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseService<
   createList(resourceId: string | number, boardId: number, labelId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
-    return RequestHelper.post<IssueBoardListExpandedSchema>()(this, `${rId}/boards/${bId}/lists`, { labelId, ...options });
+    return RequestHelper.post<IssueBoardListExpandedSchema>()(this, `${rId}/boards/${bId}/lists`, {
+      labelId,
+      ...options,
+    });
   }
 
   edit(resourceId: string | number, boardId: number, options?: BaseRequestOptions) {
@@ -74,7 +76,10 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseService<
   ) {
     const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
 
-    return RequestHelper.put<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists/${lId}`, { position, ...options });
+    return RequestHelper.put<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists/${lId}`, {
+      position,
+      ...options,
+    });
   }
 
   lists(resourceId: string | number, boardId: number, options?: Sudo) {
@@ -104,6 +109,10 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseService<
   showList(resourceId: string | number, boardId: number, listId: number, options?: Sudo) {
     const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
 
-    return RequestHelper.get<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists/${lId}`, options);
+    return RequestHelper.get<IssueBoardListSchema>()(
+      this,
+      `${rId}/boards/${bId}/lists/${lId}`,
+      options,
+    );
   }
 }

@@ -1,5 +1,23 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  RequestHelper,
+  Sudo,
+} from '../infrastructure';
+
+export interface ScopeSchema {
+  id: number;
+  environment_scope: string;
+}
+export interface StrategySchema {
+  id: number;
+  name: string;
+  parameters: {
+    user_ids: string;
+  };
+  scopes?: ScopeSchema[];
+}
 
 export interface FeatureFlagSchema extends Record<string, unknown> {
   name: string;
@@ -12,52 +30,57 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
   strategies?: StrategySchema[];
 }
 
-export interface StrategySchema {
-  id: number;
-  name: string;
-  parameters: {
-    userIds: string;
-  };
-  scopes?: ScopeSchema[];
-}
-
-export interface ScopeSchema {
-  id: number;
-  environment_scope: string;
-}
-
 export class FeatureFlags<C extends boolean = false> extends BaseService<C> {
-  all(projectId: string|number, { scopes, ...options }: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {}) {
+  all(
+    projectId: string | number,
+    { scopes, ...options }: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},
+  ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<FeatureFlagSchema[]>()(this, `projects/${pId}/features_flags`, {scopes, ...options});
+    return RequestHelper.get<FeatureFlagSchema[]>()(this, `projects/${pId}/features_flags`, {
+      scopes,
+      ...options,
+    });
   }
 
-  create(projectId: string|number, flagName: string, version: string, options?: BaseRequestOptions) {
-    const [pId, fName, ver] = [projectId, flagName, version].map(encodeURIComponent)
+  create(
+    projectId: string | number,
+    flagName: string,
+    version: string,
+    options?: BaseRequestOptions,
+  ) {
+    const [pId, fName, ver] = [projectId, flagName, version].map(encodeURIComponent);
 
     return RequestHelper.post<FeatureFlagSchema>()(this, `projects/${pId}/features_flags`, {
       version: ver,
       name: fName,
-      ...options
+      ...options,
     });
   }
 
-  edit(projectId: string|number, flagName: string, options?: BaseRequestOptions) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent)
+  edit(projectId: string | number, flagName: string, options?: BaseRequestOptions) {
+    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
 
-    return RequestHelper.put<FeatureFlagSchema>()(this, `projects/${pId}/features_flags/${fName}`, options);
+    return RequestHelper.put<FeatureFlagSchema>()(
+      this,
+      `projects/${pId}/features_flags/${fName}`,
+      options,
+    );
   }
 
-  remove(projectId: string|number, flagName: string, options?: Sudo) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent)
+  remove(projectId: string | number, flagName: string, options?: Sudo) {
+    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `projects/${pId}/features_flags/${fName}`, options);
   }
 
-  show(projectId: string|number, flagName: string, options?: Sudo) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent)
+  show(projectId: string | number, flagName: string, options?: Sudo) {
+    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
 
-    return RequestHelper.get<FeatureFlagSchema>()(this, `projects/${pId}/features_flags/${fName}`, options);
+    return RequestHelper.get<FeatureFlagSchema>()(
+      this,
+      `projects/${pId}/features_flags/${fName}`,
+      options,
+    );
   }
 }

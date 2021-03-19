@@ -12,7 +12,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
   addNote(
     projectId: string | number,
     mergerequestId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -34,7 +34,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
   editNote(
     projectId: string | number,
     mergerequestId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -43,7 +43,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
   removeNote(
     projectId: string | number,
     issueId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     options?: Sudo,
   );
@@ -51,7 +51,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
   show(
     projectId: string | number,
     mergerequestId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }

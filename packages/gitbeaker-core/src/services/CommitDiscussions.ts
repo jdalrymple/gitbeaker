@@ -11,8 +11,8 @@ import {
 export interface CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
     projectId: string | number,
-    commitId: string | number,
-    discussionId: string | number,
+    commitId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -20,21 +20,21 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   all(
     projectId: string | number,
-    commitId: string | number,
+    commitId: number,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
   create(
     projectId: string | number,
-    commitId: string | number,
+    commitId: number,
     content: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   editNote(
     projectId: string | number,
-    commitId: string | number,
-    discussionId: string | number,
+    commitId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -42,16 +42,16 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   removeNote(
     projectId: string | number,
-    commitId: string | number,
-    discussionId: string | number,
+    commitId: number,
+    discussionId: number,
     noteId: number,
     options?: Sudo,
   ): Promise<void>;
 
   show(
     projectId: string | number,
-    commitId: string | number,
-    discussionId: string | number,
+    commitId: number,
+    discussionId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }

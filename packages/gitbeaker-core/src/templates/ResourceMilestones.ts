@@ -55,7 +55,11 @@ export class ResourceMilestones<C extends boolean = false> extends BaseService<C
   mergeRequests(resourceId: string | number, milestoneId: number, options?: Sudo) {
     const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
 
-    return RequestHelper.get<MergeRequestSchema[]>()(this, `${rId}/milestones/${mId}/merge_requests`, options);
+    return RequestHelper.get<MergeRequestSchema[]>()(
+      this,
+      `${rId}/milestones/${mId}/merge_requests`,
+      options,
+    );
   }
 
   show(resourceId: string | number, milestoneId: number, options?: Sudo) {

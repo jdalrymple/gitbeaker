@@ -12,9 +12,9 @@ export interface Labels<C extends boolean = false> extends ResourceLabels<C> {
     options?: BaseRequestOptions,
   );
 
-  edit(projectId: string | number, labelName: string, options?: BaseRequestOptions);
+  edit(projectId: string | number, labelId: number, options?: BaseRequestOptions);
 
-  remove(projectId: string | number, labelName: string, options?: Sudo);
+  remove(projectId: string | number,  labelId: number, options?: Sudo);
 
   subscribe(projectId: string | number, labelId: number, options?: Sudo);
 

@@ -25,11 +25,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
-  remove(
-    projectId: string | number,
-    keyId: string,
-    options?: PaginatedRequestOptions,
-  );
+  remove(projectId: string | number, keyId: string, options?: PaginatedRequestOptions);
 }
 
 export class ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {

@@ -11,8 +11,8 @@ import {
 export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
     groupId: string | number,
-    epicId: string | number,
-    discussionId: string | number,
+    epicId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -20,21 +20,21 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
 
   all(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
   create(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     content: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   editNote(
     groupId: string | number,
-    epicId: string | number,
-    discussionId: string | number,
+    epicId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -42,16 +42,16 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
 
   removeNote(
     groupId: string | number,
-    epicId: string | number,
-    discussionId: string | number,
+    epicId: number,
+    discussionId: number,
     noteId: number,
     options?: Sudo,
   ): Promise<void>;
 
   show(
     groupId: string | number,
-    epicId: string | number,
-    discussionId: string | number,
+    epicId: number,
+    discussionId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }

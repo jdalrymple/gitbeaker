@@ -5,7 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { EventOptions } from './Events';
+// import { EventOptions } from './Events';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 
 export interface NamespaceInfoSchema extends Record<string, unknown> {
@@ -36,6 +36,10 @@ export interface ProjectSchema extends Record<string, unknown> {
   star_count: number;
 }
 
+export interface AccessSchema {
+  access_level: number;
+  notification_level: number;
+}
 export interface ProjectExpandedSchema extends ProjectSchema {
   owner: {
     id: number;
@@ -61,7 +65,7 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   };
   archived: boolean;
   license_url: string;
-  license:  {
+  license: {
     key: string;
     name: string;
     nickname: string;
@@ -73,7 +77,7 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   ci_default_git_depth: number;
   ci_forward_deployment_enabled: boolean;
   public_jobs: boolean;
-  shared_with_groups?: (null)[] | null;
+  shared_with_groups?: null[] | null;
   only_allow_merge_if_pipeline_succeeds: boolean;
   allow_merge_on_skipped_pipeline: boolean;
   restrict_user_defined_variables: boolean;
@@ -95,13 +99,8 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   };
 }
 
-export interface AccessSchema {
-  access_level: number;
-  notification_level: number;
-}
-
 export interface LanguagesSchema extends Record<string, number> {
-  [name: string]: number
+  [name: string]: number;
 }
 
 export class Projects<C extends boolean = false> extends BaseService<C> {

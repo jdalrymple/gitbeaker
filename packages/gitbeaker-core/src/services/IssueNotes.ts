@@ -10,20 +10,20 @@ import {
 export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, NoteSchema>[]>;
 
   create(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, NoteSchema>>;
 
   edit(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
@@ -31,14 +31,14 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
 
   remove(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     noteId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, NoteSchema>>;

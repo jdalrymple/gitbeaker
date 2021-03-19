@@ -13,7 +13,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
   addNote(
     projectId: string | number,
     snippetId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -35,7 +35,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
   editNote(
     projectId: string | number,
     snippetId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
@@ -44,7 +44,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
   removeNote(
     projectId: string | number,
     snippetId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     noteId: number,
     options?: Sudo,
   );
@@ -52,7 +52,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
   show(
     projectId: string | number,
     snippetId: string | number,
-    discussionId: string | number,
+    discussionId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }

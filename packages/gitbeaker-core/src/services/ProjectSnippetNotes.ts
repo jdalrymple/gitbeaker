@@ -38,12 +38,7 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, ProjectSnippetSchema>>;
 
-  remove(
-    projectId: string | number,
-    snippetId: string | number,
-    noteId: number,
-    options?: Sudo,
-  );
+  remove(projectId: string | number, snippetId: string | number, noteId: number, options?: Sudo);
 
   show(
     projectId: string | number,

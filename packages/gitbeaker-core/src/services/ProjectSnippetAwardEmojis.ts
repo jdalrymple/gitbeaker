@@ -1,43 +1,39 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAwardEmojis } from '../templates';
-import { PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceAwardEmojis, AwardEmojiSchema } from '../templates';
+import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
 
 export interface ProjectSnippetAwardEmojis<C extends boolean = false>
   extends ResourceAwardEmojis<C> {
   all(
     projectId: string | number,
-    issueId: string | number,
-    noteId: number,
+    snippetIId: number,
     options?: PaginatedRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>[]>;
 
   award(
     projectId: string | number,
-    issueId: string | number,
-    noteId: number,
+    snippetIId: number,
     name: string,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
 
   remove(
     projectId: string | number,
-    issueId: string | number,
+    snippetIId: number,
     awardId: number,
-    noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,
-    issueId: string | number,
+    snippetIId: number,
     awardId: number,
-    noteId: number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
 }
 
 export class ProjectSnippetAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
   constructor(options: BaseServiceOptions<C> = {}) {
-    super('issues', options);
+    super('snippets', options);
   }
 }

@@ -43,11 +43,7 @@ export class ResourceVariables<C extends boolean> extends BaseService<C> {
     return RequestHelper.get<ResourceVariableSchema>()(this, `${rId}/variables/${kId}`, options);
   }
 
-  remove(
-    resourceId: string | number,
-    keyId: string,
-    options?: PaginatedRequestOptions,
-  ) {
+  remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `${rId}/variables/${kId}`, options);

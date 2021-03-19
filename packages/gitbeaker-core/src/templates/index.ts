@@ -1,5 +1,6 @@
 export * from './ResourceAccessRequests';
 export * from './ResourceAwardEmojis';
+export * from './ResourceNoteAwardEmojis';
 export * from './ResourceBadges';
 export * from './ResourceCustomAttributes';
 export * from './ResourceDeployTokens';

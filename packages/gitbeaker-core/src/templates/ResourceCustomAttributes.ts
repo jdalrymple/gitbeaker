@@ -35,6 +35,10 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseSer
   show(resourceId: string | number, customAttributeId: number, options?: Sudo) {
     const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
 
-    return RequestHelper.get<CustomAttributeSchema>()(this, `${rId}/custom_attributes/${cId}`, options);
+    return RequestHelper.get<CustomAttributeSchema>()(
+      this,
+      `${rId}/custom_attributes/${cId}`,
+      options,
+    );
   }
 }

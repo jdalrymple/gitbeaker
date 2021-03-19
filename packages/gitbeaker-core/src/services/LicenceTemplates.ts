@@ -1,10 +1,6 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceTemplates } from '../templates';
-import {
-  PaginatedRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
 
 export interface LicenceTemplateSchema extends Record<string, unknown> {
   key: string;
@@ -21,8 +17,8 @@ export interface LicenceTemplateSchema extends Record<string, unknown> {
 }
 
 export interface LicenceTemplates<C extends boolean = false> extends ResourceTemplates<C> {
-  all(options?: PaginatedRequestOptions): Promise<CamelizedRecord<C,LicenceTemplateSchema>[]>
-  show(key: string | number, options?: Sudo): Promise<CamelizedRecord<C,LicenceTemplateSchema>>
+  all(options?: PaginatedRequestOptions): Promise<CamelizedRecord<C, LicenceTemplateSchema>[]>;
+  show(key: string | number, options?: Sudo): Promise<CamelizedRecord<C, LicenceTemplateSchema>>;
 }
 
 export class LicenceTemplates<C extends boolean = false> extends ResourceTemplates<C> {

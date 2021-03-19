@@ -13,8 +13,8 @@ export interface EpicIssueSchema
 }
 
 export class EpicIssues<C extends boolean = false> extends BaseService<C> {
-  all(groupId: string | number, epicId: number, options?: PaginatedRequestOptions) {
-    const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
+  all(groupId: string | number, epicIId: number, options?: PaginatedRequestOptions) {
+    const [gId, eId] = [groupId, epicIId].map(encodeURIComponent);
 
     return RequestHelper.get<EpicIssueSchema[]>()(
       this,
@@ -23,8 +23,8 @@ export class EpicIssues<C extends boolean = false> extends BaseService<C> {
     );
   }
 
-  assign(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  assign(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
     return RequestHelper.post<EpicIssueSchema>()(
       this,
@@ -33,8 +33,13 @@ export class EpicIssues<C extends boolean = false> extends BaseService<C> {
     );
   }
 
-  edit(groupId: string | number, epicId: number, issueId: number, options?: BaseRequestOptions) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  edit(
+    groupId: string | number,
+    epicIId: number,
+    epicIssueId: number,
+    options?: BaseRequestOptions,
+  ) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
     return RequestHelper.put<EpicIssueSchema>()(
       this,
@@ -43,8 +48,8 @@ export class EpicIssues<C extends boolean = false> extends BaseService<C> {
     );
   }
 
-  remove(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  remove(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }

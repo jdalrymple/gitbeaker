@@ -36,7 +36,11 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseServi
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post<AccessRequestSchema>()(this, `${rId}/access_requests/${uId}/approve`, options);
+    return RequestHelper.post<AccessRequestSchema>()(
+      this,
+      `${rId}/access_requests/${uId}/approve`,
+      options,
+    );
   }
 
   deny(resourceId: string | number, userId: number) {

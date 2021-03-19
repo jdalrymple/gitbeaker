@@ -141,4 +141,14 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
 
     return RequestHelper.post()(this, `groups/${gId}/ldap_sync`, options);
   }
+
+  transferProject(
+    groupId: string | number,
+    projectId: string | number,
+    options?: BaseRequestOptions & ShowExpanded,
+  ) {
+    const [gId, pId] = [groupId, projectId].map(encodeURIComponent);
+
+    return RequestHelper.post()(this, `groups/${gId}/projects/${pId}`, options);
+  }
 }

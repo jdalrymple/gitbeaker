@@ -37,8 +37,11 @@ export interface EventSchema extends Record<string, unknown> {
 }
 
 export class Events<C extends boolean = false> extends BaseService<C> {
-  all({ projectId, ...options }: { projectId?: string|number } & PaginatedRequestOptions & EventOptions = {}) {
-    let url:string;
+  all({
+    projectId,
+    ...options
+  }: { projectId?: string | number } & PaginatedRequestOptions & EventOptions = {}) {
+    let url: string;
 
     if (projectId) {
       const pId = encodeURIComponent(projectId);

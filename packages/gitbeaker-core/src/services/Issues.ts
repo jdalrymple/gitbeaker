@@ -81,7 +81,7 @@ export class Issues<C extends boolean = false> extends BaseService<C> {
   }
 
   all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
-    let url;
+    let url: string;
 
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/issues`;

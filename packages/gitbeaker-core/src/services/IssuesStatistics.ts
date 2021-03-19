@@ -5,7 +5,7 @@ type ProjectOrGroup = { projectId?: string | number; groupId?: string | number }
 
 export class IssuesStatistics<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
-    let url;
+    let url: string;
 
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/issues_statistics`;

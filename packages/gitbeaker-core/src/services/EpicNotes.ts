@@ -19,35 +19,30 @@ export interface EpicNoteSchema
 export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, EpicNoteSchema>[]>;
 
   create(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
 
   edit(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
 
-  remove(
-    groupId: string | number,
-    epicId: string | number,
-    noteId: number,
-    options?: Sudo,
-  ): Promise<void>;
+  remove(groupId: string | number, epicId: number, noteId: number, options?: Sudo): Promise<void>;
 
   show(
     groupId: string | number,
-    epicId: string | number,
+    epicId: number,
     noteId: number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, EpicNoteSchema>>;
