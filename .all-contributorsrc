@@ -355,6 +355,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Pryx",
+      "name": "Vojtěch Sajdl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5222912?v=4",
+      "profile": "https://sajdl.com/",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
