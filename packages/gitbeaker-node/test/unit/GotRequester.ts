@@ -23,6 +23,16 @@ describe('processBody', () => {
     expect(output).toMatchObject({});
   });
 
+  it('should return a string if type is text/<subtype>', async () => {
+    const output = processBody({
+      rawBody: Buffer.from('test'),
+      headers: { 'content-type': 'text/plain' },
+    });
+
+    expect(typeof output).toBe('string');
+    expect(output).toEqual('test');
+  });
+
   it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
     const output = [
       processBody({
@@ -32,6 +42,10 @@ describe('processBody', () => {
       processBody({
         rawBody: Buffer.from('test'),
         headers: { 'content-type': 'binary/octet-stream' },
+      }),
+      processBody({
+        rawBody: Buffer.from('test'),
+        headers: { 'content-type': 'image/png' },
       }),
       processBody({
         rawBody: Buffer.from('test'),
@@ -48,7 +62,8 @@ describe('processBody', () => {
       headers: { 'content-type': 'fake' },
     });
 
-    expect(output).toBe('6');
+    expect(output).toBeInstanceOf(Buffer);
+    expect(output.toString()).toBe('6')
   });
 
   it('should return a empty string when presented with an unknown content-type and undefined rawBody', async () => {
@@ -57,7 +72,8 @@ describe('processBody', () => {
       headers: { 'content-type': 'fake' },
     });
 
-    expect(output).toBe('');
+    expect(output).toBeInstanceOf(Buffer);
+    expect(output.length).toBe(0)
   });
 });
 

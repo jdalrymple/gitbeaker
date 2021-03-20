@@ -45,19 +45,15 @@ export function processBody(response) {
   // Split to remove potential charset info from the content type
   const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
 
-  switch (contentType) {
-    case 'application/json': {
-      return response.json().then((v) => v || {});
-    }
-    case 'application/octet-stream':
-    case 'binary/octet-stream':
-    case 'application/gzip': {
-      return response.blob().then(Buffer.from);
-    }
-    default: {
-      return response.text().then((t) => t || '');
-    }
+  if (contentType === 'application/json') {
+    return response.json().then((v) => v || {});
   }
+
+  if (contentType.startsWith('text/')) {
+    return response.text().then((t) => t || '');
+  }
+
+  return response.blob().then(Buffer.from);
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {

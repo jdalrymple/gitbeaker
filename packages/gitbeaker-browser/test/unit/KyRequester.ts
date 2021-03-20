@@ -58,6 +58,16 @@ describe('processBody', () => {
         },
         headers: {
           get() {
+            return 'image/png';
+          },
+        },
+      }),
+      processBody({
+        blob() {
+          return Promise.resolve('test');
+        },
+        headers: {
+          get() {
             return 'application/gzip';
           },
         },
@@ -69,9 +79,9 @@ describe('processBody', () => {
     fulfilled.forEach((o) => expect(o).toBeInstanceOf(Buffer));
   });
 
-  it('should return a text body given when presented with an unknown content-type', async () => {
+  it('should return a original body given when presented with an unknown content-type', async () => {
     const output = await processBody({
-      text() {
+      blob() {
         return Promise.resolve('6');
       },
       headers: {
@@ -81,13 +91,30 @@ describe('processBody', () => {
       },
     });
 
-    expect(output).toBe('6');
+    expect(output).toBeInstanceOf(Buffer);
+    expect(output.toString()).toBe('6');
   });
 
-  it('should return a empty string when presented with an unknown content-type and undefined body', async () => {
+  it('should return a string if type is text/<subtype>', async () => {
     const output = await processBody({
       text() {
-        return Promise.resolve(null);
+        return Promise.resolve('test');
+      },
+      headers: {
+        get() {
+          return 'text/plain';
+        },
+      },
+    });
+
+    expect(typeof output).toBe('string');
+    expect(output).toEqual('test');
+  });
+
+  it('should return a empty string when presented with an unknown content-type and empty body', async () => {
+    const output = await processBody({
+      blob() {
+        return Promise.resolve(Buffer.alloc(0));
       },
       headers: {
         get() {
@@ -96,7 +123,8 @@ describe('processBody', () => {
       },
     });
 
-    expect(output).toBe('');
+    expect(output).toBeInstanceOf(Buffer);
+    expect(output.length).toBe(0);
   });
 });
 
