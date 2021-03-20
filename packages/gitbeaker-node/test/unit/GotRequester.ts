@@ -63,7 +63,7 @@ describe('processBody', () => {
     });
 
     expect(output).toBeInstanceOf(Buffer);
-    expect(output.toString()).toBe('6')
+    expect(output.toString()).toBe('6');
   });
 
   it('should return a empty string when presented with an unknown content-type and undefined rawBody', async () => {
@@ -73,7 +73,7 @@ describe('processBody', () => {
     });
 
     expect(output).toBeInstanceOf(Buffer);
-    expect(output.length).toBe(0)
+    expect(output.length).toBe(0);
   });
 });
 
