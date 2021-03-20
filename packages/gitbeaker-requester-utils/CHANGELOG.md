@@ -1,3 +1,15 @@
+# v28.2.0 (Sat Mar 20 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump query-string from 6.14.1 to 7.0.0 [#1628](https://github.com/jdalrymple/gitbeaker/pull/1628) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
