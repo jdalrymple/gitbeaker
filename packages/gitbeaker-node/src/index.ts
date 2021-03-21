@@ -14,7 +14,6 @@ export const {
   GroupIssueBoards,
   GroupMembers,
   GroupMilestones,
-  GroupProjects,
   GroupRunners,
   GroupVariables,
   GroupLabels,

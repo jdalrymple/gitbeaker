@@ -47,6 +47,7 @@ export interface JobSchema extends Record<string, unknown> {
   artifacts: ArtifactSchema[];
   runner: RunnerSchema;
   artifacts_expire_at?: Date;
+  tag_list?: string[];
 }
 
 export class Jobs<C extends boolean = false> extends BaseService<C> {
@@ -59,9 +60,10 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   cancel(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/cancel`, options);
+    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/cancel`, options);
   }
 
+  // TODO move
   downloadSingleArtifactFile(
     projectId: string | number,
     jobId: number,
@@ -84,6 +86,7 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     );
   }
 
+  // TODO move
   downloadSingleArtifactFileFromRef(
     projectId: string | number,
     ref: string,
@@ -107,6 +110,7 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
     );
   }
 
+  // TODO move
   downloadLatestArtifactFile(
     projectId: string | number,
     ref: string,
@@ -138,15 +142,17 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   erase(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/erase`, options);
+    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/erase`, options);
   }
 
+  // TODO move
   eraseArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `projects/${pId}/jobs/${jId}/artifacts`, options);
   }
 
+  // TODO move
   keepArtifacts(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
@@ -162,13 +168,13 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   retry(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/retry`, options);
+    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/retry`, options);
   }
 
   show(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/jobs/${jId}`, options);
+    return RequestHelper.get<JobSchema>()(this, `projects/${pId}/jobs/${jId}`, options);
   }
 
   showPipelineJobs(
@@ -178,6 +184,6 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
+    return RequestHelper.get<JobSchema>()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
 }

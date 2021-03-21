@@ -15,17 +15,17 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
 
   edit(
     groupId: string | number,
-    keyId: string,
+    key: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
   show(
     groupId: string | number,
-    keyId: string,
+    key: string,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
-  remove(groupId: string | number, keyId: string, options?: PaginatedRequestOptions): Promise<void>;
+  remove(groupId: string | number, key: string, options?: PaginatedRequestOptions): Promise<void>;
 }
 
 export class GroupVariables<C extends boolean = false> extends ResourceVariables<C> {

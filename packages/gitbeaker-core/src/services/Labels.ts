@@ -1,24 +1,44 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { ResourceLabels } from '../templates';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  CamelizedRecord,
+  Sudo,
+} from '../infrastructure';
+import { ResourceLabels, LabelSchema } from '../templates';
 
 export interface Labels<C extends boolean = false> extends ResourceLabels<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions);
+  all(
+    projectId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, LabelSchema>[]>;
 
   create(
     projectId: string | number,
     labelName: string,
     color: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, LabelSchema>>;
 
-  edit(projectId: string | number, labelId: number, options?: BaseRequestOptions);
+  edit(
+    projectId: string | number,
+    labelId: number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, LabelSchema>>;
 
-  remove(projectId: string | number,  labelId: number, options?: Sudo);
+  remove(projectId: string | number, labelId: number, options?: Sudo): Promise<void>;
 
-  subscribe(projectId: string | number, labelId: number, options?: Sudo);
+  subscribe(
+    projectId: string | number,
+    labelId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, LabelSchema>>;
 
-  unsubscribe(projectId: string | number, labelId: number, options?: Sudo);
+  unsubscribe(
+    projectId: string | number,
+    labelId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, LabelSchema>>;
 }
 
 export class Labels<C extends boolean = false> extends ResourceLabels<C> {
