@@ -158,13 +158,25 @@
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.20.6", "@auto-it/released@^10.18.9":
+"@auto-it/released@10.20.6":
   version "10.20.6"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.20.6.tgz#39fbc182cce22db9ae977ccff348e18212d8f8ee"
   integrity sha512-JYb8EE208TqXhqm+VA5i2u/AEh6yTAplntL0p6CQdRx08/PUESONAtkgQvQcCFVixsNnfKg3babi7ZO69TP0MQ==
   dependencies:
     "@auto-it/bot-list" "10.20.6"
     "@auto-it/core" "10.20.6"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+
+"@auto-it/released@^10.18.9":
+  version "10.21.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.21.0.tgz#9257cbcffe81a968fa6ded3ac5b3905051b402e6"
+  integrity sha512-rbaafU7RZn3d24jDvOlca50U7MJy5q0wJzF0Tzlb+bbZLXe/5SzInfIxiv5E8e8Pt1ju5zKu7EyzoN8m2C+ucQ==
+  dependencies:
+    "@auto-it/bot-list" "10.21.0"
+    "@auto-it/core" "10.21.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
