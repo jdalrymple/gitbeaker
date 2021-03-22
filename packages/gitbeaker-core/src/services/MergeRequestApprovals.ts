@@ -1,6 +1,15 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
+export interface MergeRequestApprovalSchema extends Record<string, unknown> {
+  approvals_before_merge: number;
+  reset_approvals_on_push: boolean;
+  disable_overriding_approvers_per_merge_request: boolean;
+  merge_requests_author_approval: boolean;
+  merge_requests_disable_committers_approval: boolean;
+  require_password_to_approve: boolean;
+}
+
 export type ApprovalRulesRequestOptions = {
   userIds?: number[];
   groupIds?: number[];
