@@ -74,7 +74,7 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@^10.18.9":
+"@auto-it/core@10.22.0", "@auto-it/core@^10.18.9":
   version "10.22.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.22.0.tgz#98ff643eb1edaf849d339d08f295a891385949c9"
   integrity sha512-CXsVD3JFvYgVy0yGcTo7PVFq8ZnHrcpawpxvZXfPc9XFq0C8XJrDCGe+GnXQs+c16fbimrR3Ogz2937qfMGgzg==
@@ -158,13 +158,25 @@
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.21.0", "@auto-it/released@^10.18.9":
+"@auto-it/released@10.21.0":
   version "10.21.0"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.21.0.tgz#9257cbcffe81a968fa6ded3ac5b3905051b402e6"
   integrity sha512-rbaafU7RZn3d24jDvOlca50U7MJy5q0wJzF0Tzlb+bbZLXe/5SzInfIxiv5E8e8Pt1ju5zKu7EyzoN8m2C+ucQ==
   dependencies:
     "@auto-it/bot-list" "10.21.0"
     "@auto-it/core" "10.21.0"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+
+"@auto-it/released@^10.18.9":
+  version "10.22.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.22.0.tgz#e2d8eb03fff823c28daa6f7fa656b13031f11a5d"
+  integrity sha512-XmhJ2+kjjrZLkfJPUINy29AT6bCkNT58Gzv7NJwiBHcnOe+qcGGgINSHLUrY61nZ/ms3DlJVoCtl2Gsf1jrCeg==
+  dependencies:
+    "@auto-it/bot-list" "10.22.0"
+    "@auto-it/core" "10.22.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
