@@ -25,7 +25,12 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.22.0.tgz#78d30d9de76b75839c67c41f83756321182088a9"
   integrity sha512-DGoG1VRZoioRFgDUhrA0DQdgMomDdtAc0Q2dRwek9veY+5OCy6lpSClfVSm9U3SvI/XddyXansbwxT66ZRJ/Pg==
 
-"@auto-it/core@10.22.0", "@auto-it/core@^10.18.9":
+"@auto-it/bot-list@10.22.1":
+  version "10.22.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.22.1.tgz#78af111931f441e98a981fa2da30fadf2fa28c5c"
+  integrity sha512-KrMDnJPf7GJekcctLkjjHfOEzsv2iAAvoQDbPNREylfxsJ1NcvKorQmXlSnVPzbYjE1y9kyfP1PHUfA2N+vRAQ==
+
+"@auto-it/core@10.22.0":
   version "10.22.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.22.0.tgz#98ff643eb1edaf849d339d08f295a891385949c9"
   integrity sha512-CXsVD3JFvYgVy0yGcTo7PVFq8ZnHrcpawpxvZXfPc9XFq0C8XJrDCGe+GnXQs+c16fbimrR3Ogz2937qfMGgzg==
@@ -37,6 +42,50 @@
     "@octokit/plugin-throttling" "^3.2.0"
     "@octokit/rest" "^18.0.0"
     await-to-js "^2.1.1"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.0.0-beta.2"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    ts-node "^9.1.1"
+    tslib "2.1.0"
+    type-fest "^0.21.1"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@10.22.1", "@auto-it/core@^10.18.9":
+  version "10.22.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.22.1.tgz#62ab0456b9c7fa9b2d73ed29af5a76ba3d7ac4c4"
+  integrity sha512-aqp2B5tkYJNu2+dzv6xzqn/xz4jt/kgahAstWI+HsA8Buprovw5A80/ZH6PHmWB7UcOsSq9Fm9nzWXF2vaGgRA==
+  dependencies:
+    "@auto-it/bot-list" "10.22.1"
+    "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^3.0.0"
     chalk "^4.0.0"
     cosmiconfig "7.0.0"
     deepmerge "^4.0.0"
@@ -109,13 +158,25 @@
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.22.0", "@auto-it/released@^10.18.9":
+"@auto-it/released@10.22.0":
   version "10.22.0"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.22.0.tgz#e2d8eb03fff823c28daa6f7fa656b13031f11a5d"
   integrity sha512-XmhJ2+kjjrZLkfJPUINy29AT6bCkNT58Gzv7NJwiBHcnOe+qcGGgINSHLUrY61nZ/ms3DlJVoCtl2Gsf1jrCeg==
   dependencies:
     "@auto-it/bot-list" "10.22.0"
     "@auto-it/core" "10.22.0"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+
+"@auto-it/released@^10.18.9":
+  version "10.22.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.22.1.tgz#37b1b36ed5e6132f97e25cb4f096a6a5117ae616"
+  integrity sha512-TtCtegNKqwTk4gn0vRMEseGUNq7s98MBbMXxgbMXR5lBkfPloLeDKomKQw5x8bwOTnXzrlGImkjnevRwGi7DYQ==
+  dependencies:
+    "@auto-it/bot-list" "10.22.1"
+    "@auto-it/core" "10.22.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2410,6 +2471,11 @@ await-to-js@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-2.1.1.tgz#c2093cd5a386f2bb945d79b292817bbc3f41b31b"
   integrity sha512-CHBC6gQGCIzjZ09tJ+XmpQoZOn4GdWePB4qUweCaKNJ0D3f115YdhmYVTZ4rMVpiJ3cFzZcTYK1VMYEICV4YXw==
+
+await-to-js@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-3.0.0.tgz#70929994185616f4675a91af6167eb61cc92868f"
+  integrity sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
