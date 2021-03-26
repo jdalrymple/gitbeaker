@@ -23,7 +23,7 @@ export default [
       builtins(),
       resolve({ browser: true }),
       typescript({
-        tsconfig: './tsconfig.json'
+        tsconfig: './tsconfig.json',
       }),
       commonjs(),
       terser({ mangle: false }),
