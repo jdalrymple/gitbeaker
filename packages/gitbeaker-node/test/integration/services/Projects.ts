@@ -6,7 +6,7 @@ let service: InstanceType<typeof Projects>;
 beforeEach(() => {
   service = new Projects({
     host: process.env.GITLAB_URL,
-    token: process.env.PERSONAL_ACCESS_TOKEN,
+    token: process.env.GITLAB_PERSONAL_ACCESS_TOKEN,
   });
 });
 
@@ -38,22 +38,22 @@ describe.skip('Projects.all', () => {
   });
 });
 
-describe('Projects.upload', () => {
-  it('should upload a text file', async () => {
-    try {
-      const project = await service.create({
-        name: `Project Upload Integration Test Text File ${TEST_ID}`,
-      });
-      const results = await service.upload(project.id as number, 'TESTING FILE UPLOAD :D', {
-        metadata: {
-          filename: 'testfile.txt',
-          contentType: 'text/plain',
-        },
-      });
-
-      expect(results).toContainKeys(['alt', 'url', 'markdown']);
-    } catch (e) {
-      console.log(e);
-    }
-  });
-});
+// describe('Projects.upload', () => {
+//   it('should upload a text file', async () => {
+//     try {
+//       const project = await service.create({
+//         name: `Project Upload Integration Test Text File ${TEST_ID}`,
+//       });
+//       const results = await service.upload(project.id as number, 'TESTING FILE UPLOAD :D', {
+//         metadata: {
+//           filename: 'testfile.txt',
+//           contentType: 'text/plain',
+//         },
+//       });
+//
+//       expect(results).toContainKeys(['alt', 'url', 'markdown']);
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   });
+// });

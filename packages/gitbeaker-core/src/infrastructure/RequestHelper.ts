@@ -3,9 +3,6 @@ import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject } from './Utils';
 
-export type True = true;
-export type False = false;
-
 export interface PaginationInformation {
   total: number;
   next: number | null;

@@ -1,10 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es6",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "outDir": "./dist",
     "declaration": true,
-    "declarationDir": "dist/types"
+    "declarationDir": "./types"
   },
   "include": ["src"]
 }
