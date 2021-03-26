@@ -8,17 +8,17 @@ export default {
     {
       file: pkg.main, // CommonJS (for Node) (for bundlers) build.
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: pkg.module, // ES module (for bundlers) build.
       format: 'es',
-      sourcemap: true
+      sourcemap: true,
     },
   ],
   plugins: [
     typescript({
-      tsconfig: './tsconfig.json'
-    })
-  ]
+      tsconfig: './tsconfig.json',
+    }),
+  ],
 };

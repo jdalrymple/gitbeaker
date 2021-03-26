@@ -37,8 +37,8 @@
   "scripts": {
     "build": "lerna run build",
     "lint": "prettier --check 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts'",
-    "lint:doc": "prettier --check './*.json' './*.yml' './*.js'",
-    "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md' './*.js'",
+    "lint:doc": "prettier --check './**/*.json' './**/*.yml' './**/*.js' '!./**/coverage/**'",
+    "lint:doc:fix": "prettier --write './**/*.json' './**/*.yml' './**/*.js' '!./**/coverage/**'",
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
     "test:unit": "jest test/unit",
     "release": "auto shipit --verbose --verbose",

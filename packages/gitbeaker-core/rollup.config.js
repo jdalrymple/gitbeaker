@@ -9,20 +9,20 @@ export default {
     {
       file: pkg.main, // CommonJS (for Node) (for bundlers) build.
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: pkg.module, // ES module (for bundlers) build.
       format: 'es',
-      sourcemap: true
+      sourcemap: true,
     },
   ],
   plugins: [
     replace({
-      __apiMap__: JSON.stringify(require('./dist/map.json'))
+      __apiMap__: JSON.stringify(require('./dist/map.json')),
     }),
     typescript({
-      tsconfig: './tsconfig.json'
+      tsconfig: './tsconfig.json',
     }),
-  ]
+  ],
 };

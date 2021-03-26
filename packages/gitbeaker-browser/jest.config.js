@@ -2,6 +2,6 @@ const base = require('../../jest.config.base');
 
 module.exports = {
   ...base,
-  preset: "jest-playwright-preset",
+  preset: 'jest-playwright-preset',
   displayName: '-- Gitbeaker Browser',
 };

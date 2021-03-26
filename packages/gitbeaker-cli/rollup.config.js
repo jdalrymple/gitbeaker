@@ -9,13 +9,13 @@ export default {
   output: {
     file: pkg.bin.gitbeaker,
     format: 'cjs',
-    sourcemap: true
+    sourcemap: true,
   },
   plugins: [
     typescript({
-      tsconfig: './tsconfig.json'
+      tsconfig: './tsconfig.json',
     }),
     json(),
-    preserveShebangs()
+    preserveShebangs(),
   ],
 };
