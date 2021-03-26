@@ -1,29 +1,32 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import builtins from 'rollup-plugin-node-builtins';
+import builtins from 'rollup-plugin-node-polyfills';
 import globals from 'rollup-plugin-node-globals';
-import pkg from './package.json';
+import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
-import { commonConfig, commonPlugins } from '../../rollup.config';
+import pkg from './package.json';
 
 export default [
   {
-    ...commonConfig,
+    input: 'src/index.ts',
+    external: ['form-data'],
     output: {
       file: pkg.browser,
       name: 'gitbeaker',
       format: 'umd',
       exports: 'named',
       globals: { 'form-data': 'FormData' },
-      external: ['form-data'],
+      sourcemap: true,
     },
     plugins: [
       globals(),
       builtins(),
       resolve({ browser: true }),
+      typescript({
+        tsconfig: './tsconfig.json'
+      }),
       commonjs(),
-      ...commonPlugins,
-      terser(),
+      terser({ mangle: false }),
     ],
   },
 ];

@@ -6,7 +6,7 @@ let service: InstanceType<typeof Projects>;
 beforeEach(() => {
   service = new Projects({
     host: process.env.GITLAB_URL,
-    token: process.env.PERSONAL_ACCESS_TOKEN,
+    token: process.env.GITLAB_PERSONAL_ACCESS_TOKEN,
   });
 });
 
@@ -45,14 +45,3 @@ describe.skip('Projects.upload', () => {
     const project = await service.create({
       name: `Project Upload Integration Test Text File ${TEST_ID}`,
     });
-
-    const results = await service.upload(project.id, 'TESTING FILE UPLOAD', {
-      metadata: {
-        filename: 'testfile.txt',
-        contentType: 'text/plain',
-      },
-    });
-
-    expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
-  });
-});

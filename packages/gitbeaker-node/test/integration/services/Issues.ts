@@ -7,11 +7,11 @@ let projectAPI: InstanceType<typeof Projects>;
 beforeAll(async () => {
   issueAPI = new Issues({
     host: process.env.GITLAB_URL,
-    token: process.env.PERSONAL_ACCESS_TOKEN,
+    token: process.env.GITLAB_PERSONAL_ACCESS_TOKEN,
   });
   projectAPI = new Projects({
     host: process.env.GITLAB_URL,
-    token: process.env.PERSONAL_ACCESS_TOKEN,
+    token: process.env.GITLAB_PERSONAL_ACCESS_TOKEN,
   });
 });
 

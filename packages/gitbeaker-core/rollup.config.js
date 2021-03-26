@@ -1,24 +1,28 @@
 import replace from '@rollup/plugin-replace';
+import typescript from '@rollup/plugin-typescript';
 import pkg from './package.json';
-import { commonConfig, commonPlugins } from '../../rollup.config';
 
 export default {
-  ...commonConfig,
+  input: 'src/index.ts',
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
     {
       file: pkg.main, // CommonJS (for Node) (for bundlers) build.
       format: 'cjs',
+      sourcemap: true
     },
     {
       file: pkg.module, // ES module (for bundlers) build.
       format: 'es',
+      sourcemap: true
     },
   ],
   plugins: [
     replace({
       __apiMap__: JSON.stringify(require('./dist/map.json'))
     }),
-    ...commonPlugins,
+    typescript({
+      tsconfig: './tsconfig.json'
+    }),
   ]
 };

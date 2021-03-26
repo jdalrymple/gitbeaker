@@ -41,10 +41,9 @@
     "lint:doc": "prettier --check './*.json' './*.yml' './*.js'",
     "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md' './*.js'",
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
-    "test:integration": "jest test/integration",
-    "test:integration:node": "TEST_ID=$(uuid) yarn jest node/test/integration",
     "test:unit": "jest test/unit",
-    "release": "auto shipit --verbose --verbose"
+    "release": "auto shipit --verbose --verbose",
+    "clean": "lerna exec -- rimraf dist &&  lerna clean --yes && rm -r node_modules"
   },
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "name": "gitbeaker"
