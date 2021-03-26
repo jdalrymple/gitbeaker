@@ -3,7 +3,7 @@ import { Projects } from '../../../src';
 const { TEST_ID } = process.env;
 let service: InstanceType<typeof Projects>;
 
-console.log(Projects)
+console.log(Projects);
 
 beforeEach(() => {
   service = new Projects({
