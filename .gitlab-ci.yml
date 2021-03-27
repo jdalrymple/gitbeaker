@@ -88,7 +88,6 @@ test:integration:
     GITLAB_ROOT_PASSWORD: 'password'
     GITLAB_URL: http://gitlab:80
     GITLAB_PERSONAL_ACCESS_TOKEN: 'superstrongtoken'
-    DEBUG: 'pw:api'
   services:
     - name: gitlab/gitlab-ce:latest
       alias: gitlab
