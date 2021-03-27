@@ -17,6 +17,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   page = await browser.newPage();
+  page.setDefaultTimeout(120000);
 });
 
 afterEach(async () => {
