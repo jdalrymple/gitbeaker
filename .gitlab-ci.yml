@@ -101,7 +101,7 @@ test:integration:
     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
     - echo "Service is up and running!"
   script:
-    # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
+    - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     - yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
