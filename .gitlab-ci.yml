@@ -24,9 +24,11 @@ stages:
 install:
   image: node:lts
   stage: install
+  variables:
+    PLAYWRIGHT_BROWSERS_PATH: 0
   script:
     - yarn
-    - PLAYWRIGHT_BROWSERS_PATH=0 yarn add -D -W playwright
+    - yarn add -D -W playwright
 
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
@@ -66,6 +68,9 @@ test:unit:node:
 
 test:unit:browser:
   stage: test
+  image: mcr.microsoft.com/playwright:bionic
+  variables:
+    PLAYWRIGHT_BROWSERS_PATH: 0
   script: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
 
 test:unit:utils:
@@ -75,9 +80,9 @@ test:unit:utils:
 #Integration Tests
 test:integration:
   stage: test
-  image:
-    name: mcr.microsoft.com/playwright:bionic
+  image: mcr.microsoft.com/playwright:bionic
   variables:
+    PLAYWRIGHT_BROWSERS_PATH: 0
     GITLAB_OMNIBUS_CONFIG: |
       gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
     GITLAB_ROOT_PASSWORD: 'password'
@@ -105,7 +110,7 @@ test:integration:
     - ls ./node_modules/playwright
     # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    - PLAYWRIGHT_BROWSERS_PATH=0 yarn workspace @gitbeaker/browser test:integration
+    - yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
 # # Canary
 # canary:
