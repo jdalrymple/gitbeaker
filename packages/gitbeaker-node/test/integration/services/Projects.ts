@@ -13,7 +13,7 @@ beforeEach(() => {
 describe('Projects.create', () => {
   it('should create a valid project', async () => {
     console.log(JSON.stringify(service, null, 2));
-    console.log(TEST_ID)
+    console.log(TEST_ID);
 
     const p = await service.create({ name: `Project Creation Integration Test ${TEST_ID}` });
 
