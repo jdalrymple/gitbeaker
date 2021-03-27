@@ -96,15 +96,15 @@ test:integration:
   #       - '-c'
   #       - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
   # before_script:
-    # - apt-get install jq curl --yes
-    # - echo "Waiting for service to start"
-    # - sleep 180
-    # - |
-    #   while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]];
-    #   do echo "Polling service - not alive yet";
-    #   sleep 10;
-    #   done;
-    # - echo "Service is up and running!"
+  # - apt-get install jq curl --yes
+  # - echo "Waiting for service to start"
+  # - sleep 180
+  # - |
+  #   while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]];
+  #   do echo "Polling service - not alive yet";
+  #   sleep 10;
+  #   done;
+  # - echo "Service is up and running!"
   script:
     # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
