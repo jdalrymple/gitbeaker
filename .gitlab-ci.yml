@@ -88,13 +88,13 @@ test:integration:
     GITLAB_ROOT_PASSWORD: 'password'
     GITLAB_URL: http://gitlab:80
     GITLAB_PERSONAL_ACCESS_TOKEN: 'superstrongtoken'
-  # services:
-  #   - name: gitlab/gitlab-ce:latest
-  #     alias: gitlab
-  #     entrypoint:
-  #       - '/bin/sh'
-  #       - '-c'
-  #       - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
+  services:
+    - name: gitlab/gitlab-ce:latest
+      alias: gitlab
+      entrypoint:
+        - '/bin/sh'
+        - '-c'
+        - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
   # before_script:
   # - apt-get install jq curl --yes
   # - echo "Waiting for service to start"
