@@ -3,8 +3,6 @@ import { Projects } from '../../../src';
 const { TEST_ID } = process.env;
 let service: InstanceType<typeof Projects>;
 
-console.log(Projects);
-
 beforeEach(() => {
   service = new Projects({
     host: process.env.GITLAB_URL,
@@ -14,6 +12,9 @@ beforeEach(() => {
 
 describe('Projects.create', () => {
   it('should create a valid project', async () => {
+    console.log(JSON.stringify(service, null, 2));
+    console.log(TEST_ID)
+
     const p = await service.create({ name: `Project Creation Integration Test ${TEST_ID}` });
 
     expect(p).toBeInstanceOf(Object);
