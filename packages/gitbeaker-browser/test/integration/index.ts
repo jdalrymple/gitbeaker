@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { chromium, Browser, Page } from 'playwright';
 
-const { TEST_ID } = process.env;
+// const { TEST_ID } = process.env;
 let browser: Browser;
 let page: Page;
 
@@ -135,26 +135,26 @@ describe('Browser Import', () => {
   });
 });
 
-describe('Projects API', () => {
-  it('should create a project', async () => {
-    await page.goto(`file://${path.resolve(__dirname, 'assets', 'test-import.html')}`);
-
-    /* eslint-disable */
-    const project = await page.evaluate(
-      ([host, token, id]) => {
-        // @ts-ignore
-        const { Projects } = gitbeaker;
-        const service = new Projects({
-          host,
-          token,
-        });
-
-        return service.create({ name: `Project Creation Integration Test ${id}` });
-      },
-      [process.env.GITLAB_URL, process.env.GITLAB_PERSONAL_ACCESS_TOKEN, TEST_ID],
-    );
-
-    expect(project).toBeInstanceOf(Object);
-    expect(project.name).toEqual(`Project Creation Integration Test ${TEST_ID}`);
-  });
-});
+// describe('Projects API', () => {
+//   it('should create a project', async () => {
+//     await page.goto(`file://${path.resolve(__dirname, 'assets', 'test-import.html')}`);
+//
+//     /* eslint-disable */
+//     const project = await page.evaluate(
+//       ([host, token, id]) => {
+//         // @ts-ignore
+//         const { Projects } = gitbeaker;
+//         const service = new Projects({
+//           host,
+//           token,
+//         });
+//
+//         return service.create({ name: `Project Creation Integration Test ${id}` });
+//       },
+//       [process.env.GITLAB_URL, process.env.GITLAB_PERSONAL_ACCESS_TOKEN, TEST_ID],
+//     );
+//
+//     expect(project).toBeInstanceOf(Object);
+//     expect(project.name).toEqual(`Project Creation Integration Test ${TEST_ID}`);
+//   });
+// });
