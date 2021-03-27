@@ -66,12 +66,8 @@ export class Projects extends BaseService {
     ...options
   }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
-    try {
-      return RequestHelper.post(this, url, options);
-    } catch (e) {
-      console.log(JSON.stringify(e, null, 2));
-      throw e;
-    }
+
+    return RequestHelper.post(this, url, options);
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {

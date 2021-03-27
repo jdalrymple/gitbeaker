@@ -84,6 +84,9 @@ export async function handler(endpoint: string, options: Record<string, unknown>
           continue; // eslint-disable-line
         }
 
+        console.log('HIT')
+        console.log(JSON.stringify(e, null, 2))
+        
         if (typeof e.response.body === 'string' && e.response.body.length > 0) {
           try {
             const output = JSON.parse(e.response.body);
