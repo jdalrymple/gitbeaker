@@ -6,7 +6,9 @@ let browser: Browser;
 let page: Page;
 
 beforeAll(async () => {
-  browser = await chromium.launch();
+  browser = await chromium.launch({
+    timeout: 120000,
+  });
 });
 
 afterAll(async () => {
