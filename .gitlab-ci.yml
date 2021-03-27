@@ -28,7 +28,6 @@ install:
     PLAYWRIGHT_BROWSERS_PATH: 0
   script:
     - yarn
-    - yarn add -D -W playwright
 
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
