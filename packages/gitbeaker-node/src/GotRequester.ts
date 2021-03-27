@@ -85,7 +85,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
         }
 
         console.log('HIT');
-        console.log(JSON.stringify(e, null, 2));
+        console.log(JSON.stringify(e.response, null, 2));
 
         if (typeof e.response.body === 'string' && e.response.body.length > 0) {
           try {
