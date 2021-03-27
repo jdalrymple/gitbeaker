@@ -53,7 +53,7 @@
   },
   "scripts": {
     "build": "tsc && rollup -c",
-    "test:integration": "TEST_ID=$(uuid) jest test/integration",
+    "test:integration": "DEBUG='pw:api' TEST_ID=$(uuid) jest test/integration",
     "test:unit": "jest test/unit"
   }
 }
