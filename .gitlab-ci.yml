@@ -65,7 +65,6 @@ test:unit:node:
   script: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
 
 test:unit:browser:
-  image: mcr.microsoft.com/playwright:bionic
   stage: test
   script: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
 
@@ -102,9 +101,11 @@ test:integration:
       done;
     - echo "Service is up and running!"
   script:
+    - ls
+    - ls ./node_modules/playwright
     # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    - yarn workspace @gitbeaker/browser test:integration
+    - PLAYWRIGHT_BROWSERS_PATH=0 yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
 # # Canary
 # canary:
