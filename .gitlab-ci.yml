@@ -88,6 +88,7 @@ test:integration:
     GITLAB_ROOT_PASSWORD: 'password'
     GITLAB_URL: http://gitlab:80
     GITLAB_PERSONAL_ACCESS_TOKEN: 'superstrongtoken'
+    DEBUG: 'pw:api'
   services:
     - name: gitlab/gitlab-ce:latest
       alias: gitlab
@@ -106,8 +107,6 @@ test:integration:
       done;
     - echo "Service is up and running!"
   script:
-    - ls
-    - ls ./node_modules/playwright
     # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     - yarn workspace @gitbeaker/browser test:integration
