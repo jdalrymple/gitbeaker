@@ -10,7 +10,7 @@ beforeEach(() => {
   });
 });
 
-describe('Projects.all', () => {
+describe('Projects.all2', () => {
   it('should get all projects', async () => {
     const p = await service.all();
     expect(p).toBeArray();
