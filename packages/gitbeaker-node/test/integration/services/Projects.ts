@@ -10,6 +10,13 @@ beforeEach(() => {
   });
 });
 
+describe('Projects.all', () => {
+  it('should get all projects', async () => {
+    const p = await service.all();
+    expect(p).toBeArray();
+  });
+});
+
 describe('Projects.create', () => {
   it('should create a valid project', async () => {
     console.log(JSON.stringify(service, null, 2));
