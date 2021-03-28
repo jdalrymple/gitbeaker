@@ -17,7 +17,7 @@ describe('Projects.all2', () => {
   });
 });
 
-describe('Projects.create', () => {
+describe.skip('Projects.create', () => {
   it('should create a valid project', async () => {
     console.log(JSON.stringify(service, null, 2));
     console.log(TEST_ID);
