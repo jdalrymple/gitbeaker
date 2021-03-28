@@ -85,11 +85,11 @@ test:integration:
     GITLAB_OMNIBUS_CONFIG: |
       gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
     GITLAB_ROOT_PASSWORD: 'password'
-    GITLAB_URL: http://gitlab:80
+    GITLAB_URL: http://gitlabtesting:80
     GITLAB_PERSONAL_ACCESS_TOKEN: 'superstrongtoken'
   services:
     - name: gitlab/gitlab-ce:latest
-      alias: gitlab
+      alias: gitlabtesting
       entrypoint:
         - '/bin/sh'
         - '-c'
@@ -101,7 +101,7 @@ test:integration:
     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
     - echo "Service is up and running!"
   script:
-    - echo "$(curl -H PRIVATE-TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN -H Content-Type=application/json -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
+    - echo "$(curl -H PRIVATE-TOKEN=superstrongtoken -H Content-Type=application/json -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
     # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     # - yarn workspace @gitbeaker/browser test:integration
