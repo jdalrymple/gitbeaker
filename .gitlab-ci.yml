@@ -102,7 +102,7 @@ test:integration:
     - echo "Service is up and running!"
   script:
     - echo "$(curl -H PRIVATE-TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN -X GET "$GITLAB_URL/api/v4/projects?per_page=1&page=1")"
-    # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
+    - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     # - yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
