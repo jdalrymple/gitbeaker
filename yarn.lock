@@ -25,12 +25,61 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.22.1.tgz#78af111931f441e98a981fa2da30fadf2fa28c5c"
   integrity sha512-KrMDnJPf7GJekcctLkjjHfOEzsv2iAAvoQDbPNREylfxsJ1NcvKorQmXlSnVPzbYjE1y9kyfP1PHUfA2N+vRAQ==
 
-"@auto-it/core@10.22.1", "@auto-it/core@^10.18.9":
+"@auto-it/bot-list@10.23.0":
+  version "10.23.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.23.0.tgz#4c887691323012bc6fb9b5a9c256fac12c5fe1c5"
+  integrity sha512-H/UTJ+MPpiSz30H7JLR3E20GH+fi/OveEprsOZ0o1O4myni+BEWn2h4Bf07zQSx2PjPDSIajLFHE7v2RpWx9Dg==
+
+"@auto-it/core@10.22.1":
   version "10.22.1"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.22.1.tgz#62ab0456b9c7fa9b2d73ed29af5a76ba3d7ac4c4"
   integrity sha512-aqp2B5tkYJNu2+dzv6xzqn/xz4jt/kgahAstWI+HsA8Buprovw5A80/ZH6PHmWB7UcOsSq9Fm9nzWXF2vaGgRA==
   dependencies:
     "@auto-it/bot-list" "10.22.1"
+    "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^3.0.0"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.0.0-beta.2"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    ts-node "^9.1.1"
+    tslib "2.1.0"
+    type-fest "^0.21.1"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@10.23.0", "@auto-it/core@^10.18.9":
+  version "10.23.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.23.0.tgz#c3ec87288e7e802a9465843ca0311b04283b9005"
+  integrity sha512-vWmqnFLgEsR8W03wI0F7NcWPmAISv+fOUZwA/VvtdPO/J/d06Jb7FPVjmWEgogivKJ5cNGbzYL8dTnt9Dp0WCA==
+  dependencies:
+    "@auto-it/bot-list" "10.23.0"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -109,13 +158,25 @@
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.22.1", "@auto-it/released@^10.18.9":
+"@auto-it/released@10.22.1":
   version "10.22.1"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.22.1.tgz#37b1b36ed5e6132f97e25cb4f096a6a5117ae616"
   integrity sha512-TtCtegNKqwTk4gn0vRMEseGUNq7s98MBbMXxgbMXR5lBkfPloLeDKomKQw5x8bwOTnXzrlGImkjnevRwGi7DYQ==
   dependencies:
     "@auto-it/bot-list" "10.22.1"
     "@auto-it/core" "10.22.1"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+
+"@auto-it/released@^10.18.9":
+  version "10.23.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.23.0.tgz#20dc774abd4624dffa1033605b008ff8f0af00ea"
+  integrity sha512-LLJJjhsr8SySzxz5ST7LQQn/n5YhFi3xMfChoxCQR+wf6jb68FpDIAGMqHGpgyOVayk+nX1iNK/0x0yUbAMInA==
+  dependencies:
+    "@auto-it/bot-list" "10.23.0"
+    "@auto-it/core" "10.23.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
