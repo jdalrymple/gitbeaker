@@ -86,14 +86,14 @@ test:integration:
       gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
     GITLAB_ROOT_PASSWORD: 'password'
     GITLAB_URL: http://gitlabtesting:80
-    GITLAB_PERSONAL_ACCESS_TOKEN: 'superstrongtoken'
+    GITLAB_PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
   services:
     - name: gitlab/gitlab-ce:latest
       alias: gitlabtesting
       entrypoint:
         - '/bin/sh'
         - '-c'
-        - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
+        - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
   before_script:
     - apt-get install jq --yes
     - echo "Waiting for service to start"
@@ -101,8 +101,8 @@ test:integration:
     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
     - echo "Service is up and running!"
   script:
-    - echo "$(curl -H PRIVATE-TOKEN=superstrongtoken -H Content-Type=application/json -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
-    # - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
+    - echo "$(curl -H PRIVATE-TOKEN=superduperstrongtoken -H Content-Type=application/json -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
+    - yarn workspace @gitbeaker/node test:integration && yarn codecov -F node
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     # - yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
