@@ -17,11 +17,8 @@ describe('Projects.all2', () => {
   });
 });
 
-describe.skip('Projects.create', () => {
+describe('Projects.create', () => {
   it('should create a valid project', async () => {
-    console.log(JSON.stringify(service, null, 2));
-    console.log(TEST_ID);
-
     const p = await service.create({ name: `Project Creation Integration Test ${TEST_ID}` });
 
     expect(p).toBeInstanceOf(Object);
