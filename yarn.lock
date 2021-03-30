@@ -131,13 +131,13 @@
     tslib "2.1.0"
     url-join "^4.0.0"
 
-"@auto-it/npm@10.23.0":
-  version "10.23.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-10.23.0.tgz#6cb75e2ee8c5767447a4fca9ba567733b22a8e63"
-  integrity sha512-500IPgvfJ2+myMQ9ThPfKpT+02tydeyGZpFOCtSk5GDhDsS6GVW+VEQmyIqh2B7Qdz99yRD/9vOQHq6MpaykRA==
+"@auto-it/npm@10.24.1":
+  version "10.24.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-10.24.1.tgz#4220124901a74e56a442f5001b1d668c44e64422"
+  integrity sha512-zkOBipEexLcOFDwQKUdYaWFmJg7+yaOPfWgjvqBVgy/Ky4aEUfY/UGEsIUUb2AJgK3ExVq6O8rtwLY4q+cR+3Q==
   dependencies:
-    "@auto-it/core" "10.23.0"
-    "@auto-it/package-json-utils" "10.23.0"
+    "@auto-it/core" "10.24.1"
+    "@auto-it/package-json-utils" "10.24.1"
     await-to-js "^3.0.0"
     endent "^2.0.1"
     env-ci "^5.0.1"
@@ -151,21 +151,21 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/package-json-utils@10.23.0":
-  version "10.23.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/package-json-utils/-/package-json-utils-10.23.0.tgz#9ad744043cb93332a1dd00eeeaf4824e4eabf4ae"
-  integrity sha512-cPksvWBfvbxupJNlCHJs9ed/FBiatQZ+R6QYgPsM+0UdKTJXEojCCGtLgPjnCwvj2/vSSmyKCdnULe6eW4wGtQ==
+"@auto-it/package-json-utils@10.24.1":
+  version "10.24.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/package-json-utils/-/package-json-utils-10.24.1.tgz#f1630ff304441e49752a94ee09b56545bd502d33"
+  integrity sha512-VW8+kjraAHbPieDLJX/Q138suCKnywf8V5+RrOJT4w3k8rOFyJzTYB4sNYHWNoMLxnv5xZoMsxh5ikJ5FbIEZg==
   dependencies:
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.23.0", "@auto-it/released@^10.18.9":
-  version "10.23.0"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.23.0.tgz#20dc774abd4624dffa1033605b008ff8f0af00ea"
-  integrity sha512-LLJJjhsr8SySzxz5ST7LQQn/n5YhFi3xMfChoxCQR+wf6jb68FpDIAGMqHGpgyOVayk+nX1iNK/0x0yUbAMInA==
+"@auto-it/released@10.24.1", "@auto-it/released@^10.18.9":
+  version "10.24.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.24.1.tgz#907ff732ba692f6583761ac1542c80e6bf95978f"
+  integrity sha512-BeN8mKykH1jE9C7sB+ttQ1JMZBxVwl3j9HrGikrKcYBW8pDAQACFVsEIeMfio2QxJVFBu1VovnUEXhl3XqZtQw==
   dependencies:
-    "@auto-it/bot-list" "10.23.0"
-    "@auto-it/core" "10.23.0"
+    "@auto-it/bot-list" "10.24.1"
+    "@auto-it/core" "10.24.1"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2440,13 +2440,13 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^10.18.9:
-  version "10.23.0"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-10.23.0.tgz#74432f0aaf2f98e019f3d65958e19b3791df7729"
-  integrity sha512-QQLMb54cSdGA5MFtOtznGi+lz1KXEUVzzTuw1Y6phlHVM8+TrD1BNV75Bn1znR7qfaPH9V8eR4vmAS/ayBVwWw==
+  version "10.24.1"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-10.24.1.tgz#b41042f10f6e093b7e2167423c66fc881da90c2b"
+  integrity sha512-vYE3UPZu1NVCRr36OSmgW20N0Df5MU3KBReliETa3NM8Awq3c2N41tH8QG0/uCbdgECVbC8vDqCd47aO2vGQTg==
   dependencies:
-    "@auto-it/core" "10.23.0"
-    "@auto-it/npm" "10.23.0"
-    "@auto-it/released" "10.23.0"
+    "@auto-it/core" "10.24.1"
+    "@auto-it/npm" "10.24.1"
+    "@auto-it/released" "10.24.1"
     await-to-js "^3.0.0"
     chalk "^4.0.0"
     command-line-application "^0.10.1"
