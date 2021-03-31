@@ -15,7 +15,7 @@ beforeAll(async () => {
   });
 });
 
-describe('Issues.all', () => {
+describe.skip('Issues.all', () => {
   beforeAll(async () => {
     const project = await projectAPI.create({ name: `Issues All Integration Test ${TEST_ID}` });
     const newIssues: any[] = [];
