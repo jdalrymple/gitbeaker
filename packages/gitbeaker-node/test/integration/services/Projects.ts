@@ -19,7 +19,7 @@ describe('Projects.create', () => {
   });
 });
 
-describe('Projects.all', () => {
+describe.skip('Projects.all', () => {
   beforeAll(async () => {
     const newProjects: any[] = [];
 
