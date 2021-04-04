@@ -94,9 +94,9 @@ function param(string) {
   let cleaned = string;
 
   // Handle exceptions
-  if(string.includes('GitLabCI')) cleaned = cleaned.replace('GitLabCI', 'Gitlabci');
-  if(string.includes('YML')) cleaned = cleaned.replace('YML', 'Yml');
-  if(string.includes('GPG')) cleaned = cleaned.replace('GPG', 'Gpg');
+  if (string.includes('GitLabCI')) cleaned = cleaned.replace('GitLabCI', 'Gitlabci');
+  if (string.includes('YML')) cleaned = cleaned.replace('YML', 'Yml');
+  if (string.includes('GPG')) cleaned = cleaned.replace('GPG', 'Gpg');
 
   const attempt = decamelize(cleaned, '-');
 
