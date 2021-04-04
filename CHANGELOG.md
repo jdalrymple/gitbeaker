@@ -1,3 +1,44 @@
+# 28.2.0 (Sat Mar 20 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/node`
+  - Fix #1624 - Fixed mime type handling [#1633](https://github.com/jdalrymple/gitbeaker/pull/1633) ([@Pryx](https://github.com/Pryx))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1632](https://github.com/jdalrymple/gitbeaker/pull/1632) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.20.4 to 10.20.6 [#1630](https://github.com/jdalrymple/gitbeaker/pull/1630) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.41.4 to 2.41.5 [#1626](https://github.com/jdalrymple/gitbeaker/pull/1626) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.20.4 to 10.20.6 [#1629](https://github.com/jdalrymple/gitbeaker/pull/1629) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump ora from 5.3.0 to 5.4.0 [#1622](https://github.com/jdalrymple/gitbeaker/pull/1622) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.20 to 26.0.21 [#1621](https://github.com/jdalrymple/gitbeaker/pull/1621) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.3.1 to 24.3.2 [#1619](https://github.com/jdalrymple/gitbeaker/pull/1619) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.41.2 to 2.41.4 [#1618](https://github.com/jdalrymple/gitbeaker/pull/1618) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.34 to 14.14.35 [#1611](https://github.com/jdalrymple/gitbeaker/pull/1611) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1612](https://github.com/jdalrymple/gitbeaker/pull/1612) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.20.1 to 10.20.4 [#1616](https://github.com/jdalrymple/gitbeaker/pull/1616) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.20.1 to 10.20.4 [#1617](https://github.com/jdalrymple/gitbeaker/pull/1617) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.17.0 to 4.18.0 [#1613](https://github.com/jdalrymple/gitbeaker/pull/1613) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.20.1 to 10.20.4 [#1615](https://github.com/jdalrymple/gitbeaker/pull/1615) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1610](https://github.com/jdalrymple/gitbeaker/pull/1610) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.20.0 to 10.20.1 [#1609](https://github.com/jdalrymple/gitbeaker/pull/1609) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1606](https://github.com/jdalrymple/gitbeaker/pull/1606) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.20.0 to 10.20.1 [#1605](https://github.com/jdalrymple/gitbeaker/pull/1605) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/requester-utils`
+  - chore(deps): bump query-string from 6.14.1 to 7.0.0 [#1628](https://github.com/jdalrymple/gitbeaker/pull/1628) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Vojtěch Sajdl ([@Pryx](https://github.com/Pryx))
+
+---
+
 # 28.1.1 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix

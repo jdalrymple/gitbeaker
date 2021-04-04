@@ -1,3 +1,19 @@
+# v28.2.0 (Sat Mar 20 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix #1624 - Fixed mime type handling [#1633](https://github.com/jdalrymple/gitbeaker/pull/1633) ([@Pryx](https://github.com/Pryx))
+
+#### Authors: 1
+
+- Vojtěch Sajdl ([@Pryx](https://github.com/Pryx))
+
+---
+
 # v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
