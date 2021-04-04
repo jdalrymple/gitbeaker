@@ -3,6 +3,8 @@ import * as fetch from 'node-fetch';
 import { Agent } from 'https';
 import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 
+console.log(process.env.CI_JOB_ID)
+
 // Set globals for testing purposes
 if (!global.fetch) {
   global.fetch = fetch;
