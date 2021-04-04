@@ -2,7 +2,7 @@ import * as got from 'got';
 import FormData from 'form-data';
 import { processBody, handler, defaultOptionsHandler } from '../../src/GotRequester';
 
-console.log(process.env.CI_JOB_ID)
+console.log(process.env.CI_JOB_ID);
 
 jest.mock('got');
 
