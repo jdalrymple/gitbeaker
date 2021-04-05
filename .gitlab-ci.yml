@@ -102,16 +102,8 @@ test:integration:
     - echo "Service is up and running!"
   script:
     # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project2"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project3"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project4"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project5"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project6"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project7"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project8"}' "$GITLAB_URL/api/v4/projects")"
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project9"}' "$GITLAB_URL/api/v4/projects")"
     - yarn workspace @gitbeaker/node test:integration -i
-    # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
     # - yarn workspace @gitbeaker/browser test:integration
     # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
 # # Canary

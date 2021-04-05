@@ -125,6 +125,7 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
       service,
       next.replace(regex, ''),
       {
+        ...query,
         maxPages,
         sudo,
       },
