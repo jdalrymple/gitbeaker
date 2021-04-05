@@ -1,15 +1,42 @@
-version: '3'
+version: '3.8'
 services:
   gitlab:
     image: 'gitlab/gitlab-ce:latest'
     container_name: 'gitlab'
+    entrypoint:
+      - '/bin/sh'
+      - '-c'
+      - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
     environment:
-      PERSONAL_ACCESS_TOKEN: ''
+      GITLAB_URL: 'http://localhost:8080'
+      PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
       GITLAB_ROOT_PASSWORD: 'password'
     ports:
       - '8080:80'
       - '8443:443'
+
+  test:
+    image: image: mcr.microsoft.com/playwright:bionic
+    command:
+      - /bin/bash
+      - -c
+      - |
+        apt-get install jq --yes
+        echo "Waiting for service to start"
+        sleep 180
+        while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+        echo "Service is up and running!"
+        cd /usr/app
+        yarn test:unit
+        yarn test:integration
+        yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+      GITLAB_URL: 'http://localhost:8080'
+      PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
     volumes:
-      - './init.rb:/mnt/init.rb'
+      - .:/usr/app/
+    depends_on:
+      - gitlab
