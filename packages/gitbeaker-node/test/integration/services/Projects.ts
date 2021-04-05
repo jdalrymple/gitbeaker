@@ -19,7 +19,7 @@ describe('Projects.create', () => {
   });
 });
 
-describe.skip('Projects.all', () => {
+describe('Projects.all', () => {
   beforeAll(async () => {
     const newProjects: any[] = [];
 
@@ -31,7 +31,7 @@ describe.skip('Projects.all', () => {
   });
 
   it('should get 10 projects using offset pagination', async () => {
-    const projects = await service.all({ maxPages: 2, perPage: 5 });
+    const projects = await service.all({ maxPages: 2, perPage: 5, simple: true });
 
     expect(projects).toBeInstanceOf(Array);
     expect(projects).toHaveLength(10);

@@ -81,7 +81,7 @@ async function getHelper<T = Record<string, unknown>>(
   // Handle array responses
   const newAcc = [...acc, ...body] as T[];
   const { next } = parseLink(headers.link);
-  const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
+  const withinBounds = maxPages ? (newAcc.length / (query.perPage || 20)) < maxPages : true;
 
   // Recurse through pagination results
   if (!query.page && next && withinBounds) {
@@ -92,6 +92,7 @@ async function getHelper<T = Record<string, unknown>>(
       service,
       next.replace(regex, ''),
       {
+        ...query,
         maxPages,
         sudo,
       },
