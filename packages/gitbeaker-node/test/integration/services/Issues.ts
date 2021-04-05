@@ -33,7 +33,12 @@ describe('Issues.all', () => {
   });
 
   it('should get 10 issues using keyset pagination', async () => {
-    const projects = await issueAPI.all({ maxPages: 2, perPage: 5, simple: true, pagination: 'keyset' });
+    const projects = await issueAPI.all({
+      maxPages: 2,
+      perPage: 5,
+      simple: true,
+      pagination: 'keyset',
+    });
 
     expect(projects).toBeInstanceOf(Array);
     expect(projects).toHaveLength(10);
