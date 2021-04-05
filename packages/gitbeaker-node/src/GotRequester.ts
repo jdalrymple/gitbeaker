@@ -84,8 +84,8 @@ export async function handler(endpoint: string, options: Record<string, unknown>
           continue; // eslint-disable-line
         }
 
-        console.log('Oh no')
-        console.log(e.response.body)
+        console.log('Oh no');
+        console.log(e.response.body);
 
         if (typeof e.response.body === 'string' && e.response.body.length > 0) {
           try {
