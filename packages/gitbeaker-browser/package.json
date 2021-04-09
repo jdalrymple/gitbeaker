@@ -52,7 +52,7 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c && tsc --declarationDir dist/types --declaration true",
     "test:integration": "TEST_ID=$(uuid) jest test/integration",
     "test:unit": "jest test/unit"
   }

@@ -6,9 +6,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationDir": "./types",
   },
   "include": ["src"]
 }
