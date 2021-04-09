@@ -4,6 +4,7 @@ import builtins from 'rollup-plugin-node-polyfills';
 import globals from 'rollup-plugin-node-globals';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
 export default [
@@ -28,5 +29,10 @@ export default [
       commonjs(),
       terser({ mangle: false }),
     ],
+  },
+  {
+    input: 'src/index.ts',
+    output: [{ file: pkg.types, format: 'es' }],
+    plugins: [dts()],
   },
 ];
