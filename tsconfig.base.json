@@ -6,7 +6,6 @@
     "pretty": true,
     "lib": ["es2015", "es2016", "es2017", "esnext", "dom", "dom.iterable"],
     "sourceMap": true,
-    "inlineSources": true,
 
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -14,7 +13,6 @@
     "paths": {
       "@gitbeaker/*": ["packages/gitbeaker-*/src"]
     },
-    "rootDir": ".",
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
