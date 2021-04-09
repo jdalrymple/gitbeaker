@@ -43,6 +43,12 @@ build:
       - packages/gitbeaker-node/dist/
       - packages/gitbeaker-requester-utils/dist/
 
+# build:test:container:
+#   stage: build
+#   # check if certain file has changed
+#   script:
+#     - yarn build
+
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:src:
   stage: lint
@@ -54,18 +60,22 @@ lint:docs:
 
 # Unit Tests
 test:unit:cli:
+  needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/cli test:unit  && yarn codecov -F cli
 
 test:unit:core:
+  needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
 
 test:unit:node:
+  needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
 
 test:unit:browser:
+  needs: ['install']
   stage: test
   image: mcr.microsoft.com/playwright:bionic
   variables:
@@ -73,39 +83,49 @@ test:unit:browser:
   script: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
 
 test:unit:utils:
+  needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
-
 #Integration Tests
-test:integration:
-  stage: test
-  image: mcr.microsoft.com/playwright:bionic
-  variables:
-    PLAYWRIGHT_BROWSERS_PATH: 0
-    GITLAB_OMNIBUS_CONFIG: |
-      gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
-    GITLAB_ROOT_PASSWORD: 'password'
-    GITLAB_URL: http://gitlabtesting:80
-    GITLAB_PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
-  services:
-    - name: gitlab/gitlab-ce:latest
-      alias: gitlabtesting
-      entrypoint:
-        - '/bin/sh'
-        - '-c'
-        - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
-  before_script:
-    - apt-get install jq --yes
-    - echo "Waiting for service to start"
-    - sleep 180
-    - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-    - echo "Service is up and running!"
-  script:
-    # - echo "$(curl -H "PRIVATE-TOKEN:superduperstrongtoken" -H "Content-Type:application/json" -X POST --data '{"name":"Test Project"}' "$GITLAB_URL/api/v4/projects")"
-    - yarn workspace @gitbeaker/node test:integration -i
-    - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    # - yarn workspace @gitbeaker/browser test:integration
-    # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
+# test:integration:node:src: &integration-test
+#   stage: test
+#   needs: ["build"]
+#   resource_group: integration-testing
+#   variables:
+#     GITLAB_URL: http://gitlabtesting:80
+#     GITLAB_PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
+#   before_script:
+#     - apt-get install jq --yes
+#     - echo "Waiting for service to start"
+#     - sleep 180
+#     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+#     - echo "Service is up and running!"
+#   after_script:
+#     - sleep 30
+
+# test:integration:node:src:
+#   <<: *integration-test
+#   script:
+#     - yarn workspace @gitbeaker/node test:integration -i
+#
+# test:integration:node:cjs:
+#   <<: *integration-test
+#   script:
+#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+
+# test:integration:node:es:
+#   <<: *integration-test
+#   script:
+#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
+
+# test:integration:browser:
+#   <<: *integration-test
+#   image: mcr.microsoft.com/playwright:bionic
+#   variables:
+#     PLAYWRIGHT_BROWSERS_PATH: 0
+#   script:
+#     - yarn workspace @gitbeaker/browser test:integration
+
 # # Canary
 # canary:
 #   stage: canary
