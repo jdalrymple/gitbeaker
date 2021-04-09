@@ -1,7 +1,8 @@
-import typescript from '@rollup/plugin-typescript';
+import esbuild from 'rollup-plugin-esbuild';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
-export default {
+export default [{
   input: 'src/index.ts',
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
@@ -17,8 +18,12 @@ export default {
     },
   ],
   plugins: [
-    typescript({
+    esbuild({
       tsconfig: './tsconfig.json',
     }),
   ],
-};
+},  {
+    input: 'src/index.ts',
+    output: [{ file: pkg.types, format: 'es' }],
+    plugins: [dts()],
+  },];

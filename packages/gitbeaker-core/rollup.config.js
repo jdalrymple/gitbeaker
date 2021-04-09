@@ -1,8 +1,8 @@
-import replace from '@rollup/plugin-replace';
-import typescript from '@rollup/plugin-typescript';
+import esbuild from 'rollup-plugin-esbuild';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
-export default {
+export default [{
   input: 'src/index.ts',
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
@@ -18,11 +18,15 @@ export default {
     },
   ],
   plugins: [
-    replace({
-      __apiMap__: JSON.stringify(require('./dist/map.json')),
-    }),
-    typescript({
+    esbuild({
       tsconfig: './tsconfig.json',
+      define: {
+        __apiMap__: JSON.stringify(require('./dist/map.json')),
+      }
     }),
   ],
-};
+},  {
+    input: 'src/index.ts',
+    output: [{ file: pkg.types, format: 'es' }],
+    plugins: [dts()],
+  },];
