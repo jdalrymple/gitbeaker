@@ -1,0 +1,10 @@
+from 'gitlab/gitlab-ce:latest'
+
+ENV PORT 80
+ENV PERSONAL_ACCESS_TOKEN superduperstrongtoken
+ENV GITLAB_OMNIBUS_CONFIG \
+  gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
+  gitlab_rails['external_url'] = 'http://localhost:$PORT
+ENV GITLAB_ROOT_PASSWORD password
+
+ENDPOINT ["/bin/sh", "-c", "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"$PERSONAL_ACCESS_TOKEN\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"]
