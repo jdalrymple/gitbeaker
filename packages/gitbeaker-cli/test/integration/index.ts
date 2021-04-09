@@ -1,5 +1,10 @@
 import * as pkg from '../../package.json';
 
+/*
+Is an integration test because it depends on a build file (api map)
+from the @gitbeaker/core
+*/
+
 jest.mock('@gitbeaker/node');
 jest.mock('ora', () => ({
   start: () => ({

@@ -68,11 +68,6 @@ lint:docs:
   script: yarn lint:doc
 
 # Unit Tests
-test:unit:cli:
-  needs: ['install']
-  stage: test
-  script: yarn workspace @gitbeaker/cli test:unit  && yarn codecov -F cli
-
 test:unit:core:
   needs: ['install']
   stage: test
@@ -95,8 +90,14 @@ test:unit:utils:
   needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
+
 #Integration Tests
-# test:integration:node:src: &integration-test
+test:integration:cli:
+  needs: ['build']
+  stage: test
+  script: yarn workspace @gitbeaker/cli test:integration && yarn codecov -F cli
+
+# test:integration: &integration-test
 #   stage: test
 #   needs: ["build"]
 #   resource_group: integration-testing

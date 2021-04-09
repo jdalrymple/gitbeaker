@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    /* Basic Options */
 
     "target": "es5",
     "module": "es6",
@@ -10,24 +9,18 @@
     "sourceMap": true,
     "inlineSources": true,
 
-    /* Module Resolution Options */
-
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@gitbeaker/*": ["packages/*/src"]
+      "@gitbeaker/*": ["packages/gitbeaker-*/src"]
     },
-
-    /* Strict Type-Checking Options */
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-
-    /* Additional Checks */
 
     "noUnusedLocals": true,
     "noUnusedParameters": true,
