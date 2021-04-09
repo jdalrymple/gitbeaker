@@ -5,33 +5,33 @@ jest.mock('@gitbeaker/core', () => ({
   getAPIMap: jest.fn(() => ({
     Projects: [
       {
-        "name": "constructor",
-        "args": [
-          "token",
-          "jobToken",
-          "oauthToken",
-          "sudo",
-          "profileToken",
-          "requesterFn",
-          "profileMode",
-          "host",
-          "prefixUrl",
-          "version",
-          "camelize",
-          "rejectUnauthorized",
-          "requestTimeout"
-        ]
+        name: 'constructor',
+        args: [
+          'token',
+          'jobToken',
+          'oauthToken',
+          'sudo',
+          'profileToken',
+          'requesterFn',
+          'profileMode',
+          'host',
+          'prefixUrl',
+          'version',
+          'camelize',
+          'rejectUnauthorized',
+          'requestTimeout',
+        ],
       },
       {
-        "name": "all",
-        "args": []
+        name: 'all',
+        args: [],
       },
       {
-        "name": "create",
-        "args": []
+        name: 'create',
+        args: [],
       },
-    ]
-  }))
+    ],
+  })),
 }));
 jest.mock('@gitbeaker/node');
 jest.mock('ora', () => ({

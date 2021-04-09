@@ -12,9 +12,9 @@ export default {
   },
   plugins: [
     esbuild({
-     sourceMap: true,
-     tsconfig: './tsconfig.json',
-   }),
+      sourceMap: true,
+      tsconfig: './tsconfig.json',
+    }),
     preserveShebangs(),
   ],
 };

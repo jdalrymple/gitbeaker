@@ -95,7 +95,6 @@ test:unit:utils:
   needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
-
 #Integration Tests
 # test:integration: &integration-test
 #   stage: test
