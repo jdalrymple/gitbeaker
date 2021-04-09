@@ -1,6 +1,5 @@
-import json from '@rollup/plugin-json';
+import esbuild from 'rollup-plugin-esbuild';
 import { preserveShebangs } from 'rollup-plugin-preserve-shebangs';
-import typescript from '@rollup/plugin-typescript';
 import pkg from './package.json';
 
 export default {
@@ -12,10 +11,10 @@ export default {
     sourcemap: true,
   },
   plugins: [
-    typescript({
-      tsconfig: './tsconfig.json',
-    }),
-    json(),
+    esbuild({
+     sourceMap: true,
+     tsconfig: './tsconfig.json',
+   }),
     preserveShebangs(),
   ],
 };

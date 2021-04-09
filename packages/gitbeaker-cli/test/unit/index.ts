@@ -1,10 +1,38 @@
 import * as pkg from '../../package.json';
 
-/*
-Is an integration test because it depends on a build file (api map)
-from the @gitbeaker/core
-*/
-
+jest.mock('@gitbeaker/core', () => ({
+  ...jest.requireActual('@gitbeaker/core'),
+  getAPIMap: jest.fn(() => ({
+    Projects: [
+      {
+        "name": "constructor",
+        "args": [
+          "token",
+          "jobToken",
+          "oauthToken",
+          "sudo",
+          "profileToken",
+          "requesterFn",
+          "profileMode",
+          "host",
+          "prefixUrl",
+          "version",
+          "camelize",
+          "rejectUnauthorized",
+          "requestTimeout"
+        ]
+      },
+      {
+        "name": "all",
+        "args": []
+      },
+      {
+        "name": "create",
+        "args": []
+      },
+    ]
+  }))
+}));
 jest.mock('@gitbeaker/node');
 jest.mock('ora', () => ({
   start: () => ({

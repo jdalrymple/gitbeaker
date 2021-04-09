@@ -47,8 +47,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build:self": "tsc && rollup -c && rm ./dist/map.json",
-    "build": "yarn run generate-map && yarn run build:self",
+    "build:self": "tsc && rollup -c",
+    "build": "yarn run generate-map && yarn run build:self && rm ./dist/map.json",
     "generate-map": "ESM_DISABLE_CACHE=true TS_NODE_PROJECT=scripts/tsconfig.json node -r esm -r ts-node/register scripts/generate.ts",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"
