@@ -15,6 +15,7 @@
     "paths": {
       "@gitbeaker/*": ["packages/gitbeaker-*/src"]
     },
+    "rootDir": ".",
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,

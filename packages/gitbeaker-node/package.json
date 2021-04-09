@@ -19,10 +19,10 @@
     "form-data": "^4.0.0",
     "openpgp": "^4.10.10",
     "rollup": "^2.47.0",
-    "@rollup/plugin-typescript": "^8.2.0",
-    "tslib": "^2.1.0",
-    "uuid": "^8.3.2",
-    "typescript": "^4.2.4"
+    "@rollup/plugin-typescript": "^8.2.1",
+    "typescript": "^4.2.4",
+    "tslib": "^2.2.0",
+    "uuid": "^8.3.2"
   },
   "engines": {
     "node": ">=10.19.0"
