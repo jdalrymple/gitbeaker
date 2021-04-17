@@ -6,29 +6,44 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export interface PagesDomainSchema extends Record<string, unknown> {
+  domain: string;
+  url: string;
+  project_id: number;
+  auto_ssl_enabled: boolean;
+  certificate: CertificateSchema;
+}
+
+export interface CertificateSchema {
+  expired: boolean;
+  expiration: string;
+}
+
+// TODO: Add missing functions
+
 export class PagesDomains<C extends boolean = false> extends BaseService<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 
-    return RequestHelper.get()(this, `${url}pages/domains`, options);
+    return RequestHelper.get<PagesDomainSchema[]>()(this, `${url}pages/domains`, options);
   }
 
   create(projectId: string | number, domain: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/pages/domains`, { domain, ...options });
+    return RequestHelper.post<PagesDomainSchema>()(this, `projects/${pId}/pages/domains`, { domain, ...options });
   }
 
   edit(projectId: string | number, domain: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put()(this, `projects/${pId}/pages/domains/${domain}`, options);
+    return RequestHelper.put<PagesDomainSchema>()(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 
   show(projectId: string | number, domain: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/pages/domains/${domain}`, options);
+    return RequestHelper.get<PagesDomainSchema>()(this, `projects/${pId}/pages/domains/${domain}`, options);
   }
 
   remove(projectId: string | number, domain: string, options?: Sudo) {

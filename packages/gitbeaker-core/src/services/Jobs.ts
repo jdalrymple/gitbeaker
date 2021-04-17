@@ -162,7 +162,7 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
   play(projectId: string | number, jobId: number, options?: Sudo) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/jobs/${jId}/play`, options);
+    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/play`, options);
   }
 
   retry(projectId: string | number, jobId: number, options?: Sudo) {

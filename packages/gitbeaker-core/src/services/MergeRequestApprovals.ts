@@ -1,6 +1,9 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
+// TODO: This one is has changed quite a bit, requires a deeper look
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#project-level-mr-approvals
+
 export interface MergeRequestApprovalSchema extends Record<string, unknown> {
   approvals_before_merge: number;
   reset_approvals_on_push: boolean;
