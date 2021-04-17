@@ -1,5 +1,9 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDeployTokens, DeployTokenScope, DeployTokenSchema } from '../templates/ResourceDeployTokens';
+import {
+  ResourceDeployTokens,
+  DeployTokenScope,
+  DeployTokenSchema,
+} from '../templates/ResourceDeployTokens';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -13,11 +17,16 @@ export interface ProjectDeployTokens<C extends boolean = false> extends Resource
     tokenName: string,
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DeployTokenSchema>>
+  ): Promise<CamelizedRecord<C, DeployTokenSchema>>;
 
-  all({ projectId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions):  Promise<CamelizedRecord<C, DeployTokenSchema>[]>
+  all({
+    projectId,
+    ...options
+  }: { resourceId?: string | number } & PaginatedRequestOptions): Promise<
+    CamelizedRecord<C, DeployTokenSchema>[]
+  >;
 
-  remove(projectId: string | number, tokenId: number, options?: Sudo): Promise<void>
+  remove(projectId: string | number, tokenId: number, options?: Sudo): Promise<void>;
 }
 
 export class ProjectDeployTokens<C extends boolean = false> extends ResourceDeployTokens<C> {

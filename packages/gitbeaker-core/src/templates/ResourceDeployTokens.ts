@@ -6,7 +6,12 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry' | 'read_package_registry' | 'write_package_registry';
+export type DeployTokenScope =
+  | 'read_repository'
+  | 'read_registry'
+  | 'write_registry'
+  | 'read_package_registry'
+  | 'write_package_registry';
 
 export interface DeployTokenSchema extends Record<string, unknown> {
   id: number;
@@ -28,11 +33,15 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post<DeployTokenSchema>()(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
-      name: tokenName,
-      scopes: tokenScopes,
-      ...options,
-    });
+    return RequestHelper.post<DeployTokenSchema>()(
+      this,
+      `${encodeURIComponent(resourceId)}/deploy_tokens`,
+      {
+        name: tokenName,
+        scopes: tokenScopes,
+        ...options,
+      },
+    );
   }
 
   all({ resourceId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions) {
