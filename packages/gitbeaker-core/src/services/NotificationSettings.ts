@@ -32,7 +32,11 @@ function url({ projectId, groupId }) {
 
 export class NotificationSettings<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
-    return RequestHelper.get<NotificationSettingSchema[]>()(this, url({ groupId, projectId }), options);
+    return RequestHelper.get<NotificationSettingSchema[]>()(
+      this,
+      url({ groupId, projectId }),
+      options,
+    );
   }
 
   edit({
@@ -40,6 +44,10 @@ export class NotificationSettings<C extends boolean = false> extends BaseService
     groupId,
     ...options
   }: { level?: NotificationSettingLevel } & ProjectOrGroup & BaseRequestOptions = {}) {
-    return RequestHelper.put<NotificationSettingSchema>()(this, url({ groupId, projectId }), options);
+    return RequestHelper.put<NotificationSettingSchema>()(
+      this,
+      url({ groupId, projectId }),
+      options,
+    );
   }
 }

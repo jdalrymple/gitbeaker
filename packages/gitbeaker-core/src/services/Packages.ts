@@ -45,6 +45,10 @@ export class Packages<C extends boolean = false> extends BaseService<C> {
   showFiles(projectId: string | number, packageId: number, options?: Sudo) {
     const [pId, pkId] = [projectId, packageId].map(encodeURIComponent);
 
-    return RequestHelper.get<PackageFileSchema[]>()(this, `projects/${pId}/packages/${pkId}/package_files`, options);
+    return RequestHelper.get<PackageFileSchema[]>()(
+      this,
+      `projects/${pId}/packages/${pkId}/package_files`,
+      options,
+    );
   }
 }

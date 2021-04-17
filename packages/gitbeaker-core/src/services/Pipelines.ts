@@ -36,7 +36,7 @@ export interface PipelineExpandedSchema extends PipelineSchema {
   before_sha: string;
   tag: boolean;
   yaml_errors?: string;
-  user: Pick<UserSchema,"name" | "username" | "id" | "state" | "avatar_url" | "web_url" >
+  user: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
   started_at?: string;
   finished_at: string;
   committed_at?: string;
@@ -44,7 +44,7 @@ export interface PipelineExpandedSchema extends PipelineSchema {
   coverage?: string;
 }
 
-export interface PipelineVariableSchema extends Record<string,unknown> {
+export interface PipelineVariableSchema extends Record<string, unknown> {
   key: string;
   variable_type?: string;
   value: string;
@@ -87,18 +87,30 @@ export class Pipelines<C extends boolean = false> extends BaseService<C> {
   retry(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<PipelineExpandedSchema>()(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
+    return RequestHelper.post<PipelineExpandedSchema>()(
+      this,
+      `projects/${pId}/pipelines/${pipelineId}/retry`,
+      options,
+    );
   }
 
   cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<PipelineExpandedSchema>()(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
+    return RequestHelper.post<PipelineExpandedSchema>()(
+      this,
+      `projects/${pId}/pipelines/${pipelineId}/cancel`,
+      options,
+    );
   }
 
   allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {
     const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get<PipelineVariableSchema[]>()(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
+    return RequestHelper.get<PipelineVariableSchema[]>()(
+      this,
+      `projects/${pId}/pipelines/${pipeId}/variables`,
+      options,
+    );
   }
 }

@@ -34,7 +34,7 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
     mergerequestId: string | number,
     noteId: number,
     options?: Sudo,
-  ):Promise<void>;
+  ): Promise<void>;
 
   show(
     projectId: string | number,
