@@ -202,7 +202,7 @@ GitignoreTemplates
 GitLabCIYMLTemplates
 Keys
 License
-LicenceTemplates
+LicenseTemplates
 Lint
 Markdown
 Namespaces

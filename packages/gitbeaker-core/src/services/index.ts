@@ -87,7 +87,7 @@ export { GitignoreTemplates } from './GitignoreTemplates';
 export { GitLabCIYMLTemplates } from './GitLabCIYMLTemplates';
 export { Keys } from './Keys';
 export { License } from './License';
-export { LicenceTemplates } from './LicenceTemplates';
+export { LicenseTemplates } from './LicenseTemplates';
 export { Lint } from './Lint';
 export { Namespaces } from './Namespaces';
 export { NotificationSettings } from './NotificationSettings';
