@@ -1,5 +1,5 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes, NoteSchema } from '../templates';
+import { ResourceNotes, NoteSchema } from '../templates/ResourceNotes';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,

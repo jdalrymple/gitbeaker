@@ -1,7 +1,5 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAccessRequests } from '../templates';
-
-import { ResourceAccessRequests, AccessRequestSchema, AccessLevel } from '../templates';
+import { ResourceAccessRequests, AccessRequestSchema, AccessLevel } from '../templates/ResourceAccessRequests';
 import {
   Sudo,
   CamelizedRecord,

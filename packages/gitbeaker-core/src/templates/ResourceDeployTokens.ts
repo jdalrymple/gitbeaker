@@ -6,7 +6,15 @@ import {
   Sudo,
 } from '../infrastructure';
 
-type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry';
+export type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry' | 'read_package_registry' | 'write_package_registry';
+
+export interface DeployTokenSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  username: string;
+  expires_at: string;
+  scopes?: string[];
+}
 
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
 export class ResourceDeployTokens<C extends boolean = false> extends BaseService<C> {
@@ -20,7 +28,7 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post()(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
+    return RequestHelper.post<DeployTokenSchema>()(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
       name: tokenName,
       scopes: tokenScopes,
       ...options,
@@ -28,7 +36,7 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
   }
 
   all({ resourceId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions) {
-    let url;
+    let url: string;
 
     if (resourceId) {
       url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
@@ -36,7 +44,7 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
       url = 'deploy_tokens';
     }
 
-    return RequestHelper.get()(this, url, options);
+    return RequestHelper.get<DeployTokenSchema[]>()(this, url, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
