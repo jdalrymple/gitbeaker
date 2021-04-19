@@ -1,5 +1,6 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { MilestoneSchema } from './ResourceMilestones';
+import { LabelSchema } from './ResourceLabels';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -9,30 +10,18 @@ import {
 
 export interface IssueBoardListSchema extends Record<string, unknown> {
   id: number;
-  label: {
-    name: string;
-    color: string;
-    description?: null;
-  };
+  label: Pick<LabelSchema, 'name' | 'color' | 'description'>;
   position: number;
+  max_issue_count: number;
+  max_issue_weight: number;
+  limit_metric?: null;
 }
+
 export interface IssueBoardSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  group: {
-    id: number;
-    name: string;
-    web_url: string;
-  };
-  milestone: {
-    id: number;
-    title: string;
-  };
+  milestone: Pick<MilestoneSchema, 'id' | 'title'>;
   lists?: IssueBoardListSchema[];
-}
-
-export interface IssueBoardListExpandedSchema extends IssueBoardSchema {
-  milestone: MilestoneSchema;
 }
 
 export class ResourceIssueBoards<C extends boolean = false> extends BaseService<C> {
@@ -55,7 +44,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseService<
   createList(resourceId: string | number, boardId: number, labelId: number, options?: Sudo) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
-    return RequestHelper.post<IssueBoardListExpandedSchema>()(this, `${rId}/boards/${bId}/lists`, {
+    return RequestHelper.post<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists`, {
       labelId,
       ...options,
     });

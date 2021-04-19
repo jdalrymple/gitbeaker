@@ -9,8 +9,8 @@ import {
 export interface ProtectedBranchAccessLevelSchema {
   access_level: 0 | 30 | 40 | 60;
   access_level_description: string;
-  group_id?: number;
   user_id?: number;
+  group_id?: number;
 }
 
 export interface ProtectedBranchSchema extends Record<string, unknown> {
@@ -18,8 +18,8 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
   name: string;
   push_access_levels?: ProtectedBranchAccessLevelSchema[];
   merge_access_levels?: ProtectedBranchAccessLevelSchema[];
-  unprotect_access_levels?: ProtectedBranchAccessLevelSchema[];
-  code_owner_approval_required: string;
+  allow_force_push: boolean;
+  code_owner_approval_required: boolean;
 }
 
 export class ProtectedBranches<C extends boolean = false> extends BaseService<C> {

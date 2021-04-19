@@ -1,7 +1,7 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo } from '../infrastructure';
 
-export type AccessLevel = 5 | 10 | 20 | 30 | 40 | 50;
+export type AccessLevel = 0 | 5 | 10 | 20 | 30 | 40 | 50;
 
 export interface AccessRequestSchema extends Record<string, unknown> {
   id: number;

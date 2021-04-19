@@ -1,33 +1,90 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceIssueBoards } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ProjectSchema } from './Projects';
+import {
+  ResourceIssueBoards,
+  IssueBoardSchema,
+  IssueBoardListSchema,
+} from '../templates/ResourceIssueBoards';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
+
+export interface ProjectIssueBoardSchema extends IssueBoardSchema {
+  project: Pick<
+    ProjectSchema,
+    | 'id'
+    | 'name'
+    | 'name_with_namespace'
+    | 'path'
+    | 'path_with_namespace'
+    | 'http_url_to_repo'
+    | 'web_url'
+  >;
+}
 
 export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions);
+  all(
+    groupId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>[]>;
 
-  create(projectId: string | number, name: string, options?: Sudo);
+  create(
+    groupId: string | number,
+    name: string,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
 
-  createList(projectId: string | number, boardId: number, labelId: number, options?: Sudo);
+  createList(
+    groupId: string | number,
+    boardId: number,
+    labelId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
 
-  edit(projectId: string | number, boardId: number, options?: BaseRequestOptions);
+  edit(
+    groupId: string | number,
+    boardId: number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
 
   editList(
-    projectId: string | number,
+    groupId: string | number,
     boardId: number,
     listId: number,
     position: number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
 
-  lists(projectId: string | number, boardId: number, options?: Sudo);
+  lists(
+    groupId: string | number,
+    boardId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, IssueBoardListSchema>[]>;
 
-  remove(projectId: string | number, boardId: number, options?: Sudo);
+  remove(groupId: string | number, boardId: number, options?: Sudo): Promise<void>;
 
-  removeList(projectId: string | number, boardId: number, listId: number, options?: Sudo);
+  removeList(
+    groupId: string | number,
+    boardId: number,
+    listId: number,
+    options?: Sudo,
+  ): Promise<void>;
 
-  show(projectId: string | number, boardId: number, options?: Sudo);
+  show(
+    groupId: string | number,
+    boardId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
 
-  showList(projectId: string | number, boardId: number, listId: number, options?: Sudo);
+  showList(
+    groupId: string | number,
+    boardId: number,
+    listId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
 }
 
 export class ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {

@@ -1,19 +1,49 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMilestones } from '../templates';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
+import { ResourceMilestones, MilestoneSchema } from '../templates';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
+import type { IssueSchema } from './Issues';
+import type { MergeRequestSchema } from './MergeRequests';
 
 export interface ProjectMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions);
+  all(
+    projectId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, MilestoneSchema>[]>;
 
-  create(projectId: string | number, title: string, options?: BaseRequestOptions);
+  create(
+    projectId: string | number,
+    title: string,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
 
-  edit(projectId: string | number, milestoneId: number, options?: BaseRequestOptions);
+  edit(
+    projectId: string | number,
+    milestoneId: number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
 
-  issues(projectId: string | number, milestoneId: number, options?: Sudo);
+  issues(
+    projectId: string | number,
+    milestoneId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, IssueSchema>[]>;
 
-  mergeRequests(projectId: string | number, milestoneId: number, options?: Sudo);
+  mergeRequests(
+    projectId: string | number,
+    milestoneId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, MergeRequestSchema>[]>;
 
-  show(projectId: string | number, milestoneId: number, options?: Sudo);
+  show(
+    projectId: string | number,
+    milestoneId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
 }
 
 export class ProjectMilestones<C extends boolean = false> extends ResourceMilestones<C> {

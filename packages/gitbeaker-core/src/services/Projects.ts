@@ -5,20 +5,15 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-// import { EventOptions } from './Events';
+import { UserSchema } from './Users';
+import { LicenseTemplateSchema } from './LicenseTemplates';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
+import { AccessLevel } from '../templates/ResourceAccessRequests';
 
-export interface NamespaceInfoSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  path: string;
-  kind: string;
-  full_path: string;
-}
-
+// TODO add missing functions
 export interface ProjectSchema extends Record<string, unknown> {
   id: number;
-  description: string;
+  description?: string;
   default_branch: string;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
@@ -36,16 +31,31 @@ export interface ProjectSchema extends Record<string, unknown> {
   star_count: number;
 }
 
+export interface NamespaceInfoSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  path: string;
+  kind: string;
+  full_path: string;
+  avatar_url: string;
+  web_url: string;
+}
+
 export interface AccessSchema {
-  access_level: number;
+  access_level: AccessLevel;
   notification_level: number;
 }
+
+export interface SharedWithGroupSchema {
+  group_id: number;
+  group_name: string;
+  group_full_path: string;
+  group_access_level: number;
+}
+
 export interface ProjectExpandedSchema extends ProjectSchema {
-  owner: {
-    id: number;
-    name: string;
-    created_at: string;
-  };
+  visibility: string;
+  owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
   issues_enabled: boolean;
   open_issues_count: number;
   merge_requests_enabled: boolean;
@@ -55,6 +65,15 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   can_create_merge_request_in: boolean;
   resolve_outdated_diff_discussions: boolean;
   container_registry_enabled: boolean;
+  container_expiration_policy: {
+    cadence: string;
+    enabled: boolean;
+    keep_n?: null;
+    older_than?: null;
+    name_regex_delete?: null;
+    name_regex_keep?: null;
+    next_run_at: string;
+  };
   creator_id: number;
   namespace: NamespaceInfoSchema;
   import_status: string;
@@ -65,28 +84,49 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   };
   archived: boolean;
   license_url: string;
-  license: {
-    key: string;
-    name: string;
-    nickname: string;
-    html_url: string;
-    source_url: string;
-  };
+  license: Pick<LicenseTemplateSchema, 'key' | 'name' | 'nickname' | 'html_url' | 'source_url'>;
   shared_runners_enabled: boolean;
   runners_token: string;
   ci_default_git_depth: number;
   ci_forward_deployment_enabled: boolean;
   public_jobs: boolean;
-  shared_with_groups?: null[] | null;
+  shared_with_groups?: SharedWithGroupSchema[];
+  repository_storage: string;
   only_allow_merge_if_pipeline_succeeds: boolean;
   allow_merge_on_skipped_pipeline: boolean;
   restrict_user_defined_variables: boolean;
   only_allow_merge_if_all_discussions_are_resolved: boolean;
   remove_source_branch_after_merge: boolean;
+  printing_merge_requests_link_enabled: boolean;
   request_access_enabled: boolean;
   merge_method: string;
+  auto_devops_enabled: boolean;
+  auto_devops_deploy_strategy: string;
+  approvals_before_merge: number;
+  mirror: boolean;
+  mirror_user_id: number;
+  mirror_trigger_builds: boolean;
+  only_mirror_protected_branches: boolean;
+  mirror_overwrites_diverged_branches: boolean;
+  external_authorization_classification_label?: null;
+  packages_enabled: boolean;
+  service_desk_enabled: boolean;
+  service_desk_address?: null;
   autoclose_referenced_issues: boolean;
   suggestion_commit_message?: null;
+  marked_for_deletion_at: string;
+  marked_for_deletion_on: string;
+  compliance_frameworks?: string[];
+  statistics: {
+    commit_count: number;
+    storage_size: number;
+    repository_size: number;
+    wiki_size: number;
+    lfs_objects_size: number;
+    job_artifacts_size: number;
+    packages_size: number;
+    snippets_size: number;
+  };
   container_registry_image_prefix: string;
   _links: {
     self: string;
@@ -97,10 +137,6 @@ export interface ProjectExpandedSchema extends ProjectSchema {
     events: string;
     members: string;
   };
-}
-
-export interface LanguagesSchema extends Record<string, number> {
-  [name: string]: number;
 }
 
 export class Projects<C extends boolean = false> extends BaseService<C> {
@@ -150,7 +186,11 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   languages(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<LanguagesSchema>()(this, `projects/${pId}/languages`, options);
+    return RequestHelper.get<{ [name: string]: number }>()(
+      this,
+      `projects/${pId}/languages`,
+      options,
+    );
   }
 
   mirrorPull(projectId: string | number, options?: Sudo) {
@@ -196,24 +236,20 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<ProjectSchema>()(this, `projects/${pId}`, options);
+    return RequestHelper.get<ProjectExpandedSchema>()(this, `projects/${pId}`, options);
   }
 
   star(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/star`, options);
-  }
-
-  statuses(projectId: string | number, sha: string, state: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post()(this, `projects/${pId}/statuses/${sha}`, { state, ...options });
+    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/star`, options);
   }
 
   transfer(projectId: string | number, namespaceId: string | number) {
     const pId = encodeURIComponent(projectId);
-    return RequestHelper.put()(this, `projects/${pId}/transfer`, { namespace: namespaceId });
+    return RequestHelper.put<ProjectExpandedSchema>()(this, `projects/${pId}/transfer`, {
+      namespace: namespaceId,
+    });
   }
 
   unarchive(projectId: string | number, options?: Sudo) {
@@ -231,7 +267,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   unstar(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/unstar`, options);
+    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/unstar`, options);
   }
 
   upload(

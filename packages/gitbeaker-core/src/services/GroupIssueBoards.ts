@@ -3,14 +3,18 @@ import {
   ResourceIssueBoards,
   IssueBoardSchema,
   IssueBoardListSchema,
-  IssueBoardListExpandedSchema,
-} from '../templates';
+} from '../templates/ResourceIssueBoards';
+import { GroupSchema } from './Groups';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+
+export interface GroupIssueBoardSchema extends IssueBoardSchema {
+  group: Pick<GroupSchema, 'id' | 'name' | 'web_url'>;
+}
 
 export interface GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
   all(
@@ -22,20 +26,20 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
     groupId: string | number,
     name: string,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardSchema>>;
+  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
 
   createList(
     groupId: string | number,
     boardId: number,
     labelId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListExpandedSchema>>;
+  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
 
   edit(
     groupId: string | number,
     boardId: number,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueBoardSchema>>;
+  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
 
   editList(
     groupId: string | number,
@@ -64,7 +68,7 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
     groupId: string | number,
     boardId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardSchema>>;
+  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
 
   showList(
     groupId: string | number,

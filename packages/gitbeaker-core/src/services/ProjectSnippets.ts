@@ -5,14 +5,27 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
 import { SnippetVisibility } from './Snippets';
+import { UserSchema } from './Users';
+
+export interface ProjectSnippetSchema extends Record<string, unknown> {
+  id: number;
+  title: string;
+  file_name: string;
+  description: string;
+  author: Pick<UserSchema, 'id' | 'username' | 'name' | 'state' | 'created_at'>;
+  updated_at: string;
+  created_at: string;
+  project_id: number;
+  web_url: string;
+  raw_url: string;
+}
 
 export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(this, `projects/${pId}/snippets`, options);
+    return RequestHelper.get<ProjectSnippetSchema[]>()(this, `projects/${pId}/snippets`, options);
   }
 
   content(projectId: string | number, snippetId: number, options?: Sudo) {
@@ -31,7 +44,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/snippets`, {
+    return RequestHelper.post<ProjectSnippetSchema>()(this, `projects/${pId}/snippets`, {
       title,
       fileName,
       code,
@@ -43,7 +56,11 @@ export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
   edit(projectId: string | number, snippetId: number, options?: BaseRequestOptions) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.put()(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.put<ProjectSnippetSchema>()(
+      this,
+      `projects/${pId}/snippets/${sId}`,
+      options,
+    );
   }
 
   remove(projectId: string | number, snippetId: number, options?: Sudo) {
@@ -55,12 +72,20 @@ export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/snippets/${sId}`, options);
+    return RequestHelper.get<ProjectSnippetSchema>()(
+      this,
+      `projects/${pId}/snippets/${sId}`,
+      options,
+    );
   }
 
   userAgentDetails(projectId: string | number, snippetId: number, options?: Sudo) {
     const [pId, sId] = [projectId, snippetId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/snippets/${sId}/user_agent_detail`, options);
+    return RequestHelper.get<{
+      user_agent: string;
+      ip_address: string;
+      akismet_submitted: boolean;
+    }>()(this, `projects/${pId}/snippets/${sId}/user_agent_detail`, options);
   }
 }
