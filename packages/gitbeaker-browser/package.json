@@ -23,7 +23,7 @@
     "@types/puppeteer": "^5.4.3",
     "jest-puppeteer": "^5.0.2",
     "node-fetch": "^2.6.1",
-    "puppeteer": "8.0.0",
+    "puppeteer": "9.0.0",
     "rollup": "^2.41.2",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
