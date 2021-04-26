@@ -1,7 +1,8 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { CommitSchema } from './Commits';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface RepositoryFileSchema extends Record<string, unknown> {
+export interface RepositoryFileExtendedSchema extends Record<string, unknown> {
   file_name: string;
   file_path: string;
   size: number;
@@ -12,6 +13,16 @@ export interface RepositoryFileSchema extends Record<string, unknown> {
   blob_id: string;
   commit_id: string;
   last_commit_id: string;
+}
+
+export interface RepositoryFileBlameSchema extends Record<string, unknown> {
+  commit: CommitSchema;
+  lines?: string[];
+}
+
+export interface RepositoryFileSchema extends Record<string, unknown> {
+  file_path: string;
+  branch: string;
 }
 
 export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
@@ -25,12 +36,16 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/repository/files/${path}`, {
-      branch,
-      content,
-      commitMessage,
-      ...options,
-    });
+    return RequestHelper.post<RepositoryFileSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        branch,
+        content,
+        commitMessage,
+        ...options,
+      },
+    );
   }
 
   edit(
@@ -43,12 +58,16 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.put()(this, `projects/${pId}/repository/files/${path}`, {
-      branch,
-      content,
-      commitMessage,
-      ...options,
-    });
+    return RequestHelper.put<RepositoryFileSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        branch,
+        content,
+        commitMessage,
+        ...options,
+      },
+    );
   }
 
   remove(
@@ -70,7 +89,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get<RepositoryFileSchema>()(
+    return RequestHelper.get<RepositoryFileExtendedSchema>()(
       this,
       `projects/${pId}/repository/files/${path}`,
       {
@@ -83,15 +102,19 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/blame`, options);
+    return RequestHelper.get<RepositoryFileBlameSchema[]>()(
+      this,
+      `projects/${pId}/repository/files/${path}/blame`,
+      options,
+    );
   }
 
   showRaw(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
+    return (RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
       ref,
       ...options,
-    });
+    }) as unknown) as Promise<Blob>;
   }
 }

@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { IssueSchema } from './Issues';
-import { CommitSchema } from './Commits';
+import { CommitSchema, CommitDiffSchema } from './Commits';
 import { MilestoneSchema } from '../templates/ResourceMilestones';
 import {
   BaseRequestOptions,
@@ -107,17 +107,6 @@ export interface RebaseSchema extends Record<string, unknown> {
   merge_error?: string;
 }
 
-export interface ChangesSchema {
-  old_path: string;
-  new_path: string;
-  a_mode: string;
-  b_mode: string;
-  diff: string;
-  new_file: boolean;
-  renamed_file: boolean;
-  deleted_file: boolean;
-}
-
 export interface DiffSchema extends Record<string, unknown> {
   id: number;
   head_commit_sha: string;
@@ -128,7 +117,7 @@ export interface DiffSchema extends Record<string, unknown> {
   state: string;
   real_size: string;
   commits?: CommitSchema[];
-  diffs?: ChangesSchema[];
+  diffs?: CommitDiffSchema[];
 }
 
 export interface MergeRequestSchema extends Record<string, unknown> {
@@ -173,7 +162,7 @@ export interface MergeRequestSchema extends Record<string, unknown> {
   task_completion_status: TaskCompletionStatusSchema;
   has_conflicts: boolean;
   blocking_discussions_resolved: boolean;
-  changes?: ChangesSchema[];
+  changes?: CommitDiffSchema[];
 }
 
 export class MergeRequests<C extends boolean = false> extends BaseService<C> {

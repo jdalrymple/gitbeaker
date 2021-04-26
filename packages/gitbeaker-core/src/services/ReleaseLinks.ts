@@ -13,24 +13,38 @@ export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, tagName: string, options?: PaginatedRequestOptions) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.get<ReleaseLinkSchema[]>()(this, `projects/${pId}/releases/${tId}/assets/links`, options);
+    return RequestHelper.get<ReleaseLinkSchema[]>()(
+      this,
+      `projects/${pId}/releases/${tId}/assets/links`,
+      options,
+    );
   }
 
-  create(projectId: string | number, tagName: string, name: string, url: string, options?: Sudo & { filePath?: string, linkType?: string }) {
+  create(
+    projectId: string | number,
+    tagName: string,
+    name: string,
+    url: string,
+    options?: Sudo & { filePath?: string; linkType?: string },
+  ) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.post<ReleaseLinkSchema>()(this, `projects/${pId}/releases/${tId}/assets/links`, {
-      name,
-      url,
-      ...options,
-    });
+    return RequestHelper.post<ReleaseLinkSchema>()(
+      this,
+      `projects/${pId}/releases/${tId}/assets/links`,
+      {
+        name,
+        url,
+        ...options,
+      },
+    );
   }
 
   edit(
     projectId: string | number,
     tagName: string,
     linkId: number,
-    options?: Sudo & ({ name?: string, url?: string, filePath?: string, linkType?: string }),
+    options?: Sudo & { name?: string; url?: string; filePath?: string; linkType?: string },
   ) {
     const [pId, tId, lId] = [projectId, tagName, linkId].map(encodeURIComponent);
 

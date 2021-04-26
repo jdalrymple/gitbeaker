@@ -18,7 +18,7 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
 
   all(
     groupId: string | number,
-    { includeInherited, ...options }: IncludeInherited & PaginatedRequestOptions,
+    options?: IncludeInherited & PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, MembersSchema>[]>;
 
   edit(
@@ -31,7 +31,7 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
   show(
     groupId: string | number,
     userId: number,
-    { includeInherited, ...options }: IncludeInherited & Sudo,
+    options?: IncludeInherited & Sudo,
   ): Promise<CamelizedRecord<C, MembersSchema>>;
 
   remove(groupId: string | number, userId: number, options?: Sudo): Promise<void>;

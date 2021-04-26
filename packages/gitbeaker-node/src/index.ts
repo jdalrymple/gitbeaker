@@ -93,7 +93,7 @@ export const {
   GitLabCIYMLTemplates,
   Keys,
   License,
-  LicenceTemplates,
+  LicenseTemplates,
   Lint,
   Namespaces,
   NotificationSettings,

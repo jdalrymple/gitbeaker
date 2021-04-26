@@ -1,4 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { ProjectSchema } from './Projects';
+import { JobSchema } from './Jobs';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -14,7 +16,23 @@ export interface RunnerSchema extends Record<string, unknown> {
   is_shared: boolean;
   name: string;
   online: boolean;
-  status: string;
+  status: 'running' | 'success' | 'failed' | 'canceled';
+}
+
+export interface RunnerExpandedSchema extends RunnerSchema {
+  architecture?: string;
+  description: string;
+  contacted_at: string;
+  platform?: string;
+  projects?: Pick<
+    ProjectSchema,
+    'id' | 'name' | 'name_with_namespace' | 'path' | 'path_with_namespace'
+  >;
+  revision?: string;
+  tag_list?: string[];
+  version?: string;
+  access_level: string;
+  maximum_timeout?: number;
 }
 
 export class Runners<C extends boolean = false> extends BaseService<C> {
@@ -25,19 +43,22 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   }
 
   allOwned(options?: BaseRequestOptions) {
-    return RequestHelper.get()(this, 'runners', options);
+    return RequestHelper.get<RunnerSchema[]>()(this, 'runners', options);
   }
 
   edit(runnerId: number, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.put()(this, `runners/${rId}`, options);
+    return RequestHelper.put<RunnerExpandedSchema>()(this, `runners/${rId}`, options);
   }
 
   enable(projectId: string | number, runnerId: number, options?: Sudo) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/runners`, { runnerId: rId, ...options });
+    return RequestHelper.post<RunnerSchema>()(this, `projects/${pId}/runners`, {
+      runnerId: rId,
+      ...options,
+    });
   }
 
   disable(projectId: string | number, runnerId: number, options?: Sudo) {
@@ -49,7 +70,7 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   jobs(runnerId: number, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.get()(this, `runners/${rId}/jobs`, options);
+    return RequestHelper.get<JobSchema[]>()(this, `runners/${rId}/jobs`, options);
   }
 
   remove(runnerId: number, options?: Sudo) {
@@ -61,6 +82,6 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   show(runnerId: number, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.get()(this, `runners/${rId}`, options);
+    return RequestHelper.get<RunnerExpandedSchema>()(this, `runners/${rId}`, options);
   }
 }
