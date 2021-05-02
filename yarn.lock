@@ -3,12 +3,12 @@
 
 
 "@auto-it/all-contributors@^10.18.9":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.25.1.tgz#9e037ec569113379c2a4739221dd1893d9ce587e"
-  integrity sha512-y1JVsoCmeHZE8Fb3VgL+C4mhyh358yUs46DZd0npQdELBa8pX/GQwQKnyCRV25ilyOndp7YcG37DngN/6bpepA==
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/all-contributors/-/all-contributors-10.26.0.tgz#be58adbfae33842ccca98ad79d1b4057b3a29f9c"
+  integrity sha512-UI1wm9LAsNMet/VmlhFn4yFuc4Y2ZzdNbpEv2PXKZ8dymwiX9TDJK5V8lvxAMVepP02VUeAG3KT1Fv6pposkSg==
   dependencies:
-    "@auto-it/bot-list" "10.25.1"
-    "@auto-it/core" "10.25.1"
+    "@auto-it/bot-list" "10.26.0"
+    "@auto-it/core" "10.26.0"
     "@octokit/rest" "^18.0.0"
     all-contributors-cli "6.19.0"
     anymatch "^3.1.1"
@@ -20,17 +20,17 @@
     io-ts "^2.1.2"
     tslib "2.1.0"
 
-"@auto-it/bot-list@10.25.1":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.25.1.tgz#9a1ff5831da81b47bfd518c34e9313c0373c36c6"
-  integrity sha512-udnjMZS31Vv+I30Fpowy9WN0MSLdRN1URPJISULmDKO6gPxUo0ksDZ5Tr/qeRuKlCtmkaLowW6u8wH0YWM2r7A==
+"@auto-it/bot-list@10.26.0":
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.26.0.tgz#ef4628566676e1854ce75d8a037597c8882d7a4f"
+  integrity sha512-bpqZ3/ka1jxw9yIbwpclQRQHUGVbKaLNjEpcIVo+dGbE4eFrI9hQL93dPB9St9XMOwL4mkPyP8beFM46V64nVg==
 
-"@auto-it/core@10.25.1", "@auto-it/core@^10.18.9":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.25.1.tgz#12c9afec269eeb01bfb0f02f855a6e7c7cc26814"
-  integrity sha512-lYcjP81cNt3vHAxm1vmfClqwBHxNOhFSkP96CQNPwat2PN71WaYmxXoOUAfXlvv0zrGwZVYCR/4QPCwo3bg0pQ==
+"@auto-it/core@10.26.0", "@auto-it/core@^10.18.9":
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.26.0.tgz#a1076cccff00f8a681a5c635bbea21575f4fd29f"
+  integrity sha512-n9DML7aDhuA2tlD+Az7Bo1fz7IfRqSUwQRRTedYB4ttEp79m+hpgMZ9LXSsSnvw7+3mGdOwFH798OcH0yCdcjg==
   dependencies:
-    "@auto-it/bot-list" "10.25.1"
+    "@auto-it/bot-list" "10.26.0"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -71,24 +71,24 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^10.18.9":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.25.1.tgz#f48629eb2e823781d1208593ef870719383a00e2"
-  integrity sha512-deWeXrXFBHgZQq2TJuzNefM6/PcXWYfdQlhVICp2p1OBZT1GG8qXjHYaIorSzFJnfzuUGer3Aifu56xkUPIydg==
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.26.0.tgz#14bf9a8375003ddcad952afea999dbbdd8011f28"
+  integrity sha512-4qRMu5pMumwCD579aoVpC/9ryMOchJ/05ZmBe8PbsSbVqKJ7ApXJGsguNSW0WUrn975NI9GIeNUjrlvGXH7HKg==
   dependencies:
-    "@auto-it/bot-list" "10.25.1"
-    "@auto-it/core" "10.25.1"
+    "@auto-it/bot-list" "10.26.0"
+    "@auto-it/core" "10.26.0"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.1.0"
     url-join "^4.0.0"
 
-"@auto-it/npm@10.25.1":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-10.25.1.tgz#709ae6c2ba072d280ddf9d47b27fff49d27f7def"
-  integrity sha512-l1YSBG3EOjS1wKvohajfQnXpLmAlxHt6xAegxbc2mHQi6z08HFRFZpyz+CbkFocOk0HyF4SXXGolbuLBAor1ug==
+"@auto-it/npm@10.26.0":
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-10.26.0.tgz#0d9322d600a51aa8c6858394f37b5d8ccbe9e720"
+  integrity sha512-hwXunY5sxhY8DGj5IvAyhM9J6zoAsT8KZPUloMHsi5ZO6iBe8U/YNFS7SSTWzRXTo6+ZAOpLKCedRv/piVhrvQ==
   dependencies:
-    "@auto-it/core" "10.25.1"
-    "@auto-it/package-json-utils" "10.25.1"
+    "@auto-it/core" "10.26.0"
+    "@auto-it/package-json-utils" "10.26.0"
     await-to-js "^3.0.0"
     endent "^2.0.1"
     env-ci "^5.0.1"
@@ -102,21 +102,21 @@
     url-join "^4.0.0"
     user-home "^2.0.0"
 
-"@auto-it/package-json-utils@10.25.1":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/package-json-utils/-/package-json-utils-10.25.1.tgz#e052cf4d12a663f878dd4f7c9af88e3dc3348c63"
-  integrity sha512-x5Sv7RTEvIbjwgqU3nCD/v7ijETSaQlCVGCuE0/hSOOBB6hkpA1C6W4UEXPIF7Dkjsn/t00jqJYs+scwvMJ5Uw==
+"@auto-it/package-json-utils@10.26.0":
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/package-json-utils/-/package-json-utils-10.26.0.tgz#a1ec3723b96eacf9e22607b3262a100e82844fc4"
+  integrity sha512-n3wobqlXTEqGky7lQr1O43BfRaOdyatHX6Otq+CRBUJ3KfOMbzOm9VM/ocLi10Y4MGiCZhxN8qicTng+pxIZTg==
   dependencies:
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.25.1", "@auto-it/released@^10.18.9":
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.25.1.tgz#235d6c51b2f456cdf27f5e744a4274efd036356f"
-  integrity sha512-VF5lz2+9kTcSeccEtScCAoaU5KnYf+jkVwLqEqyofRylyDXzd2Mfm/YfNJoQT9ES9YEBiHOzLjuUPa+KeNn/dg==
+"@auto-it/released@10.26.0", "@auto-it/released@^10.18.9":
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.26.0.tgz#250c5fec640f68f505fae54aac4ce0313d4ff7dd"
+  integrity sha512-62rFbKM/9kMmTPn+MhNZw5n9XGufUzN/cdRbkFQucPFCBXN9zcZmwlRkjjI8rkluom6fSAkTSaXIev1yE40jww==
   dependencies:
-    "@auto-it/bot-list" "10.25.1"
-    "@auto-it/core" "10.25.1"
+    "@auto-it/bot-list" "10.26.0"
+    "@auto-it/core" "10.26.0"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -2393,13 +2393,13 @@ author-regex@^1.0.0:
   integrity sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=
 
 auto@^10.18.9:
-  version "10.25.1"
-  resolved "https://registry.yarnpkg.com/auto/-/auto-10.25.1.tgz#55af705a360f9ed47edf7c7fafd6c4d3b0cd62f3"
-  integrity sha512-CFaxWbVjJQd797W8QlyKWPLuObdpf5d8IO9ylZiOMOQmpersJeKCJWkFOOPSO80zMpiRt2MrkkWExBtP8/qgHw==
+  version "10.26.0"
+  resolved "https://registry.yarnpkg.com/auto/-/auto-10.26.0.tgz#d7cbb57956c9fbb0721037358f4132edc4312b34"
+  integrity sha512-8+j7M/a81O7Mj13wmIhw5pIC7ID/dxqJr/4Cmj3NK4xGfZEnlKhG8hfG1PQrMfoepT8hsoYrEF2KTx83l3N0tA==
   dependencies:
-    "@auto-it/core" "10.25.1"
-    "@auto-it/npm" "10.25.1"
-    "@auto-it/released" "10.25.1"
+    "@auto-it/core" "10.26.0"
+    "@auto-it/npm" "10.26.0"
+    "@auto-it/released" "10.26.0"
     await-to-js "^3.0.0"
     chalk "^4.0.0"
     command-line-application "^0.10.1"
@@ -2862,7 +2862,7 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.3.2, chalk@^2.4.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0, chalk@^4.1.0:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
   integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
@@ -4160,10 +4160,10 @@ expand-tilde@^1.2.2:
   dependencies:
     os-homedir "^1.0.1"
 
-expect-puppeteer@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/expect-puppeteer/-/expect-puppeteer-5.0.0.tgz#e4a61bb91e3bba58030d8d66a87e5b67bb2898a9"
-  integrity sha512-yMzVgFfPN0GOD7YMvs9hHsf9YxRg7SrcHqENxkgznoqtRBUZDdSmUte3osJ0LpLIb+9TXP5YUbCbOj7HmCl6EQ==
+expect-puppeteer@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/expect-puppeteer/-/expect-puppeteer-5.0.3.tgz#5e2f7afc55ebabb38edcff45480955473e67a2a7"
+  integrity sha512-l5APxyanw4n+zmVCCRKY6BoialeLvNSunTeA4e5QdhGq1QGQCq9WBcw3NVcCO4bAk2yQLL2ZoUmYMD3Q9ZvroQ==
 
 expect@^24.1.0:
   version "24.9.0"
@@ -5690,12 +5690,12 @@ jest-config@^26.6.3:
     micromatch "^4.0.2"
     pretty-format "^26.6.2"
 
-jest-dev-server@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/jest-dev-server/-/jest-dev-server-5.0.0.tgz#904ff0525715b8268d817a07d6ce942ce70d06b2"
-  integrity sha512-PUgOwr/XT+KUJG+bMjifSWwswQXhh92wMPGnkFZiHtWkc2IcdCCykRLkoFSKCKWPveuGDOa7ZKVoUgn0+S4wew==
+jest-dev-server@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/jest-dev-server/-/jest-dev-server-5.0.3.tgz#324bf6426477450ec3dae349ee9223d43f8be368"
+  integrity sha512-aJR3a5KdY18Lsz+VbREKwx2HM3iukiui+J9rlv9o6iYTwZCSsJazSTStcD9K1q0AIF3oA+FqLOKDyo/sc7+fJw==
   dependencies:
-    chalk "^4.1.0"
+    chalk "^4.1.1"
     cwd "^0.10.0"
     find-process "^1.4.4"
     prompts "^2.4.1"
@@ -5766,14 +5766,14 @@ jest-environment-jsdom@^26.6.2:
     jest-mock "^26.6.2"
     jest-util "^26.6.2"
 
-jest-environment-puppeteer@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/jest-environment-puppeteer/-/jest-environment-puppeteer-5.0.1.tgz#dc520fca625de054876181304b57c0f5879372e8"
-  integrity sha512-OtSNz3YOkhEGdQ02AQk1t9EbN9TcU7rbPRkcJeRj9RgwXlm5O9ijZIwi8ASd7tLKxddykdF+s8JPhynyDnLHOg==
+jest-environment-puppeteer@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/jest-environment-puppeteer/-/jest-environment-puppeteer-5.0.3.tgz#5cff9d1aa75c16ad525e3acbddc322e90a87673b"
+  integrity sha512-KHUJKeFKFNgQPitZZCHSlw22FanCSV3EnM8GaqV8v3nPp1CqoPgFFYKrrX/Z5mCZhSgJfo2qMtinG2YAUSLpCg==
   dependencies:
-    chalk "^4.1.0"
+    chalk "^4.1.1"
     cwd "^0.10.0"
-    jest-dev-server "^5.0.0"
+    jest-dev-server "^5.0.3"
     jest-environment-node "^26.6.2"
     merge-deep "^3.0.3"
 
@@ -5926,12 +5926,12 @@ jest-pnp-resolver@^1.2.2:
   integrity sha512-olV41bKSMm8BdnuMsewT4jqlZ8+3TCARAXjZGT9jcoSnrfUnRCqnMoF9XEeoWjbzObpqF9dRhHQj0Xb9QdF6/w==
 
 jest-puppeteer@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/jest-puppeteer/-/jest-puppeteer-5.0.2.tgz#33607a4785fde3bd8e18ee1c8365d77a718008bc"
-  integrity sha512-qrUVlFQivA9G3zRZho/fZ33RZl7pOOz2ITYgf7ly0sV2mdJA2Sy4966c9n9RuOzKADdg65mwV9zlFTsNVRVt4w==
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/jest-puppeteer/-/jest-puppeteer-5.0.3.tgz#f34f91637b42dcf2407f80d18ad4598acc4c6be4"
+  integrity sha512-H432LFp1YlyLr4XIPSWp2xCupNMkgZwp9L5gIbIliwM5cyboronWYjwKb9mfE8ipfzz755MitEWqtw807fXEow==
   dependencies:
-    expect-puppeteer "^5.0.0"
-    jest-environment-puppeteer "^5.0.1"
+    expect-puppeteer "^5.0.3"
+    jest-environment-puppeteer "^5.0.3"
 
 jest-regex-util@^24.9.0:
   version "24.9.0"
@@ -8685,9 +8685,9 @@ rollup-pluginutils@^2.3.1:
     estree-walker "^0.6.1"
 
 rollup@^2.41.2:
-  version "2.45.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.45.2.tgz#8fb85917c9f35605720e92328f3ccbfba6f78b48"
-  integrity sha512-kRRU7wXzFHUzBIv0GfoFFIN3m9oteY4uAsKllIpQDId5cfnkWF2J130l+27dzDju0E6MScKiV0ZM5Bw8m4blYQ==
+  version "2.46.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.46.0.tgz#8cacf89d2ee31a34755f1af40a665168f592b829"
+  integrity sha512-qPGoUBNl+Z8uNu0z7pD3WPTABWRbcOwIrO/5ccDJzmrtzn0LVf6Lj91+L5CcWhXl6iWf23FQ6m8Jkl2CmN1O7Q==
   optionalDependencies:
     fsevents "~2.3.1"
 
