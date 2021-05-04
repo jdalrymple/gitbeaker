@@ -177,10 +177,10 @@ describe('Issues.timeStats', () => {
 });
 
 describe('Issues.unsubscribe', () => {
-  it('should request DEL projects/:id/issues/:iid/unsubscribe', async () => {
+  it('should request POST projects/:id/issues/:iid/unsubscribe', async () => {
     await service.unsubscribe(2, 3);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(
+    expect(RequestHelper.post).toHaveBeenCalledWith(
       service,
       'projects/2/issues/3/unsubscribe',
       undefined,
