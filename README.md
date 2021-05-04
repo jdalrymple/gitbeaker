@@ -710,6 +710,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
   </tr>
   <tr>
     <td align="center"><a href="https://sajdl.com/"><img src="https://avatars.githubusercontent.com/u/5222912?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Vojtěch Sajdl</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Pryx" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=Pryx" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/divido"><img src="https://avatars.githubusercontent.com/u/4614626?v=4?s=50" width="50px;" alt=""/><br /><sub><b>divido</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=divido" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=divido" title="Code">💻</a></td>
   </tr>
 </table>
 
