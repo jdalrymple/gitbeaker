@@ -1,3 +1,71 @@
+# 28.4.0 (Tue May 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@divido](https://github.com/divido), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Change Issues.unsubscribe to a POST operation instead of DELETE [#1726](https://github.com/jdalrymple/gitbeaker/pull/1726) ([@divido](https://github.com/divido) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Upgrade to GitHub-native Dependabot [#1733](https://github.com/jdalrymple/gitbeaker/pull/1733) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- chore(deps-dev): bump rollup from 2.45.2 to 2.46.0 [#1734](https://github.com/jdalrymple/gitbeaker/pull/1734) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.25.1 to 10.26.0 [#1732](https://github.com/jdalrymple/gitbeaker/pull/1732) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest-puppeteer from 5.0.2 to 5.0.3 [#1731](https://github.com/jdalrymple/gitbeaker/pull/1731) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1730](https://github.com/jdalrymple/gitbeaker/pull/1730) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.25.1 to 10.26.0 [#1729](https://github.com/jdalrymple/gitbeaker/pull/1729) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.25.1 to 10.26.0 [#1727](https://github.com/jdalrymple/gitbeaker/pull/1727) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/jest from 26.0.22 to 26.0.23 [#1717](https://github.com/jdalrymple/gitbeaker/pull/1717) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-config-prettier from 8.2.0 to 8.3.0 [#1716](https://github.com/jdalrymple/gitbeaker/pull/1716) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1711](https://github.com/jdalrymple/gitbeaker/pull/1711) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.25.0 to 10.25.1 [#1712](https://github.com/jdalrymple/gitbeaker/pull/1712) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.3.5 to 24.3.6 [#1715](https://github.com/jdalrymple/gitbeaker/pull/1715) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint from 7.24.0 to 7.25.0 [#1714](https://github.com/jdalrymple/gitbeaker/pull/1714) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.25.0 to 10.25.1 [#1704](https://github.com/jdalrymple/gitbeaker/pull/1704) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps): bump chalk from 4.1.0 to 4.1.1 [#1708](https://github.com/jdalrymple/gitbeaker/pull/1708) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.25.0 to 10.25.1 [#1706](https://github.com/jdalrymple/gitbeaker/pull/1706) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.39 to 14.14.41 [#1703](https://github.com/jdalrymple/gitbeaker/pull/1703) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-prettier from 3.3.1 to 3.4.0 [#1701](https://github.com/jdalrymple/gitbeaker/pull/1701) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @types/node from 14.14.37 to 14.14.39 [#1700](https://github.com/jdalrymple/gitbeaker/pull/1700) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1697](https://github.com/jdalrymple/gitbeaker/pull/1697) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-config-prettier from 8.1.0 to 8.2.0 [#1695](https://github.com/jdalrymple/gitbeaker/pull/1695) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.24.3 to 10.25.0 [#1698](https://github.com/jdalrymple/gitbeaker/pull/1698) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.24.3 to 10.25.0 [#1699](https://github.com/jdalrymple/gitbeaker/pull/1699) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.24.3 to 10.25.0 [#1694](https://github.com/jdalrymple/gitbeaker/pull/1694) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.21.0 to 4.22.0 [#1693](https://github.com/jdalrymple/gitbeaker/pull/1693) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.45.1 to 2.45.2 [#1692](https://github.com/jdalrymple/gitbeaker/pull/1692) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1691](https://github.com/jdalrymple/gitbeaker/pull/1691) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.3.4 to 24.3.5 [#1690](https://github.com/jdalrymple/gitbeaker/pull/1690) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.45.0 to 2.45.1 [#1689](https://github.com/jdalrymple/gitbeaker/pull/1689) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint from 7.23.0 to 7.24.0 [#1688](https://github.com/jdalrymple/gitbeaker/pull/1688) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump auto from 10.24.1 to 10.24.3 [#1687](https://github.com/jdalrymple/gitbeaker/pull/1687) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/released from 10.24.1 to 10.24.3 [#1683](https://github.com/jdalrymple/gitbeaker/pull/1683) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump rollup from 2.44.0 to 2.45.0 [#1685](https://github.com/jdalrymple/gitbeaker/pull/1685) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/first-time-contributor [#1686](https://github.com/jdalrymple/gitbeaker/pull/1686) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @auto-it/all-contributors from 10.24.1 to 10.24.3 [#1682](https://github.com/jdalrymple/gitbeaker/pull/1682) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump typescript from 4.2.3 to 4.2.4 [#1681](https://github.com/jdalrymple/gitbeaker/pull/1681) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/eslint-plugin [#1680](https://github.com/jdalrymple/gitbeaker/pull/1680) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump @typescript-eslint/parser from 4.20.0 to 4.21.0 [#1679](https://github.com/jdalrymple/gitbeaker/pull/1679) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump eslint-plugin-jest from 24.3.2 to 24.3.4 [#1678](https://github.com/jdalrymple/gitbeaker/pull/1678) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/cli`
+  - chore(deps-dev): bump strip-ansi from 6.0.0 to 7.0.0 [#1710](https://github.com/jdalrymple/gitbeaker/pull/1710) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- `@gitbeaker/browser`
+  - chore(deps-dev): bump puppeteer from 8.0.0 to 9.0.0 [#1705](https://github.com/jdalrymple/gitbeaker/pull/1705) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+  - chore(deps-dev): bump jest-puppeteer from 4.4.0 to 5.0.2 [#1709](https://github.com/jdalrymple/gitbeaker/pull/1709) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@divido](https://github.com/divido)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 28.3.0 (Sun Apr 04 2021)
 
 #### 🐛 Bug Fix

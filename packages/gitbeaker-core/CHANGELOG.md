@@ -1,3 +1,25 @@
+# v28.4.0 (Tue May 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@divido](https://github.com/divido), for all your work!
+
+#### 🐛 Bug Fix
+
+- Change Issues.unsubscribe to a POST operation instead of DELETE [#1726](https://github.com/jdalrymple/gitbeaker/pull/1726) ([@divido](https://github.com/divido) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@divido](https://github.com/divido)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix

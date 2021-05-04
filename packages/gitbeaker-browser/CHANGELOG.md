@@ -1,3 +1,17 @@
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 8.0.0 to 9.0.0 [#1705](https://github.com/jdalrymple/gitbeaker/pull/1705) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest-puppeteer from 4.4.0 to 5.0.2 [#1709](https://github.com/jdalrymple/gitbeaker/pull/1709) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v28.3.0 (Sun Apr 04 2021)
 
 #### 🔩 Dependency Updates
