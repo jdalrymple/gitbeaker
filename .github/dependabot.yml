@@ -1,0 +1,104 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@auto-it/core"
+    versions:
+    - 10.15.0
+    - 10.16.4
+    - 10.16.6
+    - 10.16.7
+    - 10.16.8
+    - 10.18.1
+    - 10.18.3
+    - 10.18.4
+    - 10.18.7
+    - 10.20.1
+    - 10.20.4
+    - 10.20.6
+    - 10.21.0
+    - 10.22.1
+    - 10.24.3
+    - 10.25.0
+    - 10.25.1
+    - 10.25.2
+    - 10.26.0
+  - dependency-name: "@auto-it/first-time-contributor"
+    versions:
+    - 10.16.4
+    - 10.25.2
+  - dependency-name: "@auto-it/released"
+    versions:
+    - 10.15.0
+    - 10.16.5
+    - 10.16.6
+    - 10.16.7
+    - 10.16.8
+    - 10.18.1
+    - 10.18.3
+    - 10.18.4
+    - 10.20.1
+    - 10.20.6
+    - 10.22.0
+    - 10.22.1
+    - 10.23.0
+    - 10.24.1
+    - 10.25.2
+  - dependency-name: auto
+    versions:
+    - 10.16.6
+    - 10.16.7
+    - 10.16.8
+    - 10.18.1
+    - 10.18.3
+    - 10.18.4
+    - 10.18.7
+    - 10.25.2
+  - dependency-name: "@auto-it/all-contributors"
+    versions:
+    - 10.16.4
+    - 10.25.2
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.30
+    - 14.14.31
+    - 14.14.32
+    - 14.14.33
+    - 15.0.0
+  - dependency-name: jest-puppeteer
+    versions:
+    - 5.0.1
+  - dependency-name: rollup
+    versions:
+    - 2.42.1
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.15.1
+    - 4.15.2
+    - 4.16.1
+    - 4.17.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.15.1
+    - 4.15.2
+    - 4.16.1
+    - 4.17.0
+  - dependency-name: eslint-plugin-jest
+    versions:
+    - 24.1.5
+    - 24.1.8
+    - 24.1.9
+    - 24.2.0
+    - 24.2.1
+  - dependency-name: puppeteer
+    versions:
+    - 7.0.1
+    - 7.0.4
+  - dependency-name: elliptic
+    versions:
+    - 6.5.4
