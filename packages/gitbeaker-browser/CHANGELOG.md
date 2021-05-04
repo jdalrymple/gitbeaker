@@ -1,3 +1,15 @@
+# v28.3.0 (Sun Apr 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-commonjs from 17.1.0 to 18.0.0 [#1668](https://github.com/jdalrymple/gitbeaker/pull/1668) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v28.2.0 (Sat Mar 20 2021)
 
 :tada: This release contains work from a new contributor! :tada:

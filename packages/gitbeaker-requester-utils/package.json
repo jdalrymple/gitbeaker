@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/requester-utils",
   "description": "Utility functions for requester implementatons used in @gitbeaker",
-  "version": "28.2.0",
+  "version": "28.3.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -14,7 +14,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.34",
+    "@types/node": "^15.0.1",
     "rollup": "^2.41.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-node": "^9.1.1",

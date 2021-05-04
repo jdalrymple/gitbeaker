@@ -146,6 +146,6 @@ export class Issues extends BaseService {
   unsubscribe(projectId: string | number, issueIid: number, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
+    return RequestHelper.post(this, `projects/${pId}/issues/${iId}/unsubscribe`, options);
   }
 }

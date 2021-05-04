@@ -1,3 +1,15 @@
+# v28.3.0 (Sun Apr 04 2021)
+
+#### 🐛 Bug Fix
+
+- Fixing import errors within the CLI release [#1677](https://github.com/jdalrymple/gitbeaker/pull/1677) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
