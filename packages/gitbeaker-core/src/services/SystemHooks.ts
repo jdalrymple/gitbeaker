@@ -6,19 +6,30 @@ import {
   Sudo,
 } from '../infrastructure';
 
+export interface SystemHookSchema extends Record<string, unknown> {
+  id: number;
+  url: string;
+  created_at: string;
+  push_events: boolean;
+  tag_push_events: boolean;
+  merge_requests_events: boolean;
+  repository_update_events: boolean;
+  enable_ssl_verification: boolean;
+}
+
 export class SystemHooks<C extends boolean = false> extends BaseService<C> {
   add(url: string, options?: BaseRequestOptions) {
-    return RequestHelper.post()(this, 'hooks', { url, ...options });
+    return RequestHelper.post<SystemHookSchema>()(this, 'hooks', { url, ...options });
   }
 
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get()(this, 'hooks', options);
+    return RequestHelper.get<SystemHookSchema[]>()(this, 'hooks', options);
   }
 
   edit(hookId: number, url: string, options?: BaseRequestOptions) {
     const hId = encodeURIComponent(hookId);
 
-    return RequestHelper.put()(this, `hooks/${hId}`, { url, ...options });
+    return RequestHelper.put<SystemHookSchema>()(this, `hooks/${hId}`, { url, ...options });
   }
 
   remove(hookId: number, options?: Sudo) {

@@ -6,23 +6,23 @@ export interface ProcessMetricSchema {
   pid: number;
   tag: string;
   started_at: string;
-  queues?: (string)[] | null;
-  labels?: (null)[] | null;
+  queues?: string[] | null;
+  labels?: null[] | null;
   concurrency: number;
   busy: number;
 }
 
 export interface SidekickProcessMetricsSchema extends Record<string, unknown> {
-  processes?: ProcessMetricSchema[]
+  processes?: ProcessMetricSchema[];
 }
 
 export interface SidekickQueueMetricsSchema extends Record<string, unknown> {
-  queues:   {
+  queues: {
     default: {
       backlog: number;
       latency: number;
     };
-  }
+  };
 }
 
 export interface SidekickJobStatsSchema extends Record<string, unknown> {
@@ -34,7 +34,10 @@ export interface SidekickJobStatsSchema extends Record<string, unknown> {
   };
 }
 
-export interface SidekickCompoundMetricsSchema extends SidekickJobStatsSchema,SidekickQueueMetricsSchema,SidekickProcessMetricsSchema {}
+export interface SidekickCompoundMetricsSchema
+  extends SidekickJobStatsSchema,
+    SidekickQueueMetricsSchema,
+    SidekickProcessMetricsSchema {}
 
 export class SidekiqMetrics<C extends boolean = false> extends BaseService<C> {
   queueMetrics() {

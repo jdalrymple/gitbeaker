@@ -30,9 +30,9 @@ export interface FileSchema {
 
 export interface SnippetExpandedSchema extends SnippetSchema {
   expires_at?: null;
-  ssh_url_to_repo: string,
-  http_url_to_repo: string,
-  files?: FileSchema[]
+  ssh_url_to_repo: string;
+  http_url_to_repo: string;
+  files?: FileSchema[];
 }
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
@@ -91,6 +91,10 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
   userAgentDetails(snippetId: number, options?: Sudo) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.get<UserAgentDetailSchema>()(this, `snippets/${sId}/user_agent_detail`, options);
+    return RequestHelper.get<UserAgentDetailSchema>()(
+      this,
+      `snippets/${sId}/user_agent_detail`,
+      options,
+    );
   }
 }
