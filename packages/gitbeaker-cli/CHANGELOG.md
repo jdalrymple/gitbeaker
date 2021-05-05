@@ -1,3 +1,15 @@
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump strip-ansi from 6.0.0 to 7.0.0 [#1710](https://github.com/jdalrymple/gitbeaker/pull/1710) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
 # v28.3.0 (Sun Apr 04 2021)
 
 #### 🐛 Bug Fix
