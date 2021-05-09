@@ -49,16 +49,17 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
     projectId,
     groupId,
     ...options
-  }: ({ resourceId?: string | number } | { projectId?: string | number } | { groupId?: string | number }) & PaginatedRequestOptions = {}) {
-    let url: string;
+  }: {
+    resourceId?: string | number;
+    projectId?: string | number;
+    groupId?: string | number;
+  } & PaginatedRequestOptions = {}) {
+    const prefix =
+      resourceId || projectId || groupId
+        ? `${encodeURIComponent((resourceId || projectId || groupId) as string)}/`
+        : '';
 
-    if (resourceId || projectId || groupId) {
-      url = `${encodeURIComponent(resourceId || projectId || groupId)}/deploy_tokens`;
-    } else {
-      url = 'deploy_tokens';
-    }
-
-    return RequestHelper.get<DeployTokenSchema[]>()(this, url, options);
+    return RequestHelper.get<DeployTokenSchema[]>()(this, `${prefix}deploy_tokens`, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
