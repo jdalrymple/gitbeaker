@@ -77,14 +77,6 @@ describe('Projects.edit', () => {
   });
 });
 
-describe('Projects.events', () => {
-  it('should request GET /projects/:id/events', async () => {
-    await service.events(12);
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/12/events', undefined);
-  });
-});
-
 describe('Projects.fork', () => {
   it('should request POST /projects/:id/fork', async () => {
     await service.fork(12);

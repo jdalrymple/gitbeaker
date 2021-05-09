@@ -50,7 +50,7 @@ describe('ResourceLabels.edit', () => {
   it('should call the correct url with a resource id and label name', async () => {
     await service.edit('5', 'review');
 
-    expect(RequestHelper.put()).toBeCalledWith(service, '5/labels', { name: 'review' });
+    expect(RequestHelper.put()).toBeCalledWith(service, '5/labels/review', undefined);
   });
 });
 
@@ -58,7 +58,7 @@ describe('ResourceLabels.remove', () => {
   it('should call the correct url with a resource id and label name', async () => {
     await service.remove('5', 'review');
 
-    expect(RequestHelper.del()).toBeCalledWith(service, '5/labels', { name: 'review' });
+    expect(RequestHelper.del()).toBeCalledWith(service, '5/labels/review', undefined);
   });
 });
 

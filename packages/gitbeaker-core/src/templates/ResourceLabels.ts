@@ -48,25 +48,29 @@ export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  edit(resourceId: string | number, labelId: number, options?: BaseRequestOptions) {
+  edit(resourceId: string | number, labelId: number | string, options?: BaseRequestOptions) {
     const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
 
     return RequestHelper.put<LabelSchema>()(this, `${rId}/labels/${lId}`, options);
   }
 
-  remove(resourceId: string | number, labelId: number, options?: Sudo & ShowExpanded) {
+  remove(resourceId: string | number, labelId: number | string, options?: Sudo & ShowExpanded) {
     const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
 
     return RequestHelper.del()(this, `${rId}/labels/${lId}`, options);
   }
 
-  subscribe(resourceId: string | number, labelId: number, options?: Sudo & ShowExpanded) {
+  subscribe(resourceId: string | number, labelId: number | string, options?: Sudo & ShowExpanded) {
     const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
 
     return RequestHelper.post<LabelSchema>()(this, `${rId}/issues/${lId}/subscribe`, options);
   }
 
-  unsubscribe(resourceId: string | number, labelId: number, options?: Sudo & ShowExpanded) {
+  unsubscribe(
+    resourceId: string | number,
+    labelId: number | string,
+    options?: Sudo & ShowExpanded,
+  ) {
     const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
 
     return RequestHelper.post<LabelSchema>()(this, `${rId}/issues/${lId}/unsubscribe`, options);

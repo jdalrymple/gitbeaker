@@ -41,7 +41,12 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseService<
     return RequestHelper.post<IssueBoardSchema>()(this, `${rId}/boards`, { name, ...options });
   }
 
-  createList(resourceId: string | number, boardId: number, labelId: number, options?: Sudo) {
+  createList(
+    resourceId: string | number,
+    boardId: number,
+    labelId: number | string,
+    options?: Sudo,
+  ) {
     const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
 
     return RequestHelper.post<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists`, {

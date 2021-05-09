@@ -36,7 +36,7 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
   createList(
     groupId: string | number,
     boardId: number,
-    labelId: number,
+    labelId: number | string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
 

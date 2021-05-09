@@ -44,11 +44,16 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseService
     );
   }
 
-  all({ resourceId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions) {
+  all({
+    resourceId,
+    projectId,
+    groupId,
+    ...options
+  }: ({ resourceId?: string | number } | { projectId?: string | number } | { groupId?: string | number }) & PaginatedRequestOptions = {}) {
     let url: string;
 
-    if (resourceId) {
-      url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
+    if (resourceId || projectId || groupId) {
+      url = `${encodeURIComponent(resourceId || projectId || groupId)}/deploy_tokens`;
     } else {
       url = 'deploy_tokens';
     }

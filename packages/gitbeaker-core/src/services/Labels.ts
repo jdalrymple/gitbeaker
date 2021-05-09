@@ -22,21 +22,21 @@ export interface Labels<C extends boolean = false> extends ResourceLabels<C> {
 
   edit(
     projectId: string | number,
-    labelId: number,
+    labelId: number | string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, LabelSchema>>;
 
-  remove(projectId: string | number, labelId: number, options?: Sudo): Promise<void>;
+  remove(projectId: string | number, labelId: number | string, options?: Sudo): Promise<void>;
 
   subscribe(
     projectId: string | number,
-    labelId: number,
+    labelId: number | string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, LabelSchema>>;
 
   unsubscribe(
     projectId: string | number,
-    labelId: number,
+    labelId: number | string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, LabelSchema>>;
 }
