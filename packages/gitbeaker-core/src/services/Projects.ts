@@ -1,14 +1,14 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { UserSchema } from './Users';
+import { LicenseTemplateSchema } from './LicenseTemplates';
+import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { UserSchema } from './Users';
-import { LicenseTemplateSchema } from './LicenseTemplates';
-import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
-import { AccessLevel } from '../templates/ResourceAccessRequests';
+import { AccessLevel } from '../templates';
 
 // TODO add missing functions
 export interface ProjectSchema extends Record<string, unknown> {

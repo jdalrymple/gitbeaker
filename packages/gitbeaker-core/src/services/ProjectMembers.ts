@@ -1,6 +1,5 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers, MembersSchema, IncludeInherited } from '../templates/ResourceMembers';
-import { AccessLevel } from '../templates/ResourceAccessRequests';
+import { ResourceMembers, MembersSchema, IncludeInherited, AccessLevel } from '../templates';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

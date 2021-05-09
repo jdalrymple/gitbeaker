@@ -1,9 +1,5 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import {
-  ResourceDeployTokens,
-  DeployTokenScope,
-  DeployTokenSchema,
-} from '../templates/ResourceDeployTokens';
+import { ResourceDeployTokens, DeployTokenScope, DeployTokenSchema } from '../templates';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

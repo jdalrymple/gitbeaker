@@ -1,9 +1,5 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import {
-  ResourceAccessRequests,
-  AccessRequestSchema,
-  AccessLevel,
-} from '../templates/ResourceAccessRequests';
+import { ResourceAccessRequests, AccessRequestSchema, AccessLevel } from '../templates';
 import { Sudo, CamelizedRecord } from '../infrastructure';
 
 export interface GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {

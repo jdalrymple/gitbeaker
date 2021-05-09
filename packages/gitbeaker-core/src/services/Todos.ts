@@ -1,12 +1,8 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { ProjectSchema } from './Projects';
-import { MilestoneSchema } from '../templates/ResourceMilestones';
+import { MilestoneSchema } from '../templates';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-
-interface CreateTodoOptions extends Sudo {
-  resourceName?: 'mergerequest' | 'issue';
-}
 
 export interface TodoSchema extends Record<string, unknown> {
   id: number;
@@ -56,7 +52,7 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
   create(
     projectId: string | number,
     resourceId: number,
-    { resourceName, ...options }: CreateTodoOptions = {},
+    { resourceName, ...options }: { resourceName?: 'mergerequest' | 'issue' } & Sudo = {},
   ) {
     if (resourceName === 'issue') {
       return RequestHelper.post()(

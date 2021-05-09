@@ -1,7 +1,7 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { CommitSchema } from './Commits';
-import { MilestoneSchema } from '../templates/ResourceMilestones';
+import { MilestoneSchema } from '../templates';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

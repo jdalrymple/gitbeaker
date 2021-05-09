@@ -42,7 +42,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseService<C> {
   preview(resourceId: string | number, linkUrl: string, imageUrl: string, options?: Sudo) {
     const rId = encodeURIComponent(resourceId);
 
-    return RequestHelper.get<Exclude<BadgeSchema, 'id' | 'name' | 'kind'>>()(
+    return RequestHelper.get<Omit<BadgeSchema, 'id' | 'name' | 'kind'>>()(
       this,
       `${rId}/badges/render`,
       { linkUrl, imageUrl, ...options },

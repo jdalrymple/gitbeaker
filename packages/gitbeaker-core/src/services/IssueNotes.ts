@@ -7,19 +7,28 @@ import {
   CamelizedRecord,
 } from '../infrastructure';
 
+export interface IssueNoteSchema extends NoteSchema {
+  attachment?: string;
+  system: boolean;
+  noteable_id: number;
+  noteable_type: string;
+  noteable_iid: number;
+  resolvable: boolean;
+}
+
 export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(
     projectId: string | number,
     issueIId: number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, NoteSchema>[]>;
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>[]>;
 
   create(
     projectId: string | number,
     issueIId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, NoteSchema>>;
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 
   edit(
     projectId: string | number,
@@ -27,7 +36,7 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, NoteSchema>>;
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 
   remove(
     projectId: string | number,
@@ -41,7 +50,7 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     issueIId: number,
     noteId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, NoteSchema>>;
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 }
 
 export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {

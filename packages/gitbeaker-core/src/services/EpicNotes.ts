@@ -7,11 +7,7 @@ import {
   CamelizedRecord,
 } from '../infrastructure';
 
-export interface EpicNoteSchema
-  extends Omit<
-    NoteSchema,
-    'attachment' | 'system' | 'noteable_id' | 'noteable_type' | 'noteable_iid' | 'resolvable'
-  > {
+export interface EpicNoteSchema extends NoteSchema {
   file_name: string;
   expires_at: string;
 }

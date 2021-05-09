@@ -7,11 +7,7 @@ import {
   CamelizedRecord,
 } from '../infrastructure';
 
-export interface ProjectSnippetSchema
-  extends Omit<
-    NoteSchema,
-    'attachment' | 'system' | 'noteable_id' | 'noteable_type' | 'noteable_iid' | 'resolvable'
-  > {
+export interface SnippetNoteSchema extends NoteSchema {
   file_name: string;
   expires_at: string;
 }
@@ -21,14 +17,14 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     projectId: string | number,
     snippetId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectSnippetSchema>[]>;
+  ): Promise<CamelizedRecord<C, SnippetNoteSchema>[]>;
 
   create(
     projectId: string | number,
     snippetId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectSnippetSchema>>;
+  ): Promise<CamelizedRecord<C, SnippetNoteSchema>>;
 
   edit(
     projectId: string | number,
@@ -36,7 +32,7 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectSnippetSchema>>;
+  ): Promise<CamelizedRecord<C, SnippetNoteSchema>>;
 
   remove(projectId: string | number, snippetId: string | number, noteId: number, options?: Sudo);
 
@@ -45,7 +41,7 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     snippetId: string | number,
     noteId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, ProjectSnippetSchema>>;
+  ): Promise<CamelizedRecord<C, SnippetNoteSchema>>;
 }
 
 export class ProjectSnippetNotes<C extends boolean = false> extends ResourceNotes<C> {

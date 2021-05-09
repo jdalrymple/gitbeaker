@@ -27,11 +27,7 @@ export class ResourceVariables<C extends boolean> extends BaseService<C> {
     return RequestHelper.post<ResourceVariableSchema>()(this, `${rId}/variables`, options);
   }
 
-  edit(
-    resourceId: string | number,
-    keyId: string,
-    options?: Exclude<ResourceVariableSchema, 'key'>,
-  ) {
+  edit(resourceId: string | number, keyId: string, options?: Omit<ResourceVariableSchema, 'key'>) {
     const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
 
     return RequestHelper.put<ResourceVariableSchema>()(this, `${rId}/variables/${kId}`, options);

@@ -1,10 +1,6 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ProjectSchema } from './Projects';
-import {
-  ResourceIssueBoards,
-  IssueBoardSchema,
-  IssueBoardListSchema,
-} from '../templates/ResourceIssueBoards';
+import { ResourceIssueBoards, IssueBoardSchema, IssueBoardListSchema } from '../templates';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
