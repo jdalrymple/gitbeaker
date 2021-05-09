@@ -34,9 +34,9 @@ export interface TodoSchema extends Record<string, unknown> {
     assignee: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
     source_project_id: number;
     target_project_id: number;
-    labels?: null[] | null;
+    labels?: string[];
     work_in_progress: boolean;
-    milestone: Exclude<MilestoneSchema, 'start_date' | 'expired' | 'web_url'>;
+    milestone: Omit<MilestoneSchema, 'start_date' | 'expired' | 'web_url'>;
     merge_when_pipeline_succeeds: boolean;
     merge_status: string;
     user_notes_count: number;

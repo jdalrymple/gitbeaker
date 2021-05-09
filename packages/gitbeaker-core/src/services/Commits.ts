@@ -40,7 +40,7 @@ export interface CommitSchema extends Record<string, unknown> {
   web_url: string;
 }
 
-export interface ExtendedCommitSchema extends CommitSchema {
+export interface CommitExtendedSchema extends CommitSchema {
   last_pipeline: {
     id: number;
     ref: string;
@@ -62,7 +62,7 @@ export interface GPGSignatureSchema extends Record<string, unknown> {
   gpg_key_primary_keyid: string;
   gpg_key_user_name: string;
   gpg_key_user_email: string;
-  gpg_key_subkey_id: number | null;
+  gpg_key_subkey_id?: number;
   commit_source: string;
 }
 
@@ -107,7 +107,7 @@ export interface CommitDiffSchema extends Record<string, unknown> {
   diff: string;
   new_path: string;
   old_path: string;
-  a_mode?: null;
+  a_mode?: string;
   b_mode: string;
   new_file: boolean;
   renamed_file: boolean;
@@ -117,14 +117,14 @@ export interface CommitDiffSchema extends Record<string, unknown> {
 export interface CommitStatusSchema extends Record<string, unknown> {
   status: string;
   created_at: string;
-  started_at?: null;
+  started_at?: string;
   name: string;
   allow_failure: boolean;
   author: Omit<UserSchema, 'created_at'>;
-  description?: null;
+  description?: string;
   sha: string;
   target_url: string;
-  finished_at?: null;
+  finished_at?: string;
   id: number;
   ref: string;
 }
@@ -173,7 +173,7 @@ export class Commits<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<ExtendedCommitSchema>()(this, `projects/${pId}/repository/commits`, {
+    return RequestHelper.post<CommitExtendedSchema>()(this, `projects/${pId}/repository/commits`, {
       branch,
       commitMessage: message,
       actions,
@@ -242,7 +242,7 @@ export class Commits<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<ExtendedCommitSchema>()(
+    return RequestHelper.get<CommitExtendedSchema>()(
       this,
       `projects/${pId}/repository/commits/${sha}`,
       options,

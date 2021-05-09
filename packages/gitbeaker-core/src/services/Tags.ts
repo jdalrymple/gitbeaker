@@ -13,7 +13,7 @@ export interface TagSchema extends Record<string, unknown> {
   release: Pick<ReleaseSchema, 'tag_name' | 'description'>;
   name: string;
   target: string;
-  message?: null;
+  message?: string;
   protected: boolean;
 }
 

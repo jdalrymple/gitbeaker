@@ -24,7 +24,7 @@ export interface EventOptions {
 
 export interface EventSchema extends Record<string, unknown> {
   id: number;
-  title?: null;
+  title?: string;
   project_id: number;
   action_name: string;
   target_id: number;

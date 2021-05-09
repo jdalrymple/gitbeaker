@@ -33,7 +33,7 @@ export interface GroupBadges<C extends boolean = false> extends ResourceBadges<C
     linkUrl: string,
     imageUrl: string,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, Exclude<GroupBadgeSchema, 'id' | 'name' | 'kind'>>>;
+  ): Promise<CamelizedRecord<C, Omit<GroupBadgeSchema, 'id' | 'name' | 'kind'>>>;
 
   remove(groupId: string | number, badgeId: number, options?: Sudo): Promise<void>;
 

@@ -18,7 +18,7 @@ export interface SnippetSchema extends Record<string, unknown> {
   author: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
   updated_at: string;
   created_at: string;
-  project_id?: null;
+  project_id?: string | number;
   web_url: string;
   raw_url: string;
 }
@@ -28,8 +28,8 @@ export interface FileSchema {
   raw_url: string;
 }
 
-export interface SnippetExpandedSchema extends SnippetSchema {
-  expires_at?: null;
+export interface SnippetExtendedSchema extends SnippetSchema {
+  expires_at?: string;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   files?: FileSchema[];
@@ -61,7 +61,7 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
     visibility: SnippetVisibility,
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post<SnippetExpandedSchema>()(this, 'snippets', {
+    return RequestHelper.post<SnippetExtendedSchema>()(this, 'snippets', {
       title,
       fileName,
       content,
@@ -73,7 +73,7 @@ export class Snippets<C extends boolean = false> extends BaseService<C> {
   edit(snippetId: number, options?: BaseRequestOptions) {
     const sId = encodeURIComponent(snippetId);
 
-    return RequestHelper.put<SnippetExpandedSchema>()(this, `snippets/${sId}`, options);
+    return RequestHelper.put<SnippetExtendedSchema>()(this, `snippets/${sId}`, options);
   }
 
   remove(snippetId: number, options?: Sudo) {

@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 
 export interface EpicIssueSchema
-  extends Exclude<IssueSchema, 'references' | 'task_completion_status'> {
+  extends Omit<IssueSchema, 'references' | 'task_completion_status'> {
   epic_issue_id: number;
 }
 

@@ -14,7 +14,7 @@ export interface IssueBoardListSchema extends Record<string, unknown> {
   position: number;
   max_issue_count: number;
   max_issue_weight: number;
-  limit_metric?: null;
+  limit_metric?: string;
 }
 
 export interface IssueBoardSchema extends Record<string, unknown> {

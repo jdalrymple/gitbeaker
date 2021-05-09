@@ -53,7 +53,7 @@ export interface SharedWithGroupSchema {
   group_access_level: number;
 }
 
-export interface ProjectExpandedSchema extends ProjectSchema {
+export interface ProjectExtendedSchema extends ProjectSchema {
   visibility: string;
   owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
   issues_enabled: boolean;
@@ -68,16 +68,16 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   container_expiration_policy: {
     cadence: string;
     enabled: boolean;
-    keep_n?: null;
-    older_than?: null;
-    name_regex_delete?: null;
-    name_regex_keep?: null;
+    keep_n?: number;
+    older_than?: string;
+    name_regex_delete?: string;
+    name_regex_keep?: string;
     next_run_at: string;
   };
   creator_id: number;
   namespace: NamespaceInfoSchema;
   import_status: string;
-  import_error?: null;
+  import_error?: string;
   permissions: {
     project_access: AccessSchema;
     group_access: AccessSchema;
@@ -108,12 +108,12 @@ export interface ProjectExpandedSchema extends ProjectSchema {
   mirror_trigger_builds: boolean;
   only_mirror_protected_branches: boolean;
   mirror_overwrites_diverged_branches: boolean;
-  external_authorization_classification_label?: null;
+  external_authorization_classification_label?: string;
   packages_enabled: boolean;
   service_desk_enabled: boolean;
-  service_desk_address?: null;
+  service_desk_address?: string;
   autoclose_referenced_issues: boolean;
-  suggestion_commit_message?: null;
+  suggestion_commit_message?: string;
   marked_for_deletion_at: string;
   marked_for_deletion_on: string;
   compliance_frameworks?: string[];
@@ -147,7 +147,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   archive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/archive`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/archive`, options);
   }
 
   create({
@@ -156,13 +156,13 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
     const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, url, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, url, options);
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.put<ProjectExpandedSchema>()(this, `projects/${pId}`, options);
+    return RequestHelper.put<ProjectExtendedSchema>()(this, `projects/${pId}`, options);
   }
 
   fork(
@@ -174,13 +174,13 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
 
     if (forkedFromId) url += `/${encodeURIComponent(forkedFromId)}`;
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, url, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, url, options);
   }
 
   forks(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<ProjectExpandedSchema[]>()(this, `projects/${pId}/forks`, options);
+    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `projects/${pId}/forks`, options);
   }
 
   languages(projectId: string | number, options?: Sudo) {
@@ -236,18 +236,18 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   show(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<ProjectExpandedSchema>()(this, `projects/${pId}`, options);
+    return RequestHelper.get<ProjectExtendedSchema>()(this, `projects/${pId}`, options);
   }
 
   star(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/star`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/star`, options);
   }
 
   transfer(projectId: string | number, namespaceId: string | number) {
     const pId = encodeURIComponent(projectId);
-    return RequestHelper.put<ProjectExpandedSchema>()(this, `projects/${pId}/transfer`, {
+    return RequestHelper.put<ProjectExtendedSchema>()(this, `projects/${pId}/transfer`, {
       namespace: namespaceId,
     });
   }
@@ -255,7 +255,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   unarchive(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/unarchive`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/unarchive`, options);
   }
 
   unshare(projectId: string | number, groupId: string | number, options?: Sudo) {
@@ -267,7 +267,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   unstar(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<ProjectExpandedSchema>()(this, `projects/${pId}/unstar`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/unstar`, options);
   }
 
   upload(

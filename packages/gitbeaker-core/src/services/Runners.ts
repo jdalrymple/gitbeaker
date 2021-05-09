@@ -19,7 +19,7 @@ export interface RunnerSchema extends Record<string, unknown> {
   status: 'running' | 'success' | 'failed' | 'canceled';
 }
 
-export interface RunnerExpandedSchema extends RunnerSchema {
+export interface RunnerExtendedSchema extends RunnerSchema {
   architecture?: string;
   description: string;
   contacted_at: string;
@@ -49,7 +49,7 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   edit(runnerId: number, options?: BaseRequestOptions) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.put<RunnerExpandedSchema>()(this, `runners/${rId}`, options);
+    return RequestHelper.put<RunnerExtendedSchema>()(this, `runners/${rId}`, options);
   }
 
   enable(projectId: string | number, runnerId: number, options?: Sudo) {
@@ -82,6 +82,6 @@ export class Runners<C extends boolean = false> extends BaseService<C> {
   show(runnerId: number, options?: Sudo) {
     const rId = encodeURIComponent(runnerId);
 
-    return RequestHelper.get<RunnerExpandedSchema>()(this, `runners/${rId}`, options);
+    return RequestHelper.get<RunnerExtendedSchema>()(this, `runners/${rId}`, options);
   }
 }

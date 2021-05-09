@@ -31,7 +31,7 @@ export interface PipelineSchema extends Record<string, unknown> {
   user: Pick<UserSchema, 'name' | 'avatar_url'>;
 }
 
-export interface PipelineExpandedSchema extends PipelineSchema {
+export interface PipelineExtendedSchema extends PipelineSchema {
   project_id: number;
   before_sha: string;
   tag: boolean;
@@ -87,7 +87,7 @@ export class Pipelines<C extends boolean = false> extends BaseService<C> {
   retry(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<PipelineExpandedSchema>()(
+    return RequestHelper.post<PipelineExtendedSchema>()(
       this,
       `projects/${pId}/pipelines/${pipelineId}/retry`,
       options,
@@ -97,7 +97,7 @@ export class Pipelines<C extends boolean = false> extends BaseService<C> {
   cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<PipelineExpandedSchema>()(
+    return RequestHelper.post<PipelineExtendedSchema>()(
       this,
       `projects/${pId}/pipelines/${pipelineId}/cancel`,
       options,

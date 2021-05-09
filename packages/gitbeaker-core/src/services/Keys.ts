@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { ExtendedUserSchema } from './Users';
+import { UserExtendedSchema } from './Users';
 import { RequestHelper, Sudo } from '../infrastructure';
 
 export interface KeySchema extends Record<string, unknown> {
@@ -8,7 +8,7 @@ export interface KeySchema extends Record<string, unknown> {
   key: string;
   created_at: string;
   expires_at: string;
-  user: ExtendedUserSchema;
+  user: UserExtendedSchema;
 }
 
 export class Keys<C extends boolean = false> extends BaseService<C> {

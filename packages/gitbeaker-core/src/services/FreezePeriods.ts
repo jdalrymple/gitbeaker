@@ -49,7 +49,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   edit(
     projectId: number | string,
     freezePeriodId: number,
-    options?: Camelize<Exclude<FreezePeriodSchema, 'id' | 'created_at' | 'updated_at'>> &
+    options?: Camelize<Omit<FreezePeriodSchema, 'id' | 'created_at' | 'updated_at'>> &
       BaseRequestOptions,
   ) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);

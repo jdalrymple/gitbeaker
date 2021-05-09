@@ -5,7 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { ProjectExpandedSchema } from './Projects';
+import { ProjectExtendedSchema } from './Projects';
 import { EventOptions, EventSchema } from './Events';
 
 export interface UserSchema extends Record<string, unknown> {
@@ -18,15 +18,15 @@ export interface UserSchema extends Record<string, unknown> {
   created_at?: string;
 }
 
-export interface ExtendedUserSchema extends UserSchema {
-  bio?: null;
-  location?: null;
+export interface UserExtendedSchema extends UserSchema {
+  bio?: string;
+  location?: string;
   public_email: string;
   skype: string;
   linkedin: string;
   twitter: string;
   website_url: string;
-  organization?: null;
+  organization?: string;
   last_sign_in_at: string;
   confirmed_at: string;
   last_activity_on: string;
@@ -34,13 +34,13 @@ export interface ExtendedUserSchema extends UserSchema {
   theme_id: number;
   color_scheme_id: number;
   projects_limit: number;
-  current_sign_in_at?: null;
-  identities?: null[] | null;
+  current_sign_in_at?: string;
+  identities?: string[];
   can_create_group: boolean;
   can_create_project: boolean;
   two_factor_enabled: boolean;
   external: boolean;
-  private_profile?: null;
+  private_profile?: string;
 }
 
 export interface UserActivitySchema extends Record<string, unknown> {
@@ -61,7 +61,7 @@ export class Users<C extends boolean = false> extends BaseService<C> {
   projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get<ProjectExpandedSchema[]>()(this, `users/${uId}/projects`, options);
+    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `users/${uId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {

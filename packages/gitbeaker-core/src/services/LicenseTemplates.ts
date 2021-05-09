@@ -5,7 +5,7 @@ import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructur
 export interface LicenseTemplateSchema extends Record<string, unknown> {
   key: string;
   name: string;
-  nickname?: null;
+  nickname?: string;
   featured: boolean;
   html_url: string;
   source_url: string;

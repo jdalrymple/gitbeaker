@@ -152,7 +152,7 @@ export interface MergeRequestSchema extends Record<string, unknown> {
   merge_commit_sha?: string;
   squash_commit_sha?: string;
   user_notes_count: number;
-  discussion_locked?: null;
+  discussion_locked?: string;
   should_remove_source_branch: boolean;
   force_remove_source_branch: boolean;
   web_url: string;

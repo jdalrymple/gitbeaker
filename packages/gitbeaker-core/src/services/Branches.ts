@@ -11,7 +11,7 @@ export interface BranchSchema extends Record<string, unknown> {
   developers_can_merge: boolean;
   can_push: boolean;
   web_url: string;
-  commit: Exclude<CommitSchema, 'web_url' | 'created_at'>;
+  commit: Omit<CommitSchema, 'web_url' | 'created_at'>;
 }
 
 export class Branches<C extends boolean = false> extends BaseService<C> {

@@ -41,7 +41,7 @@ export interface GeoNodeFailureSchema extends Record<string, unknown> {
   last_wiki_successful_sync_at: string;
   repository_retry_count?: number;
   wiki_retry_count: number;
-  last_repository_sync_failure?: null;
+  last_repository_sync_failure?: string;
   last_wiki_sync_failure: string;
   last_repository_verification_failure: string;
   last_wiki_verification_failure: string;

@@ -6,8 +6,8 @@ export interface ProcessMetricSchema {
   pid: number;
   tag: string;
   started_at: string;
-  queues?: string[] | null;
-  labels?: null[] | null;
+  queues?: string[];
+  labels?: string[];
   concurrency: number;
   busy: number;
 }

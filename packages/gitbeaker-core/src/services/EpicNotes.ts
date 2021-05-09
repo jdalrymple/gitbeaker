@@ -8,7 +8,7 @@ import {
 } from '../infrastructure';
 
 export interface EpicNoteSchema
-  extends Exclude<
+  extends Omit<
     NoteSchema,
     'attachment' | 'system' | 'noteable_id' | 'noteable_type' | 'noteable_iid' | 'resolvable'
   > {

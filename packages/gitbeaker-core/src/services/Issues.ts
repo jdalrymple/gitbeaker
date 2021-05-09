@@ -28,14 +28,14 @@ export interface IssueSchema extends Record<string, unknown> {
   project_id: number;
   assignees?: Omit<UserSchema, 'created_at'>[];
   updated_at: string;
-  closed_at?: null;
-  closed_by?: null;
+  closed_at?: string;
+  closed_by?: string;
   id: number;
   title: string;
   created_at: string;
-  moved_to_id?: null;
+  moved_to_id?: string;
   iid: number;
-  labels?: string[] | null;
+  labels?: string[];
   upvotes: number;
   downvotes: number;
   merge_requests_count: number;
