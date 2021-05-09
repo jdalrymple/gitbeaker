@@ -6343,10 +6343,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-ky@^0.25.0:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.25.1.tgz#0df0bd872a9cc57e31acd5dbc1443547c881bfbc"
-  integrity sha512-PjpCEWlIU7VpiMVrTwssahkYXX1by6NCT0fhTUX34F3DTinARlgMpriuroolugFPcMgpPWrOW4mTb984Qm1RXA==
+ky@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.28.0.tgz#f1c2299cbe8dd931e721728571566a764af9b2db"
+  integrity sha512-krg6jsv1ocdoyYjpVkAkqVhBy70kp3EG4LWWgixeDUI6ubuoC2mSOJfwks2epek9fcwlJ8293uwl1WPM6dezGw==
 
 lazy-cache@^0.2.3:
   version "0.2.7"

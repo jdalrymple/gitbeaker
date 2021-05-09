@@ -11,7 +11,7 @@
   "dependencies": {
     "@gitbeaker/core": "^28.4.1",
     "@gitbeaker/requester-utils": "^28.4.1",
-    "ky": "^0.25.0"
+    "ky": "^0.28.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
