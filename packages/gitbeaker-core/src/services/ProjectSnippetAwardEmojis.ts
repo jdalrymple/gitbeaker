@@ -33,7 +33,8 @@ export interface ProjectSnippetAwardEmojis<C extends boolean = false>
 }
 
 export class ProjectSnippetAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('snippets', options);
   }
 }

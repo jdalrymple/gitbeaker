@@ -75,7 +75,8 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
 }
 
 export class GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

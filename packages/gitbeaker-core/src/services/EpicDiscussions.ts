@@ -57,6 +57,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
 
 export class EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', 'epics', options);
   }
 }

@@ -42,7 +42,8 @@ export interface Labels<C extends boolean = false> extends ResourceLabels<C> {
 }
 
 export class Labels<C extends boolean = false> extends ResourceLabels<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

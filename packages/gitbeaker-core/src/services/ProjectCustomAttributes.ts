@@ -26,7 +26,8 @@ export interface ProjectCustomAttributes<C extends boolean = false>
 }
 
 export class ProjectCustomAttributes<C extends boolean> extends ResourceCustomAttributes<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

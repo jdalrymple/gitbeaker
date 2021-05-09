@@ -42,7 +42,8 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
 }
 
 export class GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

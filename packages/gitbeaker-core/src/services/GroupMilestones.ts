@@ -47,7 +47,8 @@ export interface GroupMilestones<C extends boolean = false> extends ResourceMile
 }
 
 export class GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

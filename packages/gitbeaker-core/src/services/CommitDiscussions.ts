@@ -57,6 +57,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
 export class CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'repository/commits', options);
   }
 }

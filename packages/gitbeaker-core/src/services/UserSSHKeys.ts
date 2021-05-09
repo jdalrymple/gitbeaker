@@ -11,7 +11,7 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
 const url = (userId?: number) =>
   userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys';
 
-export class UserKeys<C extends boolean = false> extends BaseService<C> {
+export class UserSSHKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<UserSSHKeySchema[]>()(this, url(userId), options);
   }
@@ -28,13 +28,13 @@ export class UserKeys<C extends boolean = false> extends BaseService<C> {
     });
   }
 
-  show(keyId: string, options?: BaseRequestOptions) {
+  show(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get<UserSSHKeySchema>()(this, `user/keys/${kId}`, options);
+    return RequestHelper.get<UserSSHKeySchema>()(this, `${url(userId)}/${kId}`, options);
   }
 
-  remove(keyId: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  remove(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
     const kId = encodeURIComponent(keyId);
 
     return RequestHelper.del()(this, `${url(userId)}/${kId}`, options);

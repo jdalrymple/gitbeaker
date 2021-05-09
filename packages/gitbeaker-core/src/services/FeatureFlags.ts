@@ -33,14 +33,15 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
 export class FeatureFlags<C extends boolean = false> extends BaseService<C> {
   all(
     projectId: string | number,
-    { scopes, ...options }: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},
+    options: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<FeatureFlagSchema[]>()(this, `projects/${pId}/features_flags`, {
-      scopes,
-      ...options,
-    });
+    return RequestHelper.get<FeatureFlagSchema[]>()(
+      this,
+      `projects/${pId}/features_flags`,
+      options,
+    );
   }
 
   create(

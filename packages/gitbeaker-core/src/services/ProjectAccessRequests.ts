@@ -17,7 +17,8 @@ export interface GroupAccessRequests<C extends boolean = false> extends Resource
 }
 
 export class ProjectAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

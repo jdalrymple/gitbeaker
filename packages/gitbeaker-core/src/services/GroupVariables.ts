@@ -29,7 +29,8 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
 }
 
 export class GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

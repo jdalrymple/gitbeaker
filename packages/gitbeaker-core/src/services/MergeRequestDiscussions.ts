@@ -56,7 +56,8 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
 }
 
 export class MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'merge_requests', options);
   }
 }

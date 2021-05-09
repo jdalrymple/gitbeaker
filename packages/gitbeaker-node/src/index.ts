@@ -27,7 +27,7 @@ export const {
   UserCustomAttributes,
   UserEmails,
   UserImpersonationTokens,
-  UserKeys,
+  UserSSHKeys,
   UserGPGKeys,
 
   // Projects

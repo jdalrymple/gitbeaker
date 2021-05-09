@@ -46,6 +46,7 @@ export interface ProjectBadges<C extends boolean = false> extends ResourceBadges
 
 export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
   constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

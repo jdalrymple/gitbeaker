@@ -54,7 +54,8 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
 }
 
 export class MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'merge_requests', options);
   }
 }

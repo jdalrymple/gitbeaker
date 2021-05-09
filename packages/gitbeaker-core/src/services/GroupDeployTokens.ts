@@ -26,7 +26,8 @@ export interface GroupDeployTokens<C extends boolean = false> extends ResourceDe
 }
 
 export class GroupDeployTokens<C extends boolean = false> extends ResourceDeployTokens<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

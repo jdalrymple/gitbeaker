@@ -46,6 +46,7 @@ export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
 
 export class EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
   constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', 'epics', options);
   }
 }

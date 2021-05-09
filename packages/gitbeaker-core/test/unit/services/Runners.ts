@@ -40,7 +40,7 @@ describe('Runners.all', () => {
   });
 });
 
-describe('Runners.allOwned', () => {
+describe('Runners.allowned', () => {
   it('should request GET /runners', async () => {
     await service.allOwned();
 

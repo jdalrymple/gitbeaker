@@ -54,7 +54,8 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
 }
 
 export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'issues', options);
   }
 }

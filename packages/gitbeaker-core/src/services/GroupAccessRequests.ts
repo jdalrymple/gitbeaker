@@ -18,6 +18,7 @@ export interface GroupAccessRequests<C extends boolean = false> extends Resource
 
 export class GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {
   constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

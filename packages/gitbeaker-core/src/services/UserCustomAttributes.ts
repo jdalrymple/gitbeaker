@@ -26,7 +26,8 @@ export interface UserCustomAttributes<C extends boolean = false>
 }
 
 export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('users', options);
   }
 }

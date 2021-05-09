@@ -84,7 +84,8 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
 }
 
 export class ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

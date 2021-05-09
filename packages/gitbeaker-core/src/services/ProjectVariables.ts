@@ -33,7 +33,8 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
 }
 
 export class ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

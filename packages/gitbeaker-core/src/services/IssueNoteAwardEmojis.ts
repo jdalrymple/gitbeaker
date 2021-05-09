@@ -37,7 +37,8 @@ export interface IssueNoteAwardEmojis<C extends boolean = false>
 }
 
 export class IssueNoteAwardEmojis<C extends boolean = false> extends ResourceNoteAwardEmojis<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('issues', options);
   }
 }

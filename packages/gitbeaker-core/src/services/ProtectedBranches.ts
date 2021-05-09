@@ -23,16 +23,13 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
 }
 
 export class ProtectedBranches<C extends boolean = false> extends BaseService<C> {
-  all(
-    projectId: string | number,
-    { search, ...options }: { search?: string } & PaginatedRequestOptions = {},
-  ) {
+  all(projectId: string | number, options: { search?: string } & PaginatedRequestOptions = {}) {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get<ProtectedBranchSchema[]>()(
       this,
       `projects/${pId}/protected_branches`,
-      { search, ...options },
+      options,
     );
   }
 

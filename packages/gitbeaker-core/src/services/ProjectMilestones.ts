@@ -47,7 +47,8 @@ export interface ProjectMilestones<C extends boolean = false> extends ResourceMi
 }
 
 export class ProjectMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

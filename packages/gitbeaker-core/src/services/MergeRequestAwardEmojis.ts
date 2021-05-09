@@ -32,7 +32,8 @@ export interface MergeRequestAwardEmojis<C extends boolean = false> extends Reso
 }
 
 export class MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('merge_requests', options);
   }
 }

@@ -22,4 +22,10 @@ describe('Events.all', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/12/events', {});
   });
+
+  it('should request GET /projects/:id/events', async () => {
+    await service.all();
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'events', {});
+  });
 });

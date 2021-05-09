@@ -37,7 +37,8 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
 }
 
 export class ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

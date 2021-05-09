@@ -56,7 +56,8 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
 }
 
 export class IssueDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'issues', options);
   }
 }

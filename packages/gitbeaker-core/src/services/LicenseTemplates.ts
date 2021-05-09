@@ -22,7 +22,8 @@ export interface LicenseTemplates<C extends boolean = false> extends ResourceTem
 }
 
 export class LicenseTemplates<C extends boolean = false> extends ResourceTemplates<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('Licenses', options);
   }
 }

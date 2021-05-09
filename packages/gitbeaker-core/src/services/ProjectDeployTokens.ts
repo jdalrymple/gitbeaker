@@ -26,7 +26,8 @@ export interface ProjectDeployTokens<C extends boolean = false> extends Resource
 }
 
 export class ProjectDeployTokens<C extends boolean = false> extends ResourceDeployTokens<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

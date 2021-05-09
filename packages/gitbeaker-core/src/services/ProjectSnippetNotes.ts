@@ -45,7 +45,8 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
 }
 
 export class ProjectSnippetNotes<C extends boolean = false> extends ResourceNotes<C> {
-  constructor(options: BaseServiceOptions<C> = {}) {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'snippets', options);
   }
 }

@@ -8,7 +8,7 @@ test('All the correct service keys are included in the users bundle', async () =
     'UserEmails',
     'UserCustomAttributes',
     'UserImpersonationTokens',
-    'UserKeys',
+    'UserSSHKeys',
     'UserGPGKeys',
   ];
 
