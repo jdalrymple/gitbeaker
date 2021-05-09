@@ -5,8 +5,8 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-import { EventOptions } from './Events';
+import { ProjectExpandedSchema } from './Projects';
+import { EventOptions, EventSchema } from './Events';
 
 export interface UserSchema extends Record<string, unknown> {
   id: number;
@@ -43,19 +43,25 @@ export interface ExtendedUserSchema extends UserSchema {
   private_profile?: null;
 }
 
+export interface UserActivitySchema extends Record<string, unknown> {
+  username: string;
+  last_activity_on: string;
+  last_activity_at: string;
+}
+
 export class Users<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<UserSchema[]>()(this, 'users', options);
   }
 
   activities(options?: Sudo) {
-    return RequestHelper.get()(this, 'users/activities', options);
+    return RequestHelper.get<UserActivitySchema[]>()(this, 'users/activities', options);
   }
 
   projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get()(this, `users/${uId}/projects`, options);
+    return RequestHelper.get<ProjectExpandedSchema[]>()(this, `users/${uId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {
@@ -81,7 +87,7 @@ export class Users<C extends boolean = false> extends BaseService<C> {
   events(userId: number, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get()(this, `users/${uId}/events`, options);
+    return RequestHelper.get<EventSchema[]>()(this, `users/${uId}/events`, options);
   }
 
   search(emailOrUsername: string, options?: Sudo) {

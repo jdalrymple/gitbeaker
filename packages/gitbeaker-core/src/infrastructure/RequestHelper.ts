@@ -169,7 +169,7 @@ export function get<
   };
 }
 
-export function post<T extends Record<string, unknown> = Record<string, unknown>>() {
+export function post<T extends Record<string, unknown> | void = Record<string, unknown>>() {
   return async function <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,

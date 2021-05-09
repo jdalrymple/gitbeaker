@@ -1,12 +1,19 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
+export interface UserSSHKeySchema extends Record<string, unknown> {
+  id: number;
+  key: string;
+  title: string;
+  created_at: string;
+}
+
 const url = (userId?: number) =>
   userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys';
 
 export class UserKeys<C extends boolean = false> extends BaseService<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
-    return RequestHelper.get()(this, url(userId), options);
+    return RequestHelper.get<UserSSHKeySchema[]>()(this, url(userId), options);
   }
 
   create(
@@ -14,7 +21,7 @@ export class UserKeys<C extends boolean = false> extends BaseService<C> {
     key: string,
     { userId, ...options }: { userId?: number } & BaseRequestOptions = {},
   ) {
-    return RequestHelper.post()(this, url(userId), {
+    return RequestHelper.post<UserSSHKeySchema>()(this, url(userId), {
       title,
       key,
       ...options,
@@ -24,7 +31,7 @@ export class UserKeys<C extends boolean = false> extends BaseService<C> {
   show(keyId: string, options?: BaseRequestOptions) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get()(this, `user/keys/${kId}`, options);
+    return RequestHelper.get<UserSSHKeySchema>()(this, `user/keys/${kId}`, options);
   }
 
   remove(keyId: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
