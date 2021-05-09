@@ -23,7 +23,7 @@ describe('Events.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/12/events', {});
   });
 
-  it('should request GET /projects/:id/events', async () => {
+  it('should request GET /projects/:id/events without options', async () => {
     await service.all();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'events', {});

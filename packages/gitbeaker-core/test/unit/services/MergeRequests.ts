@@ -135,12 +135,11 @@ describe('MergeRequests.commits', () => {
 });
 
 // FIXME: Seems to error out with the correct # of calls but incorrect # recieved
-describe.skip('MergeRequests.create', () => {
+describe('MergeRequests.create', () => {
   it('should request POST projects/:id/merge_requests', async () => {
     await service.create(2, 'dev', 'main', 'Test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/2/merge_requests', {
-      id: 2,
       sourceBranch: 'dev',
       targetBranch: 'main',
       title: 'Test',

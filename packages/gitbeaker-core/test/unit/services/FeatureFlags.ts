@@ -27,7 +27,7 @@ describe('Instantiating FeatureFlags service', () => {
 });
 
 describe('FeatureFlags.all', () => {
-  it('should request GET /projects/:id/features_flags', async () => {
+  it('should request GET /projects/:id/features_flags without options', async () => {
     await service.all(1);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/features_flags', {});

@@ -285,7 +285,6 @@ export class MergeRequests<C extends boolean = false> extends BaseService<C> {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post<MergeRequestSchema>()(this, `projects/${pId}/merge_requests`, {
-      id: pId,
       sourceBranch,
       targetBranch,
       title,

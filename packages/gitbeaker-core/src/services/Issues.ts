@@ -138,17 +138,17 @@ export class Issues<C extends boolean = false> extends BaseService<C> {
   // TODO move
   link(
     projectId: string | number,
-    issueIid: number,
+    issueIId: number,
     targetProjectId: string | number,
-    targetIssueIid: number,
+    targetIssueIId: number,
     options?: BaseRequestOptions,
   ) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-    const [targetpId, targetIid] = [targetProjectId, targetIssueIid].map(encodeURIComponent);
+    const [pId, iIId] = [projectId, issueIId].map(encodeURIComponent);
+    const [targetPId, targetIId] = [targetProjectId, targetIssueIId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/issues/${iId}/links`, {
-      targetProjectId: targetpId,
-      targetIssueIid: targetIid,
+    return RequestHelper.post()(this, `projects/${pId}/issues/${iIId}/links`, {
+      targetProjectId: targetPId,
+      targetIssueIid: targetIId,
       ...options,
     });
   }
