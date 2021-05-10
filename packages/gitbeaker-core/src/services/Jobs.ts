@@ -186,4 +186,14 @@ export class Jobs<C extends boolean = false> extends BaseService<C> {
 
     return RequestHelper.get<JobSchema>()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
+
+  showPipelineBridges(
+    projectId: string | number,
+    pipelineId: number,
+    options?: { scope?: JobScope } & Sudo,
+  ) {
+    const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${ppId}/bridges`, options);
+  }
 }
