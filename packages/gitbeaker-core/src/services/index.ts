@@ -20,7 +20,7 @@ export { Users } from './Users';
 export { UserCustomAttributes } from './UserCustomAttributes';
 export { UserEmails } from './UserEmails';
 export { UserImpersonationTokens } from './UserImpersonationTokens';
-export { UserKeys } from './UserKeys';
+export { UserSSHKeys } from './UserSSHKeys';
 export { UserGPGKeys } from './UserGPGKeys';
 
 // Projects

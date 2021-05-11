@@ -40,7 +40,7 @@ export const UsersBundle = bundler({
   UserCustomAttributes: APIServices.UserCustomAttributes,
   UserEmails: APIServices.UserEmails,
   UserImpersonationTokens: APIServices.UserImpersonationTokens,
-  UserKeys: APIServices.UserKeys,
+  UserSSHKeys: APIServices.UserSSHKeys,
   UserGPGKeys: APIServices.UserGPGKeys,
 });
 
