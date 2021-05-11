@@ -6,7 +6,6 @@ export { GroupCustomAttributes } from './GroupCustomAttributes';
 export { GroupIssueBoards } from './GroupIssueBoards';
 export { GroupMembers } from './GroupMembers';
 export { GroupMilestones } from './GroupMilestones';
-export { GroupProjects } from './GroupProjects';
 export { GroupRunners } from './GroupRunners';
 export { GroupVariables } from './GroupVariables';
 export { GroupLabels } from './GroupLabels';
