@@ -1,5 +1,15 @@
 import FormData from 'form-data';
 
+export type CamelizeString<T extends PropertyKey> = T extends string
+  ? string extends T
+    ? string
+    : T extends `${infer F}_${infer R}`
+    ? `${F}${Capitalize<CamelizeString<R>>}`
+    : T
+  : T;
+
+export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: T[K] };
+
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 interface Constructor {
   new (...args: any): any;
@@ -16,13 +26,13 @@ export interface BundleType<T extends { [name: string]: Constructor }, P extends
 export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
   services: T,
 ): BundleType<T, P> {
-  return (function Bundle(options?: any) {
+  return function Bundle(options?: any) {
     Object.entries(services).forEach(([name, Ser]) => {
       /* eslint @typescript-eslint/ban-ts-comment: 0 */
       // @ts-ignore
       this[name] = new Ser(options);
     });
-  } as any) as BundleType<T, P>;
+  } as any as BundleType<T, P>;
 }
 
 export function appendFormFromObject(object: Record<string, unknown>): FormData {
