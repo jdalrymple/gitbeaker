@@ -1,3 +1,89 @@
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.2.0 (Sat Mar 20 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix #1624 - Fixed mime type handling [#1633](https://github.com/jdalrymple/gitbeaker/pull/1633) ([@Pryx](https://github.com/Pryx))
+- Linting \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Vojtěch Sajdl ([@Pryx](https://github.com/Pryx))
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Rewrite HTTP method for `stream` requests in GotRequester [#1602](https://github.com/jdalrymple/gitbeaker/pull/1602) ([@Vogel612](https://github.com/Vogel612))
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/stash' \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Clemens Lieb ([@Vogel612](https://github.com/Vogel612))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.4 (Mon Jan 25 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'extend-probe-check' ([@jdalrymple](https://github.com/jdalrymple))
+- Add unique test id and add retry to integration builds ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.3 (Sun Jan 24 2021)
+
+#### 🐛 Bug Fix
+
+- Remove possibility of char type information polluting check of content-type [#1467](https://github.com/jdalrymple/gitbeaker/pull/1467) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change

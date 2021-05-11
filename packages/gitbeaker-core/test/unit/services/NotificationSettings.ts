@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { NotificationSettings } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: NotificationSettings;
 
 beforeEach(() => {
   service = new NotificationSettings({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });

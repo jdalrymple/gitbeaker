@@ -8,7 +8,7 @@ import {
 
 export class ResourceBadges extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions) {
-    super({ url: resourceType, ...options });
+    super({ prefixUrl: resourceType, ...options });
   }
 
   add(resourceId: string | number, options?: BaseRequestOptions) {

@@ -1,3 +1,6 @@
+variables:
+  GIT_DEPTH: 0 #Temporary
+
 default:
   image: node:lts-alpine
 
@@ -75,7 +78,7 @@ test:unit:utils:
 #Integration Tests
 .test:integration: &integration
   image:
-    name: docker/compose:latest
+    name: jdalrymple/docker-compose-with-node
     entrypoint: ['/bin/sh', '-c']
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -83,10 +86,8 @@ test:unit:utils:
   services:
     - docker:dind
   stage: test
+  retry: 2
   before_script:
-    # Install docker compose
-    - apk add --no-cache nodejs yarn git
-
     # Spin up container
     - cd scripts
     - docker-compose -f docker-compose.yml up -d
@@ -98,26 +99,25 @@ test:unit:utils:
     - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
 
     - cd ..
-    - echo $PERSONAL_ACCESS_TOKEN
-    - echo $GITLAB_URL
-    - echo $CODECOV_TOKEN
+  after_script:
+    - docker cp gitlab:/var/log/gitlab runner_logs
+    - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
+  artifacts:
+    when: on_failure
+    paths:
+      - runner_logs
 
 test:integration:browser:
   image: buildkite/puppeteer
   stage: test
   script: yarn jest browser/test/integration
 
-test:integration:node:src:
+test:integration:node:
   <<: *integration
-  script: yarn jest node/test/integration && yarn codecov -F node
-
-test:integration:node:dist-cjs:
-  <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-
-test:integration:node:dist-es:
-  <<: *integration
-  script: yarn jest node/test/integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+  script:
+    - yarn test:integration:node && yarn codecov -F node
+    - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    # - yarn test:integration:node --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
 
 # Canary
 canary:

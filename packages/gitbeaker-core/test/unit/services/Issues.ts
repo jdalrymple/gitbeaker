@@ -1,6 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { Issues } from '../../../src';
-import { mockRequesterFn } from '../../mocks/requesterFn';
 
 jest.mock('../../../src/infrastructure/RequestHelper');
 
@@ -8,7 +7,7 @@ let service: Issues;
 
 beforeEach(() => {
   service = new Issues({
-    requesterFn: mockRequesterFn,
+    requesterFn: jest.fn(),
     token: 'abcdefg',
     requestTimeout: 3000,
   });
@@ -178,10 +177,10 @@ describe('Issues.timeStats', () => {
 });
 
 describe('Issues.unsubscribe', () => {
-  it('should request DEL projects/:id/issues/:iid/unsubscribe', async () => {
+  it('should request POST projects/:id/issues/:iid/unsubscribe', async () => {
     await service.unsubscribe(2, 3);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(
+    expect(RequestHelper.post).toHaveBeenCalledWith(
       service,
       'projects/2/issues/3/unsubscribe',
       undefined,

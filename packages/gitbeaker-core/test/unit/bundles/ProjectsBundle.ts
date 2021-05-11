@@ -2,7 +2,7 @@ import { ProjectsBundle } from '../../../src';
 import * as Services from '../../../src/services';
 
 test('All the correct service keys are included in the projects bundle', async () => {
-  const bundle: ProjectsBundle = new ProjectsBundle({ requesterFn: () => ({}), token: 'test' });
+  const bundle: ProjectsBundle = new ProjectsBundle({ requesterFn: jest.fn(), token: 'test' });
   const services = [
     'Branches',
     'Commits',
@@ -51,7 +51,7 @@ test('All the correct service keys are included in the projects bundle', async (
 });
 
 test('All the correct service instances are included in the projects bundle', async () => {
-  const bundle = new ProjectsBundle({ requesterFn: () => ({}), token: 'test' });
+  const bundle = new ProjectsBundle({ requesterFn: jest.fn(), token: 'test' });
 
   (Object.keys(bundle) as (keyof typeof bundle)[]).forEach((key) => {
     expect(bundle[key]).toBeInstanceOf(Services[key]);

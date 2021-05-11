@@ -9,7 +9,7 @@ import {
 
 export class ResourceLabels extends BaseService {
   constructor(resourceType: string, options: BaseServiceOptions & ShowExpanded) {
-    super({ url: resourceType, ...options });
+    super({ prefixUrl: resourceType, ...options });
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {

@@ -1,3 +1,51 @@
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump strip-ansi from 6.0.0 to 7.0.0 [#1710](https://github.com/jdalrymple/gitbeaker/pull/1710) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.3.0 (Sun Apr 04 2021)
+
+#### 🐛 Bug Fix
+
+- Fixing import errors within the CLI release [#1677](https://github.com/jdalrymple/gitbeaker/pull/1677) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change

@@ -1,3 +1,76 @@
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.2.0 (Sat Mar 20 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump query-string from 6.14.1 to 7.0.0 [#1628](https://github.com/jdalrymple/gitbeaker/pull/1628) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump form-data from 3.0.0 to 4.0.0 [#1558](https://github.com/jdalrymple/gitbeaker/pull/1558) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### 🐛 Bug Fix
+
+- Removing debug message \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.0 (Mon Dec 28 2020)
+
+#### 💥 Breaking Change
+
+- Replacing BaseService 'url' constructor argument with 'prefixUrl' for clarity [#1412](https://github.com/jdalrymple/gitbeaker/pull/1412) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fixing incorrect scoping of the createRequesterFn function [#1413](https://github.com/jdalrymple/gitbeaker/pull/1413) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change

@@ -328,6 +328,53 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "martin-helmich",
+      "name": "Martin Helmich",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2538958?v=4",
+      "profile": "http://www.martin-helmich.de/en",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "smcgivern",
+      "name": "Sean McGivern",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1120328?v=4",
+      "profile": "https://github.com/smcgivern",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Vogel612",
+      "name": "Clemens Lieb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7288995?v=4",
+      "profile": "https://github.com/Vogel612",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Pryx",
+      "name": "Vojtěch Sajdl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5222912?v=4",
+      "profile": "https://sajdl.com/",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "divido",
+      "name": "divido",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4614626?v=4",
+      "profile": "https://github.com/divido",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

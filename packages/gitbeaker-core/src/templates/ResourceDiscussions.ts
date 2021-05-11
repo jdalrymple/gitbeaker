@@ -10,7 +10,7 @@ export class ResourceDiscussions extends BaseService {
   protected resource2Type: string;
 
   constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
-    super({ url: resourceType, ...options });
+    super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;
   }

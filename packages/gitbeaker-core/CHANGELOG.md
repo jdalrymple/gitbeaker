@@ -1,3 +1,79 @@
+# v28.4.0 (Tue May 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@divido](https://github.com/divido), for all your work!
+
+#### 🐛 Bug Fix
+
+- Change Issues.unsubscribe to a POST operation instead of DELETE [#1726](https://github.com/jdalrymple/gitbeaker/pull/1726) ([@divido](https://github.com/divido) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@divido](https://github.com/divido)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump form-data from 3.0.0 to 4.0.0 [#1558](https://github.com/jdalrymple/gitbeaker/pull/1558) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# vnull (Sun Jan 03 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.0.0 (Mon Dec 28 2020)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich)), for all your work!
+
+#### 💥 Breaking Change
+
+- Replacing BaseService 'url' constructor argument with 'prefixUrl' for clarity [#1412](https://github.com/jdalrymple/gitbeaker/pull/1412) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 💥 Feature
+
+- Implement "Commits.signature" method [#1386](https://github.com/jdalrymple/gitbeaker/pull/1386) ([@martin-helmich](https://github.com/martin-helmich) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fixing incorrect scoping of the createRequesterFn function [#1413](https://github.com/jdalrymple/gitbeaker/pull/1413) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
+
+---
+
 # v27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change
