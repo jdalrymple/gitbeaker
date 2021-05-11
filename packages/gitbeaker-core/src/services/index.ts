@@ -48,7 +48,7 @@ export { Packages } from './Packages';
 export { Pipelines } from './Pipelines';
 export { PipelineSchedules } from './PipelineSchedules';
 export { PipelineScheduleVariables } from './PipelineScheduleVariables';
-export { Projects } from './Projects';
+export * from './Projects';
 export { ProjectAccessRequests } from './ProjectAccessRequests';
 export { ProjectBadges } from './ProjectBadges';
 export { ProjectCustomAttributes } from './ProjectCustomAttributes';

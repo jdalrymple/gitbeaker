@@ -45,8 +45,20 @@ describe('ResourceDeployTokens.all', () => {
     expect(RequestHelper.get()).toBeCalledWith(service, 'deploy_tokens', {});
   });
 
-  it('should request GET /5/deploy_tokens', async () => {
+  it('should request GET /5/deploy_tokens with resourceId', async () => {
     await service.all({ resourceId: 5 });
+
+    expect(RequestHelper.get()).toBeCalledWith(service, '5/deploy_tokens', {});
+  });
+
+  it('should request GET /5/deploy_tokens with groupId', async () => {
+    await service.all({ groupId: 5 });
+
+    expect(RequestHelper.get()).toBeCalledWith(service, '5/deploy_tokens', {});
+  });
+
+  it('should request GET /5/deploy_tokens with projectId', async () => {
+    await service.all({ projectId: 5 });
 
     expect(RequestHelper.get()).toBeCalledWith(service, '5/deploy_tokens', {});
   });

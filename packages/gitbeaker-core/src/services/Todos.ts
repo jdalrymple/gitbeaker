@@ -52,19 +52,15 @@ export class Todos<C extends boolean = false> extends BaseService<C> {
   create(
     projectId: string | number,
     resourceId: number,
-    { resourceName, ...options }: { resourceName?: 'mergerequest' | 'issue' } & Sudo = {},
+    resourceName: 'mergerequest' | 'issue',
+    options?: Sudo,
   ) {
-    if (resourceName === 'issue') {
-      return RequestHelper.post()(
-        this,
-        `projects/${projectId}/issues/${resourceId}/todo`,
-        options as Record<string, unknown>,
-      );
-    }
-    return RequestHelper.post()(
+    const resourceAPI = resourceName === 'issue' ? 'issues' : 'merge_requests';
+
+    return RequestHelper.post<TodoSchema>()(
       this,
-      `projects/${projectId}/merge_requests/${resourceId}/todo`,
-      options as Record<string, unknown>,
+      `projects/${projectId}/${resourceAPI}/${resourceId}/todo`,
+      options,
     );
   }
 
