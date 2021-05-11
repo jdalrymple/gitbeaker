@@ -139,6 +139,13 @@ export interface ProjectExtendedSchema extends ProjectSchema {
   };
 }
 
+export interface ProjectFileUploadSchema extends Record<string, unknown> {
+  alt: string;
+  url: string;
+  full_path: string;
+  markdown: string;
+}
+
 export class Projects<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<ProjectSchema[]>()(this, 'projects', options);
@@ -277,7 +284,7 @@ export class Projects<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post()(this, `projects/${pId}/uploads`, {
+    return RequestHelper.post<ProjectFileUploadSchema>()(this, `projects/${pId}/uploads`, {
       isForm: true,
       file: [content, { ...defaultMetadata, ...metadata }],
       ...options,

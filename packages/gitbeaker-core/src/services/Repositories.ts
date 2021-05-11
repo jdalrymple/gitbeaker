@@ -74,31 +74,31 @@ export class Repositories<C extends boolean = false> extends BaseService<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(
+    return (RequestHelper.get()(
       this,
       `projects/${pId}/repository/archive.${fileType}`,
       options as Record<string, unknown>,
-    ) as unknown as Promise<void>;
+    ) as unknown) as Promise<void>;
   }
 
   showBlob(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(
+    return (RequestHelper.get()(
       this,
       `projects/${pId}/repository/blobs/${sha}`,
       options,
-    ) as unknown as Promise<Blob>;
+    ) as unknown) as Promise<Blob>;
   }
 
   showBlobRaw(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get()(
+    return (RequestHelper.get()(
       this,
       `projects/${pId}/repository/blobs/${sha}/raw`,
       options,
-    ) as unknown as Promise<Blob>;
+    ) as unknown) as Promise<Blob>;
   }
 
   tree(projectId: string | number, options?: BaseRequestOptions) {

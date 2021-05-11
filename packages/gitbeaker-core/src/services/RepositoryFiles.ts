@@ -112,9 +112,9 @@ export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   showRaw(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
+    return (RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
       ref,
       ...options,
-    }) as unknown as Promise<Blob>;
+    }) as unknown) as Promise<Blob>;
   }
 }

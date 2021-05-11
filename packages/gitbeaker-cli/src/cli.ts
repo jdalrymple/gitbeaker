@@ -71,13 +71,15 @@ function globalConfig(env = process.env): { [name: string]: Sywac.Options } {
     },
     'gb-profile-token': {
       alias: 'gl-profile-token',
-      desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
+      desc:
+        '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
       type: 'string',
       defaultValue: env.GITBEAKER_PROFILE_TOKEN || env.GITLAB_PROFILE_TOKEN,
     },
     'gb-profile-mode': {
       alias: 'gl-profile-mode',
-      desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
+      desc:
+        '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
       type: 'string',
       defaultValue: env.GITBEAKER_PROFILE_MODE || env.GITLAB_PROFILE_MODE,
     },
