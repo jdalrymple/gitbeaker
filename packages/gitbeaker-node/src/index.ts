@@ -42,6 +42,7 @@ export const {
   Issues,
   IssuesStatistics,
   IssueNotes,
+  IssueNoteAwardEmojis,
   IssueDiscussions,
   IssueAwardEmojis,
   Jobs,

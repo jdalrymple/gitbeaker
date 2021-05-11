@@ -35,6 +35,7 @@ export { FreezePeriods } from './FreezePeriods';
 export { Issues } from './Issues';
 export { IssuesStatistics } from './IssuesStatistics';
 export { IssueNotes } from './IssueNotes';
+export { IssueNoteAwardEmojis } from './IssueNoteAwardEmojis';
 export { IssueDiscussions } from './IssueDiscussions';
 export { IssueAwardEmojis } from './IssueAwardEmojis';
 export { Jobs } from './Jobs';
