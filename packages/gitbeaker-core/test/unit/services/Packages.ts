@@ -1,7 +1,10 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { Packages } from '../../../src';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: Packages;
 
@@ -27,7 +30,7 @@ describe('Packages.all', () => {
   it('should request GET /projects/:id/packages', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/packages', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages', undefined);
   });
 });
 
@@ -35,7 +38,7 @@ describe('Packages.remove', () => {
   it('should request DEL /projects/:id/packages/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
   });
 });
 
@@ -43,7 +46,7 @@ describe('Packages.show', () => {
   it('should request GET /projects/:id/packages/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
   });
 });
 
@@ -51,7 +54,7 @@ describe('Packages.showFiles', () => {
   it('should request GET /projects/:id/packages/:id/package_files', async () => {
     await service.showFiles(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/packages/2/package_files',
       undefined,

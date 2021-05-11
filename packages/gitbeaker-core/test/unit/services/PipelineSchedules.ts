@@ -1,7 +1,10 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { PipelineSchedules } from '../../../src';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: PipelineSchedules;
 
@@ -27,7 +30,7 @@ describe('PipelineSchedules.all', () => {
   it('should request GET /projects/:id/pipeline_schedules/:id', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/pipeline_schedules',
       undefined,
@@ -39,7 +42,7 @@ describe('PipelineSchedules.create', () => {
   it('should request POST /projects/:id/pipeline_schedules/:id', async () => {
     await service.create(1, 'description', '5a', 'today');
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipeline_schedules', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/pipeline_schedules', {
       description: 'description',
       ref: '5a',
       cron: 'today',
@@ -51,7 +54,7 @@ describe('PipelineSchedules.edit', () => {
   it('should request PUT /projects/:id/pipeline_schedules/:id', async () => {
     await service.edit(1, 2);
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       'projects/1/pipeline_schedules/2',
       undefined,
@@ -63,7 +66,7 @@ describe('PipelineSchedules.show', () => {
   it('should request GET /projects/:id/pipeline_schedules/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/pipeline_schedules/2',
       undefined,
@@ -75,7 +78,7 @@ describe('PipelineSchedules.remove', () => {
   it('should request DEL /projects/:id/pipeline_schedules/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/pipeline_schedules/2',
       undefined,

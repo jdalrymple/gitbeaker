@@ -50,10 +50,3 @@ describe('Projects.upload', () => {
           contentType: 'text/plain',
         },
       });
-
-      expect(results).toContainKeys(['alt', 'url', 'markdown']);
-    } catch (e) {
-      console.log(e);
-    }
-  });
-});

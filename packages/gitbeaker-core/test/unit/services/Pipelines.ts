@@ -1,7 +1,10 @@
 import { Pipelines } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: Pipelines;
 
@@ -31,7 +34,7 @@ describe('Projects.create', () => {
       },
     });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/pipeline', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/pipeline', {
       ref: 'ci/cd',
       variables: {
         PULL_REQUEST_NAME: 'TEST',
