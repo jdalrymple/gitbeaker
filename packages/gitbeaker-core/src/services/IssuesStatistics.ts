@@ -1,11 +1,21 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
+type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
 
-export class IssuesStatistics extends BaseService {
+export interface StatisticsSchema extends Record<string, unknown> {
+  statistics: {
+    counts: {
+      all: number;
+      closed: number;
+      opened: number;
+    };
+  };
+}
+
+export class IssuesStatistics<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
-    let url;
+    let url: string;
 
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/issues_statistics`;
@@ -15,6 +25,6 @@ export class IssuesStatistics extends BaseService {
       url = 'issues_statistics';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<StatisticsSchema>()(this, url, options);
   }
 }

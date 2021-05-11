@@ -1,23 +1,52 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceBadges } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceBadges, BadgeSchema } from '../templates';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
 
-export interface ProjectBadges extends ResourceBadges {
-  add(projectId: string | number, options?: BaseRequestOptions);
-
-  all(projectId: string | number, options?: PaginatedRequestOptions);
-
-  edit(projectId: string | number, badgeId: number, options?: BaseRequestOptions);
-
-  preview(projectId: string | number, linkUrl: string, imageUrl: string, options?: Sudo);
-
-  remove(projectId: string | number, badgeId: number, options?: Sudo);
-
-  show(projectId: string | number, badgeId: number, options?: Sudo);
+export interface ProjectBadgeSchema extends BadgeSchema {
+  kind: 'project';
 }
 
-export class ProjectBadges extends ResourceBadges {
-  constructor(options: BaseServiceOptions = {}) {
-    super('projects', options);
+export interface ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
+  add(
+    productId: string | number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+
+  all(
+    productId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>[]>;
+
+  edit(
+    productId: string | number,
+    badgeId: number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+
+  preview(
+    productId: string | number,
+    linkUrl: string,
+    imageUrl: string,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, Omit<ProjectBadgeSchema, 'id' | 'name' | 'kind'>>>;
+
+  remove(productId: string | number, badgeId: number, options?: Sudo): Promise<void>;
+
+  show(
+    productId: string | number,
+    badgeId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+}
+
+export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
+    super('groups', options);
   }
 }

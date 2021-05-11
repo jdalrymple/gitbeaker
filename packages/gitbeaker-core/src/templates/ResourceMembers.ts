@@ -7,12 +7,29 @@ import {
 } from '../infrastructure';
 import { AccessLevel } from './ResourceAccessRequests';
 
-interface IncludeInherited {
+export interface IncludeInherited {
   includeInherited?: boolean;
 }
 
-export class ResourceMembers extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export interface MembersSchema extends Record<string, unknown> {
+  id: number;
+  username: string;
+  name: string;
+  state: string;
+  avatar_url: string;
+  web_url: string;
+  expires_at: string;
+  access_level: AccessLevel;
+  email: string;
+  group_saml_identity: {
+    extern_uid: string;
+    provider: string;
+    saml_provider_id: number;
+  };
+}
+
+export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 
@@ -24,7 +41,7 @@ export class ResourceMembers extends BaseService {
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `${rId}/members`, {
+    return RequestHelper.post<MembersSchema>()(this, `${rId}/members`, {
       userId: uId,
       accessLevel,
       ...options,
@@ -40,7 +57,7 @@ export class ResourceMembers extends BaseService {
 
     if (includeInherited) url.push('all');
 
-    return RequestHelper.get(this, url.join('/'), options);
+    return RequestHelper.get<MembersSchema[]>()(this, url.join('/'), options);
   }
 
   edit(
@@ -51,7 +68,7 @@ export class ResourceMembers extends BaseService {
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `${rId}/members/${uId}`, {
+    return RequestHelper.put<MembersSchema>()(this, `${rId}/members/${uId}`, {
       accessLevel,
       ...options,
     });
@@ -69,12 +86,16 @@ export class ResourceMembers extends BaseService {
 
     url.push(uId);
 
-    return RequestHelper.get(this, url.join('/'), options);
+    return RequestHelper.get<MembersSchema>()(
+      this,
+      url.join('/'),
+      options as Record<string, unknown>,
+    );
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/members/${uId}`, options);
+    return RequestHelper.del()(this, `${rId}/members/${uId}`, options);
   }
 }

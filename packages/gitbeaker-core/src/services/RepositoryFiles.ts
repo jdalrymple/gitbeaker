@@ -1,7 +1,8 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { CommitSchema } from './Commits';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
-export interface RepositoryFileSchemaDefault {
+export interface RepositoryFileExtendedSchema extends Record<string, unknown> {
   file_name: string;
   file_path: string;
   size: number;
@@ -14,22 +15,17 @@ export interface RepositoryFileSchemaDefault {
   last_commit_id: string;
 }
 
-export interface RepositoryFileSchemaCamelized {
-  fileName: string;
-  filePath: string;
-  size: number;
-  encoding: string;
-  content: string;
-  contentSha256: string;
-  ref: string;
-  blobId: string;
-  commitId: string;
-  lastCommitId: string;
+export interface RepositoryFileBlameSchema extends Record<string, unknown> {
+  commit: CommitSchema;
+  lines?: string[];
 }
 
-export type RepositoryFileSchema = RepositoryFileSchemaDefault | RepositoryFileSchemaCamelized;
+export interface RepositoryFileSchema extends Record<string, unknown> {
+  file_path: string;
+  branch: string;
+}
 
-export class RepositoryFiles extends BaseService {
+export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
   create(
     projectId: string | number,
     filePath: string,
@@ -40,12 +36,16 @@ export class RepositoryFiles extends BaseService {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/repository/files/${path}`, {
-      branch,
-      content,
-      commitMessage,
-      ...options,
-    });
+    return RequestHelper.post<RepositoryFileSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        branch,
+        content,
+        commitMessage,
+        ...options,
+      },
+    );
   }
 
   edit(
@@ -58,12 +58,16 @@ export class RepositoryFiles extends BaseService {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/repository/files/${path}`, {
-      branch,
-      content,
-      commitMessage,
-      ...options,
-    });
+    return RequestHelper.put<RepositoryFileSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        branch,
+        content,
+        commitMessage,
+        ...options,
+      },
+    );
   }
 
   remove(
@@ -75,39 +79,42 @@ export class RepositoryFiles extends BaseService {
   ) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.del()(this, `projects/${pId}/repository/files/${path}`, {
       branch,
       commitMessage,
       ...options,
     });
   }
 
-  show(
-    projectId: string | number,
-    filePath: string,
-    ref: string,
-    options?: Sudo,
-  ): Promise<RepositoryFileSchema> {
+  show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}`, {
-      ref,
-      ...options,
-    }) as Promise<RepositoryFileSchema>;
+    return RequestHelper.get<RepositoryFileExtendedSchema>()(
+      this,
+      `projects/${pId}/repository/files/${path}`,
+      {
+        ref,
+        ...options,
+      },
+    );
   }
 
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/blame`, options);
+    return RequestHelper.get<RepositoryFileBlameSchema[]>()(
+      this,
+      `projects/${pId}/repository/files/${path}/blame`,
+      options,
+    );
   }
 
   showRaw(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/repository/files/${path}/raw`, {
+    return RequestHelper.get()(this, `projects/${pId}/repository/files/${path}/raw`, {
       ref,
       ...options,
-    });
+    }) as unknown as Promise<Blob>;
   }
 }

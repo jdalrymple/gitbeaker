@@ -1,38 +1,45 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, RequestHelper } from '../infrastructure';
+import { BaseRequestOptions, RequestHelper, Camelize } from '../infrastructure';
 
-export interface CreateFreezePeriodOptions {
-  cronTimezone?: string;
+export interface FreezePeriodSchema extends Record<string, unknown> {
+  id: number;
+  freeze_start: string;
+  freeze_end: string;
+  cron_timezone: string;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface EditFreezePeriodOptions {
-  cronTimezone?: string;
-  freezeStart?: string;
-  freezeEnd?: string;
-}
-
-export class FreezePeriods extends BaseService {
+export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/freeze_periods`, options);
+    return RequestHelper.get<FreezePeriodSchema[]>()(
+      this,
+      `projects/${pId}/freeze_periods`,
+      options,
+    );
   }
 
   show(projectId: string | number, freezePeriodId: number, options?: BaseRequestOptions) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.get<FreezePeriodSchema>()(
+      this,
+      `projects/${pId}/freeze_periods/${fId}`,
+      options,
+    );
   }
 
   create(
     projectId: number | string,
     freezeStart: string,
     freezeEnd: string,
-    options?: CreateFreezePeriodOptions & BaseRequestOptions,
+    options?: Camelize<Pick<FreezePeriodSchema, 'cron_timezone'>> & BaseRequestOptions,
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/freeze_periods`, {
+    return RequestHelper.post<FreezePeriodSchema>()(this, `projects/${pId}/freeze_periods`, {
       freezeStart,
       freezeEnd,
       ...options,
@@ -42,16 +49,21 @@ export class FreezePeriods extends BaseService {
   edit(
     projectId: number | string,
     freezePeriodId: number,
-    options?: EditFreezePeriodOptions & BaseRequestOptions,
+    options?: Camelize<Omit<FreezePeriodSchema, 'id' | 'created_at' | 'updated_at'>> &
+      BaseRequestOptions,
   ) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.put<FreezePeriodSchema>()(
+      this,
+      `projects/${pId}/freeze_periods/${fId}`,
+      options,
+    );
   }
 
   delete(projectId: number | string, freezePeriodId: number, options?: BaseRequestOptions) {
     const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/freeze_periods/${fId}`, options);
   }
 }
