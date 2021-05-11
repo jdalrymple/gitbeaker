@@ -202,7 +202,7 @@ GitignoreTemplates
 GitLabCIYMLTemplates
 Keys
 License
-LicenceTemplates
+LicenseTemplates
 Lint
 Markdown
 Namespaces
@@ -223,7 +223,6 @@ GroupCustomAttributes
 GroupIssueBoards
 GroupMembers
 GroupMilestones
-GroupProjects
 GroupRunners
 GroupVariables
 GroupLabels
