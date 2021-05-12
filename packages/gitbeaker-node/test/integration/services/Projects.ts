@@ -51,6 +51,6 @@ describe('Projects.upload', () => {
       },
     });
 
-    expect(results).toContainKeys(['alt','url','full_path','markdown']);
+    expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
   });
 });
