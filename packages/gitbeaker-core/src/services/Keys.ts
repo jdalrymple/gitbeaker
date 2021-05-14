@@ -1,10 +1,20 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { UserExtendedSchema } from './Users';
 import { RequestHelper, Sudo } from '../infrastructure';
 
-export class Keys extends BaseService {
+export interface KeySchema extends Record<string, unknown> {
+  id: number;
+  title: string;
+  key: string;
+  created_at: string;
+  expires_at: string;
+  user: UserExtendedSchema;
+}
+
+export class Keys<C extends boolean = false> extends BaseService<C> {
   show(keyId: string, options?: Sudo) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.get(this, `keys/${kId}`, options);
+    return RequestHelper.get<KeySchema>()(this, `keys/${kId}`, options);
   }
 }

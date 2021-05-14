@@ -1,13 +1,20 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
 
-type NotificationSettingLevel =
+// TODO: Add missing functions
+
+export type NotificationSettingLevel =
   | 'disabled'
   | 'participating'
   | 'watch'
   | 'global'
   | 'mention'
   | 'custom';
+
+export interface NotificationSettingSchema extends Record<string, unknown> {
+  level: NotificationSettingLevel;
+  notification_email: string;
+}
 
 type ProjectOrGroup = { projectId?: string | number } | { groupId?: string | number };
 
@@ -23,9 +30,13 @@ function url({ projectId, groupId }) {
   return `${uri}notification_settings`;
 }
 
-export class NotificationSettings extends BaseService {
+export class NotificationSettings<C extends boolean = false> extends BaseService<C> {
   all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
-    return RequestHelper.get(this, url({ groupId, projectId }), options);
+    return RequestHelper.get<NotificationSettingSchema[]>()(
+      this,
+      url({ groupId, projectId }),
+      options,
+    );
   }
 
   edit({
@@ -33,6 +44,10 @@ export class NotificationSettings extends BaseService {
     groupId,
     ...options
   }: { level?: NotificationSettingLevel } & ProjectOrGroup & BaseRequestOptions = {}) {
-    return RequestHelper.put(this, url({ groupId, projectId }), options);
+    return RequestHelper.put<NotificationSettingSchema>()(
+      this,
+      url({ groupId, projectId }),
+      options,
+    );
   }
 }

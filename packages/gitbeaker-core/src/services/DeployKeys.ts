@@ -6,15 +6,23 @@ import {
   PaginatedRequestOptions,
 } from '../infrastructure';
 
-export class DeployKeys extends BaseService {
+export interface DeployKey extends Record<string, unknown> {
+  id: number;
+  title: string;
+  key: string;
+  can_push?: boolean;
+  created_at: string;
+}
+
+export class DeployKeys<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/deploy_keys`, options);
+    return RequestHelper.post<DeployKey>()(this, `projects/${pId}/deploy_keys`, options);
   }
 
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
-    let url;
+    let url: string;
 
     if (projectId) {
       url = `projects/${encodeURIComponent(projectId)}/deploy_keys`;
@@ -22,30 +30,34 @@ export class DeployKeys extends BaseService {
       url = 'deploy_keys';
     }
 
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<Omit<DeployKey, 'can_push'>[]>()(this, url, options);
   }
 
-  edit(projectId: string | number, keyId: string, options?: BaseRequestOptions) {
+  edit(projectId: string | number, keyId: number, options?: BaseRequestOptions) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.put<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  enable(projectId: string | number, keyId: string, options?: Sudo) {
+  enable(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `projects/${pId}/deploy_keys/${kId}/enable`, options);
+    return RequestHelper.post<Omit<DeployKey, 'can_push'>>()(
+      this,
+      `projects/${pId}/deploy_keys/${kId}/enable`,
+      options,
+    );
   }
 
-  remove(projectId: string | number, keyId: string, options?: Sudo) {
+  remove(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 
-  show(projectId: string | number, keyId: string, options?: Sudo) {
+  show(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.get<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);
   }
 }

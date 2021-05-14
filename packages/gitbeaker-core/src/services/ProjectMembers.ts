@@ -1,8 +1,44 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers } from '../templates';
+import { ResourceMembers, MembersSchema, IncludeInherited, AccessLevel } from '../templates';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  CamelizedRecord,
+  Sudo,
+} from '../infrastructure';
 
-export class ProjectMembers extends ResourceMembers {
-  constructor(options: BaseServiceOptions = {}) {
+export interface GroupMembers<C extends boolean = false> extends ResourceMembers<C> {
+  add(
+    projectId: string | number,
+    userId: number,
+    accessLevel: AccessLevel,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, MembersSchema>>;
+
+  all(
+    projectId: string | number,
+    options?: IncludeInherited & PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, MembersSchema>[]>;
+
+  edit(
+    projectId: string | number,
+    userId: number,
+    accessLevel: AccessLevel,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, MembersSchema>>;
+
+  show(
+    projectId: string | number,
+    userId: number,
+    options?: IncludeInherited & Sudo,
+  ): Promise<CamelizedRecord<C, MembersSchema>>;
+
+  remove(projectId: string | number, userId: number, options?: Sudo): Promise<void>;
+}
+
+export class ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', options);
   }
 }

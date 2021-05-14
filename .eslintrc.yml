@@ -1,3 +1,5 @@
+root: true
+
 env:
   node: true
   browser: true
@@ -12,7 +14,6 @@ extends:
   - airbnb-base
   - plugin:@typescript-eslint/recommended
   - plugin:prettier/recommended
-  - prettier/@typescript-eslint
   - plugin:jest/recommended
 
 parser: '@typescript-eslint/parser'
@@ -33,6 +34,7 @@ rules:
   import/no-default-export: error
   import/prefer-default-export: off
   '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/explicit-module-boundary-types': off
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
@@ -51,6 +53,16 @@ overrides:
       - '**/*.tsx'
     rules:
       camelcase: 'off'
+  - files:
+      - '**/test/**/*.ts'
+    rules:
+      '@typescript-eslint/no-var-requires': 'off'
+      global-require: 'off'
+      jest/no-mocks-import: 'off'
+  - files:
+      - '**/__mocks__/**/*.ts'
+    rules:
+      import/no-default-export: 'off'
 
 settings:
   import/resolver:

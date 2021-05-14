@@ -346,6 +346,35 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Vogel612",
+      "name": "Clemens Lieb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7288995?v=4",
+      "profile": "https://github.com/Vogel612",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Pryx",
+      "name": "Vojtěch Sajdl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5222912?v=4",
+      "profile": "https://sajdl.com/",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "divido",
+      "name": "divido",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4614626?v=4",
+      "profile": "https://github.com/divido",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

@@ -211,7 +211,7 @@ GitignoreTemplates
 GitLabCIYMLTemplates
 Keys
 License
-LicenceTemplates
+LicenseTemplates
 Lint
 Markdown
 Namespaces
@@ -232,7 +232,6 @@ GroupCustomAttributes
 GroupIssueBoards
 GroupMembers
 GroupMilestones
-GroupProjects
 GroupRunners
 GroupVariables
 GroupLabels
@@ -715,6 +714,11 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/xiezht"><img src="https://avatars1.githubusercontent.com/u/18051618?v=4?s=50" width="50px;" alt=""/><br /><sub><b>xiezht</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=xiezht" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.martin-helmich.de/en"><img src="https://avatars3.githubusercontent.com/u/2538958?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Martin Helmich</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=martin-helmich" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/smcgivern"><img src="https://avatars0.githubusercontent.com/u/1120328?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Sean McGivern</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=smcgivern" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Vogel612"><img src="https://avatars.githubusercontent.com/u/7288995?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Clemens Lieb</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Vogel612" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://sajdl.com/"><img src="https://avatars.githubusercontent.com/u/5222912?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Vojtěch Sajdl</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Pryx" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=Pryx" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/divido"><img src="https://avatars.githubusercontent.com/u/4614626?v=4?s=50" width="50px;" alt=""/><br /><sub><b>divido</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=divido" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=divido" title="Code">💻</a></td>
   </tr>
 </table>
 

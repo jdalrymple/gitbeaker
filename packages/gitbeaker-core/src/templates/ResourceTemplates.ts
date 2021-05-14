@@ -1,18 +1,23 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export class ResourceTemplates extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export interface ResourceTemplateSchema extends Record<string, unknown> {
+  name: string;
+  content: string;
+}
+
+export class ResourceTemplates<C extends boolean = false> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: ['templates', resourceType].join('/'), ...options });
   }
 
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, '', options);
+    return RequestHelper.get<ResourceTemplateSchema[]>()(this, '', options);
   }
 
-  show(resourceId: string | number, options?: Sudo) {
-    const rId = encodeURIComponent(resourceId);
+  show(key: string | number, options?: Sudo) {
+    const rId = encodeURIComponent(key);
 
-    return RequestHelper.get(this, `${rId}`, options);
+    return RequestHelper.get<ResourceTemplateSchema>()(this, `${rId}`, options);
   }
 }

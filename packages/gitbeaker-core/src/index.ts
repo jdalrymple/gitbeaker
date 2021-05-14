@@ -24,7 +24,6 @@ export const GroupsBundle = bundler({
   GroupIssueBoards: APIServices.GroupIssueBoards,
   GroupMembers: APIServices.GroupMembers,
   GroupMilestones: APIServices.GroupMilestones,
-  GroupProjects: APIServices.GroupProjects,
   GroupRunners: APIServices.GroupRunners,
   GroupVariables: APIServices.GroupVariables,
   GroupLabels: APIServices.GroupLabels,
@@ -41,7 +40,7 @@ export const UsersBundle = bundler({
   UserCustomAttributes: APIServices.UserCustomAttributes,
   UserEmails: APIServices.UserEmails,
   UserImpersonationTokens: APIServices.UserImpersonationTokens,
-  UserKeys: APIServices.UserKeys,
+  UserSSHKeys: APIServices.UserSSHKeys,
   UserGPGKeys: APIServices.UserGPGKeys,
 });
 
@@ -59,6 +58,7 @@ export const ProjectsBundle = bundler({
   IssuesStatistics: APIServices.IssuesStatistics,
   IssueAwardEmojis: APIServices.IssueAwardEmojis,
   IssueNotes: APIServices.IssueNotes,
+  IssueNoteAwardEmojis: APIServices.IssueNoteAwardEmojis,
   IssueDiscussions: APIServices.IssueDiscussions,
   Jobs: APIServices.Jobs,
   Labels: APIServices.Labels,

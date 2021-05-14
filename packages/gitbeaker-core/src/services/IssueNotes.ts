@@ -1,32 +1,61 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes } from '../templates';
-import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
+import { ResourceNotes, NoteSchema } from '../templates';
+import {
+  PaginatedRequestOptions,
+  BaseRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
 
-export interface IssueNotes extends ResourceNotes {
-  all(projectId: string | number, issueId: string | number, options?: PaginatedRequestOptions);
+export interface IssueNoteSchema extends NoteSchema {
+  attachment?: string;
+  system: boolean;
+  noteable_id: number;
+  noteable_type: string;
+  noteable_iid: number;
+  resolvable: boolean;
+}
+
+export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
+  all(
+    projectId: string | number,
+    issueIId: number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>[]>;
 
   create(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     body: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 
   edit(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 
-  remove(projectId: string | number, issueId: string | number, noteId: number, options?: Sudo);
+  remove(
+    projectId: string | number,
+    issueIId: number,
+    noteId: number,
+    options?: Sudo,
+  ): Promise<void>;
 
-  show(projectId: string | number, issueId: string | number, noteId: number, options?: Sudo);
+  show(
+    projectId: string | number,
+    issueIId: number,
+    noteId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
 }
 
-export class IssueNotes extends ResourceNotes {
-  constructor(options: BaseServiceOptions = {}) {
+export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'issues', options);
   }
 }

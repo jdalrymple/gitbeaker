@@ -6,11 +6,24 @@ import {
   Sudo,
 } from '../infrastructure';
 
-type DeployTokenScope = 'read_repository' | 'read_registry' | 'write_registry';
+export type DeployTokenScope =
+  | 'read_repository'
+  | 'read_registry'
+  | 'write_registry'
+  | 'read_package_registry'
+  | 'write_package_registry';
+
+export interface DeployTokenSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  username: string;
+  expires_at: string;
+  scopes?: string[];
+}
 
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
-export class ResourceDeployTokens extends BaseService {
-  constructor(resourceType: string, options: BaseServiceOptions) {
+export class ResourceDeployTokens<C extends boolean = false> extends BaseService<C> {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 
@@ -20,28 +33,38 @@ export class ResourceDeployTokens extends BaseService {
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post(this, `${encodeURIComponent(resourceId)}/deploy_tokens`, {
-      name: tokenName,
-      scopes: tokenScopes,
-      ...options,
-    });
+    return RequestHelper.post<DeployTokenSchema>()(
+      this,
+      `${encodeURIComponent(resourceId)}/deploy_tokens`,
+      {
+        name: tokenName,
+        scopes: tokenScopes,
+        ...options,
+      },
+    );
   }
 
-  all({ resourceId, ...options }: { resourceId?: string | number } & PaginatedRequestOptions) {
-    let url;
+  all({
+    resourceId,
+    projectId,
+    groupId,
+    ...options
+  }: {
+    resourceId?: string | number;
+    projectId?: string | number;
+    groupId?: string | number;
+  } & PaginatedRequestOptions = {}) {
+    const prefix =
+      resourceId || projectId || groupId
+        ? `${encodeURIComponent((resourceId || projectId || groupId) as string)}/`
+        : '';
 
-    if (resourceId) {
-      url = `${encodeURIComponent(resourceId)}/deploy_tokens`;
-    } else {
-      url = 'deploy_tokens';
-    }
-
-    return RequestHelper.get(this, url, options);
+    return RequestHelper.get<DeployTokenSchema[]>()(this, `${prefix}deploy_tokens`, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
     const [rId, tId] = [resourceId, tokenId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `${rId}/deploy_tokens/${tId}`, options);
+    return RequestHelper.del()(this, `${rId}/deploy_tokens/${tId}`, options);
   }
 }

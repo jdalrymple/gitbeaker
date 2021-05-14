@@ -1,5 +1,5 @@
-import * as Sywac from 'sywac';
-import * as Chalk from 'chalk';
+import Sywac from 'sywac';
+import Chalk from 'chalk';
 import { camelize, decamelize, depascalize } from 'xcase';
 import * as Gitbeaker from '@gitbeaker/node';
 import { getAPIMap } from '@gitbeaker/core';
@@ -91,9 +91,16 @@ const ignoreOptions = ['_', '$0', 'v', 'version', 'h', 'help', 'g', 'global-args
 
 // Helper function to param case strings
 function param(string) {
-  const attempt = decamelize(string, '-');
+  let cleaned = string;
 
-  return attempt !== string ? attempt : depascalize(string, '-');
+  // Handle exceptions
+  if (string.includes('GitLabCI')) cleaned = cleaned.replace('GitLabCI', 'Gitlabci');
+  if (string.includes('YML')) cleaned = cleaned.replace('YML', 'Yml');
+  if (string.includes('GPG')) cleaned = cleaned.replace('GPG', 'Gpg');
+
+  const attempt = decamelize(cleaned, '-');
+
+  return attempt !== cleaned ? attempt : depascalize(cleaned, '-');
 }
 
 function setupAPIMethods(setupArgs, methodArgs) {

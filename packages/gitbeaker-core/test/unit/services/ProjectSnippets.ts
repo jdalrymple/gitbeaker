@@ -1,7 +1,10 @@
 import { ProjectSnippets } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: ProjectSnippets;
 
@@ -27,7 +30,7 @@ describe('ProjectSnippets.all', () => {
   it('should request GET /projects/:id/snippets', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/snippets', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/snippets', undefined);
   });
 });
 
@@ -35,7 +38,11 @@ describe('ProjectSnippets.content', () => {
   it('should request GET /projects/:id/snippets/:id/raw', async () => {
     await service.content(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/snippets/2/raw', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/snippets/2/raw',
+      undefined,
+    );
   });
 });
 
@@ -45,7 +52,7 @@ describe('ProjectSnippets.create', () => {
       description: 'Hello World snippet',
     });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/snippets', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/snippets', {
       title: 'This is a snippet',
       fileName: 'test.txt',
       code: 'Hello world',
@@ -59,7 +66,7 @@ describe('ProjectSnippets.edit', () => {
   it('should request PUT /projects/:id/snippets', async () => {
     await service.edit(1, 2, { name: 'test snippet 2' });
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/1/snippets/2', {
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/snippets/2', {
       name: 'test snippet 2',
     });
   });
@@ -69,7 +76,7 @@ describe('ProjectSnippets.remove', () => {
   it('should request DELETE /projects/:id/snippets/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/snippets/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/snippets/2', undefined);
   });
 });
 
@@ -77,7 +84,7 @@ describe('ProjectSnippets.show', () => {
   it('should request GET /projects/:id/snippets/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/snippets/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/snippets/2', undefined);
   });
 });
 
@@ -85,7 +92,7 @@ describe('ProjectSnippets.userAgentDetails', () => {
   it('should request GET /projects/:id/snippets/:id/user_agent_detail', async () => {
     await service.userAgentDetails(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/snippets/2/user_agent_detail',
       undefined,

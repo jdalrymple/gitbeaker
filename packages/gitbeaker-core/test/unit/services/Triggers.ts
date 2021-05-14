@@ -1,7 +1,10 @@
 import { Triggers } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: Triggers;
 
@@ -27,7 +30,7 @@ describe('Triggers.all', () => {
   it('should request GET /projects/:id/triggers', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/triggers', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/triggers', undefined);
   });
 });
 
@@ -35,7 +38,7 @@ describe('Triggers.add', () => {
   it('should request POST /projects/:id/triggers', async () => {
     await service.add(1);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/triggers', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/triggers', undefined);
   });
 });
 
@@ -43,7 +46,7 @@ describe('Triggers.edit', () => {
   it('should request PUT /projects/:id/triggers/:id', async () => {
     await service.edit(1, 2, { prop: 5 });
 
-    expect(RequestHelper.put).toHaveBeenCalledWith(service, 'projects/1/triggers/2', {
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/triggers/2', {
       prop: 5,
     });
   });
@@ -53,7 +56,7 @@ describe('Triggers.pipeline', () => {
   it('should request PUT /projects/:id/trigger/pipeline with variables', async () => {
     await service.pipeline(1, 'main', 'abcd', { variables: { VAR_ONE: 'val' } });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/trigger/pipeline', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/trigger/pipeline', {
       isForm: true,
       ref: 'main',
       token: 'abcd',
@@ -64,7 +67,7 @@ describe('Triggers.pipeline', () => {
   it('should request PUT /projects/:id/trigger/pipeline without variables', async () => {
     await service.pipeline(1, 'main', 'abcd');
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/trigger/pipeline', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/trigger/pipeline', {
       isForm: true,
       ref: 'main',
       token: 'abcd',
@@ -76,7 +79,7 @@ describe('Triggers.show', () => {
   it('should request GET /projects/:id/triggers/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/triggers/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/triggers/2', undefined);
   });
 });
 
@@ -84,6 +87,6 @@ describe('Triggers.remove', () => {
   it('should request DELETE /projects/:id/triggers/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del).toHaveBeenCalledWith(service, 'projects/1/triggers/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/triggers/2', undefined);
   });
 });

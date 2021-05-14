@@ -1,7 +1,10 @@
 import { ResourceTemplates } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: ResourceTemplates;
 
@@ -28,7 +31,7 @@ describe('ResourceTemplates.all', () => {
   it('should call the correct url', async () => {
     await service.all();
 
-    expect(RequestHelper.get).toBeCalledWith(service, '', undefined);
+    expect(RequestHelper.get()).toBeCalledWith(service, '', undefined);
   });
 });
 
@@ -36,6 +39,6 @@ describe('ResourceTemplates.show', () => {
   it('should call the correct url with a resource id', async () => {
     await service.show(6);
 
-    expect(RequestHelper.get).toBeCalledWith(service, '6', undefined);
+    expect(RequestHelper.get()).toBeCalledWith(service, '6', undefined);
   });
 });

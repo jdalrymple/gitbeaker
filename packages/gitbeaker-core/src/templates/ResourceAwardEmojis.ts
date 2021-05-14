@@ -1,76 +1,76 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { UserSchema } from '../services/Users';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
-function url(
+export interface AwardEmojiSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  user: UserSchema;
+  created_at: string;
+  updated_at: string;
+  awardable_id: number;
+  awardable_type: string;
+}
+
+export function url(
   projectId: number | string,
   resourceType: string,
   resourceId: number | string,
-  noteId: number,
-  awardId?: number,
+  awardId?: number | null,
+  noteId?: number,
 ) {
-  const [pId, rId, nId] = [projectId, resourceId, noteId].map(encodeURIComponent);
-  const output = [pId, resourceType, rId, 'notes', nId, 'award_emoji'];
+  const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
+  const output = [pId, resourceType, rId];
+
+  if (noteId) output.push('notes', encodeURIComponent(noteId));
+
+  output.push('award_emoji');
 
   if (awardId) output.push(encodeURIComponent(awardId));
 
   return output.join('/');
 }
 
-export class ResourceAwardEmojis extends BaseService {
+export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<C> {
   protected resourceType: string;
 
-  constructor(resourceType: string, options: BaseServiceOptions) {
+  constructor(resourceType: string, options: BaseServiceOptions<C>) {
     super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;
   }
 
-  all(
-    projectId: string | number,
-    resourceId: string | number,
-    noteId: number,
-    options?: PaginatedRequestOptions,
-  ) {
-    return RequestHelper.get(this, url(projectId, this.resourceType, resourceId, noteId), options);
-  }
-
-  award(
-    projectId: string | number,
-    resourceId: string | number,
-    noteId: number,
-    name: string,
-    options?: Sudo,
-  ) {
-    return RequestHelper.post(this, url(projectId, this.resourceType, resourceId, noteId), {
-      name,
-      ...options,
-    });
-  }
-
-  remove(
-    projectId: string | number,
-    resourceId: string | number,
-    noteId: number,
-    awardId: number,
-    options?: Sudo,
-  ) {
-    return RequestHelper.del(
+  all(projectId: string | number, resourceIId: number, options?: PaginatedRequestOptions) {
+    return RequestHelper.get<AwardEmojiSchema[]>()(
       this,
-      url(projectId, this.resourceType, resourceId, noteId, awardId),
+      url(projectId, this.resourceType, resourceIId),
       options,
     );
   }
 
-  show(
-    projectId: string | number,
-    resourceId: string | number,
-    noteId: number,
-    awardId: number,
-    options?: Sudo,
-  ) {
-    return RequestHelper.get(
+  award(projectId: string | number, resourceIId: number, name: string, options?: Sudo) {
+    return RequestHelper.post<AwardEmojiSchema>()(
       this,
-      url(projectId, this.resourceType, resourceId, noteId, awardId),
+      url(projectId, this.resourceType, resourceIId),
+      {
+        name,
+        ...options,
+      },
+    );
+  }
+
+  remove(projectId: string | number, resourceIId: number, awardId: number, options?: Sudo) {
+    return RequestHelper.del()(
+      this,
+      url(projectId, this.resourceType, resourceIId, awardId),
+      options,
+    );
+  }
+
+  show(projectId: string | number, resourceIId: number, awardId: number, options?: Sudo) {
+    return RequestHelper.get<AwardEmojiSchema>()(
+      this,
+      url(projectId, this.resourceType, resourceIId, awardId),
       options,
     );
   }

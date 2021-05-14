@@ -1,4 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { IssueSchema } from './Issues';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -6,28 +7,50 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class EpicIssues extends BaseService {
-  all(groupId: string | number, epicId: number, options?: PaginatedRequestOptions) {
-    const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
+export interface EpicIssueSchema
+  extends Omit<IssueSchema, 'references' | 'task_completion_status'> {
+  epic_issue_id: number;
+}
 
-    return RequestHelper.get(this, `groups/${gId}/epics/${eId}/issues`, options);
+export class EpicIssues<C extends boolean = false> extends BaseService<C> {
+  all(groupId: string | number, epicIId: number, options?: PaginatedRequestOptions) {
+    const [gId, eId] = [groupId, epicIId].map(encodeURIComponent);
+
+    return RequestHelper.get<EpicIssueSchema[]>()(
+      this,
+      `groups/${gId}/epics/${eId}/issues`,
+      options,
+    );
   }
 
-  assign(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  assign(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
-    return RequestHelper.post(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.post<EpicIssueSchema>()(
+      this,
+      `groups/${gId}/epics/${eId}/issues/${iId}`,
+      options,
+    );
   }
 
-  edit(groupId: string | number, epicId: number, issueId: number, options?: BaseRequestOptions) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  edit(
+    groupId: string | number,
+    epicIId: number,
+    epicIssueId: number,
+    options?: BaseRequestOptions,
+  ) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.put<EpicIssueSchema>()(
+      this,
+      `groups/${gId}/epics/${eId}/issues/${iId}`,
+      options,
+    );
   }
 
-  remove(groupId: string | number, epicId: number, issueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicId, issueId].map(encodeURIComponent);
+  remove(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
+    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.del()(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
   }
 }

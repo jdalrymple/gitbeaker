@@ -1,3 +1,83 @@
+# v29.0.0 (Fri May 14 2021)
+
+#### 💥 Breaking Change
+
+- Update service typing and peripheral endpoints [#1768](https://github.com/jdalrymple/gitbeaker/pull/1768) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-node-resolve from 11.2.1 to 13.0.0 [#1753](https://github.com/jdalrymple/gitbeaker/pull/1753) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 18.1.0 to 19.0.0 [#1754](https://github.com/jdalrymple/gitbeaker/pull/1754) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump puppeteer from 9.0.0 to 9.1.1 [#1750](https://github.com/jdalrymple/gitbeaker/pull/1750) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.4.0 (Tue May 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 8.0.0 to 9.0.0 [#1705](https://github.com/jdalrymple/gitbeaker/pull/1705) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump jest-puppeteer from 4.4.0 to 5.0.2 [#1709](https://github.com/jdalrymple/gitbeaker/pull/1709) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.3.0 (Sun Apr 04 2021)
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @rollup/plugin-commonjs from 17.1.0 to 18.0.0 [#1668](https://github.com/jdalrymple/gitbeaker/pull/1668) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 1
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+
+---
+
+# v28.2.0 (Sat Mar 20 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix #1624 - Fixed mime type handling [#1633](https://github.com/jdalrymple/gitbeaker/pull/1633) ([@Pryx](https://github.com/Pryx))
+
+#### Authors: 1
+
+- Vojtěch Sajdl ([@Pryx](https://github.com/Pryx))
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump puppeteer from 7.0.0 to 7.1.0 [#1556](https://github.com/jdalrymple/gitbeaker/pull/1556) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 6.0.0 to 7.0.0 [#1522](https://github.com/jdalrymple/gitbeaker/pull/1522) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- chore(deps-dev): bump puppeteer from 5.5.0 to 6.0.0 [#1513](https://github.com/jdalrymple/gitbeaker/pull/1513) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.0.3 (Sun Jan 24 2021)
 
 #### 🐛 Bug Fix

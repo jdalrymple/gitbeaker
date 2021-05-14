@@ -1,3 +1,59 @@
+# v29.0.0 (Fri May 14 2021)
+
+#### 💥 Breaking Change
+
+- Update service typing and peripheral endpoints [#1768](https://github.com/jdalrymple/gitbeaker/pull/1768) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump fs-extra from 9.1.0 to 10.0.0 [#1738](https://github.com/jdalrymple/gitbeaker/pull/1738) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.4.0 (Tue May 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@divido](https://github.com/divido), for all your work!
+
+#### 🐛 Bug Fix
+
+- Change Issues.unsubscribe to a POST operation instead of DELETE [#1726](https://github.com/jdalrymple/gitbeaker/pull/1726) ([@divido](https://github.com/divido) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps-dev): bump @types/node from 14.14.41 to 15.0.1 [#1719](https://github.com/jdalrymple/gitbeaker/pull/1719) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 3
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- [@divido](https://github.com/divido)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v28.1.0 (Sun Mar 14 2021)
+
+#### 🐛 Bug Fix
+
+- Package updates to fix build pipeline \[skip ci\] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump form-data from 3.0.0 to 4.0.0 [#1558](https://github.com/jdalrymple/gitbeaker/pull/1558) ([@dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+
+#### Authors: 2
+
+- [@dependabot-preview[bot]](https://github.com/dependabot-preview[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # vnull (Sun Jan 03 2021)
 
 #### ⚠️ Pushed to `master`

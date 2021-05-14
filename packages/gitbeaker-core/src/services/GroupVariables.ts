@@ -1,28 +1,36 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables, ResourceVariableSchema } from '../templates';
-import { PaginatedRequestOptions, BaseRequestOptions } from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, CamelizedRecord } from '../infrastructure';
 
-export interface GroupVariables extends ResourceVariables {
+export interface GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
   all(
     groupId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema[]>;
+  ): Promise<CamelizedRecord<C, ResourceVariableSchema>[]>;
 
-  create(groupId: string | number, options?: BaseRequestOptions);
+  create(
+    groupId: string | number,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
-  edit(groupId: string | number, keyId: string, options?: BaseRequestOptions);
+  edit(
+    groupId: string | number,
+    key: string,
+    options?: BaseRequestOptions,
+  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
   show(
     groupId: string | number,
-    keyId: string,
+    key: string,
     options?: PaginatedRequestOptions,
-  ): Promise<ResourceVariableSchema>;
+  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
 
-  remove(groupId: string | number, keyId: string, options?: PaginatedRequestOptions);
+  remove(groupId: string | number, key: string, options?: PaginatedRequestOptions): Promise<void>;
 }
 
-export class GroupVariables extends ResourceVariables {
-  constructor(options: BaseServiceOptions = {}) {
+export class GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('groups', options);
   }
 }

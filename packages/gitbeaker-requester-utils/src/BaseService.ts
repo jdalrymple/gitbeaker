@@ -7,7 +7,7 @@ export interface NativeAuth {
   gitlabCSRFTokenValue: string;
 }
 
-export interface BaseServiceOptions {
+export interface BaseServiceOptions<C> {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
@@ -16,7 +16,7 @@ export interface BaseServiceOptions {
   prefixUrl?: string;
   version?: 3 | 4;
   rejectUnauthorized?: boolean;
-  camelize?: boolean;
+  camelize?: C;
   requesterFn?: (serviceOptions: DefaultServiceOptions) => RequesterType;
   requestTimeout?: number;
   profileToken?: string;
@@ -24,7 +24,7 @@ export interface BaseServiceOptions {
   profileMode?: 'execution' | 'memory';
 }
 
-export class BaseService {
+export class BaseService<C extends boolean = false> {
   public readonly url: string;
 
   public readonly requester: RequesterType;
@@ -33,7 +33,7 @@ export class BaseService {
 
   public readonly headers: { [header: string]: string };
 
-  public readonly camelize: boolean;
+  public readonly camelize: C | undefined;
 
   public readonly rejectUnauthorized: boolean;
 
@@ -47,14 +47,14 @@ export class BaseService {
     sudo,
     profileToken,
     requesterFn,
+    camelize,
     profileMode = 'execution',
     host = 'https://gitlab.com',
     prefixUrl = '',
     version = 4,
-    camelize = false,
     rejectUnauthorized = true,
     requestTimeout = 300000,
-  }: BaseServiceOptions = {}) {
+  }: BaseServiceOptions<C> = {}) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
     this.url = [host, 'api', `v${version}`, prefixUrl].join('/');

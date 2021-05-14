@@ -14,7 +14,6 @@ export const {
   GroupIssueBoards,
   GroupMembers,
   GroupMilestones,
-  GroupProjects,
   GroupRunners,
   GroupVariables,
   GroupLabels,
@@ -28,7 +27,7 @@ export const {
   UserCustomAttributes,
   UserEmails,
   UserImpersonationTokens,
-  UserKeys,
+  UserSSHKeys,
   UserGPGKeys,
 
   // Projects
@@ -43,6 +42,7 @@ export const {
   Issues,
   IssuesStatistics,
   IssueNotes,
+  IssueNoteAwardEmojis,
   IssueDiscussions,
   IssueAwardEmojis,
   Jobs,
@@ -94,7 +94,7 @@ export const {
   GitLabCIYMLTemplates,
   Keys,
   License,
-  LicenceTemplates,
+  LicenseTemplates,
   Lint,
   Namespaces,
   NotificationSettings,

@@ -51,19 +51,15 @@ export function processBody({
   // Split to remove potential charset info from the content type
   const contentType = ((headers['content-type'] as string) || '').split(';')[0].trim();
 
-  switch (contentType) {
-    case 'application/json': {
-      return rawBody.length === 0 ? {} : JSON.parse(rawBody.toString());
-    }
-    case 'application/octet-stream':
-    case 'binary/octet-stream':
-    case 'application/gzip': {
-      return Buffer.from(rawBody);
-    }
-    default: {
-      return rawBody.toString();
-    }
+  if (contentType === 'application/json') {
+    return rawBody.length === 0 ? {} : JSON.parse(rawBody.toString());
   }
+
+  if (contentType.startsWith('text/')) {
+    return rawBody.toString();
+  }
+
+  return Buffer.from(rawBody);
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
@@ -74,7 +70,11 @@ export async function handler(endpoint: string, options: Record<string, unknown>
   for (let i = 0; i < maxRetries; i += 1) {
     const waitTime = 2 ** i * 0.1;
     try {
-      if (options.method === 'stream') return Got(endpoint, options);
+      if (options.method === 'stream') {
+        options.method = 'get';
+        options.isStream = true;
+        return Got(endpoint, options);
+      }
       response = await Got(endpoint, options); // eslint-disable-line
       break;
     } catch (e) {

@@ -1,6 +1,9 @@
 import { GitignoreTemplates } from '../../../src';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: GitignoreTemplates;
 

@@ -1,7 +1,10 @@
 import { ProjectImportExport } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock('../../../src/infrastructure/RequestHelper');
+jest.mock(
+  '../../../src/infrastructure/RequestHelper',
+  () => require('../../__mocks__/RequestHelper').default,
+);
 
 let service: ProjectImportExport;
 
@@ -27,7 +30,7 @@ describe('ProjectImportExport.download', () => {
   it('should request GET /projects/:id/export/download', async () => {
     await service.download(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/export/download',
       undefined,
@@ -39,7 +42,7 @@ describe('ProjectImportExport.exportStatus', () => {
   it('should request GET /projects/:id/export', async () => {
     await service.exportStatus(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/export', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/export', undefined);
   });
 });
 
@@ -47,7 +50,7 @@ describe('ProjectImportExport.import', () => {
   it('should request POST /projects/import', async () => {
     await service.import('content', 'path');
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/import', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
       file: [
         'content',
@@ -60,7 +63,7 @@ describe('ProjectImportExport.import', () => {
   it('should request POST /projects/import with metadata', async () => {
     await service.import('content', 'path', { metadata: { filename: 'filename' } });
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/import', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
       file: ['content', { filename: 'filename', contentType: 'application/octet-stream' }],
       path: 'path',
@@ -72,7 +75,7 @@ describe('ProjectImportExport.importStatus', () => {
   it('should request GET /projects/:id/import', async () => {
     await service.importStatus(1);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(service, 'projects/1/import', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/import', undefined);
   });
 });
 
@@ -80,6 +83,6 @@ describe('ProjectImportExport.schedule', () => {
   it('should request POST /projects/:id/export', async () => {
     await service.schedule(1);
 
-    expect(RequestHelper.post).toHaveBeenCalledWith(service, 'projects/1/export', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/export', undefined);
   });
 });
