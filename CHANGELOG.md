@@ -1,3 +1,31 @@
+# 29.1.0 (Fri May 14 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - add Jobs.showPipelineBridges [#1766](https://github.com/jdalrymple/gitbeaker/pull/1766) ([@vboulaye](https://github.com/vboulaye) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @auto-it/all-contributors from 10.26.1 to 10.27.1 [#1772](https://github.com/jdalrymple/gitbeaker/pull/1772) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @auto-it/first-time-contributor from 10.26.1 to 10.27.1 [#1773](https://github.com/jdalrymple/gitbeaker/pull/1773) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @types/node from 15.0.2 to 15.0.3 [#1774](https://github.com/jdalrymple/gitbeaker/pull/1774) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.22.1 to 4.23.0 [#1764](https://github.com/jdalrymple/gitbeaker/pull/1764) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.22.1 to 4.23.0 [#1765](https://github.com/jdalrymple/gitbeaker/pull/1765) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.27.0 to 10.27.1 [#1771](https://github.com/jdalrymple/gitbeaker/pull/1771) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Vincent Boulaye ([@vboulaye](https://github.com/vboulaye))
+
+---
+
 # 29.0.0 (Fri May 14 2021)
 
 #### 💥 Breaking Change

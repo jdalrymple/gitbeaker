@@ -1,3 +1,20 @@
+# v29.1.0 (Fri May 14 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all your work!
+
+#### 💥 Feature
+
+- add Jobs.showPipelineBridges [#1766](https://github.com/jdalrymple/gitbeaker/pull/1766) ([@vboulaye](https://github.com/vboulaye) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Vincent Boulaye ([@vboulaye](https://github.com/vboulaye))
+
+---
+
 # v29.0.0 (Fri May 14 2021)
 
 #### 💥 Breaking Change
