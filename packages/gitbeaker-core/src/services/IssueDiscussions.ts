@@ -1,53 +1,63 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDiscussions } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceDiscussions, DiscussionSchema } from '../templates';
+import {
+  BaseRequestOptions,
+  PaginatedRequestOptions,
+  Sudo,
+  CamelizedRecord,
+} from '../infrastructure';
 
-export interface IssueDiscussions extends ResourceDiscussions {
+export interface IssueDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(
     projectId: string | number,
-    issueId: string | number,
-    discussionId: string | number,
+    issueIId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
-  all(projectId: string | number, issueId: string | number, options?: PaginatedRequestOptions);
+  all(
+    projectId: string | number,
+    issueIId: number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
   create(
     projectId: string | number,
-    issueId: string | number,
+    issueIId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   editNote(
     projectId: string | number,
-    issueId: string | number,
-    discussionId: string | number,
+    issueIId: number,
+    discussionId: number,
     noteId: number,
     content: string,
     options?: BaseRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(
     projectId: string | number,
-    issueId: string | number,
-    discussionId: string | number,
+    issueIId: number,
+    discussionId: number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,
-    issueId: string | number,
-    discussionId: string | number,
+    issueIId: number,
+    discussionId: number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }
 
-export class IssueDiscussions extends ResourceDiscussions {
-  constructor(options: BaseServiceOptions = {}) {
+export class IssueDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('projects', 'issues', options);
   }
 }

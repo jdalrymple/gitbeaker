@@ -1,42 +1,39 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAwardEmojis } from '../templates';
-import { PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceAwardEmojis, AwardEmojiSchema } from '../templates';
+import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
 
-export interface MergeRequestAwardEmojis extends ResourceAwardEmojis {
+export interface MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
   all(
     projectId: string | number,
-    mergerequestId: string | number,
-    noteId: number,
+    mergerequestIId: number,
     options?: PaginatedRequestOptions,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>[]>;
 
   award(
     projectId: string | number,
-    mergerequestId: string | number,
-    noteId: number,
+    mergerequestIId: number,
     name: string,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
 
   remove(
     projectId: string | number,
-    mergerequestId: string | number,
+    mergerequestIId: number,
     awardId: number,
-    noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,
-    mergerequestId: string | number,
+    mergerequestIId: number,
     awardId: number,
-    noteId: number,
     options?: Sudo,
-  );
+  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
 }
 
-export class MergeRequestAwardEmojis extends ResourceAwardEmojis {
-  constructor(options: BaseServiceOptions = {}) {
+export class MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('merge_requests', options);
   }
 }

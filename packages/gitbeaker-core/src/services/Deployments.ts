@@ -1,81 +1,98 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-import { CommitSchemaDefault, CommitSchemaCamelized } from './Commits';
-import { PipelineSchemaDefault, PipelineSchemaCamelized } from './Pipelines';
-import { UserSchemaDefault, UserSchemaCamelized } from './Users';
-import { RunnerSchemaDefault, RunnerSchemaCamelized } from './Runners';
+import { CommitSchema } from './Commits';
+import { PipelineSchema } from './Pipelines';
+import { UserSchema } from './Users';
+import { RunnerSchema } from './Runners';
+import { EnvironmentSchema } from './Environments';
+import { MergeRequestSchema } from './MergeRequests';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
-// Ref: https://docs.gitlab.com/12.6/ee/api/deployments.html#list-project-deployments
-export interface DeploymentSchemaDefault {
-  id: number;
-  iid: number;
-  ref: string;
-  sha: string;
-  user: UserSchemaDefault;
-}
-
-export interface DeploymentSchemaCamelized {
-  id: number;
-  iid: number;
-  ref: string;
-  sha: string;
-  user: UserSchemaCamelized;
-}
-
-export interface DeployableDefault {
+export interface DeployableSchema {
   id: number;
   ref: string;
   name: string;
-  runner?: RunnerSchemaDefault;
+  runner?: RunnerSchema;
   stage?: string;
   started_at?: Date;
   status?: DeploymentStatus;
   tag: boolean;
-  commit?: CommitSchemaDefault;
+  commit?: CommitSchema;
   coverage?: string;
   created_at?: Date;
   finished_at?: Date;
-  user?: UserSchemaDefault;
-  pipeline?: PipelineSchemaDefault;
+  user?: UserSchema;
+  pipeline?: PipelineSchema;
 }
 
-export interface DeployableCamelized {
+export type DeploymentSchema = {
   id: number;
+  iid: number;
   ref: string;
-  name: string;
-  runner?: RunnerSchemaCamelized;
-  stage?: string;
-  startedAt?: Date;
-  status?: DeploymentStatus;
-  tag: boolean;
-  commit?: CommitSchemaCamelized;
-  coverage?: string;
-  createdAt?: Date;
-  finishedAt?: Date;
-  user?: UserSchemaCamelized;
-  pipeline?: PipelineSchemaCamelized;
-}
+  sha: string;
+  user: UserSchema;
+  created_at: string;
+  updated_at: string;
+  status: DeploymentStatus;
+  deployable: DeployableSchema;
+  environment: EnvironmentSchema;
+};
 
-export type Deployable = DeployableDefault | DeployableCamelized;
-
-export class Deployments extends BaseService {
+export class Deployments<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments`, options);
+    return RequestHelper.get<DeploymentSchema[]>()(this, `projects/${pId}/deployments`, options);
+  }
+
+  create(
+    projectId: string | number,
+    environment: string,
+    sha: string,
+    ref: string,
+    tag: string,
+    status: DeploymentStatus,
+    options?: Sudo,
+  ) {
+    const [pId] = [projectId].map(encodeURIComponent);
+
+    return RequestHelper.post<DeploymentSchema>()(this, `projects/${pId}/deployments`, {
+      environment,
+      sha,
+      ref,
+      tag,
+      status,
+      ...options,
+    });
+  }
+
+  edit(projectId: string | number, deploymentId: number, status: DeploymentStatus, options?: Sudo) {
+    const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
+
+    return RequestHelper.put<DeploymentSchema>()(this, `projects/${pId}/deployments/${dId}`, {
+      status,
+      ...options,
+    });
   }
 
   show(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}`, options);
+    return RequestHelper.get<DeploymentSchema>()(
+      this,
+      `projects/${pId}/deployments/${dId}`,
+      options,
+    );
   }
 
   mergeRequests(projectId: string | number, deploymentId: number, options?: Sudo) {
     const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/deployments/${dId}/merge_requests`, options);
+    return RequestHelper.get<MergeRequestSchema[]>()(
+      this,
+      `projects/${pId}/deployments/${dId}/merge_requests`,
+      options,
+    );
   }
 }

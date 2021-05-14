@@ -1,4 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { UserSchema } from './Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -6,23 +7,38 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export class Triggers extends BaseService {
+export interface PipelineTriggerSchema extends Record<string, unknown> {
+  id: number;
+  description: string;
+  created_at: string;
+  last_used?: string;
+  token: string;
+  updated_at: string;
+  owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
+}
+
+// TODO: Rename PipelineTriggers
+export class Triggers<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.post<PipelineTriggerSchema>()(this, `projects/${pId}/triggers`, options);
   }
 
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.get<PipelineTriggerSchema[]>()(this, `projects/${pId}/triggers`, options);
   }
 
   edit(projectId: string | number, triggerId: number, options?: BaseRequestOptions) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.put(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.put<PipelineTriggerSchema>()(
+      this,
+      `projects/${pId}/triggers/${tId}`,
+      options,
+    );
   }
 
   pipeline(
@@ -40,7 +56,7 @@ export class Triggers extends BaseService {
       });
     }
 
-    return RequestHelper.post(this, `projects/${pId}/trigger/pipeline`, {
+    return RequestHelper.post()(this, `projects/${pId}/trigger/pipeline`, {
       isForm: true,
       ref,
       token,
@@ -51,12 +67,16 @@ export class Triggers extends BaseService {
   remove(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.del(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/triggers/${tId}`, options);
   }
 
   show(projectId: string | number, triggerId: number, options?: Sudo) {
     const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.get<PipelineTriggerSchema>()(
+      this,
+      `projects/${pId}/triggers/${tId}`,
+      options,
+    );
   }
 }

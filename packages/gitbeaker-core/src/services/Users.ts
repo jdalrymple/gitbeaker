@@ -5,100 +5,93 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
+import { ProjectExtendedSchema } from './Projects';
+import { EventOptions, EventSchema } from './Events';
 
-import { EventOptions } from './Events';
-
-export interface UserSchemaDefault {
+export interface UserSchema extends Record<string, unknown> {
   id: number;
   name: string;
   username: string;
   state: string;
   avatar_url: string;
   web_url: string;
+  created_at?: string;
 }
 
-export interface UserSchemaCamelized {
-  id: number;
-  name: string;
-  username: string;
-  state: string;
-  avatarUrl: string;
-  webUrl: string;
-}
-
-// As of GitLab v12.6.2
-export type UserSchema = UserSchemaDefault | UserSchemaCamelized;
-
-export interface UserDetailSchemaDefault extends UserSchemaDefault {
-  created_at: Date;
+export interface UserExtendedSchema extends UserSchema {
   bio?: string;
   location?: string;
   public_email: string;
   skype: string;
   linkedin: string;
   twitter: string;
-  website_url?: string;
+  website_url: string;
   organization?: string;
+  last_sign_in_at: string;
+  confirmed_at: string;
+  last_activity_on: string;
+  email: string;
+  theme_id: number;
+  color_scheme_id: number;
+  projects_limit: number;
+  current_sign_in_at?: string;
+  identities?: string[];
+  can_create_group: boolean;
+  can_create_project: boolean;
+  two_factor_enabled: boolean;
+  external: boolean;
+  private_profile?: string;
 }
 
-export interface UserDetailSchemaCamelized extends UserSchemaCamelized {
-  createdAt: Date;
-  bio?: string;
-  location?: string;
-  publicEmail: string;
-  skype: string;
-  linkedin: string;
-  twitter: string;
-  websiteUrl?: string;
-  organization?: string;
+export interface UserActivitySchema extends Record<string, unknown> {
+  username: string;
+  last_activity_on: string;
+  last_activity_at: string;
 }
 
-// As of GitLab v12.6.2
-export type UserDetailSchema = UserDetailSchemaDefault | UserSchemaCamelized;
-
-export class Users extends BaseService {
+export class Users<C extends boolean = false> extends BaseService<C> {
   all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get(this, 'users', options);
+    return RequestHelper.get<UserSchema[]>()(this, 'users', options);
   }
 
   activities(options?: Sudo) {
-    return RequestHelper.get(this, 'users/activities', options);
+    return RequestHelper.get<UserActivitySchema[]>()(this, 'users/activities', options);
   }
 
   projects(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/projects`, options);
+    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `users/${uId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/block`, options);
+    return RequestHelper.post()(this, `users/${uId}/block`, options);
   }
 
   create(options?: BaseRequestOptions) {
-    return RequestHelper.post(this, 'users', options);
+    return RequestHelper.post<UserSchema>()(this, 'users', options);
   }
 
   current(options?: Sudo) {
-    return RequestHelper.get(this, 'user', options);
+    return RequestHelper.get<UserSchema>()(this, 'user', options);
   }
 
   edit(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.put(this, `users/${uId}`, options);
+    return RequestHelper.put<UserSchema>()(this, `users/${uId}`, options);
   }
 
   events(userId: number, options?: BaseRequestOptions & EventOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}/events`, options);
+    return RequestHelper.get<EventSchema[]>()(this, `users/${uId}/events`, options);
   }
 
   search(emailOrUsername: string, options?: Sudo) {
-    return RequestHelper.get(this, 'users', {
+    return RequestHelper.get<UserSchema>()(this, 'users', {
       search: emailOrUsername,
       ...options,
     });
@@ -107,18 +100,18 @@ export class Users extends BaseService {
   show(userId: number, options?: BaseRequestOptions) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.get(this, `users/${uId}`, options);
+    return RequestHelper.get<UserSchema>()(this, `users/${uId}`, options);
   }
 
   remove(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.del(this, `users/${uId}`, options);
+    return RequestHelper.del()(this, `users/${uId}`, options);
   }
 
   unblock(userId: number, options?: Sudo) {
     const uId = encodeURIComponent(userId);
 
-    return RequestHelper.post(this, `users/${uId}/unblock`, options);
+    return RequestHelper.post()(this, `users/${uId}/unblock`, options);
   }
 }

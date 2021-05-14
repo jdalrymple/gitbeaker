@@ -1,4 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
+import { UserSchema } from './Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -19,68 +20,97 @@ export type PipelineStatus =
   | 'manual'
   | 'scheduled';
 
-export interface PipelineBase {
+export interface PipelineSchema extends Record<string, unknown> {
   id: number;
-  sha: string;
-  ref: string;
   status: PipelineStatus;
-}
-
-export interface PipelineSchemaDefault extends PipelineBase {
-  created_at: Date;
-  updated_at: Date;
+  ref: string;
+  sha: string;
   web_url: string;
+  created_at: string;
+  updated_at: string;
+  user: Pick<UserSchema, 'name' | 'avatar_url'>;
 }
 
-export interface PipelineSchemaCamelized extends PipelineBase {
-  createdAt: Date;
-  updatedAt: Date;
-  webUrl: string;
+export interface PipelineExtendedSchema extends PipelineSchema {
+  project_id: number;
+  before_sha: string;
+  tag: boolean;
+  yaml_errors?: string;
+  user: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
+  started_at?: string;
+  finished_at: string;
+  committed_at?: string;
+  duration?: string;
+  coverage?: string;
 }
 
-// As of GitLab v12.6.2
-export type PipelineSchema = PipelineSchemaDefault | PipelineSchemaCamelized;
+export interface PipelineVariableSchema extends Record<string, unknown> {
+  key: string;
+  variable_type?: string;
+  value: string;
+}
 
-export class Pipelines extends BaseService {
+// TODO: Add missing function
+
+export class Pipelines<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines`, options);
+    return RequestHelper.get<PipelineSchema[]>()(this, `projects/${pId}/pipelines`, options);
   }
 
   create(projectId: string | number, ref: string, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
+    return RequestHelper.post<PipelineSchema>()(this, `projects/${pId}/pipeline`, {
+      ref,
+      ...options,
+    });
   }
 
   delete(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/pipelines/${pipelineId}`, options);
   }
 
   show(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+    return RequestHelper.get<PipelineSchema>()(
+      this,
+      `projects/${pId}/pipelines/${pipelineId}`,
+      options,
+    );
   }
 
   retry(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/retry`, options);
+    return RequestHelper.post<PipelineExtendedSchema>()(
+      this,
+      `projects/${pId}/pipelines/${pipelineId}/retry`,
+      options,
+    );
   }
 
   cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post(this, `projects/${pId}/pipelines/${pipelineId}/cancel`, options);
+    return RequestHelper.post<PipelineExtendedSchema>()(
+      this,
+      `projects/${pId}/pipelines/${pipelineId}/cancel`,
+      options,
+    );
   }
 
   allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {
     const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
+    return RequestHelper.get<PipelineVariableSchema[]>()(
+      this,
+      `projects/${pId}/pipelines/${pipeId}/variables`,
+      options,
+    );
   }
 }

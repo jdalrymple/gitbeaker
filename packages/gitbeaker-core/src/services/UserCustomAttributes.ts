@@ -1,19 +1,33 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceCustomAttributes } from '../templates';
-import { PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { ResourceCustomAttributes, CustomAttributeSchema } from '../templates';
+import { PaginatedRequestOptions, CamelizedRecord, Sudo } from '../infrastructure';
 
-export interface UserCustomAttributes extends ResourceCustomAttributes {
-  all(userId: string | number, options?: PaginatedRequestOptions);
+export interface UserCustomAttributes<C extends boolean = false>
+  extends ResourceCustomAttributes<C> {
+  all(
+    userId: string | number,
+    options?: PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, CustomAttributeSchema>[]>;
 
-  set(userId: string | number, customAttributeId: number, value: string, options?: Sudo);
+  set(
+    userId: string | number,
+    customAttributeId: number,
+    value: string,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 
-  remove(userId: string | number, customAttributeId: number, options?: Sudo);
+  remove(userId: string | number, customAttributeId: number, options?: Sudo): Promise<void>;
 
-  show(userId: string | number, customAttributeId: number, options?: Sudo);
+  show(
+    userId: string | number,
+    customAttributeId: number,
+    options?: Sudo,
+  ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 }
 
-export class UserCustomAttributes extends ResourceCustomAttributes {
-  constructor(options: BaseServiceOptions = {}) {
+export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes<C> {
+  constructor(options: BaseServiceOptions<C>) {
+    /* istanbul ignore next */
     super('users', options);
   }
 }
