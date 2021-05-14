@@ -44,6 +44,8 @@ describe('Projects.upload', () => {
       name: `Project Upload Integration Test Text File ${TEST_ID}`,
     });
 
+    expect(project.id).toBeDefined()
+
     const results = await service.upload(project.id, 'TESTING FILE UPLOAD :D', {
       metadata: {
         filename: 'testfile.txt',
@@ -51,6 +53,8 @@ describe('Projects.upload', () => {
       },
     });
 
+    console.log(results)
+    
     expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
   });
 });
