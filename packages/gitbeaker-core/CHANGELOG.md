@@ -1,3 +1,20 @@
+# v29.0.0 (Fri May 14 2021)
+
+#### 💥 Breaking Change
+
+- Update service typing and peripheral endpoints [#1768](https://github.com/jdalrymple/gitbeaker/pull/1768) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump fs-extra from 9.1.0 to 10.0.0 [#1738](https://github.com/jdalrymple/gitbeaker/pull/1738) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.4.0 (Tue May 04 2021)
 
 :tada: This release contains work from a new contributor! :tada:

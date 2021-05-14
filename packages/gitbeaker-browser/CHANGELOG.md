@@ -1,3 +1,22 @@
+# v29.0.0 (Fri May 14 2021)
+
+#### 💥 Breaking Change
+
+- Update service typing and peripheral endpoints [#1768](https://github.com/jdalrymple/gitbeaker/pull/1768) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-node-resolve from 11.2.1 to 13.0.0 [#1753](https://github.com/jdalrymple/gitbeaker/pull/1753) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 18.1.0 to 19.0.0 [#1754](https://github.com/jdalrymple/gitbeaker/pull/1754) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump puppeteer from 9.0.0 to 9.1.1 [#1750](https://github.com/jdalrymple/gitbeaker/pull/1750) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.4.0 (Tue May 04 2021)
 
 #### 🔩 Dependency Updates
