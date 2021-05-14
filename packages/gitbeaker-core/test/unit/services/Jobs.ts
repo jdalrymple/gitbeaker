@@ -202,7 +202,7 @@ describe('Jobs.showPipelineBridges', () => {
   it('should request GET /projects/:id/pipelines/:id/bridges', async () => {
     await service.showPipelineBridges(1, 2);
 
-    expect(RequestHelper.get).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/pipelines/2/bridges',
       undefined,
