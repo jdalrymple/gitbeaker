@@ -30,6 +30,11 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.27.0.tgz#39264ca2974f227a8e7b0f327e7601eba2a23b7d"
   integrity sha512-KIiWpm8h2PWJEZOKN+bu+O8/16IdogQlEpmXT+I0ipwB9mnulliCQwYdi4OleE9Y7wedd7WTszG4tbRIRqyW+A==
 
+"@auto-it/bot-list@10.27.1":
+  version "10.27.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.27.1.tgz#50a37a417483f2398b258a292e349dbafc56f801"
+  integrity sha512-2k311ZFy8GMABLS7GRN5MnE9DCoGkCi8h7LWvvIy/B6BAhW892WgyV2Lxcql3aP6B5GhOv+5UjB5wgKarwaCQA==
+
 "@auto-it/core@10.26.1":
   version "10.26.1"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.26.1.tgz#7e55b452c75714f488423e869e4c8bcc98592122"
@@ -75,12 +80,57 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@10.27.0", "@auto-it/core@^10.18.9":
+"@auto-it/core@10.27.0":
   version "10.27.0"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.27.0.tgz#2f8d3480b1729dbd5c43d629689090f4193324ef"
   integrity sha512-vsaj4xsQXLYhsggGLygK+8VRZEc5M4HwAc9u4aKb6ATzN3oT3uABW+xVBjeKiA8wX5JAhAWP9yQy/IbPwW5otw==
   dependencies:
     "@auto-it/bot-list" "10.27.0"
+    "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^3.0.0"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    requireg "^0.2.2"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.0.0-beta.2"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    ts-node "^9.1.1"
+    tslib "2.1.0"
+    type-fest "^0.21.1"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@^10.18.9":
+  version "10.27.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.27.1.tgz#07ad7a81072441ab5ef0542abe89983fce45b053"
+  integrity sha512-cT9kCoz0Jnu4xtQTGUSH6b59Fwc41Pt/X5T/3/XRF8NimpsUGAIZRIs/UCQMAWCHzfZIUdlFQjvrPFF9rjjfiA==
+  dependencies:
+    "@auto-it/bot-list" "10.27.1"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -1528,11 +1578,6 @@
     "@octokit/types" "^6.0.3"
     universal-user-agent "^6.0.0"
 
-"@octokit/openapi-types@^5.3.2":
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-5.3.2.tgz#b8ac43c5c3d00aef61a34cf744e315110c78deb4"
-  integrity sha512-NxF1yfYOUO92rCx3dwvA2onF30Vdlg7YUkMVXkeptqpzA3tRLplThhFleV/UKWFgh7rpKu1yYRbvNDUtzSopKA==
-
 "@octokit/openapi-types@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-7.0.0.tgz#0f6992db9854af15eca77d71ab0ec7fad2f20411"
@@ -1562,14 +1607,6 @@
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@octokit/plugin-request-log/-/plugin-request-log-1.0.3.tgz#70a62be213e1edc04bb8897ee48c311482f9700d"
   integrity sha512-4RFU4li238jMJAzLgAwkBAw+4Loile5haQMQr+uhFq27BmyJXcXSKvoQKqh0agsZEiUlW6iSv3FAgvmGkur7OQ==
-
-"@octokit/plugin-rest-endpoint-methods@4.13.5":
-  version "4.13.5"
-  resolved "https://registry.yarnpkg.com/@octokit/plugin-rest-endpoint-methods/-/plugin-rest-endpoint-methods-4.13.5.tgz#ad76285b82fe05fbb4adf2774a9c887f3534a880"
-  integrity sha512-kYKcWkFm4Ldk8bZai2RVEP1z97k1C/Ay2FN9FNTBg7JIyKoiiJjks4OtT6cuKeZX39tqa+C3J9xeYc6G+6g8uQ==
-  dependencies:
-    "@octokit/types" "^6.12.2"
-    deprecation "^2.3.1"
 
 "@octokit/plugin-rest-endpoint-methods@5.0.1":
   version "5.0.1"
@@ -1616,7 +1653,7 @@
     node-fetch "^2.6.1"
     universal-user-agent "^6.0.0"
 
-"@octokit/rest@^18.0.0":
+"@octokit/rest@^18.0.0", "@octokit/rest@^18.1.0":
   version "18.5.3"
   resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-18.5.3.tgz#6a2e6006a87ebbc34079c419258dd29ec9ff659d"
   integrity sha512-KPAsUCr1DOdLVbZJgGNuE/QVLWEaVBpFQwDAz/2Cnya6uW2wJ/P5RVGk0itx7yyN1aGa8uXm2pri4umEqG1JBA==
@@ -1626,29 +1663,12 @@
     "@octokit/plugin-request-log" "^1.0.2"
     "@octokit/plugin-rest-endpoint-methods" "5.0.1"
 
-"@octokit/rest@^18.1.0":
-  version "18.3.5"
-  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-18.3.5.tgz#a89903d46e0b4273bd3234674ec2777a651d68ab"
-  integrity sha512-ZPeRms3WhWxQBEvoIh0zzf8xdU2FX0Capa7+lTca8YHmRsO3QNJzf1H3PcuKKsfgp91/xVDRtX91sTe1kexlbw==
-  dependencies:
-    "@octokit/core" "^3.2.3"
-    "@octokit/plugin-paginate-rest" "^2.6.2"
-    "@octokit/plugin-request-log" "^1.0.2"
-    "@octokit/plugin-rest-endpoint-methods" "4.13.5"
-
 "@octokit/types@^6.0.1", "@octokit/types@^6.0.3", "@octokit/types@^6.11.0", "@octokit/types@^6.13.1", "@octokit/types@^6.7.1":
   version "6.14.2"
   resolved "https://registry.yarnpkg.com/@octokit/types/-/types-6.14.2.tgz#64c9457f38fb8522bdbba3c8cc814590a2d61bf5"
   integrity sha512-wiQtW9ZSy4OvgQ09iQOdyXYNN60GqjCL/UdMsepDr1Gr0QzpW6irIKbH3REuAHXAhxkEk9/F2a3Gcs1P6kW5jA==
   dependencies:
     "@octokit/openapi-types" "^7.0.0"
-
-"@octokit/types@^6.12.2":
-  version "6.12.2"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-6.12.2.tgz#5b44add079a478b8eb27d78cf384cc47e4411362"
-  integrity sha512-kCkiN8scbCmSq+gwdJV0iLgHc0O/GTPY1/cffo9kECu1MvatLPh9E+qFhfRIktKfHEA6ZYvv6S1B4Wnv3bi3pA==
-  dependencies:
-    "@octokit/openapi-types" "^5.3.2"
 
 "@rollup/plugin-commonjs@^19.0.0":
   version "19.0.0"
@@ -6751,6 +6771,11 @@ lodash.ismatch@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
   integrity sha1-dWy1FQyjum8RCFp4hJZF8Yj4Xzc=
 
+lodash.sortby@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
+  integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
+
 lodash.template@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
@@ -8900,7 +8925,7 @@ semver-compare@^1.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-semver@7.x, semver@^7.0.0, semver@^7.2.1, semver@^7.3.2, semver@^7.3.4:
+semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.1.3, semver@^7.2.1, semver@^7.3.2, semver@^7.3.4:
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
@@ -8911,13 +8936,6 @@ semver@^6.0.0, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
-
-semver@^7.1.1, semver@^7.1.3:
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.4.tgz#27aaa7d2e4ca76452f98d3add093a72c943edc97"
-  integrity sha512-tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==
-  dependencies:
-    lru-cache "^6.0.0"
 
 semver@~2.3.1:
   version "2.3.2"
