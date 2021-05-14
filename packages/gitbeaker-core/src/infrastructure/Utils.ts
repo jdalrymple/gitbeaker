@@ -26,13 +26,13 @@ export interface BundleType<T extends { [name: string]: Constructor }, P extends
 export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
   services: T,
 ): BundleType<T, P> {
-  return (function Bundle(options?: any) {
+  return function Bundle(options?: any) {
     Object.entries(services).forEach(([name, Ser]) => {
       /* eslint @typescript-eslint/ban-ts-comment: 0 */
       // @ts-ignore
       this[name] = new Ser(options);
     });
-  } as any) as BundleType<T, P>;
+  } as any as BundleType<T, P>;
 }
 
 export function appendFormFromObject(object: Record<string, unknown>): FormData {
