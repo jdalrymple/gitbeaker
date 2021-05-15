@@ -4,6 +4,6 @@ trailingComma: all
 tabWidth: 2
 useTabs: false
 overrides:
-  - files: "*.ts"
+  - files: '*.ts'
     options:
       parser: babel-ts
