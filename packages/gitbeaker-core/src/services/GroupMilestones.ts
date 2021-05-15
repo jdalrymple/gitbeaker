@@ -6,8 +6,8 @@ import {
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
-import type { IssueSchema } from './Issues';
-import type { MergeRequestSchema } from './MergeRequests';
+import { IssueSchema } from './Issues';
+import { MergeRequestSchema } from './MergeRequests';
 
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all(

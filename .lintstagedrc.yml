@@ -1,4 +1,4 @@
 '**/*.{ts,js,json,md,yml}':
-  - 'prettier --write'
+  - 'yarn prettier --write'
 '**/*.{ts,js}':
-  - 'eslint --fix'
+  - 'yarn eslint --fix'

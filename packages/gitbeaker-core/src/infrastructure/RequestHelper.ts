@@ -18,23 +18,21 @@ export type ShowExpanded<T extends boolean = boolean> = {
 
 export type BaseRequestOptions = Sudo & Record<string, unknown>;
 
-export type BasePaginationRequestOptions<
-  P extends 'keyset' | 'offset' = 'keyset' | 'offset'
-> = BaseRequestOptions & {
-  pagination?: P;
-  perPage?: number;
-};
+export type BasePaginationRequestOptions<P extends 'keyset' | 'offset' = 'keyset' | 'offset'> =
+  BaseRequestOptions & {
+    pagination?: P;
+    perPage?: number;
+  };
 
 export type OffsetPaginationRequestOptions = {
   page?: number;
   maxPages?: number;
 };
 
-export type PaginatedRequestOptions<
-  P extends 'keyset' | 'offset' = 'keyset' | 'offset'
-> = P extends 'keyset'
-  ? BasePaginationRequestOptions<P>
-  : BasePaginationRequestOptions<P> & OffsetPaginationRequestOptions;
+export type PaginatedRequestOptions<P extends 'keyset' | 'offset' = 'keyset' | 'offset'> =
+  P extends 'keyset'
+    ? BasePaginationRequestOptions<P>
+    : BasePaginationRequestOptions<P> & OffsetPaginationRequestOptions;
 
 // Response Formats
 export interface ExpandedResponse<T = Record<string, unknown>> {
@@ -59,29 +57,25 @@ export type CamelizedRecord<C, T> = C extends true ? Camelize<T> : T;
 export type ExtendedRecordReturn<
   C extends boolean,
   E extends boolean,
-  T extends Record<string, unknown> | void
+  T extends Record<string, unknown> | void,
 > = T extends void
   ? void
   : E extends false
   ? CamelizedRecord<C, T>
   : ExpandedResponse<CamelizedRecord<C, T>>;
 
-type ExtendedArrayReturn<
-  C extends boolean,
-  E extends boolean,
-  T,
-  P extends 'keyset' | 'offset'
-> = E extends false
-  ? CamelizedRecord<C, T>[]
-  : P extends 'keyset'
-  ? CamelizedRecord<C, T>[]
-  : PaginationResponse<CamelizedRecord<C, T>[]>;
+type ExtendedArrayReturn<C extends boolean, E extends boolean, T, P extends 'keyset' | 'offset'> =
+  E extends false
+    ? CamelizedRecord<C, T>[]
+    : P extends 'keyset'
+    ? CamelizedRecord<C, T>[]
+    : PaginationResponse<CamelizedRecord<C, T>[]>;
 
 type ExtendedReturn<
   C extends boolean,
   E extends boolean,
   P extends 'keyset' | 'offset',
-  T extends Record<string, unknown> | Record<string, unknown>[]
+  T extends Record<string, unknown> | Record<string, unknown>[],
 > = T extends Record<string, unknown>
   ? ExtendedRecordReturn<C, E, T>
   : T extends (infer R)[]
@@ -154,12 +148,12 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
 }
 
 export function get<
-  T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>
+  T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>,
 >() {
   return async function <
     C extends boolean,
     P extends 'keyset' | 'offset' = 'offset',
-    E extends boolean = false
+    E extends boolean = false,
   >(
     service: BaseService<C>,
     endpoint: string,
