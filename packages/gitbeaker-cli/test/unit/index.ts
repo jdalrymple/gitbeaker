@@ -57,7 +57,7 @@ afterEach(() => {
   process.env = OLD_ENV;
 });
 
-describe('General', () => {
+describe.only('General', () => {
   it('should return the expose a gitbeaker commnad', async () => {
     expect(pkg.bin).toHaveProperty('gitbeaker');
   });
