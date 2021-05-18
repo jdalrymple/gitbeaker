@@ -97,7 +97,7 @@ test:unit:utils:
     - docker:dind
   retry: 2
   before_script:
-    - apt-get install jq --yes
+    - apk add jq --yes
 
     # Spin up container
     - docker-compose -f scripts/docker-compose.yml up -d
