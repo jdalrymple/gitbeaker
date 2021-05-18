@@ -15,9 +15,9 @@ export interface GroupDeployTokens<C extends boolean = false> extends ResourceDe
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DeployTokenSchema>>;
 
-  all(options?: { groupId?: string | number } & PaginatedRequestOptions): Promise<
-    CamelizedRecord<C, DeployTokenSchema>[]
-  >;
+  all(
+    options?: { groupId?: string | number } & PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, DeployTokenSchema>[]>;
 
   remove(groupId: string | number, tokenId: number, options?: Sudo): Promise<void>;
 }
