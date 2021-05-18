@@ -15,10 +15,7 @@ export interface GroupDeployTokens<C extends boolean = false> extends ResourceDe
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DeployTokenSchema>>;
 
-  all({
-    groupId,
-    ...options
-  }: { groupId?: string | number } & PaginatedRequestOptions): Promise<
+  all(options?: { groupId?: string | number } & PaginatedRequestOptions): Promise<
     CamelizedRecord<C, DeployTokenSchema>[]
   >;
 
