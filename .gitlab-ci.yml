@@ -17,8 +17,8 @@ stages:
   - build
   - lint
   - test
-  # - canary
-  # - release
+  - canary
+  - release
 
 #Link and Install all required dependancies
 install:
@@ -42,21 +42,6 @@ build:
       - packages/gitbeaker-browser/dist/
       - packages/gitbeaker-node/dist/
       - packages/gitbeaker-requester-utils/dist/
-
-# build:test:container:
-#   #https://medium.com/google-cloud/deploy-to-cloud-run-using-gitlab-ci-e056685b8eeb
-#   stage: build
-#   rules:
-#     - changes:
-#         - scripts/GitlabTestDockerfile
-#   image: google/cloud-sdk
-#   services:
-#     - docker:dind
-#   script:
-#     - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts
-#     - gcloud auth activate-service-account --key-file gcloud-service-key.json
-#     - gcloud config set project $GCP_PROJECT_ID
-#     - gcloud builds submit . --config=scripts/cloudbuild.yml
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:src:
