@@ -1,3 +1,15 @@
+# v29.2.0 (Tue May 18 2021)
+
+#### 🔩 Dependency Updates
+
+- Updating all dependencies [#1775](https://github.com/jdalrymple/gitbeaker/pull/1775) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v28.4.0 (Tue May 04 2021)
 
 #### 🔩 Dependency Updates

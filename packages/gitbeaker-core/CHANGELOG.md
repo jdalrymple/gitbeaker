@@ -1,3 +1,19 @@
+# v29.2.0 (Tue May 18 2021)
+
+#### 🐛 Bug Fix
+
+- Fixing weird request format for discussions [#1781](https://github.com/jdalrymple/gitbeaker/pull/1781) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Updating all dependencies [#1775](https://github.com/jdalrymple/gitbeaker/pull/1775) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.1.0 (Fri May 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:

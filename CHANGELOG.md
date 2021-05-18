@@ -1,3 +1,26 @@
+# 29.2.0 (Tue May 18 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing weird request format for discussions [#1781](https://github.com/jdalrymple/gitbeaker/pull/1781) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @typescript-eslint/parser from 4.23.0 to 4.24.0 [#1783](https://github.com/jdalrymple/gitbeaker/pull/1783) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.23.0 to 4.24.0 [#1782](https://github.com/jdalrymple/gitbeaker/pull/1782) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-import from 2.23.0 to 2.23.2 [#1776](https://github.com/jdalrymple/gitbeaker/pull/1776) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump rollup from 2.47.0 to 2.48.0 [#1778](https://github.com/jdalrymple/gitbeaker/pull/1778) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating all dependencies [#1775](https://github.com/jdalrymple/gitbeaker/pull/1775) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.1.0 (Fri May 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:
