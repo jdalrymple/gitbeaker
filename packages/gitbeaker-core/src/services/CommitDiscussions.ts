@@ -13,7 +13,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     commitId: number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -26,7 +26,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
   create(
     projectId: string | number,
     commitId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -35,8 +35,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     commitId: number,
     discussionId: number,
     noteId: number,
-    content: string,
-    options?: BaseRequestOptions,
+    options: BaseRequestOptions & { body: string },
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(
