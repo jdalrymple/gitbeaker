@@ -97,7 +97,7 @@ test:unit:utils:
     - docker:dind
   retry: 2
   before_script:
-    - apk add jq
+    - apk add jq curl
 
     # Spin up container
     - docker-compose -f scripts/docker-compose.yml up -d
@@ -105,7 +105,7 @@ test:unit:utils:
     # Verify Gitlab instance is up and running
     - echo "Waiting for service to start"
     - sleep 180
-    - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+    - timeout 2000 bash -c -- 'while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;'
     - echo "Service is up and running!"
   after_script:
     - sleep 30
