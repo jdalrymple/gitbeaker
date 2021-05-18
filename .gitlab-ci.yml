@@ -95,37 +95,41 @@ test:unit:utils:
   needs: ['install']
   stage: test
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
+
 #Integration Tests
-# test:integration: &integration-test
-#   stage: test
-#   needs: ["build"]
-#   resource_group: integration-testing
-#   variables:
-#     GITLAB_URL: http://gitlabtesting:80
-#     GITLAB_PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
-#   before_script:
-#     - apt-get install jq --yes
-#     - echo "Waiting for service to start"
-#     - sleep 180
-#     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-#     - echo "Service is up and running!"
-#   after_script:
-#     - sleep 30
+.test:integration: &integration-test
+  stage: test
+  needs: ['build']
+  resource_group: integration-testing
+  image:
+    name: jdalrymple/docker-compose-with-node
+    entrypoint: ['/bin/sh', '-c']
+  variables:
+    PERSONAL_ACCESS_TOKEN: superduperstrongtoken
+    DOCKER_HOST: tcp://docker:2375
+    GITLAB_URL: http://docker:8080
+  services:
+    - docker:dind
+  retry: 2
+  before_script:
+    - apt-get install jq --yes
 
-# test:integration:node:src:
-#   <<: *integration-test
-#   script:
-#     - yarn workspace @gitbeaker/node test:integration -i
-#
-# test:integration:node:cjs:
-#   <<: *integration-test
-#   script:
-#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    # Spin up container
+    - docker-compose -f scripts/docker-compose.yml up -d
 
-# test:integration:node:es:
-#   <<: *integration-test
-#   script:
-#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
+    # Verify Gitlab instance is up and running
+    - echo "Waiting for service to start"
+    - sleep 180
+    - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+    - echo "Service is up and running!"
+  after_script:
+    - sleep 30
+    - docker cp gitlab:/var/log/gitlab runner_logs
+    - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
+  artifacts:
+    when: on_failure
+    paths:
+      - runner_logs
 
 # test:integration:browser:
 #   <<: *integration-test
@@ -135,35 +139,42 @@ test:unit:utils:
 #   script:
 #     - yarn workspace @gitbeaker/browser test:integration
 
-# # Canary
-# canary:
-#   stage: canary
-#   only:
-#     - external_pull_requests
-#   before_script:
-#     - apk add --no-cache git
-#     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-#     - git checkout $CI_COMMIT_REF_NAME
-#     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-#     - npm config set always-auth=true
-#   script: |
-#     if yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID | grep 'canary'; then
-#       echo "canary label found, starting canary deployment!"
-#       yarn auto canary
-#     else
-#       echo "Skipping, canary label isn't present."
-#     fi
-#
-# # Release
-# release:
-#   only:
-#     refs:
-#       - master
-#   stage: release
-#   before_script:
-#     - apk add --no-cache git
-#     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-#     - git checkout master
-#     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-#     - npm config set always-auth=true
-#   script: yarn release
+test:integration:node:
+  <<: *integration-test
+  script:
+    - yarn workspace @gitbeaker/node test:integration -i && yarn codecov -F node
+    - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
+
+# Canary
+canary:
+  stage: canary
+  only:
+    - external_pull_requests
+  before_script:
+    - apk add --no-cache git
+    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+    - git checkout $CI_COMMIT_REF_NAME
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm config set always-auth=true
+  script: |
+    if yarn auto label --pr $CI_EXTERNAL_PULL_REQUEST_IID | grep 'canary'; then
+      echo "canary label found, starting canary deployment!"
+      yarn auto canary
+    else
+      echo "Skipping, canary label isn't present."
+    fi
+
+# Release
+release:
+  only:
+    refs:
+      - master
+  stage: release
+  before_script:
+    - apk add --no-cache git
+    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+    - git checkout master
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm config set always-auth=true
+  script: yarn release
