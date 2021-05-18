@@ -14,7 +14,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     snippetId: string | number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -27,7 +27,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
   create(
     projectId: string | number,
     snippetId: string | number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -36,7 +36,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     snippetId: string | number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 

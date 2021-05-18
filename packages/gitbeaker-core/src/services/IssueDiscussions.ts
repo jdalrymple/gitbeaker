@@ -13,7 +13,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
     issueIId: number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -26,7 +26,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   create(
     projectId: string | number,
     issueIId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -35,7 +35,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
     issueIId: number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 

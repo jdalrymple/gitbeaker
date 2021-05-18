@@ -13,7 +13,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -26,7 +26,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
   create(
     groupId: string | number,
     epicId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
@@ -35,7 +35,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 

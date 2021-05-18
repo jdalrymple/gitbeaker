@@ -54,7 +54,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
@@ -64,7 +64,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     return RequestHelper.post()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes`,
-      { body: content, noteId: nId, ...options },
+      { query: { body },  noteId: nId, ...options },
     );
   }
 
@@ -85,7 +85,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
   create(
     resourceId: string | number,
     resource2Id: string | number,
-    content: string,
+    body: string,
     options?: BaseRequestOptions,
   ) {
     const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
@@ -94,7 +94,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions`,
       {
-        body: content,
+        query: { body },
         ...options,
       },
     );
@@ -105,7 +105,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    content: string,
+    body?: string,
     options?: BaseRequestOptions,
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
@@ -114,11 +114,10 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
 
     return RequestHelper.put<DiscussionSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
-      {
-        body: content,
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, {
+        query: { body },
         ...options,
-      },
+      }
     );
   }
 
