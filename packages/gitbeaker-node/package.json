@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/node",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "29.1.0",
+  "version": "29.2.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -9,8 +9,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^29.1.0",
-    "@gitbeaker/requester-utils": "^29.1.0",
+    "@gitbeaker/core": "^29.2.0",
+    "@gitbeaker/requester-utils": "^29.2.0",
     "got": "^11.8.2",
     "xcase": "^2.0.1"
   },
