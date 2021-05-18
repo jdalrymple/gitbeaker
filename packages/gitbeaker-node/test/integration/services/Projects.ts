@@ -45,3 +45,14 @@ describe.skip('Projects.upload', () => {
     const project = await service.create({
       name: `Project Upload Integration Test Text File ${TEST_ID}`,
     });
+
+    const results = await service.upload(project.id, 'TESTING FILE UPLOAD', {
+      metadata: {
+        filename: 'testfile.txt',
+        contentType: 'text/plain',
+      },
+    });
+
+    expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
+  });
+});

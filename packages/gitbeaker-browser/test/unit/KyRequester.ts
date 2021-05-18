@@ -16,7 +16,7 @@ jest.mock('ky');
 
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
-    const output = await processBody(({
+    const output = await processBody({
       json() {
         return Promise.resolve({ test: 5 });
       },
@@ -25,14 +25,14 @@ describe('processBody', () => {
           return 'application/json';
         },
       },
-    } as unknown) as Response);
+    } as unknown as Response);
 
     expect(output).toMatchObject({ test: 5 });
   });
 
   it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
     const output = [
-      processBody(({
+      processBody({
         blob() {
           return Promise.resolve(Buffer.alloc(0));
         },
@@ -41,8 +41,8 @@ describe('processBody', () => {
             return 'application/octet-stream';
           },
         },
-      } as unknown) as Response),
-      processBody(({
+      } as unknown as Response),
+      processBody({
         blob() {
           return Promise.resolve(Buffer.alloc(0));
         },
@@ -51,8 +51,8 @@ describe('processBody', () => {
             return 'binary/octet-stream';
           },
         },
-      } as unknown) as Response),
-      processBody(({
+      } as unknown as Response),
+      processBody({
         blob() {
           return Promise.resolve(Buffer.alloc(0));
         },
@@ -61,8 +61,8 @@ describe('processBody', () => {
             return 'image/png';
           },
         },
-      } as unknown) as Response),
-      processBody(({
+      } as unknown as Response),
+      processBody({
         blob() {
           return Promise.resolve(Buffer.alloc(0));
         },
@@ -71,7 +71,7 @@ describe('processBody', () => {
             return 'application/gzip';
           },
         },
-      } as unknown) as Response),
+      } as unknown as Response),
     ];
 
     const fulfilled = await Promise.all(output);
@@ -80,7 +80,7 @@ describe('processBody', () => {
   });
 
   it('should return a string if type is text/<subtype>', async () => {
-    const output = await processBody(({
+    const output = await processBody({
       text() {
         return Promise.resolve('test');
       },
@@ -89,14 +89,14 @@ describe('processBody', () => {
           return 'text/plain';
         },
       },
-    } as unknown) as Response);
+    } as unknown as Response);
 
     expect(typeof output).toBe('string');
     expect(output).toEqual('test');
   });
 
   it('should return a empty string when presented with an unknown content-type and empty body', async () => {
-    const output = await processBody(({
+    const output = await processBody({
       blob() {
         return Promise.resolve(Buffer.alloc(0));
       },
@@ -105,7 +105,7 @@ describe('processBody', () => {
           return 'fake';
         },
       },
-    } as unknown) as Response);
+    } as unknown as Response);
 
     expect(output).toBeInstanceOf(Buffer);
     expect(output.length).toBe(0);
