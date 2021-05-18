@@ -35,8 +35,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: number,
     noteId: number,
-    body: string,
-    options?: BaseRequestOptions,
+    options: BaseRequestOptions & { body: string },
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(

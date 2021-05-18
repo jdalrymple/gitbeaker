@@ -105,8 +105,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    body?: string,
-    options?: BaseRequestOptions,
+    { body, ...options }: BaseRequestOptions & { body?: string } = {},
   ) {
     const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
       encodeURIComponent,

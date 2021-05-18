@@ -36,8 +36,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     snippetId: string | number,
     discussionId: number,
     noteId: number,
-    body: string,
-    options?: BaseRequestOptions,
+    options: BaseRequestOptions & { body: string },
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(
@@ -46,7 +45,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     discussionId: number,
     noteId: number,
     options?: Sudo,
-  );
+  ): Promise<void>;
 
   show(
     projectId: string | number,

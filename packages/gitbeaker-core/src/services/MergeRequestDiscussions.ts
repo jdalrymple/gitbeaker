@@ -35,8 +35,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: number,
     noteId: number,
-    body?: string,
-    options?: BaseRequestOptions,
+    options: BaseRequestOptions & ({ body: string } | { resolved: boolean }),
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 
   removeNote(

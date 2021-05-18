@@ -62,8 +62,8 @@ describe('ResourceDiscussions.create', () => {
 });
 
 describe('ResourceDiscussions.editNote', () => {
-  it('should call the correct url', async () => {
-    await service.editNote(1, 2, 3, 4, 'test');
+  it('should PUT request 1/resource2/2/discussions/3/notes/4 with a body=test query parameter', async () => {
+    await service.editNote(1, 2, 3, 4, { body: 'test' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
@@ -72,6 +72,19 @@ describe('ResourceDiscussions.editNote', () => {
         query: {
           body: 'test',
         },
+      },
+    );
+  });
+
+  it('should PUT request 1/resource2/2/discussions/3/notes/4 with empty query parameters and a resolved: true body payload', async () => {
+    await service.editNote(1, 2, 3, 4, { resolved: true });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      '1/resource2/2/discussions/3/notes/4',
+      {
+        query: {},
+        resolved: true,
       },
     );
   });
