@@ -167,7 +167,13 @@ export function post<T extends Record<string, unknown> | void = Record<string, u
   return async function <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
-    { query, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
+    {
+      query,
+      isForm,
+      sudo,
+      showExpanded,
+      ...options
+    }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
   ): Promise<ExtendedRecordReturn<C, E, T>> {
     const body = isForm ? appendFormFromObject(options) : options;
 
@@ -191,7 +197,13 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
   return async function <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
-    { query, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
+    {
+      query,
+      isForm,
+      sudo,
+      showExpanded,
+      ...options
+    }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
   ): Promise<ExtendedRecordReturn<C, E, T>> {
     const body = isForm ? appendFormFromObject(options) : options;
 

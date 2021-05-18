@@ -64,7 +64,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
     return RequestHelper.post()(
       this,
       `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes`,
-      { query: { body },  noteId: nId, ...options },
+      { query: { body }, noteId: nId, ...options },
     );
   }
 
@@ -114,10 +114,11 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseService<
 
     return RequestHelper.put<DiscussionSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`, {
+      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      {
         query: { body },
         ...options,
-      }
+      },
     );
   }
 
