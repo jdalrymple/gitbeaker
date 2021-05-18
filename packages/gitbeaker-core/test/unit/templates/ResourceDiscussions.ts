@@ -33,7 +33,9 @@ describe('ResourceDiscussions.addNote', () => {
       '1/resource2/2/discussions/3/notes',
       {
         noteId: '4',
-        body: 'test',
+        query: {
+          body: 'test',
+        }
       },
     );
   });
@@ -52,7 +54,9 @@ describe('ResourceDiscussions.create', () => {
     await service.create(1, 2, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      body: 'test',
+      query: {
+        body: 'test',
+      }
     });
   });
 });
@@ -65,7 +69,9 @@ describe('ResourceDiscussions.editNote', () => {
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        body: 'test',
+        query: {
+          body: 'test',
+        }
       },
     );
   });
