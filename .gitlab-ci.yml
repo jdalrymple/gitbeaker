@@ -90,7 +90,7 @@ test:unit:utils:
     name: jdalrymple/docker-compose-with-node
     entrypoint: ['/bin/sh', '-c']
   variables:
-    PERSONAL_ACCESS_TOKEN: superduperstrongtoken
+    GITLAB_PERSONAL_ACCESS_TOKEN: superduperstrongtoken
     DOCKER_HOST: tcp://docker:2375
     GITLAB_URL: http://docker:8080
   services:
