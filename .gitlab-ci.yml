@@ -96,6 +96,7 @@ test:unit:utils:
   services:
     - docker:dind
   retry: 2
+  timeout: 45 minutes
   before_script:
     - apk add jq curl
 
@@ -105,7 +106,7 @@ test:unit:utils:
     # Verify Gitlab instance is up and running
     - echo "Waiting for service to start"
     - sleep 180
-    - timeout 2000 bash -c -- 'while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;'
+    - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
     - echo "Service is up and running!"
   after_script:
     - sleep 30
