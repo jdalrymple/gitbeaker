@@ -1,53 +1,12 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { CommitSchema } from './Commits';
-import { MilestoneSchema } from '../templates';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export interface EvidenceSchema {
-  sha: string;
-  filepath: string;
-  collected_at: string;
-}
-
-export interface SourceSchema {
-  format: string;
-  url: string;
-}
-
-export interface LinkSchema {
-  id: number;
-  name: string;
-  url: string;
-  external: boolean;
-  link_type: string;
-}
-
-export interface ReleaseSchema extends Record<string, unknown> {
-  tag_name: string;
-  description: string;
-  name: string;
-  description_html: string;
-  created_at: string;
-  released_at: string;
-  user: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
-  commit: CommitSchema;
-  milestones?: MilestoneSchema[];
-  commit_path: string;
-  tag_path: string;
-  assets: {
-    count: number;
-    sources?: SourceSchema[];
-    links?: LinkSchema[];
-    evidence_file_path: string;
-  };
-  evidences?: EvidenceSchema[];
-}
+import { ReleaseSchema } from '../models/ReleaseSchema';
 
 // TODO: Add missing functions
 export class Releases<C extends boolean = false> extends BaseService<C> {

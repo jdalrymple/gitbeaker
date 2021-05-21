@@ -5,23 +5,7 @@ import {
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
-import { IssueSchema } from '../services/Issues';
-import { MergeRequestSchema } from '../services/MergeRequests';
-
-export interface MilestoneSchema extends Record<string, unknown> {
-  id: number;
-  iid: number;
-  project_id: number;
-  title: string;
-  description: string;
-  due_date?: string;
-  start_date: string;
-  state: string;
-  updated_at: string;
-  created_at: string;
-  expired: boolean;
-  web_url?: string;
-}
+import { IssueSchema, MergeRequestSchema, MilestoneSchema } from '../models';
 
 export class ResourceMilestones<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {

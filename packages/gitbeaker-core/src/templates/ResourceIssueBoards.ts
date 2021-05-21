@@ -1,28 +1,11 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { MilestoneSchema } from './ResourceMilestones';
-import { LabelSchema } from './ResourceLabels';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export interface IssueBoardListSchema extends Record<string, unknown> {
-  id: number;
-  label: Pick<LabelSchema, 'name' | 'color' | 'description'>;
-  position: number;
-  max_issue_count: number;
-  max_issue_weight: number;
-  limit_metric?: string;
-}
-
-export interface IssueBoardSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  milestone: Pick<MilestoneSchema, 'id' | 'title'>;
-  lists?: IssueBoardListSchema[];
-}
+import { IssueBoardListSchema, IssueBoardSchema } from '../models';
 
 export class ResourceIssueBoards<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {

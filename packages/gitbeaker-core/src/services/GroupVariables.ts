@@ -1,6 +1,7 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceVariables, ResourceVariableSchema } from '../templates';
+import { ResourceVariableSchema } from '../models';
 import { PaginatedRequestOptions, BaseRequestOptions, CamelizedRecord } from '../infrastructure';
+import { ResourceVariables } from '../templates';
 
 export interface GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
   all(

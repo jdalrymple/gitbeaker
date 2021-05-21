@@ -1,6 +1,7 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceCustomAttributes, CustomAttributeSchema } from '../templates';
+import { CustomAttributeSchema } from '../models';
 import { PaginatedRequestOptions, CamelizedRecord, Sudo } from '../infrastructure';
+import { ResourceCustomAttributes } from '../templates';
 
 export interface ProjectCustomAttributes<C extends boolean = false>
   extends ResourceCustomAttributes<C> {

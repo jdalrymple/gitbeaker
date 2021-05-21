@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { PipelineSchema } from './Pipelines';
+import { PipelineSchema } from '../models';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 // TODO: Add group support

@@ -1,6 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { PipelineVariableSchema } from './Pipelines';
 import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import { PipelineVariableSchema } from '../models';
 
 export class PipelineScheduleVariables<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {

@@ -1,11 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers, MembersSchema, IncludeInherited, AccessLevel } from '../templates';
+import { ResourceMembers } from '../templates';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   CamelizedRecord,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel, MembersSchema, IncludeInherited } from '../models';
 
 export interface GroupMembers<C extends boolean = false> extends ResourceMembers<C> {
   add(

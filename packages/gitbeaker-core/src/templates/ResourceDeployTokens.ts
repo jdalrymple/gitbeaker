@@ -5,21 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export type DeployTokenScope =
-  | 'read_repository'
-  | 'read_registry'
-  | 'write_registry'
-  | 'read_package_registry'
-  | 'write_package_registry';
-
-export interface DeployTokenSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  username: string;
-  expires_at: string;
-  scopes?: string[];
-}
+import { DeployTokenSchema, DeployTokenScope } from '../models';
 
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
 export class ResourceDeployTokens<C extends boolean = false> extends BaseService<C> {

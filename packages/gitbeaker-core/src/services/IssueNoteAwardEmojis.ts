@@ -1,6 +1,7 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNoteAwardEmojis, AwardEmojiSchema } from '../templates';
+import { AwardEmojiSchema } from '../models';
 import { PaginatedRequestOptions, CamelizedRecord, Sudo } from '../infrastructure';
+import { ResourceNoteAwardEmojis } from '../templates';
 
 export interface IssueNoteAwardEmojis<C extends boolean = false>
   extends ResourceNoteAwardEmojis<C> {

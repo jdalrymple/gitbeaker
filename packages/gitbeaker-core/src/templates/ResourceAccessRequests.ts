@@ -1,16 +1,6 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo } from '../infrastructure';
-
-export type AccessLevel = 0 | 5 | 10 | 20 | 30 | 40 | 50;
-
-export interface AccessRequestSchema extends Record<string, unknown> {
-  id: number;
-  username: string;
-  name: string;
-  state: string;
-  created_at: string;
-  requested_at: string;
-}
+import { AccessLevel, AccessRequestSchema } from '../models';
 
 export class ResourceAccessRequests<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {

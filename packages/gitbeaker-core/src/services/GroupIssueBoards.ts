@@ -1,12 +1,13 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { GroupSchema } from './Groups';
-import { ResourceIssueBoards, IssueBoardSchema, IssueBoardListSchema } from '../templates';
+import { GroupSchema, IssueBoardSchema, IssueBoardListSchema } from '../models';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+import { ResourceIssueBoards } from '../templates';
 
 export interface GroupIssueBoardSchema extends IssueBoardSchema {
   group: Pick<GroupSchema, 'id' | 'name' | 'web_url'>;

@@ -1,7 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { ProjectSchema } from './Projects';
-import { MilestoneSchema } from '../templates';
+import { UserSchema, ProjectSchema, MilestoneSchema } from '../models';
+
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface TodoSchema extends Record<string, unknown> {

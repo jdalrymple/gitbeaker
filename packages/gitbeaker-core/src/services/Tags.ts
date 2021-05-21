@@ -1,6 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { CommitSchema } from './Commits';
-import { ReleaseSchema } from './Releases';
+import { CommitSchema, ReleaseSchema } from '../models';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

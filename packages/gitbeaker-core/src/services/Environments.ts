@@ -5,19 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { DeploymentSchema, DeployableSchema } from './Deployments';
-import { ProjectSchema } from './Projects';
-
-export interface EnvironmentSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  slug?: string;
-  external_url?: string;
-  project?: ProjectSchema;
-  state?: string;
-  last_deployment?: DeploymentSchema;
-  deployable?: DeployableSchema;
-}
+import { EnvironmentSchema } from '../models';
 
 export class Environments<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { CommitSchema, CommitDiffSchema } from './Commits';
+import { CommitSchema, CommitDiffSchema } from '../models';
 import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';

@@ -1,7 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { MergeRequestSchema } from './MergeRequests';
-import { MilestoneSchema } from '../templates';
+import { UserSchema, MergeRequestSchema, TimeStatsSchema, IssueSchema } from '../models';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -10,67 +9,6 @@ import {
 } from '../infrastructure';
 
 type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
-
-export interface TimeStatsSchema extends Record<string, unknown> {
-  human_time_estimate?: string;
-  human_total_time_spent?: string;
-  time_estimate?: number;
-  total_time_spent?: number;
-}
-
-export interface IssueSchema extends Record<string, unknown> {
-  state: string;
-  description: string;
-  weight?: number;
-  health_status?: string;
-  author: Omit<UserSchema, 'created_at'>;
-  milestone: MilestoneSchema;
-  project_id: number;
-  assignees?: Omit<UserSchema, 'created_at'>[];
-  updated_at: string;
-  closed_at?: string;
-  closed_by?: string;
-  id: number;
-  title: string;
-  created_at: string;
-  moved_to_id?: string;
-  iid: number;
-  labels?: string[];
-  upvotes: number;
-  downvotes: number;
-  merge_requests_count: number;
-  user_notes_count: number;
-  due_date: string;
-  web_url: string;
-  references: {
-    short: string;
-    relative: string;
-    full: string;
-  };
-  time_stats: TimeStatsSchema;
-  has_tasks: boolean;
-  task_status: string;
-  confidential: boolean;
-  discussion_locked: boolean;
-  _links: {
-    self: string;
-    notes: string;
-    award_emoji: string;
-    project: string;
-  };
-  task_completion_status: {
-    count: number;
-    completed_count: number;
-  };
-  subscribed: boolean;
-  epic?: {
-    id: number;
-    iid: number;
-    title: string;
-    url: string;
-    group_id: number;
-  };
-}
 
 export class Issues<C extends boolean = false> extends BaseService<C> {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {

@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { CommitSchema } from './Commits';
+import { CommitSchema } from '../models';
 import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface RepositoryFileExtendedSchema extends Record<string, unknown> {

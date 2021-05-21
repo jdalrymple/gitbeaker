@@ -1,13 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMilestones, MilestoneSchema } from '../templates';
+import { MilestoneSchema, IssueSchema, MergeRequestSchema } from '../models';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
-import { IssueSchema } from './Issues';
-import { MergeRequestSchema } from './MergeRequests';
+import { ResourceMilestones } from '../templates';
 
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all(

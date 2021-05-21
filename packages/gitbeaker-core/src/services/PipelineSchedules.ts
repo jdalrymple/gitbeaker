@@ -1,29 +1,16 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { PipelineSchema, PipelineVariableSchema } from './Pipelines';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export interface PipelineScheduleSchema extends Record<string, unknown> {
-  id: number;
-  description: string;
-  ref: string;
-  cron: string;
-  cron_timezone: string;
-  next_run_at: string;
-  active: boolean;
-  created_at: string;
-  updated_at: string;
-  owner: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
-}
-
-export interface PipelineScheduleExtendedSchema extends PipelineScheduleSchema {
-  last_pipeline: Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>;
-}
+import {
+  PipelineVariableSchema,
+  PipelineScheduleSchema,
+  PipelineScheduleExtendedSchema,
+} from '../models';
 
 export class PipelineSchedules<C extends boolean = false> extends BaseService<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {

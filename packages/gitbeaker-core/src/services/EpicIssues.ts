@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { IssueSchema } from './Issues';
+import { IssueSchema } from '../models';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

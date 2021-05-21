@@ -1,28 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
-
-export interface TagSchema extends Record<string, unknown> {
-  name: string;
-  path: string;
-  location: string;
-  revision: string;
-  short_revision: string;
-  digest: string;
-  created_at: string;
-  total_size: number;
-}
-
-export interface RepositorySchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  path: string;
-  project_id: number;
-  location: string;
-  created_at: string;
-  cleanup_policy_started_at: string;
-  tags_count?: number;
-  tags?: Pick<TagSchema, 'name' | 'path' | 'location'>[];
-}
+import { RepositorySchema, TagSchema } from '../models';
 
 export class ContainerRegistry<C extends boolean = false> extends BaseService<C> {
   projectRepositories(projectId: string | number, options?: PaginatedRequestOptions) {

@@ -1,11 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDiscussions, DiscussionSchema } from '../templates';
+import { DiscussionSchema } from '../models';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+import { ResourceDiscussions } from '../templates';
 
 export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote(

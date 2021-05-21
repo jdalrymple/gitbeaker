@@ -1,6 +1,7 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
-import { AwardEmojiSchema, url } from './ResourceAwardEmojis';
+import { url } from './ResourceAwardEmojis';
+import { AwardEmojiSchema } from '../models';
 
 export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseService<C> {
   protected resourceType: string;

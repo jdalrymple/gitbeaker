@@ -1,10 +1,6 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
-
-export interface CustomAttributeSchema extends Record<string, unknown> {
-  key: string;
-  value: string;
-}
+import { CustomAttributeSchema } from '../models';
 
 export class ResourceCustomAttributes<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {

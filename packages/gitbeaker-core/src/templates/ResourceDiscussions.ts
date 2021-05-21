@@ -1,44 +1,11 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../services/Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-
-export interface PositionSchema {
-  base_sha: string;
-  start_sha: string;
-  head_sha: string;
-  old_path: string;
-  new_path: string;
-  position_type: string;
-  old_line: number;
-  new_line: number;
-}
-
-export interface NotesEntitySchema {
-  id: number;
-  type?: string;
-  body: string;
-  attachment?: string;
-  author: Omit<UserSchema, 'created_at'>;
-  created_at: string;
-  updated_at: string;
-  system: boolean;
-  noteable_id: number;
-  noteable_type: string;
-  noteable_iid?: number;
-  resolvable: boolean;
-  position?: PositionSchema;
-}
-
-export interface DiscussionSchema extends Record<string, unknown> {
-  id: string;
-  individual_note: boolean;
-  notes?: NotesEntitySchema[];
-}
+import { DiscussionSchema } from '../models';
 
 export class ResourceDiscussions<C extends boolean = false> extends BaseService<C> {
   protected resource2Type: string;

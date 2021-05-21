@@ -1,20 +1,11 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../services/Users';
 import {
   RequestHelper,
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
-
-export interface NoteSchema extends Record<string, unknown> {
-  id: number;
-  body: string;
-  author: UserSchema;
-  created_at: string;
-  updated_at: string;
-  confidential: boolean;
-}
+import { NoteSchema } from '../models';
 
 export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
   protected resource2Type: string;

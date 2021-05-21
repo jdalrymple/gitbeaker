@@ -13,6 +13,9 @@ export function getAPIMap(): Record<string, unknown> {
 /* -------------- Single Services ------------- */
 export * from './services';
 
+/* -------------- Single Models --------------- */
+export * from './models';
+
 /* ------------------ Bundles ----------------- */
 
 // Groups

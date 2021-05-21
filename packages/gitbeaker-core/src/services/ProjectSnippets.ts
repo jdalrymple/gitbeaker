@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 import { SnippetVisibility } from './Snippets';
-import { UserSchema } from './Users';
+import { UserSchema } from '../models';
 
 export interface ProjectSnippetSchema extends Record<string, unknown> {
   id: number;

@@ -1,11 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes, NoteSchema } from '../templates';
+import { NoteSchema } from '../models';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+import { ResourceNotes } from '../templates';
 
 export interface SnippetNoteSchema extends NoteSchema {
   file_name: string;

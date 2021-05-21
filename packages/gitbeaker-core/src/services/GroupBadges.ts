@@ -1,11 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceBadges, BadgeSchema } from '../templates';
+import { BadgeSchema } from '../models';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+import { ResourceBadges } from '../templates';
 
 export interface GroupBadgeSchema extends BadgeSchema {
   kind: 'group';

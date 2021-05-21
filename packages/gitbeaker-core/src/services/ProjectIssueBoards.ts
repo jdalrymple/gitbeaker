@@ -1,12 +1,13 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ProjectSchema } from './Projects';
-import { ResourceIssueBoards, IssueBoardSchema, IssueBoardListSchema } from '../templates';
+import { ProjectSchema, IssueBoardSchema, IssueBoardListSchema } from '../models';
+
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
+import { ResourceIssueBoards } from '../templates';
 
 export interface ProjectIssueBoardSchema extends IssueBoardSchema {
   project: Pick<

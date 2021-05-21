@@ -1,5 +1,5 @@
 import { BaseService } from '@gitbeaker/requester-utils';
-import { UserExtendedSchema } from './Users';
+import { UserExtendedSchema } from '../models';
 import { RequestHelper, Sudo } from '../infrastructure';
 
 export interface KeySchema extends Record<string, unknown> {

@@ -1,20 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes, NoteSchema } from '../templates';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
   CamelizedRecord,
 } from '../infrastructure';
-
-export interface MergeRequestNoteSchema extends NoteSchema {
-  attachment?: string;
-  system: boolean;
-  noteable_id: number;
-  noteable_type: string;
-  noteable_iid: number;
-  resolvable: boolean;
-}
+import { ResourceNotes } from '../templates';
+import { MergeRequestNoteSchema } from '../models';
 
 export interface MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
   all(

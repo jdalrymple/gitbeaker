@@ -1,11 +1,12 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDeployTokens, DeployTokenScope, DeployTokenSchema } from '../templates';
+import { DeployTokenScope, DeployTokenSchema } from '../models';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   CamelizedRecord,
   Sudo,
 } from '../infrastructure';
+import { ResourceDeployTokens } from '../templates';
 
 export interface ProjectDeployTokens<C extends boolean = false> extends ResourceDeployTokens<C> {
   add(

@@ -5,14 +5,7 @@ import {
   BaseRequestOptions,
   PaginatedRequestOptions,
 } from '../infrastructure';
-
-export interface DeployKey extends Record<string, unknown> {
-  id: number;
-  title: string;
-  key: string;
-  can_push?: boolean;
-  created_at: string;
-}
+import { DeployKey } from '../models';
 
 export class DeployKeys<C extends boolean = false> extends BaseService<C> {
   add(projectId: string | number, options?: Sudo) {

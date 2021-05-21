@@ -1,47 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
-
-export interface ExportStatusSchema extends Record<string, unknown> {
-  id: number;
-  description: string;
-  name: string;
-  name_with_namespace: string;
-  path: string;
-  path_with_namespace: string;
-  created_at: string;
-  export_status: string;
-  _links: {
-    api_url: string;
-    web_url: string;
-  };
-}
-
-export interface FailedRelationSchema {
-  id: number;
-  created_at: string;
-  exception_class: string;
-  exception_message: string;
-  source: string;
-  relation_name: string;
-}
-
-export interface ImportStatusSchema extends Record<string, unknown> {
-  id: number;
-  description: string;
-  name: string;
-  name_with_namespace: string;
-  path: string;
-  path_with_namespace: string;
-  created_at: string;
-  import_status: string;
-  correlation_id: string;
-  failed_relations?: FailedRelationSchema[];
-}
-
-export interface UploadMetadata {
-  filename?: string;
-  contentType?: string;
-}
+import { ExportStatusSchema, ImportStatusSchema, UploadMetadata } from '../models';
 
 export const defaultMetadata = {
   filename: `${Date.now().toString()}.tar.gz`,

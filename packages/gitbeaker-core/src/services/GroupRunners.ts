@@ -1,6 +1,6 @@
 import { BaseService } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, ShowExpanded, RequestHelper } from '../infrastructure';
-import { RunnerSchema } from './Runners';
+import { RunnerSchema } from '../models';
 
 export class GroupRunners<C extends boolean = false> extends BaseService<C> {
   all(groupId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {

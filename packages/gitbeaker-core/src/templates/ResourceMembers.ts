@@ -5,28 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { AccessLevel } from './ResourceAccessRequests';
-
-export interface IncludeInherited {
-  includeInherited?: boolean;
-}
-
-export interface MembersSchema extends Record<string, unknown> {
-  id: number;
-  username: string;
-  name: string;
-  state: string;
-  avatar_url: string;
-  web_url: string;
-  expires_at: string;
-  access_level: AccessLevel;
-  email: string;
-  group_saml_identity: {
-    extern_uid: string;
-    provider: string;
-    saml_provider_id: number;
-  };
-}
+import { AccessLevel, IncludeInherited, MembersSchema } from '../models';
 
 export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
   constructor(resourceType: string, options: BaseServiceOptions<C>) {
