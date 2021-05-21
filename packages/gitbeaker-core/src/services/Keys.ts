@@ -11,7 +11,7 @@ export interface KeySchema extends Record<string, unknown> {
   user: UserExtendedSchema;
 }
 
-export class Keys<C extends boolean = false> extends BaseService<C> {
+export class Keys extends BaseService {
   show(keyId: string, options?: Sudo) {
     const kId = encodeURIComponent(keyId);
 

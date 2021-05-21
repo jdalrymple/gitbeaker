@@ -20,7 +20,7 @@ export interface SearchResultSchema extends Record<string, unknown> {
   last_activity_at: string;
 }
 
-export class Search<C extends boolean = false> extends BaseService<C> {
+export class Search extends BaseService {
   all(
     scope: string,
     search: string,

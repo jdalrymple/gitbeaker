@@ -30,7 +30,7 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
   strategies?: StrategySchema[];
 }
 
-export class FeatureFlags<C extends boolean = false> extends BaseService<C> {
+export class FeatureFlags extends BaseService {
   all(
     projectId: string | number,
     options: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},

@@ -16,10 +16,10 @@ export interface NoteSchema extends Record<string, unknown> {
   confidential: boolean;
 }
 
-export class ResourceNotes<C extends boolean = false> extends BaseService<C> {
+export class ResourceNotes extends BaseService {
   protected resource2Type: string;
 
-  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;

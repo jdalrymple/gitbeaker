@@ -49,7 +49,7 @@ export interface UserActivitySchema extends Record<string, unknown> {
   last_activity_at: string;
 }
 
-export class Users<C extends boolean = false> extends BaseService<C> {
+export class Users extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<UserSchema[]>()(this, 'users', options);
   }

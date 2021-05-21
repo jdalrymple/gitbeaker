@@ -23,8 +23,8 @@ export interface MilestoneSchema extends Record<string, unknown> {
   web_url?: string;
 }
 
-export class ResourceMilestones<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceMilestones extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

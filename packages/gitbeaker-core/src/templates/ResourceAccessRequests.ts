@@ -12,8 +12,8 @@ export interface AccessRequestSchema extends Record<string, unknown> {
   requested_at: string;
 }
 
-export class ResourceAccessRequests<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceAccessRequests extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

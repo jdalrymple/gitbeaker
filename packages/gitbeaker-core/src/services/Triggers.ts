@@ -18,7 +18,7 @@ export interface PipelineTriggerSchema extends Record<string, unknown> {
 }
 
 // TODO: Rename PipelineTriggers
-export class Triggers<C extends boolean = false> extends BaseService<C> {
+export class Triggers extends BaseService {
   add(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

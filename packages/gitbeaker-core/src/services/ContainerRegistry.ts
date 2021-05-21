@@ -24,7 +24,7 @@ export interface RepositorySchema extends Record<string, unknown> {
   tags?: Pick<TagSchema, 'name' | 'path' | 'location'>[];
 }
 
-export class ContainerRegistry<C extends boolean = false> extends BaseService<C> {
+export class ContainerRegistry extends BaseService {
   projectRepositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

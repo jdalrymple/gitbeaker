@@ -20,7 +20,7 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   dismissable: boolean;
 }
 
-export class BroadcastMessages<C extends boolean = false> extends BaseService<C> {
+export class BroadcastMessages extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<BroadcastMessageSchema[]>()(this, 'broadcast_messages', options);
   }

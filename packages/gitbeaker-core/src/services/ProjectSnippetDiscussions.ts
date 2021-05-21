@@ -1,14 +1,8 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions, DiscussionSchema } from '../templates';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface ProjectSnippetDiscussions<C extends boolean = false>
-  extends ResourceDiscussions<C> {
+export interface ProjectSnippetDiscussions extends ResourceDiscussions {
   addNote(
     projectId: string | number,
     snippetId: string | number,
@@ -16,20 +10,20 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   all(
     projectId: string | number,
     issueId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
+  ): Promise<DiscussionSchema[]>;
 
   create(
     projectId: string | number,
     snippetId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   editNote(
     projectId: string | number,
@@ -37,7 +31,7 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     discussionId: number,
     noteId: number,
     options: BaseRequestOptions & { body: string },
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   removeNote(
     projectId: string | number,
@@ -52,11 +46,11 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     snippetId: string | number,
     discussionId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 }
 
-export class ProjectSnippetDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class ProjectSnippetDiscussions extends ResourceDiscussions {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('projects', 'snippets', options);
   }

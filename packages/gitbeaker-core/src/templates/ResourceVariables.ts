@@ -10,8 +10,8 @@ export interface ResourceVariableSchema extends Record<string, unknown> {
   key: string;
 }
 
-export class ResourceVariables<C extends boolean> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceVariables extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

@@ -1,53 +1,37 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones, MilestoneSchema } from '../templates';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 import { IssueSchema } from './Issues';
 import { MergeRequestSchema } from './MergeRequests';
 
-export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  all(
-    groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>[]>;
+export interface GroupMilestones extends ResourceMilestones {
+  all(groupId: string | number, options?: PaginatedRequestOptions): Promise<MilestoneSchema[]>;
 
   create(
     groupId: string | number,
     title: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+  ): Promise<MilestoneSchema>;
 
   edit(
     groupId: string | number,
     milestoneId: number,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+  ): Promise<MilestoneSchema>;
 
-  issues(
-    groupId: string | number,
-    milestoneId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueSchema>[]>;
+  issues(groupId: string | number, milestoneId: number, options?: Sudo): Promise<IssueSchema[]>;
 
   mergeRequests(
     groupId: string | number,
     milestoneId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, MergeRequestSchema>[]>;
+  ): Promise<MergeRequestSchema[]>;
 
-  show(
-    groupId: string | number,
-    milestoneId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+  show(groupId: string | number, milestoneId: number, options?: Sudo): Promise<MilestoneSchema>;
 }
 
-export class GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class GroupMilestones extends ResourceMilestones {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('groups', options);
   }

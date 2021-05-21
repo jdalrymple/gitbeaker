@@ -7,7 +7,7 @@ export interface LintSchema extends Record<string, unknown> {
   warnings?: string[];
 }
 
-export class Lint<C extends boolean = false> extends BaseService<C> {
+export class Lint extends BaseService {
   lint(content: string, options?: Sudo) {
     return RequestHelper.post<LintSchema>()(this, 'ci/lint', { content, ...options });
   }

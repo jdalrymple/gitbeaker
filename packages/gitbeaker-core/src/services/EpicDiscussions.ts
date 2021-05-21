@@ -1,13 +1,8 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions, DiscussionSchema } from '../templates';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+export interface EpicDiscussions extends ResourceDiscussions {
   addNote(
     groupId: string | number,
     epicId: number,
@@ -15,20 +10,20 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   all(
     groupId: string | number,
     epicId: number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
+  ): Promise<DiscussionSchema[]>;
 
   create(
     groupId: string | number,
     epicId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   editNote(
     groupId: string | number,
@@ -36,7 +31,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     discussionId: number,
     noteId: number,
     options: BaseRequestOptions & { body: string },
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   removeNote(
     groupId: string | number,
@@ -51,11 +46,11 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 }
 
-export class EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class EpicDiscussions extends ResourceDiscussions {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('groups', 'epics', options);
   }

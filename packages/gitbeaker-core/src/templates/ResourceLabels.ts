@@ -22,8 +22,8 @@ export interface LabelSchema extends Record<string, unknown> {
   is_project_label: boolean;
 }
 
-export class ResourceLabels<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceLabels extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

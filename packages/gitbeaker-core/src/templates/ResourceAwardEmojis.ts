@@ -31,10 +31,10 @@ export function url(
   return output.join('/');
 }
 
-export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<C> {
+export class ResourceAwardEmojis extends BaseService {
   protected resourceType: string;
 
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;

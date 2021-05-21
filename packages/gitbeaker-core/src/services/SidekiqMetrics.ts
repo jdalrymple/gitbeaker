@@ -39,7 +39,7 @@ export interface SidekickCompoundMetricsSchema
     SidekickQueueMetricsSchema,
     SidekickProcessMetricsSchema {}
 
-export class SidekiqMetrics<C extends boolean = false> extends BaseService<C> {
+export class SidekiqMetrics extends BaseService {
   queueMetrics() {
     return RequestHelper.get<SidekickQueueMetricsSchema>()(this, 'sidekiq/queue_metrics');
   }

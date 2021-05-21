@@ -6,8 +6,8 @@ export interface CustomAttributeSchema extends Record<string, unknown> {
   value: string;
 }
 
-export class ResourceCustomAttributes<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceCustomAttributes extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

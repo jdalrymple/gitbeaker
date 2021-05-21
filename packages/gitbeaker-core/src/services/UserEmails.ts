@@ -10,7 +10,7 @@ export interface UserEmailSchema extends Record<string, unknown> {
 const url = (userId?: number) =>
   userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails';
 
-export class UserEmails<C extends boolean = false> extends BaseService<C> {
+export class UserEmails extends BaseService {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<UserEmailSchema[]>()(this, url(userId), options);
   }

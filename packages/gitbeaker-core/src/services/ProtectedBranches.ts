@@ -22,7 +22,7 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
   code_owner_approval_required: boolean;
 }
 
-export class ProtectedBranches<C extends boolean = false> extends BaseService<C> {
+export class ProtectedBranches extends BaseService {
   all(projectId: string | number, options: { search?: string } & PaginatedRequestOptions = {}) {
     const pId = encodeURIComponent(projectId);
 

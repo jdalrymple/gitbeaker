@@ -14,7 +14,7 @@ export interface DeployKey extends Record<string, unknown> {
   created_at: string;
 }
 
-export class DeployKeys<C extends boolean = false> extends BaseService<C> {
+export class DeployKeys extends BaseService {
   add(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 

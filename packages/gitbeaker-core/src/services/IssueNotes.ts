@@ -1,11 +1,6 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes, NoteSchema } from '../templates';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { PaginatedRequestOptions, BaseRequestOptions, Sudo } from '../infrastructure';
 
 export interface IssueNoteSchema extends NoteSchema {
   attachment?: string;
@@ -16,19 +11,19 @@ export interface IssueNoteSchema extends NoteSchema {
   resolvable: boolean;
 }
 
-export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
+export interface IssueNotes extends ResourceNotes {
   all(
     projectId: string | number,
     issueIId: number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>[]>;
+  ): Promise<IssueNoteSchema[]>;
 
   create(
     projectId: string | number,
     issueIId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+  ): Promise<IssueNoteSchema>;
 
   edit(
     projectId: string | number,
@@ -36,7 +31,7 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+  ): Promise<IssueNoteSchema>;
 
   remove(
     projectId: string | number,
@@ -50,11 +45,11 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     issueIId: number,
     noteId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+  ): Promise<IssueNoteSchema>;
 }
 
-export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class IssueNotes extends ResourceNotes {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('projects', 'issues', options);
   }

@@ -2,7 +2,7 @@ import { BaseService } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, ShowExpanded, RequestHelper } from '../infrastructure';
 import { RunnerSchema } from './Runners';
 
-export class GroupRunners<C extends boolean = false> extends BaseService<C> {
+export class GroupRunners extends BaseService {
   all(groupId: string | number, options?: PaginatedRequestOptions & ShowExpanded) {
     const gId = encodeURIComponent(groupId);
 

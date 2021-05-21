@@ -25,7 +25,7 @@ export interface PipelineScheduleExtendedSchema extends PipelineScheduleSchema {
   last_pipeline: Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>;
 }
 
-export class PipelineSchedules<C extends boolean = false> extends BaseService<C> {
+export class PipelineSchedules extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

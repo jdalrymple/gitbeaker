@@ -17,7 +17,7 @@ export interface NamespaceSchema extends Record<string, unknown> {
 }
 
 // TODO: Add missing functions
-export class Namespaces<C extends boolean = false> extends BaseService<C> {
+export class Namespaces extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<NamespaceSchema[]>()(this, 'namespaces', options);
   }

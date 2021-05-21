@@ -12,7 +12,7 @@ export interface EpicIssueSchema
   epic_issue_id: number;
 }
 
-export class EpicIssues<C extends boolean = false> extends BaseService<C> {
+export class EpicIssues extends BaseService {
   all(groupId: string | number, epicIId: number, options?: PaginatedRequestOptions) {
     const [gId, eId] = [groupId, epicIId].map(encodeURIComponent);
 

@@ -35,7 +35,7 @@ export interface RunnerExtendedSchema extends RunnerSchema {
   maximum_timeout?: number;
 }
 
-export class Runners<C extends boolean = false> extends BaseService<C> {
+export class Runners extends BaseService {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
 

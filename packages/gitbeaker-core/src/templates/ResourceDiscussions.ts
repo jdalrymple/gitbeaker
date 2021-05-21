@@ -40,10 +40,10 @@ export interface DiscussionSchema extends Record<string, unknown> {
   notes?: NotesEntitySchema[];
 }
 
-export class ResourceDiscussions<C extends boolean = false> extends BaseService<C> {
+export class ResourceDiscussions extends BaseService {
   protected resource2Type: string;
 
-  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;

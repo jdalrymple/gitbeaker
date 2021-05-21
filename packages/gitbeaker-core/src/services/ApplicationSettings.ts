@@ -65,7 +65,7 @@ export interface SettingsSchema extends Record<string, unknown> {
   keep_latest_artifact: boolean;
 }
 
-export class ApplicationSettings<C extends boolean = false> extends BaseService<C> {
+export class ApplicationSettings extends BaseService {
   all(options?: Sudo) {
     return RequestHelper.get<SettingsSchema>()(this, 'application/settings', options);
   }

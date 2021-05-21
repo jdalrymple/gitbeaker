@@ -18,7 +18,7 @@ export interface PushRulesSchema extends Record<string, unknown> {
   reject_unsigned_commits?: boolean;
 }
 
-export class PushRules<C extends boolean = false> extends BaseService<C> {
+export class PushRules extends BaseService {
   create(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

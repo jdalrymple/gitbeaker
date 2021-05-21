@@ -6,8 +6,8 @@ export interface ResourceTemplateSchema extends Record<string, unknown> {
   content: string;
 }
 
-export class ResourceTemplates<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceTemplates extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: ['templates', resourceType].join('/'), ...options });
   }
 

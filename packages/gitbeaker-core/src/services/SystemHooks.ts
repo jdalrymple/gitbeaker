@@ -17,7 +17,7 @@ export interface SystemHookSchema extends Record<string, unknown> {
   enable_ssl_verification: boolean;
 }
 
-export class SystemHooks<C extends boolean = false> extends BaseService<C> {
+export class SystemHooks extends BaseService {
   add(url: string, options?: BaseRequestOptions) {
     return RequestHelper.post<SystemHookSchema>()(this, 'hooks', { url, ...options });
   }

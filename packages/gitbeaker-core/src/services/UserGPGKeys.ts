@@ -10,7 +10,7 @@ export interface UserGPGKeySchema extends Record<string, unknown> {
 const url = (userId?: number) =>
   userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'user/gpg_keys';
 
-export class UserGPGKeys<C extends boolean = false> extends BaseService<C> {
+export class UserGPGKeys extends BaseService {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<UserGPGKeySchema[]>()(this, url(userId), options);
   }

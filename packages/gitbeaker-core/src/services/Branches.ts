@@ -14,7 +14,7 @@ export interface BranchSchema extends Record<string, unknown> {
   commit: Omit<CommitSchema, 'web_url' | 'created_at'>;
 }
 
-export class Branches<C extends boolean = false> extends BaseService<C> {
+export class Branches extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

@@ -165,7 +165,7 @@ export interface MergeRequestSchema extends Record<string, unknown> {
   changes?: CommitDiffSchema[];
 }
 
-export class MergeRequests<C extends boolean = false> extends BaseService<C> {
+export class MergeRequests extends BaseService {
   accept(
     projectId: string | number,
     mergerequestIid: number,

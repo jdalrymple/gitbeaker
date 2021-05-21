@@ -41,9 +41,11 @@
     "lint:doc": "prettier --check './*.json' './*.yml' './*.js'",
     "lint:doc:fix": "prettier --write './*.json' './*.yml' './*.md' './*.js'",
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
+    "test:int": "yarn test:integration",
     "test:integration": "jest test/integration",
     "test:integration:node": "TEST_ID=$(uuid) yarn jest node/test/integration",
     "test:unit": "jest test/unit",
+    "test": "yarn test:unit && yarn:integration",
     "release": "auto shipit --verbose --verbose"
   },
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",

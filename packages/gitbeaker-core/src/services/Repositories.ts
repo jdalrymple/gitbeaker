@@ -34,7 +34,7 @@ export interface RepositoryTreeSchema extends Record<string, unknown> {
   mode: string;
 }
 
-export class Repositories<C extends boolean = false> extends BaseService<C> {
+export class Repositories extends BaseService {
   compare(projectId: string | number, from: string, to: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 

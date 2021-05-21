@@ -1,13 +1,8 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions, DiscussionSchema } from '../templates';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
+export interface MergeRequestDiscussions extends ResourceDiscussions {
   addNote(
     projectId: string | number,
     mergerequestId: string | number,
@@ -15,20 +10,20 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   all(
     projectId: string | number,
     issueId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
+  ): Promise<DiscussionSchema[]>;
 
   create(
     projectId: string | number,
     mergerequestId: string | number,
     body: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   editNote(
     projectId: string | number,
@@ -36,7 +31,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     discussionId: number,
     noteId: number,
     options: BaseRequestOptions & ({ body: string } | { resolved: boolean }),
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 
   removeNote(
     projectId: string | number,
@@ -51,11 +46,11 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+  ): Promise<DiscussionSchema>;
 }
 
-export class MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class MergeRequestDiscussions extends ResourceDiscussions {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('projects', 'merge_requests', options);
   }

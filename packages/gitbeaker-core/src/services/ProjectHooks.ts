@@ -27,7 +27,7 @@ export interface ProjectHookSchema extends Record<string, unknown> {
   created_at: string;
 }
 
-export class ProjectHooks<C extends boolean = false> extends BaseService<C> {
+export class ProjectHooks extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

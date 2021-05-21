@@ -13,7 +13,7 @@ export interface StatisticsSchema extends Record<string, unknown> {
   };
 }
 
-export class IssuesStatistics<C extends boolean = false> extends BaseService<C> {
+export class IssuesStatistics extends BaseService {
   all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
     let url: string;
 

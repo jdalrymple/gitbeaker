@@ -16,7 +16,7 @@ export interface UserImpersonationTokenSchema extends Record<string, unknown> {
   expires_at: string;
 }
 
-export class UserImpersonationTokens<C extends boolean = false> extends BaseService<C> {
+export class UserImpersonationTokens extends BaseService {
   all(userId: number, options?: { state?: ImpersonationTokenState } & PaginatedRequestOptions) {
     const uId = encodeURIComponent(userId);
 

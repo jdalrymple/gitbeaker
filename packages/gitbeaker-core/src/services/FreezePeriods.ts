@@ -10,7 +10,7 @@ export interface FreezePeriodSchema extends Record<string, unknown> {
   updated_at: string;
 }
 
-export class FreezePeriods<C extends boolean = false> extends BaseService<C> {
+export class FreezePeriods extends BaseService {
   all(projectId: string | number, options?: BaseRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

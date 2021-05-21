@@ -25,7 +25,7 @@ export interface RepositoryFileSchema extends Record<string, unknown> {
   branch: string;
 }
 
-export class RepositoryFiles<C extends boolean = false> extends BaseService<C> {
+export class RepositoryFiles extends BaseService {
   create(
     projectId: string | number,
     filePath: string,

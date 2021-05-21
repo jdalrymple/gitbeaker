@@ -6,7 +6,7 @@ jest.mock(
   () => require('../../__mocks__/RequestHelper').default,
 );
 
-let service: ResourceVariables<false>;
+let service: ResourceVariables;
 
 beforeEach(() => {
   service = new ResourceVariables('resource', {

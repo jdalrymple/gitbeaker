@@ -1,20 +1,20 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis, AwardEmojiSchema } from '../templates';
-import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
+import { PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface IssueAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
+export interface IssueAwardEmojis extends ResourceAwardEmojis {
   all(
     projectId: string | number,
     issueIId: number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>[]>;
+  ): Promise<AwardEmojiSchema[]>;
 
   award(
     projectId: string | number,
     issueIId: number,
     name: string,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
+  ): Promise<AwardEmojiSchema>;
 
   remove(
     projectId: string | number,
@@ -28,11 +28,11 @@ export interface IssueAwardEmojis<C extends boolean = false> extends ResourceAwa
     issueIId: number,
     awardId: number,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
+  ): Promise<AwardEmojiSchema>;
 }
 
-export class IssueAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class IssueAwardEmojis extends ResourceAwardEmojis {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('issues', options);
   }

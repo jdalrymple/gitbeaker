@@ -36,7 +36,7 @@ export interface EventSchema extends Record<string, unknown> {
   author_username: string;
 }
 
-export class Events<C extends boolean = false> extends BaseService<C> {
+export class Events extends BaseService {
   all({
     projectId,
     ...options

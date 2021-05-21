@@ -23,7 +23,7 @@ export interface PackageFileSchema extends Record<string, unknown> {
   pipelines?: PipelineSchema[];
 }
 
-export class Packages<C extends boolean = false> extends BaseService<C> {
+export class Packages extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

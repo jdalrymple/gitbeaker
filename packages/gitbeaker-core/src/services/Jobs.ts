@@ -74,7 +74,7 @@ export interface BridgeSchema extends Record<string, unknown> {
   downstream_pipeline: Exclude<PipelineSchema, 'user'>;
 }
 
-export class Jobs<C extends boolean = false> extends BaseService<C> {
+export class Jobs extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

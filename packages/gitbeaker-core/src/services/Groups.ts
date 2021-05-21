@@ -58,7 +58,7 @@ export type GroupDetailSchema = {
   created_at: string;
 };
 
-export class Groups<C extends boolean = false> extends BaseService<C> {
+export class Groups extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<GroupSchema[]>()(this, 'groups', options);
   }

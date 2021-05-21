@@ -19,7 +19,7 @@ export interface PagesDomainSchema extends Record<string, unknown> {
 
 // TODO: Add missing functions
 
-export class PagesDomains<C extends boolean = false> extends BaseService<C> {
+export class PagesDomains extends BaseService {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
 

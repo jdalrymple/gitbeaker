@@ -61,7 +61,7 @@ export interface ServiceSchema extends Record<string, unknown> {
   comment_on_event_enabled: boolean;
 }
 
-export class Services<C extends boolean = false> extends BaseService<C> {
+export class Services extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

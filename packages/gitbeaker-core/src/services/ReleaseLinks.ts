@@ -9,7 +9,7 @@ export interface ReleaseLinkSchema extends Record<string, unknown> {
   link_type: string;
 }
 
-export class ReleaseLinks<C extends boolean = false> extends BaseService<C> {
+export class ReleaseLinks extends BaseService {
   all(projectId: string | number, tagName: string, options?: PaginatedRequestOptions) {
     const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
 

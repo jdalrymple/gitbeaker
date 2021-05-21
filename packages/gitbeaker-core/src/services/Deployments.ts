@@ -39,7 +39,7 @@ export type DeploymentSchema = {
   environment: EnvironmentSchema;
 };
 
-export class Deployments<C extends boolean = false> extends BaseService<C> {
+export class Deployments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

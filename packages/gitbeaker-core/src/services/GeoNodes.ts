@@ -139,7 +139,7 @@ export interface GeoNodeStatusSchema extends Record<string, unknown> {
   group_wiki_repositories_failed_count: number;
 }
 
-export class GeoNodes<C extends boolean = false> extends BaseService<C> {
+export class GeoNodes extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<GeoNodeSchema[]>()(this, 'geo_nodes', options);
   }

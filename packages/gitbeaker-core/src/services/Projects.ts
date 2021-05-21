@@ -146,7 +146,7 @@ export interface ProjectFileUploadSchema extends Record<string, unknown> {
   markdown: string;
 }
 
-export class Projects<C extends boolean = false> extends BaseService<C> {
+export class Projects extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<ProjectSchema[]>()(this, 'projects', options);
   }

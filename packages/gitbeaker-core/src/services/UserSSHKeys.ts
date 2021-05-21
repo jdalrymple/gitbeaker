@@ -11,7 +11,7 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
 const url = (userId?: number) =>
   userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys';
 
-export class UserSSHKeys<C extends boolean = false> extends BaseService<C> {
+export class UserSSHKeys extends BaseService {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
     return RequestHelper.get<UserSSHKeySchema[]>()(this, url(userId), options);
   }

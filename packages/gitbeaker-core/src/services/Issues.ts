@@ -72,7 +72,7 @@ export interface IssueSchema extends Record<string, unknown> {
   };
 }
 
-export class Issues<C extends boolean = false> extends BaseService<C> {
+export class Issues extends BaseService {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 

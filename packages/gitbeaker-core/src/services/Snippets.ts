@@ -41,7 +41,7 @@ export interface UserAgentDetailSchema extends Record<string, unknown> {
   akismet_submitted: boolean;
 }
 
-export class Snippets<C extends boolean = false> extends BaseService<C> {
+export class Snippets extends BaseService {
   all({ public: p, ...options }: { public?: boolean } & PaginatedRequestOptions = {}) {
     const url = p ? 'snippets/public' : 'snippets';
 

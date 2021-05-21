@@ -44,7 +44,7 @@ export interface TodoSchema extends Record<string, unknown> {
   updated_at: string;
 }
 
-export class Todos<C extends boolean = false> extends BaseService<C> {
+export class Todos extends BaseService {
   all(options?: PaginatedRequestOptions) {
     return RequestHelper.get<TodoSchema[]>()(this, 'todos', options);
   }

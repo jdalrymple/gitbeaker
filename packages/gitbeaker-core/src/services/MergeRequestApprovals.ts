@@ -19,7 +19,7 @@ export type ApprovalRulesRequestOptions = {
   protectedBranchIds?: number[];
 };
 
-export class MergeRequestApprovals<C extends boolean = false> extends BaseService<C> {
+export class MergeRequestApprovals extends BaseService {
   addApprovalRule(
     projectId: string | number,
     name: string,

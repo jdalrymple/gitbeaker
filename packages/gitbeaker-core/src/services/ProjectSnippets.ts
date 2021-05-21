@@ -21,7 +21,7 @@ export interface ProjectSnippetSchema extends Record<string, unknown> {
   raw_url: string;
 }
 
-export class ProjectSnippets<C extends boolean = false> extends BaseService<C> {
+export class ProjectSnippets extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

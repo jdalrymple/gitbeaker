@@ -16,8 +16,8 @@ export interface BadgeSchema extends Record<string, unknown> {
   kind: 'project' | 'group';
 }
 
-export class ResourceBadges<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceBadges extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

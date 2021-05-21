@@ -13,7 +13,7 @@ export interface WikiSchema extends Record<string, unknown> {
   title: string;
 }
 
-export class Wikis<C extends boolean = false> extends BaseService<C> {
+export class Wikis extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

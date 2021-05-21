@@ -1,29 +1,26 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables, ResourceVariableSchema } from '../templates';
-import { BaseRequestOptions, PaginatedRequestOptions, CamelizedRecord } from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions } from '../infrastructure';
 
-export interface ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
+export interface ProjectVariables extends ResourceVariables {
   all(
     projectId: string | number,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ResourceVariableSchema>[]>;
+  ): Promise<ResourceVariableSchema[]>;
 
-  create(
-    projectId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
+  create(projectId: string | number, options?: BaseRequestOptions): Promise<ResourceVariableSchema>;
 
   edit(
     projectId: string | number,
     keyId: string,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
+  ): Promise<ResourceVariableSchema>;
 
   show(
     projectId: string | number,
     keyId: string,
     options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ResourceVariableSchema>>;
+  ): Promise<ResourceVariableSchema>;
 
   remove(
     projectId: string | number,
@@ -32,8 +29,8 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
   ): Promise<void>;
 }
 
-export class ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class ProjectVariables extends ResourceVariables {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('projects', options);
   }

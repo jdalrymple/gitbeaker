@@ -19,7 +19,7 @@ export interface EnvironmentSchema extends Record<string, unknown> {
   deployable?: DeployableSchema;
 }
 
-export class Environments<C extends boolean = false> extends BaseService<C> {
+export class Environments extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

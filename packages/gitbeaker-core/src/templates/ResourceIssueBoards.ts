@@ -24,8 +24,8 @@ export interface IssueBoardSchema extends Record<string, unknown> {
   lists?: IssueBoardListSchema[];
 }
 
-export class ResourceIssueBoards<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceIssueBoards extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

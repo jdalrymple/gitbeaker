@@ -16,7 +16,7 @@ export interface ProtectedTagSchema extends Record<string, unknown> {
   create_access_levels?: ProtectedTagAccessLevelSchema[];
 }
 
-export class ProtectedTags<C extends boolean = false> extends BaseService<C> {
+export class ProtectedTags extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

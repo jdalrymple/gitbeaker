@@ -17,7 +17,7 @@ export interface TagSchema extends Record<string, unknown> {
   protected: boolean;
 }
 
-export class Tags<C extends boolean = false> extends BaseService<C> {
+export class Tags extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

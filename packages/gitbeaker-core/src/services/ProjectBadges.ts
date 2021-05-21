@@ -1,51 +1,36 @@
 import { BaseServiceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges, BadgeSchema } from '../templates';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  Sudo,
-  CamelizedRecord,
-} from '../infrastructure';
+import { BaseRequestOptions, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ProjectBadgeSchema extends BadgeSchema {
   kind: 'project';
 }
 
-export interface ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
-  add(
-    productId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+export interface ProjectBadges extends ResourceBadges {
+  add(productId: string | number, options?: BaseRequestOptions): Promise<ProjectBadgeSchema>;
 
-  all(
-    productId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>[]>;
+  all(productId: string | number, options?: PaginatedRequestOptions): Promise<ProjectBadgeSchema[]>;
 
   edit(
     productId: string | number,
     badgeId: number,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+  ): Promise<ProjectBadgeSchema>;
 
   preview(
     productId: string | number,
     linkUrl: string,
     imageUrl: string,
     options?: Sudo,
-  ): Promise<CamelizedRecord<C, Omit<ProjectBadgeSchema, 'id' | 'name' | 'kind'>>>;
+  ): Promise<Omit<ProjectBadgeSchema, 'id' | 'name' | 'kind'>>;
 
   remove(productId: string | number, badgeId: number, options?: Sudo): Promise<void>;
 
-  show(
-    productId: string | number,
-    badgeId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+  show(productId: string | number, badgeId: number, options?: Sudo): Promise<ProjectBadgeSchema>;
 }
 
-export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
-  constructor(options: BaseServiceOptions<C>) {
+export class ProjectBadges extends ResourceBadges {
+  constructor(options: BaseServiceOptions) {
     /* istanbul ignore next */
     super('groups', options);
   }

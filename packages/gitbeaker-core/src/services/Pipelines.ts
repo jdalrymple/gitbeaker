@@ -52,7 +52,7 @@ export interface PipelineVariableSchema extends Record<string, unknown> {
 
 // TODO: Add missing function
 
-export class Pipelines<C extends boolean = false> extends BaseService<C> {
+export class Pipelines extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

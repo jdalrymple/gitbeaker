@@ -6,7 +6,7 @@ interface VersionSchema extends Record<string, unknown> {
   revision: string;
 }
 
-export class Version<C extends boolean = false> extends BaseService<C> {
+export class Version extends BaseService {
   show(options?: Sudo) {
     return RequestHelper.get<VersionSchema>()(this, 'version', options);
   }

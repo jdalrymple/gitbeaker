@@ -28,8 +28,8 @@ export interface MembersSchema extends Record<string, unknown> {
   };
 }
 
-export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceMembers extends BaseService {
+  constructor(resourceType: string, options: BaseServiceOptions) {
     super({ prefixUrl: resourceType, ...options });
   }
 

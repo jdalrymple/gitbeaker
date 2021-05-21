@@ -22,7 +22,7 @@ export interface LicenseSchema extends Record<string, unknown> {
   };
 }
 
-export class License<C extends boolean = false> extends BaseService<C> {
+export class License extends BaseService {
   add(license: string, options?: Sudo) {
     return RequestHelper.post<LicenseSchema>()(this, 'license', { license, ...options });
   }

@@ -50,7 +50,7 @@ export interface ReleaseSchema extends Record<string, unknown> {
 }
 
 // TODO: Add missing functions
-export class Releases<C extends boolean = false> extends BaseService<C> {
+export class Releases extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 

@@ -45,7 +45,7 @@ export interface EpicSchema extends Record<string, unknown> {
   };
 }
 
-export class Epics<C extends boolean = false> extends BaseService<C> {
+export class Epics extends BaseService {
   all(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 

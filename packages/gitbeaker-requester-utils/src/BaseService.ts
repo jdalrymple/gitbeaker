@@ -1,6 +1,6 @@
 import { RequesterType, DefaultServiceOptions } from './RequesterUtils';
 
-export interface BaseServiceOptions<C> {
+export interface BaseServiceOptions {
   oauthToken?: string;
   token?: string;
   jobToken?: string;
@@ -8,7 +8,7 @@ export interface BaseServiceOptions<C> {
   prefixUrl?: string;
   version?: 3 | 4;
   rejectUnauthorized?: boolean;
-  camelize?: C;
+  camelize?: boolean;
   requesterFn?: (serviceOptions: DefaultServiceOptions) => RequesterType;
   requestTimeout?: number;
   profileToken?: string;
@@ -16,7 +16,7 @@ export interface BaseServiceOptions<C> {
   profileMode?: 'execution' | 'memory';
 }
 
-export class BaseService<C extends boolean = false> {
+export class BaseService {
   public readonly url: string;
 
   public readonly requester: RequesterType;
@@ -25,7 +25,7 @@ export class BaseService<C extends boolean = false> {
 
   public readonly headers: { [header: string]: string };
 
-  public readonly camelize: C | undefined;
+  public readonly camelize: boolean;
 
   public readonly rejectUnauthorized: boolean;
 
@@ -43,7 +43,7 @@ export class BaseService<C extends boolean = false> {
     version = 4,
     rejectUnauthorized = true,
     requestTimeout = 300000,
-  }: BaseServiceOptions<C> = {}) {
+  }: BaseServiceOptions = {}) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
     this.url = [host, 'api', `v${version}`, prefixUrl].join('/');
@@ -52,7 +52,7 @@ export class BaseService<C extends boolean = false> {
       'user-agent': 'gitbeaker',
     };
     this.rejectUnauthorized = rejectUnauthorized;
-    this.camelize = camelize;
+    this.camelize = !!camelize;
     this.requestTimeout = requestTimeout;
 
     // Handle auth tokens

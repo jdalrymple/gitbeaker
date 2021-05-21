@@ -134,7 +134,7 @@ export interface CommitReferenceSchema extends Record<string, unknown> {
   name: string;
 }
 
-export class Commits<C extends boolean = false> extends BaseService<C> {
+export class Commits extends BaseService {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
