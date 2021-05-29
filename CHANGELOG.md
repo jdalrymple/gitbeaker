@@ -1,3 +1,17 @@
+# 29.2.3 (Sat May 29 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump eslint from 7.26.0 to 7.27.0 [#1803](https://github.com/jdalrymple/gitbeaker/pull/1803) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ws from 7.4.5 to 7.4.6 [#1819](https://github.com/jdalrymple/gitbeaker/pull/1819) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
