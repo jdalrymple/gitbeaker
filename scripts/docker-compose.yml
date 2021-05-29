@@ -1,15 +1,18 @@
-version: '3'
+version: '3.8'
 services:
   gitlab:
     image: 'gitlab/gitlab-ce:latest'
     container_name: 'gitlab'
+    entrypoint:
+      - '/bin/sh'
+      - '-c'
+      - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
     environment:
-      PERSONAL_ACCESS_TOKEN: ''
+      GITLAB_URL: 'http://localhost:8080'
+      PERSONAL_ACCESS_TOKEN: 'superduperstrongtoken'
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
       GITLAB_ROOT_PASSWORD: 'password'
     ports:
       - '8080:80'
       - '8443:443'
-    volumes:
-      - './init.rb:/mnt/init.rb'

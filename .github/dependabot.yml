@@ -1,38 +1,38 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: npm
-  directory: "/packages/gitbeaker-browser"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: npm
-  directory: "/packages/gitbeaker-node"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: npm
-  directory: "/packages/gitbeaker-cli"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: npm
-  directory: "/packages/gitbeaker-core"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: npm
-  directory: "/packages/gitbeaker-requester-utils"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/packages/gitbeaker-browser'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/packages/gitbeaker-node'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/packages/gitbeaker-cli'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/packages/gitbeaker-core'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: '/packages/gitbeaker-requester-utils'
+    schedule:
+      interval: daily
+      time: '04:00'
+    open-pull-requests-limit: 10

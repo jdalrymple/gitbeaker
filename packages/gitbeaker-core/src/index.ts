@@ -3,11 +3,13 @@ import * as APIServices from './services';
 
 /* -------------- Export Map ------------- */
 export function getAPIMap(): Record<string, unknown> {
-  if (!'__apiMap__'.includes('{')) {
+  const map = '__apiMap__';
+
+  if (!map.includes('{')) {
     throw new Error('This function is only available in the distributed code');
   }
 
-  return JSON.parse('__apiMap__');
+  return JSON.parse(map);
 }
 
 /* -------------- Single Services ------------- */

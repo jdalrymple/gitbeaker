@@ -75,8 +75,8 @@ export function defaultOptionsHandler(
 }
 
 export function createRequesterFn(
-  optionsHandler,
-  requestHandler,
+  optionsHandler: Function,
+  requestHandler: Function,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 

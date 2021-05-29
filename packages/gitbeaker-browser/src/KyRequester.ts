@@ -9,14 +9,12 @@ import {
   wait,
 } from '@gitbeaker/requester-utils';
 
-function responseHeadersAsObject(response): Record<string, string> {
-  const headers = {};
+function responseHeadersAsObject(headers: Headers) {
+  return Array.from(headers.entries()).reduce((acc, curr) => {
+    acc[curr[0]] = curr[1];
 
-  Array.from(response.headers.entries()).forEach(([key, value]) => {
-    headers[key] = value;
-  });
-
-  return headers;
+    return acc;
+  }, {});
 }
 
 export function defaultOptionsHandler(
@@ -41,7 +39,7 @@ export function defaultOptionsHandler(
   return { ...opts, headers: new Headers(serviceOptions.headers as Record<string, string>) };
 }
 
-export function processBody(response) {
+export async function processBody(response: Response) {
   // Split to remove potential charset info from the content type
   const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
 
@@ -53,20 +51,25 @@ export function processBody(response) {
     return response.text().then((t) => t || '');
   }
 
-  return response.blob().then(Buffer.from);
+  return response.blob().then((b) => Buffer.from(b as unknown as SharedArrayBuffer));
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
   const retryCodes = [429, 502];
   const maxRetries = 10;
-  let response;
+  let response: Response;
 
   for (let i = 0; i < maxRetries; i += 1) {
     try {
       if (options.method === 'stream') return ky(endpoint, options);
 
       response = await ky(endpoint, options); // eslint-disable-line
-      break;
+
+      const { status } = response;
+      const headers = responseHeadersAsObject(response.headers);
+      const body = await processBody(response);
+
+      return { body, headers, status };
     } catch (e) {
       const waitTime = 2 ** i * 0.1;
 
@@ -88,11 +91,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
     }
   }
 
-  const { status } = response;
-  const headers = responseHeadersAsObject(response);
-  const body = await processBody(response);
-
-  return { body, headers, status };
+  throw new Error('Could not successfully complete this request');
 }
 
 export const requesterFn = createRequesterFn(defaultOptionsHandler, handler);

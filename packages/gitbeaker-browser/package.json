@@ -17,20 +17,19 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.4.2",
-    "@types/expect-puppeteer": "^4.4.5",
-    "@types/jest-environment-puppeteer": "^4.4.1",
+    "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "^15.3.0",
-    "@types/puppeteer": "^5.4.3",
-    "jest-puppeteer": "^5.0.3",
+    "jest-playwright-preset": "^1.5.1",
     "node-fetch": "^2.6.1",
-    "puppeteer": "9.1.1",
+    "playwright": "^1.9.2",
     "rollup": "^2.47.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-dts": "^3.0.1",
     "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.2.4"
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4",
+    "uuid": "^8.3.2"
   },
   "engines": {
     "node": ">=10.19.0"
@@ -49,14 +48,14 @@
   ],
   "license": "MIT",
   "browser": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
-    "test:integration": "jest test/integration",
+    "build": "rollup -c",
+    "test:integration": "TEST_ID=$(uuid) jest test/integration",
     "test:unit": "jest test/unit"
   }
 }

@@ -15,12 +15,9 @@ export interface ProjectDeployTokens<C extends boolean = false> extends Resource
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, DeployTokenSchema>>;
 
-  all({
-    projectId,
-    ...options
-  }: { projectId?: string | number } & PaginatedRequestOptions): Promise<
-    CamelizedRecord<C, DeployTokenSchema>[]
-  >;
+  all(
+    options?: { projectId?: string | number } & PaginatedRequestOptions,
+  ): Promise<CamelizedRecord<C, DeployTokenSchema>[]>;
 
   remove(projectId: string | number, tokenId: number, options?: Sudo): Promise<void>;
 }

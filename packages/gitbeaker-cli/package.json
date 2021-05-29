@@ -20,11 +20,12 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
+    "esbuild": "^0.11.6",
     "rollup": "^2.47.0",
+    "rollup-plugin-esbuild": "^3.0.2",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
-    "rollup-plugin-typescript2": "^0.30.0",
     "strip-ansi": "^7.0.0",
+    "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },
   "engines": {
@@ -47,7 +48,7 @@
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"
   }

@@ -16,12 +16,15 @@
   },
   "devDependencies": {
     "@types/node": "^15.3.0",
+    "esbuild": "^0.11.6",
     "esm": "^3.2.25",
     "fs-extra": "^10.0.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "rollup": "^2.47.0",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "ts-node": "^10.0.0",
+    "rollup-plugin-dts": "^3.0.1",
+    "rollup-plugin-esbuild": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },
   "engines": {
@@ -40,14 +43,14 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
   "scripts": {
-    "build:self": "tsc && rollup -c && rm ./dist/map.json",
-    "build": "yarn run generate-map && yarn run build:self",
+    "build:self": "rollup -c",
+    "build": "yarn run generate-map && yarn run build:self && rm ./dist/map.json",
     "generate-map": "ESM_DISABLE_CACHE=true TS_NODE_PROJECT=scripts/tsconfig.json node -r esm -r ts-node/register scripts/generate.ts",
     "test:integration": "jest test/integration",
     "test:unit": "jest test/unit"

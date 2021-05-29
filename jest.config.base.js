@@ -1,4 +1,6 @@
 const tsPreset = require('ts-jest/jest-preset');
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig.base');
 
 module.exports = {
   ...tsPreset,
@@ -16,6 +18,7 @@ module.exports = {
 
   moduleNameMapper: {
     '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
 
   globals: {
