@@ -1,3 +1,16 @@
+# 29.2.2 (Sat May 29 2021)
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.2.1 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
