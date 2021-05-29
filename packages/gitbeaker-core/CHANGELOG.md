@@ -1,3 +1,15 @@
+# v29.2.1 (Sat May 29 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump ts-node from 9.1.1 to 10.0.0 [#1798](https://github.com/jdalrymple/gitbeaker/pull/1798) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v29.2.0 (Tue May 18 2021)
 
 #### 🐛 Bug Fix
