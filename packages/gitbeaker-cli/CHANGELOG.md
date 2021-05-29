@@ -1,3 +1,15 @@
+# v29.2.2 (Sat May 29 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/master' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.2.0 (Tue May 18 2021)
 
 #### 🔩 Dependency Updates
