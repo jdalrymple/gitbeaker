@@ -5,13 +5,28 @@
 name: dependabot-auto-merge
 
 on:
-  pull_request:
+  pull_request_target:
 
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
+    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
+    # Otherwise, clone it normally.
+      if: |
+        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+        (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v2
+
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           target: minor
