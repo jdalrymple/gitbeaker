@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.3.0",
-    "esbuild": "^0.11.6",
+    "esbuild": "^0.12.5",
     "esm": "^3.2.25",
     "fs-extra": "^10.0.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
