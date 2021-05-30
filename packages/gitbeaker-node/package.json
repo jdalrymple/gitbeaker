@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.3.0",
-    "esbuild": "^0.11.6",
+    "esbuild": "^0.12.5",
     "form-data": "^4.0.0",
     "openpgp": "^4.10.10",
     "rollup": "^2.47.0",

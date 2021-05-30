@@ -20,7 +20,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "esbuild": "^0.11.6",
+    "esbuild": "^0.12.5",
     "rollup": "^2.47.0",
     "rollup-plugin-esbuild": "^4.2.3",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
