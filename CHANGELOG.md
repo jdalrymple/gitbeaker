@@ -1,3 +1,23 @@
+# 29.2.4 (Sun May 30 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Updating browser build and testing [#1780](https://github.com/jdalrymple/gitbeaker/pull/1780) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 15.3.1 to 15.6.1 [#1802](https://github.com/jdalrymple/gitbeaker/pull/1802) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @auto-it/all-contributors from 10.28.0 to 10.29.2 [#1804](https://github.com/jdalrymple/gitbeaker/pull/1804) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump rollup from 2.50.2 to 2.50.3 [#1821](https://github.com/jdalrymple/gitbeaker/pull/1821) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.2.3 (Sat May 29 2021)
 
 #### 🔩 Dependency Updates

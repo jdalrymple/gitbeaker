@@ -1,3 +1,15 @@
+# v29.2.4 (Sun May 30 2021)
+
+#### 🐛 Bug Fix
+
+- Updating browser build and testing [#1780](https://github.com/jdalrymple/gitbeaker/pull/1780) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
