@@ -22,7 +22,7 @@
   "devDependencies": {
     "esbuild": "^0.11.6",
     "rollup": "^2.47.0",
-    "rollup-plugin-esbuild": "^3.0.2",
+    "rollup-plugin-esbuild": "^4.2.3",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
     "strip-ansi": "^7.0.0",
     "tslib": "^2.2.0",
