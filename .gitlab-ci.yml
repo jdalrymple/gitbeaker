@@ -85,7 +85,6 @@ test:unit:utils:
 .test:integration: &integration-test
   stage: test
   needs: ['build']
-  resource_group: integration-testing
   image:
     name: jdalrymple/docker-compose-with-node
     entrypoint: ['/bin/sh', '-c']
