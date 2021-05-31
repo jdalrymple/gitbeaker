@@ -5414,33 +5414,6 @@ jest-changed-files@^26.6.2:
     execa "^4.0.0"
     throat "^5.0.0"
 
-jest-circus@^26.6.3:
-  version "26.6.3"
-  resolved "https://registry.yarnpkg.com/jest-circus/-/jest-circus-26.6.3.tgz#3cc7ef2a6a3787e5d7bfbe2c72d83262154053e7"
-  integrity sha512-ACrpWZGcQMpbv13XbzRzpytEJlilP/Su0JtNCi5r/xLpOUhnaIJr8leYYpLEMgPFURZISEHrnnpmB54Q/UziPw==
-  dependencies:
-    "@babel/traverse" "^7.1.0"
-    "@jest/environment" "^26.6.2"
-    "@jest/test-result" "^26.6.2"
-    "@jest/types" "^26.6.2"
-    "@types/babel__traverse" "^7.0.4"
-    "@types/node" "*"
-    chalk "^4.0.0"
-    co "^4.6.0"
-    dedent "^0.7.0"
-    expect "^26.6.2"
-    is-generator-fn "^2.0.0"
-    jest-each "^26.6.2"
-    jest-matcher-utils "^26.6.2"
-    jest-message-util "^26.6.2"
-    jest-runner "^26.6.3"
-    jest-runtime "^26.6.3"
-    jest-snapshot "^26.6.2"
-    jest-util "^26.6.2"
-    pretty-format "^26.6.2"
-    stack-utils "^2.0.2"
-    throat "^5.0.0"
-
 jest-cli@^26.6.3:
   version "26.6.3"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-26.6.3.tgz#43117cfef24bc4cd691a174a8796a532e135e92a"
@@ -5691,15 +5664,12 @@ jest-mock@^26.6.2:
     "@types/node" "*"
 
 jest-playwright-preset@^1.5.1:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/jest-playwright-preset/-/jest-playwright-preset-1.5.2.tgz#7f32a26b92c2e4d7f10e6b2397d402476f8d1707"
-  integrity sha512-L7a5poZUR1vbmVNF4te1Ic3rMDBEU0KmIdjuLfGkdGpLgPdfhr6Xh//blbvmpfMj3TMnuuLlf37QkDtJnVa5gA==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/jest-playwright-preset/-/jest-playwright-preset-1.6.0.tgz#32a58efadf9943c6e3523b4867868507dba76b00"
+  integrity sha512-jdFA0cRrv2rK3YzjO8fQtw3PIWncdG6W1EXB5bEwPAnbibhwQMb1XecrHr3L4LWefiKwf60zdE4E1gFgk0BGLw==
   dependencies:
     expect-playwright "^0.3.4"
-    jest-circus "^26.6.3"
-    jest-environment-node "^26.6.2"
     jest-process-manager "^0.3.1"
-    jest-runner "^26.6.3"
     nyc "^15.1.0"
     playwright-core ">=1.2.0"
     rimraf "^3.0.2"
