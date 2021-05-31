@@ -5894,7 +5894,7 @@ joi@^17.3.0:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-joycon@^3.0.0:
+joycon@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-3.0.1.tgz#9074c9b08ccf37a6726ff74a18485f85efcaddaf"
   integrity sha512-SJcJNBg32dGgxhPtM0wQqxqV0ax9k/9TaUskGDSJkSFSQOEWWvQ3zzWdGQRIUry2j1zA5+ReH13t0Mf3StuVZA==
@@ -8248,13 +8248,13 @@ rollup-plugin-dts@^3.0.1:
   optionalDependencies:
     "@babel/code-frame" "^7.12.13"
 
-rollup-plugin-esbuild@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-3.0.2.tgz#85a1afd59510ef143813b46f515e92a49779a60b"
-  integrity sha512-uq+oBCeLXF1m6g9V0qpqbPbgyq24aXBKF474BvqgxfNmTP6FZ+oVk5/pCWQ/2rfSNJs4IimNU/k0q8xMaa0iCA==
+rollup-plugin-esbuild@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-4.2.3.tgz#3d719e58e7a5f84515fe52a58d35bc97a9e7e12c"
+  integrity sha512-GWyDUPv79Iw4uQdizD7ch7yA+wiB9W4Ye01RmO/kuF3yjybluJT5rbmLAnyv3kWmOF8suOjf+TvvBCXEj6qSAw==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
-    joycon "^3.0.0"
+    joycon "^3.0.1"
     jsonc-parser "^3.0.0"
 
 rollup-plugin-inject@^3.0.0:
