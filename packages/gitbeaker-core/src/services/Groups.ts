@@ -87,7 +87,7 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
   edit(groupId: string | number, options?: BaseRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.put()(this, `groups/${gId}`, options);
+    return RequestHelper.put<GroupSchema>()(this, `groups/${gId}`, options);
   }
 
   projects(groupId: string | number, options?: BaseRequestOptions) {
@@ -133,7 +133,7 @@ export class Groups<C extends boolean = false> extends BaseService<C> {
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get()(this, `groups/${gId}/subgroups`, options);
+    return RequestHelper.get<GroupSchema>()(this, `groups/${gId}/subgroups`, options);
   }
 
   syncLDAP(groupId: string | number, options?: Sudo & ShowExpanded) {
