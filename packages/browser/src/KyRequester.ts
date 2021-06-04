@@ -1,12 +1,12 @@
 import ky from 'ky';
 import { Agent } from 'https';
+import delay from 'delay';
 import {
   DefaultServiceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
   createRequesterFn,
   defaultOptionsHandler as baseOptionsHandler,
-  wait,
 } from '@gitbeaker/requester-utils';
 
 function responseHeadersAsObject(headers: Headers) {
@@ -75,7 +75,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
 
       if (e.response) {
         if (retryCodes.includes(e.response.status)) {
-          await wait(waitTime); // eslint-disable-line
+          await delay(waitTime); // eslint-disable-line
           continue; // eslint-disable-line
         }
 

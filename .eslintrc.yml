@@ -2,6 +2,7 @@ root: true
 
 env:
   node: true
+  es6: true
   browser: true
   jest/globals: true
 
@@ -18,51 +19,55 @@ extends:
 
 parser: '@typescript-eslint/parser'
 
+parserOptions:
+  project: ./tsconfig.json
+
 ignorePatterns:
-  - node_modules/
-  - dist/
-  - '**/rollup.config.js'
-  - '**/jest.config*.js'
+  - node_modules
+  - dist
   - '**/scripts/*.ts'
-  - '*d.ts'
 
 plugins:
   - '@typescript-eslint'
-  - import
 
 rules:
-  import/no-default-export: error
-  import/prefer-default-export: off
-  '@typescript-eslint/explicit-function-return-type': off
-  '@typescript-eslint/explicit-module-boundary-types': off
-  import/no-extraneous-dependencies:
-    - error
-    - devDependencies:
-        - 'scripts/*.js'
-        - '**/test/**/*.ts'
+#   import/no-default-export: error
+#   import/prefer-default-export: off
+#   '@typescript-eslint/explicit-function-return-type': off
+#   '@typescript-eslint/explicit-module-boundary-types': off
+#   import/no-extraneous-dependencies:
+#     - error
+#     - devDependencies:
+#         - 'scripts/*.js'
+#         - '**/test/**/*.ts'
+
+
   import/extensions:
     - error
-    - never
-    - json: always
-  camelcase:
-    - error
+    - ignorePackages
+    - js: never
+      ts: never
+      json: always
 
-overrides:
-  - files:
-      - '**/*.ts'
-      - '**/*.tsx'
-    rules:
-      camelcase: 'off'
-  - files:
-      - '**/test/**/*.ts'
-    rules:
-      '@typescript-eslint/no-var-requires': 'off'
-      global-require: 'off'
-      jest/no-mocks-import: 'off'
-  - files:
-      - '**/__mocks__/**/*.ts'
-    rules:
-      import/no-default-export: 'off'
+#   camelcase:
+#     - error
+
+# overrides:
+#   - files:
+#       - '**/*.ts'
+#       - '**/*.tsx'
+#     rules:
+#       camelcase: 'off'
+#   - files:
+#       - '**/test/**/*.ts'
+#     rules:
+#       '@typescript-eslint/no-var-requires': 'off'
+#       global-require: 'off'
+#       jest/no-mocks-import: 'off'
+#   - files:
+#       - '**/__mocks__/**/*.ts'
+#     rules:
+#       import/no-default-export: 'off'
 
 settings:
   import/resolver:

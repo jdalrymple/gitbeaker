@@ -1,11 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import FormData from 'form-data';
-import "jest-extended";
+import 'jest-extended';
 import {
   createRequesterFn,
   defaultOptionsHandler,
   modifyServices,
   formatQuery,
+  DefaultRequestReturn
 } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
@@ -54,7 +55,7 @@ describe('defaultOptionsHandler', () => {
   it('should assign the sudo property if passed', async () => {
     const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
-    }) as { headers: Record<string, string> }
+    }) as { headers: Record<string, string> };
 
     expect(headers.sudo).toBe('testsudo');
   });
@@ -92,7 +93,7 @@ describe('defaultOptionsHandler', () => {
 
 describe('createInstance', () => {
   const handler = jest.fn();
-  const optionsHandler = jest.fn(() => ({}));
+  const optionsHandler = jest.fn(() => ({} as DefaultRequestReturn));
   const serviceOptions = {
     headers: { test: '5' },
     url: 'testurl',
@@ -155,6 +156,12 @@ describe('createInstance', () => {
 });
 
 describe('modifyServices', () => {
+  it('should ignore non-function types', async () => {
+    const modified = modifyServices({ a: 1 }, { x: 3 });
+
+    expect(modified).toMatchObject({});
+  });
+
   it('should preset class with extended properties', async () => {
     class A {
       x?: number;

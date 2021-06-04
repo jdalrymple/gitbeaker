@@ -15,7 +15,6 @@
       "@gitbeaker/*": ["packages/*/src"]
     },
 
-    "types": ["jest", "jest-extended"],
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,

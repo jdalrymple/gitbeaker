@@ -2,6 +2,8 @@ import { decamelizeKeys } from 'xcase';
 import FormData from 'form-data';
 import { stringify } from 'query-string';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Types
 export interface Constructable<T = any> {
   new (...args: any[]): T;
@@ -39,7 +41,7 @@ export type DefaultRequestReturn = {
 };
 
 // Utility methods
-export function formatQuery(params: Record<string, unknown> = {}) {
+export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
   if (decamelized.not) decamelized.not = JSON.stringify(decamelized.not);
@@ -47,6 +49,10 @@ export function formatQuery(params: Record<string, unknown> = {}) {
   return stringify(decamelized, { arrayFormat: 'bracket' });
 }
 
+export type OptionsHandlerFn = (
+  serviceOptions: DefaultServiceOptions,
+  requestOptions: DefaultRequestOptions,
+) => DefaultRequestReturn;
 export function defaultOptionsHandler(
   serviceOptions: DefaultServiceOptions,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
@@ -74,9 +80,18 @@ export function defaultOptionsHandler(
   };
 }
 
+export type RequestHandlerFn = (
+  endpoint: string,
+  options?: Record<string, unknown>,
+) => Promise<{
+  body: Record<string, unknown> | Record<string, unknown>[];
+  headers: Record<string, unknown>;
+  status: number;
+}>;
+
 export function createRequesterFn(
-  optionsHandler: Function,
-  requestHandler: Function,
+  optionsHandler: OptionsHandlerFn,
+  requestHandler: RequestHandlerFn,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
@@ -105,18 +120,14 @@ function extendClass<T extends Constructable>(Base: T, customConfig: Record<stri
   };
 }
 
-export function modifyServices<T>(services: T, customConfig: Record<string, unknown> = {}) {
+export function modifyServices<T>(services: T, customConfig: Record<string, unknown> = {}): T {
   const updated = {};
 
-  Object.entries(services).forEach(([k, s]) => {
-    if (typeof s !== 'function') return; // FIXME: Odd default artifact included in this list during testing
-
+  Object.entries(services)
+  .filter(([, s]) => typeof s === 'function')  // FIXME: Odd default artifact included in this list during testing
+  .forEach(([k, s]) => {    
     updated[k] = extendClass(s, customConfig);
   });
 
   return updated as T;
-}
-
-export async function wait(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }

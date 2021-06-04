@@ -1,12 +1,12 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
+import delay from 'delay';
 import {
   DefaultServiceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
   createRequesterFn,
   defaultOptionsHandler as baseOptionsHandler,
-  wait,
 } from '@gitbeaker/requester-utils';
 
 export function defaultOptionsHandler(
@@ -80,7 +80,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
     } catch (e) {
       if (e.response) {
         if (retryCodes.includes(e.response.statusCode)) {
-          await wait(waitTime); // eslint-disable-line
+          await delay(waitTime); // eslint-disable-line
           continue; // eslint-disable-line
         }
 

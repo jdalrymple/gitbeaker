@@ -1,4 +1,3 @@
-import "jest-extended";
 import * as ky from 'ky';
 import * as fetch from 'node-fetch';
 import { Agent } from 'https';
@@ -192,7 +191,7 @@ describe('defaultRequest', () => {
     const { agent } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },
-    )
+    );
 
     expect(agent).toBeInstanceOf(Agent);
     expect((agent as Agent & { rejectUnauthorized?: boolean }).rejectUnauthorized).toBeFalsy();
@@ -200,14 +199,14 @@ describe('defaultRequest', () => {
     const { agent: agent2 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
-    )
+    );
 
     expect(agent2).toBeUndefined();
 
     const { agent: agent3 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
       { method: 'post' },
-    )
+    );
 
     expect(agent3).toBeUndefined();
   });
