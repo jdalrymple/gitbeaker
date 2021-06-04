@@ -1,4 +1,5 @@
 const tsPreset = require('ts-jest/jest-preset');
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
@@ -17,14 +18,6 @@ module.exports = {
 
   moduleNameMapper: {
     '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
-    '/^@gitbeaker/(.*)$/': '<rootDir>/../../packages/gitbeaker-$1/src',
-  },
-
-  globals: {
-    'ts-jest': {
-      diagnostics: {
-        ignoreCodes: [2339],
-      },
-    },
+   ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
 };

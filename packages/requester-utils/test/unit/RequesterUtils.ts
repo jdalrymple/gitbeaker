@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import FormData from 'form-data';
+import "jest-extended";
 import {
   createRequesterFn,
   defaultOptionsHandler,
@@ -45,7 +46,7 @@ describe('defaultOptionsHandler', () => {
     const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
       method: 'get',
-    });
+    }) as { headers: Record<string, string> };
 
     expect(headers.sudo).toBeUndefined();
   });
@@ -53,7 +54,7 @@ describe('defaultOptionsHandler', () => {
   it('should assign the sudo property if passed', async () => {
     const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
-    });
+    }) as { headers: Record<string, string> }
 
     expect(headers.sudo).toBe('testsudo');
   });

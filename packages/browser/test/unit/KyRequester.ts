@@ -1,3 +1,4 @@
+import "jest-extended";
 import * as ky from 'ky';
 import * as fetch from 'node-fetch';
 import { Agent } from 'https';
@@ -114,7 +115,7 @@ describe('processBody', () => {
 
 describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
-    ky.mockImplementationOnce(() => {
+    (ky as unknown as jest.Mock).mockImplementationOnce(() => {
       const e = {
         response: {
           json() {
@@ -129,7 +130,7 @@ describe('handler', () => {
   });
 
   it('should return an error with a description when response has an message prop', async () => {
-    ky.mockImplementationOnce(() => {
+    (ky as unknown as jest.Mock).mockImplementationOnce(() => {
       const e = {
         response: {
           json() {
@@ -144,7 +145,7 @@ describe('handler', () => {
   });
 
   it('should return correct properties if request is valid', async () => {
-    ky.mockImplementationOnce(() => ({
+    (ky as unknown as jest.Mock).mockImplementationOnce(() => ({
       status: 404,
       headers: {
         get() {
@@ -188,25 +189,25 @@ describe('defaultRequest', () => {
   });
 
   it('should assign the agent property if given https url and rejectUnauthorized is false', async () => {
-    const { agent = {} } = defaultOptionsHandler(
+    const { agent } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },
-    );
+    )
 
     expect(agent).toBeInstanceOf(Agent);
-    expect(agent.rejectUnauthorized).toBeFalsy();
+    expect((agent as Agent & { rejectUnauthorized?: boolean }).rejectUnauthorized).toBeFalsy();
 
     const { agent: agent2 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
       { method: 'post' },
-    );
+    )
 
     expect(agent2).toBeUndefined();
 
     const { agent: agent3 } = defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
       { method: 'post' },
-    );
+    )
 
     expect(agent3).toBeUndefined();
   });

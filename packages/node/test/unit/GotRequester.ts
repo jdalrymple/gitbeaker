@@ -81,7 +81,7 @@ describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
     const stringBody = JSON.stringify({ error: 'msg' });
 
-    got.mockImplementationOnce(() => {
+    (got as unknown as jest.Mock).mockImplementationOnce(() => {
       const e = { response: { body: stringBody } };
       return Promise.reject(e);
     });
@@ -95,7 +95,7 @@ describe('handler', () => {
   });
 
   it('should throw error without description if no response information is present', async () => {
-    got.mockImplementationOnce(() => {
+    (got as unknown as jest.Mock).mockImplementationOnce(() => {
       const e = {};
       return Promise.reject(e);
     });
@@ -106,7 +106,7 @@ describe('handler', () => {
   it('should return an error with a description when response has an message prop', async () => {
     const stringBody = JSON.stringify({ message: 'msg' });
 
-    got.mockImplementationOnce(() => {
+    (got as unknown as jest.Mock).mockImplementationOnce(() => {
       const e = { response: { body: stringBody } };
       return Promise.reject(e);
     });
@@ -120,7 +120,7 @@ describe('handler', () => {
   });
 
   it('should return correct properties if request is valid', async () => {
-    got.mockImplementationOnce(() => ({
+    (got as unknown as jest.Mock).mockImplementationOnce(() => ({
       statusCode: 404,
       headers: {},
       rawBody: '{}',
