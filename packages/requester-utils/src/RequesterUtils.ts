@@ -124,10 +124,10 @@ export function modifyServices<T>(services: T, customConfig: Record<string, unkn
   const updated = {};
 
   Object.entries(services)
-  .filter(([, s]) => typeof s === 'function')  // FIXME: Odd default artifact included in this list during testing
-  .forEach(([k, s]) => {    
-    updated[k] = extendClass(s, customConfig);
-  });
+    .filter(([, s]) => typeof s === 'function') // FIXME: Odd default artifact included in this list during testing
+    .forEach(([k, s]) => {
+      updated[k] = extendClass(s, customConfig);
+    });
 
   return updated as T;
 }
