@@ -393,7 +393,6 @@ GroupCustomAttributes
 GroupIssueBoards
 GroupMembers
 GroupMilestones
-GroupProjects
 GroupRunners
 GroupVariables
 GroupLabels
