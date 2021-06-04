@@ -6,7 +6,7 @@ export default {
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
     {
-      file: pkg.main, // CommonJS (for Node) (for bundlers) build.
+      file: pkg.main, // CommonJS (for Node) build.
       format: 'cjs',
     },
     {

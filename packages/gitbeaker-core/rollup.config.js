@@ -7,7 +7,7 @@ export default {
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
     {
-      file: pkg.main, // CommonJS (for Node) (for bundlers) build.
+      file: pkg.main, // CommonJS (for Node) build.
       format: 'cjs',
     },
     {
@@ -16,11 +16,11 @@ export default {
     },
   ],
   plugins: [
-    ts({ useTsconfigDeclarationDir: true }),
     replace({
       '../dist/map.json': './map.json',
       delimiters: ['', ''],
       preventAssignment: true
     }),
+    ts({ useTsconfigDeclarationDir: true }),
   ]
 };
