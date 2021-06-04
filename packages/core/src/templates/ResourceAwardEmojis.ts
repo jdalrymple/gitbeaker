@@ -1,5 +1,5 @@
 import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../services/Users';
+import type { UserSchema } from '../services/Users';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export interface AwardEmojiSchema extends Record<string, unknown> {

@@ -1,3 +1,4 @@
+import 'jest-extended';
 import FormData from 'form-data';
 import { BaseService, RequesterType } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
@@ -18,9 +19,9 @@ function mockedGetBasic() {
 }
 
 function mockedGetExtended(url: string, { query }) {
-  const q = url.match(/page=([0-9]+)/);
-  const perPage = query.perPage || 2;
-  const maxPages = query.maxPages || 10;
+  const q = /page=([0-9]+)/.exec(url);
+  const perPage: number = query.perPage || 2;
+  const maxPages: number = query.maxPages || 10;
 
   let page = 1;
 
@@ -28,10 +29,10 @@ function mockedGetExtended(url: string, { query }) {
   else if (query.page) page = query.page;
 
   // Only load pages needed for the test
-  const nextPage = page < maxPages ? page + 1 : undefined;
+  const nextPage = page < maxPages ? `page=${page + 1}` : '';
   const next =
     page < maxPages
-      ? `<https://www.test.com/api/v4/test?page=${nextPage}&per_page=${perPage}>; rel="next",`
+      ? `<https://www.test.com/api/v4/test?${nextPage}&per_page=${perPage}>; rel="next",`
       : '';
   const prevPage = page > 1 ? page - 1 : undefined;
   const prev =
@@ -56,7 +57,7 @@ function mockedGetExtended(url: string, { query }) {
   };
 }
 
-let service;
+let service: BaseService;
 
 beforeEach(() => {
   service = new BaseService({
@@ -270,7 +271,7 @@ describe('RequestHelper.get()', () => {
 });
 
 describe('RequestHelper.stream()', () => {
-  it('should throw an error when the stream function isnt available', async () => {
+  it('should throw an error when the stream function isnt available', () => {
     service.requester.stream = undefined;
 
     expect(() => RequestHelper.stream(service, 'test')).toThrow(
@@ -278,7 +279,7 @@ describe('RequestHelper.stream()', () => {
     );
   });
 
-  it('should not throw an error when the stream function is available', async () => {
+  it('should not throw an error when the stream function is available', () => {
     service.requester.stream = jest.fn();
 
     RequestHelper.stream(service, 'test');

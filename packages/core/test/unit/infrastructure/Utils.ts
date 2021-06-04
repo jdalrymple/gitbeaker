@@ -19,7 +19,7 @@ describe('bundler', () => {
     }
   }
 
-  it('should merge classes passed to Bundler', async () => {
+  it('should merge classes passed to Bundler', () => {
     const Bundle = bundler({ Test1, Test2 });
     const services = new Bundle();
 
@@ -27,7 +27,7 @@ describe('bundler', () => {
     expect(services.Test2).toBeInstanceOf(Test2);
   });
 
-  it('should initialize classes passed to Bundler with options', async () => {
+  it('should initialize classes passed to Bundler with options', () => {
     const Bundle = bundler({ Test1, Test2 });
     const services = new Bundle(2);
 
@@ -37,14 +37,14 @@ describe('bundler', () => {
 });
 
 describe('appendFormFromObject', () => {
-  it('should convert object key/values to formdata instance', async () => {
+  it('should convert object key/values to formdata instance', () => {
     const data = { a: 5, b: 'test' };
     const form = appendFormFromObject(data);
 
     expect(form).toBeInstanceOf(FormData);
   });
 
-  it('should convert object key/values with metadata to formdata instance', async () => {
+  it('should convert object key/values with metadata to formdata instance', () => {
     const data = { a: 5, b: ['test', { filename: 'name.jpg' }] };
     const form = appendFormFromObject(data);
 

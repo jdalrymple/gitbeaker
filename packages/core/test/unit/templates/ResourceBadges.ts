@@ -20,7 +20,7 @@ afterEach(() => {
 });
 
 describe('Instantiating ResourceBadges service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ResourceBadges);
     expect(service.url).toBeDefined();
     expect(service.url).toContain('resource');

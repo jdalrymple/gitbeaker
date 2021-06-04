@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating UserSSHKeys service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(UserSSHKeys);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

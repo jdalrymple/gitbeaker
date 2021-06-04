@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating FeatureFlags service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(FeatureFlags);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

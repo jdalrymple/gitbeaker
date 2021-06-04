@@ -3,9 +3,8 @@ import * as APIServices from './services';
 
 export function getAPIMap(): Record<string, unknown> {
   try {
-    const map = require('../dist/map.json');
-
-    return map;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-unresolved
+    return require('../dist/map.json') as Record<string, unknown>;
   } catch (e) {
     throw new Error('This function is only available in the distributed code');
   }

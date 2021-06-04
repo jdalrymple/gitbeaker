@@ -5,7 +5,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { AccessLevel } from './ResourceAccessRequests';
+import type { AccessLevel } from './ResourceAccessRequests';
 
 export interface IncludeInherited {
   includeInherited?: boolean;

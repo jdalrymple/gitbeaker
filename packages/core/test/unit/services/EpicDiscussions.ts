@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating EpicDiscussions service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(EpicDiscussions);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating MergeRequestApprovals service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(MergeRequestApprovals);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

@@ -1,7 +1,8 @@
+import 'jest-extended';
 import { ProjectsBundle } from '../../../src';
 import * as Services from '../../../src/services';
 
-test('All the correct service keys are included in the projects bundle', async () => {
+test('All the correct service keys are included in the projects bundle', () => {
   const bundle: ProjectsBundle = new ProjectsBundle({ requesterFn: jest.fn(), token: 'test' });
   const services = [
     'Branches',
@@ -50,7 +51,7 @@ test('All the correct service keys are included in the projects bundle', async (
   expect(Object.keys(bundle)).toIncludeAllMembers(services);
 });
 
-test('All the correct service instances are included in the projects bundle', async () => {
+test('All the correct service instances are included in the projects bundle', () => {
   const bundle = new ProjectsBundle({ requesterFn: jest.fn(), token: 'test' });
 
   (Object.keys(bundle) as (keyof typeof bundle)[]).forEach((key) => {

@@ -20,7 +20,7 @@ afterEach(() => {
 });
 
 describe('Instantiating ResourceNoteAwardEmojis service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ResourceNoteAwardEmojis);
     expect(service.url).toBeDefined();
     expect(service.url).toContain('projects');

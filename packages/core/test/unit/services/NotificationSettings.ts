@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating NotificationSettings service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(NotificationSettings);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

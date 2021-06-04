@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating UserGPGKeys service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(UserGPGKeys);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

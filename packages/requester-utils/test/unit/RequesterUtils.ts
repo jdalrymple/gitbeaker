@@ -6,7 +6,7 @@ import {
   defaultOptionsHandler,
   modifyServices,
   formatQuery,
-  DefaultRequestReturn
+  DefaultRequestReturn,
 } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
@@ -19,13 +19,13 @@ describe('defaultOptionsHandler', () => {
     requestTimeout: 50,
   };
 
-  it('should not use default request options if not passed', async () => {
+  it('should not use default request options if not passed', () => {
     const options = defaultOptionsHandler(serviceOptions);
 
     expect(options.method).toBe('get');
   });
 
-  it('should stringify body if it isnt of type FormData', async () => {
+  it('should stringify body if it isnt of type FormData', () => {
     const testBody = { test: 6 };
     const { body, headers } = defaultOptionsHandler(serviceOptions, {
       method: 'post',
@@ -36,14 +36,14 @@ describe('defaultOptionsHandler', () => {
     expect(body).toBe(JSON.stringify(testBody));
   });
 
-  it('should not stringify body if it of type FormData', async () => {
+  it('should not stringify body if it of type FormData', () => {
     const testBody = new FormData();
     const { body } = defaultOptionsHandler(serviceOptions, { body: testBody, method: 'post' });
 
     expect(body).toBeInstanceOf(FormData);
   });
 
-  it('should not assign the sudo property if omitted', async () => {
+  it('should not assign the sudo property if omitted', () => {
     const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
       method: 'get',
@@ -52,7 +52,7 @@ describe('defaultOptionsHandler', () => {
     expect(headers.sudo).toBeUndefined();
   });
 
-  it('should assign the sudo property if passed', async () => {
+  it('should assign the sudo property if passed', () => {
     const { headers } = defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
     }) as { headers: Record<string, string> };
@@ -60,13 +60,13 @@ describe('defaultOptionsHandler', () => {
     expect(headers.sudo).toBe('testsudo');
   });
 
-  it('should assign the prefixUrl property if passed', async () => {
+  it('should assign the prefixUrl property if passed', () => {
     const { prefixUrl } = defaultOptionsHandler(serviceOptions);
 
     expect(prefixUrl).toBe('testurl');
   });
 
-  it('should default searchParams to an empty string if undefined', async () => {
+  it('should default searchParams to an empty string if undefined', () => {
     const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: undefined,
     });
@@ -74,7 +74,7 @@ describe('defaultOptionsHandler', () => {
     expect(searchParams).toBe('');
   });
 
-  it('should format searchParams to an stringified object', async () => {
+  it('should format searchParams to an stringified object', () => {
     const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: { a: 5 },
     });
@@ -82,7 +82,7 @@ describe('defaultOptionsHandler', () => {
     expect(searchParams).toBe('a=5');
   });
 
-  it('should format searchParams to an stringified object and decamelize properties', async () => {
+  it('should format searchParams to an stringified object and decamelize properties', () => {
     const { searchParams } = defaultOptionsHandler(serviceOptions, {
       query: { thisSearchTerm: 5 },
     });
@@ -127,7 +127,7 @@ describe('createInstance', () => {
     });
   });
 
-  it('should respect the closure variables', () => {
+  it('should respect the closure variables', async () => {
     const serviceOptions1 = {
       headers: { test: '5' },
       url: 'testurl',
@@ -145,24 +145,24 @@ describe('createInstance', () => {
     const requesterA = requesterFn(serviceOptions1);
     const requesterB = requesterFn(serviceOptions2);
 
-    requesterA.get('test');
+    await requesterA.get('test');
 
     expect(optionsHandler).toBeCalledWith(serviceOptions1, { method: 'get' });
 
-    requesterB.get('test');
+    await requesterB.get('test');
 
     expect(optionsHandler).toBeCalledWith(serviceOptions2, { method: 'get' });
   });
 });
 
 describe('modifyServices', () => {
-  it('should ignore non-function types', async () => {
+  it('should ignore non-function types', () => {
     const modified = modifyServices({ a: 1 }, { x: 3 });
 
     expect(modified).toMatchObject({});
   });
 
-  it('should preset class with extended properties', async () => {
+  it('should preset class with extended properties', () => {
     class A {
       x?: number;
 
@@ -180,7 +180,7 @@ describe('modifyServices', () => {
     expect(b.x).toBe(3);
   });
 
-  it('should preset class with default properties', async () => {
+  it('should preset class with default properties', () => {
     class A {
       x: number;
 
@@ -198,7 +198,7 @@ describe('modifyServices', () => {
     expect(b.x).toBe(8);
   });
 
-  it('should overwrite default properties with extended properties', async () => {
+  it('should overwrite default properties with extended properties', () => {
     class A {
       x: number;
 
@@ -216,7 +216,7 @@ describe('modifyServices', () => {
     expect(b.x).toBe(3);
   });
 
-  it('should overwrite default properties with custom properties', async () => {
+  it('should overwrite default properties with custom properties', () => {
     class A {
       x: number;
 
@@ -234,7 +234,7 @@ describe('modifyServices', () => {
     expect(b.x).toBe(5);
   });
 
-  it('should overwrite default and extended properties with custom properties', async () => {
+  it('should overwrite default and extended properties with custom properties', () => {
     class A {
       x: number;
 
@@ -254,13 +254,13 @@ describe('modifyServices', () => {
 });
 
 describe('formatQuery', () => {
-  it('should decamelize keys and stringify the object', async () => {
+  it('should decamelize keys and stringify the object', () => {
     const string = formatQuery({ test: 6 });
 
     expect(string).toBe('test=6');
   });
 
-  it('should decamelize sub keys in not property and stringify the object', async () => {
+  it('should decamelize sub keys in not property and stringify the object', () => {
     const string = formatQuery({ test: 6, not: { test: 7 } });
 
     expect(string).toBe('not=%7B%22test%22%3A7%7D&test=6');

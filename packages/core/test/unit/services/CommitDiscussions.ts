@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating CommitDiscussions service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(CommitDiscussions);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

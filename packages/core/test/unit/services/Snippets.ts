@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating Snippets service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(Snippets);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

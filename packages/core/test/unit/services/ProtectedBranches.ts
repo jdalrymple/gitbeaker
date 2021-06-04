@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating ProtectedBranches service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ProtectedBranches);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

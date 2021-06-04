@@ -19,7 +19,7 @@ beforeEach(() => {
 // the feature is not available for CE users https://gitlab.com/gitlab-org/gitlab-ee/issues/3825
 
 describe('Instantiating PushRules service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(PushRules);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

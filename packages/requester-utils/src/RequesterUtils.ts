@@ -80,18 +80,20 @@ export function defaultOptionsHandler(
   };
 }
 
-export type RequestHandlerFn = (
+export type ReadableStream<T> = T
+
+export type RequestHandlerFn<S> = (
   endpoint: string,
   options?: Record<string, unknown>,
-) => Promise<{
+) => ReadableStream<S> | Promise<{
   body: Record<string, unknown> | Record<string, unknown>[];
-  headers: Record<string, unknown>;
+  headers: Record<string, unknown> | Headers;
   status: number;
 }>;
 
-export function createRequesterFn(
+export function createRequesterFn<S=any>(
   optionsHandler: OptionsHandlerFn,
-  requestHandler: RequestHandlerFn,
+  requestHandler: RequestHandlerFn<S>,
 ): (serviceOptions: DefaultServiceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 

@@ -20,7 +20,7 @@ afterEach(() => {
 });
 
 describe('Instantiating ResourceVariables service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ResourceVariables);
     expect(service.url).toBeDefined();
     expect(service.url).toContain('resource');

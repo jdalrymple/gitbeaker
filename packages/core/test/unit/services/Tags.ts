@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating Tags service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(Tags);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

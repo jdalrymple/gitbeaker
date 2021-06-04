@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating BroadcastMessages service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(BroadcastMessages);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

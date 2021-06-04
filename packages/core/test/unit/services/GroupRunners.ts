@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating GroupRunners service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(GroupRunners);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

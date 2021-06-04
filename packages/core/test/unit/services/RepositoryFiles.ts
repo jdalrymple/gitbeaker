@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating RepositoryFiles service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(RepositoryFiles);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

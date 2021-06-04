@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating Releases service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(Releases);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

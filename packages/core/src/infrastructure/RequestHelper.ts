@@ -91,7 +91,7 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
     maxPages,
     ...query
   }: BasePaginationRequestOptions<P> & ShowExpanded<E> & { maxPages?: number } = {},
-  acc: any[] = [],
+  acc: Record<string, unknown>[] = [],
 ): Promise<any> {
   const response = await service.requester.get(endpoint, { query, sudo });
   const { headers, status } = response;
@@ -151,21 +151,15 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
 export function get<
   T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>,
 >() {
-  return async function <
-    C extends boolean,
-    P extends 'keyset' | 'offset' = 'offset',
-    E extends boolean = false,
-  >(
+  return <C extends boolean, P extends 'keyset' | 'offset' = 'offset', E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
     options?: PaginatedRequestOptions<P> & ShowExpanded<E> & Record<string, any>,
-  ): Promise<ExtendedReturn<C, E, P, T>> {
-    return getHelper(service, endpoint, options);
-  };
+  ): Promise<ExtendedReturn<C, E, P, T>> => getHelper(service, endpoint, options);
 }
 
 export function post<T extends Record<string, unknown> | void = Record<string, unknown>>() {
-  return async function <C extends boolean, E extends boolean = false>(
+  return async <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
     {
@@ -175,7 +169,7 @@ export function post<T extends Record<string, unknown> | void = Record<string, u
       showExpanded,
       ...options
     }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> {
+  ): Promise<ExtendedRecordReturn<C, E, T>> => {
     const body = isForm ? appendFormFromObject(options) : options;
 
     const r = await service.requester.post(endpoint, {
@@ -195,7 +189,7 @@ export function post<T extends Record<string, unknown> | void = Record<string, u
 }
 
 export function put<T extends Record<string, unknown> = Record<string, unknown>>() {
-  return async function <C extends boolean, E extends boolean = false>(
+  return async <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
     {
@@ -205,7 +199,7 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
       showExpanded,
       ...options
     }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> {
+  ): Promise<ExtendedRecordReturn<C, E, T>> => {
     const body = isForm ? appendFormFromObject(options) : options;
 
     const r = await service.requester.put(endpoint, {
@@ -225,11 +219,11 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
 }
 
 export function del<T extends Record<string, unknown> | void = void>() {
-  return async function <C extends boolean, E extends boolean = false>(
+  return async <C extends boolean, E extends boolean = false>(
     service: BaseService<C>,
     endpoint: string,
     { sudo, showExpanded, ...query }: BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> {
+  ): Promise<ExtendedRecordReturn<C, E, T>> => {
     const r = await service.requester.delete(endpoint, {
       query,
       sudo,

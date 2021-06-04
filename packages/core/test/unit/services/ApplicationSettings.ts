@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating ApplicationSettings service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ApplicationSettings);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

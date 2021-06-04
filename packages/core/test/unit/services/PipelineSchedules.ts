@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('Instantiating PipelineSchedules service', () => {
-  it('should create a valid service object', async () => {
+  it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(PipelineSchedules);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();

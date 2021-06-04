@@ -1,7 +1,8 @@
+import 'jest-extended';
 import { Gitlab } from '../../../src';
 
 describe('Instantiating All services', () => {
-  it('should create a valid gitlab service object using import', async () => {
+  it('should create a valid gitlab service object using import', () => {
     const bundle = new Gitlab({
       requesterFn: jest.fn(),
       token: 'abcdefg',
