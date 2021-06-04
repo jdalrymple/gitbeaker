@@ -2,13 +2,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import builtins from 'rollup-plugin-node-polyfills';
 import globals from 'rollup-plugin-node-globals';
-import { commonConfig, commonPlugins } from '../../rollup.config.js';
+import ts from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 export default [
   {
-    ...commonConfig,
+    input: 'src/index.ts',
     external: ['form-data'],
     output: {
       file: pkg.browser,
@@ -22,7 +22,7 @@ export default [
       globals(),
       builtins(),
       resolve({ browser: true }),
-      ...commonPlugins,
+      ts({ useTsconfigDeclarationDir: true }),
       commonjs(),
       terser({ mangle: false }),
     ],

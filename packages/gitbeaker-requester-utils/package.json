@@ -14,7 +14,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^8.2.1",
+    "rollup-plugin-typescript2": "^0.30.0",
     "@types/node": "^15.3.0",
     "esbuild": "^0.12.5",
     "rollup": "^2.47.0",

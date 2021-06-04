@@ -1,9 +1,9 @@
 import replace from '@rollup/plugin-replace';
+import ts from 'rollup-plugin-typescript2';
 import pkg from './package.json';
-import { commonConfig, commonPlugins } from '../../rollup.config';
 
 export default {
-  ...commonConfig,
+  input: 'src/index.ts',
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: [
     {
@@ -16,11 +16,11 @@ export default {
     },
   ],
   plugins: [
+    ts({ useTsconfigDeclarationDir: true }),
     replace({
       '../dist/map.json': './map.json',
       delimiters: ['', ''],
       preventAssignment: true
     }),
-    ...commonPlugins,
   ]
 };

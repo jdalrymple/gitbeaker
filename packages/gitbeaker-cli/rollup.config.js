@@ -1,14 +1,14 @@
 import json from '@rollup/plugin-json';
+import ts from 'rollup-plugin-typescript2';
 import { preserveShebangs } from 'rollup-plugin-preserve-shebangs';
 import pkg from './package.json';
-import { commonConfig, commonPlugins } from '../../rollup.config.js';
 
 export default {
-  ...commonConfig,
+  input: 'src/index.ts',
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: {
     file: pkg.bin.gitbeaker,
     format: 'cjs',
   },
-  plugins: [...commonPlugins, json(), preserveShebangs()],
+  plugins: [ts({ useTsconfigDeclarationDir: true }), json(), preserveShebangs()],
 };

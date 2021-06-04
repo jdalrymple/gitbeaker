@@ -1,7 +1,6 @@
 import { bundler } from './infrastructure';
 import * as APIServices from './services';
 
-/* -------------- Export Map ------------- */
 export function getAPIMap(): Record<string, unknown> {
   try {
     const map = require('../dist/map.json');
