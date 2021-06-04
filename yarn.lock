@@ -8246,9 +8246,9 @@ rollup-plugin-dts@^3.0.1:
     "@babel/code-frame" "^7.12.13"
 
 rollup-plugin-esbuild@^4.2.3:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-4.3.1.tgz#47a11b88666f9771455204a04ff84888e341a6cd"
-  integrity sha512-viawNJANaHgA2LEBblVqvRwIiqLoQzIQMCcuUfqrmaiBWhFWurAnk7MWEa4BxUJL4btAOSMSeySTBMfcrRdB8Q==
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-4.5.0.tgz#0fbcb6d2d651d87dc540c4fc3b2db669f48da1f0"
+  integrity sha512-ieUd3AoYWsN6Tfp0LBNnC+QpdhKjDEaH4NK3ghuEXOH56/7TAtD+hMbD9vSWZgsGSbaqCkrn4j6PaUj1vOSt1g==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     joycon "^3.0.1"
