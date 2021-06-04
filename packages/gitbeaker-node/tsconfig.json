@@ -1,7 +1,10 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true
+    "outDir": "./dist",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationDir": "dist/types"
   },
   "include": ["src"]
 }

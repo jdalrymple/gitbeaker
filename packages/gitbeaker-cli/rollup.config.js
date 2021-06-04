@@ -1,20 +1,14 @@
-import esbuild from 'rollup-plugin-esbuild';
+import json from '@rollup/plugin-json';
 import { preserveShebangs } from 'rollup-plugin-preserve-shebangs';
 import pkg from './package.json';
+import { commonConfig, commonPlugins } from '../../rollup.config.js';
 
 export default {
-  input: 'src/index.ts',
+  ...commonConfig,
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   output: {
     file: pkg.bin.gitbeaker,
     format: 'cjs',
-    sourcemap: true,
   },
-  plugins: [
-    esbuild({
-      sourceMap: true,
-      tsconfig: './tsconfig.json',
-    }),
-    preserveShebangs(),
-  ],
+  plugins: [...commonPlugins, json(), preserveShebangs()],
 };

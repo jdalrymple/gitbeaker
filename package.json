@@ -43,7 +43,7 @@
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
     "test:unit": "jest test/unit",
     "release": "auto shipit --verbose --verbose",
-    "clean": "lerna exec -- rimraf dist &&  lerna clean --yes && rm -r node_modules"
+    "clean": "lerna exec -- rimraf dist coverage &&  lerna clean --yes && rm -r node_modules"
   },
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "name": "gitbeaker"
