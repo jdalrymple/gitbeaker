@@ -91,31 +91,31 @@ npm install @gitbeaker/cli  # CLI
 **NodeJS**
 
 ```javascript
-// ES6 (>=node 10.16.0 LTS)
+// ES6
 import { Gitlab } from '@gitbeaker/node'; // All Resources
 import { Projects } from '@gitbeaker/node'; // Just the Project Resource
 //...etc
 
-// ES5, assuming native or polyfilled Promise is available
+// ES5
 const { Gitlab } = require('@gitbeaker/node');
 ```
 
 **Browser**
 
 ```javascript
-// ES6 (>=node 10.16.0 LTS)
+// ES6
 import { Gitlab } from '@gitbeaker/browser'; // All Resources
 import { Projects } from '@gitbeaker/browser'; // Just the Project Resource
 //...etc
 
-// ES5, assuming native or polyfilled Promise is available
+// ES5
 const { Gitlab } = require('@gitbeaker/browser');
 ```
 
 OR through the script tag:
 
 ```html
-<script src="node_modules/@gitbeaker/browser/dist/index.js" />
+<script src="https://unpkg.com/@gitbeaker/browser/dist/index.es.js" />
 <script>
   const { Gitlab } = gitbeaker;
 </script>
@@ -411,7 +411,7 @@ Once you have your library instantiated, you can utilize many of the API's funct
 Using the await/async method
 
 ```javascript
-import { Gitlab } from 'gitlab';
+import { Gitlab } from '@gitbeaker/node';
 
 const api = new Gitlab({
   host: 'http://example.com',
@@ -435,7 +435,7 @@ A general rule about all the function parameters:
 ie.
 
 ```javascript
-import { Gitlab } from 'gitlab';
+import { Gitlab } from '@gitbeaker/node';
 
 const api = new Gitlab({
   host: 'http://example.com',
@@ -623,10 +623,20 @@ to this
 
 Testing is a work-in-progress right now but here is the start.
 
+**Unit Tests**
+
+Run:
+
+```bash
+yarn test:unit
+```
+
+**Integration Tests**
+
 1. First, run Gitlab in a docker container:
 
 ```bash
-docker-compose -f docker-compose.test.yml up
+docker-compose -f scripts/docker-compose.yml up
 ```
 
 1. Once GitLab is up on localhost:8080, get the two environment variables from the docker image could
@@ -640,10 +650,7 @@ export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"
 1. Now run the tests
 
 ```bash
-yarn test
-
-# or, alternatively
-yarn test-with-token # sets PERSONAL_ACCESS_TOKEN and GITLAB_URL from above, before running tests
+yarn test:integration:node
 ```
 
 You can also define them in front of the yarn script
