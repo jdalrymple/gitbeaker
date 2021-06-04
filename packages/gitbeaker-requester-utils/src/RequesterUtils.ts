@@ -109,6 +109,8 @@ export function modifyServices<T>(services: T, customConfig: Record<string, unkn
   const updated = {};
 
   Object.entries(services).forEach(([k, s]) => {
+    if (typeof s !== 'function') return; // FIXME: Odd default artifact included in this list during testing
+
     updated[k] = extendClass(s, customConfig);
   });
 

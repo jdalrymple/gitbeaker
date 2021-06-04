@@ -2,10 +2,10 @@
   "compilerOptions": {
 
     "target": "es5",
-    "module": "es6",
+    "module": "es2015",
     "noEmit": true,
     "pretty": true,
-    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "lib": ["es2016", "es2017", "dom"],
     "sourceMap": true,
     "inlineSources": true,
 
@@ -13,14 +13,14 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@gitbeaker/*": ["packages/gitbeaker-*/src"]
+      "@gitbeaker/*": ["packages/*/src"]
     },
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "downlevelIteration": true,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
 
     "noUnusedLocals": true,
     "noUnusedParameters": true,

@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "esModuleInterop": true,
     "declarationDir": "dist/types"
   },
   "include": ["src"]

@@ -1,5 +1,5 @@
-import * as Sywac from 'sywac';
-import * as Chalk from 'chalk';
+import Chalk from 'chalk';
+import Sywac from 'sywac';
 import { camelize, decamelize, depascalize } from 'xcase';
 import * as Gitbeaker from '@gitbeaker/node';
 import { getAPIMap } from '@gitbeaker/core';

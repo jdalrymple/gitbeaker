@@ -8,10 +8,12 @@ export default {
     {
       file: pkg.main, // CommonJS (for Node) build.
       format: 'cjs',
+      sourcemap: true
     },
     {
       file: pkg.module, // ES module (for bundlers) build.
       format: 'es',
+      sourcemap: true
     },
   ],
   plugins: [    ts({ useTsconfigDeclarationDir: true })],
