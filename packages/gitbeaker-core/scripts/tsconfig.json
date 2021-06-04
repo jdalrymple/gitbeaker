@@ -3,6 +3,6 @@
     "target": "es2020",
     "module": "esnext",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   }
 }

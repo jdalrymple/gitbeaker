@@ -17,7 +17,7 @@ module.exports = {
 
   moduleNameMapper: {
     '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
-    "/^@gitbeaker\/(.*)$/": "<rootDir>/../../packages/gitbeaker-$1/src"
+    '/^@gitbeaker/(.*)$/': '<rootDir>/../../packages/gitbeaker-$1/src',
   },
 
   globals: {

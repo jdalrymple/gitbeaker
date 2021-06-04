@@ -9,20 +9,20 @@ export default {
     {
       file: pkg.main, // CommonJS (for Node) build.
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: pkg.module, // ES module (for bundlers) build.
       format: 'es',
-      sourcemap: true
+      sourcemap: true,
     },
   ],
   plugins: [
     replace({
       '../dist/map.json': './map.json',
       delimiters: ['', ''],
-      preventAssignment: true
+      preventAssignment: true,
     }),
     ts({ useTsconfigDeclarationDir: true }),
-  ]
+  ],
 };

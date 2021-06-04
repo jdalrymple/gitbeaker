@@ -26,5 +26,5 @@ export default [
       commonjs(),
       terser({ mangle: false }),
     ],
-  }
+  },
 ];

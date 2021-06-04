@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "target": "es5",
     "module": "es2015",
     "noEmit": true,

@@ -14,16 +14,18 @@
     <img src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker/master.svg" alt="CodeCov test coverage">
   </a>
   <a href="https://david-dm.org/jdalrymple/gitbeaker">
-    <img src="https://david-dm.org/jdalrymple/gitbeaker/status.svg" alt="Dependency Status" />
+    <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg" alt="Dependency Status" />
   </a>
   <a href="https://david-dm.org/jdalrymple/gitbeaker?type=dev">
-    <img src="https://david-dm.org/jdalrymple/gitbeaker/dev-status.svg.svg" alt="Dev Dependency Status" />
+    <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg?type=dev" alt="Dev Dependency Status" />
   </a>
-  <img src="https://flat.badgen.net/dependabot/jdalrymple/gitbeaker?icon=dependabot" alt="Dependabot Badge" />
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
-  <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
+  <a href="#contributors-">
+    <img src="https://img.shields.io/badge/all_contributors-orange.svg?style=round" alt="All Contributors" />
+  </a>
+  <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">  
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
   </a>
