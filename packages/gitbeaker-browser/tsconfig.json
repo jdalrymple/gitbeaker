@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2015", "es2016", "es2017", "esnext", "dom", "dom.iterable"],
+    "lib": ["es2016", "es2017", "esnext", "dom", "dom.iterable"],
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "dist/types"
