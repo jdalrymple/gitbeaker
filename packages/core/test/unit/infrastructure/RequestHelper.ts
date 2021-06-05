@@ -29,15 +29,15 @@ function mockedGetExtended(url: string, { query }) {
   else if (query.page) page = query.page;
 
   // Only load pages needed for the test
-  const nextPage = page < maxPages ? `page=${page + 1}` : '';
+  const nextPage = page < maxPages ? page + 1 : undefined;
   const next =
     page < maxPages
-      ? `<https://www.test.com/api/v4/test?${nextPage}&per_page=${perPage}>; rel="next",`
+      ? `<https://www.test.com/api/v4/test?page=${nextPage || ''}&per_page=${perPage}>; rel="next",`
       : '';
   const prevPage = page > 1 ? page - 1 : undefined;
   const prev =
     page > 1
-      ? `<https://www.test.com/api/v4/test?page=${page - 1}&per_page=${perPage}>; rel="prev",`
+      ? `<https://www.test.com/api/v4/test?page=${prevPage || ''}&per_page=${perPage}>; rel="prev",`
       : '';
 
   return {

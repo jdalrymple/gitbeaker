@@ -24,7 +24,7 @@ module.exports = {
   globals: {
     'ts-jest': {
       diagnostics: {
-        ignoreCodes: [2339],
+        ignoreCodes: [2339, 2307],
       },
     },
   }
