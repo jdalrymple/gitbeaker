@@ -58,7 +58,7 @@ afterEach(() => {
 });
 
 describe('General', () => {
-  it('should return the expose a gitbeaker commnad', async () => {
+  it('should return the expose a gitbeaker commnad', () => {
     expect(pkg.bin).toHaveProperty('gitbeaker');
   });
 });

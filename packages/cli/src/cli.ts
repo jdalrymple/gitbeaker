@@ -88,7 +88,7 @@ function globalConfig(env = process.env): { [name: string]: Sywac.Options } {
 const ignoreOptions = ['_', '$0', 'v', 'version', 'h', 'help', 'g', 'global-args'];
 
 // Helper function to param case strings
-function param(string) {
+function param(string: string): string {
   let cleaned = string;
 
   // Handle exceptions
@@ -101,10 +101,8 @@ function param(string) {
   return attempt !== cleaned ? attempt : depascalize(cleaned, '-');
 }
 
-function setupAPIMethods(setupArgs, methodArgs) {
-  methodArgs.forEach((name) => {
-    // if (name === 'options') return; CHECKME: Doesnt seem to be included :/
-
+function setupAPIMethods(setupArgs, methodArgs: string[]) {
+  methodArgs.forEach((name: string) => {
     setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
       group: 'Required Options',
       type: 'string',
@@ -114,7 +112,7 @@ function setupAPIMethods(setupArgs, methodArgs) {
   return setupArgs;
 }
 
-function runAPIMethod(ctx, args, apiName, method) {
+function runAPIMethod(ctx, args, apiName: string, method) {
   const coreArgs = {};
   const optionalArgs = {};
   const initArgs = {};
@@ -143,7 +141,7 @@ function runAPIMethod(ctx, args, apiName, method) {
     });
 }
 
-function setupAPIs(setupArgs, apiName, methods) {
+function setupAPIs(setupArgs, apiName: string, methods) {
   Object.entries(globalConfig()).forEach(([k, v]) => {
     setupArgs.option(`${k} <value>`, {
       group: 'Base Options',
