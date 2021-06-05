@@ -14,6 +14,8 @@ if (!global.Headers) {
 
 jest.mock('ky');
 
+const MockKy = ky as unknown as jest.Mock;
+
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
     const output = await processBody({
@@ -114,7 +116,7 @@ describe('processBody', () => {
 
 describe('handler', () => {
   it('should return an error with a description when response has an error prop', async () => {
-    (ky as unknown as jest.Mock).mockImplementationOnce(() => {
+    MockKy.mockImplementationOnce(() => {
       const e = {
         response: {
           json() {
@@ -129,7 +131,7 @@ describe('handler', () => {
   });
 
   it('should return an error with a description when response has an message prop', async () => {
-    (ky as unknown as jest.Mock).mockImplementationOnce(() => {
+    MockKy.mockImplementationOnce(() => {
       const e = {
         response: {
           json() {
@@ -144,7 +146,7 @@ describe('handler', () => {
   });
 
   it('should return correct properties if request is valid', async () => {
-    (ky as unknown as jest.Mock).mockImplementationOnce(() => ({
+    MockKy.mockImplementationOnce(() => ({
       status: 404,
       headers: {
         get() {
@@ -177,7 +179,7 @@ describe('defaultRequest', () => {
     rejectUnauthorized: true,
   };
 
-  it('should stringify body if it isnt of type FormData', async () => {
+  it('should stringify body if it isnt of type FormData', () => {
     const testBody = { test: 6 };
     const { body, headers } = defaultOptionsHandler(service, {
       body: testBody,
@@ -187,7 +189,7 @@ describe('defaultRequest', () => {
     expect(body).toBe(JSON.stringify(testBody));
   });
 
-  it('should assign the agent property if given https url and rejectUnauthorized is false', async () => {
+  it('should assign the agent property if given https url and rejectUnauthorized is false', () => {
     const { agent } = defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
       { method: 'post' },

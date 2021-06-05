@@ -9,14 +9,6 @@ import {
   defaultOptionsHandler as baseOptionsHandler,
 } from '@gitbeaker/requester-utils';
 
-function responseHeadersAsObject(headers: Headers) {
-  return Array.from(headers.entries()).reduce((acc, curr) => {
-    acc[curr[0]] = curr[1];
-
-    return acc;
-  }, {});
-}
-
 export function defaultOptionsHandler(
   serviceOptions: DefaultServiceOptions,
   options: DefaultRequestOptions = {},
@@ -57,17 +49,17 @@ export async function processBody(response: Response) {
 export async function handler(endpoint: string, options: Record<string, unknown>) {
   const retryCodes = [429, 502];
   const maxRetries = 10;
-  let response: Response;
 
   for (let i = 0; i < maxRetries; i += 1) {
     try {
-      if (options.method === 'stream') return ky(endpoint, options);
+      const response = ky(endpoint, options);
 
-      response = await ky(endpoint, options); // eslint-disable-line
+      if (options.method === 'stream') return response;
 
-      const { status } = response;
-      const headers = responseHeadersAsObject(response.headers);
-      const body = await processBody(response);
+      const resolved = await response; // eslint-disable-line
+      const { status, headers: rawHeaders } = resolved;
+      const headers = Object.fromEntries(rawHeaders.entries());
+      const body = await processBody(resolved); // eslint-disable-line
 
       return { body, headers, status };
     } catch (e) {
