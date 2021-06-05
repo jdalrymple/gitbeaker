@@ -1,6 +1,7 @@
+import 'jest-extended';
 import { Projects } from '../../../src';
 
-const { TEST_ID } = process.env;
+const { TEST_ID = '' } = process.env;
 let service: InstanceType<typeof Projects>;
 
 beforeEach(() => {

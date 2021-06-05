@@ -5,7 +5,6 @@ import {
   DefaultServiceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
-  ReadableStream,
   createRequesterFn,
   defaultOptionsHandler as baseOptionsHandler,
 } from '@gitbeaker/requester-utils';
@@ -72,7 +71,7 @@ export async function handler(endpoint: string, options: Record<string, unknown>
     const waitTime = 2 ** i * 0.1;
     try {
       if (options.method === 'stream') {
-        return Got(endpoint, {...options, method: 'get', isStream: true }) as ReadableStream<ReturnType<typeof Got.stream>>;
+        return Got(endpoint, { ...options, method: 'get', isStream: true });
       }
 
       response = await Got(endpoint, options); // eslint-disable-line
