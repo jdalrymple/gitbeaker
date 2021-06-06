@@ -258,7 +258,8 @@ describe('RequestHelper.get()', () => {
       camelize: true,
     });
 
-    // @ts-ignore eslint-disable-line
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     s.show = jest.fn(() => RequestHelper.get()(s, 'test'));
     s.requester.get = jest.fn(() =>
       Promise.resolve({
@@ -270,7 +271,8 @@ describe('RequestHelper.get()', () => {
       }),
     );
 
-    // @ts-ignore eslint-disable-line
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const results = await s.show();
 
     expect(results).toIncludeSameMembers([
