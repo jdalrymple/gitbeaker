@@ -18,14 +18,6 @@ module.exports = {
 
   moduleNameMapper: {
     '^ky$': require.resolve('ky').replace('index.js', 'umd.js'),
-   ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
   },
-
-  globals: {
-    'ts-jest': {
-      diagnostics: {
-        ignoreCodes: [2307],
-      },
-    },
-  }
 };

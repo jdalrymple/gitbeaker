@@ -57,7 +57,7 @@ function mockedGetExtended(url: string, { query }) {
   };
 }
 
-let service: BaseService;
+let service;
 
 beforeEach(() => {
   service = new BaseService({
@@ -69,7 +69,7 @@ beforeEach(() => {
 
 describe('RequestHelper.get()', () => {
   it('should respond with the proper get url without pagination', async () => {
-    service.requester.get = jest.fn(() => mockedGetBasic());
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
 
     await RequestHelper.get()(service, 'test');
 
@@ -80,7 +80,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should respond with an object', async () => {
-    service.requester.get = jest.fn(() => mockedGetBasic());
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
 
     const response = await RequestHelper.get()(service, 'test');
 
@@ -89,7 +89,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated when links are present', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test');
 
@@ -103,7 +105,7 @@ describe('RequestHelper.get()', () => {
 
   it('should handle large paginated (50 pages) results when links are present', async () => {
     service.requester.get = jest.fn((url, options) =>
-      mockedGetExtended(url, { query: { ...options.query, maxPages: 70 } }),
+      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 70 } })),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test');
@@ -118,7 +120,7 @@ describe('RequestHelper.get()', () => {
 
   it('should be paginated but limited by the maxPages option', async () => {
     service.requester.get = jest.fn((url, options) =>
-      mockedGetExtended(url, { query: { ...options.query, maxPages: 3 } }),
+      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 3 } })),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -134,7 +136,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the page option', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       page: 2,
@@ -149,7 +153,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should show the pagination information when the showExpanded option is given', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       page: 2,
@@ -174,7 +180,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when the showExpanded option is undefined or false', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       page: 2,
@@ -190,7 +198,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       pagination: 'keyset',
@@ -206,7 +216,7 @@ describe('RequestHelper.get()', () => {
 
   it('should support maxPages when using keyset pagination', async () => {
     service.requester.get = jest.fn((url, options) =>
-      mockedGetExtended(url, { query: { ...options.query, maxPages: 2 } }),
+      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 2 } })),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -223,7 +233,9 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination and showExpanded is given', async () => {
-    service.requester.get = jest.fn((url, options) => mockedGetExtended(url, options));
+    service.requester.get = jest.fn((url, options) =>
+      Promise.resolve(mockedGetExtended(url, options)),
+    );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       pagination: 'keyset',
@@ -239,17 +251,27 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should return simple response with camelized keys when using the camelize option', async () => {
-    service.camelize = true;
-    service.show = jest.fn(() => RequestHelper.get()(service, 'test'));
-    service.requester.get = jest.fn(() => ({
-      body: [
-        { id: 3, gravatar_enable: true }, // eslint-disable-line
-        { id: 4, gravatar_enable: false }, // eslint-disable-line
-      ],
-      headers: {},
-    }));
+    const s = new BaseService({
+      requesterFn: () => ({} as RequesterType),
+      host: 'https://testing.com',
+      token: 'token',
+      camelize: true,
+    });
 
-    const results = await service.show();
+    // @ts-ignore eslint-disable-line
+    s.show = jest.fn(() => RequestHelper.get()(s, 'test'));
+    s.requester.get = jest.fn(() =>
+      Promise.resolve({
+        body: [
+          { id: 3, gravatar_enable: true }, // eslint-disable-line
+          { id: 4, gravatar_enable: false }, // eslint-disable-line
+        ],
+        headers: {},
+      }),
+    );
+
+    // @ts-ignore eslint-disable-line
+    const results = await s.show();
 
     expect(results).toIncludeSameMembers([
       { id: 3, gravatarEnable: true },
@@ -259,10 +281,12 @@ describe('RequestHelper.get()', () => {
 
   it('should return simple response with default keys without camelize option', async () => {
     service.show = jest.fn(() => RequestHelper.get()(service, 'test'));
-    service.requester.get = jest.fn(() => ({
-      body: { id: 3, gravatar_enable: true },
-      headers: {},
-    }));
+    service.requester.get = jest.fn(() =>
+      Promise.resolve({
+        body: { id: 3, gravatar_enable: true },
+        headers: {},
+      }),
+    );
 
     const results = await service.show();
 
@@ -290,7 +314,7 @@ describe('RequestHelper.stream()', () => {
 
 describe('RequestHelper.post()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    service.requester.post = jest.fn(() => ({ body: '' }));
+    service.requester.post = jest.fn(() => Promise.resolve({ body: '' }));
 
     await RequestHelper.post()(service, 'test', { sudo: 'yes' });
 
@@ -298,7 +322,7 @@ describe('RequestHelper.post()', () => {
   });
 
   it('should pass arguments as form arguments if the isForm flag is passed', async () => {
-    service.requester.post = jest.fn(() => ({ body: '' }));
+    service.requester.post = jest.fn(() => Promise.resolve({ body: '' }));
 
     await RequestHelper.post()(service, 'test', { isForm: true, test: 3 });
 
@@ -311,7 +335,7 @@ describe('RequestHelper.post()', () => {
 
 describe('RequestHelper.put()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    service.requester.put = jest.fn(() => ({ body: '' }));
+    service.requester.put = jest.fn(() => Promise.resolve({ body: '' }));
 
     await RequestHelper.put()(service, 'test', { sudo: 'yes' });
 
@@ -321,7 +345,7 @@ describe('RequestHelper.put()', () => {
 
 describe('RequestHelper.del()', () => {
   it('should pass the correct arguments to the Requester', async () => {
-    service.requester.delete = jest.fn(() => ({ body: '' }));
+    service.requester.delete = jest.fn(() => Promise.resolve({ body: '' }));
 
     await RequestHelper.del()(service, 'test', { sudo: 'yes' });
 

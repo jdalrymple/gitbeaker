@@ -22,7 +22,14 @@ export default [
       globals(),
       builtins(),
       resolve({ browser: true }),
-      ts({ useTsconfigDeclarationDir: true }),
+      ts({
+        useTsconfigDeclarationDir: true,
+        tsconfigOverride: {
+          compilerOptions: {
+            baseUrl: '.',
+          },
+        },
+      }),
       commonjs(),
       terser({ mangle: false }),
     ],

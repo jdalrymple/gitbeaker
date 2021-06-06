@@ -16,5 +16,14 @@ export default {
       sourcemap: true,
     },
   ],
-  plugins: [ts({ useTsconfigDeclarationDir: true })],
+  plugins: [
+    ts({
+      tsconfigOverride: {
+        compilerOptions: {
+          baseUrl: '.',
+        },
+      },
+      useTsconfigDeclarationDir: true,
+    }),
+  ],
 };

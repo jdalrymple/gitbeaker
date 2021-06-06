@@ -4,7 +4,6 @@
     "target": "es2016",
     "lib": ["es2017", "esnext", "dom", "dom.iterable"],
     "outDir": "./dist",
-    "baseUrl": ".",
     "declaration": true,
     "declarationDir": "dist/types"
   },

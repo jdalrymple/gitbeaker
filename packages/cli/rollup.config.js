@@ -11,5 +11,14 @@ export default {
     format: 'cjs',
     sourcemap: true,
   },
-  plugins: [ts({ useTsconfigDeclarationDir: true }), json(), preserveShebangs()],
+  plugins: [
+    ts({
+      tsconfigOverride: {
+        baseUrl: '.',
+      },
+      useTsconfigDeclarationDir: true,
+    }),
+    json(),
+    preserveShebangs(),
+  ],
 };

@@ -23,6 +23,13 @@ export default {
       delimiters: ['', ''],
       preventAssignment: true,
     }),
-    ts({ useTsconfigDeclarationDir: true }),
+    ts({
+      tsconfigOverride: {
+        compilerOptions: {
+          baseUrl: '.',
+        },
+      },
+      useTsconfigDeclarationDir: true,
+    }),
   ],
 };

@@ -16,11 +16,11 @@ extends:
   - plugin:prettier/recommended
   - plugin:jest/recommended
 
-parser: "@typescript-eslint/parser"
+parser: '@typescript-eslint/parser'
 
 parserOptions:
-  project: "./tsconfig.json"
-  tsconfigRootDir: "./"
+  project: './tsconfig.json'
+  tsconfigRootDir: './'
 
 plugins:
   - '@typescript-eslint'
