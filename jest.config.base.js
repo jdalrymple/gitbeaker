@@ -1,9 +1,9 @@
-const tsPreset = require('ts-jest/jest-preset');
+const { jsWithBabel: tsjPreset } = require('ts-jest/presets');
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
-  ...tsPreset,
+  ...tsjPreset,
 
   testEnvironment: 'node',
   testRegex: 'test\\/.*\\.ts$',
