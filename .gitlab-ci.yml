@@ -128,8 +128,8 @@ test:integration:node:
   <<: *integration-test
   script:
     - yarn workspace @gitbeaker/node test:integration
-    # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"dist/index.js"}'
-
+    - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+    
 # Canary
 canary:
   stage: canary
