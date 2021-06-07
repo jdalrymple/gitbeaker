@@ -1,3 +1,27 @@
+# 30.0.0 (Mon Jun 07 2021)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Package Registry Support [#1822](https://github.com/jdalrymple/gitbeaker/pull/1822) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/cli`
+  - Fix CLI release compilation [#1838](https://github.com/jdalrymple/gitbeaker/pull/1838) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @typescript-eslint/parser from 4.26.0 to 4.26.1 [#1859](https://github.com/jdalrymple/gitbeaker/pull/1859) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.26.0 to 4.26.1 [#1860](https://github.com/jdalrymple/gitbeaker/pull/1860) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
