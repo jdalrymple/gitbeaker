@@ -1,3 +1,15 @@
+# v29.3.0 (Mon Jun 07 2021)
+
+#### 🐛 Bug Fix
+
+- Revert build system changes [#1851](https://github.com/jdalrymple/gitbeaker/pull/1851) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix

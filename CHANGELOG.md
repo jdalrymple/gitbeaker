@@ -1,3 +1,38 @@
+# 29.3.0 (Mon Jun 07 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Revert build system changes [#1851](https://github.com/jdalrymple/gitbeaker/pull/1851) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump esbuild from 0.12.5 to 0.12.6 [#1855](https://github.com/jdalrymple/gitbeaker/pull/1855) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint from 7.27.0 to 7.28.0 [#1856](https://github.com/jdalrymple/gitbeaker/pull/1856) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.12.0 to 15.12.1 [#1857](https://github.com/jdalrymple/gitbeaker/pull/1857) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.50.6 to 2.51.0 [#1854](https://github.com/jdalrymple/gitbeaker/pull/1854) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.9.0 to 15.12.0 [#1850](https://github.com/jdalrymple/gitbeaker/pull/1850) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.50.5 to 2.50.6 [#1849](https://github.com/jdalrymple/gitbeaker/pull/1849) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup-plugin-esbuild from 4.2.3 to 4.3.1 [#1847](https://github.com/jdalrymple/gitbeaker/pull/1847) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.6.1 to 15.9.0 [#1846](https://github.com/jdalrymple/gitbeaker/pull/1846) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.25.0 to 4.26.0 [#1840](https://github.com/jdalrymple/gitbeaker/pull/1840) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.25.0 to 4.26.0 [#1839](https://github.com/jdalrymple/gitbeaker/pull/1839) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 9.1.1 to 10.0.0 [#1833](https://github.com/jdalrymple/gitbeaker/pull/1833) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest-playwright-preset from 1.5.2 to 1.6.0 [#1837](https://github.com/jdalrymple/gitbeaker/pull/1837) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.50.4 to 2.50.5 [#1836](https://github.com/jdalrymple/gitbeaker/pull/1836) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 9.1.1 to 10.0.0 in /packages/gitbeaker-core [#1824](https://github.com/jdalrymple/gitbeaker/pull/1824) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup-plugin-esbuild from 3.0.2 to 4.2.3 [#1835](https://github.com/jdalrymple/gitbeaker/pull/1835) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump esbuild from 0.11.6 to 0.12.5 [#1831](https://github.com/jdalrymple/gitbeaker/pull/1831) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump esbuild from 0.11.23 to 0.12.5 in /packages/gitbeaker-cli [#1827](https://github.com/jdalrymple/gitbeaker/pull/1827) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup-plugin-dts from 3.0.1 to 3.0.2 [#1834](https://github.com/jdalrymple/gitbeaker/pull/1834) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix
