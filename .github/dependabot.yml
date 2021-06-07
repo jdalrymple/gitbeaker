@@ -7,31 +7,31 @@ updates:
       time: '04:00'
     open-pull-requests-limit: 10
   - package-ecosystem: npm
-    directory: '/packages/gitbeaker-browser'
+    directory: '/packages/browser'
     schedule:
       interval: daily
       time: '04:00'
     open-pull-requests-limit: 10
   - package-ecosystem: npm
-    directory: '/packages/gitbeaker-node'
+    directory: '/packages/node'
     schedule:
       interval: daily
       time: '04:00'
     open-pull-requests-limit: 10
   - package-ecosystem: npm
-    directory: '/packages/gitbeaker-cli'
+    directory: '/packages/cli'
     schedule:
       interval: daily
       time: '04:00'
     open-pull-requests-limit: 10
   - package-ecosystem: npm
-    directory: '/packages/gitbeaker-core'
+    directory: '/packages/core'
     schedule:
       interval: daily
       time: '04:00'
     open-pull-requests-limit: 10
   - package-ecosystem: npm
-    directory: '/packages/gitbeaker-requester-utils'
+    directory: '/packages/requester-utils'
     schedule:
       interval: daily
       time: '04:00'
