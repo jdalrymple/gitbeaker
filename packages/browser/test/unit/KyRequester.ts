@@ -1,5 +1,5 @@
-import * as ky from 'ky';
-import * as fetch from 'node-fetch';
+import ky from 'ky';
+import fetch from 'node-fetch';
 import { Agent } from 'https';
 import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 

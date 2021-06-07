@@ -1,4 +1,4 @@
-const { jsWithBabel: tsjPreset } = require('ts-jest/presets');
+const { jsWithTs: tsjPreset } = require('ts-jest/presets');
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { compilerOptions } = require('./tsconfig');
 
@@ -16,7 +16,7 @@ module.exports = {
 
   setupFilesAfterEnv: ['jest-extended'],
 
-  transformIgnorePatterns: ['/node_modules/?!(ky)'],
+  transformIgnorePatterns: ['node_modules/(?!(ky))'],
 
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
