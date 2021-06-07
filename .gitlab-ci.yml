@@ -52,7 +52,7 @@ lint:src:
 lint:docs:
   needs: ['install']
   stage: lint
-  script: yarn lint:doc
+  script: yarn lint:docs
 
 # Unit Tests
 test:unit:cli:
@@ -126,11 +126,12 @@ test:unit:utils:
 #   script:
 #     - yarn workspace @gitbeaker/browser test:integration
 
-# test:integration:node:
+# test:integration:
 #   <<: *integration-test
 #   script:
-#     - yarn workspace @gitbeaker/node test:integration
-#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+#     - yarn workspace @gitbeaker/cli test:integration
+# - yarn workspace @gitbeaker/node test:integration
+# - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
 
 # Canary
 canary:

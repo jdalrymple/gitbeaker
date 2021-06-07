@@ -92,17 +92,11 @@ function param(string: string): string {
   let cleaned = string;
 
   // Handle exceptions
-  const exceptions = [
-    'GitLabCI',
-    'YML',
-    'GPG',
-    'SSH'
-  ]
+  const exceptions = ['GitLabCI', 'YML', 'GPG', 'SSH'];
 
-  const ex = exceptions.find(e => string.includes(e))
+  const ex = exceptions.find((e) => string.includes(e));
 
-  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1))
-
+  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1));
 
   // Decamelize
   const decamelized = decamelize(cleaned, '-');
