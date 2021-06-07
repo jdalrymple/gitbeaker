@@ -28,9 +28,19 @@ describe('Instantiating Packages service', () => {
 
 describe('Packages.all', () => {
   it('should request GET /projects/:id/packages', async () => {
-    await service.all(1);
+    await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages', {});
+  });
+
+  it('should request GET /groups/:id/packages', async () => {
+    await service.all({ groupId: 1 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/1/packages', {});
+  });
+
+  it('should throw an error is neither groupId or projectId is passed', async () => {
+    expect(() => service.all()).toThrow('projectId or groupId must be passed');
   });
 });
 
@@ -39,6 +49,18 @@ describe('Packages.remove', () => {
     await service.remove(1, 2);
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
+  });
+});
+
+describe('Packages.removeFile', () => {
+  it('should request DEL /projects/:id/packages/:id/package_files', async () => {
+    await service.removeFile(1, 2, 3);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/1/packages/2/package_files/3',
+      undefined,
+    );
   });
 });
 

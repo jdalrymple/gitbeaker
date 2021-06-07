@@ -46,6 +46,7 @@ export { MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
 export { MergeRequestDiscussions } from './MergeRequestDiscussions';
 export { MergeRequestNotes } from './MergeRequestNotes';
 export { Packages } from './Packages';
+export { PackageRegistry } from './PackageRegistry';
 export { Pipelines } from './Pipelines';
 export { PipelineSchedules } from './PipelineSchedules';
 export { PipelineScheduleVariables } from './PipelineScheduleVariables';
