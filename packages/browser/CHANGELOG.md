@@ -1,3 +1,17 @@
+# v30.1.0 (Mon Jun 07 2021)
+
+#### 🔩 Dependency Updates
+
+- Tests back up and running [#1858](https://github.com/jdalrymple/gitbeaker/pull/1858) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump ky from 0.25.0 to 0.28.5 in /packages/browser [#1858](https://github.com/jdalrymple/gitbeaker/pull/1858) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v30.0.0 (Mon Jun 07 2021)
 
 #### 💥 Breaking Change
