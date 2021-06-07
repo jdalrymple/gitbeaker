@@ -1,3 +1,15 @@
+# 30.2.0 (Mon Jun 07 2021)
+
+#### 🐛 Bug Fix
+
+- Artifacts caching [#1863](https://github.com/jdalrymple/gitbeaker/pull/1863) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 30.1.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
