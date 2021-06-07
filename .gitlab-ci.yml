@@ -82,39 +82,39 @@ test:unit:utils:
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
 
 #Integration Tests
-.test:integration: &integration-test
-  stage: test
-  needs: ['build']
-  image:
-    name: jdalrymple/docker-compose-with-node
-    entrypoint: ['/bin/sh', '-c']
-  variables:
-    GITLAB_PERSONAL_ACCESS_TOKEN: superduperstrongtoken
-    DOCKER_HOST: tcp://docker:2375
-    GITLAB_URL: http://docker:8080
-  services:
-    - docker:dind
-  retry: 2
-  timeout: 45 minutes
-  before_script:
-    - apk add jq curl
-
-    # Spin up container
-    - docker-compose -f scripts/docker-compose.yml up -d
-
-    # Verify Gitlab instance is up and running
-    - echo "Waiting for service to start"
-    - sleep 180
-    - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-    - echo "Service is up and running!"
-  after_script:
-    - sleep 30
-    - docker cp gitlab:/var/log/gitlab runner_logs
-    - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
-  artifacts:
-    when: on_failure
-    paths:
-      - runner_logs
+# .test:integration: &integration-test
+#   stage: test
+#   needs: ['build']
+#   image:
+#     name: jdalrymple/docker-compose-with-node
+#     entrypoint: ['/bin/sh', '-c']
+#   variables:
+#     GITLAB_PERSONAL_ACCESS_TOKEN: superduperstrongtoken
+#     DOCKER_HOST: tcp://docker:2375
+#     GITLAB_URL: http://docker:8080
+#   services:
+#     - docker:dind
+#   retry: 2
+#   timeout: 45 minutes
+#   before_script:
+#     - apk add jq curl
+#
+#     # Spin up container
+#     - docker-compose -f scripts/docker-compose.yml up -d
+#
+#     # Verify Gitlab instance is up and running
+#     - echo "Waiting for service to start"
+#     - sleep 180
+#     - while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+#     - echo "Service is up and running!"
+#   after_script:
+#     - sleep 30
+#     - docker cp gitlab:/var/log/gitlab runner_logs
+#     - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
+#   artifacts:
+#     when: on_failure
+#     paths:
+#       - runner_logs
 
 # test:integration:browser:
 #   <<: *integration-test
@@ -124,11 +124,11 @@ test:unit:utils:
 #   script:
 #     - yarn workspace @gitbeaker/browser test:integration
 
-test:integration:node:
-  <<: *integration-test
-  script:
-    - yarn workspace @gitbeaker/node test:integration
-    - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
+# test:integration:node:
+#   <<: *integration-test
+#   script:
+#     - yarn workspace @gitbeaker/node test:integration
+#     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
 
 # Canary
 canary:
