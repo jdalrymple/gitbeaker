@@ -45,10 +45,12 @@ build:
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:src:
+  needs: ['install']
   stage: lint
   script: yarn lint
 
 lint:docs:
+  needs: ['install']
   stage: lint
   script: yarn lint:doc
 
