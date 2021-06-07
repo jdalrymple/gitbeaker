@@ -13,7 +13,7 @@ module.exports = class LintDocsPlugin {
    */
   apply(auto) {
     auto.hooks.beforeCommitChangelog.tapPromise(this.name, async () => {
-      await execPromise('yarn', ['lint:doc:fix']);
+      await execPromise('yarn', ['lint:docs:fix']);
       await execPromise('git', ['add', '.']);
     });
   }
