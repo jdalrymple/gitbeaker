@@ -25,6 +25,7 @@
     "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "strip-ansi": "^7.0.0",
+    "uuid": "^8.3.2",
     "typescript": "^4.2.4"
   },
   "engines": {
@@ -48,7 +49,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "test:integration": "jest test/integration",
+    "test:integration": "TEST_ID=$(uuid) jest test/integration",
     "test:unit": "jest test/unit"
   }
 }

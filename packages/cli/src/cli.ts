@@ -92,17 +92,22 @@ function param(string: string): string {
   let cleaned = string;
 
   // Handle exceptions
-  if (string.includes('GitLabCI')) cleaned = cleaned.replace('GitLabCI', 'Gitlabci');
-  if (string.includes('YML')) cleaned = cleaned.replace('YML', 'Yml');
-  if (string.includes('GPG')) cleaned = cleaned.replace('GPG', 'Gpg');
+  const exceptions = ['GitLabCI', 'YML', 'GPG', 'SSH'];
 
-  const attempt = decamelize(cleaned, '-');
+  const ex = exceptions.find((e) => string.includes(e));
 
-  return attempt !== cleaned ? attempt : depascalize(cleaned, '-');
+  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1));
+
+  // Decamelize
+  const decamelized = decamelize(cleaned, '-');
+
+  return decamelized !== cleaned ? decamelized : depascalize(cleaned, '-');
 }
 
-function setupAPIMethods(setupArgs, methodArgs: string[]) {
-  methodArgs.forEach((name: string) => {
+function setupAPIMethods(setupArgs, methodArgs: unknown[]) {
+  methodArgs.forEach((name) => {
+    if (typeof name !== 'string') return;
+
     setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
       group: 'Required Options',
       type: 'string',
