@@ -37,11 +37,11 @@ build:
     - yarn build
   artifacts:
     paths:
-      - packages/gitbeaker-core/dist/
-      - packages/gitbeaker-cli/dist/
-      - packages/gitbeaker-browser/dist/
-      - packages/gitbeaker-node/dist/
-      - packages/gitbeaker-requester-utils/dist/
+      - packages/core/dist/
+      - packages/cli/dist/
+      - packages/browser/dist/
+      - packages/node/dist/
+      - packages/requester-utils/dist/
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:src:
