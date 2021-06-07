@@ -154,6 +154,7 @@ canary:
 
 # Release
 release:
+  needs: ['build']
   only:
     refs:
       - master
