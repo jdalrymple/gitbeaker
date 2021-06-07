@@ -53,6 +53,7 @@ export const {
   MergeRequestDiscussions,
   MergeRequestNotes,
   Packages,
+  PackageRegistry,
   Pipelines,
   PipelineSchedules,
   PipelineScheduleVariables,

@@ -1,3 +1,15 @@
+# v30.0.0 (Mon Jun 07 2021)
+
+#### 💥 Breaking Change
+
+- Package Registry Support [#1822](https://github.com/jdalrymple/gitbeaker/pull/1822) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix

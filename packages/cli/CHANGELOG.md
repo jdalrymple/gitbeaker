@@ -1,3 +1,15 @@
+# v30.0.0 (Mon Jun 07 2021)
+
+#### 🐛 Bug Fix
+
+- Fix CLI release compilation [#1838](https://github.com/jdalrymple/gitbeaker/pull/1838) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
