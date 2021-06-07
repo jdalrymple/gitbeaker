@@ -39,7 +39,7 @@ describe('Packages.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/1/packages', {});
   });
 
-  it('should throw an error is neither groupId or projectId is passed', async () => {
+  it('should throw an error is neither groupId or projectId is passed', () => {
     expect(() => service.all()).toThrow('projectId or groupId must be passed');
   });
 });
