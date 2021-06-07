@@ -1,7 +1,6 @@
 root: true
 
 env:
-  node: true
   browser: true
   jest/globals: true
 
@@ -13,28 +12,29 @@ globals:
 extends:
   - airbnb-base
   - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:prettier/recommended
   - plugin:jest/recommended
 
 parser: '@typescript-eslint/parser'
 
-ignorePatterns:
-  - node_modules/
-  - dist/
-  - '**/rollup.config.js'
-  - '**/jest.config*.js'
-  - '**/scripts/*.ts'
-  - '*d.ts'
+parserOptions:
+  project: './tsconfig.json'
+  tsconfigRootDir: './'
 
 plugins:
   - '@typescript-eslint'
+  - prettier
   - import
+
+ignorePatterns:
+  - node_modules
+  - dist
+  - '**/scripts/*.ts'
 
 rules:
   import/no-default-export: error
   import/prefer-default-export: off
-  '@typescript-eslint/explicit-function-return-type': off
-  '@typescript-eslint/explicit-module-boundary-types': off
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
@@ -42,23 +42,44 @@ rules:
         - '**/test/**/*.ts'
   import/extensions:
     - error
-    - never
-    - json: always
+    - ignorePackages
+    - js: never
+      ts: never
+      json: always
+
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/explicit-module-boundary-types': off
+  '@typescript-eslint/no-unsafe-member-access': off
+  '@typescript-eslint/no-unsafe-return': off
+  '@typescript-eslint/no-unsafe-assignment': off
+  '@typescript-eslint/no-unsafe-call': off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/unbound-method': error
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - ignoreRestSiblings: true
+
   camelcase:
     - error
 
 overrides:
   - files:
       - '**/*.ts'
-      - '**/*.tsx'
     rules:
-      camelcase: 'off'
+      camelcase: off
+
   - files:
       - '**/test/**/*.ts'
+    plugins:
+      - jest
+
     rules:
-      '@typescript-eslint/no-var-requires': 'off'
-      global-require: 'off'
-      jest/no-mocks-import: 'off'
+      '@typescript-eslint/unbound-method': off
+      '@typescript-eslint/no-var-requires': off
+      global-require: off
+      jest/no-mocks-import: off
+      jest/unbound-method: error
+
   - files:
       - '**/__mocks__/**/*.ts'
     rules:
@@ -66,7 +87,4 @@ overrides:
 
 settings:
   import/resolver:
-    node:
-      extensions:
-        - .js
-        - .ts
+    typescript:

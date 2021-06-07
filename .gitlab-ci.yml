@@ -127,10 +127,9 @@ test:unit:utils:
 test:integration:node:
   <<: *integration-test
   script:
-    - yarn workspace @gitbeaker/node test:integration -i && yarn codecov -F node
+    - yarn workspace @gitbeaker/node test:integration
     - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
-    # - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.es.js"}' Requires module identifier
-
+    
 # Canary
 canary:
   stage: canary
