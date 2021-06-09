@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
 export interface ResourceTemplateSchema extends Record<string, unknown> {
@@ -6,8 +6,8 @@ export interface ResourceTemplateSchema extends Record<string, unknown> {
   content: string;
 }
 
-export class ResourceTemplates<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceTemplates<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: ['templates', resourceType].join('/'), ...options });
   }
 

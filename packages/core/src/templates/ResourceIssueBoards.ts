@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import type { MilestoneSchema } from './ResourceMilestones';
 import type { LabelSchema } from './ResourceLabels';
 import {
@@ -24,8 +24,8 @@ export interface IssueBoardSchema extends Record<string, unknown> {
   lists?: IssueBoardListSchema[];
 }
 
-export class ResourceIssueBoards<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceIssueBoards<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

@@ -2,7 +2,7 @@ import ky from 'ky';
 import { Agent } from 'https';
 import delay from 'delay';
 import {
-  DefaultServiceOptions,
+  DefaultResourceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
   createRequesterFn,
@@ -10,7 +10,7 @@ import {
 } from '@gitbeaker/requester-utils';
 
 export function defaultOptionsHandler(
-  serviceOptions: DefaultServiceOptions,
+  serviceOptions: DefaultResourceOptions,
   options: DefaultRequestOptions = {},
 ): DefaultRequestReturn & { agent?: Agent } {
   const opts: DefaultRequestReturn & { agent?: Agent } = baseOptionsHandler(

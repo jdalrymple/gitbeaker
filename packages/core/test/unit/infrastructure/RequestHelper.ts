@@ -1,6 +1,6 @@
 import 'jest-extended';
 import FormData from 'form-data';
-import { BaseService, RequesterType } from '@gitbeaker/requester-utils';
+import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 
 /* eslint no-empty-pattern: 0 */
@@ -60,7 +60,7 @@ function mockedGetExtended(url: string, { query }) {
 let service;
 
 beforeEach(() => {
-  service = new BaseService({
+  service = new BaseResource({
     requesterFn: () => ({} as RequesterType),
     host: 'https://testing.com',
     token: 'token',
@@ -251,7 +251,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should return simple response with camelized keys when using the camelize option', async () => {
-    const s = new BaseService({
+    const s = new BaseResource({
       requesterFn: () => ({} as RequesterType),
       host: 'https://testing.com',
       token: 'token',

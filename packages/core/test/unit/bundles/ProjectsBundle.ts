@@ -1,10 +1,10 @@
 import 'jest-extended';
 import { ProjectsBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import * as Services from '../../../src/resources';
 
 test('All the correct service keys are included in the projects bundle', () => {
   const bundle: ProjectsBundle = new ProjectsBundle({ requesterFn: jest.fn(), token: 'test' });
-  const services = [
+  const resources = [
     'Branches',
     'Commits',
     'CommitDiscussions',
@@ -48,7 +48,7 @@ test('All the correct service keys are included in the projects bundle', () => {
     'Triggers',
   ];
 
-  expect(Object.keys(bundle)).toIncludeAllMembers(services);
+  expect(Object.keys(bundle)).toIncludeAllMembers(resources);
 });
 
 test('All the correct service instances are included in the projects bundle', () => {

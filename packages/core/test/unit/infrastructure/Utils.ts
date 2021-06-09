@@ -21,18 +21,18 @@ describe('bundler', () => {
 
   it('should merge classes passed to Bundler', () => {
     const Bundle = bundler({ Test1, Test2 });
-    const services = new Bundle();
+    const resources = new Bundle();
 
-    expect(services.Test1).toBeInstanceOf(Test1);
-    expect(services.Test2).toBeInstanceOf(Test2);
+    expect(resources.Test1).toBeInstanceOf(Test1);
+    expect(resources.Test2).toBeInstanceOf(Test2);
   });
 
   it('should initialize classes passed to Bundler with options', () => {
     const Bundle = bundler({ Test1, Test2 });
-    const services = new Bundle(2);
+    const resources = new Bundle(2);
 
-    expect(services.Test1.value).toBe(6);
-    expect(services.Test2.value).toBe(4);
+    expect(resources.Test1.value).toBe(6);
+    expect(resources.Test2.value).toBe(4);
   });
 });
 

@@ -1,5 +1,5 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import type { UserSchema } from '../services/Users';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { UserSchema } from '../resources/Users';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export interface AwardEmojiSchema extends Record<string, unknown> {
@@ -31,10 +31,10 @@ export function url(
   return output.join('/');
 }
 
-export class ResourceAwardEmojis<C extends boolean = false> extends BaseService<C> {
+export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource<C> {
   protected resourceType: string;
 
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;

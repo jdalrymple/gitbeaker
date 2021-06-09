@@ -1,10 +1,10 @@
 import 'jest-extended';
 import { UsersBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import * as Services from '../../../src/resources';
 
 test('All the correct service keys are included in the users bundle', () => {
   const bundle: UsersBundle = new UsersBundle({ requesterFn: jest.fn(), token: 'test' });
-  const services = [
+  const resources = [
     'Users',
     'UserEmails',
     'UserCustomAttributes',
@@ -13,7 +13,7 @@ test('All the correct service keys are included in the users bundle', () => {
     'UserGPGKeys',
   ];
 
-  expect(Object.keys(bundle)).toIncludeAllMembers(services);
+  expect(Object.keys(bundle)).toIncludeAllMembers(resources);
 });
 
 test('All the correct service instances are included in the users bundle', () => {

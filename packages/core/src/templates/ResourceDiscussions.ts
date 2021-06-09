@@ -1,5 +1,5 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
-import type { UserSchema } from '../services/Users';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { UserSchema } from '../resources/Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -40,10 +40,10 @@ export interface DiscussionSchema extends Record<string, unknown> {
   notes?: NotesEntitySchema[];
 }
 
-export class ResourceDiscussions<C extends boolean = false> extends BaseService<C> {
+export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
   protected resource2Type: string;
 
-  constructor(resourceType: string, resource2Type: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, resource2Type: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;

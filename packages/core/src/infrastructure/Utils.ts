@@ -24,10 +24,10 @@ export interface BundleType<T extends { [name: string]: Constructor }, P extends
 }
 
 export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
-  services: T,
+  resources: T,
 ): BundleType<T, P> {
   return function Bundle(options?: any) {
-    Object.entries(services).forEach(([name, Ser]) => {
+    Object.entries(resources).forEach(([name, Ser]) => {
       /* eslint @typescript-eslint/ban-ts-comment: 0 */
       // @ts-ignore
       this[name] = new Ser(options);

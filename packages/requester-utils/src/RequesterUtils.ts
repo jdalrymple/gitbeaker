@@ -17,7 +17,7 @@ export interface RequesterType {
   stream?(endpoint: string, options?: Record<string, unknown>): NodeJS.ReadableStream;
 }
 
-export type DefaultServiceOptions = {
+export type DefaultResourceOptions = {
   headers: { [header: string]: string };
   requestTimeout: number;
   url: string;
@@ -50,11 +50,11 @@ export function formatQuery(params: Record<string, unknown> = {}): string {
 }
 
 export type OptionsHandlerFn = (
-  serviceOptions: DefaultServiceOptions,
+  serviceOptions: DefaultResourceOptions,
   requestOptions: DefaultRequestOptions,
 ) => DefaultRequestReturn;
 export function defaultOptionsHandler(
-  serviceOptions: DefaultServiceOptions,
+  serviceOptions: DefaultResourceOptions,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): DefaultRequestReturn {
   const { headers, requestTimeout, url } = serviceOptions;
@@ -94,7 +94,7 @@ export type RequestHandlerFn = (
 export function createRequesterFn(
   optionsHandler: OptionsHandlerFn,
   requestHandler: RequestHandlerFn,
-): (serviceOptions: DefaultServiceOptions) => RequesterType {
+): (serviceOptions: DefaultResourceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'delete', 'stream'];
 
   return (serviceOptions) => {
@@ -122,10 +122,10 @@ function extendClass<T extends Constructable>(Base: T, customConfig: Record<stri
   };
 }
 
-export function modifyServices<T>(services: T, customConfig: Record<string, unknown> = {}): T {
+export function modifyServices<T>(resources: T, customConfig: Record<string, unknown> = {}): T {
   const updated = {};
 
-  Object.entries(services)
+  Object.entries(resources)
     .filter(([, s]) => typeof s === 'function') // FIXME: Odd default artifact included in this list during testing
     .forEach(([k, s]) => {
       updated[k] = extendClass(s, customConfig);

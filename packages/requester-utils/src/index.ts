@@ -1,2 +1,2 @@
 export * from './RequesterUtils';
-export * from './BaseService';
+export * from './BaseResource';

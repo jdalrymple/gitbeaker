@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -28,8 +28,8 @@ export interface MembersSchema extends Record<string, unknown> {
   };
 }
 
-export class ResourceMembers<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceMembers<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

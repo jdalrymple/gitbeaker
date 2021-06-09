@@ -1,6 +1,6 @@
 import { parse as parseLink } from 'li';
 import { camelizeKeys } from 'xcase';
-import { BaseService } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { appendFormFromObject, Camelize } from './Utils';
 
 // Request Options
@@ -83,7 +83,7 @@ type ExtendedReturn<
   : never;
 
 async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
-  service: BaseService<boolean>,
+  service: BaseResource<boolean>,
   endpoint: string,
   {
     sudo,
@@ -152,7 +152,7 @@ export function get<
   T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>,
 >() {
   return <C extends boolean, P extends 'keyset' | 'offset' = 'offset', E extends boolean = false>(
-    service: BaseService<C>,
+    service: BaseResource<C>,
     endpoint: string,
     options?: PaginatedRequestOptions<P> & ShowExpanded<E> & Record<string, any>,
   ): Promise<ExtendedReturn<C, E, P, T>> => getHelper(service, endpoint, options);
@@ -160,7 +160,7 @@ export function get<
 
 export function post<T extends Record<string, unknown> | void = Record<string, unknown>>() {
   return async <C extends boolean, E extends boolean = false>(
-    service: BaseService<C>,
+    service: BaseResource<C>,
     endpoint: string,
     {
       query,
@@ -190,7 +190,7 @@ export function post<T extends Record<string, unknown> | void = Record<string, u
 
 export function put<T extends Record<string, unknown> = Record<string, unknown>>() {
   return async <C extends boolean, E extends boolean = false>(
-    service: BaseService<C>,
+    service: BaseResource<C>,
     endpoint: string,
     {
       query,
@@ -220,7 +220,7 @@ export function put<T extends Record<string, unknown> = Record<string, unknown>>
 
 export function del<T extends Record<string, unknown> | void = void>() {
   return async <C extends boolean, E extends boolean = false>(
-    service: BaseService<C>,
+    service: BaseResource<C>,
     endpoint: string,
     { sudo, showExpanded, ...query }: BaseRequestOptions & ShowExpanded<E> = {},
   ): Promise<ExtendedRecordReturn<C, E, T>> => {
@@ -240,7 +240,7 @@ export function del<T extends Record<string, unknown> | void = void>() {
 }
 
 function stream<C extends boolean>(
-  service: BaseService<C>,
+  service: BaseResource<C>,
   endpoint: string,
   options?: BaseRequestOptions,
 ): NodeJS.ReadableStream {

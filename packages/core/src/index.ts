@@ -1,5 +1,5 @@
 import { bundler } from './infrastructure';
-import * as APIServices from './services';
+import * as APIServices from './resources';
 
 export function getAPIMap(): Record<string, unknown> {
   try {
@@ -11,7 +11,7 @@ export function getAPIMap(): Record<string, unknown> {
 }
 
 /* -------------- Single Services ------------- */
-export * from './services';
+export * from './resources';
 
 /* ------------------ Bundles ----------------- */
 

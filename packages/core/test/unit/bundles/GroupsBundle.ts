@@ -1,10 +1,10 @@
 import 'jest-extended';
 import { GroupsBundle } from '../../../src';
-import * as Services from '../../../src/services';
+import * as Services from '../../../src/resources';
 
 test('All the correct service keys are included in the groups bundle', () => {
   const bundle: GroupsBundle = new GroupsBundle({ requesterFn: jest.fn(), token: 'test' });
-  const services = [
+  const resources = [
     'Groups',
     'GroupAccessRequests',
     'GroupBadges',
@@ -22,7 +22,7 @@ test('All the correct service keys are included in the groups bundle', () => {
     'EpicDiscussions',
   ];
 
-  expect(Object.keys(bundle)).toIncludeAllMembers(services);
+  expect(Object.keys(bundle)).toIncludeAllMembers(resources);
 });
 
 test('All the correct service instances are included in the groups bundle', () => {

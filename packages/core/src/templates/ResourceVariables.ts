@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions } from '../infrastructure';
 
 export interface ResourceVariableSchema extends Record<string, unknown> {
@@ -10,8 +10,8 @@ export interface ResourceVariableSchema extends Record<string, unknown> {
   key: string;
 }
 
-export class ResourceVariables<C extends boolean> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceVariables<C extends boolean> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

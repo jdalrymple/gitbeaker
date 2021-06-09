@@ -1,5 +1,5 @@
 import getParamNames from 'get-param-names';
-import { BaseService } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { outputJsonSync } from 'fs-extra';
 import * as Gitbeaker from '../src';
 
@@ -37,7 +37,7 @@ function removeOptionalArg(list: string[]) {
 
 export function buildMap() {
   const map = {};
-  const baseArgs = Object.keys(getParamNames(BaseService)[0]);
+  const baseArgs = Object.keys(getParamNames(BaseResource)[0]);
 
   for (const [name, service] of Object.entries(Gitbeaker as object)) {
     if (name.includes('Bundle') || ['Gitlab', 'getAPIMap'].includes(name)) continue;
@@ -57,5 +57,5 @@ export function buildMap() {
   return map;
 }
 
-// Generate the services map
+// Generate the resources map
 outputJsonSync('./dist/map.json', buildMap());

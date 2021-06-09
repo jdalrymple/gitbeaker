@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -22,8 +22,8 @@ export interface DeployTokenSchema extends Record<string, unknown> {
 }
 
 // https://docs.gitlab.com/ee/api/deploy_tokens.html
-export class ResourceDeployTokens<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceDeployTokens<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

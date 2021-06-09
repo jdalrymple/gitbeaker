@@ -2,7 +2,7 @@ import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import delay from 'delay';
 import {
-  DefaultServiceOptions,
+  DefaultResourceOptions,
   DefaultRequestReturn,
   DefaultRequestOptions,
   createRequesterFn,
@@ -10,7 +10,7 @@ import {
 } from '@gitbeaker/requester-utils';
 
 export function defaultOptionsHandler(
-  serviceOptions: DefaultServiceOptions,
+  serviceOptions: DefaultResourceOptions,
   { body, query, sudo, method }: DefaultRequestOptions = {},
 ): DefaultRequestReturn & {
   json?: Record<string, unknown>;
