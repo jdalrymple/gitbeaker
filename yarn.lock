@@ -25,12 +25,62 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.29.2.tgz#a47c5ce59c2eff8edc3ce05859a400aee11d0694"
   integrity sha512-dkrzfeIxN1QBXHmV93DfMEMu2dXG9Op0fjUqKKWSgDp7JYCRHvC6Qp0GpDf5OQfS6JC50ClLq7+1feYlzVtbqg==
 
-"@auto-it/core@10.29.2", "@auto-it/core@^10.27.1":
+"@auto-it/bot-list@10.29.3":
+  version "10.29.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.29.3.tgz#cd4e1fa003a0f07496ea0b944d6b0ade75248e1b"
+  integrity sha512-A0sFwq0teyW+mkYiu8RQLR1DMiTdDsj9+Q8jQsKa+IiWjgOKcr/A1Qqwce6p60u1zGG/JGrlCHpqxu52U7cgMw==
+
+"@auto-it/core@10.29.2":
   version "10.29.2"
   resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.29.2.tgz#ba5f6c2e4f04fb499f5b65baa6c6e7d6e372e458"
   integrity sha512-yVgG14CkDnKtNTa4/TK8wT/PORls12e/75ckZ8QIWhcC9+GAshSRusYcBuKbpxcwJ7lumgpPahRisUlhh+asDg==
   dependencies:
     "@auto-it/bot-list" "10.29.2"
+    "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.2"
+    "@octokit/plugin-retry" "^3.0.1"
+    "@octokit/plugin-throttling" "^3.2.0"
+    "@octokit/rest" "^18.0.0"
+    await-to-js "^3.0.0"
+    chalk "^4.0.0"
+    cosmiconfig "7.0.0"
+    deepmerge "^4.0.0"
+    dotenv "^8.0.0"
+    endent "^2.0.1"
+    enquirer "^2.3.4"
+    env-ci "^5.0.1"
+    fast-glob "^3.1.1"
+    fp-ts "^2.5.3"
+    fromentries "^1.2.0"
+    gitlog "^4.0.3"
+    https-proxy-agent "^5.0.0"
+    import-cwd "^3.0.0"
+    import-from "^3.0.0"
+    io-ts "^2.1.2"
+    lodash.chunk "^4.2.0"
+    log-symbols "^4.0.0"
+    node-fetch "2.6.1"
+    parse-author "^2.0.0"
+    parse-github-url "1.0.2"
+    pretty-ms "^7.0.0"
+    requireg "^0.2.2"
+    semver "^7.0.0"
+    signale "^1.4.0"
+    tapable "^2.2.0"
+    terminal-link "^2.1.1"
+    tinycolor2 "^1.4.1"
+    ts-node "^9.1.1"
+    tslib "2.1.0"
+    type-fest "^0.21.1"
+    typescript-memoize "^1.0.0-alpha.3"
+    url-join "^4.0.0"
+
+"@auto-it/core@10.29.3", "@auto-it/core@^10.27.1":
+  version "10.29.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.29.3.tgz#4ebe8f650a38e6a480a7856275e30a2b50b96dd7"
+  integrity sha512-4sl0nKJrc2j0wT/9sWVWCHXm8wmxde777ankESsI2TC08eNqwad/wcDXQPE6LGs4E6V0m7V51xfhU40qZHU3Rw==
+  dependencies:
+    "@auto-it/bot-list" "10.29.3"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
     "@octokit/plugin-enterprise-compatibility" "^1.2.2"
     "@octokit/plugin-retry" "^3.0.1"
@@ -110,13 +160,25 @@
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
 
-"@auto-it/released@10.29.2", "@auto-it/released@^10.27.1":
+"@auto-it/released@10.29.2":
   version "10.29.2"
   resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.29.2.tgz#984ad9d3c9af6a1f95e788685dd19603ef561cad"
   integrity sha512-4P1/Sf5AqiCUuSlKHbwU2NXcd7RV1EdZ9fRuYkdpAgZPRd92pE49OAqfoSuhfJDs/jKyyjmVmasWPfUKLR1qeg==
   dependencies:
     "@auto-it/bot-list" "10.29.2"
     "@auto-it/core" "10.29.2"
+    deepmerge "^4.0.0"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+
+"@auto-it/released@^10.27.1":
+  version "10.29.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.29.3.tgz#fc72bf2825740e2565f09cfa0eb88cbb844d5a96"
+  integrity sha512-ULHWSZn0okTc5OBZz9l185DHKlXHVEJbW+CIQx+bhQYcFSFsf1b1Z6IF3rsfuNK3HnGMnlfyyipMV4Dm9jMw9Q==
+  dependencies:
+    "@auto-it/bot-list" "10.29.3"
+    "@auto-it/core" "10.29.3"
     deepmerge "^4.0.0"
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
@@ -9241,7 +9303,7 @@ tslib@1.10.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-tslib@2.1.0, tslib@^2:
+tslib@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
   integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
@@ -9251,7 +9313,7 @@ tslib@^1.14.1, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.2.0:
+tslib@^2, tslib@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
