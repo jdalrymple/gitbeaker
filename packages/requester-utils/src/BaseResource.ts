@@ -9,7 +9,7 @@ export interface BaseResourceOptions<C> {
   version?: 3 | 4;
   rejectUnauthorized?: boolean;
   camelize?: C;
-  requesterFn?: (serviceOptions: DefaultResourceOptions) => RequesterType;
+  requesterFn?: (resourceOptions: DefaultResourceOptions) => RequesterType;
   requestTimeout?: number;
   profileToken?: string;
   sudo?: string | number;

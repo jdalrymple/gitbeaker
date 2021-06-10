@@ -60,9 +60,9 @@
 - [Getting Started](#getting-started)
   - [CLI Support](#cli-support)
   - [Browser Support](#browser-support)
+  - [Typing Support](#typing-support)
 - [Docs](#docs)
   - [Supported APIs](#supported-apis)
-  - [Bundle Imports](#bundle-imports)
   - [Examples](#examples)
   - [Pagination](#pagination)
   - [Sudo](#sudo)
@@ -184,6 +184,14 @@ GITBEAKER_CAMELIZE=true
 
 This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
 
+## Typing Support
+
+All the exposed types are exported though the `Types` export.
+
+```typescript
+import { Types } from '@gitbeaker/node';
+```
+
 ## Docs
 
 Although there are the [official docs](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) for the API, there are some extra goodies offered by this package! The next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
@@ -297,114 +305,6 @@ UserGPGKeys
 
 // Everything
 Gitlab
-```
-
-### Bundle Imports
-
-It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
-
-```javascript
-import { ProjectsBundle } from 'gitlab';
-
-const services = new ProjectsBundle({
-  host:   'http://example.com',
-  token: 'personaltoken'
-})
-
-services.Projects.all()
-services.MergeRequests.all()
-etc..
-
-```
-
-Currently there are three Bundles:
-
-1. ProjectsBundle which includes:
-
-```
-Branches
-Commits
-CommitDiscussions
-ContainerRegistry
-Deployments
-DeployKeys
-Environments
-FreezePeriods
-Issues
-IssuesStatistics
-IssueNotes
-IssueDiscussions
-IssueAwardEmojis
-Jobs
-Labels
-MergeRequests
-MergeRequestApprovals
-MergeRequestAwardEmojis
-MergeRequestDiscussions
-MergeRequestNotes
-Packages
-Pipelines
-PipelineSchedules
-PipelineScheduleVariables
-Projects
-ProjectAccessRequests
-ProjectBadges
-ProjectCustomAttributes
-ProjectImportExport
-ProjectIssueBoards
-ProjectHooks
-ProjectMembers
-ProjectMilestones
-ProjectSnippets
-ProjectSnippetNotes
-ProjectSnippetDiscussions
-ProjectSnippetAwardEmojis
-ProtectedBranches
-ProtectedTags
-ProjectVariables
-ProjectDeployTokens
-PushRules
-Releases
-ReleaseLinks
-Repositories
-RepositoryFiles
-Runners
-Services
-Tags
-Todos
-Triggers
-VulnerabilityFindings
-```
-
-2. UsersBundle which includes:
-
-```
-Users,
-UserCustomAttributes,
-UserEmails,
-UserImpersonationTokens,
-UserKeys,
-UserGPGKeys
-```
-
-3. GroupsBundle which includes:
-
-```
-Groups
-GroupAccessRequests
-GroupBadges
-GroupCustomAttributes
-GroupIssueBoards
-GroupMembers
-GroupMilestones
-GroupRunners
-GroupVariables
-GroupLabels
-GroupDeployTokens
-Epics
-EpicIssues
-EpicNotes
-EpicDiscussions
 ```
 
 ### Examples
