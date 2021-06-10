@@ -2,7 +2,7 @@ import Chalk from 'chalk';
 import Sywac from 'sywac';
 import { camelize, decamelize, depascalize } from 'xcase';
 import * as Gitbeaker from '@gitbeaker/node';
-import { getAPIMap } from '@gitbeaker/core';
+import { API_MAP } from '@gitbeaker/core';
 
 // Styling settings
 const commandStyle = Chalk.hex('#e34329').bold;
@@ -208,7 +208,7 @@ cli.command('*', (argv, ctx) => {
 });
 
 // Add all supported API's
-Object.entries(getAPIMap()).forEach(([apiName, methods]) => {
+Object.entries(API_MAP).forEach(([apiName, methods]) => {
   cli.command(param(apiName), {
     desc: `The ${apiName} API`,
     setup: (setupArgs) => setupAPIs(setupArgs, apiName, methods),
