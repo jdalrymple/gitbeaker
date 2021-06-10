@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { CommitSchema } from './Commits';
-import { MilestoneSchema } from '../templates';
+import { MilestoneSchema } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -9,18 +9,18 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface EvidenceSchema {
+export interface ReleaseEvidence {
   sha: string;
   filepath: string;
   collected_at: string;
 }
 
-export interface SourceSchema {
+export interface ReleaseAssetSource {
   format: string;
   url: string;
 }
 
-export interface LinkSchema {
+export interface ReleaseAssetLink {
   id: number;
   name: string;
   url: string;
@@ -42,11 +42,11 @@ export interface ReleaseSchema extends Record<string, unknown> {
   tag_path: string;
   assets: {
     count: number;
-    sources?: SourceSchema[];
-    links?: LinkSchema[];
+    sources?: ReleaseAssetSource[];
+    links?: ReleaseAssetLink[];
     evidence_file_path: string;
   };
-  evidences?: EvidenceSchema[];
+  evidences?: ReleaseEvidence[];
 }
 
 // TODO: Add missing functions

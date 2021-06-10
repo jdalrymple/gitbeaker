@@ -23,16 +23,14 @@ export interface SnippetSchema extends Record<string, unknown> {
   raw_url: string;
 }
 
-export interface FileSchema {
-  path: string;
-  raw_url: string;
-}
-
 export interface SnippetExtendedSchema extends SnippetSchema {
   expires_at?: string;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
-  files?: FileSchema[];
+  files?: {
+    path: string;
+    raw_url: string;
+  }[];
 }
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {

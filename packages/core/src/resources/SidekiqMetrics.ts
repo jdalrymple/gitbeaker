@@ -34,10 +34,9 @@ export interface SidekickJobStatsSchema extends Record<string, unknown> {
   };
 }
 
-export interface SidekickCompoundMetricsSchema
-  extends SidekickJobStatsSchema,
-    SidekickQueueMetricsSchema,
-    SidekickProcessMetricsSchema {}
+export type SidekickCompoundMetricsSchema = SidekickJobStatsSchema &
+  SidekickQueueMetricsSchema &
+  SidekickProcessMetricsSchema;
 
 export class SidekiqMetrics<C extends boolean = false> extends BaseResource<C> {
   queueMetrics() {

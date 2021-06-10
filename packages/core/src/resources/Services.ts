@@ -65,7 +65,7 @@ export class Services<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<ServiceSchema[]>()(this, `projects/${pId}/resources`, options);
+    return RequestHelper.get<ServiceSchema[]>()(this, `projects/${pId}/services`, options);
   }
 
   edit(projectId: string | number, serviceName: SupportedService, options?: BaseRequestOptions) {
@@ -73,7 +73,7 @@ export class Services<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.put<ServiceSchema>()(
       this,
-      `projects/${pId}/resources/${serviceName}`,
+      `projects/${pId}/services/${serviceName}`,
       options,
     );
   }
@@ -81,7 +81,7 @@ export class Services<C extends boolean = false> extends BaseResource<C> {
   remove(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.del()(this, `projects/${pId}/resources/${serviceName}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/services/${serviceName}`, options);
   }
 
   show(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
@@ -89,7 +89,7 @@ export class Services<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.get<ServiceSchema>()(
       this,
-      `projects/${pId}/resources/${serviceName}`,
+      `projects/${pId}/services/${serviceName}`,
       options,
     );
   }
