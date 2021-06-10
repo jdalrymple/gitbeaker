@@ -1,9 +1,11 @@
 import * as Gitbeaker from '@gitbeaker/core';
-import { modifyServices } from '@gitbeaker/requester-utils';
+import { presetResourceArguments } from '@gitbeaker/requester-utils';
 import { requesterFn } from './GotRequester';
 
-const { getAPIMap, ...resources } = Gitbeaker;
-const APIServices = modifyServices(resources, { requesterFn });
+const { API_MAP, Types, ...resources } = Gitbeaker;
+const API = presetResourceArguments(resources, { requesterFn });
+
+export { Types } from '@gitbeaker/core';
 
 export const {
   // Groups
@@ -108,9 +110,5 @@ export const {
   Version,
   Wikis,
 
-  // Bundles
-  GroupsBundle,
-  UsersBundle,
-  ProjectsBundle,
   Gitlab,
-} = APIServices;
+} = API;

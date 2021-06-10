@@ -10,7 +10,7 @@ import {
 } from '@gitbeaker/requester-utils';
 
 export function defaultOptionsHandler(
-  serviceOptions: DefaultResourceOptions,
+  resourceOptions: DefaultResourceOptions,
   { body, query, sudo, method }: DefaultRequestOptions = {},
 ): DefaultRequestReturn & {
   json?: Record<string, unknown>;
@@ -19,7 +19,7 @@ export function defaultOptionsHandler(
   const options: DefaultRequestReturn & {
     json?: Record<string, unknown>;
     https?: { rejectUnauthorized: boolean };
-  } = baseOptionsHandler(serviceOptions, { body, query, sudo, method });
+  } = baseOptionsHandler(resourceOptions, { body, query, sudo, method });
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (typeof body === 'object' && body.constructor.name !== 'FormData') {
@@ -29,12 +29,12 @@ export function defaultOptionsHandler(
   }
 
   if (
-    serviceOptions.url.includes('https') &&
-    serviceOptions.rejectUnauthorized != null &&
-    serviceOptions.rejectUnauthorized === false
+    resourceOptions.url.includes('https') &&
+    resourceOptions.rejectUnauthorized != null &&
+    resourceOptions.rejectUnauthorized === false
   ) {
     options.https = {
-      rejectUnauthorized: serviceOptions.rejectUnauthorized,
+      rejectUnauthorized: resourceOptions.rejectUnauthorized,
     };
   }
 
