@@ -1,5 +1,6 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers, MembersSchema, IncludeInherited, AccessLevel } from '../templates';
+import { ResourceMembers } from '../templates';
+import { MemberSchema, AccessLevel, IncludeInherited } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -13,25 +14,25 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
     userId: number,
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MembersSchema>>;
+  ): Promise<CamelizedRecord<C, MemberSchema>>;
 
   all(
     groupId: string | number,
     options?: IncludeInherited & PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, MembersSchema>[]>;
+  ): Promise<CamelizedRecord<C, MemberSchema>[]>;
 
   edit(
     groupId: string | number,
     userId: number,
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MembersSchema>>;
+  ): Promise<CamelizedRecord<C, MemberSchema>>;
 
   show(
     groupId: string | number,
     userId: number,
     options?: IncludeInherited & Sudo,
-  ): Promise<CamelizedRecord<C, MembersSchema>>;
+  ): Promise<CamelizedRecord<C, MemberSchema>>;
 
   remove(groupId: string | number, userId: number, options?: Sudo): Promise<void>;
 }

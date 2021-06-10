@@ -101,3 +101,6 @@ export { Snippets } from './Snippets';
 export { SystemHooks } from './SystemHooks';
 export { Version } from './Version';
 export { Wikis } from './Wikis';
+
+// Bundle
+export { Gitlab } from './Gitlab';

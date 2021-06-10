@@ -133,7 +133,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
     const gId = encodeURIComponent(groupId);
 
-    return RequestHelper.get<GroupSchema>()(this, `groups/${gId}/subgroups`, options);
+    return RequestHelper.get()(this, `groups/${gId}/subgroups`, options);
   }
 
   syncLDAP(groupId: string | number, options?: Sudo & ShowExpanded) {

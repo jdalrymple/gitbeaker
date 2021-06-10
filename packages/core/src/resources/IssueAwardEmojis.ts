@@ -1,5 +1,6 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAwardEmojis, AwardEmojiSchema } from '../templates';
+import { ResourceAwardEmojis } from '../templates';
+import { AwardEmojiSchema } from '../templates/types';
 import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
 
 export interface IssueAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
