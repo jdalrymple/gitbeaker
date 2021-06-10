@@ -6,7 +6,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface ProtectedBranchAccessLevelSchema {
+export interface ProtectedBranchAccessLevel {
   access_level: 0 | 30 | 40 | 60;
   access_level_description: string;
   user_id?: number;
@@ -16,8 +16,8 @@ export interface ProtectedBranchAccessLevelSchema {
 export interface ProtectedBranchSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  push_access_levels?: ProtectedBranchAccessLevelSchema[];
-  merge_access_levels?: ProtectedBranchAccessLevelSchema[];
+  push_access_levels?: ProtectedBranchAccessLevel[];
+  merge_access_levels?: ProtectedBranchAccessLevel[];
   allow_force_push: boolean;
   code_owner_approval_required: boolean;
 }

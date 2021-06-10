@@ -1,5 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
+import { NamespaceSchema } from './Namespaces';
 import { LicenseTemplateSchema } from './LicenseTemplates';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 import {
@@ -8,7 +9,7 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import { AccessLevel } from '../templates';
+import { AccessLevel } from '../templates/types';
 
 // TODO add missing functions
 export interface ProjectSchema extends Record<string, unknown> {
@@ -29,16 +30,6 @@ export interface ProjectSchema extends Record<string, unknown> {
   forks_count: number;
   avatar_url: string;
   star_count: number;
-}
-
-export interface NamespaceInfoSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  path: string;
-  kind: string;
-  full_path: string;
-  avatar_url: string;
-  web_url: string;
 }
 
 export interface AccessSchema {
@@ -75,7 +66,10 @@ export interface ProjectExtendedSchema extends ProjectSchema {
     next_run_at: string;
   };
   creator_id: number;
-  namespace: NamespaceInfoSchema;
+  namespace: Pick<
+    NamespaceSchema,
+    'id' | 'name' | 'path' | 'kind' | 'full_path' | 'avatar_url' | 'web_url'
+  >;
   import_status: string;
   import_error?: string;
   permissions: {

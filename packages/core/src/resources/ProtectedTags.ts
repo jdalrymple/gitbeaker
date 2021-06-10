@@ -6,14 +6,14 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface ProtectedTagAccessLevelSchema {
+export interface ProtectedTagAccessLevel {
   access_level: 0 | 30 | 40 | 60;
   access_level_description: string;
 }
 
 export interface ProtectedTagSchema extends Record<string, unknown> {
   name: string;
-  create_access_levels?: ProtectedTagAccessLevelSchema[];
+  create_access_levels?: ProtectedTagAccessLevel[];
 }
 
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {

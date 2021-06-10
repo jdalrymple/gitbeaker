@@ -1,5 +1,6 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes, NoteSchema } from '../templates';
+import { ResourceNotes } from '../templates';
+import { NoteSchema } from '../templates/types';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,
@@ -34,7 +35,12 @@ export interface ProjectSnippetNotes<C extends boolean = false> extends Resource
     options?: BaseRequestOptions,
   ): Promise<CamelizedRecord<C, SnippetNoteSchema>>;
 
-  remove(projectId: string | number, snippetId: string | number, noteId: number, options?: Sudo);
+  remove(
+    projectId: string | number,
+    snippetId: string | number,
+    noteId: number,
+    options?: Sudo,
+  ): Promise<void>;
 
   show(
     projectId: string | number,
