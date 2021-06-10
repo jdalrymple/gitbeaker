@@ -1,8 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
-import { IssueSchema } from './Issues';
+import { PipelineSchema } from './Pipelines';
+import { IssueSchema, TimeStatsSchema } from './Issues';
 import { CommitSchema, CommitDiffSchema } from './Commits';
-import { MilestoneSchema } from '../templates';
+import { MilestoneSchema } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -86,20 +87,6 @@ export interface ReferenceSchema {
 export interface TaskCompletionStatusSchema {
   count: number;
   completed_count: number;
-}
-
-export interface PipelineSchema extends Record<string, unknown> {
-  id: number;
-  sha: string;
-  ref: string;
-  status: string;
-}
-
-export interface TimeStatsSchema extends Record<string, unknown> {
-  time_estimate: number;
-  total_time_spent: number;
-  human_time_estimate: string;
-  human_total_time_spent: string;
 }
 
 export interface RebaseSchema extends Record<string, unknown> {
@@ -319,7 +306,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   pipelines(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.get<PipelineSchema[]>()(
+    return RequestHelper.get<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[]>()(
       this,
       `projects/${pId}/merge_requests/${mIid}/pipelines`,
       options,
