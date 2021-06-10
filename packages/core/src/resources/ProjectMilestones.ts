@@ -1,7 +1,8 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { IssueSchema } from './Issues';
 import { MergeRequestSchema } from './MergeRequests';
-import { ResourceMilestones, MilestoneSchema } from '../templates';
+import { ResourceMilestones } from '../templates';
+import { MilestoneSchema } from '../templates/types';
 import {
   PaginatedRequestOptions,
   BaseRequestOptions,

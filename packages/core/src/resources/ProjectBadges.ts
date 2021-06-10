@@ -1,5 +1,6 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceBadges, BadgeSchema } from '../templates';
+import { ResourceBadges } from '../templates';
+import { BadgeSchema } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
