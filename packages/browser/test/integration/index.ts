@@ -139,7 +139,7 @@ describe('Browser Import', () => {
   });
 });
 
-describe.skip('Projects API', () => {
+describe('Projects API', () => {
   it('should create a project', async () => {
     await page.goto(`file://${path.resolve(__dirname, 'assets', 'test-import.html')}`);
 

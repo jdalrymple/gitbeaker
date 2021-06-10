@@ -156,7 +156,7 @@ describe('createInstance', () => {
 });
 
 describe('presetResourceArguments', () => {
-  it('should preset class with extended properties', async () => {
+  it('should preset class with extended properties', () => {
     class A {
       x?: number;
 

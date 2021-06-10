@@ -2,7 +2,7 @@ import * as Gitbeaker from '@gitbeaker/core';
 import { presetResourceArguments } from '@gitbeaker/requester-utils';
 import { requesterFn } from './GotRequester';
 
-const { API_MAP, Types, ...resources } = Gitbeaker;
+const { getAPIMap, Types, ...resources } = Gitbeaker;
 const API = presetResourceArguments(resources, { requesterFn });
 
 export { Types } from '@gitbeaker/core';

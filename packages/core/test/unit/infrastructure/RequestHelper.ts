@@ -96,6 +96,8 @@ describe('RequestHelper.get()', () => {
       },
       status: 200,
     });
+  });
+
   it('should respond with an object', async () => {
     service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
 

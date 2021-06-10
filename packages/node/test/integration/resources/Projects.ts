@@ -39,9 +39,7 @@ describe('Projects.all', () => {
   });
 });
 
-// TODO: Determine config changes required for this test.
-// Local testing works
-describe.skip('Projects.upload', () => {
+describe('Projects.upload', () => {
   it('should upload a text file', async () => {
     const project = await service.create({
       name: `Project Upload Integration Test Text File ${TEST_ID}`,

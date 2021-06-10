@@ -127,10 +127,10 @@ export function presetResourceArguments<T>(
   const updated = {};
 
   Object.entries(resources)
-  .filter(([, s]) => typeof s === 'function') // FIXME: Odd default artifact included in this list during testing
-  .forEach(([k, r]) => {
-    updated[k] = extendClass(r, customConfig);
-  });
+    .filter(([, s]) => typeof s === 'function') // FIXME: Odd default artifact included in this list during testing
+    .forEach(([k, r]) => {
+      updated[k] = extendClass(r, customConfig);
+    });
 
   return updated as T;
 }
