@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo } from '../infrastructure';
 
-interface VersionSchema extends Record<string, unknown> {
+export interface VersionSchema extends Record<string, unknown> {
   version: string;
   revision: string;
 }

@@ -1,8 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-type ImpersonationTokenScope = 'api' | 'read_user';
-type ImpersonationTokenState = 'all' | 'active' | 'inactive';
+export type ImpersonationTokenScope = 'api' | 'read_user';
+export type ImpersonationTokenState = 'all' | 'active' | 'inactive';
 
 export interface UserImpersonationTokenSchema extends Record<string, unknown> {
   active: boolean;
