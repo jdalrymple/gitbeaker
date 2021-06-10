@@ -1,6 +1,6 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import type { MilestoneSchema } from './ResourceMilestones';
-import type { LabelSchema } from './ResourceLabels';
+import { MilestoneSchema } from './ResourceMilestones';
+import { LabelSchema } from './ResourceLabels';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

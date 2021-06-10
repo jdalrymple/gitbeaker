@@ -1,5 +1,5 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import type { UserSchema } from '../resources/Users';
+import { UserSchema } from '../resources/Users';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -7,7 +7,7 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface PositionSchema {
+export interface DiscussionNotePosition {
   base_sha: string;
   start_sha: string;
   head_sha: string;
@@ -18,7 +18,7 @@ export interface PositionSchema {
   new_line: number;
 }
 
-export interface NotesEntitySchema {
+export interface DiscussionNote {
   id: number;
   type?: string;
   body: string;
@@ -31,13 +31,13 @@ export interface NotesEntitySchema {
   noteable_type: string;
   noteable_iid?: number;
   resolvable: boolean;
-  position?: PositionSchema;
+  position?: DiscussionNotePosition;
 }
 
 export interface DiscussionSchema extends Record<string, unknown> {
   id: string;
   individual_note: boolean;
-  notes?: NotesEntitySchema[];
+  notes?: DiscussionNote[];
 }
 
 export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
