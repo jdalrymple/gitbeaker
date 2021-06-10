@@ -1,7 +1,9 @@
 import getParamNames from 'get-param-names';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { outputJsonSync } from 'fs-extra';
-import * as Gitbeaker from '../src';
+import * as Resources from '../src/resources';
+
+const { Gitlab, ...resources } = Resources;
 
 function isGetter(x: object, name: string) {
   return (Object.getOwnPropertyDescriptor(x, name) || {}).get;
@@ -39,17 +41,15 @@ export function buildMap() {
   const map = {};
   const baseArgs = Object.keys(getParamNames(BaseResource)[0]);
 
-  for (const [name, service] of Object.entries(Gitbeaker as object)) {
-    if (name.includes('Bundle') || ['Gitlab', 'getAPIMap'].includes(name)) continue;
-
-    const s = new service({ requesterFn: () => ({}) });
+  for (const [name, resource] of Object.entries(resources)) {
+    const r = new resource({ requesterFn: () => ({}) });
 
     map[name] = [{ name: 'constructor', args: baseArgs }];
 
-    for (const m of getInstanceMethods(s)) {
+    for (const m of getInstanceMethods(r)) {
       map[name].push({
         name: m,
-        args: removeOptionalArg(getParamNames(s[m])),
+        args: removeOptionalArg(getParamNames(r[m])),
       });
     }
   }
