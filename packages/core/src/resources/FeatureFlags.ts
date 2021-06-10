@@ -6,17 +6,17 @@ import {
   Sudo,
 } from '../infrastructure';
 
-export interface ScopeSchema {
+export interface FeatureFlagStrategyScope {
   id: number;
   environment_scope: string;
 }
-export interface StrategySchema {
+export interface FeatureFlagStrategy {
   id: number;
   name: string;
   parameters: {
     user_ids: string;
   };
-  scopes?: ScopeSchema[];
+  scopes?: FeatureFlagStrategyScope[];
 }
 
 export interface FeatureFlagSchema extends Record<string, unknown> {
@@ -27,7 +27,7 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
   created_at: string;
   updated_at: string;
   scopes?: string[];
-  strategies?: StrategySchema[];
+  strategies?: FeatureFlagStrategy[];
 }
 
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
