@@ -5,7 +5,8 @@ import {
   CamelizedRecord,
   Sudo,
 } from '../infrastructure';
-import { ResourceLabels, LabelSchema } from '../templates';
+import { ResourceLabels } from '../templates';
+import { LabelSchema } from '../templates/types';
 
 export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
   all(
