@@ -64,14 +64,18 @@ export type ExtendedRecordReturn<
   ? CamelizedRecord<C, T>
   : ExpandedResponse<CamelizedRecord<C, T>>;
 
-type ExtendedArrayReturn<C extends boolean, E extends boolean, T, P extends 'keyset' | 'offset'> =
-  E extends false
-    ? CamelizedRecord<C, T>[]
-    : P extends 'keyset'
-    ? CamelizedRecord<C, T>[]
-    : PaginationResponse<CamelizedRecord<C, T>[]>;
+export type ExtendedArrayReturn<
+  C extends boolean,
+  E extends boolean,
+  T,
+  P extends 'keyset' | 'offset',
+> = E extends false
+  ? CamelizedRecord<C, T>[]
+  : P extends 'keyset'
+  ? CamelizedRecord<C, T>[]
+  : PaginationResponse<CamelizedRecord<C, T>[]>;
 
-type ExtendedReturn<
+export type ExtendedReturn<
   C extends boolean,
   E extends boolean,
   P extends 'keyset' | 'offset',

@@ -11,11 +11,11 @@ export type CamelizeString<T extends PropertyKey> = T extends string
 export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: T[K] };
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
-interface Constructor {
+export interface Constructor {
   new (...args: any): any;
 }
 
-type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
+export type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
   [name in P]: InstanceType<T[name]>;
 };
 
