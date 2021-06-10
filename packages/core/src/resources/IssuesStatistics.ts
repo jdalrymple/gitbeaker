@@ -1,8 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, BaseRequestOptions } from '../infrastructure';
 
-type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
-
 export interface StatisticsSchema extends Record<string, unknown> {
   statistics: {
     counts: {
@@ -14,7 +12,11 @@ export interface StatisticsSchema extends Record<string, unknown> {
 }
 
 export class IssuesStatistics<C extends boolean = false> extends BaseResource<C> {
-  all({ projectId, groupId, ...options }: ProjectOrGroup & BaseRequestOptions = {}) {
+  all({
+    projectId,
+    groupId,
+    ...options
+  }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions = {}) {
     let url: string;
 
     if (projectId) {

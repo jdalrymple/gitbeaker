@@ -64,14 +64,14 @@ export interface BridgeSchema extends Record<string, unknown> {
   queued_duration: number;
   id: number;
   name: string;
-  pipeline: Exclude<PipelineSchema & { project_id: number }, 'user'>;
+  pipeline: Omit<PipelineSchema & { project_id: number }, 'user'>;
   ref: string;
   stage: string;
   status: string;
   tag: boolean;
   web_url: string;
   user: UserSchema;
-  downstream_pipeline: Exclude<PipelineSchema, 'user'>;
+  downstream_pipeline: Omit<PipelineSchema, 'user'>;
 }
 
 export class Jobs<C extends boolean = false> extends BaseResource<C> {

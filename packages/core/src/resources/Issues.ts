@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { MergeRequestSchema } from './MergeRequests';
-import { MilestoneSchema } from '../templates';
+import { MilestoneSchema } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -9,13 +9,11 @@ import {
   Sudo,
 } from '../infrastructure';
 
-type ProjectOrGroup = { projectId?: string | number; groupId?: string | number };
-
 export interface TimeStatsSchema extends Record<string, unknown> {
-  human_time_estimate?: string;
-  human_total_time_spent?: string;
-  time_estimate?: number;
-  total_time_spent?: number;
+  time_estimate: number;
+  total_time_spent: number;
+  human_time_estimate: string;
+  human_total_time_spent: string;
 }
 
 export interface IssueSchema extends Record<string, unknown> {
@@ -99,7 +97,11 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  all({ projectId, groupId, ...options }: ProjectOrGroup & PaginatedRequestOptions = {}) {
+  all({
+    projectId,
+    groupId,
+    ...options
+  }: { projectId?: string | number; groupId?: string | number } & PaginatedRequestOptions = {}) {
     let url: string;
 
     if (projectId) {
