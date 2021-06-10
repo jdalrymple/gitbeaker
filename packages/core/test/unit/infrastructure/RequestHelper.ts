@@ -7,6 +7,7 @@ import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 /* eslint prefer-destructuring: 0 */
 function mockedGetBasic() {
   return {
+    status: 200,
     body: {
       prop1: 5,
       prop2: 'test property',
@@ -79,6 +80,22 @@ describe('RequestHelper.get()', () => {
     });
   });
 
+  it('should respond with the a wrapped body', async () => {
+    service.requester.get = jest.fn(() => mockedGetBasic());
+
+    const response = await RequestHelper.get()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: {
+        prop1: 5,
+        prop2: 'test property',
+      },
+      headers: {
+        'X-Page': 1,
+        'X-Total-Pages': 1,
+      },
+      status: 200,
+    });
   it('should respond with an object', async () => {
     service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
 
@@ -323,6 +340,19 @@ describe('RequestHelper.post()', () => {
     expect(service.requester.post).toBeCalledWith('test', { body: {}, sudo: 'yes' });
   });
 
+  it('should respond with the a wrapped body', async () => {
+    const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
+    service.requester.post = jest.fn(() => responseTemplate);
+
+    const response = await RequestHelper.post()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: responseTemplate.body,
+      headers: responseTemplate.headers,
+      status: responseTemplate.status,
+    });
+  });
+
   it('should pass arguments as form arguments if the isForm flag is passed', async () => {
     service.requester.post = jest.fn(() => Promise.resolve({ body: '' }));
 
@@ -342,6 +372,19 @@ describe('RequestHelper.put()', () => {
     await RequestHelper.put()(service, 'test', { sudo: 'yes' });
 
     expect(service.requester.put).toBeCalledWith('test', { body: {}, sudo: 'yes' });
+  });
+
+  it('should respond with the a wrapped body', async () => {
+    const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
+    service.requester.put = jest.fn(() => responseTemplate);
+
+    const response = await RequestHelper.put()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: responseTemplate.body,
+      headers: responseTemplate.headers,
+      status: responseTemplate.status,
+    });
   });
 });
 
