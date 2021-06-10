@@ -6,7 +6,7 @@ import {
   PaginatedRequestOptions,
 } from '../infrastructure';
 
-export interface DeployKey extends Record<string, unknown> {
+export interface DeployKeySchema extends Record<string, unknown> {
   id: number;
   title: string;
   key: string;
@@ -18,7 +18,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   add(projectId: string | number, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.post<DeployKey>()(this, `projects/${pId}/deploy_keys`, options);
+    return RequestHelper.post<DeployKeySchema>()(this, `projects/${pId}/deploy_keys`, options);
   }
 
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
@@ -30,19 +30,23 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       url = 'deploy_keys';
     }
 
-    return RequestHelper.get<Omit<DeployKey, 'can_push'>[]>()(this, url, options);
+    return RequestHelper.get<Omit<DeployKeySchema, 'can_push'>[]>()(this, url, options);
   }
 
   edit(projectId: string | number, keyId: number, options?: BaseRequestOptions) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.put<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.put<DeployKeySchema>()(
+      this,
+      `projects/${pId}/deploy_keys/${kId}`,
+      options,
+    );
   }
 
   enable(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.post<Omit<DeployKey, 'can_push'>>()(
+    return RequestHelper.post<Omit<DeployKeySchema, 'can_push'>>()(
       this,
       `projects/${pId}/deploy_keys/${kId}/enable`,
       options,
@@ -58,6 +62,10 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   show(projectId: string | number, keyId: number, options?: Sudo) {
     const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
 
-    return RequestHelper.get<DeployKey>()(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.get<DeployKeySchema>()(
+      this,
+      `projects/${pId}/deploy_keys/${kId}`,
+      options,
+    );
   }
 }

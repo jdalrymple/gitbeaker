@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
-export interface SettingsSchema extends Record<string, unknown> {
+export interface ApplicationSettingsSchema extends Record<string, unknown> {
   default_projects_limit: number;
   signup_enabled: boolean;
   id: number;
@@ -47,8 +47,8 @@ export interface SettingsSchema extends Record<string, unknown> {
   performance_bar_allowed_group_id: number;
   user_show_add_ssh_key_message: boolean;
   local_markdown_version: number;
-  allow_local_requests_from_hooks_and_resources: boolean;
-  allow_local_requests_from_web_hooks_and_resources: boolean;
+  allow_local_requests_from_hooks_and_services: boolean;
+  allow_local_requests_from_web_hooks_and_services: boolean;
   allow_local_requests_from_system_hooks: boolean;
   asset_proxy_enabled: boolean;
   asset_proxy_url: string;
@@ -67,10 +67,10 @@ export interface SettingsSchema extends Record<string, unknown> {
 
 export class ApplicationSettings<C extends boolean = false> extends BaseResource<C> {
   all(options?: Sudo) {
-    return RequestHelper.get<SettingsSchema>()(this, 'application/settings', options);
+    return RequestHelper.get<ApplicationSettingsSchema>()(this, 'application/settings', options);
   }
 
   edit(options?: BaseRequestOptions) {
-    return RequestHelper.put<SettingsSchema>()(this, 'application/settings', options);
+    return RequestHelper.put<ApplicationSettingsSchema>()(this, 'application/settings', options);
   }
 }

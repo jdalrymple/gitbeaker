@@ -1,5 +1,6 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDiscussions, DiscussionSchema } from '../templates';
+import { ResourceDiscussions } from '../templates';
+import { DiscussionSchema } from '../templates/types';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,

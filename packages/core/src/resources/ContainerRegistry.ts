@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
 
-export interface TagSchema extends Record<string, unknown> {
+export interface RegistryRepositoryTagSchema extends Record<string, unknown> {
   name: string;
   path: string;
   location: string;
@@ -12,7 +12,7 @@ export interface TagSchema extends Record<string, unknown> {
   total_size: number;
 }
 
-export interface RepositorySchema extends Record<string, unknown> {
+export interface RegistryRepositorySchema extends Record<string, unknown> {
   id: number;
   name: string;
   path: string;
@@ -21,14 +21,14 @@ export interface RepositorySchema extends Record<string, unknown> {
   created_at: string;
   cleanup_policy_started_at: string;
   tags_count?: number;
-  tags?: Pick<TagSchema, 'name' | 'path' | 'location'>[];
+  tags?: Pick<RegistryRepositoryTagSchema, 'name' | 'path' | 'location'>[];
 }
 
 export class ContainerRegistry<C extends boolean = false> extends BaseResource<C> {
   projectRepositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<Omit<RepositorySchema, 'tags' | 'tags_count'>[]>()(
+    return RequestHelper.get<Omit<RegistryRepositorySchema, 'tags' | 'tags_count'>[]>()(
       this,
       `projects/${pId}/registry/repositories`,
       options,
@@ -38,7 +38,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   groupRepositories(projectId: string | number, options?: PaginatedRequestOptions) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<Omit<RepositorySchema, 'tags' | 'tags_count'>[]>()(
+    return RequestHelper.get<Omit<RegistryRepositorySchema, 'tags' | 'tags_count'>[]>()(
       this,
       `groups/${pId}/registry/repositories`,
       options,
@@ -48,7 +48,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   showRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
-    return RequestHelper.get<RepositorySchema>()(
+    return RequestHelper.get<RegistryRepositorySchema>()(
       this,
       `projects/${pId}/registry/repositories/${rId}`,
       options,
@@ -58,7 +58,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   tags(projectId: string | number, repositoryId: number, options?: PaginatedRequestOptions) {
     const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
 
-    return RequestHelper.get<Pick<TagSchema, 'name' | 'path' | 'location'>[]>()(
+    return RequestHelper.get<Pick<RegistryRepositoryTagSchema, 'name' | 'path' | 'location'>[]>()(
       this,
       `projects/${pId}/registry/repositories/${rId}/tags`,
       options,
@@ -98,7 +98,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   showTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
     const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
 
-    return RequestHelper.get<TagSchema>()(
+    return RequestHelper.get<RegistryRepositoryTagSchema>()(
       this,
       `projects/${pId}/registry/repositories/${rId}/tags/${tId}`,
       options,
