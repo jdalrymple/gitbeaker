@@ -5,13 +5,13 @@ import {
   RequestHelper,
   Sudo,
 } from '../infrastructure';
-import type { AccessLevel } from './ResourceAccessRequests';
+import { AccessLevel } from './ResourceAccessRequests';
 
 export interface IncludeInherited {
   includeInherited?: boolean;
 }
 
-export interface MembersSchema extends Record<string, unknown> {
+export interface MemberSchema extends Record<string, unknown> {
   id: number;
   username: string;
   name: string;
@@ -41,7 +41,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.post<MembersSchema>()(this, `${rId}/members`, {
+    return RequestHelper.post<MemberSchema>()(this, `${rId}/members`, {
       userId: uId,
       accessLevel,
       ...options,
@@ -57,7 +57,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
     if (includeInherited) url.push('all');
 
-    return RequestHelper.get<MembersSchema[]>()(this, url.join('/'), options);
+    return RequestHelper.get<MemberSchema[]>()(this, url.join('/'), options);
   }
 
   edit(
@@ -68,7 +68,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   ) {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
 
-    return RequestHelper.put<MembersSchema>()(this, `${rId}/members/${uId}`, {
+    return RequestHelper.put<MemberSchema>()(this, `${rId}/members/${uId}`, {
       accessLevel,
       ...options,
     });
@@ -86,7 +86,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
     url.push(uId);
 
-    return RequestHelper.get<MembersSchema>()(
+    return RequestHelper.get<MemberSchema>()(
       this,
       url.join('/'),
       options as Record<string, unknown>,

@@ -5,8 +5,8 @@ import {
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
-import type { IssueSchema } from '../resources/Issues';
-import type { MergeRequestSchema } from '../resources/MergeRequests';
+import { IssueSchema } from '../resources/Issues';
+import { MergeRequestSchema } from '../resources/MergeRequests';
 
 export interface MilestoneSchema extends Record<string, unknown> {
   id: number;
