@@ -98,6 +98,9 @@ import { SystemHooks } from './SystemHooks';
 import { Version } from './Version';
 import { Wikis } from './Wikis';
 
+// Figure out a better way of doing this using mapped types: https://stackoverflow.com/questions/67729408/how-to-create-mapped-type-using-generic-class-instances-in-typesscript?noredirect=1#comment119718863_67729408
+// This will most likely be accomplished using higher kinded types: https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-750930496
+
 type BundledService<C extends boolean = false> = {
   Groups: Groups<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
