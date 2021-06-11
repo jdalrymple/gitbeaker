@@ -1,3 +1,4 @@
+import 'jest-extended';
 import * as Resources from '../../../src/resources';
 
 const { Gitlab, ...resources } = Resources;
