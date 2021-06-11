@@ -42,7 +42,8 @@
     "lint:docs": "prettier --check './**/*.json' './**/*.yml' './**/*.js' '!./**/(dist|coverage)/**'",
     "lint:docs:fix": "prettier --write './**/*.json' './**/*.yml' './**/*.js' '!./**/(dist|coverage)/**'",
     "lint:fix": "prettier --write 'packages/**/{src,test}/**/*.ts' && eslint 'packages/**/{src,test}/**/*/*.ts' --fix",
-    "test:unit": "jest test/unit",
+    "test:unit": "yarn workspaces run test:unit",
+    "test:integration": "yarn workspaces run test:integration",
     "release": "auto shipit --verbose --verbose",
     "clean": "lerna exec -- rimraf dist coverage &&  lerna clean --yes && rm -rf node_modules coverage"
   },
