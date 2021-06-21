@@ -1,4 +1,5 @@
 import { parse as parseLink } from 'li';
+import { parseUrl as parseQueryString } from 'query-string';
 import { camelizeKeys } from 'xcase';
 import { BaseService } from '@gitbeaker/requester-utils';
 import { appendFormFromObject, Camelize } from './Utils';
@@ -114,18 +115,16 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
   // Handle array responses
   const newAcc = [...acc, ...body];
   const { next }: { next: string } = parseLink(headers.link);
-  const withinBounds = maxPages ? newAcc.length / (query.perPage || 20) < maxPages : true;
+  const { query: qs = {} } = next ? parseQueryString(next, { parseNumbers: true }) : {}
+  const withinBounds = maxPages ? (newAcc.length / (qs.per_page as unknown as number || 20 )) < maxPages : true;
 
   // Recurse through pagination results
-  if (!query.page && next && withinBounds) {
-    const leaf = service.url.split('/').pop() || '';
-    const regex = new RegExp(`.+/api/v\\d(/${leaf})?/`);
-
+  if (!(query.page && acc.length == 0) && next && withinBounds) {
     return getHelper(
       service,
-      next.replace(regex, ''),
+      endpoint,
       {
-        ...query,
+        ...qs,
         maxPages,
         sudo,
       },

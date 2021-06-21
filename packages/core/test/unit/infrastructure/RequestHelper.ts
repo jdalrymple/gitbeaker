@@ -5,7 +5,54 @@ import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 
 /* eslint no-empty-pattern: 0 */
 /* eslint prefer-destructuring: 0 */
-function mockedGetBasic() {
+function mockLink(url:string, page: number, perPage: number, maxPages: number) {
+  const type = {
+    'prev': page - 1 > 0 ? page - 1 : undefined,
+    'current': page,
+    'next': page+1 <= maxPages ? page+1 : undefined,
+    'first': 1,
+    'last': maxPages
+  }
+
+  const links = Object.entries(type)
+    .reduce((acc, [k,v]) => {
+      if (v) acc.push(`<${url}?page=${v}&per_page=${perPage}>; rel="${k}"`)
+      return acc;
+    }, [] as string[])
+
+  return { link: links.join(','), pagination: type }
+}
+
+function mockedGetMany(url: string, { query }, maxPages = 10) {
+  const {
+    page = 1,
+    perPage = 2,
+  }: {
+    perPage: number,
+    page: number,
+  } = query
+
+  // Only load pages needed for the test
+  const { link, pagination } = mockLink(url, page, perPage, maxPages);
+
+  return {
+    body: new Array(perPage).fill(null).map((_, i) => ({
+      prop1: (page-1)*perPage + i + 1, // Index from 1, not 0
+      prop2: `test property ${(page-1)*perPage + i + 1}`,
+    })),
+    headers: {
+      link,
+      'x-next-page': pagination.next,
+      'x-page': page,
+      'x-per-page': perPage,
+      'x-prev-page': pagination.prev,
+      'x-total': maxPages * perPage,
+      'x-total-pages': maxPages,
+    },
+  };
+}
+
+function mockedGetOne() {
   return {
     body: {
       prop1: 5,
@@ -14,45 +61,6 @@ function mockedGetBasic() {
     headers: {
       'X-Page': 1,
       'X-Total-Pages': 1,
-    },
-  };
-}
-
-function mockedGetExtended(url: string, { query }) {
-  const q = /page=([0-9]+)/.exec(url);
-  const perPage: number = query.perPage || 2;
-  const maxPages: number = query.maxPages || 10;
-
-  let page = 1;
-
-  if (q != null) page = Number(q[1]);
-  else if (query.page) page = query.page;
-
-  // Only load pages needed for the test
-  const nextPage = page < maxPages ? page + 1 : undefined;
-  const next =
-    page < maxPages
-      ? `<https://www.test.com/api/v4/test?page=${nextPage || ''}&per_page=${perPage}>; rel="next",`
-      : '';
-  const prevPage = page > 1 ? page - 1 : undefined;
-  const prev =
-    page > 1
-      ? `<https://www.test.com/api/v4/test?page=${prevPage || ''}&per_page=${perPage}>; rel="prev",`
-      : '';
-
-  return {
-    body: new Array(perPage).fill(null).map((_, i) => ({
-      prop1: i + 1 + (prevPage || 0) * perPage,
-      prop2: `test property ${i + 1 + (prevPage || 0) * perPage}`,
-    })),
-    headers: {
-      link: `${next}${prev}<https://www.test.com/api/v4/test?page=1&per_page=${perPage}>; rel="first",<https://www.test.com/api/v4/test?page=${maxPages}&per_page=${perPage}>; rel="last"`,
-      'x-next-page': nextPage,
-      'x-page': page,
-      'x-per-page': perPage,
-      'x-prev-page': prevPage,
-      'x-total': maxPages * perPage,
-      'x-total-pages': maxPages,
     },
   };
 }
@@ -69,7 +77,7 @@ beforeEach(() => {
 
 describe('RequestHelper.get()', () => {
   it('should respond with the proper get url without pagination', async () => {
-    service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetOne()));
 
     await RequestHelper.get()(service, 'test');
 
@@ -80,7 +88,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should respond with an object', async () => {
-    service.requester.get = jest.fn(() => Promise.resolve(mockedGetBasic()));
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetOne()));
 
     const response = await RequestHelper.get()(service, 'test');
 
@@ -89,8 +97,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated when links are present', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test');
@@ -104,23 +112,23 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should handle large paginated (50 pages) results when links are present', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 70 } })),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options, 50)),
     );
 
-    const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test');
+    const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', { maxPages: 50});
 
     response.forEach((l, index) => {
       expect(l.prop1).toBe(1 + index);
       expect(l.prop2).toBe(`test property ${1 + index}`);
     });
 
-    expect(response).toHaveLength(140);
+    expect(response).toHaveLength(100);
   });
 
   it('should be paginated but limited by the maxPages option', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 3 } })),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options, 3)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -136,8 +144,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the page option', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -153,8 +161,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should show the pagination information when the showExpanded option is given', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -180,8 +188,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when the showExpanded option is undefined or false', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -198,8 +206,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -215,8 +223,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should support maxPages when using keyset pagination', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, { query: { ...options.query, maxPages: 2 } })),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options, 2)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
@@ -233,8 +241,8 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination and showExpanded is given', async () => {
-    service.requester.get = jest.fn((url, options) =>
-      Promise.resolve(mockedGetExtended(url, options)),
+    service.requester.get = jest.fn((endpoint, options) =>
+      Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, options)),
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
