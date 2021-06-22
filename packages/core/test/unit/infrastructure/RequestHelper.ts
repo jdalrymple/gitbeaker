@@ -96,7 +96,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated when links are present', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -111,7 +111,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should handle large paginated (50 pages) results when links are present', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query }, 50)),
     );
 
@@ -128,7 +128,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the maxPages option', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query }, 3)),
     );
 
@@ -145,7 +145,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should be paginated but limited by the page option', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -162,7 +162,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should show the pagination information when the showExpanded option is given', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -189,7 +189,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when the showExpanded option is undefined or false', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -207,7 +207,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -224,7 +224,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should support maxPages when using keyset pagination', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query }, 2)),
     );
 
@@ -242,7 +242,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should not show the pagination information when using keyset pagination and showExpanded is given', async () => {
-    service.requester.get = jest.fn((endpoint, options) =>
+    service.requester.get = jest.fn((endpoint, options = {}) =>
       Promise.resolve(mockedGetMany(`${service.url}${endpoint}`, { query: options.query })),
     );
 
@@ -290,10 +290,10 @@ describe('RequestHelper.get()', () => {
     ]);
   });
 
-  it('should return simple response with default keys without camelize option', () => {
+  it('should return simple response with default keys without camelize option', async () => {
     class SpecialService extends BaseService {
       show() {
-        return jest.fn(() => RequestHelper.get()(this, 'test'));
+        return RequestHelper.get()(this, 'test');
       }
     }
 
@@ -310,7 +310,7 @@ describe('RequestHelper.get()', () => {
       }),
     );
 
-    const results = specialService.show();
+    const results = await specialService.show();
 
     expect(results).toMatchObject({ id: 3, gravatar_enable: true }); // eslint-disable-line
   });
