@@ -1,3 +1,15 @@
+# v30.3.0 (Tue Jun 22 2021)
+
+#### 🐛 Bug Fix
+
+- Improve pagination logic by parsing query parameters explicitly on response [#1889](https://github.com/jdalrymple/gitbeaker/pull/1889) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v30.0.0 (Mon Jun 07 2021)
 
 #### 💥 Breaking Change

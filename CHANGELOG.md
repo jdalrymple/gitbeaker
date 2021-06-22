@@ -1,3 +1,33 @@
+# 30.3.0 (Tue Jun 22 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Improve pagination logic by parsing query parameters explicitly on response [#1889](https://github.com/jdalrymple/gitbeaker/pull/1889) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @typescript-eslint/eslint-plugin from 4.26.1 to 4.27.0 [#1881](https://github.com/jdalrymple/gitbeaker/pull/1881) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tslib from 2.2.0 to 2.3.0 [#1878](https://github.com/jdalrymple/gitbeaker/pull/1878) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.12.1 to 1.12.2 [#1879](https://github.com/jdalrymple/gitbeaker/pull/1879) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.51.1 to 2.51.2 [#1877](https://github.com/jdalrymple/gitbeaker/pull/1877) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.12.0 to 1.12.1 [#1876](https://github.com/jdalrymple/gitbeaker/pull/1876) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-playwright-preset from 1.6.0 to 1.6.1 [#1875](https://github.com/jdalrymple/gitbeaker/pull/1875) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.51.0 to 2.51.1 [#1870](https://github.com/jdalrymple/gitbeaker/pull/1870) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.29.2 to 10.29.3 [#1867](https://github.com/jdalrymple/gitbeaker/pull/1867) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.29.2 to 10.29.3 [#1868](https://github.com/jdalrymple/gitbeaker/pull/1868) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ora from 5.4.0 to 5.4.1 [#1873](https://github.com/jdalrymple/gitbeaker/pull/1873) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.11.1 to 1.12.0 [#1872](https://github.com/jdalrymple/gitbeaker/pull/1872) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.29.2 to 10.29.3 [#1866](https://github.com/jdalrymple/gitbeaker/pull/1866) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.12.1 to 15.12.2 [#1864](https://github.com/jdalrymple/gitbeaker/pull/1864) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 30.2.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
