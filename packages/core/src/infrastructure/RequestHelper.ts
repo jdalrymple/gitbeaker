@@ -98,8 +98,6 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
   const { headers, status } = response;
   let { body } = response;
 
-  console.log(response);
-
   // Camelize response body if specified
   if (service.camelize) body = camelizeKeys(body);
 
