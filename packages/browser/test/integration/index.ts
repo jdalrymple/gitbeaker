@@ -49,17 +49,11 @@ describe('Browser Import', () => {
 
 describe('Projects API', () => {
   it('should create a project', async () => {
-    page.on('console', consoleObj => console.log(consoleObj.text()));
-
     await page.goto(`file://${path.resolve(__dirname, 'assets', 'test-import.html')}`);
 
     /* eslint-disable */
     const project = await page.evaluate(
       ([host, token, id]) => {
-        console.log(host)
-        console.log(token)
-        console.log(id)
-
         // @ts-ignore
         const { Projects } = gitbeaker;
         const resource = new Projects({

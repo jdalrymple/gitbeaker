@@ -65,7 +65,7 @@ function mockedGetOne() {
   };
 }
 
-let service: BaseService;
+let service: BaseResource;
 
 beforeEach(() => {
   service = new BaseResource({
@@ -88,7 +88,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should respond with the a wrapped body', async () => {
-    service.requester.get = jest.fn(() => mockedGetBasic());
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetOne()));
 
     const response = await RequestHelper.get()(service, 'test', { showExpanded: true });
 
@@ -310,7 +310,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should return simple response with default keys without camelize option', async () => {
-    class SpecialService extends BaseService {
+    class SpecialService extends BaseResource {
       show() {
         return RequestHelper.get()(this, 'test');
       }
@@ -364,7 +364,7 @@ describe('RequestHelper.post()', () => {
 
   it('should respond with the a wrapped body', async () => {
     const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
-    service.requester.post = jest.fn(() => responseTemplate);
+    service.requester.post = jest.fn(() => Promise.resolve(responseTemplate));
 
     const response = await RequestHelper.post()(service, 'test', { showExpanded: true });
 
@@ -398,7 +398,7 @@ describe('RequestHelper.put()', () => {
 
   it('should respond with the a wrapped body', async () => {
     const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
-    service.requester.put = jest.fn(() => responseTemplate);
+    service.requester.put = jest.fn(() => Promise.resolve(responseTemplate));
 
     const response = await RequestHelper.put()(service, 'test', { showExpanded: true });
 
