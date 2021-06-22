@@ -1,3 +1,27 @@
+# 30.4.0 (Tue Jun 22 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Remove log artifact [#1895](https://github.com/jdalrymple/gitbeaker/pull/1895) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @typescript-eslint/eslint-plugin from 4.27.0 to 4.28.0 [#1892](https://github.com/jdalrymple/gitbeaker/pull/1892) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump query-string from 7.0.0 to 7.0.1 [#1893](https://github.com/jdalrymple/gitbeaker/pull/1893) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.26.1 to 4.28.0 [#1891](https://github.com/jdalrymple/gitbeaker/pull/1891) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint from 7.28.0 to 7.29.0 [#1888](https://github.com/jdalrymple/gitbeaker/pull/1888) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump typescript from 4.3.2 to 4.3.4 [#1886](https://github.com/jdalrymple/gitbeaker/pull/1886) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.12.2 to 15.12.4 [#1887](https://github.com/jdalrymple/gitbeaker/pull/1887) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.51.2 to 2.52.2 [#1890](https://github.com/jdalrymple/gitbeaker/pull/1890) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 30.3.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix

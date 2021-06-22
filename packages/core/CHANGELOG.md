@@ -1,3 +1,15 @@
+# v30.4.0 (Tue Jun 22 2021)
+
+#### 🐛 Bug Fix
+
+- Remove log artifact [#1895](https://github.com/jdalrymple/gitbeaker/pull/1895) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v30.3.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
