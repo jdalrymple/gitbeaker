@@ -44,12 +44,10 @@ export interface ExpandedResponse<T = Record<string, unknown>> {
 export interface PaginationResponse<T = Record<string, unknown>[]> {
   data: T;
   paginationInfo: {
-    total: number;
     next: number | null;
     current: number;
     previous: number | null;
     perPage: number;
-    totalPages: number;
   };
 }
 
@@ -139,12 +137,10 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
   return {
     data: newAcc,
     paginationInfo: {
-      total: parseInt(headers['x-total'], 10),
       next: parseInt(headers['x-next-page'], 10) || null,
       current: parseInt(headers['x-page'], 10) || 1,
       previous: parseInt(headers['x-prev-page'], 10) || null,
       perPage: parseInt(headers['x-per-page'], 10),
-      totalPages: parseInt(headers['x-total-pages'], 10),
     },
   };
 }
