@@ -1,3 +1,21 @@
+# 30.5.0 (Thu Jun 24 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Updating paginationInfo property to match latest API [#1898](https://github.com/jdalrymple/gitbeaker/pull/1898) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest from 27.0.4 to 27.0.5 [#1896](https://github.com/jdalrymple/gitbeaker/pull/1896) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 30.4.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
