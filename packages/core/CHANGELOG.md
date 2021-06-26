@@ -1,3 +1,15 @@
+# v30.5.0 (Thu Jun 24 2021)
+
+#### 🐛 Bug Fix
+
+- Updating paginationInfo property to match latest API [#1898](https://github.com/jdalrymple/gitbeaker/pull/1898) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v30.4.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
