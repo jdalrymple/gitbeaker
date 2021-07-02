@@ -95,7 +95,6 @@ describe('RequestHelper.get()', () => {
       },
       headers: {
         'X-Page': 1,
-        'X-Total-Pages': 1,
       },
       status: 200,
     });
