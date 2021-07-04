@@ -186,7 +186,7 @@ This could be set globally or using a [.env](https://github.com/motdotla/dotenv#
 
 ## Docs
 
-Although there are the [official docs](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) for the API, there are some extra goodies offered by this package! The next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
+Although there are the [official docs](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) for the API, there are some extra goodies offered by this package! The next large project will be putting together proper documentation for these goodies [#39](https://github.com/jdalrymple/gitbeaker/issues/39)! Stay tuned!!
 
 ### Supported APIs
 
