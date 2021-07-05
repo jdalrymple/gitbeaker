@@ -70,7 +70,7 @@
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
-- [License](#licence)
+- [License](#license)
 - [Changelog](#changelog)
 
 ## Install
