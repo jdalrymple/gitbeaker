@@ -1,3 +1,33 @@
+# 31.0.0 (Mon Jul 05 2021)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Expose typing to consumer and remove export complexity [#1818](https://github.com/jdalrymple/gitbeaker/pull/1818) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest-playwright-preset from 1.6.1 to 1.7.0 [#1916](https://github.com/jdalrymple/gitbeaker/pull/1916) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint from 7.29.0 to 7.30.0 [#1915](https://github.com/jdalrymple/gitbeaker/pull/1915) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 6.0.0 to 7.0.0 [#1909](https://github.com/jdalrymple/gitbeaker/pull/1909) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.12.5 to 15.14.0 [#1911](https://github.com/jdalrymple/gitbeaker/pull/1911) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.52.4 to 2.52.7 [#1910](https://github.com/jdalrymple/gitbeaker/pull/1910) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump typescript from 4.3.4 to 4.3.5 [#1908](https://github.com/jdalrymple/gitbeaker/pull/1908) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.52.3 to 2.52.4 [#1907](https://github.com/jdalrymple/gitbeaker/pull/1907) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.0 to 4.28.1 [#1904](https://github.com/jdalrymple/gitbeaker/pull/1904) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.28.0 to 4.28.1 [#1905](https://github.com/jdalrymple/gitbeaker/pull/1905) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.0.5 to 27.0.6 [#1903](https://github.com/jdalrymple/gitbeaker/pull/1903) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.52.2 to 2.52.3 [#1902](https://github.com/jdalrymple/gitbeaker/pull/1902) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.12.2 to 1.12.3 [#1900](https://github.com/jdalrymple/gitbeaker/pull/1900) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 15.12.4 to 15.12.5 [#1899](https://github.com/jdalrymple/gitbeaker/pull/1899) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 30.5.0 (Thu Jun 24 2021)
 
 #### 🐛 Bug Fix

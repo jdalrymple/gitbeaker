@@ -4,7 +4,7 @@ import 'jest-extended';
 import {
   createRequesterFn,
   defaultOptionsHandler,
-  modifyServices,
+  presetResourceArguments,
   formatQuery,
   DefaultRequestReturn,
 } from '../../src/RequesterUtils';
@@ -155,13 +155,7 @@ describe('createInstance', () => {
   });
 });
 
-describe('modifyServices', () => {
-  it('should ignore non-function types', () => {
-    const modified = modifyServices({ a: 1 }, { x: 3 });
-
-    expect(modified).toMatchObject({});
-  });
-
+describe('presetResourceArguments', () => {
   it('should preset class with extended properties', () => {
     class A {
       x?: number;
@@ -174,7 +168,7 @@ describe('modifyServices', () => {
       }
     }
 
-    const { A: B } = modifyServices({ A }, { x: 3 });
+    const { A: B } = presetResourceArguments({ A }, { x: 3 });
     const b = new B();
 
     expect(b.x).toBe(3);
@@ -192,7 +186,7 @@ describe('modifyServices', () => {
       }
     }
 
-    const { A: B } = modifyServices({ A });
+    const { A: B } = presetResourceArguments({ A });
     const b = new B();
 
     expect(b.x).toBe(8);
@@ -210,7 +204,7 @@ describe('modifyServices', () => {
       }
     }
 
-    const { A: B } = modifyServices({ A }, { x: 3 });
+    const { A: B } = presetResourceArguments({ A }, { x: 3 });
     const b = new B();
 
     expect(b.x).toBe(3);
@@ -228,7 +222,7 @@ describe('modifyServices', () => {
       }
     }
 
-    const { A: B } = modifyServices({ A });
+    const { A: B } = presetResourceArguments({ A });
     const b = new B({ x: 5 });
 
     expect(b.x).toBe(5);
@@ -246,7 +240,7 @@ describe('modifyServices', () => {
       }
     }
 
-    const { A: B } = modifyServices({ A }, { x: 2 });
+    const { A: B } = presetResourceArguments({ A }, { x: 2 });
     const b = new B({ x: 5 });
 
     expect(b.x).toBe(5);

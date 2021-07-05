@@ -13,11 +13,11 @@
 <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
   <img src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker/master.svg" alt="CodeCov test coverage">
 </a>
-<a href="https://david-dm.org/jdalrymple/gitbeaker">
-  <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg" alt="Dependency Status" />
+<a href="https://david-dm.org/jdalrymple/gitbeaker?path=packages/node">
+  <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg?path=packages/node" alt="Dependency Status" />
 </a>
-<a href="https://david-dm.org/jdalrymple/gitbeaker?type=dev">
-  <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg?type=dev" alt="Dev Dependency Status" />
+<a href="https://david-dm.org/jdalrymple/gitbeaker?path=packages/node&type=dev">
+  <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg?path=packages/node&type=dev" alt="Dev Dependency Status" />
 </a>
 <a href="https://github.com/intuit/auto">
   <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">

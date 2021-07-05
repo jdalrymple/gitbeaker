@@ -1,38 +1,19 @@
 import FormData from 'form-data';
-import { bundler, appendFormFromObject } from '../../../src/infrastructure';
+import { getAPIMap, appendFormFromObject } from '../../../src/infrastructure';
 
-describe('bundler', () => {
-  /* eslint max-classes-per-file: 0 */
-  class Test1 {
-    public value: number;
+jest.mock(
+  '../../../dist/map.json',
+  () => {
+    throw new Error();
+  },
+  { virtual: true },
+);
 
-    constructor(value: number) {
-      this.value = value * 3;
-    }
-  }
-
-  class Test2 {
-    public value: number;
-
-    constructor(value: number) {
-      this.value = value * 2;
-    }
-  }
-
-  it('should merge classes passed to Bundler', () => {
-    const Bundle = bundler({ Test1, Test2 });
-    const services = new Bundle();
-
-    expect(services.Test1).toBeInstanceOf(Test1);
-    expect(services.Test2).toBeInstanceOf(Test2);
-  });
-
-  it('should initialize classes passed to Bundler with options', () => {
-    const Bundle = bundler({ Test1, Test2 });
-    const services = new Bundle(2);
-
-    expect(services.Test1.value).toBe(6);
-    expect(services.Test2.value).toBe(4);
+describe('getAPIMap', () => {
+  it('should throw error if file DNE', () => {
+    expect(() => {
+      getAPIMap();
+    }).toThrow();
   });
 });
 

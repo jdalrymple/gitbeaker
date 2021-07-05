@@ -1,6 +1,6 @@
 import 'jest-extended';
 import FormData from 'form-data';
-import { BaseService, RequesterType } from '@gitbeaker/requester-utils';
+import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 
 /* eslint no-empty-pattern: 0 */
@@ -50,6 +50,7 @@ function mockedGetMany(url: string, { query }, maxPages = 10) {
 
 function mockedGetOne() {
   return {
+    status: 200,
     body: {
       prop1: 5,
       prop2: 'test property',
@@ -60,10 +61,10 @@ function mockedGetOne() {
   };
 }
 
-let service: BaseService;
+let service: BaseResource;
 
 beforeEach(() => {
-  service = new BaseService({
+  service = new BaseResource({
     requesterFn: () => ({} as RequesterType),
     host: 'https://testing.com',
     token: 'token',
@@ -79,6 +80,23 @@ describe('RequestHelper.get()', () => {
     expect(service.requester.get).toHaveBeenCalledWith('test', {
       query: {},
       sudo: undefined,
+    });
+  });
+
+  it('should respond with the a wrapped body', async () => {
+    service.requester.get = jest.fn(() => Promise.resolve(mockedGetOne()));
+
+    const response = await RequestHelper.get()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: {
+        prop1: 5,
+        prop2: 'test property',
+      },
+      headers: {
+        'X-Page': 1,
+      },
+      status: 200,
     });
   });
 
@@ -254,7 +272,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should return simple response with camelized keys when using the camelize option', async () => {
-    const s = new BaseService({
+    const s = new BaseResource({
       requesterFn: () => ({} as RequesterType),
       host: 'https://testing.com',
       token: 'token',
@@ -285,7 +303,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should return simple response with default keys without camelize option', async () => {
-    class SpecialService extends BaseService {
+    class SpecialService extends BaseResource {
       show() {
         return RequestHelper.get()(this, 'test');
       }
@@ -337,6 +355,19 @@ describe('RequestHelper.post()', () => {
     expect(service.requester.post).toBeCalledWith('test', { body: {}, sudo: 'yes' });
   });
 
+  it('should respond with the a wrapped body', async () => {
+    const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
+    service.requester.post = jest.fn(() => Promise.resolve(responseTemplate));
+
+    const response = await RequestHelper.post()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: responseTemplate.body,
+      headers: responseTemplate.headers,
+      status: responseTemplate.status,
+    });
+  });
+
   it('should pass arguments as form arguments if the isForm flag is passed', async () => {
     service.requester.post = jest.fn(() => Promise.resolve({ body: '' }));
 
@@ -356,6 +387,19 @@ describe('RequestHelper.put()', () => {
     await RequestHelper.put()(service, 'test', { sudo: 'yes' });
 
     expect(service.requester.put).toBeCalledWith('test', { body: {}, sudo: 'yes' });
+  });
+
+  it('should respond with the a wrapped body', async () => {
+    const responseTemplate = { status: 200, headers: { test: 1 }, body: '' };
+    service.requester.put = jest.fn(() => Promise.resolve(responseTemplate));
+
+    const response = await RequestHelper.put()(service, 'test', { showExpanded: true });
+
+    expect(response).toMatchObject({
+      data: responseTemplate.body,
+      headers: responseTemplate.headers,
+      status: responseTemplate.status,
+    });
   });
 });
 

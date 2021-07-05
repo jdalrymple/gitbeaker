@@ -1,3 +1,15 @@
+# v31.0.0 (Mon Jul 05 2021)
+
+#### 💥 Breaking Change
+
+- Expose typing to consumer and remove export complexity [#1818](https://github.com/jdalrymple/gitbeaker/pull/1818) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v30.0.0 (Mon Jun 07 2021)
 
 #### 💥 Breaking Change
