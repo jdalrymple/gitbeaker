@@ -1,11 +1,11 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 import { AwardEmojiSchema, url } from './ResourceAwardEmojis';
 
-export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseService<C> {
+export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseResource<C> {
   protected resourceType: string;
 
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: 'projects', ...options });
 
     this.resourceType = resourceType;

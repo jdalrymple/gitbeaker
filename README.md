@@ -58,11 +58,9 @@
 
 - [Install](#install)
 - [Getting Started](#getting-started)
-  - [CLI Support](#cli-support)
-  - [Browser Support](#browser-support)
+  - [Typing Support](#typing-support)
 - [Docs](#docs)
   - [Supported APIs](#supported-apis)
-  - [Bundle Imports](#bundle-imports)
   - [Examples](#examples)
   - [Pagination](#pagination)
   - [Sudo](#sudo)
@@ -82,7 +80,7 @@ npm install @gitbeaker/node # NodeJS default, index.es.js for esm
 
 npm install @gitbeaker/browser # UMD default
 
-npm install @gitbeaker/cli  # CLI
+npm -g install @gitbeaker/cli  # CLI
 
 ```
 
@@ -121,34 +119,7 @@ OR through the script tag:
 </script>
 ```
 
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
-
-```javascript
-const api = new Gitlab({
-  token: 'personaltoken',
-});
-```
-
-Available instantiating options:
-
-| Name                 | Optional | Default                                                                                                                                                             | Description                                                                                                        |
-| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                | Gitlab Instance Host URL                                                                                           |
-| `token`              | No\*     | N/A                                                                                                                                                                 | Personal Token. Required (one of the three tokens are required)                                                    |
-| `oauthToken`         | No\*     | N/A                                                                                                                                                                 | OAuth Token. Required (one of the three tokens are required)                                                       |
-| `jobToken`           | No\*     | N/A                                                                                                                                                                 | CI Job Token. Required (one of the three tokens are required)                                                      |
-| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                              | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
-| `sudo`               | Yes      | `false`                                                                                                                                                             | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
-| `version`            | Yes      | `4`                                                                                                                                                                 | API Version ID                                                                                                     |
-| `camelize`           | Yes      | `false`                                                                                                                                                             | Camelizes all response body keys                                                                                   |
-| `requesterFn`        | Yes    | @gitbeaker/node & @gitbeaker/cli : Got-based, @gitbeaker/browser: Ky-based. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
-| `requestTimeout`     | Yes      | `300000`                                                                                                                                                            | Request Library Timeout in ms                                                                                      |
-| `profileToken`       | Yes      | N/A                                                                                                                                                                 | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                                                                                                                                         | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-
->*One of these options must be supplied.
-
-### CLI Support
+**CLI**
 
 The CLI export functions in a similar manner, following the pattern:
 
@@ -184,6 +155,44 @@ GITBEAKER_CAMELIZE=true
 
 This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
 
+
+**Instantiation**
+
+Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+
+```javascript
+const api = new Gitlab({
+  token: 'personaltoken',
+});
+```
+
+Available instantiating options:
+
+| Name                 | Optional | Default                                                                                                                                                             | Description                                                                                                        |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `host`               | Yes      | `https://gitlab.com`                                                                                                                                                | Gitlab Instance Host URL                                                                                           |
+| `token`              | No\*     | N/A                                                                                                                                                                 | Personal Token. Required (one of the three tokens are required)                                                    |
+| `oauthToken`         | No\*     | N/A                                                                                                                                                                 | OAuth Token. Required (one of the three tokens are required)                                                       |
+| `jobToken`           | No\*     | N/A                                                                                                                                                                 | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `rejectUnauthorized` | Yes      | `true`                                                                                                                                                              | Http Certificate setting, Only applies to HTTPS hosts urls                                                         |
+| `sudo`               | Yes      | `false`                                                                                                                                                             | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `version`            | Yes      | `4`                                                                                                                                                                 | API Version ID                                                                                                     |
+| `camelize`           | Yes      | `false`                                                                                                                                                             | Camelizes all response body keys                                                                                   |
+| `requesterFn`        | Yes    | @gitbeaker/node & @gitbeaker/cli : Got-based, @gitbeaker/browser: Ky-based. The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
+| `requestTimeout`     | Yes      | `300000`                                                                                                                                                            | Request Library Timeout in ms                                                                                      |
+| `profileToken`       | Yes      | N/A                                                                                                                                                                 | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                                                         | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+
+>*One of these options must be supplied.
+
+## Typing Support
+
+All the exposed types are exported though the `Types` export.
+
+```typescript
+import { Types } from '@gitbeaker/node';
+```
+
 ## Docs
 
 Although there are the [official docs](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) for the API, there are some extra goodies offered by this package! The next large project will be putting together proper documentation for these goodies [#39]! Stay tuned!!
@@ -205,9 +214,9 @@ Keys
 License
 LicenseTemplates
 Lint
-Markdown
 Namespaces
 NotificationSettings
+Markdown
 PagesDomains
 Search
 SidekiqMetrics
@@ -233,6 +242,14 @@ EpicIssues
 EpicNotes
 EpicDiscussions
 
+// Users
+Users
+UserCustomAttributes
+UserEmails
+UserImpersonationTokens
+UserSSHKeys
+UserGPGKeys
+
 // Projects
 Branches
 Commits
@@ -245,6 +262,7 @@ FreezePeriods
 Issues
 IssuesStatistics
 IssueNotes
+IssueNoteAwardEmojis
 IssueDiscussions
 IssueAwardEmojis
 Jobs
@@ -288,123 +306,8 @@ Todos
 Triggers
 VulnerabilityFindings
 
-// Users
-Users
-UserEmails
-UserImpersonationTokens
-UserKeys
-UserGPGKeys
-
 // Everything
 Gitlab
-```
-
-### Bundle Imports
-
-It can be annoying to have to import all the API's pertaining to a specific resource. For example, the Projects resource is composed of many API's, Projects, Issues, Labels, MergeRequests, etc. For convenience, there is a Bundle export for importing and instantiating all these related API's at once.
-
-```javascript
-import { ProjectsBundle } from 'gitlab';
-
-const services = new ProjectsBundle({
-  host:   'http://example.com',
-  token: 'personaltoken'
-})
-
-services.Projects.all()
-services.MergeRequests.all()
-etc..
-
-```
-
-Currently there are three Bundles:
-
-1. ProjectsBundle which includes:
-
-```
-Branches
-Commits
-CommitDiscussions
-ContainerRegistry
-Deployments
-DeployKeys
-Environments
-FreezePeriods
-Issues
-IssuesStatistics
-IssueNotes
-IssueDiscussions
-IssueAwardEmojis
-Jobs
-Labels
-MergeRequests
-MergeRequestApprovals
-MergeRequestAwardEmojis
-MergeRequestDiscussions
-MergeRequestNotes
-Packages
-Pipelines
-PipelineSchedules
-PipelineScheduleVariables
-Projects
-ProjectAccessRequests
-ProjectBadges
-ProjectCustomAttributes
-ProjectImportExport
-ProjectIssueBoards
-ProjectHooks
-ProjectMembers
-ProjectMilestones
-ProjectSnippets
-ProjectSnippetNotes
-ProjectSnippetDiscussions
-ProjectSnippetAwardEmojis
-ProtectedBranches
-ProtectedTags
-ProjectVariables
-ProjectDeployTokens
-PushRules
-Releases
-ReleaseLinks
-Repositories
-RepositoryFiles
-Runners
-Services
-Tags
-Todos
-Triggers
-VulnerabilityFindings
-```
-
-2. UsersBundle which includes:
-
-```
-Users,
-UserCustomAttributes,
-UserEmails,
-UserImpersonationTokens,
-UserKeys,
-UserGPGKeys
-```
-
-3. GroupsBundle which includes:
-
-```
-Groups
-GroupAccessRequests
-GroupBadges
-GroupCustomAttributes
-GroupIssueBoards
-GroupMembers
-GroupMilestones
-GroupRunners
-GroupVariables
-GroupLabels
-GroupDeployTokens
-Epics
-EpicIssues
-EpicNotes
-EpicDiscussions
 ```
 
 ### Examples
@@ -509,12 +412,10 @@ data: [
 ...
 ],
 paginationInfo: {
-  total: 20,
   next: 4,
   current: 2,
   previous: 1,
   perPage: 3,
-  totalPages: 3,
 }
 ```
 

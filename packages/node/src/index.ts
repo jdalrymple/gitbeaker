@@ -1,9 +1,11 @@
 import * as Gitbeaker from '@gitbeaker/core';
-import { modifyServices } from '@gitbeaker/requester-utils';
+import { presetResourceArguments } from '@gitbeaker/requester-utils';
 import { requesterFn } from './GotRequester';
 
-const { getAPIMap, ...services } = Gitbeaker;
-const APIServices = modifyServices(services, { requesterFn });
+const { getAPIMap, Types, ...resources } = Gitbeaker;
+const API = presetResourceArguments(resources, { requesterFn });
+
+export { Types } from '@gitbeaker/core';
 
 export const {
   // Groups
@@ -17,6 +19,7 @@ export const {
   GroupRunners,
   GroupVariables,
   GroupLabels,
+  GroupDeployTokens,
   Epics,
   EpicIssues,
   EpicNotes,
@@ -73,6 +76,7 @@ export const {
   ProtectedBranches,
   ProtectedTags,
   ProjectVariables,
+  ProjectDeployTokens,
   PushRules,
   Releases,
   ReleaseLinks,
@@ -108,9 +112,5 @@ export const {
   Version,
   Wikis,
 
-  // Bundles
-  GroupsBundle,
-  UsersBundle,
-  ProjectsBundle,
   Gitlab,
-} = APIServices;
+} = API;

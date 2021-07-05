@@ -1,12 +1,12 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   RequestHelper,
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
 } from '../infrastructure';
-import type { IssueSchema } from '../services/Issues';
-import type { MergeRequestSchema } from '../services/MergeRequests';
+import { IssueSchema } from '../resources/Issues';
+import { MergeRequestSchema } from '../resources/MergeRequests';
 
 export interface MilestoneSchema extends Record<string, unknown> {
   id: number;
@@ -23,8 +23,8 @@ export interface MilestoneSchema extends Record<string, unknown> {
   web_url?: string;
 }
 
-export class ResourceMilestones<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceMilestones<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

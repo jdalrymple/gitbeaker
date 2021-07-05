@@ -19,7 +19,7 @@ export default {
   ],
   plugins: [
     replace({
-      '../dist/map.json': './map.json',
+      '../../dist/map.json': './map.json',
       delimiters: ['', ''],
       preventAssignment: true,
     }),

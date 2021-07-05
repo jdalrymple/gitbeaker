@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
   PaginatedRequestOptions,
@@ -16,8 +16,8 @@ export interface BadgeSchema extends Record<string, unknown> {
   kind: 'project' | 'group';
 }
 
-export class ResourceBadges<C extends boolean = false> extends BaseService<C> {
-  constructor(resourceType: string, options: BaseServiceOptions<C>) {
+export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
 

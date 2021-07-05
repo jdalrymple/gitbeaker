@@ -10,31 +10,6 @@ export type CamelizeString<T extends PropertyKey> = T extends string
 
 export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: T[K] };
 
-/* eslint @typescript-eslint/no-explicit-any: 0 */
-interface Constructor {
-  new (...args: any): any;
-}
-
-type Mapper<T extends { [name: string]: Constructor }, P extends keyof T> = {
-  [name in P]: InstanceType<T[name]>;
-};
-
-export interface BundleType<T extends { [name: string]: Constructor }, P extends keyof T> {
-  new (options?: any): Mapper<T, P>;
-}
-
-export function bundler<T extends { [name: string]: Constructor }, P extends keyof T>(
-  services: T,
-): BundleType<T, P> {
-  return function Bundle(options?: any) {
-    Object.entries(services).forEach(([name, Ser]) => {
-      /* eslint @typescript-eslint/ban-ts-comment: 0 */
-      // @ts-ignore
-      this[name] = new Ser(options);
-    });
-  } as any as BundleType<T, P>;
-}
-
 export function appendFormFromObject(object: Record<string, unknown>): FormData {
   /* eslint @typescript-eslint/ban-ts-comment: 0 */
   // @ts-ignore
@@ -46,4 +21,13 @@ export function appendFormFromObject(object: Record<string, unknown>): FormData 
   });
 
   return form;
+}
+
+export function getAPIMap(): Record<string, unknown> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-unresolved
+    return require('../../dist/map.json') as Record<string, unknown>;
+  } catch (e) {
+    throw new Error('This function is only available in the distributed code');
+  }
 }

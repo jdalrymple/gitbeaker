@@ -131,7 +131,6 @@ test:unit:utils:
 #   script:
 #     - yarn workspace @gitbeaker/cli test:integration
 # - yarn workspace @gitbeaker/node test:integration
-# - yarn workspace @gitbeaker/node test:integration --moduleNameMapper='{"src":"<rootDir>/dist/index.js"}'
 
 # Canary
 canary:
