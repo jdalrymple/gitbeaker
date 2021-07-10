@@ -299,6 +299,7 @@ Releases
 ReleaseLinks
 Repositories
 RepositoryFiles
+RepositorySubmodules
 Runners
 Services
 Tags
