@@ -21,6 +21,7 @@ export interface ProjectSchema extends Record<string, unknown> {
   web_url: string;
   readme_url: string;
   tag_list?: string[];
+  topics?: string[];
   name: string;
   name_with_namespace: string;
   path: string;
