@@ -82,6 +82,7 @@ export const {
   ReleaseLinks,
   Repositories,
   RepositoryFiles,
+  RepositorySubmodules,
   Runners,
   Services,
   Tags,
