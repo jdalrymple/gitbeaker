@@ -18,7 +18,7 @@ export interface RepositorySubmoduleSchema extends Record<string, unknown> {
 }
 
 export class RepositorySubmodules<C extends boolean = false> extends BaseResource<C> {
-  update(
+  edit(
     projectId: string | number,
     submodule: string,
     branch: string,
@@ -26,6 +26,7 @@ export class RepositorySubmodules<C extends boolean = false> extends BaseResourc
     options?: BaseRequestOptions,
   ) {
     const [pId, sm] = [projectId, submodule].map(encodeURIComponent);
+
     return RequestHelper.put<RepositorySubmoduleSchema>()(
       this,
       `projects/${pId}/repository/submodules/${sm}`,
