@@ -1,3 +1,25 @@
+# v31.1.0 (Tue Jul 27 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work!
+
+#### 💥 Feature
+
+- Added RepositorySubmodules.ts [#1931](https://github.com/jdalrymple/gitbeaker/pull/1931) ([@Aliyss](https://github.com/Aliyss) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 15.14.0 to 16.0.0 [#1914](https://github.com/jdalrymple/gitbeaker/pull/1914) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Aliyss Snow ([@Aliyss](https://github.com/Aliyss))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change

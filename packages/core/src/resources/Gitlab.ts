@@ -70,6 +70,7 @@ import { Releases } from './Releases';
 import { ReleaseLinks } from './ReleaseLinks';
 import { Repositories } from './Repositories';
 import { RepositoryFiles } from './RepositoryFiles';
+import { RepositorySubmodules } from './RepositorySubmodules';
 import { Runners } from './Runners';
 import { Services } from './Services';
 import { Tags } from './Tags';
@@ -171,6 +172,7 @@ type BundledService<C extends boolean = false> = {
   ReleaseLinks: ReleaseLinks<C>;
   Repositories: Repositories<C>;
   RepositoryFiles: RepositoryFiles<C>;
+  RepositorySubmodules: RepositorySubmodules<C>;
   Runners: Runners<C>;
   Services: Services<C>;
   Tags: Tags<C>;
@@ -270,6 +272,7 @@ const resources = {
   ReleaseLinks,
   Repositories,
   RepositoryFiles,
+  RepositorySubmodules,
   Runners,
   Services,
   Tags,

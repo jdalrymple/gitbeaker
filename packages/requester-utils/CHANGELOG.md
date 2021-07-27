@@ -1,3 +1,15 @@
+# v31.1.0 (Tue Jul 27 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 15.14.0 to 16.0.0 [#1914](https://github.com/jdalrymple/gitbeaker/pull/1914) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
