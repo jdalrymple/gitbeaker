@@ -21,8 +21,13 @@ export interface ProjectSchema extends Record<string, unknown> {
   web_url: string;
   readme_url: string;
   tag_list?: string[];
+  topics?: string[];
   name: string;
   name_with_namespace: string;
+  namespace: Pick<
+    NamespaceSchema,
+    'id' | 'name' | 'path' | 'kind' | 'full_path' | 'avatar_url' | 'web_url'
+  >;
   path: string;
   path_with_namespace: string;
   created_at: string;
@@ -66,10 +71,6 @@ export interface ProjectExtendedSchema extends ProjectSchema {
     next_run_at: string;
   };
   creator_id: number;
-  namespace: Pick<
-    NamespaceSchema,
-    'id' | 'name' | 'path' | 'kind' | 'full_path' | 'avatar_url' | 'web_url'
-  >;
   import_status: string;
   import_error?: string;
   permissions: {
