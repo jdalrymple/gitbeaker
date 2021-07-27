@@ -85,7 +85,7 @@ describe('RepositoryFiles.showBlame', () => {
 
 describe('RepositoryFiles.showRaw', () => {
   it('should request GET /projects/:id/repository/files/:path', async () => {
-    await service.showRaw(1, 'path', 'ref');
+    await service.showRaw(1, 'path', { ref: 'ref' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

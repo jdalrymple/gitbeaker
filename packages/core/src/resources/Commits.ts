@@ -10,7 +10,7 @@ import {
 
 export interface CommitAction {
   /** The action to perform */
-  action: 'create' | 'delete' | 'move' | 'update';
+  action: 'create' | 'delete' | 'move' | 'update' | 'chmod';
   /** Full path to the file. Ex. lib/class.rb */
   filePath: string;
   /** Original full path to the file being moved.Ex.lib / class1.rb */
@@ -21,6 +21,8 @@ export interface CommitAction {
   encoding?: string;
   /** Last known file commit id. Will be only considered in update, move and delete actions. */
   lastCommitId?: string;
+  /** When true/false enables/disables the execute flag on the file. Only considered for chmod action. */
+  execute_filemode?: boolean;
 }
 
 // Response structures
