@@ -1,3 +1,72 @@
+# 31.1.0 (Tue Jul 27 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Added RepositorySubmodules.ts [#1931](https://github.com/jdalrymple/gitbeaker/pull/1931) ([@Aliyss](https://github.com/Aliyss) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @typescript-eslint/eslint-plugin from 4.28.4 to 4.28.5 [#1971](https://github.com/jdalrymple/gitbeaker/pull/1971) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 19.0.1 to 19.0.2 [#1972](https://github.com/jdalrymple/gitbeaker/pull/1972) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.4 to 4.28.5 [#1970](https://github.com/jdalrymple/gitbeaker/pull/1970) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-node-resolve from 13.0.2 to 13.0.4 [#1967](https://github.com/jdalrymple/gitbeaker/pull/1967) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.1.0 to 11.1.1 [#1969](https://github.com/jdalrymple/gitbeaker/pull/1969) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.1 to 16.4.3 [#1968](https://github.com/jdalrymple/gitbeaker/pull/1968) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.53.3 to 2.54.0 [#1966](https://github.com/jdalrymple/gitbeaker/pull/1966) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.29.3 to 10.30.0 [#1961](https://github.com/jdalrymple/gitbeaker/pull/1961) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.0.1 to 11.1.0 [#1965](https://github.com/jdalrymple/gitbeaker/pull/1965) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.0 to 16.4.1 [#1960](https://github.com/jdalrymple/gitbeaker/pull/1960) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.29.3 to 10.30.0 [#1962](https://github.com/jdalrymple/gitbeaker/pull/1962) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.29.3 to 10.30.0 [#1959](https://github.com/jdalrymple/gitbeaker/pull/1959) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.53.2 to 2.53.3 [#1958](https://github.com/jdalrymple/gitbeaker/pull/1958) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-jest from 24.3.7 to 24.4.0 [#1956](https://github.com/jdalrymple/gitbeaker/pull/1956) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.12.3 to 1.13.0 [#1957](https://github.com/jdalrymple/gitbeaker/pull/1957) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-jest from 27.0.3 to 27.0.4 [#1955](https://github.com/jdalrymple/gitbeaker/pull/1955) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-jest from 24.3.6 to 24.3.7 [#1954](https://github.com/jdalrymple/gitbeaker/pull/1954) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.3.3 to 16.4.0 [#1953](https://github.com/jdalrymple/gitbeaker/pull/1953) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.3 to 4.28.4 [#1951](https://github.com/jdalrymple/gitbeaker/pull/1951) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump codecov from 3.8.2 to 3.8.3 [#1952](https://github.com/jdalrymple/gitbeaker/pull/1952) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.28.3 to 4.28.4 [#1950](https://github.com/jdalrymple/gitbeaker/pull/1950) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint from 7.30.0 to 7.31.0 [#1946](https://github.com/jdalrymple/gitbeaker/pull/1946) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.3.2 to 16.3.3 [#1945](https://github.com/jdalrymple/gitbeaker/pull/1945) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 19.0.0 to 19.0.1 [#1943](https://github.com/jdalrymple/gitbeaker/pull/1943) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-node-resolve from 13.0.0 to 13.0.2 [#1944](https://github.com/jdalrymple/gitbeaker/pull/1944) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.53.1 to 2.53.2 [#1942](https://github.com/jdalrymple/gitbeaker/pull/1942) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.3.1 to 16.3.2 [#1941](https://github.com/jdalrymple/gitbeaker/pull/1941) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.0.0 to 11.0.1 [#1940](https://github.com/jdalrymple/gitbeaker/pull/1940) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.2 to 4.28.3 [#1939](https://github.com/jdalrymple/gitbeaker/pull/1939) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.28.2 to 4.28.3 [#1938](https://github.com/jdalrymple/gitbeaker/pull/1938) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.3.0 to 16.3.1 [#1935](https://github.com/jdalrymple/gitbeaker/pull/1935) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 10.0.0 to 10.1.0 [#1934](https://github.com/jdalrymple/gitbeaker/pull/1934) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.52.8 to 2.53.1 [#1933](https://github.com/jdalrymple/gitbeaker/pull/1933) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.0.1 to 16.3.0 [#1928](https://github.com/jdalrymple/gitbeaker/pull/1928) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.0.0 to 16.0.1 [#1927](https://github.com/jdalrymple/gitbeaker/pull/1927) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.52.7 to 2.52.8 [#1926](https://github.com/jdalrymple/gitbeaker/pull/1926) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/jest from 26.0.23 to 26.0.24 [#1925](https://github.com/jdalrymple/gitbeaker/pull/1925) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 7.0.0 to 7.0.1 [#1924](https://github.com/jdalrymple/gitbeaker/pull/1924) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.28.1 to 4.28.2 [#1923](https://github.com/jdalrymple/gitbeaker/pull/1923) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.1 to 4.28.2 [#1922](https://github.com/jdalrymple/gitbeaker/pull/1922) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump prettier from 2.3.0 to 2.3.2 [#1901](https://github.com/jdalrymple/gitbeaker/pull/1901) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Bump @types/node from 15.14.0 to 16.0.0 [#1914](https://github.com/jdalrymple/gitbeaker/pull/1914) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📝 Documentation
+
+- Update README.md [#1913](https://github.com/jdalrymple/gitbeaker/pull/1913) ([@Aliyss](https://github.com/Aliyss) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Aliyss Snow ([@Aliyss](https://github.com/Aliyss))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
