@@ -72,6 +72,7 @@ export { Releases } from './Releases';
 export { ReleaseLinks } from './ReleaseLinks';
 export { Repositories } from './Repositories';
 export { RepositoryFiles } from './RepositoryFiles';
+export { RepositorySubmodules } from './RepositorySubmodules';
 export { Runners } from './Runners';
 export { Services } from './Services';
 export { Tags } from './Tags';

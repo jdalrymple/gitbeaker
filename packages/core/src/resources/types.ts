@@ -96,6 +96,7 @@ export {
   RepositoryFileBlameSchema,
   RepositoryFileSchema,
 } from './RepositoryFiles';
+export { RepositorySubmoduleSchema } from './RepositorySubmodules';
 export { RunnerSchema, RunnerExtendedSchema } from './Runners';
 export { SupportedService, ServiceSchema } from './Services';
 export { TagSchema } from './Tags';
