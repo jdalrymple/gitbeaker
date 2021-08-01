@@ -1,4 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
+import { lookup as mimeLookup } from 'mime-types';
 import { UserSchema } from './Users';
 import { NamespaceSchema } from './Namespaces';
 import { LicenseTemplateSchema } from './LicenseTemplates';
@@ -278,10 +279,13 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {
     const pId = encodeURIComponent(projectId);
+    const meta = { ...defaultMetadata, ...metadata };
+
+    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename)
 
     return RequestHelper.post<ProjectFileUploadSchema>()(this, `projects/${pId}/uploads`, {
       isForm: true,
-      file: [content, { ...defaultMetadata, ...metadata }],
+      file: [content, meta],
       ...options,
     });
   }
