@@ -1862,9 +1862,9 @@
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
 "@types/node@*", "@types/node@^16.0.0":
-  version "16.4.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.3.tgz#c01c1a215721f6dec71b47d88b4687463601ba48"
-  integrity sha512-GKM4FLMkWDc0sfx7tXqPWkM6NBow1kge0fgQh0bOnlqo4iT1kvTvMEKE0c1RtUGnbLlGRXiAA8SumE//90uKAg==
+  version "16.4.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.7.tgz#f7afa78769d4b477f5092d7c3468e2e8653d779c"
+  integrity sha512-aDDY54sst8sx47CWT6QQqIZp45yURq4dic0+HCYfYNcY5Ejlb/CLmFnRLfy3wQuYafOeh3lB/DAKaqRKBtcZmA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -7647,9 +7647,9 @@ playwright-core@>=1.2.0:
     yazl "^2.5.1"
 
 playwright@^1.9.2:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.13.0.tgz#aadb3b992763253ef40f29ae887df8d67a142fc5"
-  integrity sha512-GA5OyEeKx1v/pRcANmYncCT67Y7Y4N5zLRU5E690dn/Id10sooR5hQZmCDYsjXlutZb/1q0R3sITALnvhEjCjg==
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.13.1.tgz#53c49244ffa7fc2d5d8bf7ce87739393206eda5e"
+  integrity sha512-pGbILcUV1+Yx0fcRJZBEIsqTDjQSwGYkJ4tVUQUtuAyMuHg5B++Nasl+pIeIJRMqKSWTyvZfPxJuPIGsLJgiFg==
   dependencies:
     commander "^6.1.0"
     debug "^4.1.1"
@@ -8350,9 +8350,9 @@ rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.8.1:
     estree-walker "^0.6.1"
 
 rollup@^2.47.0:
-  version "2.54.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.54.0.tgz#99ea816e8e9b1c6af3ab957a4e7a8f78dbd87773"
-  integrity sha512-RHzvstAVwm9A751NxWIbGPFXs3zL4qe/eYg+N7WwGtIXVLy1cK64MiU37+hXeFm1jqipK6DGgMi6Z2hhPuCC3A==
+  version "2.55.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.55.1.tgz#66a444648e2fb603d8e329e77a61c608a6510fda"
+  integrity sha512-1P9w5fpb6b4qroePh8vHKGIvPNxwoCQhjJpIqfZGHLKpZ0xcU2/XBmFxFbc9697/6bmHpmFTLk5R1dAQhFSo0g==
   optionalDependencies:
     fsevents "~2.3.2"
 

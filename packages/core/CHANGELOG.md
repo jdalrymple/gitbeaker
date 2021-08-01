@@ -1,3 +1,16 @@
+# v32.0.0 (Tue Jul 27 2021)
+
+#### 💥 Breaking Change
+
+- Added Topics to ProjectSchema & Updated Commit.ts [#1932](https://github.com/jdalrymple/gitbeaker/pull/1932) ([@Aliyss](https://github.com/Aliyss) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Aliyss Snow ([@Aliyss](https://github.com/Aliyss))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v31.1.0 (Tue Jul 27 2021)
 
 :tada: This release contains work from a new contributor! :tada:
