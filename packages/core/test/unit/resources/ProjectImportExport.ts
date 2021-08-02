@@ -47,7 +47,7 @@ describe('ProjectImportExport.exportStatus', () => {
 });
 
 describe('ProjectImportExport.import', () => {
-  it.only('should request POST /projects/import', async () => {
+  it('should request POST /projects/import', async () => {
     await service.import('content', 'path');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
@@ -61,11 +61,11 @@ describe('ProjectImportExport.import', () => {
   });
 
   it('should request POST /projects/import with metadata', async () => {
-    await service.import('content', 'path', { metadata: { filename: 'filename' } });
+    await service.import('content', 'path', { metadata: { filename: 'filename.txt' } });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
-      file: ['content', { filename: 'filename', contentType: 'application/octet-stream' }],
+      file: ['content', { filename: 'filename.txt', contentType: 'text/plain' }],
       path: 'path',
     });
   });
