@@ -47,14 +47,14 @@ describe('ProjectImportExport.exportStatus', () => {
 });
 
 describe('ProjectImportExport.import', () => {
-  it('should request POST /projects/import', async () => {
+  it.only('should request POST /projects/import', async () => {
     await service.import('content', 'path');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
       file: [
         'content',
-        { filename: expect.stringContaining('.tar.gz'), contentType: 'application/octet-stream' },
+        { filename: expect.stringContaining('.tar.gz'), contentType: 'application/gzip' },
       ],
       path: 'path',
     });

@@ -281,7 +281,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     const pId = encodeURIComponent(projectId);
     const meta = { ...defaultMetadata, ...metadata };
 
-    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename)
+    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename);
 
     return RequestHelper.post<ProjectFileUploadSchema>()(this, `projects/${pId}/uploads`, {
       isForm: true,

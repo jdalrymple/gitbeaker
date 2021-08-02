@@ -35,7 +35,10 @@ describe('PackageRegistry.publish', () => {
       `projects/1/packages/generic/name/v1.0/filename.txt`,
       {
         isForm: true,
-        file: ['content', { filename: 'filename.txt' }],
+        file: ['content', {
+          contentType: 'text/plain',
+          filename: 'filename.txt'
+        }],
       },
     );
   });

@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { mimeLookup } from 'mime-types';
+import { lookup as mimeLookup } from 'mime-types';
 import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
@@ -68,12 +68,12 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
   ) {
     const meta = { ...defaultMetadata, ...metadata };
 
-    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename)
+    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename);
 
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
       isForm: true,
       ...options,
-      file: [content, { ...defaultMetadata, ...metadata }],
+      file: [content, meta],
       path,
     });
   }

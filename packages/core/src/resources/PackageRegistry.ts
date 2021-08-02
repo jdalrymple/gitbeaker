@@ -12,9 +12,9 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     { contentType, ...options }: { contentType?: string } & { status?: 'default' | 'hidden' } = {},
   ) {
     const pId = encodeURIComponent(projectId);
-    const meta = { filename, contentType }
+    const meta = { filename, contentType };
 
-    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename)
+    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename);
 
     return RequestHelper.put<{ message: string }>()(
       this,
