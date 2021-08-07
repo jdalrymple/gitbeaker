@@ -1,3 +1,29 @@
+# 32.1.0 (Tue Aug 03 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Revert pagination changes. Information is available, just not through gitlab.com [#1985](https://github.com/jdalrymple/gitbeaker/pull/1985) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump chalk from 4.1.1 to 4.1.2 [#1981](https://github.com/jdalrymple/gitbeaker/pull/1981) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.7 to 16.4.10 [#1982](https://github.com/jdalrymple/gitbeaker/pull/1982) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint from 7.31.0 to 7.32.0 [#1980](https://github.com/jdalrymple/gitbeaker/pull/1980) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.55.0 to 2.55.1 [#1978](https://github.com/jdalrymple/gitbeaker/pull/1978) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.13.0 to 1.13.1 [#1977](https://github.com/jdalrymple/gitbeaker/pull/1977) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.6 to 16.4.7 [#1976](https://github.com/jdalrymple/gitbeaker/pull/1976) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.4 to 16.4.6 [#1975](https://github.com/jdalrymple/gitbeaker/pull/1975) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.54.0 to 2.55.0 [#1974](https://github.com/jdalrymple/gitbeaker/pull/1974) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.3 to 16.4.4 [#1973](https://github.com/jdalrymple/gitbeaker/pull/1973) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 32.0.0 (Tue Jul 27 2021)
 
 #### 💥 Breaking Change

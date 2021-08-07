@@ -1,3 +1,15 @@
+# v32.1.0 (Tue Aug 03 2021)
+
+#### 🐛 Bug Fix
+
+- Revert pagination changes. Information is available, just not through gitlab.com [#1985](https://github.com/jdalrymple/gitbeaker/pull/1985) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v32.0.0 (Tue Jul 27 2021)
 
 #### 💥 Breaking Change
