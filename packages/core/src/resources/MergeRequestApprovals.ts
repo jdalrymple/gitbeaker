@@ -194,10 +194,23 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     });
   }
 
-  editApprovalsRequired(
+  editProjectApprovalConfig(
+    projectId: string | number,
+    options: Partial<MergeRequestApprovalConfigSchema> & BaseRequestOptions = {},
+  ) {
+    const pId = encodeURIComponent(projectId);
+
+    const url = `projects/${pId}/approvals`;
+
+    return RequestHelper.put<MergeRequestApprovalConfigSchema>()(this, url, {
+      ...options,
+    });
+  }
+
+  editApprovalConfig(
     projectId: string | number,
     mergerequestIid: number,
-    approvals_required: number,
+    approvalsRequired: number,
     options?: BaseRequestOptions,
   ) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
@@ -205,7 +218,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     const url = `projects/${pId}/merge_requests/${mIid}/approvals`;
 
     return RequestHelper.post<MergeRequestApprovalStatusSchema>()(this, url, {
-      approvals_required,
+      approvalsRequired,
       options,
     });
   }
