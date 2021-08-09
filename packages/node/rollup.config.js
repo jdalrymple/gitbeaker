@@ -1,4 +1,5 @@
 import ts from 'rollup-plugin-typescript2';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
 export default {
@@ -25,5 +26,6 @@ export default {
       },
       useTsconfigDeclarationDir: true,
     }),
+    json(),
   ],
 };
