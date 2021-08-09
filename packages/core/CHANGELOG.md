@@ -1,3 +1,15 @@
+# v32.1.1 (Mon Aug 09 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Improved mime handling [#1979](https://github.com/jdalrymple/gitbeaker/pull/1979) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v32.1.0 (Tue Aug 03 2021)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,27 @@
+# 32.1.1 (Mon Aug 09 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Improved mime handling [#1979](https://github.com/jdalrymple/gitbeaker/pull/1979) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump rollup from 2.56.0 to 2.56.1 [#1993](https://github.com/jdalrymple/gitbeaker/pull/1993) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.55.1 to 2.56.0 [#1992](https://github.com/jdalrymple/gitbeaker/pull/1992) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.12 to 16.4.13 [#1991](https://github.com/jdalrymple/gitbeaker/pull/1991) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.10 to 16.4.12 [#1989](https://github.com/jdalrymple/gitbeaker/pull/1989) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tar from 4.4.13 to 4.4.15 [#1988](https://github.com/jdalrymple/gitbeaker/pull/1988) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.28.5 to 4.29.0 [#1987](https://github.com/jdalrymple/gitbeaker/pull/1987) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.28.5 to 4.29.0 [#1986](https://github.com/jdalrymple/gitbeaker/pull/1986) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 32.1.0 (Tue Aug 03 2021)
 
 #### 🐛 Bug Fix
