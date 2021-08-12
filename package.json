@@ -8,7 +8,7 @@
     "@auto-it/core": "^10.27.1",
     "@auto-it/first-time-contributor": "^10.27.1",
     "@auto-it/released": "^10.27.1",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.0.0",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "all-contributors-cli": "^6.20.0",
