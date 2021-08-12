@@ -1,3 +1,33 @@
+# 32.1.2 (Thu Aug 12 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix showArchive return type [#2001](https://github.com/jdalrymple/gitbeaker/pull/2001) ([@saada](https://github.com/saada) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump tslib from 2.3.0 to 2.3.1 [#2002](https://github.com/jdalrymple/gitbeaker/pull/2002) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.4.13 to 16.6.0 [#2003](https://github.com/jdalrymple/gitbeaker/pull/2003) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.56.1 to 2.56.2 [#2000](https://github.com/jdalrymple/gitbeaker/pull/2000) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.29.0 to 4.29.1 [#1997](https://github.com/jdalrymple/gitbeaker/pull/1997) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.29.0 to 4.29.1 [#1998](https://github.com/jdalrymple/gitbeaker/pull/1998) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-import from 2.23.4 to 2.24.0 [#1994](https://github.com/jdalrymple/gitbeaker/pull/1994) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.1.1 to 11.1.2 [#1996](https://github.com/jdalrymple/gitbeaker/pull/1996) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 10.1.0 to 10.2.0 [#1995](https://github.com/jdalrymple/gitbeaker/pull/1995) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Mahmoud Saada ([@saada](https://github.com/saada))
+
+---
+
 # 32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt
