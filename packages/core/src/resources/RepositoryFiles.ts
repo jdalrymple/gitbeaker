@@ -109,13 +109,16 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     );
   }
 
-  showRaw(projectId: string | number, filePath: string, options?: BaseRequestOptions) {
+  showRaw(projectId: string | number, filePath: string, ref: string, options?: BaseRequestOptions) {
     const [pId, path] = [projectId, filePath].map(encodeURIComponent);
 
     return RequestHelper.get()(
       this,
       `projects/${pId}/repository/files/${path}/raw`,
-      options,
+      {
+        ref,
+        ...options,
+      },
     ) as unknown as Promise<Blob>;
   }
 }
