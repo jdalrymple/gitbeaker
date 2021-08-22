@@ -11,6 +11,7 @@ function mockLink(url: string, page: number, perPage: number, maxPages: number) 
     current: page,
     next: page + 1 <= maxPages ? page + 1 : undefined,
     first: 1,
+    last: maxPages,
   };
 
   const links = Object.entries(type).reduce((acc, [k, v]) => {
@@ -44,6 +45,8 @@ function mockedGetMany(url: string, { query }, maxPages = 10) {
       'x-page': page,
       'x-per-page': perPage,
       'x-prev-page': pagination.prev,
+      'x-total': maxPages * perPage,
+      'x-total-pages': maxPages,
     },
   };
 }
@@ -57,6 +60,7 @@ function mockedGetOne() {
     },
     headers: {
       'X-Page': 1,
+      'X-Total-Pages': 1,
     },
   };
 }
@@ -193,10 +197,12 @@ describe('RequestHelper.get()', () => {
     });
 
     expect(response.paginationInfo).toMatchObject({
+      total: 20,
       previous: 1,
       current: 2,
       next: 3,
       perPage: 2,
+      totalPages: 10,
     });
   });
 

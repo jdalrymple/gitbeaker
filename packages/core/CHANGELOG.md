@@ -1,3 +1,57 @@
+# v32.1.2 (Thu Aug 12 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix showArchive return type [#2001](https://github.com/jdalrymple/gitbeaker/pull/2001) ([@saada](https://github.com/saada) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Mahmoud Saada ([@saada](https://github.com/saada))
+
+---
+
+# v32.1.1 (Mon Aug 09 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Improved mime handling [#1979](https://github.com/jdalrymple/gitbeaker/pull/1979) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.1.0 (Tue Aug 03 2021)
+
+#### 🐛 Bug Fix
+
+- Revert pagination changes. Information is available, just not through gitlab.com [#1985](https://github.com/jdalrymple/gitbeaker/pull/1985) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.0.0 (Tue Jul 27 2021)
+
+#### 💥 Breaking Change
+
+- Added Topics to ProjectSchema & Updated Commit.ts [#1932](https://github.com/jdalrymple/gitbeaker/pull/1932) ([@Aliyss](https://github.com/Aliyss) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Aliyss Snow ([@Aliyss](https://github.com/Aliyss))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v31.1.0 (Tue Jul 27 2021)
 
 :tada: This release contains work from a new contributor! :tada:
