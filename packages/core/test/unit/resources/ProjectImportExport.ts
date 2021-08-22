@@ -54,18 +54,18 @@ describe('ProjectImportExport.import', () => {
       isForm: true,
       file: [
         'content',
-        { filename: expect.stringContaining('.tar.gz'), contentType: 'application/octet-stream' },
+        { filename: expect.stringContaining('.tar.gz'), contentType: 'application/gzip' },
       ],
       path: 'path',
     });
   });
 
   it('should request POST /projects/import with metadata', async () => {
-    await service.import('content', 'path', { metadata: { filename: 'filename' } });
+    await service.import('content', 'path', { metadata: { filename: 'filename.txt' } });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
-      file: ['content', { filename: 'filename', contentType: 'application/octet-stream' }],
+      file: ['content', { filename: 'filename.txt', contentType: 'text/plain' }],
       path: 'path',
     });
   });

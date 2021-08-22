@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import builtins from 'rollup-plugin-node-polyfills';
 import globals from 'rollup-plugin-node-globals';
 import ts from 'rollup-plugin-typescript2';
+import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
@@ -30,6 +31,7 @@ export default [
           },
         },
       }),
+      json(),
       commonjs(),
       terser({ mangle: false }),
     ],

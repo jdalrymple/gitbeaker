@@ -78,7 +78,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
       this,
       `projects/${pId}/repository/archive.${fileType}`,
       options as Record<string, unknown>,
-    ) as unknown as Promise<void>;
+    ) as unknown as Promise<string>;
   }
 
   showBlob(projectId: string | number, sha: string, options?: Sudo) {
