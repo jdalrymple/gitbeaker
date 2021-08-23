@@ -1,3 +1,19 @@
+# v32.2.0 (Mon Aug 23 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix(core): change Commits.diff response type to CommitDiffSchema[] [#2025](https://github.com/jdalrymple/gitbeaker/pull/2025) ([@F3n67u](https://github.com/F3n67u))
+
+#### Authors: 1
+
+- Feng Yu ([@F3n67u](https://github.com/F3n67u))
+
+---
+
 # v32.1.2 (Thu Aug 12 2021)
 
 :tada: This release contains work from a new contributor! :tada:

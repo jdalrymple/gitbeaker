@@ -1,3 +1,15 @@
+# v32.2.0 (Mon Aug 23 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-commonjs from 19.0.2 to 20.0.0 [#1983](https://github.com/jdalrymple/gitbeaker/pull/1983) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt
