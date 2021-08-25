@@ -53,7 +53,15 @@ export {
   DiffSchema,
   MergeRequestSchema,
 } from './MergeRequests';
-export { MergeRequestApprovalSchema, ApprovalRulesRequestOptions } from './MergeRequestApprovals';
+export {
+  ProjectLevelMergeRequestApprovalSchema,
+  ApprovedByEntity,
+  MergeRequestLevelMergeRequestApprovalSchema,
+  ApprovalRulesRequestOptions,
+  ApprovalRuleSchema,
+  ProjectLevelApprovalRuleSchema,
+  MergeRequestLevelApprovalRuleSchema
+} from './MergeRequestApprovals';
 export { MergeRequestNoteSchema } from './MergeRequestNotes';
 export { PackageSchema, PackageFileSchema } from './Packages';
 export {

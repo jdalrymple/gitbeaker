@@ -1,6 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { BaseRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 import { UserSchema } from './Users';
+import { GroupSchema } from './Groups';
+import { ProtectedBranchSchema } from './ProtectedBranches';
 
 export interface ProjectLevelMergeRequestApprovalSchema extends Record<string, unknown> {
   approvals_before_merge: number;
@@ -36,17 +38,35 @@ export type ApprovalRulesRequestOptions = {
   protectedBranchIds?: number[];
 };
 
+export interface ApprovalRuleSchema  extends Record<string, unknown> {
+  id: number;
+  name: string;
+  rule_type: string;
+  eligible_approvers?: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>[];
+  approvals_required: number;
+  users?: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>[];
+  groups?: GroupSchema[]
+  contains_hidden_groups: boolean;
+  overridden: boolean;
+}
+
+export interface ProjectLevelApprovalRuleSchema extends ApprovalRuleSchema {
+  protected_branches?: ProtectedBranchSchema[];
+}
+
+export interface MergeRequestLevelApprovalRuleSchema extends ApprovalRuleSchema {
+  source_rule?: string;
+}
+
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   configuration(
     projectId: string | number,
     options: BaseRequestOptions,
   ): Promise<ProjectLevelMergeRequestApprovalSchema>;
-
   configuration(
     projectId: string | number,
     options: { mergerequestIid: number } & BaseRequestOptions,
   ): Promise<MergeRequestLevelMergeRequestApprovalSchema>;
-
   configuration(
     projectId: string | number,
     { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
@@ -63,7 +83,6 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
     return RequestHelper.get()(this, url, options);
   }
-
 
   editConfiguration(
     projectId: string | number,
@@ -91,15 +110,24 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     return RequestHelper.post()(this, url, options);
   }
 
+  approvalRule(
+    projectId: string | number,
+    approvalRuleId: number,
+    options: BaseRequestOptions,
+  ) {
+    const [pId, aId] = [projectId, approvalRuleId].map(encodeURIComponent);
+
+    return RequestHelper.get()(this, `projects/${pId}/approval_rule/${aId}`, options);
+  }
 
   approvalRules(
     projectId: string | number,
     options: BaseRequestOptions,
-  ): Promise<ProjectLevelApprovalRulesSchema>;
+  ): Promise<ProjectLevelApprovalRuleSchema>;
   approvalRules(
     projectId: string | number,
     options: { mergerequestIid: number } & BaseRequestOptions,
-  ): Promise<MergeRequestLevelApprovalRulesSchema>;
+  ): Promise<MergeRequestLevelApprovalRuleSchema>;
   approvalRules(
     projectId: string | number,
     { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
@@ -117,7 +145,18 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     return RequestHelper.get()(this, url, options);
   }
 
-
+  addApprovalRule(
+    projectId: string | number,
+    name: string,
+    approvalsRequired: number,
+    options: ApprovalRulesRequestOptions & BaseRequestOptions,
+  ): Promise<ProjectLevelApprovalRuleSchema>;
+  addApprovalRule(
+    projectId: string | number,
+    name: string,
+    approvalsRequired: number,
+    options: { mergerequestIid: number } & ApprovalRulesRequestOptions & BaseRequestOptions,
+  ): Promise<MergeRequestLevelApprovalRuleSchema>;
   addApprovalRule(
     projectId: string | number,
     name: string,
@@ -155,45 +194,29 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     );
   }
 
-  approve(
-    projectId: string | number,
-    mergerequestIid: number,
-    options?: { sha?: string } & BaseRequestOptions,
-  ) {
-    const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
-
-    return RequestHelper.post()(this, `projects/${pId}/merge_requests/${mIid}/approve`, options);
-  }
-
-  approvers(
-    projectId: string | number,
-    approverIds: number[],
-    approverGroupIds: (string | number)[],
-    { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
-  ) {
-    const pId = encodeURIComponent(projectId);
-
-    let url: string;
-
-    if (mergerequestIid) {
-      const mIid = encodeURIComponent(mergerequestIid);
-      url = `projects/${pId}/merge_requests/${mIid}/approvers`;
-    } else {
-      url = `projects/${pId}/approvers`;
-    }
-
-    return RequestHelper.put()(this, url, { approverIds, approverGroupIds, ...options });
-  }
-
   editApprovalRule(
     projectId: string | number,
-    approvalRuleId: number,
     name: string,
     approvalsRequired: number,
+    approvalRuleId: number,
+    options: ApprovalRulesRequestOptions & BaseRequestOptions,
+  ): Promise<ProjectLevelApprovalRuleSchema>;
+  editApprovalRule(
+    projectId: string | number,
+    name: string,
+    approvalsRequired: number,
+    approvalRuleId: number,
+    options: { mergerequestIid: number } & ApprovalRulesRequestOptions & BaseRequestOptions,
+  ): Promise<MergeRequestLevelApprovalRuleSchema>;
+  editApprovalRule(
+    projectId: string | number,
+    name: string,
+    approvalsRequired: number,
+    approvalRuleId: number,
     {
       mergerequestIid,
       ...options
-    }: { mergerequestIid?: number } & ApprovalRulesRequestOptions & BaseRequestOptions = {},
+    }: { mergerequestIid?: number } & ApprovalRulesRequestOptions & BaseRequestOptions,
   ) {
     const [pId, aId] = [projectId, approvalRuleId].map(encodeURIComponent);
 
@@ -209,28 +232,22 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     return RequestHelper.put()(this, url, { name, approvalsRequired, ...options });
   }
 
-  editApprovals(
-    projectId: string | number,
-    { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
-  ) {
-    const pId = encodeURIComponent(projectId);
-
-    let url: string;
-
-    if (mergerequestIid) {
-      const mIid = encodeURIComponent(mergerequestIid);
-      url = `projects/${pId}/merge_requests/${mIid}/approvals`;
-    } else {
-      url = `projects/${pId}/approvals`;
-    }
-
-    return RequestHelper.post()(this, url, options);
-  }
-
   removeApprovalRule(
     projectId: string | number,
     approvalRuleId: number,
-    { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
+    options: Sudo,
+  ): Promise<void>;
+  removeApprovalRule(
+    projectId: string | number,
+    approvalRuleId: number,
+    options: { mergerequestIid: number } & Sudo,
+  ): Promise<void>;
+  removeApprovalRule(
+    projectId: string | number,
+    approvalRuleId: number,
+    {
+      mergerequestIid,
+    }: { mergerequestIid?: number } & Sudo,
   ) {
     const [pId, aId] = [projectId, approvalRuleId].map(encodeURIComponent);
 
@@ -243,12 +260,22 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
       url = `projects/${pId}/approval_rules/${aId}`;
     }
 
-    return RequestHelper.del()(this, url, options);
+    return RequestHelper.del()(this, url);
+  }
+
+  approve(
+    projectId: string | number,
+    mergerequestIid: number,
+    options?: { sha?: string } & BaseRequestOptions,
+  ) {
+    const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
+
+    return RequestHelper.post<MergeRequestLevelMergeRequestApprovalSchema>()(this, `projects/${pId}/merge_requests/${mIid}/approve`, options);
   }
 
   unapprove(projectId: string | number, mergerequestIid: number, options?: Sudo) {
     const [pId, mIid] = [projectId, mergerequestIid].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/merge_requests/${mIid}/unapprove`, options);
+    return RequestHelper.post<void>()(this, `projects/${pId}/merge_requests/${mIid}/unapprove`, options);
   }
 }
