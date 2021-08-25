@@ -60,7 +60,7 @@ export {
   ApprovalRulesRequestOptions,
   ApprovalRuleSchema,
   ProjectLevelApprovalRuleSchema,
-  MergeRequestLevelApprovalRuleSchema
+  MergeRequestLevelApprovalRuleSchema,
 } from './MergeRequestApprovals';
 export { MergeRequestNoteSchema } from './MergeRequestNotes';
 export { PackageSchema, PackageFileSchema } from './Packages';
