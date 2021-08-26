@@ -64,7 +64,7 @@ export interface MergeRequestLevelApprovalRuleSchema extends ApprovalRuleSchema 
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   configuration(
     projectId: string | number,
-    options: BaseRequestOptions,
+    options?: BaseRequestOptions,
   ): Promise<ProjectLevelMergeRequestApprovalSchema>;
 
   configuration(
@@ -91,7 +91,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   editConfiguration(
     projectId: string | number,
-    options: BaseRequestOptions,
+    options?: BaseRequestOptions,
   ): Promise<ProjectLevelMergeRequestApprovalSchema>;
 
   editConfiguration(
@@ -120,12 +120,12 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   approvalRule(projectId: string | number, approvalRuleId: number, options: BaseRequestOptions) {
     const [pId, aId] = [projectId, approvalRuleId].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/approval_rule/${aId}`, options);
+    return RequestHelper.get()(this, `projects/${pId}/approval_rules/${aId}`, options);
   }
 
   approvalRules(
     projectId: string | number,
-    options: BaseRequestOptions,
+    options?: BaseRequestOptions,
   ): Promise<ProjectLevelApprovalRuleSchema>;
 
   approvalRules(
@@ -154,7 +154,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options: ApprovalRulesRequestOptions & BaseRequestOptions,
+    options?: ApprovalRulesRequestOptions & BaseRequestOptions,
   ): Promise<ProjectLevelApprovalRuleSchema>;
 
   addApprovalRule(
