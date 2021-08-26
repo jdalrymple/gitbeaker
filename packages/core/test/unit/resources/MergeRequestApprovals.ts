@@ -27,7 +27,7 @@ describe('Instantiating MergeRequestApprovals service', () => {
 });
 
 describe('MergeRequestApprovals.configuration', () => {
-  it('should request GET /projects/:id/approvals', async () => {
+  it('should request GET /projects/:id/approvals without options', async () => {
     await service.configuration(3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/3/approvals', {});
