@@ -204,7 +204,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   diff(projectId: string | number, sha: string, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<CommitDiffSchema>()(
+    return RequestHelper.get<CommitDiffSchema[]>()(
       this,
       `projects/${pId}/repository/commits/${sha}/diff`,
       options,

@@ -1,3 +1,36 @@
+# v32.2.0 (Mon Aug 23 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix(core): change Commits.diff response type to CommitDiffSchema[] [#2025](https://github.com/jdalrymple/gitbeaker/pull/2025) ([@F3n67u](https://github.com/F3n67u))
+
+#### Authors: 1
+
+- Feng Yu ([@F3n67u](https://github.com/F3n67u))
+
+---
+
+# v32.1.2 (Thu Aug 12 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix showArchive return type [#2001](https://github.com/jdalrymple/gitbeaker/pull/2001) ([@saada](https://github.com/saada) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Mahmoud Saada ([@saada](https://github.com/saada))
+
+---
+
 # v32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt
