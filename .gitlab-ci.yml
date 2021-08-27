@@ -118,6 +118,11 @@ test:unit:utils:
 #     paths:
 #       - runner_logs
 
+test:integration:core:
+  needs: ['build']
+  stage: test
+  script: yarn workspace @gitbeaker/core test:integration
+
 # test:integration:browser:
 #   <<: *integration-test
 #   image: mcr.microsoft.com/playwright:bionic
