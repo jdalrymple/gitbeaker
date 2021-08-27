@@ -1,3 +1,15 @@
+# v33.0.0 (Fri Aug 27 2021)
+
+#### 💥 Breaking Change
+
+- Update MergeRequestApprovals API to match latest Gitlab API Release [#2035](https://github.com/jdalrymple/gitbeaker/pull/2035) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
