@@ -1,3 +1,27 @@
+# 32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`
+  - Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 16.7.1 to 16.7.2 [#2036](https://github.com/jdalrymple/gitbeaker/pull/2036) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-import from 2.24.1 to 2.24.2 [#2033](https://github.com/jdalrymple/gitbeaker/pull/2033) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.14.0 to 1.14.1 [#2034](https://github.com/jdalrymple/gitbeaker/pull/2034) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 7.0.1 to 7.0.2 [#2032](https://github.com/jdalrymple/gitbeaker/pull/2032) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.29.2 to 4.29.3 [#2028](https://github.com/jdalrymple/gitbeaker/pull/2028) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.56.2 to 2.56.3 [#2029](https://github.com/jdalrymple/gitbeaker/pull/2029) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.29.2 to 4.29.3 [#2027](https://github.com/jdalrymple/gitbeaker/pull/2027) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 32.2.0 (Mon Aug 23 2021)
 
 :tada: This release contains work from a new contributor! :tada:
