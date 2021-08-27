@@ -1,7 +1,5 @@
 import 'jest-extended';
-import * as Core from '../../../src';
-
-const { getAPIMap, Resources } = Core;
+import { getAPIMap, Resources } from '../../../src';
 
 describe('getAPIMap', () => {
   it('should return object representing all resources in JSON format', () => {
