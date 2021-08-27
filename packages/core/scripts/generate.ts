@@ -1,9 +1,8 @@
 import getParamNames from 'get-param-names';
-import { BaseResource } from '@gitbeaker/requester-utils';
+import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
 import { outputJsonSync } from 'fs-extra';
-import * as Resources from '../src/resources';
+import * as resources from '../src/resources';
 
-const { Gitlab, ...resources } = Resources;
 
 function isGetter(x: object, name: string) {
   return (Object.getOwnPropertyDescriptor(x, name) || {}).get;
@@ -42,7 +41,7 @@ export function buildMap() {
   const baseArgs = Object.keys(getParamNames(BaseResource)[0]);
 
   for (const [name, resource] of Object.entries(resources)) {
-    const r = new resource({ requesterFn: () => ({}) });
+    const r = new resource({ requesterFn: () => ({} as RequesterType) });
 
     map[name] = [{ name: 'constructor', args: baseArgs }];
 
