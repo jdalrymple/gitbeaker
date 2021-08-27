@@ -1,3 +1,15 @@
+# v32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v32.2.0 (Mon Aug 23 2021)
 
 #### 🔩 Dependency Updates
