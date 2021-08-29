@@ -43,7 +43,7 @@ export async function processBody(response: Response) {
     return response.text().then((t) => t || '');
   }
 
-  return response.blob().then((b) => Buffer.from(b as unknown as SharedArrayBuffer));
+  return response.arrayBuffer();
 }
 
 export async function handler(endpoint: string, options: Record<string, unknown>) {
