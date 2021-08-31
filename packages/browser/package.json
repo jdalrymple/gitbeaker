@@ -50,6 +50,7 @@
   ],
   "license": "MIT",
   "browser": "dist/index.js",
+  "main": "dist/index.cjs.js",
   "types": "dist/types",
   "repository": {
     "type": "git",
