@@ -1,3 +1,31 @@
+# 33.0.1 (Thu Sep 02 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`
+  - Add a CJS build to the browser package [#2047](https://github.com/jdalrymple/gitbeaker/pull/2047) ([@sagacity](https://github.com/sagacity))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 16.7.8 to 16.7.10 [#2050](https://github.com/jdalrymple/gitbeaker/pull/2050) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tar from 4.4.15 to 4.4.19 [#2048](https://github.com/jdalrymple/gitbeaker/pull/2048) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.29.3 to 4.30.0 [#2045](https://github.com/jdalrymple/gitbeaker/pull/2045) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.29.3 to 4.30.0 [#2046](https://github.com/jdalrymple/gitbeaker/pull/2046) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.7.6 to 16.7.8 [#2044](https://github.com/jdalrymple/gitbeaker/pull/2044) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.7.2 to 16.7.6 [#2042](https://github.com/jdalrymple/gitbeaker/pull/2042) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.0.6 to 27.1.0 [#2041](https://github.com/jdalrymple/gitbeaker/pull/2041) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Roy Jacobs ([@sagacity](https://github.com/sagacity))
+
+---
+
 # 33.0.0 (Fri Aug 27 2021)
 
 #### 💥 Breaking Change
