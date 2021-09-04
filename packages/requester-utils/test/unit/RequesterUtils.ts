@@ -257,6 +257,6 @@ describe('formatQuery', () => {
   it('should decamelize sub keys in not property and stringify the object', () => {
     const string = formatQuery({ test: 6, not: { test: 7 } });
 
-    expect(string).toBe('not=%7B%22test%22%3A7%7D&test=6');
+    expect(string).toBe('test=6&not%5Btest%5D=7');
   });
 });
