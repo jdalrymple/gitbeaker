@@ -1,3 +1,55 @@
+# v34.0.0 (Sat Sep 04 2021)
+
+#### 🐛 Bug Fix
+
+- Using arrayBuffer for unknown content types [#2040](https://github.com/jdalrymple/gitbeaker/pull/2040) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v33.0.1 (Thu Sep 02 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add a CJS build to the browser package [#2047](https://github.com/jdalrymple/gitbeaker/pull/2047) ([@sagacity](https://github.com/sagacity))
+
+#### Authors: 1
+
+- Roy Jacobs ([@sagacity](https://github.com/sagacity))
+
+---
+
+# v32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.2.0 (Mon Aug 23 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-commonjs from 19.0.2 to 20.0.0 [#1983](https://github.com/jdalrymple/gitbeaker/pull/1983) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt

@@ -1,3 +1,59 @@
+# v34.0.0 (Sat Sep 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your work!
+
+#### 💥 Breaking Change
+
+- Update Jobs showPipelineJobs to have correct array return type [#2056](https://github.com/jdalrymple/gitbeaker/pull/2056) (plemke@acculynx.com)
+
+#### Authors: 1
+
+- Paul Lemke ([@lemkepf](https://github.com/lemkepf))
+
+---
+
+# v33.0.0 (Fri Aug 27 2021)
+
+#### 💥 Breaking Change
+
+- Update MergeRequestApprovals API to match latest Gitlab API Release [#2035](https://github.com/jdalrymple/gitbeaker/pull/2035) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.2.0 (Mon Aug 23 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix(core): change Commits.diff response type to CommitDiffSchema[] [#2025](https://github.com/jdalrymple/gitbeaker/pull/2025) ([@F3n67u](https://github.com/F3n67u))
+
+#### Authors: 1
+
+- Feng Yu ([@F3n67u](https://github.com/F3n67u))
+
+---
+
 # v32.1.2 (Thu Aug 12 2021)
 
 :tada: This release contains work from a new contributor! :tada:

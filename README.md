@@ -625,6 +625,11 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/vboulaye"><img src="https://avatars.githubusercontent.com/u/652767?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Vincent Boulaye</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=vboulaye" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=vboulaye" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Aliyss"><img src="https://avatars.githubusercontent.com/u/33941859?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Aliyss Snow</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=Aliyss" title="Documentation">📖</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=Aliyss" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=Aliyss" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/saada"><img src="https://avatars.githubusercontent.com/u/1087987?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Mahmoud Saada</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=saada" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/F3n67u"><img src="https://avatars.githubusercontent.com/u/12343178?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Feng Yu</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=F3n67u" title="Code">💻</a></td>
+    <td align="center"><a href="https://datatra.sh/"><img src="https://avatars.githubusercontent.com/u/173822?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Roy Jacobs</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=sagacity" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://www.paullemke.com/"><img src="https://avatars.githubusercontent.com/u/976010?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Paul Lemke</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=lemkepf" title="Code">💻</a></td>
   </tr>
 </table>
 
