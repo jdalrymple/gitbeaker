@@ -11,14 +11,21 @@ export default [
   {
     input: 'src/index.ts',
     external: ['form-data'],
-    output: {
-      file: pkg.browser,
-      name: 'gitbeaker',
-      format: 'umd',
-      exports: 'named',
-      globals: { 'form-data': 'FormData' },
-      sourcemap: true,
-    },
+    output: [
+      {
+        file: pkg.browser,
+        name: 'gitbeaker',
+        format: 'umd',
+        exports: 'named',
+        globals: { 'form-data': 'FormData' },
+        sourcemap: true,
+      },
+      {
+        file: pkg.main, // CommonJS (for Node) build.
+        format: 'cjs',
+        sourcemap: true,
+      },
+    ],
     plugins: [
       globals(),
       builtins(),

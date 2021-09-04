@@ -208,7 +208,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   ) {
     const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
 
-    return RequestHelper.get<JobSchema>()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
+    return RequestHelper.get<JobSchema[]>()(this, `projects/${pId}/pipelines/${ppId}/jobs`, options);
   }
 
   showPipelineBridges(

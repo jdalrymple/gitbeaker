@@ -1,3 +1,19 @@
+# v33.0.1 (Thu Sep 02 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add a CJS build to the browser package [#2047](https://github.com/jdalrymple/gitbeaker/pull/2047) ([@sagacity](https://github.com/sagacity))
+
+#### Authors: 1
+
+- Roy Jacobs ([@sagacity](https://github.com/sagacity))
+
+---
+
 # v32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
