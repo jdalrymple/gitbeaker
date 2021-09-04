@@ -66,6 +66,7 @@
   - [Sudo](#sudo)
   - [Custom Request Libraries](#custom-request-libraries)
   - [Misc](#misc)
+- [Debugging](#debugging)
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
@@ -496,6 +497,9 @@ let bufferedData = await api.Jobs.downloadLatestArtifactFile(project.id, 'test',
 
 fs.writeFileSync('test.zip', bufferedData);
 ```
+
+## Debugging
+Depending on the library used, the full information about the request error can be a bit obfuscated. Ideally, the entire information is returned from Ky (browser) or Got (nodejs) however for simplicity, a description property is added to the error object that has the error message attached. Simply look for e.description to have a better idea of what the error actually is.
 
 ## Development
 
