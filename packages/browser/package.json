@@ -22,7 +22,7 @@
     "@types/node": "^16.0.0",
     "jest-extended": "^0.11.5",
     "jest-playwright-preset": "^1.5.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "playwright": "^1.9.2",
     "rollup": "^2.47.0",
     "rollup-plugin-node-globals": "^1.4.0",
