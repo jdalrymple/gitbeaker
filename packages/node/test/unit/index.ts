@@ -1,9 +1,8 @@
 import 'jest-extended';
-import * as CoreGB from '@gitbeaker/core';
+import { Resources as coreResources } from '@gitbeaker/core';
 import * as NodeGB from '../../src';
 
-const { Types: browserTypes, ...nodeResources } = NodeGB;
-const { getAPIMap, Types: coreTypes, ...coreResources } = CoreGB;
+const { Types, ...nodeResources } = NodeGB;
 
 describe('Node Import', () => {
   it('should re-export all resources from core', () => {
