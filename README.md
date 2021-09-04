@@ -628,6 +628,9 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/F3n67u"><img src="https://avatars.githubusercontent.com/u/12343178?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Feng Yu</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=F3n67u" title="Code">💻</a></td>
     <td align="center"><a href="https://datatra.sh/"><img src="https://avatars.githubusercontent.com/u/173822?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Roy Jacobs</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=sagacity" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://www.paullemke.com/"><img src="https://avatars.githubusercontent.com/u/976010?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Paul Lemke</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=lemkepf" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
