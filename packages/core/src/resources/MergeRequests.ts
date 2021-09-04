@@ -61,20 +61,47 @@ export interface AllMergeRequestsOptions {
   view?: string;
   labels?: string | Array<string>;
   withLabelsDetails?: boolean;
+  withMergeStatusRecheck?: boolean;
   createdAfter?: string;
   createdBefore?: string;
   updatedBefore?: string;
   updatedAfter?: string;
   scope?: 'created_by_me' | 'assigned_to_me' | 'all';
   authorId?: number;
+  authorUsername?: string;
   asigneeId?: number;
+  assigneeUsername?: string;
   approverIds?: Array<number>;
   approvedByIds?: Array<number>;
+  reviewerId?: number;
+  reviewerUsername?: string;
   myReactionEmoji?: string;
   sourceBranch?: string;
   targetBranch?: string;
   in?: string;
   wip?: string;
+  iids?: number[];
+  mergeCommitMessage?: string;
+  squashCommitMessage?: string;
+  squash?: boolean;
+  shouldRemoveSourceBranch?: boolean;
+  mergeWhenPipelineSucceeds?: boolean;
+  sha?: string;
+  search?: string;
+  not?: {
+    labels?: string | Array<string>;
+    milestone?: string;
+    authorId?: number;
+    authorUsername?: string;
+    assigneeId?: number;
+    assigneeUsername?: string;
+    reviewerId?: number;
+    reviewerUsername?: string;
+    myReactionEmoji?: string;
+  };
+  environment?: string;
+  deployedBefore?: string;
+  deployedAfter?: string;
 }
 
 // Response Schemas

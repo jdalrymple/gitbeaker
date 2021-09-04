@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "form-data": "^4.0.0",
-    "query-string": "^7.0.0",
+    "qs": "^6.10.1",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
