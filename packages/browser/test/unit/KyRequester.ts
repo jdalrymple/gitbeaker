@@ -35,7 +35,7 @@ describe('processBody', () => {
   it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
     const output = [
       processBody({
-        blob() {
+        arrayBuffer() {
           return Promise.resolve(Buffer.alloc(0));
         },
         headers: {
@@ -45,7 +45,7 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        blob() {
+        arrayBuffer() {
           return Promise.resolve(Buffer.alloc(0));
         },
         headers: {
@@ -55,7 +55,7 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        blob() {
+        arrayBuffer() {
           return Promise.resolve(Buffer.alloc(0));
         },
         headers: {
@@ -65,7 +65,7 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        blob() {
+        arrayBuffer() {
           return Promise.resolve(Buffer.alloc(0));
         },
         headers: {
@@ -99,7 +99,7 @@ describe('processBody', () => {
 
   it('should return a empty string when presented with an unknown content-type and empty body', async () => {
     const output = await processBody({
-      blob() {
+      arrayBuffer() {
         return Promise.resolve(Buffer.alloc(0));
       },
       headers: {

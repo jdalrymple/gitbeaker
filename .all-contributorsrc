@@ -397,6 +397,42 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "saada",
+      "name": "Mahmoud Saada",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1087987?v=4",
+      "profile": "https://github.com/saada",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "F3n67u",
+      "name": "Feng Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12343178?v=4",
+      "profile": "https://github.com/F3n67u",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sagacity",
+      "name": "Roy Jacobs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/173822?v=4",
+      "profile": "https://datatra.sh/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "lemkepf",
+      "name": "Paul Lemke",
+      "avatar_url": "https://avatars.githubusercontent.com/u/976010?v=4",
+      "profile": "http://www.paullemke.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

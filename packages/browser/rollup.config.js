@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import builtins from 'rollup-plugin-node-polyfills';
 import globals from 'rollup-plugin-node-globals';
 import ts from 'rollup-plugin-typescript2';
+import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
@@ -10,14 +11,21 @@ export default [
   {
     input: 'src/index.ts',
     external: ['form-data'],
-    output: {
-      file: pkg.browser,
-      name: 'gitbeaker',
-      format: 'umd',
-      exports: 'named',
-      globals: { 'form-data': 'FormData' },
-      sourcemap: true,
-    },
+    output: [
+      {
+        file: pkg.browser,
+        name: 'gitbeaker',
+        format: 'umd',
+        exports: 'named',
+        globals: { 'form-data': 'FormData' },
+        sourcemap: true,
+      },
+      {
+        file: pkg.main, // CommonJS (for Node) build.
+        format: 'cjs',
+        sourcemap: true,
+      },
+    ],
     plugins: [
       globals(),
       builtins(),
@@ -30,6 +38,7 @@ export default [
           },
         },
       }),
+      json(),
       commonjs(),
       terser({ mangle: false }),
     ],

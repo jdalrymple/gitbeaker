@@ -209,6 +209,9 @@ cli.command('*', (argv, ctx) => {
 
 // Add all supported API's
 Object.entries(getAPIMap()).forEach(([apiName, methods]) => {
+  // Skip Gitlab export
+  if (apiName === 'Gitlab') return;
+
   cli.command(param(apiName), {
     desc: `The ${apiName} API`,
     setup: (setupArgs) => setupAPIs(setupArgs, apiName, methods),

@@ -1,9 +1,8 @@
 import 'jest-extended';
-import * as CoreGB from '@gitbeaker/core';
+import { Resources as coreResources } from '@gitbeaker/core';
 import * as BrowserGB from '../../src';
 
-const { Types: browserTypes, ...browserResources } = BrowserGB;
-const { getAPIMap, Types: coreTypes, ...coreResources } = CoreGB;
+const { Types, ...browserResources } = BrowserGB;
 
 describe('Browser Import', () => {
   it('should re-export all resources from core', () => {

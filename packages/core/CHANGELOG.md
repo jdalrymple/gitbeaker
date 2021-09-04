@@ -1,3 +1,100 @@
+# v34.0.0 (Sat Sep 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your work!
+
+#### 💥 Breaking Change
+
+- Update Jobs showPipelineJobs to have correct array return type [#2056](https://github.com/jdalrymple/gitbeaker/pull/2056) (plemke@acculynx.com)
+
+#### Authors: 1
+
+- Paul Lemke ([@lemkepf](https://github.com/lemkepf))
+
+---
+
+# v33.0.0 (Fri Aug 27 2021)
+
+#### 💥 Breaking Change
+
+- Update MergeRequestApprovals API to match latest Gitlab API Release [#2035](https://github.com/jdalrymple/gitbeaker/pull/2035) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.2.0 (Mon Aug 23 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix(core): change Commits.diff response type to CommitDiffSchema[] [#2025](https://github.com/jdalrymple/gitbeaker/pull/2025) ([@F3n67u](https://github.com/F3n67u))
+
+#### Authors: 1
+
+- Feng Yu ([@F3n67u](https://github.com/F3n67u))
+
+---
+
+# v32.1.2 (Thu Aug 12 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix showArchive return type [#2001](https://github.com/jdalrymple/gitbeaker/pull/2001) ([@saada](https://github.com/saada) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Mahmoud Saada ([@saada](https://github.com/saada))
+
+---
+
+# v32.1.1 (Mon Aug 09 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Improved mime handling [#1979](https://github.com/jdalrymple/gitbeaker/pull/1979) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.1.0 (Tue Aug 03 2021)
+
+#### 🐛 Bug Fix
+
+- Revert pagination changes. Information is available, just not through gitlab.com [#1985](https://github.com/jdalrymple/gitbeaker/pull/1985) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v32.0.0 (Tue Jul 27 2021)
 
 #### 💥 Breaking Change

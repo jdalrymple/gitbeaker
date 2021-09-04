@@ -1,3 +1,27 @@
+# v32.3.0 (Fri Aug 27 2021)
+
+#### 🐛 Bug Fix
+
+- Adding a core integration test, and fixing the resource imports [#2039](https://github.com/jdalrymple/gitbeaker/pull/2039) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# v32.1.1 (Mon Aug 09 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Improved mime handling [#1979](https://github.com/jdalrymple/gitbeaker/pull/1979) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v31.1.0 (Tue Jul 27 2021)
 
 :tada: This release contains work from a new contributor! :tada:
