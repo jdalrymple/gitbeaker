@@ -1,3 +1,15 @@
+# v34.1.0 (Sat Sep 04 2021)
+
+#### 🐛 Bug Fix
+
+- Fixing stringify of hash arguments [#2057](https://github.com/jdalrymple/gitbeaker/pull/2057) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v31.1.0 (Tue Jul 27 2021)
 
 #### 🔩 Dependency Updates
