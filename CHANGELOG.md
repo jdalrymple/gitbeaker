@@ -1,3 +1,26 @@
+# 34.0.0 (Sat Sep 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your work!
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - Update Jobs showPipelineJobs to have correct array return type [#2056](https://github.com/jdalrymple/gitbeaker/pull/2056) (plemke@acculynx.com)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`
+  - Using arrayBuffer for unknown content types [#2040](https://github.com/jdalrymple/gitbeaker/pull/2040) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Paul Lemke ([@lemkepf](https://github.com/lemkepf))
+
+---
+
 # 33.0.1 (Thu Sep 02 2021)
 
 :tada: This release contains work from a new contributor! :tada:

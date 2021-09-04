@@ -1,3 +1,15 @@
+# v34.0.0 (Sat Sep 04 2021)
+
+#### 🐛 Bug Fix
+
+- Using arrayBuffer for unknown content types [#2040](https://github.com/jdalrymple/gitbeaker/pull/2040) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v33.0.1 (Thu Sep 02 2021)
 
 :tada: This release contains work from a new contributor! :tada:

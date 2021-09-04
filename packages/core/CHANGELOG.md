@@ -1,3 +1,19 @@
+# v34.0.0 (Sat Sep 04 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your work!
+
+#### 💥 Breaking Change
+
+- Update Jobs showPipelineJobs to have correct array return type [#2056](https://github.com/jdalrymple/gitbeaker/pull/2056) (plemke@acculynx.com)
+
+#### Authors: 1
+
+- Paul Lemke ([@lemkepf](https://github.com/lemkepf))
+
+---
+
 # v33.0.0 (Fri Aug 27 2021)
 
 #### 💥 Breaking Change
