@@ -1,3 +1,15 @@
+# v34.1.0 (Sat Sep 04 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump node-fetch from 2.6.1 to 3.0.0 [#2049](https://github.com/jdalrymple/gitbeaker/pull/2049) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v34.0.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,24 @@
+# 34.1.0 (Sat Sep 04 2021)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`
+  - Fixing stringify of hash arguments [#2057](https://github.com/jdalrymple/gitbeaker/pull/2057) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- `@gitbeaker/browser`
+  - Bump node-fetch from 2.6.1 to 3.0.0 [#2049](https://github.com/jdalrymple/gitbeaker/pull/2049) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/core`
+  - Bump eslint-plugin-prettier from 3.4.1 to 4.0.0 [#2043](https://github.com/jdalrymple/gitbeaker/pull/2043) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 34.0.1 (Sat Sep 04 2021)
 
 

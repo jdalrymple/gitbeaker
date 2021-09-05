@@ -1,6 +1,6 @@
 import { decamelizeKeys } from 'xcase';
 import FormData from 'form-data';
-import { stringify } from 'query-string';
+import { stringify } from 'qs';
 
 // Types
 export interface Constructable<T = any> {
@@ -41,8 +41,6 @@ export type DefaultRequestReturn = {
 // Utility methods
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
-
-  if (decamelized.not) decamelized.not = JSON.stringify(decamelized.not);
 
   return stringify(decamelized, { arrayFormat: 'bracket' });
 }
