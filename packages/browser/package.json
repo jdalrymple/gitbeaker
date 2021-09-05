@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/browser",
   "description": "Full Browser implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "34.0.1",
+  "version": "34.1.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -9,8 +9,8 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^34.0.1",
-    "@gitbeaker/requester-utils": "^34.0.1",
+    "@gitbeaker/core": "^34.1.0",
+    "@gitbeaker/requester-utils": "^34.1.0",
     "delay": "^5.0.0",
     "ky": "0.28.5"
   },
@@ -22,7 +22,7 @@
     "@types/node": "^16.0.0",
     "jest-extended": "^0.11.5",
     "jest-playwright-preset": "^1.5.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "playwright": "^1.9.2",
     "rollup": "^2.47.0",
     "rollup-plugin-node-globals": "^1.4.0",

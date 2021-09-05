@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/requester-utils",
   "description": "Utility functions for requester implementatons used in @gitbeaker",
-  "version": "34.0.1",
+  "version": "34.1.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "form-data": "^4.0.0",
-    "query-string": "^7.0.0",
+    "qs": "^6.10.1",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
