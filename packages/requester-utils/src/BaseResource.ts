@@ -111,6 +111,12 @@ export class BaseResource<C extends boolean = false> {
     if (sudo) this.headers.Sudo = `${sudo}`;
 
     // Set requester instance using this information
-    this.requester = requesterFn({ ...this });
+    this.requester = requesterFn({
+      headers: this.headers,
+      rejectUnauthorized: this.rejectUnauthorized,
+      requestTimeout: this.requestTimeout,
+      url: this.url,
+      additionalBody: this.additionalBody,
+    });
   }
 }
