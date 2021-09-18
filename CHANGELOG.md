@@ -1,3 +1,52 @@
+# 34.2.0 (Sat Sep 18 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Users.search should return an array [#2070](https://github.com/jdalrymple/gitbeaker/pull/2070) ([@sagacity](https://github.com/sagacity))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 16.9.1 to 16.9.2 [#2086](https://github.com/jdalrymple/gitbeaker/pull/2086) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump prettier from 2.4.0 to 2.4.1 [#2085](https://github.com/jdalrymple/gitbeaker/pull/2085) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.31.0 to 10.32.0 [#2082](https://github.com/jdalrymple/gitbeaker/pull/2082) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.31.0 to 10.32.0 [#2079](https://github.com/jdalrymple/gitbeaker/pull/2079) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.31.0 to 10.32.0 [#2081](https://github.com/jdalrymple/gitbeaker/pull/2081) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/released from 10.31.0 to 10.32.0 [#2078](https://github.com/jdalrymple/gitbeaker/pull/2078) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.31.0 to 4.31.1 [#2075](https://github.com/jdalrymple/gitbeaker/pull/2075) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.31.0 to 4.31.1 [#2076](https://github.com/jdalrymple/gitbeaker/pull/2076) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-import-resolver-typescript from 2.4.0 to 2.5.0 [#2074](https://github.com/jdalrymple/gitbeaker/pull/2074) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.1.1 to 27.2.0 [#2073](https://github.com/jdalrymple/gitbeaker/pull/2073) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump strip-ansi from 7.0.0 to 7.0.1 [#2071](https://github.com/jdalrymple/gitbeaker/pull/2071) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.9.0 to 16.9.1 [#2068](https://github.com/jdalrymple/gitbeaker/pull/2068) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump prettier from 2.3.2 to 2.4.0 [#2067](https://github.com/jdalrymple/gitbeaker/pull/2067) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.7.13 to 16.9.0 [#2064](https://github.com/jdalrymple/gitbeaker/pull/2064) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump axios from 0.21.1 to 0.21.4 [#2065](https://github.com/jdalrymple/gitbeaker/pull/2065) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.1.0 to 27.1.1 [#2063](https://github.com/jdalrymple/gitbeaker/pull/2063) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.7.12 to 16.7.13 [#2061](https://github.com/jdalrymple/gitbeaker/pull/2061) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.7.10 to 16.7.12 [#2060](https://github.com/jdalrymple/gitbeaker/pull/2060) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.30.0 to 4.31.0 [#2059](https://github.com/jdalrymple/gitbeaker/pull/2059) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.30.0 to 4.31.0 [#2058](https://github.com/jdalrymple/gitbeaker/pull/2058) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/jest from 26.0.24 to 27.0.1 [#2010](https://github.com/jdalrymple/gitbeaker/pull/2010) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`
+  - Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 [#1947](https://github.com/jdalrymple/gitbeaker/pull/1947) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Bump ora from 5.4.1 to 6.0.0 in /packages/cli [#2031](https://github.com/jdalrymple/gitbeaker/pull/2031) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/node`
+  - Bump openpgp from 4.10.10 to 5.0.0 [#2053](https://github.com/jdalrymple/gitbeaker/pull/2053) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Roy Jacobs ([@sagacity](https://github.com/sagacity))
+
+---
+
 # 34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix
