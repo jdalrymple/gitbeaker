@@ -91,7 +91,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   search(emailOrUsername: string, options?: Sudo) {
-    return RequestHelper.get<UserSchema>()(this, 'users', {
+    return RequestHelper.get<UserSchema[]>()(this, 'users', {
       search: emailOrUsername,
       ...options,
     });
