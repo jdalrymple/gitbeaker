@@ -1,16 +1,9 @@
 import ky from 'ky';
-import fetch from 'node-fetch';
 import { Agent } from 'https';
+import { Headers } from 'headers-utils'
 import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 
-// Set globals for testing purposes
-if (!global.fetch) {
-  global.fetch = fetch;
-}
-
-if (!global.Headers) {
-  global.Headers = fetch.Headers;
-}
+global.Headers = Headers
 
 jest.mock('ky');
 
