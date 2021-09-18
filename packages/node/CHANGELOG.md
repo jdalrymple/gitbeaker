@@ -1,3 +1,15 @@
+# v34.2.0 (Sat Sep 18 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump openpgp from 4.10.10 to 5.0.0 [#2053](https://github.com/jdalrymple/gitbeaker/pull/2053) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
