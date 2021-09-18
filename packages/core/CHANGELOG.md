@@ -1,3 +1,25 @@
+# v34.2.0 (Sat Sep 18 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Users.search should return an array [#2070](https://github.com/jdalrymple/gitbeaker/pull/2070) ([@sagacity](https://github.com/sagacity))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 [#1947](https://github.com/jdalrymple/gitbeaker/pull/1947) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Roy Jacobs ([@sagacity](https://github.com/sagacity))
+
+---
+
 # v34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix
