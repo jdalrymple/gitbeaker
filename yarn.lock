@@ -7292,9 +7292,9 @@ optionator@^0.9.1:
     word-wrap "^1.2.3"
 
 ora@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ora/-/ora-6.0.0.tgz#4081c50984a306e73133ff224bc9e4ba54d44d8b"
-  integrity sha512-486vZnogayiKcAZtoE1Vsx8LQh0O3CPIwTadakfbRt8fisAQSGRaeFYPdeP6wX32wMS/baWxCH6ksTDwvxpeng==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/ora/-/ora-6.0.1.tgz#68caa9fd6c485a40d6f46c50a3940fa3df99c7f3"
+  integrity sha512-TDdKkKHdWE6jo/6pIa5U5AWcSVfpNRFJ8sdRJpioGNVPLAzZzHs/N+QhUfF7ZbyoC+rnDuNTKzeDJUbAza9g4g==
   dependencies:
     bl "^5.0.0"
     chalk "^4.1.2"
@@ -7303,7 +7303,7 @@ ora@^6.0.0:
     is-interactive "^2.0.0"
     is-unicode-supported "^1.1.0"
     log-symbols "^5.0.0"
-    strip-ansi "^7.0.0"
+    strip-ansi "^7.0.1"
     wcwidth "^1.0.1"
 
 os-homedir@^1.0.0, os-homedir@^1.0.1:
@@ -8961,7 +8961,7 @@ strip-ansi@^6.0.0:
   dependencies:
     ansi-regex "^5.0.0"
 
-strip-ansi@^7.0.0:
+strip-ansi@^7.0.0, strip-ansi@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-7.0.1.tgz#61740a08ce36b61e50e65653f07060d000975fb2"
   integrity sha512-cXNxvT8dFNRVfhVME3JAe98mkXDYN2O1l7jmcwMnOslDeESg1rF/OZMtK0nRAhiari1unG5cD4jG3rapUAkLbw==
