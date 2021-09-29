@@ -32,6 +32,7 @@ install:
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
 build:
+  image: node
   stage: build
   script:
     - yarn build
