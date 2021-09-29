@@ -1,5 +1,5 @@
 default:
-  image: node:lts-alpine
+  image: node:alpine
 
 # Cache modules in between jobs
 cache:
@@ -22,13 +22,13 @@ stages:
 
 #Link and Install all required dependancies
 install:
-  image: node:lts
+  image: node
   stage: install
   variables:
     PLAYWRIGHT_BROWSERS_PATH: 0
   script:
     - yarn install
-    - npm ls --depth=0
+    - npm list --depth=0 2> >(grep -v "extraneous")
 
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
