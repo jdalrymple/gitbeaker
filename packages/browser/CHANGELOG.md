@@ -1,3 +1,16 @@
+# v34.2.0 (Sat Sep 18 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 [#1947](https://github.com/jdalrymple/gitbeaker/pull/1947) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.1.0 (Sat Sep 04 2021)
 
 #### 🔩 Dependency Updates
