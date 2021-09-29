@@ -28,7 +28,6 @@ install:
     PLAYWRIGHT_BROWSERS_PATH: 0
   script:
     - yarn install
-    - npm list -s --depth=0
 
 # Build core (cjs, es, and browser) and cli packages
 # Uses work around to allow for linking of the cli packages
