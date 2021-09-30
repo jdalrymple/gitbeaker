@@ -1,9 +1,9 @@
 import ky from 'ky';
 import { Agent } from 'https';
-import { Headers } from 'headers-utils'
+import { Headers } from 'headers-utils';
 import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 
-global.Headers = Headers
+global.Headers = Headers;
 
 jest.mock('ky');
 

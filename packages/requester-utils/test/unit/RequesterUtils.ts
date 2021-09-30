@@ -7,9 +7,26 @@ import {
   presetResourceArguments,
   formatQuery,
   DefaultRequestReturn,
+  appendFormFromObject,
 } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'delete', 'stream', 'post'];
+
+describe('appendFormFromObject', () => {
+  it('should convert object key/values to formdata instance', () => {
+    const data = { a: 5, b: 'test' };
+    const form = appendFormFromObject(data);
+
+    expect(form).toBeInstanceOf(FormData);
+  });
+
+  it('should convert object key/values with metadata to formdata instance', () => {
+    const data = { a: 5, b: ['test', { filename: 'name.jpg' }] };
+    const form = appendFormFromObject(data);
+
+    expect(form).toBeInstanceOf(FormData);
+  });
+});
 
 describe('defaultOptionsHandler', () => {
   const serviceOptions = {

@@ -20,7 +20,7 @@ export type DefaultResourceOptions = {
   requestTimeout: number;
   url: string;
   rejectUnauthorized: boolean;
-  additionalBody?: FormData | Record<string, unknown>;
+  additionalBody?: Record<string, unknown>;
 };
 
 export type DefaultRequestOptions = {
@@ -40,6 +40,18 @@ export type DefaultRequestReturn = {
 };
 
 // Utility methods
+export function appendFormFromObject(
+  object: Record<string, unknown>,
+  form = new FormData(),
+): FormData {
+  Object.entries(object).forEach(([k, v]) => {
+    if (Array.isArray(v)) form.append(k, v[0], v[1]);
+    else form.append(k, v as any);
+  });
+
+  return form;
+}
+
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
@@ -50,6 +62,7 @@ export type OptionsHandlerFn = (
   serviceOptions: DefaultResourceOptions,
   requestOptions: DefaultRequestOptions,
 ) => DefaultRequestReturn;
+
 export function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
@@ -64,19 +77,7 @@ export function defaultOptionsHandler(
     bod = JSON.stringify(decamelizeKeys({ ...body, ...additionalBody }));
     headers['content-type'] = 'application/json';
   } else {
-    /**
-     * TODO - what do I do here with the additionalBody?
-     *
-     * Update: attempting to parse `body` like so:
-     *
-     * ```ts
-     * bod = { ...body, ...additionalBody } as FormData;
-     * ```
-     *
-     * did not work and broke everything. Modify cautiously.
-     *
-     */
-    bod = body as FormData;
+    bod = appendFormFromObject(additionalBody, body as FormData);
   }
 
   return {

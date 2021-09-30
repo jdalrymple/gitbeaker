@@ -1,8 +1,8 @@
 import { parse as parseLink } from 'li';
 import { parseUrl as parseQueryString } from 'query-string';
 import { camelizeKeys } from 'xcase';
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { appendFormFromObject, Camelize } from './Utils';
+import { BaseResource, appendFormFromObject } from '@gitbeaker/requester-utils';
+import { Camelize } from './Utils';
 
 // Request Options
 export type IsForm = {

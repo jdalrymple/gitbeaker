@@ -1,5 +1,3 @@
-import FormData from 'form-data';
-
 export type CamelizeString<T extends PropertyKey> = T extends string
   ? string extends T
     ? string
@@ -9,19 +7,6 @@ export type CamelizeString<T extends PropertyKey> = T extends string
   : T;
 
 export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: T[K] };
-
-export function appendFormFromObject(object: Record<string, unknown>): FormData {
-  /* eslint @typescript-eslint/ban-ts-comment: 0 */
-  // @ts-ignore
-  const form = new FormData();
-
-  Object.entries(object).forEach(([k, v]) => {
-    if (Array.isArray(v)) form.append(k, v[0], v[1]);
-    else form.append(k, v as any);
-  });
-
-  return form;
-}
 
 export function getAPIMap(): Record<string, unknown> {
   try {
