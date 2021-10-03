@@ -24,7 +24,7 @@ jobs:
       - name: Assign Trigger Branch Context (Fork PR)
         if: ${{ github.event_name == 'pull_request_target' }}
         run: |
-          echo "{TRIGGER_BRANCH}={${{GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
+          echo "{TRIGGER_BRANCH}={$GITHUB_RUN_ID-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
 
       - name: Ensure Safe Branch
         description: Ensure there is a Gitlab supported branch
