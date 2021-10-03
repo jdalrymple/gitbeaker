@@ -17,6 +17,7 @@ stages:
   - build
   - lint
   - test
+  # - teardown
   - canary
   - release
 
@@ -84,25 +85,31 @@ test:unit:utils:
   script: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F utils
 
 #Integration Tests
-# .test:integration: &integration-test
+# test:integration:setup:
 #   stage: test
 #   needs: ['build']
-#   image:
-#     name: jdalrymple/docker-compose-with-node
-#     entrypoint: ['/bin/sh', '-c']
 #   variables:
 #     GITLAB_PERSONAL_ACCESS_TOKEN: superduperstrongtoken
-#     DOCKER_HOST: tcp://docker:2375
-#     GITLAB_URL: http://docker:8080
-#   services:
-#     - docker:dind
-#   retry: 2
-#   timeout: 45 minutes
 #   before_script:
 #     - apk add jq curl
 #
 #     # Spin up container
-#     - docker-compose -f scripts/docker-compose.yml up -d
+#     - GITLAB_URL=$(gcloud compute instances create-with-container gitlab \
+#         --project gitbeaker \
+#         --machine-type=e2-standard-2 \
+#         --zone=northamerica-northeast1-b \
+#         --tags http-server,https-server \
+#         --container-image docker.io/gitlab/gitlab-ce:latest \
+#         --container-command '/bin/sh' \
+#         --container-arg="-c" \
+#         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+#         --container-env GITLAB_ROOT_PASSWORD=password,PERSONAL_ACCESS_TOKEN=superduperstrongtoken \
+#         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
+#         | head -2 | tail -1 )
+#
+#     # Save envvar to file for dependant stages
+#     - echo GITLAB_URL="${GITLAB_URL}" > $CI_PROJECT_DIR/variables.env
+#     - echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" > $CI_PROJECT_DIR/variables.env
 #
 #     # Verify Gitlab instance is up and running
 #     - echo "Waiting for service to start"
@@ -114,28 +121,42 @@ test:unit:utils:
 #     - docker cp gitlab:/var/log/gitlab runner_logs
 #     - echo $(docker exec -i gitlab sh -c "grep -v -e '^#' -e '^$' /etc/gitlab/gitlab.rb") > runner_logs/gitlab.rb
 #   artifacts:
+#     reports:
+#       dotenv: variables.env
 #     when: on_failure
 #     paths:
 #       - runner_logs
-
-test:integration:core:
-  needs: ['build']
-  stage: test
-  script: yarn workspace @gitbeaker/core test:integration
-
+#
+# test:integration:core:
+#   needs: ['build']
+#   stage: test
+#   script: yarn workspace @gitbeaker/core test:integration
+#
 # test:integration:browser:
-#   <<: *integration-test
+#   needs: ['test:integration:setup']
 #   image: mcr.microsoft.com/playwright:bionic
 #   variables:
 #     PLAYWRIGHT_BROWSERS_PATH: 0
 #   script:
 #     - yarn workspace @gitbeaker/browser test:integration
-
-# test:integration:
-#   <<: *integration-test
+#
+# test:integration:cli:
+#   needs: ['test:integration:setup']
 #   script:
 #     - yarn workspace @gitbeaker/cli test:integration
-# - yarn workspace @gitbeaker/node test:integration
+#
+# test:integration:node:
+#   needs: ['test:integration:setup']
+#   script:
+#     - yarn workspace @gitbeaker/node test:integration
+
+# Teardown
+# teardown:
+#   stage: teardown
+#   script:
+#     # Spin up container
+#     - gcloud compute instances detele gitlab \
+#         --project gitbeaker \
 
 # Canary
 canary:
