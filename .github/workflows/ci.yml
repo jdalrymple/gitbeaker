@@ -25,6 +25,8 @@ jobs:
         if: ${{ github.event_name != 'pull_request_target' }}
         run: |
           echo ${{ github.event.pull_request.head.sha }}
+          echo ${{github.event.pull_request.head.repo.full_name}}
+          git status -sb
       # echo "{TRIGGER_BRANCH}={${{github.run_id}}-${{env.GITHUB_REF_NAME}}}" >> $GITHUB_ENV
       # git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
       # git push origin ${{env.TRIGGER_BRANCH}}
