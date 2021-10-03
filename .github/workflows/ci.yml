@@ -1,0 +1,48 @@
+on: [pull_request, push]
+
+jobs:
+  gitlab-ci:
+    runs-on: ubuntu-latest
+
+    container:
+      image:  alpine/git
+
+    steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Assign Trigger Branch Context (!Fork PR)
+        if: ${{ github.event_name != 'pull_request_target' }}
+        run: |
+          echo "{TRIGGER_BRANCH}={${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
+
+      - name: Assign Trigger Branch Context (Fork PR)
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          echo "{TRIGGER_BRANCH}={${{GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
+
+      - name: Ensure Safe Branch
+        description: Ensure there is a Gitlab supported branch
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
+          git push origin ${{env.TRIGGER_BRANCH}}
+
+      - name: Trigger Gitlab CI
+        uses: appleboy/gitlab-ci-action@master
+        with:
+          token: ${{ secrets.GITLAB_TOKEN }}
+          project_id: 16179442
+          ref: ${{env.TRIGGER_BRANCH}}
+
+      - name: Clean up
+        description: Remove duplicate branch if exists
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          git branch -d ${{env.TRIGGER_BRANCH}}
+          git push origin --delete ${{env.TRIGGER_BRANCH}}
