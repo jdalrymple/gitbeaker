@@ -24,36 +24,19 @@ jobs:
       - name: Assign Trigger Branch Context (Fork PR)
         if: ${{ github.event_name != 'pull_request_target' }}
         run: |
-          echo $GITHUB_ENV
+          echo "{TRIGGER_BRANCH}={${{github.run_id}}-${{env.GITHUB_REF_NAME}}}" >> $GITHUB_ENV
+          git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
+          git push origin ${{env.TRIGGER_BRANCH}}
 
-      # echo "{TRIGGER_BRANCH}={${{env.GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
-      # git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
-      # git push origin ${{env.TRIGGER_BRANCH}}
+      # - name: Update Mirror
+      #   run: |
+      #     curl -X POST https://*******/projects/elexis%2Felexis-3-core/mirror/pull
 
-      # - name: Trigger Gitlab CI
-      #   uses: appleboy/gitlab-ci-action@master
-      #   with:
-      #     token: ${{ secrets.GITLAB_TOKEN }}
-      #     project_id: 16179442
-      #     ref: ${{env.TRIGGER_BRANCH}}
-            # debug: true
-
-      # - name: Trigger Gitlab CI
-      #   uses: adityakavalur/github-gitlab-ci@v0.1.1
-      #   with:
-          #   args: https://gitlab.com/jdalrymple/gitbeaker.git
-          # env:
-          # TARGET_PAT: ${{ secrets.TARGET_PAT }}
-          # SOURCE_PAT: ${{ secrets.SOURCE_PAT }}
-          # GITHUB_TOKEN: ${{ secrets.SOURCE_PAT }}
-          # POLL_TIMEOUT: "<Optional, value in seconds, default is 10 seconds>"
-          # REPO_EVENT_TYPE: push
-          # BRANCH: main
-          # APPROVAL_STRING: <Optional, approval comment that authorizes commits by non-approved users>
-      #     token: ${{ secrets.GITLAB_TOKEN }}
-      #     project_id: 16179442
-      #     ref: ${{env.TRIGGER_BRANCH}}
-            # debug: true
+      # - name: Await CI/CD Pipeline
+          # run: |
+          # See if pipeline has started for branch, if not start it.
+          # Poll until complete
+          
 
       # - name: Clean up
       #   if: ${{ github.event_name == 'pull_request_target' }}
