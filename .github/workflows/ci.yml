@@ -27,7 +27,6 @@ jobs:
           echo "{TRIGGER_BRANCH}={${{env.GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
 
       - name: Ensure Safe Branch
-        description: Ensure there is a Gitlab supported branch
         if: ${{ github.event_name == 'pull_request_target' }}
         run: |
           git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
@@ -41,7 +40,6 @@ jobs:
           ref: ${{env.TRIGGER_BRANCH}}
 
       - name: Clean up
-        description: Remove duplicate branch if exists
         if: ${{ github.event_name == 'pull_request_target' }}
         run: |
           git branch -d ${{env.TRIGGER_BRANCH}}
