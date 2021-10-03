@@ -24,9 +24,11 @@ jobs:
       - name: Assign Trigger Branch Context (Fork PR)
         if: ${{ github.event_name != 'pull_request_target' }}
         run: |
-          echo "{TRIGGER_BRANCH}={${{env.GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
-          git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
-          git push origin ${{env.TRIGGER_BRANCH}}
+          echo $GITHUB_ENV
+
+      # echo "{TRIGGER_BRANCH}={${{env.GITHUB_RUN_ID}}-${{env.GITHUB_HEAD_REF_SLUG}}}" >> $GITHUB_ENV
+      # git branch ${{env.TRIGGER_BRANCH}} ${{ github.event.pull_request.head.sha }}
+      # git push origin ${{env.TRIGGER_BRANCH}}
 
       # - name: Trigger Gitlab CI
       #   uses: appleboy/gitlab-ci-action@master
