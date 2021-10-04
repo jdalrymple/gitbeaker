@@ -111,7 +111,7 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+      - run: yarn workspace @gitbeaker/cli test:unit && yarn codecov -F cli
 
   test-unit-core:
     docker:
@@ -133,7 +133,7 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F core
+      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
 
   test-unit-browser:
     docker:
@@ -146,7 +146,7 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+      - run: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
 
   test-unit-requester-utils:
     docker:
@@ -157,4 +157,4 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F core
+      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F requester-utils
