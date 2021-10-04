@@ -50,7 +50,12 @@ jobs:
           name: Save yarn package cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
+            - packages/gitbeaker-core/node_modules/
+            - packages/gitbeaker-cli/node_modules/
+            - packages/gitbeaker-browser/node_modules/
+            - packages/gitbeaker-node/node_modules/
+            - packages/gitbeaker-requester-utils/node_modules/
+            - node_modules/
             - ~/.cache/yarn
   build:
     docker:
