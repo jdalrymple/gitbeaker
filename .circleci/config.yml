@@ -4,7 +4,9 @@ workflows:
   main:
     jobs:
       - install
-      - test
+      - test:
+          requires:
+          - install
       # - build:
       #     requires:
       #       - install
