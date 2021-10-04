@@ -1,0 +1,27 @@
+version: 2.1
+
+workflows:
+  version: 2
+  jobs:
+    - install
+
+jobs:
+
+  #Link and Install all required dependancies
+  install:
+    docker:
+      - image: node:lts
+    environment:
+        PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - restore_cache:
+        name: Restore yarn package cache
+        keys:
+          - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
