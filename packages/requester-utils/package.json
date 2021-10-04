@@ -43,7 +43,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "test:integration": "node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
-    "test:unit": "node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
+    "test:integration": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
+    "test:unit": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
   }
 }
