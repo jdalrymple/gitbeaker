@@ -4,40 +4,37 @@ workflows:
   main:
     jobs:
       - install
-      - test:
+      - build:
           requires:
-          - install
-      # - build:
-      #     requires:
-      #       - install
-      # - lint-src:
-      #     name: "Lint Src"
-      #     requires:
-      #       - install
-      # - lint-docs:
-      #     name: "Lint Docs"
-      #     requires:
-      #       - install
-      # - test-unit-cli:
-      #     name: "Unit Test CLI Src"
-      #     requires:
-      #       - install
-      # - test-unit-core:
-      #     name: "Unit Test Core Src"
-      #     requires:
-      #       - install   
-      # - test-unit-node:
-      #     name: "Unit Test Node Src"
-      #     requires:
-      #       - install
-      # - test-unit-browser:
-      #     name: "Unit Test Browser Src"
-      #     requires:
-      #       - install
-      # - test-unit-requester-utils:
-      #     name: "Unit Test Requester-Utils Src"
-      #     requires:
-      #       - install
+            - install
+      - lint-src:
+          name: "Lint Src"
+          requires:
+            - install
+      - lint-docs:
+          name: "Lint Docs"
+          requires:
+            - install
+      - test-unit-cli:
+          name: "Unit Test CLI Src"
+          requires:
+            - install
+      - test-unit-core:
+          name: "Unit Test Core Src"
+          requires:
+            - install   
+      - test-unit-node:
+          name: "Unit Test Node Src"
+          requires:
+            - install
+      - test-unit-browser:
+          name: "Unit Test Browser Src"
+          requires:
+            - install
+      - test-unit-requester-utils:
+          name: "Unit Test Requester-Utils Src"
+          requires:
+            - install
 
 jobs: 
   #Link and Install all required dependancies
@@ -61,7 +58,7 @@ jobs:
             - node_modules/
             - ~/.cache/yarn
 
-  test:
+  build:
     docker:
       - image: node:lts-alpine
     steps:
@@ -70,107 +67,94 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn build
+      - store_artifacts:
+          path: packages/core/dist/
+      - store_artifacts:
+          path: packages/cli/dist/
+      - store_artifacts:
+          path: packages/node/dist/
+      - store_artifacts:
+          path: packages/browser/dist/
+      - store_artifacts:
+          path: packages/requester-utils/dist/
 
-      - run: ls node_modules
-      - run: ls packages/node/node_modules
+  # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+  lint-src:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
 
-  # build:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn build
-  #     - store_artifacts:
-  #         path: packages/core/dist/
-  #     - store_artifacts:
-  #         path: packages/cli/dist/
-  #     - store_artifacts:
-  #         path: packages/node/dist/
-  #     - store_artifacts:
-  #         path: packages/browser/dist/
-  #     - store_artifacts:
-  #         path: packages/requester-utils/dist/
+  lint-docs:
+      docker:
+        - image: node:lts-alpine
+      steps:
+        - checkout
+        - restore_cache:
+            name: Restore yarn package cache
+            keys:
+              - yarn-{{ checksum "yarn.lock" }}
+        - run: yarn lint
 
-  # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
-  # lint-src:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn lint
+  test-unit-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
 
-  # lint-docs:
-  #     docker:
-  #       - image: node:lts-alpine
-  #     steps:
-  #       - checkout
-  #       - restore_cache:
-  #           name: Restore yarn package cache
-  #           keys:
-  #             - yarn-packages-{{ checksum "yarn.lock" }}
-  #       - run: yarn lint
+  test-unit-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
 
-  # test-unit-cli:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+  test-unit-node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F core
 
-  # test-unit-core:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+  test-unit-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+        PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
 
-  # test-unit-node:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F core
-
-  # test-unit-browser:
-  #   docker:
-  #     - image: mcr.microsoft.com/playwright:bionic
-  #   environment:
-  #       PLAYWRIGHT_BROWSERS_PATH: 0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
-
-  # test-unit-requester-utils:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-packages-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F core
+  test-unit-requester-utils:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F core
