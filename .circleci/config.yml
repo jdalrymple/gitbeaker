@@ -4,6 +4,35 @@ workflows:
   main:
     jobs:
       - install
+      - build
+      - lint-src:
+          name: "Lint Src"
+          requires:
+            - install
+      - lint-docs:
+          name: "Lint Docs"
+          requires:
+            - install
+      - test-unit-cli:
+          name: "Unit Test CLI Src"
+          requires:
+            - install
+      - test-unit-core:
+          name: "Unit Test Core Src"
+          requires:
+            - install   
+      - test-unit-node:
+          name: "Unit Test Node Src"
+          requires:
+            - install
+      - test-unit-browser:
+          name: "Unit Test Browser Src"
+          requires:
+            - install
+      - test-unit-requester-utils:
+          name: "Unit Test Requester-Utils Src"
+          requires:
+            - install
 
 jobs: 
   #Link and Install all required dependancies
@@ -13,10 +42,6 @@ jobs:
     environment:
         PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
-      - restore_cache:
-          name: Restore yarn package cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
       - checkout
       - run: yarn
       - save_cache:
@@ -24,3 +49,103 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+  build:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn build
+      - store_artifacts:
+          path: packages/core/dist/
+      - store_artifacts:
+          path: packages/cli/dist/
+      - store_artifacts:
+          path: packages/node/dist/
+      - store_artifacts:
+          path: packages/browser/dist/
+      - store_artifacts:
+          path: packages/requester-utils/dist/
+
+  # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+  lint-src:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn lint
+
+  lint-docs:
+      docker:
+        - image: node:lts-alpine
+      steps:
+        - restore_cache:
+            name: Restore yarn package cache
+            keys:
+              - yarn-packages-{{ checksum "yarn.lock" }}
+        - checkout
+        - run: yarn lint
+
+  test-unit-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+
+  test-unit-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+
+  test-unit-node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F core
+
+  test-unit-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+        PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+
+  test-unit-requester-utils:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - checkout
+      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F core
