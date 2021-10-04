@@ -51,7 +51,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - save_cache:
           name: Save yarn package cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
+          key: yarn-cache-{{ checksum "yarn.lock" }}
           paths:
             - packages/gitbeaker-core/node_modules/
             - packages/gitbeaker-cli/node_modules/
@@ -69,7 +69,7 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ checksum "yarn.lock" }}
 
       - run: ls node_modules
       - run: ls packages/node/node_modules
