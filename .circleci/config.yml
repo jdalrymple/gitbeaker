@@ -4,7 +4,9 @@ workflows:
   main:
     jobs:
       - install
-      - build
+      - build:
+          requires:
+            - install
       - lint-src:
           name: "Lint Src"
           requires:
