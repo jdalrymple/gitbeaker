@@ -50,6 +50,7 @@ jobs:
           name: Save yarn package cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
+            - node_modules
             - ~/.cache/yarn
   build:
     docker:
