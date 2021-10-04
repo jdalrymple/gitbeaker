@@ -8,41 +8,41 @@ workflows:
           requires:
             - install
       - lint-src:
-          name: "Lint Src"
+          name: 'Lint Src'
           requires:
             - install
       - lint-docs:
-          name: "Lint Docs"
+          name: 'Lint Docs'
           requires:
             - install
       - test-unit-cli:
-          name: "Unit Test CLI Src"
+          name: 'Unit Test CLI Src'
           requires:
             - install
       - test-unit-core:
-          name: "Unit Test Core Src"
+          name: 'Unit Test Core Src'
           requires:
-            - install   
+            - install
       - test-unit-node:
-          name: "Unit Test Node Src"
+          name: 'Unit Test Node Src'
           requires:
             - install
       - test-unit-browser:
-          name: "Unit Test Browser Src"
+          name: 'Unit Test Browser Src'
           requires:
             - install
       - test-unit-requester-utils:
-          name: "Unit Test Requester-Utils Src"
+          name: 'Unit Test Requester-Utils Src'
           requires:
             - install
 
-jobs: 
+jobs:
   #Link and Install all required dependancies
   install:
     docker:
       - image: node:lts
     environment:
-        PLAYWRIGHT_BROWSERS_PATH: 0
+      PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - checkout
       - run: yarn --frozen-lockfile
@@ -92,15 +92,15 @@ jobs:
       - run: yarn lint
 
   lint-docs:
-      docker:
-        - image: node:lts-alpine
-      steps:
-        - checkout
-        - restore_cache:
-            name: Restore yarn package cache
-            keys:
-              - yarn-{{ checksum "yarn.lock" }}
-        - run: yarn lint
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
 
   test-unit-cli:
     docker:
@@ -139,7 +139,7 @@ jobs:
     docker:
       - image: mcr.microsoft.com/playwright:bionic
     environment:
-        PLAYWRIGHT_BROWSERS_PATH: 0
+      PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - checkout
       - restore_cache:
