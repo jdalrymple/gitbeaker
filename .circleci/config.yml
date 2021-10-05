@@ -196,8 +196,6 @@ jobs:
           echo GITLAB_URL="${GITLAB_URL}" > /tmp//variables.env
           echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" > /tmp/variables.env
 
-      # Verify Gitlab instance is up and running
-      - run: |
           echo "Waiting for service to start"
           sleep 180
           while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
