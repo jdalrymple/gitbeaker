@@ -164,10 +164,10 @@ jobs:
   # Setup Integration test resources
   test-integration-setup:
     docker:
-      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     steps:
       # Instll missing pkgs
-      - run: sudo apt-get install jq curl
+      - run: apk add jq curl
 
       # Spin up container
       - run: |
