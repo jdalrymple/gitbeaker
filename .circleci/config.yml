@@ -166,6 +166,7 @@ jobs:
     docker:
       - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     steps:
+      - checkout
       # Instll missing pkgs
       - run: apk add jq curl
 
