@@ -167,7 +167,7 @@ jobs:
       - image: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     steps:
       # Instll missing pkgs
-      - run: apk add jq curl
+      - run: sudo apt-get install jq curl
 
       # Spin up container
       - run: |
