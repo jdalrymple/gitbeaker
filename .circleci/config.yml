@@ -187,7 +187,7 @@ jobs:
             --container-command '/bin/sh' \
             --container-arg="-c" \
             --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-            --container-env GITLAB_ROOT_PASSWORD=password,PERSONAL_ACCESS_TOKEN=superduperstrongtoken \
+            --container-env GITLAB_ROOT_PASSWORD=password,PERSONAL_ACCESS_TOKEN=superduperstrongtoken,GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
             --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
             --metadata-from-file startup-script=scripts/shutdown.sh \
             --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
@@ -195,6 +195,8 @@ jobs:
 
           echo GITLAB_URL="${GITLAB_URL}" > /tmp//variables.env
           echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" > /tmp/variables.env
+
+          echo $GITLAB_URL
 
           echo "Waiting for service to start"
           sleep 180
