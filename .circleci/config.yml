@@ -175,6 +175,8 @@ jobs:
 
       # Spin up container
       - run: |
+          ls
+
           GITLAB_URL=$(gcloud compute instances create-with-container gitlab \
             --project gitbeaker \
             --machine-type=e2-standard-2 \
