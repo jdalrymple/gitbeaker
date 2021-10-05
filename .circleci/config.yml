@@ -169,6 +169,10 @@ jobs:
       # Instll missing pkgs
       - run: apk add jq curl
 
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+
       # Spin up container
       - run: |
           GITLAB_URL=$(gcloud compute instances create-with-container gitlab \
