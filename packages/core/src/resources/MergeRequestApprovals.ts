@@ -126,12 +126,12 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   approvalRules(
     projectId: string | number,
     options?: BaseRequestOptions,
-  ): Promise<ProjectLevelApprovalRuleSchema>;
+  ): Promise<ProjectLevelApprovalRuleSchema[]>;
 
   approvalRules(
     projectId: string | number,
     options: { mergerequestIid: number } & BaseRequestOptions,
-  ): Promise<MergeRequestLevelApprovalRuleSchema>;
+  ): Promise<MergeRequestLevelApprovalRuleSchema[]>;
 
   approvalRules(
     projectId: string | number,
