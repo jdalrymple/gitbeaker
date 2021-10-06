@@ -320,8 +320,8 @@ jobs:
       - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     steps:
       - run:
-        when: always
-        command: |
-          echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud compute instances delete gitlab-${CIRCLE_WORKFLOW_ID}
+          when: always
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud compute instances delete gitlab-${CIRCLE_WORKFLOW_ID}
