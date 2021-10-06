@@ -194,7 +194,7 @@ jobs:
 
       # Spin up container
       - run: |
-          GITLAB_URL=$(gcloud compute instances create-with-container gitlab \
+          GITLAB_URL=$(gcloud compute instances create-with-container gitlab-{{ .Environment.CIRCLE_WORKFLOW_ID }} \
             --project gitbeaker \
             --machine-type=e2-standard-2 \
             --zone=northamerica-northeast1-b \
@@ -288,4 +288,4 @@ jobs:
       - run: |
           echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud compute instances delete gitlab
+          gcloud compute instances delete gitlab-{{ .Environment.CIRCLE_WORKFLOW_ID }}

@@ -6,6 +6,9 @@
 # retrieve interval from metadata service (if available)
 TIMEOUT_FROM_METADATA=$(curl -H Metadata-Flavor:Google http://metadata.google.internal/computeMetadata/v1/instance/attributes/SELF_DESTRUCT_INTERVAL_MINUTES -s)
 
+echo "TIMEOUT"
+echo $TIMEOUT_FROM_METADATA
+
 if [ -z "$TIMEOUT_FROM_METADATA" ]
 then
     TIMEOUT=20
