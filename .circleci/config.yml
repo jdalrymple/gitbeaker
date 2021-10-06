@@ -37,7 +37,10 @@ workflows:
       #       - install
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
-
+      - teardown:
+          name: 'Teardown Integration Test Resources'
+          requires:
+            - test-integration-setup
 jobs:
   # #Link and Install all required dependancies
   # install:
@@ -174,8 +177,6 @@ jobs:
           echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
-      - run: ls
-
       # Spin up container
       - run: |
           GITLAB_URL=$(gcloud compute instances create-with-container gitlab \
@@ -260,11 +261,12 @@ jobs:
     #           - yarn-{{ checksum "yarn.lock" }}
     #     - run: yarn workspace @gitbeaker/node test:integration
     #
-    # # Teardown integration test resources
-    # teardown:
-    #   docker:
-    #     - image: alpine
-    #   steps:
-    #     - run: |
-    #       - gcloud compute instances detele gitlab \
-    #           --project gitbeaker \
+    # Teardown integration test resources
+    teardown:
+      docker:
+        - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+      steps:
+        - run: |
+          echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud compute instances delete gitlab
