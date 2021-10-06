@@ -68,7 +68,7 @@ jobs:
             - packages/requester-utils/node_modules/
             - node_modules/
             - ~/.cache/yarn
-  
+
   build:
     docker:
       - image: node:lts-alpine
@@ -79,6 +79,15 @@ jobs:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
+      - save_cache:
+          name: Cache build files
+          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - packages/core/dist/
+            - packages/cli/dist/
+            - packages/browser/dist/
+            - packages/node/dist/
+            - packages/requester-utils/dist/
       - store_artifacts:
           path: packages/core/dist/
       - store_artifacts:
@@ -89,7 +98,7 @@ jobs:
           path: packages/browser/dist/
       - store_artifacts:
           path: packages/requester-utils/dist/
-  
+
   # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
   # lint-src:
   #   docker:
@@ -226,7 +235,11 @@ jobs:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
       - restore_cache:
-          name: Restore yarn package cache
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: export $(grep -v '^#' /tmp/variables.env | xargs)
