@@ -3,10 +3,10 @@ workflows:
   version: 2
   main:
     jobs:
-      # - install
-      # - build:
-      #     requires:
-      #       - install
+      - install
+      - build:
+          requires:
+            - install
       # - lint-src:
       #     name: 'Lint Src'
       #     requires:
@@ -40,6 +40,7 @@ workflows:
       - test-integration-core:
           name: 'Integration Test Core Release'
           requires:
+            - build
             - 'Setup Integration Test Resources'
 
       - teardown:
@@ -47,48 +48,48 @@ workflows:
           requires:
             - 'Integration Test Core Release'
 jobs:
-  # #Link and Install all required dependancies
-  # install:
-  #   docker:
-  #     - image: node:lts
-  #   environment:
-  #     PLAYWRIGHT_BROWSERS_PATH: 0
-  #   steps:
-  #     - checkout
-  #     - run: yarn --frozen-lockfile
-  #     - save_cache:
-  #         name: Save yarn package cache
-  #         key: yarn-{{ checksum "yarn.lock" }}
-  #         paths:
-  #           - packages/core/node_modules/
-  #           - packages/cli/node_modules/
-  #           - packages/browser/node_modules/
-  #           - packages/node/node_modules/
-  #           - packages/requester-utils/node_modules/
-  #           - node_modules/
-  #           - ~/.cache/yarn
-  #
-  # build:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn build
-  #     - store_artifacts:
-  #         path: packages/core/dist/
-  #     - store_artifacts:
-  #         path: packages/cli/dist/
-  #     - store_artifacts:
-  #         path: packages/node/dist/
-  #     - store_artifacts:
-  #         path: packages/browser/dist/
-  #     - store_artifacts:
-  #         path: packages/requester-utils/dist/
-  #
+  #Link and Install all required dependancies
+  install:
+    docker:
+      - image: node:lts
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - run: yarn --frozen-lockfile
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - packages/core/node_modules/
+            - packages/cli/node_modules/
+            - packages/browser/node_modules/
+            - packages/node/node_modules/
+            - packages/requester-utils/node_modules/
+            - node_modules/
+            - ~/.cache/yarn
+  
+  build:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn build
+      - store_artifacts:
+          path: packages/core/dist/
+      - store_artifacts:
+          path: packages/cli/dist/
+      - store_artifacts:
+          path: packages/node/dist/
+      - store_artifacts:
+          path: packages/browser/dist/
+      - store_artifacts:
+          path: packages/requester-utils/dist/
+  
   # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
   # lint-src:
   #   docker:
