@@ -37,10 +37,15 @@ workflows:
       #       - install
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
+      - test-integration-core:
+          name: 'Integration Test Core Release'
+          requires:
+            - 'Setup Integration Test Resources'
+
       - teardown:
           name: 'Teardown Integration Test Resources'
           requires:
-            - 'Setup Integration Test Resources'
+            - 'Integration Test Core Release'
 jobs:
   # #Link and Install all required dependancies
   # install:
@@ -210,21 +215,21 @@ jobs:
           paths:
             - /tmp/variables.env
 
-    # test:integration:core:
-    #   docker:
-    #     - image: node:lts-alpine
-    #   steps:
-    #     - checkout
-    #     - restore_cache:
-    #         name: Restore yarn package cache
-    #         keys:
-    #           - yarn-{{ checksum "yarn.lock" }}
-    #     - restore_cache:
-    #         name: Restore yarn package cache
-    #         keys:
-    #           - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-    #     - run: export $(grep -v '^#' /tmp/variables.env | xargs)
-    #     - run: yarn workspace @gitbeaker/core test:integration
+  test-integration-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: export $(grep -v '^#' /tmp/variables.env | xargs)
+      - run: yarn workspace @gitbeaker/core test:integration
 
     # test:integration:browser:
     #   docker:
