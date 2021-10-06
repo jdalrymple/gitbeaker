@@ -194,7 +194,7 @@ jobs:
 
       # Spin up container
       - run: |
-          CONTAINER_NAME='gitlab-$CIRCLE_WORKFLOW_ID'
+          CONTAINER_NAME=gitlab-${CIRCLE_WORKFLOW_ID}
 
           GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
             --project gitbeaker \
