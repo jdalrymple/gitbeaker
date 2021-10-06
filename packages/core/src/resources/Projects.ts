@@ -96,7 +96,7 @@ export interface ProjectExtendedSchema extends ProjectSchema {
   printing_merge_requests_link_enabled: boolean;
   request_access_enabled: boolean;
   merge_method: string;
-  squash_option?: string; // One of 'never', 'always', 'default_on', or 'default_off'.
+  squash_option?: 'never' | 'always' | 'default_on' | 'default_off';
   auto_devops_enabled: boolean;
   auto_devops_deploy_strategy: string;
   approvals_before_merge: number;
