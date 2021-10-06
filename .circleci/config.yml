@@ -37,8 +37,21 @@ workflows:
       #       - install
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
+
       - test-integration-core:
           name: 'Integration Test Core Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-browser:
+          name: 'Integration Test Browser Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-cli:
+          name: 'Integration Test CLI Release'
           requires:
             - build
             - 'Setup Integration Test Resources'
@@ -47,6 +60,8 @@ workflows:
           name: 'Teardown Integration Test Resources'
           requires:
             - 'Integration Test Core Release'
+            - 'Integration Test CLI Release'
+            - 'Integration Test Browser Release'
 jobs:
   #Link and Install all required dependancies
   install:
@@ -207,7 +222,7 @@ jobs:
             --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
             --container-env ^~^GITLAB_ROOT_PASSWORD=password~PERSONAL_ACCESS_TOKEN=superduperstrongtoken~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
             --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-            --metadata-from-file startup-script=scripts/shutdown.sh \
+            --metadata-from-file startup-script=shutdown.sh \
             --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
             | head -2 | tail -1 )
 
@@ -247,30 +262,46 @@ jobs:
       - run: export $(grep -v '^#' /tmp/variables.env | xargs)
       - run: yarn workspace @gitbeaker/core test:integration
 
-    # test:integration:browser:
-    #   docker:
-    #     - image: mcr.microsoft.com/playwright:bionic
-    #   environment:
-    #     PLAYWRIGHT_BROWSERS_PATH: 0
-    #   steps:
-    #     - checkout
-    #     - restore_cache:
-    #         name: Restore yarn package cache
-    #         keys:
-    #           - yarn-{{ checksum "yarn.lock" }}
-    #     - run: yarn workspace @gitbeaker/browser test:integration
-    #
-    # test:integration:cli:
-    #   docker:
-    #     - image: node:lts-alpine
-    #   steps:
-    #     - checkout
-    #     - restore_cache:
-    #         name: Restore yarn package cache
-    #         keys:
-    #           - yarn-{{ checksum "yarn.lock" }}
-    #     - run: yarn workspace @gitbeaker/cli test:integration
-    #
+  test-integration-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: yarn workspace @gitbeaker/browser test:integration
+
+  test-integration-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: yarn workspace @gitbeaker/cli test:integration
+
     # test:integration:node:
     #   docker:
     #     - image: node:lts-alpine
@@ -283,11 +314,14 @@ jobs:
     #     - run: yarn workspace @gitbeaker/node test:integration
     #
     # Teardown integration test resources
+
   teardown:
     docker:
       - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     steps:
-      - run: |
+      - run:
+        when: always
+        command: |
           echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud compute instances delete gitlab-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          gcloud compute instances delete gitlab-${CIRCLE_WORKFLOW_ID}
