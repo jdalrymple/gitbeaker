@@ -74,7 +74,8 @@ jobs:
       PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - run: echo $CIRCLE_WORKFLOW_ID
-      - run: curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"
+      - run: |
+          curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"
       # - checkout
       # - run: yarn --frozen-lockfile
       # - save_cache:
