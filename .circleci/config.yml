@@ -56,9 +56,10 @@ workflows:
             - build
             - 'Setup Integration Test Resources'
 
-      - test-delegator
+      - test-delegator:
           requires:
-            - test-integration-setup
+            - 'Setup Integration Test Resources'
+
       - teardown:
           name: 'Teardown Integration Test Resources'
           requires:
