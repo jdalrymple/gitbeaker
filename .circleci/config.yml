@@ -4,9 +4,9 @@ workflows:
   main:
     jobs:
       - install
-      - build:
-          requires:
-            - install
+      # - build:
+      #     requires:
+      #       - install
       # - lint-src:
       #     name: 'Lint Src'
       #     requires:
@@ -35,34 +35,34 @@ workflows:
       #     name: 'Unit Test Requester-Utils Src'
       #     requires:
       #       - install
-      - test-integration-setup:
-          name: 'Setup Integration Test Resources'
-
-      - test-integration-core:
-          name: 'Integration Test Core Release'
-          requires:
-            - build
-            - 'Setup Integration Test Resources'
-
-      - test-integration-browser:
-          name: 'Integration Test Browser Release'
-          requires:
-            - build
-            - 'Setup Integration Test Resources'
-
-      - test-integration-cli:
-          name: 'Integration Test CLI Release'
-          requires:
-            - build
-            - 'Setup Integration Test Resources'
-
-      - test-delegator
-          requires:
-            - test-integration-setup
-      - teardown:
-          name: 'Teardown Integration Test Resources'
-          requires:
-            - test-delegator
+      # - test-integration-setup:
+      #     name: 'Setup Integration Test Resources'
+      #
+      # - test-integration-core:
+      #     name: 'Integration Test Core Release'
+      #     requires:
+      #       - build
+      #       - 'Setup Integration Test Resources'
+      #
+      # - test-integration-browser:
+      #     name: 'Integration Test Browser Release'
+      #     requires:
+      #       - build
+      #       - 'Setup Integration Test Resources'
+      #
+      # - test-integration-cli:
+      #     name: 'Integration Test CLI Release'
+      #     requires:
+      #       - build
+      #       - 'Setup Integration Test Resources'
+      #
+      # - test-delegator
+      #     requires:
+      #       - test-integration-setup
+      # - teardown:
+      #     name: 'Teardown Integration Test Resources'
+      #     requires:
+      #       - test-delegator
 
 jobs:
   #Link and Install all required dependancies
@@ -72,19 +72,21 @@ jobs:
     environment:
       PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
-      - checkout
-      - run: yarn --frozen-lockfile
-      - save_cache:
-          name: Save yarn package cache
-          key: yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - packages/core/node_modules/
-            - packages/cli/node_modules/
-            - packages/browser/node_modules/
-            - packages/node/node_modules/
-            - packages/requester-utils/node_modules/
-            - node_modules/
-            - ~/.cache/yarn
+      - run: echo $CIRCLE_WORKFLOW_ID
+      - run: curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"
+      # - checkout
+      # - run: yarn --frozen-lockfile
+      # - save_cache:
+      #     name: Save yarn package cache
+      #     key: yarn-{{ checksum "yarn.lock" }}
+      #     paths:
+      #       - packages/core/node_modules/
+      #       - packages/cli/node_modules/
+      #       - packages/browser/node_modules/
+      #       - packages/node/node_modules/
+      #       - packages/requester-utils/node_modules/
+      #       - node_modules/
+      #       - ~/.cache/yarn
 
   build:
     docker:
