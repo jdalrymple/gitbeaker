@@ -58,6 +58,7 @@ workflows:
 
       - test-delegator:
           requires:
+            - build
             - 'Setup Integration Test Resources'
 
       - teardown:
@@ -326,7 +327,7 @@ jobs:
       - run: apk add --no-cache curl jq
       - run: |
           sleep 100
-          curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"| jq -r '.items[]|select(.name | startswith("test-integration"))|.status' | grep -c "running")
+          curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"| jq -r '.items[]|select(.name | startswith("test-integration"))|.status' | grep -c "running"
 
       - run: |
           while [[ $(curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"| jq -r '.items[]|select(.name | startswith("test-integration"))|.status' | grep -c "running") -gt 0 ]]
