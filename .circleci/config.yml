@@ -260,11 +260,6 @@ jobs:
           name: Restore build cache
           keys:
             - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - restore_cache:
-          name: Restore env vars
-          keys:
-            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: export $(grep -v '^#' /tmp/variables.env | xargs)
       - run: yarn workspace @gitbeaker/core test:integration
 
   test-integration-browser:
@@ -305,6 +300,8 @@ jobs:
           name: Restore env vars
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: echo $GITLAB_PERSONAL_ACCESS_TOKEN
+      - run: echo $GITLAB_URL
       - run: yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
