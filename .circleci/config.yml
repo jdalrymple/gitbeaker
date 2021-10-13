@@ -232,7 +232,7 @@ jobs:
             | head -2 | tail -1 )
 
           echo GITLAB_URL="${GITLAB_URL}" >> /tmp/variables.env
-          echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" >> /tmp/variables.env
+          echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
 
           echo "Waiting for service to start"
           sleep 180
