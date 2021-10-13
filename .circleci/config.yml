@@ -209,14 +209,11 @@ jobs:
       - run:
           shell: "/bin/bash -eo pipefail"
           command: |
-              echo $BASH_ENV
-              echo 'export TEST_VAR="chicken"' >> $BASH_ENV
-              cat $BASH_ENV
-              echo $TEST_VAR
-              cat $BASH_ENV >> /tmp/variables.env
+              echo "export GITLAB_URL=test" >> /tmp/variables.env
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
       - save_cache:
           name: Save env cache
-          key: env0-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: env9-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - /tmp/variables.env
   load:
@@ -226,16 +223,15 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env0-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - env9-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: apk update && apk add bash
       - run:
           shell: "/bin/bash -eo pipefail"
           command: |
-              echo $BASH_ENV
-              cat /tmp/variables.env
               cat /tmp/variables.env >> $BASH_ENV
               source $BASH_ENV
-              echo ${TEST_VAR:-NULL}
+              echo ${GITLAB_URL:-NULL}
+              echo ${GITLAB_PERSONAL_ACCESS_TOKEN:-NULL}
 
   # Setup Integration test resources
   # test-integration-setup:
