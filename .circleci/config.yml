@@ -204,7 +204,7 @@ jobs:
 
   create:
     docker:
-      - image: alpine
+      - image: bash
     steps:
       - run: |
           echo "export GITLAB_URL=test" >> /tmp/variables.env
@@ -219,7 +219,7 @@ jobs:
             - /tmp/variables.env
   load:
     docker:
-      - image: alpine
+      - image: bash
     steps:
       - restore_cache:
           name: Restore env vars
