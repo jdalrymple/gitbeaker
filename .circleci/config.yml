@@ -2,14 +2,10 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - create
-      - load:
+      - install
+      - build:
           requires:
-            - create
-      # - install
-      # - build:
-      #     requires:
-      #       - install
+            - install
       # - lint-src:
       #     name: 'Lint Src'
       #     requires:
@@ -38,8 +34,8 @@ workflows:
       #     name: 'Unit Test Requester-Utils Src'
       #     requires:
       #       - install
-      # - test-integration-setup:
-      #     name: 'Setup Integration Test Resources'
+      - test-integration-setup:
+          name: 'Setup Integration Test Resources'
 
       # - test-integration-core:
       #     name: 'Integration Test Core Release'
@@ -53,73 +49,73 @@ workflows:
       #       - build
       #       - 'Setup Integration Test Resources'
 
-      # - test-integration-cli:
-      #     name: 'Integration Test CLI Release'
-      #     requires:
-      #       - build
-      #       - 'Setup Integration Test Resources'
-      #
-      # - test-delegator:
-      #     requires:
-      #       - build
-      #       - 'Setup Integration Test Resources'
-      #
-      # - teardown:
-      #     name: 'Teardown Integration Test Resources'
-      #     requires:
-      #       - test-delegator
+      - test-integration-cli:
+          name: 'Integration Test CLI Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-delegator:
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - teardown:
+          name: 'Teardown Integration Test Resources'
+          requires:
+            - test-delegator
 
 jobs:
   #Link and Install all required dependancies
-  # install:
-  #   docker:
-  #     - image: node:lts
-  #   environment:
-  #     PLAYWRIGHT_BROWSERS_PATH: 0
-  #   steps:
-  #     - checkout
-  #     - run: yarn --frozen-lockfile
-  #     - save_cache:
-  #         name: Save yarn package cache
-  #         key: yarn-{{ checksum "yarn.lock" }}
-  #         paths:
-  #           - packages/core/node_modules/
-  #           - packages/cli/node_modules/
-  #           - packages/browser/node_modules/
-  #           - packages/node/node_modules/
-  #           - packages/requester-utils/node_modules/
-  #           - node_modules/
-  #           - ~/.cache/yarn
-  #
-  # build:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn build
-  #     - save_cache:
-  #         name: Cache build files
-  #         key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  #         paths:
-  #           - packages/core/dist/
-  #           - packages/cli/dist/
-  #           - packages/browser/dist/
-  #           - packages/node/dist/
-  #           - packages/requester-utils/dist/
-  #     - store_artifacts:
-  #         path: packages/core/dist/
-  #     - store_artifacts:
-  #         path: packages/cli/dist/
-  #     - store_artifacts:
-  #         path: packages/node/dist/
-  #     - store_artifacts:
-  #         path: packages/browser/dist/
-  #     - store_artifacts:
-  #         path: packages/requester-utils/dist/
+  install:
+    docker:
+      - image: node:lts
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - run: yarn --frozen-lockfile
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - packages/core/node_modules/
+            - packages/cli/node_modules/
+            - packages/browser/node_modules/
+            - packages/node/node_modules/
+            - packages/requester-utils/node_modules/
+            - node_modules/
+            - ~/.cache/yarn
+
+  build:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn build
+      - save_cache:
+          name: Cache build files
+          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - packages/core/dist/
+            - packages/cli/dist/
+            - packages/browser/dist/
+            - packages/node/dist/
+            - packages/requester-utils/dist/
+      - store_artifacts:
+          path: packages/core/dist/
+      - store_artifacts:
+          path: packages/cli/dist/
+      - store_artifacts:
+          path: packages/node/dist/
+      - store_artifacts:
+          path: packages/browser/dist/
+      - store_artifacts:
+          path: packages/requester-utils/dist/
 
   # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
   # lint-src:
@@ -234,52 +230,52 @@ jobs:
               echo ${GITLAB_PERSONAL_ACCESS_TOKEN:-NULL}
 
   # Setup Integration test resources
-  # test-integration-setup:
-  #   docker:
-  #     - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  #   steps:
-  #     - checkout
-  #     # Instll missing pkgs
-  #     - run: apk add jq curl
-  #
-  #     - run: |
-  #         echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-  #         gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-  #
-  #     - run: ls
-  #     # Spin up container
-  #     - run: |
-  #         CONTAINER_NAME=gitlab-${CIRCLE_WORKFLOW_ID}
-  #
-  #         GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
-  #           --project gitbeaker \
-  #           --machine-type=e2-standard-2 \
-  #           --zone=northamerica-northeast1-b \
-  #           --tags http-server,https-server \
-  #           --container-image docker.io/gitlab/gitlab-ce:latest \
-  #           --container-command '/bin/sh' \
-  #           --container-arg="-c" \
-  #           --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-  #           --container-env ^~^GITLAB_ROOT_PASSWORD=password~PERSONAL_ACCESS_TOKEN=superduperstrongtoken~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-  #           --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-  #           --metadata-from-file startup-script=.circleci/shutdown.sh \
-  #           --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
-  #           | head -2 | tail -1 )
-  #
-  #         echo GITLAB_URL="${GITLAB_URL}" >> /tmp/variables.env
-  #         echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
-  #
-  #         echo "Waiting for service to start"
-  #         sleep 180
-  #         while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-  #         echo "Service is up and running!"
-  #
-  #     - save_cache:
-  #         name: Save env cache
-  #         key: env1-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  #         paths:
-  #           - /tmp/variables.env
-  #
+  test-integration-setup:
+    docker:
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+    steps:
+      - checkout
+      # Instll missing pkgs
+      - run: apk add jq curl
+
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+
+      - run: ls
+      # Spin up container
+      - run: |
+          CONTAINER_NAME=gitlab-${CIRCLE_WORKFLOW_ID}
+
+          GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
+            --project gitbeaker \
+            --machine-type=e2-standard-2 \
+            --zone=northamerica-northeast1-b \
+            --tags http-server,https-server \
+            --container-image docker.io/gitlab/gitlab-ce:latest \
+            --container-command '/bin/sh' \
+            --container-arg="-c" \
+            --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+            --container-env ^~^GITLAB_ROOT_PASSWORD=password~PERSONAL_ACCESS_TOKEN=superduperstrongtoken~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
+            --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
+            --metadata-from-file startup-script=.circleci/shutdown.sh \
+            --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
+            | head -2 | tail -1 )
+
+          echo GITLAB_URL="${GITLAB_URL}" >> /tmp/variables.env
+          echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
+
+          echo "Waiting for service to start"
+          sleep 180
+          while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+          echo "Service is up and running!"
+
+      - save_cache:
+          name: Save env cache
+          key: env7-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - /tmp/variables.env
+
   # test-integration-core:
   #   docker:
   #     - image: node:lts-alpine
@@ -333,11 +329,12 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env1-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: cat /tmp/variables.env
-      - run: set -o allexport; source /tmp/variables.env; set +o allexport
-      - run: echo $GITLAB_PERSONAL_ACCESS_TOKEN
-      - run: echo $GITLAB_URL
+            - env7-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+            cat /tmp/variables.env >> $BASH_ENV
+            source $BASH_ENV
+            echo ${GITLAB_URL:-NULL}
+            echo ${GITLAB_PERSONAL_ACCESS_TOKEN:-NULL}
       - run: yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
