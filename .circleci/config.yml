@@ -212,13 +212,13 @@ jobs:
           echo "export FOO=foo.`date +%Y%m%d.%H%M%S`" >> /tmp/variables.env
       - run: cat /tmp/variables.env >> $BASH_ENV
       - run: echo ${FOO:-NULL}
-     - run:
-        shell: "/bin/bash -eo pipefail"
-        command: |
-          echo $BASH_ENV
-          echo 'export TEST_VAR="chicken"' >> $BASH_ENV
-          cat $BASH_ENV
-          echo $TEST_VAR
+      - run:
+          shell: "/bin/bash -eo pipefail"
+          command: |
+            echo $BASH_ENV
+            echo 'export TEST_VAR="chicken"' >> $BASH_ENV
+            cat $BASH_ENV
+            echo $TEST_VAR
       - save_cache:
           name: Save env cache
           key: env0-{{ .Environment.CIRCLE_WORKFLOW_ID }}
