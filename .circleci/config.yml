@@ -211,7 +211,7 @@ jobs:
           echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
       - save_cache:
           name: Save env cache
-          key: env2-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: env3-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - /tmp/variables.env
   load:
@@ -221,10 +221,11 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env2-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - env3-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: cat /tmp/variables.env
       - run: cat /tmp/variables.env >> $BASH_ENV
-      - run: echo $GITLAB_URL
+      - run: echo ${GITLAB_URL}
+      - run: echo ${GITLAB_URL:-NULL}
 
   # Setup Integration test resources
   # test-integration-setup:
