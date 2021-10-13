@@ -231,10 +231,8 @@ jobs:
             --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
             | head -2 | tail -1 )
 
-          echo GITLAB_URL="${GITLAB_URL}" > /tmp//variables.env
-          echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" > /tmp/variables.env
-
-          echo $GITLAB_URL
+          echo GITLAB_URL="${GITLAB_URL}" >> /tmp/variables.env
+          echo GITLAB_PERSONAL_ACCESS_TOKEN="${GITLAB_PERSONAL_ACCESS_TOKEN}" >> /tmp/variables.env
 
           echo "Waiting for service to start"
           sleep 180
@@ -281,6 +279,7 @@ jobs:
           name: Restore env vars
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: source /tmp/variables.env
       - run: yarn workspace @gitbeaker/browser test:integration
 
   test-integration-cli:
@@ -300,6 +299,7 @@ jobs:
           name: Restore env vars
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: source /tmp/variables.env
       - run: echo $GITLAB_PERSONAL_ACCESS_TOKEN
       - run: echo $GITLAB_URL
       - run: yarn workspace @gitbeaker/cli test:integration
