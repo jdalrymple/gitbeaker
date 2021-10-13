@@ -231,8 +231,10 @@ jobs:
       - run:
           shell: "/bin/bash -eo pipefail"
           command: |
+              echo $BASH_ENV
               cat /tmp/variables.env
               cat /tmp/variables.env >> $BASH_ENV
+              source $BASH_ENV
               echo ${TEST_VAR:-NULL}
 
   # Setup Integration test resources
