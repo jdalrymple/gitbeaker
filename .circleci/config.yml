@@ -204,7 +204,7 @@ jobs:
     docker:
       - image: alpine
     steps:
-      -run: |
+      - run: |
           echo GITLAB_URL="test" >> /tmp/variables.env
           echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
       - save_cache:
