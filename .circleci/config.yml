@@ -262,7 +262,7 @@ jobs:
             --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
             | head -2 | tail -1 )
 
-          echo GITLAB_URL="${GITLAB_URL}" >> /tmp/variables.env
+          echo GITLAB_URL="http://${GITLAB_URL}" >> /tmp/variables.env
           echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
 
           echo "Waiting for service to start"
@@ -333,8 +333,7 @@ jobs:
       - run: |
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
-            echo ${GITLAB_URL:-NULL}
-            echo ${GITLAB_PERSONAL_ACCESS_TOKEN:-NULL}
+            echo $GITLAB_URL
       - run: yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
