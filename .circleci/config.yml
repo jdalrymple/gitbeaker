@@ -300,7 +300,7 @@ jobs:
           keys:
             - env1-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: cat /tmp/variables.env
-      - run: source /tmp/variables.env
+      - run: export $(grep -v '^#' /tmp/variables.env | xargs)
       - run: echo $GITLAB_PERSONAL_ACCESS_TOKEN
       - run: echo $GITLAB_URL
       - run: yarn workspace @gitbeaker/cli test:integration
