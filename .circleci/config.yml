@@ -241,46 +241,46 @@ jobs:
 
       - save_cache:
           name: Save env cache
-          key: env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: env1-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - /tmp/variables.env
-
-  test-integration-core:
-    docker:
-      - image: node:lts-alpine
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore yarn package cache
-          keys:
-            - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: yarn workspace @gitbeaker/core test:integration
-
-  test-integration-browser:
-    docker:
-      - image: mcr.microsoft.com/playwright:bionic
-    environment:
-      PLAYWRIGHT_BROWSERS_PATH: 0
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore yarn package cache
-          keys:
-            - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - restore_cache:
-          name: Restore env vars
-          keys:
-            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: source /tmp/variables.env
-      - run: yarn workspace @gitbeaker/browser test:integration
+  #
+  # test-integration-core:
+  #   docker:
+  #     - image: node:lts-alpine
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         name: Restore yarn package cache
+  #         keys:
+  #           - yarn-{{ checksum "yarn.lock" }}
+  #     - restore_cache:
+  #         name: Restore build cache
+  #         keys:
+  #           - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+  #     - run: yarn workspace @gitbeaker/core test:integration
+  #
+  # test-integration-browser:
+  #   docker:
+  #     - image: mcr.microsoft.com/playwright:bionic
+  #   environment:
+  #     PLAYWRIGHT_BROWSERS_PATH: 0
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         name: Restore yarn package cache
+  #         keys:
+  #           - yarn-{{ checksum "yarn.lock" }}
+  #     - restore_cache:
+  #         name: Restore build cache
+  #         keys:
+  #           - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+  #     - restore_cache:
+  #         name: Restore env vars
+  #         keys:
+  #           - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+  #     - run: source /tmp/variables.env
+  #     - run: yarn workspace @gitbeaker/browser test:integration
 
   test-integration-cli:
     docker:
@@ -298,7 +298,7 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - env1-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: source /tmp/variables.env
       - run: echo $GITLAB_PERSONAL_ACCESS_TOKEN
       - run: echo $GITLAB_URL
