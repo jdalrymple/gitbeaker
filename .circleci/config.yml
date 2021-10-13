@@ -207,8 +207,8 @@ jobs:
       - image: alpine
     steps:
       - run: |
-          echo GITLAB_URL="test" >> /tmp/variables.env
-          echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
+          echo "export GITLAB_URL=test" >> /tmp/variables.env
+          echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
       - save_cache:
           name: Save env cache
           key: env2-{{ .Environment.CIRCLE_WORKFLOW_ID }}
@@ -223,11 +223,7 @@ jobs:
           keys:
             - env2-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: cat /tmp/variables.env
-      - run: |
-          set -a
-          source /tmp/variables.env
-          set +a
-
+      - run: cat /tmp/variables.env >> $BASH_ENV
       - run: echo $GITLAB_URL
 
   # Setup Integration test resources
