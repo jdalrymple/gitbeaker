@@ -5,6 +5,8 @@ workflows:
     jobs:
       - create
       - load
+          requires:
+            - create
       # - install
       # - build:
       #     requires:
@@ -225,6 +227,8 @@ jobs:
           set -a
           source /tmp/variables.env
           set +a
+
+      - run: echo $GITLAB_URL
 
   # Setup Integration test resources
   # test-integration-setup:
