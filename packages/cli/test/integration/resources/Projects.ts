@@ -5,10 +5,11 @@ const execP = promisify(exec);
 
 const { TEST_ID = '', GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '' } = process.env;
 
+console.log(process.env)
+
 describe('gitbeaker projects create', () => {
   it('should create a valid project', async () => {
-    console.log(GITLAB_URL)
-    
+
     const command = `projects create --name="CLI Project ${TEST_ID}" --gb-token="${GITLAB_PERSONAL_ACCESS_TOKEN}" --gb-host="${GITLAB_URL}"`;
     const { stdout } = await execP(`node dist/index.js ${command}`);
 
