@@ -37,20 +37,26 @@ workflows:
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
 
-      # - test-integration-core:
-      #     name: 'Integration Test Core Release'
-      #     requires:
-      #       - build
-      #       - 'Setup Integration Test Resources'
+      - test-integration-core:
+          name: 'Integration Test Core Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
 
-      # - test-integration-browser:
-      #     name: 'Integration Test Browser Release'
-      #     requires:
-      #       - build
-      #       - 'Setup Integration Test Resources'
+      - test-integration-browser:
+          name: 'Integration Test Browser Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
 
       - test-integration-cli:
           name: 'Integration Test CLI Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-node:
+          name: 'Integration Test Node Release'
           requires:
             - build
             - 'Setup Integration Test Resources'
@@ -305,7 +311,7 @@ jobs:
             source $BASH_ENV
             yarn workspace @gitbeaker/cli test:integration
 
-  test:integration:node:
+  test-integration-node:
     docker:
       - image: node:lts-alpine
     steps:
