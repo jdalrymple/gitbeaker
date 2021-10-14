@@ -316,9 +316,6 @@ jobs:
   test-integration-cli:
     docker:
       - image: node:lts-alpine
-    shell: /bin/sh -leo pipefail
-    environment:
-      - BASH_ENV: /etc/profile
     steps:
       - checkout
       - restore_cache:
@@ -337,6 +334,7 @@ jobs:
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
             echo $GITLAB_URL
+            cat ~/.bash_profile
             yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
