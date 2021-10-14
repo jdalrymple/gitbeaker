@@ -262,8 +262,8 @@ jobs:
             --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
             | head -2 | tail -1 )
 
-          echo GITLAB_URL="http://${GITLAB_URL}" >> /tmp/variables.env
-          echo GITLAB_PERSONAL_ACCESS_TOKEN="superduperstrongtoken" >> /tmp/variables.env
+          echo "export GITLAB_URL=http://${GITLAB_URL}" >> /tmp/variables.env
+          echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
 
           echo "Waiting for service to start"
           sleep 180
@@ -272,7 +272,7 @@ jobs:
 
       - save_cache:
           name: Save env cache
-          key: env7-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: env11-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - /tmp/variables.env
 
@@ -329,7 +329,7 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env7-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - env11-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
