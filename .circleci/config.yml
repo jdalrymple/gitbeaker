@@ -334,7 +334,7 @@ jobs:
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
             echo $GITLAB_URL
-            cat ~/.bash_profile
+            printenv
             yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
