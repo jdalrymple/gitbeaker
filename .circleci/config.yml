@@ -197,38 +197,6 @@ jobs:
   #           - yarn-{{ checksum "yarn.lock" }}
   #     - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F requester-utils
 
-  create:
-    docker:
-      - image: alpine
-    steps:
-      - run: apk update && apk add bash
-      - run:
-          shell: "/bin/bash -eo pipefail"
-          command: |
-              echo "export GITLAB_URL=test" >> /tmp/variables.env
-              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
-      - save_cache:
-          name: Save env cache
-          key: env9-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-          paths:
-            - /tmp/variables.env
-  load:
-    docker:
-      - image: alpine
-    steps:
-      - restore_cache:
-          name: Restore env vars
-          keys:
-            - env9-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: apk update && apk add bash
-      - run:
-          shell: "/bin/bash -eo pipefail"
-          command: |
-              cat /tmp/variables.env >> $BASH_ENV
-              source $BASH_ENV
-              echo ${GITLAB_URL:-NULL}
-              echo ${GITLAB_PERSONAL_ACCESS_TOKEN:-NULL}
-
   # Setup Integration test resources
   test-integration-setup:
     docker:
@@ -272,46 +240,48 @@ jobs:
 
       - save_cache:
           name: Save env cache
-          key: env11-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - /tmp/variables.env
 
-  # test-integration-core:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - restore_cache:
-  #         name: Restore build cache
-  #         keys:
-  #           - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  #     - run: yarn workspace @gitbeaker/core test:integration
-  #
-  # test-integration-browser:
-  #   docker:
-  #     - image: mcr.microsoft.com/playwright:bionic
-  #   environment:
-  #     PLAYWRIGHT_BROWSERS_PATH: 0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - restore_cache:
-  #         name: Restore build cache
-  #         keys:
-  #           - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  #     - restore_cache:
-  #         name: Restore env vars
-  #         keys:
-  #           - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  #     - run: source /tmp/variables.env
-  #     - run: yarn workspace @gitbeaker/browser test:integration
+  test-integration-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: yarn workspace @gitbeaker/core test:integration
+
+  test-integration-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+            cat /tmp/variables.env >> $BASH_ENV
+            source $BASH_ENV
+            yarn workspace @gitbeaker/browser test:integration
 
   test-integration-cli:
     docker:
@@ -329,27 +299,35 @@ jobs:
       - restore_cache:
           name: Restore env vars
           keys:
-            - env11-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
-            echo $GITLAB_URL
-            printenv
             yarn workspace @gitbeaker/cli test:integration
 
-    # test:integration:node:
-    #   docker:
-    #     - image: node:lts-alpine
-    #   steps:
-    #     - checkout
-    #     - restore_cache:
-    #         name: Restore yarn package cache
-    #         keys:
-    #           - yarn-{{ checksum "yarn.lock" }}
-    #     - run: yarn workspace @gitbeaker/node test:integration
-    #
-    # Teardown integration test resources
+  test:integration:node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+            cat /tmp/variables.env >> $BASH_ENV
+            source $BASH_ENV
+            yarn workspace @gitbeaker/node test:integration
 
+  # Teardown integration test resources
   test-delegator:
     docker:
       - image: alpine:latest
