@@ -333,8 +333,7 @@ jobs:
       - run: |
             cat /tmp/variables.env >> $BASH_ENV
             source $BASH_ENV
-            echo $GITLAB_URL
-      - run: yarn workspace @gitbeaker/cli test:integration
+            yarn workspace @gitbeaker/cli test:integration
 
     # test:integration:node:
     #   docker:
