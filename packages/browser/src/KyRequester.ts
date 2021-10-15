@@ -28,7 +28,7 @@ export function defaultOptionsHandler(
     });
   }
 
-  return { ...opts, headers: new Headers(serviceOptions.headers as Record<string, string>) };
+  return { ...opts, headers: new Headers(opts.headers as Record<string, string>) };
 }
 
 export async function processBody(response: Response) {
