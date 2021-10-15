@@ -53,13 +53,13 @@ workflows:
           name: 'Integration Test CLI Release'
           requires:
             - build
-            - 'Integration Test Browser Release'
+            - 'Setup Integration Test Resources'
 
       - test-integration-node:
           name: 'Integration Test Node Release'
           requires:
             - build
-            - 'Integration Test CLI Release'
+            - 'Setup Integration Test Resources'
 
       - test-delegator:
           requires:
