@@ -6,34 +6,34 @@ workflows:
       - build:
           requires:
             - install
-      # - lint-src:
-      #     name: 'Lint Src'
-      #     requires:
-      #       - install
-      # - lint-docs:
-      #     name: 'Lint Docs'
-      #     requires:
-      #       - install
-      # - test-unit-cli:
-      #     name: 'Unit Test CLI Src'
-      #     requires:
-      #       - install
-      # - test-unit-core:
-      #     name: 'Unit Test Core Src'
-      #     requires:
-      #       - install
-      # - test-unit-node:
-      #     name: 'Unit Test Node Src'
-      #     requires:
-      #       - install
-      # - test-unit-browser:
-      #     name: 'Unit Test Browser Src'
-      #     requires:
-      #       - install
-      # - test-unit-requester-utils:
-      #     name: 'Unit Test Requester-Utils Src'
-      #     requires:
-      #       - install
+      - lint-src:
+          name: 'Lint Src'
+          requires:
+            - install
+      - lint-docs:
+          name: 'Lint Docs'
+          requires:
+            - install
+      - test-unit-cli:
+          name: 'Unit Test CLI Src'
+          requires:
+            - install
+      - test-unit-core:
+          name: 'Unit Test Core Src'
+          requires:
+            - install
+      - test-unit-node:
+          name: 'Unit Test Node Src'
+          requires:
+            - install
+      - test-unit-browser:
+          name: 'Unit Test Browser Src'
+          requires:
+            - install
+      - test-unit-requester-utils:
+          name: 'Unit Test Requester-Utils Src'
+          requires:
+            - install
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
 
@@ -124,84 +124,84 @@ jobs:
           path: packages/requester-utils/dist/
 
   # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
-  # lint-src:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn lint
-  #
-  # lint-docs:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn lint
-  #
-  # test-unit-cli:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/cli test:unit && yarn codecov -F cli
-  #
-  # test-unit-core:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
-  #
-  # test-unit-node:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
-  #
-  # test-unit-browser:
-  #   docker:
-  #     - image: mcr.microsoft.com/playwright:bionic
-  #   environment:
-  #     PLAYWRIGHT_BROWSERS_PATH: 0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
-  #
-  # test-unit-requester-utils:
-  #   docker:
-  #     - image: node:lts-alpine
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         name: Restore yarn package cache
-  #         keys:
-  #           - yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F requester-utils
+  lint-src:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  lint-docs:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  test-unit-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/cli test:unit && yarn codecov -F cli
+
+  test-unit-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+
+  test-unit-node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
+
+  test-unit-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
+
+  test-unit-requester-utils:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F requester-utils
 
   # Setup Integration test resources
   test-integration-setup:
