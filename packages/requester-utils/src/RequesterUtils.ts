@@ -54,7 +54,7 @@ export function defaultOptionsHandler(
   { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
 ): DefaultRequestReturn {
   const { headers: preconfiguredHeaders, requestTimeout, url } = resourceOptions;
-  const headers = { ...preconfiguredHeaders }
+  const headers = { ...preconfiguredHeaders };
   let bod: FormData | string;
 
   if (sudo) headers.sudo = sudo;

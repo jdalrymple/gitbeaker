@@ -66,10 +66,10 @@ workflows:
             - build
             - 'Setup Integration Test Resources'
 
-      # - teardown:
-      #     name: 'Teardown Integration Test Resources'
-      #     requires:
-      #       - test-delegator
+      - teardown:
+          name: 'Teardown Integration Test Resources'
+          requires:
+            - test-delegator
 
 jobs:
   #Link and Install all required dependancies
@@ -284,9 +284,9 @@ jobs:
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
-            cat /tmp/variables.env >> $BASH_ENV
-            source $BASH_ENV
-            yarn workspace @gitbeaker/browser test:integration
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/browser test:integration
 
   test-integration-cli:
     docker:
@@ -306,9 +306,9 @@ jobs:
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
-            cat /tmp/variables.env >> $BASH_ENV
-            source $BASH_ENV
-            yarn workspace @gitbeaker/cli test:integration
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/cli test:integration
 
   test-integration-node:
     docker:
@@ -328,9 +328,9 @@ jobs:
           keys:
             - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
-            cat /tmp/variables.env >> $BASH_ENV
-            source $BASH_ENV
-            yarn workspace @gitbeaker/node test:integration
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/node test:integration
 
   # Teardown integration test resources
   test-delegator:
