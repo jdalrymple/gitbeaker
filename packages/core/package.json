@@ -55,7 +55,7 @@
     "build:self": "rollup -c",
     "build": "yarn run build:map & yarn run build:self",
     "build:map": "ESM_DISABLE_CACHE=true TS_NODE_PROJECT=scripts/tsconfig.json node -r esm -r ts-node/register scripts/generate.ts",
-    "test:integration": "jest 'test/integration'",
-    "test:unit": "jest test/unit"
+    "test:integration": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
+    "test:unit": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
   }
 }

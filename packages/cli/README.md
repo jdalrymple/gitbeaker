@@ -4,8 +4,8 @@
 </div>
 <br>
 <p align="center">
-<a href="https://gitlab.com/jdalrymple/gitbeaker/pipelines">
-  <img src="https://img.shields.io/gitlab/pipeline/jdalrymple/gitbeaker/master" alt="Gitlab Pipeline Status">
+<a href="https://circleci.com/gh/jdalrymple/gitbeaker/tree/master">
+  <img src="https://circleci.com/gh/jdalrymple/gitbeaker/tree/master.svg?style=svg" alt="CircleCI Pipeline Status">
 </a>
 <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
   <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
