@@ -1,6 +1,6 @@
 import 'jest-extended';
 import * as path from 'path';
-import * as CoreGB from '@gitbeaker/core';
+import { Resources } from '@gitbeaker/core';
 import { chromium, Browser, Page } from 'playwright';
 
 const { TEST_ID = '', GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '' } = process.env;
@@ -28,7 +28,7 @@ afterEach(async () => {
 
 describe('Browser Import', () => {
   it('should import the Gitbeaker library though the global gitbeaker', async () => {
-    const { getAPIMap, Types: coreTypes, Gitlab, ...coreResources } = CoreGB;
+    const { Gitlab, ...coreResources } = Resources;
 
     await page.goto(`file://${path.resolve(__dirname, 'assets', 'test-import.html')}`);
 
