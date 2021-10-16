@@ -1,0 +1,358 @@
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - install
+      - build:
+          requires:
+            - install
+      - lint-src:
+          name: 'Lint Src'
+          requires:
+            - install
+      - lint-docs:
+          name: 'Lint Docs'
+          requires:
+            - install
+      - test-unit-cli:
+          name: 'Unit Test CLI Src'
+          requires:
+            - install
+      - test-unit-core:
+          name: 'Unit Test Core Src'
+          requires:
+            - install
+      - test-unit-node:
+          name: 'Unit Test Node Src'
+          requires:
+            - install
+      - test-unit-browser:
+          name: 'Unit Test Browser Src'
+          requires:
+            - install
+      - test-unit-requester-utils:
+          name: 'Unit Test Requester-Utils Src'
+          requires:
+            - install
+      - test-integration-setup:
+          name: 'Setup Integration Test Resources'
+
+      - test-integration-core:
+          name: 'Integration Test Core Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-browser:
+          name: 'Integration Test Browser Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-cli:
+          name: 'Integration Test CLI Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-integration-node:
+          name: 'Integration Test Node Release'
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - test-delegator:
+          requires:
+            - build
+            - 'Setup Integration Test Resources'
+
+      - teardown:
+          name: 'Teardown Integration Test Resources'
+          requires:
+            - test-delegator
+
+jobs:
+  #Link and Install all required dependancies
+  install:
+    docker:
+      - image: node:lts
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - run: yarn --frozen-lockfile
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - packages/core/node_modules/
+            - packages/cli/node_modules/
+            - packages/browser/node_modules/
+            - packages/node/node_modules/
+            - packages/requester-utils/node_modules/
+            - node_modules/
+            - ~/.cache/yarn
+
+  build:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn build
+      - save_cache:
+          name: Cache build files
+          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - packages/core/dist/
+            - packages/cli/dist/
+            - packages/browser/dist/
+            - packages/node/dist/
+            - packages/requester-utils/dist/
+      - store_artifacts:
+          path: packages/core/dist/
+      - store_artifacts:
+          path: packages/cli/dist/
+      - store_artifacts:
+          path: packages/node/dist/
+      - store_artifacts:
+          path: packages/browser/dist/
+      - store_artifacts:
+          path: packages/requester-utils/dist/
+
+  # # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+  lint-src:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  lint-docs:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  test-unit-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/cli test:unit && yarn codecov -F cli
+
+  test-unit-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/core test:unit && yarn codecov -F core
+
+  test-unit-node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/node test:unit && yarn codecov -F node
+
+  test-unit-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/browser test:unit && yarn codecov -F browser
+
+  test-unit-requester-utils:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run: yarn workspace @gitbeaker/requester-utils test:unit && yarn codecov -F requester-utils
+
+  # Setup Integration test resources
+  test-integration-setup:
+    docker:
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+    steps:
+      - checkout
+      # Instll missing pkgs
+      - run: apk add jq curl
+
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+
+      # Spin up container
+      - run: |
+          CONTAINER_NAME=gitlab-${CIRCLE_WORKFLOW_ID}
+
+          GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
+            --project gitbeaker \
+            --machine-type=e2-standard-2 \
+            --zone=northamerica-northeast1-b \
+            --tags http-server,https-server \
+            --container-image docker.io/gitlab/gitlab-ce:latest \
+            --container-command '/bin/sh' \
+            --container-arg="-c" \
+            --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"superduperstrongtoken\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+            --container-env ^~^GITLAB_ROOT_PASSWORD=password~PERSONAL_ACCESS_TOKEN=superduperstrongtoken~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
+            --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
+            --metadata-from-file startup-script=.circleci/shutdown.sh \
+            --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
+            | head -2 | tail -1 )
+
+          echo "export GITLAB_URL=http://${GITLAB_URL}" >> /tmp/variables.env
+          echo "export GITLAB_PERSONAL_ACCESS_TOKEN=superduperstrongtoken" >> /tmp/variables.env
+
+          echo "Waiting for service to start"
+          sleep 180
+          while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+          echo "Service is up and running!"
+
+      - save_cache:
+          name: Save env cache
+          key: env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - /tmp/variables.env
+
+  test-integration-core:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: yarn workspace @gitbeaker/core test:integration
+
+  test-integration-browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/browser test:integration
+
+  test-integration-cli:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/cli test:integration
+
+  test-integration-node:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - restore_cache:
+          name: Restore env vars
+          keys:
+            - env-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: |
+          cat /tmp/variables.env >> $BASH_ENV
+          source $BASH_ENV
+          yarn workspace @gitbeaker/node test:integration
+
+  # Teardown integration test resources
+  test-delegator:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --no-cache curl jq
+      - run: |
+          sleep 100
+          while [[ $(curl --location --request GET "https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/job" --header "Circle-Token: $CCI_TOKEN"| jq -r '.items[]|select(.name | startswith("test-integration"))|.status' | grep -c "running") -gt 0 ]]
+            do
+              sleep 100
+            done
+      - run: echo "All Integration Tests Stages have now completed"
+
+  teardown:
+    docker:
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+    steps:
+      - run:
+          when: always
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud compute instances delete gitlab-${CIRCLE_WORKFLOW_ID}
