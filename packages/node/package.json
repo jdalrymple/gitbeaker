@@ -51,7 +51,7 @@
   },
   "scripts": {
     "build": "rollup -c ",
-    "test:integration": "TEST_ID=$(uuid) yarn jest test/integration",
-    "test:unit": "jest test/unit"
+    "test:integration": "TEST_ID=$(uuid) node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
+    "test:unit": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
   }
 }
