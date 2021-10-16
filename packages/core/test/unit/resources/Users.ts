@@ -123,3 +123,13 @@ describe('Users.unblock', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'users/1/unblock', undefined);
   });
 });
+
+describe('Users.username', () => {
+  it('should request GET users', async () => {
+    await service.username('erikkillmonger');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users', {
+      username: 'erikkillmonger',
+    });
+  });
+});
