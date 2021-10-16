@@ -114,4 +114,11 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.post()(this, `users/${uId}/unblock`, options);
   }
+
+  username(username: string, options?: Sudo) {
+    return RequestHelper.get<UserSchema[]>()(this, 'users', {
+      username,
+      ...options,
+    });
+  }
 }
