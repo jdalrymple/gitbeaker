@@ -77,6 +77,19 @@ workflows:
           requires:
             - test-delegator
 
+      - canary:
+          name: 'Deploy Canary Build'
+          requires:
+            - test-delegator
+
+      - release:
+          name: 'Deploy Build'
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-delegator
+
 jobs:
   #Link and Install all required dependancies
   install:
@@ -362,3 +375,31 @@ jobs:
             echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud compute instances delete gitlab-${CIRCLE_WORKFLOW_ID}
+
+  # Canary
+  canary:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - run: |
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set always-auth=true
+
+          if yarn auto label --pr $CIRCLE_PR_NUMBER | grep 'canary'; then
+            echo "canary label found, starting canary deployment!"
+            yarn auto canary
+          else
+            echo "Skipping, canary label isn't present."
+          fi
+
+  # Release
+  release:
+    docker:
+      - image: node:lts-alpine
+    steps:
+      - checkout
+      - run: |
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set always-auth=true
+          yarn release
