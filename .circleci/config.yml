@@ -80,6 +80,9 @@ workflows:
 
       - canary:
           name: 'Deploy Canary Build'
+          filters:
+            branches:
+              ignore: master
           requires:
             - Lint Src
             - Lint Docs
@@ -403,6 +406,14 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set always-auth=true
@@ -420,6 +431,14 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore build cache
+          keys:
+            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set always-auth=true
