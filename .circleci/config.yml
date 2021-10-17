@@ -36,12 +36,13 @@ workflows:
             - install
 
       - test-integration:
+          name: 'Run Integration Tests?'
           type: approval
 
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
           requires:
-            - test-integration
+            - Run Integration Tests?
 
       - test-integration-core:
           name: 'Integration Test Core Release'
@@ -98,17 +99,17 @@ workflows:
             branches:
               only: master
           requires:
-              - Lint Src
-              - Lint Docs
-              - Unit Test CLI Src
-              - Unit Test Core Src
-              - Unit Test Node Src
-              - Unit Test Browser Src
-              - Unit Test Requester-Utils Src
-              - Integration Test Browser Release
-              - Integration Test Node Release
-              - Integration Test CLI Release
-              - Integration Test Core Release
+            - Lint Src
+            - Lint Docs
+            - Unit Test CLI Src
+            - Unit Test Core Src
+            - Unit Test Node Src
+            - Unit Test Browser Src
+            - Unit Test Requester-Utils Src
+            - Integration Test Browser Release
+            - Integration Test Node Release
+            - Integration Test CLI Release
+            - Integration Test Core Release
 
 jobs:
   #Link and Install all required dependancies
