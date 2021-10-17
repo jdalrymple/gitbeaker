@@ -34,8 +34,14 @@ workflows:
           name: 'Unit Test Requester-Utils Src'
           requires:
             - install
+
+      - test-integration:
+          type: approval
+
       - test-integration-setup:
           name: 'Setup Integration Test Resources'
+          requires:
+            - test-integration
 
       - test-integration-core:
           name: 'Integration Test Core Release'
