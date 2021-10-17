@@ -64,7 +64,7 @@ export interface MergeRequestLevelApprovalRuleSchema extends ApprovalRuleSchema 
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   configuration(
     projectId: string | number,
-    options?: BaseRequestOptions,
+    options?: { mergerequestIid?: undefined } & BaseRequestOptions,
   ): Promise<ProjectLevelMergeRequestApprovalSchema>;
 
   configuration(
@@ -91,7 +91,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   editConfiguration(
     projectId: string | number,
-    options?: BaseRequestOptions,
+    options?: { mergerequestIid?: undefined } & BaseRequestOptions,
   ): Promise<ProjectLevelMergeRequestApprovalSchema>;
 
   editConfiguration(
@@ -125,18 +125,18 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   approvalRules(
     projectId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<ProjectLevelApprovalRuleSchema>;
+    options?: { mergerequestIid?: undefined } & BaseRequestOptions,
+  ): Promise<ProjectLevelApprovalRuleSchema[]>;
 
   approvalRules(
     projectId: string | number,
     options: { mergerequestIid: number } & BaseRequestOptions,
-  ): Promise<MergeRequestLevelApprovalRuleSchema>;
+  ): Promise<MergeRequestLevelApprovalRuleSchema[]>;
 
   approvalRules(
     projectId: string | number,
     { mergerequestIid, ...options }: { mergerequestIid?: number } & BaseRequestOptions = {},
-  ) {
+  ): any {
     const pId = encodeURIComponent(projectId);
 
     let url: string;
@@ -154,7 +154,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options?: ApprovalRulesRequestOptions & BaseRequestOptions,
+    options?: { mergerequestIid?: undefined } & ApprovalRulesRequestOptions & BaseRequestOptions,
   ): Promise<ProjectLevelApprovalRuleSchema>;
 
   addApprovalRule(
@@ -206,7 +206,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     approvalRuleId: number,
     name: string,
     approvalsRequired: number,
-    options?: ApprovalRulesRequestOptions & BaseRequestOptions,
+    options?: { mergerequestIid?: undefined } & ApprovalRulesRequestOptions & BaseRequestOptions,
   ): Promise<ProjectLevelApprovalRuleSchema>;
 
   editApprovalRule(
@@ -244,7 +244,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   removeApprovalRule(
     projectId: string | number,
     approvalRuleId: number,
-    options?: Sudo,
+    options?: { mergerequestIid?: undefined } & Sudo,
   ): Promise<void>;
 
   removeApprovalRule(
