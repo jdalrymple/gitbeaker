@@ -12,7 +12,7 @@
     "@gitbeaker/core": "^34.2.0",
     "@gitbeaker/requester-utils": "^34.2.0",
     "delay": "^5.0.0",
-    "ky": "0.28.5"
+    "ky": "0.28.6"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
