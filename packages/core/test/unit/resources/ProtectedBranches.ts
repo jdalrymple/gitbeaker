@@ -47,8 +47,10 @@ describe('ProtectedBranches.protect', () => {
     await service.protect(1, 'name', { test: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/protected_branches', {
-      name: 'name',
-      test: 1,
+      query: {
+        name: 'name',
+        test: 1,
+      },
     });
   });
 });
