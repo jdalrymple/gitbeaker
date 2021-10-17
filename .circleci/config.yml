@@ -417,6 +417,7 @@ jobs:
       - run: |
           apk add --no-cache git openssh
 
+
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set always-auth=true
 
