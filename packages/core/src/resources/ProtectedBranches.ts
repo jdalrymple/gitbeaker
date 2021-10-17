@@ -37,8 +37,10 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.post<ProtectedBranchSchema>()(this, `projects/${pId}/protected_branches`, {
-      name: branchName,
-      ...options,
+      query: {
+        name: branchName,
+        ...options,
+      },
     });
   }
 
