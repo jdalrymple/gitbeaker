@@ -80,7 +80,17 @@ workflows:
       - canary:
           name: 'Deploy Canary Build'
           requires:
-            - test-delegator
+            - Lint Src
+            - Lint Docs
+            - Unit Test CLI Src
+            - Unit Test Core Src
+            - Unit Test Node Src
+            - Unit Test Browser Src
+            - Unit Test Requester-Utils Src
+            - Integration Test Browser Release
+            - Integration Test Node Release
+            - Integration Test CLI Release
+            - Integration Test Core Release
 
       - release:
           name: 'Deploy Build'
@@ -88,7 +98,17 @@ workflows:
             branches:
               only: master
           requires:
-            - test-delegator
+              - Lint Src
+              - Lint Docs
+              - Unit Test CLI Src
+              - Unit Test Core Src
+              - Unit Test Node Src
+              - Unit Test Browser Src
+              - Unit Test Requester-Utils Src
+              - Integration Test Browser Release
+              - Integration Test Node Release
+              - Integration Test CLI Release
+              - Integration Test Core Release
 
 jobs:
   #Link and Install all required dependancies
