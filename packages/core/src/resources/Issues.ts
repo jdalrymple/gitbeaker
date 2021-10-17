@@ -16,6 +16,29 @@ export interface TimeStatsSchema extends Record<string, unknown> {
   human_total_time_spent: string;
 }
 
+export interface IssueLinkSchema extends Record<string, unknown> {
+  id: number;
+  iid: number;
+  project_id: number;
+  issue_link_id: number;
+  state: string;
+  description: string;
+  weight?: number;
+  author: Omit<UserSchema, 'created_at'>;
+  milestone: MilestoneSchema;
+  assignees?: Omit<UserSchema, 'created_at'>[];
+  title: string;
+  labels?: string[];
+  user_notes_count: number;
+  due_date: string;
+  web_url: string;
+  confidential: boolean;
+  updated_at: string;
+  link_type: 'relates_to' | 'blocks' | 'is_blocked_by';
+  link_created_at: string;
+  link_updated_at: string;
+}
+
 export interface IssueSchema extends Record<string, unknown> {
   state: string;
   description: string;
@@ -148,7 +171,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     const [pId, iIId] = [projectId, issueIId].map(encodeURIComponent);
     const [targetPId, targetIId] = [targetProjectId, targetIssueIId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/issues/${iIId}/links`, {
+    return RequestHelper.post<IssueLinkSchema>()(this, `projects/${pId}/issues/${iIId}/links`, {
       targetProjectId: targetPId,
       targetIssueIid: targetIId,
       ...options,
@@ -159,7 +182,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   links(projectId: string | number, issueIid: number) {
     const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
 
-    return RequestHelper.get()(this, `projects/${pId}/issues/${iId}/links`);
+    return RequestHelper.get<IssueLinkSchema[]>()(this, `projects/${pId}/issues/${iId}/links`);
   }
 
   participants(projectId: string | number, issueIid: number, options?: Sudo) {
