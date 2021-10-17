@@ -1,3 +1,27 @@
+# v34.3.0 (Sun Oct 17 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix a query formatting issue [#2142](https://github.com/jdalrymple/gitbeaker/pull/2142) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+- Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest-extended from 0.11.5 to 1.0.0 in /packages/requester-utils [#2138](https://github.com/jdalrymple/gitbeaker/pull/2138) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+
+---
+
 # v34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix

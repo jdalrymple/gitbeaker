@@ -1,3 +1,39 @@
+# v34.3.0 (Sun Oct 17 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@GMZwinge](https://github.com/GMZwinge)
+
+:heart: Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+
+#### 💥 Feature
+
+- Add support for username lookup. [#2147](https://github.com/jdalrymple/gitbeaker/pull/2147) ([@jenkoian](https://github.com/jenkoian) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fixing protect request format [#2155](https://github.com/jdalrymple/gitbeaker/pull/2155) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- Correct approvalRules returned type [#2133](https://github.com/jdalrymple/gitbeaker/pull/2133) (gmzwingelstein@rockwellautomation.com [@jdalrymple](https://github.com/jdalrymple) [@GMZwinge](https://github.com/GMZwinge))
+- Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest-extended from 0.11.5 to 1.0.0 in /packages/core [#2141](https://github.com/jdalrymple/gitbeaker/pull/2141) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 in /packages/core [#1948](https://github.com/jdalrymple/gitbeaker/pull/1948) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@GMZwinge](https://github.com/GMZwinge)
+- Georges M. Zwingelstein (gmzwingelstein@rockwellautomation.com)
+- Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.2.0 (Sat Sep 18 2021)
 
 :tada: This release contains work from a new contributor! :tada:

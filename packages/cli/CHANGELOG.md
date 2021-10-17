@@ -1,3 +1,16 @@
+# v34.3.0 (Sun Oct 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.2.0 (Sat Sep 18 2021)
 
 #### 🔩 Dependency Updates
