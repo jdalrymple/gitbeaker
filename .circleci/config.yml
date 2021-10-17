@@ -415,7 +415,7 @@ jobs:
           keys:
             - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
-          apk add --no-cache git
+          apk add --no-cache git openssh
 
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set always-auth=true
@@ -442,7 +442,7 @@ jobs:
           keys:
             - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: |
-          apk add --no-cache git
+          apk add --no-cache git openssh
 
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set always-auth=true
