@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/node": "^16.0.0",
     "@types/qs": "^6.9.7",
-    "jest-extended": "^0.11.5",
+    "jest-extended": "^1.0.0",
     "rollup": "^2.47.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "tslib": "^2.2.0",
