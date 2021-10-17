@@ -1,5 +1,4 @@
 import ky from 'ky';
-import { Agent } from 'https';
 import { Headers } from 'headers-utils';
 import { processBody, handler, defaultOptionsHandler } from '../../src/KyRequester';
 
@@ -180,29 +179,5 @@ describe('defaultRequest', () => {
 
     expect(headers).toBeInstanceOf(Headers);
     expect(body).toBe(JSON.stringify(testBody));
-  });
-
-  it('should assign the agent property if given https url and rejectUnauthorized is false', () => {
-    const { agent } = defaultOptionsHandler(
-      { ...service, url: 'https://test.com', rejectUnauthorized: false },
-      { method: 'post' },
-    );
-
-    expect(agent).toBeInstanceOf(Agent);
-    expect((agent as Agent & { rejectUnauthorized?: boolean }).rejectUnauthorized).toBeFalsy();
-
-    const { agent: agent2 } = defaultOptionsHandler(
-      { ...service, url: 'https://test.com', rejectUnauthorized: true },
-      { method: 'post' },
-    );
-
-    expect(agent2).toBeUndefined();
-
-    const { agent: agent3 } = defaultOptionsHandler(
-      { ...service, url: 'https://test.com' },
-      { method: 'post' },
-    );
-
-    expect(agent3).toBeUndefined();
   });
 });
