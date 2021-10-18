@@ -1,3 +1,21 @@
+# 34.4.1 (Mon Oct 18 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Use yarnlock as checksum for build cache [#2162](https://github.com/jdalrymple/gitbeaker/pull/2162) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest from 27.2.5 to 27.3.0 [#2158](https://github.com/jdalrymple/gitbeaker/pull/2158) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest-extended from 0.11.5 to 1.0.0 [#2159](https://github.com/jdalrymple/gitbeaker/pull/2159) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from new contributors! :tada:
