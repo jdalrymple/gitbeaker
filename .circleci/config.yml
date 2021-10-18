@@ -148,7 +148,7 @@ jobs:
       - run: yarn build
       - save_cache:
           name: Cache build files
-          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          key: build-{{ checksum "yarn.lock" }}
           paths:
             - packages/core/dist/
             - packages/cli/dist/
@@ -304,7 +304,7 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
       - run: yarn workspace @gitbeaker/core test:integration
 
   test-integration-browser:
@@ -321,7 +321,7 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -343,7 +343,7 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -365,7 +365,7 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -413,7 +413,17 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
+      - run: |
+          NUM_RELEASES=$(find . -maxdepth 2  -name '*dist*' -type d -print | wc -l)
+
+          if [[ $NUM_RELEASES -eq 5 ]]
+          then
+            echo "Release files are present. Continuing deployment"
+          else
+            echo "Release files are missing. Halting deployment"
+            circleci step halt
+          fi
       - run: |
           apk add --no-cache git openssh
 
@@ -441,7 +451,17 @@ jobs:
       - restore_cache:
           name: Restore build cache
           keys:
-            - build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            - build-{{ checksum "yarn.lock" }}
+      - run: |
+          NUM_RELEASES=$(find . -maxdepth 2  -name '*dist*' -type d -print | wc -l)
+
+          if [[ $NUM_RELEASES -eq 5 ]]
+          then
+            echo "Release files are present. Continuing deployment"
+          else
+            echo "Release files are missing. Halting deployment"
+            circleci step halt
+          fi
       - run: |
           apk add --no-cache git openssh
 
