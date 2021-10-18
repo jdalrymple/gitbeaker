@@ -415,7 +415,7 @@ jobs:
           keys:
             - build-{{ checksum "yarn.lock" }}
       - run: |
-          NUM_RELEASES=$(find . -maxdepth 2  -name '*dist*' -type d -print | wc -l)
+          NUM_RELEASES=$(find packages -maxdepth 2  -name '*dist*' -type d -print | wc -l)
 
           if [[ $NUM_RELEASES -eq 5 ]]
           then
@@ -453,7 +453,7 @@ jobs:
           keys:
             - build-{{ checksum "yarn.lock" }}
       - run: |
-          NUM_RELEASES=$(find . -maxdepth 2  -name '*dist*' -type d -print | wc -l)
+          NUM_RELEASES=$(find packages -maxdepth 2  -name '*dist*' -type d -print | wc -l)
 
           if [[ $NUM_RELEASES -eq 5 ]]
           then
