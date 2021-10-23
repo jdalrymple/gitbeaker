@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, BaseRequestOptions, Sudo, endpoint } from '../infrastructure';
 
 export interface PushRulesSchema extends Record<string, unknown> {
   id: number;
@@ -20,26 +20,34 @@ export interface PushRulesSchema extends Record<string, unknown> {
 
 export class PushRules<C extends boolean = false> extends BaseResource<C> {
   create(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<PushRulesSchema>()(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.post<PushRulesSchema>()(
+      this,
+      endpoint`projects/${projectId}/push_rule`,
+      options,
+    );
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.put<PushRulesSchema>()(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.put<PushRulesSchema>()(
+      this,
+      endpoint`projects/${projectId}/push_rule`,
+      options,
+    );
   }
 
   remove(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.del<PushRulesSchema>()(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.del<PushRulesSchema>()(
+      this,
+      endpoint`projects/${projectId}/push_rule`,
+      options,
+    );
   }
 
   show(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<PushRulesSchema>()(this, `projects/${pId}/push_rule`, options);
+    return RequestHelper.get<PushRulesSchema>()(
+      this,
+      endpoint`projects/${projectId}/push_rule`,
+      options,
+    );
   }
 }

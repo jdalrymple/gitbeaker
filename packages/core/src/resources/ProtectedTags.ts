@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -18,37 +19,37 @@ export interface ProtectedTagSchema extends Record<string, unknown> {
 
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<ProtectedTagSchema[]>()(
       this,
-      `projects/${pId}/protected_tags`,
+      endpoint`projects/${projectId}/protected_tags`,
       options,
     );
   }
 
   protect(projectId: string | number, tagName: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProtectedTagSchema>()(this, `projects/${pId}/protected_tags`, {
-      name: tagName,
-      ...options,
-    });
+    return RequestHelper.post<ProtectedTagSchema>()(
+      this,
+      endpoint`projects/${projectId}/protected_tags`,
+      {
+        name: tagName,
+        ...options,
+      },
+    );
   }
 
   show(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
-
     return RequestHelper.get<ProtectedTagSchema>()(
       this,
-      `projects/${pId}/protected_tags/${tName}`,
+      endpoint`projects/${projectId}/protected_tags/${tagName}`,
       options,
     );
   }
 
   unprotect(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tName] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/protected_tags/${tName}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/protected_tags/${tagName}`,
+      options,
+    );
   }
 }

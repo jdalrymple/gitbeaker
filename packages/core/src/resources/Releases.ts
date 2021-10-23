@@ -4,6 +4,7 @@ import { CommitSchema } from './Commits';
 import { MilestoneSchema } from '../templates/types';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -52,32 +53,38 @@ export interface ReleaseSchema extends Record<string, unknown> {
 // TODO: Add missing functions
 export class Releases<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ReleaseSchema[]>()(this, `projects/${pId}/releases`, options);
+    return RequestHelper.get<ReleaseSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/releases`,
+      options,
+    );
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ReleaseSchema>()(this, `projects/${pId}/releases`, options);
+    return RequestHelper.post<ReleaseSchema>()(
+      this,
+      endpoint`projects/${projectId}/releases`,
+      options,
+    );
   }
 
   edit(projectId: string | number, tagName: string, options?: BaseRequestOptions) {
-    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.put<ReleaseSchema>()(this, `projects/${pId}/releases/${tId}`, options);
+    return RequestHelper.put<ReleaseSchema>()(
+      this,
+      endpoint`projects/${projectId}/releases/${tagName}`,
+      options,
+    );
   }
 
   remove(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/releases/${tId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/releases/${tagName}`, options);
   }
 
   show(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.get<ReleaseSchema>()(this, `projects/${pId}/releases/${tId}`, options);
+    return RequestHelper.get<ReleaseSchema>()(
+      this,
+      endpoint`projects/${projectId}/releases/${tagName}`,
+      options,
+    );
   }
 }

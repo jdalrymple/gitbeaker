@@ -1,5 +1,5 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { endpoint, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export interface CustomAttributeSchema extends Record<string, unknown> {
   key: string;
@@ -12,32 +12,36 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<CustomAttributeSchema[]>()(this, `${rId}/custom_attributes`, options);
+    return RequestHelper.get<CustomAttributeSchema[]>()(
+      this,
+      endpoint`${resourceId}/custom_attributes`,
+      options,
+    );
   }
 
   set(resourceId: string | number, customAttributeId: number, value: string, options?: Sudo) {
-    const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
-
-    return RequestHelper.put<CustomAttributeSchema>()(this, `${rId}/custom_attributes/${cId}`, {
-      value,
-      ...options,
-    });
+    return RequestHelper.put<CustomAttributeSchema>()(
+      this,
+      endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
+      {
+        value,
+        ...options,
+      },
+    );
   }
 
   remove(resourceId: string | number, customAttributeId: number, options?: Sudo) {
-    const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/custom_attributes/${cId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
+      options,
+    );
   }
 
   show(resourceId: string | number, customAttributeId: number, options?: Sudo) {
-    const [rId, cId] = [resourceId, customAttributeId].map(encodeURIComponent);
-
     return RequestHelper.get<CustomAttributeSchema>()(
       this,
-      `${rId}/custom_attributes/${cId}`,
+      endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
       options,
     );
   }

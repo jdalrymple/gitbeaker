@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, Sudo, endpoint } from '../infrastructure';
 import { CommitSchema } from './Commits';
 import { PipelineSchema } from './Pipelines';
 import { UserSchema } from './Users';
@@ -41,9 +41,11 @@ export type DeploymentSchema = {
 
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<DeploymentSchema[]>()(this, `projects/${pId}/deployments`, options);
+    return RequestHelper.get<DeploymentSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/deployments`,
+      options,
+    );
   }
 
   create(
@@ -55,43 +57,43 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     status: DeploymentStatus,
     options?: Sudo,
   ) {
-    const [pId] = [projectId].map(encodeURIComponent);
-
-    return RequestHelper.post<DeploymentSchema>()(this, `projects/${pId}/deployments`, {
-      environment,
-      sha,
-      ref,
-      tag,
-      status,
-      ...options,
-    });
+    return RequestHelper.post<DeploymentSchema>()(
+      this,
+      endpoint`projects/${projectId}/deployments`,
+      {
+        environment,
+        sha,
+        ref,
+        tag,
+        status,
+        ...options,
+      },
+    );
   }
 
   edit(projectId: string | number, deploymentId: number, status: DeploymentStatus, options?: Sudo) {
-    const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
-
-    return RequestHelper.put<DeploymentSchema>()(this, `projects/${pId}/deployments/${dId}`, {
-      status,
-      ...options,
-    });
+    return RequestHelper.put<DeploymentSchema>()(
+      this,
+      endpoint`projects/${projectId}/deployments/${deploymentId}`,
+      {
+        status,
+        ...options,
+      },
+    );
   }
 
   show(projectId: string | number, deploymentId: number, options?: Sudo) {
-    const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
-
     return RequestHelper.get<DeploymentSchema>()(
       this,
-      `projects/${pId}/deployments/${dId}`,
+      endpoint`projects/${projectId}/deployments/${deploymentId}`,
       options,
     );
   }
 
   mergeRequests(projectId: string | number, deploymentId: number, options?: Sudo) {
-    const [pId, dId] = [projectId, deploymentId].map(encodeURIComponent);
-
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
-      `projects/${pId}/deployments/${dId}/merge_requests`,
+      endpoint`projects/${projectId}/deployments/${deploymentId}/merge_requests`,
       options,
     );
   }

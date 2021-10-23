@@ -6,6 +6,7 @@ import { LicenseTemplateSchema } from './LicenseTemplates';
 import { UploadMetadata, defaultMetadata } from './ProjectImportExport';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -148,32 +149,35 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   }
 
   archive(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/archive`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/archive`,
+      options,
+    );
   }
 
   create({
     userId,
     ...options
   }: ({ name: string } | { path: string }) & { userId?: number } & BaseRequestOptions) {
-    const url = userId ? `projects/user/${encodeURIComponent(userId)}` : 'projects';
+    const url = userId ? `projects/user/${userId}` : 'projects';
 
     return RequestHelper.post<ProjectExtendedSchema>()(this, url, options);
   }
 
   edit(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.put<ProjectExtendedSchema>()(this, `projects/${pId}`, options);
+    return RequestHelper.put<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}`,
+      options,
+    );
   }
 
   fork(
     projectId: string | number,
     { forkedFromId, ...options }: { forkedFromId?: number } & BaseRequestOptions = {},
   ) {
-    const pId = encodeURIComponent(projectId);
-    let url = `projects/${pId}/fork`;
+    let url = endpoint`projects/${projectId}/fork`;
 
     if (forkedFromId) url += `/${encodeURIComponent(forkedFromId)}`;
 
@@ -181,37 +185,31 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   }
 
   forks(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `projects/${pId}/forks`, options);
+    return RequestHelper.get<ProjectExtendedSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/forks`,
+      options,
+    );
   }
 
   languages(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<{ [name: string]: number }>()(
       this,
-      `projects/${pId}/languages`,
+      endpoint`projects/${projectId}/languages`,
       options,
     );
   }
 
   mirrorPull(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post()(this, `projects/${pId}/mirror/pull`, options);
+    return RequestHelper.post()(this, endpoint`projects/${projectId}/mirror/pull`, options);
   }
 
   remove(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.del()(this, `projects/${pId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}`, options);
   }
 
   removeFork(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.del()(this, `projects/${pId}/fork`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/fork`, options);
   }
 
   search(projectName: string, options?: BaseRequestOptions) {
@@ -227,9 +225,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     groupAccess: number,
     options?: BaseRequestOptions,
   ) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post()(this, `projects/${pId}/share`, {
+    return RequestHelper.post()(this, endpoint`projects/${projectId}/share`, {
       groupId,
       groupAccess,
       ...options,
@@ -237,40 +233,49 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   }
 
   show(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ProjectExtendedSchema>()(this, `projects/${pId}`, options);
+    return RequestHelper.get<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}`,
+      options,
+    );
   }
 
   star(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/star`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/star`,
+      options,
+    );
   }
 
   transfer(projectId: string | number, namespaceId: string | number) {
-    const pId = encodeURIComponent(projectId);
-    return RequestHelper.put<ProjectExtendedSchema>()(this, `projects/${pId}/transfer`, {
-      namespace: namespaceId,
-    });
+    return RequestHelper.put<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/transfer`,
+      {
+        namespace: namespaceId,
+      },
+    );
   }
 
   unarchive(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/unarchive`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/unarchive`,
+      options,
+    );
   }
 
   unshare(projectId: string | number, groupId: string | number, options?: Sudo) {
-    const [pId, gId] = [projectId, groupId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/share/${gId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/share/${groupId}`, options);
   }
 
   unstar(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProjectExtendedSchema>()(this, `projects/${pId}/unstar`, options);
+    return RequestHelper.post<ProjectExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/unstar`,
+      options,
+    );
   }
 
   upload(
@@ -278,15 +283,18 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     content: string,
     { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
   ) {
-    const pId = encodeURIComponent(projectId);
     const meta = { ...defaultMetadata, ...metadata };
 
     if (!meta.contentType) meta.contentType = mimeLookup(meta.filename);
 
-    return RequestHelper.post<ProjectFileUploadSchema>()(this, `projects/${pId}/uploads`, {
-      isForm: true,
-      file: [content, meta],
-      ...options,
-    });
+    return RequestHelper.post<ProjectFileUploadSchema>()(
+      this,
+      endpoint`projects/${projectId}/uploads`,
+      {
+        isForm: true,
+        file: [content, meta],
+        ...options,
+      },
+    );
   }
 }

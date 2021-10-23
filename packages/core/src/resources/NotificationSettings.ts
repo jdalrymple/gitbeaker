@@ -1,5 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  endpoint,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
 
 // TODO: Add missing functions
 
@@ -16,13 +21,20 @@ export interface NotificationSettingSchema extends Record<string, unknown> {
   notification_email: string;
 }
 
-function url({ projectId, groupId }) {
-  let uri = '';
+interface ScopedURLOptions {
+  projectId?: string | number;
+  groupId?: string | number;
+}
+
+function url({ projectId, groupId }: ScopedURLOptions) {
+  let uri: string;
 
   if (projectId) {
-    uri += `projects/${encodeURIComponent(projectId)}/`;
+    uri = endpoint`projects/${projectId}/`;
   } else if (groupId) {
-    uri += `groups/${encodeURIComponent(groupId)}/`;
+    uri = endpoint`groups/${groupId}/`;
+  } else {
+    uri = '';
   }
 
   return `${uri}notification_settings`;
@@ -37,7 +49,7 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
     PaginatedRequestOptions = {}) {
     return RequestHelper.get<NotificationSettingSchema[]>()(
       this,
-      url({ groupId, projectId }),
+      url({ groupId, projectId } as ScopedURLOptions),
       options,
     );
   }
@@ -53,7 +65,7 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
     BaseRequestOptions = {}) {
     return RequestHelper.put<NotificationSettingSchema>()(
       this,
-      url({ groupId, projectId }),
+      url({ groupId, projectId } as ScopedURLOptions),
       options,
     );
   }

@@ -59,15 +59,11 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   projects(userId: number, options?: Sudo) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `users/${uId}/projects`, options);
+    return RequestHelper.get<ProjectExtendedSchema[]>()(this, `users/${userId}/projects`, options);
   }
 
   block(userId: number, options?: Sudo) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.post()(this, `users/${uId}/block`, options);
+    return RequestHelper.post()(this, `users/${userId}/block`, options);
   }
 
   create(options?: BaseRequestOptions) {
@@ -79,15 +75,11 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(userId: number, options?: BaseRequestOptions) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.put<UserSchema>()(this, `users/${uId}`, options);
+    return RequestHelper.put<UserSchema>()(this, `users/${userId}`, options);
   }
 
   events(userId: number, options?: BaseRequestOptions & EventOptions) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.get<EventSchema[]>()(this, `users/${uId}/events`, options);
+    return RequestHelper.get<EventSchema[]>()(this, `users/${userId}/events`, options);
   }
 
   search(emailOrUsername: string, options?: Sudo) {
@@ -98,21 +90,15 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   show(userId: number, options?: BaseRequestOptions) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.get<UserSchema>()(this, `users/${uId}`, options);
+    return RequestHelper.get<UserSchema>()(this, `users/${userId}`, options);
   }
 
   remove(userId: number, options?: Sudo) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.del()(this, `users/${uId}`, options);
+    return RequestHelper.del()(this, `users/${userId}`, options);
   }
 
   unblock(userId: number, options?: Sudo) {
-    const uId = encodeURIComponent(userId);
-
-    return RequestHelper.post()(this, `users/${uId}/unblock`, options);
+    return RequestHelper.post()(this, `users/${userId}/unblock`, options);
   }
 
   username(username: string, options?: Sudo) {

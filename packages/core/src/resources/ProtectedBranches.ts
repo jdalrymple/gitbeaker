@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -24,39 +25,39 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
 
 export class ProtectedBranches<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options: { search?: string } & PaginatedRequestOptions = {}) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<ProtectedBranchSchema[]>()(
       this,
-      `projects/${pId}/protected_branches`,
+      endpoint`projects/${projectId}/protected_branches`,
       options,
     );
   }
 
   protect(projectId: string | number, branchName: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProtectedBranchSchema>()(this, `projects/${pId}/protected_branches`, {
-      query: {
-        name: branchName,
-        ...options,
+    return RequestHelper.post<ProtectedBranchSchema>()(
+      this,
+      endpoint`projects/${projectId}/protected_branches`,
+      {
+        query: {
+          name: branchName,
+          ...options,
+        },
       },
-    });
+    );
   }
 
   show(projectId: string | number, branchName: string, options?: Sudo) {
-    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
-
     return RequestHelper.get<ProtectedBranchSchema>()(
       this,
-      `projects/${pId}/protected_branches/${bName}`,
+      endpoint`projects/${projectId}/protected_branches/${branchName}`,
       options,
     );
   }
 
   unprotect(projectId: string | number, branchName: string, options?: Sudo) {
-    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/protected_branches/${bName}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/protected_branches/${branchName}`,
+      options,
+    );
   }
 }

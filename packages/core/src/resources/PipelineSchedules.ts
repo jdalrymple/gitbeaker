@@ -3,6 +3,7 @@ import { UserSchema } from './Users';
 import { PipelineSchema, PipelineVariableSchema } from './Pipelines';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -27,11 +28,9 @@ export interface PipelineScheduleExtendedSchema extends PipelineScheduleSchema {
 
 export class PipelineSchedules<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<PipelineScheduleSchema[]>()(
       this,
-      `projects/${pId}/pipeline_schedules`,
+      endpoint`projects/${projectId}/pipeline_schedules`,
       options,
     );
   }
@@ -43,11 +42,9 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     cron: string,
     options?: BaseRequestOptions,
   ) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.post<PipelineScheduleSchema & { variables?: PipelineVariableSchema[] }>()(
       this,
-      `projects/${pId}/pipeline_schedules`,
+      endpoint`projects/${projectId}/pipeline_schedules`,
       {
         description,
         ref,
@@ -58,41 +55,33 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   }
 
   edit(projectId: string | number, scheduleId: number, options?: BaseRequestOptions) {
-    const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
-
     return RequestHelper.put<PipelineScheduleExtendedSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${sId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${scheduleId}`,
       options,
     );
   }
 
   remove(projectId: string | number, scheduleId: number, options?: Sudo) {
-    const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
-
     return RequestHelper.del<PipelineScheduleExtendedSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${sId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${scheduleId}`,
       options,
     );
   }
 
   show(projectId: string | number, scheduleId: number, options?: Sudo) {
-    const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
-
     return RequestHelper.get<PipelineScheduleExtendedSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${sId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${scheduleId}`,
       options,
     );
   }
 
   takeOwnership(projectId: string | number, scheduleId: number, options?: Sudo) {
-    const [pId, sId] = [projectId, scheduleId].map(encodeURIComponent);
-
     return RequestHelper.post<PipelineScheduleExtendedSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${sId}/take_ownership`,
+      endpoint`projects/${projectId}/pipeline_schedules/${scheduleId}/take_ownership`,
       options,
     );
   }

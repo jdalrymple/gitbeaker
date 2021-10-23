@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -20,23 +21,25 @@ export interface PipelineTriggerSchema extends Record<string, unknown> {
 // TODO: Rename PipelineTriggers
 export class Triggers<C extends boolean = false> extends BaseResource<C> {
   add(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<PipelineTriggerSchema>()(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.post<PipelineTriggerSchema>()(
+      this,
+      endpoint`projects/${projectId}/triggers`,
+      options,
+    );
   }
 
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<PipelineTriggerSchema[]>()(this, `projects/${pId}/triggers`, options);
+    return RequestHelper.get<PipelineTriggerSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/triggers`,
+      options,
+    );
   }
 
   edit(projectId: string | number, triggerId: number, options?: BaseRequestOptions) {
-    const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
-
     return RequestHelper.put<PipelineTriggerSchema>()(
       this,
-      `projects/${pId}/triggers/${tId}`,
+      endpoint`projects/${projectId}/triggers/${triggerId}`,
       options,
     );
   }
@@ -47,7 +50,6 @@ export class Triggers<C extends boolean = false> extends BaseResource<C> {
     token: string,
     { variables }: { variables?: Record<string, string> } = {},
   ) {
-    const pId = encodeURIComponent(projectId);
     const hapiVariables = {};
 
     if (variables) {
@@ -56,7 +58,7 @@ export class Triggers<C extends boolean = false> extends BaseResource<C> {
       });
     }
 
-    return RequestHelper.post()(this, `projects/${pId}/trigger/pipeline`, {
+    return RequestHelper.post()(this, endpoint`projects/${projectId}/trigger/pipeline`, {
       isForm: true,
       ref,
       token,
@@ -65,17 +67,17 @@ export class Triggers<C extends boolean = false> extends BaseResource<C> {
   }
 
   remove(projectId: string | number, triggerId: number, options?: Sudo) {
-    const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/triggers/${tId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/triggers/${triggerId}`,
+      options,
+    );
   }
 
   show(projectId: string | number, triggerId: number, options?: Sudo) {
-    const [pId, tId] = [projectId, triggerId].map(encodeURIComponent);
-
     return RequestHelper.get<PipelineTriggerSchema>()(
       this,
-      `projects/${pId}/triggers/${tId}`,
+      endpoint`projects/${projectId}/triggers/${triggerId}`,
       options,
     );
   }

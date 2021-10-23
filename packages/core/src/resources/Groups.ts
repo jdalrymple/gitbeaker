@@ -5,6 +5,7 @@ import {
   ShowExpanded,
   RequestHelper,
   Sudo,
+  endpoint,
 } from '../infrastructure';
 import { ProjectSchema } from './Projects';
 
@@ -74,9 +75,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     provider: string,
     options?: Sudo & ShowExpanded,
   ) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.post()(this, `groups/${gId}/ldap_group_links`, {
+    return RequestHelper.post()(this, endpoint`groups/${groupId}/ldap_group_links`, {
       cn,
       groupAccess,
       provider,
@@ -85,21 +84,19 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(groupId: string | number, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.put<GroupSchema>()(this, `groups/${gId}`, options);
+    return RequestHelper.put<GroupSchema>()(this, endpoint`groups/${groupId}`, options);
   }
 
   projects(groupId: string | number, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get<ProjectSchema[]>()(this, `groups/${gId}/projects`, options);
+    return RequestHelper.get<ProjectSchema[]>()(
+      this,
+      endpoint`groups/${groupId}/projects`,
+      options,
+    );
   }
 
   remove(groupId: string | number, options?: Sudo & ShowExpanded) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.del()(this, `groups/${gId}`, options);
+    return RequestHelper.del()(this, endpoint`groups/${groupId}`, options);
   }
 
   removeLDAPLink(
@@ -125,21 +122,15 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   }
 
   show(groupId: string | number, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get<GroupDetailSchema>()(this, `groups/${gId}`, options);
+    return RequestHelper.get<GroupDetailSchema>()(this, endpoint`groups/${groupId}`, options);
   }
 
   subgroups(groupId: string | number, options?: PaginatedRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get()(this, `groups/${gId}/subgroups`, options);
+    return RequestHelper.get()(this, endpoint`groups/${groupId}/subgroups`, options);
   }
 
   syncLDAP(groupId: string | number, options?: Sudo & ShowExpanded) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.post()(this, `groups/${gId}/ldap_sync`, options);
+    return RequestHelper.post()(this, endpoint`groups/${groupId}/ldap_sync`, options);
   }
 
   transferProject(
@@ -147,8 +138,6 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: BaseRequestOptions & ShowExpanded,
   ) {
-    const [gId, pId] = [groupId, projectId].map(encodeURIComponent);
-
-    return RequestHelper.post()(this, `groups/${gId}/projects/${pId}`, options);
+    return RequestHelper.post()(this, endpoint`groups/${groupId}/projects/${projectId}`, options);
   }
 }

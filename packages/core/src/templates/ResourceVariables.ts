@@ -1,5 +1,5 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, endpoint } from '../infrastructure';
 
 export interface VariableSchema extends Record<string, unknown> {
   variable_type: 'env_var' | 'file';
@@ -16,32 +16,30 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<VariableSchema[]>()(this, `${rId}/variables`, options);
+    return RequestHelper.get<VariableSchema[]>()(this, endpoint`${resourceId}/variables`, options);
   }
 
   create(resourceId: string | number, options?: VariableSchema) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<VariableSchema>()(this, `${rId}/variables`, options);
+    return RequestHelper.post<VariableSchema>()(this, endpoint`${resourceId}/variables`, options);
   }
 
   edit(resourceId: string | number, keyId: string, options?: Omit<VariableSchema, 'key'>) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.put<VariableSchema>()(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.put<VariableSchema>()(
+      this,
+      endpoint`${resourceId}/variables/${keyId}`,
+      options,
+    );
   }
 
   show(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.get<VariableSchema>()(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.get<VariableSchema>()(
+      this,
+      endpoint`${resourceId}/variables/${keyId}`,
+      options,
+    );
   }
 
   remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
-    const [rId, kId] = [resourceId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/variables/${kId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/variables/${keyId}`, options);
   }
 }

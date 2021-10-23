@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, RequestHelper, Camelize } from '../infrastructure';
+import { BaseRequestOptions, RequestHelper, Camelize, endpoint } from '../infrastructure';
 
 export interface FreezePeriodSchema extends Record<string, unknown> {
   id: number;
@@ -12,21 +12,17 @@ export interface FreezePeriodSchema extends Record<string, unknown> {
 
 export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<FreezePeriodSchema[]>()(
       this,
-      `projects/${pId}/freeze_periods`,
+      endpoint`projects/${projectId}/freeze_periods`,
       options,
     );
   }
 
   show(projectId: string | number, freezePeriodId: number, options?: BaseRequestOptions) {
-    const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
-
     return RequestHelper.get<FreezePeriodSchema>()(
       this,
-      `projects/${pId}/freeze_periods/${fId}`,
+      endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
       options,
     );
   }
@@ -37,13 +33,15 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
     freezeEnd: string,
     options?: Camelize<Pick<FreezePeriodSchema, 'cron_timezone'>> & BaseRequestOptions,
   ) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<FreezePeriodSchema>()(this, `projects/${pId}/freeze_periods`, {
-      freezeStart,
-      freezeEnd,
-      ...options,
-    });
+    return RequestHelper.post<FreezePeriodSchema>()(
+      this,
+      endpoint`projects/${projectId}/freeze_periods`,
+      {
+        freezeStart,
+        freezeEnd,
+        ...options,
+      },
+    );
   }
 
   edit(
@@ -52,18 +50,18 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
     options?: Camelize<Omit<FreezePeriodSchema, 'id' | 'created_at' | 'updated_at'>> &
       BaseRequestOptions,
   ) {
-    const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
-
     return RequestHelper.put<FreezePeriodSchema>()(
       this,
-      `projects/${pId}/freeze_periods/${fId}`,
+      endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
       options,
     );
   }
 
   delete(projectId: number | string, freezePeriodId: number, options?: BaseRequestOptions) {
-    const [pId, fId] = [projectId, freezePeriodId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/freeze_periods/${fId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
+      options,
+    );
   }
 }

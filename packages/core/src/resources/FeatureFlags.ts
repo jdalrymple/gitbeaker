@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -35,9 +36,11 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},
   ) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<FeatureFlagSchema[]>()(this, `projects/${pId}/feature_flags`, options);
+    return RequestHelper.get<FeatureFlagSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/feature_flags`,
+      options,
+    );
   }
 
   create(
@@ -46,37 +49,37 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     version: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, fName, ver] = [projectId, flagName, version].map(encodeURIComponent);
-
-    return RequestHelper.post<FeatureFlagSchema>()(this, `projects/${pId}/feature_flags`, {
-      version: ver,
-      name: fName,
-      ...options,
-    });
+    return RequestHelper.post<FeatureFlagSchema>()(
+      this,
+      endpoint`projects/${projectId}/feature_flags`,
+      {
+        name: flagName,
+        version,
+        ...options,
+      },
+    );
   }
 
   edit(projectId: string | number, flagName: string, options?: BaseRequestOptions) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
-
     return RequestHelper.put<FeatureFlagSchema>()(
       this,
-      `projects/${pId}/feature_flags/${fName}`,
+      endpoint`projects/${projectId}/feature_flags/${flagName}`,
       options,
     );
   }
 
   remove(projectId: string | number, flagName: string, options?: Sudo) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/feature_flags/${fName}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/feature_flags/${flagName}`,
+      options,
+    );
   }
 
   show(projectId: string | number, flagName: string, options?: Sudo) {
-    const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
-
     return RequestHelper.get<FeatureFlagSchema>()(
       this,
-      `projects/${pId}/feature_flags/${fName}`,
+      endpoint`projects/${projectId}/feature_flags/${flagName}`,
       options,
     );
   }

@@ -7,8 +7,7 @@ export interface UserEmailSchema extends Record<string, unknown> {
   confirmed_at: string;
 }
 
-const url = (userId?: number) =>
-  userId ? `users/${encodeURIComponent(userId)}/emails` : 'user/emails';
+const url = (userId?: number) => (userId ? `users/${userId}/emails` : 'user/emails');
 
 export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
@@ -23,9 +22,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   }
 
   show(emailId: number, options?: BaseRequestOptions) {
-    const eId = encodeURIComponent(emailId);
-
-    return RequestHelper.get<UserEmailSchema>()(this, `user/emails/${eId}`, options);
+    return RequestHelper.get<UserEmailSchema>()(this, `user/emails/${emailId}`, options);
   }
 
   remove(emailId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {

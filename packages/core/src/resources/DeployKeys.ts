@@ -4,6 +4,7 @@ import {
   Sudo,
   BaseRequestOptions,
   PaginatedRequestOptions,
+  endpoint,
 } from '../infrastructure';
 
 export interface DeployKeySchema extends Record<string, unknown> {
@@ -16,16 +17,18 @@ export interface DeployKeySchema extends Record<string, unknown> {
 
 export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   add(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<DeployKeySchema>()(this, `projects/${pId}/deploy_keys`, options);
+    return RequestHelper.post<DeployKeySchema>()(
+      this,
+      endpoint`projects/${projectId}/deploy_keys`,
+      options,
+    );
   }
 
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
     let url: string;
 
     if (projectId) {
-      url = `projects/${encodeURIComponent(projectId)}/deploy_keys`;
+      url = endpoint`projects/${projectId}/deploy_keys`;
     } else {
       url = 'deploy_keys';
     }
@@ -34,37 +37,29 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(projectId: string | number, keyId: number, options?: BaseRequestOptions) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
     return RequestHelper.put<DeployKeySchema>()(
       this,
-      `projects/${pId}/deploy_keys/${kId}`,
+      endpoint`projects/${projectId}/deploy_keys/${keyId}`,
       options,
     );
   }
 
   enable(projectId: string | number, keyId: number, options?: Sudo) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
     return RequestHelper.post<Omit<DeployKeySchema, 'can_push'>>()(
       this,
-      `projects/${pId}/deploy_keys/${kId}/enable`,
+      endpoint`projects/${projectId}/deploy_keys/${keyId}/enable`,
       options,
     );
   }
 
   remove(projectId: string | number, keyId: number, options?: Sudo) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/deploy_keys/${kId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/deploy_keys/${keyId}`, options);
   }
 
   show(projectId: string | number, keyId: number, options?: Sudo) {
-    const [pId, kId] = [projectId, keyId].map(encodeURIComponent);
-
     return RequestHelper.get<DeployKeySchema>()(
       this,
-      `projects/${pId}/deploy_keys/${kId}`,
+      endpoint`projects/${projectId}/deploy_keys/${keyId}`,
       options,
     );
   }
