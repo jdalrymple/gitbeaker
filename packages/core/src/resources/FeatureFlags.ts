@@ -37,11 +37,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   ) {
     const pId = encodeURIComponent(projectId);
 
-    return RequestHelper.get<FeatureFlagSchema[]>()(
-      this,
-      `projects/${pId}/features_flags`,
-      options,
-    );
+    return RequestHelper.get<FeatureFlagSchema[]>()(this, `projects/${pId}/feature_flags`, options);
   }
 
   create(
@@ -52,7 +48,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   ) {
     const [pId, fName, ver] = [projectId, flagName, version].map(encodeURIComponent);
 
-    return RequestHelper.post<FeatureFlagSchema>()(this, `projects/${pId}/features_flags`, {
+    return RequestHelper.post<FeatureFlagSchema>()(this, `projects/${pId}/feature_flags`, {
       version: ver,
       name: fName,
       ...options,
@@ -64,7 +60,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.put<FeatureFlagSchema>()(
       this,
-      `projects/${pId}/features_flags/${fName}`,
+      `projects/${pId}/feature_flags/${fName}`,
       options,
     );
   }
@@ -72,7 +68,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   remove(projectId: string | number, flagName: string, options?: Sudo) {
     const [pId, fName] = [projectId, flagName].map(encodeURIComponent);
 
-    return RequestHelper.del()(this, `projects/${pId}/features_flags/${fName}`, options);
+    return RequestHelper.del()(this, `projects/${pId}/feature_flags/${fName}`, options);
   }
 
   show(projectId: string | number, flagName: string, options?: Sudo) {
@@ -80,7 +76,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.get<FeatureFlagSchema>()(
       this,
-      `projects/${pId}/features_flags/${fName}`,
+      `projects/${pId}/feature_flags/${fName}`,
       options,
     );
   }
