@@ -7,8 +7,7 @@ export interface UserGPGKeySchema extends Record<string, unknown> {
   created_at: string;
 }
 
-const url = (userId?: number) =>
-  userId ? `users/${encodeURIComponent(userId)}/gpg_keys` : 'user/gpg_keys';
+const url = (userId?: number) => (userId ? `users/${userId}/gpg_keys` : 'user/gpg_keys');
 
 export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {

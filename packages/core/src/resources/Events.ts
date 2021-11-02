@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
-import { RequestHelper, PaginatedRequestOptions } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, endpoint } from '../infrastructure';
 
 export interface EventOptions {
   action?:
@@ -44,9 +44,7 @@ export class Events<C extends boolean = false> extends BaseResource<C> {
     let url: string;
 
     if (projectId) {
-      const pId = encodeURIComponent(projectId);
-
-      url = `projects/${pId}/events`;
+      url = endpoint`projects/${projectId}/events`;
     } else {
       url = 'events';
     }

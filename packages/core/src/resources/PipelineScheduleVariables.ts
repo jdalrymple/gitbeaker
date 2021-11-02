@@ -1,24 +1,25 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { PipelineVariableSchema } from './Pipelines';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  endpoint,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
 
 export class PipelineScheduleVariables<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
-    const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
-
     return RequestHelper.get<PipelineVariableSchema[]>()(
       this,
-      `projects/${pId}/pipeline_schedules/${psId}/variables`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
       options,
     );
   }
 
   create(projectId: string | number, pipelineScheduleId: number, options?: BaseRequestOptions) {
-    const [pId, psId] = [projectId, pipelineScheduleId].map(encodeURIComponent);
-
     return RequestHelper.post<PipelineVariableSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${psId}/variables`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
       options,
     );
   }
@@ -29,11 +30,9 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     keyId: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
-
     return RequestHelper.put<PipelineVariableSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
       options,
     );
   }
@@ -44,11 +43,9 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     keyId: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
-
     return RequestHelper.get<PipelineVariableSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
       options,
     );
   }
@@ -59,11 +56,9 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     keyId: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, psId, kId] = [projectId, pipelineScheduleId, keyId].map(encodeURIComponent);
-
     return RequestHelper.del<PipelineVariableSchema>()(
       this,
-      `projects/${pId}/pipeline_schedules/${psId}/variables/${kId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
       options,
     );
   }

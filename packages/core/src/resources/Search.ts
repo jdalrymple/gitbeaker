@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseRequestOptions } from '../infrastructure';
+import { RequestHelper, BaseRequestOptions, endpoint } from '../infrastructure';
 
 export interface SearchResultSchema extends Record<string, unknown> {
   id: number;
@@ -30,12 +30,14 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions = {},
   ) {
-    let url = '';
+    let url: string;
 
     if (projectId) {
-      url += `projects/${encodeURIComponent(projectId)}/`;
+      url = endpoint`projects/${projectId}/`;
     } else if (groupId) {
-      url += `groups/${encodeURIComponent(groupId)}/`;
+      url = endpoint`groups/${groupId}/`;
+    } else {
+      url = '';
     }
 
     return RequestHelper.get<SearchResultSchema[]>()(this, `${url}search`, {

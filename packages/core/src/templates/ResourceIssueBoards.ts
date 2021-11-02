@@ -3,6 +3,7 @@ import { MilestoneSchema } from './ResourceMilestones';
 import { LabelSchema } from './ResourceLabels';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -30,15 +31,14 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<IssueBoardSchema[]>()(this, `${rId}/boards`, options);
+    return RequestHelper.get<IssueBoardSchema[]>()(this, endpoint`${resourceId}/boards`, options);
   }
 
   create(resourceId: string | number, name: string, options?: Sudo) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<IssueBoardSchema>()(this, `${rId}/boards`, { name, ...options });
+    return RequestHelper.post<IssueBoardSchema>()(this, endpoint`${resourceId}/boards`, {
+      name,
+      ...options,
+    });
   }
 
   createList(
@@ -47,18 +47,18 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     labelId: number | string,
     options?: Sudo,
   ) {
-    const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
-
-    return RequestHelper.post<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists`, {
-      labelId,
-      ...options,
-    });
+    return RequestHelper.post<IssueBoardListSchema>()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}/lists`,
+      {
+        labelId,
+        ...options,
+      },
+    );
   }
 
   edit(resourceId: string | number, boardId: number, options?: BaseRequestOptions) {
-    const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
-
-    return RequestHelper.put()(this, `${rId}/boards/${bId}`, options);
+    return RequestHelper.put()(this, endpoint`${resourceId}/boards/${boardId}`, options);
   }
 
   editList(
@@ -68,44 +68,48 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     position: number,
     options?: Sudo,
   ) {
-    const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
-
-    return RequestHelper.put<IssueBoardListSchema>()(this, `${rId}/boards/${bId}/lists/${lId}`, {
-      position,
-      ...options,
-    });
+    return RequestHelper.put<IssueBoardListSchema>()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
+      {
+        position,
+        ...options,
+      },
+    );
   }
 
   lists(resourceId: string | number, boardId: number, options?: Sudo) {
-    const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
-
-    return RequestHelper.get<IssueBoardListSchema[]>()(this, `${rId}/boards/${bId}/lists`, options);
+    return RequestHelper.get<IssueBoardListSchema[]>()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}/lists`,
+      options,
+    );
   }
 
   remove(resourceId: string | number, boardId: number, options?: Sudo) {
-    const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/boards/${bId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/boards/${boardId}`, options);
   }
 
   removeList(resourceId: string | number, boardId: number, listId: number, options?: Sudo) {
-    const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/boards/${bId}/lists/${lId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
+      options,
+    );
   }
 
   show(resourceId: string | number, boardId: number, options?: Sudo) {
-    const [rId, bId] = [resourceId, boardId].map(encodeURIComponent);
-
-    return RequestHelper.get<IssueBoardSchema>()(this, `${rId}/boards/${bId}`, options);
+    return RequestHelper.get<IssueBoardSchema>()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}`,
+      options,
+    );
   }
 
   showList(resourceId: string | number, boardId: number, listId: number, options?: Sudo) {
-    const [rId, bId, lId] = [resourceId, boardId, listId].map(encodeURIComponent);
-
     return RequestHelper.get<IssueBoardListSchema>()(
       this,
-      `${rId}/boards/${bId}/lists/${lId}`,
+      endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
       options,
     );
   }

@@ -5,6 +5,7 @@ import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
+  endpoint,
 } from '../infrastructure';
 
 export interface NoteSchema extends Record<string, unknown> {
@@ -30,11 +31,9 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resource2Id: string | number,
     options?: PaginatedRequestOptions,
   ) {
-    const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
-
     return RequestHelper.get<NoteSchema[]>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
       options,
     );
   }
@@ -45,12 +44,14 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     body: string,
     options?: BaseRequestOptions,
   ) {
-    const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
-
-    return RequestHelper.post<NoteSchema>()(this, `${rId}/${this.resource2Type}/${r2Id}/notes`, {
-      body,
-      ...options,
-    });
+    return RequestHelper.post<NoteSchema>()(
+      this,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
+      {
+        body,
+        ...options,
+      },
+    );
   }
 
   edit(
@@ -60,11 +61,9 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     body: string,
     options?: BaseRequestOptions,
   ) {
-    const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
-
     return RequestHelper.put<NoteSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
       {
         body,
         ...options,
@@ -78,17 +77,17 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     noteId: number,
     options?: Sudo,
   ) {
-    const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
+      options,
+    );
   }
 
   show(resourceId: string | number, resource2Id: string | number, noteId: number, options?: Sudo) {
-    const [rId, r2Id, nId] = [resourceId, resource2Id, noteId].map(encodeURIComponent);
-
     return RequestHelper.get<NoteSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/notes/${nId}`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
       options,
     );
   }

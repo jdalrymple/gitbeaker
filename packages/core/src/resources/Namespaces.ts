@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, Sudo, endpoint } from '../infrastructure';
 
 export interface NamespaceSchema extends Record<string, unknown> {
   id: number;
@@ -23,8 +23,6 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   }
 
   show(namespaceId: string | number, options?: { search?: string } & Sudo) {
-    const nId = encodeURIComponent(namespaceId);
-
-    return RequestHelper.get<NamespaceSchema>()(this, `namespaces/${nId}`, options);
+    return RequestHelper.get<NamespaceSchema>()(this, endpoint`namespaces/${namespaceId}`, options);
   }
 }

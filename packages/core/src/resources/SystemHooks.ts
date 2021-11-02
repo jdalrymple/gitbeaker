@@ -27,14 +27,10 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(hookId: number, url: string, options?: BaseRequestOptions) {
-    const hId = encodeURIComponent(hookId);
-
-    return RequestHelper.put<SystemHookSchema>()(this, `hooks/${hId}`, { url, ...options });
+    return RequestHelper.put<SystemHookSchema>()(this, `hooks/${hookId}`, { url, ...options });
   }
 
   remove(hookId: number, options?: Sudo) {
-    const hId = encodeURIComponent(hookId);
-
-    return RequestHelper.del()(this, `hooks/${hId}`, options);
+    return RequestHelper.del()(this, `hooks/${hookId}`, options);
   }
 }

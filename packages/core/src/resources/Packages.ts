@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { PipelineSchema } from './Pipelines';
-import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { endpoint, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export interface PackageSchema extends Record<string, unknown> {
   id: number;
@@ -30,9 +30,9 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     let url: string;
 
     if (projectId) {
-      url = `projects/${encodeURIComponent(projectId)}/packages`;
+      url = endpoint`projects/${projectId}/packages`;
     } else if (groupId) {
-      url = `groups/${encodeURIComponent(groupId)}/packages`;
+      url = endpoint`groups/${groupId}/packages`;
     } else {
       throw new Error('projectId or groupId must be passed');
     }
@@ -41,33 +41,33 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
   }
 
   remove(projectId: string | number, packageId: number, options?: Sudo) {
-    const [pId, pkgId] = [projectId, packageId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/packages/${pkgId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/packages/${packageId}`,
+      options,
+    );
   }
 
   removeFile(projectId: string | number, packageId: number, projectFileId: number, options?: Sudo) {
-    const [pId, pkgId, pfId] = [projectId, packageId, projectFileId].map(encodeURIComponent);
-
     return RequestHelper.del()(
       this,
-      `projects/${pId}/packages/${pkgId}/package_files/${pfId}`,
+      endpoint`projects/${projectId}/packages/${packageId}/package_files/${projectFileId}`,
       options,
     );
   }
 
   show(projectId: string | number, packageId: number, options?: Sudo) {
-    const [pId, pkgId] = [projectId, packageId].map(encodeURIComponent);
-
-    return RequestHelper.get<PackageSchema>()(this, `projects/${pId}/packages/${pkgId}`, options);
+    return RequestHelper.get<PackageSchema>()(
+      this,
+      endpoint`projects/${projectId}/packages/${packageId}`,
+      options,
+    );
   }
 
   showFiles(projectId: string | number, packageId: number, options?: Sudo) {
-    const [pId, pkgId] = [projectId, packageId].map(encodeURIComponent);
-
     return RequestHelper.get<PackageFileSchema[]>()(
       this,
-      `projects/${pId}/packages/${pkgId}/package_files`,
+      endpoint`projects/${projectId}/packages/${packageId}/package_files`,
       options,
     );
   }

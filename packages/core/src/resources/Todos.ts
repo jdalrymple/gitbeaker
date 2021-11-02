@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import { ProjectSchema } from './Projects';
 import { MilestoneSchema } from '../templates/types';
-import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, Sudo, endpoint } from '../infrastructure';
 
 export interface TodoSchema extends Record<string, unknown> {
   id: number;
@@ -59,7 +59,7 @@ export class Todos<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.post<TodoSchema>()(
       this,
-      `projects/${projectId}/${resourceAPI}/${resourceId}/todo`,
+      endpoint`projects/${projectId}/${resourceAPI}/${resourceId}/todo`,
       options,
     );
   }
@@ -79,6 +79,7 @@ export class Todos<C extends boolean = false> extends BaseResource<C> {
         options as Record<string, unknown>,
       );
     }
+
     return RequestHelper.post<void>()(this, url.join('/'), options as Record<string, unknown>);
   }
 }

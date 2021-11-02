@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { CommitSchema } from './Commits';
-import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { endpoint, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
 
 export interface BranchSchema extends Record<string, unknown> {
   name: string;
@@ -16,38 +16,39 @@ export interface BranchSchema extends Record<string, unknown> {
 
 export class Branches<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<BranchSchema[]>()(
       this,
-      `projects/${pId}/repository/branches`,
+      endpoint`projects/${projectId}/repository/branches`,
       options,
     );
   }
 
   create(projectId: string | number, branchName: string, ref: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
     const branchKey = this.url.includes('v3') ? 'branchName' : 'branch';
 
-    return RequestHelper.post<BranchSchema>()(this, `projects/${pId}/repository/branches`, {
-      [branchKey]: branchName,
-      ref,
-      ...options,
-    });
+    return RequestHelper.post<BranchSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/branches`,
+      {
+        [branchKey]: branchName,
+        ref,
+        ...options,
+      },
+    );
   }
 
   remove(projectId: string | number, branchName: string, options?: Sudo) {
-    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/repository/branches/${bName}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/repository/branches/${branchName}`,
+      options,
+    );
   }
 
   show(projectId: string | number, branchName: string, options?: Sudo) {
-    const [pId, bName] = [projectId, branchName].map(encodeURIComponent);
-
     return RequestHelper.get<BranchSchema>()(
       this,
-      `projects/${pId}/repository/branches/${bName}`,
+      endpoint`projects/${projectId}/repository/branches/${branchName}`,
       options,
     );
   }

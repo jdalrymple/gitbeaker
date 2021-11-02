@@ -8,8 +8,7 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
   created_at: string;
 }
 
-const url = (userId?: number) =>
-  userId ? `users/${encodeURIComponent(userId)}/keys` : 'user/keys';
+const url = (userId?: number) => (userId ? `users/${userId}/keys` : 'user/keys');
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {

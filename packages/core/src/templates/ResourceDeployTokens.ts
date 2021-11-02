@@ -1,6 +1,7 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -33,15 +34,11 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseResourc
     tokenScopes: DeployTokenScope[],
     options?: BaseRequestOptions,
   ) {
-    return RequestHelper.post<DeployTokenSchema>()(
-      this,
-      `${encodeURIComponent(resourceId)}/deploy_tokens`,
-      {
-        name: tokenName,
-        scopes: tokenScopes,
-        ...options,
-      },
-    );
+    return RequestHelper.post<DeployTokenSchema>()(this, endpoint`${resourceId}/deploy_tokens`, {
+      name: tokenName,
+      scopes: tokenScopes,
+      ...options,
+    });
   }
 
   all({
@@ -56,15 +53,13 @@ export class ResourceDeployTokens<C extends boolean = false> extends BaseResourc
   } & PaginatedRequestOptions = {}) {
     const prefix =
       resourceId || projectId || groupId
-        ? `${encodeURIComponent((resourceId || projectId || groupId) as string)}/`
+        ? endpoint`${(resourceId || projectId || groupId) as string}/`
         : '';
 
     return RequestHelper.get<DeployTokenSchema[]>()(this, `${prefix}deploy_tokens`, options);
   }
 
   remove(resourceId: string | number, tokenId: number, options?: Sudo) {
-    const [rId, tId] = [resourceId, tokenId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/deploy_tokens/${tId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/deploy_tokens/${tokenId}`, options);
   }
 }

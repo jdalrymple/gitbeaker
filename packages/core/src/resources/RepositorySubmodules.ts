@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, RequestHelper } from '../infrastructure';
+import { BaseRequestOptions, endpoint, RequestHelper } from '../infrastructure';
 
 export interface RepositorySubmoduleSchema extends Record<string, unknown> {
   id: string;
@@ -25,11 +25,9 @@ export class RepositorySubmodules<C extends boolean = false> extends BaseResourc
     commit_sha: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, sm] = [projectId, submodule].map(encodeURIComponent);
-
     return RequestHelper.put<RepositorySubmoduleSchema>()(
       this,
-      `projects/${pId}/repository/submodules/${sm}`,
+      endpoint`projects/${projectId}/repository/submodules/${submodule}`,
       {
         branch,
         commit_sha,

@@ -145,15 +145,11 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   }
 
   create(geonodeId: number, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${gId}`, options);
+    return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
   }
 
   edit(geonodeId: number, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.put<GeoNodeSchema>()(this, `geo_nodes/${gId}`, options);
+    return RequestHelper.put<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
   }
 
   failures(options?: BaseRequestOptions) {
@@ -161,27 +157,19 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   }
 
   repair(geonodeId: number, options?: Sudo) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${gId}/repair`, options);
+    return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}/repair`, options);
   }
 
   remove(geonodeId: number, options?: Sudo) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.del<GeoNodeSchema>()(this, `geo_nodes/${gId}`, options);
+    return RequestHelper.del<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
   }
 
   show(geonodeId: number, options?: Sudo) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.get<GeoNodeSchema>()(this, `geo_nodes/${gId}`, options);
+    return RequestHelper.get<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
   }
 
   status(geonodeId: number, options?: Sudo) {
-    const gId = encodeURIComponent(geonodeId);
-
-    return RequestHelper.get<GeoNodeStatusSchema>()(this, `geo_nodes/${gId}/status`, options);
+    return RequestHelper.get<GeoNodeStatusSchema>()(this, `geo_nodes/${geonodeId}/status`, options);
   }
 
   statuses(options?: PaginatedRequestOptions) {

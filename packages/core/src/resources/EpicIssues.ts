@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { IssueSchema } from './Issues';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -14,21 +15,17 @@ export interface EpicIssueSchema
 
 export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
   all(groupId: string | number, epicIId: number, options?: PaginatedRequestOptions) {
-    const [gId, eId] = [groupId, epicIId].map(encodeURIComponent);
-
     return RequestHelper.get<EpicIssueSchema[]>()(
       this,
-      `groups/${gId}/epics/${eId}/issues`,
+      endpoint`groups/${groupId}/epics/${epicIId}/issues`,
       options,
     );
   }
 
   assign(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
-
     return RequestHelper.post<EpicIssueSchema>()(
       this,
-      `groups/${gId}/epics/${eId}/issues/${iId}`,
+      endpoint`groups/${groupId}/epics/${epicIId}/issues/${epicIssueId}`,
       options,
     );
   }
@@ -39,18 +36,18 @@ export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
     epicIssueId: number,
     options?: BaseRequestOptions,
   ) {
-    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
-
     return RequestHelper.put<EpicIssueSchema>()(
       this,
-      `groups/${gId}/epics/${eId}/issues/${iId}`,
+      endpoint`groups/${groupId}/epics/${epicIId}/issues/${epicIssueId}`,
       options,
     );
   }
 
   remove(groupId: string | number, epicIId: number, epicIssueId: number, options?: Sudo) {
-    const [gId, eId, iId] = [groupId, epicIId, epicIssueId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `groups/${gId}/epics/${eId}/issues/${iId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`groups/${groupId}/epics/${epicIId}/issues/${epicIssueId}`,
+      options,
+    );
   }
 }
