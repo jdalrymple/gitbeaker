@@ -1,5 +1,5 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, Sudo } from '../infrastructure';
+import { endpoint, RequestHelper, Sudo } from '../infrastructure';
 
 export type AccessLevel = 0 | 5 | 10 | 20 | 30 | 40 | 50;
 
@@ -18,15 +18,14 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
   }
 
   all(resourceId: string | number) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<AccessRequestSchema[]>()(this, `${rId}/access_requests`);
+    return RequestHelper.get<AccessRequestSchema[]>()(
+      this,
+      endpoint`${resourceId}/access_requests`,
+    );
   }
 
   request(resourceId: string | number) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<AccessRequestSchema>()(this, `${rId}/access_requests`);
+    return RequestHelper.post<AccessRequestSchema>()(this, endpoint`${resourceId}/access_requests`);
   }
 
   approve(
@@ -34,18 +33,14 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
     userId: number,
     options?: { accessLevel?: AccessLevel } & Sudo,
   ) {
-    const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
-
     return RequestHelper.post<AccessRequestSchema>()(
       this,
-      `${rId}/access_requests/${uId}/approve`,
+      endpoint`${resourceId}/access_requests/${userId}/approve`,
       options,
     );
   }
 
   deny(resourceId: string | number, userId: number) {
-    const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/access_requests/${uId}`);
+    return RequestHelper.del()(this, endpoint`${resourceId}/access_requests/${userId}`);
   }
 }

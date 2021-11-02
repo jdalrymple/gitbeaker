@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { UserSchema } from './Users';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -47,32 +48,33 @@ export interface EpicSchema extends Record<string, unknown> {
 
 export class Epics<C extends boolean = false> extends BaseResource<C> {
   all(groupId: string | number, options?: PaginatedRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.get<EpicSchema[]>()(this, `groups/${gId}/epics`, options);
+    return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, options);
   }
 
   create(groupId: string | number, title: string, options?: BaseRequestOptions) {
-    const gId = encodeURIComponent(groupId);
-
-    return RequestHelper.post<EpicSchema>()(this, `groups/${gId}/epics`, { title, ...options });
+    return RequestHelper.post<EpicSchema>()(this, endpoint`groups/${groupId}/epics`, {
+      title,
+      ...options,
+    });
   }
 
   edit(groupId: string | number, epicId: number, options?: BaseRequestOptions) {
-    const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
-
-    return RequestHelper.put<EpicSchema>()(this, `groups/${gId}/epics/${eId}`, options);
+    return RequestHelper.put<EpicSchema>()(
+      this,
+      endpoint`groups/${groupId}/epics/${epicId}`,
+      options,
+    );
   }
 
   remove(groupId: string | number, epicId: number, options?: Sudo) {
-    const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `groups/${gId}/epics/${eId}`, options);
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicId}`, options);
   }
 
   show(groupId: string | number, epicId: number, options?: Sudo) {
-    const [gId, eId] = [groupId, epicId].map(encodeURIComponent);
-
-    return RequestHelper.get<EpicSchema>()(this, `groups/${gId}/epics/${eId}`, options);
+    return RequestHelper.get<EpicSchema>()(
+      this,
+      endpoint`groups/${groupId}/epics/${epicId}`,
+      options,
+    );
   }
 }

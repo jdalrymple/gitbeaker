@@ -5,6 +5,7 @@ import {
   RequestHelper,
   Sudo,
   ShowExpanded,
+  endpoint,
 } from '../infrastructure';
 
 export interface LabelSchema extends Record<string, unknown> {
@@ -28,9 +29,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<LabelSchema[]>()(this, `${rId}/labels`, options);
+    return RequestHelper.get<LabelSchema[]>()(this, endpoint`${resourceId}/labels`, options);
   }
 
   create(
@@ -39,9 +38,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     color: string,
     options?: BaseRequestOptions,
   ) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<LabelSchema>()(this, `${rId}/labels`, {
+    return RequestHelper.post<LabelSchema>()(this, endpoint`${resourceId}/labels`, {
       name: labelName,
       color,
       ...options,
@@ -49,21 +46,23 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(resourceId: string | number, labelId: number | string, options?: BaseRequestOptions) {
-    const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
-
-    return RequestHelper.put<LabelSchema>()(this, `${rId}/labels/${lId}`, options);
+    return RequestHelper.put<LabelSchema>()(
+      this,
+      endpoint`${resourceId}/labels/${labelId}`,
+      options,
+    );
   }
 
   remove(resourceId: string | number, labelId: number | string, options?: Sudo & ShowExpanded) {
-    const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/labels/${lId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/labels/${labelId}`, options);
   }
 
   subscribe(resourceId: string | number, labelId: number | string, options?: Sudo & ShowExpanded) {
-    const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
-
-    return RequestHelper.post<LabelSchema>()(this, `${rId}/issues/${lId}/subscribe`, options);
+    return RequestHelper.post<LabelSchema>()(
+      this,
+      endpoint`${resourceId}/issues/${labelId}/subscribe`,
+      options,
+    );
   }
 
   unsubscribe(
@@ -71,8 +70,10 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: Sudo & ShowExpanded,
   ) {
-    const [rId, lId] = [resourceId, labelId].map(encodeURIComponent);
-
-    return RequestHelper.post<LabelSchema>()(this, `${rId}/issues/${lId}/unsubscribe`, options);
+    return RequestHelper.post<LabelSchema>()(
+      this,
+      endpoint`${resourceId}/issues/${labelId}/unsubscribe`,
+      options,
+    );
   }
 }

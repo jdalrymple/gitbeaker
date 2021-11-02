@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -15,32 +16,30 @@ export interface WikiSchema extends Record<string, unknown> {
 
 export class Wikis<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<WikiSchema[]>()(this, `projects/${pId}/wikis`, options);
+    return RequestHelper.get<WikiSchema[]>()(this, endpoint`projects/${projectId}/wikis`, options);
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<WikiSchema>()(this, `projects/${pId}/wikis`, options);
+    return RequestHelper.post<WikiSchema>()(this, endpoint`projects/${projectId}/wikis`, options);
   }
 
   edit(projectId: string | number, slug: string, options?: BaseRequestOptions) {
-    const [pId, s] = [projectId, slug].map(encodeURIComponent);
-
-    return RequestHelper.put<WikiSchema>()(this, `projects/${pId}/wikis/${s}`, options);
+    return RequestHelper.put<WikiSchema>()(
+      this,
+      endpoint`projects/${projectId}/wikis/${slug}`,
+      options,
+    );
   }
 
   show(projectId: string | number, slug: string, options?: Sudo) {
-    const [pId, s] = [projectId, slug].map(encodeURIComponent);
-
-    return RequestHelper.get<WikiSchema>()(this, `projects/${pId}/wikis/${s}`, options);
+    return RequestHelper.get<WikiSchema>()(
+      this,
+      endpoint`projects/${projectId}/wikis/${slug}`,
+      options,
+    );
   }
 
   remove(projectId: string | number, slug: string, options?: Sudo) {
-    const [pId, s] = [projectId, slug].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/wikis/${s}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/wikis/${slug}`, options);
   }
 }

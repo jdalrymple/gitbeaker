@@ -32,7 +32,7 @@ describe('ResourceDiscussions.addNote', () => {
       service,
       '1/resource2/2/discussions/3/notes',
       {
-        noteId: '4',
+        noteId: 4,
         query: {
           body: 'test',
         },

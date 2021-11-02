@@ -4,6 +4,7 @@ import {
   PaginatedRequestOptions,
   BaseRequestOptions,
   Sudo,
+  endpoint,
 } from '../infrastructure';
 import { IssueSchema } from '../resources/Issues';
 import { MergeRequestSchema } from '../resources/MergeRequests';
@@ -29,42 +30,49 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<MilestoneSchema[]>()(this, `${rId}/milestones`, options);
+    return RequestHelper.get<MilestoneSchema[]>()(
+      this,
+      endpoint`${resourceId}/milestones`,
+      options,
+    );
   }
 
   create(resourceId: string | number, title: string, options?: BaseRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<MilestoneSchema>()(this, `${rId}/milestones`, { title, ...options });
+    return RequestHelper.post<MilestoneSchema>()(this, endpoint`${resourceId}/milestones`, {
+      title,
+      ...options,
+    });
   }
 
   edit(resourceId: string | number, milestoneId: number, options?: BaseRequestOptions) {
-    const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
-
-    return RequestHelper.put<MilestoneSchema>()(this, `${rId}/milestones/${mId}`, options);
+    return RequestHelper.put<MilestoneSchema>()(
+      this,
+      endpoint`${resourceId}/milestones/${milestoneId}`,
+      options,
+    );
   }
 
   issues(resourceId: string | number, milestoneId: number, options?: Sudo) {
-    const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
-
-    return RequestHelper.get<IssueSchema[]>()(this, `${rId}/milestones/${mId}/issues`, options);
+    return RequestHelper.get<IssueSchema[]>()(
+      this,
+      endpoint`${resourceId}/milestones/${milestoneId}/issues`,
+      options,
+    );
   }
 
   mergeRequests(resourceId: string | number, milestoneId: number, options?: Sudo) {
-    const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
-
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
-      `${rId}/milestones/${mId}/merge_requests`,
+      endpoint`${resourceId}/milestones/${milestoneId}/merge_requests`,
       options,
     );
   }
 
   show(resourceId: string | number, milestoneId: number, options?: Sudo) {
-    const [rId, mId] = [resourceId, milestoneId].map(encodeURIComponent);
-
-    return RequestHelper.get<MilestoneSchema>()(this, `${rId}/milestones/${mId}`, options);
+    return RequestHelper.get<MilestoneSchema>()(
+      this,
+      endpoint`${resourceId}/milestones/${milestoneId}`,
+      options,
+    );
   }
 }

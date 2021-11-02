@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, PaginatedRequestOptions, Sudo, endpoint } from '../infrastructure';
 
 export interface RegistryRepositoryTagSchema extends Record<string, unknown> {
   name: string;
@@ -26,57 +26,49 @@ export interface RegistryRepositorySchema extends Record<string, unknown> {
 
 export class ContainerRegistry<C extends boolean = false> extends BaseResource<C> {
   projectRepositories(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<Omit<RegistryRepositorySchema, 'tags' | 'tags_count'>[]>()(
       this,
-      `projects/${pId}/registry/repositories`,
+      endpoint`projects/${projectId}/registry/repositories`,
       options,
     );
   }
 
   groupRepositories(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<Omit<RegistryRepositorySchema, 'tags' | 'tags_count'>[]>()(
       this,
-      `groups/${pId}/registry/repositories`,
+      endpoint`groups/${projectId}/registry/repositories`,
       options,
     );
   }
 
   showRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
-    const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
-
     return RequestHelper.get<RegistryRepositorySchema>()(
       this,
-      `projects/${pId}/registry/repositories/${rId}`,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}`,
       options,
     );
   }
 
   tags(projectId: string | number, repositoryId: number, options?: PaginatedRequestOptions) {
-    const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
-
     return RequestHelper.get<Pick<RegistryRepositoryTagSchema, 'name' | 'path' | 'location'>[]>()(
       this,
-      `projects/${pId}/registry/repositories/${rId}/tags`,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}/tags`,
       options,
     );
   }
 
   removeRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
-    const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/registry/repositories/${rId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}`,
+      options,
+    );
   }
 
   removeTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
-    const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
-
     return RequestHelper.del()(
       this,
-      `projects/${pId}/registry/repositories/${rId}/tags/${tId}`,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}/tags/${tagName}`,
       options,
     );
   }
@@ -87,20 +79,20 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     nameRegexDelete: string,
     options?: Sudo & { nameRegexKeep: string; keepN: string; olderThan: string },
   ) {
-    const [pId, rId] = [projectId, repositoryId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/registry/repositories/${rId}/tags`, {
-      nameRegexDelete,
-      ...options,
-    });
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}/tags`,
+      {
+        nameRegexDelete,
+        ...options,
+      },
+    );
   }
 
   showTag(projectId: string | number, repositoryId: number, tagName: string, options?: Sudo) {
-    const [pId, rId, tId] = [projectId, repositoryId, tagName].map(encodeURIComponent);
-
     return RequestHelper.get<RegistryRepositoryTagSchema>()(
       this,
-      `projects/${pId}/registry/repositories/${rId}/tags/${tId}`,
+      endpoint`projects/${projectId}/registry/repositories/${repositoryId}/tags/${tagName}`,
       options,
     );
   }

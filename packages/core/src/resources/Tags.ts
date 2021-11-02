@@ -3,6 +3,7 @@ import { CommitSchema } from './Commits';
 import { ReleaseSchema } from './Releases';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -19,26 +20,34 @@ export interface TagSchema extends Record<string, unknown> {
 
 export class Tags<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<TagSchema[]>()(this, `projects/${pId}/repository/tags`, options);
+    return RequestHelper.get<TagSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/tags`,
+      options,
+    );
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<TagSchema>()(this, `projects/${pId}/repository/tags`, options);
+    return RequestHelper.post<TagSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/tags`,
+      options,
+    );
   }
 
   remove(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/repository/tags/${tId}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/repository/tags/${tagName}`,
+      options,
+    );
   }
 
   show(projectId: string | number, tagName: string, options?: Sudo) {
-    const [pId, tId] = [projectId, tagName].map(encodeURIComponent);
-
-    return RequestHelper.get<TagSchema>()(this, `projects/${pId}/repository/tags/${tId}`, options);
+    return RequestHelper.get<TagSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/tags/${tagName}`,
+      options,
+    );
   }
 }

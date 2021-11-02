@@ -36,8 +36,6 @@ export class License<C extends boolean = false> extends BaseResource<C> {
   }
 
   remove(licenceId: number, options?: Sudo) {
-    const lId = encodeURIComponent(licenceId);
-
-    return RequestHelper.del<LicenseSchema>()(this, `license/${lId}`, options);
+    return RequestHelper.del<LicenseSchema>()(this, `license/${licenceId}`, options);
   }
 }

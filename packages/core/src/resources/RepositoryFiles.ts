@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { CommitSchema } from './Commits';
-import { RequestHelper, BaseRequestOptions, Sudo } from '../infrastructure';
+import { RequestHelper, BaseRequestOptions, endpoint, Sudo } from '../infrastructure';
 
 export interface RepositoryFileExtendedSchema extends Record<string, unknown> {
   file_name: string;
@@ -34,11 +34,9 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     commitMessage: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
     return RequestHelper.post<RepositoryFileSchema>()(
       this,
-      `projects/${pId}/repository/files/${path}`,
+      endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
         branch,
         content,
@@ -56,11 +54,9 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     commitMessage: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
     return RequestHelper.put<RepositoryFileSchema>()(
       this,
-      `projects/${pId}/repository/files/${path}`,
+      endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
         branch,
         content,
@@ -77,9 +73,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     commitMessage: string,
     options?: BaseRequestOptions,
   ) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/repository/files/${path}`, {
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/repository/files/${filePath}`, {
       branch,
       commitMessage,
       ...options,
@@ -87,11 +81,9 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
   }
 
   show(projectId: string | number, filePath: string, ref: string, options?: Sudo) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
     return RequestHelper.get<RepositoryFileExtendedSchema>()(
       this,
-      `projects/${pId}/repository/files/${path}`,
+      endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
         ref,
         ...options,
@@ -100,21 +92,17 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
   }
 
   showBlame(projectId: string | number, filePath: string, options?: Sudo) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
     return RequestHelper.get<RepositoryFileBlameSchema[]>()(
       this,
-      `projects/${pId}/repository/files/${path}/blame`,
+      endpoint`projects/${projectId}/repository/files/${filePath}/blame`,
       options,
     );
   }
 
   showRaw(projectId: string | number, filePath: string, options?: BaseRequestOptions) {
-    const [pId, path] = [projectId, filePath].map(encodeURIComponent);
-
     return RequestHelper.get()(
       this,
-      `projects/${pId}/repository/files/${path}/raw`,
+      endpoint`projects/${projectId}/repository/files/${filePath}/raw`,
       options,
     ) as unknown as Promise<Blob>;
   }

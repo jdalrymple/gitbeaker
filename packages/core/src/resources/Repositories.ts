@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { CommitSchema, CommitDiffSchema } from './Commits';
-import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
+import { RequestHelper, Sudo, BaseRequestOptions, endpoint } from '../infrastructure';
 
 type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
 
@@ -36,11 +36,9 @@ export interface RepositoryTreeSchema extends Record<string, unknown> {
 
 export class Repositories<C extends boolean = false> extends BaseResource<C> {
   compare(projectId: string | number, from: string, to: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<RepositoryCompareSchema>()(
       this,
-      `projects/${pId}/repository/compare`,
+      endpoint`projects/${projectId}/repository/compare`,
       {
         from,
         to,
@@ -50,63 +48,55 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   }
 
   contributors(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<RepositoryContributorSchema[]>()(
       this,
-      `projects/${pId}/repository/contributors`,
+      endpoint`projects/${projectId}/repository/contributors`,
       options,
     );
   }
 
   mergeBase(projectId: string | number, refs: string[], options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<CommitSchema>()(this, `projects/${pId}/repository/merge_base`, {
-      refs,
-      ...options,
-    });
+    return RequestHelper.get<CommitSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/merge_base`,
+      {
+        refs,
+        ...options,
+      },
+    );
   }
 
   showArchive(
     projectId: string | number,
     { fileType = 'tar.gz', ...options }: { fileType?: ArchiveType } & Sudo = {},
   ) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get()(
       this,
-      `projects/${pId}/repository/archive.${fileType}`,
+      endpoint`projects/${projectId}/repository/archive.${fileType}`,
       options as Record<string, unknown>,
     ) as unknown as Promise<string>;
   }
 
   showBlob(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get()(
       this,
-      `projects/${pId}/repository/blobs/${sha}`,
+      endpoint`projects/${projectId}/repository/blobs/${sha}`,
       options,
     ) as unknown as Promise<Blob>;
   }
 
   showBlobRaw(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get()(
       this,
-      `projects/${pId}/repository/blobs/${sha}/raw`,
+      endpoint`projects/${projectId}/repository/blobs/${sha}/raw`,
       options,
     ) as unknown as Promise<Blob>;
   }
 
   tree(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<RepositoryTreeSchema[]>()(
       this,
-      `projects/${pId}/repository/tree`,
+      endpoint`projects/${projectId}/repository/tree`,
       options,
     );
   }
