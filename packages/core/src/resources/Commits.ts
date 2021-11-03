@@ -249,7 +249,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   }
 
   mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    return RequestHelper.get<MergeRequestSchema>()(
+    return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/merge_requests`,
       options,
