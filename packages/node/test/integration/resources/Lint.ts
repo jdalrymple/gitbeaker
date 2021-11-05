@@ -1,7 +1,6 @@
 import 'jest-extended';
 import { Lint } from '../../../src';
 
-const { TEST_ID = '' } = process.env;
 let lintAPI: InstanceType<typeof Lint>;
 
 beforeEach(() => {
@@ -20,14 +19,12 @@ describe('Lint.lint', () => {
       script:
         - echo 1
     `;
-    const result = lintAPI.lint(input_ci_yaml);
+    const result = await lintAPI.lint(input_ci_yaml);
 
     expect(result).toBeInstanceOf(Object);
     expect(result).toContainKeys(['status']);
   });
-});
 
-describe('Lint.lint', () => {
   it('should return the merged yaml in a lint request when requested', async () => {
     // Call the lint API, passing in a basic CI yaml, asking for the merged_yaml back.
     const input_ci_yaml = `
@@ -36,7 +33,7 @@ describe('Lint.lint', () => {
       script:
         - echo 1
     `;
-    const result = lintAPI.lint(input_ci_yaml, { include_merged_yaml: true });
+    const result = await lintAPI.lint(input_ci_yaml, { includeMergedYaml: true });
 
     expect(result).toBeInstanceOf(Object);
     expect(result).toContainKeys(['status', 'merged_yaml']);
