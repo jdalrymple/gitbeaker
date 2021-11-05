@@ -1,3 +1,34 @@
+# v34.5.0 (Fri Nov 05 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+:heart: Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 💥 Feature
+
+- Add ability to request merged_yaml from the Gitlab Lint API [#2185](https://github.com/jdalrymple/gitbeaker/pull/2185) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Commit merge requests should be an array instead of a record [#2192](https://github.com/jdalrymple/gitbeaker/pull/2192) ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Refactor endpoint generation, using tagged template to encode parameters [#2173](https://github.com/jdalrymple/gitbeaker/pull/2173) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+- Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+---
+
 # v34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from new contributors! :tada:

@@ -1,3 +1,58 @@
+# 34.5.0 (Fri Nov 05 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+:heart: Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+:heart: nilennoct ([@nilennoct](https://github.com/nilennoct))
+
+#### 💥 Feature
+
+- `@gitbeaker/core`, `@gitbeaker/node`
+  - Add ability to request merged_yaml from the Gitlab Lint API [#2185](https://github.com/jdalrymple/gitbeaker/pull/2185) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Commit merge requests should be an array instead of a record [#2192](https://github.com/jdalrymple/gitbeaker/pull/2192) ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/core`
+  - Refactor endpoint generation, using tagged template to encode parameters [#2173](https://github.com/jdalrymple/gitbeaker/pull/2173) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump eslint-plugin-jest from 25.2.2 to 25.2.3 [#2193](https://github.com/jdalrymple/gitbeaker/pull/2193) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.16.2 to 1.16.3 [#2190](https://github.com/jdalrymple/gitbeaker/pull/2190) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 7.0.2 to 7.0.4 [#2167](https://github.com/jdalrymple/gitbeaker/pull/2167) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 10.3.0 to 10.4.0 [#2176](https://github.com/jdalrymple/gitbeaker/pull/2176) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.11.1 to 16.11.6 [#2179](https://github.com/jdalrymple/gitbeaker/pull/2179) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.2.3 to 11.2.6 [#2180](https://github.com/jdalrymple/gitbeaker/pull/2180) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.32.1 to 10.32.2 [#2188](https://github.com/jdalrymple/gitbeaker/pull/2188) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.58.0 to 2.59.0 [#2189](https://github.com/jdalrymple/gitbeaker/pull/2189) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.32.1 to 10.32.2 [#2187](https://github.com/jdalrymple/gitbeaker/pull/2187) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.15.2 to 1.16.2 [#2184](https://github.com/jdalrymple/gitbeaker/pull/2184) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.32.1 to 10.32.2 [#2182](https://github.com/jdalrymple/gitbeaker/pull/2182) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-node-resolve from 13.0.5 to 13.0.6 [#2166](https://github.com/jdalrymple/gitbeaker/pull/2166) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 21.0.0 to 21.0.1 [#2165](https://github.com/jdalrymple/gitbeaker/pull/2165) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.3.0 to 27.3.1 [#2164](https://github.com/jdalrymple/gitbeaker/pull/2164) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-extended from 1.0.0 to 1.1.0 [#2163](https://github.com/jdalrymple/gitbeaker/pull/2163) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+- Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+---
+
 # 34.4.1 (Mon Oct 18 2021)
 
 #### 👷🏼‍♀️ Technical Debt

@@ -1,3 +1,20 @@
+# v34.5.0 (Fri Nov 05 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth)), for all your work!
+
+#### 💥 Feature
+
+- Add ability to request merged_yaml from the Gitlab Lint API [#2185](https://github.com/jdalrymple/gitbeaker/pull/2185) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+---
+
 # v34.3.0 (Sun Oct 17 2021)
 
 #### 🐛 Bug Fix
