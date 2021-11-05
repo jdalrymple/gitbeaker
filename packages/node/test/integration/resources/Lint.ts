@@ -14,13 +14,13 @@ beforeEach(() => {
 describe('Lint.lint', () => {
   it('should return validate a lint without returning the merged_yaml', async () => {
     // Call the lint API, passing in a basic CI yaml, asking for the merged_yaml back.
-    let input_ci_yaml = `
+    const input_ci_yaml = `
     test:
       stage: test
       script:
         - echo 1
-    `
-    let result = lintAPI.lint(input_ci_yaml);
+    `;
+    const result = lintAPI.lint(input_ci_yaml);
 
     expect(result).toBeInstanceOf(Object);
     expect(result).toContainKeys(['status']);
@@ -30,13 +30,13 @@ describe('Lint.lint', () => {
 describe('Lint.lint', () => {
   it('should return the merged yaml in a lint request when requested', async () => {
     // Call the lint API, passing in a basic CI yaml, asking for the merged_yaml back.
-    let input_ci_yaml = `
+    const input_ci_yaml = `
     test:
       stage: test
       script:
         - echo 1
-    `
-    let result = lintAPI.lint(input_ci_yaml, {include_merged_yaml: true});
+    `;
+    const result = lintAPI.lint(input_ci_yaml, { include_merged_yaml: true });
 
     expect(result).toBeInstanceOf(Object);
     expect(result).toContainKeys(['status', 'merged_yaml']);
