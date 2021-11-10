@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-const Mime = require('mime/lite');
+import * as Mime from 'mime/lite';
 import { RequestHelper, Sudo } from '../infrastructure';
 
 export class PackageRegistry<C extends boolean = false> extends BaseResource<C> {
@@ -14,7 +14,7 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     const pId = encodeURIComponent(projectId);
     const meta = { filename, contentType };
 
-    if (!meta.contentType) meta.contentType = Mime.getType(meta.filename);
+    if (!meta.contentType) meta.contentType = Mime.getType(meta.filename) || undefined;
 
     return RequestHelper.put<{ message: string }>()(
       this,
