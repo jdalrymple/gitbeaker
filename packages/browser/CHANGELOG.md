@@ -1,3 +1,15 @@
+# v34.6.0 (Mon Nov 15 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump ky from 0.28.6 to 0.28.7 [#2199](https://github.com/jdalrymple/gitbeaker/pull/2199) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v34.3.0 (Sun Oct 17 2021)
 
 #### 🐛 Bug Fix

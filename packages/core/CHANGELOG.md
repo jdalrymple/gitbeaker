@@ -1,3 +1,24 @@
+# v34.6.0 (Mon Nov 15 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Renamed parameter [#2205](https://github.com/jdalrymple/gitbeaker/pull/2205) ([@mlaffargue](https://github.com/mlaffargue))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Swap mime-types with mime for a smaller pkg size [#2195](https://github.com/jdalrymple/gitbeaker/pull/2195) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue))
+
+---
+
 # v34.5.0 (Fri Nov 05 2021)
 
 :tada: This release contains work from new contributors! :tada:
