@@ -3,6 +3,7 @@ import { ProjectSchema } from './Projects';
 import { JobSchema } from './Jobs';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -37,7 +38,7 @@ export interface RunnerExtendedSchema extends RunnerSchema {
 
 export class Runners<C extends boolean = false> extends BaseResource<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
-    const url = projectId ? `projects/${encodeURIComponent(projectId)}/runners` : 'runners/all';
+    const url = projectId ? endpoint`projects/${projectId}/runners` : 'runners/all';
 
     return RequestHelper.get<RunnerSchema[]>()(this, url, options);
   }
@@ -47,41 +48,31 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(runnerId: number, options?: BaseRequestOptions) {
-    const rId = encodeURIComponent(runnerId);
-
-    return RequestHelper.put<RunnerExtendedSchema>()(this, `runners/${rId}`, options);
+    return RequestHelper.put<RunnerExtendedSchema>()(this, `runners/${runnerId}`, options);
   }
 
   enable(projectId: string | number, runnerId: number, options?: Sudo) {
     const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
 
-    return RequestHelper.post<RunnerSchema>()(this, `projects/${pId}/runners`, {
+    return RequestHelper.post<RunnerSchema>()(this, endpoint`projects/${pId}/runners`, {
       runnerId: rId,
       ...options,
     });
   }
 
   disable(projectId: string | number, runnerId: number, options?: Sudo) {
-    const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/runners/${rId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/runners/${runnerId}`, options);
   }
 
   jobs(runnerId: number, options?: Sudo) {
-    const rId = encodeURIComponent(runnerId);
-
-    return RequestHelper.get<JobSchema[]>()(this, `runners/${rId}/jobs`, options);
+    return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, options);
   }
 
   remove(runnerId: number, options?: Sudo) {
-    const rId = encodeURIComponent(runnerId);
-
-    return RequestHelper.del()(this, `runners/${rId}`, options);
+    return RequestHelper.del()(this, `runners/${runnerId}`, options);
   }
 
   show(runnerId: number, options?: Sudo) {
-    const rId = encodeURIComponent(runnerId);
-
-    return RequestHelper.get<RunnerExtendedSchema>()(this, `runners/${rId}`, options);
+    return RequestHelper.get<RunnerExtendedSchema>()(this, `runners/${runnerId}`, options);
   }
 }

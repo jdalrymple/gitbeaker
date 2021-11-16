@@ -2,6 +2,7 @@ import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { UserSchema } from '../resources/Users';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -57,14 +58,10 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     body: string,
     options?: BaseRequestOptions,
   ) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
-      encodeURIComponent,
-    );
-
     return RequestHelper.post()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes`,
-      { query: { body }, noteId: nId, ...options },
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes`,
+      { query: { body }, noteId, ...options },
     );
   }
 
@@ -73,11 +70,9 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resource2Id: string | number,
     options?: PaginatedRequestOptions,
   ) {
-    const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
-
     return RequestHelper.get<DiscussionSchema[]>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions`,
       options,
     );
   }
@@ -88,11 +83,9 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     body: string,
     options?: BaseRequestOptions,
   ) {
-    const [rId, r2Id] = [resourceId, resource2Id].map(encodeURIComponent);
-
     return RequestHelper.post<DiscussionSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions`,
       {
         query: { body },
         ...options,
@@ -107,13 +100,9 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     noteId: number,
     { body, ...options }: BaseRequestOptions & { body?: string } = {},
   ) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
-      encodeURIComponent,
-    );
-
     return RequestHelper.put<DiscussionSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes/${noteId}`,
       {
         query: { body },
         ...options,
@@ -128,13 +117,9 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     noteId: number,
     options?: Sudo,
   ) {
-    const [rId, r2Id, dId, nId] = [resourceId, resource2Id, discussionId, noteId].map(
-      encodeURIComponent,
-    );
-
     return RequestHelper.del()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}/notes/${nId}`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes/${noteId}`,
       options,
     );
   }
@@ -145,11 +130,9 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     discussionId: string | number,
     options?: Sudo,
   ) {
-    const [rId, r2Id, dId] = [resourceId, resource2Id, discussionId].map(encodeURIComponent);
-
     return RequestHelper.get<DiscussionSchema>()(
       this,
-      `${rId}/${this.resource2Type}/${r2Id}/discussions/${dId}`,
+      endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}`,
       options,
     );
   }

@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -29,38 +30,40 @@ export interface ProjectHookSchema extends Record<string, unknown> {
 
 export class ProjectHooks<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ProjectHookSchema[]>()(this, `projects/${pId}/hooks`, options);
+    return RequestHelper.get<ProjectHookSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/hooks`,
+      options,
+    );
   }
 
   show(projectId: string | number, hookId: number, options?: Sudo) {
-    const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
-
-    return RequestHelper.get<ProjectHookSchema>()(this, `projects/${pId}/hooks/${hId}`, options);
+    return RequestHelper.get<ProjectHookSchema>()(
+      this,
+      endpoint`projects/${projectId}/hooks/${hookId}`,
+      options,
+    );
   }
 
   add(projectId: string | number, url: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<ProjectHookSchema>()(this, `projects/${pId}/hooks`, {
+    return RequestHelper.post<ProjectHookSchema>()(this, endpoint`projects/${projectId}/hooks`, {
       url,
       ...options,
     });
   }
 
   edit(projectId: string | number, hookId: number, url: string, options?: BaseRequestOptions) {
-    const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
-
-    return RequestHelper.put<ProjectHookSchema>()(this, `projects/${pId}/hooks/${hId}`, {
-      url,
-      ...options,
-    });
+    return RequestHelper.put<ProjectHookSchema>()(
+      this,
+      endpoint`projects/${projectId}/hooks/${hookId}`,
+      {
+        url,
+        ...options,
+      },
+    );
   }
 
   remove(projectId: string | number, hookId: number, options?: Sudo) {
-    const [pId, hId] = [projectId, hookId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/hooks/${hId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/hooks/${hookId}`, options);
   }
 }

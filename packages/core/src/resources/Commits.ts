@@ -3,6 +3,7 @@ import { UserSchema } from './Users';
 import { MergeRequestSchema } from './MergeRequests';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -138,17 +139,17 @@ export interface CommitReferenceSchema extends Record<string, unknown> {
 
 export class Commits<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<CommitSchema[]>()(this, `projects/${pId}/repository/commits`, options);
+    return RequestHelper.get<CommitSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/commits`,
+      options,
+    );
   }
 
   cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.post<CommitSchema>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/cherry_pick`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/cherry_pick`,
       {
         branch,
         ...options,
@@ -157,11 +158,9 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   }
 
   comments(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommentSchema[]>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/comments`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/comments`,
       options,
     );
   }
@@ -173,14 +172,16 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     actions: CommitAction[] = [],
     options?: BaseRequestOptions,
   ) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<CommitExtendedSchema>()(this, `projects/${pId}/repository/commits`, {
-      branch,
-      commitMessage: message,
-      actions,
-      ...options,
-    });
+    return RequestHelper.post<CommitExtendedSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/commits`,
+      {
+        branch,
+        commitMessage: message,
+        actions,
+        ...options,
+      },
+    );
   }
 
   createComment(
@@ -189,11 +190,9 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     note: string,
     options?: BaseRequestOptions,
   ) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.post<CommentSchema>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/comments`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/comments`,
       {
         note,
         ...options,
@@ -202,81 +201,65 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   }
 
   diff(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommitDiffSchema[]>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/diff`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/diff`,
       options,
     );
   }
 
   editStatus(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.post<CommitStatusSchema>()(
       this,
-      `projects/${pId}/statuses/${sha}`,
+      endpoint`projects/${projectId}/statuses/${sha}`,
       options,
     );
   }
 
   references(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommitReferenceSchema[]>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/refs`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/refs`,
       options,
     );
   }
 
   revert(projectId: string | number, sha: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.post<CommitSchema>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/revert`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/revert`,
       options,
     );
   }
 
   show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommitExtendedSchema>()(
       this,
-      `projects/${pId}/repository/commits/${sha}`,
+      endpoint`projects/${projectId}/repository/commits/${sha}`,
       options,
     );
   }
 
   statuses(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommitStatusSchema[]>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/statuses`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/statuses`,
       options,
     );
   }
 
   mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<MergeRequestSchema>()(
+    return RequestHelper.get<MergeRequestSchema[]>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/merge_requests`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/merge_requests`,
       options,
     );
   }
 
   signature(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<CommitSignatureSchema>()(
       this,
-      `projects/${pId}/repository/commits/${sha}/signature`,
+      endpoint`projects/${projectId}/repository/commits/${sha}/signature`,
       options,
     );
   }

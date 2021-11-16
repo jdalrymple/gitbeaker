@@ -1,6 +1,7 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -39,10 +40,8 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
   ) {
-    const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
-
-    return RequestHelper.post<MemberSchema>()(this, `${rId}/members`, {
-      userId: uId,
+    return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
+      userId: String(userId),
       accessLevel,
       ...options,
     });
@@ -66,9 +65,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     accessLevel: AccessLevel,
     options?: BaseRequestOptions,
   ) {
-    const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
-
-    return RequestHelper.put<MemberSchema>()(this, `${rId}/members/${uId}`, {
+    return RequestHelper.put<MemberSchema>()(this, endpoint`${resourceId}/members/${userId}`, {
       accessLevel,
       ...options,
     });
@@ -94,8 +91,6 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   }
 
   remove(resourceId: string | number, userId: number, options?: Sudo) {
-    const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/members/${uId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/members/${userId}`, options);
   }
 }

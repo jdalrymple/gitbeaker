@@ -1,6 +1,7 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -22,42 +23,38 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
   }
 
   add(resourceId: string | number, options?: BaseRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.post<BadgeSchema>()(this, `${rId}/badges`, options);
+    return RequestHelper.post<BadgeSchema>()(this, endpoint`${resourceId}/badges`, options);
   }
 
   all(resourceId: string | number, options?: PaginatedRequestOptions) {
-    const rId = encodeURIComponent(resourceId);
-
-    return RequestHelper.get<BadgeSchema[]>()(this, `${rId}/badges`, options);
+    return RequestHelper.get<BadgeSchema[]>()(this, endpoint`${resourceId}/badges`, options);
   }
 
   edit(resourceId: string | number, badgeId: number, options?: BaseRequestOptions) {
-    const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
-
-    return RequestHelper.put<BadgeSchema>()(this, `${rId}/badges/${bId}`, options);
+    return RequestHelper.put<BadgeSchema>()(
+      this,
+      endpoint`${resourceId}/badges/${badgeId}`,
+      options,
+    );
   }
 
   preview(resourceId: string | number, linkUrl: string, imageUrl: string, options?: Sudo) {
-    const rId = encodeURIComponent(resourceId);
-
     return RequestHelper.get<Omit<BadgeSchema, 'id' | 'name' | 'kind'>>()(
       this,
-      `${rId}/badges/render`,
+      endpoint`${resourceId}/badges/render`,
       { linkUrl, imageUrl, ...options },
     );
   }
 
   remove(resourceId: string | number, badgeId: number, options?: Sudo) {
-    const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `${rId}/badges/${bId}`, options);
+    return RequestHelper.del()(this, endpoint`${resourceId}/badges/${badgeId}`, options);
   }
 
   show(resourceId: string | number, badgeId: number, options?: Sudo) {
-    const [rId, bId] = [resourceId, badgeId].map(encodeURIComponent);
-
-    return RequestHelper.get<BadgeSchema>()(this, `${rId}/badges/${bId}`, options);
+    return RequestHelper.get<BadgeSchema>()(
+      this,
+      endpoint`${resourceId}/badges/${badgeId}`,
+      options,
+    );
   }
 }

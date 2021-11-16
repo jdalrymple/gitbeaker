@@ -1,3 +1,91 @@
+# v34.6.0 (Mon Nov 15 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Renamed parameter [#2205](https://github.com/jdalrymple/gitbeaker/pull/2205) ([@mlaffargue](https://github.com/mlaffargue))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Swap mime-types with mime for a smaller pkg size [#2195](https://github.com/jdalrymple/gitbeaker/pull/2195) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue))
+
+---
+
+# v34.5.0 (Fri Nov 05 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+:heart: Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 💥 Feature
+
+- Add ability to request merged_yaml from the Gitlab Lint API [#2185](https://github.com/jdalrymple/gitbeaker/pull/2185) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Commit merge requests should be an array instead of a record [#2192](https://github.com/jdalrymple/gitbeaker/pull/2192) ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Refactor endpoint generation, using tagged template to encode parameters [#2173](https://github.com/jdalrymple/gitbeaker/pull/2173) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+- Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+---
+
+# v34.3.0 (Sun Oct 17 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@GMZwinge](https://github.com/GMZwinge)
+
+:heart: Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+
+#### 💥 Feature
+
+- Add support for username lookup. [#2147](https://github.com/jdalrymple/gitbeaker/pull/2147) ([@jenkoian](https://github.com/jenkoian) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fixing protect request format [#2155](https://github.com/jdalrymple/gitbeaker/pull/2155) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- Correct approvalRules returned type [#2133](https://github.com/jdalrymple/gitbeaker/pull/2133) (gmzwingelstein@rockwellautomation.com [@jdalrymple](https://github.com/jdalrymple) [@GMZwinge](https://github.com/GMZwinge))
+- Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest-extended from 0.11.5 to 1.0.0 in /packages/core [#2141](https://github.com/jdalrymple/gitbeaker/pull/2141) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 in /packages/core [#1948](https://github.com/jdalrymple/gitbeaker/pull/1948) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@GMZwinge](https://github.com/GMZwinge)
+- Georges M. Zwingelstein (gmzwingelstein@rockwellautomation.com)
+- Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.2.0 (Sat Sep 18 2021)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -16,3 +16,19 @@ export function getAPIMap(): Record<string, unknown> {
     throw new Error('This function is only available in the distributed code');
   }
 }
+
+/**
+ * Normalize GitLab API endpoint by encoding route parameters.
+ * @param strings
+ * @param values
+ */
+export function endpoint<T extends (string | number)[]>(
+  strings: TemplateStringsArray,
+  ...values: T
+): T extends number[] ? void : string;
+export function endpoint(strings: TemplateStringsArray, ...values: (string | number)[]): string {
+  return values.reduce<string>(
+    (string, value, index) => string + encodeURIComponent(value) + strings[index + 1],
+    strings[0],
+  );
+}

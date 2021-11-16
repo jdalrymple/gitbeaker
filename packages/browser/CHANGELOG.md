@@ -1,3 +1,36 @@
+# v34.6.0 (Mon Nov 15 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump ky from 0.28.6 to 0.28.7 [#2199](https://github.com/jdalrymple/gitbeaker/pull/2199) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
+# v34.3.0 (Sun Oct 17 2021)
+
+#### 🐛 Bug Fix
+
+- Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- Exclude agent from browser release [#2153](https://github.com/jdalrymple/gitbeaker/pull/2153) ([@jdalrymple](https://github.com/jdalrymple))
+- Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-commonjs from 20.0.0 to 21.0.0 in /packages/browser [#2123](https://github.com/jdalrymple/gitbeaker/pull/2123) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest-extended from 0.11.5 to 1.0.0 in /packages/browser [#2140](https://github.com/jdalrymple/gitbeaker/pull/2140) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump ky from 0.28.5 to 0.28.6 in /packages/browser [#2146](https://github.com/jdalrymple/gitbeaker/pull/2146) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.2.0 (Sat Sep 18 2021)
 
 #### 🔩 Dependency Updates

@@ -30,20 +30,22 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
   }
 
   edit(broadcastMessageId: number, options?: Camelize<Omit<BroadcastMessageSchema, 'id'>> & Sudo) {
-    const bId = encodeURIComponent(broadcastMessageId);
-
-    return RequestHelper.put<BroadcastMessageSchema>()(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.put<BroadcastMessageSchema>()(
+      this,
+      `broadcast_messages/${broadcastMessageId}`,
+      options,
+    );
   }
 
   remove(broadcastMessageId: number, options?: Sudo) {
-    const bId = encodeURIComponent(broadcastMessageId);
-
-    return RequestHelper.del()(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.del()(this, `broadcast_messages/${broadcastMessageId}`, options);
   }
 
   show(broadcastMessageId: number, options?: BaseRequestOptions) {
-    const bId = encodeURIComponent(broadcastMessageId);
-
-    return RequestHelper.get<BroadcastMessageSchema>()(this, `broadcast_messages/${bId}`, options);
+    return RequestHelper.get<BroadcastMessageSchema>()(
+      this,
+      `broadcast_messages/${broadcastMessageId}`,
+      options,
+    );
   }
 }

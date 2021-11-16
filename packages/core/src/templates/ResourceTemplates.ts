@@ -16,8 +16,6 @@ export class ResourceTemplates<C extends boolean = false> extends BaseResource<C
   }
 
   show(key: string | number, options?: Sudo) {
-    const rId = encodeURIComponent(key);
-
-    return RequestHelper.get<TemplateSchema>()(this, `${rId}`, options);
+    return RequestHelper.get<TemplateSchema>()(this, encodeURIComponent(key), options);
   }
 }

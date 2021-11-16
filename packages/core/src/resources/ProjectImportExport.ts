@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { lookup as mimeLookup } from 'mime-types';
-import { RequestHelper, Sudo, BaseRequestOptions } from '../infrastructure';
+import * as Mime from 'mime/lite';
+import { RequestHelper, Sudo, BaseRequestOptions, endpoint } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -50,15 +50,15 @@ export const defaultMetadata = {
 
 export class ProjectImportExport<C extends boolean = false> extends BaseResource<C> {
   download(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get()(this, `projects/${pId}/export/download`, options);
+    return RequestHelper.get()(this, endpoint`projects/${projectId}/export/download`, options);
   }
 
   exportStatus(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ExportStatusSchema>()(this, `projects/${pId}/export`, options);
+    return RequestHelper.get<ExportStatusSchema>()(
+      this,
+      endpoint`projects/${projectId}/export`,
+      options,
+    );
   }
 
   import(
@@ -68,7 +68,7 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
   ) {
     const meta = { ...defaultMetadata, ...metadata };
 
-    if (!meta.contentType) meta.contentType = mimeLookup(meta.filename);
+    if (!meta.contentType) meta.contentType = Mime.getType(meta.filename) || undefined;
 
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
       isForm: true,
@@ -79,14 +79,18 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
   }
 
   importStatus(projectId: string | number, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ImportStatusSchema>()(this, `projects/${pId}/import`, options);
+    return RequestHelper.get<ImportStatusSchema>()(
+      this,
+      endpoint`projects/${projectId}/import`,
+      options,
+    );
   }
 
   schedule(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<{ message: string }>()(this, `projects/${pId}/export`, options);
+    return RequestHelper.post<{ message: string }>()(
+      this,
+      endpoint`projects/${projectId}/export`,
+      options,
+    );
   }
 }

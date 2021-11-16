@@ -433,6 +433,35 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jenkoian",
+      "name": "Ian Jenkins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/131355?v=4",
+      "profile": "http://jenko.me/",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "nilennoct",
+      "name": "nilennoct",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4055220?v=4",
+      "profile": "https://www.nilennoct.com/",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "mlaffargue",
+      "name": "Laffargue Michael",
+      "avatar_url": "https://avatars.githubusercontent.com/u/503129?v=4",
+      "profile": "http://michael.laffargue.fr/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

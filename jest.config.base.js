@@ -14,7 +14,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   collectCoverage: true,
 
-  setupFilesAfterEnv: ['jest-extended'],
+  setupFilesAfterEnv: ['jest-extended/all'],
 
   transformIgnorePatterns: ['node_modules/(?!(ky))'],
 

@@ -1,3 +1,204 @@
+# 34.6.0 (Mon Nov 15 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Renamed parameter [#2205](https://github.com/jdalrymple/gitbeaker/pull/2205) ([@mlaffargue](https://github.com/mlaffargue))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/core`
+  - Swap mime-types with mime for a smaller pkg size [#2195](https://github.com/jdalrymple/gitbeaker/pull/2195) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- `@gitbeaker/browser`
+  - Bump ky from 0.28.6 to 0.28.7 [#2199](https://github.com/jdalrymple/gitbeaker/pull/2199) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue))
+
+---
+
+# 34.5.0 (Fri Nov 05 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+:heart: Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+:heart: nilennoct ([@nilennoct](https://github.com/nilennoct))
+
+#### 💥 Feature
+
+- `@gitbeaker/core`, `@gitbeaker/node`
+  - Add ability to request merged_yaml from the Gitlab Lint API [#2185](https://github.com/jdalrymple/gitbeaker/pull/2185) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Commit merge requests should be an array instead of a record [#2192](https://github.com/jdalrymple/gitbeaker/pull/2192) ([@ThePlenkov](https://github.com/ThePlenkov))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/core`
+  - Refactor endpoint generation, using tagged template to encode parameters [#2173](https://github.com/jdalrymple/gitbeaker/pull/2173) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump eslint-plugin-jest from 25.2.2 to 25.2.3 [#2193](https://github.com/jdalrymple/gitbeaker/pull/2193) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.16.2 to 1.16.3 [#2190](https://github.com/jdalrymple/gitbeaker/pull/2190) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 7.0.2 to 7.0.4 [#2167](https://github.com/jdalrymple/gitbeaker/pull/2167) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ts-node from 10.3.0 to 10.4.0 [#2176](https://github.com/jdalrymple/gitbeaker/pull/2176) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.11.1 to 16.11.6 [#2179](https://github.com/jdalrymple/gitbeaker/pull/2179) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 11.2.3 to 11.2.6 [#2180](https://github.com/jdalrymple/gitbeaker/pull/2180) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.32.1 to 10.32.2 [#2188](https://github.com/jdalrymple/gitbeaker/pull/2188) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.58.0 to 2.59.0 [#2189](https://github.com/jdalrymple/gitbeaker/pull/2189) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.32.1 to 10.32.2 [#2187](https://github.com/jdalrymple/gitbeaker/pull/2187) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.15.2 to 1.16.2 [#2184](https://github.com/jdalrymple/gitbeaker/pull/2184) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.32.1 to 10.32.2 [#2182](https://github.com/jdalrymple/gitbeaker/pull/2182) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-node-resolve from 13.0.5 to 13.0.6 [#2166](https://github.com/jdalrymple/gitbeaker/pull/2166) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-commonjs from 21.0.0 to 21.0.1 [#2165](https://github.com/jdalrymple/gitbeaker/pull/2165) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.3.0 to 27.3.1 [#2164](https://github.com/jdalrymple/gitbeaker/pull/2164) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-extended from 1.0.0 to 1.1.0 [#2163](https://github.com/jdalrymple/gitbeaker/pull/2163) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+- Petr Plenkov ([@ThePlenkov](https://github.com/ThePlenkov))
+
+---
+
+# 34.4.1 (Mon Oct 18 2021)
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Use yarnlock as checksum for build cache [#2162](https://github.com/jdalrymple/gitbeaker/pull/2162) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump jest from 27.2.5 to 27.3.0 [#2158](https://github.com/jdalrymple/gitbeaker/pull/2158) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest-extended from 0.11.5 to 1.0.0 [#2159](https://github.com/jdalrymple/gitbeaker/pull/2159) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
+# 34.3.0 (Sun Oct 17 2021)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@GMZwinge](https://github.com/GMZwinge)
+
+:heart: nilennoct ([@nilennoct](https://github.com/nilennoct))
+
+:heart: Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+
+#### 💥 Feature
+
+- `@gitbeaker/core`
+  - Add support for username lookup. [#2147](https://github.com/jdalrymple/gitbeaker/pull/2147) ([@jenkoian](https://github.com/jenkoian) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing protect request format [#2155](https://github.com/jdalrymple/gitbeaker/pull/2155) ([@jdalrymple](https://github.com/jdalrymple))
+  - Correct approvalRules returned type [#2133](https://github.com/jdalrymple/gitbeaker/pull/2133) (gmzwingelstein@rockwellautomation.com [@jdalrymple](https://github.com/jdalrymple) [@GMZwinge](https://github.com/GMZwinge))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Fix the typing for the supported links functions [#2154](https://github.com/jdalrymple/gitbeaker/pull/2154) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - Exclude agent from browser release [#2153](https://github.com/jdalrymple/gitbeaker/pull/2153) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - Fix a query formatting issue [#2142](https://github.com/jdalrymple/gitbeaker/pull/2142) ([@nilennoct](https://github.com/nilennoct) [@jdalrymple](https://github.com/jdalrymple))
+- Add release and canary ci steps [#2151](https://github.com/jdalrymple/gitbeaker/pull/2151) ([@jdalrymple](https://github.com/jdalrymple))
+- Dont automatically run integration tests for now [#2150](https://github.com/jdalrymple/gitbeaker/pull/2150) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Circleci editor/circleci project setup [#2124](https://github.com/jdalrymple/gitbeaker/pull/2124) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- Include ssh client in release CI stages [#2157](https://github.com/jdalrymple/gitbeaker/pull/2157) ([@jdalrymple](https://github.com/jdalrymple))
+- Install git in deploy stages [#2156](https://github.com/jdalrymple/gitbeaker/pull/2156) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Create codeql-analysis.yml ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-commonjs from 20.0.0 to 21.0.0 [#2120](https://github.com/jdalrymple/gitbeaker/pull/2120) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @types/node from 16.10.2 to 16.11.1 [#2152](https://github.com/jdalrymple/gitbeaker/pull/2152) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump playwright from 1.15.1 to 1.15.2 [#2131](https://github.com/jdalrymple/gitbeaker/pull/2131) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump lint-staged from 11.1.2 to 11.2.3 [#2135](https://github.com/jdalrymple/gitbeaker/pull/2135) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump eslint-plugin-jest from 24.5.0 to 25.2.1 [#2149](https://github.com/jdalrymple/gitbeaker/pull/2149) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump playwright from 1.15.0 to 1.15.1 [#2112](https://github.com/jdalrymple/gitbeaker/pull/2112) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/all-contributors from 10.32.0 to 10.32.1 [#2113](https://github.com/jdalrymple/gitbeaker/pull/2113) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.32.0 to 10.32.1 [#2115](https://github.com/jdalrymple/gitbeaker/pull/2115) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.32.0 to 10.32.1 [#2111](https://github.com/jdalrymple/gitbeaker/pull/2111) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-jest from 24.4.3 to 24.5.0 [#2110](https://github.com/jdalrymple/gitbeaker/pull/2110) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.2.3 to 27.2.4 [#2109](https://github.com/jdalrymple/gitbeaker/pull/2109) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.10.1 to 16.10.2 [#2108](https://github.com/jdalrymple/gitbeaker/pull/2108) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-jest from 24.4.2 to 24.4.3 [#2106](https://github.com/jdalrymple/gitbeaker/pull/2106) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.2.2 to 27.2.3 [#2107](https://github.com/jdalrymple/gitbeaker/pull/2107) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.31.2 to 4.32.0 [#2104](https://github.com/jdalrymple/gitbeaker/pull/2104) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.31.2 to 4.32.0 [#2103](https://github.com/jdalrymple/gitbeaker/pull/2103) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.9.6 to 16.10.1 [#2102](https://github.com/jdalrymple/gitbeaker/pull/2102) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.2.1 to 27.2.2 [#2101](https://github.com/jdalrymple/gitbeaker/pull/2101) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.56.3 to 2.57.0 [#2098](https://github.com/jdalrymple/gitbeaker/pull/2098) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.9.4 to 16.9.6 [#2096](https://github.com/jdalrymple/gitbeaker/pull/2096) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.14.1 to 1.15.0 [#2097](https://github.com/jdalrymple/gitbeaker/pull/2097) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-node-resolve from 13.0.4 to 13.0.5 [#2095](https://github.com/jdalrymple/gitbeaker/pull/2095) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 4.31.1 to 4.31.2 [#2092](https://github.com/jdalrymple/gitbeaker/pull/2092) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 4.31.1 to 4.31.2 [#2091](https://github.com/jdalrymple/gitbeaker/pull/2091) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/jest from 27.0.1 to 27.0.2 [#2093](https://github.com/jdalrymple/gitbeaker/pull/2093) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tmpl from 1.0.4 to 1.0.5 [#2094](https://github.com/jdalrymple/gitbeaker/pull/2094) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.2.0 to 27.2.1 [#2090](https://github.com/jdalrymple/gitbeaker/pull/2090) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 16.9.2 to 16.9.4 [#2089](https://github.com/jdalrymple/gitbeaker/pull/2089) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ora from 6.0.0 to 6.0.1 [#2088](https://github.com/jdalrymple/gitbeaker/pull/2088) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 in /packages/browser [#1949](https://github.com/jdalrymple/gitbeaker/pull/1949) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump eslint-plugin-jest from 24.4.0 to 24.4.2 [#2087](https://github.com/jdalrymple/gitbeaker/pull/2087) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ora from 5.4.1 to 6.0.0 [#2030](https://github.com/jdalrymple/gitbeaker/pull/2030) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/browser`
+  - Bump @rollup/plugin-commonjs from 20.0.0 to 21.0.0 in /packages/browser [#2123](https://github.com/jdalrymple/gitbeaker/pull/2123) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+  - Bump jest-extended from 0.11.5 to 1.0.0 in /packages/browser [#2140](https://github.com/jdalrymple/gitbeaker/pull/2140) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+  - Bump ky from 0.28.5 to 0.28.6 in /packages/browser [#2146](https://github.com/jdalrymple/gitbeaker/pull/2146) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - Bump jest-extended from 0.11.5 to 1.0.0 in /packages/requester-utils [#2138](https://github.com/jdalrymple/gitbeaker/pull/2138) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/node`
+  - Bump jest-extended from 0.11.5 to 1.0.0 in /packages/node [#2139](https://github.com/jdalrymple/gitbeaker/pull/2139) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Bump jest-extended from 0.11.5 to 1.0.0 in /packages/core [#2141](https://github.com/jdalrymple/gitbeaker/pull/2141) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+  - Bump @rollup/plugin-replace from 2.4.2 to 3.0.0 in /packages/core [#1948](https://github.com/jdalrymple/gitbeaker/pull/1948) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 6
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@GMZwinge](https://github.com/GMZwinge)
+- Georges M. Zwingelstein (gmzwingelstein@rockwellautomation.com)
+- Ian Jenkins ([@jenkoian](https://github.com/jenkoian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- nilennoct ([@nilennoct](https://github.com/nilennoct))
+
+---
+
 # 34.2.0 (Sat Sep 18 2021)
 
 :tada: This release contains work from a new contributor! :tada:

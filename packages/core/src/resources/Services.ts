@@ -4,6 +4,7 @@ import {
   BaseRequestOptions,
   PaginatedRequestOptions,
   Sudo,
+  endpoint,
 } from '../infrastructure';
 
 export type SupportedService =
@@ -63,33 +64,33 @@ export interface ServiceSchema extends Record<string, unknown> {
 
 export class Services<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<ServiceSchema[]>()(this, `projects/${pId}/services`, options);
+    return RequestHelper.get<ServiceSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/services`,
+      options,
+    );
   }
 
   edit(projectId: string | number, serviceName: SupportedService, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.put<ServiceSchema>()(
       this,
-      `projects/${pId}/services/${serviceName}`,
+      endpoint`projects/${projectId}/services/${serviceName}`,
       options,
     );
   }
 
   remove(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.del()(this, `projects/${pId}/services/${serviceName}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/services/${serviceName}`,
+      options,
+    );
   }
 
   show(projectId: string | number, serviceName: SupportedService, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<ServiceSchema>()(
       this,
-      `projects/${pId}/services/${serviceName}`,
+      endpoint`projects/${projectId}/services/${serviceName}`,
       options,
     );
   }

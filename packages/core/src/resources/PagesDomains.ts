@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -21,43 +22,43 @@ export interface PagesDomainSchema extends Record<string, unknown> {
 
 export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
-    const url = projectId ? `projects/${encodeURIComponent(projectId)}/` : '';
+    const url = projectId ? endpoint`projects/${projectId}/` : '';
 
     return RequestHelper.get<PagesDomainSchema[]>()(this, `${url}pages/domains`, options);
   }
 
   create(projectId: string | number, domain: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<PagesDomainSchema>()(this, `projects/${pId}/pages/domains`, {
-      domain,
-      ...options,
-    });
+    return RequestHelper.post<PagesDomainSchema>()(
+      this,
+      endpoint`projects/${projectId}/pages/domains`,
+      {
+        domain,
+        ...options,
+      },
+    );
   }
 
   edit(projectId: string | number, domain: string, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.put<PagesDomainSchema>()(
       this,
-      `projects/${pId}/pages/domains/${domain}`,
+      endpoint`projects/${projectId}/pages/domains/${domain}`,
       options,
     );
   }
 
   show(projectId: string | number, domain: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<PagesDomainSchema>()(
       this,
-      `projects/${pId}/pages/domains/${domain}`,
+      endpoint`projects/${projectId}/pages/domains/${domain}`,
       options,
     );
   }
 
   remove(projectId: string | number, domain: string, options?: Sudo) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.del()(this, `projects/${pId}/pages/domains/${domain}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/pages/domains/${domain}`,
+      options,
+    );
   }
 }

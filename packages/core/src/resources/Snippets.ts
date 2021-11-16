@@ -47,9 +47,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
   }
 
   content(snippetId: number, options?: Sudo) {
-    const sId = encodeURIComponent(snippetId);
-
-    return RequestHelper.get()(this, `snippets/${sId}/raw`, options);
+    return RequestHelper.get()(this, `snippets/${snippetId}/raw`, options);
   }
 
   create(
@@ -69,29 +67,21 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
   }
 
   edit(snippetId: number, options?: BaseRequestOptions) {
-    const sId = encodeURIComponent(snippetId);
-
-    return RequestHelper.put<SnippetExtendedSchema>()(this, `snippets/${sId}`, options);
+    return RequestHelper.put<SnippetExtendedSchema>()(this, `snippets/${snippetId}`, options);
   }
 
   remove(snippetId: number, options?: Sudo) {
-    const sId = encodeURIComponent(snippetId);
-
-    return RequestHelper.del()(this, `snippets/${sId}`, options);
+    return RequestHelper.del()(this, `snippets/${snippetId}`, options);
   }
 
   show(snippetId: number, options?: Sudo) {
-    const sId = encodeURIComponent(snippetId);
-
-    return RequestHelper.get<SnippetSchema>()(this, `snippets/${sId}`, options);
+    return RequestHelper.get<SnippetSchema>()(this, `snippets/${snippetId}`, options);
   }
 
   userAgentDetails(snippetId: number, options?: Sudo) {
-    const sId = encodeURIComponent(snippetId);
-
     return RequestHelper.get<UserAgentDetailSchema>()(
       this,
-      `snippets/${sId}/user_agent_detail`,
+      `snippets/${snippetId}/user_agent_detail`,
       options,
     );
   }

@@ -4,6 +4,7 @@ import { MergeRequestSchema } from './MergeRequests';
 import { MilestoneSchema } from '../templates/types';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -14,6 +15,29 @@ export interface TimeStatsSchema extends Record<string, unknown> {
   total_time_spent: number;
   human_time_estimate: string;
   human_total_time_spent: string;
+}
+
+export interface IssueLinkSchema extends Record<string, unknown> {
+  id: number;
+  iid: number;
+  project_id: number;
+  issue_link_id: number;
+  state: string;
+  description: string;
+  weight?: number;
+  author: Omit<UserSchema, 'created_at'>;
+  milestone: MilestoneSchema;
+  assignees?: Omit<UserSchema, 'created_at'>[];
+  title: string;
+  labels?: string[];
+  user_notes_count: number;
+  due_date: string;
+  web_url: string;
+  confidential: boolean;
+  updated_at: string;
+  link_type: 'relates_to' | 'blocks' | 'is_blocked_by';
+  link_created_at: string;
+  link_updated_at: string;
 }
 
 export interface IssueSchema extends Record<string, unknown> {
@@ -72,11 +96,9 @@ export interface IssueSchema extends Record<string, unknown> {
 
 export class Issues<C extends boolean = false> extends BaseResource<C> {
   addSpentTime(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<TimeStatsSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/add_spent_time`,
+      endpoint`projects/${projectId}/issues/${issueIid}/add_spent_time`,
       {
         duration,
         ...options,
@@ -85,11 +107,9 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   }
 
   addTimeEstimate(projectId: string | number, issueIid: number, duration: string, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<TimeStatsSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/time_estimate`,
+      endpoint`projects/${projectId}/issues/${issueIid}/time_estimate`,
       {
         duration,
         ...options,
@@ -105,9 +125,9 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     let url: string;
 
     if (projectId) {
-      url = `projects/${encodeURIComponent(projectId)}/issues`;
+      url = endpoint`projects/${projectId}/issues`;
     } else if (groupId) {
-      url = `groups/${encodeURIComponent(groupId)}/issues`;
+      url = endpoint`groups/${groupId}/issues`;
     } else {
       url = 'issues';
     }
@@ -116,25 +136,23 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   }
 
   create(projectId: string | number, options?: BaseRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.post<IssueSchema>()(this, `projects/${pId}/issues`, options);
+    return RequestHelper.post<IssueSchema>()(this, endpoint`projects/${projectId}/issues`, options);
   }
 
   closedBy(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
-      `projects/${pId}/issues/${iId}/closed_by`,
+      endpoint`projects/${projectId}/issues/${issueIid}/closed_by`,
       options,
     );
   }
 
   edit(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
-    return RequestHelper.put<IssueSchema>()(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.put<IssueSchema>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIid}`,
+      options,
+    );
   }
 
   // TODO move
@@ -145,39 +163,39 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     targetIssueIId: number,
     options?: BaseRequestOptions,
   ) {
-    const [pId, iIId] = [projectId, issueIId].map(encodeURIComponent);
     const [targetPId, targetIId] = [targetProjectId, targetIssueIId].map(encodeURIComponent);
 
-    return RequestHelper.post()(this, `projects/${pId}/issues/${iIId}/links`, {
-      targetProjectId: targetPId,
-      targetIssueIid: targetIId,
-      ...options,
-    });
+    return RequestHelper.post<IssueLinkSchema>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIId}/links`,
+      {
+        targetProjectId: targetPId,
+        targetIssueIid: targetIId,
+        ...options,
+      },
+    );
   }
 
   // TODO move
   links(projectId: string | number, issueIid: number) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
-    return RequestHelper.get()(this, `projects/${pId}/issues/${iId}/links`);
+    return RequestHelper.get<IssueLinkSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIid}/links`,
+    );
   }
 
   participants(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.get<Omit<UserSchema, 'created_at'>>()(
       this,
-      `projects/${pId}/issues/${iId}/participants`,
+      endpoint`projects/${projectId}/issues/${issueIid}/participants`,
       options,
     );
   }
 
   relatedMergeRequests(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.get<MergeRequestSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/related_merge_requests`,
+      endpoint`projects/${projectId}/issues/${issueIid}/related_merge_requests`,
       options,
     );
   }
@@ -189,71 +207,63 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     issueLinkId: string | number,
     options?: BaseRequestOptions,
   ) {
-    const [pId, iId, iLinkId] = [projectId, issueIid, issueLinkId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/issues/${iId}/links/${iLinkId}`, {
-      ...options,
-    });
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIid}/links/${issueLinkId}`,
+      {
+        ...options,
+      },
+    );
   }
 
   remove(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/issues/${issueIid}`, options);
   }
 
   resetSpentTime(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<TimeStatsSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/reset_spent_time`,
+      endpoint`projects/${projectId}/issues/${issueIid}/reset_spent_time`,
       options,
     );
   }
 
   resetTimeEstimate(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<TimeStatsSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/reset_time_estimate`,
+      endpoint`projects/${projectId}/issues/${issueIid}/reset_time_estimate`,
       options,
     );
   }
 
   show(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
-    return RequestHelper.get<IssueSchema>()(this, `projects/${pId}/issues/${iId}`, options);
+    return RequestHelper.get<IssueSchema>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIid}`,
+      options,
+    );
   }
 
   subscribe(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<IssueSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/subscribe`,
+      endpoint`projects/${projectId}/issues/${issueIid}/subscribe`,
       options,
     );
   }
 
   timeStats(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.get<TimeStatsSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/time_stats`,
+      endpoint`projects/${projectId}/issues/${issueIid}/time_stats`,
       options,
     );
   }
 
   unsubscribe(projectId: string | number, issueIid: number, options?: Sudo) {
-    const [pId, iId] = [projectId, issueIid].map(encodeURIComponent);
-
     return RequestHelper.post<IssueSchema>()(
       this,
-      `projects/${pId}/issues/${iId}/unsubscribe`,
+      endpoint`projects/${projectId}/issues/${issueIid}/unsubscribe`,
       options,
     );
   }

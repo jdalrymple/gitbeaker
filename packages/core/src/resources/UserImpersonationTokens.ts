@@ -18,11 +18,9 @@ export interface UserImpersonationTokenSchema extends Record<string, unknown> {
 
 export class UserImpersonationTokens<C extends boolean = false> extends BaseResource<C> {
   all(userId: number, options?: { state?: ImpersonationTokenState } & PaginatedRequestOptions) {
-    const uId = encodeURIComponent(userId);
-
     return RequestHelper.get<UserImpersonationTokenSchema[]>()(
       this,
-      `users/${uId}/impersonation_tokens`,
+      `users/${userId}/impersonation_tokens`,
       options,
     );
   }
@@ -35,11 +33,9 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     expiresAt: string,
     options?: Sudo,
   ) {
-    const uId = encodeURIComponent(userId);
-
     return RequestHelper.post<UserImpersonationTokenSchema>()(
       this,
-      `users/${uId}/impersonation_tokens`,
+      `users/${userId}/impersonation_tokens`,
       {
         name,
         expiresAt,
@@ -50,18 +46,14 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
   }
 
   show(userId: number, tokenId: number, options?: Sudo) {
-    const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
-
     return RequestHelper.get<UserImpersonationTokenSchema>()(
       this,
-      `users/${uId}/impersonation_tokens/${tId}`,
+      `users/${userId}/impersonation_tokens/${tokenId}`,
       options,
     );
   }
 
   revoke(userId: number, tokenId: number, options?: Sudo) {
-    const [uId, tId] = [userId, tokenId].map(encodeURIComponent);
-
-    return RequestHelper.del()(this, `users/${uId}/impersonation_tokens/${tId}`, options);
+    return RequestHelper.del()(this, `users/${userId}/impersonation_tokens/${tokenId}`, options);
   }
 }

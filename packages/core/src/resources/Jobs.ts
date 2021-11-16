@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   RequestHelper,
   Sudo,
@@ -76,15 +77,15 @@ export interface BridgeSchema extends Record<string, unknown> {
 
 export class Jobs<C extends boolean = false> extends BaseResource<C> {
   all(projectId: string | number, options?: PaginatedRequestOptions) {
-    const pId = encodeURIComponent(projectId);
-
-    return RequestHelper.get<JobSchema[]>()(this, `projects/${pId}/jobs`, options);
+    return RequestHelper.get<JobSchema[]>()(this, endpoint`projects/${projectId}/jobs`, options);
   }
 
   cancel(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/cancel`, options);
+    return RequestHelper.post<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/cancel`,
+      options,
+    );
   }
 
   // TODO move
@@ -95,19 +96,12 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
+    const url = `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`;
 
     if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
-        options,
-      );
+      return RequestHelper.stream(this, url, options);
     }
-    return RequestHelper.get()(
-      this,
-      `projects/${pId}/jobs/${jId}/artifacts/${artifactPath}`,
-      options,
-    );
+    return RequestHelper.get()(this, url, options);
   }
 
   // TODO move
@@ -119,19 +113,12 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
+    const url = `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`;
 
     if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
-        options,
-      );
+      return RequestHelper.stream(this, url, options);
     }
-    return RequestHelper.get()(
-      this,
-      `projects/${pId}/jobs/artifacts/${rId}/raw/${artifactPath}?job=${name}`,
-      options,
-    );
+    return RequestHelper.get()(this, url, options);
   }
 
   // TODO move
@@ -142,31 +129,24 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     { stream = false, ...options }: { stream?: boolean } & BaseRequestOptions = {},
   ) {
     const [pId, rId, name] = [projectId, ref, jobName].map(encodeURIComponent);
+    const url = `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`;
 
     if (stream) {
-      return RequestHelper.stream(
-        this,
-        `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
-        options,
-      );
+      return RequestHelper.stream(this, url, options);
     }
-    return RequestHelper.get()(
-      this,
-      `projects/${pId}/jobs/artifacts/${rId}/download?job=${name}`,
-      options,
-    );
+    return RequestHelper.get()(this, url, options);
   }
 
   downloadTraceFile(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.get()(this, `projects/${pId}/jobs/${jId}/trace`, options);
+    return RequestHelper.get()(this, endpoint`projects/${projectId}/jobs/${jobId}/trace`, options);
   }
 
   erase(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/erase`, options);
+    return RequestHelper.post<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/erase`,
+      options,
+    );
   }
 
   // TODO move
@@ -184,21 +164,27 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   }
 
   play(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/play`, options);
+    return RequestHelper.post<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/play`,
+      options,
+    );
   }
 
   retry(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.post<JobSchema>()(this, `projects/${pId}/jobs/${jId}/retry`, options);
+    return RequestHelper.post<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/retry`,
+      options,
+    );
   }
 
   show(projectId: string | number, jobId: number, options?: Sudo) {
-    const [pId, jId] = [projectId, jobId].map(encodeURIComponent);
-
-    return RequestHelper.get<JobSchema>()(this, `projects/${pId}/jobs/${jId}`, options);
+    return RequestHelper.get<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}`,
+      options,
+    );
   }
 
   showPipelineJobs(
@@ -206,11 +192,9 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     pipelineId: number,
     options?: { scope?: JobScope } & Sudo,
   ) {
-    const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
-
     return RequestHelper.get<JobSchema[]>()(
       this,
-      `projects/${pId}/pipelines/${ppId}/jobs`,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/jobs`,
       options,
     );
   }
@@ -220,11 +204,9 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     pipelineId: number,
     options?: { scope?: JobScope } & Sudo,
   ) {
-    const [pId, ppId] = [projectId, pipelineId].map(encodeURIComponent);
-
     return RequestHelper.get<BridgeSchema>()(
       this,
-      `projects/${pId}/pipelines/${ppId}/bridges`,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/bridges`,
       options,
     );
   }

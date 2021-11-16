@@ -20,7 +20,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
 
   all(
     projectId: string | number,
-    issueId: string | number,
+    mergerequestId: string | number,
     options?: PaginatedRequestOptions,
   ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
 
@@ -41,7 +41,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
 
   removeNote(
     projectId: string | number,
-    issueId: string | number,
+    mergerequestId: string | number,
     discussionId: number,
     noteId: number,
     options?: Sudo,

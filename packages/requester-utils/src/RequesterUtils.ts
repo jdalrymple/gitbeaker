@@ -55,7 +55,7 @@ export function appendFormFromObject(
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
-  return stringify(decamelized, { arrayFormat: 'bracket' });
+  return stringify(decamelized, { arrayFormat: 'brackets' });
 }
 
 export type OptionsHandlerFn = (
