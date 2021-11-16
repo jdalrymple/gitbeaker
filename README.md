@@ -636,6 +636,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="http://www.paullemke.com/"><img src="https://avatars.githubusercontent.com/u/976010?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Paul Lemke</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=lemkepf" title="Code">💻</a></td>
     <td align="center"><a href="http://jenko.me/"><img src="https://avatars.githubusercontent.com/u/131355?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Ian Jenkins</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=jenkoian" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=jenkoian" title="Code">💻</a></td>
     <td align="center"><a href="https://www.nilennoct.com/"><img src="https://avatars.githubusercontent.com/u/4055220?v=4?s=50" width="50px;" alt=""/><br /><sub><b>nilennoct</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=nilennoct" title="Tests">⚠️</a> <a href="https://github.com/jdalrymple/gitbeaker/commits?author=nilennoct" title="Code">💻</a></td>
+    <td align="center"><a href="http://michael.laffargue.fr/"><img src="https://avatars.githubusercontent.com/u/503129?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Laffargue Michael</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=mlaffargue" title="Code">💻</a></td>
   </tr>
 </table>
 
