@@ -16,7 +16,7 @@ export class Lint<C extends boolean = false> extends BaseResource<C> {
   lint(content: string, options?: BaseRequestOptions) {
     // Perform CI file linting without context.
     // See https://docs.gitlab.com/ee/api/lint.html#validate-the-ci-yaml-configuration
-    // This API doesn't work for CI files that contain `local` includes. Use `lint_with_namespace` instead.
+    // This API doesn't work for CI files that contain `local` includes. Use `lintWithNamespace` instead.
     return RequestHelper.post<LintSchema>()(this, 'ci/lint', { content, ...options });
   }
 
