@@ -46,7 +46,7 @@ describe('Lint.lint', () => {
   });
 });
 
-describe('Lint.lint_with_namespace', () => {
+describe('Lint.lintWithNamespace', () => {
   it('should return the merged yaml in a lint request when requested', async () => {
     // Call the lint API for a project namespace, passing in a basic CI yaml.
     // The specific use case for `lint_with_namespace` vs `lint` is that it works with `local`
@@ -61,7 +61,7 @@ describe('Lint.lint_with_namespace', () => {
       script:
         - echo 1
     `;
-    const result = await lintAPI.lint_with_namespace(project.id, input_ci_yaml);
+    const result = await lintAPI.lintWithNamespace(project.id, input_ci_yaml);
 
     expect(result).toBeInstanceOf(Object);
     expect(result).toContainKeys(['valid', 'merged_yaml']);
