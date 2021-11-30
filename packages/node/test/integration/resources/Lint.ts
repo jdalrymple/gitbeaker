@@ -49,7 +49,7 @@ describe('Lint.lint', () => {
 describe('Lint.lintWithNamespace', () => {
   it('should return the merged yaml in a lint request when requested', async () => {
     // Call the lint API for a project namespace, passing in a basic CI yaml.
-    // The specific use case for `lint_with_namespace` vs `lint` is that it works with `local`
+    // The specific use case for `lintWithNamespace` vs `lint` is that it works with `local`
     // includes. However, that's gitlab-side functionality so we're not testing that here -
     // simply aiming to ensure that we can call this API correctly.
 
