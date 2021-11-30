@@ -1,3 +1,31 @@
+# v34.7.0 (Tue Nov 30 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Downgrading Chalk ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/all-contributors-10.32.3' [#2240](https://github.com/jdalrymple/gitbeaker/pull/2240) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/eslint-config-airbnb-base-15.0.0' [#2202](https://github.com/jdalrymple/gitbeaker/pull/2202) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/eslint-plugin-jest-25.3.0' [#2238](https://github.com/jdalrymple/gitbeaker/pull/2238) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-27.4.0' [#2244](https://github.com/jdalrymple/gitbeaker/pull/2244) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-extended-1.2.0' [#2245](https://github.com/jdalrymple/gitbeaker/pull/2245) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/lint-staged-12.1.2' [#2226](https://github.com/jdalrymple/gitbeaker/pull/2226) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/openpgp-5.0.1' [#2217](https://github.com/jdalrymple/gitbeaker/pull/2217) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/rollup-2.60.1' [#2239](https://github.com/jdalrymple/gitbeaker/pull/2239) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/types/node-16.11.11' [#2243](https://github.com/jdalrymple/gitbeaker/pull/2243) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/types/jest-27.0.3' [#2220](https://github.com/jdalrymple/gitbeaker/pull/2220) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump chalk from 4.1.2 to 5.0.0 in /packages/cli [#2242](https://github.com/jdalrymple/gitbeaker/pull/2242) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup-plugin-typescript2 from 0.30.0 to 0.31.1 [#2229](https://github.com/jdalrymple/gitbeaker/pull/2229) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.3.0 (Sun Oct 17 2021)
 
 #### 🐛 Bug Fix

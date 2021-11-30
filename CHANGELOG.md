@@ -1,3 +1,58 @@
+# 34.7.0 (Tue Nov 30 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth)), for all your work!
+
+#### 💥 Feature
+
+- `@gitbeaker/core`, `@gitbeaker/node`
+  - Add support for CI lint with namespace context [#2222](https://github.com/jdalrymple/gitbeaker/pull/2222) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`, `@gitbeaker/node`
+  - Fix lintWithNamespace integration test [#2247](https://github.com/jdalrymple/gitbeaker/pull/2247) ([@MartinHowarth](https://github.com/MartinHowarth))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/core`
+  - Minor linting fix ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Downgrading Chalk ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/all-contributors-10.32.3' [#2240](https://github.com/jdalrymple/gitbeaker/pull/2240) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/eslint-config-airbnb-base-15.0.0' [#2202](https://github.com/jdalrymple/gitbeaker/pull/2202) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/eslint-plugin-jest-25.3.0' [#2238](https://github.com/jdalrymple/gitbeaker/pull/2238) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-27.4.0' [#2244](https://github.com/jdalrymple/gitbeaker/pull/2244) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-extended-1.2.0' [#2245](https://github.com/jdalrymple/gitbeaker/pull/2245) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/lint-staged-12.1.2' [#2226](https://github.com/jdalrymple/gitbeaker/pull/2226) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/openpgp-5.0.1' [#2217](https://github.com/jdalrymple/gitbeaker/pull/2217) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/rollup-2.60.1' [#2239](https://github.com/jdalrymple/gitbeaker/pull/2239) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/types/node-16.11.11' [#2243](https://github.com/jdalrymple/gitbeaker/pull/2243) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/types/jest-27.0.3' [#2220](https://github.com/jdalrymple/gitbeaker/pull/2220) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump prettier from 2.4.1 to 2.5.0 [#2241](https://github.com/jdalrymple/gitbeaker/pull/2241) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.32.2 to 10.32.3 [#2235](https://github.com/jdalrymple/gitbeaker/pull/2235) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.32.2 to 10.32.3 [#2236](https://github.com/jdalrymple/gitbeaker/pull/2236) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump got from 11.8.2 to 11.8.3 [#2221](https://github.com/jdalrymple/gitbeaker/pull/2221) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump typescript from 4.4.4 to 4.5.2 [#2216](https://github.com/jdalrymple/gitbeaker/pull/2216) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-import from 2.25.2 to 2.25.3 [#2204](https://github.com/jdalrymple/gitbeaker/pull/2204) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.59.0 to 2.60.0 [#2207](https://github.com/jdalrymple/gitbeaker/pull/2207) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Bump chalk from 4.1.2 to 5.0.0 in /packages/cli [#2242](https://github.com/jdalrymple/gitbeaker/pull/2242) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Bump rollup-plugin-typescript2 from 0.30.0 to 0.31.1 [#2229](https://github.com/jdalrymple/gitbeaker/pull/2229) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+---
+
 # 34.6.0 (Mon Nov 15 2021)
 
 :tada: This release contains work from a new contributor! :tada:

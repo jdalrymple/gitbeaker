@@ -1,3 +1,15 @@
+# v34.7.0 (Tue Nov 30 2021)
+
+#### 🔩 Dependency Updates
+
+- Bump rollup-plugin-typescript2 from 0.30.0 to 0.31.1 [#2229](https://github.com/jdalrymple/gitbeaker/pull/2229) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from a new contributor! :tada:

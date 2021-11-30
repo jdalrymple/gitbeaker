@@ -1,3 +1,29 @@
+# v34.7.0 (Tue Nov 30 2021)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth)), for all your work!
+
+#### 💥 Feature
+
+- Add support for CI lint with namespace context [#2222](https://github.com/jdalrymple/gitbeaker/pull/2222) ([@MartinHowarth](https://github.com/MartinHowarth) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fix lintWithNamespace integration test [#2247](https://github.com/jdalrymple/gitbeaker/pull/2247) ([@MartinHowarth](https://github.com/MartinHowarth))
+
+#### 🔩 Dependency Updates
+
+- Bump rollup-plugin-typescript2 from 0.30.0 to 0.31.1 [#2229](https://github.com/jdalrymple/gitbeaker/pull/2229) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth))
+
+---
+
 # v34.5.0 (Fri Nov 05 2021)
 
 :tada: This release contains work from a new contributor! :tada:
