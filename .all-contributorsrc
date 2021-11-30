@@ -462,6 +462,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MartinHowarth",
+      "name": "Martin Howarth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7187425?v=4",
+      "profile": "https://github.com/MartinHowarth",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
