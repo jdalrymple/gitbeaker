@@ -7,11 +7,9 @@ export interface LintSchema extends Record<string, unknown> {
   warnings?: string[];
   merged_yaml?: string;
 }
-export interface LintWithNamespaceSchema extends Record<string, unknown> {
+
+export interface ContextualLintSchema extends Omit<LintSchema, 'status'> {
   valid: boolean;
-  merged_yaml: string;
-  errors?: string[];
-  warnings?: string[];
 }
 
 export class Lint<C extends boolean = false> extends BaseResource<C> {
@@ -22,13 +20,15 @@ export class Lint<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<LintSchema>()(this, 'ci/lint', { content, ...options });
   }
 
-  lint_with_namespace(projectId: string | number, content: string, options?: BaseRequestOptions) {
-    // Perform CI file linting in the context of a specific project namespace.    
+  // TODO: Figure out a better way of writing this to not be limited by the typing.
+  lintWithNamespace(projectId: string | number, content: string, options?: BaseRequestOptions) {
+    // Perform CI file linting in the context of a specific project namespace.
     // See https://docs.gitlab.com/ee/api/lint.html#validate-a-ci-yaml-configuration-with-a-namespace
     // This API is useful when the CI file being linted has `local` includes, which requires project
     // context to be understood.
-    return RequestHelper.post<LintWithNamespaceSchema>()(this, 
-      `projects/${projectId}/ci/lint`,
-      { content, ...options });
+    return RequestHelper.post<ContextualLintSchema>()(this, `projects/${projectId}/ci/lint`, {
+      content,
+      ...options,
+    });
   }
 }
