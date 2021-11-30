@@ -170,7 +170,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     branch: string,
     message: string,
     actions: CommitAction[] = [],
-    options?: BaseRequestOptions,
+    options: BaseRequestOptions = {},
   ) {
     return RequestHelper.post<CommitExtendedSchema>()(
       this,
