@@ -147,13 +147,13 @@ jobs:
             - yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
       - persist_to_workspace:
-        root: /tmp/workspace
-        paths:
-          - packages/core/dist/
-          - packages/cli/dist/
-          - packages/browser/dist/
-          - packages/node/dist/
-          - packages/requester-utils/dist/
+          root: /tmp/workspace
+          paths:
+            - packages/core/dist/
+            - packages/cli/dist/
+            - packages/browser/dist/
+            - packages/node/dist/
+            - packages/requester-utils/dist/
 
       - store_artifacts:
           path: packages/core/dist/
