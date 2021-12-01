@@ -1,3 +1,20 @@
+# v35.0.0 (Wed Dec 01 2021)
+
+#### 💥 Breaking Change
+
+- Merge branch '2246-tags-signature' [#2255](https://github.com/jdalrymple/gitbeaker/pull/2255) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Merge branch 'master' into 2246-tags-signature ([@jdalrymple](https://github.com/jdalrymple))
+- Updating Tag.create function to match latest API ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.7.0 (Tue Nov 30 2021)
 
 :tada: This release contains work from a new contributor! :tada:

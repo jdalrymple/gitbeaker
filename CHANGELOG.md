@@ -1,3 +1,23 @@
+# 35.0.0 (Wed Dec 01 2021)
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - Merge branch '2246-tags-signature' [#2255](https://github.com/jdalrymple/gitbeaker/pull/2255) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump playwright from 1.16.3 to 1.17.0 [#2249](https://github.com/jdalrymple/gitbeaker/pull/2249) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.60.1 to 2.60.2 [#2250](https://github.com/jdalrymple/gitbeaker/pull/2250) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest from 27.4.0 to 27.4.2 [#2251](https://github.com/jdalrymple/gitbeaker/pull/2251) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 34.7.0 (Tue Nov 30 2021)
 
 :tada: This release contains work from a new contributor! :tada:
