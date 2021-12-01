@@ -1,3 +1,15 @@
+# 35.1.0 (Wed Dec 01 2021)
+
+#### 🐛 Bug Fix
+
+- Merge branch 'bug/circleci-workspace' [#2256](https://github.com/jdalrymple/gitbeaker/pull/2256) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.0.0 (Wed Dec 01 2021)
 
 #### 💥 Breaking Change
