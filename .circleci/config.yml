@@ -146,15 +146,15 @@ jobs:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
-      - save_cache:
-          name: Cache build files
-          key: build-{{ checksum "yarn.lock" }}
-          paths:
-            - packages/core/dist/
-            - packages/cli/dist/
-            - packages/browser/dist/
-            - packages/node/dist/
-            - packages/requester-utils/dist/
+      - persist_to_workspace:
+        root: /tmp/workspace
+        paths:
+          - packages/core/dist/
+          - packages/cli/dist/
+          - packages/browser/dist/
+          - packages/node/dist/
+          - packages/requester-utils/dist/
+
       - store_artifacts:
           path: packages/core/dist/
       - store_artifacts:
@@ -301,10 +301,8 @@ jobs:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
+      - attach_workspace:
+          at: /tmp/workspace
       - run: yarn workspace @gitbeaker/core test:integration
 
   test-integration-browser:
@@ -314,14 +312,12 @@ jobs:
       PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -336,14 +332,12 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -358,14 +352,12 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
       - restore_cache:
           name: Restore env vars
           keys:
@@ -406,14 +398,12 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
       - run: |
           NUM_RELEASES=$(find packages -maxdepth 2  -name '*dist*' -type d -print | wc -l)
 
@@ -444,14 +434,12 @@ jobs:
       - image: node:lts-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          name: Restore build cache
-          keys:
-            - build-{{ checksum "yarn.lock" }}
       - run: |
           NUM_RELEASES=$(find packages -maxdepth 2  -name '*dist*' -type d -print | wc -l)
 
