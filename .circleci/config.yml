@@ -147,7 +147,7 @@ jobs:
             - yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: .
           paths:
             - packages/core/dist/
             - packages/cli/dist/
@@ -302,7 +302,7 @@ jobs:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - run: yarn workspace @gitbeaker/core test:integration
 
   test-integration-browser:
@@ -313,7 +313,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - restore_cache:
           name: Restore yarn package cache
           keys:
@@ -333,7 +333,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - restore_cache:
           name: Restore yarn package cache
           keys:
@@ -353,7 +353,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - restore_cache:
           name: Restore yarn package cache
           keys:
@@ -399,7 +399,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - restore_cache:
           name: Restore yarn package cache
           keys:
@@ -435,7 +435,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - restore_cache:
           name: Restore yarn package cache
           keys:
