@@ -40,10 +40,14 @@ describe('Tags.all', () => {
 
 describe('Tags.create', () => {
   it('should request POST /projects/:id/repository/tags', async () => {
-    await service.create(1, { test: 1 });
+    await service.create(1, 'test', 'main', { test: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/tags', {
       test: 1,
+      query: {
+        ref: 'main',
+        tagName: 'test',
+      },
     });
   });
 });

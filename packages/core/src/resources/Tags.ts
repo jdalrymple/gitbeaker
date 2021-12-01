@@ -27,12 +27,14 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  create(projectId: string | number, options?: BaseRequestOptions) {
-    return RequestHelper.post<TagSchema>()(
-      this,
-      endpoint`projects/${projectId}/repository/tags`,
-      options,
-    );
+  create(projectId: string | number, tagName: string, ref: string, options?: BaseRequestOptions) {
+    return RequestHelper.post<TagSchema>()(this, endpoint`projects/${projectId}/repository/tags`, {
+      query: {
+        tagName,
+        ref,
+      },
+      ...options,
+    });
   }
 
   remove(projectId: string | number, tagName: string, options?: Sudo) {
