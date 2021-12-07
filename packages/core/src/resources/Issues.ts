@@ -185,7 +185,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   }
 
   participants(projectId: string | number, issueIid: number, options?: Sudo) {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>>()(
+    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIid}/participants`,
       options,
@@ -193,7 +193,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   }
 
   relatedMergeRequests(projectId: string | number, issueIid: number, options?: BaseRequestOptions) {
-    return RequestHelper.get<MergeRequestSchema>()(
+    return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIid}/related_merge_requests`,
       options,
