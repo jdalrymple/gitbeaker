@@ -12,6 +12,7 @@ export { GroupLabels } from './GroupLabels';
 export { GroupDeployTokens } from './GroupDeployTokens';
 export { Epics } from './Epics';
 export { EpicIssues } from './EpicIssues';
+export { EpicLinks } from './EpicLinks';
 export { EpicNotes } from './EpicNotes';
 export { EpicDiscussions } from './EpicDiscussions';
 

@@ -14,6 +14,7 @@ import { GroupLabels } from './GroupLabels';
 import { GroupDeployTokens } from './GroupDeployTokens';
 import { Epics } from './Epics';
 import { EpicIssues } from './EpicIssues';
+import { EpicLinks } from './EpicLinks';
 import { EpicNotes } from './EpicNotes';
 import { EpicDiscussions } from './EpicDiscussions';
 import { Users } from './Users';
@@ -116,6 +117,7 @@ type BundledService<C extends boolean = false> = {
   GroupDeployTokens: GroupDeployTokens<C>;
   Epics: Epics<C>;
   EpicIssues: EpicIssues<C>;
+  EpicLinks: EpicLinks<C>;
   EpicNotes: EpicNotes<C>;
   EpicDiscussions: EpicDiscussions<C>;
   Users: Users<C>;
@@ -216,6 +218,7 @@ const resources = {
   GroupDeployTokens,
   Epics,
   EpicIssues,
+  EpicLinks,
   EpicNotes,
   EpicDiscussions,
   Users,

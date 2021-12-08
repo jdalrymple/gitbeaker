@@ -21,6 +21,7 @@ export const {
   GroupDeployTokens,
   Epics,
   EpicIssues,
+  EpicLinks,
   EpicNotes,
   EpicDiscussions,
 
