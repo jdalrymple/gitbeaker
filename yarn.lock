@@ -121,12 +121,12 @@
     url-join "^4.0.0"
 
 "@auto-it/first-time-contributor@^10.27.1":
-  version "10.32.3"
-  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.32.3.tgz#c7d1ecc986e283fe1199b73424a58cdafb662ae2"
-  integrity sha512-6b22lQ+5JSDDrw4exVa71ZReRmydC1xJYP+iEYDFQ/BOdZb91KSOUYvmFzJxxQXDqnMQNt+cOnIaBHOQokVtUw==
+  version "10.32.5"
+  resolved "https://registry.yarnpkg.com/@auto-it/first-time-contributor/-/first-time-contributor-10.32.5.tgz#887bf811c5d461753889e7d721c8ac15b55c868d"
+  integrity sha512-HGw6U7h0SJ1SgQAFUFVe8TdiImTMDMz80aUiZY0tqOq3oBkSh+BNS/fr9jEYFGPhTuJiAckX+3HGtM0lU0rXhA==
   dependencies:
-    "@auto-it/bot-list" "10.32.3"
-    "@auto-it/core" "10.32.3"
+    "@auto-it/bot-list" "10.32.5"
+    "@auto-it/core" "10.32.5"
     array.prototype.flatmap "^1.2.2"
     endent "^2.0.1"
     tslib "2.1.0"
@@ -1932,7 +1932,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@^16.0.0":
+"@types/node@*":
   version "16.11.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
   integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
