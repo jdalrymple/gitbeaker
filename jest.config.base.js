@@ -1,5 +1,5 @@
 const { jsWithTs: tsjPreset } = require('ts-jest/presets');
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { pathsToModuleNameMapper } = require('ts-jest');
 const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
