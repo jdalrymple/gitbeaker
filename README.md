@@ -70,6 +70,7 @@
 - [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
+- [Sponsors](#sponsors)
 - [License](#license)
 - [Changelog](#changelog)
 
@@ -699,10 +700,17 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
 - [Seb0uil](https://github.com/seb0uil)
 - [Dylan Taylor](https://github.com/dylanmtaylor)
 
-## License
+## Sponsors
 
-[MIT](https://github.com/jdalrymple/gitbeaker/blob/master/LICENSE.md)
-
-## Changelog
-
-[Here](https://github.com/jdalrymple/gitbeaker/blob/master/CHANGELOG.md)
+<div align="center">
+	<p>
+		<sup>
+			Special thanks for helping support this project:
+		</sup>
+	</p>
+	<br>
+	<a href="https://wearecws.com/">
+		<img src="https://wearecws.com/images/brand/cws-logo.svg" width="210">
+	</a>
+	<br>
+</div>
