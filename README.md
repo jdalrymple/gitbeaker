@@ -5,19 +5,13 @@
 <br>
 <p align="center">
   <a href="https://circleci.com/gh/jdalrymple/gitbeaker/tree/master">
-    <img src="https://circleci.com/gh/jdalrymple/gitbeaker/tree/master.svg?style=svg" alt="CircleCI Pipeline Status">
+    <img alt="CircleCI" src="https://img.shields.io/circleci/build/github/jdalrymple/gitbeaker/master" alt="CircleCI Pipeline Status">
   </a>
   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
     <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
   </a>
   <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
     <img src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker/master.svg" alt="CodeCov test coverage">
-  </a>
-  <a href="https://david-dm.org/jdalrymple/gitbeaker">
-    <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg" alt="Dependency Status" />
-  </a>
-  <a href="https://david-dm.org/jdalrymple/gitbeaker?type=dev">
-    <img src="https://status.david-dm.org/gh/jdalrymple/gitbeaker.svg?type=dev" alt="Dev Dependency Status" />
   </a>
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
@@ -29,30 +23,9 @@
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
   </a>
-
-  <p align="center">
-    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/core">
-      Core: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/core" alt="Install Size: Core">
-    </a>
-  </p>
-  <p align="center">
-    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/node">
-      Node: <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/node" alt="Install Size: Node">
-    </a>
-  </p>
-  <p align="center">
-    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/browser">
-      Browser <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/browser" alt="Install Size: Browser">
-    </a>
-  </p>
-  <p align="center">
-    <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
-      CLI <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
-    </a>
-  </p>
 </p>
 
-🤖 [GitLab](https://gitlab.com/gitlab-org/gitlab/) API NodeJS library with full support of all the [Gitlab API](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) services.
+[GitLab](https://gitlab.com/gitlab-org/gitlab/) API NodeJS library with full support of all the [Gitlab API](https://gitlab.com/gitlab-org/gitlab/tree/master/doc/api) services.
 
 ## Table of Contents
 
@@ -67,12 +40,9 @@
   - [Custom Request Libraries](#custom-request-libraries)
   - [Misc](#misc)
 - [Debugging](#debugging)
-- [Development](#development)
 - [Testing](#testing)
 - [Contributors](#contributors)
 - [Sponsors](#sponsors)
-- [License](#license)
-- [Changelog](#changelog)
 
 ## Install
 
@@ -501,33 +471,6 @@ fs.writeFileSync('test.zip', bufferedData);
 
 ## Debugging
 Depending on the library used, the full information about the request error can be a bit obfuscated. Ideally, the entire information is returned from Ky (browser) or Got (nodejs) however for simplicity, a description property is added to the error object that has the error message attached. Simply look for e.description to have a better idea of what the error actually is.
-
-## Development
-
-To get this running locally rather than from your `node_modules` folder:
-
-```bash
-$ git clone https://github.com/jdalrymple/gitbeaker.git
-$ cd gitbeaker
-$ yarn install
-$ yarn build
-```
-
-And then inside whatever project you are using `gitbeaker` in you change your references to use that repo. In your package.json of that upstream project change:
-
-```json
-"dependencies": {
-  "gitlab": "5.0.0"
-}
-```
-
-to this
-
-```json
-"dependencies": {
-  "gitlab": "<path-to-your-clone>"
-}
-```
 
 ## Testing
 
