@@ -302,7 +302,9 @@ const resources = {
   Wikis,
 };
 
-export class Gitlab<C extends boolean = false> extends (class {} as new () => BundledService) {
+export class Gitlab<C extends boolean = false> extends (class {} as new <
+  Camelize extends boolean = false,
+>() => BundledService<Camelize>)<C> {
   constructor(options: BaseResourceOptions<C>) {
     super();
 
