@@ -12,16 +12,16 @@ export interface UserCustomAttributes<C extends boolean = false>
 
   set(
     userId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     value: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 
-  remove(userId: string | number, customAttributeId: number, options?: Sudo): Promise<void>;
+  remove(userId: string | number, customAttributeId: string, options?: Sudo): Promise<void>;
 
   show(
     userId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 }

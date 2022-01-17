@@ -19,7 +19,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     );
   }
 
-  set(resourceId: string | number, customAttributeId: number, value: string, options?: Sudo) {
+  set(resourceId: string | number, customAttributeId: string, value: string, options?: Sudo) {
     return RequestHelper.put<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
@@ -30,7 +30,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     );
   }
 
-  remove(resourceId: string | number, customAttributeId: number, options?: Sudo) {
+  remove(resourceId: string | number, customAttributeId: string, options?: Sudo) {
     return RequestHelper.del()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
@@ -38,7 +38,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     );
   }
 
-  show(resourceId: string | number, customAttributeId: number, options?: Sudo) {
+  show(resourceId: string | number, customAttributeId: string, options?: Sudo) {
     return RequestHelper.get<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,

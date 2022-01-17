@@ -12,16 +12,16 @@ export interface GroupCustomAttributes<C extends boolean = false>
 
   set(
     groupId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     value: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 
-  remove(groupId: string | number, customAttributeId: number, options?: Sudo): Promise<void>;
+  remove(groupId: string | number, customAttributeId: string, options?: Sudo): Promise<void>;
 
   show(
     groupId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 }

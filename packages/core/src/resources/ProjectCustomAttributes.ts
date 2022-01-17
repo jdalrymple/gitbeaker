@@ -12,16 +12,16 @@ export interface ProjectCustomAttributes<C extends boolean = false>
 
   set(
     projectId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     value: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 
-  remove(projectId: string | number, customAttributeId: number, options?: Sudo): Promise<void>;
+  remove(projectId: string | number, customAttributeId: string, options?: Sudo): Promise<void>;
 
   show(
     projectId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
 }
