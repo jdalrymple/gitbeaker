@@ -183,7 +183,7 @@ const cli = Sywac.version('-v, --version')
 
 // Add Global commands
 cli.boolean('-g --global-args', {
-  desc: 'Show global arguments currently set in the enviroment variables',
+  desc: 'Show global arguments currently set in the environment variables',
 });
 
 cli.command('*', (argv, ctx) => {
