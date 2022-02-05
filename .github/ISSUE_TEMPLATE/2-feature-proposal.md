@@ -1,10 +1,8 @@
 ---
-name: Feature Proposal
+name: "🚀 Feature request"
 labels: feature
 about: Suggest an idea
 ---
-
-<!-- Please make sure the new issue you are opening is not a duplicate, and **remove** this notice! -->
 
 **Description**
 
@@ -13,3 +11,7 @@ about: Suggest an idea
 **Proposal**
 
 <!-- *(Outline how you plan to implement this feature if you have one)* -->
+
+**Checklist**
+- [ ] I have checked that this is not a duplicate issue.
+- [ ] I have read the documentation.

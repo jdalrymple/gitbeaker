@@ -1,10 +1,8 @@
 ---
-name: Technical Debt
+name: '🚧 Technical Debt'
 labels: 'technical debt'
 about: Suggest an improvement to the codebase
 ---
-
-<!-- Please make sure the new issue you are opening is not a duplicate, and **remove** this notice! -->
 
 **Description**
 
@@ -16,3 +14,7 @@ logs, and code as it's very hard to read otherwise.) -->
 **Possible solutions**
 
 <!-- *(Any possible suggestions on how to improve this code)* -->
+
+**Checklist**
+- [ ] I have checked that this is not a duplicate issue.
+- [ ] I have read the documentation.
