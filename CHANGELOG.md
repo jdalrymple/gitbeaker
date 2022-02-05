@@ -1,3 +1,31 @@
+# 35.3.0 (Sat Feb 05 2022)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Set the minimum supported node version [#2353](https://github.com/jdalrymple/gitbeaker/pull/2353) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔩 Dependency Updates
+
+- Bump @rollup/plugin-node-resolve from 13.1.1 to 13.1.3 [#2317](https://github.com/jdalrymple/gitbeaker/pull/2317) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump jest from 27.4.5 to 27.4.7 [#2316](https://github.com/jdalrymple/gitbeaker/pull/2316) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @rollup/plugin-replace from 3.0.0 to 3.0.1 [#2303](https://github.com/jdalrymple/gitbeaker/pull/2303) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump eslint-plugin-import from 2.25.3 to 2.25.4 [#2309](https://github.com/jdalrymple/gitbeaker/pull/2309) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump eslint-plugin-jest from 25.3.0 to 26.0.0 [#2338](https://github.com/jdalrymple/gitbeaker/pull/2338) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump lint-staged from 12.1.2 to 12.3.3 [#2350](https://github.com/jdalrymple/gitbeaker/pull/2350) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @types/jest from 27.0.3 to 27.4.0 [#2306](https://github.com/jdalrymple/gitbeaker/pull/2306) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump node-fetch from 3.1.0 to 3.2.0 [#2337](https://github.com/jdalrymple/gitbeaker/pull/2337) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump @types/node from 17.0.0 to 17.0.15 [#2354](https://github.com/jdalrymple/gitbeaker/pull/2354) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump rollup from 2.61.1 to 2.67.0 [#2352](https://github.com/jdalrymple/gitbeaker/pull/2352) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump query-string from 7.0.1 to 7.1.0 [#2318](https://github.com/jdalrymple/gitbeaker/pull/2318) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.2.0 (Sat Feb 05 2022)
 
 :tada: This release contains work from new contributors! :tada:

@@ -1,3 +1,15 @@
+# v35.3.0 (Sat Feb 05 2022)
+
+#### 🐛 Bug Fix
+
+- Set the minimum supported node version [#2353](https://github.com/jdalrymple/gitbeaker/pull/2353) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v35.2.0 (Sat Feb 05 2022)
 
 :tada: This release contains work from new contributors! :tada:
