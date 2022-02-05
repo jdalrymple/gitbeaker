@@ -1,3 +1,25 @@
+# v35.2.0 (Sat Feb 05 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/rollup-2.61.1' ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/qs-6.10.2' ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/packages/requester-utils/types/node-17.0.0' ([@jdalrymple](https://github.com/jdalrymple))
+- Bump @types/node from 16.11.14 to 17.0.0 in /packages/requester-utils ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🔩 Dependency Updates
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-27.4.5' [#2287](https://github.com/jdalrymple/gitbeaker/pull/2287) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-10.32.5' [#2288](https://github.com/jdalrymple/gitbeaker/pull/2288) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/prettier-2.5.1' [#2261](https://github.com/jdalrymple/gitbeaker/pull/2261) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v34.7.0 (Tue Nov 30 2021)
 
 #### 🔩 Dependency Updates

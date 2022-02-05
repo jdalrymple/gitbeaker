@@ -1,3 +1,31 @@
+# v35.2.0 (Sat Feb 05 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Carsten Moberg Hammer ([@moberghammer](https://github.com/moberghammer))
+
+:heart: null[@pataar](https://github.com/pataar)
+
+#### 🐛 Bug Fix
+
+- Return type of showPipelineBridge [#2311](https://github.com/jdalrymple/gitbeaker/pull/2311) ([@moberghammer](https://github.com/moberghammer) [@jdalrymple](https://github.com/jdalrymple))
+- Fix typing for the particpants and relatedMergeRequests functions within the Issues API [#2262](https://github.com/jdalrymple/gitbeaker/pull/2262) ([@pataar](https://github.com/pataar))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 16.11.14 to 17.0.0 in /packages/core [#2282](https://github.com/jdalrymple/gitbeaker/pull/2282) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@pataar](https://github.com/pataar)
+- Carsten Moberg Hammer ([@moberghammer](https://github.com/moberghammer))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v35.0.0 (Wed Dec 01 2021)
 
 #### 💥 Breaking Change
