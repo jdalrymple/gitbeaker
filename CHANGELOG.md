@@ -1,3 +1,70 @@
+# 35.2.0 (Sat Feb 05 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Carsten Moberg Hammer ([@moberghammer](https://github.com/moberghammer))
+
+:heart: null[@pataar](https://github.com/pataar)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Return type of showPipelineBridge [#2311](https://github.com/jdalrymple/gitbeaker/pull/2311) ([@moberghammer](https://github.com/moberghammer) [@jdalrymple](https://github.com/jdalrymple))
+  - Fix typing for the particpants and relatedMergeRequests functions within the Issues API [#2262](https://github.com/jdalrymple/gitbeaker/pull/2262) ([@pataar](https://github.com/pataar))
+
+#### ⚠️ Pushed to `master`
+
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/playwright-1.17.1' ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/typescript-4.5.4' ([@jdalrymple](https://github.com/jdalrymple))
+- Bump typescript from 4.5.2 to 4.5.4 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.17.0 to 1.17.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/rollup-2.61.1' ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/qs-6.10.2' ([@jdalrymple](https://github.com/jdalrymple))
+- Bump rollup from 2.60.2 to 2.61.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump qs from 6.10.1 to 6.10.2 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/node`
+  - Downgrade got until ESM ready ([@jdalrymple](https://github.com/jdalrymple))
+  - Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/got-12.0.0' ([@jdalrymple](https://github.com/jdalrymple))
+  - Bump got from 11.8.3 to 12.0.0 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+  - Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/packages/node/types/node-17.0.0' ([@jdalrymple](https://github.com/jdalrymple))
+  - Bump @types/node from 16.11.14 to 17.0.0 in /packages/node ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/requester-utils`
+  - Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/packages/requester-utils/types/node-17.0.0' ([@jdalrymple](https://github.com/jdalrymple))
+  - Bump @types/node from 16.11.14 to 17.0.0 in /packages/requester-utils ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🔩 Dependency Updates
+
+- Bump follow-redirects from 1.14.5 to 1.14.7 [#2323](https://github.com/jdalrymple/gitbeaker/pull/2323) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/packages/node/got-12.0.0' [#2275](https://github.com/jdalrymple/gitbeaker/pull/2275) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/rollup/plugin-node-resolve-13.1.1' [#2285](https://github.com/jdalrymple/gitbeaker/pull/2285) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jest-27.4.5' [#2287](https://github.com/jdalrymple/gitbeaker/pull/2287) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/first-time-contributor-10.32.5' [#2286](https://github.com/jdalrymple/gitbeaker/pull/2286) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-10.32.5' [#2288](https://github.com/jdalrymple/gitbeaker/pull/2288) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/prettier-2.5.1' [#2261](https://github.com/jdalrymple/gitbeaker/pull/2261) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/released-10.32.5' [#2273](https://github.com/jdalrymple/gitbeaker/pull/2273) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/auto-it/all-contributors-10.32.5' [#2271](https://github.com/jdalrymple/gitbeaker/pull/2271) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump ts-jest from 27.0.7 to 27.1.2 [#2284](https://github.com/jdalrymple/gitbeaker/pull/2284) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest from 27.4.2 to 27.4.3 [#2257](https://github.com/jdalrymple/gitbeaker/pull/2257) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/core`
+  - Bump @types/node from 16.11.14 to 17.0.0 in /packages/core [#2282](https://github.com/jdalrymple/gitbeaker/pull/2282) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`
+  - Bump @types/node from 16.11.14 to 17.0.0 in /packages/browser [#2283](https://github.com/jdalrymple/gitbeaker/pull/2283) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📝 Documentation
+
+- Add sponser information to the README [#2290](https://github.com/jdalrymple/gitbeaker/pull/2290) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@pataar](https://github.com/pataar)
+- Carsten Moberg Hammer ([@moberghammer](https://github.com/moberghammer))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.1.0 (Wed Dec 01 2021)
 
 #### 🐛 Bug Fix

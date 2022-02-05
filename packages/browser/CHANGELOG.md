@@ -1,3 +1,15 @@
+# v35.2.0 (Sat Feb 05 2022)
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 16.11.14 to 17.0.0 in /packages/browser [#2283](https://github.com/jdalrymple/gitbeaker/pull/2283) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v34.7.0 (Tue Nov 30 2021)
 
 #### 🔩 Dependency Updates

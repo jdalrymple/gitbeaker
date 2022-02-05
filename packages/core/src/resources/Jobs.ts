@@ -204,7 +204,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     pipelineId: number,
     options?: { scope?: JobScope } & Sudo,
   ) {
-    return RequestHelper.get<BridgeSchema>()(
+    return RequestHelper.get<BridgeSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipelines/${pipelineId}/bridges`,
       options,
