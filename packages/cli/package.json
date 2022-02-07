@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
-    "jest-extended": "^1.0.0",
+    "jest-extended": "^2.0.0",
     "rollup": "^2.47.0",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-typescript2": "^0.31.1",
