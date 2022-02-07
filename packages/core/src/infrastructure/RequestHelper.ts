@@ -119,7 +119,9 @@ async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
   // Handle array responses
   const newAcc = [...acc, ...body];
   const { next }: { next: string } = parseLink(headers.link);
-  const { query: qs = {} } = next ? parseQueryString(next, { parseNumbers: true }) : {};
+  const { query: qs = {} } = next
+    ? parseQueryString(next, { parseNumbers: true, arrayFormat: 'bracket' })
+    : {};
   const withinBounds = maxPages
     ? newAcc.length / ((qs.per_page as unknown as number) || 20) < maxPages
     : true;
