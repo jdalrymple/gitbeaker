@@ -1,3 +1,15 @@
+# v35.4.0 (Mon Feb 07 2022)
+
+#### 🐛 Bug Fix
+
+- Fix the parsing of pagination link querystrings [#2366](https://github.com/jdalrymple/gitbeaker/pull/2366) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix

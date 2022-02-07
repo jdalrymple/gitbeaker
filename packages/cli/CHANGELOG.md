@@ -1,3 +1,19 @@
+# v35.4.0 (Mon Feb 07 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix typo in src/cli.ts [#2355](https://github.com/jdalrymple/gitbeaker/pull/2355) ([@eltociear](https://github.com/eltociear))
+
+#### Authors: 1
+
+- Ikko Ashimine ([@eltociear](https://github.com/eltociear))
+
+---
+
 # v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix

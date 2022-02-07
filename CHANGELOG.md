@@ -1,3 +1,23 @@
+# 35.4.0 (Mon Feb 07 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix the parsing of pagination link querystrings [#2366](https://github.com/jdalrymple/gitbeaker/pull/2366) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Fix typo in src/cli.ts [#2355](https://github.com/jdalrymple/gitbeaker/pull/2355) ([@eltociear](https://github.com/eltociear))
+
+#### Authors: 2
+
+- Ikko Ashimine ([@eltociear](https://github.com/eltociear))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
