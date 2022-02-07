@@ -19,7 +19,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@types/node": "^17.0.0",
     "form-data": "^4.0.0",
-    "jest-extended": "^1.0.0",
+    "jest-extended": "^2.0.0",
     "openpgp": "^5.0.0",
     "rollup": "^2.47.0",
     "rollup-plugin-typescript2": "^0.31.1",
