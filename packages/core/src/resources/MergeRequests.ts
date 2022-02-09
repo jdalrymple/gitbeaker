@@ -43,6 +43,7 @@ export interface UpdateMergeRequestOptions {
   targetBranch?: number;
   title?: string;
   assigneeId?: number;
+  reviewerId?: number;
   milestoneId?: number;
   labels?: string | Array<string>;
   description?: string;
