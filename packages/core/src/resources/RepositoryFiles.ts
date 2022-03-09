@@ -104,6 +104,6 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}/raw`,
       options,
-    ) as unknown as Promise<Blob>;
+    ) as unknown as Promise<string>;
   }
 }
