@@ -585,6 +585,9 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/pataar"><img src="https://avatars.githubusercontent.com/u/3403851?v=4?s=50" width="50px;" alt=""/><br /><sub><b>pataar</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=pataar" title="Code">💻</a></td>
     <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=eltociear" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/BilalAslam1"><img src="https://avatars.githubusercontent.com/u/27581495?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Bilal Aslam</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=BilalAslam1" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
