@@ -6141,10 +6141,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-ky@0.28.7:
-  version "0.28.7"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.28.7.tgz#10c42be863fb96c1846d6e71e229263ffb72eb15"
-  integrity sha512-a23i6qSr/ep15vdtw/zyEQIDLoUaKDg9Jf04CYl/0ns/wXNYna26zJpI+MeIFaPeDvkrjLPrKtKOiiI3IE53RQ==
+ky@0.30.0:
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.30.0.tgz#a3d293e4f6c4604a9a4694eceb6ce30e73d27d64"
+  integrity sha512-X/u76z4JtDVq10u1JA5UQfatPxgPaVDMYTrgHyiTpGN2z4TMEJkIHsoSBBSg9SWZEIXTKsi9kHgiQ9o3Y/4yog==
 
 lerna@^4.0.0:
   version "4.0.0"
