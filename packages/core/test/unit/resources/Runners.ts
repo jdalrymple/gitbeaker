@@ -61,7 +61,7 @@ describe('Runners.enable', () => {
     await service.enable(1, 2);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/runners', {
-      runnerId: '2',
+      runnerId: 2,
     });
   });
 });
