@@ -1,3 +1,32 @@
+# 35.5.0 (Wed Mar 16 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Remove double encoding [#2401](https://github.com/jdalrymple/gitbeaker/pull/2401) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating return type for repository files raw method [#2383](https://github.com/jdalrymple/gitbeaker/pull/2383) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/core`
+  - Updating tests to reflect recent bug fix ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📝 Documentation
+
+- `@gitbeaker/core`
+  - Add reviewerId as a static type option for editing mergerequest approvals [#2368](https://github.com/jdalrymple/gitbeaker/pull/2368) (bilalaslam@carfax.com)
+
+#### Authors: 2
+
+- Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.4.0 (Mon Feb 07 2022)
 
 :tada: This release contains work from a new contributor! :tada:
