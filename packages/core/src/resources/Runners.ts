@@ -52,10 +52,8 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   }
 
   enable(projectId: string | number, runnerId: number, options?: Sudo) {
-    const [pId, rId] = [projectId, runnerId].map(encodeURIComponent);
-
-    return RequestHelper.post<RunnerSchema>()(this, endpoint`projects/${pId}/runners`, {
-      runnerId: rId,
+    return RequestHelper.post<RunnerSchema>()(this, endpoint`projects/${projectId}/runners`, {
+      runnerId,
       ...options,
     });
   }
