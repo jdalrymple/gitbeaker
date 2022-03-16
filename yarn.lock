@@ -7117,9 +7117,9 @@ onetime@^5.1.0, onetime@^5.1.2:
     mimic-fn "^2.1.0"
 
 openpgp@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-5.0.1.tgz#fe355dcdc2074e505d5c22ee51e880a8296bd0ab"
-  integrity sha512-J9HGIcXumwczJwX3JvgshWYtkhsOJHm5ZPd1ipJ1BqrZL06NgqV/EfJyF3ThOlNV2rY0MGWdS8L8/kKyeo3sXg==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-5.2.1.tgz#cc48b25eb7d1b4613a167c9e6def8717eea53429"
+  integrity sha512-zvu63kxe70q3D6WlKC/TB2pzI59I8V/l4G+z/VYgNVOyARsoH9q4i/WqwoHPjWG5HnRjhII3WSvp3gXH2DMPVg==
   dependencies:
     asn1.js "^5.0.0"
 
