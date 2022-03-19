@@ -1,5 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, RequestHelper, Camelize, endpoint } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  Sudo,
+  ShowExpanded,
+  RequestHelper,
+  Camelize,
+  endpoint,
+} from '../infrastructure';
 
 export interface FreezePeriodSchema extends Record<string, unknown> {
   id: number;
@@ -57,7 +64,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  delete(projectId: number | string, freezePeriodId: number, options?: BaseRequestOptions) {
+  delete(projectId: number | string, freezePeriodId: number, options?: Sudo & ShowExpanded) {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
