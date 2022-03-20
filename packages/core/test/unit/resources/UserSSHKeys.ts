@@ -104,21 +104,21 @@ describe('UserSSHKeys.show', () => {
 });
 
 describe('UserSSHKeys.remove', () => {
-  it('should request GET user/keys', async () => {
-    await service.remove(1, { test: 1 });
-
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'user/keys/1', { test: 1 });
-  });
-
-  it('should request GET user/keys without options', async () => {
+  it('should request DEL user/keys', async () => {
     await service.remove(1);
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'user/keys/1', {});
   });
 
-  it('should request GET users/1/keys', async () => {
-    await service.remove(1, { userId: 1, test: 1 });
+  it('should request DEL user/keys without options', async () => {
+    await service.remove(1);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'users/1/keys/1', { test: 1 });
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'user/keys/1', {});
+  });
+
+  it('should request DEL users/1/keys', async () => {
+    await service.remove(1, { userId: 1 });
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'users/1/keys/1', {});
   });
 });

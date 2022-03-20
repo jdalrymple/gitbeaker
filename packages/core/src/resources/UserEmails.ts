@@ -1,5 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  Sudo,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
 
 export interface UserEmailSchema extends Record<string, unknown> {
   id: number;
@@ -25,9 +30,9 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<UserEmailSchema>()(this, `user/emails/${emailId}`, options);
   }
 
-  remove(emailId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  remove(emailId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.del()(this, `${url(userId)}/${eId}`, options);
+    return RequestHelper.del()(this, `${url(userId)}/${eId}`, options as Sudo);
   }
 }
