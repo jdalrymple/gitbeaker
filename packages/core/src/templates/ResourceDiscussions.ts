@@ -81,15 +81,25 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    options?: BaseRequestOptions,
+    { position, ...options }: { position?: Record<string, unknown> } & BaseRequestOptions = {},
   ) {
+    const opts = { ...options };
+
+    if (position) {
+      opts.isForm = true;
+      opts.body = body;
+
+      Object.entries(position).forEach(([k, v]) => {
+        opts[`position[${k}]`] = v;
+      });
+    } else {
+      opts.query = { body };
+    }
+
     return RequestHelper.post<DiscussionSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions`,
-      {
-        query: { body },
-        ...options,
-      },
+      opts,
     );
   }
 
