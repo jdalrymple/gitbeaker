@@ -33,6 +33,6 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   remove(emailId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
     const eId = encodeURIComponent(emailId);
 
-    return RequestHelper.del()(this, `${url(userId)}/${eId}`, options);
+    return RequestHelper.del()(this, `${url(userId)}/${eId}`, options as Sudo);
   }
 }

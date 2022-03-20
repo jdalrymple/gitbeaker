@@ -415,6 +415,6 @@ describe('RequestHelper.del()', () => {
 
     await RequestHelper.del()(service, 'test', { sudo: 'yes' });
 
-    expect(service.requester.delete).toBeCalledWith('test', { query: {}, sudo: 'yes' });
+    expect(service.requester.delete).toBeCalledWith('test', { body: {}, sudo: 'yes' });
   });
 });

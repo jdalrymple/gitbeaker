@@ -208,7 +208,7 @@ describe('MergeRequestApprovals.removeApprovalRule', () => {
   it('should request DELETE /projects/:id/approval_rules/:approval_rule_id', async () => {
     await service.removeApprovalRule(2, 30);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/2/approval_rules/30');
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/2/approval_rules/30', {});
   });
 
   it('should request DELETE /projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id when mergerequestIid is passed', async () => {
@@ -217,6 +217,7 @@ describe('MergeRequestApprovals.removeApprovalRule', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/approval_rules/30',
+      {},
     );
   });
 });

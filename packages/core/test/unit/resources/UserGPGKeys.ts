@@ -69,13 +69,13 @@ describe('UserGPGKeys.show', () => {
 });
 
 describe('UserGPGKeys.remove', () => {
-  it('should request GET user/gpg_keys', async () => {
+  it('should request DEL user/gpg_keys', async () => {
     await service.remove(1);
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'user/gpg_keys/1', {});
   });
 
-  it('should request GET users/1/gpg_keys', async () => {
+  it('should request DEL users/1/gpg_keys', async () => {
     await service.remove(1, { userId: 1 });
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'users/1/gpg_keys/1', {});

@@ -41,6 +41,6 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   remove(keyId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options as Sudo);
   }
 }
