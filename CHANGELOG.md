@@ -1,3 +1,24 @@
+# 35.6.0 (Wed Mar 23 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, youngje ([@siosio34](https://github.com/siosio34)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Support camelized keys on discussions [#2433](https://github.com/jdalrymple/gitbeaker/pull/2433) ([@jdalrymple](https://github.com/jdalrymple))
+  - Typo in MergeRequest type [#2431](https://github.com/jdalrymple/gitbeaker/pull/2431) ([@siosio34](https://github.com/siosio34))
+  - Update del requests to accept body parameters [#2424](https://github.com/jdalrymple/gitbeaker/pull/2424) ([@jdalrymple](https://github.com/jdalrymple))
+  - Handle position arguments correctly [#2423](https://github.com/jdalrymple/gitbeaker/pull/2423) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- youngje ([@siosio34](https://github.com/siosio34))
+
+---
+
 # 35.5.0 (Wed Mar 16 2022)
 
 :tada: This release contains work from a new contributor! :tada:
