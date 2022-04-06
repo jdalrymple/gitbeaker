@@ -200,6 +200,7 @@ Wikis
 // Groups
 Groups
 GroupAccessRequests
+GroupAccessTokens
 GroupBadges
 GroupCustomAttributes
 GroupIssueBoards
@@ -251,6 +252,7 @@ PipelineSchedules
 PipelineScheduleVariables
 Projects
 ProjectAccessRequests
+ProjectAccessTokens
 ProjectBadges
 ProjectCustomAttributes
 ProjectImportExport
