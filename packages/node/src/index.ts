@@ -10,6 +10,7 @@ export const {
   // Groups
   Groups,
   GroupAccessRequests,
+  GroupAccessTokens,
   GroupBadges,
   GroupCustomAttributes,
   GroupIssueBoards,
@@ -61,6 +62,7 @@ export const {
   PipelineScheduleVariables,
   Projects,
   ProjectAccessRequests,
+  ProjectAccessTokens,
   ProjectBadges,
   ProjectCustomAttributes,
   ProjectImportExport,

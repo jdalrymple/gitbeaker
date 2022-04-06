@@ -1,4 +1,5 @@
 export { ResourceAccessRequests } from './ResourceAccessRequests';
+export { ResourceAccessTokens } from './ResourceAccessTokens';
 export { ResourceAwardEmojis } from './ResourceAwardEmojis';
 export { ResourceNoteAwardEmojis } from './ResourceNoteAwardEmojis';
 export { ResourceBadges } from './ResourceBadges';

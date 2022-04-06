@@ -1,6 +1,7 @@
 // Groups
 export { Groups } from './Groups';
 export { GroupAccessRequests } from './GroupAccessRequests';
+export { GroupAccessTokens } from './GroupAccessTokens';
 export { GroupBadges } from './GroupBadges';
 export { GroupCustomAttributes } from './GroupCustomAttributes';
 export { GroupIssueBoards } from './GroupIssueBoards';
@@ -52,6 +53,7 @@ export { PipelineSchedules } from './PipelineSchedules';
 export { PipelineScheduleVariables } from './PipelineScheduleVariables';
 export { Projects } from './Projects';
 export { ProjectAccessRequests } from './ProjectAccessRequests';
+export { ProjectAccessTokens } from './ProjectAccessTokens';
 export { ProjectBadges } from './ProjectBadges';
 export { ProjectCustomAttributes } from './ProjectCustomAttributes';
 export { ProjectImportExport } from './ProjectImportExport';

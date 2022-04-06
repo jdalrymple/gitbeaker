@@ -3,6 +3,7 @@
 import { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { Groups } from './Groups';
 import { GroupAccessRequests } from './GroupAccessRequests';
+import { GroupAccessTokens } from './GroupAccessTokens';
 import { GroupBadges } from './GroupBadges';
 import { GroupCustomAttributes } from './GroupCustomAttributes';
 import { GroupIssueBoards } from './GroupIssueBoards';
@@ -50,6 +51,7 @@ import { PipelineSchedules } from './PipelineSchedules';
 import { PipelineScheduleVariables } from './PipelineScheduleVariables';
 import { Projects } from './Projects';
 import { ProjectAccessRequests } from './ProjectAccessRequests';
+import { ProjectAccessTokens } from './ProjectAccessTokens';
 import { ProjectBadges } from './ProjectBadges';
 import { ProjectCustomAttributes } from './ProjectCustomAttributes';
 import { ProjectImportExport } from './ProjectImportExport';
@@ -105,6 +107,7 @@ import { Wikis } from './Wikis';
 type BundledService<C extends boolean = false> = {
   Groups: Groups<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
+  GroupAccessTokens: GroupAccessTokens<C>;
   GroupBadges: GroupBadges<C>;
   GroupCustomAttributes: GroupCustomAttributes<C>;
   GroupIssueBoards: GroupIssueBoards<C>;
@@ -152,6 +155,7 @@ type BundledService<C extends boolean = false> = {
   PipelineScheduleVariables: PipelineScheduleVariables<C>;
   Projects: Projects<C>;
   ProjectAccessRequests: ProjectAccessRequests<C>;
+  ProjectAccessTokens: ProjectAccessTokens<C>;
   ProjectBadges: ProjectBadges<C>;
   ProjectCustomAttributes: ProjectCustomAttributes<C>;
   ProjectImportExport: ProjectImportExport<C>;
@@ -205,6 +209,7 @@ type BundledService<C extends boolean = false> = {
 const resources = {
   Groups,
   GroupAccessRequests,
+  GroupAccessTokens,
   GroupBadges,
   GroupCustomAttributes,
   GroupIssueBoards,
@@ -252,6 +257,7 @@ const resources = {
   PipelineScheduleVariables,
   Projects,
   ProjectAccessRequests,
+  ProjectAccessTokens,
   ProjectBadges,
   ProjectCustomAttributes,
   ProjectImportExport,
