@@ -12,7 +12,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
   addNote(
     groupId: string | number,
     epicId: number,
-    discussionId: number,
+    discussionId: string,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
@@ -34,7 +34,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
   editNote(
     groupId: string | number,
     epicId: number,
-    discussionId: number,
+    discussionId: string,
     noteId: number,
     options: BaseRequestOptions & { body: string },
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
@@ -42,7 +42,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
   removeNote(
     groupId: string | number,
     epicId: number,
-    discussionId: number,
+    discussionId: string,
     noteId: number,
     options?: Sudo,
   ): Promise<void>;
@@ -50,7 +50,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
   show(
     groupId: string | number,
     epicId: number,
-    discussionId: number,
+    discussionId: string,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }
