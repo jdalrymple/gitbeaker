@@ -3,9 +3,11 @@ import { ResourceDiscussions } from '../templates';
 import { DiscussionSchema } from '../templates/types';
 import {
   BaseRequestOptions,
+  endpoint,
   PaginatedRequestOptions,
   Sudo,
   CamelizedRecord,
+  RequestHelper,
 } from '../infrastructure';
 
 export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
@@ -59,5 +61,20 @@ export class MergeRequestDiscussions<C extends boolean = false> extends Resource
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
     super('projects', 'merge_requests', options);
+  }
+
+  resolve(
+    projectId: string | number,
+    mergerequestId: string | number,
+    discussionId: string,
+    resolved: boolean,
+  ) {
+    return RequestHelper.put()(
+      this,
+      endpoint`${projectId}/${this.resource2Type}/${mergerequestId}/discussions/${discussionId}`,
+      {
+        resolved,
+      },
+    );
   }
 }
