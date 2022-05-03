@@ -1,6 +1,7 @@
 import Got from 'got';
 import { decamelizeKeys } from 'xcase';
 import delay from 'delay';
+import 'global-agent/bootstrap';
 import {
   DefaultResourceOptions,
   DefaultRequestReturn,

@@ -459,6 +459,10 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 
 > **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
 
+#### Handling HTTP(S) Proxy
+
+If you need to reach a Gitlab server using a proxy (corporate proxy, for example), use the `GLOBAL_AGENT_HTTPS_PROXY` environment key.
+
 #### Non JSON/Text Responses
 
 For responses such as file data that may be returned from the API, the data is exposed as a buffer. For example, when trying to write a file, this can be done like:
