@@ -19,6 +19,7 @@ export const {
   GroupVariables,
   GroupLabels,
   GroupDeployTokens,
+  GroupHooks,
   Epics,
   EpicIssues,
   EpicNotes,

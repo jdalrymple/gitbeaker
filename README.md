@@ -209,6 +209,7 @@ GroupRunners
 GroupVariables
 GroupLabels
 GroupDeployTokens
+GroupHooks
 Epics
 EpicIssues
 EpicNotes

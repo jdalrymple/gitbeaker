@@ -2,6 +2,7 @@
 export { GroupSchema, GroupDetailSchema } from './Groups';
 export { GroupBadgeSchema } from './GroupBadges';
 export { GroupIssueBoardSchema } from './GroupIssueBoards';
+export { GroupHookSchema } from './GroupHooks';
 export { EpicSchema } from './Epics';
 export { EpicIssueSchema } from './EpicIssues';
 export { EpicNoteSchema } from './EpicNotes';

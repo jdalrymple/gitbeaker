@@ -12,6 +12,7 @@ import { GroupRunners } from './GroupRunners';
 import { GroupVariables } from './GroupVariables';
 import { GroupLabels } from './GroupLabels';
 import { GroupDeployTokens } from './GroupDeployTokens';
+import { GroupHooks } from './GroupHooks';
 import { Epics } from './Epics';
 import { EpicIssues } from './EpicIssues';
 import { EpicNotes } from './EpicNotes';
@@ -114,6 +115,7 @@ type BundledService<C extends boolean = false> = {
   GroupVariables: GroupVariables<C>;
   GroupLabels: GroupLabels<C>;
   GroupDeployTokens: GroupDeployTokens<C>;
+  GroupHooks: GroupHooks<C>;
   Epics: Epics<C>;
   EpicIssues: EpicIssues<C>;
   EpicNotes: EpicNotes<C>;
@@ -214,6 +216,7 @@ const resources = {
   GroupVariables,
   GroupLabels,
   GroupDeployTokens,
+  GroupHooks,
   Epics,
   EpicIssues,
   EpicNotes,

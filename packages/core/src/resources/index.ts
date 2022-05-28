@@ -10,6 +10,7 @@ export { GroupRunners } from './GroupRunners';
 export { GroupVariables } from './GroupVariables';
 export { GroupLabels } from './GroupLabels';
 export { GroupDeployTokens } from './GroupDeployTokens';
+export { GroupHooks } from './GroupHooks';
 export { Epics } from './Epics';
 export { EpicIssues } from './EpicIssues';
 export { EpicNotes } from './EpicNotes';
