@@ -1,3 +1,20 @@
+# 35.7.0 (Mon Jul 11 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - fix(resources): missing project default branch possible undefined value [#2515](https://github.com/jdalrymple/gitbeaker/pull/2515) ([@soullivaneuh](https://github.com/soullivaneuh))
+
+#### Authors: 1
+
+- Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh))
+
+---
+
 # 35.6.1 (Mon Jul 11 2022)
 
 :tada: This release contains work from new contributors! :tada:
