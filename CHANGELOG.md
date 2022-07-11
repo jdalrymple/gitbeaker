@@ -1,3 +1,33 @@
+# 35.6.1 (Mon Jul 11 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Karl Haworth ([@karlhaworth](https://github.com/karlhaworth))
+
+:heart: Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`
+  - fixes #2545 - compile error in RequesterUtils [#2546](https://github.com/jdalrymple/gitbeaker/pull/2546) ([@thesuavehog](https://github.com/thesuavehog))
+- `@gitbeaker/cli`
+  - Fix typo in unit/index.ts [#2438](https://github.com/jdalrymple/gitbeaker/pull/2438) ([@eltociear](https://github.com/eltociear))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/node`
+  - fix: unpin got dependency [#2572](https://github.com/jdalrymple/gitbeaker/pull/2572) ([@karlhaworth](https://github.com/karlhaworth))
+
+#### Authors: 3
+
+- Ikko Ashimine ([@eltociear](https://github.com/eltociear))
+- Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog))
+- Karl Haworth ([@karlhaworth](https://github.com/karlhaworth))
+
+---
+
 # 35.6.0 (Wed Mar 23 2022)
 
 :tada: This release contains work from a new contributor! :tada:

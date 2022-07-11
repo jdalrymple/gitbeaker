@@ -1,3 +1,19 @@
+# v35.6.1 (Mon Jul 11 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fixes #2545 - compile error in RequesterUtils [#2546](https://github.com/jdalrymple/gitbeaker/pull/2546) ([@thesuavehog](https://github.com/thesuavehog))
+
+#### Authors: 1
+
+- Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog))
+
+---
+
 # v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
