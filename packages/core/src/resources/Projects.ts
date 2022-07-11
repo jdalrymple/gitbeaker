@@ -17,7 +17,7 @@ import { AccessLevel } from '../templates/types';
 export interface ProjectSchema extends Record<string, unknown> {
   id: number;
   description?: string;
-  default_branch: string;
+  default_branch?: string;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   web_url: string;
