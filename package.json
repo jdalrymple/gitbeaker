@@ -25,7 +25,7 @@
     "husky": "^7.0.0",
     "jest": "^27.0.4",
     "jest-extended": "^1.0.0",
-    "lerna": "^4.0.0",
+    "lerna": "^5.1.8",
     "lint-staged": "^12.1.2",
     "prettier": "^2.3.0",
     "ts-jest": "^27.0.3",
