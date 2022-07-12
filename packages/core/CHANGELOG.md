@@ -1,3 +1,65 @@
+# v35.7.0 (Mon Jul 11 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix(resources): missing project default branch possible undefined value [#2515](https://github.com/jdalrymple/gitbeaker/pull/2515) ([@soullivaneuh](https://github.com/soullivaneuh))
+
+#### Authors: 1
+
+- Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh))
+
+---
+
+# v35.6.0 (Wed Mar 23 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, youngje ([@siosio34](https://github.com/siosio34)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Support camelized keys on discussions [#2433](https://github.com/jdalrymple/gitbeaker/pull/2433) ([@jdalrymple](https://github.com/jdalrymple))
+- Typo in MergeRequest type [#2431](https://github.com/jdalrymple/gitbeaker/pull/2431) ([@siosio34](https://github.com/siosio34))
+- Update del requests to accept body parameters [#2424](https://github.com/jdalrymple/gitbeaker/pull/2424) ([@jdalrymple](https://github.com/jdalrymple))
+- Handle position arguments correctly [#2423](https://github.com/jdalrymple/gitbeaker/pull/2423) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- youngje ([@siosio34](https://github.com/siosio34))
+
+---
+
+# v35.5.0 (Wed Mar 16 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Remove double encoding [#2401](https://github.com/jdalrymple/gitbeaker/pull/2401) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating return type for repository files raw method [#2383](https://github.com/jdalrymple/gitbeaker/pull/2383) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- Updating tests to reflect recent bug fix ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📝 Documentation
+
+- Add reviewerId as a static type option for editing mergerequest approvals [#2368](https://github.com/jdalrymple/gitbeaker/pull/2368) (bilalaslam@carfax.com)
+
+#### Authors: 2
+
+- Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v35.4.0 (Mon Feb 07 2022)
 
 #### 🐛 Bug Fix

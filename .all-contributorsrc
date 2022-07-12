@@ -488,6 +488,34 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/22633385?v=4",
       "profile": "https://bandism.net/",
       "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "BilalAslam1",
+      "name": "Bilal Aslam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27581495?v=4",
+      "profile": "https://github.com/BilalAslam1",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "siosio34",
+      "name": "youngje",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7166022?v=4",
+      "profile": "https://github.com/siosio34",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "soullivaneuh",
+      "name": "Sullivan SENECHAL",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1698357?v=4",
+      "profile": "https://keybase.io/soullivaneuh",
+      "contributions": [
         "code"
       ]
     }

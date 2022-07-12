@@ -1,3 +1,100 @@
+# 35.7.0 (Mon Jul 11 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - fix(resources): missing project default branch possible undefined value [#2515](https://github.com/jdalrymple/gitbeaker/pull/2515) ([@soullivaneuh](https://github.com/soullivaneuh))
+
+#### Authors: 1
+
+- Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh))
+
+---
+
+# 35.6.1 (Mon Jul 11 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Karl Haworth ([@karlhaworth](https://github.com/karlhaworth))
+
+:heart: Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`
+  - fixes #2545 - compile error in RequesterUtils [#2546](https://github.com/jdalrymple/gitbeaker/pull/2546) ([@thesuavehog](https://github.com/thesuavehog))
+- `@gitbeaker/cli`
+  - Fix typo in unit/index.ts [#2438](https://github.com/jdalrymple/gitbeaker/pull/2438) ([@eltociear](https://github.com/eltociear))
+
+#### 👷🏼‍♀️ Technical Debt
+
+- `@gitbeaker/node`
+  - fix: unpin got dependency [#2572](https://github.com/jdalrymple/gitbeaker/pull/2572) ([@karlhaworth](https://github.com/karlhaworth))
+
+#### Authors: 3
+
+- Ikko Ashimine ([@eltociear](https://github.com/eltociear))
+- Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog))
+- Karl Haworth ([@karlhaworth](https://github.com/karlhaworth))
+
+---
+
+# 35.6.0 (Wed Mar 23 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, youngje ([@siosio34](https://github.com/siosio34)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Support camelized keys on discussions [#2433](https://github.com/jdalrymple/gitbeaker/pull/2433) ([@jdalrymple](https://github.com/jdalrymple))
+  - Typo in MergeRequest type [#2431](https://github.com/jdalrymple/gitbeaker/pull/2431) ([@siosio34](https://github.com/siosio34))
+  - Update del requests to accept body parameters [#2424](https://github.com/jdalrymple/gitbeaker/pull/2424) ([@jdalrymple](https://github.com/jdalrymple))
+  - Handle position arguments correctly [#2423](https://github.com/jdalrymple/gitbeaker/pull/2423) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- youngje ([@siosio34](https://github.com/siosio34))
+
+---
+
+# 35.5.0 (Wed Mar 16 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Remove double encoding [#2401](https://github.com/jdalrymple/gitbeaker/pull/2401) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating return type for repository files raw method [#2383](https://github.com/jdalrymple/gitbeaker/pull/2383) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `master`
+
+- `@gitbeaker/core`
+  - Updating tests to reflect recent bug fix ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📝 Documentation
+
+- `@gitbeaker/core`
+  - Add reviewerId as a static type option for editing mergerequest approvals [#2368](https://github.com/jdalrymple/gitbeaker/pull/2368) (bilalaslam@carfax.com)
+
+#### Authors: 2
+
+- Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 35.4.0 (Mon Feb 07 2022)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -1,5 +1,5 @@
 import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, PaginatedRequestOptions, endpoint } from '../infrastructure';
+import { RequestHelper, Sudo, PaginatedRequestOptions, endpoint } from '../infrastructure';
 
 export interface VariableSchema extends Record<string, unknown> {
   variable_type: 'env_var' | 'file';
@@ -39,7 +39,7 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
     );
   }
 
-  remove(resourceId: string | number, keyId: string, options?: PaginatedRequestOptions) {
+  remove(resourceId: string | number, keyId: string, options?: Sudo) {
     return RequestHelper.del()(this, endpoint`${resourceId}/variables/${keyId}`, options);
   }
 }

@@ -229,9 +229,12 @@ export function del<T extends Record<string, unknown> | void = void>() {
   return async <C extends boolean, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    { sudo, showExpanded, ...query }: BaseRequestOptions & ShowExpanded<E> = {},
+    { sudo, showExpanded, query, ...options }: BaseRequestOptions & ShowExpanded<E> = {},
   ): Promise<ExtendedRecordReturn<C, E, T>> => {
+    const body = options;
+
     const r = await service.requester.delete(endpoint, {
+      body,
       query,
       sudo,
     });

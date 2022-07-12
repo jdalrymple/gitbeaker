@@ -1,3 +1,19 @@
+# v35.6.1 (Mon Jul 11 2022)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Karl Haworth ([@karlhaworth](https://github.com/karlhaworth)), for all your work!
+
+#### 👷🏼‍♀️ Technical Debt
+
+- fix: unpin got dependency [#2572](https://github.com/jdalrymple/gitbeaker/pull/2572) ([@karlhaworth](https://github.com/karlhaworth))
+
+#### Authors: 1
+
+- Karl Haworth ([@karlhaworth](https://github.com/karlhaworth))
+
+---
+
 # v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix

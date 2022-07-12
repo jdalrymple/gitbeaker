@@ -63,7 +63,7 @@ describe('General', () => {
   });
 });
 
-describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
+describe('gitbeaker -g -- CLI global Environment Variables', () => {
   it('should return an object of available gitbeaker cli.parse environment variables -- --global-args alias', async () => {
     // eslint-disable-next-line
     const { cli } = require('../../src/cli');

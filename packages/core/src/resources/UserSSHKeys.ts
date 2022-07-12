@@ -1,5 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { BaseRequestOptions, PaginatedRequestOptions, RequestHelper } from '../infrastructure';
+import {
+  BaseRequestOptions,
+  Sudo,
+  PaginatedRequestOptions,
+  RequestHelper,
+} from '../infrastructure';
 
 export interface UserSSHKeySchema extends Record<string, unknown> {
   id: number;
@@ -33,9 +38,9 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<UserSSHKeySchema>()(this, `${url(userId)}/${kId}`, options);
   }
 
-  remove(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  remove(keyId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
     const kId = encodeURIComponent(keyId);
 
-    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options);
+    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options as Sudo);
   }
 }

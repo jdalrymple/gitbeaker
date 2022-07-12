@@ -3,6 +3,7 @@ import { UserSchema } from './Users';
 import { MergeRequestSchema } from './MergeRequests';
 import { MilestoneSchema } from '../templates/types';
 import {
+  ShowExpanded,
   BaseRequestOptions,
   endpoint,
   PaginatedRequestOptions,
@@ -205,18 +206,16 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIid: number,
     issueLinkId: string | number,
-    options?: BaseRequestOptions,
+    options?: { linkType?: string } & Sudo & ShowExpanded,
   ) {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/issues/${issueIid}/links/${issueLinkId}`,
-      {
-        ...options,
-      },
+      options,
     );
   }
 
-  remove(projectId: string | number, issueIid: number, options?: Sudo) {
+  remove(projectId: string | number, issueIid: number, options?: Sudo & ShowExpanded) {
     return RequestHelper.del()(this, endpoint`projects/${projectId}/issues/${issueIid}`, options);
   }
 

@@ -243,7 +243,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   removeApprovalRule(
     projectId: string | number,
     approvalRuleId: number,
-    { mergerequestIid }: { mergerequestIid?: number } & Sudo = {},
+    { mergerequestIid, ...options }: { mergerequestIid?: number } & Sudo = {},
   ) {
     let url: string;
 
@@ -253,7 +253,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
       url = endpoint`projects/${projectId}/approval_rules/${approvalRuleId}`;
     }
 
-    return RequestHelper.del()(this, url);
+    return RequestHelper.del()(this, url, { ...options });
   }
 
   approve(

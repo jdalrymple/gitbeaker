@@ -71,7 +71,7 @@ export interface AllMergeRequestsOptions {
   scope?: 'created_by_me' | 'assigned_to_me' | 'all';
   authorId?: number;
   authorUsername?: string;
-  asigneeId?: number;
+  assigneeId?: number;
   assigneeUsername?: string;
   approverIds?: Array<number>;
   approvedByIds?: Array<number>;
