@@ -19,7 +19,7 @@
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-replace": "^3.0.0",
-    "@types/mime": "^2.0.3",
+    "@types/mime": "^3.0.0",
     "@types/node": "^18.0.3",
     "esm": "^3.2.25",
     "fs-extra": "^10.0.0",
