@@ -5723,9 +5723,9 @@ jest-environment-node@^27.4.6:
     jest-util "^27.4.2"
 
 jest-extended@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-3.0.0.tgz#c7cdd8c2326a9744de0b12677436c71353f39b5c"
-  integrity sha512-lhL+MCISeki6hGpRR7m8ViVR9pYlJHLj178OdvnYaOiXuXVaEkMiI8JfyZKEN/so8YzzbIfED1FGDSWWmxRNjg==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-3.0.2.tgz#f74ae82bdf280536552752b502f57f71e7d2fcf1"
+  integrity sha512-LnVZvwWLRV9AL8J7f4frKu0KHuTrbIFK15IqrvSwbFCYxalkuC5l7HfcofsksePrvlEJ2WAcfYNnu1+bEGvInA==
   dependencies:
     jest-diff "^28.0.0"
     jest-get-type "^28.0.0"
