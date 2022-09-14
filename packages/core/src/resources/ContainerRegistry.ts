@@ -41,7 +41,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     );
   }
 
-  showRepository(repositoryId: number, options?: Sudo) {
+  showRepository(repositoryId: string | number, options?: Sudo) {
     return RequestHelper.get<RegistryRepositorySchema>()(
       this,
       endpoint`registry/repositories/${repositoryId}`,
