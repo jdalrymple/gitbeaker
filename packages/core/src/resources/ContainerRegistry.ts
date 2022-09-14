@@ -41,10 +41,10 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     );
   }
 
-  showRepository(projectId: string | number, repositoryId: number, options?: Sudo) {
+  showRepository(repositoryId: number, options?: Sudo) {
     return RequestHelper.get<RegistryRepositorySchema>()(
       this,
-      endpoint`projects/${projectId}/registry/repositories/${repositoryId}`,
+      endpoint`registry/repositories/${repositoryId}`,
       options,
     );
   }

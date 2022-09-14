@@ -38,6 +38,18 @@ describe('ContainerRegistry.repositories', () => {
   });
 });
 
+describe('ContainerRegistry.showRepository', () => {
+  it('should request GET /registry/repositories/:id', async () => {
+    await service.showRepository(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'registry/repositories/2',
+      undefined,
+    );
+  });
+});
+
 describe('ContainerRegistry.tags', () => {
   it('should request GET /projects/:id/registry/repositories/:id/tags', async () => {
     await service.tags(1, 2);
