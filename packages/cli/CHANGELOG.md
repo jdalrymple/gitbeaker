@@ -1,3 +1,15 @@
+# v35.6.1 (Mon Jul 11 2022)
+
+#### 🐛 Bug Fix
+
+- Fix typo in unit/index.ts [#2438](https://github.com/jdalrymple/gitbeaker/pull/2438) ([@eltociear](https://github.com/eltociear))
+
+#### Authors: 1
+
+- Ikko Ashimine ([@eltociear](https://github.com/eltociear))
+
+---
+
 # v35.4.0 (Mon Feb 07 2022)
 
 :tada: This release contains work from a new contributor! :tada:

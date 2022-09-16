@@ -1,7 +1,7 @@
 {
   "name": "@gitbeaker/node",
   "description": "Full NodeJS implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "35.6.0",
+  "version": "35.7.0",
   "author": {
     "name": "Justin Dalrymple"
   },
@@ -9,17 +9,17 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "dependencies": {
-    "@gitbeaker/core": "^35.6.0",
-    "@gitbeaker/requester-utils": "^35.6.0",
+    "@gitbeaker/core": "^35.7.0",
+    "@gitbeaker/requester-utils": "^35.7.0",
     "delay": "^5.0.0",
-    "got": "11.8.3",
+    "got": "^11.8.3",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
-    "@types/node": "^17.0.0",
+    "@types/node": "^18.0.3",
     "form-data": "^4.0.0",
-    "jest-extended": "^1.0.0",
+    "jest-extended": "^3.0.0",
     "openpgp": "^5.0.0",
     "rollup": "^2.47.0",
     "rollup-plugin-typescript2": "^0.31.1",
