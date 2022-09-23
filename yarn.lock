@@ -2193,10 +2193,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/mime@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
-  integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
+"@types/mime@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.1.tgz#5f8f2bca0a5863cb69bc0b0acd88c96cb1d4ae10"
+  integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
 
 "@types/minimatch@^3.0.3":
   version "3.0.5"
@@ -7226,9 +7226,9 @@ open@^8.4.0:
     is-wsl "^2.2.0"
 
 openpgp@^5.0.0:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-5.3.1.tgz#001df6b33546fbed044686d4d6af7e80ed9354d2"
-  integrity sha512-CxjY4gZ3D0pp6dJUmcM6EgjvDv0u+LsY+3ymULPZYRUPa0tmigDXHNUm5EX+omqmU401DTQNO6ud+QA6UpCdEA==
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-5.5.0.tgz#235ae5a49d5fda5cfd1d82c4c42cd91433478c14"
+  integrity sha512-SpwcJnxrK9Y0HRM6KxSFqkAEOSWEabCH/c8dII/+y2e5f6KvuDG5ZE7JXaPBaVJNE4VUZZeTphxXDoZD0KOHrw==
   dependencies:
     asn1.js "^5.0.0"
 
