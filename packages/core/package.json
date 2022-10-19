@@ -25,7 +25,7 @@
     "fs-extra": "^10.0.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "jest-extended": "^3.0.0",
-    "rollup": "^2.47.0",
+    "rollup": "^3.2.3",
     "rollup-plugin-typescript2": "^0.31.1",
     "ts-node": "^10.0.0",
     "tslib": "^2.3.1",
