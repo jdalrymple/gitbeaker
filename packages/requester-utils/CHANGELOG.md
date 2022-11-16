@@ -1,3 +1,16 @@
+# v35.8.0 (Wed Nov 16 2022)
+
+#### 🔩 Dependency Updates
+
+- Bump @types/node from 17.0.15 to 18.0.3 [#2586](https://github.com/jdalrymple/gitbeaker/pull/2586) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-extended from 1.2.0 to 3.0.0 [#2590](https://github.com/jdalrymple/gitbeaker/pull/2590) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v35.6.1 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:

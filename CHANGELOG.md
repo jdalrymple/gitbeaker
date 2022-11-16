@@ -1,3 +1,60 @@
+# 35.8.0 (Wed Nov 16 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Sander Cox ([@sandercox](https://github.com/sandercox))
+
+:heart: Ivan Katliarchuk ([@ivankatliarchuk](https://github.com/ivankatliarchuk))
+
+:heart: null[@phillipB-nmprofile](https://github.com/phillipB-nmprofile)
+
+:heart: Robert Donnelly ([@robdonn](https://github.com/robdonn))
+
+:heart: Felix Herold ([@DerHerrGammler](https://github.com/DerHerrGammler))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Allow MR discussions to be resolved [#2463](https://github.com/jdalrymple/gitbeaker/pull/2463) ([@sandercox](https://github.com/sandercox) [@jdalrymple](https://github.com/jdalrymple))
+  - fix: Update Users current method return type to UserExtendedSchema [#2737](https://github.com/jdalrymple/gitbeaker/pull/2737) ([@ivankatliarchuk](https://github.com/ivankatliarchuk) [@jdalrymple](https://github.com/jdalrymple))
+  - Expand Groups.search's options parameter type to PaginatedRequestOptions [#2813](https://github.com/jdalrymple/gitbeaker/pull/2813) ([@phillipB-nmprofile](https://github.com/phillipB-nmprofile) [@jdalrymple](https://github.com/jdalrymple))
+  - fix: allow string discussionId for MergeRequestDiscussions [#2818](https://github.com/jdalrymple/gitbeaker/pull/2818) ([@robdonn](https://github.com/robdonn) [@jdalrymple](https://github.com/jdalrymple))
+  - fix: missing resolved key in DiscussionNote interface [#2821](https://github.com/jdalrymple/gitbeaker/pull/2821) ([@DerHerrGammler](https://github.com/DerHerrGammler))
+
+#### 🔩 Dependency Updates
+
+- Bump node-fetch from 3.2.7 to 3.2.8 [#2594](https://github.com/jdalrymple/gitbeaker/pull/2594) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-plugin-prettier from 4.0.0 to 4.2.1 [#2587](https://github.com/jdalrymple/gitbeaker/pull/2587) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump rollup from 2.67.0 to 2.76.0 [#2593](https://github.com/jdalrymple/gitbeaker/pull/2593) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump playwright from 1.17.1 to 1.23.2 [#2585](https://github.com/jdalrymple/gitbeaker/pull/2585) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump eslint-import-resolver-typescript from 2.5.0 to 3.2.5 [#2584](https://github.com/jdalrymple/gitbeaker/pull/2584) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 12.3.3 to 13.0.3 [#2588](https://github.com/jdalrymple/gitbeaker/pull/2588) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jpeg-js from 0.4.3 to 0.4.4 [#2547](https://github.com/jdalrymple/gitbeaker/pull/2547) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump openpgp from 5.0.1 to 5.3.1 [#2591](https://github.com/jdalrymple/gitbeaker/pull/2591) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump follow-redirects from 1.14.7 to 1.14.8 [#2370](https://github.com/jdalrymple/gitbeaker/pull/2370) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Bump node-fetch from 3.1.1 to 3.2.7 [#2589](https://github.com/jdalrymple/gitbeaker/pull/2589) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lerna from 4.0.0 to 5.1.8 [#2592](https://github.com/jdalrymple/gitbeaker/pull/2592) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/core`
+  - Bump @types/mime from 2.0.3 to 3.0.1 in /packages/core [#2636](https://github.com/jdalrymple/gitbeaker/pull/2636) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Bump @types/node from 17.0.15 to 18.0.3 [#2586](https://github.com/jdalrymple/gitbeaker/pull/2586) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/browser`, `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/node`, `@gitbeaker/requester-utils`
+  - Bump jest-extended from 1.2.0 to 3.0.0 [#2590](https://github.com/jdalrymple/gitbeaker/pull/2590) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 7
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@phillipB-nmprofile](https://github.com/phillipB-nmprofile)
+- Felix Herold ([@DerHerrGammler](https://github.com/DerHerrGammler))
+- Ivan Katliarchuk ([@ivankatliarchuk](https://github.com/ivankatliarchuk))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Robert Donnelly ([@robdonn](https://github.com/robdonn))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # 35.7.0 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:

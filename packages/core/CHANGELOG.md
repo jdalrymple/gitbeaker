@@ -1,3 +1,45 @@
+# v35.8.0 (Wed Nov 16 2022)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Sander Cox ([@sandercox](https://github.com/sandercox))
+
+:heart: Ivan Katliarchuk ([@ivankatliarchuk](https://github.com/ivankatliarchuk))
+
+:heart: null[@phillipB-nmprofile](https://github.com/phillipB-nmprofile)
+
+:heart: Robert Donnelly ([@robdonn](https://github.com/robdonn))
+
+:heart: Felix Herold ([@DerHerrGammler](https://github.com/DerHerrGammler))
+
+#### 🐛 Bug Fix
+
+- Allow MR discussions to be resolved [#2463](https://github.com/jdalrymple/gitbeaker/pull/2463) ([@sandercox](https://github.com/sandercox) [@jdalrymple](https://github.com/jdalrymple))
+- fix: Update Users current method return type to UserExtendedSchema [#2737](https://github.com/jdalrymple/gitbeaker/pull/2737) ([@ivankatliarchuk](https://github.com/ivankatliarchuk) [@jdalrymple](https://github.com/jdalrymple))
+- Expand Groups.search's options parameter type to PaginatedRequestOptions [#2813](https://github.com/jdalrymple/gitbeaker/pull/2813) ([@phillipB-nmprofile](https://github.com/phillipB-nmprofile) [@jdalrymple](https://github.com/jdalrymple))
+- fix: allow string discussionId for MergeRequestDiscussions [#2818](https://github.com/jdalrymple/gitbeaker/pull/2818) ([@robdonn](https://github.com/robdonn) [@jdalrymple](https://github.com/jdalrymple))
+- fix: missing resolved key in DiscussionNote interface [#2821](https://github.com/jdalrymple/gitbeaker/pull/2821) ([@DerHerrGammler](https://github.com/DerHerrGammler))
+
+#### 🔩 Dependency Updates
+
+- Bump @types/mime from 2.0.3 to 3.0.1 in /packages/core [#2636](https://github.com/jdalrymple/gitbeaker/pull/2636) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 17.0.15 to 18.0.3 [#2586](https://github.com/jdalrymple/gitbeaker/pull/2586) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-extended from 1.2.0 to 3.0.0 [#2590](https://github.com/jdalrymple/gitbeaker/pull/2590) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 7
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@phillipB-nmprofile](https://github.com/phillipB-nmprofile)
+- Felix Herold ([@DerHerrGammler](https://github.com/DerHerrGammler))
+- Ivan Katliarchuk ([@ivankatliarchuk](https://github.com/ivankatliarchuk))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Robert Donnelly ([@robdonn](https://github.com/robdonn))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # v35.7.0 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:
