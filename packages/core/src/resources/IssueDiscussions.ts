@@ -12,7 +12,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   addNote(
     projectId: string | number,
     issueIId: number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
     body: string,
     options?: BaseRequestOptions,
@@ -34,7 +34,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   editNote(
     projectId: string | number,
     issueIId: number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
     options: BaseRequestOptions & { body: string },
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
@@ -42,7 +42,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   removeNote(
     projectId: string | number,
     issueIId: number,
-    discussionId: number,
+    discussionId: string | number,
     noteId: number,
     options?: Sudo,
   ): Promise<void>;
@@ -50,7 +50,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   show(
     projectId: string | number,
     issueIId: number,
-    discussionId: number,
+    discussionId: string | number,
     options?: Sudo,
   ): Promise<CamelizedRecord<C, DiscussionSchema>>;
 }
