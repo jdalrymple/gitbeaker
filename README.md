@@ -589,6 +589,7 @@ This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/
     <td align="center"><a href="https://github.com/BilalAslam1"><img src="https://avatars.githubusercontent.com/u/27581495?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Bilal Aslam</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=BilalAslam1" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/siosio34"><img src="https://avatars.githubusercontent.com/u/7166022?v=4?s=50" width="50px;" alt=""/><br /><sub><b>youngje</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=siosio34" title="Code">💻</a></td>
     <td align="center"><a href="https://keybase.io/soullivaneuh"><img src="https://avatars.githubusercontent.com/u/1698357?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Sullivan SENECHAL</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=soullivaneuh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/DerHerrGammler"><img src="https://avatars.githubusercontent.com/u/30802629?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Felix Herold</b></sub></a><br /><a href="https://github.com/jdalrymple/gitbeaker/commits?author=DerHerrGammler" title="Code">💻</a></td>
   </tr>
 </table>
 
