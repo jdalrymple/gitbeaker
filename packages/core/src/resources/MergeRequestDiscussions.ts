@@ -66,7 +66,7 @@ export class MergeRequestDiscussions<C extends boolean = false> extends Resource
   resolve(
     projectId: string | number,
     mergerequestId: string | number,
-    discussionId: string,
+    discussionId: string | number,
     resolved: boolean,
   ) {
     return RequestHelper.put()(
