@@ -71,7 +71,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   current(options?: Sudo) {
-    return RequestHelper.get<UserSchema>()(this, 'user', options);
+    return RequestHelper.get<UserExtendedSchema>()(this, 'user', options);
   }
 
   edit(userId: number, options?: BaseRequestOptions) {
