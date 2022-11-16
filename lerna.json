@@ -4,6 +4,6 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "35.7.0",
+  "version": "35.8.0",
   "tagVersionPrefix": ""
 }
