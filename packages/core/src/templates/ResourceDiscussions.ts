@@ -33,6 +33,7 @@ export interface DiscussionNote {
   noteable_type: string;
   noteable_iid?: number;
   resolvable: boolean;
+  resolved?: boolean;
   position?: DiscussionNotePosition;
 }
 
