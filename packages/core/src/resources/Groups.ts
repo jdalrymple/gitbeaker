@@ -114,7 +114,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  search(nameOrPath: string, options?: Sudo) {
+  search(nameOrPath: string, options?: PaginatedRequestOptions) {
     return RequestHelper.get()(this, 'groups', {
       search: nameOrPath,
       ...options,
