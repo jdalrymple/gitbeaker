@@ -296,6 +296,14 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  createPipeline(projectId: string | number, mergerequestIid: number, options?: Sudo) {
+    return RequestHelper.post<PipelineSchema>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIid}/pipelines`,
+      options,
+    );
+  }
+
   edit(
     projectId: string | number,
     mergerequestIid: number,
