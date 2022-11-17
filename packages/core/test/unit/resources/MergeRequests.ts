@@ -181,6 +181,18 @@ describe('MergeRequests.pipelines', () => {
   });
 });
 
+describe('MergeRequests.createPipeline', () => {
+  it('should request POST /projects/:id/merge_requests/:id/pipelines', async () => {
+    await service.createPipeline(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/1/merge_requests/2/pipelines',
+      undefined,
+    );
+  });
+});
+
 describe('MergeRequests.remove', () => {
   it('should request DEL /projects/:id/merge_requests/:id', async () => {
     await service.remove(1, 2);
