@@ -75,7 +75,7 @@ export interface AllMergeRequestsOptions {
   assigneeUsername?: string;
   approverIds?: Array<number>;
   approvedByIds?: Array<number>;
-  reviewerId?: number;
+  reviewerId?: number | 'Any' | 'None';
   reviewerUsername?: string;
   myReactionEmoji?: string;
   sourceBranch?: string;
@@ -230,7 +230,10 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     projectId,
     groupId,
     ...options
-  }: { projectId?: string | number; groupId?: string | number } & AllMergeRequestsOptions &
+  }: {
+    projectId?: string | number;
+    groupId?: string | number;
+  } & AllMergeRequestsOptions &
     PaginatedRequestOptions = {}) {
     let url: string;
 
