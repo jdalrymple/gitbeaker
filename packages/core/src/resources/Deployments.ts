@@ -39,8 +39,17 @@ export type DeploymentSchema = {
   environment: EnvironmentSchema;
 };
 
+export interface AllDeploymentsOptions {
+  order_by?: 'id' | 'iid' | 'created_at' | 'updated_at' | 'ref';
+  sort?: 'asc' | 'desc';
+  updated_after?: string;
+  updated_before?: string;
+  environment?: string;
+  status?: 'created' | 'running' | 'success' | 'failed' | 'canceled' | 'blocked';
+}
+
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all(projectId: string | number, options?: PaginatedRequestOptions & AllDeploymentsOptions) {
     return RequestHelper.get<DeploymentSchema[]>()(
       this,
       endpoint`projects/${projectId}/deployments`,
