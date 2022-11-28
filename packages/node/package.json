@@ -16,7 +16,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-json": "^5.0.2",
     "@types/node": "^18.0.3",
     "form-data": "^4.0.0",
     "jest-extended": "^3.0.0",
