@@ -57,7 +57,7 @@ export interface UpdateMergeRequestOptions {
 
 export interface AllMergeRequestsOptions {
   state?: 'opened' | 'closed' | 'locked' | 'merged';
-  orderBy?: 'created_at' | 'updated_at';
+  order_by?: 'created_at' | 'updated_at';
   sort?: 'asc' | 'desc';
   milestone?: 'None' | string;
   view?: string;
