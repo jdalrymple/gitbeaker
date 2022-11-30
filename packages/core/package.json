@@ -22,7 +22,7 @@
     "@types/mime": "^3.0.1",
     "@types/node": "^18.0.3",
     "esm": "^3.2.25",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.1.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "jest-extended": "^3.0.0",
     "rollup": "^2.47.0",
