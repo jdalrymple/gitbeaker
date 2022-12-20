@@ -22,7 +22,7 @@
     "@types/node": "^18.0.3",
     "headers-utils": "^3.0.2",
     "jest-extended": "^3.0.0",
-    "jest-playwright-preset": "^1.5.1",
+    "jest-playwright-preset": "^3.0.1",
     "node-fetch": "^3.0.0",
     "playwright": "^1.9.2",
     "rollup": "^2.47.0",
