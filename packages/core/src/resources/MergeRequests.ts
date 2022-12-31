@@ -55,6 +55,15 @@ export interface UpdateMergeRequestOptions {
   allowMaintainerToPush?: boolean;
 }
 
+export interface MergeMergeRequestOptions {
+  mergeCommitMessage?: string;
+  mergeWhenPipelineSucceeds?: boolean;
+  sha?: string;
+  shouldRemoveSourceBranch?: boolean;
+  squashCommitMessage?: string;
+  squash?: boolean;
+}
+
 export interface AllMergeRequestsOptions {
   state?: 'opened' | 'closed' | 'locked' | 'merged';
   orderBy?: 'created_at' | 'updated_at';
@@ -300,6 +309,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     mergerequestIid: number,
     options?: UpdateMergeRequestOptions & BaseRequestOptions,
+  ) {
+    return RequestHelper.put<MergeRequestSchema>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIid}`,
+      options,
+    );
+  }
+
+  merge(
+    projectId: string | number,
+    mergerequestIid: number,
+    options?: MergeMergeRequestOptions & BaseRequestOptions,
   ) {
     return RequestHelper.put<MergeRequestSchema>()(
       this,
