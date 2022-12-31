@@ -324,7 +324,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   ) {
     return RequestHelper.put<MergeRequestSchema>()(
       this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIid}`,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIid}/merge`,
       options,
     );
   }
