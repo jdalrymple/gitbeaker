@@ -56,11 +56,11 @@ export interface UpdateMergeRequestOptions {
 }
 
 export interface MergeMergeRequestOptions {
-  mergeCommitMessage?: string;
-  mergeWhenPipelineSucceeds?: boolean;
+  merge_commit_message?: string;
+  merge_when_pipeline_succeeds?: boolean;
   sha?: string;
-  shouldRemoveSourceBranch?: boolean;
-  squashCommitMessage?: string;
+  should_remove_source_branch?: boolean;
+  squash_commit_message?: string;
   squash?: boolean;
 }
 
