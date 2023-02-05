@@ -40,6 +40,7 @@ export interface JobSchema extends Record<string, unknown> {
   created_at: Date;
   started_at?: Date;
   finished_at?: Date;
+  erased_at?: Date;
   duration?: number;
   user: UserSchema;
   commit: CommitSchema;
