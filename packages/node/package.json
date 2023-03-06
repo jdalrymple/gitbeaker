@@ -12,7 +12,7 @@
     "@gitbeaker/core": "^35.8.0",
     "@gitbeaker/requester-utils": "^35.8.0",
     "delay": "^5.0.0",
-    "got": "^11.8.3",
+    "got": "^12.6.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
