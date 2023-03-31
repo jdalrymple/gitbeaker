@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { UserExtendedSchema } from './Users';
-import { endpoint, RequestHelper, Sudo } from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type { Either, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { ExpandedUserSchema } from './Users';
 
 export interface KeySchema extends Record<string, unknown> {
   id: number;
@@ -8,11 +9,27 @@ export interface KeySchema extends Record<string, unknown> {
   key: string;
   created_at: string;
   expires_at: string;
-  user: UserExtendedSchema;
+  user: ExpandedUserSchema;
 }
 
 export class Keys<C extends boolean = false> extends BaseResource<C> {
-  show(keyId: string, options?: Sudo) {
-    return RequestHelper.get<KeySchema>()(this, endpoint`keys/${keyId}`, options);
+  show<E extends boolean = false>({
+    keyId,
+    fingerprint,
+    ...options
+  }: Either<{ keyId: number }, { fingerprint: string }> & Sudo & ShowExpanded<E>): Promise<
+    GitlabAPIResponse<KeySchema, C, E, void>
+  > {
+    let url: string;
+
+    if (keyId) url = `keys/${keyId}`;
+    else if (fingerprint) url = `keys?fingerprint=${fingerprint}`;
+    else {
+      throw new Error(
+        'Missing required argument. Please supply a fingerprint or a keyId in the options parameter',
+      );
+    }
+
+    return RequestHelper.get<KeySchema>()(this, url, { ...options });
   }
 }

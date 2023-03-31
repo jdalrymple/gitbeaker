@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating PipelineSchedules service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(PipelineSchedules);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('PipelineSchedules.all', () => {
   it('should request GET /projects/:id/pipeline_schedules/:id', async () => {
     await service.all(1);

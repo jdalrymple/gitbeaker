@@ -1,5 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, Sudo } from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface LicenseSchema extends Record<string, unknown> {
   id: number;
@@ -23,19 +30,32 @@ export interface LicenseSchema extends Record<string, unknown> {
 }
 
 export class License<C extends boolean = false> extends BaseResource<C> {
-  add(license: string, options?: Sudo) {
-    return RequestHelper.post<LicenseSchema>()(this, 'license', { license, ...options });
+  add<E extends boolean = false>(
+    license: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
+    return RequestHelper.post<LicenseSchema>()(this, 'license', {
+      searchParams: { license },
+      ...options,
+    });
   }
 
-  all(options?: Sudo) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<LicenseSchema[], C, E, P>> {
     return RequestHelper.get<LicenseSchema[]>()(this, 'licenses', options);
   }
 
-  show(options?: Sudo) {
+  show<E extends boolean = false>(
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     return RequestHelper.get<LicenseSchema>()(this, 'license', options);
   }
 
-  remove(licenceId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    licenceId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     return RequestHelper.del<LicenseSchema>()(this, `license/${licenceId}`, options);
   }
 }

@@ -1,14 +1,17 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
-import { NoteSchema } from '../templates/types';
-import {
-  PaginatedRequestOptions,
+import type { NoteSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
 
 export interface IssueNoteSchema extends NoteSchema {
+  confidential: boolean;
   attachment?: string;
   system: boolean;
   noteable_id: number;
@@ -18,40 +21,39 @@ export interface IssueNoteSchema extends NoteSchema {
 }
 
 export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>[]>;
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<IssueNoteSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+    options?: { created_at?: string; confidential?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueNoteSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     noteId: number,
-    body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+    options: { body?: string; confidential?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueNoteSchema, C, E, void>>;
 
-  remove(
+  remove<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
+  show<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     noteId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueNoteSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueNoteSchema, C, E, void>>;
 }
 
 export class IssueNotes<C extends boolean = false> extends ResourceNotes<C> {

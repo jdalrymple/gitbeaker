@@ -1,36 +1,62 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables } from '../templates';
-import { VariableSchema } from '../templates/types';
-import { BaseRequestOptions, PaginatedRequestOptions, CamelizedRecord } from '../infrastructure';
+import type { VariableFilter, VariableSchema, VariableType } from '../templates/types';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
+
+export interface ProjectVariableSchema extends VariableSchema {
+  environment_scope: string;
+}
 
 export interface ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, VariableSchema>[]>;
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<ProjectVariableSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, VariableSchema>>;
+    key: string,
+    value: string,
+    options?: {
+      variableType?: VariableType;
+      protected?: boolean;
+      masked?: boolean;
+      environmentScope?: string;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     projectId: string | number,
-    keyId: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, VariableSchema>>;
+    key: string,
+    value: string,
+    options?: {
+      variableType?: VariableType;
+      protected?: boolean;
+      masked?: boolean;
+      environmentScope?: string;
+      filter: VariableFilter;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
-  show(
+  show<E extends boolean = false>(
     projectId: string | number,
-    keyId: string,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, VariableSchema>>;
+    key: string,
+    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
-  remove(
+  remove<E extends boolean = false>(
     projectId: string | number,
-    keyId: string,
-    options?: PaginatedRequestOptions,
-  ): Promise<void>;
+    key: string,
+    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
 export class ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {

@@ -1,6 +1,14 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { PipelineSchema } from './Pipelines';
-import { endpoint, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  Either,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
+import type { PipelineSchema } from './Pipelines';
 
 export interface PackageSchema extends Record<string, unknown> {
   id: number;
@@ -8,6 +16,12 @@ export interface PackageSchema extends Record<string, unknown> {
   version: string;
   package_type: string;
   created_at: string;
+}
+
+export interface ExpandedPackageSchema extends PackageSchema {
+  _links: Record<string, string>;
+  pipelines: PipelineSchema[];
+  versions: Omit<ExpandedPackageSchema, '_links'>;
 }
 
 export interface PackageFileSchema extends Record<string, unknown> {
@@ -22,25 +36,34 @@ export interface PackageFileSchema extends Record<string, unknown> {
 }
 
 export class Packages<C extends boolean = false> extends BaseResource<C> {
-  all({
-    projectId,
-    groupId,
-    ...options
-  }: { projectId?: string | number; groupId?: string | number } & PaginatedRequestOptions = {}) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    {
+      projectId,
+      groupId,
+      ...options
+    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P> = {} as any,
+  ): Promise<GitlabAPIResponse<PackageSchema[], C, E, P>> {
     let url: string;
 
-    if (projectId) {
-      url = endpoint`projects/${projectId}/packages`;
-    } else if (groupId) {
-      url = endpoint`groups/${groupId}/packages`;
-    } else {
-      throw new Error('projectId or groupId must be passed');
+    if (projectId) url = endpoint`projects/${projectId}/packages`;
+    else if (groupId) url = endpoint`groups/${groupId}/packages`;
+    else {
+      throw new Error(
+        'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
+      );
     }
 
-    return RequestHelper.get<PackageSchema[]>()(this, url, options);
+    return RequestHelper.get<PackageSchema[]>()(this, url, options as Sudo & ShowExpanded<E>);
   }
 
-  remove(projectId: string | number, packageId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}`,
@@ -48,7 +71,12 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  removeFile(projectId: string | number, packageId: number, projectFileId: number, options?: Sudo) {
+  removeFile<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    projectFileId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}/package_files/${projectFileId}`,
@@ -56,15 +84,23 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show(projectId: string | number, packageId: number, options?: Sudo) {
-    return RequestHelper.get<PackageSchema>()(
+  show<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPackageSchema, C, E, void>> {
+    return RequestHelper.get<ExpandedPackageSchema>()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}`,
       options,
     );
   }
 
-  showFiles(projectId: string | number, packageId: number, options?: Sudo) {
+  allFiles<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PackageFileSchema[], C, E, void>> {
     return RequestHelper.get<PackageFileSchema[]>()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}/package_files`,

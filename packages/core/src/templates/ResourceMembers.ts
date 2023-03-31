@@ -1,27 +1,36 @@
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import {
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { AccessLevel } from './ResourceAccessRequests';
+import type { AccessLevel } from './ResourceAccessRequests';
 
 export interface IncludeInherited {
   includeInherited?: boolean;
 }
 
-export interface MemberSchema extends Record<string, unknown> {
+export interface CondensedMemberSchema extends Record<string, unknown> {
   id: number;
   username: string;
   name: string;
   state: string;
   avatar_url: string;
   web_url: string;
+}
+
+export interface SimpleMemberSchema extends CondensedMemberSchema {
   expires_at: string;
   access_level: AccessLevel;
   email: string;
+}
+
+export interface MemberSchema extends SimpleMemberSchema {
   group_saml_identity: {
     extern_uid: string;
     provider: string;
@@ -34,12 +43,12 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     super({ prefixUrl: resourceType, ...options });
   }
 
-  add(
+  add<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions,
-  ) {
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
       userId: String(userId),
       accessLevel,
@@ -47,35 +56,37 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     });
   }
 
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    { includeInherited, ...options }: IncludeInherited & PaginatedRequestOptions = {},
-  ) {
-    const rId = encodeURIComponent(resourceId);
-    const url = [rId, 'members'];
+    {
+      includeInherited,
+      ...options
+    }: IncludeInherited & PaginationRequestOptions<P> & BaseRequestOptions<E> = {} as any,
+  ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
+    let url = endpoint`${resourceId}/members`;
 
-    if (includeInherited) url.push('all');
+    if (includeInherited) url += '/all';
 
-    return RequestHelper.get<MemberSchema[]>()(this, url.join('/'), options);
+    return RequestHelper.get<MemberSchema[]>()(this, url, options);
   }
 
-  edit(
+  edit<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions,
-  ) {
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.put<MemberSchema>()(this, endpoint`${resourceId}/members/${userId}`, {
       accessLevel,
       ...options,
     });
   }
 
-  show(
+  show<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    { includeInherited, ...options }: IncludeInherited & Sudo = {},
-  ) {
+    { includeInherited, ...options }: IncludeInherited & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     const [rId, uId] = [resourceId, userId].map(encodeURIComponent);
     const url = [rId, 'members'];
 
@@ -86,11 +97,15 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     return RequestHelper.get<MemberSchema>()(
       this,
       url.join('/'),
-      options as Record<string, unknown>,
+      options as Sudo & ShowExpanded<E>,
     );
   }
 
-  remove(resourceId: string | number, userId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    resourceId: string | number,
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`${resourceId}/members/${userId}`, options);
   }
 }

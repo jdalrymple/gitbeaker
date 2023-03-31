@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Environments service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Environments);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Environments.all', () => {
   it('should request GET /projects/:id/environments', async () => {
     await service.all(1);
@@ -36,9 +26,10 @@ describe('Environments.all', () => {
 
 describe('Environments.create', () => {
   it('should request POST /projects/:id/environments', async () => {
-    await service.create(1, { prop: 1 });
+    await service.create(1, 'name', { prop: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/environments', {
+      name: 'name',
       prop: 1,
     });
   });

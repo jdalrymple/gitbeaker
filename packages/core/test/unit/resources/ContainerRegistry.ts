@@ -16,31 +16,21 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating ContainerRegistry service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(ContainerRegistry);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
-describe('ContainerRegistry.repositories', () => {
+describe('ContainerRegistry.allRepositories', () => {
   it('should request GET /projects/:id/registry/repositories', async () => {
-    await service.projectRepositories(1);
+    await service.allRepositories({ projectId: 1 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories',
-      undefined,
+      {},
     );
   });
 });
 
-describe('ContainerRegistry.tags', () => {
+describe('ContainerRegistry.allTags', () => {
   it('should request GET /projects/:id/registry/repositories/:id/tags', async () => {
-    await service.tags(1, 2);
+    await service.allTags(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -83,6 +73,14 @@ describe('ContainerRegistry.removeTags', () => {
       'projects/1/registry/repositories/2/tags',
       { nameRegexDelete: 'name' },
     );
+  });
+});
+
+describe('ContainerRegistry.showRepository', () => {
+  it('should request GET /registry/repositories/:id', async () => {
+    await service.showRepository(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'registry/repositories/2', undefined);
   });
 });
 

@@ -1,13 +1,16 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import { MergeRequestSchema } from './MergeRequests';
-import {
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { UserSchema } from './Users';
+import type { MergeRequestSchema } from './MergeRequests';
+import type { DiscussionNoteSchema } from '../templates/ResourceDiscussions';
 
 export interface CommitAction {
   /** The action to perform */
@@ -27,23 +30,28 @@ export interface CommitAction {
 }
 
 // Response structures
-export interface CommitSchema extends Record<string, unknown> {
+
+export interface CondensedCommitSchema extends Record<string, unknown> {
   id: string;
   short_id: string;
-  created_at: Date;
-  parent_ids?: string[];
-  title: string;
   message: string;
-  author_name: string;
+  title: string;
   author_email: string;
-  authored_date?: Date;
+  author_name: string;
+  created_at: string;
+}
+
+export interface CommitSchema extends CondensedCommitSchema {
+  parent_ids?: string[];
+  message: string;
+  authored_date?: string;
   committer_name?: string;
   committer_email?: string;
-  committed_date?: Date;
+  committed_date?: string;
   web_url: string;
 }
 
-export interface CommitExtendedSchema extends CommitSchema {
+export interface CommitExpandedSchema extends CommitSchema {
   last_pipeline: {
     id: number;
     ref: string;
@@ -98,7 +106,7 @@ export type CommitSignatureSchema =
   | X509SignatureSchema
   | MissingSignatureSchema;
 
-export interface CommentSchema extends Record<string, unknown> {
+export interface CommitCommentSchema extends Record<string, unknown> {
   note: string;
   line_type: 'new' | 'old';
   path: string;
@@ -137,8 +145,22 @@ export interface CommitReferenceSchema extends Record<string, unknown> {
   name: string;
 }
 
+export interface CommitDiscussionNoteSchema extends Omit<DiscussionNoteSchema, 'position'> {
+  confidential?: boolean;
+  commands_changes: Record<string, unknown>;
+}
+
+export interface CommitDiscussionSchema extends Record<string, unknown> {
+  id: string;
+  individual_note: boolean;
+  notes?: CommitDiscussionNoteSchema[];
+}
+
 export class Commits<C extends boolean = false> extends BaseResource<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>> {
     return RequestHelper.get<CommitSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits`,
@@ -146,7 +168,12 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  cherryPick(projectId: string | number, sha: string, branch: string, options?: Sudo) {
+  cherryPick<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    branch: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     return RequestHelper.post<CommitSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/cherry_pick`,
@@ -157,22 +184,26 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  comments(projectId: string | number, sha: string, options?: Sudo) {
-    return RequestHelper.get<CommentSchema[]>()(
+  allComments<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    sha: string,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitCommentSchema[], C, E, P>> {
+    return RequestHelper.get<CommitCommentSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/comments`,
       options,
     );
   }
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
     branch: string,
     message: string,
     actions: CommitAction[] = [],
-    options: BaseRequestOptions = {},
-  ) {
-    return RequestHelper.post<CommitExtendedSchema>()(
+    options: BaseRequestOptions<E> = {},
+  ): Promise<GitlabAPIResponse<CommitExpandedSchema, C, E, void>> {
+    return RequestHelper.post<CommitExpandedSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits`,
       {
@@ -184,13 +215,13 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  createComment(
+  createComment<E extends boolean = false>(
     projectId: string | number,
     sha: string,
     note: string,
-    options?: BaseRequestOptions,
-  ) {
-    return RequestHelper.post<CommentSchema>()(
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitCommentSchema, C, E, void>> {
+    return RequestHelper.post<CommitCommentSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/comments`,
       {
@@ -200,7 +231,11 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  diff(projectId: string | number, sha: string, options?: Sudo) {
+  diff<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    sha: string,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitDiffSchema[], C, E, P>> {
     return RequestHelper.get<CommitDiffSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/diff`,
@@ -208,7 +243,23 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  editStatus(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  allDiscussions<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    sha: string,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitDiscussionSchema[], C, E, P>> {
+    return RequestHelper.get<CommitDiscussionSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/commits/${sha}/discussions`,
+      options,
+    );
+  }
+
+  editStatus<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitStatusSchema, C, E, void>> {
     return RequestHelper.post<CommitStatusSchema>()(
       this,
       endpoint`projects/${projectId}/statuses/${sha}`,
@@ -216,7 +267,11 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  references(projectId: string | number, sha: string, options?: Sudo) {
+  allReferences<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    sha: string,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitReferenceSchema[], C, E, P>> {
     return RequestHelper.get<CommitReferenceSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/refs`,
@@ -224,7 +279,11 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  revert(projectId: string | number, sha: string, options?: Sudo) {
+  revert<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     return RequestHelper.post<CommitSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/revert`,
@@ -232,15 +291,23 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show(projectId: string | number, sha: string, options?: BaseRequestOptions) {
-    return RequestHelper.get<CommitExtendedSchema>()(
+  show<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitExpandedSchema, C, E, void>> {
+    return RequestHelper.get<CommitExpandedSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}`,
       options,
     );
   }
 
-  statuses(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  allStatuses<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitStatusSchema[], C, E, void>> {
     return RequestHelper.get<CommitStatusSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/statuses`,
@@ -248,7 +315,11 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  mergeRequests(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  allMergeRequests<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/merge_requests`,
@@ -256,7 +327,11 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  signature(projectId: string | number, sha: string, options?: BaseRequestOptions) {
+  signature<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CommitSignatureSchema, C, E, void>> {
     return RequestHelper.get<CommitSignatureSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/signature`,

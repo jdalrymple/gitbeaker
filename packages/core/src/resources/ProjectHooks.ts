@@ -1,69 +1,53 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import {
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceHooks } from '../templates';
+import type { ExpandedHookSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
 
-export interface ProjectHookSchema extends Record<string, unknown> {
-  id: number;
-  url: string;
-  project_id: number;
-  push_events: boolean;
-  push_events_branch_filter: string;
-  issues_events: boolean;
-  confidential_issues_events: boolean;
-  merge_requests_events: boolean;
-  tag_push_events: boolean;
-  note_events: boolean;
-  confidential_note_events: boolean;
-  job_events: boolean;
-  pipeline_events: boolean;
-  wiki_page_events: boolean;
-  deployment_events: boolean;
-  releases_events: boolean;
-  enable_ssl_verification: boolean;
-  created_at: string;
+export interface ProjectHookSchema extends ExpandedHookSchema {
+  projectId: number;
 }
 
-export class ProjectHooks<C extends boolean = false> extends BaseResource<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
-    return RequestHelper.get<ProjectHookSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/hooks`,
-      options,
-    );
-  }
+export interface ProjectHooks<C extends boolean = false> {
+  add<E extends boolean = false>(
+    projectId: string | number,
+    url: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
 
-  show(projectId: string | number, hookId: number, options?: Sudo) {
-    return RequestHelper.get<ProjectHookSchema>()(
-      this,
-      endpoint`projects/${projectId}/hooks/${hookId}`,
-      options,
-    );
-  }
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectHookSchema[], C, E, P>>;
 
-  add(projectId: string | number, url: string, options?: BaseRequestOptions) {
-    return RequestHelper.post<ProjectHookSchema>()(this, endpoint`projects/${projectId}/hooks`, {
-      url,
-      ...options,
-    });
-  }
+  edit<E extends boolean = false>(
+    projectId: string | number,
+    hookId: number,
+    url: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
 
-  edit(projectId: string | number, hookId: number, url: string, options?: BaseRequestOptions) {
-    return RequestHelper.put<ProjectHookSchema>()(
-      this,
-      endpoint`projects/${projectId}/hooks/${hookId}`,
-      {
-        url,
-        ...options,
-      },
-    );
-  }
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    hookId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+  show<E extends boolean = false>(
+    projectId: string | number,
+    hookId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
+}
 
-  remove(projectId: string | number, hookId: number, options?: Sudo) {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/hooks/${hookId}`, options);
+export class ProjectHooks<C extends boolean = false> extends ResourceHooks<C> {
+  constructor(options: BaseResourceOptions<C>) {
+    /* istanbul ignore next */
+    super('projects', options);
   }
 }

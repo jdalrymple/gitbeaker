@@ -1,11 +1,14 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  RequestHelper,
-  Sudo,
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
-  endpoint,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
+import type { SimpleProjectSchema } from './Projects';
 
 export interface DeployKeySchema extends Record<string, unknown> {
   id: number;
@@ -15,16 +18,21 @@ export interface DeployKeySchema extends Record<string, unknown> {
   created_at: string;
 }
 
-export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
-  add(projectId: string | number, options?: Sudo) {
-    return RequestHelper.post<DeployKeySchema>()(
-      this,
-      endpoint`projects/${projectId}/deploy_keys`,
-      options,
-    );
-  }
+export type CondensedDeployKeySchema = Omit<DeployKeySchema, 'can_push'>;
 
-  all({ projectId, ...options }: { projectId?: string | number } & PaginatedRequestOptions = {}) {
+export interface ExpandedDeployKeySchema extends CondensedDeployKeySchema {
+  fingerprint: string;
+  projects_with_write_access?: SimpleProjectSchema[];
+}
+
+export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    {
+      projectId,
+      ...options
+    }: { projectId?: string | number } & PaginationRequestOptions<P> &
+      BaseRequestOptions<E> = {} as any,
+  ): Promise<GitlabAPIResponse<ExpandedDeployKeySchema[], C, E, P>> {
     let url: string;
 
     if (projectId) {
@@ -33,10 +41,31 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       url = 'deploy_keys';
     }
 
-    return RequestHelper.get<Omit<DeployKeySchema, 'can_push'>[]>()(this, url, options);
+    return RequestHelper.get<ExpandedDeployKeySchema[]>()(this, url, options);
   }
 
-  edit(projectId: string | number, keyId: number, options?: BaseRequestOptions) {
+  create<E extends boolean = false>(
+    projectId: string | number,
+    title: string,
+    key: string,
+    options?: { canPush?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
+    return RequestHelper.post<DeployKeySchema>()(
+      this,
+      endpoint`projects/${projectId}/deploy_keys`,
+      {
+        title,
+        key,
+        ...options,
+      },
+    );
+  }
+
+  edit<E extends boolean = false>(
+    projectId: string | number,
+    keyId: number,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     return RequestHelper.put<DeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}`,
@@ -44,19 +73,31 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  enable(projectId: string | number, keyId: number, options?: Sudo) {
-    return RequestHelper.post<Omit<DeployKeySchema, 'can_push'>>()(
+  enable<E extends boolean = false>(
+    projectId: string | number,
+    keyId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CondensedDeployKeySchema, C, E, void>> {
+    return RequestHelper.post<CondensedDeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}/enable`,
       options,
     );
   }
 
-  remove(projectId: string | number, keyId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    keyId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`projects/${projectId}/deploy_keys/${keyId}`, options);
   }
 
-  show(projectId: string | number, keyId: number, options?: Sudo) {
+  show<E extends boolean = false>(
+    projectId: string | number,
+    keyId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     return RequestHelper.get<DeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}`,

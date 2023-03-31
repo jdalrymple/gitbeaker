@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating EpicIssues service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(EpicIssues);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('EpicIssues.all', () => {
   it('should request GET /groups/:id/epics/:id/issues', async () => {
     await service.all(1, 2);

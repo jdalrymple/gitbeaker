@@ -1,5 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, Sudo } from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface VersionSchema extends Record<string, unknown> {
   version: string;
@@ -7,7 +8,9 @@ export interface VersionSchema extends Record<string, unknown> {
 }
 
 export class Version<C extends boolean = false> extends BaseResource<C> {
-  show(options?: Sudo) {
+  show<E extends boolean = false>(
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<VersionSchema, C, E, void>> {
     return RequestHelper.get<VersionSchema>()(this, 'version', options);
   }
 }

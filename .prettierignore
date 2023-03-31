@@ -1,1 +1,3 @@
-lerna.json
+.turbo
+coverage
+dist

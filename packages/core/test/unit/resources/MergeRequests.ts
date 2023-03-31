@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating MergeRequests service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(MergeRequests);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('MergeRequests.accept', () => {
   it('should request PUT projects/:id/merge_requests:id/merge', async () => {
     await service.accept(2, 3);
@@ -52,9 +42,9 @@ describe('MergeRequests.addSpentTime', () => {
   });
 });
 
-describe('MergeRequests.addTimeEstimate', () => {
+describe('MergeRequests.setTimeEstimate', () => {
   it('should request POST projects/:id/merge_requests:id/add_spent_time', async () => {
-    await service.addTimeEstimate(2, 3, '10m');
+    await service.setTimeEstimate(2, 3, '10m');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
@@ -86,9 +76,9 @@ describe('MergeRequests.all', () => {
   });
 });
 
-describe('MergeRequests.cancelOnPipelineSucess', () => {
+describe('MergeRequests.cancelOnPipelineSuccess', () => {
   it('should request PUT projects/:id/merge_requests/:id/cancel_merge_when_pipeline_succeeds', async () => {
-    await service.cancelOnPipelineSucess(2, 3);
+    await service.cancelOnPipelineSuccess(2, 3);
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
@@ -98,9 +88,9 @@ describe('MergeRequests.cancelOnPipelineSucess', () => {
   });
 });
 
-describe('MergeRequests.changes', () => {
+describe('MergeRequests.allChanges', () => {
   it('should request GET projects/:id/merge_requests/:id/changes', async () => {
-    await service.changes(2, 3);
+    await service.allChanges(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -110,9 +100,9 @@ describe('MergeRequests.changes', () => {
   });
 });
 
-describe('MergeRequests.closesIssues', () => {
+describe('MergeRequests.allIssuesClosed', () => {
   it('should request GET projects/:id/merge_requests/:id/closes_issues', async () => {
-    await service.closesIssues(2, 3);
+    await service.allIssuesClosed(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -122,9 +112,9 @@ describe('MergeRequests.closesIssues', () => {
   });
 });
 
-describe('MergeRequests.commits', () => {
+describe('MergeRequests.allCommits', () => {
   it('should request GET projects/:id/merge_requests/:id/commits', async () => {
-    await service.commits(2, 3);
+    await service.allCommits(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -147,6 +137,18 @@ describe('MergeRequests.create', () => {
   });
 });
 
+describe('MergeRequests.createPipeline', () => {
+  it('should request POST /projects/:id/merge_requests/:id/pipelines', async () => {
+    await service.createPipeline(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/1/merge_requests/2/pipelines',
+      undefined,
+    );
+  });
+});
+
 describe('MergeRequests.edit', () => {
   it('should request PUT /projects/:id/merge_requests/:iid', async () => {
     await service.edit(1, 2, { title: 'Testing MR' });
@@ -157,9 +159,9 @@ describe('MergeRequests.edit', () => {
   });
 });
 
-describe('MergeRequests.participants', () => {
+describe('MergeRequests.allParticipants', () => {
   it('should request GET /projects/:id/merge_requests/:id/participants', async () => {
-    await service.participants(1, 2);
+    await service.allParticipants(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -169,9 +171,9 @@ describe('MergeRequests.participants', () => {
   });
 });
 
-describe('MergeRequests.pipelines', () => {
+describe('MergeRequests.allPipelines', () => {
   it('should request GET /projects/:id/merge_requests/:id/pipelines', async () => {
-    await service.pipelines(1, 2);
+    await service.allPipelines(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -241,9 +243,9 @@ describe('MergeRequests.subscribe', () => {
   });
 });
 
-describe('MergeRequests.timeStats', () => {
+describe('MergeRequests.showTimeStats', () => {
   it('should request GET /projects/:id/merge_requests/:id/time_stats', async () => {
-    await service.timeStats(1, 2);
+    await service.showTimeStats(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -253,9 +255,9 @@ describe('MergeRequests.timeStats', () => {
   });
 });
 
-describe('MergeRequests.version', () => {
+describe('MergeRequests.showDiffVersion', () => {
   it('should request GET /projects/:id/merge_requests/:id/versions/:id', async () => {
-    await service.version(1, 2, 3);
+    await service.showDiffVersion(1, 2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -265,9 +267,9 @@ describe('MergeRequests.version', () => {
   });
 });
 
-describe('MergeRequests.versions', () => {
+describe('MergeRequests.allDiffVersions', () => {
   it('should request GET /projects/:id/merge_requests/:id/versions', async () => {
-    await service.versions(1, 2);
+    await service.allDiffVersions(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

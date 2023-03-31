@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating IssuesStatistics service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(IssuesStatistics);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('IssuesStatistics.all', () => {
   it('should request GET /issues_statistics', async () => {
     await service.all();

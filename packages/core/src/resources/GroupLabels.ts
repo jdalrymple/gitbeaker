@@ -1,45 +1,68 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import {
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceLabels } from '../templates';
+import type { LabelSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
-  CamelizedRecord,
+  Either,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { ResourceLabels } from '../templates';
-import { LabelSchema } from '../templates/types';
 
 export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, LabelSchema>[]>;
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     groupId: string | number,
     labelName: string,
     color: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, LabelSchema>>;
+    options?: { description?: string; priority?: number } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, LabelSchema>>;
+    options: Either<{ newName: string }, { color: string }> & {
+      description?: string;
+      priority?: number;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
-  remove(groupId: string | number, labelId: number | string, options?: Sudo): Promise<void>;
-
-  subscribe(
+  promote<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, LabelSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
-  unsubscribe(
+  remove<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, LabelSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    labelId: number | string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
+
+  subscribe<E extends boolean = false>(
+    groupId: string | number,
+    labelId: number | string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
+
+  unsubscribe<E extends boolean = false>(
+    groupId: string | number,
+    labelId: number | string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 }
 
 export class GroupLabels<C extends boolean = false> extends ResourceLabels<C> {

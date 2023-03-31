@@ -1,78 +1,83 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { GroupSchema } from './Groups';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
-import { IssueBoardSchema, IssueBoardListSchema } from '../templates/types';
-import {
+import { IssueBoardListSchema, IssueBoardSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
+import type { CondensedGroupSchema } from './Groups';
 
-export interface GroupIssueBoardSchema extends IssueBoardSchema {
-  group: Pick<GroupSchema, 'id' | 'name' | 'web_url'>;
+export interface GrouptIssueBoardSchema extends IssueBoardSchema {
+  group: CondensedGroupSchema;
 }
 
 export interface GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, IssueBoardSchema>[]>;
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     groupId: string | number,
     name: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
 
-  createList(
+  createList<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    labelId: number | string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
 
-  editList(
+  editList<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
     listId: number,
     position: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
-  lists(
+  allLists<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>[]>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
-  remove(groupId: string | number, boardId: number, options?: Sudo): Promise<void>;
-
-  removeList(
+  remove<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    listId: number,
-    options?: Sudo,
-  ): Promise<void>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
-    groupId: string | number,
-    boardId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, GroupIssueBoardSchema>>;
-
-  showList(
+  removeList<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    boardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
+
+  showList<E extends boolean = false>(
+    groupId: string | number,
+    boardId: number,
+    listId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 }
 
 export class GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {

@@ -1,5 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
+import type { GitlabAPIResponse } from '../infrastructure';
 
 export interface ProcessMetricSchema {
   hostname: string;
@@ -39,19 +40,27 @@ export type SidekickCompoundMetricsSchema = SidekickJobStatsSchema &
   SidekickProcessMetricsSchema;
 
 export class SidekiqMetrics<C extends boolean = false> extends BaseResource<C> {
-  queueMetrics() {
+  queueMetrics<E extends boolean = false>(): Promise<
+    GitlabAPIResponse<SidekickQueueMetricsSchema, C, E, void>
+  > {
     return RequestHelper.get<SidekickQueueMetricsSchema>()(this, 'sidekiq/queue_metrics');
   }
 
-  processMetrics() {
+  processMetrics<E extends boolean = false>(): Promise<
+    GitlabAPIResponse<SidekickProcessMetricsSchema, C, E, void>
+  > {
     return RequestHelper.get<SidekickProcessMetricsSchema>()(this, 'sidekiq/process_metrics');
   }
 
-  jobStats() {
+  jobStats<E extends boolean = false>(): Promise<
+    GitlabAPIResponse<SidekickJobStatsSchema, C, E, void>
+  > {
     return RequestHelper.get<SidekickJobStatsSchema>()(this, 'sidekiq/job_stats');
   }
 
-  compoundMetrics() {
+  compoundMetrics<E extends boolean = false>(): Promise<
+    GitlabAPIResponse<SidekickCompoundMetricsSchema, C, E, void>
+  > {
     return RequestHelper.get<SidekickCompoundMetricsSchema>()(this, 'sidekiq/compound_metrics');
   }
 }

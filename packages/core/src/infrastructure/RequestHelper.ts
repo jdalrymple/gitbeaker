@@ -1,272 +1,407 @@
-import { parse as parseLink } from 'li';
-import { parseUrl as parseQueryString } from 'query-string';
+import { parse as parseQueryString } from 'qs';
 import { camelizeKeys } from 'xcase';
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { appendFormFromObject, Camelize } from './Utils';
+import type {
+  FormattedResponse,
+  RequestHandlerFn,
+  ResponseBodyTypes,
+} from '@gitbeaker/requester-utils';
+import { appendFormFromObject, parseLinkHeader } from './Utils';
+import type { Camelize, OptionValueType } from './Utils';
 
-// Request Options
-export type IsForm = {
+export interface IsForm {
   isForm?: boolean;
-};
+}
 
-export type Sudo = {
+export interface Sudo {
   sudo?: string | number;
-};
+}
 
-export type ShowExpanded<T extends boolean = boolean> = {
-  showExpanded?: T;
-};
+export interface AsStream {
+  asStream?: boolean;
+}
 
-export type BaseRequestOptions = Sudo & Record<string, unknown>;
+export interface ShowExpanded<E extends boolean = false> {
+  showExpanded?: E;
+}
 
-export type BasePaginationRequestOptions<P extends 'keyset' | 'offset' = 'keyset' | 'offset'> =
-  BaseRequestOptions & {
-    pagination?: P;
-    perPage?: number;
-  };
+export type PaginationTypes = 'keyset' | 'offset';
 
-export type OffsetPaginationRequestOptions = {
-  page?: number;
+export type BaseRequestOptions<E extends boolean = false> = Sudo &
+  ShowExpanded<E> & { [Key in string]?: any };
+
+export interface KeysetPaginationRequestOptions {
+  orderBy: string;
+  sort: 'asc' | 'dec';
+}
+
+export interface OffsetPaginationRequestOptions {
+  page?: number | string;
   maxPages?: number;
-};
+}
 
-export type PaginatedRequestOptions<P extends 'keyset' | 'offset' = 'keyset' | 'offset'> =
-  P extends 'keyset'
-    ? BasePaginationRequestOptions<P>
-    : BasePaginationRequestOptions<P> & OffsetPaginationRequestOptions;
+export interface BasePaginationRequestOptions<P extends PaginationTypes | void> {
+  pagination?: P;
+  perPage?: number | string;
+}
+
+export type PaginationRequestSubOptions<P extends PaginationTypes | void> = P extends 'keyset'
+  ? KeysetPaginationRequestOptions
+  : P extends 'offset'
+  ? OffsetPaginationRequestOptions
+  : Record<string, never>;
+
+export type PaginationRequestOptions<P extends PaginationTypes | void> =
+  BasePaginationRequestOptions<P> & PaginationRequestSubOptions<P>;
 
 // Response Formats
-export interface ExpandedResponse<T = Record<string, unknown>> {
+export type CamelizedResponse<T, C> = C extends true ? Camelize<T> : T;
+
+export interface OffsetPagination {
+  total: number;
+  next: number | null;
+  current: number;
+  previous: number | null;
+  perPage: number;
+  totalPages: number;
+}
+
+export interface KeysetPagination {
+  idAfter: number;
+  perPage: number;
+  orderBy: string;
+  sort: 'asc' | 'dec';
+}
+
+export interface ExpandedResponse<T> {
   data: T;
-  headers: Record<string, unknown>;
+  headers: Record<string, string>;
   status: number;
 }
-export interface PaginationResponse<T = Record<string, unknown>[]> {
-  data: T;
-  paginationInfo: {
-    total: number;
-    next: number | null;
-    current: number;
-    previous: number | null;
-    perPage: number;
-    totalPages: number;
+
+export type PaginatedResponse<T, P extends PaginationTypes = PaginationTypes> = {
+  [U in P]: {
+    paginationInfo: P extends 'keyset' ? KeysetPagination : OffsetPagination;
+    data: T;
   };
+}[P];
+
+export type GitlabAPIExpandedResponse<T, E extends boolean | void, P> = E extends true
+  ? P extends PaginationTypes
+    ? PaginatedResponse<T, P>
+    : ExpandedResponse<T>
+  : T;
+
+export type GitlabAPISingleResponse<
+  T,
+  C extends boolean | void,
+  E extends boolean | void,
+> = T extends Record<string, unknown>
+  ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>, E, undefined>
+  : GitlabAPIExpandedResponse<T, E, undefined>;
+
+export type GitlabAPIMultiResponse<
+  T,
+  C extends boolean | void,
+  E extends boolean | void,
+  P extends PaginationTypes | void,
+> = T extends Record<string, unknown>
+  ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>[], E, P>
+  : GitlabAPIExpandedResponse<T[], E, P>;
+
+export type GitlabAPIResponse<
+  T,
+  C extends boolean | void,
+  E extends boolean | void,
+  P extends PaginationTypes | void,
+> = T extends (infer R)[] ? GitlabAPIMultiResponse<R, C, E, P> : GitlabAPISingleResponse<T, C, E>;
+
+function packageResponse<T extends ResponseBodyTypes, E extends boolean>(
+  response: FormattedResponse<T>,
+  showExpanded?: E,
+): E extends true ? ExpandedResponse<T> : T;
+function packageResponse<T extends ResponseBodyTypes>(
+  response: FormattedResponse<T>,
+  showExpanded?: boolean,
+): T | ExpandedResponse<T> {
+  return showExpanded
+    ? {
+        data: response.body,
+        status: response.status,
+        headers: response.headers,
+      }
+    : response.body;
 }
 
-export type CamelizedRecord<C, T> = C extends true ? Camelize<T> : T;
+function getStream<E extends boolean>(
+  response: FormattedResponse<ReadableStream>,
+  showExpanded?: E,
+) {
+  return packageResponse(response, showExpanded);
+}
 
-export type ExtendedRecordReturn<
-  C extends boolean,
-  E extends boolean,
-  T extends Record<string, unknown> | void,
-> = T extends void
-  ? void
-  : E extends false
-  ? CamelizedRecord<C, T>
-  : ExpandedResponse<CamelizedRecord<C, T>>;
-
-export type ExtendedArrayReturn<
-  C extends boolean,
-  E extends boolean,
-  T,
-  P extends 'keyset' | 'offset',
-> = E extends false
-  ? CamelizedRecord<C, T>[]
-  : P extends 'keyset'
-  ? CamelizedRecord<C, T>[]
-  : PaginationResponse<CamelizedRecord<C, T>[]>;
-
-export type ExtendedReturn<
-  C extends boolean,
-  E extends boolean,
-  P extends 'keyset' | 'offset',
-  T extends Record<string, unknown> | Record<string, unknown>[],
-> = T extends Record<string, unknown>
-  ? ExtendedRecordReturn<C, E, T>
-  : T extends (infer R)[]
-  ? ExtendedArrayReturn<C, E, R, P>
-  : never;
-
-async function getHelper<P extends 'keyset' | 'offset', E extends boolean>(
-  service: BaseResource<boolean>,
-  endpoint: string,
-  {
-    sudo,
-    showExpanded,
-    maxPages,
-    ...query
-  }: BasePaginationRequestOptions<P> & ShowExpanded<E> & { maxPages?: number } = {},
-  acc: Record<string, unknown>[] = [],
-): Promise<any> {
-  const response = await service.requester.get(endpoint, { query, sudo });
-  const { headers, status } = response;
+function getSingle<E extends boolean>(
+  camelize: boolean,
+  response: FormattedResponse<Record<string, unknown>>,
+  showExpanded?: E,
+) {
+  const { status, headers } = response;
   let { body } = response;
 
   // Camelize response body if specified
-  if (service.camelize) body = camelizeKeys(body);
+  if (camelize) body = camelizeKeys(body);
 
-  // Handle object responses
-  if (!Array.isArray(body)) {
-    if (!showExpanded) return body;
+  return packageResponse({ body, status, headers }, showExpanded);
+}
 
-    return {
-      data: body,
-      headers,
-      status,
-    };
-  }
+function getManyMore<
+  T extends Record<string, unknown>[],
+  E extends boolean,
+  P extends PaginationTypes = PaginationTypes,
+>(
+  camelize: boolean,
+  getFn: RequestHandlerFn<T>,
+  endpoint: string,
+  response: FormattedResponse<T>,
+  requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  acc?: T,
+): E extends true ? Promise<PaginatedResponse<T, P>> : Promise<T>;
 
-  // Handle array responses
-  const newAcc = [...acc, ...body];
-  const { next }: { next: string } = parseLink(headers.link);
-  const { query: qs = {} } = next
-    ? parseQueryString(next, { parseNumbers: true, arrayFormat: 'bracket' })
-    : {};
-  const withinBounds = maxPages
-    ? newAcc.length / ((qs.per_page as unknown as number) || 20) < maxPages
-    : true;
+async function getManyMore<
+  T extends Record<string, unknown>[],
+  E extends boolean,
+  P extends PaginationTypes = PaginationTypes,
+>(
+  camelize: boolean,
+  getFn: RequestHandlerFn<T>,
+  endpoint: string,
+  response: FormattedResponse<T>,
+  requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  acc?: T,
+): Promise<T | PaginatedResponse<T, P>> {
+  const { sudo, showExpanded, maxPages, pagination, page, perPage, idAfter, orderBy, sort } =
+    requestOptions;
+
+  // Camelize response body if specified
+  if (camelize) response.body = camelizeKeys(response?.body);
+
+  const newAcc = [...(acc || []), ...response.body] as T;
+  const withinBounds = maxPages && perPage ? newAcc.length / +perPage < maxPages : true;
 
   // Recurse through pagination results
-  if (!(query.page && acc.length === 0) && next && withinBounds) {
-    return getHelper(
-      service,
-      endpoint,
-      {
-        ...qs,
-        maxPages,
-        sudo,
-      },
-      newAcc,
-    );
+  const { next = '' } = parseLinkHeader(response.headers.link);
+
+  if (!(page && (acc || []).length === 0) && next && withinBounds) {
+    const parsedQueryString = parseQueryString(next.split('?')[1]);
+    const qs = { ...camelizeKeys(parsedQueryString) };
+    const newOpts = {
+      ...qs,
+      maxPages,
+      sudo,
+      showExpanded,
+    } as unknown as { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>;
+
+    const nextResponse: FormattedResponse<T> = await getFn(endpoint, {
+      searchParams: qs,
+      sudo,
+    });
+
+    return getManyMore(camelize, getFn, endpoint, nextResponse, newOpts, newAcc);
   }
 
-  if (!showExpanded || query.pagination === 'keyset') return newAcc;
+  if (!showExpanded) return newAcc;
+
+  const paginationInfo =
+    pagination === 'keyset'
+      ? {
+          idAfter: idAfter ? +idAfter : null,
+          perPage: perPage ? +perPage : null,
+          orderBy: orderBy as string,
+          sort: sort as 'asc' | 'dec',
+        }
+      : {
+          total: parseInt(response.headers['x-total'], 10),
+          next: parseInt(response.headers['x-next-page'], 10) || null,
+          current: parseInt(response.headers['x-page'], 10) || 1,
+          previous: parseInt(response.headers['x-prev-page'], 10) || null,
+          perPage: parseInt(response.headers['x-per-page'], 10),
+          totalPages: parseInt(response.headers['x-total-pages'], 10),
+        };
 
   return {
     data: newAcc,
-    paginationInfo: {
-      total: parseInt(headers['x-total'], 10),
-      next: parseInt(headers['x-next-page'], 10) || null,
-      current: parseInt(headers['x-page'], 10) || 1,
-      previous: parseInt(headers['x-prev-page'], 10) || null,
-      perPage: parseInt(headers['x-per-page'], 10),
-      totalPages: parseInt(headers['x-total-pages'], 10),
-    },
-  };
+    paginationInfo,
+  } as PaginatedResponse<T, P>;
 }
+
+type getOverloadImproved<T extends ResponseBodyTypes> = {
+  <C extends boolean = false, E extends boolean = false>(
+    service: BaseResource<C>,
+    endpoint: string,
+    options: BaseRequestOptions<E> & { asStream: true },
+  ): Promise<GitlabAPIResponse<ReadableStream, C, E, void>>;
+  <
+    C extends boolean = false,
+    E extends boolean = false,
+    P extends 'keyset' | 'offset' | void = void,
+  >(
+    service: BaseResource<C>,
+    endpoint: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<T, C, E, P>>;
+  <
+    C extends boolean = false,
+    E extends boolean = false,
+    P extends 'keyset' | 'offset' | void = void,
+  >(
+    service: BaseResource<C>,
+    endpoint: string,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<T, C, E, P>>;
+  <
+    C extends boolean = false,
+    E extends boolean = false,
+    P extends 'keyset' | 'offset' | void = void,
+  >(
+    service: BaseResource<C>,
+    endpoint: string,
+    options?: AsStream & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<T, C, E, P>>;
+};
 
 export function get<
-  T extends Record<string, unknown> | Record<string, unknown>[] = Record<string, unknown>,
->() {
-  return <C extends boolean, P extends 'keyset' | 'offset' = 'offset', E extends boolean = false>(
+  T extends ResponseBodyTypes = Record<string, unknown>,
+>(): getOverloadImproved<T> {
+  return async <C extends boolean, E extends boolean>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: PaginatedRequestOptions<P> & ShowExpanded<E> & Record<string, any>,
-  ): Promise<ExtendedReturn<C, E, P, T>> => getHelper(service, endpoint, options);
-}
+    options?: BaseRequestOptions<E>,
+  ): Promise<any> => {
+    const { asStream, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-export function post<T extends Record<string, unknown> | void = Record<string, unknown>>() {
-  return async <C extends boolean, E extends boolean = false>(
-    service: BaseResource<C>,
-    endpoint: string,
-    {
-      query,
-      isForm,
+    const response = await service.requester.get(endpoint, {
+      searchParams,
+      sudo,
+      asStream,
+    });
+
+    const camelizeResponseBody = service.camelize || false;
+
+    // Handle streaming, single and paginated responses
+    if (asStream) return getStream(response as FormattedResponse<ReadableStream>, showExpanded);
+    if (!Array.isArray(response.body))
+      return getSingle(
+        camelizeResponseBody,
+        response as FormattedResponse<Record<string, unknown>>,
+        showExpanded,
+      );
+
+    const reqOpts = {
       sudo,
       showExpanded,
-      ...options
-    }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> => {
-    const body = isForm ? appendFormFromObject(options) : options;
+      maxPages,
+      ...searchParams,
+    };
 
-    const r = await service.requester.post(endpoint, {
-      query,
-      body,
-      sudo,
-    });
-
-    return showExpanded
-      ? {
-          data: r.body,
-          status: r.status,
-          headers: r.headers,
-        }
-      : r.body;
+    return getManyMore(
+      camelizeResponseBody,
+      (...args) => service.requester.get(...args),
+      endpoint,
+      response as FormattedResponse<Record<string, unknown>[]>,
+      reqOpts,
+    );
   };
 }
 
-export function put<T extends Record<string, unknown> = Record<string, unknown>>() {
-  return async <C extends boolean, E extends boolean = false>(
+export function post<T extends ResponseBodyTypes>() {
+  return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    {
-      query,
-      isForm,
-      sudo,
-      showExpanded,
-      ...options
-    }: IsForm & BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> => {
-    const body = isForm ? appendFormFromObject(options) : options;
+    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+  ): Promise<GitlabAPIResponse<T, C, E, void>> => {
+    const body = isForm
+      ? appendFormFromObject(options as Record<string, OptionValueType>)
+      : options;
 
-    const r = await service.requester.put(endpoint, {
+    const response = await service.requester.post(endpoint, {
+      searchParams,
       body,
-      query,
       sudo,
     });
 
-    return showExpanded
-      ? {
-          data: r.body,
-          status: r.status,
-          headers: r.headers,
-        }
-      : r.body;
+    // Camelize response body if specified
+    if (service.camelize) response.body = camelizeKeys(response.body);
+
+    return packageResponse(response, showExpanded) as GitlabAPIResponse<T, C, E, void>;
   };
 }
 
-export function del<T extends Record<string, unknown> | void = void>() {
-  return async <C extends boolean, E extends boolean = false>(
+export function put<T extends ResponseBodyTypes>() {
+  return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    { sudo, showExpanded, query, ...options }: BaseRequestOptions & ShowExpanded<E> = {},
-  ): Promise<ExtendedRecordReturn<C, E, T>> => {
-    const body = options;
+    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+  ): Promise<GitlabAPIResponse<T, C, E, void>> => {
+    const body = isForm
+      ? appendFormFromObject(options as Record<string, OptionValueType>)
+      : options;
 
-    const r = await service.requester.delete(endpoint, {
+    const response = await service.requester.put(endpoint, {
       body,
-      query,
+      searchParams,
       sudo,
     });
 
-    return showExpanded
-      ? {
-          data: r.body,
-          status: r.status,
-          headers: r.headers,
-        }
-      : r.body;
+    // Camelize response body if specified
+    if (service.camelize) response.body = camelizeKeys(response.body);
+
+    return packageResponse(response, showExpanded) as GitlabAPIResponse<T, C, E, void>;
   };
 }
 
-function stream<C extends boolean>(
-  service: BaseResource<C>,
-  endpoint: string,
-  options?: BaseRequestOptions,
-): NodeJS.ReadableStream {
-  if (typeof service.requester.stream !== 'function') {
-    throw new Error('Stream method is not implementated in requester!');
-  }
+export function patch<T extends ResponseBodyTypes>() {
+  return async <C extends boolean = false, E extends boolean = false>(
+    service: BaseResource<C>,
+    endpoint: string,
+    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+  ): Promise<GitlabAPIResponse<T, C, E, void>> => {
+    const body = isForm
+      ? appendFormFromObject(options as Record<string, OptionValueType>)
+      : options;
 
-  return service.requester.stream(endpoint, {
-    query: options,
-  });
+    const response = await service.requester.patch(endpoint, {
+      body,
+      searchParams,
+      sudo,
+    });
+
+    // Camelize response body if specified
+    if (service.camelize) response.body = camelizeKeys(response.body);
+
+    return packageResponse(response, showExpanded) as GitlabAPIResponse<T, C, E, void>;
+  };
+}
+
+export function del<T extends ResponseBodyTypes = void>() {
+  return async <C extends boolean = false, E extends boolean = false>(
+    service: BaseResource<C>,
+    endpoint: string,
+    { sudo, showExpanded, searchParams, ...options }: BaseRequestOptions<E> = {},
+  ): Promise<GitlabAPIResponse<T, C, E, void>> => {
+    const response = await service.requester.delete(endpoint, {
+      body: options,
+      searchParams,
+      sudo,
+    });
+
+    return packageResponse(response, showExpanded) as GitlabAPIResponse<T, C, E, void>;
+  };
 }
 
 export const RequestHelper = {
   post,
   put,
+  patch,
   get,
   del,
-  stream,
 };

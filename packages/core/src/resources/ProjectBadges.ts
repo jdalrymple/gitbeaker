@@ -1,48 +1,58 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
-import { BadgeSchema } from '../templates/types';
-import {
+import type { BadgeSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
 
 export interface ProjectBadgeSchema extends BadgeSchema {
   kind: 'project';
 }
 
+export type ProjectBadgePreviewSchema = Omit<ProjectBadgeSchema, 'id' | 'name' | 'kind'>;
+
 export interface ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {
-  add(
-    productId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
-
-  all(
-    productId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>[]>;
-
-  edit(
-    productId: string | number,
-    badgeId: number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
-
-  preview(
-    productId: string | number,
+  add<E extends boolean = false>(
+    groupId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, Omit<ProjectBadgeSchema, 'id' | 'name' | 'kind'>>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectBadgeSchema, C, E, void>>;
 
-  remove(productId: string | number, badgeId: number, options?: Sudo): Promise<void>;
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectBadgeSchema[], C, E, P>>;
 
-  show(
-    productId: string | number,
+  edit<E extends boolean = false>(
+    groupId: string | number,
     badgeId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, ProjectBadgeSchema>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectBadgeSchema, C, E, void>>;
+
+  preview<E extends boolean = false>(
+    groupId: string | number,
+    linkUrl: string,
+    imageUrl: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectBadgePreviewSchema, C, E, void>>;
+
+  remove<E extends boolean = false>(
+    groupId: string | number,
+    badgeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    badgeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectBadgeSchema, C, E, void>>;
 }
 
 export class ProjectBadges<C extends boolean = false> extends ResourceBadges<C> {

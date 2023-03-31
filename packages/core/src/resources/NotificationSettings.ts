@@ -1,12 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+  EitherOrNone,
+  GitlabAPIResponse,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
-
-// TODO: Add missing functions
 
 export type NotificationSettingLevel =
   | 'disabled'
@@ -16,57 +16,64 @@ export type NotificationSettingLevel =
   | 'mention'
   | 'custom';
 
+export type CustomSettingLevelEmailEvents =
+  | 'new_note'
+  | 'new_issue'
+  | 'reopen_issue'
+  | 'close_issue'
+  | 'reassign_issue'
+  | 'issue_due'
+  | 'new_merge_request'
+  | 'push_to_merge_request'
+  | 'reopen_merge_request'
+  | 'close_merge_request'
+  | 'reassign_merge_request'
+  | 'merge_merge_request'
+  | 'failed_pipeline'
+  | 'fixed_pipeline'
+  | 'success_pipeline'
+  | 'moved_project'
+  | 'merge_when_pipeline_succeeds'
+  | 'new_epic ';
+
 export interface NotificationSettingSchema extends Record<string, unknown> {
   level: NotificationSettingLevel;
   notification_email: string;
 }
 
-interface ScopedURLOptions {
-  projectId?: string | number;
-  groupId?: string | number;
-}
+function url({
+  projectId,
+  groupId,
+}: { projectId?: string | number; groupId?: string | number } = {}): string {
+  let prefix = '';
 
-function url({ projectId, groupId }: ScopedURLOptions) {
-  let uri: string;
+  if (projectId) prefix = endpoint`projects/${projectId}/`;
+  if (groupId) prefix = endpoint`groups/${groupId}/`;
 
-  if (projectId) {
-    uri = endpoint`projects/${projectId}/`;
-  } else if (groupId) {
-    uri = endpoint`groups/${groupId}/`;
-  } else {
-    uri = '';
-  }
-
-  return `${uri}notification_settings`;
+  return `${prefix}notification_settings`;
 }
 
 export class NotificationSettings<C extends boolean = false> extends BaseResource<C> {
-  all({
-    projectId,
+  edit<E extends boolean = false>({
     groupId,
+    projectId,
     ...options
-  }: ({ projectId?: string | number } | { groupId?: string | number }) &
-    PaginatedRequestOptions = {}) {
-    return RequestHelper.get<NotificationSettingSchema[]>()(
-      this,
-      url({ groupId, projectId } as ScopedURLOptions),
-      options,
-    );
+  }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    BaseRequestOptions<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
+    const uri = url({ groupId, projectId });
+
+    return RequestHelper.put<NotificationSettingSchema>()(this, uri, options);
   }
 
-  edit({
-    projectId,
+  show<E extends boolean = false>({
     groupId,
+    projectId,
     ...options
-  }: { level?: NotificationSettingLevel } & (
-    | { projectId?: string | number }
-    | { groupId?: string | number }
-  ) &
-    BaseRequestOptions = {}) {
-    return RequestHelper.put<NotificationSettingSchema>()(
-      this,
-      url({ groupId, projectId } as ScopedURLOptions),
-      options,
-    );
+  }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    Sudo &
+    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
+    const uri = url({ groupId, projectId });
+
+    return RequestHelper.get<NotificationSettingSchema>()(this, uri, options);
   }
 }

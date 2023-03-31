@@ -1,5 +1,14 @@
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { endpoint, PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  BaseRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface CustomAttributeSchema extends Record<string, unknown> {
   key: string;
@@ -11,7 +20,10 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     super({ prefixUrl: resourceType, ...options });
   }
 
-  all(resourceId: string | number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema[], C, E, P>> {
     return RequestHelper.get<CustomAttributeSchema[]>()(
       this,
       endpoint`${resourceId}/custom_attributes`,
@@ -19,7 +31,24 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     );
   }
 
-  set(resourceId: string | number, customAttributeId: number, value: string, options?: Sudo) {
+  remove<E extends boolean = false>(
+    resourceId: string | number,
+    customAttributeId: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(
+      this,
+      endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
+      options,
+    );
+  }
+
+  set<E extends boolean = false>(
+    resourceId: string | number,
+    customAttributeId: string,
+    value: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
     return RequestHelper.put<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
@@ -30,15 +59,11 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     );
   }
 
-  remove(resourceId: string | number, customAttributeId: number, options?: Sudo) {
-    return RequestHelper.del()(
-      this,
-      endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
-      options,
-    );
-  }
-
-  show(resourceId: string | number, customAttributeId: number, options?: Sudo) {
+  show<E extends boolean = false>(
+    resourceId: string | number,
+    customAttributeId: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
     return RequestHelper.get<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,

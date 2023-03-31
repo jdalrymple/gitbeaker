@@ -1,14 +1,25 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { PipelineVariableSchema } from './Pipelines';
-import {
-  BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
+export interface PipelineVariableSchema extends Record<string, unknown> {
+  key: string;
+  variable_type?: string;
+  value: string;
+}
+
 export class PipelineScheduleVariables<C extends boolean = false> extends BaseResource<C> {
-  all(projectId: string | number, pipelineScheduleId: number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    pipelineScheduleId: number,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<PipelineVariableSchema[], C, E, P>> {
     return RequestHelper.get<PipelineVariableSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
@@ -16,49 +27,50 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     );
   }
 
-  create(projectId: string | number, pipelineScheduleId: number, options?: BaseRequestOptions) {
+  create<E extends boolean = false>(
+    projectId: string | number,
+    pipelineScheduleId: number,
+    key: string,
+    value: string,
+    options?: { variableType?: 'env_var' | 'file' } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineVariableSchema, C, E, void>> {
     return RequestHelper.post<PipelineVariableSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
-      options,
+      {
+        ...options,
+        key,
+        value,
+      },
     );
   }
 
-  edit(
+  edit<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    keyId: string,
-    options?: BaseRequestOptions,
-  ) {
+    key: string,
+    value: string,
+    options?: { variableType?: 'env_var' | 'file' } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineVariableSchema, C, E, void>> {
     return RequestHelper.put<PipelineVariableSchema>()(
       this,
-      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
-      options,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${key}`,
+      {
+        ...options,
+        value,
+      },
     );
   }
 
-  show(
+  remove<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    keyId: string,
-    options?: BaseRequestOptions,
-  ) {
-    return RequestHelper.get<PipelineVariableSchema>()(
+    key: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(
       this,
-      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
-      options,
-    );
-  }
-
-  remove(
-    projectId: string | number,
-    pipelineScheduleId: number,
-    keyId: string,
-    options?: BaseRequestOptions,
-  ) {
-    return RequestHelper.del<PipelineVariableSchema>()(
-      this,
-      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${keyId}`,
+      endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${key}`,
       options,
     );
   }

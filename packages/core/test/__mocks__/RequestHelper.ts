@@ -6,6 +6,5 @@ export default {
     get: () => mockHelperFn,
     put: () => mockHelperFn,
     del: () => mockHelperFn,
-    stream: mockHelperFn,
   },
 };

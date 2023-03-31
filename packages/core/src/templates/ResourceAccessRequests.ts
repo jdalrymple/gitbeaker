@@ -1,5 +1,14 @@
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { endpoint, RequestHelper, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  BaseRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export type AccessLevel = 0 | 5 | 10 | 20 | 30 | 40 | 50;
 
@@ -17,22 +26,33 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
     super({ prefixUrl: resourceType, ...options });
   }
 
-  all(resourceId: string | number) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>> {
     return RequestHelper.get<AccessRequestSchema[]>()(
       this,
       endpoint`${resourceId}/access_requests`,
+      options,
     );
   }
 
-  request(resourceId: string | number) {
-    return RequestHelper.post<AccessRequestSchema>()(this, endpoint`${resourceId}/access_requests`);
+  request<E extends boolean = false>(
+    resourceId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
+    return RequestHelper.post<AccessRequestSchema>()(
+      this,
+      endpoint`${resourceId}/access_requests`,
+      options,
+    );
   }
 
-  approve(
+  approve<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: { accessLevel?: AccessLevel } & Sudo,
-  ) {
+    options?: { accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
     return RequestHelper.post<AccessRequestSchema>()(
       this,
       endpoint`${resourceId}/access_requests/${userId}/approve`,
@@ -40,7 +60,11 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
     );
   }
 
-  deny(resourceId: string | number, userId: number) {
-    return RequestHelper.del()(this, endpoint`${resourceId}/access_requests/${userId}`);
+  deny<E extends boolean = false>(
+    resourceId: string | number,
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(this, endpoint`${resourceId}/access_requests/${userId}`, options);
   }
 }

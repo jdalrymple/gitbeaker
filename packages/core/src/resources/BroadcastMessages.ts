@@ -1,10 +1,13 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
+import { RequestHelper } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
-  RequestHelper,
-  Sudo,
   Camelize,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
 export interface BroadcastMessageSchema extends Record<string, unknown> {
@@ -20,16 +23,25 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   dismissable: boolean;
 }
 
+export type BroadcastMessageOptions = Camelize<Omit<BroadcastMessageSchema, 'id'>>;
+
 export class BroadcastMessages<C extends boolean = false> extends BaseResource<C> {
-  all(options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<BroadcastMessageSchema[], C, E, P>> {
     return RequestHelper.get<BroadcastMessageSchema[]>()(this, 'broadcast_messages', options);
   }
 
-  create(options?: Camelize<Omit<BroadcastMessageSchema, 'id'>> & Sudo) {
+  create<E extends boolean = false>(
+    options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     return RequestHelper.post<BroadcastMessageSchema>()(this, 'broadcast_messages', options);
   }
 
-  edit(broadcastMessageId: number, options?: Camelize<Omit<BroadcastMessageSchema, 'id'>> & Sudo) {
+  edit<E extends boolean = false>(
+    broadcastMessageId: number,
+    options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     return RequestHelper.put<BroadcastMessageSchema>()(
       this,
       `broadcast_messages/${broadcastMessageId}`,
@@ -37,11 +49,17 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
     );
   }
 
-  remove(broadcastMessageId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    broadcastMessageId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, `broadcast_messages/${broadcastMessageId}`, options);
   }
 
-  show(broadcastMessageId: number, options?: BaseRequestOptions) {
+  show<E extends boolean = false>(
+    broadcastMessageId: number,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     return RequestHelper.get<BroadcastMessageSchema>()(
       this,
       `broadcast_messages/${broadcastMessageId}`,

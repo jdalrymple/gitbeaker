@@ -1,18 +1,24 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { CommitSchema, CommitDiffSchema } from './Commits';
-import { RequestHelper, Sudo, BaseRequestOptions, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  AsStream,
+  BaseRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
+import type { CommitDiffSchema, CommitSchema, CondensedCommitSchema } from './Commits';
 
-type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
+export type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
+
+export interface RepositoryChangelogSchema extends Record<string, unknown> {
+  notes: string;
+}
 
 export interface RepositoryCompareSchema extends Record<string, unknown> {
-  commit: Pick<
-    CommitSchema,
-    'id' | 'short_id' | 'title' | 'author_name' | 'author_email' | 'created_at'
-  >;
-  commits?: Pick<
-    CommitSchema,
-    'id' | 'short_id' | 'title' | 'author_name' | 'author_email' | 'created_at'
-  >[];
+  commit: Omit<CondensedCommitSchema, 'message'>;
+  commits?: Omit<CondensedCommitSchema, 'message'>[];
   diffs?: CommitDiffSchema[];
   compare_timeout: boolean;
   compare_same_ref: boolean;
@@ -34,8 +40,20 @@ export interface RepositoryTreeSchema extends Record<string, unknown> {
   mode: string;
 }
 
+export interface RepositoryBlobSchema extends Record<string, unknown> {
+  size: number;
+  encoding: string;
+  content: string;
+  sha: string;
+}
+
 export class Repositories<C extends boolean = false> extends BaseResource<C> {
-  compare(projectId: string | number, from: string, to: string, options?: Sudo) {
+  compare<E extends boolean = false>(
+    projectId: string | number,
+    from: string,
+    to: string,
+    options?: { fromProjectId?: string | number; straight?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryCompareSchema, C, E, void>> {
     return RequestHelper.get<RepositoryCompareSchema>()(
       this,
       endpoint`projects/${projectId}/repository/compare`,
@@ -47,7 +65,10 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  contributors(projectId: string | number, options?: Sudo) {
+  allContributors<E extends boolean = false>(
+    projectId: string | number,
+    options?: { orderBy?: string; sort?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryContributorSchema[], C, E, void>> {
     return RequestHelper.get<RepositoryContributorSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/contributors`,
@@ -55,7 +76,23 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  mergeBase(projectId: string | number, refs: string[], options?: Sudo) {
+  editChangelog<E extends boolean = false>(
+    projectId: string | number,
+    version: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
+    return RequestHelper.post<RepositoryChangelogSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/changelog`,
+      { version, ...options },
+    );
+  }
+
+  mergeBase<E extends boolean = false>(
+    projectId: string | number,
+    refs: string[],
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     return RequestHelper.get<CommitSchema>()(
       this,
       endpoint`projects/${projectId}/repository/merge_base`,
@@ -66,34 +103,74 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  showArchive(
+  showArchive<E extends boolean = false>(
     projectId: string | number,
-    { fileType = 'tar.gz', ...options }: { fileType?: ArchiveType } & Sudo = {},
-  ) {
-    return RequestHelper.get()(
+    options: { fileType?: ArchiveType; sha?: string; path?: string; asStream: true } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
+
+  showArchive<E extends boolean = false>(
+    projectId: string | number,
+    options?: { fileType?: ArchiveType; sha?: string; path?: string; asStream?: boolean } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
+
+  showArchive<E extends boolean = false>(
+    projectId: string | number,
+    {
+      fileType = 'tar.gz',
+      ...options
+    }: { fileType?: ArchiveType; sha?: string; path?: string } & AsStream &
+      ShowExpanded<E> &
+      Sudo = {} as { fileType: ArchiveType },
+  ): Promise<any> {
+    return RequestHelper.get<Blob | ReadableStream>()(
       this,
       endpoint`projects/${projectId}/repository/archive.${fileType}`,
-      options as Record<string, unknown>,
-    ) as unknown as Promise<string>;
+      options as { sha?: string; path?: string } & AsStream & ShowExpanded<E> & Sudo,
+    );
   }
 
-  showBlob(projectId: string | number, sha: string, options?: Sudo) {
-    return RequestHelper.get()(
+  showBlob<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryBlobSchema, void, E, void>> {
+    return RequestHelper.get<RepositoryBlobSchema>()(
       this,
       endpoint`projects/${projectId}/repository/blobs/${sha}`,
       options,
-    ) as unknown as Promise<Blob>;
+    );
   }
 
-  showBlobRaw(projectId: string | number, sha: string, options?: Sudo) {
-    return RequestHelper.get()(
+  showBlobRaw<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/repository/blobs/${sha}/raw`,
       options,
-    ) as unknown as Promise<Blob>;
+    );
   }
 
-  tree(projectId: string | number, options?: BaseRequestOptions) {
+  showChangelog<E extends boolean = false>(
+    projectId: string | number,
+    version: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
+    return RequestHelper.get<RepositoryChangelogSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/changelog`,
+      { version, ...options },
+    );
+  }
+
+  allRepositoryTrees<E extends boolean = false>(
+    projectId: string | number,
+    options?: PaginationRequestOptions<'keyset'> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<RepositoryTreeSchema[], C, E, 'keyset'>> {
     return RequestHelper.get<RepositoryTreeSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/tree`,

@@ -16,100 +16,40 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Jobs service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Jobs);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Jobs.all', () => {
   it('should request GET /projects/:id/jobs', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs', {});
+  });
+
+  it('should request GET /projects/:id/pipelines/:id/jobs', async () => {
+    await service.all(1, { pipelineId: 2 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', {});
+  });
+});
+
+describe('Jobs.allPipelineBridges', () => {
+  it('should request GET /projects/:id/pipelines/:id/bridges', async () => {
+    await service.allPipelineBridges(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/pipelines/2/bridges',
+      undefined,
+    );
   });
 });
 
 describe('Jobs.cancel', () => {
-  it('should request POST /projects/:id/jobs/:id', async () => {
+  it('should request POST /projects/:id/jobs/:id/cancel', async () => {
     await service.cancel(1, 2);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/jobs/2/cancel',
       undefined,
-    );
-  });
-});
-
-describe('Jobs.downloadSingleArtifactFile', () => {
-  it('should request GET /projects/:id/jobs/:id/artifacts/:path without streaming', async () => {
-    await service.downloadSingleArtifactFile(1, 2, 'test/path');
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/jobs/2/artifacts/test/path',
-      {},
-    );
-  });
-
-  it('should request GET /projects/:id/jobs/:id/artifacts/:path with streaming', async () => {
-    await service.downloadSingleArtifactFile(1, 2, 'test/path', { stream: true });
-
-    expect(RequestHelper.stream).toHaveBeenCalledWith(
-      service,
-      'projects/1/jobs/2/artifacts/test/path',
-      {},
-    );
-  });
-});
-
-describe('Jobs.downloadSingleArtifactFileFromRef', () => {
-  it('should request GET /projects/:id/jobs/artifacts/:id/raw/:path?job=:name without streaming', async () => {
-    await service.downloadSingleArtifactFileFromRef(1, 'ref', 'test/path', 'name');
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      `projects/1/jobs/artifacts/ref/raw/test/path?job=name`,
-      {},
-    );
-  });
-
-  it('should request GET /projects/:id/jobs/artifacts/:id/raw/:path?job=:name with streaming', async () => {
-    await service.downloadSingleArtifactFileFromRef(1, 'ref', 'test/path', 'name', {
-      stream: true,
-    });
-
-    expect(RequestHelper.stream).toHaveBeenCalledWith(
-      service,
-      `projects/1/jobs/artifacts/ref/raw/test/path?job=name`,
-      {},
-    );
-  });
-});
-
-describe('Jobs.downloadLatestArtifactFile', () => {
-  it('should request GET /projects/:id/jobs/artifacts/:id/download?job=:name without streaming', async () => {
-    await service.downloadLatestArtifactFile(1, 'ref', 'name');
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      `projects/1/jobs/artifacts/ref/download?job=name`,
-      {},
-    );
-  });
-
-  it('should request GET /projects/:id/jobs/artifacts/:id/download?job=:name with streaming', async () => {
-    await service.downloadLatestArtifactFile(1, 'ref', 'name', { stream: true });
-
-    expect(RequestHelper.stream).toHaveBeenCalledWith(
-      service,
-      `projects/1/jobs/artifacts/ref/download?job=name`,
-      {},
     );
   });
 });
@@ -129,30 +69,6 @@ describe('Jobs.erase', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/jobs/2/erase',
-      undefined,
-    );
-  });
-});
-
-describe('Jobs.eraseArtifacts', () => {
-  it('should request DELETE /projects/:id/jobs/:id/artifacts', async () => {
-    await service.eraseArtifacts(1, 2);
-
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/jobs/2/artifacts',
-      undefined,
-    );
-  });
-});
-
-describe('Jobs.keepArtifacts', () => {
-  it('should request POST /projects/:id/jobs/:id/artifacts/keep', async () => {
-    await service.keepArtifacts(1, 2);
-
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
-      service,
-      'projects/1/jobs/2/artifacts/keep',
       undefined,
     );
   });
@@ -186,26 +102,30 @@ describe('Jobs.show', () => {
   });
 });
 
-describe('Jobs.showPipelineJobs', () => {
-  it('should request GET /projects/:id/pipelines/:id/jobs', async () => {
-    await service.showPipelineJobs(1, 2);
+describe('Jobs.showConnectedJob', () => {
+  it('should request GET /job', async () => {
+    service.headers['job-token'] = 'token';
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/pipelines/2/jobs',
-      undefined,
-    );
+    await service.showConnectedJob();
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'job', undefined);
+  });
+
+  it('should error if job-token isnt present', () => {
+    expect(() => service.showConnectedJob()).toThrow('Missing required header "job-token"');
   });
 });
 
-describe('Jobs.showPipelineBridges', () => {
-  it('should request GET /projects/:id/pipelines/:id/bridges', async () => {
-    await service.showPipelineBridges(1, 2);
+describe('Jobs.showConnectedJobK8Agents', () => {
+  it('should request GET /job/allowed_agents', async () => {
+    service.headers['job-token'] = 'token';
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/pipelines/2/bridges',
-      undefined,
-    );
+    await service.showConnectedJobK8Agents();
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'job/allowed_agents', undefined);
+  });
+
+  it('should error if job-token isnt present', () => {
+    expect(() => service.showConnectedJobK8Agents()).toThrow('Missing required header "job-token"');
   });
 });

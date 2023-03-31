@@ -1,58 +1,64 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
-import { DiscussionSchema } from '../templates/types';
-import {
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
+import type {
+  DiscussionNotePositionSchema,
+  DiscussionNoteSchema,
+  DiscussionSchema,
+} from '../templates/types';
 
 export interface CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
-  addNote(
+  addNote<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
-    discussionId: string | number,
+    discussionId: string,
     noteId: number,
     body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     commitId: number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>[]>;
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
     body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+    options: { position?: DiscussionNotePositionSchema } & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
-  editNote(
+  editNote<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
-    discussionId: string | number,
+    discussionId: string,
     noteId: number,
-    options: BaseRequestOptions & { body: string },
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+    options?: BaseRequestOptions<E> & { body?: string },
+  ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
-  removeNote(
+  removeNote<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
-    discussionId: string | number,
+    discussionId: string,
     noteId: number,
-    options?: Sudo,
-  ): Promise<void>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
+  show<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
-    discussionId: string | number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, DiscussionSchema>>;
+    discussionId: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 }
 
 export class CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {

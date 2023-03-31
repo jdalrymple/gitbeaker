@@ -1,0 +1,69 @@
+{
+  "name": "@gitbeaker/rest",
+  "version": "36.0.1",
+  "description": "Cross Platform implementation of the GitLab API",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/gitbeaker"
+  },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "keywords": [
+    "gitbeaker",
+    "gitlab",
+    "api",
+    "rest",
+    "browser"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "test:types": "tsc",
+    "test:e2e:browser": "playwright test",
+    "test:e2e": "yarn test:e2e:browser",
+    "test:integration:nodejs": "jest --maxWorkers=50% test/integration/nodejs",
+    "test:integration": "yarn test:integration:nodejs",
+    "test:unit": "jest --maxWorkers=50% test/unit",
+    "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",
+    "format:docs:fix": "yarn format:docs --write",
+    "format:src": "prettier '{src,test}/**/*.ts' --ignore-path ../../.prettierignore",
+    "format:src:fix": "yarn format:src --write",
+    "format": "yarn format:src && yarn format:docs",
+    "format:fix": "yarn format:src:fix && yarn format:docs:fix",
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "lint:fix": "yarn lint --fix",
+    "release:rc": "auto next",
+    "release:canary": "auto canary",
+    "release": "auto shipit"
+  },
+  "dependencies": {
+    "@gitbeaker/core": "36.0.1",
+    "@gitbeaker/requester-utils": "36.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.1",
+    "@types/node": "^18.15.11",
+    "playwright": "^1.32.1",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5"
+  }
+}

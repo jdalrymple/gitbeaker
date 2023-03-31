@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Commits service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Commits);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Commits.all', () => {
   it('should request GET /projects/:id/repository/commits', async () => {
     await service.all(1);
@@ -52,9 +42,9 @@ describe('Commits.cherryPick', () => {
   });
 });
 
-describe('Commits.comments', () => {
+describe('Commits.allComments', () => {
   it('should request POST projects/:id/repository/commits/:sha/comments', async () => {
-    await service.comments(1, '5a');
+    await service.allComments(1, '5a');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -130,9 +120,9 @@ describe('Commits.editStatus', () => {
   });
 });
 
-describe('Commits.references', () => {
+describe('Commits.allReferences', () => {
   it('should request GET projects/:id/repository/commits/:sha/refs', async () => {
-    await service.references(1, '5a');
+    await service.allReferences(1, '5a');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -154,9 +144,9 @@ describe('Commits.show', () => {
   });
 });
 
-describe('Commits.status', () => {
+describe('Commits.allStatuses', () => {
   it('should request GET projects/:id/repository/commits/:sha/statuses', async () => {
-    await service.statuses(1, '5a');
+    await service.allStatuses(1, '5a');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -166,9 +156,9 @@ describe('Commits.status', () => {
   });
 });
 
-describe('Commits.mergeRequests', () => {
+describe('Commits.allMergeRequests', () => {
   it('should request GET projects/:id/repository/commits/:sha/statuses', async () => {
-    await service.mergeRequests(1, '5a');
+    await service.allMergeRequests(1, '5a');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

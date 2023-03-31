@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
 
@@ -32,10 +34,11 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
 }
 
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: { scopes?: 'enabled' | 'disabled' } & PaginatedRequestOptions = {},
-  ) {
+    options: { scopes?: 'enabled' | 'disabled' } & PaginationRequestOptions<P> &
+      BaseRequestOptions<E> = {} as any,
+  ): Promise<GitlabAPIResponse<FeatureFlagSchema[], C, E, P>> {
     return RequestHelper.get<FeatureFlagSchema[]>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
@@ -43,12 +46,12 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
     flagName: string,
     version: string,
-    options?: BaseRequestOptions,
-  ) {
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     return RequestHelper.post<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
@@ -60,15 +63,23 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  edit(projectId: string | number, flagName: string, options?: BaseRequestOptions) {
+  edit<E extends boolean = false>(
+    projectId: string | number,
+    featureFlagName: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     return RequestHelper.put<FeatureFlagSchema>()(
       this,
-      endpoint`projects/${projectId}/feature_flags/${flagName}`,
+      endpoint`projects/${projectId}/feature_flags/${featureFlagName}`,
       options,
     );
   }
 
-  remove(projectId: string | number, flagName: string, options?: Sudo) {
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    flagName: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/feature_flags/${flagName}`,
@@ -76,7 +87,11 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show(projectId: string | number, flagName: string, options?: Sudo) {
+  show<E extends boolean = false>(
+    projectId: string | number,
+    flagName: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     return RequestHelper.get<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags/${flagName}`,

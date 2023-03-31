@@ -1,87 +1,83 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ProjectSchema } from './Projects';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
-import { IssueBoardSchema, IssueBoardListSchema } from '../templates/types';
-import {
+import { IssueBoardListSchema, IssueBoardSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
+import type { SimpleProjectSchema } from './Projects';
 
 export interface ProjectIssueBoardSchema extends IssueBoardSchema {
-  project: Pick<
-    ProjectSchema,
-    | 'id'
-    | 'name'
-    | 'name_with_namespace'
-    | 'path'
-    | 'path_with_namespace'
-    | 'http_url_to_repo'
-    | 'web_url'
-  >;
+  project: SimpleProjectSchema;
 }
 
 export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
-  all(
-    groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>[]>;
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema[], C, E, P>>;
 
-  create(
-    groupId: string | number,
+  create<E extends boolean = false>(
+    projectId: string | number,
     name: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema, C, E, void>>;
 
-  createList(
-    groupId: string | number,
+  createList<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
-    labelId: number | string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
-  edit(
-    groupId: string | number,
+  edit<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema, C, E, void>>;
 
-  editList(
-    groupId: string | number,
+  editList<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
     listId: number,
     position: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
-  lists(
-    groupId: string | number,
+  alllists<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>[]>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
-  remove(groupId: string | number, boardId: number, options?: Sudo): Promise<void>;
-
-  removeList(
-    groupId: string | number,
+  remove<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
-    listId: number,
-    options?: Sudo,
-  ): Promise<void>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
-    groupId: string | number,
-    boardId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, ProjectIssueBoardSchema>>;
-
-  showList(
-    groupId: string | number,
+  removeList<E extends boolean = false>(
+    projectId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueBoardListSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    boardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema, C, E, void>>;
+
+  showList<E extends boolean = false>(
+    projectId: string | number,
+    boardId: number,
+    listId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 }
 
 export class ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {

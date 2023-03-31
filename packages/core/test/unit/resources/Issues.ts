@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Issues service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Issues);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Issues.addSpentTime', () => {
   it('should request POST projects/:id/issues:id/add_spent_time', async () => {
     await service.addSpentTime(2, 3, '10m');
@@ -98,20 +88,9 @@ describe('Issues.create', () => {
   });
 });
 
-describe('Issues.link', () => {
-  it('should request POST projects/:id/issues/:id/links', async () => {
-    await service.link(8, 3, 4, 5);
-
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/8/issues/3/links', {
-      targetProjectId: '4',
-      targetIssueIid: '5',
-    });
-  });
-});
-
-describe('Issues.participants', () => {
+describe('Issues.allParticipants', () => {
   it('should request GET /projects/:id/issues/:id/participants', async () => {
-    await service.participants(1, 2);
+    await service.allParticipants(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -155,7 +134,7 @@ describe('Issues.resetTimeEstimate', () => {
 
 describe('Issues.show', () => {
   it('should request GET /projects/:id/issues/:id', async () => {
-    await service.show(1, 2);
+    await service.show(1, { projectId: 2 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/issues/2', undefined);
   });
@@ -173,9 +152,9 @@ describe('Issues.subscribe', () => {
   });
 });
 
-describe('Issues.timeStats', () => {
+describe('Issues.showTimeStats', () => {
   it('should request GET /projects/:id/issues/:id/time_stats', async () => {
-    await service.timeStats(1, 2);
+    await service.showTimeStats(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

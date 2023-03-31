@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Groups service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Groups);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Groups.all', () => {
   it('should request GET /groups', async () => {
     await service.all();
@@ -55,9 +45,9 @@ describe('Groups.edit', () => {
   });
 });
 
-describe('Groups.projects', () => {
+describe('Groups.allProjects', () => {
   it('should request GET /groups/:id/projects', async () => {
-    await service.projects(12);
+    await service.allProjects(12);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12/projects', undefined);
   });
@@ -76,24 +66,6 @@ describe('Groups.remove', () => {
     await service.remove(12);
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'groups/12', undefined);
-  });
-});
-
-describe('Groups.removeLDAPLink', () => {
-  it('should request DEL /groups/:id/ldap_group_links/:id without provider', async () => {
-    await service.removeLDAPLink(1, 'cd');
-
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'groups/1/ldap_group_links/cd', {});
-  });
-
-  it('should request DEL /groups/:id/ldap_group_links/:provider/:id with provider', async () => {
-    await service.removeLDAPLink(1, 'cd', { provider: 'test' });
-
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'groups/1/ldap_group_links/test/cd',
-      {},
-    );
   });
 });
 

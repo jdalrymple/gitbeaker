@@ -1,48 +1,58 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
-import { BadgeSchema } from '../templates/types';
-import {
+import type { BadgeSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
 
 export interface GroupBadgeSchema extends BadgeSchema {
   kind: 'group';
 }
 
+export type GroupBadgePreviewSchema = Omit<GroupBadgeSchema, 'id' | 'name' | 'kind'>;
+
 export interface GroupBadges<C extends boolean = false> extends ResourceBadges<C> {
-  add(
-    groupId: string | number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, GroupBadgeSchema>>;
-
-  all(
-    groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, GroupBadgeSchema>[]>;
-
-  edit(
-    groupId: string | number,
-    badgeId: number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, GroupBadgeSchema>>;
-
-  preview(
+  add<E extends boolean = false>(
     groupId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, Omit<GroupBadgeSchema, 'id' | 'name' | 'kind'>>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GroupBadgeSchema, C, E, void>>;
 
-  remove(groupId: string | number, badgeId: number, options?: Sudo): Promise<void>;
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GroupBadgeSchema[], C, E, P>>;
 
-  show(
+  edit<E extends boolean = false>(
     groupId: string | number,
     badgeId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, GroupBadgeSchema>>;
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GroupBadgeSchema, C, E, void>>;
+
+  preview<E extends boolean = false>(
+    groupId: string | number,
+    linkUrl: string,
+    imageUrl: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupBadgePreviewSchema, C, E, void>>;
+
+  remove<E extends boolean = false>(
+    groupId: string | number,
+    badgeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    badgeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupBadgeSchema, C, E, void>>;
 }
 
 export class GroupBadges<C extends boolean = false> extends ResourceBadges<C> {

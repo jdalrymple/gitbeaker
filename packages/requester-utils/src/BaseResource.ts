@@ -1,4 +1,4 @@
-import { RequesterType, DefaultResourceOptions } from './RequesterUtils';
+import { DefaultResourceOptions, RequesterType } from './RequesterUtils';
 
 export interface BaseResourceOptions<C> {
   oauthToken?: string;
@@ -6,7 +6,6 @@ export interface BaseResourceOptions<C> {
   jobToken?: string;
   host?: string;
   prefixUrl?: string;
-  version?: 3 | 4;
   rejectUnauthorized?: boolean;
   camelize?: C;
   requesterFn?: (resourceOptions: DefaultResourceOptions) => RequesterType;
@@ -40,17 +39,13 @@ export class BaseResource<C extends boolean = false> {
     profileMode = 'execution',
     host = 'https://gitlab.com',
     prefixUrl = '',
-    version = 4,
     rejectUnauthorized = true,
     requestTimeout = 300000,
   }: BaseResourceOptions<C> = {}) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
-    this.url = [host, 'api', `v${version}`, prefixUrl].join('/');
-
-    this.headers = {
-      'user-agent': 'gitbeaker',
-    };
+    this.url = [host, 'api', 'v4', prefixUrl].join('/');
+    this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
     this.requestTimeout = requestTimeout;

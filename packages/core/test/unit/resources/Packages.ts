@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Packages service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Packages);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Packages.all', () => {
   it('should request GET /projects/:id/packages', async () => {
     await service.all({ projectId: 1 });
@@ -40,7 +30,9 @@ describe('Packages.all', () => {
   });
 
   it('should throw an error is neither groupId or projectId is passed', () => {
-    expect(() => service.all()).toThrow('projectId or groupId must be passed');
+    expect(() => service.all()).toThrow(
+      'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
+    );
   });
 });
 
@@ -72,9 +64,9 @@ describe('Packages.show', () => {
   });
 });
 
-describe('Packages.showFiles', () => {
+describe('Packages.allFiles', () => {
   it('should request GET /projects/:id/packages/:id/package_files', async () => {
-    await service.showFiles(1, 2);
+    await service.allFiles(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

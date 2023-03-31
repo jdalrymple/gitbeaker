@@ -1,14 +1,17 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
-import { NoteSchema } from '../templates/types';
-import {
-  PaginatedRequestOptions,
+import type { NoteSchema } from '../templates/types';
+import type {
   BaseRequestOptions,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
 
 export interface MergeRequestNoteSchema extends NoteSchema {
+  confidential: boolean;
   attachment?: string;
   system: boolean;
   noteable_id: number;
@@ -18,40 +21,39 @@ export interface MergeRequestNoteSchema extends NoteSchema {
 }
 
 export interface MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    mergerequestId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, MergeRequestNoteSchema>[]>;
+    mergerequestIId: number,
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestNoteSchema[], C, E, P>>;
 
-  create(
+  create<E extends boolean = false>(
     projectId: string | number,
-    mergerequestId: string | number,
+    mergerequestIId: number,
     body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MergeRequestNoteSchema>>;
+    options?: { created_at?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     projectId: string | number,
-    mergerequestId: string | number,
+    mergerequestIId: number,
     noteId: number,
-    body: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MergeRequestNoteSchema>>;
+    options: { body: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 
-  remove(
+  remove<E extends boolean = false>(
     projectId: string | number,
-    mergerequestId: string | number,
+    mergerequestIId: number,
     noteId: number,
     options?: Sudo,
-  ): Promise<void>;
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
+  show<E extends boolean = false>(
     projectId: string | number,
-    mergerequestIdepicId: string | number,
+    mergerequestIId: number,
     noteId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, MergeRequestNoteSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 }
 
 export class MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {

@@ -6,8 +6,9 @@ export {
   BaseRequestOptions,
   BasePaginationRequestOptions,
   OffsetPaginationRequestOptions,
-  PaginatedRequestOptions,
+  PaginationRequestOptions,
+  PaginationTypes,
   ExpandedResponse,
-  PaginationResponse,
-  CamelizedRecord,
+  PaginatedResponse,
+  CamelizedResponse,
 } from './infrastructure';

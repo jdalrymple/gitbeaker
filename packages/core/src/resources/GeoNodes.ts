@@ -1,8 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
+import { RequestHelper } from '../infrastructure';
+import type {
   BaseRequestOptions,
-  PaginatedRequestOptions,
-  RequestHelper,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
 
@@ -140,39 +143,69 @@ export interface GeoNodeStatusSchema extends Record<string, unknown> {
 }
 
 export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
-  all(options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeSchema[], C, E, P>> {
     return RequestHelper.get<GeoNodeSchema[]>()(this, 'geo_nodes', options);
   }
 
-  create(geonodeId: number, options?: BaseRequestOptions) {
-    return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
+  allStatuses<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeStatusSchema[], C, E, P>> {
+    return RequestHelper.get<GeoNodeStatusSchema[]>()(this, 'geo_nodes/statuses', options);
   }
 
-  edit(geonodeId: number, options?: BaseRequestOptions) {
-    return RequestHelper.put<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
-  }
-
-  failures(options?: BaseRequestOptions) {
+  allFailures<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeFailureSchema[], C, E, P>> {
     return RequestHelper.get<GeoNodeFailureSchema[]>()(this, 'geo_nodes/current/failures', options);
   }
 
-  repair(geonodeId: number, options?: Sudo) {
+  create<E extends boolean = false>(
+    name: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
+    return RequestHelper.post<GeoNodeSchema>()(this, 'geo_nodes', { name, ...options });
+  }
+
+  edit<E extends boolean = false>(
+    geonodeId: number,
+    name: string,
+    url: string,
+    options?: BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
+    return RequestHelper.put<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, {
+      name,
+      url,
+      ...options,
+    });
+  }
+
+  repair<E extends boolean = false>(
+    geonodeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     return RequestHelper.post<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}/repair`, options);
   }
 
-  remove(geonodeId: number, options?: Sudo) {
-    return RequestHelper.del<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
+  remove<E extends boolean = false>(
+    geonodeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(this, `geo_nodes/${geonodeId}`, options);
   }
 
-  show(geonodeId: number, options?: Sudo) {
+  show<E extends boolean = false>(
+    geonodeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     return RequestHelper.get<GeoNodeSchema>()(this, `geo_nodes/${geonodeId}`, options);
   }
 
-  status(geonodeId: number, options?: Sudo) {
+  showStatus<E extends boolean = false>(
+    geonodeId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GeoNodeStatusSchema, C, E, void>> {
     return RequestHelper.get<GeoNodeStatusSchema>()(this, `geo_nodes/${geonodeId}/status`, options);
-  }
-
-  statuses(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<GeoNodeStatusSchema[]>()(this, 'geo_nodes/statuses', options);
   }
 }

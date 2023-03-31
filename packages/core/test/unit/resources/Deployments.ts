@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Deployments service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Deployments);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Deployments.all', () => {
   it('should request GET /projects/:id/deployments', async () => {
     await service.all(1);
@@ -46,9 +36,9 @@ describe('Deployments.show', () => {
   });
 });
 
-describe('Deployments.mergeRequests', () => {
+describe('Deployments.allMergeRequests', () => {
   it('should request GET /projects/:id/deployments/:id/merge_requests', async () => {
-    await service.mergeRequests(1, 2);
+    await service.allMergeRequests(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

@@ -1,21 +1,4 @@
-import FormData from 'form-data';
-import { getAPIMap, appendFormFromObject, endpoint } from '../../../src/infrastructure';
-
-jest.mock(
-  '../../../dist/map.json',
-  () => {
-    throw new Error();
-  },
-  { virtual: true },
-);
-
-describe('getAPIMap', () => {
-  it('should throw error if file DNE', () => {
-    expect(() => {
-      getAPIMap();
-    }).toThrow();
-  });
-});
+import { appendFormFromObject, endpoint } from '../../../src/infrastructure';
 
 describe('appendFormFromObject', () => {
   it('should convert object key/values to formdata instance', () => {
@@ -26,7 +9,10 @@ describe('appendFormFromObject', () => {
   });
 
   it('should convert object key/values with metadata to formdata instance', () => {
-    const data = { a: 5, b: ['test', { filename: 'name.jpg' }] };
+    const data = {
+      a: 5,
+      b: [new Blob(['test'], { type: 'text/plain' }), 'name.jpg'],
+    };
     const form = appendFormFromObject(data);
 
     expect(form).toBeInstanceOf(FormData);
@@ -44,7 +30,6 @@ describe('endpoint', () => {
 
   it('should give error if all parameters are number', () => {
     const projectId = 1;
-    // @ts-expect-error No need to use `endpoint` if all parameters are number.
     const url: string = endpoint`/projects/${projectId}`;
 
     expect(url).toBe('/projects/1');

@@ -1,49 +1,143 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, BaseRequestOptions, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  BaseRequestOptions,
+  EitherOrNone,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+} from '../infrastructure';
+import type { ProjectSchema } from './Projects';
+import type { IssueSchema } from './Issues';
+import type { MergeRequestSchema } from './MergeRequests';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type { SimpleSnippetSchema } from './Snippets';
+import type { CommitSchema } from './Commits';
+import type { NoteSchema } from '../templates/ResourceNotes';
+import type { UserSchema } from './Users';
 
-export interface SearchResultSchema extends Record<string, unknown> {
+export interface BlobSchema extends Record<string, unknown> {
   id: number;
-  description: string;
-  name: string;
-  name_with_namespace: string;
+  basename: string;
+  data: string;
   path: string;
-  path_with_namespace: string;
-  created_at: string;
-  default_branch: string;
-  tag_list?: string[];
-  ssh_url_to_repo: string;
-  http_url_to_repo: string;
-  web_url: string;
-  avatar_url?: string;
-  star_count: number;
-  forks_count: number;
-  last_activity_at: string;
+  filename: string;
+  ref: string;
+  startline: number;
+  project_id: number;
 }
 
+export type SearchScopes =
+  | 'projects'
+  | 'issues'
+  | 'merge_requests'
+  | 'milestones'
+  | 'snippet_titles'
+  | 'wiki_blobs'
+  | 'commits'
+  | 'blobs'
+  | 'notes'
+  | 'users';
+
 export class Search<C extends boolean = false> extends BaseResource<C> {
-  all(
-    scope: string,
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'users',
     search: string,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: { projectId?: string | number; groupId?: string | number } & BaseRequestOptions = {},
-  ) {
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<UserSchema[], C, E, void>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'notes',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'blobs',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'commits',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'wiki_blobs',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'snippet_titles',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<SimpleSnippetSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'milestones',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'merge_requests',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'issues',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'projects',
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: SearchScopes,
+    search: string,
+    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      BaseRequestOptions<E> &
+      PaginationRequestOptions<P>,
+  ): any {
+    const { projectId, groupId, ...opts } = options || {};
     let url: string;
 
-    if (projectId) {
-      url = endpoint`projects/${projectId}/`;
-    } else if (groupId) {
-      url = endpoint`groups/${groupId}/`;
-    } else {
-      url = '';
-    }
+    if (projectId) url = endpoint`projects/${projectId}/`;
+    else if (groupId) url = endpoint`groups/${groupId}/`;
+    else url = '';
 
-    return RequestHelper.get<SearchResultSchema[]>()(this, `${url}search`, {
+    return RequestHelper.get()(this, `${url}search`, {
       scope,
       search,
-      ...options,
+      ...opts,
     });
   }
 }
