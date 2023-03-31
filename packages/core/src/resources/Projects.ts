@@ -197,7 +197,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       return RequestHelper.post<ExpandedProjectSchema>()(this, url, {
         ...options,
         isForm: true,
-        file: [avatar.content, avatar.filename],
+        avatar: [avatar.content, avatar.filename],
       });
     }
 
@@ -256,7 +256,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       return RequestHelper.put<ExpandedProjectSchema>()(this, url, {
         ...options,
         isForm: true,
-        file: [avatar.content, avatar.filename],
+        avatar: [avatar.content, avatar.filename],
       });
     }
 
@@ -534,13 +534,13 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   uploadAvatar<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
-    { filename, ...options }: { filename?: string } & Sudo & ShowExpanded<E> = {},
+    avatar: { content: Blob; filename: string },
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ avatar_url: string }, C, E, void>> {
     return RequestHelper.put<{ avatar_url: string }>()(this, endpoint`projects/${projectId}`, {
       ...options,
       isForm: true,
-      file: [content, filename],
+      avatar: [avatar.content, avatar.filename],
     });
   }
 }

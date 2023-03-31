@@ -16,8 +16,12 @@ export interface AuditEventSchema extends Record<string, unknown> {
   entity_id: number;
   entity_type: string;
   details: {
-    custom_message: string;
+    change?: string;
+    from?: string;
+    to?: string;
+    custom_message?: string;
     author_name: string;
+    author_email: string;
     target_id: string;
     target_type: string;
     target_details: string;

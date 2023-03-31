@@ -60,15 +60,12 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
   upload<E extends boolean = false>(
     projectId: string | number,
     alertIId: number,
-    content: Blob,
+    metricImage: { content: Blob; filename: string },
     {
-      filename,
       url,
       urlText,
       ...options
-    }: { url?: string; urlText?: string; filename?: string } & Sudo & ShowExpanded<E> = {
-      filename: `${Date.now().toString()}.tar.gz`,
-    },
+    }: { url?: string; urlText?: string } & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
     return RequestHelper.post<MetricImageSchema>()(
       this,
@@ -76,7 +73,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
       {
         isForm: true,
         ...options,
-        file: [content, filename],
+        file: [metricImage.content, metricImage.filename],
         url_text: urlText,
         url,
       },
