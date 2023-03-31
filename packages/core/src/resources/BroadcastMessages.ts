@@ -1,5 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
+import type { AccessLevel } from '../templates/types';
 import type {
   BaseRequestOptions,
   Camelize,
@@ -19,6 +20,7 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   id: number;
   active: boolean;
   target_path: string;
+  target_access_levels: AccessLevel[];
   broadcast_type: string;
   dismissable: boolean;
 }

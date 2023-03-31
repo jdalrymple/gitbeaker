@@ -11,15 +11,13 @@ import type {
 import type { UserSchema } from './Users';
 import type { PipelineVariableSchema } from './PipelineScheduleVariables';
 
+export type CommitablePipelineStatus = 'pending' | 'running' | 'success' | 'failed' | 'canceled';
+
 export type PipelineStatus =
+  | CommitablePipelineStatus
   | 'created'
   | 'waiting_for_resource'
   | 'preparing'
-  | 'pending'
-  | 'running'
-  | 'failed'
-  | 'success'
-  | 'canceled'
   | 'skipped'
   | 'manual'
   | 'scheduled';
