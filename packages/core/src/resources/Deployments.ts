@@ -64,7 +64,7 @@ export interface AllDeploymentsOptions {
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema[], C, E, P>> {
     return RequestHelper.get<DeploymentSchema[]>()(
       this,
@@ -109,9 +109,25 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     deploymentId: number,
-    options?: { status?: DeploymentStatus } & Sudo & ShowExpanded<E>,
+    status: DeploymentStatus,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
     return RequestHelper.put<DeploymentSchema>()(
+      this,
+      endpoint`projects/${projectId}/deployments/${deploymentId}`,
+      {
+        ...options,
+        status,
+      },
+    );
+  }
+
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    deploymentId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    return RequestHelper.del<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
       options,

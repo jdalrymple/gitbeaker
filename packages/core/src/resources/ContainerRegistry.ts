@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -48,11 +47,12 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     groupId,
     projectId,
     ...options
-  }: Either<{ projectId: string | number }, { groupId: string | number }> &
-    PaginationRequestOptions<P> &
-    BaseRequestOptions<E>): Promise<
-    GitlabAPIResponse<CondensedRegistryRepositorySchema[], C, E, P>
-  > {
+  }: Either<{ projectId: string | number }, { groupId: string | number }> & {
+    tags?: boolean;
+    tagsCount?: boolean;
+  } & PaginationRequestOptions<P> &
+    Sudo &
+    ShowExpanded<E>): Promise<GitlabAPIResponse<CondensedRegistryRepositorySchema[], C, E, P>> {
     let url: string;
 
     if (groupId) url = endpoint`groups/${groupId}/registry/repositories`;
@@ -68,7 +68,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   allTags<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     repositoryId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedRegistryRepositoryTagSchema[], C, E, P>> {
     return RequestHelper.get<CondensedRegistryRepositoryTagSchema[]>()(
       this,
@@ -118,7 +118,12 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     projectId: string | number,
     repositoryId: number,
     nameRegexDelete: string,
-    options?: Sudo & { nameRegexKeep: string; keepN: string; olderThan: string } & ShowExpanded<E>,
+    options?: Sudo & {
+      nameRegex?: string;
+      nameRegexKeep?: string;
+      keepN?: string;
+      olderThan?: string;
+    } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -132,7 +137,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
 
   showRepository<E extends boolean = false>(
     repositoryId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { tags?: boolean; tagsCount?: boolean; size?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RegistryRepositorySchema, C, E, void>> {
     return RequestHelper.get<RegistryRepositorySchema>()(
       this,
