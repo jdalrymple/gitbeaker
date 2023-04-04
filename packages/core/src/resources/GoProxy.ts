@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
 
 export interface GoProxyModuleVersionSchema extends Record<string, unknown> {
   Version: string;
@@ -11,7 +11,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     projectId: string | number,
     moduleName: string,
-    options?: BaseRequestOptions<E>,
+    options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     return RequestHelper.get<string>()(
       this,
@@ -24,7 +24,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: BaseRequestOptions<E>,
+    options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GoProxyModuleVersionSchema, C, E, void>> {
     return RequestHelper.get<GoProxyModuleVersionSchema>()(
       this,
@@ -37,9 +37,9 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<string, C, E, void>> {
-    return RequestHelper.get<string>()(
+    options?: ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
+    return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/go/${moduleName}/@v/${moduleVersion}.mod`,
       options,
@@ -50,7 +50,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: BaseRequestOptions<E>,
+    options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     return RequestHelper.get<Blob>()(
       this,

@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
+import type { AccessLevel } from '../templates/ResourceAccessLevels';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -15,7 +15,7 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     groupAccess: number,
     provider: string,
-    options?: BaseRequestOptions<E>,
+    options?: { cn?: string; groupAccess?: AccessLevel } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     return RequestHelper.post<string>()(this, endpoint`groups/${groupId}/ldap_group_links`, {
       groupAccess,
@@ -26,7 +26,7 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string[], C, E, P>> {
     return RequestHelper.get<string[]>()(
       this,
@@ -38,7 +38,7 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     groupId: string | number,
     provider: string,
-    options?: BaseRequestOptions<E>,
+    options?: { cn?: string; filter?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`groups/${groupId}/ldap_group_links`, {
       provider,

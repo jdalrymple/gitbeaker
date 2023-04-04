@@ -3,7 +3,6 @@ import { ResourceAccessTokens } from '../templates';
 import type { AccessTokenSchema, AccessTokenScopes } from '../templates/ResourceAccessTokens';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -14,7 +13,7 @@ import type {
 export interface GroupAccessTokens<C extends boolean = false> extends ResourceAccessTokens<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestOptions<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

@@ -2,7 +2,6 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceCustomAttributes } from '../templates';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -14,7 +13,7 @@ export interface ProjectCustomAttributes<C extends boolean = false>
   extends ResourceCustomAttributes<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema[], C, E, P>>;
 
   set<E extends boolean = false>(

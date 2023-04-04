@@ -1,17 +1,21 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourcePushRules } from '../templates';
-import type { PushRuleSchema } from '../templates/ResourcePushRules';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  CreatePushRuleOptions,
+  EditPushRuleOptions,
+  PushRuleSchema,
+} from '../templates/ResourcePushRules';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ProjectPushRules<C extends boolean = false> extends ResourcePushRules<C> {
   create<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: CreatePushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: EditPushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>>;
 
   remove<E extends boolean = false>(

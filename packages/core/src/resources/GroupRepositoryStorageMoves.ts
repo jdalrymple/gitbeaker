@@ -2,7 +2,6 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceRepositoryStorageMoves } from '../templates';
 import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -18,7 +17,7 @@ export interface GroupRepositoryStorageMoveSchema extends RepositoryStorageMoveS
 export interface GroupRepositoryStorageMoves<C extends boolean = false>
   extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { groupId?: string | number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { groupId?: string | number } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema[], C, E, P>>;
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -28,7 +27,8 @@ export interface GroupRepositoryStorageMoves<C extends boolean = false>
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: { groupId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { groupId?: string | number; destinationStorageName?: string } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema, C, E, P>>;
 }
 

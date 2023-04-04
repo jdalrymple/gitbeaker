@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -32,7 +31,31 @@ export interface ExpandedHookSchema extends HookSchema {
   wiki_page_events: boolean;
   deployment_events: boolean;
   releases_events: boolean;
+  alert_status: string;
+  disabled_until?: string;
+  url_variables: string[];
 }
+
+export interface AddResourceHookOptions {
+  pushEvents?: boolean;
+  pushEventsBranchFilter?: string;
+  issuesEvents?: boolean;
+  confidentialIssuesEvents?: boolean;
+  mergeRequestsEvents?: boolean;
+  tagPushEvents?: boolean;
+  noteEvents?: boolean;
+  confidentialNoteEvents?: boolean;
+  jobEvents?: boolean;
+  pipelineEvents?: boolean;
+  wikiPageEvents?: boolean;
+  deploymentEvents?: boolean;
+  releasesEvents?: boolean;
+  subgroupEvents?: boolean;
+  enableSslVerification?: boolean;
+  token?: string;
+}
+
+export type EditResourceHookOptions = AddResourceHookOptions;
 
 export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
@@ -42,7 +65,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     resourceId: string | number,
     url: string,
-    options?: BaseRequestOptions<E>,
+    options?: AddResourceHookOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
     return RequestHelper.post<ExpandedHookSchema>()(this, endpoint`${resourceId}/hooks`, {
       url,
@@ -52,7 +75,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema[], C, E, P>> {
     return RequestHelper.get<ExpandedHookSchema[]>()(this, endpoint`${resourceId}/hooks`, options);
   }
@@ -61,7 +84,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     hookId: number,
     url: string,
-    options?: BaseRequestOptions<E>,
+    options?: EditResourceHookOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
     return RequestHelper.put<ExpandedHookSchema>()(this, endpoint`${resourceId}/hooks/${hookId}`, {
       url,
