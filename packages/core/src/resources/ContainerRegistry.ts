@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -43,16 +44,17 @@ export type CondensedRegistryRepositorySchema = Omit<
 >;
 
 export class ContainerRegistry<C extends boolean = false> extends BaseResource<C> {
-  allRepositories<E extends boolean = false, P extends PaginationTypes = 'offset'>({
-    groupId,
-    projectId,
-    ...options
-  }: Either<{ projectId: string | number }, { groupId: string | number }> & {
-    tags?: boolean;
-    tagsCount?: boolean;
-  } & PaginationRequestOptions<P> &
-    Sudo &
-    ShowExpanded<E>): Promise<GitlabAPIResponse<CondensedRegistryRepositorySchema[], C, E, P>> {
+  allRepositories<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    {
+      groupId,
+      projectId,
+      ...options
+    }: Either<{ projectId: string | number }, { groupId: string | number }> & {
+      tags?: boolean;
+      tagsCount?: boolean;
+    } & PaginationRequestOptions<P> &
+      BaseRequestOptions<E> = {} as any,
+  ): Promise<GitlabAPIResponse<CondensedRegistryRepositorySchema[], C, E, P>> {
     let url: string;
 
     if (groupId) url = endpoint`groups/${groupId}/registry/repositories`;

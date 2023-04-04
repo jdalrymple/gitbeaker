@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -37,8 +38,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     }: EitherOrNone<{ projectId?: string | number }, { userId?: string | number }> & {
       public?: boolean;
     } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedDeployKeySchema[], C, E, P>> {
     let url: string;
 

@@ -22,6 +22,12 @@ export interface BadgeSchema extends CondensedBadgeSchema {
   kind: 'project' | 'group';
 }
 
+export interface EditBadgeOptions {
+  name?: string;
+  linkUrl?: string;
+  imageUrl?: string;
+}
+
 export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
@@ -50,7 +56,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: { name?: string; linkUrl?: string; imageUrl?: string } & Sudo & ShowExpanded<E>,
+    options?: EditBadgeOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
     return RequestHelper.put<BadgeSchema>()(
       this,

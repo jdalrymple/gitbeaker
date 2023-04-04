@@ -24,7 +24,7 @@ describe('FeatureFlags.all', () => {
   });
 
   it('should request GET /projects/:id/feature_flags', async () => {
-    await service.all(1, { scopes: 'enabled' });
+    await service.all(1, { scope: 'enabled' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/feature_flags', {
       scopes: 'enabled',
@@ -45,7 +45,7 @@ describe('FeatureFlags.create', () => {
 
 describe('FeatureFlags.edit', () => {
   it('should request PUT /projects/:id/feature_flags/:flag_name', async () => {
-    await service.edit(1, 'name', { test: 1 });
+    await service.edit(1, 'name', { description: 'test' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/feature_flags/name', {
       test: 1,

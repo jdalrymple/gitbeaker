@@ -1,10 +1,8 @@
-import { Resources } from '@gitbeaker/core';
+import * as Resources from '@gitbeaker/core';
 import { presetResourceArguments } from '@gitbeaker/requester-utils';
 import { requesterFn } from './Requester';
 
 const API = presetResourceArguments(Resources, { requesterFn });
-
-export { Types } from '@gitbeaker/core';
 
 export const {
   Agents,

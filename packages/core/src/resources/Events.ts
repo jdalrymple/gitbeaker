@@ -1,12 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
-  ShowExpanded,
-  Sudo,
 } from '../infrastructure';
 import { UserSchema } from './Users';
 
@@ -51,10 +50,9 @@ export class Events<C extends boolean = false> extends BaseResource<C> {
       userId,
       ...options
     }: EitherOrNone<{ projectId?: string | number }, { userId: string | number }> &
+      AllEventOptions &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> &
-      AllEventOptions = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
     let url: string;
 

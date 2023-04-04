@@ -10,7 +10,7 @@ import type {
 import type { UserSchema } from './Users';
 import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
-import type { CommitablePipelineStatus } from './PipelineStatus';
+import type { CommitablePipelineStatus } from './Pipelines';
 
 export interface CommitAction {
   /** The action to perform */
@@ -326,7 +326,10 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<CommitStatusSchema>()(
       this,
       endpoint`projects/${projectId}/statuses/${sha}`,
-      options,
+      {
+        state,
+        ...options,
+      },
     );
   }
 

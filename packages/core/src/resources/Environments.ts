@@ -10,13 +10,15 @@ import type {
 } from '../infrastructure';
 import type { DeployableSchema, DeploymentSchema } from './Deployments';
 
+export type EnvironmentTier = 'production' | 'staging' | 'testing' | 'development' | 'other';
+
 export interface EnvironmentSchema extends Record<string, unknown> {
   id: number;
   name: string;
   slug: string;
   external_url: string;
   state: string;
-  tier: string;
+  tier: EnvironmentTier;
   created_at: string;
   updated_at: string;
   enable_advanced_logs_querying: boolean;
@@ -26,8 +28,6 @@ export interface EnvironmentSchema extends Record<string, unknown> {
 }
 
 export type CondensedEnvironmentSchema = Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>;
-
-export type EnvironmentTier = 'production' | 'staging' | 'testing' | 'development' | 'other';
 
 export type ReviewAppSchema = Omit<CondensedEnvironmentSchema, 'state'>;
 
@@ -134,7 +134,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     return RequestHelper.post<{ message: string }>()(
       this,
-      endpoint`projects/${projectId}/environments/${environmentId}/stop_stale`,
+      endpoint`projects/${projectId}/environments/stop_stale`,
       {
         searchParams: { before },
         ...options,

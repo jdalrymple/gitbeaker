@@ -196,7 +196,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
     url: string,
     options?: CreateGeoNodeOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
-    return RequestHelper.post<GeoNodeSchema>()(this, 'geo_nodes', { name, ...options });
+    return RequestHelper.post<GeoNodeSchema>()(this, 'geo_nodes', { name, url, ...options });
   }
 
   edit<E extends boolean = false>(
