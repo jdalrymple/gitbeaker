@@ -16,38 +16,27 @@ import type { SimpleProjectSchema } from './Projects';
 import type { TodoSchema } from './TodoLists';
 import type { UserSchema } from './Users';
 
-import type { MilestoneSchema } from '../templates/types';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
 // Select method options
 export interface AllMergeRequestsOptions {
-  state?: 'opened' | 'closed' | 'locked' | 'merged';
-  orderBy?: 'created_at' | 'updated_at';
-  sort?: 'asc' | 'desc';
-  milestone?: 'None' | string;
-  view?: string;
-  labels?: string | Array<string>;
-  withLabelsDetails?: boolean;
-  withMergeStatusRecheck?: boolean;
-  createdAfter?: string;
-  createdBefore?: string;
-  updatedBefore?: string;
-  updatedAfter?: string;
-  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
+  approvedByIds?: number[];
+  approverIds?: number[];
+  approved?: string;
+  assigneeId?: number;
   authorId?: number;
   authorUsername?: string;
-  assigneeId?: number;
-  approverIds?: Array<number>;
-  approvedByIds?: Array<number>;
-  reviewerId?: number | 'Any' | 'None';
-  reviewerUsername?: string;
-  myReactionEmoji?: string;
-  sourceBranch?: string;
-  targetBranch?: string;
-  search?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  deployedAfter?: string;
+  deployedBefore?: string;
+  environment?: string;
   in?: string;
-  wip?: string;
+  labels?: string;
+  milestone?: string;
+  myReactionEmoji?: string;
   not?: {
-    labels?: string | Array<string>;
+    labels?: string | string[];
     milestone?: string;
     authorId?: number;
     authorUsername?: string;
@@ -57,9 +46,21 @@ export interface AllMergeRequestsOptions {
     reviewerUsername?: string;
     myReactionEmoji?: string;
   };
-  environment?: string;
-  deployedBefore?: string;
-  deployedAfter?: string;
+  orderBy?: 'created_at' | 'updated_at';
+  reviewerId?: number | 'Any' | 'None';
+  reviewerUsername?: string;
+  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
+  search?: string;
+  sort?: 'asc' | 'desc';
+  sourceBranch?: string;
+  state?: 'opened' | 'closed' | 'locked' | 'merged';
+  targetBranch?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  view?: string;
+  withLabelsDetails?: boolean;
+  withMergeStatusRecheck?: boolean;
+  wip?: string;
 }
 
 export interface AcceptMergeRequestOptions {

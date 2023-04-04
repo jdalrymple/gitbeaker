@@ -3,7 +3,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -71,7 +70,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     discussionId: string | number,
     noteId: number,
     body: string,
-    options?: BaseRequestOptions<E>,
+    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
     return RequestHelper.post<DiscussionNoteSchema>()(
       this,
@@ -83,7 +82,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>> {
     return RequestHelper.get<DiscussionSchema[]>()(
       this,

@@ -8,7 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import { UserSchema } from './Users';
-import { MilestoneSchema } from '../templates/types';
+import { MilestoneSchema } from '../templates/ResourceMilestones';
 
 export interface IssueLinkSchema extends Record<string, unknown> {
   id: number;

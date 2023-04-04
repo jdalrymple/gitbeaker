@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
-import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/types';
+import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

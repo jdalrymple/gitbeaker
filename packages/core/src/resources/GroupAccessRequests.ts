@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessRequests } from '../templates';
-import type { AccessLevel, AccessRequestSchema } from '../templates/types';
+import type { AccessLevel, AccessRequestSchema } from '../templates/ResourceAccessRequests';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

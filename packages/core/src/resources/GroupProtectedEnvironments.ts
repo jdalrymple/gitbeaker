@@ -1,6 +1,9 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceProtectedEnvironments } from '../templates';
-import { ProtectedEnvironmentAccessLevel, ProtectedEnvironmentSchema } from '../templates/types';
+import {
+  ProtectedEnvironmentAccessLevel,
+  ProtectedEnvironmentSchema,
+} from '../templates/ResourceProtectedEnvironments';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
-import { IssueBoardListSchema, IssueBoardSchema } from '../templates/types';
+import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

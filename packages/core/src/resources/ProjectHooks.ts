@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceHooks } from '../templates';
-import type { ExpandedHookSchema } from '../templates/types';
+import type { ExpandedHookSchema } from '../templates/ResourceHooks';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

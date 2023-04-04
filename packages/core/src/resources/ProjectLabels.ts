@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceLabels } from '../templates';
-import type { LabelSchema } from '../templates/types';
+import type { LabelSchema } from '../templates/ResourceLabels';
 import type {
   BaseRequestOptions,
   Either,

@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceWikis } from '../templates';
-import type { WikiAttachmentSchema, WikiSchema } from '../templates/types';
+import type { WikiAttachmentSchema, WikiSchema } from '../templates/ResourceWikis';
 import type {
   Either,
   GitlabAPIResponse,

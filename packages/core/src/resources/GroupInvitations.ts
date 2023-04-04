@@ -1,6 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceInvitations } from '../templates';
-import type { AccessLevel, InvitationSchema } from '../templates/types';
+import type { InvitationSchema } from '../templates/ResourceInvitations';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   BaseRequestOptions,
   Either,

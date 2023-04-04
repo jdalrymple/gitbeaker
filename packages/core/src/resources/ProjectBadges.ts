@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceBadges } from '../templates';
-import type { BadgeSchema } from '../templates/types';
+import type { BadgeSchema } from '../templates/ResourceBadges';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

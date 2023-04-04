@@ -4,7 +4,7 @@ import type {
   DiscussionNotePositionSchema,
   DiscussionNoteSchema,
   DiscussionSchema,
-} from '../templates/types';
+} from '../templates/ResourceDiscussions';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,

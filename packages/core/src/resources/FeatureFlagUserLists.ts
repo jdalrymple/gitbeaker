@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -22,8 +21,7 @@ export interface FeatureFlagUserListSchema extends Record<string, unknown> {
 export class FeatureFlagUserLists<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: { scopes?: 'enabled' | 'disabled' } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+    options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema[], C, E, P>> {
     return RequestHelper.get<FeatureFlagUserListSchema[]>()(
       this,
@@ -52,7 +50,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   edit<E extends boolean = false>(
     projectId: string | number,
     featureFlagUserListIId: string,
-    options?: { name?: string; userXIds?: string } & BaseRequestOptions<E>,
+    options?: { name?: string; userXIds?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     return RequestHelper.put<FeatureFlagUserListSchema>()(
       this,

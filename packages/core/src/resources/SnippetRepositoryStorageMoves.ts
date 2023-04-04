@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceRepositoryStorageMoves } from '../templates';
-import type { RepositoryStorageMoveSchema } from '../templates/types';
+import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

@@ -1,12 +1,12 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMembers } from '../templates';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  AccessLevel,
   CondensedMemberSchema,
   IncludeInherited,
   MemberSchema,
   SimpleMemberSchema,
-} from '../templates/types';
+} from '../templates/ResourceMembers';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,

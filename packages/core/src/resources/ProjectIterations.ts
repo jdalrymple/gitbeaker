@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIterations } from '../templates';
-import type { IterationSchema } from '../templates/types';
+import type { IterationSchema } from '../templates/ResourceIterations';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

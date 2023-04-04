@@ -12,7 +12,7 @@ import type {
   DiscussionNotePositionSchema,
   DiscussionNoteSchema,
   DiscussionSchema,
-} from '../templates/types';
+} from '../templates/ResourceDiscussions';
 
 export interface CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote<E extends boolean = false>(

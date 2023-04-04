@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestoneEvents } from '../templates';
-import type { MilestoneEventSchema } from '../templates/types';
+import type { MilestoneEventSchema } from '../templates/ResourceMilestoneEvents';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

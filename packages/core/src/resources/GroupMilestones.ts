@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../templates';
-import type { MilestoneSchema } from '../templates/types';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

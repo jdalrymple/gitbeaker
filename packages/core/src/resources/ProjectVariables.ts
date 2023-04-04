@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables } from '../templates';
-import type { VariableFilter, VariableSchema, VariableType } from '../templates/types';
+import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

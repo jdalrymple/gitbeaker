@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -19,7 +18,7 @@ export interface ErrorTrackingClientKeySchema extends Record<string, unknown> {
 export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ErrorTrackingClientKeySchema[], C, E, P>> {
     return RequestHelper.get<ErrorTrackingClientKeySchema[]>()(
       this,

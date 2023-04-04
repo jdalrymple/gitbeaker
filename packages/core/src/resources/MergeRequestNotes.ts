@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
-import type { NoteSchema } from '../templates/types';
+import type { NoteSchema } from '../templates/ResourceNotes';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

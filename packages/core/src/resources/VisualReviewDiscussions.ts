@@ -1,7 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
-import type { DiscussionNotePositionSchema, DiscussionSchema } from '../templates/types';
+import type {
+  DiscussionNotePositionSchema,
+  DiscussionSchema,
+} from '../templates/ResourceDiscussions';
 
 export class VisualReviewDiscussions<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(

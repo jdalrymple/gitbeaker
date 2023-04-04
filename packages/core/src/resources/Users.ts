@@ -9,8 +9,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { ExpandedProjectSchema } from './Projects';
-import type { EventOptions, EventSchema } from './Events';
-import type { AccessLevel } from '../templates/types';
+import type { AllEventOptions, EventSchema } from './Events';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 
 export interface UserSchema extends Record<string, unknown> {
@@ -113,7 +113,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   allEvents<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E> & EventOptions,
+    options?: AllEventOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ) {
     return RequestHelper.get<EventSchema[]>()(this, endpoint`users/${userId}/events`, options);
   }

@@ -1,4 +1,4 @@
-import { Resources as coreResources } from '@gitbeaker/core';
+import * as coreResources from '@gitbeaker/core';
 import * as GB from '../../src';
 
 const { Types, ...resources } = GB;

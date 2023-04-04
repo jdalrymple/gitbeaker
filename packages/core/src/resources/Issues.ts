@@ -13,7 +13,7 @@ import type {
 import type { UserSchema } from './Users';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
-import type { MilestoneSchema } from '../templates/types';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { MetricImageSchema } from './AlertManagement';
 
 export interface TimeStatsSchema extends Record<string, unknown> {

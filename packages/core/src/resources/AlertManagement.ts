@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -22,7 +21,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     alertIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema[], C, E, P>> {
     return RequestHelper.get<MetricImageSchema[]>()(
       this,

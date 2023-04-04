@@ -3,7 +3,11 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { BaseRequestOptions, GitlabAPIResponse } from '../infrastructure';
 
-export type MetricType = 'deployment_frequency' | 'lead_time_for_changes';
+export type MetricType =
+  | 'deployment_frequency'
+  | 'lead_time_for_changes'
+  | 'time_to_restore_service'
+  | 'change_failure_rate';
 
 export interface DORA4MetricSchema extends Record<string, unknown> {
   date: string;
@@ -21,8 +25,8 @@ export class ResourceDORA4Metrics<C extends boolean = false> extends BaseResourc
     options?: {
       startDate?: string;
       endDate?: string;
-      interval?: string;
-      environmentTier?: string;
+      interval?: 'all' | 'monthly' | 'daily';
+      environmentTiers?: string[];
     } & BaseRequestOptions<E>,
   ): Promise<GitlabAPIResponse<DORA4MetricSchema[], C, E, void>> {
     return RequestHelper.get<DORA4MetricSchema[]>()(this, endpoint`${resourceId}/dora/metrics`, {

@@ -99,7 +99,7 @@ export interface ApplicationSettingsSchema extends Record<string, unknown> {
   external_auth_client_key?: string;
   external_authorization_service_default_label?: string;
   external_authorization_service_enabled?: boolean;
-  external_authorization_service_timeout?: float;
+  external_authorization_service_timeout?: number;
   external_authorization_service_url?: string;
   external_pipeline_validation_service_url?: string;
   external_pipeline_validation_service_token?: string;
@@ -221,7 +221,7 @@ export interface ApplicationSettingsSchema extends Record<string, unknown> {
   spam_check_api_key?: string;
   suggest_pipeline_enabled?: boolean;
   terminal_max_session_time?: number;
-  terms?: text;
+  terms?: string;
   throttle_authenticated_api_enabled?: boolean;
   throttle_authenticated_api_period_in_seconds?: number;
   throttle_authenticated_api_requests_per_period?: number;

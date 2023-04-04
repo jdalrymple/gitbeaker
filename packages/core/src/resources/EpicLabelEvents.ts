@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceLabelEvents } from '../templates';
-import type { LabelEventSchema } from '../templates/types';
+import type { LabelEventSchema } from '../templates/ResourceLabelEvents';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

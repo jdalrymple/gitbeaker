@@ -12,7 +12,7 @@ import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { UserSchema } from './Users';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { SimpleGroupSchema } from './Groups';
-import type { AccessLevel } from '../templates/types';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;

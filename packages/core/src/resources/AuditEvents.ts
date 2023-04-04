@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -45,8 +44,13 @@ function url({
 
 export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
-      BaseRequestOptions<E> &
+    options?: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> & {
+      createdAfter?: string;
+      createdBefore?: string;
+      entityType?: string;
+      entityId?: number;
+    } & Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<AuditEventSchema[], C, E, P>> {
     const uri = url(options);
@@ -56,9 +60,9 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     auditEventId: number,
-    options: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
+    options?: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
       Sudo &
-      ShowExpanded<E> = {},
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AuditEventSchema, C, E, void>> {
     const uri = url(options);
 

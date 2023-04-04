@@ -10,7 +10,7 @@ import type {
 } from '../infrastructure';
 import type { UserSchema } from './Users';
 import type { CommitSchema } from './Commits';
-import type { MilestoneSchema } from '../templates/types';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
 export interface ReleaseEvidence {
   sha: string;

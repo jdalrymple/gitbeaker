@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   Either,
   EitherOrNone,
   GitlabAPIResponse,
@@ -34,9 +33,11 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+    }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> & {
+      active?: boolean;
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DeployTokenSchema[], C, E, P>> {
     let url: string;
 
@@ -96,5 +97,32 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
     }
 
     return RequestHelper.del()(this, url, options as any as Sudo & ShowExpanded<E>);
+  }
+
+  show<E extends boolean = false>(
+    tokenId: number,
+    {
+      projectId,
+      groupId,
+      ...options
+    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+      Sudo &
+      ShowExpanded<E> = {} as any,
+  ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
+    let url: string;
+
+    if (projectId) url = endpoint`projects/${projectId}/deploy_tokens/${tokenId}`;
+    else if (groupId) url = endpoint`groups/${groupId}/deploy_tokens/${tokenId}`;
+    else {
+      throw new Error(
+        'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
+      );
+    }
+
+    return RequestHelper.get<DeployTokenSchema>()(
+      this,
+      url,
+      options as any as Sudo & ShowExpanded<E>,
+    );
   }
 }

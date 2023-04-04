@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNoteAwardEmojis } from '../templates';
-import type { AwardEmojiSchema } from '../templates/types';
+import type { AwardEmojiSchema } from '../templates/ResourceNoteAwardEmojis';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

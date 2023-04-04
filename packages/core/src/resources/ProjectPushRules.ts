@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourcePushRules } from '../templates';
-import type { PushRuleSchema } from '../templates/types';
+import type { PushRuleSchema } from '../templates/ResourcePushRules';
 import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ProjectPushRules<C extends boolean = false> extends ResourcePushRules<C> {

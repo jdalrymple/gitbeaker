@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceCustomAttributes } from '../templates';
-import type { CustomAttributeSchema } from '../templates/types';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,

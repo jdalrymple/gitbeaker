@@ -1,10 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
 export interface FreezePeriodSchema extends Record<string, unknown> {
@@ -19,7 +20,7 @@ export interface FreezePeriodSchema extends Record<string, unknown> {
 export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema[], C, E, P>> {
     return RequestHelper.get<FreezePeriodSchema[]>()(
       this,
@@ -28,23 +29,11 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show<E extends boolean = false>(
-    projectId: string | number,
-    freezePeriodId: string | number,
-    options?: BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
-    return RequestHelper.get<FreezePeriodSchema>()(
-      this,
-      endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
-      options,
-    );
-  }
-
   create<E extends boolean = false>(
     projectId: string | number,
     freezeStart: string,
     freezeEnd: string,
-    options?: { cronTimezone?: string } & BaseRequestOptions<E>,
+    options?: { cronTimezone?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
     return RequestHelper.post<FreezePeriodSchema>()(
       this,
@@ -59,12 +48,13 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     projectId: string | number,
-    freezePeriodId: string | number,
+    freezePeriodId: number,
     options?: {
       freezeStart?: string;
       freezeEnd?: string;
       cronTimezone?: string;
-    } & BaseRequestOptions<E>,
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
     return RequestHelper.put<FreezePeriodSchema>()(
       this,
@@ -75,10 +65,22 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    freezePeriodId: string | number,
-    options?: BaseRequestOptions<E>,
+    freezePeriodId: number,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
+      options,
+    );
+  }
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    freezePeriodId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
+    return RequestHelper.get<FreezePeriodSchema>()(
       this,
       endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
       options,
