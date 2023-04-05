@@ -100,7 +100,10 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const url = `${prefixUrl}${endpoint}${searchParams ? `?${searchParams}` : ''}`;
+    const url = new URL(endpoint, prefixUrl);
+
+    url.search = searchParams;
+
     const response = await fetch(url, { ...opts, mode: 'same-origin' });
 
     if (response.ok) return parseResponse(response, asStream);
