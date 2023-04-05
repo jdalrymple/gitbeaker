@@ -2,7 +2,6 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -18,8 +17,14 @@ export interface GrouptIssueBoardSchema extends IssueBoardSchema {
 export interface GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema[], C, E, P>>;
+
+  allLists<E extends boolean = false>(
+    resourceId: string | number,
+    boardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
   create<E extends boolean = false>(
     groupId: string | number,
@@ -36,7 +41,16 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
   edit<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      hideBacklogList?: boolean;
+      hideClosedList?: boolean;
+      name?: string;
+      assigneeId?: number;
+      milestoneId?: number;
+      labels?: string;
+      weight?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
 
   editList<E extends boolean = false>(
@@ -46,12 +60,6 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
     position: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
-
-  allLists<E extends boolean = false>(
-    groupId: string | number,
-    boardId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,

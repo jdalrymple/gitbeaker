@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface CICDVariableSchema extends Record<string, unknown> {
   key: string;
@@ -8,6 +8,7 @@ export interface CICDVariableSchema extends Record<string, unknown> {
   value: string;
   protected: boolean;
   masked: boolean;
+  raw: boolean;
 }
 
 export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseResource<C> {
@@ -20,7 +21,13 @@ export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseR
   create<E extends boolean = false>(
     key: string,
     value: string,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      variableType?: string;
+      protected?: boolean;
+      masked?: boolean;
+      raw?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CICDVariableSchema, C, E, void>> {
     return RequestHelper.post<CICDVariableSchema>()(this, 'admin/ci/variables', {
       key,
@@ -32,7 +39,13 @@ export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseR
   edit<E extends boolean = false>(
     keyId: string,
     value: string,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      variableType?: string;
+      protected?: boolean;
+      masked?: boolean;
+      raw?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CICDVariableSchema, C, E, void>> {
     return RequestHelper.put<CICDVariableSchema>()(this, endpoint`admin/ci/variables/${keyId}`, {
       value,

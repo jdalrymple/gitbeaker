@@ -1,7 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -21,20 +20,25 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     discussionId: string,
     noteId: number,
     body: string,
-    options?: BaseRequestOptions<E>,
+    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     commitId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
     commitId: number,
     body: string,
-    options: { position?: DiscussionNotePositionSchema } & BaseRequestOptions<E>,
+    options?: {
+      position?: DiscussionNotePositionSchema;
+      commitId?: string;
+      createdAt?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
   editNote<E extends boolean = false>(
@@ -42,7 +46,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     commitId: number,
     discussionId: string,
     noteId: number,
-    options?: BaseRequestOptions<E> & { body?: string },
+    options?: Sudo & ShowExpanded<E> & { body?: string },
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
   removeNote<E extends boolean = false>(

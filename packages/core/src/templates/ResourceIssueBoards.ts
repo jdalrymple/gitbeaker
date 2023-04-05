@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   EitherOrNone3,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -36,9 +35,21 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema[], C, E, P>> {
     return RequestHelper.get<IssueBoardSchema[]>()(this, endpoint`${resourceId}/boards`, options);
+  }
+
+  allLists<E extends boolean = false>(
+    resourceId: string | number,
+    boardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>> {
+    return RequestHelper.get<IssueBoardListSchema[]>()(
+      this,
+      endpoint`${resourceId}/boards/${boardId}/lists`,
+      options,
+    );
   }
 
   create<E extends boolean = false>(
@@ -73,7 +84,14 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   edit<E extends boolean = false>(
     resourceId: string | number,
     boardId: number,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      name?: string;
+      assigneeId?: number;
+      milestoneId?: number;
+      labels?: string;
+      weight?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
     return RequestHelper.put<IssueBoardSchema>()(
       this,
@@ -96,18 +114,6 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
         position,
         ...options,
       },
-    );
-  }
-
-  lists<E extends boolean = false>(
-    resourceId: string | number,
-    boardId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>> {
-    return RequestHelper.get<IssueBoardListSchema[]>()(
-      this,
-      endpoint`${resourceId}/boards/${boardId}/lists`,
-      options,
     );
   }
 

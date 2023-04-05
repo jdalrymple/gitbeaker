@@ -3,7 +3,6 @@ import { ResourceInvitations } from '../templates';
 import type { InvitationSchema } from '../templates/ResourceInvitations';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  BaseRequestOptions,
   Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -16,18 +15,24 @@ export interface ProjectInvitations<C extends boolean = false> {
   add<E extends boolean = false>(
     projectId: string | number,
     accessLevel: AccessLevel,
-    options: Either<{ email: string }, { userId: string }> & BaseRequestOptions<E>,
+    options: Either<{ email: string }, { userId: string }> & {
+      expiresAt?: string;
+      inviteSource?: string;
+      tasksToBeDone?: string[];
+      tasksProjectId?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & { query?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     email: string,
-    options?: BaseRequestOptions<E>,
+    options?: { expiresAt?: string; accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 
   remove<E extends boolean = false>(

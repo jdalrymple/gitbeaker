@@ -2,7 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
-  BaseRequestOptions,
+  EitherOrNone3,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -18,8 +18,14 @@ export interface ProjectIssueBoardSchema extends IssueBoardSchema {
 export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema[], C, E, P>>;
+
+  allLists<E extends boolean = false>(
+    projectId: string | number,
+    boardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
@@ -30,13 +36,26 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
   createList<E extends boolean = false>(
     projectId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: EitherOrNone3<
+      { labelId?: number },
+      { assigneeId?: number },
+      { milestoneId?: number }
+    > &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     boardId: number,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      name?: string;
+      assigneeId?: number;
+      milestoneId?: number;
+      labels?: string;
+      weight?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema, C, E, void>>;
 
   editList<E extends boolean = false>(
@@ -46,12 +65,6 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
     position: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
-
-  alllists<E extends boolean = false>(
-    projectId: string | number,
-    boardId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
