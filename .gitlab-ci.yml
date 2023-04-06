@@ -262,6 +262,11 @@ test:live:teardown:
     - test:e2e:cli
     - test:e2e:rest
   when: always
+  only:
+    refs:
+      - /^pr-[0-9]+$/
+      - main
+      - next
   variables:
     GIT_STRATEGY: none
   script:
