@@ -219,12 +219,56 @@ describe('defaultRequestHandler', () => {
       },
     }));
 
-    await defaultRequestHandler('testurl', {
+    await defaultRequestHandler('testurl/123', {
       searchParams: 'test=4',
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl?test=4'), {
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'), {
+      mode: 'same-origin',
+    });
+  });
+
+  it('should handle multipart prefixUrls correctly', async () => {
+    MockFetch.mockImplementation(() => ({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: {
+        entries() {
+          return [['content-type', 'application/json']];
+        },
+        get() {
+          return 'application/json';
+        },
+      },
+    }));
+
+    await defaultRequestHandler('testurl/123', {
+      searchParams: 'test=4',
+      prefixUrl: 'http://test.com/projects',
+    } as RequestOptions);
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'), {
+      mode: 'same-origin',
+    });
+
+    await defaultRequestHandler('123/testurl', {
+      searchParams: 'test=4',
+      prefixUrl: 'http://test.com/projects',
+    } as RequestOptions);
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
+      mode: 'same-origin',
+    });
+
+    await defaultRequestHandler('123/testurl', {
+      searchParams: 'test=4',
+      prefixUrl: 'http://test.com/projects/',
+    } as RequestOptions);
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
       mode: 'same-origin',
     });
   });

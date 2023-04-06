@@ -97,13 +97,16 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
   const retryCodes = [429, 502];
   const maxRetries = 10;
   const { prefixUrl, asStream, searchParams, ...opts } = options;
+  let baseUrl: string;
+
+  if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
+
+  const url = new URL(endpoint, baseUrl);
+
+  url.search = searchParams || '';
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const url = new URL(endpoint, prefixUrl);
-
-    url.search = searchParams || '';
-
     const response = await fetch(url, { ...opts, mode: 'same-origin' });
 
     if (response.ok) return parseResponse(response, asStream);
