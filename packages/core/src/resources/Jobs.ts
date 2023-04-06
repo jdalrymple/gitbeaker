@@ -50,6 +50,7 @@ export interface JobSchema extends Record<string, unknown> {
   created_at: string;
   started_at?: string;
   finished_at?: string;
+  failure_reason?: string;
   erased_at?: string;
   duration?: number;
   user: ExpandedUserSchema;
@@ -65,6 +66,9 @@ export interface JobSchema extends Record<string, unknown> {
   runner: RunnerSchema;
   artifacts_expire_at?: string;
   tag_list?: string[];
+  project?: {
+    ci_job_token_scope_enabled?: boolean;
+  };
 }
 
 export interface BridgeSchema extends Record<string, unknown> {
@@ -115,25 +119,13 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: { pipelineId?: number; scope?: JobScope; includeRetried?: boolean } & Sudo &
       ShowExpanded<E> &
-      PaginationRequestOptions<P> = {} as {
-      pipelineId?: number;
-      scope?: JobScope;
-      includeRetried?: boolean;
-    } & Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      PaginationRequestOptions<P> = {} as any,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
     const url = pipelineId
       ? endpoint`projects/${projectId}/pipelines/${pipelineId}/jobs`
       : endpoint`projects/${projectId}/jobs`;
 
-    return RequestHelper.get<JobSchema[]>()(
-      this,
-      url,
-      options as { scope?: JobScope; includeRetried?: boolean } & Sudo &
-        ShowExpanded<E> &
-        PaginationRequestOptions<P>,
-    );
+    return RequestHelper.get<JobSchema[]>()(this, url, options);
   }
 
   allPipelineBridges<E extends boolean = false>(

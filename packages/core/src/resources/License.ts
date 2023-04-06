@@ -58,4 +58,15 @@ export class License<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     return RequestHelper.del<LicenseSchema>()(this, `license/${licenceId}`, options);
   }
+
+  recalculateBillableUsers<E extends boolean = false>(
+    licenceId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<{ success: boolean }, C, E, void>> {
+    return RequestHelper.put<{ success: boolean }>()(
+      this,
+      `license/${licenceId}/refresh_billable_users`,
+      options,
+    );
+  }
 }

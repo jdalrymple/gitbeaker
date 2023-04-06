@@ -25,7 +25,7 @@ export interface DeployKeySchema extends CondensedDeployKeySchema {
   can_push?: boolean;
 }
 
-export interface ExpandedDeployKeySchema extends CondensedDeployKeySchema {
+export interface ExpandedDeployKeySchema extends DeployKeySchema {
   projects_with_write_access?: SimpleProjectSchema[];
 }
 
