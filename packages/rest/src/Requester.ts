@@ -102,7 +102,7 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
   for (let i = 0; i < maxRetries; i += 1) {
     const url = new URL(endpoint, prefixUrl);
 
-    url.search = searchParams;
+    url.search = searchParams || '';
 
     const response = await fetch(url, { ...opts, mode: 'same-origin' });
 

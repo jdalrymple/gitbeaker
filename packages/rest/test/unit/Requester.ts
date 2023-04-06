@@ -177,6 +177,57 @@ describe('defaultRequestHandler', () => {
       status: 200,
     });
   });
+
+  it('should handle a prefix url correctly', async () => {
+    MockFetch.mockImplementationOnce(() => ({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: {
+        entries() {
+          return [['content-type', 'application/json']];
+        },
+        get() {
+          return 'application/json';
+        },
+      },
+    }));
+
+    await defaultRequestHandler('testurl', {
+      prefixUrl: 'http://test.com',
+    } as RequestOptions);
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), {
+      mode: 'same-origin',
+    });
+  });
+
+  it('should handle a searchParams correctly', async () => {
+    MockFetch.mockImplementationOnce(() => ({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: {
+        entries() {
+          return [['content-type', 'application/json']];
+        },
+        get() {
+          return 'application/json';
+        },
+      },
+    }));
+
+    await defaultRequestHandler('testurl', {
+      searchParams: 'test=4',
+      prefixUrl: 'http://test.com',
+    } as RequestOptions);
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl?test=4'), {
+      mode: 'same-origin',
+    });
+  });
 });
 
 describe('defaultRequest', () => {
