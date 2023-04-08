@@ -63,7 +63,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     issueIId: number,
     targetProjectId: string | number,
     targetIssueIId: number,
-    options?: { linkType?: string } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
     return RequestHelper.get<ExpandedIssueLinkSchema>()(
       this,
@@ -80,7 +80,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     issueLinkId: number,
-    options?: { linkType?: string } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
     return RequestHelper.del<ExpandedIssueLinkSchema>()(
       this,

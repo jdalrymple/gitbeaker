@@ -29,7 +29,6 @@ import { Keys } from './Keys';
 import { License } from './License';
 import { LicenseTemplates } from './LicenseTemplates';
 import { Lint } from './Lint';
-import { ManagedLicenses } from './ManagedLicenses';
 import { Markdown } from './Markdown';
 import { Maven } from './Maven';
 import { Metadata } from './Metadata';
@@ -163,6 +162,7 @@ import { GroupIterations } from './GroupIterations';
 import { GroupLabels } from './GroupLabels';
 import { GroupLDAPLinks } from './GroupLDAPLinks';
 import { GroupMembers } from './GroupMembers';
+import { GroupMemberRoles } from './GroupMemberRoles';
 import { GroupMilestones } from './GroupMilestones';
 import { GroupProtectedEnvironments } from './GroupProtectedEnvironments';
 import { GroupPushRules } from './GroupPushRules';
@@ -349,6 +349,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupLabels: GroupLabels<C>;
   GroupLDAPLinks: GroupLDAPLinks<C>;
   GroupMembers: GroupMembers<C>;
+  GroupMemberRoles: GroupMemberRoles<C>;
   GroupMilestones: GroupMilestones<C>;
   GroupProtectedEnvironments: GroupProtectedEnvironments<C>;
   GroupPushRules: GroupPushRules<C>;
@@ -533,6 +534,7 @@ const resources = {
   GroupLabels,
   GroupLDAPLinks,
   GroupMembers,
+  GroupMemberRoles,
   GroupMilestones,
   GroupProtectedEnvironments,
   GroupPushRules,

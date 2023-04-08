@@ -9,7 +9,6 @@ import type {
 } from '../templates/ResourceMembers';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -46,19 +45,32 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
     projectId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      expiresAt?: string;
+      inviteSource?: string;
+      tasksToBeDone?: string[];
+      tasksProjectId?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: IncludeInherited & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: IncludeInherited &
+      PaginationRequestOptions<P> & {
+        query?: string;
+        userIds?: number[];
+        skipUsers?: number[];
+        showSeatInfo?: boolean;
+      } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions<E>,
+    options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   show<E extends boolean = false>(
@@ -82,13 +94,20 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   allBillable<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BillableGroupMemberSchema[], C, E, P>> {
     return RequestHelper.get<BillableGroupMemberSchema[]>()(
       this,
       endpoint`${groupId}/billable_members`,
       options,
     );
+  }
+
+  allPending<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
+    return RequestHelper.get<MemberSchema[]>()(this, endpoint`${groupId}/pending_members`, options);
   }
 
   approve<E extends boolean = false>(
@@ -149,7 +168,21 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   allBillableMemberships<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options: Sudo & ShowExpanded<E>,
+    options: {
+      search?: string;
+      sort?:
+        | 'access_level_asc'
+        | 'access_level_desc'
+        | 'last_joined'
+        | 'name_asc'
+        | 'name_desc'
+        | 'oldest_joined'
+        | 'oldest_sign_in'
+        | 'recent_sign_in'
+        | 'last_activity_on_asc'
+        | 'last_activity_on_desc';
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, void>> {
     return RequestHelper.get<BillableGroupMemberMembershipSchema[]>()(
       this,

@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { UserSchema } from './Users';
 import type { GroupSchema } from './Groups';
 import type { ProtectedBranchSchema } from './ProtectedBranches';
@@ -33,12 +33,6 @@ export interface MergeRequestLevelMergeRequestApprovalSchema extends Record<stri
   approved_by?: ApprovedByEntity[];
 }
 
-export type ApprovalRulesRequestOptions = {
-  userIds?: number[];
-  groupIds?: number[];
-  protectedBranchIds?: number[];
-};
-
 export interface ApprovalRuleSchema extends Record<string, unknown> {
   id: number;
   name: string;
@@ -64,20 +58,48 @@ export interface ApprovalStateSchema extends Record<string, unknown> {
   rules: ({ approved: boolean } & MergeRequestLevelApprovalRuleSchema)[];
 }
 
+export interface CreateApprovalRuleOptions {
+  userIds?: number[];
+  groupIds?: number[];
+  protectedBranchIds?: number[];
+  appliesToAllProtectedBranches?: boolean;
+  reportType?: string;
+  ruleType?: string;
+  usernames?: string[];
+}
+
+export interface EditApprovalRuleOptions {
+  userIds?: number[];
+  groupIds?: number[];
+  protectedBranchIds?: number[];
+  appliesToAllProtectedBranches?: boolean;
+  usernames?: string[];
+  removeHiddenGroups?: boolean;
+}
+
+export interface EditConfigurationOptions {
+  disableOverridingApproversPerMergeRequest?: boolean;
+  mergeRequestsAuthorApproval?: boolean;
+  mergeRequestsDisableCommittersApproval?: boolean;
+  requirePasswordToApprove?: boolean;
+  resetApprovalsOnPush?: boolean;
+  selectiveCodeOwnerRemovals?: boolean;
+}
+
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    options: { mergerequestIId: number } & BaseRequestOptions<E>,
+    options: { mergerequestIId: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema[], C, E, void>>;
 
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema[], C, E, void>>;
 
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions<E> = {},
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<
     GitlabAPIResponse<
       (ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema)[],
@@ -102,7 +124,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   approve<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: { sha?: string; approval_password?: string } & Sudo & ShowExpanded<E>,
+    options?: { sha?: string; approvalPassword?: string } & Sudo & ShowExpanded<E>,
   ) {
     return RequestHelper.post<MergeRequestLevelMergeRequestApprovalSchema>()(
       this,
@@ -115,14 +137,14 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options: { mergerequestIId: number } & ApprovalRulesRequestOptions & BaseRequestOptions<E>,
+    options: { mergerequestIId: number } & CreateApprovalRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema, C, E, void>>;
 
   createApprovalRule<E extends boolean = false>(
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options?: ApprovalRulesRequestOptions & BaseRequestOptions<E>,
+    options?: CreateApprovalRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>>;
 
   createApprovalRule<E extends boolean = false>(
@@ -132,7 +154,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     {
       mergerequestIId,
       ...options
-    }: { mergerequestIId?: number } & ApprovalRulesRequestOptions & BaseRequestOptions<E> = {},
+    }: { mergerequestIId?: number } & CreateApprovalRuleOptions & Sudo & ShowExpanded<E> = {},
   ): Promise<
     GitlabAPIResponse<
       ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema,
@@ -159,7 +181,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     approvalRuleId: number,
     name: string,
     approvalsRequired: number,
-    options: { mergerequestIId: number } & ApprovalRulesRequestOptions & BaseRequestOptions<E>,
+    options: { mergerequestIId: number } & EditApprovalRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema, C, E, void>>;
 
   editApprovalRule<E extends boolean = false>(
@@ -167,7 +189,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     approvalRuleId: number,
     name: string,
     approvalsRequired: number,
-    options?: ApprovalRulesRequestOptions & BaseRequestOptions<E>,
+    options?: EditApprovalRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>>;
 
   editApprovalRule<E extends boolean = false>(
@@ -178,7 +200,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     {
       mergerequestIId,
       ...options
-    }: { mergerequestIId?: number } & ApprovalRulesRequestOptions & BaseRequestOptions<E> = {},
+    }: { mergerequestIId?: number } & EditApprovalRuleOptions & Sudo & ShowExpanded<E> = {},
   ): Promise<
     GitlabAPIResponse<
       ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema,
@@ -202,7 +224,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   editConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: EditConfigurationOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelMergeRequestApprovalSchema, C, E, void>> {
     return RequestHelper.post<ProjectLevelMergeRequestApprovalSchema>()(
       this,
@@ -233,7 +255,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   showApprovalRule<E extends boolean = false>(
     projectId: string | number,
     approvalRuleId: number,
-    options: BaseRequestOptions<E>,
+    options: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>> {
     return RequestHelper.get<ProjectLevelApprovalRuleSchema>()(
       this,
@@ -256,17 +278,17 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options: { mergerequestIId: number } & BaseRequestOptions<E>,
+    options: { mergerequestIId: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestLevelMergeRequestApprovalSchema, C, E, void>>;
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelMergeRequestApprovalSchema, C, E, void>>;
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & BaseRequestOptions<E> = {},
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<
     GitlabAPIResponse<
       MergeRequestLevelMergeRequestApprovalSchema | ProjectLevelMergeRequestApprovalSchema,

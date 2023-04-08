@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -47,7 +46,13 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     resourceId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions<E>,
+    options?: {
+      expiresAt?: string;
+      inviteSource?: string;
+      tasksToBeDone?: string[];
+      tasksProjectId?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
       userId: String(userId),
@@ -61,7 +66,14 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     {
       includeInherited,
       ...options
-    }: IncludeInherited & PaginationRequestOptions<P> & BaseRequestOptions<E> = {} as any,
+    }: IncludeInherited &
+      PaginationRequestOptions<P> & {
+        query?: string;
+        userIds?: number[];
+        skipUsers?: number[];
+        showSeatInfo?: boolean;
+      } & Sudo &
+      ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     let url = endpoint`${resourceId}/members`;
 
@@ -74,7 +86,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     resourceId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: BaseRequestOptions<E>,
+    options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.put<MemberSchema>()(this, endpoint`${resourceId}/members/${userId}`, {
       accessLevel,
@@ -104,7 +116,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   remove<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { skipSubresourceS?: boolean; unassignIssuables?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`${resourceId}/members/${userId}`, options);
   }
