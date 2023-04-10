@@ -35,6 +35,16 @@ export interface PackageFileSchema extends Record<string, unknown> {
   pipelines?: PipelineSchema[];
 }
 
+export interface AllPackageOptions {
+  excludeSubgroups?: boolean;
+  orderBy?: 'created_at' | 'name' | 'version' | 'type' | 'project_path';
+  sort?: 'asc' | 'desc';
+  packageType?: 'conan' | 'maven' | 'npm' | 'pypi' | 'composer' | 'nuget' | 'helm' | 'golang';
+  packageName?: string;
+  includeVersionless?: boolean;
+  status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction';
+}
+
 export class Packages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     {
@@ -42,6 +52,7 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
       groupId,
       ...options
     }: Either<{ projectId: string | number }, { groupId: string | number }> &
+      AllPackageOptions &
       Sudo &
       ShowExpanded<E> &
       PaginationRequestOptions<P> = {} as any,
@@ -57,6 +68,18 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     }
 
     return RequestHelper.get<PackageSchema[]>()(this, url, options as Sudo & ShowExpanded<E>);
+  }
+
+  allFiles<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PackageFileSchema[], C, E, void>> {
+    return RequestHelper.get<PackageFileSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/packages/${packageId}/package_files`,
+      options,
+    );
   }
 
   remove<E extends boolean = false>(
@@ -92,18 +115,6 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<ExpandedPackageSchema>()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}`,
-      options,
-    );
-  }
-
-  allFiles<E extends boolean = false>(
-    projectId: string | number,
-    packageId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<PackageFileSchema[], C, E, void>> {
-    return RequestHelper.get<PackageFileSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/packages/${packageId}/package_files`,
       options,
     );
   }

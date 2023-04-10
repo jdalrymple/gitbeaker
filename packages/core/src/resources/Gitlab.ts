@@ -88,6 +88,7 @@ import { MergeRequestDiscussions } from './MergeRequestDiscussions';
 import { MergeRequestLabelEvents } from './MergeRequestLabelEvents';
 import { MergeRequestMilestoneEvents } from './MergeRequestMilestoneEvents';
 import { MergeRequestNotes } from './MergeRequestNotes';
+import { MergeRequestDraftNotes } from './MergeRequestDraftNotes';
 import { MergeRequests } from './MergeRequests';
 import { MergeTrains } from './MergeTrains';
 import { PackageRegistry } from './PackageRegistry';
@@ -275,6 +276,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   MergeRequestLabelEvents: MergeRequestLabelEvents<C>;
   MergeRequestMilestoneEvents: MergeRequestMilestoneEvents<C>;
   MergeRequestNotes: MergeRequestNotes<C>;
+  MergeRequestDraftNotes: MergeRequestDraftNotes<C>;
   MergeRequests: MergeRequests<C>;
   MergeTrains: MergeTrains<C>;
   PackageRegistry: PackageRegistry<C>;
@@ -460,6 +462,7 @@ const resources = {
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
   MergeRequestNotes,
+  MergeRequestDraftNotes,
   MergeRequests,
   MergeTrains,
   PackageRegistry,

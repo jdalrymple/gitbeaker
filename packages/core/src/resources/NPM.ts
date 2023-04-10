@@ -93,14 +93,16 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     packageName: string,
     versions: string,
+    metadata: Record<string, unknown>,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
     return RequestHelper.put<Record<string, unknown>>()(
       this,
       endpoint`projects/${projectId}/packages/npm/${packageName}`,
       {
-        versions,
         ...options,
+        versions,
+        ...metadata,
       },
     );
   }

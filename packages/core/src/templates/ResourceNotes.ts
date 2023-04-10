@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -31,7 +30,12 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: {
+      sort?: 'asc' | 'desc';
+      orderBy?: 'created_at' | 'updated_at';
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>> {
     return RequestHelper.get<NoteSchema[]>()(
       this,
@@ -44,7 +48,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
     return RequestHelper.post<NoteSchema>()(
       this,

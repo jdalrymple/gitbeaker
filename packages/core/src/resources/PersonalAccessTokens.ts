@@ -28,14 +28,14 @@ export type PersonalAccessTokenScopes =
   | 'write_repository';
 
 export interface AllPersonalAccessTokenOptions extends Record<string, unknown> {
-  userId?: number;
-  state?: string;
+  userId?: string | number;
+  state?: 'active' | 'inactive';
   search?: string;
   revoked?: boolean;
-  last_used_before?: string;
-  last_used_after?: string;
-  created_before?: string;
-  created_after?: string;
+  lastUsedBefore?: string;
+  lastUsedAfter?: string;
+  createdBefore?: string;
+  createdAfter?: string;
 }
 
 export class PersonalAccessTokens<C extends boolean = false> extends BaseResource<C> {
@@ -49,15 +49,16 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
     );
   }
 
+  // Convience method - Also located in Users
   create<E extends boolean = false>(
     userId: number,
     name: string,
-    scopes: PersonalAccessTokenScopes,
-    options?: { expires_at?: string } & Sudo & ShowExpanded<E>,
+    scopes: string[],
+    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
-    return RequestHelper.get<PersonalAccessTokenSchema>()(
+    return RequestHelper.post<PersonalAccessTokenSchema>()(
       this,
-      `user/${userId}/personal_access_tokens`,
+      endpoint`users/${userId}/personal_access_tokens`,
       {
         name,
         scopes,

@@ -176,8 +176,7 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    content: Blob,
-    filename: string,
+    packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/nuget`, {
@@ -185,7 +184,7 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
       ...options,
       packageName,
       packageVersion,
-      file: [content, filename],
+      file: [packageFile.content, packageFile.filename],
     });
   }
 
@@ -193,8 +192,7 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    content: Blob,
-    filename: string,
+    packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.put<void>()(
@@ -205,7 +203,7 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
         ...options,
         packageName,
         packageVersion,
-        file: [content, filename],
+        file: [packageFile.content, packageFile.filename],
       },
     );
   }

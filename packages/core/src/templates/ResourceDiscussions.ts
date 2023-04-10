@@ -20,19 +20,23 @@ export interface DiscussionNotePositionBaseSchema extends Record<string, unknown
   new_path?: string;
 }
 
+export type DiscussionNotePositionTextSchema = DiscussionNotePositionBaseSchema & {
+  position_type: 'text';
+  new_line?: string;
+  old_line?: string;
+};
+
+export type DiscussionNotePositionImageSchema = DiscussionNotePositionBaseSchema & {
+  position_type: 'image';
+  width?: string;
+  height?: string;
+  x?: number;
+  y?: number;
+};
+
 export type DiscussionNotePositionSchema =
-  | (DiscussionNotePositionBaseSchema & {
-      position_type: 'text';
-      new_line?: string;
-      old_line?: string;
-    })
-  | (DiscussionNotePositionBaseSchema & {
-      position_type: 'image';
-      width?: string;
-      height?: string;
-      x?: number;
-      y?: number;
-    });
+  | DiscussionNotePositionTextSchema
+  | DiscussionNotePositionImageSchema;
 
 export interface DiscussionNoteSchema extends Record<string, unknown> {
   id: number;
