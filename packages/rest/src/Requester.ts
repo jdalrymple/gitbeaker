@@ -97,7 +97,7 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
   const retryCodes = [429, 502];
   const maxRetries = 10;
   const { prefixUrl, asStream, searchParams, ...opts } = options;
-  let baseUrl: string;
+  let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
 
