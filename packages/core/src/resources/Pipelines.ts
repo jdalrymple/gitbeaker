@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -102,10 +101,25 @@ export interface PipelineTestReportSummarySchema extends Record<string, unknown>
   test_suites?: PipelineTestSuiteSchema[];
 }
 
+export interface AllPipelinesOptions {
+  scope?: 'running' | 'pending' | 'finished' | 'branches' | 'tags';
+  status?: PipelineStatus;
+  source?: string;
+  ref?: string;
+  sha?: string;
+  yamlErrors?: boolean;
+  username?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  name?: string;
+  orderBy?: 'id' | 'status' | 'updated_at' | 'user_id';
+  sort?: 'asc' | 'desc';
+}
+
 export class Pipelines<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllPipelinesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
     return RequestHelper.get<PipelineSchema[]>()(
       this,

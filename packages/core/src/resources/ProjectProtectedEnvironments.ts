@@ -22,9 +22,9 @@ export interface ProjectProtectedEnvironments<C extends boolean = false> {
     projectId: string | number,
     name: string,
     options?: {
-      deploy_access_levels?: ProtectedEnvironmentAccessLevel[];
-      required_approval_count?: number;
-      approval_rules?: ProtectedEnvironmentAccessLevel[];
+      deployAccessLevels?: ProtectedEnvironmentAccessLevel[];
+      requiredApprovalCount?: number;
+      approvalRules?: ProtectedEnvironmentAccessLevel[];
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>>;

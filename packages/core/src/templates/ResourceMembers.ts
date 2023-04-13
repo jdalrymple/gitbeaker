@@ -37,6 +37,20 @@ export interface MemberSchema extends SimpleMemberSchema {
   };
 }
 
+export interface AddMemeberOptions {
+  expiresAt?: string;
+  inviteSource?: string;
+  tasksToBeDone?: string[];
+  tasksProjectId?: number;
+}
+
+export interface AllMembersOptions {
+  query?: string;
+  userIds?: number[];
+  skipUsers?: number[];
+  showSeatInfo?: boolean;
+}
+
 export class ResourceMembers<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
@@ -46,13 +60,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     resourceId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: {
-      expiresAt?: string;
-      inviteSource?: string;
-      tasksToBeDone?: string[];
-      tasksProjectId?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
       userId: String(userId),
@@ -67,12 +75,9 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
       includeInherited,
       ...options
     }: IncludeInherited &
-      PaginationRequestOptions<P> & {
-        query?: string;
-        userIds?: number[];
-        skipUsers?: number[];
-        showSeatInfo?: boolean;
-      } & Sudo &
+      PaginationRequestOptions<P> &
+      AllMembersOptions &
+      Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     let url = endpoint`${resourceId}/members`;

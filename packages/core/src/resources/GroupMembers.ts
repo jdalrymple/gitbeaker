@@ -2,6 +2,8 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMembers } from '../templates';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
+  AddMemeberOptions,
+  AllMembersOptions,
   CondensedMemberSchema,
   IncludeInherited,
   MemberSchema,
@@ -45,24 +47,15 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
     projectId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: {
-      expiresAt?: string;
-      inviteSource?: string;
-      tasksToBeDone?: string[];
-      tasksProjectId?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: IncludeInherited &
-      PaginationRequestOptions<P> & {
-        query?: string;
-        userIds?: number[];
-        skipUsers?: number[];
-        showSeatInfo?: boolean;
-      } & Sudo &
+      PaginationRequestOptions<P> &
+      AllMembersOptions &
+      Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>>;
 

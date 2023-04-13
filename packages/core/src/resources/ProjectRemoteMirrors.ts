@@ -58,6 +58,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
       enabled?: boolean;
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
+      mirrorBranchRegex?: string;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
@@ -78,6 +79,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
       enabled?: boolean;
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
+      mirrorBranchRegex?: string;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {

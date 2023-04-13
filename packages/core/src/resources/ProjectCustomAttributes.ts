@@ -26,7 +26,7 @@ export interface ProjectCustomAttributes<C extends boolean = false>
   remove<E extends boolean = false>(
     projectId: string | number,
     customAttributeId: string,
-    options?: Sudo,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
