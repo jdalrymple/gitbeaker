@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   AsStream,
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   ShowExpanded,
@@ -47,7 +46,58 @@ export interface RepositoryBlobSchema extends Record<string, unknown> {
   sha: string;
 }
 
+export interface AllRepositoryTreesOptions {
+  pageToken?: string;
+  path?: string;
+  recursive?: boolean;
+  ref?: string;
+}
+
+export interface EditChangelogOptions {
+  branch?: string;
+  configFile?: string;
+  date?: string;
+  file?: string;
+  from?: string;
+  message?: string;
+  to?: string;
+  trailer?: string;
+}
+
+export interface ShowChangelogOptions {
+  configFile?: string;
+  date?: string;
+  from?: string;
+  to?: string;
+  trailer?: string;
+}
+
 export class Repositories<C extends boolean = false> extends BaseResource<C> {
+  allContributors<E extends boolean = false>(
+    projectId: string | number,
+    options?: { orderBy?: string; sort?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryContributorSchema[], C, E, void>> {
+    return RequestHelper.get<RepositoryContributorSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/contributors`,
+      options,
+    );
+  }
+
+  allRepositoryTrees<E extends boolean = false>(
+    projectId: string | number,
+    options?: AllRepositoryTreesOptions &
+      PaginationRequestOptions<'keyset'> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryTreeSchema[], C, E, 'keyset'>> {
+    return RequestHelper.get<RepositoryTreeSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/tree`,
+      options,
+    );
+  }
+
   compare<E extends boolean = false>(
     projectId: string | number,
     from: string,
@@ -65,21 +115,10 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allContributors<E extends boolean = false>(
-    projectId: string | number,
-    options?: { orderBy?: string; sort?: string } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<RepositoryContributorSchema[], C, E, void>> {
-    return RequestHelper.get<RepositoryContributorSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/repository/contributors`,
-      options,
-    );
-  }
-
   editChangelog<E extends boolean = false>(
     projectId: string | number,
     version: string,
-    options?: BaseRequestOptions<E>,
+    options?: EditChangelogOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
     return RequestHelper.post<RepositoryChangelogSchema>()(
       this,
@@ -158,23 +197,12 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   showChangelog<E extends boolean = false>(
     projectId: string | number,
     version: string,
-    options?: BaseRequestOptions<E>,
+    options?: ShowChangelogOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
     return RequestHelper.get<RepositoryChangelogSchema>()(
       this,
       endpoint`projects/${projectId}/repository/changelog`,
       { version, ...options },
-    );
-  }
-
-  allRepositoryTrees<E extends boolean = false>(
-    projectId: string | number,
-    options?: PaginationRequestOptions<'keyset'> & BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<RepositoryTreeSchema[], C, E, 'keyset'>> {
-    return RequestHelper.get<RepositoryTreeSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/repository/tree`,
-      options,
     );
   }
 }

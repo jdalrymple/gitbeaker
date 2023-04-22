@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -27,21 +26,6 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
       this,
       endpoint`projects/${projectId}/resource_groups`,
       options,
-    );
-  }
-
-  create<E extends boolean = false>(
-    projectId: string | number,
-    title: string,
-    options?: BaseRequestOptions<E>,
-  ) {
-    return RequestHelper.post<ResourceGroupSchema>()(
-      this,
-      endpoint`projects/${projectId}/resource_groups`,
-      {
-        title,
-        ...options,
-      },
     );
   }
 

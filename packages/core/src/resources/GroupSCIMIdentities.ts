@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -13,7 +12,7 @@ import type { IdentitySchema } from './GroupSAMLIdentities';
 export class GroupSCIMIdentities<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IdentitySchema[], C, E, P>> {
     return RequestHelper.get<IdentitySchema[]>()(
       this,

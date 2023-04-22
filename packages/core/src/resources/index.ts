@@ -38,6 +38,7 @@ export { NPM } from './NPM';
 export { NuGet } from './NuGet';
 export { PersonalAccessTokens } from './PersonalAccessTokens';
 export { PyPI } from './PyPI';
+export { RubyGems } from './RubyGems';
 export { Search } from './Search';
 export { ServiceData } from './ServiceData';
 export { SidekiqMetrics } from './SidekiqMetrics';

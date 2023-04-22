@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { CommitSchema } from './Commits';
 
 export interface RepositoryFileExpandedSchema extends Record<string, unknown> {
@@ -26,14 +26,54 @@ export interface RepositoryFileSchema extends Record<string, unknown> {
   branch: string;
 }
 
+export interface CreateRepositoryFileOptions {
+  authorEmail?: string;
+  authorName?: string;
+  encoding?: string;
+  executeFilemode?: boolean;
+  startBranch?: string;
+}
+
+export interface EditRepositoryFileOptions {
+  authorEmail?: string;
+  authorName?: string;
+  encoding?: string;
+  executeFilemode?: boolean;
+  startBranch?: string;
+  lastCommitId?: string;
+}
+
+export interface RemoveRepositoryFileOptions {
+  authorEmail?: string;
+  authorName?: string;
+  startBranch?: string;
+  lastCommitId?: string;
+}
+
 export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> {
+  allFileBlames<E extends boolean = false>(
+    projectId: string | number,
+    filePath: string,
+    ref: string,
+    options?: { range?: { start: number; end: number } } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RepositoryFileBlameSchema[], C, E, void>> {
+    return RequestHelper.get<RepositoryFileBlameSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/repository/files/${filePath}/blame`,
+      {
+        ref,
+        ...options,
+      },
+    );
+  }
+
   create<E extends boolean = false>(
     projectId: string | number,
     filePath: string,
     branch: string,
-    content: Blob,
+    content: string,
     commitMessage: string,
-    options?: BaseRequestOptions<E>,
+    options?: CreateRepositoryFileOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileSchema, C, E, void>> {
     return RequestHelper.post<RepositoryFileSchema>()(
       this,
@@ -51,9 +91,9 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     filePath: string,
     branch: string,
-    content: Blob,
+    content: string,
     commitMessage: string,
-    options?: BaseRequestOptions<E>,
+    options?: EditRepositoryFileOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileSchema, C, E, void>> {
     return RequestHelper.put<RepositoryFileSchema>()(
       this,
@@ -72,7 +112,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     filePath: string,
     branch: string,
     commitMessage: string,
-    options?: BaseRequestOptions<E>,
+    options?: RemoveRepositoryFileOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`projects/${projectId}/repository/files/${filePath}`, {
       branch,
@@ -97,27 +137,11 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     );
   }
 
-  allFileBlames<E extends boolean = false>(
-    projectId: string | number,
-    filePath: string,
-    ref: string,
-    options?: { range?: { start: number; end: number } } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<RepositoryFileBlameSchema[], C, E, void>> {
-    return RequestHelper.get<RepositoryFileBlameSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/repository/files/${filePath}/blame`,
-      {
-        ref,
-        ...options,
-      },
-    );
-  }
-
   showRaw<E extends boolean = false>(
     projectId: string | number,
     filePath: string,
     ref: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { lfs?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     return RequestHelper.get<string>()(
       this,

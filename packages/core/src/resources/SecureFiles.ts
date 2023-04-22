@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -15,8 +14,8 @@ export interface SecureFileSchema extends Record<string, unknown> {
   checksum: string;
   checksum_algorithm: string;
   created_at: string;
-  expires_at: string;
-  metadata: {
+  expires_at?: string;
+  metadata?: {
     id: string;
     issuer: {
       C: string;
@@ -38,7 +37,7 @@ export interface SecureFileSchema extends Record<string, unknown> {
 export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SecureFileSchema[], C, E, P>> {
     return RequestHelper.get<SecureFileSchema[]>()(
       this,
@@ -49,24 +48,15 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
 
   create<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
     name: string,
-    path: string,
-    {
-      filename,
-      parentId,
-      ...options
-    }: { parentId?: number; filename?: string } & Sudo & ShowExpanded<E> = {
-      filename: `${Date.now().toString()}.tar.gz`,
-    },
+    file: { content: Blob; filename: string },
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SecureFileSchema, C, E, void>> {
     return RequestHelper.post<SecureFileSchema>()(this, `projects/${projectId}/secure_files`, {
       isForm: true,
       ...options,
-      file: [content, filename],
-      path,
+      file: [file.content, file.filename],
       name,
-      parentId,
     });
   }
 
