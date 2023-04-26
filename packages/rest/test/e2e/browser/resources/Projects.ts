@@ -50,7 +50,8 @@ describe('Projects API', () => {
           type: 'text/plain',
         });
 
-        const results = await resource.upload(project.id, blob, {
+        const results = await resource.upload(project.id, {
+          content: blob,
           filename: 'testfile.txt',
         });
 
