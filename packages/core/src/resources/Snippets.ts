@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
@@ -38,26 +37,48 @@ export interface ExpandedSnippetSchema extends SnippetSchema {
   }[];
 }
 
+export type CreateSnippetOptions = {
+  description?: string;
+  visibility?: SnippetVisibility;
+  files?: { content: string; filePath: string }[];
+};
+
+export type EditSnippetOptions = {
+  description?: string;
+  visibility?: SnippetVisibility;
+  files?: {
+    content?: string;
+    filePath?: string;
+    previousPath?: string;
+    action: 'create' | 'update' | 'delete' | 'move';
+  }[];
+};
+
 export class Snippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     public: ppublic,
     ...options
-  }: { public?: boolean } & Sudo & ShowExpanded<E> = {}): Promise<
-    GitlabAPIResponse<SnippetSchema[], C, E, void>
-  > {
+  }: { public?: boolean; createdAfter?: string; createdBefore?: string } & Sudo &
+    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, void>> {
     const url = ppublic ? 'snippets/public' : 'snippets';
 
     return RequestHelper.get<SnippetSchema[]>()(this, url, options);
   }
 
-  create<E extends boolean = false>(title: string, options?: BaseRequestOptions<E>) {
+  create<E extends boolean = false>(
+    title: string,
+    options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.post<ExpandedSnippetSchema>()(this, 'snippets', {
       title,
       ...options,
     });
   }
 
-  edit<E extends boolean = false>(snippetId: number, options?: BaseRequestOptions<E>) {
+  edit<E extends boolean = false>(
+    snippetId: number,
+    options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.put<ExpandedSnippetSchema>()(this, `snippets/${snippetId}`, options);
   }
 

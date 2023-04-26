@@ -26,29 +26,29 @@ export interface RepositoryFileSchema extends Record<string, unknown> {
   branch: string;
 }
 
-export interface CreateRepositoryFileOptions {
+export type CreateRepositoryFileOptions = {
   authorEmail?: string;
   authorName?: string;
   encoding?: string;
   executeFilemode?: boolean;
   startBranch?: string;
-}
+};
 
-export interface EditRepositoryFileOptions {
+export type EditRepositoryFileOptions = {
   authorEmail?: string;
   authorName?: string;
   encoding?: string;
   executeFilemode?: boolean;
   startBranch?: string;
   lastCommitId?: string;
-}
+};
 
-export interface RemoveRepositoryFileOptions {
+export type RemoveRepositoryFileOptions = {
   authorEmail?: string;
   authorName?: string;
   startBranch?: string;
   lastCommitId?: string;
-}
+};
 
 export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> {
   allFileBlames<E extends boolean = false>(

@@ -1,7 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceProtectedEnvironments } from '../templates';
 import {
-  ProtectedEnvironmentAccessLevel,
   ProtectedEnvironmentAccessLevelEntity,
   ProtectedEnvironmentSchema,
 } from '../templates/ResourceProtectedEnvironments';
@@ -16,13 +15,13 @@ import type {
 export interface GroupProtectedEnvironments<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     groupId: string | number,
     name: string,
-    deployAccessLevel: ProtectedEnvironmentAccessLevel[],
+    deployAccessLevel: ProtectedEnvironmentAccessLevelEntity[],
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];

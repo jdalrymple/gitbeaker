@@ -12,11 +12,16 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
 const url = (userId?: number) => (userId ? `users/${userId}/keys` : 'user/keys');
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
-  // Convienence method
+  // Convienence method for create
   add<E extends boolean = false>(
     title: string,
     key: string,
-    options?: { userId?: number; expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      userId?: number;
+      expiresAt?: string;
+      usageType?: 'auth' | 'signing' | 'auth_and_signing';
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     return this.create<E>(title, key, options);
   }
@@ -37,7 +42,15 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     title: string,
     key: string,
-    { userId, ...options }: { userId?: number; expiresAt?: string } & Sudo & ShowExpanded<E> = {},
+    {
+      userId,
+      ...options
+    }: {
+      userId?: number;
+      expiresAt?: string;
+      usageType?: 'auth' | 'signing' | 'auth_and_signing';
+    } & Sudo &
+      ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     return RequestHelper.post<UserSSHKeySchema>()(this, url(userId), {
       title,

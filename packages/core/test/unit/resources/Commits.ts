@@ -116,7 +116,9 @@ describe('Commits.editStatus', () => {
   it('should request POST projects/:id/statuses/:ref', async () => {
     await service.editStatus(1, '5a', 'pending');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/statuses/5a', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/statuses/5a', {
+      state: 'pending',
+    });
   });
 });
 

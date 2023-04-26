@@ -9,7 +9,7 @@ import type {
 } from '../infrastructure';
 import { UserSchema } from './Users';
 
-export interface AllEventOptions {
+export type AllEventOptions = {
   action?:
     | 'created'
     | 'updated'
@@ -27,7 +27,7 @@ export interface AllEventOptions {
   after?: string;
   scope?: string;
   sort?: 'asc' | 'desc';
-}
+};
 
 export interface EventSchema extends Record<string, unknown> {
   id: number;

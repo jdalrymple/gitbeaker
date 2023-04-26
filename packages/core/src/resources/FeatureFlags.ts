@@ -31,7 +31,7 @@ export interface FeatureFlagSchema extends Record<string, unknown> {
   strategies?: FeatureFlagStrategySchema[];
 }
 
-export interface CreateFeatureFlagOptions {
+export type CreateFeatureFlagOptions = {
   description?: string;
   active?: boolean;
   strategies?: {
@@ -39,9 +39,9 @@ export interface CreateFeatureFlagOptions {
     parameters?: Record<string, string>;
     scopes?: Omit<FeatureFlagStrategyScopeSchema, 'id'>[];
   };
-}
+};
 
-export interface EditFeatureFlagOptions {
+export type EditFeatureFlagOptions = {
   description?: string;
   active?: boolean;
   strategies?: {
@@ -51,7 +51,7 @@ export interface EditFeatureFlagOptions {
     parameters?: Record<string, string>;
     scopes?: (FeatureFlagStrategyScopeSchema & { _destroy?: boolean })[];
   };
-}
+};
 
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

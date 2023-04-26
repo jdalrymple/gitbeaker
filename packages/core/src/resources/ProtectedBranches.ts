@@ -25,7 +25,7 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
   code_owner_approval_required: boolean;
 }
 
-export interface CreateProtectedBranchOptions {
+export type CreateProtectedBranchOptions = {
   allowForcePush?: boolean;
   allowedToMerge?: Record<string, number>[];
   allowedToPush?: Record<string, number>[];
@@ -34,15 +34,15 @@ export interface CreateProtectedBranchOptions {
   mergeAccessLevel?: ProtectedBranchAccessLevel;
   pushAccessLevel?: ProtectedBranchAccessLevel;
   unprotectAccessLevel?: ProtectedBranchAccessLevel;
-}
+};
 
-export interface EditProtectedBranchOptions {
+export type EditProtectedBranchOptions = {
   allowForcePush?: boolean;
   allowedToMerge?: Record<string, number>[];
   allowedToPush?: Record<string, number>[];
   allowedToUnprotect?: Record<string, number>[];
   codeOwnerApprovalRequired?: boolean;
-}
+};
 
 export class ProtectedBranches<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -59,7 +59,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   create<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: CreateProtectedBranchOptions & Sudo & showExpanded<E>,
+    options?: CreateProtectedBranchOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
     const { sudo, showExpanded, ...opts } = options || {};
 
@@ -68,13 +68,22 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
       endpoint`projects/${projectId}/protected_branches`,
       {
         searchParams: {
-          name: branchName,
           ...opts,
+          name: branchName,
         },
         sudo,
         showExpanded,
       },
     );
+  }
+
+  // Convenience method - create
+  protect<E extends boolean = false>(
+    projectId: string | number,
+    branchName: string,
+    options?: CreateProtectedBranchOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
+    return this.create(projectId, branchName, options);
   }
 
   edit<E extends boolean = false>(
@@ -111,5 +120,14 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
       endpoint`projects/${projectId}/protected_branches/${branchName}`,
       options,
     );
+  }
+
+  // Convenience method - remove
+  unprotect<E extends boolean = false>(
+    projectId: string | number,
+    branchName: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return this.remove(projectId, branchName, options);
   }
 }

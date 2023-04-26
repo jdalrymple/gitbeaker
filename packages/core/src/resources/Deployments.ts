@@ -53,14 +53,14 @@ export interface DeploymentSchema extends Record<string, unknown> {
   environment: EnvironmentSchema;
 }
 
-export interface AllDeploymentsOptions {
+export type AllDeploymentsOptions = {
   orderBy?: 'id' | 'iid' | 'created_at' | 'updated_at' | 'ref';
   sort?: 'asc' | 'desc';
   updatedAfter?: string;
   updatedBefore?: string;
   environment?: string;
   status?: 'created' | 'running' | 'success' | 'failed' | 'canceled' | 'blocked';
-}
+};
 
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

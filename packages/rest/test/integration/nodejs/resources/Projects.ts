@@ -57,9 +57,7 @@ describe('Projects.upload', () => {
       type: 'text/plain',
     });
 
-    const results = await service.upload(project.id, blob, {
-      filename: 'testfile.txt',
-    });
+    const results = await service.upload(project.id, { content: blob, filename: 'testfile.txt' });
 
     expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
   });

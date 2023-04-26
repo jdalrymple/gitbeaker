@@ -159,7 +159,7 @@ export interface CommitDiscussionSchema extends Record<string, unknown> {
   notes?: CommitDiscussionNoteSchema[];
 }
 
-export interface AllCommitsOptions {
+export type AllCommitsOptions = {
   refName?: string;
   since?: string;
   until?: string;
@@ -170,9 +170,9 @@ export interface AllCommitsOptions {
   firstParent?: boolean;
   order?: string;
   trailers?: boolean;
-}
+};
 
-export interface CreateCommitOptions {
+export type CreateCommitOptions = {
   startBranch?: string;
   startSha?: string;
   startProject?: number | string;
@@ -181,9 +181,9 @@ export interface CreateCommitOptions {
   authorName?: string;
   stats?: boolean;
   force?: boolean;
-}
+};
 
-export interface EditPipelineStatusOptions {
+export type EditPipelineStatusOptions = {
   ref?: string;
   name?: string;
   context?: string;
@@ -191,7 +191,7 @@ export interface EditPipelineStatusOptions {
   description?: string;
   coverage?: number;
   pipelineId?: number;
-}
+};
 
 export class Commits<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

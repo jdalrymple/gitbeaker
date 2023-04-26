@@ -40,15 +40,11 @@ describe('ProjectSnippets.create', () => {
   it('should request POST /projects/:id/snippets', async () => {
     await service.create(1, 'This is a snippet', {
       description: 'Hello World snippet',
-      fileName: 'test.txt',
-      code: 'Hello world',
       visibility: 'internal',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/snippets', {
       title: 'This is a snippet',
-      fileName: 'test.txt',
-      code: 'Hello world',
       visibility: 'internal',
       description: 'Hello World snippet',
     });
@@ -57,10 +53,10 @@ describe('ProjectSnippets.create', () => {
 
 describe('ProjectSnippets.edit', () => {
   it('should request PUT /projects/:id/snippets', async () => {
-    await service.edit(1, 2, { name: 'test snippet 2' });
+    await service.edit(1, 2, { description: 'test snippet 2' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/snippets/2', {
-      name: 'test snippet 2',
+      description: 'test snippet 2',
     });
   });
 });

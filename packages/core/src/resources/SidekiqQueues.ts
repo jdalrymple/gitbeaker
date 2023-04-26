@@ -8,7 +8,7 @@ export interface SidekiqQueueStatus extends Record<string, unknown> {
   queue_size: number;
 }
 
-export interface RemoveSidekiqQueueOptions {
+export type RemoveSidekiqQueueOptions = {
   user?: string;
   project?: string;
   rootNamespace?: string;
@@ -16,7 +16,7 @@ export interface RemoveSidekiqQueueOptions {
   callerId?: string;
   featureCategory?: string;
   workerClass?: string;
-}
+};
 
 export class SidekiqQueues<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(

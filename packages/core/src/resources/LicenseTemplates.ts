@@ -4,6 +4,7 @@ import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
 

@@ -1,6 +1,10 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../templates';
-import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type {
+  AllMilestonesOptions,
+  BurndownChartEventSchema,
+  MilestoneSchema,
+} from '../templates/ResourceMilestones';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
@@ -10,11 +14,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { IssueSchema } from './Issues';
-import type {
-  AllMilestonesOptions,
-  BurndownChartEventSchema,
-  MergeRequestSchema,
-} from './MergeRequests';
+import type { MergeRequestSchema } from './MergeRequests';
 
 export interface ProjectMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

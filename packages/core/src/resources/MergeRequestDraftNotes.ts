@@ -1,4 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -43,7 +44,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
       resolveDiscussion?: boolean;
     } & Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, P>> {
+  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     return RequestHelper.post<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes`,
@@ -59,14 +60,11 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     mergerequestIId: number,
     draftNoteId: number,
     options?: { note?: string } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, P>> {
+  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     return RequestHelper.post<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
-      {
-        ...options,
-        note,
-      },
+      options,
     );
   }
 
@@ -75,7 +73,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     mergerequestIId: number,
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, P>> {
+  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     return RequestHelper.put<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}/publish`,
@@ -87,10 +85,10 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, void>> {
     return RequestHelper.post<MergeRequestDraftNoteSchema[]>()(
       this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}/publish`,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/bulk_publish`,
       options,
     );
   }
@@ -100,7 +98,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     mergerequestIId: number,
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<void, C, E, P>> {
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
@@ -113,7 +111,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     mergerequestIId: number,
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, P>> {
+  ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     return RequestHelper.get<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,

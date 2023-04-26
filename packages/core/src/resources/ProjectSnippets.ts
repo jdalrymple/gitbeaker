@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -9,7 +8,12 @@ import type {
   Sudo,
   UserAgentDetailSchema,
 } from '../infrastructure';
-import type { ExpandedSnippetSchema, SnippetSchema } from './Snippets';
+import type {
+  CreateSnippetOptions,
+  EditSnippetOptions,
+  ExpandedSnippetSchema,
+  SnippetSchema,
+} from './Snippets';
 
 export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -26,7 +30,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   create<E extends boolean = false>(
     projectId: string | number,
     title: string,
-    options?: BaseRequestOptions<E>,
+    options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
     return RequestHelper.post<ExpandedSnippetSchema>()(
       this,
@@ -41,7 +45,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   edit<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: BaseRequestOptions<E>,
+    options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
     return RequestHelper.put<ExpandedSnippetSchema>()(
       this,

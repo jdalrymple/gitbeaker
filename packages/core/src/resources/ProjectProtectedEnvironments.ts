@@ -15,7 +15,7 @@ import type {
 export interface ProjectProtectedEnvironments<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

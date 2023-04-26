@@ -101,7 +101,7 @@ export interface PipelineTestReportSummarySchema extends Record<string, unknown>
   test_suites?: PipelineTestSuiteSchema[];
 }
 
-export interface AllPipelinesOptions {
+export type AllPipelinesOptions = {
   scope?: 'running' | 'pending' | 'finished' | 'branches' | 'tags';
   status?: PipelineStatus;
   source?: string;
@@ -114,7 +114,7 @@ export interface AllPipelinesOptions {
   name?: string;
   orderBy?: 'id' | 'status' | 'updated_at' | 'user_id';
   sort?: 'asc' | 'desc';
-}
+};
 
 export class Pipelines<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

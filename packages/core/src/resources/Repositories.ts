@@ -46,14 +46,14 @@ export interface RepositoryBlobSchema extends Record<string, unknown> {
   sha: string;
 }
 
-export interface AllRepositoryTreesOptions {
+export type AllRepositoryTreesOptions = {
   pageToken?: string;
   path?: string;
   recursive?: boolean;
   ref?: string;
-}
+};
 
-export interface EditChangelogOptions {
+export type EditChangelogOptions = {
   branch?: string;
   configFile?: string;
   date?: string;
@@ -62,15 +62,15 @@ export interface EditChangelogOptions {
   message?: string;
   to?: string;
   trailer?: string;
-}
+};
 
-export interface ShowChangelogOptions {
+export type ShowChangelogOptions = {
   configFile?: string;
   date?: string;
   from?: string;
   to?: string;
   trailer?: string;
-}
+};
 
 export class Repositories<C extends boolean = false> extends BaseResource<C> {
   allContributors<E extends boolean = false>(

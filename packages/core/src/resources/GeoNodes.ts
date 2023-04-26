@@ -141,7 +141,7 @@ export interface GeoNodeStatusSchema extends Record<string, unknown> {
   group_wiki_repositories_failed_count: number;
 }
 
-export interface CreateGeoNodeOptions {
+export type CreateGeoNodeOptions = {
   primary?: boolean;
   enabled?: boolean;
   internalUrl?: string;
@@ -154,9 +154,9 @@ export interface CreateGeoNodeOptions {
   selectiveSyncShards?: string[];
   selectiveSyncNamespaceIds?: number[];
   minimumReverificationInterval?: number;
-}
+};
 
-export interface EditGeoNodeOptions {
+export type EditGeoNodeOptions = {
   enabled?: boolean;
   name?: string;
   url?: string;
@@ -170,7 +170,7 @@ export interface EditGeoNodeOptions {
   selectiveSyncShards?: string[];
   selectiveSyncNamespaceIds?: number[];
   minimumReverificationInterval?: number;
-}
+};
 
 export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

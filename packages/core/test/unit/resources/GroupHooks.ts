@@ -38,9 +38,9 @@ describe('GroupHooks.all', () => {
   });
 
   it('should request GET /groups/:id/hooks with options', async () => {
-    await service.all(1, { test: 1 });
+    await service.all(1, { sudo: 'sudo' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/hooks', { test: 1 });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/hooks', { sudo: 'sudo' });
   });
 });
 

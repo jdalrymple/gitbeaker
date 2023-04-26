@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -19,7 +18,9 @@ export interface TopicSchema extends Record<string, unknown> {
 
 export class Topics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { search?: string } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { search?: string; withoutProjects?: boolean } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TopicSchema[], C, E, P>> {
     return RequestHelper.get<TopicSchema[]>()(this, 'topics', options);
   }
@@ -52,6 +53,7 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: {
       name?: string;
+      title?: string;
       avatar?: { content: Blob; filename: string };
       description?: string;
     } & Sudo &

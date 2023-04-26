@@ -55,7 +55,7 @@ export interface EpicTodoSchema extends TodoSchema {
   target: EpicSchema;
 }
 
-export interface AllEpicsOptions {
+export type AllEpicsOptions = {
   authorId?: number;
   authorUsername?: string;
   labels?: string;
@@ -72,9 +72,9 @@ export interface AllEpicsOptions {
   includeDescendantGroups?: boolean;
   myReactionEmoji?: string;
   not?: Record<string, string>;
-}
+};
 
-export interface CreateEpicOptions {
+export type CreateEpicOptions = {
   labels?: string;
   description?: string;
   color?: string;
@@ -85,9 +85,9 @@ export interface CreateEpicOptions {
   dueDateIsFixed?: boolean;
   dueDateFixed?: string;
   parentId?: number | string;
-}
+};
 
-export interface EditEpicOptions {
+export type EditEpicOptions = {
   addLabels?: string;
   confidential?: boolean;
   description?: string;
@@ -102,7 +102,7 @@ export interface EditEpicOptions {
   title?: string;
   updatedAt?: string;
   color?: string;
-}
+};
 export class Epics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,

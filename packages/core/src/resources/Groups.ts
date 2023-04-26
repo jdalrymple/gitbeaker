@@ -66,7 +66,7 @@ export interface ExpandedGroupSchema extends GroupSchema {
   shared_projects?: ExpandedProjectSchema[];
 }
 
-export interface AllGroupsOptions {
+export type AllGroupsOptions = {
   skipGroups?: number[];
   allAvailable?: boolean;
   search?: string;
@@ -77,9 +77,9 @@ export interface AllGroupsOptions {
   owned?: boolean;
   minAccessLevel?: number;
   topLevelOnly?: boolean;
-}
+};
 
-export interface AllGroupProjectsOptions {
+export type AllGroupProjectsOptions = {
   visibility?: string;
   orderBy?:
     | 'id'
@@ -101,9 +101,9 @@ export interface AllGroupProjectsOptions {
   min_accessLevel?: number;
   withCustomAttributes?: boolean;
   withSecurityReports?: boolean;
-}
+};
 
-export interface CreateGroupOptions {
+export type CreateGroupOptions = {
   autoDevopsEnabled?: boolean;
   avatar?: { content: Blob; filename: string };
   defaultBranchProtection?: 0 | 1 | 2 | 3;
@@ -122,9 +122,9 @@ export interface CreateGroupOptions {
   membershipLock?: boolean;
   extraSharedRunnersMinutesLimit?: number;
   sharedRunnersMinutesLimit?: number;
-}
+};
 
-export interface EditGroupOptions {
+export type EditGroupOptions = {
   name?: string;
   path?: string;
   autoDevopsEnabled?: boolean;
@@ -147,7 +147,6 @@ export interface EditGroupOptions {
   subgroupCreationLevel?: string;
   twoFactorGracePeriod?: number;
   visibility?: 'private' | 'public';
-  membershipLock?: boolean;
   extraSharedRunnersMinutesLimit?: number;
   fileTemplateProjectId?: number;
   membershipLock?: boolean;
@@ -159,16 +158,16 @@ export interface EditGroupOptions {
   uniqueProjectDownloadLimitAlertlist?: number[];
   autoBanUserOnExcessiveProjectsDownload?: boolean;
   ipRestrictionRanges?: string;
-}
+};
 
-export interface AllProvisionedUsersOptions {
+export type AllProvisionedUsersOptions = {
   username?: string;
   search?: string;
   active?: boolean;
   blocked?: boolean;
   createdAfter?: string;
   createdBefore?: string;
-}
+};
 
 export class Groups<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
@@ -273,7 +272,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     name: string,
     path: string,
-    { avatar, ...options }?: CreateGroupOptions & Sudo & ShowExpanded<E> = {} as any,
+    { avatar, ...options }: CreateGroupOptions & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
     if (avatar) {
       return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', {
@@ -297,7 +296,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     groupId: string | number,
-    { avatar, ...options }?: EditGroupOptions & Sudo & ShowExpanded<E> = {} as any,
+    { avatar, ...options }: EditGroupOptions & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
     if (avatar) {
       return RequestHelper.post<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {

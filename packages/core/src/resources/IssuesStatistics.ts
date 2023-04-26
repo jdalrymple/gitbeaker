@@ -12,9 +12,7 @@ export interface StatisticsSchema extends Record<string, unknown> {
   };
 }
 
-export interface AllIssueStatisticsOptions
-  extends Either<{ authorId: number }, { authorUsername: string }>,
-    Either<{ assigneeId: number }, { assigneeUsername: string }> {
+export type AllIssueStatisticsOptions = {
   labels?: string;
   milestone?: string;
   scope?: 'created_by_me' | 'assigned_to_me' | 'all';
@@ -28,7 +26,7 @@ export interface AllIssueStatisticsOptions
   updatedAfter?: string;
   updatedBefore?: string;
   confidential?: boolean;
-}
+};
 
 export class IssuesStatistics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
@@ -37,6 +35,8 @@ export class IssuesStatistics<C extends boolean = false> extends BaseResource<C>
       groupId,
       ...options
     }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+      EitherOrNone<{ authorId: number }, { authorUsername: string }> &
+      EitherOrNone<{ assigneeId: number }, { assigneeUsername: string }> &
       AllIssueStatisticsOptions &
       Sudo &
       ShowExpanded<E> = {} as any,

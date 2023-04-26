@@ -30,7 +30,12 @@ export type CustomSettingLevelEmailEvents =
   | 'merge_when_pipeline_succeeds'
   | 'new_epic ';
 
-export interface EditNotificationSettingsOptions {
+export interface NotificationSettingSchema extends Record<string, unknown> {
+  level: NotificationSettingLevel;
+  notification_email?: string;
+}
+
+export type EditNotificationSettingsOptions = {
   level?: string;
   notificationEmail?: string;
   newNote?: boolean;
@@ -51,12 +56,7 @@ export interface EditNotificationSettingsOptions {
   movedProject?: boolean;
   mergeWhenPipelineSucceeds?: boolean;
   newEpic?: boolean;
-}
-
-export interface NotificationSettingSchema extends Record<string, unknown> {
-  level: NotificationSettingLevel;
-  notification_email?: string;
-}
+};
 
 function url({
   projectId,

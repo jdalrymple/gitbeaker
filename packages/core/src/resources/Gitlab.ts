@@ -1,5 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+// General
 import { Agents } from './Agents';
 import { AlertManagement } from './AlertManagement';
 import { ApplicationAppearance } from './ApplicationAppearance';
@@ -39,6 +41,7 @@ import { NPM } from './NPM';
 import { NuGet } from './NuGet';
 import { PersonalAccessTokens } from './PersonalAccessTokens';
 import { PyPI } from './PyPI';
+import { RubyGems } from './RubyGems';
 import { Search } from './Search';
 import { ServiceData } from './ServiceData';
 import { SidekiqMetrics } from './SidekiqMetrics';
@@ -49,8 +52,6 @@ import { Suggestions } from './Suggestions';
 import { SystemHooks } from './SystemHooks';
 import { TodoLists } from './TodoLists';
 import { Topics } from './Topics';
-import { Version } from './Version';
-import { Vulnerabilities } from './Vulnerabilities';
 import { Branches } from './Branches';
 import { CommitDiscussions } from './CommitDiscussions';
 import { Commits } from './Commits';
@@ -140,8 +141,6 @@ import { Runners } from './Runners';
 import { SecureFiles } from './SecureFiles';
 import { Tags } from './Tags';
 import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
-import { VisualReviewDiscussions } from './VisualReviewDiscussions';
-import { VulnerabilityFindings } from './VulnerabilityFindings';
 import { EpicAwardEmojis } from './EpicAwardEmojis';
 import { EpicDiscussions } from './EpicDiscussions';
 import { EpicIssues } from './EpicIssues';
@@ -216,7 +215,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   License: License<C>;
   LicenseTemplates: LicenseTemplates<C>;
   Lint: Lint<C>;
-  ManagedLicenses: ManagedLicenses<C>;
   Markdown: Markdown<C>;
   Maven: Maven<C>;
   Metadata: Metadata<C>;
@@ -227,6 +225,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   NuGet: NuGet<C>;
   PersonalAccessTokens: PersonalAccessTokens<C>;
   PyPI: PyPI<C>;
+  RubyGems: RubyGems<C>;
   Search: Search<C>;
   ServiceData: ServiceData<C>;
   SidekiqMetrics: SidekiqMetrics<C>;
@@ -237,8 +236,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SystemHooks: SystemHooks<C>;
   TodoLists: TodoLists<C>;
   Topics: Topics<C>;
-  Version: Version<C>;
-  Vulnerabilities: Vulnerabilities<C>;
   Branches: Branches<C>;
   CommitDiscussions: CommitDiscussions<C>;
   Commits: Commits<C>;
@@ -275,8 +272,8 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   MergeRequestDiscussions: MergeRequestDiscussions<C>;
   MergeRequestLabelEvents: MergeRequestLabelEvents<C>;
   MergeRequestMilestoneEvents: MergeRequestMilestoneEvents<C>;
-  MergeRequestNotes: MergeRequestNotes<C>;
   MergeRequestDraftNotes: MergeRequestDraftNotes<C>;
+  MergeRequestNotes: MergeRequestNotes<C>;
   MergeRequests: MergeRequests<C>;
   MergeTrains: MergeTrains<C>;
   PackageRegistry: PackageRegistry<C>;
@@ -328,8 +325,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SecureFiles: SecureFiles<C>;
   Tags: Tags<C>;
   UserStarredMetricsDashboard: UserStarredMetricsDashboard<C>;
-  VisualReviewDiscussions: VisualReviewDiscussions<C>;
-  VulnerabilityFindings: VulnerabilityFindings<C>;
   EpicAwardEmojis: EpicAwardEmojis<C>;
   EpicDiscussions: EpicDiscussions<C>;
   EpicIssues: EpicIssues<C>;
@@ -402,7 +397,6 @@ const resources = {
   License,
   LicenseTemplates,
   Lint,
-  ManagedLicenses,
   Markdown,
   Maven,
   Metadata,
@@ -413,6 +407,7 @@ const resources = {
   NuGet,
   PersonalAccessTokens,
   PyPI,
+  RubyGems,
   Search,
   ServiceData,
   SidekiqMetrics,
@@ -423,8 +418,6 @@ const resources = {
   SystemHooks,
   TodoLists,
   Topics,
-  Version,
-  Vulnerabilities,
   Branches,
   CommitDiscussions,
   Commits,
@@ -461,8 +454,8 @@ const resources = {
   MergeRequestDiscussions,
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
-  MergeRequestNotes,
   MergeRequestDraftNotes,
+  MergeRequestNotes,
   MergeRequests,
   MergeTrains,
   PackageRegistry,
@@ -514,8 +507,6 @@ const resources = {
   SecureFiles,
   Tags,
   UserStarredMetricsDashboard,
-  VisualReviewDiscussions,
-  VulnerabilityFindings,
   EpicAwardEmojis,
   EpicDiscussions,
   EpicIssues,

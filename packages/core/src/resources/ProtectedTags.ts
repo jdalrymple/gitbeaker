@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  Either3,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,

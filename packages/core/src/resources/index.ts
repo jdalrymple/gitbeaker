@@ -49,8 +49,6 @@ export { Suggestions } from './Suggestions';
 export { SystemHooks } from './SystemHooks';
 export { TodoLists } from './TodoLists';
 export { Topics } from './Topics';
-export { Version } from './Version';
-export { Vulnerabilities } from './Vulnerabilities';
 
 // Projects
 export { Branches } from './Branches';
@@ -89,6 +87,7 @@ export { MergeRequestContextCommits } from './MergeRequestContextCommits';
 export { MergeRequestDiscussions } from './MergeRequestDiscussions';
 export { MergeRequestLabelEvents } from './MergeRequestLabelEvents';
 export { MergeRequestMilestoneEvents } from './MergeRequestMilestoneEvents';
+export { MergeRequestDraftNotes } from './MergeRequestDraftNotes';
 export { MergeRequestNotes } from './MergeRequestNotes';
 export { MergeRequests } from './MergeRequests';
 export { MergeTrains } from './MergeTrains';
@@ -141,8 +140,6 @@ export { Runners } from './Runners';
 export { SecureFiles } from './SecureFiles';
 export { Tags } from './Tags';
 export { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
-export { VisualReviewDiscussions } from './VisualReviewDiscussions';
-export { VulnerabilityFindings } from './VulnerabilityFindings';
 
 // Groups
 export { EpicAwardEmojis } from './EpicAwardEmojis';

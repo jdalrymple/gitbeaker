@@ -41,16 +41,12 @@ describe('Snippets.showContent', () => {
 describe('Snippets.create', () => {
   it('should request POST /snippets', async () => {
     await service.create('This is a snippet', {
-      fileName: 'test.txt',
-      content: 'Hello world',
       visibility: 'internal',
       description: 'Hello World snippet',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'snippets', {
       title: 'This is a snippet',
-      fileName: 'test.txt',
-      content: 'Hello world',
       visibility: 'internal',
       description: 'Hello World snippet',
     });
@@ -59,10 +55,10 @@ describe('Snippets.create', () => {
 
 describe('Snippets.edit', () => {
   it('should request PUT /snippets', async () => {
-    await service.edit(12, { name: 'test snippet 2' });
+    await service.edit(12, { description: 'test snippet 2' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'snippets/12', {
-      name: 'test snippet 2',
+      description: 'test snippet 2',
     });
   });
 });

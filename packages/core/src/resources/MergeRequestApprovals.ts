@@ -58,7 +58,7 @@ export interface ApprovalStateSchema extends Record<string, unknown> {
   rules: ({ approved: boolean } & MergeRequestLevelApprovalRuleSchema)[];
 }
 
-export interface CreateApprovalRuleOptions {
+export type CreateApprovalRuleOptions = {
   userIds?: number[];
   groupIds?: number[];
   protectedBranchIds?: number[];
@@ -66,25 +66,25 @@ export interface CreateApprovalRuleOptions {
   reportType?: string;
   ruleType?: string;
   usernames?: string[];
-}
+};
 
-export interface EditApprovalRuleOptions {
+export type EditApprovalRuleOptions = {
   userIds?: number[];
   groupIds?: number[];
   protectedBranchIds?: number[];
   appliesToAllProtectedBranches?: boolean;
   usernames?: string[];
   removeHiddenGroups?: boolean;
-}
+};
 
-export interface EditConfigurationOptions {
+export type EditConfigurationOptions = {
   disableOverridingApproversPerMergeRequest?: boolean;
   mergeRequestsAuthorApproval?: boolean;
   mergeRequestsDisableCommittersApproval?: boolean;
   requirePasswordToApprove?: boolean;
   resetApprovalsOnPush?: boolean;
   selectiveCodeOwnerRemovals?: boolean;
-}
+};
 
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   allApprovalRules<E extends boolean = false>(
@@ -255,7 +255,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   showApprovalRule<E extends boolean = false>(
     projectId: string | number,
     approvalRuleId: number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>> {
     return RequestHelper.get<ProjectLevelApprovalRuleSchema>()(
       this,

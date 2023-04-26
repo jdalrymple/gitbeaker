@@ -39,7 +39,7 @@ describe('GeoNodes.edit', () => {
   it('should request PUT /geo_nodes/:id', async () => {
     await service.edit(1);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1');
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1', undefined);
   });
 
   it('should request PUT /geo_nodes/:id with options', async () => {

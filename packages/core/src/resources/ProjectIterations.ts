@@ -5,6 +5,8 @@ import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
 export interface ProjectIterations<C extends boolean = false> {

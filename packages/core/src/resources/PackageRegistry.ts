@@ -61,7 +61,7 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
   ): Promise<any> {
     return RequestHelper.put<PackageRegistrySchema | { message: string }>()(
       this,
-      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
+      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${packageFile.filename}`,
       {
         isForm: true,
         file: [packageFile.content, packageFile.filename],

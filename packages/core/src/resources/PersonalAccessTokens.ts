@@ -27,7 +27,7 @@ export type PersonalAccessTokenScopes =
   | 'read_repository'
   | 'write_repository';
 
-export interface AllPersonalAccessTokenOptions extends Record<string, unknown> {
+export type AllPersonalAccessTokenOptions = {
   userId?: string | number;
   state?: 'active' | 'inactive';
   search?: string;
@@ -36,7 +36,7 @@ export interface AllPersonalAccessTokenOptions extends Record<string, unknown> {
   lastUsedAfter?: string;
   createdBefore?: string;
   createdAfter?: string;
-}
+};
 
 export class PersonalAccessTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

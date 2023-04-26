@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -77,8 +78,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     }: IncludeInherited &
       PaginationRequestOptions<P> &
       AllMembersOptions &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     let url = endpoint`${resourceId}/members`;
 

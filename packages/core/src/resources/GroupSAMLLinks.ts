@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { AccessLevel } from '../templates/ResourceAccessLevels';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

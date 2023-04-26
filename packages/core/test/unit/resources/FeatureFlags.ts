@@ -20,14 +20,18 @@ describe('FeatureFlags.all', () => {
   it('should request GET /projects/:id/feature_flags without options', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/feature_flags', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/feature_flags',
+      undefined,
+    );
   });
 
   it('should request GET /projects/:id/feature_flags', async () => {
     await service.all(1, { scope: 'enabled' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/feature_flags', {
-      scopes: 'enabled',
+      scope: 'enabled',
     });
   });
 });
@@ -48,7 +52,7 @@ describe('FeatureFlags.edit', () => {
     await service.edit(1, 'name', { description: 'test' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/feature_flags/name', {
-      test: 1,
+      description: 'test',
     });
   });
 });

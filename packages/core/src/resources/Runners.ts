@@ -3,8 +3,8 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
   Either,
+  EitherOrNone,
   EitherOrNone3,
-  EitherOrNone4,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -48,6 +48,38 @@ export interface ExpandedRunnerSchema extends RunnerSchema {
   maximum_timeout?: number;
 }
 
+export type AllRunnersOptions = {
+  type?: 'instance_type' | 'group_type' | 'project_type';
+  status?: 'online' | 'offline' | 'stale' | 'never_contacted' | 'active' | 'paused';
+  paused?: boolean;
+  tagList?: string[];
+};
+
+export type EditRunnerOptions = {
+  description?: string;
+  active?: boolean;
+  paused?: boolean;
+  tagList?: string[];
+  runUntagged?: boolean;
+  locked?: boolean;
+  accessLevel?: 'not_protected' | 'ref_protected';
+  maximumTimeout?: number;
+};
+
+export type CreateRunnerOptions = {
+  info?: Record<string, string>;
+  description?: string;
+  active?: boolean;
+  paused?: boolean;
+  tagList?: string[];
+  runUntagged?: boolean;
+  locked?: boolean;
+  accessLevel?: 'not_protected' | 'ref_protected';
+  maximumTimeout?: number;
+  maintainerNote?: string;
+  maintenanceNote?: string;
+};
+
 export class Runners<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     {
@@ -60,14 +92,9 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       { owned?: boolean },
       { groupId?: string | number }
     > &
+      AllRunnersOptions &
       BaseRequestOptions<E> &
-      PaginationRequestOptions<P> = {} as EitherOrNone3<
-      { projectId?: string | number },
-      { owned?: boolean },
-      { groupId?: string | number }
-    > &
-      BaseRequestOptions<E> &
-      PaginationRequestOptions<P>,
+      PaginationRequestOptions<P> = {} as any,
   ): Promise<GitlabAPIResponse<RunnerSchema[], C, E, P>> {
     let url: string;
 
@@ -79,10 +106,17 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<RunnerSchema[]>()(this, url, options);
   }
 
-  // Convenience method
+  allJobs<E extends boolean = false>(
+    runnerId: number,
+    options?: Sudo & ShowExpanded<E> & { status?: string; orderBy?: string; sort?: string },
+  ): Promise<GitlabAPIResponse<JobSchema[], C, E, void>> {
+    return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, options);
+  }
+
+  // https://docs.gitlab.com/15.9/ee/api/runners.html#register-a-new-runner
   create<E extends boolean = false>(
     token: string,
-    options?: BaseRequestOptions<E>,
+    options?: CreateRunnerOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RunnerToken, C, E, void>> {
     return RequestHelper.post<RunnerToken>()(this, `runners`, {
       token,
@@ -92,7 +126,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     runnerId: number,
-    options?: BaseRequestOptions<E>,
+    options?: EditRunnerOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedRunnerSchema, C, E, void>> {
     return RequestHelper.put<ExpandedRunnerSchema>()(this, `runners/${runnerId}`, options);
   }
@@ -116,17 +150,10 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.del()(this, endpoint`projects/${projectId}/runners/${runnerId}`, options);
   }
 
-  allJobs<E extends boolean = false>(
-    runnerId: number,
-    options?: Sudo & ShowExpanded<E> & { status?: string; orderBy?: string; sort?: string },
-  ): Promise<GitlabAPIResponse<JobSchema[], C, E, void>> {
-    return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, options);
-  }
-
-  // Convenience method
+  // Create - Convenience method
   register<E extends boolean = false>(
     token: string,
-    options?: BaseRequestOptions<E>,
+    options?: CreateRunnerOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RunnerToken, C, E, void>> {
     return this.create<E>(token, options);
   }
@@ -154,27 +181,20 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  resetRegistrationToken<E extends boolean = false>({
-    projectId,
-    groupId,
-    runnerId,
-    token,
-    ...options
-  }: EitherOrNone4<
-    { projectId: string | number },
-    { groupId: string | number },
-    { runnerId: string },
-    { token: string }
-  > &
-    Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<void, C, E, void>> {
+  resetRegistrationToken<E extends boolean = false>(
+    {
+      runnerId,
+      token,
+      ...options
+    }: EitherOrNone<{ runnerId: string }, { token: string }> & Sudo & ShowExpanded<E> = {} as any,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     let url: string;
 
-    if (projectId) url = endpoint`projects/${projectId}/runners/reset_registration_token`;
-    else if (groupId) url = endpoint`groups/${groupId}/runners/reset_registration_token`;
-    else if (runnerId) url = `runners/${runnerId}/reset_registration_token`;
+    if (runnerId) url = endpoint`runners/${runnerId}/reset_registration_token`;
     else if (token) url = 'runners/reset_registration_token';
-    else url = 'runners/reset_registration_token';
+    else {
+      throw new Error('Missing either runnerId or token parameters');
+    }
 
     return RequestHelper.post<void>()(this, url, {
       token,
@@ -190,7 +210,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   }
 
   verify<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: { systemId?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(this, `runners/verify`, options);
   }

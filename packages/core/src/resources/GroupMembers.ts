@@ -97,7 +97,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   }
 
   allPending<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    resourceId: string | number,
+    groupId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     return RequestHelper.get<MemberSchema[]>()(this, endpoint`${groupId}/pending_members`, options);

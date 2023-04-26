@@ -26,10 +26,10 @@ describe('EpicIssues.all', () => {
 
 describe('EpicIssues.edit', () => {
   it('should request PUT /groups/:id/epics/:id/issues/:id', async () => {
-    await service.edit(1, 2, 3, { title: 'Testing terms' });
+    await service.edit(1, 2, 3, { moveBeforeId: 3 });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'groups/1/epics/2/issues/3', {
-      title: 'Testing terms',
+      moveBeforeId: 3,
     });
   });
 });

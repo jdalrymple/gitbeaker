@@ -35,7 +35,7 @@ export interface PackageFileSchema extends Record<string, unknown> {
   pipelines?: PipelineSchema[];
 }
 
-export interface AllPackageOptions {
+export type AllPackageOptions = {
   excludeSubgroups?: boolean;
   orderBy?: 'created_at' | 'name' | 'version' | 'type' | 'project_path';
   sort?: 'asc' | 'desc';
@@ -43,7 +43,7 @@ export interface AllPackageOptions {
   packageName?: string;
   includeVersionless?: boolean;
   status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction';
-}
+};
 
 export class Packages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

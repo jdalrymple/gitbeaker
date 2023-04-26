@@ -25,11 +25,7 @@ export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
   }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<UserGPGKeySchema[], C, E, void>
   > {
-    return RequestHelper.get<UserGPGKeySchema[]>()(
-      this,
-      url(userId),
-      options as Sudo & ShowExpanded<E>,
-    );
+    return RequestHelper.get<UserGPGKeySchema[]>()(this, url(userId), options);
   }
 
   create<E extends boolean = false>(
@@ -46,17 +42,13 @@ export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
-    return RequestHelper.get<UserGPGKeySchema>()(
-      this,
-      `${url(userId)}/${keyId}`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    return RequestHelper.get<UserGPGKeySchema>()(this, `${url(userId)}/${keyId}`, options);
   }
 
   remove<E extends boolean = false>(
     keyId: number,
     { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options as Sudo & ShowExpanded<E>);
+    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options);
   }
 }

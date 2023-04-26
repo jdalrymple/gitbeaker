@@ -57,12 +57,12 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
     file: { content: Blob; filename: string },
     path: string,
     options?: {
-      name?: number;
+      name?: string;
       namespace?: number | string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
     } & Sudo &
-      ShowExpanded<E> = {} as any,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
       isForm: true,
@@ -81,7 +81,7 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
     } & Sudo &
-      ShowExpanded<E> = {} as any,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
       ...options,
@@ -97,7 +97,7 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
     path: string,
     region: string,
     secretAccessKey: string,
-    options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E> = {} as any,
+    options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
       ...options,

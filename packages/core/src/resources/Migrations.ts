@@ -10,13 +10,6 @@ import type {
 
 export type MigrationStatus = 'created' | 'started' | 'finished' | 'failed';
 
-export interface MigrationEntityOptions {
-  sourceType: string;
-  sourceFullPath: string;
-  destinationSlug: string;
-  destinationNamespace: string;
-}
-
 export interface MigrationEntityFailure {
   pipeline_class: string;
   pipeline_step: string;
@@ -47,6 +40,13 @@ export interface MigrationStatusSchema extends Record<string, unknown> {
   created_at: string;
   updated_at: string;
 }
+
+export type MigrationEntityOptions = {
+  sourceType: string;
+  sourceFullPath: string;
+  destinationSlug: string;
+  destinationNamespace: string;
+};
 
 export class Migrations<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

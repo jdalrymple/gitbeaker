@@ -44,8 +44,8 @@ export interface ProjectWikis<C extends boolean = false> extends ResourceWikis<C
 
   uploadAttachment<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
-    options?: { filename?: string; branch?: string } & Sudo & ShowExpanded<E>,
+    file: { content: Blob; filename: string },
+    options?: { branch?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<WikiAttachmentSchema, C, E, void>>;
 }
 

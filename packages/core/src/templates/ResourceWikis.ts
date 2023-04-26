@@ -80,8 +80,8 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
 
   uploadAttachment<E extends boolean = false>(
     resourceId: string | number,
-    content: Blob,
-    { filename, ...options }: { filename?: string; branch?: string } & Sudo & ShowExpanded<E> = {},
+    file: { content: Blob; filename: string },
+    options?: { branch?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<WikiAttachmentSchema, C, E, void>> {
     return RequestHelper.post<WikiAttachmentSchema>()(
       this,
@@ -89,7 +89,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
       {
         ...options,
         isForm: true,
-        file: [content, filename],
+        file: [file.content, file.filename],
       },
     );
   }

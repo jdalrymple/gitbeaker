@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -127,7 +128,7 @@ export interface ProjectFileUploadSchema extends Record<string, unknown> {
   markdown: string;
 }
 
-export interface AllProjectsOptions {
+export type AllProjectsOptions = {
   archived?: boolean;
   idAfter?: number;
   idBefore?: number;
@@ -156,9 +157,9 @@ export interface AllProjectsOptions {
   withProgrammingLanguage?: string;
   updatedBefore?: string;
   updatedAfter?: string;
-}
+};
 
-export interface CreateProjectOptions {
+export type CreateProjectOptions = {
   userId?: number;
   avatar?: { content: Blob; filename: string };
   allowMergeOnSkippedPipeline?: boolean;
@@ -220,24 +221,24 @@ export interface CreateProjectOptions {
   useCustomTemplate?: boolean;
   visibility?: 'public' | 'internal' | 'private';
   wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
-}
+};
 
-export interface EditProjectOptions {
+export type EditProjectOptions = {
   avatar?: { content: Blob; filename: string };
   allowMergeOnSkippedPipeline?: boolean;
   allowPipelineTriggerApproveDeployment?: boolean;
   onlyAllowMergeIfAllStatusChecksPassed?: boolean;
   analyticsAccessLevel?: 'disabled' | 'private' | 'enabled';
-  approvalsBeforeMerge?: integer;
+  approvalsBeforeMerge?: number;
   autoCancelPendingPipelines?: string;
   autoDevopsDeployStrategy?: 'continuous' | 'manual' | 'timed_incremental';
   autoDevopsEnabled?: boolean;
   autocloseReferencedIssues?: boolean;
   buildGitStrategy?: string;
-  buildTimeout?: integer;
+  buildTimeout?: number;
   buildsAccessLevel?: 'disabled' | 'private' | 'enabled';
   ciConfigPath?: string;
-  ciDefaultGitDepth?: integer;
+  ciDefaultGitDepth?: number;
   ciForwardDeploymentEnabled?: boolean;
   ciAllowForkPipelinesToRunInParentProject?: boolean;
   ciSeparatedCaches?: boolean;
@@ -262,7 +263,7 @@ export interface EditProjectOptions {
   mergeTrainsEnabled?: boolean;
   mirrorOverwritesDivergedBranches?: boolean;
   mirrorTriggerBuilds?: boolean;
-  mirrorUserId?: integer;
+  mirrorUserId?: number;
   mirror?: boolean;
   mrDefaultTargetSelf?: boolean;
   name?: string;
@@ -298,20 +299,20 @@ export interface EditProjectOptions {
   topics?: string[];
   visibility?: 'public' | 'internal' | 'private';
   wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
-}
+};
 
-export interface ForkProjectOptions {
+export type ForkProjectOptions = {
   description?: string;
   mrDefaultTargetSelf?: boolean;
   name?: string;
-  namespaceId?: integer;
+  namespaceId?: number;
   namespacePath?: string;
   namespace?: number | string;
   path?: string;
   visibility?: 'public' | 'internal' | 'private';
-}
+};
 
-export interface AllForksOptions {
+export type AllForksOptions = {
   archived?: boolean;
   membership?: boolean;
   minAccessLevel?: 'disabled' | 'private' | 'enabled';
@@ -328,7 +329,7 @@ export interface AllForksOptions {
   withMergeRequestsEnabled?: boolean;
   updatedBefore?: string;
   updatedAfter?: string;
-}
+};
 
 export class Projects<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
@@ -358,8 +359,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: { userId?: number; starredOnly?: boolean } & AllProjectsOptions &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     let uri: string;
 

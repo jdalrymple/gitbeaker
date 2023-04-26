@@ -159,7 +159,7 @@ export interface MergeRequestTodoSchema extends TodoSchema {
 }
 
 // Select method options
-export interface AllMergeRequestsOptions {
+export type AllMergeRequestsOptions = {
   approvedByIds?: number[];
   approverIds?: number[];
   approved?: string;
@@ -201,18 +201,18 @@ export interface AllMergeRequestsOptions {
   withLabelsDetails?: boolean;
   withMergeStatusRecheck?: boolean;
   wip?: string;
-}
+};
 
-export interface AcceptMergeRequestOptions {
+export type AcceptMergeRequestOptions = {
   mergeCommitMessage?: string;
   squashCommitMessage?: string;
   squash?: boolean;
   shouldRemoveSourceBranch?: boolean;
   mergeWhenPipelineSucceeds?: boolean;
   sha?: string;
-}
+};
 
-export interface CreateMergeRequestOptions {
+export type CreateMergeRequestOptions = {
   assigneeId?: number;
   description?: string;
   targetProjectId?: number;
@@ -222,9 +222,9 @@ export interface CreateMergeRequestOptions {
   allowCollaboration?: boolean;
   allowMaintainerToPush?: boolean;
   squash?: boolean;
-}
+};
 
-export interface EditMergeRequestOptions {
+export type EditMergeRequestOptions = {
   targetBranch?: number;
   title?: string;
   assigneeId?: number;
@@ -238,7 +238,7 @@ export interface EditMergeRequestOptions {
   discussionLocked?: boolean;
   allowCollaboration?: boolean;
   allowMaintainerToPush?: boolean;
-}
+};
 
 // Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
@@ -275,8 +275,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     }: AllMergeRequestsOptions &
       Either<{ projectId: string | number }, { groupId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
     let prefix = '';
 
@@ -407,7 +406,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   merge<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: AcceptMergeRequestOptions & BaseRequestOptions<E>,
+    options?: AcceptMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.put<ExpandedPipelineSchema>()(
       this,

@@ -40,11 +40,11 @@ export type SearchScopes =
   | 'notes'
   | 'users';
 
-export interface AllSearchOptions {
+export type AllSearchOptions = {
   orderBy?: 'created_at';
   state?: 'issues' | 'merge_requests';
   confidential?: boolean;
-}
+};
 
 export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

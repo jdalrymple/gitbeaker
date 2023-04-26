@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -78,7 +79,7 @@ export interface IssueSchema extends Record<string, unknown> {
   service_desk_reply_to?: string;
 }
 
-export interface AllIssuesOptions {
+export type AllIssuesOptions = {
   assigneeId?: number;
   assigneeUsername?: string[];
   authorId?: number;
@@ -109,9 +110,9 @@ export interface AllIssuesOptions {
   updatedBefore?: string;
   weight?: number;
   withLabelsDetails?: boolean;
-}
+};
 
-export interface CreateIssueOptions {
+export type CreateIssueOptions = {
   assigneeId?: number;
   assigneeIds?: number[];
   confidential?: boolean;
@@ -127,9 +128,9 @@ export interface CreateIssueOptions {
   mergeRequestToResolveDiscussionsOf?: number;
   milestoneId?: number;
   weight?: number;
-}
+};
 
-export interface EditIssueOptions {
+export type EditIssueOptions = {
   addLabels?: string;
   assigneeId?: number;
   assigneeIds?: number[];
@@ -147,7 +148,7 @@ export interface EditIssueOptions {
   title?: string;
   updatedAt?: string;
   weight?: number;
-}
+};
 
 export class Issues<C extends boolean = false> extends BaseResource<C> {
   addSpentTime<E extends boolean = false>(
@@ -190,8 +191,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     }: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
       PaginationRequestOptions<P> &
       AllIssuesOptions &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
     let url: string;
 

@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
 
-export class PyPI<C extends boolean = false> extends BaseResource<C> {
+export class RubyGems<C extends boolean = false> extends BaseResource<C> {
   allDependencies<E extends boolean = false>(
     projectId: string,
     options?: { gems?: string } & ShowExpanded<E>,
