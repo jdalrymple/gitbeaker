@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/core",
-  "version": "36.0.1",
+  "version": "37.0.0",
   "description": "Core API implementation of the GitLab API",
   "license": "MIT",
   "engines": {
@@ -55,7 +55,7 @@
     "release": "auto shipit"
   },
   "dependencies": {
-    "@gitbeaker/requester-utils": "36.0.1",
+    "@gitbeaker/requester-utils": "^37.0.0",
     "qs": "^6.11.1",
     "xcase": "^2.0.1"
   },
