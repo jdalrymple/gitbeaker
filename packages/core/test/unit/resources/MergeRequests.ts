@@ -94,7 +94,7 @@ describe('MergeRequests.allChanges', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      'projects/2/merge_requests/3/changes',
+      'projects/2/merge_requests/3/diffs',
       undefined,
     );
   });

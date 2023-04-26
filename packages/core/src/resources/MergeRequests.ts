@@ -283,18 +283,6 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<MergeRequestSchema[]>()(this, `${prefix}merge_requests`, options);
   }
 
-  cancelOnPipelineSuccess<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedMergeRequestSchema>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/cancel_merge_when_pipeline_succeeds`,
-      options,
-    );
-  }
-
   allDiffs<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
@@ -327,6 +315,56 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<CommitSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/commits`,
+      options,
+    );
+  }
+
+  allDiffVersions<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestDiffVersionsSchema[], C, E, void>> {
+    return RequestHelper.get<MergeRequestDiffVersionsSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/versions`,
+      options,
+    );
+  }
+
+  allParticipants<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/participants`,
+      options,
+    );
+  }
+
+  allPipelines<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[], C, E, void>
+  > {
+    return RequestHelper.get<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[]>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,
+      options,
+    );
+  }
+
+  cancelOnPipelineSuccess<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    return RequestHelper.post<ExpandedMergeRequestSchema>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/cancel_merge_when_pipeline_succeeds`,
       options,
     );
   }
@@ -374,18 +412,6 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allDiffVersions<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestDiffVersionsSchema[], C, E, void>> {
-    return RequestHelper.get<MergeRequestDiffVersionsSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/versions`,
-      options,
-    );
-  }
-
   edit<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
@@ -418,32 +444,6 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.put<{ commit_id: string }>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/merge_ref`,
-      options,
-    );
-  }
-
-  allParticipants<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/participants`,
-      options,
-    );
-  }
-
-  allPipelines<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<
-    GitlabAPIResponse<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[], C, E, void>
-  > {
-    return RequestHelper.get<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[]>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,
       options,
     );
   }
