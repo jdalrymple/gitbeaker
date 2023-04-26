@@ -1,11 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 import type { ProjectSchema } from './Projects';
 import type { IssueSchema } from './Issues';
@@ -39,12 +40,20 @@ export type SearchScopes =
   | 'notes'
   | 'users';
 
+export type AllSearchOptions = {
+  orderBy?: 'created_at';
+  state?: 'issues' | 'merge_requests';
+  confidential?: boolean;
+};
+
 export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'users',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<UserSchema[], C, E, void>>;
 
@@ -52,7 +61,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'notes',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>>;
 
@@ -60,7 +71,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'blobs',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
 
@@ -68,7 +81,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'commits',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
 
@@ -76,7 +91,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'wiki_blobs',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
 
@@ -84,7 +101,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'snippet_titles',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<SimpleSnippetSchema[], C, E, P>>;
 
@@ -92,7 +111,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'milestones',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
 
@@ -100,7 +121,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'merge_requests',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>>;
 
@@ -108,7 +131,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'issues',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>>;
 
@@ -116,7 +141,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'projects',
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
@@ -124,7 +151,9 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: SearchScopes,
     search: string,
     options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      BaseRequestOptions<E> &
+      AllSearchOptions &
+      Sudo &
+      ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): any {
     const { projectId, groupId, ...opts } = options || {};

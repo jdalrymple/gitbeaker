@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
+  Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -12,7 +13,7 @@ import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { UserSchema } from './Users';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { SimpleGroupSchema } from './Groups';
-import type { AccessLevel } from '../templates/types';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;
@@ -127,19 +128,228 @@ export interface ProjectFileUploadSchema extends Record<string, unknown> {
   markdown: string;
 }
 
+export type AllProjectsOptions = {
+  archived?: boolean;
+  idAfter?: number;
+  idBefore?: number;
+  imported?: boolean;
+  lastActivityAfter?: string;
+  lastActivityBefore?: string;
+  membership?: boolean;
+  minAccessLevel?: number;
+  orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
+  owned?: boolean;
+  repositoryChecksumFailed?: boolean;
+  repositoryStorage?: string;
+  searchNamespaces?: boolean;
+  search?: string;
+  simple?: boolean;
+  sort?: 'asc' | 'desc';
+  starred?: boolean;
+  statistics?: boolean;
+  topic?: string;
+  topicId?: number;
+  visibility?: 'public' | 'internal' | 'private';
+  wikiChecksumFailed?: boolean;
+  withCustomAttributes?: boolean;
+  withIssuesEnabled?: boolean;
+  withMergeRequestsEnabled?: boolean;
+  withProgrammingLanguage?: string;
+  updatedBefore?: string;
+  updatedAfter?: string;
+};
+
+export type CreateProjectOptions = {
+  userId?: number;
+  avatar?: { content: Blob; filename: string };
+  allowMergeOnSkippedPipeline?: boolean;
+  onlyAllowMergeIfAllStatusChecksPassed?: boolean;
+  analyticsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  approvalsBeforeMerge?: number;
+  autoCancelPendingPipelines?: string;
+  autoDevopsDeployStrategy?: 'continuous' | 'manual' | 'timed_incremental';
+  autoDevopsEnabled?: boolean;
+  autocloseReferencedIssues?: boolean;
+  buildGitStrategy?: string;
+  buildTimeout?: number;
+  buildsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  ciConfigPath?: string;
+  containerExpirationPolicyAttributes?: Record<string, string>;
+  containerRegistryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  defaultBranch?: string;
+  description?: string;
+  emailsDisabled?: boolean;
+  externalAuthorizationClassificationLabel?: string;
+  forkingAccessLevel?: 'disabled' | 'private' | 'enabled';
+  groupWithProjectTemplatesId?: number;
+  importUrl?: string;
+  initializeWithReadme?: boolean;
+  issuesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  lfsEnabled?: boolean;
+  mergeMethod?: string;
+  mergePipelinesEnabled?: boolean;
+  mergeRequestsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  mergeTrainsEnabled?: boolean;
+  mirrorTriggerBuilds?: boolean;
+  mirror?: boolean;
+  namespaceId?: number;
+  onlyAllowMergeIfAllDiscussionsAreResolved?: boolean;
+  onlyAllowMergeIfPipelineSucceeds?: boolean;
+  packagesEnabled?: boolean;
+  pagesAccessLevel?: 'disabled' | 'private' | 'enabled' | 'public';
+  printingMergeRequestLinkEnabled?: boolean;
+  publicBuilds?: boolean;
+  releasesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  environmentsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  featureFlagsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  infrastructureAccessLevel?: 'disabled' | 'private' | 'enabled';
+  monitorAccessLevel?: 'disabled' | 'private' | 'enabled';
+  removeSourceBranchAfterMerge?: boolean;
+  repositoryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  repositoryStorage?: string;
+  requestAccessEnabled?: boolean;
+  requirementsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  resolveOutdatedDiffDiscussions?: boolean;
+  securityAndComplianceAccessLevel?: 'disabled' | 'private' | 'enabled';
+  sharedRunnersEnabled?: boolean;
+  groupRunnersEnabled?: boolean;
+  snippetsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  squashOption?: 'never' | 'always' | 'default_on' | 'default_off';
+  templateName?: string;
+  templateProjectId?: number;
+  topics?: string[];
+  useCustomTemplate?: boolean;
+  visibility?: 'public' | 'internal' | 'private';
+  wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
+};
+
+export type EditProjectOptions = {
+  avatar?: { content: Blob; filename: string };
+  allowMergeOnSkippedPipeline?: boolean;
+  allowPipelineTriggerApproveDeployment?: boolean;
+  onlyAllowMergeIfAllStatusChecksPassed?: boolean;
+  analyticsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  approvalsBeforeMerge?: number;
+  autoCancelPendingPipelines?: string;
+  autoDevopsDeployStrategy?: 'continuous' | 'manual' | 'timed_incremental';
+  autoDevopsEnabled?: boolean;
+  autocloseReferencedIssues?: boolean;
+  buildGitStrategy?: string;
+  buildTimeout?: number;
+  buildsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  ciConfigPath?: string;
+  ciDefaultGitDepth?: number;
+  ciForwardDeploymentEnabled?: boolean;
+  ciAllowForkPipelinesToRunInParentProject?: boolean;
+  ciSeparatedCaches?: boolean;
+  containerExpirationPolicyAttributes?: Record<string, string>;
+  containerRegistryAccessLevel?: string;
+  defaultBranch?: string;
+  description?: string;
+  emailsDisabled?: boolean;
+  enforceAuthChecksOnUploads?: boolean;
+  externalAuthorizationClassificationLabel?: string;
+  forkingAccessLevel?: 'disabled' | 'private' | 'enabled';
+  importUrl?: string;
+  issuesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  issuesTemplate?: string;
+  keepLatestArtifact?: boolean;
+  lfsEnabled?: boolean;
+  mergeCommitTemplate?: string;
+  mergeMethod?: string;
+  mergePipelinesEnabled?: boolean;
+  mergeRequestsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  mergeRequestsTemplate?: string;
+  mergeTrainsEnabled?: boolean;
+  mirrorOverwritesDivergedBranches?: boolean;
+  mirrorTriggerBuilds?: boolean;
+  mirrorUserId?: number;
+  mirror?: boolean;
+  mrDefaultTargetSelf?: boolean;
+  name?: string;
+  onlyAllowMergeIfAllDiscussionsAreResolved?: boolean;
+  onlyAllowMergeIfPipelineSucceeds?: boolean;
+  onlyMirrorProtectedBranches?: boolean;
+  packagesEnabled?: boolean;
+  pagesAccessLevel?: string;
+  path?: string;
+  printingMergeRequestLinkEnabled?: boolean;
+  publicBuilds?: boolean;
+  releasesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  environmentsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  featureFlagsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  infrastructureAccessLevel?: 'disabled' | 'private' | 'enabled';
+  monitorAccessLevel?: 'disabled' | 'private' | 'enabled';
+  removeSourceBranchAfterMerge?: boolean;
+  repositoryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  repositoryStorage?: string;
+  requestAccessEnabled?: boolean;
+  requirementsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  resolveOutdatedDiffDiscussions?: boolean;
+  restrictUserDefinedVariables?: boolean;
+  securityAndComplianceAccessLevel?: 'disabled' | 'private' | 'enabled';
+  serviceDeskEnabled?: boolean;
+  sharedRunnersEnabled?: boolean;
+  groupRunnersEnabled?: boolean;
+  snippetsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  issueBranchTemplate?: string;
+  squashCommitTemplate?: string;
+  squashOption?: 'never' | 'always' | 'default_on' | 'default_off';
+  suggestionCommitMessage?: string;
+  topics?: string[];
+  visibility?: 'public' | 'internal' | 'private';
+  wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
+};
+
+export type ForkProjectOptions = {
+  description?: string;
+  mrDefaultTargetSelf?: boolean;
+  name?: string;
+  namespaceId?: number;
+  namespacePath?: string;
+  namespace?: number | string;
+  path?: string;
+  visibility?: 'public' | 'internal' | 'private';
+};
+
+export type AllForksOptions = {
+  archived?: boolean;
+  membership?: boolean;
+  minAccessLevel?: 'disabled' | 'private' | 'enabled';
+  orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
+  owned?: boolean;
+  search?: string;
+  simple?: boolean;
+  sort?: 'asc' | 'desc';
+  starred?: boolean;
+  statistics?: boolean;
+  visibility?: 'public' | 'internal' | 'private';
+  withCustomAttributes?: boolean;
+  withIssuesEnabled?: boolean;
+  withMergeRequestsEnabled?: boolean;
+  updatedBefore?: string;
+  updatedAfter?: string;
+};
+
 export class Projects<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: { simple: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: PaginationRequestOptions<P> &
+      AllProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { simple: true },
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: { statistics: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: PaginationRequestOptions<P> &
+      AllProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { statistics: true },
   ): Promise<
     GitlabAPIResponse<(ExpandedProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & AllProjectsOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
@@ -147,7 +357,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       userId,
       starredOnly,
       ...options
-    }: { userId?: string; starredOnly?: boolean } & PaginationRequestOptions<P> &
+    }: { userId?: number; starredOnly?: boolean } & AllProjectsOptions &
+      PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     let uri: string;
@@ -161,11 +372,104 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   allTransferLocations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { search?: string } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>> {
     return RequestHelper.get<SimpleProjectSchema[]>()(
       this,
       endpoint`projects/${projectId}/transfer_locations`,
+      options,
+    );
+  }
+
+  allUsers<E extends boolean = false>(
+    projectId: string | number,
+    options?: { search?: string; skipUsers?: number[] } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+      this,
+      endpoint`projects/${projectId}/users`,
+      options,
+    );
+  }
+
+  allGroups<E extends boolean = false>(
+    projectId: string | number,
+    options?: {
+      search?: string;
+      skipGroups?: number[];
+      withShared?: boolean;
+      sharedMinAccessLevel?: AccessLevel;
+      sharedVisibleOnly?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
+    return RequestHelper.get<SimpleGroupSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/groups`,
+      options,
+    );
+  }
+
+  allSharableGroups<E extends boolean = false>(
+    projectId: string | number,
+    options?: {
+      search?: string;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
+    return RequestHelper.get<SimpleGroupSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/share_locations`,
+      options,
+    );
+  }
+
+  allForks<E extends boolean = false>(
+    projectId: string | number,
+    options: AllForksOptions & Sudo & ShowExpanded<E> & { simple: true },
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>>;
+
+  allForks<E extends boolean = false>(
+    projectId: string | number,
+    options: AllForksOptions & Sudo & ShowExpanded<E> & { statistics: true },
+  ): Promise<
+    GitlabAPIResponse<
+      (ExpandedProjectSchema & { statistics: ProjectStatisticsSchema })[],
+      C,
+      E,
+      void
+    >
+  >;
+
+  allForks<E extends boolean = false>(
+    projectId: string | number,
+    options?: AllForksOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>> {
+    return RequestHelper.get<ExpandedProjectSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/forks`,
+      options,
+    );
+  }
+
+  allStarrers<E extends boolean = false>(
+    projectId: string | number,
+    options?: { search?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectStarrerSchema[], C, E, void>> {
+    return RequestHelper.get<ProjectStarrerSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/starrers`,
+      options,
+    );
+  }
+
+  allStoragePaths<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectStoragePath[], C, E, void>> {
+    return RequestHelper.get<ProjectStoragePath[]>()(
+      this,
+      endpoint`projects/${projectId}/storage`,
       options,
     );
   }
@@ -186,10 +490,10 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       userId,
       avatar,
       ...options
-    }: ({ name: string } | { path: string }) & {
-      userId?: number;
-      avatar?: { content: Blob; filename: string };
-    } & BaseRequestOptions<E> = {} as any,
+    }: Either<{ name: string }, { path: string }> &
+      CreateProjectOptions &
+      Sudo &
+      ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
     const url = userId ? `projects/user/${userId}` : 'projects';
 
@@ -197,7 +501,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       return RequestHelper.post<ExpandedProjectSchema>()(this, url, {
         ...options,
         isForm: true,
-        file: [avatar.content, avatar.filename],
+        avatar: [avatar.content, avatar.filename],
       });
     }
 
@@ -221,7 +525,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     url: string,
     mirror: boolean,
-    options?: { onlyProtectedBranches?: boolean } & Sudo & ShowExpanded<E>,
+    options?: {
+      mirrorTriggerBuilds?: boolean;
+      mirrorBranchRegex?: string;
+      onlyProtectedBranches?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     return RequestHelper.post<ProjectRemoteMirrorSchema>()(
       this,
@@ -243,12 +552,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     projectId: string | number,
-    {
-      avatar,
-      ...options
-    }: {
-      avatar?: { content: Blob; filename: string };
-    } & BaseRequestOptions<E> = {} as any,
+    { avatar, ...options }: EditProjectOptions & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
     const url = endpoint`projects/${projectId}`;
 
@@ -256,7 +560,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       return RequestHelper.put<ExpandedProjectSchema>()(this, url, {
         ...options,
         isForm: true,
-        file: [avatar.content, avatar.filename],
+        avatar: [avatar.content, avatar.filename],
       });
     }
 
@@ -265,7 +569,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   fork<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: ForkProjectOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
     return RequestHelper.post<ExpandedProjectSchema>()(
       this,
@@ -276,7 +580,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   housekeeping<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { task?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/housekeeping`, options);
   }
@@ -295,7 +599,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { permanentlyRemove?: boolean; fullPath?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`projects/${projectId}`, options);
   }
@@ -326,7 +630,11 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   search<E extends boolean = false>(
     projectName: string,
-    options?: { sort?: string; orderBy?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      sort?: 'asc' | 'desc';
+      orderBy?: 'id' | 'name' | 'created_at' | 'last_activity_at';
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>> {
     return RequestHelper.get<ProjectSchema[]>()(this, 'projects', {
       search: projectName,
@@ -359,52 +667,6 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  showForks<E extends boolean = false>(
-    projectId: string | number,
-    options: { simple: true } & BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>>;
-
-  showForks<E extends boolean = false>(
-    projectId: string | number,
-    options: { statistics: true } & BaseRequestOptions<E>,
-  ): Promise<
-    GitlabAPIResponse<
-      (ExpandedProjectSchema & { statistics: ProjectStatisticsSchema })[],
-      C,
-      E,
-      void
-    >
-  >;
-
-  showForks<E extends boolean = false>(
-    projectId: string | number,
-    options?: BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>> {
-    return RequestHelper.get<ExpandedProjectSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/forks`,
-      options,
-    );
-  }
-
-  showGroups<E extends boolean = false>(
-    projectId: string | number,
-    options?: {
-      search?: string;
-      skipGroups?: number[];
-      withShared?: boolean;
-      sharedMinAccessLevel?: AccessLevel;
-      sharedVisibleOnly?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
-    return RequestHelper.get<SimpleGroupSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/groups`,
-      options,
-    );
-  }
-
   showLanguages<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
@@ -412,39 +674,6 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<{ [name: string]: number }>()(
       this,
       endpoint`projects/${projectId}/languages`,
-      options,
-    );
-  }
-
-  showStarrers<E extends boolean = false>(
-    projectId: string | number,
-    options?: { search?: string } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectStarrerSchema[], C, E, void>> {
-    return RequestHelper.get<ProjectStarrerSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/starrers`,
-      options,
-    );
-  }
-
-  showStoragePaths<E extends boolean = false>(
-    projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectStoragePath[], C, E, void>> {
-    return RequestHelper.get<ProjectStoragePath[]>()(
-      this,
-      endpoint`projects/${projectId}/storage`,
-      options,
-    );
-  }
-
-  showUsers<E extends boolean = false>(
-    projectId: string | number,
-    options?: { search?: string; skipUsers?: number[] } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
-      this,
-      endpoint`projects/${projectId}/users`,
       options,
     );
   }
@@ -518,8 +747,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   upload<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
-    { filename, ...options }: { filename?: string } & Sudo & ShowExpanded<E> = {},
+    file: { content: Blob; filename: string },
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectFileUploadSchema, C, E, void>> {
     return RequestHelper.post<ProjectFileUploadSchema>()(
       this,
@@ -527,20 +756,20 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       {
         ...options,
         isForm: true,
-        file: [content, filename],
+        file: [file.content, file.filename],
       },
     );
   }
 
   uploadAvatar<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
-    { filename, ...options }: { filename?: string } & Sudo & ShowExpanded<E> = {},
+    avatar: { content: Blob; filename: string },
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ avatar_url: string }, C, E, void>> {
     return RequestHelper.put<{ avatar_url: string }>()(this, endpoint`projects/${projectId}`, {
       ...options,
       isForm: true,
-      file: [content, filename],
+      avatar: [avatar.content, avatar.filename],
     });
   }
 }

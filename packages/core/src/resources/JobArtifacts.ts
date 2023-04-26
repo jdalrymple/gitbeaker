@@ -33,7 +33,7 @@ function generateDownloadPath(
 }
 
 export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
-  download<E extends boolean = false>(
+  downloadArchive<E extends boolean = false>(
     projectId: string | number,
     {
       jobId,
@@ -62,23 +62,6 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<Blob>()(this, url, {
       searchParams: {
         jobToken,
-      },
-      ...options,
-    });
-  }
-
-  downloadArchive<E extends boolean = false>(
-    projectId: string | number,
-    ref: string,
-    job: string,
-    { jobToken, ...options }: { jobToken?: string } & Sudo & ShowExpanded<E> = {},
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const url = endpoint`projects/${projectId}/jobs/artifacts/${ref}/download`;
-
-    return RequestHelper.get<Blob>()(this, url, {
-      searchParams: {
-        jobToken,
-        job,
       },
       ...options,
     });

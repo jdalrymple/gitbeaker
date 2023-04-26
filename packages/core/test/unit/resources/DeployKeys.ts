@@ -43,10 +43,10 @@ describe('DeployKeys.all', () => {
 
 describe('DeployKeys.edit', () => {
   it('should request PUT /projects/:id/deploy_keys/:key', async () => {
-    await service.edit(1, 2, { prop: 3 });
+    await service.edit(1, 2, { title: 'title' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2', {
-      prop: 3,
+      title: 'title',
     });
   });
 });

@@ -86,7 +86,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     projectId: string | number,
     ref: string,
     token: string,
-    options?: { variables?: Record<string, unknown> } & Sudo & ShowExpanded<E>,
+    options?: { variables?: Record<string, string> } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,

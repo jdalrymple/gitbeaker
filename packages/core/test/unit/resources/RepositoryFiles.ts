@@ -18,15 +18,11 @@ beforeEach(() => {
 
 describe('RepositoryFiles.create', () => {
   it('should request POST /projects/:id/repository/files/:path', async () => {
-    const blob = new Blob(['TESTING FILE UPLOAD'], {
-      type: 'text/plain',
-    });
-
-    await service.create(1, 'path', 'main', blob, 'message');
+    await service.create(1, 'path', 'main', 'content', 'message');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
       branch: 'main',
-      content: blob,
+      content: 'content',
       commitMessage: 'message',
     });
   });
@@ -34,15 +30,11 @@ describe('RepositoryFiles.create', () => {
 
 describe('RepositoryFiles.edit', () => {
   it('should request PUT /projects/:id/repository/files/:path', async () => {
-    const blob = new Blob(['TESTING FILE UPLOAD'], {
-      type: 'text/plain',
-    });
-
-    await service.edit(1, 'path', 'main', blob, 'message');
+    await service.edit(1, 'path', 'main', 'content', 'message');
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
       branch: 'main',
-      content: blob,
+      content: 'content',
       commitMessage: 'message',
     });
   });

@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -28,7 +27,8 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
     options?: { state?: ImpersonationTokenState } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserImpersonationTokenSchema[], C, E, P>> {
     return RequestHelper.get<UserImpersonationTokenSchema[]>()(
       this,
@@ -74,6 +74,7 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     return RequestHelper.del()(this, `users/${userId}/impersonation_tokens/${tokenId}`, options);
   }
 
+  // Convienence method
   revoke<E extends boolean = false>(
     userId: number,
     tokenId: number,

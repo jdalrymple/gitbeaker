@@ -1,6 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessTokens } from '../templates';
-import type { AccessLevel, AccessTokenSchema, AccessTokenScopes } from '../templates/types';
+import type { AccessTokenSchema, AccessTokenScopes } from '../templates/ResourceAccessTokens';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

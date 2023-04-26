@@ -66,25 +66,134 @@ export interface ExpandedGroupSchema extends GroupSchema {
   shared_projects?: ExpandedProjectSchema[];
 }
 
+export type AllGroupsOptions = {
+  skipGroups?: number[];
+  allAvailable?: boolean;
+  search?: string;
+  orderBy?: 'name' | 'path' | 'id';
+  sort?: 'asc' | 'desc';
+  statistics?: boolean;
+  withCustomAttributes?: boolean;
+  owned?: boolean;
+  minAccessLevel?: number;
+  topLevelOnly?: boolean;
+};
+
+export type AllGroupProjectsOptions = {
+  visibility?: string;
+  orderBy?:
+    | 'id'
+    | 'name'
+    | 'path'
+    | 'created_at'
+    | 'updated_at'
+    | 'similarity'
+    | 'last_activity_at';
+  sort?: 'asc' | 'desc';
+  search?: string;
+  simple?: boolean;
+  owned?: boolean;
+  starred?: boolean;
+  withIssuesEnabled?: boolean;
+  withMergeRequestsEnabled?: boolean;
+  withShared?: boolean;
+  includeSubgroups?: boolean;
+  min_accessLevel?: number;
+  withCustomAttributes?: boolean;
+  withSecurityReports?: boolean;
+};
+
+export type CreateGroupOptions = {
+  autoDevopsEnabled?: boolean;
+  avatar?: { content: Blob; filename: string };
+  defaultBranchProtection?: 0 | 1 | 2 | 3;
+  description?: string;
+  emailsDisabled?: boolean;
+  lfsEnabled?: boolean;
+  mentionsDisabled?: boolean;
+  parentId?: number;
+  projectCreationLevel?: 'noone' | 'maintainer' | 'developer';
+  requestAccessEnabled?: boolean;
+  requireTwoFactorAuthentication?: boolean;
+  shareWithGroupLock?: boolean;
+  subgroupCreationLevel?: string;
+  twoFactorGracePeriod?: number;
+  visibility?: 'private' | 'public';
+  membershipLock?: boolean;
+  extraSharedRunnersMinutesLimit?: number;
+  sharedRunnersMinutesLimit?: number;
+};
+
+export type EditGroupOptions = {
+  name?: string;
+  path?: string;
+  autoDevopsEnabled?: boolean;
+  avatar?: { content: Blob; filename: string };
+  defaultBranchProtection?: 0 | 1 | 2 | 3;
+  description?: string;
+  emailsDisabled?: boolean;
+  lfsEnabled?: boolean;
+  mentionsDisabled?: boolean;
+  preventSharingGroupsOutsideHierarchy?: boolean;
+  projectCreationLevel?: 'noone' | 'maintainer' | 'developer';
+  requestAccessEnabled?: boolean;
+  requireTwoFactorAuthentication?: boolean;
+  sharedRunnersSetting?:
+    | 'enabled'
+    | 'disabled_and_overridable'
+    | 'disabled_and_unoverridable'
+    | 'disabled_with_override';
+  shareWithGroupLock?: boolean;
+  subgroupCreationLevel?: string;
+  twoFactorGracePeriod?: number;
+  visibility?: 'private' | 'public';
+  extraSharedRunnersMinutesLimit?: number;
+  fileTemplateProjectId?: number;
+  membershipLock?: boolean;
+  preventForkingOutsideGroup?: boolean;
+  sharedRunnersMinutesLimit?: number;
+  uniqueProjectDownloadLimit?: number;
+  uniqueProjectDownloadLimitIntervalInSeconds?: number;
+  uniqueProjectDownloadLimitAllowlist?: string[];
+  uniqueProjectDownloadLimitAlertlist?: number[];
+  autoBanUserOnExcessiveProjectsDownload?: boolean;
+  ipRestrictionRanges?: string;
+};
+
+export type AllProvisionedUsersOptions = {
+  username?: string;
+  search?: string;
+  active?: boolean;
+  blocked?: boolean;
+  createdAfter?: string;
+  createdBefore?: string;
+};
+
 export class Groups<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: { statistics: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { statistics: true } & AllGroupsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
     return RequestHelper.get<GroupSchema[]>()(this, 'groups', options);
   }
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: { statistics: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: { statistics: true } & AllGroupsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
     return RequestHelper.get<GroupSchema[]>()(
       this,
@@ -95,44 +204,52 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { simple: true; sharedOnly?: boolean } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+    options?: { simple: true; sharedOnly?: boolean } & AllGroupProjectsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     return RequestHelper.get()(this, endpoint`groups/${groupId}/projects`, options) as any;
   }
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { simple: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { simple: true } & AllGroupProjectsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     return RequestHelper.get()(this, endpoint`groups/${groupId}/projects/shared`, options) as any;
   }
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { statistics: true } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { statistics: true } & AllGroupsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
     return RequestHelper.get<GroupSchema[]>()(this, endpoint`groups/${groupId}/subgroups`, options);
   }
 
   allProvisionedUsers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllProvisionedUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
     return RequestHelper.get<UserSchema[]>()(
       this,
@@ -143,7 +260,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allTransferLocations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { search?: string } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, P>> {
     return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
@@ -155,9 +272,19 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     name: string,
     path: string,
-    options?: BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<GroupSchema, C, E, void>> {
-    return RequestHelper.post<GroupSchema>()(this, 'groups', { name, path, ...options });
+    { avatar, ...options }: CreateGroupOptions & Sudo & ShowExpanded<E> = {} as any,
+  ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
+    if (avatar) {
+      return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', {
+        ...options,
+        isForm: true,
+        avatar: [avatar.content, avatar.filename],
+        name,
+        path,
+      });
+    }
+
+    return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', { name, path, ...options });
   }
 
   downloadAvatar<E extends boolean = false>(
@@ -169,14 +296,22 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     groupId: string | number,
-    options?: BaseRequestOptions<E>,
+    { avatar, ...options }: EditGroupOptions & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
+    if (avatar) {
+      return RequestHelper.post<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {
+        ...options,
+        isForm: true,
+        avatar: [avatar.content, avatar.filename],
+      });
+    }
+
     return RequestHelper.put<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, options);
   }
 
   remove<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { permanentlyRemove?: boolean | string; fullPath?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`groups/${groupId}`, options);
   }
@@ -212,7 +347,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     sharedGroupId: string | number,
     groupAccess: number,
-    options: BaseRequestOptions<E>,
+    options: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
     return RequestHelper.post<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}/share`, {
       groupId: sharedGroupId,
@@ -230,7 +365,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   transfer<E extends boolean = false>(
     groupId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: { groupId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/transfer`, options);
   }
@@ -238,7 +373,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   transferProject<E extends boolean = false>(
     groupId: string | number,
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(
       this,
@@ -250,7 +385,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   unshare<E extends boolean = false>(
     groupId: string | number,
     sharedGroupId: string | number,
-    options: BaseRequestOptions<E>,
+    options: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`groups/${groupId}/share/${sharedGroupId}`, options);
   }

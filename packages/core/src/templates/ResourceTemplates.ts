@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -21,7 +20,7 @@ export class ResourceTemplates<C extends boolean = false> extends BaseResource<C
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TemplateSchema[], C, E, P>> {
     process.emitWarning(
       'This API will be deprecated as of Gitlabs v5 API. Please make the switch to "ProjectTemplates".',

@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -22,7 +21,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     alertIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema[], C, E, P>> {
     return RequestHelper.get<MetricImageSchema[]>()(
       this,
@@ -60,15 +59,12 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
   upload<E extends boolean = false>(
     projectId: string | number,
     alertIId: number,
-    content: Blob,
+    metricImage: { content: Blob; filename: string },
     {
-      filename,
       url,
       urlText,
       ...options
-    }: { url?: string; urlText?: string; filename?: string } & Sudo & ShowExpanded<E> = {
-      filename: `${Date.now().toString()}.tar.gz`,
-    },
+    }: { url?: string; urlText?: string } & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
     return RequestHelper.post<MetricImageSchema>()(
       this,
@@ -76,7 +72,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
       {
         isForm: true,
         ...options,
-        file: [content, filename],
+        file: [metricImage.content, metricImage.filename],
         url_text: urlText,
         url,
       },

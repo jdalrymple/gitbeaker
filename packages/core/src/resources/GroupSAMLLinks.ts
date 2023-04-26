@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -15,11 +15,22 @@ export interface SAMLGroupSchema extends Record<string, unknown> {
 }
 
 export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
-  add<E extends boolean = false>(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<SAMLGroupSchema[], C, E, P>> {
+    return RequestHelper.get<SAMLGroupSchema[]>()(
+      this,
+      endpoint`groups/${groupId}/saml_group_links`,
+      options,
+    );
+  }
+
+  create<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    accessLevel: number,
-    options?: BaseRequestOptions<E>,
+    accessLevel: AccessLevel,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     return RequestHelper.post<SAMLGroupSchema>()(
       this,
@@ -29,17 +40,6 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
         samlGroupName,
         ...options,
       },
-    );
-  }
-
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<SAMLGroupSchema[], C, E, P>> {
-    return RequestHelper.get<SAMLGroupSchema[]>()(
-      this,
-      endpoint`groups/${groupId}/saml_group_links`,
-      options,
     );
   }
 

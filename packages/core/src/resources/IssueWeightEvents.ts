@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceStateEvents } from '../templates';
-import type { StateEventSchema } from '../templates/types';
+import type { StateEventSchema } from '../templates/ResourceStateEvents';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
+  Either3,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -9,8 +10,10 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface ProtectedEnvironmentAccessLevel {
-  access_level: 30 | 40 | 60;
+export type ProtectedEnvironmentAccessLevel = 30 | 40 | 60;
+
+export interface ProtectedEnvironmentAccessLevelSummarySchema {
+  access_level: ProtectedEnvironmentAccessLevel;
   access_level_description: string;
   user_id?: number;
   group_id?: number;
@@ -18,9 +21,15 @@ export interface ProtectedEnvironmentAccessLevel {
 
 export interface ProtectedEnvironmentSchema extends Record<string, unknown> {
   name: string;
-  deploy_access_levels?: ProtectedEnvironmentAccessLevel[];
+  deploy_access_levels?: ProtectedEnvironmentAccessLevelSummarySchema[];
   required_approval_count: number;
 }
+
+export type ProtectedEnvironmentAccessLevelEntity = Either3<
+  { userId: number },
+  { groupId: number },
+  { accessLevel: number }
+>;
 
 export class ResourceProtectedEnvironments<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
@@ -29,7 +38,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>> {
     return RequestHelper.get<ProtectedEnvironmentSchema[]>()(
       this,
@@ -38,11 +47,15 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     );
   }
 
-  protect<E extends boolean = false>(
+  create<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    deployAccessLevel: ProtectedEnvironmentAccessLevel[],
-    options?: { requiredApprovalCount?: number } & Sudo & ShowExpanded<E>,
+    deployAccessLevel: ProtectedEnvironmentAccessLevelEntity[],
+    options?: {
+      requiredApprovalCount?: number;
+      approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
     return RequestHelper.post<ProtectedEnvironmentSchema>()(
       this,
@@ -59,9 +72,9 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     resourceId: string | number,
     name: string,
     options?: {
-      deploy_access_levels?: ProtectedEnvironmentAccessLevel[];
-      required_approval_count?: number;
-      approval_rules?: ProtectedEnvironmentAccessLevel[];
+      deployAccessLevels?: ProtectedEnvironmentAccessLevelEntity[];
+      requiredApprovalCount?: number;
+      approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
@@ -84,7 +97,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     );
   }
 
-  unprotect<E extends boolean = false>(
+  remove<E extends boolean = false>(
     resourceId: string | number,
     name: string,
     options?: Sudo & ShowExpanded<E>,

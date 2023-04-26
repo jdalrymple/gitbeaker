@@ -100,9 +100,9 @@ describe('Commits.createComment', () => {
   });
 });
 
-describe('Commits.diff', () => {
+describe('Commits.showDiff', () => {
   it('should request GET projects/:id/repository/commits/:sha/diff', async () => {
-    await service.diff(1, '5a');
+    await service.showDiff(1, '5a');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -114,9 +114,11 @@ describe('Commits.diff', () => {
 
 describe('Commits.editStatus', () => {
   it('should request POST projects/:id/statuses/:ref', async () => {
-    await service.editStatus(1, '5a');
+    await service.editStatus(1, '5a', 'pending');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/statuses/5a', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/statuses/5a', {
+      state: 'pending',
+    });
   });
 });
 

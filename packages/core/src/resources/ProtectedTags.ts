@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  Either3,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -9,20 +9,29 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface ProtectedTagAccessLevel {
-  access_level: 0 | 30 | 40 | 60;
+export type ProtectedTagAccessLevel = 0 | 30 | 40 | 60;
+
+export interface ProtectedTagAccessLevelSummarySchema {
+  id: number;
+  access_level: ProtectedTagAccessLevel;
   access_level_description: string;
 }
 
 export interface ProtectedTagSchema extends Record<string, unknown> {
   name: string;
-  create_access_levels?: ProtectedTagAccessLevel[];
+  create_access_levels?: ProtectedTagAccessLevelSummarySchema[];
 }
+
+export type ProtectedTagAccessLevelEntity = Either3<
+  { userId: number },
+  { groupId: number },
+  { accessLevel: number }
+>;
 
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema[], C, E, P>> {
     return RequestHelper.get<ProtectedTagSchema[]>()(
       this,
@@ -31,10 +40,14 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  protect<E extends boolean = false>(
+  create<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: { createAccessLevel?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      createAccessLevel?: ProtectedTagAccessLevel;
+      allowedToCreate: ProtectedTagAccessLevelEntity;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     const { sudo, showExpanded, ...opts } = options || {};
 
@@ -64,7 +77,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  unprotect<E extends boolean = false>(
+  remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
     options?: Sudo & ShowExpanded<E>,

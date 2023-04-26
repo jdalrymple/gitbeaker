@@ -31,8 +31,7 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    filename: string,
-    content: Blob,
+    packageFile: { content: Blob; filename: string },
     options: {
       select: 'package_file';
       contentType?: string;
@@ -45,8 +44,7 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    filename: string,
-    content: Blob,
+    packageFile: { content: Blob; filename: string },
     options?: { contentType?: string; status?: 'default' | 'hidden' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>>;
 
@@ -54,8 +52,7 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    filename: string,
-    content: Blob,
+    packageFile: { content: Blob; filename: string },
     {
       contentType,
       ...options
@@ -64,10 +61,10 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
   ): Promise<any> {
     return RequestHelper.put<PackageRegistrySchema | { message: string }>()(
       this,
-      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
+      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${packageFile.filename}`,
       {
         isForm: true,
-        file: [content, filename],
+        file: [packageFile.content, packageFile.filename],
         ...options,
       },
     );

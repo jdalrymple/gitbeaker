@@ -24,7 +24,14 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: {
+      createdAfter?: string;
+      createdBefore?: string;
+      updatedAfter?: string;
+      updatedBefore?: string;
+    } & Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<RelatedEpicSchema[], C, E, P>> {
     return RequestHelper.get<RelatedEpicSchema[]>()(
       this,
@@ -38,7 +45,7 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     targetEpicIId: string | number,
     targetGroupId: string | number,
-    options?: { link_type?: RelatedEpicLinkType } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: RelatedEpicLinkType } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
     return RequestHelper.post<RelatedEpicLinkSchema>()(
       this,

@@ -1,8 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
-import type { NoteSchema } from '../templates/types';
+import type { NoteSchema } from '../templates/ResourceNotes';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -24,21 +23,26 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: {
+      sort?: 'asc' | 'desc';
+      orderBy?: 'created_at' | 'updated_at';
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueNoteSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     body: string,
-    options?: { created_at?: string; confidential?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueNoteSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     noteId: number,
-    options: { body?: string; confidential?: boolean } & Sudo & ShowExpanded<E>,
+    options: { body?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueNoteSchema, C, E, void>>;
 
   remove<E extends boolean = false>(

@@ -4,10 +4,10 @@ import type {
   DiscussionNotePositionSchema,
   DiscussionNoteSchema,
   DiscussionSchema,
-} from '../templates/types';
+} from '../templates/ResourceDiscussions';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -41,20 +41,25 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     discussionId: string,
     noteId: number,
     body: string,
-    options?: BaseRequestOptions<E>,
+    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
     mergerequestId: string | number,
     body: string,
-    options?: { position?: DiscussionNotePositionOptions } & BaseRequestOptions<E>,
+    options?: {
+      position?: DiscussionNotePositionOptions;
+      commitId?: string;
+      createdAt?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
   editNote<E extends boolean = false>(
@@ -62,7 +67,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     noteId: number,
-    options: BaseRequestOptions<E> & { body: string },
+    options: Sudo & ShowExpanded<E> & Either<{ body: string }, { resolved: boolean }>,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;
 
   removeNote<E extends boolean = false>(

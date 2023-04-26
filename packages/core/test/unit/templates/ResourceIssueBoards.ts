@@ -97,7 +97,7 @@ describe('ResourceIssueBoards.editList', () => {
 
 describe('ResourceIssueBoards.lists', () => {
   it('should call the correct url with a resource id and board id', async () => {
-    await service.lists('5', 6);
+    await service.allLists('5', 6);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6/lists', undefined);
   });

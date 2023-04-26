@@ -34,7 +34,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     name: string,
     url: string,
-    options?: Sudo & { filePath?: string; linkType?: string },
+    options?: Sudo & { filePath?: string; linkType?: string; directAssetPath?: string },
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
     return RequestHelper.post<ReleaseLinkSchema>()(
       this,
@@ -52,7 +52,13 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     linkId: number,
     options?: Sudo &
-      ShowExpanded<E> & { name?: string; url?: string; filePath?: string; linkType?: string },
+      ShowExpanded<E> & {
+        name?: string;
+        url?: string;
+        filePath?: string;
+        linkType?: string;
+        directAssetPath?: string;
+      },
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
     return RequestHelper.put<ReleaseLinkSchema>()(
       this,

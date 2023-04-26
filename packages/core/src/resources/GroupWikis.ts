@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceWikis } from '../templates';
-import type { WikiAttachmentSchema, WikiSchema } from '../templates/types';
+import type { WikiAttachmentSchema, WikiSchema } from '../templates/ResourceWikis';
 import type {
   Either,
   GitlabAPIResponse,
@@ -44,8 +44,8 @@ export interface GroupWikis<C extends boolean = false> extends ResourceWikis<C> 
 
   uploadAttachment<E extends boolean = false>(
     groupId: string | number,
-    content: Blob,
-    options?: { filename?: string; branch?: string } & Sudo & ShowExpanded<E>,
+    file: { content: Blob; filename: string },
+    options?: { branch?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<WikiAttachmentSchema, C, E, void>>;
 }
 

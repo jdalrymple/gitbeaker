@@ -40,27 +40,12 @@ describe('ProjectImportExport.import', () => {
   it('should request POST /projects/import', async () => {
     const content = new Blob(['content'], { type: 'text/plain' });
 
-    await service.import(content, 'name', 'path');
+    await service.import({ content, filename: 'test.tar.gz' }, 'path', { name: 'test' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
       isForm: true,
-      file: [content, expect.stringContaining('.tar.gz')],
-      name: 'name',
-      parentId: undefined,
-      path: 'path',
-    });
-  });
-
-  it('should request POST /projects/import with metadata', async () => {
-    const content = new Blob(['content'], { type: 'text/plain' });
-
-    await service.import(content, 'name', 'path', { filename: 'filename.txt' });
-
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/import', {
-      isForm: true,
-      file: [content, 'filename.txt'],
-      name: 'name',
-      parentId: undefined,
+      file: [content, 'test.tar.gz'],
+      name: 'test',
       path: 'path',
     });
   });
@@ -76,8 +61,10 @@ describe('ProjectImportExport.showImportStatus', () => {
 
 describe('ProjectImportExport.scheduleExport', () => {
   it('should request POST /projects/:id/export', async () => {
-    await service.scheduleExport(1);
+    await service.scheduleExport(1, { url: 'string' });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/export', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/export', {
+      upload: { url: 'string' },
+    });
   });
 });

@@ -1,8 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis } from '../templates';
-import type { AwardEmojiSchema } from '../templates/types';
+import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -15,7 +14,7 @@ export interface ProjectSnippetAwardEmojis<C extends boolean = false>
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     snippetId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>>;
 
   award<E extends boolean = false>(

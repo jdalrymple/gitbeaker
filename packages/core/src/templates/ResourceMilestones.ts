@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -27,6 +26,22 @@ export interface MilestoneSchema extends Record<string, unknown> {
   web_url: string;
 }
 
+export interface BurndownChartEventSchema extends Record<string, unknown> {
+  created_at: string;
+  weight: number;
+  action: string;
+}
+
+export interface AllMilestonesOptions {
+  iids?: number[];
+  state?: string;
+  title?: string;
+  search?: string;
+  includeParentMilestones?: boolean;
+  updatedBefore?: string;
+  updatedAfter?: string;
+}
+
 export class ResourceMilestones<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
@@ -34,7 +49,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllMilestonesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>> {
     return RequestHelper.get<MilestoneSchema[]>()(
       this,
@@ -63,6 +78,18 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`${resourceId}/milestones/${milestoneId}/merge_requests`,
+      options,
+    );
+  }
+
+  allBurndownChartEvents<E extends boolean = false>(
+    resourceId: string | number,
+    milestoneId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<BurndownChartEventSchema[], C, E, void>> {
+    return RequestHelper.get<BurndownChartEventSchema[]>()(
+      this,
+      endpoint`${resourceId}/milestones/${milestoneId}/burndown_events`,
       options,
     );
   }
@@ -114,18 +141,6 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
     return RequestHelper.get<MilestoneSchema>()(
       this,
       endpoint`${resourceId}/milestones/${milestoneId}`,
-      options,
-    );
-  }
-
-  showBurndownChartEvents<E extends boolean = false>(
-    resourceId: string | number,
-    milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.get<void>()(
-      this,
-      endpoint`${resourceId}/milestones/${milestoneId}/burndown_events`,
       options,
     );
   }

@@ -11,9 +11,10 @@ export interface UserEmailSchema extends Record<string, unknown> {
 const url = (userId?: number) => (userId ? `users/${userId}/emails` : 'user/emails');
 
 export class UserEmails<C extends boolean = false> extends BaseResource<C> {
+  // Convenience method for create
   add<E extends boolean = false>(
     email: string,
-    options?: { userId?: number } & Sudo & ShowExpanded<E>,
+    options?: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     return this.create<E>(email, options);
   }
@@ -33,7 +34,10 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
 
   create<E extends boolean = false>(
     email: string,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    {
+      userId,
+      ...options
+    }: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     return RequestHelper.post<UserEmailSchema>()(this, url(userId), {
       email,

@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIterationEvents } from '../templates';
-import type { IterationEventSchema } from '../templates/types';
+import type { IterationEventSchema } from '../templates/ResourceIterationEvents';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,

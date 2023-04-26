@@ -23,4 +23,14 @@ export class Suggestions<C extends boolean = false> extends BaseResource<C> {
       options,
     );
   }
+
+  editBatch<E extends boolean = false>(
+    suggestionIds: number[],
+    options?: { commitMessage?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<SuggestionSchema, C, E, void>> {
+    return RequestHelper.put<SuggestionSchema>()(this, `suggestions/batch_apply`, {
+      ...options,
+      ids: suggestionIds,
+    });
+  }
 }

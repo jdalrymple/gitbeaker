@@ -76,13 +76,14 @@ describe('Issues.edit', () => {
 
 describe('Issues.create', () => {
   it('should request POST projects/:id/issues', async () => {
-    await service.create(2, {
-      title: 'Issue.create Test',
+    await service.create(2, 'title', {
+      assigneeId: 3,
       description: 'A test issue',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/2/issues', {
-      title: 'Issue.create Test',
+      title: 'title',
+      assigneeId: 3,
       description: 'A test issue',
     });
   });

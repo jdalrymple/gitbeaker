@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -9,8 +8,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { ExpandedProjectSchema } from './Projects';
-import type { EventOptions, EventSchema } from './Events';
-import type { AccessLevel } from '../templates/types';
+import type { AllEventOptions, EventSchema } from './Events';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 
 export interface UserSchema extends Record<string, unknown> {
@@ -25,6 +24,7 @@ export interface UserSchema extends Record<string, unknown> {
 
 export interface ExpandedUserSchema extends UserSchema {
   bio?: string;
+  bot: boolean;
   location?: string;
   public_email: string;
   skype: string;
@@ -32,6 +32,14 @@ export interface ExpandedUserSchema extends UserSchema {
   twitter: string;
   website_url: string;
   organization?: string;
+  job_title?: string;
+  prnouns?: string;
+  work_information?: string;
+  followers?: number;
+  following?: number;
+  local_time?: string;
+  is_followed?: boolean;
+
   last_sign_in_at: string;
   confirmed_at: string;
   last_activity_on: string;
@@ -40,6 +48,8 @@ export interface ExpandedUserSchema extends UserSchema {
   color_scheme_id: number;
   projects_limit: number;
   current_sign_in_at?: string;
+  note?: string;
+  identities?: { provider: string; extern_uid: string; saml_provider_id?: number }[];
   can_create_group: boolean;
   can_create_project: boolean;
   two_factor_enabled: boolean;
@@ -47,11 +57,13 @@ export interface ExpandedUserSchema extends UserSchema {
   private_profile?: string;
   current_sign_in_ip: string;
   last_sign_in_ip: string;
+  namespace_id?: number;
+  created_by?: string;
+
   shared_runners_minutes_limit?: number;
   extra_shared_runners_minutes_limit?: number;
   is_auditor?: boolean;
   using_license_seat?: boolean;
-  identities?: { provider: string; extern_uid: string; saml_provider_id?: number }[];
   provisioned_by_group_id?: number;
 }
 
@@ -84,12 +96,83 @@ export interface UserCountSchema extends Record<string, unknown> {
   todos: number;
 }
 
+export interface UserAssociationCountSchema extends Record<string, unknown> {
+  groups_count: number;
+  projects_count: number;
+  issues_count: number;
+  merge_requests_count: number;
+}
+
 export interface UserMembershipSchema extends Record<string, unknown> {
   source_id: number;
   source_name: string;
   source_type: 'Project' | 'Namespace';
   access_level: AccessLevel;
 }
+
+export interface UserRunnerSchema extends Record<string, unknown> {
+  id: number;
+  token: string;
+  token_expires_at?: string;
+}
+
+export type AllUsersOptions = {
+  orderBy?: 'name' | 'username' | 'created_at' | 'updated_at';
+  sort?: 'asc' | 'desc';
+  twoFactor?: string;
+  withoutProjects?: boolean;
+  admins?: boolean;
+  samlProviderId?: number;
+};
+
+export type CreateUserOptions = {
+  admin?: boolean;
+  auditor?: boolean;
+  avatar?: { contenxt: Blob; filepath?: string };
+  bio?: string;
+  canCreateGroup?: boolean;
+  colorSchemeId?: number;
+  email?: string;
+  externUid?: number;
+  external?: boolean;
+  extraSharedRunnersMinutesLimit?: number;
+  forceRandomPassword?: string;
+  groupIdForSaml?: number;
+  linkedin?: string;
+  location?: string;
+  name?: string;
+  note?: string;
+  organization?: string;
+  password?: string;
+  privateProfile?: string;
+  projectsLimit?: boolean;
+  provider?: string;
+  resetPassword?: boolean;
+  sharedRunnersMinutesLimit?: number;
+  skipConfirmation?: boolean;
+  skype?: string;
+  themeId?: number;
+  twitter?: string;
+  discord?: string;
+  username?: string;
+  viewDiffsFileByFile?: boolean;
+  websiteUrl?: string;
+};
+
+export type EditUserOptions = CreateUserOptions;
+
+export type CreateUserCIRunnerOptions = {
+  groupId?: number;
+  projectId?: number;
+  description?: string;
+  paused?: boolean;
+  locked?: boolean;
+  runUntagged?: boolean;
+  tagList?: string[];
+  accessLevel?: 'not_protected' | 'ref_protected';
+  maximumTimeout?: number;
+  maintenanceNote?: string;
+};
 
 export class Users<C extends boolean = false> extends BaseResource<C> {
   activate<E extends boolean = false>(
@@ -100,34 +183,34 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(UserSchema | ExpandedUserSchema)[], C, E, P>> {
     return RequestHelper.get<(UserSchema | ExpandedUserSchema)[]>()(this, 'users', options);
   }
 
   allActivities<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { from?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserActivitySchema[], C, E, P>> {
     return RequestHelper.get<UserActivitySchema[]>()(this, 'user/activities', options);
   }
 
   allEvents<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E> & EventOptions,
+    options?: AllEventOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ) {
     return RequestHelper.get<EventSchema[]>()(this, endpoint`users/${userId}/events`, options);
   }
 
   allFollowers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
     return RequestHelper.get<UserSchema[]>()(this, endpoint`users/${userId}/followers`, options);
   }
 
   allFollowing<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
     return RequestHelper.get<UserSchema[]>()(this, endpoint`users/${userId}/following`, options);
   }
@@ -135,7 +218,8 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   allMemberships<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
     options?: { type?: 'Project' | 'Namespace' } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserMembershipSchema[], C, E, P>> {
     return RequestHelper.get<UserMembershipSchema[]>()(
       this,
@@ -146,7 +230,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     return RequestHelper.get<ExpandedProjectSchema[]>()(
       this,
@@ -158,7 +242,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   // Convenience method - Functionality already present in the all method in the Projects wrapper
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
     return RequestHelper.get<ExpandedProjectSchema[]>()(
       this,
@@ -214,7 +298,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   create<E extends boolean = false>(
-    options?: BaseRequestOptions<E>,
+    options?: CreateUserOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSchema | ExpandedUserSchema, C, E, void>> {
     return RequestHelper.post<UserSchema>()(this, 'users', options);
   }
@@ -236,7 +320,20 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  edit<E extends boolean = false>(userId: number, options?: BaseRequestOptions<E>) {
+  createCIRunner<E extends boolean = false>(
+    runnerType: 'instance_type' | 'group_type' | 'project_type',
+    options?: CreateUserCIRunnerOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<UserRunnerSchema, C, E, void>> {
+    return RequestHelper.post<UserRunnerSchema>()(this, 'user/runners', {
+      ...options,
+      runnerType,
+    });
+  }
+
+  edit<E extends boolean = false>(
+    userId: number,
+    options?: EditUserOptions & Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.put<UserSchema>()(this, endpoint`users/${userId}`, options);
   }
 
@@ -292,10 +389,21 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  showCounts<E extends boolean = false>(
+  showCount<E extends boolean = false>(
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserCountSchema, C, E, void>> {
     return RequestHelper.get<UserCountSchema>()(this, 'user_counts', options);
+  }
+
+  showAssociationsCount<E extends boolean = false>(
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<UserAssociationCountSchema, C, E, void>> {
+    return RequestHelper.get<UserAssociationCountSchema>()(
+      this,
+      `users/${userId}/associations_count`,
+      options,
+    );
   }
 
   showCurrentUser<E extends boolean = false>(
@@ -323,7 +431,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { hardDelete?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`users/${userId}`, options);
   }

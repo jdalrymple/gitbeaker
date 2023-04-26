@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
-import type { HookSchema } from '../templates/types';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { HookSchema } from '../templates/ResourceHooks';
 
 export interface SystemHookTestResponse extends Record<string, unknown> {
   project_id: number;
@@ -12,24 +12,33 @@ export interface SystemHookTestResponse extends Record<string, unknown> {
   event_name: string;
 }
 
-export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
-  // Convenience method
-  add<E extends boolean = false>(
-    url: string,
-    options?: BaseRequestOptions<E>,
-  ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
-    return this.create<E>(url, options);
-  }
+export interface CreateSystemHook {
+  token?: string;
+  pushEvents?: boolean;
+  tagPushEvents?: boolean;
+  mergeRequestsEvents?: boolean;
+  repositoryUpdateEvents?: boolean;
+  enableSslVerification?: boolean;
+}
 
+export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<HookSchema[], C, E, void>> {
     return RequestHelper.get<HookSchema[]>()(this, 'hooks', options);
   }
 
+  // Convenience method
+  add<E extends boolean = false>(
+    url: string,
+    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
+    return this.create<E>(url, options);
+  }
+
   create<E extends boolean = false>(
     url: string,
-    options?: BaseRequestOptions<E>,
+    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
     return RequestHelper.post<HookSchema>()(this, 'hooks', {
       url,

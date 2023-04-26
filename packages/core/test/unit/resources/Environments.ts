@@ -26,11 +26,11 @@ describe('Environments.all', () => {
 
 describe('Environments.create', () => {
   it('should request POST /projects/:id/environments', async () => {
-    await service.create(1, 'name', { prop: 1 });
+    await service.create(1, 'name', { tier: 'production' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/environments', {
       name: 'name',
-      prop: 1,
+      tier: 'production',
     });
   });
 });

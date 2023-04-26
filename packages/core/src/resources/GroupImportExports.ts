@@ -12,21 +12,15 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
 
   // TODO: What does this return?
   import<E extends boolean = false>(
-    content: Blob,
+    file: { content: Blob; filename: string },
     name: string,
     path: string,
-    {
-      filename,
-      parentId,
-      ...options
-    }: { parentId?: number; filename?: string } & Sudo & ShowExpanded<E> = {
-      filename: `${Date.now().toString()}.tar.gz`,
-    },
+    { parentId, ...options }: { parentId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(this, 'groups/import', {
       isForm: true,
       ...options,
-      file: [content, filename],
+      file: [file.content, file.filename],
       path,
       name,
       parentId,

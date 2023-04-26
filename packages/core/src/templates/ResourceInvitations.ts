@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   Either,
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -16,7 +15,7 @@ export interface InvitationSchema extends Record<string, unknown> {
   id: number;
   invite_email: string;
   created_at: string;
-  access_level: number;
+  access_level: AccessLevel;
   expires_at: string;
   user_name: string;
   created_by_name: string;
@@ -30,7 +29,13 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   add<E extends boolean = false>(
     resourceId: string | number,
     accessLevel: AccessLevel,
-    options?: Either<{ email: string }, { userId: string }> & BaseRequestOptions<E>,
+    options: Either<{ email: string }, { userId: string }> & {
+      expiresAt?: string;
+      inviteSource?: string;
+      tasksToBeDone?: string[];
+      tasksProjectId?: number;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     if (!options?.email && !options?.userId)
       throw new Error(
@@ -45,7 +50,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & { query?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>> {
     return RequestHelper.get<InvitationSchema[]>()(
       this,
@@ -57,7 +62,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   edit<E extends boolean = false>(
     resourceId: string | number,
     email: string,
-    options?: BaseRequestOptions<E>,
+    options?: { expiresAt?: string; accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     return RequestHelper.put<InvitationSchema>()(
       this,

@@ -16,88 +16,7 @@ import type { SimpleProjectSchema } from './Projects';
 import type { TodoSchema } from './TodoLists';
 import type { UserSchema } from './Users';
 
-import type { MilestoneSchema } from '../templates/types';
-
-// Select method options
-export interface AllMergeRequestsOptions {
-  state?: 'opened' | 'closed' | 'locked' | 'merged';
-  orderBy?: 'created_at' | 'updated_at';
-  sort?: 'asc' | 'desc';
-  milestone?: 'None' | string;
-  view?: string;
-  labels?: string | Array<string>;
-  withLabelsDetails?: boolean;
-  withMergeStatusRecheck?: boolean;
-  createdAfter?: string;
-  createdBefore?: string;
-  updatedBefore?: string;
-  updatedAfter?: string;
-  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
-  authorId?: number;
-  authorUsername?: string;
-  assigneeId?: number;
-  approverIds?: Array<number>;
-  approvedByIds?: Array<number>;
-  reviewerId?: number | 'Any' | 'None';
-  reviewerUsername?: string;
-  myReactionEmoji?: string;
-  sourceBranch?: string;
-  targetBranch?: string;
-  search?: string;
-  in?: string;
-  wip?: string;
-  not?: {
-    labels?: string | Array<string>;
-    milestone?: string;
-    authorId?: number;
-    authorUsername?: string;
-    assigneeId?: number;
-    assigneeUsername?: string;
-    reviewerId?: number;
-    reviewerUsername?: string;
-    myReactionEmoji?: string;
-  };
-  environment?: string;
-  deployedBefore?: string;
-  deployedAfter?: string;
-}
-
-export interface AcceptMergeRequestOptions {
-  mergeCommitMessage?: string;
-  squashCommitMessage?: string;
-  squash?: boolean;
-  shouldRemoveSourceBranch?: boolean;
-  mergeWhenPipelineSucceeds?: boolean;
-  sha?: string;
-}
-
-export interface CreateMergeRequestOptions {
-  assigneeId?: number;
-  description?: string;
-  targetProjectId?: number;
-  labels?: string | Array<string>;
-  milestoneId?: number;
-  removeSourceBranch?: boolean;
-  allowCollaboration?: boolean;
-  allowMaintainerToPush?: boolean;
-  squash?: boolean;
-}
-
-export interface UpdateMergeRequestOptions {
-  targetBranch?: number;
-  title?: string;
-  assigneeId?: number;
-  reviewerId?: number;
-  milestoneId?: number;
-  labels?: string | Array<string>;
-  description?: string;
-  stateEvent?: string;
-  removeSourceBranch?: boolean;
-  squash?: boolean;
-  discussionLocked?: boolean;
-  allowCollaboration?: boolean;
-  allowMaintainerToPush?: boolean;
-}
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
 // Response Schemas
 export interface DiffRefsSchema {
@@ -239,13 +158,95 @@ export interface MergeRequestTodoSchema extends TodoSchema {
   target: ExpandedMergeRequestSchema;
 }
 
+// Select method options
+export type AllMergeRequestsOptions = {
+  approvedByIds?: number[];
+  approverIds?: number[];
+  approved?: string;
+  assigneeId?: number;
+  authorId?: number;
+  authorUsername?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  deployedAfter?: string;
+  deployedBefore?: string;
+  environment?: string;
+  in?: string;
+  labels?: string;
+  milestone?: string;
+  myReactionEmoji?: string;
+  not?: {
+    labels?: string | string[];
+    milestone?: string;
+    authorId?: number;
+    authorUsername?: string;
+    assigneeId?: number;
+    assigneeUsername?: string;
+    reviewerId?: number;
+    reviewerUsername?: string;
+    myReactionEmoji?: string;
+  };
+  orderBy?: 'created_at' | 'updated_at';
+  reviewerId?: number | 'Any' | 'None';
+  reviewerUsername?: string;
+  scope?: 'created_by_me' | 'assigned_to_me' | 'all';
+  search?: string;
+  sort?: 'asc' | 'desc';
+  sourceBranch?: string;
+  state?: 'opened' | 'closed' | 'locked' | 'merged';
+  targetBranch?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  view?: string;
+  withLabelsDetails?: boolean;
+  withMergeStatusRecheck?: boolean;
+  wip?: string;
+};
+
+export type AcceptMergeRequestOptions = {
+  mergeCommitMessage?: string;
+  squashCommitMessage?: string;
+  squash?: boolean;
+  shouldRemoveSourceBranch?: boolean;
+  mergeWhenPipelineSucceeds?: boolean;
+  sha?: string;
+};
+
+export type CreateMergeRequestOptions = {
+  assigneeId?: number;
+  description?: string;
+  targetProjectId?: number;
+  labels?: string | Array<string>;
+  milestoneId?: number;
+  removeSourceBranch?: boolean;
+  allowCollaboration?: boolean;
+  allowMaintainerToPush?: boolean;
+  squash?: boolean;
+};
+
+export type EditMergeRequestOptions = {
+  targetBranch?: number;
+  title?: string;
+  assigneeId?: number;
+  reviewerId?: number;
+  milestoneId?: number;
+  labels?: string | Array<string>;
+  description?: string;
+  stateEvent?: string;
+  removeSourceBranch?: boolean;
+  squash?: boolean;
+  discussionLocked?: boolean;
+  allowCollaboration?: boolean;
+  allowMaintainerToPush?: boolean;
+};
+
 // Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   // convenience method
   accept<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: AcceptMergeRequestOptions & BaseRequestOptions<E>,
+    options?: AcceptMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return this.merge(projectId, mergerequestIId, options);
   }
@@ -284,13 +285,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       prefix = endpoint`groups/${groupId}/`;
     }
 
-    return RequestHelper.get<MergeRequestSchema[]>()(
-      this,
-      `${prefix}merge_requests`,
-      options as unknown as AllMergeRequestsOptions &
-        PaginationRequestOptions<P> &
-        BaseRequestOptions<E>,
-    );
+    return RequestHelper.get<MergeRequestSchema[]>()(this, `${prefix}merge_requests`, options);
   }
 
   cancelOnPipelineSuccess<E extends boolean = false>(
@@ -346,7 +341,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     sourceBranch: string,
     targetBranch: string,
     title: string,
-    options?: CreateMergeRequestOptions & BaseRequestOptions<E>,
+    options?: CreateMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
@@ -399,7 +394,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: UpdateMergeRequestOptions & BaseRequestOptions<E>,
+    options?: EditMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.put<ExpandedPipelineSchema>()(
       this,
@@ -411,7 +406,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   merge<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: AcceptMergeRequestOptions & BaseRequestOptions<E>,
+    options?: AcceptMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.put<ExpandedPipelineSchema>()(
       this,
@@ -423,7 +418,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   mergeToDefault<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: UpdateMergeRequestOptions & BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ commit_id: string }, C, E, void>> {
     return RequestHelper.put<{ commit_id: string }>()(
       this,

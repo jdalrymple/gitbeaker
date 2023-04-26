@@ -9,7 +9,7 @@ import type {
 } from '../infrastructure';
 import { UserSchema } from './Users';
 
-export interface EventOptions {
+export type AllEventOptions = {
   action?:
     | 'created'
     | 'updated'
@@ -27,7 +27,7 @@ export interface EventOptions {
   after?: string;
   scope?: string;
   sort?: 'asc' | 'desc';
-}
+};
 
 export interface EventSchema extends Record<string, unknown> {
   id: number;
@@ -50,9 +50,9 @@ export class Events<C extends boolean = false> extends BaseResource<C> {
       userId,
       ...options
     }: EitherOrNone<{ projectId?: string | number }, { userId: string | number }> &
+      AllEventOptions &
       PaginationRequestOptions<P> &
-      BaseRequestOptions<E> &
-      EventOptions = {} as any,
+      BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
     let url: string;
 

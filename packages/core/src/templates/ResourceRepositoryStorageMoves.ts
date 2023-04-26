@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -13,7 +12,14 @@ import type {
 export interface RepositoryStorageMoveSchema extends Record<string, unknown> {
   id: number;
   created_at: string;
-  state: string;
+  state:
+    | 'initial'
+    | 'scheduled'
+    | 'started'
+    | 'replicated'
+    | 'failed'
+    | 'finished'
+    | 'cleanup failed';
   source_storage_name: string;
   destination_storage_name: string;
 }
@@ -31,7 +37,7 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema[], C, E, P>> {
     const resourceId = options?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId
@@ -59,7 +65,7 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { destinationStorageName?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
     const resourceId = options?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId

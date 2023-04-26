@@ -20,7 +20,7 @@ describe('PackageRegistry.publish', () => {
   it('should request PUT projects/:projectId/packages/generic/:packageName/:packageVersion/:filename', async () => {
     const content = new Blob(['content'], { type: 'text/plain' });
 
-    await service.publish(1, 'name', 'v1.0', 'filename.txt', content);
+    await service.publish(1, 'name', 'v1.0', { content, filename: 'filename.txt' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,

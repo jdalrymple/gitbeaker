@@ -1,10 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
 export interface ApplicationSchema extends Record<string, unknown> {
@@ -18,7 +19,7 @@ export interface ApplicationSchema extends Record<string, unknown> {
 
 export class Applications<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ApplicationSchema[], C, E, P>> {
     return RequestHelper.get<ApplicationSchema[]>()(this, 'applications', options);
   }
@@ -27,7 +28,7 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
     name: string,
     redirectUri: string,
     scopes: string,
-    options?: BaseRequestOptions<E>,
+    options?: { confidential?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ApplicationSchema, C, E, void>> {
     return RequestHelper.post<ApplicationSchema>()(this, 'applications', {
       name,
@@ -39,7 +40,7 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     applicationId: number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, `applications/${applicationId}`, options);
   }

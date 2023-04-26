@@ -17,30 +17,29 @@ function getInstanceMethods(x: object): string[] {
     .map((name) => name.toString());
 }
 
-function removeOptionalArg(list: (string | Record<string, unknown>)[] = []) {
+function removeOptionalArg(list: (string | Record<string, unknown>)[] = []): string[] {
+  // Only the last item could be an object
   if (list.length > 0) {
     if (list.at(-1) === 'options') list.pop();
     else if (list.at(-1)?.constructor === Object) list.pop();
   }
 
-  return list;
+  return list as string[];
 }
 
 export function buildMap() {
-  const map = {};
+  const map: Record<string, { name: string; args: string[] }[]> = {};
   const baseArgs = Object.keys(getParamNames(BaseResource)[0] as Record<string, unknown>);
   const { Gitlab, ...directResources } = resources;
 
   Object.entries(directResources).forEach(([name, Resource]) => {
     const r = new Resource({ requesterFn: () => ({} as RequesterType) });
+    const formattedInstanceMethods = getInstanceMethods(r).map((m) => ({
+      name: m,
+      args: removeOptionalArg(getParamNames(r[m]) as (string | Record<string, unknown>)[]),
+    }));
 
-    map[name] = [
-      { name: 'constructor', args: baseArgs },
-      ...getInstanceMethods(r).map((m) => ({
-        name: m,
-        args: removeOptionalArg(getParamNames(r[m]) as (string | Record<string, unknown>)[]),
-      })),
-    ];
+    map[name] = [{ name: 'constructor', args: baseArgs }].concat(formattedInstanceMethods);
   });
 
   return map;

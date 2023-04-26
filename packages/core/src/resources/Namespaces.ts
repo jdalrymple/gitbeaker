@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -31,7 +30,8 @@ export interface NamespaceSchema extends CondensedNamespaceSchema {
 export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { search?: string; ownedOnly?: string } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NamespaceSchema[], C, E, P>> {
     return RequestHelper.get<NamespaceSchema[]>()(this, 'namespaces', options);
   }

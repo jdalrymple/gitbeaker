@@ -1,6 +1,10 @@
 import { Issues, Projects } from '../../../../src';
 
-const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
+const {
+  GITLAB_PERSONAL_ACCESS_TOKEN = '',
+  GITLAB_URL = '',
+  TEST_ID = Date.now().toString(),
+} = process.env;
 
 let issueAPI: InstanceType<typeof Issues>;
 let projectAPI: InstanceType<typeof Projects>;
@@ -25,8 +29,7 @@ describe('Issues.all', () => {
 
     for (let i = 0; i < 10; i += 1) {
       newIssues.push(
-        issueAPI.create(project.id, {
-          title: `Issue.all Test - NoteJS ${TEST_ID} ${i}`,
+        issueAPI.create(project.id, `Issue.all Test - NoteJS ${TEST_ID} ${i}`, {
           description: 'A test issue',
         }),
       );

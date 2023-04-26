@@ -13,7 +13,7 @@ import type {
 import type { UserSchema } from './Users';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
-import type { MilestoneSchema } from '../templates/types';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { MetricImageSchema } from './AlertManagement';
 
 export interface TimeStatsSchema extends Record<string, unknown> {
@@ -76,14 +76,86 @@ export interface IssueSchema extends Record<string, unknown> {
     url: string;
     group_id: number;
   };
+  service_desk_reply_to?: string;
 }
+
+export type AllIssuesOptions = {
+  assigneeId?: number;
+  assigneeUsername?: string[];
+  authorId?: number;
+  authorUsername?: string;
+  confidential?: boolean;
+  createdAfter?: string;
+  createdBefore?: string;
+  dueDate?: string;
+  epicId?: number;
+  healthStatus?: string;
+  iids?: number[];
+  in?: string;
+  issueType?: string;
+  iterationId?: number;
+  iterationTitle?: string;
+  labels?: string;
+  milestone?: string;
+  milestoneId?: string;
+  myReactionEmoji?: string;
+  nonArchived?: boolean;
+  not?: Record<string, string>;
+  orderBy?: string;
+  scope?: string;
+  search?: string;
+  sort?: string;
+  state?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  weight?: number;
+  withLabelsDetails?: boolean;
+};
+
+export type CreateIssueOptions = {
+  assigneeId?: number;
+  assigneeIds?: number[];
+  confidential?: boolean;
+  createdAt?: string;
+  description?: string;
+  discussionToResolve?: string;
+  dueDate?: string;
+  epicId?: number;
+  epicIid?: number;
+  iid?: number | string;
+  issueType?: string;
+  labels?: string;
+  mergeRequestToResolveDiscussionsOf?: number;
+  milestoneId?: number;
+  weight?: number;
+};
+
+export type EditIssueOptions = {
+  addLabels?: string;
+  assigneeId?: number;
+  assigneeIds?: number[];
+  confidential?: boolean;
+  description?: string;
+  discussionLocked?: boolean;
+  dueDate?: string;
+  epicId?: number;
+  epicIid?: number;
+  issueType?: string;
+  labels?: string;
+  milestoneId?: number;
+  removeLabels?: string;
+  stateEvent?: string;
+  title?: string;
+  updatedAt?: string;
+  weight?: number;
+};
 
 export class Issues<C extends boolean = false> extends BaseResource<C> {
   addSpentTime<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     duration: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { summary?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
     return RequestHelper.post<TimeStatsSchema>()(
       this,
@@ -118,6 +190,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
       PaginationRequestOptions<P> &
+      AllIssuesOptions &
       BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
     let url: string;
@@ -141,17 +214,45 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  allParticipants<E extends boolean = false>(
+    projectId: string | number,
+    issueIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIId}/participants`,
+      options,
+    );
+  }
+
+  allRelatedMergeRequests<E extends boolean = false>(
+    projectId: string | number,
+    issueIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
+    return RequestHelper.get<MergeRequestSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIId}/related_merge_requests`,
+      options,
+    );
+  }
+
   create<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    title: string,
+    options?: CreateIssueOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
-    return RequestHelper.post<IssueSchema>()(this, endpoint`projects/${projectId}/issues`, options);
+    return RequestHelper.post<IssueSchema>()(this, endpoint`projects/${projectId}/issues`, {
+      ...options,
+      title,
+    });
   }
 
   createTodo<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TodoSchema, C, E, void>> {
     return RequestHelper.post<TodoSchema>()(
       this,
@@ -164,7 +265,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     destinationProjectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { withNotes?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
     return RequestHelper.post<IssueSchema>()(
       this,
@@ -179,7 +280,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: BaseRequestOptions<E>,
+    options?: EditIssueOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
     return RequestHelper.put<IssueSchema>()(
       this,
@@ -217,18 +318,6 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allParticipants<E extends boolean = false>(
-    projectId: string | number,
-    issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
-      this,
-      endpoint`projects/${projectId}/issues/${issueIId}/participants`,
-      options,
-    );
-  }
-
   // Includes /promote already!
   promote<E extends boolean = false>(
     projectId: string | number,
@@ -245,18 +334,6 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
         },
         ...options,
       },
-    );
-  }
-
-  allRelatedMergeRequests<E extends boolean = false>(
-    projectId: string | number,
-    issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
-    return RequestHelper.get<MergeRequestSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/issues/${issueIId}/related_merge_requests`,
-      options,
     );
   }
 
@@ -284,7 +361,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   reorder<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { moveAfterId?: number; moveBeforeId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.put<void>()(
       this,
@@ -377,10 +454,8 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   uploadMetricImage<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    content: Blob,
-    { filename, ...options }: { filename?: string } & Sudo & ShowExpanded<E> = {
-      filename: `${Date.now().toString()}.tar.gz`,
-    },
+    metricImage: { content: Blob; filename: string },
+    options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
     return RequestHelper.post<MetricImageSchema>()(
       this,
@@ -388,7 +463,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       {
         isForm: true,
         ...options,
-        file: [content, filename],
+        file: [metricImage.content, metricImage.filename],
       },
     );
   }

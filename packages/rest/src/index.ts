@@ -1,10 +1,8 @@
-import { Resources } from '@gitbeaker/core';
+import * as Resources from '@gitbeaker/core';
 import { presetResourceArguments } from '@gitbeaker/requester-utils';
 import { requesterFn } from './Requester';
 
 const API = presetResourceArguments(Resources, { requesterFn });
-
-export { Types } from '@gitbeaker/core';
 
 export const {
   Agents,
@@ -36,7 +34,6 @@ export const {
   License,
   LicenseTemplates,
   Lint,
-  ManagedLicenses,
   Markdown,
   Maven,
   Metadata,
@@ -47,6 +44,7 @@ export const {
   NuGet,
   PersonalAccessTokens,
   PyPI,
+  RubyGems,
   Search,
   ServiceData,
   SidekiqMetrics,
@@ -57,8 +55,6 @@ export const {
   SystemHooks,
   TodoLists,
   Topics,
-  Version,
-  Vulnerabilities,
   Branches,
   CommitDiscussions,
   Commits,
@@ -95,6 +91,7 @@ export const {
   MergeRequestDiscussions,
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
+  MergeRequestDraftNotes,
   MergeRequestNotes,
   MergeRequests,
   MergeTrains,
@@ -147,8 +144,6 @@ export const {
   SecureFiles,
   Tags,
   UserStarredMetricsDashboard,
-  VisualReviewDiscussions,
-  VulnerabilityFindings,
   EpicAwardEmojis,
   EpicDiscussions,
   EpicIssues,
@@ -170,6 +165,7 @@ export const {
   GroupLabels,
   GroupLDAPLinks,
   GroupMembers,
+  GroupMemberRoles,
   GroupMilestones,
   GroupProtectedEnvironments,
   GroupPushRules,

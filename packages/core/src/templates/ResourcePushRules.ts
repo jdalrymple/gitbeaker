@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface PushRuleSchema extends Record<string, unknown> {
   id: number;
@@ -17,6 +17,20 @@ export interface PushRuleSchema extends Record<string, unknown> {
   max_file_size: number;
 }
 
+export interface CreateAndEditPushRuleOptions {
+  denyDeleteTag?: boolean;
+  memberCheck?: boolean;
+  preventSecrets?: boolean;
+  commitMessageRegex?: string;
+  commitMessagNegativeRegex?: string;
+  branchNameRegex?: string;
+  authorEmailRegex?: string;
+  fileNameRegex?: string;
+  maxFileSize?: number;
+  commitCommitterCheck?: boolean;
+  rejectUnsignedCommits?: boolean;
+}
+
 export class ResourcePushRules<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
@@ -24,14 +38,14 @@ export class ResourcePushRules<C extends boolean = false> extends BaseResource<C
 
   create<E extends boolean = false>(
     resourceId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: CreateAndEditPushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>> {
     return RequestHelper.post<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, options);
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: CreateAndEditPushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>> {
     return RequestHelper.put<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, options);
   }

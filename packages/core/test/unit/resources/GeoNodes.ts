@@ -26,15 +26,24 @@ describe('GeoNodes.all', () => {
 
 describe('GeoNodes.create', () => {
   it('should request POST /geo_nodes', async () => {
-    await service.create('name');
+    await service.create('name', 'url');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'geo_nodes', { name: 'name' });
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'geo_nodes', {
+      name: 'name',
+      url: 'url',
+    });
   });
 });
 
 describe('GeoNodes.edit', () => {
   it('should request PUT /geo_nodes/:id', async () => {
-    await service.edit(1, 'name', 'url');
+    await service.edit(1);
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1', undefined);
+  });
+
+  it('should request PUT /geo_nodes/:id with options', async () => {
+    await service.edit(1, { name: 'name', url: 'url' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1', {
       name: 'name',

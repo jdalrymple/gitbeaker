@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -9,13 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface MigrationEntityOptions {
-  sourceFullPath: string;
-  sourceType: string;
-  destinationName: string;
-  destinationNamespace: string;
-  destinationNamespacePace?: string;
-}
+export type MigrationStatus = 'created' | 'started' | 'finished' | 'failed';
 
 export interface MigrationEntityFailure {
   pipeline_class: string;
@@ -48,12 +41,20 @@ export interface MigrationStatusSchema extends Record<string, unknown> {
   updated_at: string;
 }
 
+export type MigrationEntityOptions = {
+  sourceType: string;
+  sourceFullPath: string;
+  destinationSlug: string;
+  destinationNamespace: string;
+};
+
 export class Migrations<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: {
-      status?: 'created' | 'started' | 'finished' | 'finished';
+      status?: MigrationStatus;
     } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema[], C, E, P>> {
     return RequestHelper.get<MigrationStatusSchema[]>()(this, 'bulk_imports', options);
   }
@@ -74,12 +75,11 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
     bulkImportId,
     ...options
   }: {
-    status?: 'created' | 'started' | 'finished' | 'finished';
+    status?: MigrationStatus;
     bulkImportId?: number;
   } & PaginationRequestOptions<'offset'> &
-    BaseRequestOptions<E> = {}): Promise<
-    GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>
-  > {
+    Sudo &
+    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>> {
     const url = bulkImportId
       ? endpoint`bulk_imports/${bulkImportId}/entities`
       : 'bulk_imports/entities';

@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ErrorTrackingSettingsSchema extends Record<string, unknown> {
   active: boolean;
@@ -11,21 +11,29 @@ export interface ErrorTrackingSettingsSchema extends Record<string, unknown> {
 }
 
 export class ErrorTrackingSettings<C extends boolean = false> extends BaseResource<C> {
-  show<E extends boolean = false>(
+  create<E extends boolean = false>(
     projectId: string | number,
+    active: boolean,
+    integrated: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
-    return RequestHelper.get<ErrorTrackingSettingsSchema>()(
+    return RequestHelper.put<ErrorTrackingSettingsSchema>()(
       this,
       endpoint`projects/${projectId}/error_tracking/settings`,
-      options,
+      {
+        searchParams: {
+          active,
+          integrated,
+        },
+        ...options,
+      },
     );
   }
 
   edit<E extends boolean = false>(
     projectId: string | number,
     active: boolean,
-    { integrated, ...options }: BaseRequestOptions<E> = {},
+    { integrated, ...options }: { integrated?: boolean } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
     return RequestHelper.patch<ErrorTrackingSettingsSchema>()(
       this,
@@ -37,6 +45,17 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
         },
         ...options,
       },
+    );
+  }
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
+    return RequestHelper.get<ErrorTrackingSettingsSchema>()(
+      this,
+      endpoint`projects/${projectId}/error_tracking/settings`,
+      options,
     );
   }
 }

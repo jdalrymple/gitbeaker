@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -34,10 +33,12 @@ export interface EpicLinkSchema extends Record<string, unknown> {
   start_date?: string;
   start_date_is_fixed: boolean;
   start_date_fixed?: string;
+  start_date_from_milestones?: string;
   start_date_from_inherited_source?: string;
   due_date: string;
   due_date_is_fixed: boolean;
   due_date_fixed?: string;
+  due_date_from_milestones?: string;
   due_date_from_inherited_source: string;
   created_at: string;
   updated_at: string;
@@ -48,7 +49,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     epicIId: number,
-    options?: BaseRequestOptions<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<EpicLinkSchema[], C, E, P>> {
     return RequestHelper.get<EpicLinkSchema[]>()(
       this,

@@ -19,12 +19,15 @@ export type Never<T> = {
 };
 
 export type Only<T, U> = Required<T> & Never<U>;
+export type Only3<T, U, V> = Required<T> & Never<U> & Never<V>;
 export type Only4<T, U, V, W> = Required<T> & Never<U> & Never<V> & Never<W>;
 export type OnlyOrNone<T, U> = Partial<T> & Never<U>;
 export type OnlyOrNone3<T, U, V> = Partial<T> & Never<U> & Never<V>;
 export type OnlyOrNone4<T, U, V, W> = Partial<T> & Never<U> & Never<V> & Never<W>;
 
 export type Either<T, U> = Only<T, U> | Only<U, T>;
+export type Either3<T, U, V> = Only3<T, U, V> | Only3<T, U, V> | Only3<T, U, V>;
+
 export type Either4<T, U, V, W> =
   | Only4<T, U, V, W>
   | Only4<U, T, V, W>

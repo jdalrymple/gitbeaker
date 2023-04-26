@@ -5,6 +5,10 @@ import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '
 export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   title: string;
   description: string;
+  pwa_name: string;
+  pwa_short_name: string;
+  pwa_description: string;
+  pwa_icon: string;
   logo: string;
   header_logo: string;
   favicon: string;
@@ -29,8 +33,27 @@ export class ApplicationAppearance<C extends boolean = false> extends BaseResour
   }
 
   edit<E extends boolean = false>(
-    options?: BaseRequestOptions<E>,
+    {
+      logo,
+      pwaIcon,
+      ...options
+    }: {
+      logo?: { content: Blob; filename: string };
+      pwaIcon?: { content: Blob; filename: string };
+    } & BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<ApplicationAppearanceSchema, C, E, void>> {
+    if (logo || pwaIcon) {
+      const opts: BaseRequestOptions<E> = {
+        ...options,
+        isForm: true,
+      };
+
+      if (logo) opts.logo = [logo.content, logo.filename];
+      if (pwaIcon) opts.pwaIcon = [pwaIcon.content, pwaIcon.filename];
+
+      return RequestHelper.put<ApplicationAppearanceSchema>()(this, 'application/appearence', opts);
+    }
+
     return RequestHelper.put<ApplicationAppearanceSchema>()(
       this,
       'application/appearence',

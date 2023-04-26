@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -35,17 +34,17 @@ export interface ProjectExternalStatusCheckSchema extends BaseExternalStatusChec
 export class ExternalStatusChecks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: { mergerequestIId: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options: { mergerequestIId: number } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestExternalStatusCheckSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { mergerequestIId?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { mergerequestIId?: number } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<any> {
     const { mergerequestIId, ...opts } = options || {};
     let url: string = endpoint`projects/${projectId}`;
@@ -65,7 +64,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     name: string,
     externalUrl: string,
-    options?: { protectedBrancheIds: number[] } & BaseRequestOptions<E>,
+    options?: { protectedBrancheIds: number[] } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     return RequestHelper.post<ProjectExternalStatusCheckSchema>()(
       this,
@@ -85,7 +84,8 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       protectedBrancheIds?: number[];
       externalUrl?: string;
       name?: string;
-    } & BaseRequestOptions<E>,
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     return RequestHelper.put<ProjectExternalStatusCheckSchema>()(
       this,
@@ -97,7 +97,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
   remove<E extends boolean = false>(
     projectId: string | number,
     externalStatusCheckId: number,
-    options?: { protectedBrancheIds?: number[] } & BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -111,7 +111,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     mergerequestIId: number,
     sha: string,
     externalCheckStatusId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { status?: 'passed' | 'failed' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     return RequestHelper.post<ProjectExternalStatusCheckSchema>()(
       this,

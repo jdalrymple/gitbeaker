@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -56,7 +55,7 @@ export interface ProjectVulnerabilitySchema extends Record<string, unknown> {
 export class ProjectVulnerabilities<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectVulnerabilitySchema[], C, E, P>> {
     return RequestHelper.get<ProjectVulnerabilitySchema[]>()(
       this,

@@ -1,5 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+// General
 import { Agents } from './Agents';
 import { AlertManagement } from './AlertManagement';
 import { ApplicationAppearance } from './ApplicationAppearance';
@@ -29,7 +31,6 @@ import { Keys } from './Keys';
 import { License } from './License';
 import { LicenseTemplates } from './LicenseTemplates';
 import { Lint } from './Lint';
-import { ManagedLicenses } from './ManagedLicenses';
 import { Markdown } from './Markdown';
 import { Maven } from './Maven';
 import { Metadata } from './Metadata';
@@ -40,6 +41,7 @@ import { NPM } from './NPM';
 import { NuGet } from './NuGet';
 import { PersonalAccessTokens } from './PersonalAccessTokens';
 import { PyPI } from './PyPI';
+import { RubyGems } from './RubyGems';
 import { Search } from './Search';
 import { ServiceData } from './ServiceData';
 import { SidekiqMetrics } from './SidekiqMetrics';
@@ -50,8 +52,6 @@ import { Suggestions } from './Suggestions';
 import { SystemHooks } from './SystemHooks';
 import { TodoLists } from './TodoLists';
 import { Topics } from './Topics';
-import { Version } from './Version';
-import { Vulnerabilities } from './Vulnerabilities';
 import { Branches } from './Branches';
 import { CommitDiscussions } from './CommitDiscussions';
 import { Commits } from './Commits';
@@ -89,6 +89,7 @@ import { MergeRequestDiscussions } from './MergeRequestDiscussions';
 import { MergeRequestLabelEvents } from './MergeRequestLabelEvents';
 import { MergeRequestMilestoneEvents } from './MergeRequestMilestoneEvents';
 import { MergeRequestNotes } from './MergeRequestNotes';
+import { MergeRequestDraftNotes } from './MergeRequestDraftNotes';
 import { MergeRequests } from './MergeRequests';
 import { MergeTrains } from './MergeTrains';
 import { PackageRegistry } from './PackageRegistry';
@@ -140,8 +141,6 @@ import { Runners } from './Runners';
 import { SecureFiles } from './SecureFiles';
 import { Tags } from './Tags';
 import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
-import { VisualReviewDiscussions } from './VisualReviewDiscussions';
-import { VulnerabilityFindings } from './VulnerabilityFindings';
 import { EpicAwardEmojis } from './EpicAwardEmojis';
 import { EpicDiscussions } from './EpicDiscussions';
 import { EpicIssues } from './EpicIssues';
@@ -163,6 +162,7 @@ import { GroupIterations } from './GroupIterations';
 import { GroupLabels } from './GroupLabels';
 import { GroupLDAPLinks } from './GroupLDAPLinks';
 import { GroupMembers } from './GroupMembers';
+import { GroupMemberRoles } from './GroupMemberRoles';
 import { GroupMilestones } from './GroupMilestones';
 import { GroupProtectedEnvironments } from './GroupProtectedEnvironments';
 import { GroupPushRules } from './GroupPushRules';
@@ -215,7 +215,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   License: License<C>;
   LicenseTemplates: LicenseTemplates<C>;
   Lint: Lint<C>;
-  ManagedLicenses: ManagedLicenses<C>;
   Markdown: Markdown<C>;
   Maven: Maven<C>;
   Metadata: Metadata<C>;
@@ -226,6 +225,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   NuGet: NuGet<C>;
   PersonalAccessTokens: PersonalAccessTokens<C>;
   PyPI: PyPI<C>;
+  RubyGems: RubyGems<C>;
   Search: Search<C>;
   ServiceData: ServiceData<C>;
   SidekiqMetrics: SidekiqMetrics<C>;
@@ -236,8 +236,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SystemHooks: SystemHooks<C>;
   TodoLists: TodoLists<C>;
   Topics: Topics<C>;
-  Version: Version<C>;
-  Vulnerabilities: Vulnerabilities<C>;
   Branches: Branches<C>;
   CommitDiscussions: CommitDiscussions<C>;
   Commits: Commits<C>;
@@ -274,6 +272,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   MergeRequestDiscussions: MergeRequestDiscussions<C>;
   MergeRequestLabelEvents: MergeRequestLabelEvents<C>;
   MergeRequestMilestoneEvents: MergeRequestMilestoneEvents<C>;
+  MergeRequestDraftNotes: MergeRequestDraftNotes<C>;
   MergeRequestNotes: MergeRequestNotes<C>;
   MergeRequests: MergeRequests<C>;
   MergeTrains: MergeTrains<C>;
@@ -326,8 +325,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SecureFiles: SecureFiles<C>;
   Tags: Tags<C>;
   UserStarredMetricsDashboard: UserStarredMetricsDashboard<C>;
-  VisualReviewDiscussions: VisualReviewDiscussions<C>;
-  VulnerabilityFindings: VulnerabilityFindings<C>;
   EpicAwardEmojis: EpicAwardEmojis<C>;
   EpicDiscussions: EpicDiscussions<C>;
   EpicIssues: EpicIssues<C>;
@@ -349,6 +346,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupLabels: GroupLabels<C>;
   GroupLDAPLinks: GroupLDAPLinks<C>;
   GroupMembers: GroupMembers<C>;
+  GroupMemberRoles: GroupMemberRoles<C>;
   GroupMilestones: GroupMilestones<C>;
   GroupProtectedEnvironments: GroupProtectedEnvironments<C>;
   GroupPushRules: GroupPushRules<C>;
@@ -399,7 +397,6 @@ const resources = {
   License,
   LicenseTemplates,
   Lint,
-  ManagedLicenses,
   Markdown,
   Maven,
   Metadata,
@@ -410,6 +407,7 @@ const resources = {
   NuGet,
   PersonalAccessTokens,
   PyPI,
+  RubyGems,
   Search,
   ServiceData,
   SidekiqMetrics,
@@ -420,8 +418,6 @@ const resources = {
   SystemHooks,
   TodoLists,
   Topics,
-  Version,
-  Vulnerabilities,
   Branches,
   CommitDiscussions,
   Commits,
@@ -458,6 +454,7 @@ const resources = {
   MergeRequestDiscussions,
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
+  MergeRequestDraftNotes,
   MergeRequestNotes,
   MergeRequests,
   MergeTrains,
@@ -510,8 +507,6 @@ const resources = {
   SecureFiles,
   Tags,
   UserStarredMetricsDashboard,
-  VisualReviewDiscussions,
-  VulnerabilityFindings,
   EpicAwardEmojis,
   EpicDiscussions,
   EpicIssues,
@@ -533,6 +528,7 @@ const resources = {
   GroupLabels,
   GroupLDAPLinks,
   GroupMembers,
+  GroupMemberRoles,
   GroupMilestones,
   GroupProtectedEnvironments,
   GroupPushRules,

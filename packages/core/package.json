@@ -60,7 +60,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.1",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "tsup": "^6.7.0",
     "tsx": "^3.12.6",

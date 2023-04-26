@@ -1,12 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type {
-  BaseRequestOptions,
-  EitherOrNone,
-  GitlabAPIResponse,
-  ShowExpanded,
-  Sudo,
-} from '../infrastructure';
+import type { EitherOrNone, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export type NotificationSettingLevel =
   | 'disabled'
@@ -38,8 +32,31 @@ export type CustomSettingLevelEmailEvents =
 
 export interface NotificationSettingSchema extends Record<string, unknown> {
   level: NotificationSettingLevel;
-  notification_email: string;
+  notification_email?: string;
 }
+
+export type EditNotificationSettingsOptions = {
+  level?: string;
+  notificationEmail?: string;
+  newNote?: boolean;
+  newIssue?: boolean;
+  reopenIssue?: boolean;
+  closeIssue?: boolean;
+  reassignIssue?: boolean;
+  issueDue?: boolean;
+  newMergeRequest?: boolean;
+  pushToMergeRequest?: boolean;
+  reopenMergeRequest?: boolean;
+  closeMergeRequest?: boolean;
+  reassignMergeRequest?: boolean;
+  mergeMergeRequest?: boolean;
+  failedPipeline?: boolean;
+  fixedPipeline?: boolean;
+  successPipeline?: boolean;
+  movedProject?: boolean;
+  mergeWhenPipelineSucceeds?: boolean;
+  newEpic?: boolean;
+};
 
 function url({
   projectId,
@@ -59,7 +76,9 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
     projectId,
     ...options
   }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-    BaseRequestOptions<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
+    EditNotificationSettingsOptions &
+    Sudo &
+    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const uri = url({ groupId, projectId });
 
     return RequestHelper.put<NotificationSettingSchema>()(this, uri, options);
