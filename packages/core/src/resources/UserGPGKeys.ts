@@ -1,10 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestOptions,
-  Sudo,
-  PaginatedRequestOptions,
-  RequestHelper,
-} from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface UserGPGKeySchema extends Record<string, unknown> {
   id: number;
@@ -15,26 +11,44 @@ export interface UserGPGKeySchema extends Record<string, unknown> {
 const url = (userId?: number) => (userId ? `users/${userId}/gpg_keys` : 'user/gpg_keys');
 
 export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
-  all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
+  // Convienence method
+  add<E extends boolean = false>(
+    key: string,
+    options?: { userId?: number } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
+    return this.create<E>(key, options);
+  }
+
+  all<E extends boolean = false>({
+    userId,
+    ...options
+  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+    GitlabAPIResponse<UserGPGKeySchema[], C, E, void>
+  > {
     return RequestHelper.get<UserGPGKeySchema[]>()(this, url(userId), options);
   }
 
-  add(key: string, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
+  create<E extends boolean = false>(
+    key: string,
+    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
     return RequestHelper.post<UserGPGKeySchema>()(this, url(userId), {
       key,
       ...options,
     });
   }
 
-  show(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
-    const kId = encodeURIComponent(keyId);
-
-    return RequestHelper.get<UserGPGKeySchema>()(this, `${url(userId)}/${kId}`, options);
+  show<E extends boolean = false>(
+    keyId: number,
+    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
+    return RequestHelper.get<UserGPGKeySchema>()(this, `${url(userId)}/${keyId}`, options);
   }
 
-  remove(keyId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
-    const kId = encodeURIComponent(keyId);
-
-    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options as Sudo);
+  remove<E extends boolean = false>(
+    keyId: number,
+    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options);
   }
 }

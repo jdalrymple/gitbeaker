@@ -31,23 +31,28 @@ describe('ResourceVariables.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toBeCalledWith(service, '5/variables', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables', undefined);
   });
 });
 
 describe('ResourceVariables.create', () => {
   it('should call the correct url with a resource id', async () => {
-    await service.create('5');
+    await service.create('5', 'key', 'value');
 
-    expect(RequestHelper.post()).toBeCalledWith(service, '5/variables', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/variables', {
+      key: 'key',
+      value: 'value',
+    });
   });
 });
 
 describe('ResourceVariables.edit', () => {
-  it('should call the correct url with a resource id and key id', async () => {
-    await service.edit('5', '6');
+  it('should call the correct url with a resource id and key', async () => {
+    await service.edit('5', 'key', 'value');
 
-    expect(RequestHelper.put()).toBeCalledWith(service, '5/variables/6', undefined);
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/variables/key', {
+      value: 'value',
+    });
   });
 });
 
@@ -55,7 +60,7 @@ describe('ResourceVariables.remove', () => {
   it('should call the correct url with a resource id and key id', async () => {
     await service.remove('5', '6');
 
-    expect(RequestHelper.del()).toBeCalledWith(service, '5/variables/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/variables/6', undefined);
   });
 });
 
@@ -63,6 +68,6 @@ describe('ResourceVariables.show', () => {
   it('should call the correct url with a resource id and key id', async () => {
     await service.show('5', '6');
 
-    expect(RequestHelper.get()).toBeCalledWith(service, '5/variables/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables/6', undefined);
   });
 });

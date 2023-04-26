@@ -1,8 +1,8 @@
 import Chalk from 'chalk';
 import Sywac from 'sywac';
 import { camelize, decamelize, depascalize } from 'xcase';
-import * as Gitbeaker from '@gitbeaker/node';
-import { getAPIMap } from '@gitbeaker/core';
+import * as Gitbeaker from '@gitbeaker/rest';
+import API_MAP from '@gitbeaker/core/map.json' assert { type: 'json' }; // eslint-disable-line import/no-unresolved
 
 // Styling settings
 const commandStyle = Chalk.hex('#e34329').bold;
@@ -12,74 +12,93 @@ const optionStyle = Chalk.white.bold;
 const descriptionStyle = Chalk.hex('#848484');
 const hintStyle = Chalk.hex('#6a5f88');
 
+interface MethodTemplate {
+  name: string;
+  args: string[];
+}
+
 // Globally configurable arguments
+function normalizeEnviromentVariables(env): Record<string, string> {
+  const normalized = { ...env };
+  const suffixes = [
+    'TOKEN',
+    'OAUTH_TOKEN',
+    'JOB_TOKEN',
+    'HOST',
+    'SUDO',
+    'CAMELIZE',
+    'REQUEST_TIMEOUT',
+    'PROFILE_TOKEN',
+    'PROFILE_MODE',
+  ];
+
+  suffixes.forEach((s) => {
+    if (normalized[`GITLAB_${s}`] && !normalized[`GITBEAKER_${s}`]) {
+      normalized[`GITBEAKER_${s}`] = normalized[`GITLAB_${s}`];
+    }
+  });
+
+  return normalized;
+}
+
 function globalConfig(env = process.env): { [name: string]: Sywac.Options } {
+  const normalEnv = normalizeEnviromentVariables(env);
+
   return {
     'gb-token': {
       alias: 'gl-token',
       desc: 'Your Gitlab Personal Token',
       type: 'string',
-      defaultValue: env.GITBEAKER_TOKEN || env.GITLAB_TOKEN,
+      defaultValue: normalEnv.GITBEAKER_TOKEN,
     },
     'gb-oauth-token': {
       alias: 'gl-oauth-token',
       desc: 'Your Gitlab OAuth Token',
       type: 'string',
-      defaultValue: env.GITBEAKER_OAUTH_TOKEN || env.GITLAB_OAUTH_TOKEN,
+      defaultValue: normalEnv.GITBEAKER_OAUTH_TOKEN,
     },
     'gb-job-token': {
       alias: 'gl-job-token',
       desc: 'Your Gitlab Job Token',
       type: 'string',
-      defaultValue: env.GITBEAKER_JOB_TOKEN || env.GITLAB_JOB_TOKEN,
+      defaultValue: normalEnv.GITBEAKER_JOB_TOKEN,
     },
     'gb-host': {
       alias: 'gl-host',
       desc: 'Your Gitlab API host (Defaults to https://www.gitlab.com)',
       type: 'string',
-      defaultValue: env.GITBEAKER_HOST || env.GITLAB_HOST,
-    },
-    'gb-version': {
-      alias: 'gl-version',
-      desc: 'The targetted Gitlab API version (Defaults to 4)',
-      type: 'number',
-      defaultValue:
-        (env.GITBEAKER_VERSION && parseInt(env.GITBEAKER_VERSION, 10)) ||
-        (env.GITLAB_VERSION && parseInt(env.GITLAB_VERSION, 10)),
+      defaultValue: normalEnv.GITBEAKER_HOST,
     },
     'gb-sudo': {
       alias: 'gl-sudo',
       desc: '[Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter',
       type: 'string',
-      defaultValue: env.GITBEAKER_SUDO || env.GITLAB_SUDO,
+      defaultValue: normalEnv.GITBEAKER_SUDO,
     },
     'gb-camelize': {
       alias: 'gl-camelize',
       desc: 'Camelizes all response body keys',
       type: 'boolean',
-      defaultValue:
-        (env.GITBEAKER_CAMELIZE && env.GITBEAKER_CAMELIZE === 'true') ||
-        (env.GITLAB_CAMELIZE && env.GITLAB_CAMELIZE === 'true'),
+      defaultValue: normalEnv.GITBEAKER_CAMELIZE,
     },
     'gb-request-timeout': {
       alias: 'gl-request-timeout',
       desc: 'Timeout for API requests. Measured in ms',
       type: 'number',
       defaultValue:
-        (env.GITBEAKER_REQUEST_TIMEOUT && parseInt(env.GITBEAKER_REQUEST_TIMEOUT, 10)) ||
-        (env.GITBEAKER_REQUEST_TIMEOUT && parseInt(env.GITBEAKER_REQUEST_TIMEOUT, 10)),
+        normalEnv.GITBEAKER_REQUEST_TIMEOUT && parseInt(normalEnv.GITBEAKER_REQUEST_TIMEOUT, 10),
     },
     'gb-profile-token': {
       alias: 'gl-profile-token',
       desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
       type: 'string',
-      defaultValue: env.GITBEAKER_PROFILE_TOKEN || env.GITLAB_PROFILE_TOKEN,
+      defaultValue: normalEnv.GITBEAKER_PROFILE_TOKEN,
     },
     'gb-profile-mode': {
       alias: 'gl-profile-mode',
       desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
       type: 'string',
-      defaultValue: env.GITBEAKER_PROFILE_MODE || env.GITLAB_PROFILE_MODE,
+      defaultValue: normalEnv.GITBEAKER_PROFILE_MODE,
     },
   };
 }
@@ -88,15 +107,26 @@ function globalConfig(env = process.env): { [name: string]: Sywac.Options } {
 const ignoreOptions = ['_', '$0', 'v', 'version', 'h', 'help', 'g', 'global-args'];
 
 // Helper function to param case strings
-function param(string: string): string {
-  let cleaned = string;
+function param(value: string): string {
+  let cleaned = value;
 
   // Handle exceptions
-  const exceptions = ['GitLabCI', 'YML', 'GPG', 'SSH'];
+  const exceptions = [
+    'GitLabCI',
+    'YML',
+    'GPG',
+    'SSH',
+    'IId',
+    'NPM',
+    'NuGet',
+    'DORA4',
+    'LDAP',
+    'CICD',
+  ];
 
-  const ex = exceptions.find((e) => string.includes(e));
+  const ex = exceptions.find((e) => value.includes(e));
 
-  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1));
+  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1).toLowerCase());
 
   // Decamelize
   const decamelized = decamelize(cleaned, '-');
@@ -104,7 +134,7 @@ function param(string: string): string {
   return decamelized !== cleaned ? decamelized : depascalize(cleaned, '-');
 }
 
-function setupAPIMethods(setupArgs, methodArgs: unknown[]) {
+function setupAPIMethods(setupArgs, methodArgs: string[]) {
   methodArgs.forEach((name) => {
     if (typeof name !== 'string') return;
 
@@ -117,7 +147,7 @@ function setupAPIMethods(setupArgs, methodArgs: unknown[]) {
   return setupArgs;
 }
 
-function runAPIMethod(ctx, args, apiName: string, method) {
+function runAPIMethod(ctx, args: Record<string, string>, apiName: string, method: MethodTemplate) {
   const coreArgs = {};
   const optionalArgs = {};
   const initArgs = {};
@@ -125,7 +155,7 @@ function runAPIMethod(ctx, args, apiName: string, method) {
   Object.entries(args).forEach(([argName, value]) => {
     if (ignoreOptions.includes(argName) || value == null) return;
 
-    const camelCased = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
+    const camelCased: string = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
 
     if (globalConfig()[argName.replace('gl-', 'gb-')]) {
       initArgs[camelCased] = value;
@@ -146,7 +176,7 @@ function runAPIMethod(ctx, args, apiName: string, method) {
     });
 }
 
-function setupAPIs(setupArgs, apiName: string, methods) {
+function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
   Object.entries(globalConfig()).forEach(([k, v]) => {
     setupArgs.option(`${k} <value>`, {
       group: 'Base Options',
@@ -159,7 +189,7 @@ function setupAPIs(setupArgs, apiName: string, methods) {
 
     setupArgs.command(param(method.name), {
       setup: (setupMethodArgs) => setupAPIMethods(setupMethodArgs, method.args),
-      run: (args, ctx) => runAPIMethod(ctx, args, apiName, method),
+      run: (args: Record<string, string>, ctx) => runAPIMethod(ctx, args, apiName, method),
     });
   }
 
@@ -170,7 +200,7 @@ function setupAPIs(setupArgs, apiName: string, methods) {
 const cli = Sywac.version('-v, --version')
   .help('-h, --help')
   .showHelpByDefault()
-  .epilogue('Copyright 2019')
+  .epilogue('Copyright 2023')
   .style({
     usagePrefix: (s) => usageStyle(s),
     group: (s) => groupStyle(s),
@@ -208,7 +238,7 @@ cli.command('*', (argv, ctx) => {
 });
 
 // Add all supported API's
-Object.entries(getAPIMap()).forEach(([apiName, methods]) => {
+Object.entries(API_MAP as Record<string, MethodTemplate[]>).forEach(([apiName, methods]) => {
   // Skip Gitlab export
   if (apiName === 'Gitlab') return;
 

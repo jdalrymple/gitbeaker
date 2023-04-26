@@ -1,60 +1,51 @@
+import FS from 'node:fs';
 import getParamNames from 'get-param-names';
 import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
-import { outputJsonSync } from 'fs-extra';
 import * as resources from '../src/resources';
 
+function getInstanceMethods(x: object): string[] {
+  if (!x) return [];
 
-function isGetter(x: object, name: string) {
-  return (Object.getOwnPropertyDescriptor(x, name) || {}).get;
+  const proto = Reflect.getPrototypeOf(x);
+
+  if (!proto) return [];
+
+  const methods = new Set(Reflect.ownKeys(proto));
+
+  return Array.from(methods)
+    .filter((name) => name !== 'constructor')
+    .map((name) => name.toString());
 }
 
-function isFunction(x: object, name: string) {
-  return typeof x[name] === 'function';
-}
-
-function deepFunctions(x: object): string[] {
-  if (x !== Object.prototype) {
-    return Object.getOwnPropertyNames(x)
-      .filter((name) => isGetter(x, name) || isFunction(x, name))
-      .concat(deepFunctions(Object.getPrototypeOf(x)) || []);
+function removeOptionalArg(list: (string | Record<string, unknown>)[] = []): string[] {
+  // Only the last item could be an object
+  if (list.length > 0) {
+    if (list.at(-1) === 'options') list.pop();
+    else if (list.at(-1)?.constructor === Object) list.pop();
   }
 
-  return [];
-}
-
-function distinctDeepFunctions(x: object): string[] {
-  return Array.from(new Set(deepFunctions(x)));
-}
-
-function getInstanceMethods(x: object): string[] {
-  return distinctDeepFunctions(x).filter((name) => name !== 'constructor' && !~name.indexOf('__'));
-}
-
-function removeOptionalArg(list: string[]) {
-  if (['options', '_a'].includes(list[list.length - 1])) list.pop();
-
-  return list;
+  return list as string[];
 }
 
 export function buildMap() {
-  const map = {};
-  const baseArgs = Object.keys(getParamNames(BaseResource)[0]);
+  const map: Record<string, { name: string; args: string[] }[]> = {};
+  const baseArgs = Object.keys(getParamNames(BaseResource)[0] as Record<string, unknown>);
+  const { Gitlab, ...directResources } = resources;
 
-  for (const [name, resource] of Object.entries(resources)) {
-    const r = new resource({ requesterFn: () => ({} as RequesterType) });
+  Object.entries(directResources).forEach(([name, Resource]) => {
+    const r = new Resource({ requesterFn: () => ({} as RequesterType) });
+    const formattedInstanceMethods = getInstanceMethods(r).map((m) => ({
+      name: m,
+      args: removeOptionalArg(getParamNames(r[m]) as (string | Record<string, unknown>)[]),
+    }));
 
-    map[name] = [{ name: 'constructor', args: baseArgs }];
-
-    for (const m of getInstanceMethods(r)) {
-      map[name].push({
-        name: m,
-        args: removeOptionalArg(getParamNames(r[m])),
-      });
-    }
-  }
+    map[name] = [{ name: 'constructor', args: baseArgs }].concat(formattedInstanceMethods);
+  });
 
   return map;
 }
 
 // Generate the resources map
-outputJsonSync('./dist/map.json', buildMap());
+FS.rmSync('./dist/map.json', { recursive: true, force: true });
+FS.mkdirSync('dist', { recursive: true });
+FS.writeFileSync('./dist/map.json', JSON.stringify(buildMap(), null, 2));

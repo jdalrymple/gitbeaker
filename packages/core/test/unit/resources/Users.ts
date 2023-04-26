@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Users service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Users);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Users.all', () => {
   it('should request GET users', async () => {
     await service.all();
@@ -34,17 +24,49 @@ describe('Users.all', () => {
   });
 });
 
-describe('Users.activities', () => {
+describe('Users.allActivities', () => {
   it('should request GET users', async () => {
-    await service.activities();
+    await service.allActivities();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/activities', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'user/activities', undefined);
   });
 });
 
-describe('Users.projects', () => {
+describe('Users.showCurrentUserPreferences', () => {
+  it('should request GET users', async () => {
+    await service.showCurrentUserPreferences();
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'user/preferences', undefined);
+  });
+});
+
+describe('Users.allMemberships', () => {
+  it('should request GET users/:user_id/memberships', async () => {
+    await service.allMemberships(1);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/memberships', undefined);
+  });
+});
+
+describe('Users.allFollowing', () => {
+  it('should request GET users/:user_id/following', async () => {
+    await service.allFollowing(1);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/following', undefined);
+  });
+});
+
+describe('Users.allFollowers', () => {
+  it('should request GET users/:user_id/followers', async () => {
+    await service.allFollowers(1);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/followers', undefined);
+  });
+});
+
+describe('Users.allProjects', () => {
   it('should request GET users/:id/projects', async () => {
-    await service.projects(1);
+    await service.allProjects(1);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/projects', undefined);
   });
@@ -66,9 +88,9 @@ describe('Users.create', () => {
   });
 });
 
-describe('Users.current', () => {
+describe('Users.showCurrentUser', () => {
   it('should request GET user', async () => {
-    await service.current();
+    await service.showCurrentUser();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'user', undefined);
   });
@@ -82,21 +104,11 @@ describe('Users.edit', () => {
   });
 });
 
-describe('Users.events', () => {
+describe('Users.allEvents', () => {
   it('should request GET users/:id/projects', async () => {
-    await service.events(1);
+    await service.allEvents(1);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/events', undefined);
-  });
-});
-
-describe('Users.search', () => {
-  it('should request GET users', async () => {
-    await service.search('Erik Killmonger');
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users', {
-      search: 'Erik Killmonger',
-    });
   });
 });
 
@@ -121,15 +133,5 @@ describe('Users.unblock', () => {
     await service.unblock(1);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'users/1/unblock', undefined);
-  });
-});
-
-describe('Users.username', () => {
-  it('should request GET users', async () => {
-    await service.username('erikkillmonger');
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users', {
-      username: 'erikkillmonger',
-    });
   });
 });

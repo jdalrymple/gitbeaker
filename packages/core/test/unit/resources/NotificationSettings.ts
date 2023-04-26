@@ -16,39 +16,27 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating NotificationSettings service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(NotificationSettings);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
-describe('NotificationSettings.all', () => {
+describe('NotificationSettings.show', () => {
   it('should request GET /notification_settings', async () => {
-    await service.all();
+    await service.show();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'notification_settings', {
-      sudo: undefined,
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'notification_settings', {});
   });
 
   it('should request GET /projects/:id/notification_settings when project Id is passed', async () => {
-    await service.all({ projectId: 1 });
+    await service.show({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/notification_settings', {
-      sudo: undefined,
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/notification_settings',
+      {},
+    );
   });
 
   it('should request GET /group/:id/notification_settings when group Id is passed', async () => {
-    await service.all({ groupId: 2 });
+    await service.show({ groupId: 2 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/notification_settings', {
-      sudo: undefined,
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/notification_settings', {});
   });
 });
 
@@ -57,7 +45,6 @@ describe('NotificationSettings.edit', () => {
     await service.edit({ level: 'watch' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'notification_settings', {
-      sudo: undefined,
       level: 'watch',
     });
   });
@@ -66,7 +53,6 @@ describe('NotificationSettings.edit', () => {
     await service.edit({ projectId: 1, level: 'watch' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/notification_settings', {
-      sudo: undefined,
       level: 'watch',
     });
   });
@@ -75,7 +61,6 @@ describe('NotificationSettings.edit', () => {
     await service.edit({ groupId: 2, level: 'watch' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'groups/2/notification_settings', {
-      sudo: undefined,
       level: 'watch',
     });
   });

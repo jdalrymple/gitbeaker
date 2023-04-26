@@ -1,24 +1,27 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import {
-  BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { TodoSchema } from './TodoLists';
+import type { UserSchema } from './Users';
+import type { GroupSchema } from './Groups';
 
 export interface EpicSchema extends Record<string, unknown> {
   id: number;
   iid: number;
   group_id: number;
   parent_id: number;
+  parent_iid: number;
   title: string;
   description: string;
   state: string;
   confidential: string;
   web_url: string;
-  reference: string;
   references: {
     short: string;
     relative: string;
@@ -46,34 +49,119 @@ export interface EpicSchema extends Record<string, unknown> {
   };
 }
 
+export interface EpicTodoSchema extends TodoSchema {
+  group: Pick<GroupSchema, 'id' | 'name' | 'path' | 'kind' | 'full_path' | 'parent_id'>;
+  target_type: 'Epic';
+  target: EpicSchema;
+}
+
+export type AllEpicsOptions = {
+  authorId?: number;
+  authorUsername?: string;
+  labels?: string;
+  withLabelsDetails?: boolean;
+  orderBy?: 'created_at' | 'updated_at' | 'title';
+  sort?: string;
+  search?: string;
+  state?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  includeAncestorGroups?: boolean;
+  includeDescendantGroups?: boolean;
+  myReactionEmoji?: string;
+  not?: Record<string, string>;
+};
+
+export type CreateEpicOptions = {
+  labels?: string;
+  description?: string;
+  color?: string;
+  confidential?: boolean;
+  createdAt?: string;
+  startDateIsFixed?: boolean;
+  startDateFixed?: string;
+  dueDateIsFixed?: boolean;
+  dueDateFixed?: string;
+  parentId?: number | string;
+};
+
+export type EditEpicOptions = {
+  addLabels?: string;
+  confidential?: boolean;
+  description?: string;
+  dueDateFixed?: string;
+  dueDateIsFixed?: boolean;
+  labels?: string;
+  parentId?: number | string;
+  removeLabels?: string;
+  startDateFixed?: string;
+  startDateIsFixed?: boolean;
+  stateEvent?: string;
+  title?: string;
+  updatedAt?: string;
+  color?: string;
+};
 export class Epics<C extends boolean = false> extends BaseResource<C> {
-  all(groupId: string | number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: AllEpicsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<EpicSchema[], C, E, P>> {
     return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, options);
   }
 
-  create(groupId: string | number, title: string, options?: BaseRequestOptions) {
+  create<E extends boolean = false>(
+    groupId: string | number,
+    title: string,
+    options?: CreateEpicOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
     return RequestHelper.post<EpicSchema>()(this, endpoint`groups/${groupId}/epics`, {
       title,
       ...options,
     });
   }
 
-  edit(groupId: string | number, epicId: number, options?: BaseRequestOptions) {
-    return RequestHelper.put<EpicSchema>()(
+  createTodo<E extends boolean = false>(
+    groupId: string | number,
+    epicIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<EpicTodoSchema, C, E, void>> {
+    return RequestHelper.post<EpicTodoSchema>()(
       this,
-      endpoint`groups/${groupId}/epics/${epicId}`,
+      endpoint`groups/${groupId}/epics/${epicIId}/todos`,
       options,
     );
   }
 
-  remove(groupId: string | number, epicId: number, options?: Sudo) {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicId}`, options);
+  edit<E extends boolean = false>(
+    groupId: string | number,
+    epicIId: number,
+    options?: EditEpicOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Omit<EpicSchema, '_links'>, C, E, void>> {
+    return RequestHelper.put<Omit<EpicSchema, '_links'>>()(
+      this,
+      endpoint`groups/${groupId}/epics/${epicIId}`,
+      options,
+    );
   }
 
-  show(groupId: string | number, epicId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    groupId: string | number,
+    epicIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicIId}`, options);
+  }
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    epicIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
     return RequestHelper.get<EpicSchema>()(
       this,
-      endpoint`groups/${groupId}/epics/${epicId}`,
+      endpoint`groups/${groupId}/epics/${epicIId}`,
       options,
     );
   }

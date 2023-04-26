@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Branches service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Branches);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Branches.all', () => {
   it('should request GET /projects/:id/repository/branches', async () => {
     await service.all(1);
@@ -44,22 +34,6 @@ describe('Branches.create', () => {
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/branches', {
       branch: 'name',
-      ref: 'ref',
-    });
-  });
-
-  it('should request POST /projects/:id/repository/branches in v3', async () => {
-    const v3Service = new Branches({
-      requesterFn: jest.fn(),
-      token: 'abcdefg',
-      requestTimeout: 3000,
-      version: 3,
-    });
-
-    await v3Service.create(1, 'name', 'ref');
-
-    expect(RequestHelper.post()).toHaveBeenCalledWith(v3Service, 'projects/1/repository/branches', {
-      branchName: 'name',
       ref: 'ref',
     });
   });

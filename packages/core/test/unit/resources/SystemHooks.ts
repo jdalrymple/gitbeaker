@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating SystemHooks service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(SystemHooks);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('SystemHooks.all', () => {
   it('should request GET /hooks without options', async () => {
     await service.all();
@@ -34,9 +24,9 @@ describe('SystemHooks.all', () => {
   });
 
   it('should request GET /hooks with options', async () => {
-    await service.all({ test: 1 });
+    await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'hooks', { test: 1 });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'hooks', undefined);
   });
 });
 
@@ -47,14 +37,6 @@ describe('SystemHooks.add', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'hooks', {
       url: 'url',
     });
-  });
-});
-
-describe('SystemHooks.edit', () => {
-  it('should request PUT /hooks/:hook_id', async () => {
-    await service.edit(2, 'url');
-
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'hooks/2', { url: 'url' });
   });
 });
 

@@ -1,18 +1,48 @@
 import { decamelizeKeys } from 'xcase';
-import FormData, { Headers } from 'form-data';
 import { stringify } from 'qs';
 
 // Types
-export interface Constructable<T = any> {
-  new (...args: any[]): T;
+export type ResponseBodyTypes =
+  | Record<string, unknown>
+  | Record<string, unknown>[]
+  | ReadableStream
+  | Blob
+  | string
+  | string[]
+  | number
+  | void;
+
+export interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTypes> {
+  body: T;
+  headers: Record<string, string>;
+  status: number;
 }
 
 export interface RequesterType {
-  get(endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  post(endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  put(endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  delete(endpoint: string, options?: Record<string, unknown>): Promise<any>;
-  stream?(endpoint: string, options?: Record<string, unknown>): NodeJS.ReadableStream;
+  get<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<FormattedResponse<T>>;
+  post<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<FormattedResponse<T>>;
+  put<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<FormattedResponse<T>>;
+  patch<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<FormattedResponse<T>>;
+  delete<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: Record<string, unknown>,
+  ): Promise<FormattedResponse<T>>;
+}
+
+export interface Constructable<T = any> {
+  new (...args: any[]): T;
 }
 
 export type DefaultResourceOptions = {
@@ -24,82 +54,90 @@ export type DefaultResourceOptions = {
 
 export type DefaultRequestOptions = {
   body?: FormData | Record<string, unknown>;
-  query?: Record<string, unknown>;
+  searchParams?: Record<string, unknown>;
   sudo?: string;
   method?: string;
+  asStream?: boolean;
 };
 
-export type DefaultRequestReturn = {
-  headers: Record<string, string> | Headers;
+export type RequestOptions = {
+  headers: Record<string, string>;
   timeout?: number;
   method: string;
   searchParams?: string;
-  prefixUrl?: string;
+  prefixUrl: string;
   body?: string | FormData;
+  asStream?: boolean;
 };
 
 // Utility methods
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
+  // Using qs instead of query-string to support stringifying nested objects :/
   return stringify(decamelized, { arrayFormat: 'brackets' });
 }
 
 export type OptionsHandlerFn = (
   serviceOptions: DefaultResourceOptions,
   requestOptions: DefaultRequestOptions,
-) => DefaultRequestReturn;
+) => Promise<RequestOptions>;
+
+function isFormData(object) {
+  return typeof object === 'object' && object.constructor.name === 'FormData';
+}
+
 export function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
-  { body, query, sudo, method = 'get' }: DefaultRequestOptions = {},
-): DefaultRequestReturn {
+  { body, searchParams, sudo, asStream = false, method = 'get' }: DefaultRequestOptions = {},
+): Promise<RequestOptions> {
   const { headers: preconfiguredHeaders, requestTimeout, url } = resourceOptions;
   const headers = { ...preconfiguredHeaders };
-  let bod: FormData | string;
-
-  if (sudo) headers.sudo = sudo;
-
-  // FIXME: Not the best comparison, but...it will have to do for now.
-  if (typeof body === 'object' && body.constructor.name !== 'FormData') {
-    bod = JSON.stringify(decamelizeKeys(body));
-    headers['content-type'] = 'application/json';
-  } else {
-    bod = body as FormData;
-  }
-
-  return {
+  const defaultOptions: RequestOptions = {
     headers,
     timeout: requestTimeout,
     method,
-    searchParams: formatQuery(query),
+    asStream,
     prefixUrl: url,
-    body: bod,
   };
+
+  if (sudo) defaultOptions.headers.sudo = sudo;
+
+  // FIXME: Not the best comparison, but...it will have to do for now.
+  if (body) {
+    if (isFormData(body)) {
+      defaultOptions.body = body as FormData;
+    } else {
+      defaultOptions.body = JSON.stringify(decamelizeKeys(body));
+      headers['content-type'] = 'application/json';
+    }
+  }
+
+  // Format query parameters
+  const q = formatQuery(searchParams);
+
+  if (q) defaultOptions.searchParams = q;
+
+  return Promise.resolve(defaultOptions);
 }
 
-export type RequestHandlerFn = (
+export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = (
   endpoint: string,
   options?: Record<string, unknown>,
-) =>
-  | any
-  | Promise<{
-      body: Record<string, unknown> | Record<string, unknown>[];
-      headers: Record<string, unknown> | Headers;
-      status: number;
-    }>;
+) => Promise<FormattedResponse<T>>;
 
 export function createRequesterFn(
   optionsHandler: OptionsHandlerFn,
   requestHandler: RequestHandlerFn,
 ): (serviceOptions: DefaultResourceOptions) => RequesterType {
-  const methods = ['get', 'post', 'put', 'delete', 'stream'];
+  const methods = ['get', 'post', 'put', 'patch', 'delete'];
 
   return (serviceOptions) => {
     const requester: RequesterType = {} as RequesterType;
 
     methods.forEach((m) => {
-      requester[m] = (endpoint: string, options: Record<string, unknown>) => {
-        const requestOptions = optionsHandler(serviceOptions, { ...options, method: m });
+      requester[m] = async (endpoint: string, options: Record<string, unknown>) => {
+        const requestOptions = await optionsHandler(serviceOptions, { ...options, method: m });
 
         return requestHandler(endpoint, requestOptions);
       };
@@ -109,17 +147,21 @@ export function createRequesterFn(
   };
 }
 
-function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
+function extendClass<T extends Constructable>(
+  Base: T,
+  customConfig: Record<string, unknown> = {},
+): T {
   return class extends Base {
     constructor(...options: any[]) {
+      // eslint-disable-line
       const [config, ...opts] = options;
 
-      super({ ...customConfig, ...config }, ...opts);
+      super({ ...customConfig, ...config }, ...opts); // eslint-disable-line
     }
   };
 }
 
-export function presetResourceArguments<T>(
+export function presetResourceArguments<T extends Record<string, Constructable>>(
   resources: T,
   customConfig: Record<string, unknown> = {},
 ) {

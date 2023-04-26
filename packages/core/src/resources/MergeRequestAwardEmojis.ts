@@ -1,40 +1,46 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAwardEmojis } from '../templates';
-import { AwardEmojiSchema } from '../templates/types';
-import { PaginatedRequestOptions, Sudo, CamelizedRecord } from '../infrastructure';
+import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>[]>;
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>>;
 
-  award(
+  award<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     name: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 
-  remove(
+  remove<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     awardId: number,
-    options?: Sudo,
-  ): Promise<void>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  show(
+  show<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     awardId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, AwardEmojiSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 }
 
 export class MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
-    super('merge_requests', options);
+    super('projects', 'merge_requests', options);
   }
 }

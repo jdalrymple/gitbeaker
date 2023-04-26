@@ -1,20 +1,35 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessRequests } from '../templates';
-import { AccessRequestSchema, AccessLevel } from '../templates/types';
-import { Sudo, CamelizedRecord } from '../infrastructure';
+import type { AccessLevel, AccessRequestSchema } from '../templates/ResourceAccessRequests';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {
-  all(groupId: string | number): Promise<CamelizedRecord<C, AccessRequestSchema>[]>;
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>>;
 
-  request(groupId: string | number): Promise<CamelizedRecord<C, AccessRequestSchema>>;
+  request<E extends boolean = false>(
+    groupId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>>;
 
-  approve(
+  approve<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: { accessLevel?: AccessLevel } & Sudo,
-  ): Promise<CamelizedRecord<C, AccessRequestSchema>>;
+    options?: { accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>>;
 
-  deny(groupId: string | number, userId: number): Promise<void>;
+  deny<E extends boolean = false>(
+    groupId: string | number,
+    userId: number,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
 export class GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {

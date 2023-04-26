@@ -1,4 +1,4 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceTemplates } from '../templates';
 
 export class GitLabCIYMLTemplates<C extends boolean = false> extends ResourceTemplates<C> {

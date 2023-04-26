@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating ProjectSnippets service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(ProjectSnippets);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('ProjectSnippets.all', () => {
   it('should request GET /projects/:id/snippets', async () => {
     await service.all(1);
@@ -34,9 +24,9 @@ describe('ProjectSnippets.all', () => {
   });
 });
 
-describe('ProjectSnippets.content', () => {
+describe('ProjectSnippets.showContent', () => {
   it('should request GET /projects/:id/snippets/:id/raw', async () => {
-    await service.content(1, 2);
+    await service.showContent(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -48,14 +38,13 @@ describe('ProjectSnippets.content', () => {
 
 describe('ProjectSnippets.create', () => {
   it('should request POST /projects/:id/snippets', async () => {
-    await service.create(1, 'This is a snippet', 'test.txt', 'Hello world', 'internal', {
+    await service.create(1, 'This is a snippet', {
       description: 'Hello World snippet',
+      visibility: 'internal',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/snippets', {
       title: 'This is a snippet',
-      fileName: 'test.txt',
-      code: 'Hello world',
       visibility: 'internal',
       description: 'Hello World snippet',
     });
@@ -64,10 +53,10 @@ describe('ProjectSnippets.create', () => {
 
 describe('ProjectSnippets.edit', () => {
   it('should request PUT /projects/:id/snippets', async () => {
-    await service.edit(1, 2, { name: 'test snippet 2' });
+    await service.edit(1, 2, { description: 'test snippet 2' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/snippets/2', {
-      name: 'test snippet 2',
+      description: 'test snippet 2',
     });
   });
 });
@@ -88,9 +77,9 @@ describe('ProjectSnippets.show', () => {
   });
 });
 
-describe('ProjectSnippets.userAgentDetails', () => {
+describe('ProjectSnippets.showUserAgentDetails', () => {
   it('should request GET /projects/:id/snippets/:id/user_agent_detail', async () => {
-    await service.userAgentDetails(1, 2);
+    await service.showUserAgentDetails(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

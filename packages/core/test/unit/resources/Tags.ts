@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Tags service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Tags);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Tags.all', () => {
   it('should request GET /projects/:id/repository/tags', async () => {
     await service.all(1);
@@ -40,11 +30,11 @@ describe('Tags.all', () => {
 
 describe('Tags.create', () => {
   it('should request POST /projects/:id/repository/tags', async () => {
-    await service.create(1, 'test', 'main', { test: 1 });
+    await service.create(1, 'test', 'main', { message: 'test' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/tags', {
-      test: 1,
-      query: {
+      message: 'test',
+      searchParams: {
         ref: 'main',
         tagName: 'test',
       },

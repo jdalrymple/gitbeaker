@@ -1,50 +1,62 @@
 {
   "name": "@gitbeaker/requester-utils",
+  "version": "36.0.1",
   "description": "Utility functions for requester implementatons used in @gitbeaker",
-  "version": "35.8.0",
-  "author": {
-    "name": "Justin Dalrymple"
-  },
-  "bugs": {
-    "url": "https://github.com/jdalrymple/gitbeaker/issues"
-  },
-  "dependencies": {
-    "form-data": "^4.0.0",
-    "qs": "^6.10.1",
-    "xcase": "^2.0.1"
-  },
-  "devDependencies": {
-    "@types/node": "^18.0.3",
-    "@types/qs": "^6.9.7",
-    "jest-extended": "^3.0.0",
-    "rollup": "^2.47.0",
-    "rollup-plugin-typescript2": "^0.31.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.2.4"
-  },
-  "engines": {
-    "node": ">=14.2.0"
-  },
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
-  "keywords": [
-    "gitbeaker",
-    "es5",
-    "es6"
-  ],
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "dist/types",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "keywords": [
+    "gitbeaker",
+    "gitlab",
+    "utils"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "rollup -c",
-    "test:integration": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
-    "test:unit": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
+    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "test:types": "tsc",
+    "test:integration": "jest --maxWorkers=50% test/integration",
+    "test:unit": "jest --maxWorkers=50% test/unit",
+    "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",
+    "format:docs:fix": "yarn format:docs --write",
+    "format:src": "prettier '{src,test}/**/*.ts' --ignore-path ../../.prettierignore",
+    "format:src:fix": "yarn format:src --write",
+    "format": "yarn format:src && yarn format:docs",
+    "format:fix": "yarn format:src:fix && yarn format:docs:fix",
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "lint:fix": "yarn lint --fix",
+    "release:rc": "auto next",
+    "release:canary": "auto canary",
+    "release": "auto shipit"
+  },
+  "dependencies": {
+    "qs": "^6.11.1",
+    "xcase": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.1",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5"
   }
 }

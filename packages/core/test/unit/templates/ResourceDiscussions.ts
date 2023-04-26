@@ -33,7 +33,7 @@ describe('ResourceDiscussions.addNote', () => {
       '1/resource2/2/discussions/3/notes',
       {
         noteId: 4,
-        query: {
+        searchParams: {
           body: 'test',
         },
       },
@@ -45,7 +45,11 @@ describe('ResourceCustomAttributes.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all(1, 2);
 
-    expect(RequestHelper.get()).toBeCalledWith(service, '1/resource2/2/discussions', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      '1/resource2/2/discussions',
+      undefined,
+    );
   });
 });
 
@@ -54,7 +58,7 @@ describe('ResourceDiscussions.create', () => {
     await service.create(1, 2, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      query: {
+      searchParams: {
         body: 'test',
       },
     });
@@ -62,28 +66,28 @@ describe('ResourceDiscussions.create', () => {
 });
 
 describe('ResourceDiscussions.editNote', () => {
-  it('should PUT request 1/resource2/2/discussions/3/notes/4 with a body=test query parameter', async () => {
+  it('should PUT request 1/resource2/2/discussions/3/notes/4 with a body=test searchParams parameter', async () => {
     await service.editNote(1, 2, 3, 4, { body: 'test' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        query: {
+        searchParams: {
           body: 'test',
         },
       },
     );
   });
 
-  it('should PUT request 1/resource2/2/discussions/3/notes/4 with empty query parameters and a resolved: true body payload', async () => {
+  it('should PUT request 1/resource2/2/discussions/3/notes/4 with empty searchParams parameters and a resolved: true body payload', async () => {
     await service.editNote(1, 2, 3, 4, { resolved: true });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        query: {},
+        searchParams: {},
         resolved: true,
       },
     );

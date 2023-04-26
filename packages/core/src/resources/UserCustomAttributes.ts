@@ -1,29 +1,39 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceCustomAttributes } from '../templates';
-import { CustomAttributeSchema } from '../templates/types';
-import { PaginatedRequestOptions, CamelizedRecord, Sudo } from '../infrastructure';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface UserCustomAttributes<C extends boolean = false>
   extends ResourceCustomAttributes<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, CustomAttributeSchema>[]>;
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema[], C, E, P>>;
 
-  set(
+  remove<E extends boolean = false>(
     userId: string | number,
-    customAttributeId: number,
+    customAttributeId: string,
+    options?: Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  set<E extends boolean = false>(
+    userId: string | number,
+    customAttributeId: string,
     value: string,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>>;
 
-  remove(userId: string | number, customAttributeId: number, options?: Sudo): Promise<void>;
-
-  show(
+  show<E extends boolean = false>(
     userId: string | number,
-    customAttributeId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, CustomAttributeSchema>>;
+    customAttributeId: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>>;
 }
 
 export class UserCustomAttributes<C extends boolean = false> extends ResourceCustomAttributes<C> {

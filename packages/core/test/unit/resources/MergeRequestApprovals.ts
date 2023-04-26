@@ -16,36 +16,28 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating MergeRequestApprovals service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(MergeRequestApprovals);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
-describe('MergeRequestApprovals.configuration', () => {
+describe('MergeRequestApprovals.showConfiguration', () => {
   it('should request GET /projects/:id/approvals without options', async () => {
-    await service.configuration(3);
+    await service.showConfiguration(3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/3/approvals', {});
   });
 
   it('should request GET /projects/:id/approvals', async () => {
-    await service.configuration(3, { prop: 4 });
+    await service.showConfiguration(3, { sudo: 'sudo' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/3/approvals', { prop: 4 });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/3/approvals', {
+      sudo: 'sudo',
+    });
   });
 
-  it('should request GET /projects/:id/merge_requests/:merge_request_iid/approvals when mergerequestIid Id is passed', async () => {
-    await service.configuration(3, { mergerequestIid: 1, prop: 4 });
+  it('should request GET /projects/:id/merge_requests/:merge_request_iid/approvals when mergerequestIId Id is passed', async () => {
+    await service.showConfiguration(3, { mergerequestIId: 1 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/merge_requests/1/approvals',
-      { prop: 4 },
+      {},
     );
   });
 });
@@ -58,63 +50,53 @@ describe('MergeRequestApprovals.editConfiguration', () => {
   });
 
   it('should request POST /projects/:id/approvals', async () => {
-    await service.editConfiguration(3, { prop: 4 });
+    await service.editConfiguration(3, { requirePasswordToApprove: true });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/3/approvals', { prop: 4 });
-  });
-
-  it('should request POST /projects/:id/merge_requests/:merge_request_iid/approvals when mergerequestIid Id is passed', async () => {
-    await service.editConfiguration(3, { mergerequestIid: 1, prop: 4 });
-
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
-      service,
-      'projects/3/merge_requests/1/approvals',
-      { prop: 4 },
-    );
-  });
-});
-
-describe('MergeRequestApprovals.approvalRule', () => {
-  it('should request GET /projects/:id/approval_rules/:approval_rule_id', async () => {
-    await service.approvalRule(2, 4, { prop: 3 });
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/approval_rules/4', {
-      prop: 3,
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/3/approvals', {
+      requirePasswordToApprove: true,
     });
   });
 });
 
-describe('MergeRequestApprovals.approvalRules', () => {
+describe('MergeRequestApprovals.showApprovalRule', () => {
+  it('should request GET /projects/:id/approval_rules/:approval_rule_id', async () => {
+    await service.showApprovalRule(2, 4);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/approval_rules/4',
+      undefined,
+    );
+  });
+});
+
+describe('MergeRequestApprovals.allApprovalRules', () => {
   it('should request GET /projects/:id/approval_rules without options', async () => {
-    await service.approvalRules(2);
+    await service.allApprovalRules(2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/approval_rules', {});
   });
 
   it('should request GET /projects/:id/approval_rules', async () => {
-    await service.approvalRules(2, { prop: 3 });
+    await service.allApprovalRules(2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/approval_rules', {
-      prop: 3,
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/approval_rules', {});
   });
 
-  it('should request GET /projects/:id/merge_requests/:merge_request_iid/approval_rules when mergerequestIid is passed', async () => {
-    await service.approvalRules(2, { mergerequestIid: 1, prop: 3 });
+  it('should request GET /projects/:id/merge_requests/:merge_request_iid/approval_rules when mergerequestIId is passed', async () => {
+    await service.allApprovalRules(2, { mergerequestIId: 1 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/1/approval_rules',
-      {
-        prop: 3,
-      },
+      {},
     );
   });
 });
 
-describe('MergeRequestApprovals.addApprovalRule', () => {
+describe('MergeRequestApprovals.createApprovalRule', () => {
   it('should request POST /projects/:id/approval_rules without options', async () => {
-    await service.addApprovalRule(2, 'Some rule', 5);
+    await service.createApprovalRule(2, 'Some rule', 5);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/2/approval_rules', {
       name: 'Some rule',
@@ -123,7 +105,7 @@ describe('MergeRequestApprovals.addApprovalRule', () => {
   });
 
   it('should request POST /projects/:id/approval_rules', async () => {
-    await service.addApprovalRule(2, 'Some rule', 5, {
+    await service.createApprovalRule(2, 'Some rule', 5, {
       userIds: [1, 2],
       groupIds: [3, 4],
       protectedBranchIds: [5, 6],
@@ -138,9 +120,9 @@ describe('MergeRequestApprovals.addApprovalRule', () => {
     });
   });
 
-  it('should request POST /projects/:id/merge_requests/:merge_request_iid/approval_rules when mergerequestIid is passed', async () => {
-    await service.addApprovalRule(2, 'Some rule', 5, {
-      mergerequestIid: 3,
+  it('should request POST /projects/:id/merge_requests/:merge_request_iid/approval_rules when mergerequestIId is passed', async () => {
+    await service.createApprovalRule(2, 'Some rule', 5, {
+      mergerequestIId: 3,
       userIds: [1, 2],
       groupIds: [3, 4],
     });
@@ -184,9 +166,9 @@ describe('MergeRequestApprovals.editApprovalRule', () => {
     });
   });
 
-  it('should request PUT /projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id when mergerequestIid is passed', async () => {
+  it('should request PUT /projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id when mergerequestIId is passed', async () => {
     await service.editApprovalRule(2, 30, 'Some rule', 5, {
-      mergerequestIid: 3,
+      mergerequestIId: 3,
       userIds: [1, 2],
       groupIds: [3, 4],
     });
@@ -211,8 +193,8 @@ describe('MergeRequestApprovals.removeApprovalRule', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/2/approval_rules/30', {});
   });
 
-  it('should request DELETE /projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id when mergerequestIid is passed', async () => {
-    await service.removeApprovalRule(2, 30, { mergerequestIid: 3 });
+  it('should request DELETE /projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id when mergerequestIId is passed', async () => {
+    await service.removeApprovalRule(2, 30, { mergerequestIId: 3 });
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
@@ -222,9 +204,9 @@ describe('MergeRequestApprovals.removeApprovalRule', () => {
   });
 });
 
-describe('MergeRequestApprovals.approvalState', () => {
+describe('MergeRequestApprovals.showApprovalState', () => {
   it('should request GET /projects/:id/merge_requests/:merge_request_iid/approval_state', async () => {
-    await service.approvalState(2, 3);
+    await service.showApprovalState(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

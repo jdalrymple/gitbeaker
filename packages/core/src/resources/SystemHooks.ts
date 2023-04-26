@@ -1,36 +1,69 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestOptions,
-  PaginatedRequestOptions,
-  RequestHelper,
-  Sudo,
-} from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { HookSchema } from '../templates/ResourceHooks';
 
-export interface SystemHookSchema extends Record<string, unknown> {
-  id: number;
-  url: string;
-  created_at: string;
-  push_events: boolean;
-  tag_push_events: boolean;
-  merge_requests_events: boolean;
-  repository_update_events: boolean;
-  enable_ssl_verification: boolean;
+export interface SystemHookTestResponse extends Record<string, unknown> {
+  project_id: number;
+  owner_email: string;
+  owner_name: string;
+  name: string;
+  path: string;
+  event_name: string;
+}
+
+export interface CreateSystemHook {
+  token?: string;
+  pushEvents?: boolean;
+  tagPushEvents?: boolean;
+  mergeRequestsEvents?: boolean;
+  repositoryUpdateEvents?: boolean;
+  enableSslVerification?: boolean;
 }
 
 export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
-  add(url: string, options?: BaseRequestOptions) {
-    return RequestHelper.post<SystemHookSchema>()(this, 'hooks', { url, ...options });
+  all<E extends boolean = false>(
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema[], C, E, void>> {
+    return RequestHelper.get<HookSchema[]>()(this, 'hooks', options);
   }
 
-  all(options?: PaginatedRequestOptions) {
-    return RequestHelper.get<SystemHookSchema[]>()(this, 'hooks', options);
+  // Convenience method
+  add<E extends boolean = false>(
+    url: string,
+    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
+    return this.create<E>(url, options);
   }
 
-  edit(hookId: number, url: string, options?: BaseRequestOptions) {
-    return RequestHelper.put<SystemHookSchema>()(this, `hooks/${hookId}`, { url, ...options });
+  create<E extends boolean = false>(
+    url: string,
+    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
+    return RequestHelper.post<HookSchema>()(this, 'hooks', {
+      url,
+      ...options,
+    });
   }
 
-  remove(hookId: number, options?: Sudo) {
+  test<E extends boolean = false>(
+    hookId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<SystemHookTestResponse, C, E, void>> {
+    return RequestHelper.post<SystemHookTestResponse>()(this, `hooks/${hookId}`, options);
+  }
+
+  remove<E extends boolean = false>(
+    hookId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, `hooks/${hookId}`, options);
+  }
+
+  show<E extends boolean = false>(
+    hookId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
+    return RequestHelper.post<HookSchema>()(this, `hooks/${hookId}`, options);
   }
 }

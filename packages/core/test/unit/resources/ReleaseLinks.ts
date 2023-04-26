@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating ReleaseLinks service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(ReleaseLinks);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('ReleaseLinks.all', () => {
   it('should request GET /projects/:id/releases/:id/assets/links', async () => {
     await service.all(1, 'tag');

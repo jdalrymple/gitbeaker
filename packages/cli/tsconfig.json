@@ -1,4 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["src"]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@gitbeaker/core/map.json": ["../core/dist/map.json"],
+      "@gitbeaker/*": ["../*/src"]
+    }
+  },
+  "include": ["./**/*.ts"]
 }

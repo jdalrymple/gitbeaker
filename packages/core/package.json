@@ -1,62 +1,69 @@
 {
   "name": "@gitbeaker/core",
-  "description": "Core API implementation of the GitLab API. Supports Promises, Async/Await.",
-  "version": "35.8.0",
-  "author": {
-    "name": "Justin Dalrymple"
-  },
-  "bugs": {
-    "url": "https://github.com/jdalrymple/gitbeaker/issues"
-  },
-  "dependencies": {
-    "@gitbeaker/requester-utils": "^35.8.0",
-    "form-data": "^4.0.0",
-    "li": "^1.3.0",
-    "mime": "^3.0.0",
-    "query-string": "^7.0.0",
-    "xcase": "^2.0.1"
-  },
-  "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-replace": "^3.0.0",
-    "@types/mime": "^3.0.1",
-    "@types/node": "^18.0.3",
-    "esm": "^3.2.25",
-    "fs-extra": "^10.0.0",
-    "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "jest-extended": "^3.0.0",
-    "rollup": "^2.47.0",
-    "rollup-plugin-typescript2": "^0.31.1",
-    "ts-node": "^10.0.0",
-    "tslib": "^2.3.1",
-    "typescript": "^4.2.4"
-  },
-  "engines": {
-    "node": ">=14.2.0"
-  },
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
-  "keywords": [
-    "api",
-    "es5",
-    "es6",
-    "gitlab"
-  ],
+  "version": "36.0.1",
+  "description": "Core API implementation of the GitLab API",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "dist/types",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jdalrymple/gitbeaker"
   },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "keywords": [
+    "gitbeaker",
+    "gitlab",
+    "api",
+    "core"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./map.json": "./dist/map.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build:self": "rollup -c",
-    "build": "yarn run build:map & yarn run build:self",
-    "build:map": "ESM_DISABLE_CACHE=true TS_NODE_PROJECT=scripts/tsconfig.json node -r esm -r ts-node/register scripts/generate.ts",
-    "test:integration": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/integration",
-    "test:unit": "node --expose-gc ../../node_modules/.bin/jest --runInBand --logHeapUsage test/unit"
+    "build": "yarn run build:map && yarn run build:self",
+    "build:map": "tsx scripts/generate.ts",
+    "build:self": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "test:types": "tsc",
+    "test:e2e": "jest --maxWorkers=50% test/e2e",
+    "test:unit": "jest --maxWorkers=50% test/unit",
+    "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",
+    "format:docs:fix": "yarn format:docs --write",
+    "format:src": "prettier '{src,test}/**/*.ts' --ignore-path ../../.prettierignore",
+    "format:src:fix": "yarn format:src --write",
+    "format": "yarn format:src && yarn format:docs",
+    "format:fix": "yarn format:src:fix && yarn format:docs:fix",
+    "lint": "eslint '{src,test,scripts}/**/*.ts'",
+    "lint:fix": "yarn lint --fix",
+    "release:rc": "auto next",
+    "release:canary": "auto canary",
+    "release": "auto shipit"
+  },
+  "dependencies": {
+    "@gitbeaker/requester-utils": "36.0.1",
+    "qs": "^6.11.1",
+    "xcase": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.1",
+    "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^4.9.5"
   }
 }

@@ -1,15 +1,12 @@
-/* eslint-disable max-classes-per-file */
-import FormData from 'form-data';
-import 'jest-extended';
 import {
+  RequestOptions,
   createRequesterFn,
   defaultOptionsHandler,
-  presetResourceArguments,
   formatQuery,
-  DefaultRequestReturn,
+  presetResourceArguments,
 } from '../../src/RequesterUtils';
 
-const methods = ['get', 'put', 'delete', 'stream', 'post'];
+const methods = ['get', 'put', 'patch', 'delete', 'post'];
 
 describe('defaultOptionsHandler', () => {
   const serviceOptions = {
@@ -19,15 +16,15 @@ describe('defaultOptionsHandler', () => {
     requestTimeout: 50,
   };
 
-  it('should not use default request options if not passed', () => {
-    const options = defaultOptionsHandler(serviceOptions);
+  it('should not use default request options if not passed', async () => {
+    const options = await defaultOptionsHandler(serviceOptions);
 
     expect(options.method).toBe('get');
   });
 
-  it('should stringify body if it isnt of type FormData', () => {
+  it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
-    const { body, headers } = defaultOptionsHandler(serviceOptions, {
+    const { body, headers } = await defaultOptionsHandler(serviceOptions, {
       method: 'post',
       body: testBody,
     });
@@ -36,55 +33,58 @@ describe('defaultOptionsHandler', () => {
     expect(body).toBe(JSON.stringify(testBody));
   });
 
-  it('should not stringify body if it of type FormData', () => {
-    const testBody = new FormData();
-    const { body } = defaultOptionsHandler(serviceOptions, { body: testBody, method: 'post' });
+  it('should not stringify body if it of type FormData', async () => {
+    const testBody: globalThis.FormData = new FormData() as unknown as globalThis.FormData;
+    const { body } = await defaultOptionsHandler(serviceOptions, {
+      body: testBody,
+      method: 'post',
+    });
 
     expect(body).toBeInstanceOf(FormData);
   });
 
-  it('should not assign the sudo property if omitted', () => {
-    const { headers } = defaultOptionsHandler(serviceOptions, {
+  it('should not assign the sudo property if omitted', async () => {
+    const { headers } = (await defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
       method: 'get',
-    }) as { headers: Record<string, string> };
+    })) as { headers: Record<string, string> };
 
     expect(headers.sudo).toBeUndefined();
   });
 
-  it('should assign the sudo property if passed', () => {
-    const { headers } = defaultOptionsHandler(serviceOptions, {
+  it('should assign the sudo property if passed', async () => {
+    const { headers } = (await defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
-    }) as { headers: Record<string, string> };
+    })) as { headers: Record<string, string> };
 
     expect(headers.sudo).toBe('testsudo');
   });
 
-  it('should assign the prefixUrl property if passed', () => {
-    const { prefixUrl } = defaultOptionsHandler(serviceOptions);
+  it('should assign the prefixUrl property if passed', async () => {
+    const { prefixUrl } = await defaultOptionsHandler(serviceOptions);
 
     expect(prefixUrl).toBe('testurl');
   });
 
-  it('should default searchParams to an empty string if undefined', () => {
-    const { searchParams } = defaultOptionsHandler(serviceOptions, {
-      query: undefined,
+  it('should not default searchParams', async () => {
+    const { searchParams } = await defaultOptionsHandler(serviceOptions, {
+      searchParams: undefined,
     });
 
-    expect(searchParams).toBe('');
+    expect(searchParams).toBeUndefined();
   });
 
-  it('should format searchParams to an stringified object', () => {
-    const { searchParams } = defaultOptionsHandler(serviceOptions, {
-      query: { a: 5 },
+  it('should format searchParams to an stringified object', async () => {
+    const { searchParams } = await defaultOptionsHandler(serviceOptions, {
+      searchParams: { a: 5 },
     });
 
     expect(searchParams).toBe('a=5');
   });
 
-  it('should format searchParams to an stringified object and decamelize properties', () => {
-    const { searchParams } = defaultOptionsHandler(serviceOptions, {
-      query: { thisSearchTerm: 5 },
+  it('should format searchParams to an stringified object and decamelize properties', async () => {
+    const { searchParams } = await defaultOptionsHandler(serviceOptions, {
+      searchParams: { thisSearchTerm: 5 },
     });
 
     expect(searchParams).toBe('this_search_term=5');
@@ -92,8 +92,8 @@ describe('defaultOptionsHandler', () => {
 });
 
 describe('createInstance', () => {
-  const handler = jest.fn();
-  const optionsHandler = jest.fn(() => ({} as DefaultRequestReturn));
+  const requestHandler = jest.fn();
+  const optionsHandler = jest.fn(() => Promise.resolve({} as RequestOptions));
   const serviceOptions = {
     headers: { test: '5' },
     url: 'testurl',
@@ -106,7 +106,7 @@ describe('createInstance', () => {
   });
 
   it('should return an object with function names equal to those in the methods array when the createInstance function is called', () => {
-    const requester = createRequesterFn(optionsHandler, handler)(serviceOptions);
+    const requester = createRequesterFn(optionsHandler, requestHandler)(serviceOptions);
 
     expect(requester).toContainAllKeys(methods);
 
@@ -115,16 +115,18 @@ describe('createInstance', () => {
     });
   });
 
-  it('should call the handler with the correct endpoint when passed to any of the method functions', () => {
+  it('should call the requestHandler with the correct endpoint when passed to any of the method functions', async () => {
     const testEndpoint = 'test endpoint';
-    const requester = createRequesterFn(optionsHandler, handler)(serviceOptions);
+    const requester = createRequesterFn(optionsHandler, requestHandler)(serviceOptions);
 
-    methods.forEach((m) => {
-      requester[m](testEndpoint, {});
+    // eslint-disable-next-line
+    for (const m of methods) {
+      // eslint-disable-next-line
+      await requester[m](testEndpoint, {});
 
-      expect(optionsHandler).toBeCalledWith(serviceOptions, { method: m });
-      expect(handler).toBeCalledWith(testEndpoint, {});
-    });
+      expect(optionsHandler).toHaveBeenCalledWith(serviceOptions, { method: m });
+      expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {});
+    }
   });
 
   it('should respect the closure variables', async () => {
@@ -141,33 +143,33 @@ describe('createInstance', () => {
       requestTimeout: 100,
     };
 
-    const requesterFn = createRequesterFn(optionsHandler, handler);
+    const requesterFn = createRequesterFn(optionsHandler, requestHandler);
     const requesterA = requesterFn(serviceOptions1);
     const requesterB = requesterFn(serviceOptions2);
 
     await requesterA.get('test');
 
-    expect(optionsHandler).toBeCalledWith(serviceOptions1, { method: 'get' });
+    expect(optionsHandler).toHaveBeenCalledWith(serviceOptions1, { method: 'get' });
 
     await requesterB.get('test');
 
-    expect(optionsHandler).toBeCalledWith(serviceOptions2, { method: 'get' });
+    expect(optionsHandler).toHaveBeenCalledWith(serviceOptions2, { method: 'get' });
   });
 });
 
 describe('presetResourceArguments', () => {
-  it('should preset class with extended properties', () => {
-    class A {
-      x?: number;
+  class A {
+    x: number;
 
-      y?: number;
+    y?: number;
 
-      constructor({ x, y }: { x?: number; y?: number } = {}) {
-        this.x = x;
-        this.y = y;
-      }
+    constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
+      this.x = x;
+      this.y = y;
     }
+  }
 
+  it('should preset class with extended properties', () => {
     const { A: B } = presetResourceArguments({ A }, { x: 3 });
     const b = new B();
 
@@ -175,17 +177,6 @@ describe('presetResourceArguments', () => {
   });
 
   it('should preset class with default properties', () => {
-    class A {
-      x: number;
-
-      y?: number;
-
-      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
-        this.x = x;
-        this.y = y;
-      }
-    }
-
     const { A: B } = presetResourceArguments({ A });
     const b = new B();
 
@@ -193,17 +184,6 @@ describe('presetResourceArguments', () => {
   });
 
   it('should overwrite default properties with extended properties', () => {
-    class A {
-      x: number;
-
-      y?: number;
-
-      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
-        this.x = x;
-        this.y = y;
-      }
-    }
-
     const { A: B } = presetResourceArguments({ A }, { x: 3 });
     const b = new B();
 
@@ -211,17 +191,6 @@ describe('presetResourceArguments', () => {
   });
 
   it('should overwrite default properties with custom properties', () => {
-    class A {
-      x: number;
-
-      y?: number;
-
-      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
-        this.x = x;
-        this.y = y;
-      }
-    }
-
     const { A: B } = presetResourceArguments({ A });
     const b = new B({ x: 5 });
 
@@ -229,17 +198,6 @@ describe('presetResourceArguments', () => {
   });
 
   it('should overwrite default and extended properties with custom properties', () => {
-    class A {
-      x: number;
-
-      y?: number;
-
-      constructor({ x = 8, y }: { x?: number; y?: number } = {}) {
-        this.x = x;
-        this.y = y;
-      }
-    }
-
     const { A: B } = presetResourceArguments({ A }, { x: 2 });
     const b = new B({ x: 5 });
 

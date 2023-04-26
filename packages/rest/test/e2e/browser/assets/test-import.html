@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="importmap">
+  {
+    "imports": {
+      "qs": "https://cdn.skypack.dev/qs?min",
+      "xcase": "https://cdn.skypack.dev/xcase?min",
+      "@gitbeaker/requester-utils": "../../../../../requester-utils/dist/index.mjs",
+      "@gitbeaker/core": "../../../../../core/dist/index.mjs"
+    }
+  }
+</script>
+  <script type="module">
+      import * as gitbeaker from '../../../../dist/index.mjs'
+
+      // BAD PRACTISE!!! - Just for testing purposes
+      window.gitbeaker = gitbeaker;
+  </script>
+</body>
+</html>

@@ -16,21 +16,14 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating DeployKeys service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(DeployKeys);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('DeployKeys.add', () => {
   it('should request POST /projects/:id/deploy_keys', async () => {
-    await service.add(1);
+    await service.create(1, 'title', 'key');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys', {
+      title: 'title',
+      key: 'key',
+    });
   });
 });
 
@@ -50,10 +43,10 @@ describe('DeployKeys.all', () => {
 
 describe('DeployKeys.edit', () => {
   it('should request PUT /projects/:id/deploy_keys/:key', async () => {
-    await service.edit(1, 2, { prop: 3 });
+    await service.edit(1, 2, { title: 'title' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2', {
-      prop: 3,
+      title: 'title',
     });
   });
 });

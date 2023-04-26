@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Snippets service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Snippets);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Snippets.all', () => {
   it('should request GET /snippets', async () => {
     await service.all();
@@ -40,9 +30,9 @@ describe('Snippets.all', () => {
   });
 });
 
-describe('Snippets.content', () => {
+describe('Snippets.showContent', () => {
   it('should request GET /snippets/:id/raw', async () => {
-    await service.content(12);
+    await service.showContent(12);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12/raw', undefined);
   });
@@ -50,14 +40,13 @@ describe('Snippets.content', () => {
 
 describe('Snippets.create', () => {
   it('should request POST /snippets', async () => {
-    await service.create('This is a snippet', 'test.txt', 'Hello world', 'internal', {
+    await service.create('This is a snippet', {
+      visibility: 'internal',
       description: 'Hello World snippet',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'snippets', {
       title: 'This is a snippet',
-      fileName: 'test.txt',
-      content: 'Hello world',
       visibility: 'internal',
       description: 'Hello World snippet',
     });
@@ -66,10 +55,10 @@ describe('Snippets.create', () => {
 
 describe('Snippets.edit', () => {
   it('should request PUT /snippets', async () => {
-    await service.edit(12, { name: 'test snippet 2' });
+    await service.edit(12, { description: 'test snippet 2' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'snippets/12', {
-      name: 'test snippet 2',
+      description: 'test snippet 2',
     });
   });
 });
@@ -90,9 +79,9 @@ describe('Snippets.remove', () => {
   });
 });
 
-describe('Snippets.userAgentDetails', () => {
+describe('Snippets.showUserAgentDetails', () => {
   it('should request GET /snippets/:id/user_agent_detail', async () => {
-    await service.userAgentDetails(12);
+    await service.showUserAgentDetails(12);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

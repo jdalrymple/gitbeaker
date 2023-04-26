@@ -1,6 +1,14 @@
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../resources/Users';
-import { PaginatedRequestOptions, RequestHelper, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
+import type { UserSchema } from '../resources/Users';
 
 export interface AwardEmojiSchema extends Record<string, unknown> {
   id: number;
@@ -12,46 +20,52 @@ export interface AwardEmojiSchema extends Record<string, unknown> {
   awardable_type: string;
 }
 
-export function url(
-  projectId: number | string,
-  resourceType: string,
+function url(
   resourceId: number | string,
-  awardId?: number | null,
-  noteId?: number,
+  resourceType2: string,
+  resourceId2: number | string,
+  awardId?: number,
 ) {
-  const [pId, rId] = [projectId, resourceId].map(encodeURIComponent);
-  const output = [pId, resourceType, rId];
-
-  if (noteId) output.push('notes', encodeURIComponent(noteId));
+  const [rId, rId2] = [resourceId, resourceId2].map(encodeURIComponent);
+  const output: (string | number)[] = [rId, resourceType2, rId2];
 
   output.push('award_emoji');
 
-  if (awardId) output.push(encodeURIComponent(awardId));
+  if (awardId) output.push(awardId);
 
   return output.join('/');
 }
 
 export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource<C> {
-  protected resourceType: string;
+  protected resourceType2: string;
 
-  constructor(resourceType: string, options: BaseResourceOptions<C>) {
-    super({ prefixUrl: 'projects', ...options });
+  constructor(resourceType1: string, resourceType2: string, options: BaseResourceOptions<C>) {
+    super({ prefixUrl: resourceType1, ...options });
 
-    this.resourceType = resourceType;
+    this.resourceType2 = resourceType2;
   }
 
-  all(projectId: string | number, resourceIId: number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    resourceIId: number,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>> {
     return RequestHelper.get<AwardEmojiSchema[]>()(
       this,
-      url(projectId, this.resourceType, resourceIId),
+      url(resourceId, this.resourceType2, resourceIId),
       options,
     );
   }
 
-  award(projectId: string | number, resourceIId: number, name: string, options?: Sudo) {
+  award<E extends boolean = false>(
+    resourceId: string | number,
+    resourceIId: number,
+    name: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     return RequestHelper.post<AwardEmojiSchema>()(
       this,
-      url(projectId, this.resourceType, resourceIId),
+      url(resourceId, this.resourceType2, resourceIId),
       {
         name,
         ...options,
@@ -59,18 +73,28 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
     );
   }
 
-  remove(projectId: string | number, resourceIId: number, awardId: number, options?: Sudo) {
+  remove<E extends boolean = false>(
+    resourceId: string | number,
+    resourceIId: number,
+    awardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
-      url(projectId, this.resourceType, resourceIId, awardId),
+      url(resourceId, this.resourceType2, resourceIId, awardId),
       options,
     );
   }
 
-  show(projectId: string | number, resourceIId: number, awardId: number, options?: Sudo) {
+  show<E extends boolean = false>(
+    resourceId: string | number,
+    resourceIId: number,
+    awardId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     return RequestHelper.get<AwardEmojiSchema>()(
       this,
-      url(projectId, this.resourceType, resourceIId, awardId),
+      url(resourceId, this.resourceType2, resourceIId, awardId),
       options,
     );
   }

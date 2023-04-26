@@ -1,60 +1,126 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { UserSchema } from './Users';
-import {
-  BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { UserSchema } from './Users';
+import type { PipelineVariableSchema } from './PipelineScheduleVariables';
+
+export type CommitablePipelineStatus = 'pending' | 'running' | 'success' | 'failed' | 'canceled';
 
 export type PipelineStatus =
+  | CommitablePipelineStatus
   | 'created'
   | 'waiting_for_resource'
   | 'preparing'
-  | 'pending'
-  | 'running'
-  | 'failed'
-  | 'success'
-  | 'canceled'
   | 'skipped'
   | 'manual'
   | 'scheduled';
 
 export interface PipelineSchema extends Record<string, unknown> {
   id: number;
-  status: PipelineStatus;
-  ref: string;
+  iid: number;
+  project_id: number;
   sha: string;
-  web_url: string;
+  ref: string;
+  status: string;
+  source: string;
   created_at: string;
   updated_at: string;
-  user: Pick<UserSchema, 'name' | 'avatar_url'>;
+  web_url: string;
 }
 
-export interface PipelineExtendedSchema extends PipelineSchema {
-  project_id: number;
+export interface ExpandedPipelineSchema extends PipelineSchema {
   before_sha: string;
   tag: boolean;
-  yaml_errors?: string;
-  user: Pick<UserSchema, 'name' | 'username' | 'id' | 'state' | 'avatar_url' | 'web_url'>;
-  started_at?: string;
+  yaml_errors?: unknown;
+  user: Omit<UserSchema, 'created_at'>;
+  started_at: string;
   finished_at: string;
   committed_at?: string;
-  duration?: string;
-  coverage?: string;
+  duration: number;
+  queued_duration?: unknown;
+  coverage?: unknown;
+  detailed_status: {
+    icon: string;
+    text: string;
+    label: string;
+    group: string;
+    tooltip: string;
+    has_details: boolean;
+    details_path: string;
+    illustration?: null;
+    favicon: string;
+  };
 }
 
-export interface PipelineVariableSchema extends Record<string, unknown> {
-  key: string;
-  variable_type?: string;
-  value: string;
+export interface PipelineTestCaseSchema {
+  status: string;
+  name: string;
+  classname: string;
+  execution_time: number;
+  system_output?: string;
+  stack_trace?: string;
 }
 
-// TODO: Add missing function
+export interface PipelineTestSuiteSchema {
+  name: string;
+  total_time: number;
+  total_count: number;
+  success_count: number;
+  failed_count: number;
+  skipped_count: number;
+  error_count: number;
+  test_cases?: PipelineTestCaseSchema[];
+}
+
+export interface PipelineTestReportSchema extends Record<string, unknown> {
+  total_time: number;
+  total_count: number;
+  success_count: number;
+  failed_count: number;
+  skipped_count: number;
+  error_count: number;
+  test_suites?: PipelineTestSuiteSchema[];
+}
+
+export interface PipelineTestReportSummarySchema extends Record<string, unknown> {
+  total: {
+    time: number;
+    count: number;
+    success: number;
+    failed: number;
+    skipped: number;
+    error: number;
+    suite_error?: null;
+  };
+  test_suites?: PipelineTestSuiteSchema[];
+}
+
+export type AllPipelinesOptions = {
+  scope?: 'running' | 'pending' | 'finished' | 'branches' | 'tags';
+  status?: PipelineStatus;
+  source?: string;
+  ref?: string;
+  sha?: string;
+  yamlErrors?: boolean;
+  username?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  name?: string;
+  orderBy?: 'id' | 'status' | 'updated_at' | 'user_id';
+  sort?: 'asc' | 'desc';
+};
 
 export class Pipelines<C extends boolean = false> extends BaseResource<C> {
-  all(projectId: string | number, options?: PaginatedRequestOptions) {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: AllPipelinesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
     return RequestHelper.get<PipelineSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipelines`,
@@ -62,14 +128,50 @@ export class Pipelines<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  create(projectId: string | number, ref: string, options?: BaseRequestOptions) {
-    return RequestHelper.post<PipelineSchema>()(this, endpoint`projects/${projectId}/pipeline`, {
-      ref,
-      ...options,
-    });
+  allVariables<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineVariableSchema[], C, E, void>> {
+    return RequestHelper.get<PipelineVariableSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/variables`,
+      options,
+    );
   }
 
-  delete(projectId: string | number, pipelineId: number, options?: Sudo) {
+  cancel<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    return RequestHelper.post<ExpandedPipelineSchema>()(
+      this,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/cancel`,
+      options,
+    );
+  }
+
+  create<E extends boolean = false>(
+    projectId: string | number,
+    ref: string,
+    options?: { variables?: PipelineVariableSchema[] } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    return RequestHelper.post<ExpandedPipelineSchema>()(
+      this,
+      endpoint`projects/${projectId}/pipeline`,
+      {
+        ref,
+        ...options,
+      },
+    );
+  }
+
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/pipelines/${pipelineId}`,
@@ -77,34 +179,62 @@ export class Pipelines<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show(projectId: string | number, pipelineId: number, options?: Sudo) {
-    return RequestHelper.get<PipelineSchema>()(
-      this,
-      endpoint`projects/${projectId}/pipelines/${pipelineId}`,
-      options,
-    );
-  }
-
-  retry(projectId: string | number, pipelineId: number, options?: Sudo) {
-    return RequestHelper.post<PipelineExtendedSchema>()(
+  retry<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
       endpoint`projects/${projectId}/pipelines/${pipelineId}/retry`,
       options,
     );
   }
 
-  cancel(projectId: string | number, pipelineId: number, options?: Sudo) {
-    return RequestHelper.post<PipelineExtendedSchema>()(
+  show<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>>;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: 'latest',
+    options?: { ref?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>>;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number | 'latest',
+    options?: { ref?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    return RequestHelper.get<ExpandedPipelineSchema>()(
       this,
-      endpoint`projects/${projectId}/pipelines/${pipelineId}/cancel`,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}`,
       options,
     );
   }
 
-  allVariables(projectId: string | number, pipelineId: number, options?: PaginatedRequestOptions) {
-    return RequestHelper.get<PipelineVariableSchema[]>()(
+  showTestReport<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineTestReportSchema, C, E, void>> {
+    return RequestHelper.get<PipelineTestReportSchema>()(
       this,
-      endpoint`projects/${projectId}/pipelines/${pipelineId}/variables`,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/test_report`,
+      options,
+    );
+  }
+
+  showTestReportSummary<E extends boolean = false>(
+    projectId: string | number,
+    pipelineId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineTestReportSummarySchema, C, E, void>> {
+    return RequestHelper.get<PipelineTestReportSummarySchema>()(
+      this,
+      endpoint`projects/${projectId}/pipelines/${pipelineId}/test_report_summary`,
       options,
     );
   }

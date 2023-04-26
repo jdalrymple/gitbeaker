@@ -1,20 +1,21 @@
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../resources/Users';
-import {
-  RequestHelper,
-  PaginatedRequestOptions,
-  BaseRequestOptions,
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  endpoint,
 } from '../infrastructure';
+import { UserSchema } from '../resources/Users';
 
 export interface NoteSchema extends Record<string, unknown> {
   id: number;
   body: string;
-  author: UserSchema;
+  author: Omit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
-  confidential: boolean;
 }
 
 export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
@@ -26,11 +27,16 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     this.resource2Type = resource2Type;
   }
 
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginatedRequestOptions,
-  ) {
+    options?: {
+      sort?: 'asc' | 'desc';
+      orderBy?: 'created_at' | 'updated_at';
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>> {
     return RequestHelper.get<NoteSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
@@ -38,12 +44,12 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  create(
+  create<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    options?: BaseRequestOptions,
-  ) {
+    options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
     return RequestHelper.post<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
@@ -54,29 +60,25 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  edit(
+  edit<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    body: string,
-    options?: BaseRequestOptions,
-  ) {
+    options?: { body?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
     return RequestHelper.put<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
-      {
-        body,
-        ...options,
-      },
+      options,
     );
   }
 
-  remove(
+  remove<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: Sudo,
-  ) {
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
@@ -84,7 +86,12 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show(resourceId: string | number, resource2Id: string | number, noteId: number, options?: Sudo) {
+  show<E extends boolean = false>(
+    resourceId: string | number,
+    resource2Id: string | number,
+    noteId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.get<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,

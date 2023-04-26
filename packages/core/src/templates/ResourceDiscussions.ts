@@ -1,26 +1,44 @@
 import { decamelizeKeys } from 'xcase';
-import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { UserSchema } from '../resources/Users';
-import {
-  BaseRequestOptions,
-  endpoint,
-  PaginatedRequestOptions,
-  RequestHelper,
+import { BaseResource } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { UserSchema } from '../resources/Users';
 
-export interface DiscussionNotePosition {
+export interface DiscussionNotePositionBaseSchema extends Record<string, unknown> {
   base_sha: string;
   start_sha: string;
   head_sha: string;
-  old_path: string;
-  new_path: string;
-  position_type: string;
-  old_line: number;
-  new_line: number;
+  position_type: 'text' | 'image';
+  old_path?: string;
+  new_path?: string;
 }
 
-export interface DiscussionNote {
+export type DiscussionNotePositionTextSchema = DiscussionNotePositionBaseSchema & {
+  position_type: 'text';
+  new_line?: string;
+  old_line?: string;
+};
+
+export type DiscussionNotePositionImageSchema = DiscussionNotePositionBaseSchema & {
+  position_type: 'image';
+  width?: string;
+  height?: string;
+  x?: number;
+  y?: number;
+};
+
+export type DiscussionNotePositionSchema =
+  | DiscussionNotePositionTextSchema
+  | DiscussionNotePositionImageSchema;
+
+export interface DiscussionNoteSchema extends Record<string, unknown> {
   id: number;
   type?: string;
   body: string;
@@ -32,15 +50,13 @@ export interface DiscussionNote {
   noteable_id: number;
   noteable_type: string;
   noteable_iid?: number;
-  resolvable: boolean;
-  resolved?: boolean;
-  position?: DiscussionNotePosition;
+  resolvable?: boolean;
 }
 
 export interface DiscussionSchema extends Record<string, unknown> {
   id: string;
   individual_note: boolean;
-  notes?: DiscussionNote[];
+  notes?: DiscussionNoteSchema[];
 }
 
 export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
@@ -52,26 +68,26 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     this.resource2Type = resource2Type;
   }
 
-  addNote(
+  addNote<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
     body: string,
-    options?: BaseRequestOptions,
-  ) {
-    return RequestHelper.post()(
+    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
+    return RequestHelper.post<DiscussionNoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes`,
-      { query: { body }, noteId, ...options },
+      { searchParams: { body }, noteId, ...options },
     );
   }
 
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginatedRequestOptions,
-  ) {
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>> {
     return RequestHelper.get<DiscussionSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions`,
@@ -79,16 +95,20 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     );
   }
 
-  create(
+  create<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    { position, ...options }: { position?: DiscussionNotePosition } & BaseRequestOptions = {},
-  ) {
-    const opts = { ...options };
+    {
+      position,
+      ...options
+    }: { position?: DiscussionNotePositionSchema; commitId?: string; createdAt?: string } & Sudo &
+      ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
+    const opts: Record<string, unknown> = { ...options };
 
     if (position) {
-      const p = decamelizeKeys(position);
+      const p: Record<string, unknown> = decamelizeKeys(position);
 
       opts.isForm = true;
       opts.body = body;
@@ -97,7 +117,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
         opts[`position[${k}]`] = v;
       });
     } else {
-      opts.query = { body };
+      opts.searchParams = { body };
     }
 
     return RequestHelper.post<DiscussionSchema>()(
@@ -107,30 +127,30 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     );
   }
 
-  editNote(
+  editNote<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    { body, ...options }: BaseRequestOptions & { body?: string } = {},
-  ) {
-    return RequestHelper.put<DiscussionSchema>()(
+    { body, ...options }: Sudo & ShowExpanded<E> & { body?: string; resolved?: boolean } = {},
+  ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
+    return RequestHelper.put<DiscussionNoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes/${noteId}`,
       {
-        query: { body },
+        searchParams: { body },
         ...options,
       },
     );
   }
 
-  removeNote(
+  removeNote<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    options?: Sudo,
-  ) {
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes/${noteId}`,
@@ -138,12 +158,12 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     );
   }
 
-  show(
+  show<E extends boolean = false>(
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
-    options?: Sudo,
-  ) {
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
     return RequestHelper.get<DiscussionSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}`,

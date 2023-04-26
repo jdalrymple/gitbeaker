@@ -1,44 +1,85 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import * as Mime from 'mime/lite';
-import { RequestHelper, Sudo } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
+export interface PackageRegistrySchema extends Record<string, unknown> {
+  id: number;
+  package_id: number;
+  created_at: string;
+  updated_at: string;
+  size: number;
+  file_store: number;
+  file_md5?: string;
+  file_sha1?: string;
+  file_name: string;
+  file: {
+    url: string;
+  };
+  file_sha256: string;
+  verification_retry_at?: string;
+  verified_at?: string;
+  verification_failure?: string;
+  verification_retry_count?: string;
+  verification_checksum?: string;
+  verification_state: number;
+  verification_started_at?: string;
+  new_file_path?: string;
+}
 
 export class PackageRegistry<C extends boolean = false> extends BaseResource<C> {
-  publish(
+  publish<E extends boolean = false>(
     projectId: string | number,
     packageName: string,
     packageVersion: string,
-    filename: string,
-    content: string,
-    { contentType, ...options }: { contentType?: string } & { status?: 'default' | 'hidden' } = {},
-  ) {
-    const pId = encodeURIComponent(projectId);
-    const meta = { filename, contentType };
+    packageFile: { content: Blob; filename: string },
+    options: {
+      select: 'package_file';
+      contentType?: string;
+      status?: 'default' | 'hidden';
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PackageRegistrySchema, C, E, void>>;
 
-    if (!meta.contentType) meta.contentType = Mime.getType(meta.filename) || undefined;
+  publish<E extends boolean = false>(
+    projectId: string | number,
+    packageName: string,
+    packageVersion: string,
+    packageFile: { content: Blob; filename: string },
+    options?: { contentType?: string; status?: 'default' | 'hidden' } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>>;
 
-    return RequestHelper.put<{ message: string }>()(
+  publish<E extends boolean = false>(
+    projectId: string | number,
+    packageName: string,
+    packageVersion: string,
+    packageFile: { content: Blob; filename: string },
+    {
+      contentType,
+      ...options
+    }: { contentType?: string; status?: 'default' | 'hidden'; select?: 'package_file' } & Sudo &
+      ShowExpanded<E> = {} as { contentType?: string },
+  ): Promise<any> {
+    return RequestHelper.put<PackageRegistrySchema | { message: string }>()(
       this,
-      `projects/${pId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
+      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${packageFile.filename}`,
       {
         isForm: true,
-        file: [content, meta],
+        file: [packageFile.content, packageFile.filename],
         ...options,
       },
     );
   }
 
-  download(
+  download<E extends boolean = false>(
     projectId: string | number,
     packageName: string,
     packageVersion: string,
     filename: string,
-    options?: Sudo,
+    options?: Sudo & ShowExpanded<E>,
   ) {
-    const pId = encodeURIComponent(projectId);
-
     return RequestHelper.get<{ message: string }>()(
       this,
-      `projects/${pId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
+      endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
       options,
     );
   }

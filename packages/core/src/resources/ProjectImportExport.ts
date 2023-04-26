@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import * as Mime from 'mime/lite';
-import { RequestHelper, Sudo, BaseRequestOptions, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -37,23 +37,80 @@ export interface ImportStatusSchema extends Record<string, unknown> {
   import_status: string;
   correlation_id: string;
   failed_relations?: FailedRelationSchema[];
+  import_error?: string;
 }
-
-export interface UploadMetadata {
-  filename?: string;
-  contentType?: string;
-}
-
-export const defaultMetadata = {
-  filename: `${Date.now().toString()}.tar.gz`,
-};
 
 export class ProjectImportExport<C extends boolean = false> extends BaseResource<C> {
-  download(projectId: string | number, options?: Sudo) {
-    return RequestHelper.get()(this, endpoint`projects/${projectId}/export/download`, options);
+  download<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    return RequestHelper.get<Blob>()(
+      this,
+      endpoint`projects/${projectId}/export/download`,
+      options,
+    );
   }
 
-  exportStatus(projectId: string | number, options?: Sudo) {
+  // TODO: What does this return?
+  import<E extends boolean = false>(
+    file: { content: Blob; filename: string },
+    path: string,
+    options?: {
+      name?: string;
+      namespace?: number | string;
+      overrideParams?: Record<string, unknown>;
+      overwrite?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
+      isForm: true,
+      ...options,
+      file: [file.content, file.filename],
+      path,
+    });
+  }
+
+  importRemote<E extends boolean = false>(
+    url: string,
+    path: string,
+    options?: {
+      name?: number;
+      namespace?: number | string;
+      overrideParams?: Record<string, unknown>;
+      overwrite?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
+      ...options,
+      path,
+      url,
+    });
+  }
+
+  importRemoteS3<E extends boolean = false>(
+    accessKeyId: string,
+    bucketName: string,
+    fileKey: string,
+    path: string,
+    region: string,
+    secretAccessKey: string,
+    options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
+      ...options,
+      accessKeyId,
+      bucketName,
+      fileKey,
+      path,
+      region,
+      secretAccessKey,
+    });
+  }
+
+  showExportStatus(projectId: string | number, options?: Sudo) {
     return RequestHelper.get<ExportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/export`,
@@ -61,24 +118,7 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
     );
   }
 
-  import(
-    content: string,
-    path: string,
-    { metadata, ...options }: { metadata?: UploadMetadata } & BaseRequestOptions = {},
-  ) {
-    const meta = { ...defaultMetadata, ...metadata };
-
-    if (!meta.contentType) meta.contentType = Mime.getType(meta.filename) || undefined;
-
-    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
-      isForm: true,
-      ...options,
-      file: [content, meta],
-      path,
-    });
-  }
-
-  importStatus(projectId: string | number, options?: Sudo) {
+  showImportStatus(projectId: string | number, options?: Sudo) {
     return RequestHelper.get<ImportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/import`,
@@ -86,11 +126,17 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
     );
   }
 
-  schedule(projectId: string | number, options?: BaseRequestOptions) {
-    return RequestHelper.post<{ message: string }>()(
-      this,
-      endpoint`projects/${projectId}/export`,
-      options,
-    );
+  scheduleExport<E extends boolean = false>(
+    projectId: string | number,
+    uploadConfig: {
+      url: string;
+      http_method?: string;
+    },
+    options?: { description?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    return RequestHelper.post<{ message: string }>()(this, endpoint`projects/${projectId}/export`, {
+      ...options,
+      upload: uploadConfig,
+    });
   }
 }

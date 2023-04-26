@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating Runners service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(Runners);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('Runners.all', () => {
   it('should request GET /runners/all', async () => {
     await service.all();
@@ -38,13 +28,17 @@ describe('Runners.all', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/runners', {});
   });
-});
 
-describe('Runners.allowned', () => {
+  it('should request GET /groups/:id/runners', async () => {
+    await service.all({ groupId: 1 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/1/runners', {});
+  });
+
   it('should request GET /runners', async () => {
-    await service.allOwned();
+    await service.all({ owned: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners', {});
   });
 });
 
@@ -74,9 +68,9 @@ describe('Runners.disable', () => {
   });
 });
 
-describe('Runners.jobs', () => {
+describe('Runners.allJobs', () => {
   it('should request GET /runners/:id/jobs', async () => {
-    await service.jobs(1);
+    await service.allJobs(1);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/1/jobs', undefined);
   });
@@ -84,9 +78,15 @@ describe('Runners.jobs', () => {
 
 describe('Runners.remove', () => {
   it('should request DEL /runners/:id', async () => {
-    await service.remove(2);
+    await service.remove({ runnerId: 2 });
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners/2', undefined);
+  });
+
+  it('should request DEL /runners with token', async () => {
+    await service.remove({ token: 'token' });
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners', { token: 'token' });
   });
 });
 

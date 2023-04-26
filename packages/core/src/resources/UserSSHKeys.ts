@@ -1,10 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestOptions,
-  Sudo,
-  PaginatedRequestOptions,
-  RequestHelper,
-} from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface UserSSHKeySchema extends Record<string, unknown> {
   id: number;
@@ -16,15 +12,46 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
 const url = (userId?: number) => (userId ? `users/${userId}/keys` : 'user/keys');
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
-  all({ userId, ...options }: { userId?: number } & PaginatedRequestOptions = {}) {
-    return RequestHelper.get<UserSSHKeySchema[]>()(this, url(userId), options);
-  }
-
-  create(
+  // Convienence method for create
+  add<E extends boolean = false>(
     title: string,
     key: string,
-    { userId, ...options }: { userId?: number } & BaseRequestOptions = {},
-  ) {
+    options?: {
+      userId?: number;
+      expiresAt?: string;
+      usageType?: 'auth' | 'signing' | 'auth_and_signing';
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
+    return this.create<E>(title, key, options);
+  }
+
+  all<E extends boolean = false>({
+    userId,
+    ...options
+  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+    GitlabAPIResponse<UserSSHKeySchema[], C, E, void>
+  > {
+    return RequestHelper.get<UserSSHKeySchema[]>()(
+      this,
+      url(userId),
+      options as Sudo & ShowExpanded<E>,
+    );
+  }
+
+  create<E extends boolean = false>(
+    title: string,
+    key: string,
+    {
+      userId,
+      ...options
+    }: {
+      userId?: number;
+      expiresAt?: string;
+      usageType?: 'auth' | 'signing' | 'auth_and_signing';
+    } & Sudo &
+      ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     return RequestHelper.post<UserSSHKeySchema>()(this, url(userId), {
       title,
       key,
@@ -32,15 +59,21 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  show(keyId: number, { userId, ...options }: { userId?: number } & BaseRequestOptions = {}) {
-    const kId = encodeURIComponent(keyId);
-
-    return RequestHelper.get<UserSSHKeySchema>()(this, `${url(userId)}/${kId}`, options);
+  show<E extends boolean = false>(
+    keyId: number,
+    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
+    return RequestHelper.get<UserSSHKeySchema>()(
+      this,
+      `${url(userId)}/${keyId}`,
+      options as Sudo & ShowExpanded<E>,
+    );
   }
 
-  remove(keyId: number, { userId, ...options }: { userId?: number } & Sudo = {}) {
-    const kId = encodeURIComponent(keyId);
-
-    return RequestHelper.del()(this, `${url(userId)}/${kId}`, options as Sudo);
+  remove<E extends boolean = false>(
+    keyId: number,
+    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options as Sudo & ShowExpanded<E>);
   }
 }

@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating UserGPGKeys service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(UserGPGKeys);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('UserGPGKeys.add', () => {
   it('should request POST user/gpg_keys', async () => {
     await service.add('key');

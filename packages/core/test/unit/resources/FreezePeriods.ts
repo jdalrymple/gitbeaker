@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating FreezePeriods service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(FreezePeriods);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('FreezePeriods.all', () => {
   it('should request GET /projects/:id/freeze_periods', async () => {
     await service.all(1);
@@ -74,7 +64,7 @@ describe('FreezePeriods.edit', () => {
 
 describe('FreezePeriods.delete', () => {
   it('should request DELETE projects/:id/freeze_periods/:freeze_period_id', async () => {
-    await service.delete(1, 2);
+    await service.remove(1, 2);
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,

@@ -19,26 +19,24 @@ extends:
 parser: '@typescript-eslint/parser'
 
 parserOptions:
-  project: './tsconfig.json'
-  tsconfigRootDir: './'
+  project:
+    - './tsconfig.json'
 
 plugins:
   - '@typescript-eslint'
   - prettier
   - import
-
-ignorePatterns:
-  - node_modules
-  - dist
-  - '**/scripts/*.ts'
+  - jest
+  - jest-extended
 
 rules:
-  import/no-default-export: error
+  import/no-default-export: off
   import/prefer-default-export: off
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
-        - 'scripts/*.js'
+        - '**/*.config.ts'
+        - '**/scripts/*.[tj]s'
         - '**/test/**/*.ts'
   import/extensions:
     - error
@@ -62,6 +60,18 @@ rules:
   camelcase:
     - error
 
+  sort-imports:
+    - error
+    - ignoreCase: false
+      ignoreDeclarationSort: true
+      ignoreMemberSort: false
+      memberSyntaxSortOrder:
+        - none
+        - all
+        - multiple
+        - single
+      allowSeparatedGroups: true
+
 overrides:
   - files:
       - '**/*.ts'
@@ -79,6 +89,7 @@ overrides:
       global-require: off
       jest/no-mocks-import: off
       jest/unbound-method: error
+      max-classes-per-file: off
 
   - files:
       - '**/__mocks__/**/*.ts'

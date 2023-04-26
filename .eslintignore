@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+dist
+coverage
+reports
+.rpt2_cache
+.idea
+.DS_Store
+yarn-error.log
+.env
+.npmrc
+.turbo
+scripts

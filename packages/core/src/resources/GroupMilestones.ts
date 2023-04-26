@@ -1,50 +1,75 @@
-import { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMilestones } from '../templates';
-import { MilestoneSchema } from '../templates/types';
-import {
-  PaginatedRequestOptions,
-  BaseRequestOptions,
+import type {
+  AllMilestonesOptions,
+  BurndownChartEventSchema,
+  MilestoneSchema,
+} from '../templates/ResourceMilestones';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
   Sudo,
-  CamelizedRecord,
 } from '../infrastructure';
-import { IssueSchema } from './Issues';
-import { MergeRequestSchema } from './MergeRequests';
+import type { IssueSchema } from './Issues';
+import type { MergeRequestSchema } from './MergeRequests';
 
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
-  all(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginatedRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>[]>;
+    options?: AllMilestonesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
 
-  create(
+  allAssignedIssues<E extends boolean = false>(
+    groupId: string | number,
+    milestoneId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>>;
+
+  allAssignedMergeRequests<E extends boolean = false>(
+    groupId: string | number,
+    milestoneId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>>;
+
+  allBurndownChartEvents<E extends boolean = false>(
+    projectId: string | number,
+    milestoneId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<BurndownChartEventSchema[], C, E, void>>;
+
+  create<E extends boolean = false>(
     groupId: string | number,
     title: string,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+    options?: { description?: string; dueDate?: string; startDate?: string } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>>;
 
-  edit(
+  edit<E extends boolean = false>(
     groupId: string | number,
     milestoneId: number,
-    options?: BaseRequestOptions,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+    options?: {
+      title?: string;
+      description?: string;
+      dueDate?: string;
+      startDate?: string;
+      startEvent?: 'close' | 'activate';
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>>;
 
-  issues(
+  remove<E extends boolean = false>(
     groupId: string | number,
     milestoneId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, IssueSchema>[]>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
-  mergeRequests(
+  show<E extends boolean = false>(
     groupId: string | number,
     milestoneId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, MergeRequestSchema>[]>;
-
-  show(
-    groupId: string | number,
-    milestoneId: number,
-    options?: Sudo,
-  ): Promise<CamelizedRecord<C, MilestoneSchema>>;
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>>;
 }
 
 export class GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {

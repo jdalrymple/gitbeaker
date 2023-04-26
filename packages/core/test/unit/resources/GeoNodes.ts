@@ -16,16 +16,6 @@ beforeEach(() => {
   });
 });
 
-describe('Instantiating GeoNodes service', () => {
-  it('should create a valid service object', () => {
-    expect(service).toBeInstanceOf(GeoNodes);
-    expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-    expect(service.requestTimeout).toBe(3000);
-  });
-});
-
 describe('GeoNodes.all', () => {
   it('should request GET /geo_nodes', async () => {
     await service.all();
@@ -36,9 +26,12 @@ describe('GeoNodes.all', () => {
 
 describe('GeoNodes.create', () => {
   it('should request POST /geo_nodes', async () => {
-    await service.create(1);
+    await service.create('name', 'url');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'geo_nodes/1', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'geo_nodes', {
+      name: 'name',
+      url: 'url',
+    });
   });
 });
 
@@ -48,11 +41,20 @@ describe('GeoNodes.edit', () => {
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1', undefined);
   });
+
+  it('should request PUT /geo_nodes/:id with options', async () => {
+    await service.edit(1, { name: 'name', url: 'url' });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'geo_nodes/1', {
+      name: 'name',
+      url: 'url',
+    });
+  });
 });
 
-describe('GeoNodes.failures', () => {
+describe('GeoNodes.allFailures', () => {
   it('should request POST /geo_nodes/current/failures', async () => {
-    await service.failures();
+    await service.allFailures();
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
@@ -63,10 +65,10 @@ describe('GeoNodes.failures', () => {
 });
 
 describe('GeoNodes.repair', () => {
-  it('should request DELETE /geo_nodes/:id', async () => {
+  it('should request POST /geo_nodes/:id/repair', async () => {
     await service.repair(1);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'geo_nodes/1', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'geo_nodes/1/repair', undefined);
   });
 });
 
@@ -78,17 +80,17 @@ describe('GeoNodes.show', () => {
   });
 });
 
-describe('GeoNodes.status', () => {
+describe('GeoNodes.showStatus', () => {
   it('should request GET /geo_nodes/:id/status', async () => {
-    await service.status(1);
+    await service.showStatus(1);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'geo_nodes/1/status', undefined);
   });
 });
 
-describe('GeoNodes.statuses', () => {
+describe('GeoNodes.allStatuses', () => {
   it('should request GET /geo_nodes/statuses', async () => {
-    await service.statuses();
+    await service.allStatuses();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'geo_nodes/statuses', undefined);
   });
