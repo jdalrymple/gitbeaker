@@ -25,17 +25,6 @@ export interface DiffRefsSchema {
   start_sha: string;
 }
 
-export interface MergeRequestChanges {
-  old_path: string;
-  new_path: string;
-  a_mode: string;
-  b_mode: string;
-  new_file: boolean;
-  renamed_file: boolean;
-  deleted_file: boolean;
-  diff: string;
-}
-
 export interface ReferenceSchema {
   short: string;
   relative: string;
@@ -45,6 +34,17 @@ export interface ReferenceSchema {
 export interface TaskCompletionStatusSchema {
   count: number;
   completed_count: number;
+}
+
+export interface MergeRequestDiffSchema extends Record<string, unknown> {
+  old_path: string;
+  new_path: string;
+  a_mode: string;
+  b_mode: string;
+  new_file: boolean;
+  renamed_file: boolean;
+  deleted_file: boolean;
+  diff: string;
 }
 
 export interface MergeRequestDiffVersionsSchema extends Record<string, unknown> {
@@ -145,11 +145,6 @@ export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   user: {
     can_merge: boolean;
   };
-}
-
-export interface MergeRequestWithChangesSchema extends ExpandedMergeRequestSchema {
-  changes?: MergeRequestChanges[];
-  overflow: boolean;
 }
 
 export interface MergeRequestTodoSchema extends TodoSchema {
@@ -300,14 +295,14 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allChanges<E extends boolean = false>(
+  allDiffs<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestWithChangesSchema[], C, E, void>> {
-    return RequestHelper.get<MergeRequestWithChangesSchema[]>()(
+  ): Promise<GitlabAPIResponse<MergeRequestDiffSchema[], C, E, void>> {
+    return RequestHelper.get<MergeRequestDiffSchema[]>()(
       this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/changes`,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/diffs`,
       options,
     );
   }

@@ -90,7 +90,7 @@ describe('MergeRequests.cancelOnPipelineSuccess', () => {
 
 describe('MergeRequests.allChanges', () => {
   it('should request GET projects/:id/merge_requests/:id/changes', async () => {
-    await service.allChanges(2, 3);
+    await service.allDiffs(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
