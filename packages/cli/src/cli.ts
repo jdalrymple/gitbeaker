@@ -122,11 +122,16 @@ function param(value: string): string {
     'DORA4',
     'LDAP',
     'CICD',
+    'SAML',
+    'SCIM',
+    'PyPI',
   ];
 
-  const ex = exceptions.find((e) => value.includes(e));
-
-  if (ex) cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1).toLowerCase());
+  exceptions
+    .filter((e) => value.includes(e))
+    .forEach((ex) => {
+      cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1).toLowerCase());
+    });
 
   // Decamelize
   const decamelized = decamelize(cleaned, '-');
