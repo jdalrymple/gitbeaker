@@ -2,14 +2,15 @@ version: '2'
 
 checks:
   similar-code:
-    enable: false
+    enabled: false
   file-lines:
-    enable: false
+    enabled: false
   method-count:
-    enable: false
+    enabled: false
 
 exclude_patterns:
-  - node_modules
-  - coverage
-  - dist
-  - test
+  - node_modules/
+  - coverage/
+  - dist/
+  - **/test/
+  - **/*.d.ts
