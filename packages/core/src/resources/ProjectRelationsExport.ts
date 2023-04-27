@@ -2,41 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
-export interface ExportStatusSchema extends Record<string, unknown> {
-  id: number;
-  description: string;
-  name: string;
-  name_with_namespace: string;
-  path: string;
-  path_with_namespace: string;
-  created_at: string;
-  export_status: string;
-  _links: {
-    api_url: string;
-    web_url: string;
-  };
-}
-
-export interface FailedRelationSchema {
-  id: number;
-  created_at: string;
-  exception_class: string;
-  exception_message: string;
-  source: string;
-  relation_name: string;
-}
-
-export interface ImportStatusSchema extends Record<string, unknown> {
-  id: number;
-  description: string;
-  name: string;
-  name_with_namespace: string;
-  path: string;
-  path_with_namespace: string;
-  created_at: string;
-  import_status: string;
-  correlation_id: string;
-  failed_relations?: FailedRelationSchema[];
+export interface RelationsExportStatusSchema extends Record<string, unknown> {
+  relation: string;
+  status: number;
+  error?: string;
+  updated_at: string;
 }
 
 export class ProjectRelationsExport<C extends boolean = false> extends BaseResource<C> {
@@ -56,7 +26,7 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
   }
 
   showExportStatus(projectId: string | number, options?: Sudo) {
-    return RequestHelper.get<ExportStatusSchema>()(
+    return RequestHelper.get<RelationsExportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/export_relations/status`,
       options,
