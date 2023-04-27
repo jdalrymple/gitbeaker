@@ -2775,22 +2775,22 @@ __metadata:
   linkType: hard
 
 "all-contributors-cli@npm:6.19.0":
-  version: 6.19.0
-  resolution: "all-contributors-cli@npm:6.19.0"
+  version: 6.25.0
+  resolution: "all-contributors-cli@npm:6.25.0"
   dependencies:
     "@babel/runtime": ^7.7.6
-    async: ^3.0.1
+    async: ^3.1.0
     chalk: ^4.0.0
     didyoumean: ^1.2.1
-    inquirer: ^7.0.4
-    json-fixer: ^1.5.1
+    inquirer: ^7.3.3
+    json-fixer: ^1.6.8
     lodash: ^4.11.2
     node-fetch: ^2.6.0
     pify: ^5.0.0
     yargs: ^15.0.1
   bin:
     all-contributors: dist/cli.js
-  checksum: 42e0d00ec0a9c141247e48a017b04ee8fff8edb6e36ee728de1992bd0ca0a05f018d17b95a98e5952c670fe640d12f39629ba51abe3008b67ae288d9cd164861
+  checksum: 58ba9aa3f166453a4ec4185827a03289ad44e1510cfabad6472ef4123836d32c26f17cd6111f3118301d45aef19bd00c12881394ebad1c3f3b8170bfe5bfe939
   languageName: node
   linkType: hard
 
@@ -3042,7 +3042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.0.1, async@npm:^3.2.3":
+"async@npm:^3.1.0, async@npm:^3.2.3":
   version: 3.2.4
   resolution: "async@npm:3.2.4"
   checksum: 43d07459a4e1d09b84a20772414aa684ff4de085cbcaec6eea3c7a8f8150e8c62aa6cd4e699fe8ee93c3a5b324e777d34642531875a0817a35697522c1b02e89
@@ -6170,7 +6170,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^7.0.4":
+"inquirer@npm:^7.3.3":
   version: 7.3.3
   resolution: "inquirer@npm:7.3.3"
   dependencies:
@@ -7180,7 +7180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-fixer@npm:^1.5.1":
+"json-fixer@npm:^1.6.8":
   version: 1.6.15
   resolution: "json-fixer@npm:1.6.15"
   dependencies:
