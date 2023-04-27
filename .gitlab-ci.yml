@@ -279,7 +279,7 @@ test:live:teardown:
 ## Integration Tests
 test:integration:cli:
   extends: .test:integration:base
-  script: yarn test:unit --projects=@gitbeaker/cli
+  script: yarn test:integration --projects=@gitbeaker/cli
 
 test:integration:rest:
   extends: .test:integration:base
