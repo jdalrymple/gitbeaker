@@ -1,3 +1,16 @@
+# 37.1.0 (Thu Apr 27 2023)
+
+#### 🚑 Hot Fix
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - v37 Release Housekeeping [#3222](https://github.com/jdalrymple/gitbeaker/pull/3222) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 36.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
