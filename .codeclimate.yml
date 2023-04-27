@@ -9,8 +9,6 @@ checks:
     enabled: false
 
 exclude_patterns:
-  - node_modules/
-  - coverage/
-  - dist/
   - **/test/
   - **/*.d.ts
+  - .yarn/
