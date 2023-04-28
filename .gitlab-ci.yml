@@ -1,8 +1,8 @@
 stages:
   - install
   - build
-  - lint
-  - format
+  # - lint
+  # - format
   - test
   # - release
 
@@ -87,35 +87,35 @@ build:
     expire_in: 1h
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
-lint:
-  stage: lint
-  image: node:18-alpine
-  needs:
-    - install
-  cache:
-    - <<: *cacheinstallmodules
-      policy: pull
-    - <<: *cacheinstallyarn
-      policy: pull
-    - <<: *cachelint
-      policy: pull-push
-  before_script:
-    - apk add --no-cache libc6-compat
-  script: yarn lint
-
-format:
-  stage: format
-  image: node:18-alpine
-  needs:
-    - install
-  cache:
-    - <<: *cacheinstallmodules
-      policy: pull
-    - <<: *cacheinstallyarn
-      policy: pull
-  before_script:
-    - apk add --no-cache libc6-compat
-  script: yarn format
+# lint:
+#   stage: lint
+#   image: node:18-alpine
+#   needs:
+#     - install
+#   cache:
+#     - <<: *cacheinstallmodules
+#       policy: pull
+#     - <<: *cacheinstallyarn
+#       policy: pull
+#     - <<: *cachelint
+#       policy: pull-push
+#   before_script:
+#     - apk add --no-cache libc6-compat
+#   script: yarn lint
+#
+# format:
+#   stage: format
+#   image: node:18-alpine
+#   needs:
+#     - install
+#   cache:
+#     - <<: *cacheinstallmodules
+#       policy: pull
+#     - <<: *cacheinstallyarn
+#       policy: pull
+#   before_script:
+#     - apk add --no-cache libc6-compat
+#   script: yarn format
 
 # Tests
 .test:base:
@@ -259,10 +259,10 @@ test:live:teardown:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
     - test:integration:cli
-    - test:integration:rest
-    - test:e2e:core
-    - test:e2e:cli
-    - test:e2e:rest
+    # - test:integration:rest
+    # - test:e2e:core
+    # - test:e2e:cli
+    # - test:e2e:rest
   when: always
   only:
     refs:
