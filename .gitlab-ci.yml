@@ -1,6 +1,6 @@
 stages:
   - install
-  - build
+  # - build
   # - lint
   # - format
   - test
@@ -62,29 +62,29 @@ install:
     reports:
       dotenv: install.env
 
-build:
-  stage: build
-  image: node:18-alpine
-  needs:
-    - install
-  cache:
-    - <<: *cacheinstallmodules
-      policy: pull
-    - <<: *cacheinstallyarn
-      policy: pull
-    - <<: *cachebuild
-      policy: pull-push
-  before_script:
-    - apk add --no-cache libc6-compat git
-  script:
-    - yarn build
-  artifacts:
-    paths:
-      - packages/core/dist/
-      - packages/cli/dist/
-      - packages/rest/dist/
-      - packages/requester-utils/dist/
-    expire_in: 1h
+# build:
+#   stage: build
+#   image: node:18-alpine
+#   needs:
+#     - install
+#   cache:
+#     - <<: *cacheinstallmodules
+#       policy: pull
+#     - <<: *cacheinstallyarn
+#       policy: pull
+#     - <<: *cachebuild
+#       policy: pull-push
+#   before_script:
+#     - apk add --no-cache libc6-compat git
+#   script:
+#     - yarn build
+#   artifacts:
+#     paths:
+#       - packages/core/dist/
+#       - packages/cli/dist/
+#       - packages/rest/dist/
+#       - packages/requester-utils/dist/
+#     expire_in: 1h
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 # lint:
