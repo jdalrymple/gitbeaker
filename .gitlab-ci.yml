@@ -137,6 +137,7 @@ build:
 .test:unit:base:
   extends: .test:base
   after_script:
+    - ls
     - ls $PKG_PATH
     - ls $PKG_PATH/reports
   artifacts:
