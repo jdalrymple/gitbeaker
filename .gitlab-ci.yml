@@ -54,7 +54,7 @@ install:
     reports:
       dotenv: install.env
 
-# build:
+build:
   stage: build
   image: node:18-alpine
   needs:
