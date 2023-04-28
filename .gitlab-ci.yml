@@ -144,10 +144,10 @@ format:
         coverage_format: cobertura
         path: $PKG_PATH/coverage/cobertura-coverage.xml
 
-# .test:types:base:
-#   extends: .test:base
-#   needs:
-#     - build
+.test:types:base:
+  extends: .test:base
+  needs:
+    - build
 
 # .test:integration:base:
 #   extends: .test:base
@@ -186,23 +186,23 @@ test:unit:rest:
     PKG_PATH: 'packages/rest'
 
 ## Types Tests
-# test:types:utils:
-#   extends: .test:types:base
-#   variables:
-#     PKG_PATH: 'packages/requester-utils'
-#   script: yarn test:types --projects=@gitbeaker/requester-utils
-#
-# test:types:core:
-#   extends: .test:types:base
-#   variables:
-#     PKG_PATH: 'packages/core'
-#   script: yarn test:types --projects=@gitbeaker/core
-#
-# test:types:rest:
-#   extends: .test:types:base
-#   variables:
-#     PKG_PATH: 'packages/rest'
-#   script: yarn test:types --projects=@gitbeaker/rest
+test:types:utils:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/requester-utils'
+  script: yarn test:types --projects=@gitbeaker/requester-utils
+
+test:types:core:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/core'
+  script: yarn test:types --projects=@gitbeaker/core
+
+test:types:rest:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/rest'
+  script: yarn test:types --projects=@gitbeaker/rest
 
 ## Live Test Setup and Clean Up
 # test:live:setup:
