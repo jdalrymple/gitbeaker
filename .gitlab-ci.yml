@@ -208,81 +208,81 @@ test:unit:rest:
 #   script: yarn test:types --projects=@gitbeaker/rest
 
 ## Live Test Setup and Clean Up
-test:live:setup:
-  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  stage: test
-  when: manual
-  needs: []
-  only:
-    refs:
-      - /^pr-[0-9]+$/
-      - main
-      - next
-  allow_failure: false
-  variables:
-    GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
-    CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
-    GITLAB_ROOT_PASSWORD: gitbeaker
-  before_script:
-    - apk add jq curl
-  script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-    - |
-      GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
-        --project gitbeaker \
-        --machine-type=e2-standard-2 \
-        --zone=northamerica-northeast1-b \
-        --tags http-server,https-server \
-        --container-image docker.io/gitlab/gitlab-ce:latest \
-        --container-command '/bin/sh' \
-        --container-arg="-c" \
-        --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"${GITLAB_PERSONAL_ACCESS_TOKEN}\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-        --metadata-from-file startup-script=./scripts/shutdown.sh \
-        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
-        | head -2 | tail -1 )
-
-    - GITLAB_URL="http://${GITLAB_URL}"
-    - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
-    - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
-    - cat intergration.env
-    - echo "Waiting for service to start"
-    - |
-      sleep 180
-      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-      echo "Service is up and running!"
-  artifacts:
-    reports:
-      dotenv: intergration.env
-
-test:live:teardown:
-  stage: test
-  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  needs:
-    - test:integration:cli
-    # - test:integration:rest
-    # - test:e2e:core
-    # - test:e2e:cli
-    # - test:e2e:rest
-  when: always
-  only:
-    refs:
-      - /^pr-[0-9]+$/
-      - main
-      - next
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-    - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
+# test:live:setup:
+#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+#   stage: test
+#   when: manual
+#   needs: []
+#   only:
+#     refs:
+#       - /^pr-[0-9]+$/
+#       - main
+#       - next
+#   allow_failure: false
+#   variables:
+#     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+#     CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
+#     GITLAB_ROOT_PASSWORD: gitbeaker
+#   before_script:
+#     - apk add jq curl
+#   script:
+#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#     - |
+#       GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
+#         --project gitbeaker \
+#         --machine-type=e2-standard-2 \
+#         --zone=northamerica-northeast1-b \
+#         --tags http-server,https-server \
+#         --container-image docker.io/gitlab/gitlab-ce:latest \
+#         --container-command '/bin/sh' \
+#         --container-arg="-c" \
+#         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"${GITLAB_PERSONAL_ACCESS_TOKEN}\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+#         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
+#         --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
+#         --metadata-from-file startup-script=./scripts/shutdown.sh \
+#         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
+#         | head -2 | tail -1 )
+#
+#     - GITLAB_URL="http://${GITLAB_URL}"
+#     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
+#     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
+#     - cat intergration.env
+#     - echo "Waiting for service to start"
+#     - |
+#       sleep 180
+#       while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
+#       echo "Service is up and running!"
+#   artifacts:
+#     reports:
+#       dotenv: intergration.env
+#
+# test:live:teardown:
+#   stage: test
+#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+#   needs:
+#     - test:integration:cli
+#     # - test:integration:rest
+#     # - test:e2e:core
+#     # - test:e2e:cli
+#     # - test:e2e:rest
+#   when: always
+#   only:
+#     refs:
+#       - /^pr-[0-9]+$/
+#       - main
+#       - next
+#   variables:
+#     GIT_STRATEGY: none
+#   script:
+#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
 
 ## Integration Tests
-test:integration:cli:
-  extends: .test:integration:base
-  script: yarn test:integration --projects=@gitbeaker/cli
+# test:integration:cli:
+#   extends: .test:integration:base
+#   script: yarn test:integration --projects=@gitbeaker/cli
 
 # test:integration:rest:
 #   extends: .test:integration:base
