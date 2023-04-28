@@ -29,18 +29,10 @@ variables:
   paths:
     - ~/.cache/ms-playwright
 
-.cache:build: &cachebuild
-  key: build-$CI_JOB_IMAGE
-  paths:
-    - node_modules/.cache/nx
-
-.cache:lint: &cachelint
-  key: lint-$CI_JOB_IMAGE
-  paths:
-    - node_modules/.cache/nx
-
-.cache:test: &cachetest
-  key: test-$CI_JOB_IMAGE
+.cache:nx: &cachenx
+  key:
+    files:
+      - yarn.lock
   paths:
     - node_modules/.cache/nx
 
@@ -72,7 +64,7 @@ install:
 #       policy: pull
 #     - <<: *cacheinstallyarn
 #       policy: pull
-#     - <<: *cachebuild
+#     - <<: *cachenx
 #       policy: pull-push
 #   before_script:
 #     - apk add --no-cache libc6-compat git
@@ -97,7 +89,7 @@ install:
 #       policy: pull
 #     - <<: *cacheinstallyarn
 #       policy: pull
-#     - <<: *cachelint
+#     - <<: *cachenx
 #       policy: pull-push
 #   before_script:
 #     - apk add --no-cache libc6-compat
@@ -128,7 +120,7 @@ install:
       policy: pull
     - <<: *cacheinstallyarn
       policy: pull
-    - <<: *cachetest
+    - <<: *cachenx
       policy: pull-push
   before_script:
     - apk add --no-cache libc6-compat

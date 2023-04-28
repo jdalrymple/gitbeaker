@@ -874,7 +874,7 @@ __metadata:
   resolution: "@gitbeaker/core@workspace:packages/core"
   dependencies:
     "@gitbeaker/requester-utils": ^37.1.0
-    "@types/node": ^18.16.1
+    "@types/node": ^18.16.2
     get-param-names: "github:jdalrymple/get-param-names#1-improve-functionality"
     qs: ^6.11.1
     tsup: ^6.7.0
@@ -888,7 +888,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gitbeaker/requester-utils@workspace:packages/requester-utils"
   dependencies:
-    "@types/node": ^18.16.1
+    "@types/node": ^18.16.2
     qs: ^6.11.1
     tsup: ^6.7.0
     typescript: ^5.0.4
@@ -902,9 +902,9 @@ __metadata:
   dependencies:
     "@gitbeaker/core": ^37.1.0
     "@gitbeaker/requester-utils": ^37.1.0
-    "@playwright/test": ^1.32.3
-    "@types/node": ^18.16.1
-    playwright: ^1.32.3
+    "@playwright/test": ^1.33.0
+    "@types/node": ^18.16.2
+    playwright: ^1.33.0
     tsup: ^6.7.0
     typescript: ^5.0.4
   languageName: unknown
@@ -1763,6 +1763,80 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/tao@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nrwl/tao@npm:16.0.0"
+  dependencies:
+    nx: 16.0.0
+  bin:
+    tao: index.js
+  checksum: 20162b4f89dd4d5d51b25a10e89399a4209d39010d02cbaa313da9cdbec800a626cc10130f5ba495bd05e1974bc7120776452592e98d36cdbf2d641aa5cc99ad
+  languageName: node
+  linkType: hard
+
+"@nx/nx-darwin-arm64@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-darwin-arm64@npm:16.0.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-darwin-x64@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-darwin-x64@npm:16.0.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm-gnueabihf@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:16.0.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm64-gnu@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-linux-arm64-gnu@npm:16.0.0"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm64-musl@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-linux-arm64-musl@npm:16.0.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-x64-gnu@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-linux-x64-gnu@npm:16.0.0"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-x64-musl@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-linux-x64-musl@npm:16.0.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-win32-arm64-msvc@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-win32-arm64-msvc@npm:16.0.0"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-win32-x64-msvc@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@nx/nx-win32-x64-msvc@npm:16.0.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@octokit/auth-token@npm:^2.4.4":
   version: 2.5.0
   resolution: "@octokit/auth-token@npm:2.5.0"
@@ -2096,19 +2170,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.32.3":
-  version: 1.32.3
-  resolution: "@playwright/test@npm:1.32.3"
+"@playwright/test@npm:^1.33.0":
+  version: 1.33.0
+  resolution: "@playwright/test@npm:1.33.0"
   dependencies:
     "@types/node": "*"
     fsevents: 2.3.2
-    playwright-core: 1.32.3
+    playwright-core: 1.33.0
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: f248e5851d04183954ec6f3a5f2c8e3b0ea0085a83e0e695068c5c2eb6acd4dddb16829a429829a4eb9fe0a4518f6a5594890cf9bf4259255c9e07a5964be625
+  checksum: cec3215fc92c1cb9f5bfba357ea1cbe97b54979ab82f9d34a2287b1687cda5e0966b8ea7290dcd35416e18668e56d5781b6b8c4cec64baf12f3ae8dde0f68f5e
   languageName: node
   linkType: hard
 
@@ -2449,10 +2523,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.16.1":
+"@types/node@npm:*":
   version: 18.16.1
   resolution: "@types/node@npm:18.16.1"
   checksum: 799026b949a48993cba7c9b81b2eabfdfb34c880744cb44c1c990fbedc9e315f3634d126eb2cf9a6e0795577c01016e2326d98565bef695ada9d363fadeb6946
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.16.2":
+  version: 18.16.2
+  resolution: "@types/node@npm:18.16.2"
+  checksum: 7ad66d23b3b93885a9f879bff98e0196790ad35589b47a3d81b52db969ad17ee298082020296df5166c2d72d3cd6a4b9ab34d254483637d967944a4b3e6febdb
   languageName: node
   linkType: hard
 
@@ -5565,7 +5646,7 @@ __metadata:
     jest-junit: ^16.0.0
     lerna: ^6.6.1
     lint-staged: ^13.2.2
-    nx: 15.9.2
+    nx: 16.0.0
     prettier: ^2.8.8
     types: ^0.1.1
     typescript: ^5.0.4
@@ -8646,6 +8727,86 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nx@npm:16.0.0":
+  version: 16.0.0
+  resolution: "nx@npm:16.0.0"
+  dependencies:
+    "@nrwl/tao": 16.0.0
+    "@nx/nx-darwin-arm64": 16.0.0
+    "@nx/nx-darwin-x64": 16.0.0
+    "@nx/nx-linux-arm-gnueabihf": 16.0.0
+    "@nx/nx-linux-arm64-gnu": 16.0.0
+    "@nx/nx-linux-arm64-musl": 16.0.0
+    "@nx/nx-linux-x64-gnu": 16.0.0
+    "@nx/nx-linux-x64-musl": 16.0.0
+    "@nx/nx-win32-arm64-msvc": 16.0.0
+    "@nx/nx-win32-x64-msvc": 16.0.0
+    "@parcel/watcher": 2.0.4
+    "@yarnpkg/lockfile": ^1.1.0
+    "@yarnpkg/parsers": ^3.0.0-rc.18
+    "@zkochan/js-yaml": 0.0.6
+    axios: ^1.0.0
+    chalk: ^4.1.0
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    cliui: ^7.0.2
+    dotenv: ~10.0.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^11.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    js-yaml: 4.1.0
+    jsonc-parser: 3.2.0
+    lines-and-columns: ~2.0.3
+    minimatch: 3.0.5
+    npm-run-path: ^4.0.1
+    open: ^8.4.0
+    semver: 7.3.4
+    string-width: ^4.2.3
+    strong-log-transformer: ^2.1.0
+    tar-stream: ~2.2.0
+    tmp: ~0.2.1
+    tsconfig-paths: ^4.1.2
+    tslib: ^2.3.0
+    v8-compile-cache: 2.3.0
+    yargs: ^17.6.2
+    yargs-parser: 21.1.1
+  peerDependencies:
+    "@swc-node/register": ^1.4.2
+    "@swc/core": ^1.2.173
+  dependenciesMeta:
+    "@nx/nx-darwin-arm64":
+      optional: true
+    "@nx/nx-darwin-x64":
+      optional: true
+    "@nx/nx-linux-arm-gnueabihf":
+      optional: true
+    "@nx/nx-linux-arm64-gnu":
+      optional: true
+    "@nx/nx-linux-arm64-musl":
+      optional: true
+    "@nx/nx-linux-x64-gnu":
+      optional: true
+    "@nx/nx-linux-x64-musl":
+      optional: true
+    "@nx/nx-win32-arm64-msvc":
+      optional: true
+    "@nx/nx-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc-node/register":
+      optional: true
+    "@swc/core":
+      optional: true
+  bin:
+    nx: bin/nx.js
+  checksum: 11ec7820e46330cd4d552cd8930523b47d3b9fc541b25094bd3e7ef2d2febf95af0521655e791f4e335ec984fd48c4e00c7ea1cd4c6bc299e7232788f0a0b7c3
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4.0.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -9222,23 +9383,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.32.3":
-  version: 1.32.3
-  resolution: "playwright-core@npm:1.32.3"
+"playwright-core@npm:1.33.0":
+  version: 1.33.0
+  resolution: "playwright-core@npm:1.33.0"
   bin:
     playwright: cli.js
-  checksum: 7ea091c41a7d1bb97b445bc541a85b123ffcf167bcc00fb7e13e9079f06c92f59fd27caf9d1c1d7e0054f2b5765d1a16d198833c2be7266cebb9dbb916cd90f4
+  checksum: 5fb7bda06a8b73b56b85b5a0b8f711211dde57a375d9379289e22239b2de879c6d93c8fdc9ba44b932bf100914ab1ca1a55697ad88440fdd0a39101fc020b77f
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.32.3":
-  version: 1.32.3
-  resolution: "playwright@npm:1.32.3"
+"playwright@npm:^1.33.0":
+  version: 1.33.0
+  resolution: "playwright@npm:1.33.0"
   dependencies:
-    playwright-core: 1.32.3
+    playwright-core: 1.33.0
   bin:
     playwright: cli.js
-  checksum: 9627771a131ab96a26d702757e89dcf09a228f0038c43a14f982cc59a2eca672cb27c9d92c324ddc2c44457b82d77c30b3562b386601969e0456b52dba5df176
+  checksum: fb3934c56ed749cf412ea35b82052f013872d7f7b7747ab7042580af473dfc1b038956a31c132ee8c0098f74150c75e2073e9c737fd4c1ed54700a23fffc079f
   languageName: node
   linkType: hard
 
