@@ -180,6 +180,7 @@ import { RequesterUtils, BaseResource } from '@gitbeaker/requester-utils';
       <td align="center" valign="top" width="3.84%"><a href="https://kyr.github.io/CV/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/426462?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Kyrylo Fedorov"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/claudio-vellage"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/28930612?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Claudio Vellage"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/seb0uil"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/5122626?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Seb0uil"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="http://merorafael.info/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3404989?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Rafael Mello"/></td>
     </tr>
 </p>
 

@@ -875,6 +875,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "merorafael",
+      "name": "Rafael Mello",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3404989?v=4",
+      "profile": "http://merorafael.info/",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
