@@ -103,7 +103,7 @@ cli.command('*', (argv, ctx) => {
 });
 
 // Add all supported API's
-const exposedAPIs = getExposedAPIs(API_MAP);
+const exposedAPIs = getExposedAPIs(API_MAP as Record<string, MethodTemplate[]>);
 
 Object.entries(exposedAPIs).forEach(([apiName, methods]) => {
   cli.command(param(apiName), {
