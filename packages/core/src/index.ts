@@ -1,6 +1,7 @@
 /* ---------------- Resources --------------- */
 export * from './resources';
 export type {
+  Camelize,
   UserAgentDetailSchema,
   IsForm,
   Sudo,
