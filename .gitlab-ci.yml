@@ -272,6 +272,8 @@ test:live:teardown:
 test:integration:cli:
   extends: .test:integration:base
   script: yarn test:integration --projects=@gitbeaker/cli
+  after_script:
+    - ls /builds/jdalrymple/gitbeaker/packages/core/dist
 
 test:integration:rest:
   extends: .test:integration:base
