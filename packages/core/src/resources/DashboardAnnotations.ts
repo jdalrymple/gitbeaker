@@ -22,7 +22,7 @@ export class DashboardAnnotations<C extends boolean = false> extends BaseResourc
       clusterId,
       ...options
     }: Either<{ environmentId: number }, { clusterId: number }> & { endingAt?: string } & Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DashboardAnnotationSchema, C, E, void>> {
     let url: string;
 

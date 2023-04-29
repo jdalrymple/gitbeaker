@@ -22,18 +22,17 @@ export class Maven<C extends boolean = false> extends BaseResource<C> {
 
   uploadPackageFile<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
     path: string,
-    filename: string,
+    packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.put<void>()(
       this,
-      endpoint`projects/${projectId}/packages/maven/${path}/${filename}`,
+      endpoint`projects/${projectId}/packages/maven/${path}/${packageFile.filename}`,
       {
         isForm: true,
         ...options,
-        file: [content, filename],
+        file: [packageFile.content, packageFile.filename],
       },
     );
   }

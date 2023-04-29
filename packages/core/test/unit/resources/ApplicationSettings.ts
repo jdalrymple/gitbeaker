@@ -25,7 +25,7 @@ describe('ApplicationSettings.show', () => {
 });
 
 describe('ApplicationSettings.edit', () => {
-  it('should request PUT /application_settings with a terms property', async () => {
+  it('should request PUT /application/settings with a terms property', async () => {
     await service.edit({ terms: 'Testing terms' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/settings', {

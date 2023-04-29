@@ -444,6 +444,11 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   allForks<E extends boolean = false>(
     projectId: string | number,
     options?: AllForksOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>>;
+
+  allForks<E extends boolean = false>(
+    projectId: string | number,
+    options?: AllForksOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>> {
     return RequestHelper.get<ExpandedProjectSchema[]>()(
       this,

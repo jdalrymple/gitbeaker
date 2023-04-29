@@ -87,7 +87,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   allBillable<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BillableGroupMemberSchema[], C, E, P>> {
     return RequestHelper.get<BillableGroupMemberSchema[]>()(
       this,
@@ -103,10 +103,36 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
     return RequestHelper.get<MemberSchema[]>()(this, endpoint`${groupId}/pending_members`, options);
   }
 
+  allBillableMemberships<E extends boolean = false>(
+    groupId: string | number,
+    userId: number,
+    options?: {
+      search?: string;
+      sort?:
+        | 'access_level_asc'
+        | 'access_level_desc'
+        | 'last_joined'
+        | 'name_asc'
+        | 'name_desc'
+        | 'oldest_joined'
+        | 'oldest_sign_in'
+        | 'recent_sign_in'
+        | 'last_activity_on_asc'
+        | 'last_activity_on_desc';
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, void>> {
+    return RequestHelper.get<BillableGroupMemberMembershipSchema[]>()(
+      this,
+      endpoint`${groupId}/billable_members/${userId}/memberships`,
+      options,
+    );
+  }
+
   approve<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.put<MemberSchema>()(
       this,
@@ -117,7 +143,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   approveAll<E extends boolean = false>(
     groupId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, void>> {
     return RequestHelper.put<MemberSchema[]>()(
       this,
@@ -137,7 +163,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   removeOverrideFlag<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<OverrodeGroupMemberSchema, C, E, void>> {
     return RequestHelper.del<OverrodeGroupMemberSchema>()(
       this,
@@ -149,37 +175,11 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   setOverrideFlag<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<OverrodeGroupMemberSchema, C, E, void>> {
-    return RequestHelper.put<OverrodeGroupMemberSchema>()(
+    return RequestHelper.post<OverrodeGroupMemberSchema>()(
       this,
       endpoint`${groupId}/members/${userId}/override`,
-      options,
-    );
-  }
-
-  allBillableMemberships<E extends boolean = false>(
-    groupId: string | number,
-    userId: number,
-    options: {
-      search?: string;
-      sort?:
-        | 'access_level_asc'
-        | 'access_level_desc'
-        | 'last_joined'
-        | 'name_asc'
-        | 'name_desc'
-        | 'oldest_joined'
-        | 'oldest_sign_in'
-        | 'recent_sign_in'
-        | 'last_activity_on_asc'
-        | 'last_activity_on_desc';
-    } & Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, void>> {
-    return RequestHelper.get<BillableGroupMemberMembershipSchema[]>()(
-      this,
-      endpoint`${groupId}/billable_members/${userId}/memberships`,
       options,
     );
   }

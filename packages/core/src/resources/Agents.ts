@@ -92,7 +92,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
-    return RequestHelper.get<ClusterAgentSchema>()(
+    return RequestHelper.post<ClusterAgentSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents`,
       {
@@ -115,7 +115,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  deregister<E extends boolean = false>(
+  unregister<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
     options?: Sudo & ShowExpanded<E>,

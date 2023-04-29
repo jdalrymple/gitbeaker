@@ -12,15 +12,30 @@
           "test:unit",
           "test:integration",
           "test:e2e",
-          "build:"
+          "build"
         ]
       }
     }
   },
   "targetDefaults": {
+    "test:unit": {
+      "outputs": [
+        "{projectRoot}/coverage",
+        "{projectRoot}/reports"
+      ]
+    },
+    "test:integration": {
+      "outputs": [
+        "{projectRoot}/coverage",
+        "{projectRoot}/reports"
+      ]
+    },
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
       ]
     },
     "test:types": {
@@ -29,6 +44,11 @@
       ]
     },
     "test:e2e": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "test:integration": {
       "dependsOn": [
         "build"
       ]

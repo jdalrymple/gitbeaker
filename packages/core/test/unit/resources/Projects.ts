@@ -24,6 +24,70 @@ describe('Projects.all', () => {
   });
 });
 
+describe('Projects.allTransferLocations', () => {
+  it('should request GET /projects/2/transfer_locations', async () => {
+    await service.allTransferLocations(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/transfer_locations',
+      undefined,
+    );
+  });
+});
+
+describe('Projects.allUsers', () => {
+  it('should request GET /projects/2/users', async () => {
+    await service.allUsers(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/users', undefined);
+  });
+});
+
+describe('Projects.allGroups', () => {
+  it('should request GET /projects/2/groups', async () => {
+    await service.allGroups(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/groups', undefined);
+  });
+});
+
+describe('Projects.allSharableGroups', () => {
+  it('should request GET /projects/2/groups', async () => {
+    await service.allSharableGroups(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/share_locations',
+      undefined,
+    );
+  });
+});
+
+describe('Projects.allForks', () => {
+  it('should request GET /projects/2/forks', async () => {
+    await service.allForks(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/forks', undefined);
+  });
+});
+
+describe('Projects.allStarrers', () => {
+  it('should request GET /projects/2/starrers', async () => {
+    await service.allStarrers(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/starrers', undefined);
+  });
+});
+
+describe('Projects.allStoragePaths', () => {
+  it('should request GET /projects/2/storage', async () => {
+    await service.allStoragePaths(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/storage', undefined);
+  });
+});
+
 describe('Projects.archive', () => {
   it('should request POST /projects/:id/archive', async () => {
     await service.archive(12);
@@ -55,6 +119,26 @@ describe('Projects.create', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/user/2', {
       name: 'test proj',
     });
+  });
+
+  it('should request POST /projects as formdata when avatar is passed', async () => {
+    const content = new Blob(['image'], { type: 'image/jpeg' });
+    const avatar = { content, filename: 'image.jpeg' };
+    await service.create({ name: 'test proj', avatar });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects', {
+      name: 'test proj',
+      isForm: true,
+      avatar: [avatar.content, avatar.filename],
+    });
+  });
+});
+
+describe('Projects.createForkRelationship', () => {
+  it('should request POST /projects/:id/fork/:idd', async () => {
+    await service.createForkRelationship(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/fork/2', undefined);
   });
 });
 

@@ -30,13 +30,9 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
 
   import<E extends boolean = false>(
     projectId: string | number,
-    content: Blob,
     channel: string,
-    {
-      filename,
-      parentId,
-      ...options
-    }: { parentId?: number; filename?: string } & Sudo & ShowExpanded<E> = {},
+    chart: { content: Blob; filename: string },
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(
       this,
@@ -44,7 +40,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
       {
         isForm: true,
         ...options,
-        file: [content, filename],
+        chart: [chart.content, chart.filename],
       },
     );
   }

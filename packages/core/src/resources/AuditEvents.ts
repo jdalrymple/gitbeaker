@@ -42,29 +42,45 @@ function url({
   return `${prefix}audit_events`;
 }
 
+export interface AllAuditEventOptions {
+  createdAfter?: string;
+  createdBefore?: string;
+  entityType?: string;
+  entityId?: number;
+}
+
 export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> & {
-      createdAfter?: string;
-      createdBefore?: string;
-      entityType?: string;
-      entityId?: number;
-    } & Sudo &
+    {
+      projectId,
+      groupId,
+      ...options
+    }: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
+      AllAuditEventOptions &
+      Sudo &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      PaginationRequestOptions<P> = {} as any,
   ): Promise<GitlabAPIResponse<AuditEventSchema[], C, E, P>> {
-    const uri = url(options);
+    const uri = url({ projectId, groupId });
 
-    return RequestHelper.get<AuditEventSchema[]>()(this, uri, options);
+    return RequestHelper.get<AuditEventSchema[]>()(
+      this,
+      uri,
+      options as AllAuditEventOptions & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    );
   }
 
   show<E extends boolean = false>(
     auditEventId: number,
-    options?: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
+    {
+      projectId,
+      groupId,
+      ...options
+    }: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
       Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<AuditEventSchema, C, E, void>> {
-    const uri = url(options);
+    const uri = url({ projectId, groupId });
 
     return RequestHelper.get<AuditEventSchema>()(this, `${uri}/${auditEventId}`, options);
   }

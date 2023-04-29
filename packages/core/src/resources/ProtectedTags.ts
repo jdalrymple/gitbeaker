@@ -45,7 +45,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
-      allowedToCreate: ProtectedTagAccessLevelEntity;
+      allowedToCreate?: ProtectedTagAccessLevelEntity;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
@@ -63,6 +63,19 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
         showExpanded,
       },
     );
+  }
+
+  // Convenience method - create
+  protect<E extends boolean = false>(
+    projectId: string | number,
+    tagName: string,
+    options?: {
+      createAccessLevel?: ProtectedTagAccessLevel;
+      allowedToCreate?: ProtectedTagAccessLevelEntity;
+    } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
+    return this.create(projectId, tagName, options);
   }
 
   show<E extends boolean = false>(
@@ -87,5 +100,14 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
       endpoint`projects/${projectId}/protected_tags/${tagName}`,
       options,
     );
+  }
+
+  // Convenience method - remove
+  unprotect<E extends boolean = false>(
+    projectId: string | number,
+    tagName: string,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return this.remove(projectId, tagName, options);
   }
 }
