@@ -1,3 +1,16 @@
+# 38.0.1 (Sat Apr 29 2023)
+
+#### ↕️ Dependencies
+
+- Additional Minor Updates [#3228](https://github.com/jdalrymple/gitbeaker/pull/3228) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
