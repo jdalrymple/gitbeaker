@@ -253,7 +253,6 @@ test:live:teardown:
   stage: test
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:integration:cli
     - test:integration:rest
     - test:e2e:core
     - test:e2e:cli
