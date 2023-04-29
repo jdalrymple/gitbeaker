@@ -95,7 +95,7 @@ lint:
     - apk add --no-cache libc6-compat
   script: yarn lint
 
-# format:
+format:
   stage: format
   image: node:18-alpine
   needs:
