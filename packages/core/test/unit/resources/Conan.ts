@@ -39,7 +39,7 @@ describe('Conan.authenticate', () => {
 });
 
 describe('Conan.checkCredentials', () => {
-  it('should request GET /packages/conan/v1/users/check_credentials without projectId', async () => {
+  it('should request GET /packages/conan/v1/users/check_credentials', async () => {
     await service.checkCredentials();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
@@ -61,7 +61,7 @@ describe('Conan.checkCredentials', () => {
 });
 
 describe('Conan.downloadPackageFile', () => {
-  it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:ref/:pkgrev/:filename without projectId', async () => {
+  it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:ref/:pkgrev/:filename', async () => {
     await service.downloadPackageFile(
       'name',
       'v1',
@@ -80,7 +80,7 @@ describe('Conan.downloadPackageFile', () => {
     );
   });
 
-  it('should request GET /projects/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:ref/:pkgrev/:filename with projectId', async () => {
+  it('should request GET /projects/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:ref/:pkgrev/:filename', async () => {
     await service.downloadPackageFile(
       'name',
       'v1',

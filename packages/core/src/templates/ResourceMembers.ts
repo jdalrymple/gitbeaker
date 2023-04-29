@@ -111,11 +111,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
     url.push(uId);
 
-    return RequestHelper.get<MemberSchema>()(
-      this,
-      url.join('/'),
-      options as Sudo & ShowExpanded<E>,
-    );
+    return RequestHelper.get<MemberSchema>()(this, url.join('/'), options);
   }
 
   remove<E extends boolean = false>(

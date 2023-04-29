@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 describe('AuditEvents.all', () => {
-  it('should request GET /audit_events without properties', async () => {
+  it('should request GET /audit_events without options', async () => {
     await service.all();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'audit_events', {});
@@ -35,7 +35,7 @@ describe('AuditEvents.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/audit_events', {});
   });
 
-  it('should request GET /projects/:id/audit_events with properties', async () => {
+  it('should request GET /projects/:id/audit_events with options', async () => {
     await service.all({ projectId: 2, entityId: 2 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/audit_events', {
@@ -49,7 +49,7 @@ describe('AuditEvents.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/3/audit_events', {});
   });
 
-  it('should request GET /groups/:id/audit_events with properties', async () => {
+  it('should request GET /groups/:id/audit_events with options', async () => {
     await service.all({ groupId: 3, entityId: 4 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/3/audit_events', {
@@ -65,7 +65,7 @@ describe('AuditEvents.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'audit_events/3', {});
   });
 
-  it('should request GET /audit_events with properties', async () => {
+  it('should request GET /audit_events with options', async () => {
     await service.show(3, { sudo: 'sudo' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'audit_events/3', { sudo: 'sudo' });
@@ -77,7 +77,7 @@ describe('AuditEvents.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/audit_events/3', {});
   });
 
-  it('should request GET /projects/:id/audit_events with properties', async () => {
+  it('should request GET /projects/:id/audit_events with options', async () => {
     await service.show(3, { projectId: 2, sudo: 'sudo' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/audit_events/3', {
@@ -91,7 +91,7 @@ describe('AuditEvents.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/4/audit_events/3', {});
   });
 
-  it('should request GET /groups/:id/audit_events with properties', async () => {
+  it('should request GET /groups/:id/audit_events with options', async () => {
     await service.show(3, { groupId: 4, sudo: 'sudo' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/4/audit_events/3', {

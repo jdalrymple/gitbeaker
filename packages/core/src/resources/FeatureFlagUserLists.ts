@@ -33,7 +33,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   create<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    userXIds: string,
+    userXids: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     return RequestHelper.post<FeatureFlagUserListSchema>()(
@@ -41,7 +41,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
       endpoint`projects/${projectId}/feature_flags_user_lists`,
       {
         name,
-        userXIds,
+        userXids,
         ...options,
       },
     );
@@ -49,7 +49,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
 
   edit<E extends boolean = false>(
     projectId: string | number,
-    featureFlagUserListIId: string,
+    featureFlagUserListIId: string | number,
     options?: { name?: string; userXIds?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     return RequestHelper.put<FeatureFlagUserListSchema>()(
@@ -61,7 +61,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    featureFlagUserListIId: string,
+    featureFlagUserListIId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
@@ -73,7 +73,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
 
   show<E extends boolean = false>(
     projectId: string | number,
-    featureFlagUserListIId: string,
+    featureFlagUserListIId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     return RequestHelper.get<FeatureFlagUserListSchema>()(

@@ -24,13 +24,13 @@ export interface KeySchema extends Record<string, unknown> {
 }
 
 export class Keys<C extends boolean = false> extends BaseResource<C> {
-  show<E extends boolean = false>({
-    keyId,
-    fingerprint,
-    ...options
-  }: Either<{ keyId: number }, { fingerprint: string }> & Sudo & ShowExpanded<E>): Promise<
-    GitlabAPIResponse<KeySchema, C, E, void>
-  > {
+  show<E extends boolean = false>(
+    {
+      keyId,
+      fingerprint,
+      ...options
+    }: Either<{ keyId: number }, { fingerprint: string }> & Sudo & ShowExpanded<E> = {} as any,
+  ): Promise<GitlabAPIResponse<KeySchema, C, E, void>> {
     let url: string;
 
     if (keyId) url = `keys/${keyId}`;
@@ -41,6 +41,6 @@ export class Keys<C extends boolean = false> extends BaseResource<C> {
       );
     }
 
-    return RequestHelper.get<KeySchema>()(this, url, { ...options });
+    return RequestHelper.get<KeySchema>()(this, url, options);
   }
 }
