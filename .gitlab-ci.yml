@@ -200,7 +200,11 @@ test:types:rest:
 test:live:setup:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   stage: test
-  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
   needs: []
   only:
     refs:
