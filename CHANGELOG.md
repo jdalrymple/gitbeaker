@@ -1,3 +1,21 @@
+# 38.1.0 (Sat Apr 29 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/cli`, `@gitbeaker/core`
+  - Latest release housekeeping v3 [#3229](https://github.com/jdalrymple/gitbeaker/pull/3229) ([@jdalrymple](https://github.com/jdalrymple) [@merorafael](https://github.com/merorafael))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Rafael Mello ([@merorafael](https://github.com/merorafael))
+
+---
+
 # 38.0.1 (Sat Apr 29 2023)
 
 #### ↕️ Dependencies
