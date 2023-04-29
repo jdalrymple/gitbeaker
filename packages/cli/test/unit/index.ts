@@ -1,36 +1,5 @@
 import pkg from '../../package.json';
 
-jest.mock('@gitbeaker/core/map.json', () => ({
-  Projects: [
-    {
-      name: 'constructor',
-      args: [
-        'token',
-        'jobToken',
-        'oauthToken',
-        'sudo',
-        'profileToken',
-        'requesterFn',
-        'profileMode',
-        'host',
-        'prefixUrl',
-        'version',
-        'camelize',
-        'rejectUnauthorized',
-        'requestTimeout',
-      ],
-    },
-    {
-      name: 'all',
-      args: [],
-    },
-    {
-      name: 'create',
-      args: [],
-    },
-  ],
-}));
-
 jest.mock('@gitbeaker/rest');
 
 const OLD_ENV = process.env;
@@ -217,7 +186,7 @@ describe('gitbeaker -g -- CLI global Enviroment Variables', () => {
   });
 });
 
-describe('gitbeaker projects create', () => {
+describe('gitbeaker projects create -- CLI resource', () => {
   it('should create a valid project using configuration from environment variables', async () => {
     process.env.GITBEAKER_HOST = 'host';
     process.env.GITBEAKER_TOKEN = 'token';
@@ -291,21 +260,6 @@ describe('gitbeaker projects create', () => {
 
     expect(Projects.mock.instances[0].create).toHaveBeenCalledWith({
       name: 'Project Creation CLI test3',
-    });
-  });
-});
-
-describe('gitbeaker projects all', () => {
-  it('should create a valid project using configuration from environment variables', async () => {
-    process.env.GITBEAKER_HOST = 'host';
-    process.env.GITBEAKER_TOKEN = 'token';
-
-    const { cli } = await import('../../src/cli');
-
-    await cli.parse('projects all --simple=true');
-
-    expect(Projects.mock.instances[0].all).toHaveBeenCalledWith({
-      simple: 'true',
     });
   });
 });

@@ -124,10 +124,10 @@ format:
       policy: pull-push
   before_script:
     - apk add --no-cache libc6-compat
-  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
 
 .test:unit:base:
   extends: .test:base
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   artifacts:
     when: always
     reports:
@@ -176,6 +176,10 @@ test:unit:rest:
   script: yarn test:unit --projects=@gitbeaker/rest
   variables:
     PKG_PATH: 'packages/rest'
+
+test:unit:cli:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/cli
 
 ## Types Tests
 test:types:utils:
@@ -268,10 +272,6 @@ test:live:teardown:
     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
 
 ## Integration Tests
-test:integration:cli:
-  extends: .test:integration:base
-  script: yarn test:integration --projects=@gitbeaker/cli
-
 test:integration:rest:
   extends: .test:integration:base
   script: yarn test:integration --projects=@gitbeaker/rest

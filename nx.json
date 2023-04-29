@@ -48,11 +48,6 @@
         "build"
       ]
     },
-    "test:integration": {
-      "dependsOn": [
-        "build"
-      ]
-    }
   },
   "defaultBase": "main"
 }
