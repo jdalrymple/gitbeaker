@@ -6,7 +6,6 @@ export default {
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports', outputName: 'nodejs_junit.xml' }]],
   moduleNameMapper: {
-    "@gitbeaker/core/map.json": '<rootDir>/../core/dist/map.json',
     '^@gitbeaker/(.*)$': '<rootDir>/../$1/src'
   },
   transform: {
