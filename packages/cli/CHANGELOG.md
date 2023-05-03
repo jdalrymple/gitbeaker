@@ -1,3 +1,15 @@
+# v38.1.1 (Wed May 03 2023)
+
+#### 📚 Documentation
+
+- Update sponsors list [#3235](https://github.com/jdalrymple/gitbeaker/pull/3235) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.1.0 (Sat Apr 29 2023)
 
 :tada: This release contains work from a new contributor! :tada:
