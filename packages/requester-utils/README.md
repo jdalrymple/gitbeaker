@@ -1,8 +1,48 @@
 <div align="center">
   <br>
-  <img alt="gitbeaker" src="https://github.com/jdalrymple/gitbeaker/blob/main/.github/ASSETS/header.svg">
+  <br>
+  <img alt="gitbeaker" src="../../.github/ASSETS/header.svg">
+  <br>
+  <br>
+  <br>
 </div>
-<br>
+
+<div align="center">
+  <p>
+		<sup>
+			<a href="https://github.com/jdalrymple">My open source work is supported by the community</a>
+		</sup>
+	</p>
+  <br>
+	<sup>Special thanks to:</sup>
+	<br>
+	<br>
+
+  <a href="https://wearecws.com/">
+    <img src="https://wearecws.com/images/brand/cws-logo.svg" width="210">
+  </a>
+
+  <br>
+	<br>
+  <br>
+
+  <a href="https://axolo.co/gitlab-slack-integration/?ref=gitbeaker">
+  <div>
+    <img src="https://apichaos.s3.eu-west-3.amazonaws.com/logo_axolo.png" width="210" alt="Axolo Logo"/>
+    <br>
+    <br>
+  </div>
+  <b>Review merge requests in Slack to merge code faster</b>
+  <div>
+    <sub>Improve your code review process by creating an ephemeral channel per merge request.</sub>
+    <br>
+  </div>
+  </a>
+
+  <br>
+  <hr>
+</div>
+
 <p align="center">
    <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
    <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="coverage report" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/coverage.svg?job=test:unit:utils" /></a>
@@ -32,6 +72,8 @@
 ## Table of Contents
 
 - [Usage](#usage)
+- [Testing](../../docs/TESTING.md)
+- [FAQ](../../FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 
