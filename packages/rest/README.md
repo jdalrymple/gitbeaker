@@ -1,7 +1,7 @@
 <div align="center">
   <br>
   <br>
-  <img alt="gitbeaker" src=".github/ASSETS/header.svg">
+  <img alt="gitbeaker" src="../../.github/ASSETS/header.svg">
   <br>
   <br>
   <br>
@@ -77,8 +77,8 @@
   - [Pagination](#pagination)
   - [Error Handling](#error-handling)
 - [Examples](#examples)
-- [Testing](https://github.com/jdalrymple/gitbeaker/blob/main/docs/TESTING.md)
-- [FAQ](https://github.com/jdalrymple/gitbeaker/blob/main/docs/FAQ.md)
+- [Testing](../../docs/TESTING.md)
+- [FAQ](../../FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 

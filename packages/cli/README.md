@@ -1,7 +1,7 @@
 <div align="center">
   <br>
   <br>
-  <img alt="gitbeaker" src=".github/ASSETS/header.svg">
+  <img alt="gitbeaker" src="../../.github/ASSETS/header.svg">
   <br>
   <br>
   <br>
@@ -72,6 +72,8 @@
 ## Table of Contents
 
 - [Usage](#usage)
+- [Testing](../../docs/TESTING.md)
+- [FAQ](../../FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 
