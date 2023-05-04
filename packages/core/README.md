@@ -84,11 +84,11 @@
 <tr><th>
 Browsers
 </th><td width=100%>
-Load <code>@gitbeaker/core</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
+Load <code>@gitbeaker/core</code> directly from <a href="https://esm.sh">esm.sh</a>
 
 ```html
 <script type="module">
-  import { Gitlab } from 'https://cdn.skypack.dev/@gitbeaker/core';
+  import { Gitlab } from 'https://esm.sh/@gitbeaker/core';
 </script>
 ```
 
@@ -96,10 +96,10 @@ Load <code>@gitbeaker/core</code> directly from <a href="https://cdn.skypack.dev
 <tr><th>
 Deno
 </th><td width=100%>
-Load <code>@gitbeaker/core</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
+Load <code>@gitbeaker/core</code> directly from <a href="https://esm.sh">esm.sh</a>
 
 ```ts
-import { Gitlab } from 'https://cdn.skypack.dev/@gitbeaker/core?dts';
+import { Gitlab } from 'https://esm.sh/@gitbeaker/core?dts';
 ```
 
 </td></tr>
