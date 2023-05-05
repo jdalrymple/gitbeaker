@@ -1,3 +1,26 @@
+# 38.2.0 (Fri May 05 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/rest`
+  - Switch from same-origin to cors fetch mode [#3240](https://github.com/jdalrymple/gitbeaker/pull/3240) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.0.3 to 16.1.0 [#3239](https://github.com/jdalrymple/gitbeaker/pull/3239) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📚 Documentation
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Remove usage of skypack for esm.sh [#3241](https://github.com/jdalrymple/gitbeaker/pull/3241) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 38.1.1 (Wed May 03 2023)
 
 #### ↕️ Dependencies
