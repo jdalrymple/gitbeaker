@@ -874,7 +874,7 @@ __metadata:
   resolution: "@gitbeaker/core@workspace:packages/core"
   dependencies:
     "@gitbeaker/requester-utils": ^38.2.0
-    "@types/node": ^18.16.2
+    "@types/node": ^20.0.0
     get-param-names: "github:jdalrymple/get-param-names#1-improve-functionality"
     qs: ^6.11.1
     tsup: ^6.7.0
@@ -888,7 +888,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gitbeaker/requester-utils@workspace:packages/requester-utils"
   dependencies:
-    "@types/node": ^18.16.2
+    "@types/node": ^20.0.0
     qs: ^6.11.1
     tsup: ^6.7.0
     typescript: ^5.0.4
@@ -903,7 +903,7 @@ __metadata:
     "@gitbeaker/core": ^38.2.0
     "@gitbeaker/requester-utils": ^38.2.0
     "@playwright/test": ^1.33.0
-    "@types/node": ^18.16.2
+    "@types/node": ^20.0.0
     playwright: ^1.33.0
     tsup: ^6.7.0
     typescript: ^5.0.4
@@ -2530,10 +2530,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.16.2":
-  version: 18.16.2
-  resolution: "@types/node@npm:18.16.2"
-  checksum: 7ad66d23b3b93885a9f879bff98e0196790ad35589b47a3d81b52db969ad17ee298082020296df5166c2d72d3cd6a4b9ab34d254483637d967944a4b3e6febdb
+"@types/node@npm:^20.0.0":
+  version: 20.0.0
+  resolution: "@types/node@npm:20.0.0"
+  checksum: 7dadc41081eee634fd0b19e46dfb0a74f8296ee562533118f7c2f2b54dcaba7124961d506db425fff74d8e8288610b93939cd06fa723f053c72b1a7e87aa4ddc
   languageName: node
   linkType: hard
 
