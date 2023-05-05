@@ -84,11 +84,11 @@
 <tr><th>
 Browsers
 </th><td width=100%>
-Load <code>@gitbeaker/requester-utils</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
+Load <code>@gitbeaker/requester-utils</code> directly from <a href="https://esm.sh">esm.sh</a>
 
 ```html
 <script type="module">
-  import { RequesterUtils, BaseResource } from 'https://cdn.skypack.dev/@gitbeaker/requester-utils';
+  import { RequesterUtils, BaseResource } from 'https://esm.sh/@gitbeaker/requester-utils';
 </script>
 ```
 
@@ -96,13 +96,10 @@ Load <code>@gitbeaker/requester-utils</code> directly from <a href="https://cdn.
 <tr><th>
 Deno
 </th><td width=100%>
-Load <code>@gitbeaker/requester-utils</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
+Load <code>@gitbeaker/requester-utils</code> directly from <a href="https://esm.sh">esm.sh</a>
 
 ```ts
-import {
-  RequesterUtils,
-  BaseResource,
-} from 'https://cdn.skypack.dev/@gitbeaker/requester-utils?dts';
+import { RequesterUtils, BaseResource } from 'https://esm.sh/@gitbeaker/requester-utils?dts';
 ```
 
 </td></tr>
