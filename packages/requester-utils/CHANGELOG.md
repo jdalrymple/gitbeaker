@@ -1,3 +1,15 @@
+# v38.3.0 (Sat May 06 2023)
+
+#### ↕️ Dependencies
+
+- Bump @types/node from 18.16.2 to 20.0.0 [#3242](https://github.com/jdalrymple/gitbeaker/pull/3242) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v38.2.0 (Fri May 05 2023)
 
 #### 📚 Documentation

@@ -1,3 +1,25 @@
+# 38.3.0 (Sat May 06 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing support for nested position arguments [#3246](https://github.com/jdalrymple/gitbeaker/pull/3246) ([@jdalrymple](https://github.com/jdalrymple))
+  - Fixing support for nested position arguments [#3244](https://github.com/jdalrymple/gitbeaker/pull/3244) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- `@gitbeaker/core`
+  - Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/nx-16.1.1' into main [#3245](https://github.com/jdalrymple/gitbeaker/pull/3245) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Bump @types/node from 18.16.2 to 20.0.0 [#3242](https://github.com/jdalrymple/gitbeaker/pull/3242) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 38.2.0 (Fri May 05 2023)
 
 #### 🐛 Bug Fix
