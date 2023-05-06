@@ -209,7 +209,8 @@ test:live:setup:
       when: always
     - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
       when: manual
-  needs: []
+  needs:
+    - build
   allow_failure: false
   variables:
     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker

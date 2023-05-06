@@ -8,7 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type {
-  DiscussionNotePositionSchema,
+  DiscussionNotePositionOptions,
   DiscussionNoteSchema,
   DiscussionSchema,
 } from '../templates/ResourceDiscussions';
@@ -34,7 +34,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     commitId: number,
     body: string,
     options?: {
-      position?: DiscussionNotePositionSchema;
+      position?: DiscussionNotePositionOptions;
       commitId?: string;
       createdAt?: string;
     } & Sudo &
