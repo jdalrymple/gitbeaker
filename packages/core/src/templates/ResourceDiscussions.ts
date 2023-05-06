@@ -1,8 +1,10 @@
 import { decamelizeKeys } from 'xcase';
+import QS from 'qs';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -59,6 +61,8 @@ export interface DiscussionSchema extends Record<string, unknown> {
   notes?: DiscussionNoteSchema[];
 }
 
+export type DiscussionNotePositionOptions = Camelize<DiscussionNotePositionSchema>;
+
 export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
   protected resource2Type: string;
 
@@ -102,20 +106,29 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     {
       position,
       ...options
-    }: { position?: DiscussionNotePositionSchema; commitId?: string; createdAt?: string } & Sudo &
+    }: { position?: DiscussionNotePositionOptions; commitId?: string; createdAt?: string } & Sudo &
       ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
     const opts: Record<string, unknown> = { ...options };
 
     if (position) {
       const p: Record<string, unknown> = decamelizeKeys(position);
+      const pos = QS.stringify({ position: p }, { encode: false })
+        .split('&')
+        .reduce((acc, cur) => {
+          const [key, val] = cur.split('=');
+
+          acc[key] = val;
+
+          return acc;
+        }, {});
+
+      Object.assign(opts, pos);
 
       opts.isForm = true;
       opts.body = body;
 
-      Object.entries(p).forEach(([k, v]) => {
-        opts[`position[${k}]`] = v;
-      });
+      // Object.assign(opts, pos);
     } else {
       opts.searchParams = { body };
     }
