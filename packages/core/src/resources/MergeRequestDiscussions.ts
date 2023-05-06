@@ -1,6 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import type {
+  DiscussionNotePositionOptions,
   DiscussionNotePositionSchema,
   DiscussionNoteSchema,
   DiscussionSchema,
@@ -21,14 +22,14 @@ export interface MergeRequestDiscussionNoteSchema extends DiscussionNoteSchema {
   position?: DiscussionNotePositionSchema;
 }
 
-export type DiscussionNotePositionOptions = DiscussionNotePositionSchema & {
-  line_range?: {
+export type MergeRequestDiscussionNotePositionOptions = DiscussionNotePositionOptions & {
+  lineRange?: {
     start?: {
-      line_code: string;
+      lineCode: string;
       type: 'new' | 'old';
     };
     end?: {
-      line_code: string;
+      lineCode: string;
       type: 'new' | 'old';
     };
   };
