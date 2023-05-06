@@ -63,6 +63,38 @@ describe('ResourceDiscussions.create', () => {
       },
     });
   });
+
+  it('should support camelCased position arguments', async () => {
+    await service.create(1, 2, 'test', {
+      position: {
+        baseSha: 'sha1',
+        startSha: 'sha2',
+        headSha: 'sha3',
+        positionType: 'text',
+        newLine: '1',
+        newPath: 'index.js',
+        lineRange: {
+          start: {
+            type: 'new',
+            lineCode: '1',
+          },
+        },
+      },
+    });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
+      isForm: true,
+      body: 'test',
+      'position[base_sha]': 'sha1',
+      'position[start_sha]': 'sha2',
+      'position[head_sha]': 'sha3',
+      'position[position_type]': 'text',
+      'position[new_line]': '1',
+      'position[new_path]': 'index.js',
+      'position[line_range][start][type]': 'new',
+      'position[line_range][start][line_code]': '1',
+    });
+  });
 });
 
 describe('ResourceDiscussions.editNote', () => {
