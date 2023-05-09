@@ -2,8 +2,8 @@ import { Lint, Projects } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 
-let projectAPI: InstanceType<typeof Projects>;
-let lintAPI: InstanceType<typeof Lint>;
+let projectAPI: InstanceType<typeof Projects<false>>;
+let lintAPI: InstanceType<typeof Lint<false>>;
 
 beforeEach(() => {
   lintAPI = new Lint({

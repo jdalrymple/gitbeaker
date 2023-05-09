@@ -123,7 +123,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<RepositoryChangelogSchema>()(
       this,
       endpoint`projects/${projectId}/repository/changelog`,
-      { version, ...options },
+      { ...options, version },
     );
   }
 
@@ -136,8 +136,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
       this,
       endpoint`projects/${projectId}/repository/merge_base`,
       {
-        refs,
         ...options,
+        refs,
       },
     );
   }
@@ -202,7 +202,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<RepositoryChangelogSchema>()(
       this,
       endpoint`projects/${projectId}/repository/changelog`,
-      { version, ...options },
+      { ...options, version },
     );
   }
 }

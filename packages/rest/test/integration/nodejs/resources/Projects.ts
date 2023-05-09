@@ -2,7 +2,7 @@ import { Projects } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 
-let service: InstanceType<typeof Projects>;
+let service: InstanceType<typeof Projects<false>>;
 
 beforeEach(() => {
   service = new Projects({
