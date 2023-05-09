@@ -3,20 +3,20 @@ import { Projects, Repositories } from '../../../../src';
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 
 let repositoryAPI: InstanceType<typeof Repositories<false>>;
-let projectAPI: InstanceType<typeof Projects<false>>;
 
 beforeEach(() => {
   repositoryAPI = new Repositories({
     host: GITLAB_URL,
     token: GITLAB_PERSONAL_ACCESS_TOKEN,
   });
-  projectAPI = new Projects({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
 });
 
 describe('Repositories.showArchive', () => {
+  const projectAPI = new Projects({
+    host: GITLAB_URL,
+    token: GITLAB_PERSONAL_ACCESS_TOKEN,
+  });
+
   let project: Awaited<ReturnType<typeof projectAPI.create<false>>>;
 
   beforeAll(async () => {
@@ -34,7 +34,7 @@ describe('Repositories.showArchive', () => {
     });
   });
 
-  it('should upload a text file', async () => {
+  it('should show repository archive in zip format', async () => {
     const blob = await repositoryAPI.showArchive(project.id, { sha: 'main', fileType: 'zip' });
 
     expect(blob).toBeInstanceOf(Blob);
