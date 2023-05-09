@@ -199,7 +199,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), {
-      mode: 'cors',
+      mode: 'no-cors',
     });
   });
 
@@ -225,7 +225,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'), {
-      mode: 'cors',
+      mode: 'no-cors',
     });
   });
 
@@ -251,7 +251,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'), {
-      mode: 'cors',
+      mode: 'no-cors',
     });
 
     await defaultRequestHandler('123/testurl', {
@@ -260,7 +260,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: 'cors',
+      mode: 'no-cors',
     });
 
     await defaultRequestHandler('123/testurl', {
@@ -269,7 +269,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: 'cors',
+      mode: 'no-cors',
     });
   });
 });
