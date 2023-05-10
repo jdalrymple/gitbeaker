@@ -107,7 +107,7 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const response = await fetch(url, { ...opts, mode: 'cors' });
+    const response = await fetch(url, { ...opts, mode: 'no-cors' });
 
     if (response.ok) return parseResponse(response, asStream);
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(response);

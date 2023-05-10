@@ -6,8 +6,8 @@ const {
   TEST_ID = Date.now().toString(),
 } = process.env;
 
-let issueAPI: InstanceType<typeof Issues>;
-let projectAPI: InstanceType<typeof Projects>;
+let issueAPI: InstanceType<typeof Issues<false>>;
+let projectAPI: InstanceType<typeof Projects<false>>;
 
 beforeAll(() => {
   issueAPI = new Issues({
@@ -25,7 +25,7 @@ describe('Issues.all', () => {
     const project = await projectAPI.create({
       name: `Issues All Integration Test - NodeJS ${TEST_ID}`,
     });
-    const newIssues: any[] = [];
+    const newIssues: ReturnType<typeof issueAPI.create<false>>[] = [];
 
     for (let i = 0; i < 10; i += 1) {
       newIssues.push(
