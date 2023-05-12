@@ -49,7 +49,7 @@ export async function processBody(response: Response) {
     return response.text().then((t) => t || '');
   }
 
-  return response.arrayBuffer();
+  return response.blob();
 }
 
 function delay(ms: number) {

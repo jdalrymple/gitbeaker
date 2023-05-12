@@ -24,11 +24,15 @@ describe('processBody', () => {
     expect(output).toMatchObject({ test: 5 });
   });
 
-  it('should return a buffer if type is octet-stream, binary, or gzip', async () => {
+  it('should return a blob if type is octet-stream, binary, or gzip', async () => {
+    const blobData = new Blob(['test'], {
+      type: 'plain/text',
+    });
+
     const output = [
       processBody({
-        arrayBuffer() {
-          return Promise.resolve(Buffer.alloc(0));
+        blob() {
+          return Promise.resolve(blobData);
         },
         headers: {
           entries() {
@@ -40,8 +44,8 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        arrayBuffer() {
-          return Promise.resolve(Buffer.alloc(0));
+        blob() {
+          return Promise.resolve(blobData);
         },
         headers: {
           entries() {
@@ -53,8 +57,8 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        arrayBuffer() {
-          return Promise.resolve(Buffer.alloc(0));
+        blob() {
+          return Promise.resolve(blobData);
         },
         headers: {
           entries() {
@@ -66,8 +70,8 @@ describe('processBody', () => {
         },
       } as unknown as Response),
       processBody({
-        arrayBuffer() {
-          return Promise.resolve(Buffer.alloc(0));
+        blob() {
+          return Promise.resolve(blobData);
         },
         headers: {
           entries() {
@@ -82,7 +86,7 @@ describe('processBody', () => {
 
     const fulfilled = await Promise.all(output);
 
-    fulfilled.forEach((o) => expect(o).toBeInstanceOf(Buffer));
+    fulfilled.forEach((o) => expect(o).toBeInstanceOf(Blob));
   });
 
   it('should return a string if type is text/<subtype>', async () => {
@@ -105,9 +109,13 @@ describe('processBody', () => {
   });
 
   it('should return a empty string when presented with an unknown content-type and empty body', async () => {
+    const blobData = new Blob(['test'], {
+      type: 'plain/text',
+    });
+
     const output = await processBody({
-      arrayBuffer() {
-        return Promise.resolve(Buffer.alloc(0));
+      blob() {
+        return Promise.resolve(blobData);
       },
       headers: {
         entries() {
@@ -119,7 +127,7 @@ describe('processBody', () => {
       },
     } as unknown as Response);
 
-    expect(output).toBeInstanceOf(Buffer);
+    expect(output).toBeInstanceOf(Blob);
     expect(output.length).toBe(0);
   });
 });
