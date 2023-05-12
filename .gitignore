@@ -10,6 +10,7 @@ yarn-error.log
 .env
 .npmrc
 .turbo
+tmp
 
 .pnp.*
 .yarn/*

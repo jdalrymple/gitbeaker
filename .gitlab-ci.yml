@@ -144,7 +144,8 @@ format:
   before_script:
     - apk add --no-cache libc6-compat git
   after_script:
-    - ./tmp/codeclimate/cc-test-reporter --debug format-coverage -t lcov --prefix $PWD/$PKG_PATH -o $PKG_PATH/coverage/cc-coverage.json $PKG_PATH/coverage/lcov.info
+    - cd $PKG_PATH
+    - ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
   artifacts:
     when: always
     paths:
