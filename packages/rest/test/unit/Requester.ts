@@ -198,7 +198,7 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'));
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), { mode: undefined });
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -222,7 +222,9 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'));
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'), {
+      mode: undefined,
+    });
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
@@ -241,9 +243,9 @@ describe('defaultRequestHandler', () => {
       },
     }));
 
-    await defaultRequestHandler('http://test.com/respository/archive');
+    await defaultRequestHandler('http://test.com/repository/archive');
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/respository/archive'), {
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/repository/archive'), {
       mode: 'same-origin',
     });
   });
@@ -292,21 +294,27 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com/projects',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'));
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'), {
+      mode: undefined,
+    });
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
       prefixUrl: 'http://test.com/projects',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'));
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
+      mode: undefined,
+    });
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
       prefixUrl: 'http://test.com/projects/',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'));
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
+      mode: undefined,
+    });
   });
 });
 
