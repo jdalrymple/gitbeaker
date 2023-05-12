@@ -217,7 +217,7 @@ test:unit:teardown:
   stage: test
   image: alpine/curl
   except:
-    ref:
+    refs:
       - /^pr-[0-9]+$/
   needs:
     - test:unit:utils
