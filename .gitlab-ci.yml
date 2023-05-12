@@ -183,7 +183,7 @@ format:
 ## Unit Tests
 test:unit:setup:
   stage: test
-  image: node:18-alpine
+  image: alpine/curl
   script:
     - mkdir -p ~/.cache/codeclimate
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/.cache/codeclimate/cc-test-reporter
@@ -216,7 +216,7 @@ test:unit:cli:
 
 test:unit:teardown:
   stage: test
-  image: curl-alpine
+  image: alpine/curl
   needs:
     - test:unit:utils
     - test:unit:core
