@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "nx run-many --target=build",
-    "clean": "npx rimraf --glob '**/{dist,node_modules,coverage,reports}'",
+    "clean": "npx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
     "format": "nx run-many --target=format",

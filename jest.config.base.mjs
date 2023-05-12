@@ -3,7 +3,7 @@ export default {
   testRegex: 'test\\/.*\\.ts$',
   coverageDirectory: 'coverage',
   collectCoverage: true,
-  coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
+  coverageReporters: ['lcov', 'text', 'text-summary', 'cobertura'],
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports', outputName: 'nodejs_junit.xml' }]],
   moduleNameMapper: {
     '^@gitbeaker/(.*)$': '<rootDir>/../$1/src'

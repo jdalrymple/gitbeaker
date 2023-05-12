@@ -10,6 +10,7 @@ stages:
 variables:
   PLAYWRIGHT_VERSION: $CI_JOB_IMAGE
   TEST_ID: $CI_JOB_ID
+  CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
 
 # Cache Config
 .cache:install:modules: &cacheinstallmodules
@@ -19,15 +20,15 @@ variables:
   paths:
     - node_modules
 
+.cache:install:cc: &cachecodeclimate
+  key: codeclimate-0.11.1
+  paths:
+    - tmp/codeclimate
+
 .cache:install:yarn: &cacheinstallyarn
   key: yarn-$CI_JOB_IMAGE
   paths:
     - .yarn
-
-.cache:install:browsers: &cachebrowsers
-  key: playwright-$PLAYWRIGHT_VERSION
-  paths:
-    - ~/.cache/ms-playwright
 
 .cache:nx: &cachenx
   key:
@@ -127,9 +128,28 @@ format:
 
 .test:unit:base:
   extends: .test:base
+  needs:
+    - install
+    - test:unit:setup
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+    - <<: *cachecodeclimate
+      policy: pull
+    - <<: *cachenx
+      policy: pull-push
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  before_script:
+    - apk add --no-cache libc6-compat git
+  after_script:
+    - cd $PKG_PATH
+    - ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
   artifacts:
     when: always
+    paths:
+      - $PKG_PATH/coverage/cc-coverage.json
     reports:
       junit: $PKG_PATH/reports/*junit.xml
       coverage_report:
@@ -159,6 +179,18 @@ format:
     - test:live:setup
 
 ## Unit Tests
+test:unit:setup:
+  stage: test
+  image: alpine/curl
+  script:
+    - mkdir -p tmp/codeclimate
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
+    - ls tmp/codeclimate/
+    - chmod +x ./tmp/codeclimate/cc-test-reporter
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull-push
+
 test:unit:utils:
   extends: .test:unit:base
   script: yarn test:unit --projects=@gitbeaker/requester-utils
@@ -180,6 +212,27 @@ test:unit:rest:
 test:unit:cli:
   extends: .test:unit:base
   script: yarn test:unit --projects=@gitbeaker/cli
+
+test:unit:teardown:
+  stage: test
+  image: alpine/curl
+  except:
+    refs:
+      - /^pr-[0-9]+$/
+  needs:
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:rest
+    - test:unit:cli
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull
+  before_script:
+    - mkdir coverage
+    - ls tmp/codeclimate
+  script:
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 2 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 ## Types Tests
 test:types:utils:
