@@ -36,6 +36,6 @@ describe('Repositories.showArchive', () => {
   it('should show repository archive in zip format', async () => {
     const blob = await repositoryAPI.showArchive(project.id, { sha: 'main', fileType: 'zip' });
 
-    expect(blob).toBeInstanceOf(Blob);
+    expect(blob).toBeInstanceOf(ArrayBuffer);
   });
 });
