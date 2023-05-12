@@ -5,19 +5,17 @@ const {
   GITLAB_URL = '',
   TEST_ID = Date.now().toString(),
 } = process.env;
+const CREDENTIALS = {
+  host: GITLAB_URL,
+  token: GITLAB_PERSONAL_ACCESS_TOKEN,
+};
 
 let issueAPI: InstanceType<typeof Issues<false>>;
 let projectAPI: InstanceType<typeof Projects<false>>;
 
 beforeAll(() => {
-  issueAPI = new Issues({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
-  projectAPI = new Projects({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
+  issueAPI = new Issues(CREDENTIALS);
+  projectAPI = new Projects(CREDENTIALS);
 });
 
 describe('Issues.all', () => {

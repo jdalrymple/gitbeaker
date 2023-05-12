@@ -1,21 +1,21 @@
-import { Projects, Repositories } from '../../../../src';
+import { Projects, Repositories, RepositoryFiles } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
+
+const CREDENTIALS = {
+  host: GITLAB_URL,
+  token: GITLAB_PERSONAL_ACCESS_TOKEN,
+};
 
 let repositoryAPI: InstanceType<typeof Repositories<false>>;
 
 beforeEach(() => {
-  repositoryAPI = new Repositories({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
+  repositoryAPI = new Repositories(CREDENTIALS);
 });
 
 describe('Repositories.showArchive', () => {
-  const projectAPI = new Projects({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
+  const projectAPI = new Projects(CREDENTIALS);
+  const repositoryFilesAPI = new RepositoryFiles(CREDENTIALS);
 
   let project: Awaited<ReturnType<typeof projectAPI.create<false>>>;
 
@@ -24,19 +24,18 @@ describe('Repositories.showArchive', () => {
       name: `Repositories Integration Test - NodeJS ${TEST_ID}`,
     });
 
-    const blob = new Blob(['TESTING FILE UPLOAD'], {
-      type: 'text/plain',
-    });
-
-    await projectAPI.upload(project.id, {
-      content: blob,
-      filename: 'testfile.txt',
-    });
+    await repositoryFilesAPI.create(
+      project.id,
+      'testfile.txt',
+      'main',
+      'TESTING FILE UPLOAD',
+      'init commit',
+    );
   });
 
   it('should show repository archive in zip format', async () => {
     const blob = await repositoryAPI.showArchive(project.id, { sha: 'main', fileType: 'zip' });
 
-    expect(blob).toBeInstanceOf(Blob);
+    expect(blob).toBeInstanceOf(ArrayBuffer);
   });
 });

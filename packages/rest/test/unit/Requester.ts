@@ -198,9 +198,7 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), {
-      mode: 'no-cors',
-    });
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), { mode: undefined });
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -225,7 +223,53 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'), {
-      mode: 'no-cors',
+      mode: undefined,
+    });
+  });
+
+  it('should add same-origin mode for repository/archive endpoint', async () => {
+    MockFetch.mockImplementationOnce(() => ({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: {
+        entries() {
+          return [['content-type', 'application/json']];
+        },
+        get() {
+          return 'application/json';
+        },
+      },
+    }));
+
+    await defaultRequestHandler('http://test.com/repository/archive');
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/repository/archive'), {
+      mode: 'same-origin',
+    });
+  });
+
+  it('should use default mode (cors) for non-repository/archive endpoints', async () => {
+    MockFetch.mockImplementationOnce(() => ({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: {
+        entries() {
+          return [['content-type', 'application/json']];
+        },
+        get() {
+          return 'application/json';
+        },
+      },
+    }));
+
+    await defaultRequestHandler('http://test.com/test/something');
+
+    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/test/something'), {
+      mode: undefined,
     });
   });
 
@@ -251,7 +295,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'), {
-      mode: 'no-cors',
+      mode: undefined,
     });
 
     await defaultRequestHandler('123/testurl', {
@@ -260,7 +304,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: 'no-cors',
+      mode: undefined,
     });
 
     await defaultRequestHandler('123/testurl', {
@@ -269,7 +313,7 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: 'no-cors',
+      mode: undefined,
     });
   });
 });

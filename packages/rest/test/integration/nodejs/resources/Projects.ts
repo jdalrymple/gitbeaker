@@ -47,7 +47,7 @@ describe('Projects.all', () => {
   });
 });
 
-describe('Projects.upload', () => {
+describe('Projects.uploadForReference', () => {
   it('should upload a text file', async () => {
     const project = await service.create({
       name: `Project Upload Integration Test Text File - NodeJS ${TEST_ID}`,
@@ -57,7 +57,10 @@ describe('Projects.upload', () => {
       type: 'text/plain',
     });
 
-    const results = await service.upload(project.id, { content: blob, filename: 'testfile.txt' });
+    const results = await service.uploadForReference(project.id, {
+      content: blob,
+      filename: 'testfile.txt',
+    });
 
     expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
   });
