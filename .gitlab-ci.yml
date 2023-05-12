@@ -130,7 +130,7 @@ format:
   extends: .test:base
   variables:
     GIT_COMMIT_SHA: $CI_COMMIT_SHA
-    GIT_BRANCH: CI_COMMIT_BRANCH
+    GIT_BRANCH: $CI_COMMIT_BRANCH
   needs:
     - install
     - test:unit:setup
