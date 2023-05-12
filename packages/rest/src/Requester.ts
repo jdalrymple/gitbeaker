@@ -49,7 +49,7 @@ export async function processBody(response: Response) {
     return response.text().then((t) => t || '');
   }
 
-  return response.arrayBuffer();
+  return response.blob();
 }
 
 function delay(ms: number) {
@@ -73,7 +73,7 @@ async function parseResponse(response: Response, asStream = false) {
 }
 
 async function throwFailedRequestError(response: Response) {
-  const content = await response.text(); // eslint-disable-line
+  const content = await response.text();
   const contentType = response.headers.get('Content-Type');
   let description = 'API Request Error';
 
