@@ -1,19 +1,17 @@
 import { Lint, Projects } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
+const CREDENTIALS = {
+  host: GITLAB_URL,
+  token: GITLAB_PERSONAL_ACCESS_TOKEN,
+};
 
 let projectAPI: InstanceType<typeof Projects<false>>;
 let lintAPI: InstanceType<typeof Lint<false>>;
 
 beforeEach(() => {
-  lintAPI = new Lint({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
-  projectAPI = new Projects({
-    host: GITLAB_URL,
-    token: GITLAB_PERSONAL_ACCESS_TOKEN,
-  });
+  lintAPI = new Lint(CREDENTIALS);
+  projectAPI = new Projects(CREDENTIALS);
 });
 
 describe('Lint.lint', () => {

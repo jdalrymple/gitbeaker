@@ -750,7 +750,10 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  upload<E extends boolean = false>(
+  /* Upload file to be used a reference within an issue, merge request or
+     comment
+  */
+  uploadForReference<E extends boolean = false>(
     projectId: string | number,
     file: { content: Blob; filename: string },
     options?: Sudo & ShowExpanded<E>,
