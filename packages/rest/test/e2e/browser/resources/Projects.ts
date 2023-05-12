@@ -36,30 +36,29 @@ describe('Projects API', () => {
       async ([host, token, testId]) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const { Projects } = window.gitbeaker;
-        const resource = new Projects({
+        const { Gitlab } = window.gitbeaker;
+        const resource = new Gitlab({
           host,
           token,
         });
 
-        const project = await resource.create({
+        const project = await resource.Projects.create({
           name: `Project File Upload E2E Test - Browser ${testId}`,
         });
 
-        const blob = new Blob(['TESTING FILE UPLOAD'], {
-          type: 'text/plain',
-        });
-
-        const results = await resource.upload(project.id, {
-          content: blob,
-          filename: 'testfile.txt',
-        });
+        const results = await resource.RepositoryFiles.create(
+          project.id,
+          'testfile.txt',
+          'main',
+          'TESTING FILE UPLOAD',
+          'init commit',
+        );
 
         return results;
       },
       [GITLAB_URL, GITLAB_PERSONAL_ACCESS_TOKEN, TEST_ID],
     );
 
-    expect(Object.keys(response)).toMatchObject(['alt', 'url', 'full_path', 'markdown']);
+    expect(Object.keys(response)).toMatchObject(['branch', 'file_path']);
   });
 });
