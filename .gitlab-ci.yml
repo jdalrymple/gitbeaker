@@ -128,6 +128,9 @@ format:
 
 .test:unit:base:
   extends: .test:base
+  variables:
+    GIT_COMMIT_SHA: $CI_COMMIT_SHA
+    GIT_BRANCH: CI_COMMIT_BRANCH
   needs:
     - install
     - test:unit:setup
@@ -142,9 +145,9 @@ format:
       policy: pull-push
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   before_script:
-    - apk add --no-cache libc6-compat git
+    - apk add --no-cache libc6-compat
   after_script:
-    - ./tmp/codeclimate/cc-test-reporter --debug format-coverage -t lcov -o $PKG_PATH/coverage/cc-coverage.json $PKG_PATH/coverage/lcov.info
+    - ./tmp/codeclimate/cc-test-reporter --debug format-coverage -t lcov -p $PKG_PATH -o $PKG_PATH/coverage/cc-coverage.json $PKG_PATH/coverage/lcov.info
   artifacts:
     when: always
     paths:
