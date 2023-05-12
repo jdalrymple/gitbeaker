@@ -128,7 +128,7 @@ describe('processBody', () => {
     } as unknown as Response);
 
     expect(output).toBeInstanceOf(Blob);
-    expect(output.length).toBe(0);
+    expect(output.size).toBe(4);
   });
 });
 
