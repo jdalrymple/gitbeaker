@@ -189,7 +189,7 @@ test:unit:setup:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/.cache/codeclimate/cc-test-reporter
     - chmod +x .~/.cache/codeclimate/cc-test-reporter
   cache:
-    - <<: *cacheccreporter
+    - <<: *cachecodeclimate
       policy: pull-push
 
 test:unit:utils:
@@ -223,7 +223,7 @@ test:unit:teardown:
     - test:unit:rest
     - test:unit:cli
   cache:
-    - <<: *cacheccreporter
+    - <<: *cachecodeclimate
       policy: pull
   before_script:
     - mkdir coverage
