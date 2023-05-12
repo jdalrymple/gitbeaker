@@ -23,17 +23,12 @@ variables:
 .cache:install:cc: &cachecodeclimate
   key: codeclimate-0.11.1
   paths:
-    - ~/.cache/codeclimate
+    - tmp/codeclimate
 
 .cache:install:yarn: &cacheinstallyarn
   key: yarn-$CI_JOB_IMAGE
   paths:
     - .yarn
-
-.cache:install:browsers: &cachebrowsers
-  key: playwright-$PLAYWRIGHT_VERSION
-  paths:
-    - ~/.cache/ms-playwright
 
 .cache:nx: &cachenx
   key:
@@ -147,7 +142,7 @@ format:
       policy: pull-push
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   after_script:
-    - .~/.cache/codeclimate/cc-test-reporter format-coverage -t lcov -o $PKG_PATH/coverage/cc-coverage.json $PKG_PATH/coverage/lcov.info
+    - ./tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o $PKG_PATH/coverage/cc-coverage.json $PKG_PATH/coverage/lcov.info
   artifacts:
     when: always
     paths:
@@ -185,10 +180,10 @@ test:unit:setup:
   stage: test
   image: alpine/curl
   script:
-    - mkdir -p ~/.cache/codeclimate
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/.cache/codeclimate/cc-test-reporter
-    - ls ~/.cache/codeclimate/cc-test-reporter
-    - chmod +x ~/.cache/codeclimate/cc-test-reporter
+    - mkdir -p tmp/codeclimate
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
+    - ls tmp/codeclimate/
+    - chmod +x ./tmp/codeclimate/cc-test-reporter
   cache:
     - <<: *cachecodeclimate
       policy: pull-push
@@ -228,9 +223,10 @@ test:unit:teardown:
       policy: pull
   before_script:
     - mkdir coverage
+    - ls ~/.cache/codeclimate
   script:
-    - ~/.cache/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 2 -o ./coverage/codeclimate.json
-    - ~/.cache/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 2 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 ## Types Tests
 test:types:utils:
