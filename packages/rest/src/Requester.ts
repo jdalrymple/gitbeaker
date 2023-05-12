@@ -93,10 +93,15 @@ async function throwFailedRequestError(response: Response) {
   });
 }
 
-export async function defaultRequestHandler(endpoint: string, options: RequestOptions) {
+function getConditionalMode(endpoint: string) {
+  if (endpoint.includes('repository/archive')) return 'same-origin';
+  return undefined; // Default is 'cors'
+}
+
+export async function defaultRequestHandler(endpoint: string, options?: RequestOptions) {
   const retryCodes = [429, 502];
   const maxRetries = 10;
-  const { prefixUrl, asStream, searchParams, ...opts } = options;
+  const { prefixUrl, asStream, searchParams, ...opts } = options || {};
   let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
@@ -105,9 +110,12 @@ export async function defaultRequestHandler(endpoint: string, options: RequestOp
 
   url.search = searchParams || '';
 
+  // CHECKME: https://github.com/nodejs/undici/issues/1305
+  const mode = getConditionalMode(endpoint);
+
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const response = await fetch(url, { ...opts, mode: 'no-cors' });
+    const response = await fetch(url, { ...opts, mode });
 
     if (response.ok) return parseResponse(response, asStream);
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(response);
