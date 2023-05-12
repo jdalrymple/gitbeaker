@@ -59,6 +59,6 @@ describe('Projects API', () => {
       [GITLAB_URL, GITLAB_PERSONAL_ACCESS_TOKEN, TEST_ID],
     );
 
-    expect(Object.keys(response)).toMatchObject(['branch', 'file_path']);
+    expect(Object.keys(response)).toMatchObject(['file_path', 'branch']);
   });
 });
