@@ -128,7 +128,7 @@ export type AllUsersOptions = {
 export type CreateUserOptions = {
   admin?: boolean;
   auditor?: boolean;
-  avatar?: { contenxt: Blob; filepath?: string };
+  avatar?: { content: Blob; filepath?: string };
   bio?: string;
   canCreateGroup?: boolean;
   colorSchemeId?: number;
