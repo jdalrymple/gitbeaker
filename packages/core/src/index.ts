@@ -1,5 +1,6 @@
 /* ---------------- Resources --------------- */
 export * from './resources';
+export type * from './templates';
 export type {
   Camelize,
   UserAgentDetailSchema,
