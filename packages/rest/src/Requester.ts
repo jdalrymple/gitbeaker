@@ -85,6 +85,8 @@ async function throwFailedRequestError(response: Response) {
     description = content;
   }
 
+  console.log(description);
+
   throw new Error(response.statusText, {
     cause: {
       description,
