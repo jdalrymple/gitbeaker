@@ -216,6 +216,9 @@ test:unit:cli:
 test:unit:teardown:
   stage: test
   image: alpine/curl
+  except:
+    ref:
+      - /^pr-[0-9]+$/
   needs:
     - test:unit:utils
     - test:unit:core
