@@ -223,7 +223,7 @@ test:unit:teardown:
       policy: pull
   before_script:
     - mkdir coverage
-    - ls ~/.cache/codeclimate
+    - ls tmp/codeclimate
   script:
     - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 2 -o ./coverage/codeclimate.json
     - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
