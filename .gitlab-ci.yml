@@ -185,7 +185,7 @@ test:unit:setup:
   stage: test
   image: node:18-alpine
   script:
-    - mkdir  ~/.cache/codeclimate
+    - mkdir -p ~/.cache/codeclimate
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/.cache/codeclimate/cc-test-reporter
     - chmod +x .~/.cache/codeclimate/cc-test-reporter
   cache:
