@@ -212,6 +212,8 @@ test:unit:rest:
 test:unit:cli:
   extends: .test:unit:base
   script: yarn test:unit --projects=@gitbeaker/cli
+  variables:
+    PKG_PATH: 'packages/cli'
 
 test:unit:teardown:
   stage: test
@@ -231,7 +233,7 @@ test:unit:teardown:
     - mkdir coverage
     - ls tmp/codeclimate
   script:
-    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 2 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
     - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 ## Types Tests
@@ -350,12 +352,6 @@ test:e2e:cli:
 .release:base:
   stage: release
   image: node:18-alpine
-  needs:
-    - build
-    - test:integration:rest
-    - test:e2e:core
-    - test:e2e:cli
-    - test:e2e:rest
   variables:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
@@ -376,6 +372,12 @@ test:e2e:cli:
 ## Canary or RC Special Releases
 release:special:
   extends: .release:base
+  needs:
+    - build
+    - test:integration:rest
+    - test:e2e:core
+    - test:e2e:cli
+    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
@@ -398,6 +400,13 @@ release:special:
 ## Production
 release:
   extends: .release:base
+  needs:
+    - build
+    - test:integration:rest
+    - test:e2e:core
+    - test:e2e:cli
+    - test:e2e:rest
+    - test:unit:teardown
   only:
     refs:
       - main
