@@ -1,3 +1,26 @@
+# v38.4.0 (Sat May 13 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your work!
+
+#### 🐛 Bug Fix
+
+- bug: fix contenxt -> content typo [#3257](https://github.com/jdalrymple/gitbeaker/pull/3257) ([@tbazin](https://github.com/tbazin))
+- Export additional template types [#3252](https://github.com/jdalrymple/gitbeaker/pull/3252) ([@jdalrymple](https://github.com/jdalrymple))
+- Update fetch mode to exclude cors and add repository unit and integration tests [#3249](https://github.com/jdalrymple/gitbeaker/pull/3249) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚑 Hot Fix
+
+- Settings cors to same-origin conditionally for protected api route [#3258](https://github.com/jdalrymple/gitbeaker/pull/3258) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Théis Bazin ([@tbazin](https://github.com/tbazin))
+
+---
+
 # v38.3.0 (Sat May 06 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,23 @@
+# v38.4.0 (Sat May 13 2023)
+
+#### 🐛 Bug Fix
+
+- Update fetch mode to exclude cors and add repository unit and integration tests [#3249](https://github.com/jdalrymple/gitbeaker/pull/3249) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚑 Hot Fix
+
+- Settings cors to same-origin conditionally for protected api route [#3258](https://github.com/jdalrymple/gitbeaker/pull/3258) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Switching buffer response to blob for type consistency in the API [#3259](https://github.com/jdalrymple/gitbeaker/pull/3259) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.3.0 (Sat May 06 2023)
 
 #### ↕️ Dependencies
