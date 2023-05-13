@@ -1,3 +1,15 @@
+# 38.5.0 (Sat May 13 2023)
+
+#### 🐛 Bug Fix
+
+- Update missing script variable [#3260](https://github.com/jdalrymple/gitbeaker/pull/3260) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 38.4.0 (Sat May 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
