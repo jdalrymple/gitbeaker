@@ -886,6 +886,15 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "tbazin",
+      "name": "Théis Bazin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9104039?v=4",
+      "profile": "https://github.com/tbazin",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
