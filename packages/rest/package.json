@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/rest",
-  "version": "38.4.0",
+  "version": "38.5.0",
   "description": "Cross Platform implementation of the GitLab API",
   "license": "MIT",
   "engines": {
@@ -56,8 +56,8 @@
     "release": "auto shipit"
   },
   "dependencies": {
-    "@gitbeaker/core": "^38.4.0",
-    "@gitbeaker/requester-utils": "^38.4.0"
+    "@gitbeaker/core": "^38.5.0",
+    "@gitbeaker/requester-utils": "^38.5.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",
