@@ -895,6 +895,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "smsalisbury",
+      "name": "Spencer Salisbury",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8053224?v=4",
+      "profile": "http://spencersalisbury.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
