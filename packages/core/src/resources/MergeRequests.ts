@@ -223,6 +223,7 @@ export type EditMergeRequestOptions = {
   targetBranch?: number;
   title?: string;
   assigneeId?: number;
+  assigneeIds?: number[];
   reviewerId?: number;
   milestoneId?: number;
   labels?: string | Array<string>;
