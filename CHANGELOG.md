@@ -1,3 +1,20 @@
+# 38.6.0 (Mon May 15 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Spencer Salisbury ([@smsalisbury](https://github.com/smsalisbury)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Add missing fields to EditMergeRequestOptions [#3262](https://github.com/jdalrymple/gitbeaker/pull/3262) ([@smsalisbury](https://github.com/smsalisbury))
+
+#### Authors: 1
+
+- Spencer Salisbury ([@smsalisbury](https://github.com/smsalisbury))
+
+---
+
 # 38.5.0 (Sat May 13 2023)
 
 #### 🐛 Bug Fix
