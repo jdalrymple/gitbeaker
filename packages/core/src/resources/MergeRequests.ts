@@ -225,12 +225,14 @@ export type EditMergeRequestOptions = {
   assigneeId?: number;
   assigneeIds?: number[];
   reviewerId?: number;
+  reviewerIds?: number[];
   milestoneId?: number;
   labels?: string | Array<string>;
   description?: string;
   stateEvent?: string;
   removeSourceBranch?: boolean;
   squash?: boolean;
+  squashOnMerge?: boolean;
   discussionLocked?: boolean;
   allowCollaboration?: boolean;
   allowMaintainerToPush?: boolean;
