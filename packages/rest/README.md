@@ -235,7 +235,7 @@ Similarly, support for [Keyset pagination](https://docs.gitlab.com/ee/api/#keyse
 const { data } = await api.Projects.all({
   pagination: 'keyset',
   sort: 'asc',
-  orderBy: 'created_by',
+  orderBy: 'created_at',
 });
 ```
 
