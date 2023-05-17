@@ -97,6 +97,7 @@ export const {
   MergeRequestMilestoneEvents,
   MergeRequestDraftNotes,
   MergeRequestNotes,
+  MergeRequestNoteAwardEmojis,
   MergeRequests,
   MergeTrains,
   PackageRegistry,
