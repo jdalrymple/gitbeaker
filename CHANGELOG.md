@@ -1,3 +1,41 @@
+# 38.7.0 (Sat May 20 2023)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Marvin Altemeier ([@iMarv](https://github.com/iMarv))
+
+:heart: Simone Corsi ([@simonecorsi](https://github.com/simonecorsi))
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Add MergeRequestNoteAwardEmojis class [#3265](https://github.com/jdalrymple/gitbeaker/pull/3265) ([@iMarv](https://github.com/iMarv))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Handle casing edge cases [#3268](https://github.com/jdalrymple/gitbeaker/pull/3268) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.1.4 to 16.2.1 [#3267](https://github.com/jdalrymple/gitbeaker/pull/3267) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📚 Documentation
+
+- `@gitbeaker/rest`
+  - docs(package/rest/README.md): fixes invalid orderBy example [#3264](https://github.com/jdalrymple/gitbeaker/pull/3264) ([@simonecorsi](https://github.com/simonecorsi))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Marvin Altemeier ([@iMarv](https://github.com/iMarv))
+- Simone Corsi ([@simonecorsi](https://github.com/simonecorsi))
+
+---
+
 # 38.6.0 (Mon May 15 2023)
 
 :tada: This release contains work from a new contributor! :tada:

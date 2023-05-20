@@ -1,3 +1,28 @@
+# v38.7.0 (Sat May 20 2023)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Marvin Altemeier ([@iMarv](https://github.com/iMarv))
+
+:heart: Simone Corsi ([@simonecorsi](https://github.com/simonecorsi))
+
+#### ✨ Feature
+
+- Add MergeRequestNoteAwardEmojis class [#3265](https://github.com/jdalrymple/gitbeaker/pull/3265) ([@iMarv](https://github.com/iMarv))
+
+#### 📚 Documentation
+
+- docs(package/rest/README.md): fixes invalid orderBy example [#3264](https://github.com/jdalrymple/gitbeaker/pull/3264) ([@simonecorsi](https://github.com/simonecorsi))
+
+#### Authors: 2
+
+- Marvin Altemeier ([@iMarv](https://github.com/iMarv))
+- Simone Corsi ([@simonecorsi](https://github.com/simonecorsi))
+
+---
+
 # v38.4.0 (Sat May 13 2023)
 
 #### 🐛 Bug Fix

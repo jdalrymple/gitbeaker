@@ -1,3 +1,24 @@
+# v38.7.0 (Sat May 20 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Marvin Altemeier ([@iMarv](https://github.com/iMarv)), for all your work!
+
+#### ✨ Feature
+
+- Add MergeRequestNoteAwardEmojis class [#3265](https://github.com/jdalrymple/gitbeaker/pull/3265) ([@iMarv](https://github.com/iMarv))
+
+#### 🐛 Bug Fix
+
+- Handle casing edge cases [#3268](https://github.com/jdalrymple/gitbeaker/pull/3268) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Marvin Altemeier ([@iMarv](https://github.com/iMarv))
+
+---
+
 # v38.6.0 (Mon May 15 2023)
 
 :tada: This release contains work from a new contributor! :tada:
