@@ -904,6 +904,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "simonecorsi",
+      "name": "Simone Corsi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5617452?v=4",
+      "profile": "https://simonecorsi.dev/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 26
