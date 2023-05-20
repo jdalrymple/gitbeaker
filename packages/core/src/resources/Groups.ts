@@ -208,13 +208,25 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
+
+  allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: { simple?: boolean; sharedOnly?: boolean } & AllGroupProjectsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
-    return RequestHelper.get()(this, endpoint`groups/${groupId}/projects`, options) as any;
+  ): Promise<GitlabAPIResponse<CondensedProjectSchema[] | ExpandedProjectSchema[], C, E, P>> {
+    return RequestHelper.get<CondensedProjectSchema[] | ExpandedProjectSchema[]>()(
+      this,
+      endpoint`groups/${groupId}/projects`,
+      options,
+    );
   }
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -227,9 +239,21 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
+    options?: { simple?: boolean } & AllGroupProjectsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>>;
+
+  allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
     options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
-    return RequestHelper.get()(this, endpoint`groups/${groupId}/projects/shared`, options) as any;
+  ): Promise<GitlabAPIResponse<CondensedProjectSchema[] | ExpandedProjectSchema[], C, E, P>> {
+    return RequestHelper.get<CondensedProjectSchema[] | ExpandedProjectSchema[]>()(
+      this,
+      endpoint`groups/${groupId}/projects/shared`,
+      options,
+    );
   }
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -242,9 +266,26 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
+    options?: { statistics?: boolean } & AllGroupsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
+
+  allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
     options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
-    return RequestHelper.get<GroupSchema[]>()(this, endpoint`groups/${groupId}/subgroups`, options);
+  ): Promise<
+    GitlabAPIResponse<
+      GroupSchema[] | (GroupSchema & { statistics: GroupStatisticsSchema })[],
+      C,
+      E,
+      P
+    >
+  > {
+    return RequestHelper.get<
+      GroupSchema[] | (GroupSchema & { statistics: GroupStatisticsSchema })[]
+    >()(this, endpoint`groups/${groupId}/subgroups`, options);
   }
 
   allProvisionedUsers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
