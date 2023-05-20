@@ -89,6 +89,7 @@ describe('API Map', () => {
       'MergeRequestMilestoneEvents',
       'MergeRequestDraftNotes',
       'MergeRequestNotes',
+      'MergeRequestNoteAwardEmojis',
       'MergeRequests',
       'MergeTrains',
       'PackageRegistry',

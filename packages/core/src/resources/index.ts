@@ -89,6 +89,7 @@ export * from './MergeRequestLabelEvents';
 export * from './MergeRequestMilestoneEvents';
 export * from './MergeRequestDraftNotes';
 export * from './MergeRequestNotes';
+export * from './MergeRequestNoteAwardEmojis';
 export * from './MergeRequests';
 export * from './MergeTrains';
 export * from './PackageRegistry';

@@ -93,6 +93,7 @@ describe('Browser Import', () => {
     'MergeRequestMilestoneEvents',
     'MergeRequestDraftNotes',
     'MergeRequestNotes',
+    'MergeRequestNoteAwardEmojis',
     'MergeRequests',
     'MergeTrains',
     'PackageRegistry',
