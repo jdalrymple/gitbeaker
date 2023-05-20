@@ -70,7 +70,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
       endpoint`projects/${projectId}/issues/${issueIId}/links`,
       {
         targetProjectId,
-        targetIssueIId,
+        targetIssueIid: targetIssueIId,
         ...options,
       },
     );
