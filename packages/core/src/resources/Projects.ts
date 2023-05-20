@@ -48,67 +48,23 @@ export interface CondensedProjectSchema extends Record<string, unknown> {
 }
 
 export interface SimpleProjectSchema extends CondensedProjectSchema {
-  description?: null;
+  description: string;
   name_with_namespace: string;
   path_with_namespace: string;
   created_at: string;
+  default_branch: string;
+  topics?: string[];
+  ssh_url_to_repo: string;
+  http_url_to_repo: string;
+  readme_url: string;
+  forks_count: number;
+  avatar_url?: string;
+  star_count: number;
+  last_activity_at: string;
+  namespace: CondensedNamespaceSchema;
 }
 
 export interface ProjectSchema extends SimpleProjectSchema {
-  id: number;
-  default_branch: string;
-  ssh_url_to_repo: string;
-  http_url_to_repo: string;
-  web_url: string;
-  readme_url: string;
-  topics?: string[];
-  name: string;
-  path: string;
-  last_activity_at: string;
-  forks_count: number;
-  avatar_url: string;
-  star_count: number;
-}
-
-export interface ExpandedProjectSchema extends ProjectSchema {
-  issues_template?: string;
-  merge_requests_template?: string;
-  visibility: string;
-  owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
-  issues_enabled: boolean;
-  open_issues_count: number;
-  merge_requests_enabled: boolean;
-  jobs_enabled: boolean;
-  wiki_enabled: boolean;
-  snippets_enabled: boolean;
-  can_create_merge_request_in: boolean;
-  resolve_outdated_diff_discussions: boolean;
-  container_registry_enabled: boolean;
-  container_registry_access_level: string;
-  creator_id: number;
-  namespace: CondensedNamespaceSchema;
-  import_status: string;
-  archived: boolean;
-  shared_runners_enabled: boolean;
-  runners_token: string;
-  ci_default_git_depth: number;
-  ci_forward_deployment_enabled: boolean;
-  public_jobs: boolean;
-  shared_with_groups?: string[];
-  only_allow_merge_if_pipeline_succeeds: boolean;
-  allow_merge_on_skipped_pipeline: boolean;
-  restrict_user_defined_variables: boolean;
-  only_allow_merge_if_all_discussions_are_resolved: boolean;
-  remove_source_branch_after_merge: boolean;
-  request_access_enabled: boolean;
-  merge_method: string;
-  squash_option: string;
-  autoclose_referenced_issues: boolean;
-  suggestion_commit_message?: string;
-  merge_commit_template?: null;
-  squash_commit_template?: null;
-  marked_for_deletion_on: string;
-  approvals_before_merge: number;
   container_registry_image_prefix: string;
   _links: {
     self: string;
@@ -118,6 +74,80 @@ export interface ExpandedProjectSchema extends ProjectSchema {
     labels: string;
     events: string;
     members: string;
+    cluster_agents: string;
+  };
+  packages_enabled: boolean;
+  empty_repo: boolean;
+  archived: boolean;
+  visibility: string;
+  owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
+  resolve_outdated_diff_discussions: boolean;
+  container_expiration_policy: {
+    cadence: string;
+    enabled: boolean;
+    keep_n: number;
+    older_than: string;
+    name_regex: string;
+    name_regex_keep?: null;
+    next_run_at: string;
+  };
+  issues_enabled: boolean;
+  merge_requests_enabled: boolean;
+  wiki_enabled: boolean;
+  jobs_enabled: boolean;
+  snippets_enabled: boolean;
+  container_registry_enabled: boolean;
+  service_desk_enabled: boolean;
+  can_create_merge_request_in: boolean;
+  issues_access_level: string;
+  repository_access_level: string;
+  merge_requests_access_level: string;
+  forking_access_level: string;
+  wiki_access_level: string;
+  builds_access_level: string;
+  snippets_access_level: string;
+  pages_access_level: string;
+  analytics_access_level: string;
+  container_registry_access_level: string;
+  security_and_compliance_access_level: string;
+  releases_access_level: string;
+  environments_access_level: string;
+  feature_flags_access_level: string;
+  infrastructure_access_level: string;
+  monitor_access_level: string;
+  emails_disabled?: boolean;
+  shared_runners_enabled: boolean;
+  lfs_enabled: boolean;
+  creator_id: number;
+  import_status: string;
+  open_issues_count: number;
+  description_html: string;
+  updated_at: string;
+  ci_config_path: string;
+  public_jobs: boolean;
+  shared_with_groups?: string[];
+  only_allow_merge_if_pipeline_succeeds: boolean;
+  allow_merge_on_skipped_pipeline?: boolean;
+  request_access_enabled: boolean;
+  only_allow_merge_if_all_discussions_are_resolved: boolean;
+  remove_source_branch_after_merge: boolean;
+  printing_merge_request_link_enabled: boolean;
+  merge_method: string;
+  squash_option: string;
+  enforce_auth_checks_on_uploads: boolean;
+  suggestion_commit_message?: string;
+  merge_commit_template?: string;
+  squash_commit_template?: string;
+  issue_branch_template?: string;
+  autoclose_referenced_issues: boolean;
+  external_authorization_classification_label: string;
+  requirements_enabled: boolean;
+  requirements_access_level: string;
+  security_and_compliance_enabled: boolean;
+  compliance_frameworks?: string[];
+  permissions: {
+    project_access?: null;
+    group_access?: null;
   };
 }
 
@@ -337,7 +367,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       AllProjectsOptions &
       Sudo &
       ShowExpanded<E> & { simple: true },
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options: PaginationRequestOptions<P> &
@@ -345,12 +375,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       Sudo &
       ShowExpanded<E> & { statistics: true },
   ): Promise<
-    GitlabAPIResponse<(ExpandedProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options?: PaginationRequestOptions<P> & AllProjectsOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>>;
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     {
@@ -360,21 +390,21 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     }: { userId?: number; starredOnly?: boolean } & AllProjectsOptions &
       PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<Record<string, unknown>[], C, E, P>> {
     let uri: string;
 
     if (userId && starredOnly) uri = endpoint`users/${userId}/starred_projects`;
     else if (userId) uri = endpoint`users/${userId}/projects`;
     else uri = 'projects';
 
-    return RequestHelper.get<ExpandedProjectSchema[]>()(this, uri, options);
+    return RequestHelper.get<Record<string, unknown>[]>()(this, uri, options);
   }
 
   allTransferLocations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>> {
-    return RequestHelper.get<SimpleProjectSchema[]>()(
+  ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, P>> {
+    return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
       endpoint`projects/${projectId}/transfer_locations`,
       options,
@@ -427,30 +457,25 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   allForks<E extends boolean = false>(
     projectId: string | number,
     options: AllForksOptions & Sudo & ShowExpanded<E> & { simple: true },
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>>;
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>>;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
     options: AllForksOptions & Sudo & ShowExpanded<E> & { statistics: true },
   ): Promise<
-    GitlabAPIResponse<
-      (ExpandedProjectSchema & { statistics: ProjectStatisticsSchema })[],
-      C,
-      E,
-      void
-    >
+    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, void>
   >;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
     options?: AllForksOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>>;
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>>;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
     options?: AllForksOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, void>> {
-    return RequestHelper.get<ExpandedProjectSchema[]>()(
+  ): Promise<GitlabAPIResponse<Record<string, unknown>[], C, E, void>> {
+    return RequestHelper.get<Record<string, unknown>[]>()(
       this,
       endpoint`projects/${projectId}/forks`,
       options,
@@ -482,8 +507,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   archive<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedProjectSchema>()(
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.post<ProjectSchema>()(
       this,
       endpoint`projects/${projectId}/archive`,
       options,
@@ -499,18 +524,18 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       CreateProjectOptions &
       Sudo &
       ShowExpanded<E> = {} as any,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
     const url = userId ? `projects/user/${userId}` : 'projects';
 
     if (avatar) {
-      return RequestHelper.post<ExpandedProjectSchema>()(this, url, {
+      return RequestHelper.post<ProjectSchema>()(this, url, {
         ...options,
         isForm: true,
         avatar: [avatar.content, avatar.filename],
       });
     }
 
-    return RequestHelper.post<ExpandedProjectSchema>()(this, url, { ...options, avatar });
+    return RequestHelper.post<ProjectSchema>()(this, url, { ...options, avatar });
   }
 
   createForkRelationship<E extends boolean = false>(
@@ -558,29 +583,25 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     { avatar, ...options }: EditProjectOptions & Sudo & ShowExpanded<E> = {} as any,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
     const url = endpoint`projects/${projectId}`;
 
     if (avatar) {
-      return RequestHelper.put<ExpandedProjectSchema>()(this, url, {
+      return RequestHelper.put<ProjectSchema>()(this, url, {
         ...options,
         isForm: true,
         avatar: [avatar.content, avatar.filename],
       });
     }
 
-    return RequestHelper.put<ExpandedProjectSchema>()(this, url, { ...options, avatar });
+    return RequestHelper.put<ProjectSchema>()(this, url, { ...options, avatar });
   }
 
   fork<E extends boolean = false>(
     projectId: string | number,
     options?: ForkProjectOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/fork`,
-      options,
-    );
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/fork`, options);
   }
 
   housekeeping<E extends boolean = false>(
@@ -664,12 +685,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: { license?: boolean; statistics?: boolean; withCustomAttributes?: boolean } & Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}`,
-      options,
-    );
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.get<ProjectSchema>()(this, endpoint`projects/${projectId}`, options);
   }
 
   showLanguages<E extends boolean = false>(
@@ -697,12 +714,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   star<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/star`,
-      options,
-    );
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/star`, options);
   }
 
   transfer<E extends boolean = false>(
@@ -710,21 +723,17 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     namespaceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.put<ExpandedProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/transfer`,
-      {
-        ...options,
-        namespace: namespaceId,
-      },
-    );
+    return RequestHelper.put<ProjectSchema>()(this, endpoint`projects/${projectId}/transfer`, {
+      ...options,
+      namespace: namespaceId,
+    });
   }
 
   unarchive<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedProjectSchema>()(
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.post<ProjectSchema>()(
       this,
       endpoint`projects/${projectId}/unarchive`,
       options,
@@ -742,8 +751,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   unstar<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedProjectSchema>()(
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    return RequestHelper.post<ProjectSchema>()(
       this,
       endpoint`projects/${projectId}/unstar`,
       options,
