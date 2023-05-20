@@ -53,7 +53,7 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
       {
         searchParams: {
           targetGroupId,
-          targetEpicIId,
+          targetEpicIid: targetEpicIId,
         },
         ...options,
       },
