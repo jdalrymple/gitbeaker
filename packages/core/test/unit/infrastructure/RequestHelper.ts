@@ -1,4 +1,10 @@
-import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
+import {
+  BaseResource,
+  DefaultRequestOptions,
+  FormattedResponse,
+  RequesterType,
+  ResponseBodyTypes,
+} from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 
 /* eslint no-empty-pattern: 0 */
@@ -20,13 +26,9 @@ function mockLink(url: string, page: number, perPage: number, maxPages: number) 
   return { link: links.join(','), pagination: type };
 }
 
-function mockedGetMany(
-  url: string,
-  rawRequestOptions: { searchParams?: Record<string, number> } = {},
-  maxPages = 10,
-) {
-  const page = rawRequestOptions?.searchParams?.page || 1;
-  const perPage = rawRequestOptions?.searchParams?.perPage || 2;
+function mockedGetMany(url: string, rawRequestOptions: DefaultRequestOptions = {}, maxPages = 10) {
+  const page = (rawRequestOptions?.searchParams?.page as number) || 1;
+  const perPage = (rawRequestOptions?.searchParams?.perPage as number) || 2;
 
   // Only load pages needed for the test
   const { link, pagination } = mockLink(url, +page, +perPage, +maxPages);
@@ -66,6 +68,33 @@ function mockedGetOne() {
   };
 }
 
+function mockedTimedoutRequest(
+  responseFn: (ep: string, ops: DefaultRequestOptions) => FormattedResponse<ResponseBodyTypes>,
+  timeoutIds: NodeJS.Timeout[] = [],
+) {
+  return (
+    endpoint: string,
+    options: DefaultRequestOptions,
+  ): Promise<FormattedResponse<ResponseBodyTypes>> =>
+    new Promise((resolve, reject) => {
+      if (options?.signal?.aborted) return;
+
+      const abortListener = () => {
+        reject(new Error('Request Timeout'));
+      };
+
+      const timeoutId = setTimeout(() => {
+        options?.signal?.removeEventListener('abort', abortListener);
+        const response = responseFn(endpoint, options);
+        resolve(response);
+      }, 2000);
+
+      timeoutIds.push(timeoutId);
+
+      options?.signal?.addEventListener('abort', abortListener);
+    });
+}
+
 const mockedRequester: jest.Mocked<RequesterType> = {
   get: jest.fn(),
   post: jest.fn(),
@@ -81,6 +110,7 @@ beforeEach(() => {
     requesterFn: () => mockedRequester,
     host: 'https://testing.com',
     token: 'token',
+    queryTimeout: null,
   });
 });
 
@@ -405,6 +435,80 @@ describe('RequestHelper.get()', () => {
       status: 200,
     });
   });
+
+  it('should timeout if a single query takes too long to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 1000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      () => ({ body: '', status: 200, headers: {} }),
+      timeoutIds,
+    );
+
+    mockedRequester.get.mockImplementationOnce(mockImplementation);
+
+    await expect(() => RequestHelper.get()(timedService, 'test')).rejects.toThrow(
+      'Request Timeout',
+    );
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
+  });
+
+  it('should timeout if multiple queries cumulatively take long to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 3000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      (ep, op) => mockedGetMany(`${timedService.url}${ep}`, op, 4),
+      timeoutIds,
+    );
+
+    mockedRequester.get.mockImplementation(mockImplementation);
+
+    await expect(() => RequestHelper.get()(timedService, 'test')).rejects.toThrow(
+      'Request Timeout',
+    );
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
+  });
+
+  it('should not timeout if a single query takes less time than the specified timeout to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 3000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      () => ({ body: { message: 'pass' }, status: 200, headers: {} }),
+      timeoutIds,
+    );
+
+    mockedRequester.get.mockImplementationOnce(mockImplementation);
+
+    const response = await RequestHelper.get()(timedService, 'test');
+
+    expect(response).toMatchObject({
+      message: 'pass',
+    });
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
+  });
 });
 
 describe('RequestHelper.post()', () => {
@@ -449,6 +553,30 @@ describe('RequestHelper.post()', () => {
       searchParams: undefined,
     });
   });
+
+  it('should timeout if a single query takes too long to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 1000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      () => ({ body: '', status: 200, headers: {} }),
+      timeoutIds,
+    );
+
+    mockedRequester.post.mockImplementationOnce(mockImplementation);
+
+    await expect(() => RequestHelper.post()(timedService, 'test')).rejects.toThrow(
+      'Request Timeout',
+    );
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
+  });
 });
 
 describe('RequestHelper.put()', () => {
@@ -475,6 +603,30 @@ describe('RequestHelper.put()', () => {
       status: responseTemplate.status,
     });
   });
+
+  it('should timeout if a single query takes too long to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 1000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      () => ({ body: '', status: 200, headers: {} }),
+      timeoutIds,
+    );
+
+    mockedRequester.put.mockImplementationOnce(mockImplementation);
+
+    await expect(() => RequestHelper.put()(timedService, 'test')).rejects.toThrow(
+      'Request Timeout',
+    );
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
+  });
 });
 
 describe('RequestHelper.del()', () => {
@@ -486,5 +638,29 @@ describe('RequestHelper.del()', () => {
     await RequestHelper.del()(service, 'test', { sudo: 'yes' });
 
     expect(service.requester.delete).toHaveBeenCalledWith('test', { body: {}, sudo: 'yes' });
+  });
+
+  it('should timeout if a single query takes too long to execute', async () => {
+    const timedService = new BaseResource({
+      requesterFn: () => mockedRequester,
+      host: 'https://testing.com',
+      token: 'token',
+      queryTimeout: 1000,
+    });
+
+    const timeoutIds = [];
+    const mockImplementation = mockedTimedoutRequest(
+      () => ({ body: '', status: 200, headers: {} }),
+      timeoutIds,
+    );
+
+    mockedRequester.delete.mockImplementationOnce(mockImplementation);
+
+    await expect(() => RequestHelper.del()(timedService, 'test')).rejects.toThrow(
+      'Request Timeout',
+    );
+
+    // Cleanup
+    clearTimeout(timeoutIds.at(0));
   });
 });

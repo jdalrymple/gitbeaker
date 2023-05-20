@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new Snippets({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new MergeRequests({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

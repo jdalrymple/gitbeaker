@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new Issues({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new DashboardAnnotations({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

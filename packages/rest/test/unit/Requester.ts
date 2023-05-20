@@ -330,7 +330,6 @@ describe('defaultRequest', () => {
   const service = {
     headers: { test: '5' },
     url: 'testurl',
-    requestTimeout: 50,
     rejectUnauthorized: true,
   };
 
