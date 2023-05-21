@@ -5,10 +5,10 @@ services:
     container_name: 'gitlab'
     environment:
       GITLAB_URL: 'http://localhost:8080'
-      PERSONAL_ACCESS_TOKEN: 'gitbeaker'
+      PERSONAL_ACCESS_TOKEN: gitbeaker
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];
-      GITLAB_ROOT_PASSWORD: 'gitbeaker'
+      GITLAB_ROOT_PASSWORD: gitbeaker
     entrypoint:
       - '/bin/sh'
       - '-c'

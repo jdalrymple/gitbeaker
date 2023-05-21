@@ -1,5 +1,5 @@
-import { decamelizeKeys } from 'xcase';
 import { stringify } from 'qs';
+import { decamelizeKeys } from 'xcase';
 
 // Types
 export type ResponseBodyTypes =
@@ -94,9 +94,9 @@ export function defaultOptionsHandler(
     body,
     searchParams,
     sudo,
+    signal,
     asStream = false,
     method = 'get',
-    signal,
   }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
   const { headers: preconfiguredHeaders, url } = resourceOptions;

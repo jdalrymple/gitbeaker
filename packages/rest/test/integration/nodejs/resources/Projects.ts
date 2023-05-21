@@ -50,17 +50,15 @@ describe('Projects.all', () => {
     const timedService = new Projects({
       host: GITLAB_URL,
       token: GITLAB_PERSONAL_ACCESS_TOKEN,
-      queryTimeout: 100,
+      queryTimeout: 200,
     });
 
     await expect(() =>
       timedService.all({
         pagination: 'offset',
-        maxPages: 2,
-        perPage: 5,
         simple: true,
       }),
-    ).rejects.toThrow();
+    ).rejects.toThrow('Query timeout was reached');
   });
 });
 

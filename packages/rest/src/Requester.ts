@@ -1,24 +1,21 @@
-import {
-  defaultOptionsHandler as baseOptionsHandler,
-  createRequesterFn,
-} from '@gitbeaker/requester-utils';
 import type {
   DefaultRequestOptions,
   DefaultResourceOptions,
   RequestOptions,
 } from '@gitbeaker/requester-utils';
+import {
+  defaultOptionsHandler as baseOptionsHandler,
+  createRequesterFn,
+} from '@gitbeaker/requester-utils';
 
 export async function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
-  { body, searchParams, asStream, sudo, method }: DefaultRequestOptions = {},
+  requestOptions: DefaultRequestOptions = {},
 ): Promise<RequestOptions & { agent?: unknown }> {
-  const options: RequestOptions & { agent?: unknown } = await baseOptionsHandler(resourceOptions, {
-    body,
-    searchParams,
-    asStream,
-    sudo,
-    method,
-  });
+  const options: RequestOptions & { agent?: unknown } = await baseOptionsHandler(
+    resourceOptions,
+    requestOptions,
+  );
 
   if (
     resourceOptions.url.includes('https') &&
@@ -115,7 +112,13 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const response = await fetch(url, { ...opts, mode });
+    const response = await fetch(url, { ...opts, mode }).catch((e) => {
+      if (e.name === 'TimeoutError' || e.name === 'AbortError') {
+        throw new Error('Query timeout was reached');
+      }
+
+      throw e;
+    });
 
     if (response.ok) return parseResponse(response, asStream);
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(response);
