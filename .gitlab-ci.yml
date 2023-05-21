@@ -77,7 +77,7 @@ build:
       - packages/cli/dist/
       - packages/rest/dist/
       - packages/requester-utils/dist/
-    expire_in: 1h
+    expire_in: 2d
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
 lint:
