@@ -7,7 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { ExpandedProjectSchema } from './Projects';
+import type { ProjectSchema } from './Projects';
 import type { AllEventOptions, EventSchema } from './Events';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
@@ -231,20 +231,16 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
-    return RequestHelper.get<ExpandedProjectSchema[]>()(
-      this,
-      endpoint`users/${userId}/projects`,
-      options,
-    );
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
+    return RequestHelper.get<ProjectSchema[]>()(this, endpoint`users/${userId}/projects`, options);
   }
 
   // Convenience method - Functionality already present in the all method in the Projects wrapper
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedProjectSchema[], C, E, P>> {
-    return RequestHelper.get<ExpandedProjectSchema[]>()(
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
+    return RequestHelper.get<ProjectSchema[]>()(
       this,
       endpoint`users/${userId}/starred_projects`,
       options,
