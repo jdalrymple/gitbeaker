@@ -1,3 +1,19 @@
+# v38.8.0 (Mon May 22 2023)
+
+#### ✨ Feature
+
+- Add support for a query timeout [#3271](https://github.com/jdalrymple/gitbeaker/pull/3271) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fix typing for Projects, Users and Groups [#3272](https://github.com/jdalrymple/gitbeaker/pull/3272) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.7.0 (Sat May 20 2023)
 
 :tada: This release contains work from a new contributor! :tada:

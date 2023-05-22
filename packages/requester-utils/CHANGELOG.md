@@ -1,3 +1,15 @@
+# v38.8.0 (Mon May 22 2023)
+
+#### ✨ Feature
+
+- Add support for a query timeout [#3271](https://github.com/jdalrymple/gitbeaker/pull/3271) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.3.0 (Sat May 06 2023)
 
 #### ↕️ Dependencies
