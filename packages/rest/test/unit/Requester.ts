@@ -136,21 +136,23 @@ describe('defaultRequestHandler', () => {
   it('should return an error with the statusText as the primary message and a description derived from a error property when response has an error property', async () => {
     const stringBody = { error: 'msg' };
 
-    MockFetch.mockImplementationOnce(() => ({
-      ok: false,
-      status: 501,
-      statusText: 'Really Bad Error',
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        ok: false,
+        status: 501,
+        statusText: 'Really Bad Error',
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-      json: () => Promise.resolve(stringBody),
-      text: () => Promise.resolve(JSON.stringify(stringBody)),
-    }));
+        json: () => Promise.resolve(stringBody),
+        text: () => Promise.resolve(JSON.stringify(stringBody)),
+      }),
+    );
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message: 'Really Bad Error',
@@ -162,20 +164,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should return correct properties if request is valid', async () => {
-    MockFetch.mockImplementationOnce(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
 
@@ -187,20 +191,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should handle a prefix url correctly', async () => {
-    MockFetch.mockImplementationOnce(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     await defaultRequestHandler('testurl', {
       prefixUrl: 'http://test.com',
@@ -210,20 +216,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should handle a searchParams correctly', async () => {
-    MockFetch.mockImplementationOnce(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     await defaultRequestHandler('testurl/123', {
       searchParams: 'test=4',
@@ -236,20 +244,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
-    MockFetch.mockImplementationOnce(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     await defaultRequestHandler('http://test.com/repository/archive');
 
@@ -259,20 +269,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
-    MockFetch.mockImplementationOnce(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     await defaultRequestHandler('http://test.com/test/something');
 
@@ -282,20 +294,22 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should handle multipart prefixUrls correctly', async () => {
-    MockFetch.mockImplementation(() => ({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
+    MockFetch.mockReturnValue(
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: {
+          entries() {
+            return [['content-type', 'application/json']];
+          },
+          get() {
+            return 'application/json';
+          },
         },
-        get() {
-          return 'application/json';
-        },
-      },
-    }));
+      }),
+    );
 
     await defaultRequestHandler('testurl/123', {
       searchParams: 'test=4',
