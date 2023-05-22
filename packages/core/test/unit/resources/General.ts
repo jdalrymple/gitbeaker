@@ -6,14 +6,13 @@ describe('Instantiating services', () => {
       const service = new V({
         requesterFn: jest.fn(),
         token: 'abcdefg',
-        requestTimeout: 3000,
       });
 
       expect(service.constructor.name).toBe(k);
       expect(service.url).toBeDefined();
       expect(service.rejectUnauthorized).toBeTruthy();
       expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
-      expect(service.requestTimeout).toBe(3000);
+      expect(service.queryTimeout).toBe(300000);
     });
   });
 });

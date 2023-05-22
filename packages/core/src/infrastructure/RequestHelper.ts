@@ -278,11 +278,13 @@ export function get<
     options?: BaseRequestOptions<E>,
   ): Promise<any> => {
     const { asStream, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
 
     const response = await service.requester.get(endpoint, {
       searchParams,
       sudo,
       asStream,
+      signal,
     });
 
     const camelizeResponseBody = service.camelize || false;
@@ -305,7 +307,7 @@ export function get<
 
     return getManyMore(
       camelizeResponseBody,
-      (...args) => service.requester.get(...args),
+      (ep, op) => service.requester.get(ep, { ...op, signal }),
       endpoint,
       response as FormattedResponse<Record<string, unknown>[]>,
       reqOpts,
@@ -327,6 +329,7 @@ export function post<T extends ResponseBodyTypes>() {
       searchParams,
       body,
       sudo,
+      signal: service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined,
     });
 
     // Camelize response body if specified
@@ -350,6 +353,7 @@ export function put<T extends ResponseBodyTypes>() {
       body,
       searchParams,
       sudo,
+      signal: service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined,
     });
 
     // Camelize response body if specified
@@ -373,6 +377,7 @@ export function patch<T extends ResponseBodyTypes>() {
       body,
       searchParams,
       sudo,
+      signal: service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined,
     });
 
     // Camelize response body if specified
@@ -392,6 +397,7 @@ export function del<T extends ResponseBodyTypes = void>() {
       body: options,
       searchParams,
       sudo,
+      signal: service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined,
     });
 
     return packageResponse(response, showExpanded) as GitlabAPIResponse<T, C, E, void>;

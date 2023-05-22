@@ -45,6 +45,21 @@ describe('Projects.all', () => {
     expect(projects).toBeArray();
     expect(projects).toHaveLength(10);
   });
+
+  it('should timeout with a short queryTimeout', async () => {
+    const timedService = new Projects({
+      host: GITLAB_URL,
+      token: GITLAB_PERSONAL_ACCESS_TOKEN,
+      queryTimeout: 200,
+    });
+
+    await expect(() =>
+      timedService.all({
+        pagination: 'offset',
+        simple: true,
+      }),
+    ).rejects.toThrow('Query timeout was reached');
+  });
 });
 
 describe('Projects.uploadForReference', () => {

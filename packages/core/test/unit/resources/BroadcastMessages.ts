@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new BroadcastMessages({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

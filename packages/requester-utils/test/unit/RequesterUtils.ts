@@ -13,7 +13,6 @@ describe('defaultOptionsHandler', () => {
     headers: { test: '5' },
     url: 'testurl',
     rejectUnauthorized: false,
-    requestTimeout: 50,
   };
 
   it('should not use default request options if not passed', async () => {
@@ -98,7 +97,6 @@ describe('createInstance', () => {
     headers: { test: '5' },
     url: 'testurl',
     rejectUnauthorized: false,
-    requestTimeout: 50,
   };
 
   it('should have a createInstance function', () => {
@@ -134,13 +132,11 @@ describe('createInstance', () => {
       headers: { test: '5' },
       url: 'testurl',
       rejectUnauthorized: false,
-      requestTimeout: 50,
     };
     const serviceOptions2 = {
       headers: { test: '5' },
       url: 'testurl2',
       rejectUnauthorized: true,
-      requestTimeout: 100,
     };
 
     const requesterFn = createRequesterFn(optionsHandler, requestHandler);

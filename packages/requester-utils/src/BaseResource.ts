@@ -9,7 +9,7 @@ export interface BaseResourceOptions<C> {
   rejectUnauthorized?: boolean;
   camelize?: C;
   requesterFn?: (resourceOptions: DefaultResourceOptions) => RequesterType;
-  requestTimeout?: number;
+  queryTimeout?: number | null;
   profileToken?: string;
   sudo?: string | number;
   profileMode?: 'execution' | 'memory';
@@ -20,7 +20,7 @@ export class BaseResource<C extends boolean = false> {
 
   public readonly requester: RequesterType;
 
-  public readonly requestTimeout: number;
+  public readonly queryTimeout: number | null;
 
   public readonly headers: { [header: string]: string };
 
@@ -40,7 +40,7 @@ export class BaseResource<C extends boolean = false> {
     host = 'https://gitlab.com',
     prefixUrl = '',
     rejectUnauthorized = true,
-    requestTimeout = 300000,
+    queryTimeout = 300000,
   }: BaseResourceOptions<C> = {}) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
@@ -48,7 +48,7 @@ export class BaseResource<C extends boolean = false> {
     this.headers = {};
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
-    this.requestTimeout = requestTimeout;
+    this.queryTimeout = queryTimeout;
 
     // Handle auth tokens
     if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;

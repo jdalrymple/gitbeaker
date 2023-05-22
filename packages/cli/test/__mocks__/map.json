@@ -14,7 +14,7 @@
         "host",
         "prefixUrl",
         "rejectUnauthorized",
-        "requestTimeout"
+        "queryTimeout"
       ]
     },
     {

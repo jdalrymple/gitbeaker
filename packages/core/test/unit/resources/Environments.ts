@@ -12,7 +12,6 @@ beforeEach(() => {
   service = new Environments({
     requesterFn: jest.fn(),
     token: 'abcdefg',
-    requestTimeout: 3000,
   });
 });
 

@@ -113,19 +113,19 @@ describe('Creation of BaseResource instance', () => {
     expect(service.rejectUnauthorized).toBeFalsy();
   });
 
-  it('should default the requestTimeout to 300s', () => {
+  it('should default the queryTimeout to 300s', () => {
     const service = new BaseResource({ requesterFn: jest.fn() });
 
-    expect(service.requestTimeout).toBe(300000);
+    expect(service.queryTimeout).toBe(300000);
   });
 
-  it('should allow for the requestTimeout to be set', () => {
+  it('should allow for the queryTimeout to be set', () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
-      requestTimeout: 10,
+      queryTimeout: 10,
     });
 
-    expect(service.requestTimeout).toBe(10);
+    expect(service.queryTimeout).toBe(10);
   });
 
   it('should allow for the sudo user to be set', () => {

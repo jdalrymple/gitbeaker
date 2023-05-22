@@ -1,5 +1,5 @@
-import { decamelizeKeys } from 'xcase';
 import { stringify } from 'qs';
+import { decamelizeKeys } from 'xcase';
 
 // Types
 export type ResponseBodyTypes =
@@ -18,36 +18,12 @@ export interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTyp
   status: number;
 }
 
-export interface RequesterType {
-  get<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<FormattedResponse<T>>;
-  post<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<FormattedResponse<T>>;
-  put<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<FormattedResponse<T>>;
-  patch<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<FormattedResponse<T>>;
-  delete<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: Record<string, unknown>,
-  ): Promise<FormattedResponse<T>>;
-}
-
 export interface Constructable<T = any> {
   new (...args: any[]): T;
 }
 
 export type DefaultResourceOptions = {
   headers: { [header: string]: string };
-  requestTimeout: number;
   url: string;
   rejectUnauthorized: boolean;
 };
@@ -55,9 +31,10 @@ export type DefaultResourceOptions = {
 export type DefaultRequestOptions = {
   body?: FormData | Record<string, unknown>;
   searchParams?: Record<string, unknown>;
-  sudo?: string;
+  sudo?: string | number;
   method?: string;
   asStream?: boolean;
+  signal?: AbortSignal;
 };
 
 export type RequestOptions = {
@@ -68,7 +45,31 @@ export type RequestOptions = {
   prefixUrl: string;
   body?: string | FormData;
   asStream?: boolean;
+  signal?: AbortSignal;
 };
+
+export interface RequesterType {
+  get<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: DefaultRequestOptions,
+  ): Promise<FormattedResponse<T>>;
+  post<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: DefaultRequestOptions,
+  ): Promise<FormattedResponse<T>>;
+  put<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: DefaultRequestOptions,
+  ): Promise<FormattedResponse<T>>;
+  patch<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: DefaultRequestOptions,
+  ): Promise<FormattedResponse<T>>;
+  delete<T extends ResponseBodyTypes>(
+    endpoint: string,
+    options?: DefaultRequestOptions,
+  ): Promise<FormattedResponse<T>>;
+}
 
 // Utility methods
 export function formatQuery(params: Record<string, unknown> = {}): string {
@@ -83,25 +84,32 @@ export type OptionsHandlerFn = (
   requestOptions: DefaultRequestOptions,
 ) => Promise<RequestOptions>;
 
-function isFormData(object) {
+function isFormData(object: FormData | Record<string, unknown>) {
   return typeof object === 'object' && object.constructor.name === 'FormData';
 }
 
 export function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
-  { body, searchParams, sudo, asStream = false, method = 'get' }: DefaultRequestOptions = {},
+  {
+    body,
+    searchParams,
+    sudo,
+    signal,
+    asStream = false,
+    method = 'get',
+  }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
-  const { headers: preconfiguredHeaders, requestTimeout, url } = resourceOptions;
+  const { headers: preconfiguredHeaders, url } = resourceOptions;
   const headers = { ...preconfiguredHeaders };
   const defaultOptions: RequestOptions = {
     headers,
-    timeout: requestTimeout,
     method,
     asStream,
+    signal,
     prefixUrl: url,
   };
 
-  if (sudo) defaultOptions.headers.sudo = sudo;
+  if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (body) {
