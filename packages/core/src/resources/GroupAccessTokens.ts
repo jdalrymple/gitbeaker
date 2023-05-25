@@ -39,6 +39,6 @@ export interface GroupAccessTokens<C extends boolean = false> extends ResourceAc
 export class GroupAccessTokens<C extends boolean = false> extends ResourceAccessTokens<C> {
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
-    super('projects', options);
+    super('groups', options);
   }
 }
