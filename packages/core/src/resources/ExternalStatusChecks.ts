@@ -123,22 +123,4 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       },
     );
   }
-
-  show<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    sha: string,
-    externalCheckStatusId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
-    return RequestHelper.get<ProjectExternalStatusCheckSchema>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/status_checks`,
-      {
-        sha,
-        external_status_check_id: externalCheckStatusId,
-        ...options,
-      },
-    );
-  }
 }
