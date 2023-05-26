@@ -88,21 +88,6 @@ describe('ExternalStatusChecks.edit', () => {
   });
 });
 
-describe('ExternalStatusChecks.show', () => {
-  it('should request GET /projects/:id/merge_requests/:idd/status_check_responses', async () => {
-    await service.show(1, 2, 'sha', 3);
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/merge_requests/2/status_check_responses',
-      {
-        sha: 'sha',
-        externalCheckStatusId: 3,
-      },
-    );
-  });
-});
-
 describe('ExternalStatusChecks.set', () => {
   it('should request GET /projects/:id/merge_requests/:idd/status_check_responses', async () => {
     await service.set(1, 2, 'sha', 3);
@@ -112,7 +97,7 @@ describe('ExternalStatusChecks.set', () => {
       'projects/1/merge_requests/2/status_check_responses',
       {
         sha: 'sha',
-        externalCheckStatusId: 3,
+        external_status_check_id: 3,
       },
     );
   });
