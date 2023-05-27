@@ -110,7 +110,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     mergerequestIId: number,
     sha: string,
-    externalCheckStatusId: number,
+    externalStatusCheckId: number,
     options?: { status?: 'passed' | 'failed' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     return RequestHelper.post<ProjectExternalStatusCheckSchema>()(
@@ -118,7 +118,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/status_check_responses`,
       {
         sha,
-        external_status_check_id: externalCheckStatusId,
+        externalStatusCheckId,
         ...options,
       },
     );
