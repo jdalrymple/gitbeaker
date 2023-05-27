@@ -97,7 +97,7 @@ describe('ExternalStatusChecks.set', () => {
       'projects/1/merge_requests/2/status_check_responses',
       {
         sha: 'sha',
-        external_status_check_id: 3,
+        externalStatusCheckId: 3,
       },
     );
   });
