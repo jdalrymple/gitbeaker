@@ -72,7 +72,7 @@
 - [Changelog](./CHANGELOG.md)
 
 ## Features
-- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/15.11/ee/api/api_resources.html).
+- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/16.0/ee/api/api_resources.html).
 - **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), and [Deno](https://deno.land/) and supports [CLI](https://www.npmjs.com/package/@gitbeaker/cli) usage.
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
