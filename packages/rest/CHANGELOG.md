@@ -1,3 +1,15 @@
+# v38.9.0 (Sun May 28 2023)
+
+#### 🐛 Bug Fix
+
+- Updating CI Lint API Support to match Gitlab API v16 [#3278](https://github.com/jdalrymple/gitbeaker/pull/3278) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature

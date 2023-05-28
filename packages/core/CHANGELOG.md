@@ -1,3 +1,28 @@
+# v38.9.0 (Sun May 28 2023)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Roman Khristoforov ([@ksilligan](https://github.com/ksilligan))
+
+:heart: Bambii ([@Bambii556](https://github.com/Bambii556))
+
+#### 🐛 Bug Fix
+
+- Updating CI Lint API Support to match Gitlab API v16 [#3278](https://github.com/jdalrymple/gitbeaker/pull/3278) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix ExternalStatusChecks arguments [#3276](https://github.com/jdalrymple/gitbeaker/pull/3276) ([@ksilligan](https://github.com/ksilligan) [@jdalrymple](https://github.com/jdalrymple))
+- Added fix for Group Access tokens requests [#3275](https://github.com/jdalrymple/gitbeaker/pull/3275) (shaunbrown@capitecbank.co.za [@Bambii556](https://github.com/Bambii556))
+
+#### Authors: 4
+
+- Bambii ([@Bambii556](https://github.com/Bambii556))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Roman Khristoforov ([@ksilligan](https://github.com/ksilligan))
+- Shaun Brown (shaunbrown@capitecbank.co.za)
+
+---
+
 # v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
