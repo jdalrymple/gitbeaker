@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   gitlab:
-    image: 'gitlab/gitlab-ce:latest'
+    image: 'gitlab/gitlab-ce:16.0.1-ce.0'
     container_name: 'gitlab'
     environment:
       GITLAB_URL: 'http://localhost:8080'
