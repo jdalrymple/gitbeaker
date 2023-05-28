@@ -403,6 +403,7 @@ projectsAPI.create({
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/tbazin"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/9104039?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Théis Bazin"/></td>
       <td align="center" valign="top" width="3.84%"><a href="http://spencersalisbury.com/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/8053224?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Spencer Salisbury"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://simonecorsi.dev/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/5617452?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Simone Corsi"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/Bambii556"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/34485027?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Bambii"/></td>
     </tr>
 </p>
 
