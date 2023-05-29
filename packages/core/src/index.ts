@@ -10,6 +10,8 @@ export type {
   ShowExpanded,
   PaginationTypes,
   BaseRequestOptions,
+  PaginationRequestOptions,
+  PaginationRequestSubOptions,
   KeysetPaginationRequestOptions,
   OffsetPaginationRequestOptions,
   BasePaginationRequestOptions,
