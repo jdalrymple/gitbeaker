@@ -44,6 +44,8 @@ export type EitherOrNone4<T, U, V, W> =
   | OnlyOrNone4<V, T, U, W>
   | OnlyOrNone4<W, T, U, V>;
 
+export type AllOrNone<T extends Record<string, any>> = T | Partial<Record<keyof T, never>>;
+
 export type OptionValueType = undefined | string | boolean | Blob | number | (Blob | string)[];
 
 export function appendFormFromObject(object: Record<string, OptionValueType>): FormData {

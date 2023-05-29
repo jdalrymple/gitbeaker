@@ -7,7 +7,7 @@ import type {
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
 import { appendFormFromObject, parseLinkHeader } from './Utils';
-import type { Camelize, OptionValueType } from './Utils';
+import type { AllOrNone, Camelize, OptionValueType } from './Utils';
 
 export interface IsForm {
   isForm?: boolean;
@@ -25,10 +25,10 @@ export interface ShowExpanded<E extends boolean = false> {
   showExpanded?: E;
 }
 
-export type PaginationTypes = 'keyset' | 'offset';
-
 export type BaseRequestOptions<E extends boolean = false> = Sudo &
   ShowExpanded<E> & { [Key in string]?: any };
+
+export type PaginationTypes = 'keyset' | 'offset';
 
 export interface KeysetPaginationRequestOptions {
   orderBy: string;
@@ -46,12 +46,12 @@ export interface BasePaginationRequestOptions<P extends PaginationTypes | void> 
 }
 
 export type PaginationRequestSubOptions<P extends PaginationTypes | void> = P extends 'keyset'
-  ? KeysetPaginationRequestOptions
+  ? AllOrNone<KeysetPaginationRequestOptions>
   : P extends 'offset'
   ? OffsetPaginationRequestOptions
-  : Record<string, never>;
+  : AllOrNone<KeysetPaginationRequestOptions> & OffsetPaginationRequestOptions;
 
-export type PaginationRequestOptions<P extends PaginationTypes | void> =
+export type PaginationRequestOptions<P extends PaginationTypes | void = void> =
   BasePaginationRequestOptions<P> & PaginationRequestSubOptions<P>;
 
 // Response Formats
