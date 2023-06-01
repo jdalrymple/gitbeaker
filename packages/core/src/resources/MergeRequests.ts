@@ -166,7 +166,7 @@ export type AllMergeRequestsOptions = {
   deployedAfter?: string;
   deployedBefore?: string;
   environment?: string;
-  in?: string;
+  iids?: number[];
   labels?: string;
   milestone?: string;
   myReactionEmoji?: string;
