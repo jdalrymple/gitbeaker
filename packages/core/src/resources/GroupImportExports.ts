@@ -14,14 +14,14 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
   import<E extends boolean = false>(
     file: { content: Blob; filename: string },
     path: string,
-    { parentId, ...options }: { parentId?: number } & Sudo & ShowExpanded<E>,
+    { parentId, name, ...options }: { parentId?: number; name?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     return RequestHelper.post<ImportStatusSchema>()(this, 'groups/import', {
       isForm: true,
       ...options,
       file: [file.content, file.filename],
       path,
-      name: path.split('/').at(0),
+      name: name || path.split('/').at(0),
       parentId,
     });
   }
