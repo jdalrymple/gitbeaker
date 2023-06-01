@@ -19,8 +19,8 @@ import type { MetricImageSchema } from './AlertManagement';
 export interface TimeStatsSchema extends Record<string, unknown> {
   time_estimate: number;
   total_time_spent: number;
-  human_time_estimate: string;
-  human_total_time_spent: string;
+  human_time_estimate: string | null;
+  human_total_time_spent: string | null;
 }
 
 export interface IssueSchema extends Record<string, unknown> {
