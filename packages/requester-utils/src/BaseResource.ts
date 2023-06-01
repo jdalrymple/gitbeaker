@@ -8,7 +8,7 @@ export interface BaseResourceOptions<C> {
   prefixUrl?: string;
   rejectUnauthorized?: boolean;
   camelize?: C;
-  requesterFn?: (resourceOptions: DefaultResourceOptions) => RequesterType;
+  requesterFn: (resourceOptions: DefaultResourceOptions) => RequesterType;
   queryTimeout?: number | null;
   profileToken?: string;
   sudo?: string | number;
@@ -41,7 +41,7 @@ export class BaseResource<C extends boolean = false> {
     prefixUrl = '',
     rejectUnauthorized = true,
     queryTimeout = 300000,
-  }: BaseResourceOptions<C> = {}) {
+  }: BaseResourceOptions<C>) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
     this.url = [host, 'api', 'v4', prefixUrl].join('/');
