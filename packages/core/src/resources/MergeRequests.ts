@@ -245,7 +245,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     mergerequestIId: number,
     options?: AcceptMergeRequestOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
     return this.merge(projectId, mergerequestIId, options);
   }
 
