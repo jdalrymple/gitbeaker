@@ -1,4 +1,4 @@
-import { ProjectImportExport } from '../../../src';
+import { ProjectImportExports } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
@@ -6,10 +6,10 @@ jest.mock(
   () => require('../../__mocks__/RequestHelper').default,
 );
 
-let service: ProjectImportExport;
+let service: ProjectImportExports;
 
 beforeEach(() => {
-  service = new ProjectImportExport({
+  service = new ProjectImportExports({
     requesterFn: jest.fn(),
     token: 'abcdefg',
   });
