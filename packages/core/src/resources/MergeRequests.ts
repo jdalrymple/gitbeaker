@@ -89,10 +89,10 @@ export interface CondensedMergeRequestSchema extends Record<string, unknown> {
 }
 
 export interface MergeRequestSchema extends CondensedMergeRequestSchema {
-  merged_by: Omit<UserSchema, 'created_at'>;
-  merged_at: string;
-  closed_by?: Omit<UserSchema, 'created_at'>;
-  closed_at?: Omit<UserSchema, 'created_at'>;
+  merged_by: Omit<UserSchema, 'created_at'> | null;
+  merged_at: string | null;
+  closed_by: Omit<UserSchema, 'created_at'> | null;
+  closed_at: Omit<UserSchema, 'created_at'> | null;
   target_branch: string;
   source_branch: string;
   user_notes_count: number;
@@ -107,7 +107,7 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   labels?: string[];
   draft: boolean;
   work_in_progress: boolean;
-  milestone?: MilestoneSchema;
+  milestone: MilestoneSchema | null;
   merge_when_pipeline_succeeds: boolean;
   merge_status:
     | 'unchecked'
@@ -116,10 +116,10 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
     | 'cannot_be_merged'
     | 'cannot_be_merged_recheck';
   sha: string;
-  merge_commit_sha: string;
-  squash_commit_sha?: string;
-  discussion_locked?: boolean;
-  should_remove_source_branch?: boolean;
+  merge_commit_sha: string | null;
+  squash_commit_sha: string | null;
+  discussion_locked: boolean | null;
+  should_remove_source_branch: boolean | null;
   force_remove_source_branch: boolean;
   reference: string;
   references: ReferenceSchema;
@@ -134,13 +134,13 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
 export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   subscribed: boolean;
   changes_count: string;
-  latest_build_started_at: string;
-  latest_build_finished_at: string;
-  first_deployed_to_production_at?: null;
-  pipeline: PipelineSchema;
-  head_pipeline: ExpandedPipelineSchema;
+  latest_build_started_at:  string | null;
+  latest_build_finished_at: string | null;
+  first_deployed_to_production_at: null;
+  pipeline: PipelineSchema | null
+  head_pipeline: ExpandedPipelineSchema | null;
   diff_refs: DiffRefsSchema;
-  merge_error?: null;
+  merge_error: string | null;
   first_contribution: boolean;
   user: {
     can_merge: boolean;
