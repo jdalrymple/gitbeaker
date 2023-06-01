@@ -1,19 +1,34 @@
 import { DefaultResourceOptions, RequesterType } from './RequesterUtils';
 
-export interface BaseResourceOptions<C> {
-  oauthToken?: string;
-  token?: string;
-  jobToken?: string;
+export interface RootResourceOptions<C> {
+  // TODO: Not actually optional - Need to fix wrapper typing in requestUtils.ts:
+  requesterFn?: (resourceOptions: DefaultResourceOptions) => RequesterType;
   host?: string;
   prefixUrl?: string;
   rejectUnauthorized?: boolean;
   camelize?: C;
-  requesterFn: (resourceOptions: DefaultResourceOptions) => RequesterType;
   queryTimeout?: number | null;
-  profileToken?: string;
   sudo?: string | number;
+  profileToken?: string;
   profileMode?: 'execution' | 'memory';
 }
+
+export interface BaseRequestOptionsWithOAuthToken<C> extends RootResourceOptions<C> {
+  oauthToken: string;
+}
+
+export interface BaseRequestOptionsWithAccessToken<C> extends RootResourceOptions<C> {
+  token: string;
+}
+
+export interface BaseRequestOptionsWithJobToken<C> extends RootResourceOptions<C> {
+  jobToken: string;
+}
+
+export type BaseResourceOptions<C> =
+  | BaseRequestOptionsWithOAuthToken<C>
+  | BaseRequestOptionsWithAccessToken<C>
+  | BaseRequestOptionsWithJobToken<C>;
 
 export class BaseResource<C extends boolean = false> {
   public readonly url: string;
@@ -29,18 +44,16 @@ export class BaseResource<C extends boolean = false> {
   public readonly rejectUnauthorized: boolean;
 
   constructor({
-    token,
-    jobToken,
-    oauthToken,
     sudo,
     profileToken,
-    requesterFn,
     camelize,
+    requesterFn,
     profileMode = 'execution',
     host = 'https://gitlab.com',
     prefixUrl = '',
     rejectUnauthorized = true,
     queryTimeout = 300000,
+    ...tokens
   }: BaseResourceOptions<C>) {
     if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
 
@@ -51,9 +64,12 @@ export class BaseResource<C extends boolean = false> {
     this.queryTimeout = queryTimeout;
 
     // Handle auth tokens
-    if (oauthToken) this.headers.authorization = `Bearer ${oauthToken}`;
-    else if (jobToken) this.headers['job-token'] = jobToken;
-    else if (token) this.headers['private-token'] = token;
+    if ('oauthToken' in tokens) this.headers.authorization = `Bearer ${tokens.oauthToken}`;
+    else if ('jobToken' in tokens) this.headers['job-token'] = tokens.jobToken;
+    else if ('token' in tokens) this.headers['private-token'] = tokens.token;
+    else {
+      throw new ReferenceError('A token, oauthToken or jobToken must be passed');
+    }
 
     // Profiling
     if (profileToken) {
