@@ -134,10 +134,10 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
 export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   subscribed: boolean;
   changes_count: string;
-  latest_build_started_at:  string | null;
+  latest_build_started_at: string | null;
   latest_build_finished_at: string | null;
   first_deployed_to_production_at: null;
-  pipeline: PipelineSchema | null
+  pipeline: PipelineSchema | null;
   head_pipeline: ExpandedPipelineSchema | null;
   diff_refs: DiffRefsSchema;
   merge_error: string | null;
