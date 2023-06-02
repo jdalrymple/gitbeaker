@@ -922,6 +922,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ravewill",
+      "name": "Will",
+      "avatar_url": "https://avatars.githubusercontent.com/u/128541928?v=4",
+      "profile": "https://github.com/ravewill",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
