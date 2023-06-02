@@ -1,3 +1,19 @@
+# v38.10.0 (Fri Jun 02 2023)
+
+#### 🐛 Bug Fix
+
+- Change ProjectImportExport to ProjectImportExports [#3292](https://github.com/jdalrymple/gitbeaker/pull/3292) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Updating FAQ broken link [#3291](https://github.com/jdalrymple/gitbeaker/pull/3291) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.9.0 (Sun May 28 2023)
 
 #### 🐛 Bug Fix

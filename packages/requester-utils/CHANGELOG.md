@@ -1,3 +1,15 @@
+# v38.10.0 (Fri Jun 02 2023)
+
+#### 📚 Documentation
+
+- Updating FAQ broken link [#3291](https://github.com/jdalrymple/gitbeaker/pull/3291) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature

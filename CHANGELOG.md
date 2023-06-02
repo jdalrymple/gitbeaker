@@ -1,3 +1,42 @@
+# 38.10.0 (Fri Jun 02 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Will ([@ravewill](https://github.com/ravewill)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Change ProjectImportExport to ProjectImportExports [#3292](https://github.com/jdalrymple/gitbeaker/pull/3292) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Fix return types for a few MR methods [#3290](https://github.com/jdalrymple/gitbeaker/pull/3290) ([@jdalrymple](https://github.com/jdalrymple))
+  - Add missing pagination type exports [#3281](https://github.com/jdalrymple/gitbeaker/pull/3281) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/core`
+  - Improving pagination types for easier usage [#3280](https://github.com/jdalrymple/gitbeaker/pull/3280) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.3.0 to 16.3.1 [#3289](https://github.com/jdalrymple/gitbeaker/pull/3289) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump nx from 16.2.2 to 16.3.0 [#3288](https://github.com/jdalrymple/gitbeaker/pull/3288) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📚 Documentation
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating FAQ broken link [#3291](https://github.com/jdalrymple/gitbeaker/pull/3291) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Mark some MR nullable types as nullable [#3286](https://github.com/jdalrymple/gitbeaker/pull/3286) ([@ravewill](https://github.com/ravewill))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Will ([@ravewill](https://github.com/ravewill))
+
+---
+
 # 38.9.0 (Sun May 28 2023)
 
 :tada: This release contains work from new contributors! :tada:

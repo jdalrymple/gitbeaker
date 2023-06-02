@@ -1,3 +1,31 @@
+# v38.10.0 (Fri Jun 02 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Will ([@ravewill](https://github.com/ravewill)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Change ProjectImportExport to ProjectImportExports [#3292](https://github.com/jdalrymple/gitbeaker/pull/3292) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix return types for a few MR methods [#3290](https://github.com/jdalrymple/gitbeaker/pull/3290) ([@jdalrymple](https://github.com/jdalrymple))
+- Add missing pagination type exports [#3281](https://github.com/jdalrymple/gitbeaker/pull/3281) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Improving pagination types for easier usage [#3280](https://github.com/jdalrymple/gitbeaker/pull/3280) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Updating FAQ broken link [#3291](https://github.com/jdalrymple/gitbeaker/pull/3291) ([@jdalrymple](https://github.com/jdalrymple))
+- Mark some MR nullable types as nullable [#3286](https://github.com/jdalrymple/gitbeaker/pull/3286) ([@ravewill](https://github.com/ravewill))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Will ([@ravewill](https://github.com/ravewill))
+
+---
+
 # v38.9.0 (Sun May 28 2023)
 
 :tada: This release contains work from new contributors! :tada:
