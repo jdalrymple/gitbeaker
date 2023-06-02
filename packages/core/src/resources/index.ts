@@ -107,7 +107,7 @@ export * from './ProjectBadges';
 export * from './ProjectCustomAttributes';
 export * from './ProjectDORA4Metrics';
 export * from './ProjectHooks';
-export * from './ProjectImportExport';
+export * from './ProjectImportExports';
 export * from './ProjectInvitations';
 export * from './ProjectIssueBoards';
 export * from './ProjectIterations';

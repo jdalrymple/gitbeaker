@@ -108,7 +108,7 @@ import { ProjectBadges } from './ProjectBadges';
 import { ProjectCustomAttributes } from './ProjectCustomAttributes';
 import { ProjectDORA4Metrics } from './ProjectDORA4Metrics';
 import { ProjectHooks } from './ProjectHooks';
-import { ProjectImportExport } from './ProjectImportExport';
+import { ProjectImportExports } from './ProjectImportExports';
 import { ProjectInvitations } from './ProjectInvitations';
 import { ProjectIssueBoards } from './ProjectIssueBoards';
 import { ProjectIterations } from './ProjectIterations';
@@ -293,7 +293,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectCustomAttributes: ProjectCustomAttributes<C>;
   ProjectDORA4Metrics: ProjectDORA4Metrics<C>;
   ProjectHooks: ProjectHooks<C>;
-  ProjectImportExport: ProjectImportExport<C>;
+  ProjectImportExports: ProjectImportExports<C>;
   ProjectInvitations: ProjectInvitations<C>;
   ProjectIssueBoards: ProjectIssueBoards<C>;
   ProjectIterations: ProjectIterations<C>;
@@ -476,7 +476,7 @@ const resources = {
   ProjectCustomAttributes,
   ProjectDORA4Metrics,
   ProjectHooks,
-  ProjectImportExport,
+  ProjectImportExports,
   ProjectInvitations,
   ProjectIssueBoards,
   ProjectIterations,

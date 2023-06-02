@@ -111,7 +111,7 @@ describe('Browser Import', () => {
     'ProjectCustomAttributes',
     'ProjectDORA4Metrics',
     'ProjectHooks',
-    'ProjectImportExport',
+    'ProjectImportExports',
     'ProjectInvitations',
     'ProjectIssueBoards',
     'ProjectIterations',

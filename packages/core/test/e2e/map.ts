@@ -107,7 +107,7 @@ describe('API Map', () => {
       'ProjectCustomAttributes',
       'ProjectDORA4Metrics',
       'ProjectHooks',
-      'ProjectImportExport',
+      'ProjectImportExports',
       'ProjectInvitations',
       'ProjectIssueBoards',
       'ProjectIterations',

@@ -40,7 +40,7 @@ export interface ImportStatusSchema extends Record<string, unknown> {
   import_error?: string;
 }
 
-export class ProjectImportExport<C extends boolean = false> extends BaseResource<C> {
+export class ProjectImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
@@ -52,7 +52,6 @@ export class ProjectImportExport<C extends boolean = false> extends BaseResource
     );
   }
 
-  // TODO: What does this return?
   import<E extends boolean = false>(
     file: { content: Blob; filename: string },
     path: string,
