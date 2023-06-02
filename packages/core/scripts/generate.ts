@@ -33,7 +33,7 @@ export function buildMap() {
   const { Gitlab, ...directResources } = resources;
 
   Object.entries(directResources).forEach(([name, Resource]) => {
-    const r = new Resource({ requesterFn: () => ({} as RequesterType) });
+    const r = new Resource({ token: 'dummey', requesterFn: () => ({} as RequesterType) });
     const formattedInstanceMethods = getInstanceMethods(r).map((m) => ({
       name: m,
       args: removeOptionalArg(getParamNames(r[m]) as (string | Record<string, unknown>)[]),

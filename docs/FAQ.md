@@ -2,7 +2,7 @@
 
 There is another constructor parameter that allows the user to specify their custom request library. To specify the library, simply set the `requester` property when instantiating a service:
 
-An example can be seen in the [Requester.ts](./packages/rest/src/Requester.ts) file.
+An example can be seen in the [Requester.ts](../packages/rest/src/Requester.ts) file.
 
 ```javascript
 import { Gitlab } from '@gitbeaker/rest';

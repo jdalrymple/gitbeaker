@@ -80,7 +80,7 @@
 ## Packages
 - :wrench: [**@gitbeaker/requester-utils**](https://www.npmjs.com/package/@gitbeaker/requester-utils) - Utilities for the underlying HTTP request functionality.
 - :scroll: [**@gitbeaker/core**](https://www.npmjs.com/package/@gitbeaker/core) - The core API detailing all the Gitlab resource support.
-- :computer: [**@gitbeaker/rest**](https://www.npmjs.com/package/@gitbeaker/rest) - The Node.js, Deno and Modern Browser wrapper around the gitbeaker core API, using native fetch.
+- :computer: [**@gitbeaker/rest**](https://www.npmjs.com/package/@gitbeaker/rest) - The Node.js, Deno and Modern Browser wrapper around the gitbeaker core API, using native fetch. This is the primary library for consumption.
 - :pager: [**@gitbeaker/cli**](https://www.npmjs.com/package/@gitbeaker/cli) - The CLI Wrapper around the @gitbeaker/rest distribution.
 
 ## Contributors
