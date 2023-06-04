@@ -131,6 +131,15 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   approvals_before_merge: unknown | null;
 }
 
+export interface MergeRequestChangesSchema
+  extends Omit<
+    MergeRequestSchema,
+    'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
+  > {
+  changes: CommitDiffSchema[];
+  overflow: boolean;
+}
+
 export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   subscribed: boolean;
   changes_count: string;
@@ -238,6 +247,10 @@ export type EditMergeRequestOptions = {
   allowMaintainerToPush?: boolean;
 };
 
+export type GetMergeRequestChangesOptions = {
+  access_raw_diffs?: boolean;
+};
+
 // Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   // convenience method
@@ -330,6 +343,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<MergeRequestDiffVersionsSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/versions`,
+      options,
+    );
+  }
+
+  changes<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: GetMergeRequestChangesOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestChangesSchema, C, E, void>> {
+    return RequestHelper.get<MergeRequestChangesSchema>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/changes`,
       options,
     );
   }

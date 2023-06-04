@@ -87,13 +87,25 @@ describe('MergeRequests.cancelOnPipelineSuccess', () => {
   });
 });
 
-describe('MergeRequests.allChanges', () => {
-  it('should request GET projects/:id/merge_requests/:id/changes', async () => {
+describe('MergeRequests.allDiffs', () => {
+  it('should request GET projects/:id/merge_requests/:id/diffs', async () => {
     await service.allDiffs(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/diffs',
+      undefined,
+    );
+  });
+});
+
+describe('MergeRequests.changes', () => {
+  it('should request GET projects/:id/merge_requests/:id/changes', async () => {
+    await service.allDiffs(2, 3);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/changes',
       undefined,
     );
   });
