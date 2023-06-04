@@ -101,7 +101,7 @@ describe('MergeRequests.allDiffs', () => {
 
 describe('MergeRequests.changes', () => {
   it('should request GET projects/:id/merge_requests/:id/changes', async () => {
-    await service.allDiffs(2, 3);
+    await service.changes(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
