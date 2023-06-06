@@ -285,7 +285,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
-    let prefix = endpoint``;
+    let prefix = '';
 
     if (projectId) {
       prefix = endpoint`projects/${projectId}/`;
