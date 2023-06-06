@@ -4,6 +4,7 @@ import type {
   BaseRequestOptions,
   Either,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -89,19 +90,19 @@ export interface CondensedMergeRequestSchema extends Record<string, unknown> {
 }
 
 export interface MergeRequestSchema extends CondensedMergeRequestSchema {
-  merged_by: Omit<UserSchema, 'created_at'> | null;
+  merged_by: MappedOmit<UserSchema, 'created_at'> | null;
   merged_at: string | null;
-  closed_by: Omit<UserSchema, 'created_at'> | null;
-  closed_at: Omit<UserSchema, 'created_at'> | null;
+  closed_by: MappedOmit<UserSchema, 'created_at'> | null;
+  closed_at: MappedOmit<UserSchema, 'created_at'> | null;
   target_branch: string;
   source_branch: string;
   user_notes_count: number;
   upvotes: number;
   downvotes: number;
-  author: Omit<UserSchema, 'created_at'>;
-  assignees: Omit<UserSchema, 'created_at'>[] | null;
-  assignee: Omit<UserSchema, 'created_at'> | null;
-  reviewers: Omit<UserSchema, 'created_at'>[] | null;
+  author: MappedOmit<UserSchema, 'created_at'>;
+  assignees: MappedOmit<UserSchema, 'created_at'>[] | null;
+  assignee: MappedOmit<UserSchema, 'created_at'> | null;
+  reviewers: MappedOmit<UserSchema, 'created_at'>[] | null;
   source_project_id: number;
   target_project_id: number;
   labels: string[] | null;
@@ -154,7 +155,7 @@ export interface MergeRequestTodoSchema extends TodoSchema {
 }
 
 export interface MergeRequestChangesSchema
-  extends Omit<
+  extends MappedOmit<
     MergeRequestSchema,
     'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
   > {
@@ -347,8 +348,8 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<MappedOmit<UserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/participants`,
       options,

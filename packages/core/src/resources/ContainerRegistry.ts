@@ -4,6 +4,7 @@ import type {
   BaseRequestOptions,
   Either,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -38,7 +39,7 @@ export interface RegistryRepositorySchema extends Record<string, unknown> {
   tags?: Pick<RegistryRepositoryTagSchema, 'name' | 'path' | 'location'>[];
 }
 
-export type CondensedRegistryRepositorySchema = Omit<
+export type CondensedRegistryRepositorySchema = MappedOmit<
   RegistryRepositorySchema,
   'tags' | 'tags_count'
 >;

@@ -3,6 +3,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -13,7 +14,7 @@ import { UserSchema } from '../resources/Users';
 export interface NoteSchema extends Record<string, unknown> {
   id: number;
   body: string;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
 }

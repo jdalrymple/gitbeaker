@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -37,7 +38,7 @@ export type CreateFeatureFlagOptions = {
   strategies?: {
     name: string;
     parameters?: Record<string, string>;
-    scopes?: Omit<FeatureFlagStrategyScopeSchema, 'id'>[];
+    scopes?: MappedOmit<FeatureFlagStrategyScopeSchema, 'id'>[];
   };
 };
 

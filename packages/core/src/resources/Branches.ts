@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -18,7 +19,7 @@ export interface BranchSchema extends Record<string, unknown> {
   developers_can_merge: boolean;
   can_push: boolean;
   web_url: string;
-  commit: Omit<CommitSchema, 'web_url' | 'created_at'>;
+  commit: MappedOmit<CommitSchema, 'web_url' | 'created_at'>;
 }
 
 export class Branches<C extends boolean = false> extends BaseResource<C> {

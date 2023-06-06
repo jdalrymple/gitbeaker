@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -38,7 +39,7 @@ export interface ReleaseSchema extends Record<string, unknown> {
   description_html: string;
   created_at: string;
   released_at: string;
-  user: Omit<UserSchema, 'created_at'>;
+  user: MappedOmit<UserSchema, 'created_at'>;
   commit: CommitSchema;
   milestones?: MilestoneSchema[];
   commit_path: string;

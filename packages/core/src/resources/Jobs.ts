@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -84,26 +85,26 @@ export interface BridgeSchema extends Record<string, unknown> {
   queued_duration: number;
   id: number;
   name: string;
-  pipeline: Omit<PipelineSchema & { project_id: number }, 'user'>;
+  pipeline: MappedOmit<PipelineSchema & { project_id: number }, 'user'>;
   ref: string;
   stage: string;
   status: string;
   tag: boolean;
   web_url: string;
   user: ExpandedUserSchema;
-  downstream_pipeline: Omit<PipelineSchema, 'user'>;
+  downstream_pipeline: MappedOmit<PipelineSchema, 'user'>;
 }
 
 export interface AllowedAgentSchema extends Record<string, unknown> {
   id: number;
-  config_project: Omit<SimpleProjectSchema, 'web_url'>;
+  config_project: MappedOmit<SimpleProjectSchema, 'web_url'>;
 }
 
 export interface JobKubernetesAgentsSchema extends Record<string, unknown> {
   allowed_agents: AllowedAgentSchema[];
   job: CondensedJobSchema;
   pipeline: PipelineSchema;
-  project: Omit<SimpleProjectSchema, 'web_url'>;
+  project: MappedOmit<SimpleProjectSchema, 'web_url'>;
   user: UserSchema;
 }
 

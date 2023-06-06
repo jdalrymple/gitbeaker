@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   Either,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -21,7 +22,7 @@ export interface PackageSchema extends Record<string, unknown> {
 export interface ExpandedPackageSchema extends PackageSchema {
   _links: Record<string, string>;
   pipelines: PipelineSchema[];
-  versions: Omit<ExpandedPackageSchema, '_links'>;
+  versions: MappedOmit<ExpandedPackageSchema, '_links'>;
 }
 
 export interface PackageFileSchema extends Record<string, unknown> {

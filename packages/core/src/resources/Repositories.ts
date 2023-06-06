@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   AsStream,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   ShowExpanded,
   Sudo,
@@ -16,8 +17,8 @@ export interface RepositoryChangelogSchema extends Record<string, unknown> {
 }
 
 export interface RepositoryCompareSchema extends Record<string, unknown> {
-  commit: Omit<CondensedCommitSchema, 'message'>;
-  commits?: Omit<CondensedCommitSchema, 'message'>[];
+  commit: MappedOmit<CondensedCommitSchema, 'message'>;
+  commits?: MappedOmit<CondensedCommitSchema, 'message'>[];
   diffs?: CommitDiffSchema[];
   compare_timeout: boolean;
   compare_same_ref: boolean;

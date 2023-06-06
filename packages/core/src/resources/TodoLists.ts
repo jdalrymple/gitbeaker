@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -30,7 +31,7 @@ export type TodoState = 'pending' | 'done';
 
 export interface TodoSchema extends Record<string, unknown> {
   id: number;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   project: Pick<
     SimpleProjectSchema,
     'id' | 'name' | 'name_with_namespace' | 'path' | 'path_with_namespace'

@@ -6,6 +6,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   Camelize,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -45,7 +46,7 @@ export interface DiscussionNoteSchema extends Record<string, unknown> {
   type?: string;
   body: string;
   attachment?: string;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;

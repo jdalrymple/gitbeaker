@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -38,7 +39,7 @@ export interface ExpandedPipelineSchema extends PipelineSchema {
   before_sha: string;
   tag: boolean;
   yaml_errors?: unknown;
-  user: Omit<UserSchema, 'created_at'>;
+  user: MappedOmit<UserSchema, 'created_at'>;
   started_at: string;
   finished_at: string;
   committed_at?: string;

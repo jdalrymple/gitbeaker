@@ -4,6 +4,7 @@ import type {
   BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
 } from '../infrastructure';
@@ -39,7 +40,7 @@ export interface EventSchema extends Record<string, unknown> {
   author_id: number;
   target_title: string;
   created_at: string;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   author_username: string;
 }
 
