@@ -1,3 +1,16 @@
+# 38.12.0 (Tue Jun 06 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Switching to a more strict "Omit" type to support better mapped typing [#3297](https://github.com/jdalrymple/gitbeaker/pull/3297) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 38.11.0 (Tue Jun 06 2023)
 
 :tada: This release contains work from a new contributor! :tada:
