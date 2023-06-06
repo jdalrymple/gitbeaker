@@ -99,9 +99,9 @@ describe('MergeRequests.allDiffs', () => {
   });
 });
 
-describe('MergeRequests.changes', () => {
+describe('MergeRequests.showChanges', () => {
   it('should request GET projects/:id/merge_requests/:id/changes', async () => {
-    await service.changes(2, 3);
+    await service.showChanges(2, 3);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

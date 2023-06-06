@@ -131,15 +131,6 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   approvals_before_merge: unknown | null;
 }
 
-export interface MergeRequestChangesSchema
-  extends Omit<
-    MergeRequestSchema,
-    'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
-  > {
-  changes: CommitDiffSchema[];
-  overflow: boolean;
-}
-
 export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   subscribed: boolean;
   changes_count: string;
@@ -160,6 +151,15 @@ export interface MergeRequestTodoSchema extends TodoSchema {
   project: SimpleProjectSchema;
   target_type: 'MergeRequest';
   target: ExpandedMergeRequestSchema;
+}
+
+export interface MergeRequestChangesSchema
+  extends Omit<
+    MergeRequestSchema,
+    'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
+  > {
+  changes: CommitDiffSchema[];
+  overflow: boolean;
 }
 
 // Select method options
@@ -247,10 +247,6 @@ export type EditMergeRequestOptions = {
   allowMaintainerToPush?: boolean;
 };
 
-export type GetMergeRequestChangesOptions = {
-  access_raw_diffs?: boolean;
-};
-
 // Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   // convenience method
@@ -311,18 +307,6 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allIssuesClosed<E extends boolean = false>(
-    projectId: string | number,
-    mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
-    return RequestHelper.get<IssueSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/closes_issues`,
-      options,
-    );
-  }
-
   allCommits<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
@@ -347,14 +331,14 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  changes<E extends boolean = false>(
+  allIssuesClosed<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: GetMergeRequestChangesOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MergeRequestChangesSchema, C, E, void>> {
-    return RequestHelper.get<MergeRequestChangesSchema>()(
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
+    return RequestHelper.get<IssueSchema[]>()(
       this,
-      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/changes`,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/closes_issues`,
       options,
     );
   }
@@ -553,6 +537,22 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}`,
+      options,
+    );
+  }
+
+  showChanges<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: { accessRawDiffs?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestChangesSchema, C, E, void>> {
+    process.emitWarning(
+      'This endpoint was deprecated in Gitlab API 15.7 and will be removed in API v5. Please use the "allDiffs" function instead.',
+      'DeprecationWarning',
+    );
+    return RequestHelper.get<MergeRequestChangesSchema>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/changes`,
       options,
     );
   }
