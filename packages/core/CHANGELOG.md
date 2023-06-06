@@ -1,3 +1,20 @@
+# v38.11.0 (Tue Jun 06 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all your work!
+
+#### ✨ Feature
+
+- Adding Mergerequest "changes" endpoint for backwards compatibility until full deprecation [#3293](https://github.com/jdalrymple/gitbeaker/pull/3293) (rafael.mello@ifood.com.br [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Rafael Mello ([@merorafael](https://github.com/merorafael))
+
+---
+
 # v38.10.0 (Fri Jun 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -1,3 +1,27 @@
+# 38.11.0 (Tue Jun 06 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Adding Mergerequest "changes" endpoint for backwards compatibility until full deprecation [#3293](https://github.com/jdalrymple/gitbeaker/pull/3293) (rafael.mello@ifood.com.br [@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.3.1 to 16.3.2 [#3294](https://github.com/jdalrymple/gitbeaker/pull/3294) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump jest-extended from 3.2.4 to 4.0.0 [#3295](https://github.com/jdalrymple/gitbeaker/pull/3295) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Rafael Mello ([@merorafael](https://github.com/merorafael))
+
+---
+
 # 38.10.0 (Fri Jun 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:
