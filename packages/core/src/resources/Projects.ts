@@ -4,6 +4,7 @@ import type {
   BaseRequestOptions,
   Either,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -17,7 +18,7 @@ import type { AccessLevel } from '../templates/ResourceAccessRequests';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;
-  user: Omit<UserSchema, 'created_at'>;
+  user: MappedOmit<UserSchema, 'created_at'>;
 }
 
 export interface ProjectStoragePath extends Record<string, unknown> {
@@ -414,8 +415,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   allUsers<E extends boolean = false>(
     projectId: string | number,
     options?: { search?: string; skipUsers?: number[] } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<MappedOmit<UserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/users`,
       options,

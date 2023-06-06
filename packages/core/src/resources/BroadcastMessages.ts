@@ -2,7 +2,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -24,7 +23,18 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   dismissable: boolean;
 }
 
-export type BroadcastMessageOptions = Camelize<Omit<BroadcastMessageSchema, 'id'>>;
+export interface BroadcastMessageOptions extends Record<string, unknown> {
+  message?: string;
+  startsAt?: string;
+  endsAt?: string;
+  color?: string;
+  font?: string;
+  active?: boolean;
+  targetPath?: string;
+  targetAccessLevels?: AccessLevel[];
+  broadcastType?: string;
+  dismissable?: boolean;
+}
 
 export class BroadcastMessages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

@@ -3,6 +3,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -12,7 +13,7 @@ import type { UserSchema } from '../resources/Users';
 
 export interface StateEventSchema extends Record<string, unknown> {
   id: number;
-  user: Omit<UserSchema, 'created_at'>;
+  user: MappedOmit<UserSchema, 'created_at'>;
   created_at: string;
   resource_type: 'Issue';
   resource_id: number;

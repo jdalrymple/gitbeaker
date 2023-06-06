@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -10,7 +11,7 @@ import type {
 import type { IssueSchema } from './Issues';
 
 export interface EpicIssueSchema
-  extends Omit<IssueSchema, 'references' | 'task_completion_status'> {
+  extends MappedOmit<IssueSchema, 'references' | 'task_completion_status'> {
   epic_issue_id: number;
 }
 

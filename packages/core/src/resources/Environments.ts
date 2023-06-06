@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   EitherOrNone,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -27,9 +28,12 @@ export interface EnvironmentSchema extends Record<string, unknown> {
   deployable: DeployableSchema;
 }
 
-export type CondensedEnvironmentSchema = Omit<EnvironmentSchema, 'last_deployment' | 'deployable'>;
+export type CondensedEnvironmentSchema = MappedOmit<
+  EnvironmentSchema,
+  'last_deployment' | 'deployable'
+>;
 
-export type ReviewAppSchema = Omit<CondensedEnvironmentSchema, 'state'>;
+export type ReviewAppSchema = MappedOmit<CondensedEnvironmentSchema, 'state'>;
 
 export class Environments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

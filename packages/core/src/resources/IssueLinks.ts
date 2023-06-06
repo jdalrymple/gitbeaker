@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -18,9 +19,9 @@ export interface IssueLinkSchema extends Record<string, unknown> {
   state: string;
   description: string;
   weight?: number;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   milestone: MilestoneSchema;
-  assignees?: Omit<UserSchema, 'created_at'>[];
+  assignees?: MappedOmit<UserSchema, 'created_at'>[];
   title: string;
   labels?: string[];
   user_notes_count: number;
@@ -34,11 +35,11 @@ export interface IssueLinkSchema extends Record<string, unknown> {
 }
 
 export interface ExpandedIssueLinkSchema extends Record<string, unknown> {
-  source_issue: Omit<
+  source_issue: MappedOmit<
     IssueLinkSchema,
     'link_type' | 'link_created_at' | 'link_updated_at' | 'issue_link_id'
   >;
-  target_issue: Omit<
+  target_issue: MappedOmit<
     IssueLinkSchema,
     'link_type' | 'link_created_at' | 'link_updated_at' | 'issue_link_id'
   >;

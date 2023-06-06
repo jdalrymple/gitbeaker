@@ -4,6 +4,7 @@ import type {
   BaseRequestOptions,
   EitherOrNone,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -28,10 +29,10 @@ export interface IssueSchema extends Record<string, unknown> {
   description: string;
   health_status?: string;
   weight?: number;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   milestone: MilestoneSchema;
   project_id: number;
-  assignees?: Omit<UserSchema, 'created_at'>[];
+  assignees?: MappedOmit<UserSchema, 'created_at'>[];
   type: string;
   updated_at: string;
   closed_at?: string;
@@ -218,8 +219,8 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<Omit<UserSchema, 'created_at'>[]>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<UserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<MappedOmit<UserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/participants`,
       options,

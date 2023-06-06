@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -27,7 +28,7 @@ export interface EpicSchema extends Record<string, unknown> {
     relative: string;
     full: string;
   };
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   start_date?: string;
   start_date_is_fixed: boolean;
   start_date_fixed?: string;
@@ -138,8 +139,8 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     options?: EditEpicOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Omit<EpicSchema, '_links'>, C, E, void>> {
-    return RequestHelper.put<Omit<EpicSchema, '_links'>>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<EpicSchema, '_links'>, C, E, void>> {
+    return RequestHelper.put<MappedOmit<EpicSchema, '_links'>>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}`,
       options,

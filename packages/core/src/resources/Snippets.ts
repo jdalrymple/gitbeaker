@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   ShowExpanded,
   Sudo,
   UserAgentDetailSchema,
@@ -15,7 +16,7 @@ export interface SimpleSnippetSchema extends Record<string, unknown> {
   title: string;
   file_name: string;
   description?: string;
-  author: Omit<UserSchema, 'created_at'>;
+  author: MappedOmit<UserSchema, 'created_at'>;
   updated_at: string;
   created_at: string;
   project_id?: string | number;

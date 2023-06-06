@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -21,7 +22,7 @@ export interface CondensedPipelineScheduleSchema extends Record<string, unknown>
   active: boolean;
   created_at: string;
   updated_at: string;
-  owner: Omit<UserSchema, 'created_at'>;
+  owner: MappedOmit<UserSchema, 'created_at'>;
 }
 
 export interface PipelineScheduleSchema extends CondensedPipelineScheduleSchema {

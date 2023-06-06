@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -15,7 +16,7 @@ import type { CondensedMergeRequestSchema } from './MergeRequests';
 export interface MergeTrainSchema extends Record<string, unknown> {
   id: number;
   merge_request: CondensedMergeRequestSchema;
-  user: Omit<UserSchema, 'created_at'>;
+  user: MappedOmit<UserSchema, 'created_at'>;
   pipeline: PipelineSchema;
   created_at: string;
   updated_at: string;
