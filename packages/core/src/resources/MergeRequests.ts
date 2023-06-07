@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  Either,
+  EitherOrNone,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
@@ -281,7 +281,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       groupId,
       ...options
     }: AllMergeRequestsOptions &
-      Either<{ projectId: string | number }, { groupId: string | number }> &
+      EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
       PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
