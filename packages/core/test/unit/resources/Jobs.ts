@@ -53,9 +53,9 @@ describe('Jobs.cancel', () => {
   });
 });
 
-describe('Jobs.downloadTraceFile', () => {
+describe('Jobs.showLog', () => {
   it('should request GET /projects/:id/jobs/:id/trace', async () => {
-    await service.downloadTraceFile(1, 2);
+    await service.showLog(1, 2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs/2/trace', undefined);
   });
