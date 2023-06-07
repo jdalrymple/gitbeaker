@@ -1,3 +1,15 @@
+# v38.12.1 (Wed Jun 07 2023)
+
+#### 🔨 Technical Debt
+
+- Updating typing for `MergeRequests.all()` to properly support not passing `groupId` or `projectId` [#3298](https://github.com/jdalrymple/gitbeaker/pull/3298) (rafael.mello@ifood.com.br)
+
+#### Authors: 1
+
+- Rafael Mello ([@merorafael](https://github.com/merorafael))
+
+---
+
 # v38.12.0 (Tue Jun 06 2023)
 
 #### 🐛 Bug Fix
