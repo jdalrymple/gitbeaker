@@ -1,3 +1,21 @@
+# v39.0.0 (Thu Jun 08 2023)
+
+#### 💥 Breaking Change
+
+- Renaming downloadTraceFile to showLog and updating return type [#3301](https://github.com/jdalrymple/gitbeaker/pull/3301) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fix the pipeline trigger endpoint [#3305](https://github.com/jdalrymple/gitbeaker/pull/3305) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding missing property `is_admin` to `ExpandedUserSchema` type [#3304](https://github.com/jdalrymple/gitbeaker/pull/3304) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix `CreateProtectedBranchOptions` type to properly reflect access levels [#3302](https://github.com/jdalrymple/gitbeaker/pull/3302) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.12.1 (Wed Jun 07 2023)
 
 #### 🔨 Technical Debt
