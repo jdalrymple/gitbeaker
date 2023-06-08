@@ -153,18 +153,6 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  downloadTraceFile<E extends boolean = false>(
-    projectId: string | number,
-    jobId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(
-      this,
-      endpoint`projects/${projectId}/jobs/${jobId}/trace`,
-      options,
-    );
-  }
-
   erase<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
@@ -227,5 +215,17 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     if (!this.headers['job-token']) throw new Error('Missing required header "job-token"');
 
     return RequestHelper.get<JobKubernetesAgentsSchema>()(this, 'job/allowed_agents', options);
+  }
+
+  showLog<E extends boolean = false>(
+    projectId: string | number,
+    jobId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<string, void, E, void>> {
+    return RequestHelper.get<string>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/trace`,
+      options,
+    );
   }
 }
