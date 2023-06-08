@@ -90,8 +90,9 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
-      endpoint`projects/${projectId}/pipelines`,
+      endpoint`projects/${projectId}/trigger/pipeline`,
       {
+        isForm: true,
         searchParams: {
           token,
           ref,
