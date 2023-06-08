@@ -23,6 +23,7 @@ export interface UserSchema extends Record<string, unknown> {
 }
 
 export interface ExpandedUserSchema extends UserSchema {
+  is_admin?: boolean;
   bio?: string;
   bot: boolean;
   location?: string;
