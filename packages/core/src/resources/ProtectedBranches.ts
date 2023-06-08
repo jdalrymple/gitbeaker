@@ -8,8 +8,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface ProtectedBranchAccessLevel {
-  access_level: 0 | 30 | 40 | 60;
+export type ProtectedBranchAccessLevel = 0 | 30 | 40 | 60;
+export interface ExtendedProtectedBranchAccessLevel {
+  access_level: ProtectedBranchAccessLevel;
   access_level_description: string;
   user_id?: number;
   group_id?: number;
@@ -18,9 +19,9 @@ export interface ProtectedBranchAccessLevel {
 export interface ProtectedBranchSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  push_access_levels?: ProtectedBranchAccessLevel[];
-  merge_access_levels?: ProtectedBranchAccessLevel[];
-  unprotect_access_levels?: ProtectedBranchAccessLevel[];
+  push_access_levels?: ExtendedProtectedBranchAccessLevel[];
+  merge_access_levels?: ExtendedProtectedBranchAccessLevel[];
+  unprotect_access_levels?: ExtendedProtectedBranchAccessLevel[];
   allow_force_push: boolean;
   code_owner_approval_required: boolean;
 }
