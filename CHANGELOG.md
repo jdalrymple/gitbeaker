@@ -1,3 +1,21 @@
+# 39.1.0 (Sun Jun 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing typo in the `edit` function of Resource/Group/Project Milestones [#3308](https://github.com/jdalrymple/gitbeaker/pull/3308) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump lerna from 6.6.1 to 7.0.0 [#3306](https://github.com/jdalrymple/gitbeaker/pull/3306) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.0.0 (Thu Jun 08 2023)
 
 #### 💥 Breaking Change

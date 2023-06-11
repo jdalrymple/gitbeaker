@@ -1,3 +1,15 @@
+# v39.1.0 (Sun Jun 11 2023)
+
+#### 🐛 Bug Fix
+
+- Fixing typo in the `edit` function of Resource/Group/Project Milestones [#3308](https://github.com/jdalrymple/gitbeaker/pull/3308) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.0.0 (Thu Jun 08 2023)
 
 #### 💥 Breaking Change
