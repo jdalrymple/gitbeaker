@@ -114,7 +114,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
       description?: string;
       dueDate?: string;
       startDate?: string;
-      startEvent?: 'close' | 'activate';
+      stateEvent?: 'close' | 'activate';
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>> {
