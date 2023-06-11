@@ -55,7 +55,7 @@ export interface ProjectMilestones<C extends boolean = false> extends ResourceMi
       description?: string;
       dueDate?: string;
       startDate?: string;
-      startEvent?: 'close' | 'activate';
+      stateEvent?: 'close' | 'activate';
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>>;

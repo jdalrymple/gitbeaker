@@ -54,7 +54,7 @@ export interface GroupMilestones<C extends boolean = false> extends ResourceMile
       description?: string;
       dueDate?: string;
       startDate?: string;
-      startEvent?: 'close' | 'activate';
+      stateEvent?: 'close' | 'activate';
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>>;
