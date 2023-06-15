@@ -2,6 +2,7 @@ import type {
   DefaultRequestOptions,
   DefaultResourceOptions,
   RequestOptions,
+  ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
 import {
   defaultOptionsHandler as baseOptionsHandler,
@@ -34,7 +35,7 @@ export async function defaultOptionsHandler(
   return options;
 }
 
-export async function processBody(response: Response) {
+export async function processBody(response: Response): Promise<ResponseBodyTypes> {
   // Split to remove potential charset info from the content type
   const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
 
@@ -58,7 +59,7 @@ function delay(ms: number) {
 async function parseResponse(response: Response, asStream = false) {
   const { status, headers: rawHeaders } = response;
   const headers = Object.fromEntries(rawHeaders.entries());
-  let body;
+  let body: ResponseBodyTypes | null;
 
   if (asStream) {
     body = response.body;
@@ -69,7 +70,7 @@ async function parseResponse(response: Response, asStream = false) {
   return { body, headers, status };
 }
 
-async function throwFailedRequestError(response: Response) {
+async function throwFailedRequestError(request: Request, response: Response) {
   const content = await response.text();
   const contentType = response.headers.get('Content-Type');
   let description = 'API Request Error';
@@ -85,6 +86,7 @@ async function throwFailedRequestError(response: Response) {
   throw new Error(response.statusText, {
     cause: {
       description,
+      request,
       response,
     },
   });
@@ -110,9 +112,11 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
+  const request = new Request(url, { ...opts, mode });
+
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const response = await fetch(url, { ...opts, mode }).catch((e) => {
+    const response = await fetch(request).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
         throw new Error('Query timeout was reached');
       }
@@ -121,7 +125,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     });
 
     if (response.ok) return parseResponse(response, asStream);
-    if (!retryCodes.includes(response.status)) await throwFailedRequestError(response);
+    if (!retryCodes.includes(response.status)) await throwFailedRequestError(request, response);
 
     // Retry
     await delay(2 ** i * 0.1);

@@ -10,7 +10,8 @@ export type ResponseBodyTypes =
   | string
   | string[]
   | number
-  | void;
+  | void
+  | null;
 
 export interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTypes> {
   body: T;
