@@ -112,10 +112,9 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
-  const request = new Request(url, { ...opts, mode });
-
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
+    const request = new Request(url, { ...opts, mode });
     const response = await fetch(request).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
         throw new Error('Query timeout was reached');
@@ -128,14 +127,16 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(request, response);
 
     // Retry
-    await delay(2 ** i * 0.1);
+    await delay(2 ** i * 0.25);
 
     // eslint-disable-next-line
     continue;
   }
   /* eslint-enable */
 
-  throw new Error('Could not successfully complete this request');
+  throw new Error(
+    `Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.`,
+  );
 }
 
 export const requesterFn = createRequesterFn(defaultOptionsHandler, defaultRequestHandler);
