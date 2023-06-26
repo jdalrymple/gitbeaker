@@ -11,14 +11,9 @@ describe('processBody', () => {
       json() {
         return Promise.resolve({ test: 5 });
       },
-      headers: {
-        entries() {
-          return [['content-type', 'application/json']];
-        },
-        get() {
-          return 'application/json';
-        },
-      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
     } as unknown as Response);
 
     expect(output).toMatchObject({ test: 5 });
@@ -34,53 +29,33 @@ describe('processBody', () => {
         blob() {
           return Promise.resolve(blobData);
         },
-        headers: {
-          entries() {
-            return [['content-type', 'application/octet-stream']];
-          },
-          get() {
-            return 'application/octet-stream';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/octet-stream',
+        }),
       } as unknown as Response),
       processBody({
         blob() {
           return Promise.resolve(blobData);
         },
-        headers: {
-          entries() {
-            return [['content-type', 'binary/octet-stream']];
-          },
-          get() {
-            return 'binary/octet-stream';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'binary/octet-stream',
+        }),
       } as unknown as Response),
       processBody({
         blob() {
           return Promise.resolve(blobData);
         },
-        headers: {
-          entries() {
-            return [['content-type', 'image/png']];
-          },
-          get() {
-            return 'image/png';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'image/png',
+        }),
       } as unknown as Response),
       processBody({
         blob() {
           return Promise.resolve(blobData);
         },
-        headers: {
-          entries() {
-            return [['content-type', 'application/gzip']];
-          },
-          get() {
-            return 'application/gzip';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/gzip',
+        }),
       } as unknown as Response),
     ];
 
@@ -94,14 +69,9 @@ describe('processBody', () => {
       text() {
         return Promise.resolve('test');
       },
-      headers: {
-        entries() {
-          return [['content-type', 'text/plain']];
-        },
-        get() {
-          return 'text/plain';
-        },
-      },
+      headers: new Headers({
+        'content-type': 'text/plain',
+      }),
     } as unknown as Response);
 
     expect(typeof output).toBe('string');
@@ -113,19 +83,14 @@ describe('processBody', () => {
       type: 'plain/text',
     });
 
-    const output = await processBody({
+    const output = (await processBody({
       blob() {
         return Promise.resolve(blobData);
       },
-      headers: {
-        entries() {
-          return [['content-type', 'application/fake']];
-        },
-        get() {
-          return 'fake';
-        },
-      },
-    } as unknown as Response);
+      headers: new Headers({
+        'content-type': 'application/fake',
+      }),
+    } as unknown as Response)) as Blob;
 
     expect(output).toBeInstanceOf(Blob);
     expect(output.size).toBe(4);
@@ -141,14 +106,9 @@ describe('defaultRequestHandler', () => {
         ok: false,
         status: 501,
         statusText: 'Really Bad Error',
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
         json: () => Promise.resolve(stringBody),
         text: () => Promise.resolve(JSON.stringify(stringBody)),
       }),
@@ -170,14 +130,9 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
@@ -197,14 +152,9 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
@@ -212,7 +162,9 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl'), { mode: undefined });
+    const request = new Request(new URL('http://test.com/testurl'), { mode: undefined });
+
+    expect(MockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -222,14 +174,9 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
@@ -238,9 +185,9 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/testurl/123?test=4'), {
-      mode: undefined,
-    });
+    const request = new Request(new URL('http://test.com/testurl/123?test=4'), { mode: undefined });
+
+    expect(MockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
@@ -250,22 +197,19 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
     await defaultRequestHandler('http://test.com/repository/archive');
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/repository/archive'), {
+    const request = new Request(new URL('http://test.com/repository/archive'), {
       mode: 'same-origin',
     });
+
+    expect(MockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
@@ -275,22 +219,17 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
     await defaultRequestHandler('http://test.com/test/something');
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/test/something'), {
-      mode: undefined,
-    });
+    const request = new Request(new URL('http://test.com/test/something'), { mode: undefined });
+
+    expect(MockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should handle multipart prefixUrls correctly', async () => {
@@ -300,14 +239,9 @@ describe('defaultRequestHandler', () => {
         text: () => Promise.resolve(JSON.stringify({})),
         ok: true,
         status: 200,
-        headers: {
-          entries() {
-            return [['content-type', 'application/json']];
-          },
-          get() {
-            return 'application/json';
-          },
-        },
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
       }),
     );
 
@@ -316,27 +250,33 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com/projects',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/testurl/123?test=4'), {
+    const request = new Request(new URL('http://test.com/projects/testurl/123?test=4'), {
       mode: undefined,
     });
+
+    expect(MockFetch).toHaveBeenCalledWith(request);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
       prefixUrl: 'http://test.com/projects',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
+    const request2 = new Request(new URL('http://test.com/projects/123/testurl?test=4'), {
       mode: undefined,
     });
+
+    expect(MockFetch).toHaveBeenCalledWith(request2);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
       prefixUrl: 'http://test.com/projects/',
     } as RequestOptions);
 
-    expect(MockFetch).toHaveBeenCalledWith(new URL('http://test.com/projects/123/testurl?test=4'), {
+    const request3 = new Request(new URL('http://test.com/projects/123/testurl?test=4'), {
       mode: undefined,
     });
+
+    expect(MockFetch).toHaveBeenCalledWith(request3);
   });
 });
 
