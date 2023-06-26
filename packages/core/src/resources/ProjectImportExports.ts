@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -43,9 +43,19 @@ export interface ImportStatusSchema extends Record<string, unknown> {
 export class ProjectImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(
+    options: { asStream: true } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
+
+  download<E extends boolean = false>(
+    projectId: string | number,
+    options?: { asStream?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
+
+  download<E extends boolean = false>(
+    projectId: string | number,
+    options?: AsStream & ShowExpanded<E> & Sudo,
+  ): Promise<any> {
+    return RequestHelper.get<Blob | ReadableStream>()(
       this,
       endpoint`projects/${projectId}/export/download`,
       options,
@@ -109,7 +119,10 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     });
   }
 
-  showExportStatus(projectId: string | number, options?: Sudo) {
+  showExportStatus<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.get<ExportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/export`,
@@ -117,7 +130,10 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     );
   }
 
-  showImportStatus(projectId: string | number, options?: Sudo) {
+  showImportStatus<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ) {
     return RequestHelper.get<ImportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/import`,

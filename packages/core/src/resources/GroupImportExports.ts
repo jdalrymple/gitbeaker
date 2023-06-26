@@ -1,14 +1,28 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { ImportStatusSchema } from './ProjectImportExports';
 
 export class GroupImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(this, endpoint`groups/${groupId}/export/download`, options);
+    options: { asStream: true } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
+
+  download<E extends boolean = false>(
+    groupId: string | number,
+    options?: { asStream?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
+
+  download<E extends boolean = false>(
+    groupId: string | number,
+    options?: AsStream & ShowExpanded<E> & Sudo,
+  ): Promise<any> {
+    return RequestHelper.get<Blob | ReadableStream>()(
+      this,
+      endpoint`groups/${groupId}/export/download`,
+      options,
+    );
   }
 
   import<E extends boolean = false>(
@@ -28,7 +42,7 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
 
   scheduleExport<E extends boolean = false>(
     groupId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     return RequestHelper.post<{ message: string }>()(
       this,

@@ -25,6 +25,14 @@ describe('ProjectImportExport.download', () => {
       undefined,
     );
   });
+
+  it('should request GET /projects/:id/export/download with stream flag', async () => {
+    await service.download(1, { asStream: true });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/export/download', {
+      asStream: true,
+    });
+  });
 });
 
 describe('ProjectImportExport.showExportStatus', () => {
