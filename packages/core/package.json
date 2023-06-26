@@ -62,7 +62,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "tsup": "^6.7.0",
+    "tsup": "^7.1.0",
     "tsx": "^3.12.6",
     "typescript": "^5.0.4"
   }
