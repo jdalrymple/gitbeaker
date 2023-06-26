@@ -1,3 +1,15 @@
+# v39.2.0 (Mon Jun 26 2023)
+
+#### ↕️ Dependencies
+
+- Batch dependency update [#3325](https://github.com/jdalrymple/gitbeaker/pull/3325) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature

@@ -1,3 +1,25 @@
+# v39.2.0 (Mon Jun 26 2023)
+
+#### ✨ Feature
+
+- Adding streaming support to project and group import/exports [#3326](https://github.com/jdalrymple/gitbeaker/pull/3326) ([@jdalrymple](https://github.com/jdalrymple))
+- Support defered token retrieval [#3317](https://github.com/jdalrymple/gitbeaker/pull/3317) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Add missing types to PipelineTriggerTokenSchema [#3318](https://github.com/jdalrymple/gitbeaker/pull/3318) ([@jdalrymple](https://github.com/jdalrymple))
+- Add search specific query params to the AllUsersOptions type [#3319](https://github.com/jdalrymple/gitbeaker/pull/3319) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Batch dependency update [#3325](https://github.com/jdalrymple/gitbeaker/pull/3325) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.1.0 (Sun Jun 11 2023)
 
 #### 🐛 Bug Fix
