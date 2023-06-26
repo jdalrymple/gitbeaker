@@ -12,7 +12,7 @@ services:
     entrypoint:
       - '/bin/sh'
       - '-c'
-      - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.set_token(\"$${PERSONAL_ACCESS_TOKEN}\") \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
+      - "printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]}) \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper"
     ports:
       - '8080:80'
       - '8443:443'
