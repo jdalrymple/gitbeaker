@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  AllOrNone,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -119,11 +120,13 @@ export interface UserRunnerSchema extends Record<string, unknown> {
 
 export type AllUsersOptions = {
   orderBy?: 'name' | 'username' | 'created_at' | 'updated_at';
+  createdBy?: string;
   sort?: 'asc' | 'desc';
   twoFactor?: string;
   withoutProjects?: boolean;
   admins?: boolean;
   samlProviderId?: number;
+  skipLdap?: boolean;
   search?: string;
   username?: string;
   active?: boolean;
@@ -132,7 +135,11 @@ export type AllUsersOptions = {
   excludeInternal?: boolean;
   excludeExternal?: boolean;
   withoutProjectBots?: boolean;
-};
+  createdBefore?: string;
+  createdAfter?: string;
+  withCustomAttributes?: boolean;
+  customAttributes?: Record<string, string>;
+} & AllOrNone<{ provider: string; externUid: string }>;
 
 export type CreateUserOptions = {
   admin?: boolean;
