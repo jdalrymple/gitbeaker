@@ -27,7 +27,7 @@ describe('ApplicationAppearance.edit', () => {
   it('should request PUT /application/appearence without arguments', async () => {
     await service.edit();
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearence', undefined);
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearence', {});
   });
 
   it('should request PUT /application/appearence with a logo property', async () => {

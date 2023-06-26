@@ -33,7 +33,10 @@ describe('ProjectWikis.create', () => {
   it('should request POST /projects/:id/wikis', async () => {
     await service.create(1, 'content', 'title');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/wikis', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/wikis', {
+      content: 'content',
+      title: 'title',
+    });
   });
 });
 

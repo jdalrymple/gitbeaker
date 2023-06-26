@@ -11,7 +11,9 @@ describe('Instantiating services', () => {
       expect(service.constructor.name).toBe(k);
       expect(service.url).toBeDefined();
       expect(service.rejectUnauthorized).toBeTruthy();
-      expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
+      expect(service.authHeaders).toMatchObject({
+        'private-token': expect.any(Function),
+      });
       expect(service.queryTimeout).toBe(300000);
     });
   });

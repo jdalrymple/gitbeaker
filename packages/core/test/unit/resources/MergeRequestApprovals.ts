@@ -45,7 +45,7 @@ describe('MergeRequestApprovals.editConfiguration', () => {
   it('should request POST /projects/:id/approvals without options', async () => {
     await service.editConfiguration(3);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/3/approvals', {});
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/3/approvals', undefined);
   });
 
   it('should request POST /projects/:id/approvals', async () => {

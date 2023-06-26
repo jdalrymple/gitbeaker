@@ -79,7 +79,7 @@ describe('Runners.remove', () => {
   it('should request DEL /runners/:id', async () => {
     await service.remove({ runnerId: 2 });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners/2', {});
   });
 
   it('should request DEL /runners with token', async () => {

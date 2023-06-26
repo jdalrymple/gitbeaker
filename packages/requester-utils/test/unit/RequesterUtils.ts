@@ -11,6 +11,9 @@ const methods = ['get', 'put', 'patch', 'delete', 'post'];
 describe('defaultOptionsHandler', () => {
   const serviceOptions = {
     headers: { test: '5' },
+    authHeaders: {
+      token: () => Promise.resolve('1234'),
+    },
     url: 'testurl',
     rejectUnauthorized: false,
   };
@@ -43,18 +46,18 @@ describe('defaultOptionsHandler', () => {
   });
 
   it('should not assign the sudo property if omitted', async () => {
-    const { headers } = (await defaultOptionsHandler(serviceOptions, {
+    const { headers } = await defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
       method: 'get',
-    })) as { headers: Record<string, string> };
+    });
 
     expect(headers.sudo).toBeUndefined();
   });
 
   it('should assign the sudo property if passed', async () => {
-    const { headers } = (await defaultOptionsHandler(serviceOptions, {
+    const { headers } = await defaultOptionsHandler(serviceOptions, {
       sudo: 'testsudo',
-    })) as { headers: Record<string, string> };
+    });
 
     expect(headers.sudo).toBe('testsudo');
   });
@@ -88,6 +91,15 @@ describe('defaultOptionsHandler', () => {
 
     expect(searchParams).toBe('this_search_term=5');
   });
+
+  it('should append dynamic authentication token headers', async () => {
+    const { headers } = await defaultOptionsHandler(serviceOptions, {
+      sudo: undefined,
+      method: 'get',
+    });
+
+    expect(headers.token).toBe('1234');
+  });
 });
 
 describe('createInstance', () => {
@@ -95,6 +107,9 @@ describe('createInstance', () => {
   const optionsHandler = jest.fn(() => Promise.resolve({} as RequestOptions));
   const serviceOptions = {
     headers: { test: '5' },
+    authHeaders: {
+      token: () => Promise.resolve('1234'),
+    },
     url: 'testurl',
     rejectUnauthorized: false,
   };
@@ -130,11 +145,17 @@ describe('createInstance', () => {
   it('should respect the closure variables', async () => {
     const serviceOptions1 = {
       headers: { test: '5' },
+      authHeaders: {
+        token: () => Promise.resolve('1234'),
+      },
       url: 'testurl',
       rejectUnauthorized: false,
     };
     const serviceOptions2 = {
       headers: { test: '5' },
+      authHeaders: {
+        token: () => Promise.resolve('1234'),
+      },
       url: 'testurl2',
       rejectUnauthorized: true,
     };

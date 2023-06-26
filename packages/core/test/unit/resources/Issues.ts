@@ -136,7 +136,7 @@ describe('Issues.show', () => {
   it('should request GET /projects/:id/issues/:id', async () => {
     await service.show(1, { projectId: 2 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/issues/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/issues/1', {});
   });
 });
 

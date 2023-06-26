@@ -25,6 +25,7 @@ export interface Constructable<T = any> {
 
 export type DefaultResourceOptions = {
   headers: { [header: string]: string };
+  authHeaders: { [authHeader: string]: () => Promise<string> };
   url: string;
   rejectUnauthorized: boolean;
 };
@@ -89,7 +90,7 @@ function isFormData(object: FormData | Record<string, unknown>) {
   return typeof object === 'object' && object.constructor.name === 'FormData';
 }
 
-export function defaultOptionsHandler(
+export async function defaultOptionsHandler(
   resourceOptions: DefaultResourceOptions,
   {
     body,
@@ -100,7 +101,7 @@ export function defaultOptionsHandler(
     method = 'get',
   }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
-  const { headers: preconfiguredHeaders, url } = resourceOptions;
+  const { headers: preconfiguredHeaders, authHeaders, url } = resourceOptions;
   const headers = { ...preconfiguredHeaders };
   const defaultOptions: RequestOptions = {
     headers,
@@ -118,9 +119,14 @@ export function defaultOptionsHandler(
       defaultOptions.body = body as FormData;
     } else {
       defaultOptions.body = JSON.stringify(decamelizeKeys(body));
-      headers['content-type'] = 'application/json';
+      defaultOptions.headers['content-type'] = 'application/json';
     }
   }
+
+  // Append dynamic auth header
+  const [authHeaderKey, authHeaderFn] = Object.entries(authHeaders)[0];
+
+  defaultOptions.headers[authHeaderKey] = await authHeaderFn();
 
   // Format query parameters
   const q = formatQuery(searchParams);
