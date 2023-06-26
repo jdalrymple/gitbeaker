@@ -1058,7 +1058,6 @@ __metadata:
     "@gitbeaker/requester-utils": ^39.1.1
     "@playwright/test": ^1.35.1
     "@types/node": ^20.3.1
-    playwright: ^1.35.1
     tsup: ^7.1.0
     typescript: ^5.1.3
   languageName: unknown
@@ -9180,17 +9179,6 @@ __metadata:
   bin:
     playwright-core: cli.js
   checksum: 179abc0051f00474e528935b507fa8cedc986b2803b020d7679878ba28cdd7036ad5a779792aad2ad281f8dc625eb1d2fb77663cb8de0d20c7ffbda7c18febdd
-  languageName: node
-  linkType: hard
-
-"playwright@npm:^1.35.1":
-  version: 1.35.1
-  resolution: "playwright@npm:1.35.1"
-  dependencies:
-    playwright-core: 1.35.1
-  bin:
-    playwright: cli.js
-  checksum: 46e8ad6d4429acd8e6c8e680ed8107b13c62a22bb95172666411aedb8e9abd8f9c379e4905493a330e29c3dcf63b9a49a528f2f081d682d9f5da078c54760634
   languageName: node
   linkType: hard
 
