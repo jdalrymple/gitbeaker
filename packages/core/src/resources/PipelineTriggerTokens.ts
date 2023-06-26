@@ -15,10 +15,10 @@ export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   id: number;
   description: string;
   created_at: string;
-  last_used?: string;
+  last_used: string | null;
   token: string;
   updated_at: string;
-  owner: MappedOmit<UserSchema, 'created_at'>;
+  owner: MappedOmit<UserSchema, 'created_at'> | null;
 }
 
 export class PipelineTriggerTokens<C extends boolean = false> extends BaseResource<C> {
