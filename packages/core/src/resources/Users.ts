@@ -124,6 +124,14 @@ export type AllUsersOptions = {
   withoutProjects?: boolean;
   admins?: boolean;
   samlProviderId?: number;
+  search?: string;
+  username?: string;
+  active?: boolean;
+  blocked?: boolean;
+  external?: boolean;
+  excludeInternal?: boolean;
+  excludeExternal?: boolean;
+  withoutProjectBots?: boolean;
 };
 
 export type CreateUserOptions = {
