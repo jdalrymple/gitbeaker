@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/cli",
-  "version": "39.1.0",
+  "version": "39.1.1",
   "description": "CLI implementation of the GitLab API.",
   "license": "MIT",
   "engines": {
@@ -47,8 +47,8 @@
     "release": "auto shipit"
   },
   "dependencies": {
-    "@gitbeaker/core": "^39.1.0",
-    "@gitbeaker/rest": "^39.1.0",
+    "@gitbeaker/core": "^39.1.1",
+    "@gitbeaker/rest": "^39.1.1",
     "chalk": "4.1.2",
     "sywac": "^1.3.0",
     "xcase": "^2.0.1"
