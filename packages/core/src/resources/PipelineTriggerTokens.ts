@@ -2,21 +2,23 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
 import type { ExpandedPipelineSchema } from './Pipelines';
+import type { UserSchema } from './Users';
 
 export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   id: number;
   description: string;
   created_at: string;
-  last_used?: null;
+  last_used?: string;
   token: string;
   updated_at: string;
-  owner?: null;
+  owner: MappedOmit<UserSchema, 'created_at'>;
 }
 
 export class PipelineTriggerTokens<C extends boolean = false> extends BaseResource<C> {
