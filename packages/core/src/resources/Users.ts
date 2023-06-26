@@ -132,6 +132,8 @@ export type AllUsersOptions = {
   excludeInternal?: boolean;
   excludeExternal?: boolean;
   withoutProjectBots?: boolean;
+  provider?: string;
+  extern_uid?: string;
 };
 
 export type CreateUserOptions = {
