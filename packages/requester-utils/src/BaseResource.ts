@@ -13,22 +13,28 @@ export interface RootResourceOptions<C> {
   profileMode?: 'execution' | 'memory';
 }
 
+export type GitlabToken = string | (() => Promise<string>);
+
 export interface BaseRequestOptionsWithOAuthToken<C> extends RootResourceOptions<C> {
-  oauthToken: string;
+  oauthToken: GitlabToken;
 }
 
 export interface BaseRequestOptionsWithAccessToken<C> extends RootResourceOptions<C> {
-  token: string;
+  token: GitlabToken;
 }
 
 export interface BaseRequestOptionsWithJobToken<C> extends RootResourceOptions<C> {
-  jobToken: string;
+  jobToken: GitlabToken;
 }
 
 export type BaseResourceOptions<C> =
   | BaseRequestOptionsWithOAuthToken<C>
   | BaseRequestOptionsWithAccessToken<C>
   | BaseRequestOptionsWithJobToken<C>;
+
+function getDynamicToken(tokenArgument: (() => Promise<string>) | string): Promise<string> {
+  return tokenArgument instanceof Function ? tokenArgument() : Promise.resolve(tokenArgument);
+}
 
 export class BaseResource<C extends boolean = false> {
   public readonly url: string;
@@ -38,6 +44,8 @@ export class BaseResource<C extends boolean = false> {
   public readonly queryTimeout: number | null;
 
   public readonly headers: { [header: string]: string };
+
+  public readonly authHeaders: { [authHeader: string]: () => Promise<string> };
 
   public readonly camelize: C | undefined;
 
@@ -59,14 +67,22 @@ export class BaseResource<C extends boolean = false> {
 
     this.url = [host, 'api', 'v4', prefixUrl].join('/');
     this.headers = {};
+    this.authHeaders = {};
     this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
     this.queryTimeout = queryTimeout;
 
     // Handle auth tokens
-    if ('oauthToken' in tokens) this.headers.authorization = `Bearer ${tokens.oauthToken}`;
-    else if ('jobToken' in tokens) this.headers['job-token'] = tokens.jobToken;
-    else if ('token' in tokens) this.headers['private-token'] = tokens.token;
+    if ('oauthToken' in tokens)
+      this.authHeaders.authorization = async () => {
+        const token = await getDynamicToken(tokens.oauthToken);
+
+        return `Bearer ${token}`;
+      };
+    else if ('jobToken' in tokens)
+      this.authHeaders['job-token'] = async () => getDynamicToken(tokens.jobToken);
+    else if ('token' in tokens)
+      this.authHeaders['private-token'] = async () => getDynamicToken(tokens.token);
     else {
       throw new ReferenceError('A token, oauthToken or jobToken must be passed');
     }
