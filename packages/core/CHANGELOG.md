@@ -1,3 +1,20 @@
+# v39.3.0 (Mon Jun 26 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add missing administrator-only Users.all search params [#3327](https://github.com/jdalrymple/gitbeaker/pull/3327) ([@ArnaudTA](https://github.com/ArnaudTA) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@ArnaudTA](https://github.com/ArnaudTA)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.2.0 (Mon Jun 26 2023)
 
 #### ✨ Feature
