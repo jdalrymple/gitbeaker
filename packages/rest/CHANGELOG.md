@@ -1,3 +1,15 @@
+# v39.1.1 (Mon Jun 26 2023)
+
+#### 🔨 Technical Debt
+
+- Include request in error cause [#3309](https://github.com/jdalrymple/gitbeaker/pull/3309) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v38.10.0 (Fri Jun 02 2023)
 
 #### 🐛 Bug Fix

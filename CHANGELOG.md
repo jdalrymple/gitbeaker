@@ -1,3 +1,16 @@
+# 39.1.1 (Mon Jun 26 2023)
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Include request in error cause [#3309](https://github.com/jdalrymple/gitbeaker/pull/3309) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.1.0 (Sun Jun 11 2023)
 
 #### 🐛 Bug Fix
