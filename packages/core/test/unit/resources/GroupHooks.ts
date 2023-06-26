@@ -20,7 +20,6 @@ describe('Instantiating GroupHooks service', () => {
     expect(service).toBeInstanceOf(GroupHooks);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
   });
 
   it('should call /groups prefix', () => {

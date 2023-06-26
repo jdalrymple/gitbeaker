@@ -20,7 +20,6 @@ describe('Instantiating ResourceDiscussions service', () => {
     expect(service).toBeInstanceOf(ResourceDiscussions);
     expect(service.url).toBeDefined();
     expect(service.rejectUnauthorized).toBeTruthy();
-    expect(service.headers).toMatchObject({ 'private-token': 'abcdefg' });
   });
 });
 

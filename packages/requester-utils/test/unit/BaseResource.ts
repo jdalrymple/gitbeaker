@@ -8,17 +8,6 @@ describe('Creation of BaseResource instance', () => {
     expect(service.url).toBe('https://gitlab.com/api/v4/');
   });
 
-  it('should use the Oauth Token when a given both a Private Token and a Oauth Token', () => {
-    const service = new BaseResource({
-      requesterFn: jest.fn(),
-      token: 'test',
-      oauthToken: '1234',
-    });
-
-    expect(service.headers['private-token']).toBeUndefined();
-    expect(service.headers.authorization).toBe('Bearer 1234');
-  });
-
   it('should append api and version number to host when using a custom host url', () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
@@ -35,34 +24,78 @@ describe('Creation of BaseResource instance', () => {
     expect(service.camelize).toBe(true);
   });
 
-  it('should add Oauth token to authorization header as a bearer token', () => {
+  it('should accept a string oauthToken', async () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
-      host: 'https://testing.com',
       oauthToken: '1234',
     });
 
-    expect(service.headers.authorization).toBe('Bearer 1234');
+    expect(service.authHeaders.authorization).toBeFunction();
+
+    await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
   });
 
-  it('should add Private token to private-token header', () => {
+  it('should accept a function oauthToken that returns a promise<string>', async () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
-      host: 'https://testing.com',
+      oauthToken: () => Promise.resolve('1234'),
+    });
+
+    expect(service.authHeaders.authorization).toBeFunction();
+
+    await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
+  });
+
+  it('should use the Oauth Token when a given both a Private Token and a Oauth Token', async () => {
+    const service = new BaseResource({
+      requesterFn: jest.fn(),
+      token: 'test',
+      oauthToken: () => Promise.resolve('1234'),
+    });
+
+    expect(Object.keys(service.authHeaders).length).toBe(1);
+    expect(service.authHeaders.authorization).toBeFunction();
+    await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
+  });
+
+  it('should accept a string token (private-token)', async () => {
+    const service = new BaseResource({
+      requesterFn: jest.fn(),
       token: '1234',
     });
 
-    expect(service.headers['private-token']).toBe('1234');
+    expect(service.authHeaders['private-token']).toBeFunction();
+    await expect(service.authHeaders['private-token']()).resolves.toBe('1234');
   });
 
-  it('should add Job token to job-token header', () => {
+  it('should accept a function token (private-token) that returns a promise<string>', async () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
-      host: 'https://testing.com',
+      token: () => Promise.resolve('1234'),
+    });
+
+    expect(service.authHeaders['private-token']).toBeFunction();
+    await expect(service.authHeaders['private-token']()).resolves.toBe('1234');
+  });
+
+  it('should accept a string jobToken (job-token)', async () => {
+    const service = new BaseResource({
+      requesterFn: jest.fn(),
       jobToken: '1234',
     });
 
-    expect(service.headers['job-token']).toBe('1234');
+    expect(service.authHeaders['job-token']).toBeFunction();
+    await expect(service.authHeaders['job-token']()).resolves.toBe('1234');
+  });
+
+  it('should accept a function jobToken (job-token) that returns a promise<string>', async () => {
+    const service = new BaseResource({
+      requesterFn: jest.fn(),
+      jobToken: () => Promise.resolve('1234'),
+    });
+
+    expect(service.authHeaders['job-token']).toBeFunction();
+    await expect(service.authHeaders['job-token']()).resolves.toBe('1234');
   });
 
   it('should set the X-Profile-Token header if the profileToken option is given', () => {

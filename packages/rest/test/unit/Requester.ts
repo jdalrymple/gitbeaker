@@ -285,6 +285,9 @@ describe('defaultRequest', () => {
     headers: { test: '5' },
     url: 'testurl',
     rejectUnauthorized: true,
+    authHeaders: {
+      token: () => Promise.resolve('1234'),
+    },
   };
 
   it('should not assign the agent property if given https url and not rejectUnauthorized', async () => {
