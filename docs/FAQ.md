@@ -32,4 +32,25 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 Since everything builds off fetch support, applying a poly fill will allow for Node v16.18 instead of 18+. ie:
 
 1. Install node-fetch
-2. Set the following in your entry point: `global.fetch = require('node-fetch')`
+2. Set the following in your entry point:
+
+```js
+const semver = require('semver')
+
+if ( semver.lt(process.version, '20.0.0') ) {
+  global.fetch = require('node-fetch')
+}
+```
+
+#### Headers / Body Timeout Error
+
+This is caused by the internal undici fetch implementation's dispatcher [defaults](https://github.com/nodejs/undici/issues/1373) for the headers and body timeout when performing a request. In the future we will support modifying these properties in a more defined way, but for now, once can override this by setting the global symbol at the beginning of your script:
+
+```
+import { Agent } from 'undici'
+
+globalThis[Symbol.for("undici.globalDispatcher.1")] = new Agent({
+  headersTimeout: 0,
+  bodyTimeout: 0,
+});
+```
