@@ -1,3 +1,16 @@
+# 39.4.0 (Tue Jun 27 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Adding unit tests and fixing the trigger and remove methods for PipelineTriggerTokens [#3328](https://github.com/jdalrymple/gitbeaker/pull/3328) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.3.0 (Mon Jun 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
