@@ -62,12 +62,12 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    pipelineId: number,
+    triggerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
-      endpoint`projects/${projectId}/pipelines/${pipelineId}`,
+      endpoint`projects/${projectId}/triggers/${triggerId}`,
       options,
     );
   }
@@ -99,7 +99,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
           token,
           ref,
         },
-        options,
+        ...options,
       },
     );
   }
