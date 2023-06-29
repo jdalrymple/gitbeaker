@@ -1,8 +1,6 @@
-import { decamelizeKeys } from 'xcase';
-import QS from 'qs';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, reformatObjectOptions } from '../infrastructure';
 import type {
   Camelize,
   GitlabAPIResponse,
@@ -113,23 +111,10 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     const opts: Record<string, unknown> = { ...options };
 
     if (position) {
-      const p: Record<string, unknown> = decamelizeKeys(position);
-      const pos = QS.stringify({ position: p }, { encode: false })
-        .split('&')
-        .reduce((acc, cur) => {
-          const [key, val] = cur.split('=');
-
-          acc[key] = val;
-
-          return acc;
-        }, {});
-
-      Object.assign(opts, pos);
+      Object.assign(opts, reformatObjectOptions(position, 'position', true));
 
       opts.isForm = true;
       opts.body = body;
-
-      // Object.assign(opts, pos);
     } else {
       opts.searchParams = { body };
     }

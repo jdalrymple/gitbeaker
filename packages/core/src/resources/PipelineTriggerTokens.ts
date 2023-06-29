@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, reformatObjectOptions } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   MappedOmit,
@@ -88,19 +88,26 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     projectId: string | number,
     ref: string,
     token: string,
-    options?: { variables?: Record<string, string> } & Sudo & ShowExpanded<E>,
+    { variables, ...options }: { variables?: Record<string, string> } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    const opts: Record<string, unknown> = {
+      ...options,
+      searchParams: {
+        token,
+        ref,
+      },
+    };
+
+    if (variables) {
+      opts.isForm = true;
+
+      Object.assign(opts, reformatObjectOptions(variables, 'variables'));
+    }
+
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
       endpoint`projects/${projectId}/trigger/pipeline`,
-      {
-        isForm: true,
-        searchParams: {
-          token,
-          ref,
-        },
-        ...options,
-      },
+      opts,
     );
   }
 }

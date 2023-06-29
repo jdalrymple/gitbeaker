@@ -75,9 +75,7 @@ describe('PipelineTriggerTokens.trigger', () => {
         token: 'token',
         ref: 'main',
       },
-      variables: {
-        PAYLOAD: 'test',
-      },
+      'variables[PAYLOAD]': 'test',
     });
   });
 });
