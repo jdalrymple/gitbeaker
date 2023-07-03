@@ -1,3 +1,15 @@
+# 39.5.1 (Mon Jul 03 2023)
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.4.1 to 16.4.2 [#3336](https://github.com/jdalrymple/gitbeaker/pull/3336) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # 39.5.0 (Mon Jul 03 2023)
 
 #### 🐛 Bug Fix
