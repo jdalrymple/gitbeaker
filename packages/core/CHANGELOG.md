@@ -1,3 +1,15 @@
+# v39.5.0 (Mon Jul 03 2023)
+
+#### 🐛 Bug Fix
+
+- Ensure the combined nested object options are handled correctly [#3331](https://github.com/jdalrymple/gitbeaker/pull/3331) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.4.0 (Tue Jun 27 2023)
 
 #### 🐛 Bug Fix

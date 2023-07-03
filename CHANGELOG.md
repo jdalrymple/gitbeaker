@@ -1,3 +1,21 @@
+# 39.5.0 (Mon Jul 03 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Ensure the combined nested object options are handled correctly [#3331](https://github.com/jdalrymple/gitbeaker/pull/3331) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.4.0 to 16.4.1 [#3332](https://github.com/jdalrymple/gitbeaker/pull/3332) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.4.0 (Tue Jun 27 2023)
 
 #### 🐛 Bug Fix
