@@ -60,10 +60,10 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.4.0",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "tsup": "^7.1.0",
     "tsx": "^3.12.7",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.6"
   }
 }
