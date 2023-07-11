@@ -29,7 +29,7 @@ export type OnlyOrNone3<T, U, V> = Partial<T> & Never<U> & Never<V>;
 export type OnlyOrNone4<T, U, V, W> = Partial<T> & Never<U> & Never<V> & Never<W>;
 
 export type Either<T, U> = Only<T, U> | Only<U, T>;
-export type Either3<T, U, V> = Only3<T, U, V> | Only3<T, U, V> | Only3<T, U, V>;
+export type Either3<T, U, V> = Only3<T, U, V> | Only3<V, T, U> | Only3<U, V, T>;
 
 export type Either4<T, U, V, W> =
   | Only4<T, U, V, W>

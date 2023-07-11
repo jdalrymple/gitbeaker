@@ -20,7 +20,6 @@ export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMov
     | 'visibility'
     | 'updated_at'
     | 'created_at'
-    | 'created_at'
     | 'web_url'
     | 'raw_url'
     | 'ssh_url_to_repo'
