@@ -32,10 +32,8 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     {
       jobId,
-      jobToken,
       artifactPath,
       ref,
-      job,
       ...options
     }: (
       | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
@@ -48,17 +46,13 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     let url: string;
 
     if (jobId) url = generateDownloadPathForJob(projectId, jobId, artifactPath);
-    else if (job && ref) url = generateDownloadPath(projectId, ref, artifactPath);
+    else if (options?.job && ref) url = generateDownloadPath(projectId, ref, artifactPath);
     else
       throw new Error(
         'Missing one of the required parameters. See typing documentation for available arguments.',
       );
 
-    return RequestHelper.get<Blob>()(this, url, {
-      jobToken,
-      job,
-      ...options,
-    });
+    return RequestHelper.get<Blob>()(this, url, options);
   }
 
   keep<E extends boolean = false>(

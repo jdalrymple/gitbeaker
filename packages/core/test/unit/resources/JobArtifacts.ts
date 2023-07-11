@@ -25,20 +25,14 @@ describe('JobArtifacts.downloadArchive', () => {
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via private token', async () => {
     await service.downloadArchive(1, { jobId: 43 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
-      searchParams: {
-        jobToken: undefined,
-      },
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {});
   });
 
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via jobToken parameter', async () => {
     await service.downloadArchive(1, { jobId: 43, jobToken: 'token' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
-      searchParams: {
-        jobToken: 'token',
-      },
+      jobToken: 'token',
     });
   });
 
@@ -47,11 +41,9 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/download?job=job1`,
+      `projects/1/jobs/artifacts/ref1/download`,
       {
-        searchParams: {
-          jobToken: undefined,
-        },
+        job: 'job1',
       },
     );
   });
@@ -61,11 +53,10 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/download?job=job1`,
+      `projects/1/jobs/artifacts/ref1/download`,
       {
-        searchParams: {
-          jobToken: 'token',
-        },
+        job: 'job1',
+        jobToken: 'token',
       },
     );
   });
@@ -73,20 +64,18 @@ describe('JobArtifacts.downloadArchive', () => {
   it('should request GET /projects/:id/jobs/:job_id/artifacts/:artifact_path, getting a single artifact file from a job with a specified ID from inside the job’s artifacts zipped archive via private token', async () => {
     await service.downloadArchive(1, { jobId: 43, artifactPath: 'path' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts/path`, {
-      searchParams: {
-        jobToken: undefined,
-      },
-    });
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/43/artifacts/path`,
+      {},
+    );
   });
 
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting a single artifact file from a job with a specified ID from inside the job’s artifacts zipped archive via jobToken parameter', async () => {
     await service.downloadArchive(1, { jobId: 43, jobToken: 'token', artifactPath: 'path' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts/path`, {
-      searchParams: {
-        jobToken: 'token',
-      },
+      jobToken: 'token',
     });
   });
 
@@ -95,11 +84,9 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/raw/path?job=job1`,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
       {
-        searchParams: {
-          jobToken: undefined,
-        },
+        job: 'job1',
       },
     );
   });
@@ -114,11 +101,10 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/raw/path?job=job1`,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
       {
-        searchParams: {
-          jobToken: 'token',
-        },
+        job: 'job1',
+        jobToken: 'token',
       },
     );
   });
