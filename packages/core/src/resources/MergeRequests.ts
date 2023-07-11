@@ -129,7 +129,7 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   task_completion_status: TaskCompletionStatusSchema;
   has_conflicts: boolean;
   blocking_discussions_resolved: boolean;
-  approvals_before_merge: unknown | null;
+  approvals_before_merge: number | null;
 }
 
 export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
