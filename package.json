@@ -39,7 +39,7 @@
     "@swc/jest": "^0.2.26",
     "@types/jest": "^29.5.2",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
+    "@typescript-eslint/parser": "^6.0.0",
     "auto": "^10.46.0",
     "eslint": "^8.44.0",
     "eslint-config-airbnb-base": "^15.0.0",
