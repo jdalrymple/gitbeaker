@@ -1,3 +1,36 @@
+# 39.6.0 (Wed Jul 12 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix search params in JobArtifact.downloadArchive endpoints [#3346](https://github.com/jdalrymple/gitbeaker/pull/3346) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Updating lerna from 7.1.1 to 7.1.3 [#3348](https://github.com/jdalrymple/gitbeaker/pull/3348) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump nx from 16.5.0 to 16.5.1 [#3342](https://github.com/jdalrymple/gitbeaker/pull/3342) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 5.61.0 to 6.0.0 [#3344](https://github.com/jdalrymple/gitbeaker/pull/3344) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/nx-16.5.0' into main [#3339](https://github.com/jdalrymple/gitbeaker/pull/3339) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/prettier-3.0.0' into main [#3338](https://github.com/jdalrymple/gitbeaker/pull/3338) ([@jdalrymple](https://github.com/jdalrymple))
+- Merge remote-tracking branch 'gitlab/dependabot/npm_and_yarn/nx-16.4.3' into main [#3337](https://github.com/jdalrymple/gitbeaker/pull/3337) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Bump @typescript-eslint/eslint-plugin from 5.61.0 to 6.0.0 [#3343](https://github.com/jdalrymple/gitbeaker/pull/3343) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Dependency updates [#3341](https://github.com/jdalrymple/gitbeaker/pull/3341) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'dep/lerna' into main ([@jdalrymple](https://github.com/jdalrymple))
+- Increase ignore file specificity ([@jdalrymple](https://github.com/jdalrymple))
+- Add additional information to ignore file ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.5.1 (Mon Jul 03 2023)
 
 #### ↕️ Dependencies

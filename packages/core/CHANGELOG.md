@@ -1,3 +1,25 @@
+# v39.6.0 (Wed Jul 12 2023)
+
+#### 🐛 Bug Fix
+
+- Fix search params in JobArtifact.downloadArchive endpoints [#3346](https://github.com/jdalrymple/gitbeaker/pull/3346) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump @typescript-eslint/eslint-plugin from 5.61.0 to 6.0.0 [#3343](https://github.com/jdalrymple/gitbeaker/pull/3343) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+- Dependency updates [#3341](https://github.com/jdalrymple/gitbeaker/pull/3341) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'dep/lerna' into main ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.5.0 (Mon Jul 03 2023)
 
 #### 🐛 Bug Fix

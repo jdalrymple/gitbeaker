@@ -1,3 +1,15 @@
+# v39.6.0 (Wed Jul 12 2023)
+
+#### ↕️ Dependencies
+
+- Dependency updates [#3341](https://github.com/jdalrymple/gitbeaker/pull/3341) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.2.0 (Mon Jun 26 2023)
 
 #### ↕️ Dependencies
