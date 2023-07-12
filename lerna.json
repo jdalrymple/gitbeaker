@@ -1,6 +1,8 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "npmClient": "yarn",
-  "version": "39.5.1",
+  "version": "39.6.0",
   "tagVersionPrefix": ""
 }
