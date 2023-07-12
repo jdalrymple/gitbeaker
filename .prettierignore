@@ -1,4 +1,5 @@
 .turbo
 coverage
 dist
-.lock
+package.json
+yarn.lock
