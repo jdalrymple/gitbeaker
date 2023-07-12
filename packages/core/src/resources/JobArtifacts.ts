@@ -15,18 +15,13 @@ function generateDownloadPathForJob(
   return url;
 }
 
-function generateDownloadPath(
-  projectId: string | number,
-  ref: string,
-  job: string,
-  artifactPath?: string,
-) {
+function generateDownloadPath(projectId: string | number, ref: string, artifactPath?: string) {
   let url = endpoint`projects/${projectId}/jobs/artifacts/${ref}`;
 
   if (artifactPath) {
-    url += endpoint`/raw/${artifactPath}?job=${job}`;
+    url += endpoint`/raw/${artifactPath}`;
   } else {
-    url += endpoint`/download?job=${job}`;
+    url += endpoint`/download`;
   }
 
   return url;
@@ -37,10 +32,8 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     {
       jobId,
-      jobToken,
       artifactPath,
       ref,
-      job,
       ...options
     }: (
       | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
@@ -53,18 +46,13 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     let url: string;
 
     if (jobId) url = generateDownloadPathForJob(projectId, jobId, artifactPath);
-    else if (job && ref) url = generateDownloadPath(projectId, ref, job, artifactPath);
+    else if (options?.job && ref) url = generateDownloadPath(projectId, ref, artifactPath);
     else
       throw new Error(
         'Missing one of the required parameters. See typing documentation for available arguments.',
       );
 
-    return RequestHelper.get<Blob>()(this, url, {
-      searchParams: {
-        jobToken,
-      },
-      ...options,
-    });
+    return RequestHelper.get<Blob>()(this, url, options);
   }
 
   keep<E extends boolean = false>(
