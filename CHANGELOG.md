@@ -1,3 +1,22 @@
+# 39.7.0 (Fri Jul 14 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Update Release schema to allow for null properties [#3351](https://github.com/jdalrymple/gitbeaker/pull/3351) ([@jdalrymple](https://github.com/jdalrymple))
+  - Adding groups property to the Runners schema [#3352](https://github.com/jdalrymple/gitbeaker/pull/3352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.5.1 to 16.5.2 [#3349](https://github.com/jdalrymple/gitbeaker/pull/3349) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.6.0 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix

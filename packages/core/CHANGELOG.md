@@ -1,3 +1,16 @@
+# v39.7.0 (Fri Jul 14 2023)
+
+#### 🐛 Bug Fix
+
+- Update Release schema to allow for null properties [#3351](https://github.com/jdalrymple/gitbeaker/pull/3351) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding groups property to the Runners schema [#3352](https://github.com/jdalrymple/gitbeaker/pull/3352) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.6.0 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix
