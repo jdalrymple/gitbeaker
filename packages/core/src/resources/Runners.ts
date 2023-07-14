@@ -13,6 +13,7 @@ import type {
 } from '../infrastructure';
 import type { JobSchema } from './Jobs';
 import type { SimpleProjectSchema } from './Projects';
+import type { CondensedGroupSchema } from './Groups';
 
 export interface RunnerToken extends Record<string, unknown> {
   id: number;
@@ -33,19 +34,22 @@ export interface RunnerSchema extends Record<string, unknown> {
 }
 
 export interface ExpandedRunnerSchema extends RunnerSchema {
-  architecture?: string;
+  architecture: string | null;
   description: string;
   contacted_at: string;
-  platform?: string;
-  projects?: Pick<
+  platform: string | null;
+  projects: Pick<
     SimpleProjectSchema,
     'id' | 'name' | 'name_with_namespace' | 'path' | 'path_with_namespace'
-  >;
-  revision?: string;
-  tag_list?: string[];
-  version?: string;
+  >[];
+  groups: CondensedGroupSchema[];
+  revision: string | null;
+  tag_list: string[] | null;
+  version: string | null;
   access_level: string;
-  maximum_timeout?: number;
+  maximum_timeout: number | null;
+  run_untagged: boolean;
+  locked: boolean;
 }
 
 export type AllRunnersOptions = {
