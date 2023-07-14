@@ -34,23 +34,23 @@ export interface ReleaseAssetLink {
 
 export interface ReleaseSchema extends Record<string, unknown> {
   tag_name: string;
-  description: string;
-  name: string;
+  description: string | null;
+  name: string | null;
   description_html: string;
   created_at: string;
-  released_at: string;
+  released_at: string | null;
   user: MappedOmit<UserSchema, 'created_at'>;
   commit: CommitSchema;
-  milestones?: MilestoneSchema[];
+  milestones: MilestoneSchema[] | null;
   commit_path: string;
   tag_path: string;
   assets: {
     count: number;
-    sources?: ReleaseAssetSource[];
-    links?: ReleaseAssetLink[];
+    sources?: ReleaseAssetSource[] | null;
+    links: ReleaseAssetLink[] | null;
     evidence_file_path: string;
   };
-  evidences?: ReleaseEvidence[];
+  evidences: ReleaseEvidence[] | null;
 }
 
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
