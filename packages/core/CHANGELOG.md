@@ -1,3 +1,15 @@
+# v39.8.0 (Mon Jul 17 2023)
+
+#### 🐛 Bug Fix
+
+- Fixing projectsLimit type in the CreateUsersOptions type [#3354](https://github.com/jdalrymple/gitbeaker/pull/3354) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.7.0 (Fri Jul 14 2023)
 
 #### 🐛 Bug Fix
