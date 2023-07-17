@@ -161,7 +161,7 @@ export type CreateUserOptions = {
   organization?: string;
   password?: string;
   privateProfile?: string;
-  projectsLimit?: boolean;
+  projectsLimit?: number;
   provider?: string;
   resetPassword?: boolean;
   sharedRunnersMinutesLimit?: number;
