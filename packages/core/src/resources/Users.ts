@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { ProjectSchema } from './Projects';
+import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
 import type { AllEventOptions, EventSchema } from './Events';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
@@ -190,6 +190,28 @@ export type CreateUserCIRunnerOptions = {
   maintenanceNote?: string;
 };
 
+export type AllUserProjectsOptions = {
+  archived?: boolean;
+  idAfter?: number;
+  idBefore?: number;
+  membership?: boolean;
+  minAccessLevel?: number;
+  orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
+  owned?: boolean;
+  search?: string;
+  simple?: boolean;
+  sort?: 'asc' | 'desc';
+  starred?: boolean;
+  statistics?: boolean;
+  visibility?: 'public' | 'internal' | 'private';
+  withCustomAttributes?: boolean;
+  withIssuesEnabled?: boolean;
+  withMergeRequestsEnabled?: boolean;
+  withProgrammingLanguage?: string;
+  updatedBefore?: string;
+  updatedAfter?: string;
+};
+
 export class Users<C extends boolean = false> extends BaseResource<C> {
   activate<E extends boolean = false>(
     userId: number,
@@ -244,17 +266,97 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { simple: true },
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
+
+  allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { statistics: true },
+  ): Promise<
+    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+  >;
+
+  allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    userId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    userId: string | number,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
     return RequestHelper.get<ProjectSchema[]>()(this, endpoint`users/${userId}/projects`, options);
   }
 
+  allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { simple: true },
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
+
+  allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { statistics: true },
+  ): Promise<
+    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+  >;
+
+  allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+
+  allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    userId: string | number,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
+    return RequestHelper.get<ProjectSchema[]>()(
+      this,
+      endpoint`users/${userId}/contributed_projects`,
+      options,
+    );
+  }
+
   // Convenience method - Functionality already present in the all method in the Projects wrapper
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    userId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { simple: true },
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
+
+  allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options: PaginationRequestOptions<P> &
+      AllUserProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { statistics: true },
+  ): Promise<
+    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+  >;
+
+  allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    userId: string | number,
+    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+
+  allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    userId: string | number,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
     return RequestHelper.get<ProjectSchema[]>()(
       this,
