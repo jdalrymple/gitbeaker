@@ -1,3 +1,26 @@
+# 39.9.0 (Fri Jul 28 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Make camelize type recursive [#3361](https://github.com/jdalrymple/gitbeaker/pull/3361) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/core`
+  - Replace Either and EitherOrNone varients with oneOf and oneOrNoneOf [#3362](https://github.com/jdalrymple/gitbeaker/pull/3362) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 16.5.2 to 16.5.5 [#3357](https://github.com/jdalrymple/gitbeaker/pull/3357) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.8.0 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix

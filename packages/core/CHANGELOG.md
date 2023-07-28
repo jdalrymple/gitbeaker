@@ -1,3 +1,19 @@
+# v39.9.0 (Fri Jul 28 2023)
+
+#### 🐛 Bug Fix
+
+- Make camelize type recursive [#3361](https://github.com/jdalrymple/gitbeaker/pull/3361) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Replace Either and EitherOrNone varients with oneOf and oneOrNoneOf [#3362](https://github.com/jdalrymple/gitbeaker/pull/3362) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.8.0 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix
