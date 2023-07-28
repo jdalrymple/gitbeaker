@@ -1,8 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either3,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -40,17 +40,11 @@ export type CreateProtectedBranchOptions = {
 
 export type EditProtectedBranchAllow = {
   _destroy?: boolean;
-} & Either3<
-  {
-    user_id: number;
-  },
-  {
-    group_id: number;
-  },
-  {
-    access_level: number;
-  }
->;
+} & OneOf<{
+  user_id: number;
+  group_id: number;
+  access_level: number;
+}>;
 
 export type EditProtectedBranchOptions = {
   allowForcePush?: boolean;
