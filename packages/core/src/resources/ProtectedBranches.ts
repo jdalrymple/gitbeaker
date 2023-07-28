@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  Either3,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -12,8 +13,8 @@ export type ProtectedBranchAccessLevel = 0 | 30 | 40 | 60;
 export interface ExtendedProtectedBranchAccessLevel {
   access_level: ProtectedBranchAccessLevel;
   access_level_description: string;
-  user_id?: number;
-  group_id?: number;
+  user_id?: number | null;
+  group_id?: number | null;
 }
 
 export interface ProtectedBranchSchema extends Record<string, unknown> {
@@ -37,11 +38,25 @@ export type CreateProtectedBranchOptions = {
   unprotectAccessLevel?: ProtectedBranchAccessLevel;
 };
 
+export type EditProtectedBranchAllow = {
+  _destroy?: boolean;
+} & Either3<
+  {
+    user_id: number;
+  },
+  {
+    group_id: number;
+  },
+  {
+    access_level: number;
+  }
+>;
+
 export type EditProtectedBranchOptions = {
   allowForcePush?: boolean;
-  allowedToMerge?: Record<string, number>[];
-  allowedToPush?: Record<string, number>[];
-  allowedToUnprotect?: Record<string, number>[];
+  allowedToMerge?: EditProtectedBranchAllow[];
+  allowedToPush?: EditProtectedBranchAllow[];
+  allowedToUnprotect?: EditProtectedBranchAllow[];
   codeOwnerApprovalRequired?: boolean;
 };
 
