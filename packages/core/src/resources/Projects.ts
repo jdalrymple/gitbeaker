@@ -2,9 +2,9 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  Either,
   GitlabAPIResponse,
   MappedOmit,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -521,7 +521,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       userId,
       avatar,
       ...options
-    }: Either<{ name: string }, { path: string }> &
+    }: OneOf<{ name: string; path: string }> &
       CreateProjectOptions &
       Sudo &
       ShowExpanded<E> = {} as any,

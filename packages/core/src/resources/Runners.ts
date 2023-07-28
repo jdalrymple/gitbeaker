@@ -2,10 +2,9 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  Either,
-  EitherOrNone,
-  EitherOrNone3,
   GitlabAPIResponse,
+  OneOf,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -91,11 +90,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       groupId,
       owned,
       ...options
-    }: EitherOrNone3<
-      { projectId?: string | number },
-      { owned?: boolean },
-      { groupId?: string | number }
-    > &
+    }: OneOrNoneOf<{ projectId: string | number; owned: boolean; groupId: string | number }> &
       AllRunnersOptions &
       BaseRequestOptions<E> &
       PaginationRequestOptions<P> = {} as any,
@@ -166,7 +161,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId,
     token,
     ...options
-  }: Either<{ runnerId: number }, { token: string }> & Sudo & ShowExpanded<E>): Promise<
+  }: OneOf<{ runnerId: number; token: string }> & Sudo & ShowExpanded<E>): Promise<
     GitlabAPIResponse<void, C, E, void>
   > {
     let url: string;
@@ -190,7 +185,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       runnerId,
       token,
       ...options
-    }: EitherOrNone<{ runnerId: string }, { token: string }> & Sudo & ShowExpanded<E> = {} as any,
+    }: OneOrNoneOf<{ runnerId: string; token: string }> & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     let url: string;
 

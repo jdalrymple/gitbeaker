@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { EitherOrNone, GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded } from '../infrastructure';
 
 export class Maven<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
@@ -10,7 +10,7 @@ export class Maven<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> & ShowExpanded<E>,
+    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     let url = endpoint`packages/maven/${path}/${filename}`;
 

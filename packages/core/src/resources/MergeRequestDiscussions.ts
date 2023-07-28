@@ -8,8 +8,8 @@ import type {
 } from '../templates/ResourceDiscussions';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -68,7 +68,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     noteId: number,
-    options: Sudo & ShowExpanded<E> & Either<{ body: string }, { resolved: boolean }>,
+    options: Sudo & ShowExpanded<E> & OneOf<{ body: string; resolved: boolean }>,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;
 
   removeNote<E extends boolean = false>(

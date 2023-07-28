@@ -2,8 +2,8 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceLabels } from '../templates';
 import type { LabelSchema } from '../templates/ResourceLabels';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -32,7 +32,7 @@ export interface ProjectLabels<C extends boolean = false> extends ResourceLabels
   edit<E extends boolean = false>(
     projectId: string | number,
     labelId: number | string,
-    options: Either<{ newName: string }, { color: string }> & {
+    options: OneOf<{ newName: string; color: string }> & {
       description?: string;
       priority?: number;
     } & Sudo &

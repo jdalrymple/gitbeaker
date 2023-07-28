@@ -3,8 +3,8 @@ import { ResourceInvitations } from '../templates';
 import type { InvitationSchema } from '../templates/ResourceInvitations';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -15,7 +15,7 @@ export interface GroupInvitations<C extends boolean = false> {
   add<E extends boolean = false>(
     groupId: string | number,
     accessLevel: AccessLevel,
-    options: Either<{ email: string }, { userId: string }> & {
+    options: OneOf<{ email: string; userId: string }> & {
       expiresAt?: string;
       inviteSource?: string;
       tasksToBeDone?: string[];

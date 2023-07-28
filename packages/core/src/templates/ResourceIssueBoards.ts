@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  EitherOrNone3,
   GitlabAPIResponse,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -66,11 +66,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   createList<E extends boolean = false>(
     resourceId: string | number,
     boardId: number,
-    options?: EitherOrNone3<
-      { labelId?: number },
-      { assigneeId?: number },
-      { milestoneId?: number }
-    > &
+    options?: OneOrNoneOf<{ labelId: number; assigneeId: number; milestoneId: number }> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {

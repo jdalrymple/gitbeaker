@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  EitherOrNone,
   GitlabAPIResponse,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -35,7 +35,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       projectId,
       userId,
       ...options
-    }: EitherOrNone<{ projectId?: string | number }, { userId?: string | number }> & {
+    }: OneOrNoneOf<{ projectId: string | number; userId: string | number }> & {
       public?: boolean;
     } & PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,

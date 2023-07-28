@@ -1,8 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either3,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -22,11 +22,11 @@ export interface ProtectedTagSchema extends Record<string, unknown> {
   create_access_levels?: ProtectedTagAccessLevelSummarySchema[];
 }
 
-export type ProtectedTagAccessLevelEntity = Either3<
-  { userId: number },
-  { groupId: number },
-  { accessLevel: number }
->;
+export type ProtectedTagAccessLevelEntity = OneOf<{
+  userId: number;
+  groupId: number;
+  accessLevel: number;
+}>;
 
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

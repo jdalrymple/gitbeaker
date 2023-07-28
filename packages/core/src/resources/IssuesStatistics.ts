@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { EitherOrNone, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface StatisticsSchema extends Record<string, unknown> {
   statistics: {
@@ -34,9 +34,9 @@ export class IssuesStatistics<C extends boolean = false> extends BaseResource<C>
       projectId,
       groupId,
       ...options
-    }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
-      EitherOrNone<{ authorId: number }, { authorUsername: string }> &
-      EitherOrNone<{ assigneeId: number }, { assigneeUsername: string }> &
+    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      OneOrNoneOf<{ authorId: number; authorUsername: string }> &
+      OneOrNoneOf<{ assigneeId: number; assigneeUsername: string }> &
       AllIssueStatisticsOptions &
       Sudo &
       ShowExpanded<E> = {} as any,
