@@ -15,11 +15,9 @@ export type CamelizeString<T extends PropertyKey> = T extends string
     : T
   : T;
 
-export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: T[K] };
+export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: Camelize<T[K]> };
 
-export type Never<T> = {
-  [P in keyof T]?: never;
-};
+export type Never<T> = { [P in keyof T]?: never };
 
 export type Only<T, U> = Required<T> & Never<U>;
 export type Only3<T, U, V> = Required<T> & Never<U> & Never<V>;
