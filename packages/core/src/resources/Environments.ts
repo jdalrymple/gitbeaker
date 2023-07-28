@@ -1,9 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  EitherOrNone,
   GitlabAPIResponse,
   MappedOmit,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -39,7 +39,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: PaginationRequestOptions<P> &
-      EitherOrNone<{ name: string }, { search: string }> & {
+      OneOrNoneOf<{ name: string; search: string }> & {
         states?: 'available' | 'stopping' | 'stopped';
       } & Sudo &
       ShowExpanded<E>,

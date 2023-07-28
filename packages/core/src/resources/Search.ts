@@ -1,8 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  EitherOrNone,
   GitlabAPIResponse,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -50,7 +50,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'users',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -60,7 +60,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'notes',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -70,7 +70,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'blobs',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -80,7 +80,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'commits',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -90,7 +90,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'wiki_blobs',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -100,7 +100,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'snippet_titles',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -110,7 +110,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'milestones',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -120,7 +120,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'merge_requests',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -130,7 +130,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'issues',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -140,7 +140,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'projects',
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &
@@ -150,7 +150,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: SearchScopes,
     search: string,
-    options?: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       AllSearchOptions &
       Sudo &
       ShowExpanded<E> &

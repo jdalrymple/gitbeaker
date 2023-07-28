@@ -18,33 +18,8 @@ export type CamelizeString<T extends PropertyKey> = T extends string
 export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: Camelize<T[K]> };
 
 export type Never<T> = { [P in keyof T]?: never };
-
-export type Only<T, U> = Required<T> & Never<U>;
-export type Only3<T, U, V> = Required<T> & Never<U> & Never<V>;
-export type Only4<T, U, V, W> = Required<T> & Never<U> & Never<V> & Never<W>;
-export type OnlyOrNone<T, U> = Partial<T> & Never<U>;
-export type OnlyOrNone3<T, U, V> = Partial<T> & Never<U> & Never<V>;
-export type OnlyOrNone4<T, U, V, W> = Partial<T> & Never<U> & Never<V> & Never<W>;
-
-export type Either<T, U> = Only<T, U> | Only<U, T>;
-export type Either3<T, U, V> = Only3<T, U, V> | Only3<V, T, U> | Only3<U, V, T>;
-
-export type Either4<T, U, V, W> =
-  | Only4<T, U, V, W>
-  | Only4<U, T, V, W>
-  | Only4<V, T, U, W>
-  | Only4<W, T, U, V>;
-export type EitherOrNone<T, U> = OnlyOrNone<T, U> | OnlyOrNone<U, T>;
-export type EitherOrNone3<T, U, V> =
-  | OnlyOrNone3<T, U, V>
-  | OnlyOrNone3<U, T, V>
-  | OnlyOrNone3<V, T, U>;
-export type EitherOrNone4<T, U, V, W> =
-  | OnlyOrNone4<T, U, V, W>
-  | OnlyOrNone4<U, T, V, W>
-  | OnlyOrNone4<V, T, U, W>
-  | OnlyOrNone4<W, T, U, V>;
-
+export type OneOf<T> = { [K in keyof T]: Pick<T, K> & Never<Omit<T, K>> }[keyof T];
+export type OneOrNoneOf<T> = Never<T> | OneOf<T>;
 export type AllOrNone<T extends Record<string, any>> = T | Partial<Record<keyof T, never>>;
 
 export type MappedOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };

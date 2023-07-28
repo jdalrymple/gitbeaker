@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { EitherOrNone, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export type NotificationSettingLevel =
   | 'disabled'
@@ -75,7 +75,7 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
     groupId,
     projectId,
     ...options
-  }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+  }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
     EditNotificationSettingsOptions &
     Sudo &
     ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
@@ -88,7 +88,7 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
     groupId,
     projectId,
     ...options
-  }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> &
+  }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
     Sudo &
     ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const uri = url({ groupId, projectId });

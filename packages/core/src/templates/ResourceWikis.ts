@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -56,7 +56,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     resourceId: string | number,
     slug: string,
-    options?: Either<{ content: string }, { title: string }> & { format?: string } & Sudo &
+    options?: OneOf<{ content: string; title: string }> & { format?: string } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<WikiSchema, C, E, void>> {
     return RequestHelper.put<WikiSchema>()(this, endpoint`${resourceId}/wikis/${slug}`, options);

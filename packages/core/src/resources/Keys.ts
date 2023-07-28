@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { Either, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 import type { ExpandedUserSchema } from './Users';
 
 export interface DeployKeyProjectsSchema extends Record<string, unknown> {
@@ -29,7 +29,7 @@ export class Keys<C extends boolean = false> extends BaseResource<C> {
       keyId,
       fingerprint,
       ...options
-    }: Either<{ keyId: number }, { fingerprint: string }> & Sudo & ShowExpanded<E> = {} as any,
+    }: OneOf<{ keyId: number; fingerprint: string }> & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<KeySchema, C, E, void>> {
     let url: string;
 

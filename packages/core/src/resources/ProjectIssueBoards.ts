@@ -2,8 +2,8 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
-  EitherOrNone3,
   GitlabAPIResponse,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -36,11 +36,7 @@ export interface ProjectIssueBoards<C extends boolean = false> extends ResourceI
   createList<E extends boolean = false>(
     projectId: string | number,
     boardId: number,
-    options?: EitherOrNone3<
-      { labelId?: number },
-      { assigneeId?: number },
-      { milestoneId?: number }
-    > &
+    options?: OneOrNoneOf<{ labelId: number; assigneeId: number; milestoneId: number }> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;

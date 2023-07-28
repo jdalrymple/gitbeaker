@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { Either, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface DashboardAnnotationSchema extends Record<string, unknown> {
   id: number;
@@ -21,7 +21,7 @@ export class DashboardAnnotations<C extends boolean = false> extends BaseResourc
       environmentId,
       clusterId,
       ...options
-    }: Either<{ environmentId: number }, { clusterId: number }> & { endingAt?: string } & Sudo &
+    }: OneOf<{ environmentId: number; clusterId: number }> & { endingAt?: string } & Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DashboardAnnotationSchema, C, E, void>> {
     let url: string;

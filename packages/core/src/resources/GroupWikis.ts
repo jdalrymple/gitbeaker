@@ -2,8 +2,8 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceWikis } from '../templates';
 import type { WikiAttachmentSchema, WikiSchema } from '../templates/ResourceWikis';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -26,7 +26,7 @@ export interface GroupWikis<C extends boolean = false> extends ResourceWikis<C> 
   edit<E extends boolean = false>(
     groupId: string | number,
     slug: string,
-    options?: Either<{ content: string }, { title: string }> & { format?: string } & Sudo &
+    options?: OneOf<{ content: string; title: string }> & { format?: string } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<WikiSchema, C, E, void>>;
 

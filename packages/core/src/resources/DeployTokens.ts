@@ -2,9 +2,9 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  Either,
-  EitherOrNone,
   GitlabAPIResponse,
+  OneOf,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -34,7 +34,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: EitherOrNone<{ projectId: string | number }, { groupId: string | number }> & {
+    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> & {
       active?: boolean;
     } & PaginationRequestOptions<P> &
       BaseRequestOptions<E> = {} as any,
@@ -55,7 +55,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> &
       Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
@@ -82,7 +82,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> &
       Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
@@ -105,7 +105,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> &
       Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {

@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -29,7 +29,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   add<E extends boolean = false>(
     resourceId: string | number,
     accessLevel: AccessLevel,
-    options: Either<{ email: string }, { userId: string }> & {
+    options: OneOf<{ email: string; userId: string }> & {
       expiresAt?: string;
       inviteSource?: string;
       tasksToBeDone?: string[];

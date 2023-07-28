@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  Either3,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -25,11 +25,11 @@ export interface ProtectedEnvironmentSchema extends Record<string, unknown> {
   required_approval_count: number;
 }
 
-export type ProtectedEnvironmentAccessLevelEntity = Either3<
-  { userId: number },
-  { groupId: number },
-  { accessLevel: number }
->;
+export type ProtectedEnvironmentAccessLevelEntity = OneOf<{
+  userId: number;
+  groupId: number;
+  accessLevel: number;
+}>;
 
 export class ResourceProtectedEnvironments<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {

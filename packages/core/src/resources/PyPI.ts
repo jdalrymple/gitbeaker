@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { Either, GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 
 export class PyPI<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
@@ -10,7 +10,7 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     let url: string;
@@ -34,7 +34,7 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> & ShowExpanded<E>,
+    }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     let url: string;
 

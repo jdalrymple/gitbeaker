@@ -2,9 +2,9 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
-  EitherOrNone,
   GitlabAPIResponse,
   MappedOmit,
+  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -189,7 +189,7 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: EitherOrNone<{ projectId?: string | number }, { groupId?: string | number }> &
+    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       AllIssuesOptions &
       BaseRequestOptions<E> = {} as any,

@@ -1,9 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either,
   GitlabAPIResponse,
   MappedOmit,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -52,7 +52,7 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: Either<{ projectId: string | number }, { groupId: string | number }> &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> &
       AllPackageOptions &
       Sudo &
       ShowExpanded<E> &

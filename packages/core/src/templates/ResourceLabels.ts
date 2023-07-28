@@ -2,8 +2,8 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  Either,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -59,7 +59,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     resourceId: number | string,
     labelId: number | string,
-    options: Either<{ newName: string }, { color: string }> & {
+    options: OneOf<{ newName: string; color: string }> & {
       description?: string;
       priority?: number;
     } & Sudo &
