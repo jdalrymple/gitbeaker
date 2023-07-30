@@ -1,3 +1,15 @@
+# v39.10.2 (Sun Jul 30 2023)
+
+#### 🔨 Technical Debt
+
+- Expand the typing for the project endpoints on users [#3370](https://github.com/jdalrymple/gitbeaker/pull/3370) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.10.0 (Sun Jul 30 2023)
 
 #### 🐛 Bug Fix
