@@ -162,17 +162,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/first-time-contributor@npm:^10.46.0":
-  version: 10.46.0
-  resolution: "@auto-it/first-time-contributor@npm:10.46.0"
+"@auto-it/first-time-contributor@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "@auto-it/first-time-contributor@npm:11.0.0"
   dependencies:
-    "@auto-it/bot-list": 10.46.0
-    "@auto-it/core": 10.46.0
+    "@auto-it/bot-list": 11.0.0
+    "@auto-it/core": 11.0.0
     array.prototype.flatmap: ^1.2.2
     endent: ^2.1.0
     tslib: 2.1.0
     url-join: ^4.0.0
-  checksum: ed4df0ab40134ae431d6b436ecc77a5dd6cd2476ed116de34f64a89a2943f22211ea2a43cb12c30008c6d4f9a640a38130cbf1e46795c337e520736a31c0c207
+  checksum: 046db0fc90db96fc3170e6d741721217bc605b7e560c778548a3da441510b3ed1862edccc781bb756220e9c50bf994e7fd795097ca342e2a82715184d6c2913c
   languageName: node
   linkType: hard
 
@@ -5757,7 +5757,7 @@ __metadata:
   dependencies:
     "@auto-it/all-contributors": ^11.0.0
     "@auto-it/core": ^10.46.0
-    "@auto-it/first-time-contributor": ^10.46.0
+    "@auto-it/first-time-contributor": ^11.0.0
     "@auto-it/omit-commits": ^10.46.0
     "@auto-it/omit-release-notes": ^11.0.0
     "@auto-it/released": ^10.46.0
