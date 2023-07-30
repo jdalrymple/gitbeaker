@@ -34,7 +34,7 @@
     "@auto-it/first-time-contributor": "^11.0.0",
     "@auto-it/omit-commits": "^10.46.0",
     "@auto-it/omit-release-notes": "^11.0.0",
-    "@auto-it/released": "^10.46.0",
+    "@auto-it/released": "^11.0.0",
     "@swc/core": "^1.3.68",
     "@swc/jest": "^0.2.26",
     "@types/jest": "^29.5.2",
