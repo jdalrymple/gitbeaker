@@ -1,3 +1,15 @@
+# v39.10.0 (Sun Jul 30 2023)
+
+#### 🐛 Bug Fix
+
+- Updating protected branched types [#3360](https://github.com/jdalrymple/gitbeaker/pull/3360) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.9.0 (Fri Jul 28 2023)
 
 #### 🐛 Bug Fix

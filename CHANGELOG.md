@@ -1,3 +1,23 @@
+# 39.10.0 (Sun Jul 30 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Updating protected branched types [#3360](https://github.com/jdalrymple/gitbeaker/pull/3360) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump @auto-it/all-contributors from 10.46.0 to 11.0.0 [#3366](https://github.com/jdalrymple/gitbeaker/pull/3366) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/omit-release-notes from 10.46.0 to 11.0.0 [#3363](https://github.com/jdalrymple/gitbeaker/pull/3363) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump auto from 10.46.0 to 11.0.0 [#3369](https://github.com/jdalrymple/gitbeaker/pull/3369) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.9.0 (Fri Jul 28 2023)
 
 #### 🐛 Bug Fix
