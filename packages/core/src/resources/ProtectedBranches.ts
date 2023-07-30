@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -9,28 +10,39 @@ import type {
 } from '../infrastructure';
 
 export type ProtectedBranchAccessLevel = 0 | 30 | 40 | 60;
-export interface ExtendedProtectedBranchAccessLevel {
+export interface ExtendedProtectedBranchAccessLevelSchema {
+  id: number;
   access_level: ProtectedBranchAccessLevel;
   access_level_description: string;
-  user_id?: number;
-  group_id?: number;
+  user_id?: number | null;
+  group_id?: number | null;
 }
 
 export interface ProtectedBranchSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  push_access_levels?: ExtendedProtectedBranchAccessLevel[];
-  merge_access_levels?: ExtendedProtectedBranchAccessLevel[];
-  unprotect_access_levels?: ExtendedProtectedBranchAccessLevel[];
+  push_access_levels?: ExtendedProtectedBranchAccessLevelSchema[];
+  merge_access_levels?: ExtendedProtectedBranchAccessLevelSchema[];
+  unprotect_access_levels?: ExtendedProtectedBranchAccessLevelSchema[];
   allow_force_push: boolean;
   code_owner_approval_required: boolean;
 }
 
+export type ProtectedBranchAllowOptions = OneOf<{
+  user_id: number;
+  group_id: number;
+  access_level: number;
+}>;
+
+export type EditsProtectedBranchAllowOptions = {
+  _destroy?: boolean;
+} & ProtectedBranchAllowOptions;
+
 export type CreateProtectedBranchOptions = {
   allowForcePush?: boolean;
-  allowedToMerge?: Record<string, number>[];
-  allowedToPush?: Record<string, number>[];
-  allowedToUnprotect?: Record<string, number>[];
+  allowedToMerge?: ProtectedBranchAllowOptions[];
+  allowedToPush?: ProtectedBranchAllowOptions[];
+  allowedToUnprotect?: ProtectedBranchAllowOptions[];
   codeOwnerApprovalRequired?: boolean;
   mergeAccessLevel?: ProtectedBranchAccessLevel;
   pushAccessLevel?: ProtectedBranchAccessLevel;
@@ -39,9 +51,9 @@ export type CreateProtectedBranchOptions = {
 
 export type EditProtectedBranchOptions = {
   allowForcePush?: boolean;
-  allowedToMerge?: Record<string, number>[];
-  allowedToPush?: Record<string, number>[];
-  allowedToUnprotect?: Record<string, number>[];
+  allowedToMerge?: EditsProtectedBranchAllowOptions[];
+  allowedToPush?: EditsProtectedBranchAllowOptions[];
+  allowedToUnprotect?: EditsProtectedBranchAllowOptions[];
   codeOwnerApprovalRequired?: boolean;
 };
 
