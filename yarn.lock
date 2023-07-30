@@ -232,7 +232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/released@npm:11.0.0":
+"@auto-it/released@npm:11.0.0, @auto-it/released@npm:^11.0.0":
   version: 11.0.0
   resolution: "@auto-it/released@npm:11.0.0"
   dependencies:
@@ -243,20 +243,6 @@ __metadata:
     io-ts: ^2.1.2
     tslib: 2.1.0
   checksum: 2c0124a445c0758cda60443560dea688de146c7e1a783c7d867f5fc3def5ea69526a048058058b6e39a3015ef72152585dc936bdadfbf8f85e53f7fced04dda9
-  languageName: node
-  linkType: hard
-
-"@auto-it/released@npm:^10.46.0":
-  version: 10.46.0
-  resolution: "@auto-it/released@npm:10.46.0"
-  dependencies:
-    "@auto-it/bot-list": 10.46.0
-    "@auto-it/core": 10.46.0
-    deepmerge: ^4.0.0
-    fp-ts: ^2.5.3
-    io-ts: ^2.1.2
-    tslib: 2.1.0
-  checksum: 476423dbc5fdcebedd0681a8e1546e2e7e7ff135e8f09536dca62fee2e468796b7bc2159c03562a4fbbee125ae7f763a8e1972de6ef0b71acaff24a9398da45f
   languageName: node
   linkType: hard
 
@@ -5760,7 +5746,7 @@ __metadata:
     "@auto-it/first-time-contributor": ^11.0.0
     "@auto-it/omit-commits": ^10.46.0
     "@auto-it/omit-release-notes": ^11.0.0
-    "@auto-it/released": ^10.46.0
+    "@auto-it/released": ^11.0.0
     "@swc/core": ^1.3.68
     "@swc/jest": ^0.2.26
     "@types/jest": ^29.5.2
