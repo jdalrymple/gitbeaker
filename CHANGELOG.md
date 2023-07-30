@@ -1,3 +1,23 @@
+# 39.10.1 (Sun Jul 30 2023)
+
+#### ↕️ Dependencies
+
+- Bump @auto-it/core from 10.46.0 to 11.0.0 [#3368](https://github.com/jdalrymple/gitbeaker/pull/3368) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/omit-commits from 10.46.0 to 11.0.0 [#3365](https://github.com/jdalrymple/gitbeaker/pull/3365) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/released from 10.46.0 to 11.0.0 [#3367](https://github.com/jdalrymple/gitbeaker/pull/3367) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @auto-it/first-time-contributor from 10.46.0 to 11.0.0 [#3364](https://github.com/jdalrymple/gitbeaker/pull/3364) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### ⚠️ Pushed to `main`
+
+- Refreshing yarn.lock ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.10.0 (Sun Jul 30 2023)
 
 #### 🐛 Bug Fix
