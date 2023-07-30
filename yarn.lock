@@ -56,7 +56,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/core@npm:10.46.0, @auto-it/core@npm:^10.46.0":
+"@auto-it/core@npm:10.46.0":
   version: 10.46.0
   resolution: "@auto-it/core@npm:10.46.0"
   dependencies:
@@ -109,7 +109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/core@npm:11.0.0":
+"@auto-it/core@npm:11.0.0, @auto-it/core@npm:^11.0.0":
   version: 11.0.0
   resolution: "@auto-it/core@npm:11.0.0"
   dependencies:
@@ -5742,7 +5742,7 @@ __metadata:
   resolution: "gitbeaker@workspace:."
   dependencies:
     "@auto-it/all-contributors": ^11.0.0
-    "@auto-it/core": ^10.46.0
+    "@auto-it/core": ^11.0.0
     "@auto-it/first-time-contributor": ^11.0.0
     "@auto-it/omit-commits": ^11.0.0
     "@auto-it/omit-release-notes": ^11.0.0
