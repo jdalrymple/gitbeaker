@@ -31,7 +31,7 @@
   "devDependencies": {
     "@auto-it/all-contributors": "^11.0.0",
     "@auto-it/core": "^10.46.0",
-    "@auto-it/first-time-contributor": "^10.46.0",
+    "@auto-it/first-time-contributor": "^11.0.0",
     "@auto-it/omit-commits": "^10.46.0",
     "@auto-it/omit-release-notes": "^11.0.0",
     "@auto-it/released": "^10.46.0",
