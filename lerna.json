@@ -3,6 +3,6 @@
     "packages/*"
   ],
   "npmClient": "yarn",
-  "version": "39.10.1",
+  "version": "39.10.2",
   "tagVersionPrefix": ""
 }
