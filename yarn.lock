@@ -22,12 +22,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auto-it/all-contributors@npm:^10.46.0":
-  version: 10.46.0
-  resolution: "@auto-it/all-contributors@npm:10.46.0"
+"@auto-it/all-contributors@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "@auto-it/all-contributors@npm:11.0.0"
   dependencies:
-    "@auto-it/bot-list": 10.46.0
-    "@auto-it/core": 10.46.0
+    "@auto-it/bot-list": 11.0.0
+    "@auto-it/core": 11.0.0
     "@octokit/rest": ^18.12.0
     all-contributors-cli: 6.19.0
     anymatch: ^3.1.1
@@ -38,7 +38,7 @@ __metadata:
     fromentries: ^1.2.0
     io-ts: ^2.1.2
     tslib: 2.1.0
-  checksum: 3eff237d53dbedfec5a1d320cf371c588a5186373206665827eb1a538c888b7922356e5eb30ec5aa274653e57dc142987b35a4e80ee78aa3be04192cee18ba24
+  checksum: 549665cd2ae921dbaba23f6714f1e5114f6d37c01ca433d7cbfd0a8b5a23f0a98c1e0962a4ef9472243ad36a02773734963093a0b92e7944560b9bfbb4f970c4
   languageName: node
   linkType: hard
 
@@ -5755,7 +5755,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gitbeaker@workspace:."
   dependencies:
-    "@auto-it/all-contributors": ^10.46.0
+    "@auto-it/all-contributors": ^11.0.0
     "@auto-it/core": ^10.46.0
     "@auto-it/first-time-contributor": ^10.46.0
     "@auto-it/omit-commits": ^10.46.0
