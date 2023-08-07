@@ -37,6 +37,7 @@ function getDynamicToken(tokenArgument: (() => Promise<string>) | string): Promi
   return tokenArgument instanceof Function ? tokenArgument() : Promise.resolve(tokenArgument);
 }
 
+// Default rate limits per minute
 const DEFAULT_RATE_LIMITS = Object.freeze({
   // Default rate limit
   '*': 30,

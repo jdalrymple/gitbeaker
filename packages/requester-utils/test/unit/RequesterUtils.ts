@@ -1,5 +1,8 @@
+import * as AsyncSema from 'async-sema';
 import {
+  DefaultResourceOptions,
   RequestOptions,
+  createRateLimiters,
   createRequesterFn,
   defaultOptionsHandler,
   formatQuery,
@@ -9,13 +12,14 @@ import {
 const methods = ['get', 'put', 'patch', 'delete', 'post'];
 
 describe('defaultOptionsHandler', () => {
-  const serviceOptions = {
+  const serviceOptions: DefaultResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
     },
     url: 'testurl',
     rejectUnauthorized: false,
+    rateLimits: {},
   };
 
   it('should not use default request options if not passed', async () => {
@@ -105,13 +109,14 @@ describe('defaultOptionsHandler', () => {
 describe('createInstance', () => {
   const requestHandler = jest.fn();
   const optionsHandler = jest.fn(() => Promise.resolve({} as RequestOptions));
-  const serviceOptions = {
+  const serviceOptions: DefaultResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
     },
     url: 'testurl',
     rejectUnauthorized: false,
+    rateLimits: {},
   };
 
   it('should have a createInstance function', () => {
@@ -153,14 +158,16 @@ describe('createInstance', () => {
       },
       url: 'testurl',
       rejectUnauthorized: false,
+      rateLimits: {},
     };
-    const serviceOptions2 = {
+    const serviceOptions2: DefaultResourceOptions = {
       headers: { test: '5' },
       authHeaders: {
         token: () => Promise.resolve('1234'),
       },
       url: 'testurl2',
       rejectUnauthorized: true,
+      rateLimits: {},
     };
 
     const requesterFn = createRequesterFn(optionsHandler, requestHandler);
@@ -180,6 +187,65 @@ describe('createInstance', () => {
       serviceOptions2,
       expect.objectContaining({ method: 'GET' }),
     );
+  });
+
+  it('should pass the rate limiters to the requestHandler function', async () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    const testEndpoint = 'test endpoint';
+    const requester = createRequesterFn(
+      optionsHandler,
+      requestHandler,
+    )({
+      ...serviceOptions,
+      rateLimits: {
+        '*': 40,
+        'projects/*/test': {
+          method: 'GET',
+          limit: 10,
+        },
+      },
+    });
+
+    await requester.get(testEndpoint, {});
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
+
+    expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {
+      rateLimiters: {
+        '*': expect.toBeFunction(),
+        'projects/*/test': {
+          method: 'GET',
+          limit: expect.toBeFunction(),
+        },
+      },
+    });
+  });
+});
+
+describe('createRateLimiters', () => {
+  it('should create rate limiter functions when configured', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    const limiters = createRateLimiters({
+      '*': 40,
+      'projects/*/test': {
+        method: 'GET',
+        limit: 10,
+      },
+    });
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
+
+    expect(limiters).toStrictEqual({
+      '*': expect.toBeFunction(),
+      'projects/*/test': {
+        method: 'GET',
+        limit: expect.toBeFunction(),
+      },
+    });
   });
 });
 

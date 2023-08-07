@@ -152,13 +152,16 @@ export async function defaultOptionsHandler(
   return Promise.resolve(defaultOptions);
 }
 
-function createRateLimiters(rateLimitOptions: RateLimitOptions) {
+export function createRateLimiters(rateLimitOptions: RateLimitOptions = {}) {
   const rateLimiters: RateLimiters = {};
 
   Object.entries(rateLimitOptions).forEach(([key, config]) => {
-    if (typeof config === 'number') rateLimiters[key] = RateLimit(config);
+    if (typeof config === 'number') rateLimiters[key] = RateLimit(config, { timeUnit: 60000 });
     else
-      rateLimiters[key] = { method: config.method.toUpperCase(), limit: RateLimit(config.limit) };
+      rateLimiters[key] = {
+        method: config.method.toUpperCase(),
+        limit: RateLimit(config.limit, { timeUnit: 60000 }),
+      };
   });
 
   return rateLimiters;
