@@ -293,7 +293,7 @@ describe('defaultRequest', () => {
   it('should not assign the agent property if given https url and not rejectUnauthorized', async () => {
     const { agent } = await defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
-      { method: 'post' },
+      { method: 'POST' },
     );
 
     expect(agent).toBeUndefined();
@@ -302,7 +302,7 @@ describe('defaultRequest', () => {
   it('should not assign the agent property if given http url and rejectUnauthorized', async () => {
     const { agent } = await defaultOptionsHandler(
       { ...service, url: 'http://test.com' },
-      { method: 'post' },
+      { method: 'POST' },
     );
 
     expect(agent).toBeUndefined();
@@ -311,21 +311,21 @@ describe('defaultRequest', () => {
   it('should assign the agent property if given https url and rejectUnauthorized is false', async () => {
     const { agent: agent1 } = await defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: false },
-      { method: 'post' },
+      { method: 'POST' },
     );
 
     expect(agent1).toBeDefined();
 
     const { agent: agent2 } = await defaultOptionsHandler(
       { ...service, url: 'https://test.com', rejectUnauthorized: true },
-      { method: 'post' },
+      { method: 'POST' },
     );
 
     expect(agent2).toBeUndefined();
 
     const { agent: agent3 } = await defaultOptionsHandler(
       { ...service, url: 'https://test.com' },
-      { method: 'post' },
+      { method: 'POST' },
     );
 
     expect(agent3).toBeUndefined();

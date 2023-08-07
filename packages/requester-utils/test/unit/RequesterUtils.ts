@@ -21,13 +21,13 @@ describe('defaultOptionsHandler', () => {
   it('should not use default request options if not passed', async () => {
     const options = await defaultOptionsHandler(serviceOptions);
 
-    expect(options.method).toBe('get');
+    expect(options.method).toBe('GET');
   });
 
   it('should stringify body if it isnt of type FormData', async () => {
     const testBody = { test: 6 };
     const { body, headers } = await defaultOptionsHandler(serviceOptions, {
-      method: 'post',
+      method: 'POST',
       body: testBody,
     });
 
@@ -39,7 +39,7 @@ describe('defaultOptionsHandler', () => {
     const testBody: globalThis.FormData = new FormData() as unknown as globalThis.FormData;
     const { body } = await defaultOptionsHandler(serviceOptions, {
       body: testBody,
-      method: 'post',
+      method: 'POST',
     });
 
     expect(body).toBeInstanceOf(FormData);
@@ -48,7 +48,7 @@ describe('defaultOptionsHandler', () => {
   it('should not assign the sudo property if omitted', async () => {
     const { headers } = await defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
-      method: 'get',
+      method: 'GET',
     });
 
     expect(headers.sudo).toBeUndefined();
@@ -95,7 +95,7 @@ describe('defaultOptionsHandler', () => {
   it('should append dynamic authentication token headers', async () => {
     const { headers } = await defaultOptionsHandler(serviceOptions, {
       sudo: undefined,
-      method: 'get',
+      method: 'GET',
     });
 
     expect(headers.token).toBe('1234');
@@ -137,7 +137,10 @@ describe('createInstance', () => {
       // eslint-disable-next-line
       await requester[m](testEndpoint, {});
 
-      expect(optionsHandler).toHaveBeenCalledWith(serviceOptions, { method: m });
+      expect(optionsHandler).toHaveBeenCalledWith(
+        serviceOptions,
+        expect.objectContaining({ method: m.toUpperCase() }),
+      );
       expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {});
     }
   });
@@ -166,11 +169,17 @@ describe('createInstance', () => {
 
     await requesterA.get('test');
 
-    expect(optionsHandler).toHaveBeenCalledWith(serviceOptions1, { method: 'get' });
+    expect(optionsHandler).toHaveBeenCalledWith(
+      serviceOptions1,
+      expect.objectContaining({ method: 'GET' }),
+    );
 
     await requesterB.get('test');
 
-    expect(optionsHandler).toHaveBeenCalledWith(serviceOptions2, { method: 'get' });
+    expect(optionsHandler).toHaveBeenCalledWith(
+      serviceOptions2,
+      expect.objectContaining({ method: 'GET' }),
+    );
   });
 });
 
