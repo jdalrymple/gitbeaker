@@ -40,11 +40,11 @@ export type DefaultRequestOptions = {
 };
 
 export type RequestOptions = {
-  headers: Record<string, string>;
+  headers?: Record<string, string>;
   timeout?: number;
-  method: string;
+  method?: string;
   searchParams?: string;
-  prefixUrl: string;
+  prefixUrl?: string;
   body?: string | FormData;
   asStream?: boolean;
   signal?: AbortSignal;
@@ -104,12 +104,13 @@ export async function defaultOptionsHandler(
   const { headers: preconfiguredHeaders, authHeaders, url } = resourceOptions;
   const headers = { ...preconfiguredHeaders };
   const defaultOptions: RequestOptions = {
-    headers,
     method,
     asStream,
     signal,
     prefixUrl: url,
   };
+
+  defaultOptions.headers = headers;
 
   if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 
