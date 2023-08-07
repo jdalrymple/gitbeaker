@@ -51,7 +51,7 @@ describe('defaultOptionsHandler', () => {
       method: 'GET',
     });
 
-    expect(headers.sudo).toBeUndefined();
+    expect(headers?.sudo).toBeUndefined();
   });
 
   it('should assign the sudo property if passed', async () => {
@@ -59,7 +59,7 @@ describe('defaultOptionsHandler', () => {
       sudo: 'testsudo',
     });
 
-    expect(headers.sudo).toBe('testsudo');
+    expect(headers?.sudo).toBe('testsudo');
   });
 
   it('should assign the prefixUrl property if passed', async () => {
@@ -98,7 +98,7 @@ describe('defaultOptionsHandler', () => {
       method: 'GET',
     });
 
-    expect(headers.token).toBe('1234');
+    expect(headers?.token).toBe('1234');
   });
 });
 
