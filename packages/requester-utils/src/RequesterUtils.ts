@@ -23,7 +23,7 @@ export interface Constructable<T = any> {
   new (...args: any[]): T;
 }
 
-export type DefaultResourceOptions = {
+export type ResourceOptions = {
   headers: { [header: string]: string };
   authHeaders: { [authHeader: string]: () => Promise<string> };
   url: string;
@@ -40,11 +40,11 @@ export type DefaultRequestOptions = {
 };
 
 export type RequestOptions = {
-  headers: Record<string, string>;
+  headers?: Record<string, string>;
   timeout?: number;
-  method: string;
+  method?: string;
   searchParams?: string;
-  prefixUrl: string;
+  prefixUrl?: string;
   body?: string | FormData;
   asStream?: boolean;
   signal?: AbortSignal;
@@ -82,8 +82,8 @@ export function formatQuery(params: Record<string, unknown> = {}): string {
 }
 
 export type OptionsHandlerFn = (
-  serviceOptions: DefaultResourceOptions,
-  requestOptions: DefaultRequestOptions,
+  serviceOptions: ResourceOptions,
+  requestOptions: RequestOptions,
 ) => Promise<RequestOptions>;
 
 function isFormData(object: FormData | Record<string, unknown>) {
@@ -91,25 +91,26 @@ function isFormData(object: FormData | Record<string, unknown>) {
 }
 
 export async function defaultOptionsHandler(
-  resourceOptions: DefaultResourceOptions,
+  resourceOptions: ResourceOptions,
   {
     body,
     searchParams,
     sudo,
     signal,
     asStream = false,
-    method = 'get',
+    method = 'GET',
   }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
   const { headers: preconfiguredHeaders, authHeaders, url } = resourceOptions;
   const headers = { ...preconfiguredHeaders };
   const defaultOptions: RequestOptions = {
-    headers,
     method,
     asStream,
     signal,
     prefixUrl: url,
   };
+
+  defaultOptions.headers = headers;
 
   if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 
@@ -144,7 +145,7 @@ export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = 
 export function createRequesterFn(
   optionsHandler: OptionsHandlerFn,
   requestHandler: RequestHandlerFn,
-): (serviceOptions: DefaultResourceOptions) => RequesterType {
+): (serviceOptions: ResourceOptions) => RequesterType {
   const methods = ['get', 'post', 'put', 'patch', 'delete'];
 
   return (serviceOptions) => {
@@ -152,7 +153,11 @@ export function createRequesterFn(
 
     methods.forEach((m) => {
       requester[m] = async (endpoint: string, options: Record<string, unknown>) => {
-        const requestOptions = await optionsHandler(serviceOptions, { ...options, method: m });
+        const defaultRequestOptions = await defaultOptionsHandler(serviceOptions, {
+          ...options,
+          method: m.toUpperCase(),
+        });
+        const requestOptions = await optionsHandler(serviceOptions, defaultRequestOptions);
 
         return requestHandler(endpoint, requestOptions);
       };

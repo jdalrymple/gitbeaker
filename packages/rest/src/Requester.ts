@@ -1,22 +1,15 @@
 import type {
-  DefaultRequestOptions,
-  DefaultResourceOptions,
   RequestOptions,
+  ResourceOptions,
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
-import {
-  defaultOptionsHandler as baseOptionsHandler,
-  createRequesterFn,
-} from '@gitbeaker/requester-utils';
+import { createRequesterFn } from '@gitbeaker/requester-utils';
 
 export async function defaultOptionsHandler(
-  resourceOptions: DefaultResourceOptions,
-  requestOptions: DefaultRequestOptions = {},
+  resourceOptions: ResourceOptions,
+  requestOptions: RequestOptions,
 ): Promise<RequestOptions & { agent?: unknown }> {
-  const options: RequestOptions & { agent?: unknown } = await baseOptionsHandler(
-    resourceOptions,
-    requestOptions,
-  );
+  const options: RequestOptions & { agent?: unknown } = { ...requestOptions };
 
   if (
     resourceOptions.url.includes('https') &&

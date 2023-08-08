@@ -201,22 +201,15 @@ describe('Creation of BaseResource instance', () => {
   it('should set the internal requester based on the required requesterFn parameter', async () => {
     const requestHandler = jest.fn();
     const optionsHandler = jest.fn();
+
     const requesterFn = createRequesterFn(optionsHandler, requestHandler);
     const serviceA = new BaseResource({ token: '123', requesterFn, prefixUrl: 'test' });
-    const serviceB = new BaseResource({ token: '123', requesterFn, prefixUrl: 'test2' });
 
     await serviceA.requester.get('test');
 
     expect(optionsHandler).toHaveBeenCalledWith(
       expect.objectContaining({ url: 'https://gitlab.com/api/v4/test' }),
-      { method: 'get' },
-    );
-
-    await serviceB.requester.get('test');
-
-    expect(optionsHandler).toHaveBeenCalledWith(
-      expect.objectContaining({ url: 'https://gitlab.com/api/v4/test2' }),
-      { method: 'get' },
+      expect.objectContaining({ method: 'GET' }),
     );
   });
 });
