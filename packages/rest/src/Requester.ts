@@ -3,10 +3,7 @@ import type {
   ResourceOptions,
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
-import {
-  createRequesterFn,
-  getMatchingRateLimit,
-} from '@gitbeaker/requester-utils';
+import { createRequesterFn, getMatchingRateLimiter } from '@gitbeaker/requester-utils';
 
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
@@ -97,7 +94,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   const retryCodes = [429, 502];
   const maxRetries = 10;
   const { prefixUrl, asStream, searchParams, rateLimiters, method, ...opts } = options || {};
-  const endpointRateLimit = getMatchingRateLimit(endpoint, method, rateLimiters);
+  const endpointRateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
   let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;

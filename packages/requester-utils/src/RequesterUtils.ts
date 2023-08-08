@@ -35,8 +35,8 @@ export type ResourceOptions = {
   headers: { [header: string]: string };
   authHeaders: { [authHeader: string]: () => Promise<string> };
   url: string;
-  rateLimits: RateLimitOptions;
   rejectUnauthorized: boolean;
+  rateLimits?: RateLimitOptions;
 };
 
 export type DefaultRequestOptions = {
@@ -222,25 +222,26 @@ export function presetResourceArguments<T extends Record<string, Constructable>>
   return updated as T;
 }
 
-export function getMatchingRateLimit(
+export function getMatchingRateLimiter(
   endpoint: string,
-  method: string = 'GET',
   rateLimiters: RateLimiters = {},
+  method: string = 'GET',
 ): ReturnType<typeof RateLimit> {
-  const sortedEndpoints = Object.keys(rateLimiters).sort();
+  const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
 
   // eslint-disable-next-line
   for (const ep of sortedEndpoints) {
     if (micromatch([endpoint], ep)) {
       const rateLimitConfig = rateLimiters[ep];
 
-      if ('method' in rateLimitConfig) {
-        if (rateLimitConfig.method === method.toUpperCase()) return rateLimitConfig.limit;
+      if (typeof rateLimitConfig === 'object' && 'method' in rateLimitConfig) {
+        if (rateLimitConfig.method.toUpperCase() === method.toUpperCase())
+          return rateLimitConfig.limit;
       } else {
         return rateLimitConfig;
       }
     }
   }
 
-  return RateLimit(30);
+  return RateLimit(1000);
 }

@@ -6,6 +6,7 @@ import {
   createRequesterFn,
   defaultOptionsHandler,
   formatQuery,
+  getMatchingRateLimiter,
   presetResourceArguments,
 } from '../../src/RequesterUtils';
 
@@ -116,7 +117,6 @@ describe('createInstance', () => {
     },
     url: 'testurl',
     rejectUnauthorized: false,
-    rateLimits: {},
   };
 
   it('should have a createInstance function', () => {
@@ -146,7 +146,7 @@ describe('createInstance', () => {
         serviceOptions,
         expect.objectContaining({ method: m.toUpperCase() }),
       );
-      expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {});
+      expect(requestHandler).toHaveBeenCalledWith(testEndpoint, { rateLimiters: {} });
     }
   });
 
@@ -308,5 +308,67 @@ describe('formatQuery', () => {
     const string = formatQuery({ test: 6, not: { test: 7 } });
 
     expect(string).toBe('test=6&not%5Btest%5D=7');
+  });
+});
+
+describe('getMatchingRateLimiter', () => {
+  it('should default the method to GET if not passed', () => {
+    const rateLimiter = 10;
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'GET', limit: rateLimiter },
+    });
+
+    expect(matchingRateLimiter).toBe(rateLimiter);
+  });
+
+  it('should uppercase method for matching', () => {
+    const rateLimiter = 10;
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'get', limit: rateLimiter },
+    });
+
+    expect(matchingRateLimiter).toBe(rateLimiter);
+  });
+
+  it('should default the rateLimiters to an empty object if not passed and return the default rate of 1000 rpm', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    getMatchingRateLimiter('endpoint');
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(1000);
+  });
+
+  it('should return the most specific rate limit', () => {
+    const rateLimiter = 10;
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': jest.fn(),
+      'endpoint/*': rateLimiter,
+    });
+
+    expect(matchingRateLimiter).toBe(rateLimiter);
+  });
+
+  it('should return a default rate limit of 1000 rpm if nothing matches', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(1000);
+  });
+
+  it('should handle expanded rate limit options with a particular method and limit', () => {
+    const rateLimiter = 10;
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'get', limit: rateLimiter },
+    });
+
+    expect(matchingRateLimiter).toBe(rateLimiter);
+  });
+
+  it('should handle simple rate limit options with a particular limit', () => {
+    const rateLimiter = 10;
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', { '*': rateLimiter });
+
+    expect(matchingRateLimiter).toBe(rateLimiter);
   });
 });
