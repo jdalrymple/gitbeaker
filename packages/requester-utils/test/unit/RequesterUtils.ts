@@ -1,7 +1,7 @@
 import * as AsyncSema from 'async-sema';
 import {
-  DefaultResourceOptions,
   RequestOptions,
+  ResourceOptions,
   createRateLimiters,
   createRequesterFn,
   defaultOptionsHandler,
@@ -12,7 +12,7 @@ import {
 const methods = ['get', 'put', 'patch', 'delete', 'post'];
 
 describe('defaultOptionsHandler', () => {
-  const serviceOptions: DefaultResourceOptions = {
+  const serviceOptions: ResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
@@ -109,7 +109,7 @@ describe('defaultOptionsHandler', () => {
 describe('createInstance', () => {
   const requestHandler = jest.fn();
   const optionsHandler = jest.fn(() => Promise.resolve({} as RequestOptions));
-  const serviceOptions: DefaultResourceOptions = {
+  const serviceOptions: ResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
@@ -151,7 +151,7 @@ describe('createInstance', () => {
   });
 
   it('should respect the closure variables', async () => {
-    const serviceOptions1 = {
+    const serviceOptions1: ResourceOptions = {
       headers: { test: '5' },
       authHeaders: {
         token: () => Promise.resolve('1234'),
@@ -160,7 +160,7 @@ describe('createInstance', () => {
       rejectUnauthorized: false,
       rateLimits: {},
     };
-    const serviceOptions2: DefaultResourceOptions = {
+    const serviceOptions2: ResourceOptions = {
       headers: { test: '5' },
       authHeaders: {
         token: () => Promise.resolve('1234'),
