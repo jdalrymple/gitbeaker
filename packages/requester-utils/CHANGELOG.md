@@ -1,3 +1,15 @@
+# v39.10.3 (Tue Aug 08 2023)
+
+#### 🔨 Technical Debt
+
+- Embedding the request options normalization [#3374](https://github.com/jdalrymple/gitbeaker/pull/3374) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.6.0 (Wed Jul 12 2023)
 
 #### ↕️ Dependencies

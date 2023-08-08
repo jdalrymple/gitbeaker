@@ -1,3 +1,21 @@
+# 39.10.3 (Tue Aug 08 2023)
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Embedding the request options normalization [#3374](https://github.com/jdalrymple/gitbeaker/pull/3374) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump eslint-config-prettier from 8.8.0 to 9.0.0 [#3372](https://github.com/jdalrymple/gitbeaker/pull/3372) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.10.2 (Sun Jul 30 2023)
 
 #### 🔨 Technical Debt
