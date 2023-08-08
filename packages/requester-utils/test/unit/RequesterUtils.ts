@@ -312,22 +312,26 @@ describe('formatQuery', () => {
 });
 
 describe('getMatchingRateLimiter', () => {
-  it('should default the method to GET if not passed', () => {
-    const rateLimiter = 10;
+  it('should default the method to GET if not passed', async () => {
+    const rateLimiter = jest.fn();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'GET', limit: rateLimiter },
     });
 
-    expect(matchingRateLimiter).toBe(rateLimiter);
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
-  it('should uppercase method for matching', () => {
-    const rateLimiter = 10;
+  it('should uppercase method for matching', async () => {
+    const rateLimiter = jest.fn();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'get', limit: rateLimiter },
     });
 
-    expect(matchingRateLimiter).toBe(rateLimiter);
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
   it('should default the rateLimiters to an empty object if not passed and return the default rate of 1000 rpm', () => {
@@ -338,14 +342,16 @@ describe('getMatchingRateLimiter', () => {
     expect(rateLimitSpy).toHaveBeenCalledWith(1000);
   });
 
-  it('should return the most specific rate limit', () => {
-    const rateLimiter = 10;
+  it('should return the most specific rate limit', async () => {
+    const rateLimiter = jest.fn();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': jest.fn(),
       'endpoint/*': rateLimiter,
     });
 
-    expect(matchingRateLimiter).toBe(rateLimiter);
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
   it('should return a default rate limit of 1000 rpm if nothing matches', () => {
@@ -356,19 +362,23 @@ describe('getMatchingRateLimiter', () => {
     expect(rateLimitSpy).toHaveBeenCalledWith(1000);
   });
 
-  it('should handle expanded rate limit options with a particular method and limit', () => {
-    const rateLimiter = 10;
+  it('should handle expanded rate limit options with a particular method and limit', async () => {
+    const rateLimiter = jest.fn();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'get', limit: rateLimiter },
     });
 
-    expect(matchingRateLimiter).toBe(rateLimiter);
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle simple rate limit options with a particular limit', () => {
-    const rateLimiter = 10;
+  it('should handle simple rate limit options with a particular limit', async () => {
+    const rateLimiter = jest.fn();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', { '*': rateLimiter });
 
-    expect(matchingRateLimiter).toBe(rateLimiter);
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 });

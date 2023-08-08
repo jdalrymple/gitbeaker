@@ -226,7 +226,7 @@ export function getMatchingRateLimiter(
   endpoint: string,
   rateLimiters: RateLimiters = {},
   method: string = 'GET',
-): ReturnType<typeof RateLimit> {
+): () => Promise<void> {
   const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
 
   // eslint-disable-next-line
