@@ -29,9 +29,10 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
 }
 
 export type ProtectedBranchAllowOptions = OneOf<{
-  user_id: number;
-  group_id: number;
-  access_level: number;
+  id: number;
+  userId: number;
+  groupId: number;
+  accessLevel: ProtectedBranchAccessLevel;
 }>;
 
 export type EditsProtectedBranchAllowOptions = {
