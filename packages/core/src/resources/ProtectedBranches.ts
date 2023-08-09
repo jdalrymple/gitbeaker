@@ -28,22 +28,28 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
   code_owner_approval_required: boolean;
 }
 
-export type ProtectedBranchAllowOptions = OneOf<{
+export type CreateProtectedBranchAllowOptions = OneOf<{
   userId: number;
   groupId: number;
   accessLevel: ProtectedBranchAccessLevel;
 }>;
 
-export type EditsProtectedBranchAllowOptions = {
+export type EditProtectedBranchAllowOptions = {
   _destroy?: boolean;
-  id?: number;
-} & ProtectedBranchAllowOptions;
+} & (
+  | { userId: number }
+  | { groupId: number }
+  | {
+      accessLevel: ProtectedBranchAccessLevel;
+      id: number;
+    }
+);
 
 export type CreateProtectedBranchOptions = {
   allowForcePush?: boolean;
-  allowedToMerge?: ProtectedBranchAllowOptions[];
-  allowedToPush?: ProtectedBranchAllowOptions[];
-  allowedToUnprotect?: ProtectedBranchAllowOptions[];
+  allowedToMerge?: CreateProtectedBranchAllowOptions[];
+  allowedToPush?: CreateProtectedBranchAllowOptions[];
+  allowedToUnprotect?: CreateProtectedBranchAllowOptions[];
   codeOwnerApprovalRequired?: boolean;
   mergeAccessLevel?: ProtectedBranchAccessLevel;
   pushAccessLevel?: ProtectedBranchAccessLevel;
@@ -52,9 +58,9 @@ export type CreateProtectedBranchOptions = {
 
 export type EditProtectedBranchOptions = {
   allowForcePush?: boolean;
-  allowedToMerge?: EditsProtectedBranchAllowOptions[];
-  allowedToPush?: EditsProtectedBranchAllowOptions[];
-  allowedToUnprotect?: EditsProtectedBranchAllowOptions[];
+  allowedToMerge?: EditProtectedBranchAllowOptions[];
+  allowedToPush?: EditProtectedBranchAllowOptions[];
+  allowedToUnprotect?: EditProtectedBranchAllowOptions[];
   codeOwnerApprovalRequired?: boolean;
 };
 
