@@ -240,5 +240,5 @@ export function getMatchingRateLimiter(
     }
   }
 
-  return RateLimit(1000);
+  return RateLimit(3000, { timeUnit: 60000 });
 }

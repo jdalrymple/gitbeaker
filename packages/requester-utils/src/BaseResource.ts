@@ -40,7 +40,7 @@ function getDynamicToken(tokenArgument: (() => Promise<string>) | string): Promi
 // Default rate limits per minute
 const DEFAULT_RATE_LIMITS = Object.freeze({
   // Default rate limit
-  '*': 30,
+  '*': 3000,
 
   // Import/Export
   'projects/import': 6,
