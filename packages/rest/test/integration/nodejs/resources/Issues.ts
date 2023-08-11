@@ -34,7 +34,7 @@ describe('Issues.all', () => {
     }
 
     await Promise.all(newIssues);
-  }, 20000);
+  }, 60000);
 
   it('should get 10 issues using keyset pagination', async () => {
     const projects = await issueAPI.all({
