@@ -204,6 +204,12 @@ describe('Creation of BaseResource instance', () => {
       // @ts-ignore
       new BaseResource(); // eslint-disable-line
     }).toThrow();
+
+    expect(() => {
+      // eslint-disable-next-line
+      // @ts-ignore
+      new BaseResource({}); // eslint-disable-line
+    }).toThrow();
   });
 
   it('should set the internal requester based on the required requesterFn parameter', async () => {

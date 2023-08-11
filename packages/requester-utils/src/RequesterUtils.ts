@@ -193,10 +193,7 @@ export function createRequesterFn(
   };
 }
 
-function extendClass<T extends Constructable>(
-  Base: T,
-  customConfig: Record<string, unknown> = {},
-): T {
+function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
   return class extends Base {
     constructor(...options: any[]) {
       // eslint-disable-line
