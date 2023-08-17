@@ -93,7 +93,7 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   merged_by: MappedOmit<UserSchema, 'created_at'> | null;
   merged_at: string | null;
   closed_by: MappedOmit<UserSchema, 'created_at'> | null;
-  closed_at: MappedOmit<UserSchema, 'created_at'> | null;
+  closed_at: string | null;
   target_branch: string;
   source_branch: string;
   user_notes_count: number;
