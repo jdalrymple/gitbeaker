@@ -940,6 +940,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kouak",
+      "name": "Benjamin Beret",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48335?v=4",
+      "profile": "https://github.com/kouak",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
