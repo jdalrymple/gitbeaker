@@ -51,6 +51,15 @@ export interface ReleaseSchema extends Record<string, unknown> {
     evidence_file_path: string;
   };
   evidences: ReleaseEvidence[] | null;
+  _links: {
+    closed_issues_url: string;
+    closed_merge_requests_url: string;
+    edit_url: string;
+    merged_merge_requests_url: string;
+    opened_issues_url: string;
+    opened_merge_requests_url: string;
+    self: string;
+  };
 }
 
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
