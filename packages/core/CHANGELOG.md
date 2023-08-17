@@ -1,3 +1,22 @@
+# v39.11.0 (Thu Aug 17 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix MergeRequestSchema.closed_at property type [#3381](https://github.com/jdalrymple/gitbeaker/pull/3381) ([@kouak](https://github.com/kouak))
+- Fix missing ProjectReleaseSchema._links property [#3382](https://github.com/jdalrymple/gitbeaker/pull/3382) ([@kouak](https://github.com/kouak))
+- Additional tweaks to protected branch types [#3375](https://github.com/jdalrymple/gitbeaker/pull/3375) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.10.2 (Sun Jul 30 2023)
 
 #### 🔨 Technical Debt

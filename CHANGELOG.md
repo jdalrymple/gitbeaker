@@ -1,3 +1,28 @@
+# 39.11.0 (Thu Aug 17 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix MergeRequestSchema.closed_at property type [#3381](https://github.com/jdalrymple/gitbeaker/pull/3381) ([@kouak](https://github.com/kouak))
+  - Fix missing ProjectReleaseSchema._links property [#3382](https://github.com/jdalrymple/gitbeaker/pull/3382) ([@kouak](https://github.com/kouak))
+  - Additional tweaks to protected branch types [#3375](https://github.com/jdalrymple/gitbeaker/pull/3375) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump lint-staged from 13.2.3 to 14.0.0 [#3377](https://github.com/jdalrymple/gitbeaker/pull/3377) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.10.3 (Tue Aug 08 2023)
 
 #### 🔨 Technical Debt
