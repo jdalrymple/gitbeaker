@@ -24,7 +24,22 @@ export interface TimeStatsSchema extends Record<string, unknown> {
   human_total_time_spent: string | null;
 }
 
-export interface IssueSchema extends Record<string, unknown> {
+export interface IssueLabelDetailsSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  description: null | string;
+  description_html: string;
+  text_color: string;
+  color: string;
+}
+
+type TPolymorphicOptionDefinitions = {
+  withLabelsDetails?: boolean;
+};
+
+export interface IssueSchema<
+  TPolymorphicOptions extends TPolymorphicOptionDefinitions = TPolymorphicOptionDefinitions,
+> extends Record<string, unknown> {
   state: string;
   description: string;
   health_status?: string;
@@ -42,7 +57,9 @@ export interface IssueSchema extends Record<string, unknown> {
   created_at: string;
   moved_to_id?: string;
   iid: number;
-  labels?: string[];
+  labels?: TPolymorphicOptions['withLabelsDetails'] extends true
+    ? IssueLabelDetailsSchema[]
+    : string[];
   upvotes: number;
   downvotes: number;
   merge_requests_count: number;
@@ -110,7 +127,6 @@ export type AllIssuesOptions = {
   updatedAfter?: string;
   updatedBefore?: string;
   weight?: number;
-  withLabelsDetails?: boolean;
 };
 
 export type CreateIssueOptions = {
@@ -184,7 +200,11 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+  all<
+    E extends boolean = false,
+    P extends PaginationTypes = 'offset',
+    TPolymorphicOptions extends TPolymorphicOptionDefinitions = TPolymorphicOptionDefinitions,
+  >(
     {
       projectId,
       groupId,
@@ -192,15 +212,16 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       AllIssuesOptions &
+      TPolymorphicOptions &
       BaseRequestOptions<E> = {} as any,
-  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<IssueSchema<TPolymorphicOptions>[], C, E, P>> {
     let url: string;
 
     if (projectId) url = endpoint`projects/${projectId}/issues`;
     else if (groupId) url = endpoint`groups/${groupId}/issues`;
     else url = 'issues';
 
-    return RequestHelper.get<IssueSchema[]>()(this, url, options);
+    return RequestHelper.get<IssueSchema<TPolymorphicOptions>[]>()(this, url, options);
   }
 
   allMetricImages<E extends boolean = false>(
