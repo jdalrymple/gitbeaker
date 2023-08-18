@@ -1,5 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
-import { Issues } from '../../../src';
+import { type IssueLabelDetailsSchema, Issues } from '../../../src';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -60,6 +60,37 @@ describe('Issues.all', () => {
     await service.all({ groupId: 2 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/issues', {});
+  });
+
+  it('should return the proper type based on `withLabelDetails` option', async () => {
+    let stringLabel: undefined | string;
+    let detailedLabel: undefined | IssueLabelDetailsSchema;
+
+    stringLabel = (await service.all({ groupId: 2 })).at(0)?.labels?.at(0);
+    // @ts-expect-error -- By default, labels are string
+    detailedLabel = (await service.all({ groupId: 2 })).at(0)?.labels?.at(0);
+
+    stringLabel = (await service.all({ groupId: 2, withLabelsDetails: false }))
+      .at(0)
+      ?.labels?.at(0);
+    // @ts-expect-error -- By default, labels are string
+    detailedLabel = (await service.all({ groupId: 2, withLabelsDetails: false }))
+      .at(0)
+      ?.labels?.at(0);
+
+    // @ts-expect-error -- In that case, labels are detailed labels
+    stringLabel = (await service.all({ groupId: 2, withLabelsDetails: true })).at(0)?.labels?.at(0);
+    detailedLabel = (await service.all({ groupId: 2, withLabelsDetails: true }))
+      .at(0)
+      ?.labels?.at(0);
+
+    /**
+     * Random tests which should never fail:
+     * - Jest is unhappy if a it() does not contain at least one expectation
+     * - TS and eslint are unhappy if stringLabel and detailedLabel are not used
+     */
+    expect(stringLabel).toBe(undefined);
+    expect(detailedLabel).toBe(undefined);
   });
 });
 
