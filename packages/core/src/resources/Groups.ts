@@ -10,6 +10,7 @@ import type {
 } from '../infrastructure';
 import type { CondensedProjectSchema, ProjectSchema, SimpleProjectSchema } from './Projects';
 import type { UserSchema } from './Users';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 
 export interface GroupStatisticsSchema {
   storage_size: number;
@@ -98,7 +99,7 @@ export type AllGroupProjectsOptions = {
   withMergeRequestsEnabled?: boolean;
   withShared?: boolean;
   includeSubgroups?: boolean;
-  min_accessLevel?: number;
+  minAccessLevel?: number;
   withCustomAttributes?: boolean;
   withSecurityReports?: boolean;
 };
@@ -171,11 +172,24 @@ export type AllProvisionedUsersOptions = {
 
 export class Groups<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: { statistics: true } & AllGroupsOptions &
+    options: { withCustomAttributes: true } & AllGroupsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<(GroupSchema & { custom_attributes: CustomAttributeSchema[] })[], C, E, P>
+  >;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    options: { statistics: true } & AllGroupsOptions &
       PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

@@ -14,23 +14,15 @@ import type {
 import type { UserSchema } from './Users';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
-import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { MetricImageSchema } from './AlertManagement';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
 export interface TimeStatsSchema extends Record<string, unknown> {
   time_estimate: number;
   total_time_spent: number;
   human_time_estimate: string | null;
   human_total_time_spent: string | null;
-}
-
-export interface IssueLabelDetailsSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  description: null | string;
-  description_html: string;
-  text_color: string;
-  color: string;
 }
 
 export interface IssueSchema extends Record<string, unknown> {
@@ -51,7 +43,7 @@ export interface IssueSchema extends Record<string, unknown> {
   created_at: string;
   moved_to_id?: string;
   iid: number;
-  labels: string[] | IssueLabelDetailsSchema[];
+  labels: string[] | SimpleLabelSchema[];
   upvotes: number;
   downvotes: number;
   merge_requests_count: number;
@@ -90,7 +82,7 @@ export interface IssueSchema extends Record<string, unknown> {
 }
 
 export interface IssueSchemaWithExpandedLabels extends IssueSchema {
-  labels: IssueLabelDetailsSchema[];
+  labels: SimpleLabelSchema[];
 }
 
 export interface IssueSchemaWithBasicLabels extends IssueSchema {

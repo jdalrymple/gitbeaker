@@ -13,6 +13,16 @@ import type {
 export interface ProjectWikis<C extends boolean = false> extends ResourceWikis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
+    options: { withContent: true } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<(WikiSchema & { content: string })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
     options?: { withContent?: boolean } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
 

@@ -11,6 +11,7 @@ import type {
 import type { TodoSchema } from './TodoLists';
 import type { UserSchema } from './Users';
 import type { GroupSchema } from './Groups';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
 
 export interface EpicSchema extends Record<string, unknown> {
   id: number;
@@ -40,7 +41,7 @@ export interface EpicSchema extends Record<string, unknown> {
   created_at: string;
   updated_at: string;
   closed_at: string;
-  labels?: string[];
+  labels: string[] | SimpleLabelSchema[];
   upvotes: number;
   downvotes: number;
   _links: {
@@ -48,6 +49,14 @@ export interface EpicSchema extends Record<string, unknown> {
     epic_issues: string;
     group: string;
   };
+}
+
+export interface EpicSchemaWithExpandedLabels extends EpicSchema {
+  labels: SimpleLabelSchema[];
+}
+
+export interface EpicSchemaWithBasicLabels extends EpicSchema {
+  labels: string[];
 }
 
 export interface EpicTodoSchema extends TodoSchema {
@@ -105,6 +114,22 @@ export type EditEpicOptions = {
   color?: string;
 };
 export class Epics<C extends boolean = false> extends BaseResource<C> {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options: AllEpicsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withLabelsDetails: true },
+  ): Promise<GitlabAPIResponse<EpicSchemaWithExpandedLabels[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: AllEpicsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withLabelsDetails?: false },
+  ): Promise<GitlabAPIResponse<EpicSchemaWithBasicLabels[], C, E, P>>;
+
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: AllEpicsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

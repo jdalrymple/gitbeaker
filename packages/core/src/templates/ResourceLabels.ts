@@ -10,13 +10,16 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface LabelSchema extends Record<string, unknown> {
+export interface SimpleLabelSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  color: string;
-  text_color: string;
-  description: string;
+  description: null | string;
   description_html: string;
+  text_color: string;
+  color: string;
+}
+
+export interface LabelSchema extends SimpleLabelSchema {
   open_issues_count: number;
   closed_issues_count: number;
   open_merge_requests_count: number;
@@ -25,10 +28,37 @@ export interface LabelSchema extends Record<string, unknown> {
   is_project_label: boolean;
 }
 
+export interface LabelCountSchema extends Record<string, unknown> {
+  open_issues_count: number;
+  closed_issues_count: number;
+  open_merge_requests_count: number;
+}
+
 export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
   constructor(resourceType: string, options: BaseResourceOptions<C>) {
     super({ prefixUrl: resourceType, ...options });
   }
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options: {
+      withCounts: true;
+      includeAncestorGroups?: boolean;
+      search?: string;
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<(LabelSchema & LabelCountSchema)[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options?: {
+      includeAncestorGroups?: boolean;
+      search?: string;
+    } & PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,

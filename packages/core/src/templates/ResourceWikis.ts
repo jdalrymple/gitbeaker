@@ -35,6 +35,16 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
+    options: { withContent: true } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<(WikiSchema & { content: string })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+  ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    resourceId: string | number,
     options?: { withContent?: boolean } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>> {
     return RequestHelper.get<WikiSchema[]>()(this, endpoint`${resourceId}/wikis`, options);
