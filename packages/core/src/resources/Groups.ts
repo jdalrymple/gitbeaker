@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { CondensedProjectSchema, ProjectSchema, SimpleProjectSchema } from './Projects';
+import type { CondensedProjectSchema, ProjectSchema } from './Projects';
 import type { UserSchema } from './Users';
 
 export interface GroupStatisticsSchema {
@@ -179,6 +179,10 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
     return RequestHelper.get<GroupSchema[]>()(this, 'groups', options);
   }
@@ -193,6 +197,11 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
+    options: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
+
+  allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
     options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
     return RequestHelper.get<GroupSchema[]>()(
@@ -204,18 +213,15 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { simple: true; sharedOnly?: boolean } & AllGroupProjectsOptions &
+    options?: { simple: true } & AllGroupProjectsOptions &
       PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
+  ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { simple?: boolean; sharedOnly?: boolean } & AllGroupProjectsOptions &
-      PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -239,10 +245,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { simple?: boolean } & AllGroupProjectsOptions &
-      PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -266,10 +269,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { statistics?: boolean } & AllGroupsOptions &
-      PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
