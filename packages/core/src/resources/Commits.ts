@@ -215,6 +215,21 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
+    options: AllCommitsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withStats: true; trailers: true },
+  ): Promise<
+    GitlabAPIResponse<
+      (CommitSchema & { trailers: Record<string, unknown>; stats: CommitStatsSchema })[],
+      C,
+      E,
+      P
+    >
+  >;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
     options?: AllCommitsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
 
