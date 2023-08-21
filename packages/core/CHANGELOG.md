@@ -1,3 +1,17 @@
+# v39.12.0 (Mon Aug 21 2023)
+
+#### 🐛 Bug Fix
+
+- Expanding typing for dynamic payload response functions [#3386](https://github.com/jdalrymple/gitbeaker/pull/3386) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing pagination for allDiffs and allCommits methods [#3388](https://github.com/jdalrymple/gitbeaker/pull/3388) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing statistics parameter on groups [#3387](https://github.com/jdalrymple/gitbeaker/pull/3387) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.11.0 (Thu Aug 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
