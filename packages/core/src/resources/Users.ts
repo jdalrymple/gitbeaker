@@ -10,8 +10,9 @@ import type {
 } from '../infrastructure';
 import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
 import type { AllEventOptions, EventSchema } from './Events';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import type { AccessLevel } from '../templates/ResourceAccessRequests';
 
 export interface UserSchema extends Record<string, unknown> {
   id: number;
@@ -41,7 +42,6 @@ export interface ExpandedUserSchema extends UserSchema {
   following?: number;
   local_time?: string;
   is_followed?: boolean;
-
   last_sign_in_at: string;
   confirmed_at: string;
   last_activity_on: string;
@@ -61,7 +61,6 @@ export interface ExpandedUserSchema extends UserSchema {
   last_sign_in_ip: string;
   namespace_id?: number;
   created_by?: string;
-
   shared_runners_minutes_limit?: number;
   extra_shared_runners_minutes_limit?: number;
   is_auditor?: boolean;
@@ -219,6 +218,24 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.post<void>()(this, endpoint`users/${userId}/activate`, options);
   }
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: AllUsersOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withCustomAttributes: true },
+  ): Promise<
+    GitlabAPIResponse<
+      ((UserSchema | ExpandedUserSchema) & { custom_attributes: CustomAttributeSchema[] })[],
+      C,
+      E,
+      P
+    >
+  >;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<(UserSchema | ExpandedUserSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

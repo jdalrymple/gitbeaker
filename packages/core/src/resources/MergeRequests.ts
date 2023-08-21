@@ -18,6 +18,7 @@ import type { TodoSchema } from './TodoLists';
 import type { UserSchema } from './Users';
 
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
 
 // Response Schemas
 export interface DiffRefsSchema {
@@ -105,7 +106,7 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   reviewers: MappedOmit<UserSchema, 'created_at'>[] | null;
   source_project_id: number;
   target_project_id: number;
-  labels: string[] | null;
+  labels: string[] | SimpleLabelSchema[];
   draft: boolean;
   work_in_progress: boolean;
   milestone: MilestoneSchema | null;
@@ -146,6 +147,14 @@ export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   user: {
     can_merge: boolean;
   };
+}
+
+export interface MergeRequestSchemaWithExpandedLabels extends MergeRequestSchema {
+  labels: SimpleLabelSchema[];
+}
+
+export interface MergeRequestSchemaWithBasicLabels extends MergeRequestSchema {
+  labels: string[];
 }
 
 export interface MergeRequestTodoSchema extends TodoSchema {
@@ -274,6 +283,19 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       },
     );
   }
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      AllMergeRequestsOptions & { withLabelsDetails: true },
+  ): Promise<GitlabAPIResponse<MergeRequestSchemaWithExpandedLabels[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      AllMergeRequestsOptions &
+      BaseRequestOptions<E> & { withLabelsDetails?: false },
+  ): Promise<GitlabAPIResponse<MergeRequestSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     {

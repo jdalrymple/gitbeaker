@@ -32,6 +32,12 @@ export interface CommitAction {
 
 // Response structures
 
+export interface CommitStatsSchema extends Record<string, unknown> {
+  additions: number;
+  deletions: number;
+  total: number;
+}
+
 export interface CondensedCommitSchema extends Record<string, unknown> {
   id: string;
   short_id: string;
@@ -59,11 +65,7 @@ export interface ExpandedCommitSchema extends CommitSchema {
     sha: string;
     status: string;
   };
-  stats: {
-    additions: number;
-    deletions: number;
-    total: number;
-  };
+  stats: CommitStatsSchema;
   status: string;
 }
 
@@ -195,6 +197,42 @@ export type EditPipelineStatusOptions = {
 };
 
 export class Commits<C extends boolean = false> extends BaseResource<C> {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options: AllCommitsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withStats: true },
+  ): Promise<GitlabAPIResponse<(CommitSchema & { stats: CommitStatsSchema })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options: AllCommitsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { trailers: true },
+  ): Promise<GitlabAPIResponse<(CommitSchema & { trailers: Record<string, unknown> })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options: AllCommitsOptions &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> & { withStats: true; trailers: true },
+  ): Promise<
+    GitlabAPIResponse<
+      (CommitSchema & { trailers: Record<string, unknown>; stats: CommitStatsSchema })[],
+      C,
+      E,
+      P
+    >
+  >;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: AllCommitsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
+
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: AllCommitsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

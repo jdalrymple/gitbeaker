@@ -14,8 +14,9 @@ import type {
 import type { UserSchema } from './Users';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
-import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { MetricImageSchema } from './AlertManagement';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
 export interface TimeStatsSchema extends Record<string, unknown> {
   time_estimate: number;
@@ -42,7 +43,7 @@ export interface IssueSchema extends Record<string, unknown> {
   created_at: string;
   moved_to_id?: string;
   iid: number;
-  labels?: string[];
+  labels: string[] | SimpleLabelSchema[];
   upvotes: number;
   downvotes: number;
   merge_requests_count: number;
@@ -78,6 +79,14 @@ export interface IssueSchema extends Record<string, unknown> {
     group_id: number;
   };
   service_desk_reply_to?: string;
+}
+
+export interface IssueSchemaWithExpandedLabels extends IssueSchema {
+  labels: SimpleLabelSchema[];
+}
+
+export interface IssueSchemaWithBasicLabels extends IssueSchema {
+  labels: string[];
 }
 
 export type AllIssuesOptions = {
@@ -183,6 +192,19 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       },
     );
   }
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      AllIssuesOptions & { withLabelsDetails: true },
+  ): Promise<GitlabAPIResponse<IssueSchemaWithExpandedLabels[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      AllIssuesOptions &
+      BaseRequestOptions<E> & { withLabelsDetails?: false },
+  ): Promise<GitlabAPIResponse<IssueSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     {

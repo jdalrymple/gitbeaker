@@ -15,6 +15,7 @@ import type { UserSchema } from './Users';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { SimpleGroupSchema } from './Groups';
 import type { AccessLevel } from '../templates/ResourceAccessRequests';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;
@@ -363,6 +364,15 @@ export type AllForksOptions = {
 };
 
 export class Projects<C extends boolean = false> extends BaseResource<C> {
+  all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    options: PaginationRequestOptions<P> &
+      AllProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { withCustomAttributes: true },
+  ): Promise<
+    GitlabAPIResponse<(ProjectSchema & { custom_attributes: CustomAttributeSchema[] })[], C, E, P>
+  >;
+
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options: PaginationRequestOptions<P> &
       AllProjectsOptions &

@@ -36,7 +36,6 @@ export interface ReleaseSchema extends Record<string, unknown> {
   tag_name: string;
   description: string | null;
   name: string | null;
-  description_html: string;
   created_at: string;
   released_at: string | null;
   user: MappedOmit<UserSchema, 'created_at'>;
@@ -65,7 +64,19 @@ export interface ReleaseSchema extends Record<string, unknown> {
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
+    options?: PaginationRequestOptions<P> &
+      BaseRequestOptions<E> & { includeHtmlDescription: true },
+  ): Promise<GitlabAPIResponse<(ReleaseSchema & { description_html: string })[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
     options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    options?: PaginationRequestOptions<P> &
+      BaseRequestOptions<E> & { includeHtmlDescription?: boolean },
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>> {
     return RequestHelper.get<ReleaseSchema[]>()(
       this,
