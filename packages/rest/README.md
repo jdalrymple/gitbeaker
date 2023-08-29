@@ -241,7 +241,7 @@ const { data } = await api.Projects.all({
 
 ### Error Handling
 
-Request errors are returned back within the a plain Error instance, using the cause to hold the original response and a text description of the error pulled from the response's error or message fields if JSON, or its plain text value:
+Request errors are returned back within a plain Error instance, using the cause to hold the original response and a text description of the error pulled from the response's error or message fields if JSON, or its plain text value:
 
 ```js
 Error: Bad Request
