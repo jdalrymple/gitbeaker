@@ -128,6 +128,7 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
   time_stats: TimeStatsSchema;
   squash: boolean;
   task_completion_status: TaskCompletionStatusSchema;
+  prepared_at: string | null;
   has_conflicts: boolean;
   blocking_discussions_resolved: boolean;
   approvals_before_merge: number | null;
