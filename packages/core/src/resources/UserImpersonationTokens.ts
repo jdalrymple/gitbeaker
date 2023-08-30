@@ -8,7 +8,18 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export type ImpersonationTokenScope = 'api' | 'read_user';
+export type ImpersonationTokenScope =
+  | 'api'
+  | 'read_api'
+  | 'read_user'
+  | 'create_runner'
+  | 'read_repository'
+  | 'write_repository'
+  | 'read_registry'
+  | 'write_registry'
+  | 'sudo'
+  | 'admin_mode';
+
 export type ImpersonationTokenState = 'all' | 'active' | 'inactive';
 
 export interface UserImpersonationTokenSchema extends Record<string, unknown> {
@@ -21,6 +32,7 @@ export interface UserImpersonationTokenSchema extends Record<string, unknown> {
   created_at: string;
   impersonation: boolean;
   expires_at: string;
+  token?: string;
 }
 
 export class UserImpersonationTokens<C extends boolean = false> extends BaseResource<C> {

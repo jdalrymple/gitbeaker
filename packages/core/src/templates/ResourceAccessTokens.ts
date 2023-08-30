@@ -13,6 +13,7 @@ import type { AccessLevel } from './ResourceAccessRequests';
 export type AccessTokenScopes =
   | 'api'
   | 'read_api'
+  | 'create_runner'
   | 'read_registry'
   | 'write_registry'
   | 'read_repository'
@@ -28,6 +29,7 @@ export interface AccessTokenSchema extends Record<string, unknown> {
   created_at: string;
   revoked: boolean;
   access_level: AccessLevel;
+  token?: string;
 }
 
 export class ResourceAccessTokens<C extends boolean = false> extends BaseResource<C> {
