@@ -18,14 +18,20 @@ export interface PersonalAccessTokenSchema extends Record<string, unknown> {
   last_used_at: string;
   active: boolean;
   expires_at?: string;
+  token?: string;
 }
 
 export type PersonalAccessTokenScopes =
   | 'api'
-  | 'read_user'
   | 'read_api'
+  | 'read_user'
+  | 'create_runner'
   | 'read_repository'
-  | 'write_repository';
+  | 'write_repository'
+  | 'read_registry'
+  | 'write_registry'
+  | 'sudo'
+  | 'admin_mode';
 
 export type AllPersonalAccessTokenOptions = {
   userId?: string | number;
