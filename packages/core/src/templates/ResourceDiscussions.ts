@@ -41,17 +41,17 @@ export type DiscussionNotePositionSchema =
 
 export interface DiscussionNoteSchema extends Record<string, unknown> {
   id: number;
-  type?: string;
+  type: 'DiffNote' | 'DiscussionNote' | null;
   body: string;
-  attachment?: string;
+  attachment: string | null;
   author: MappedOmit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;
   noteable_id: number;
   noteable_type: string;
-  noteable_iid?: number;
-  resolvable?: boolean;
+  noteable_iid: number | null;
+  resolvable: boolean;
 }
 
 export interface DiscussionSchema extends Record<string, unknown> {
