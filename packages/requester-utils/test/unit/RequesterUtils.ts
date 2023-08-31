@@ -334,12 +334,12 @@ describe('getMatchingRateLimiter', () => {
     expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
-  it('should default the rateLimiters to an empty object if not passed and return the default rate of 1000 rpm', () => {
+  it('should default the rateLimiters to an empty object if not passed and return the default rate of 3000 rpm', () => {
     const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
 
     getMatchingRateLimiter('endpoint');
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(1000);
+    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
   });
 
   it('should return the most specific rate limit', async () => {
@@ -359,7 +359,7 @@ describe('getMatchingRateLimiter', () => {
 
     getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(1000);
+    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
   });
 
   it('should handle expanded rate limit options with a particular method and limit', async () => {
