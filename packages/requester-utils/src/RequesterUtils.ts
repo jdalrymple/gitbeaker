@@ -225,20 +225,14 @@ export function getMatchingRateLimiter(
   method: string = 'GET',
 ): () => Promise<void> {
   const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
+  const match = sortedEndpoints.find((ep) => micromatch.isMatch(endpoint, ep));
+  const rateLimitConfig = match && rateLimiters[match];
 
-  // eslint-disable-next-line
-  for (const ep of sortedEndpoints) {
-    if (micromatch([endpoint], ep)) {
-      const rateLimitConfig = rateLimiters[ep];
-
-      if (typeof rateLimitConfig === 'object' && 'method' in rateLimitConfig) {
-        if (rateLimitConfig.method.toUpperCase() === method.toUpperCase())
-          return rateLimitConfig.limit;
-      } else {
-        return rateLimitConfig;
-      }
-    }
+  if (rateLimitConfig && typeof rateLimitConfig !== 'object') {
+    return rateLimitConfig;
   }
-
+  if (rateLimitConfig && rateLimitConfig.method.toUpperCase() === method.toUpperCase()) {
+    return rateLimitConfig.limit;
+  }
   return RateLimit(3000, { timeUnit: 60000 });
 }

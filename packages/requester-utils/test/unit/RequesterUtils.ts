@@ -344,9 +344,9 @@ describe('getMatchingRateLimiter', () => {
 
   it('should return the most specific rate limit', async () => {
     const rateLimiter = jest.fn();
-    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', {
       '*': jest.fn(),
-      'endpoint/*': rateLimiter,
+      'endpoint/testing*': rateLimiter,
     });
 
     await matchingRateLimiter();
@@ -354,7 +354,7 @@ describe('getMatchingRateLimiter', () => {
     expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 
-  it('should return a default rate limit of 1000 rpm if nothing matches', () => {
+  it('should return a default rate limit of 3000 rpm if nothing matches', () => {
     const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
 
     getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
@@ -375,7 +375,7 @@ describe('getMatchingRateLimiter', () => {
 
   it('should handle simple rate limit options with a particular limit', async () => {
     const rateLimiter = jest.fn();
-    const matchingRateLimiter = getMatchingRateLimiter('endpoint', { '*': rateLimiter });
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', { '**': rateLimiter });
 
     await matchingRateLimiter();
 

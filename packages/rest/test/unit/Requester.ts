@@ -21,7 +21,7 @@ describe('processBody', () => {
 
   it('should return a blob if type is octet-stream, binary, or gzip', async () => {
     const blobData = new Blob(['test'], {
-      type: 'plain/text',
+      type: 'text/plain',
     });
 
     const output = [
@@ -123,6 +123,176 @@ describe('defaultRequestHandler', () => {
     });
   });
 
+  it('should return an error the content of the error message if response is not JSON', async () => {
+    const stringBody = 'Bad things happened';
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        ok: false,
+        status: 501,
+        statusText: 'Really Bad Error',
+        headers: new Headers({
+          'content-type': 'text/plain',
+        }),
+        json: () => Promise.resolve(stringBody),
+        text: () => Promise.resolve(stringBody),
+      }),
+    );
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Really Bad Error',
+      name: 'Error',
+      cause: {
+        description: stringBody,
+      },
+    });
+  });
+
+  it('should return an error with a message "Query timeout was reached" if fetch throws a TimeoutError', async () => {
+    class TimeoutError extends Error {
+      constructor(message: string) {
+        super(message);
+        this.name = 'TimeoutError';
+      }
+    }
+
+    MockFetch.mockRejectedValueOnce(new TimeoutError('Hit timeout'));
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Query timeout was reached',
+      name: 'Error',
+    });
+  });
+
+  it('should return an error with a message "Query timeout was reached" if fetch throws a AbortError', async () => {
+    class AbortError extends Error {
+      constructor(message: string) {
+        super(message);
+        this.name = 'AbortError';
+      }
+    }
+
+    MockFetch.mockRejectedValueOnce(new AbortError('Abort signal triggered'));
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Query timeout was reached',
+      name: 'Error',
+    });
+  });
+
+  it('should return an unchanged error if fetch throws an error thats not an AbortError or TimeoutError', async () => {
+    class RandomError extends Error {
+      constructor(message: string) {
+        super(message);
+        this.name = 'RandomError';
+      }
+    }
+
+    MockFetch.mockRejectedValueOnce(new RandomError('Random Error'));
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Random Error',
+      name: 'RandomError',
+    });
+  });
+
+  it('should retry request if a 429 retry code is returned', async () => {
+    const stringBody = { error: 'msg' };
+    const fakeFailedReturnValue = Promise.resolve({
+      ok: false,
+      status: 429,
+      statusText: 'Retry Code',
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+      json: () => Promise.resolve(stringBody),
+      text: () => Promise.resolve(JSON.stringify(stringBody)),
+    });
+
+    const fakeSuccessfulReturnValue = Promise.resolve({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+
+    // Mock return 10 times
+    MockFetch.mockReturnValue(fakeFailedReturnValue);
+    MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
+
+    const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
+
+    expect(output).toMatchObject({
+      body: {},
+      headers: { 'content-type': 'application/json' },
+      status: 200,
+    });
+  });
+
+  it('should retry request if a 502 retry code is returned', async () => {
+    const stringBody = { error: 'msg' };
+    const fakeFailedReturnValue = Promise.resolve({
+      ok: false,
+      status: 502,
+      statusText: 'Retry Code',
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+      json: () => Promise.resolve(stringBody),
+      text: () => Promise.resolve(JSON.stringify(stringBody)),
+    });
+
+    const fakeSuccessfulReturnValue = Promise.resolve({
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(JSON.stringify({})),
+      ok: true,
+      status: 200,
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+
+    // Mock return 10 times
+    MockFetch.mockReturnValue(fakeFailedReturnValue);
+    MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
+
+    const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
+
+    expect(output).toMatchObject({
+      body: {},
+      headers: { 'content-type': 'application/json' },
+      status: 200,
+    });
+  });
+
+  it('should return a default error if retries are unsuccessful', async () => {
+    const stringBody = { error: 'msg' };
+    const fakeReturnValue = Promise.resolve({
+      ok: false,
+      status: 429,
+      statusText: 'Retry Code',
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+      json: () => Promise.resolve(stringBody),
+      text: () => Promise.resolve(JSON.stringify(stringBody)),
+    });
+
+    // Mock return 10 times
+    MockFetch.mockReturnValue(fakeReturnValue);
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message:
+        'Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.',
+      name: 'Error',
+    });
+
+    MockFetch.mockRestore();
+  });
+
   it('should return correct properties if request is valid', async () => {
     MockFetch.mockReturnValueOnce(
       Promise.resolve({
@@ -140,7 +310,32 @@ describe('defaultRequestHandler', () => {
 
     expect(output).toMatchObject({
       body: {},
-      headers: {},
+      headers: { 'content-type': 'application/json' },
+      status: 200,
+    });
+  });
+
+  it('should return correct properties as stream if request is valid', async () => {
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        body: 'text',
+        json: () => Promise.resolve({}),
+        text: () => Promise.resolve(JSON.stringify({})),
+        ok: true,
+        status: 200,
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
+      }),
+    );
+
+    const output = await defaultRequestHandler('http://test.com', {
+      asStream: true,
+    } as RequestOptions);
+
+    expect(output).toMatchObject({
+      body: 'text',
+      headers: { 'content-type': 'application/json' },
       status: 200,
     });
   });
