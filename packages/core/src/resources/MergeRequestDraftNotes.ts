@@ -1,14 +1,18 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { DiscussionNotePositionTextSchema } from '../templates/ResourceDiscussions';
+import type { DiscussionNotePositionSchema } from '../templates/ResourceDiscussions';
 
+export type MergeRequestDraftNotePositionSchema = DiscussionNotePositionSchema & {
+  line_range?: number;
+};
 export interface MergeRequestDraftNoteSchema extends Record<string, unknown> {
   id: number;
   author_id: number;
@@ -18,7 +22,7 @@ export interface MergeRequestDraftNoteSchema extends Record<string, unknown> {
   note: string;
   commit_id?: number;
   line_code?: number;
-  position: DiscussionNotePositionTextSchema & { line_range?: number };
+  position: MergeRequestDraftNotePositionSchema;
 }
 
 export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResource<C> {
@@ -42,6 +46,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
       commitId?: string;
       inReplyToDiscussionId?: number;
       resolveDiscussion?: boolean;
+      position?: Camelize<MergeRequestDraftNotePositionSchema>;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
@@ -59,7 +64,8 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     draftNoteId: number,
-    options?: { note?: string } & Sudo & ShowExpanded<E>,
+    options?: { note?: string; position?: Camelize<MergeRequestDraftNotePositionSchema> } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     return RequestHelper.post<MergeRequestDraftNoteSchema>()(
       this,
