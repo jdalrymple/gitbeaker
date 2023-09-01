@@ -103,7 +103,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     from: string,
     to: string,
-    options?: { fromProjectId?: string | number; straight?: string } & Sudo & ShowExpanded<E>,
+    options?: { fromProjectId?: string | number; straight?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryCompareSchema, C, E, void>> {
     return RequestHelper.get<RepositoryCompareSchema>()(
       this,
