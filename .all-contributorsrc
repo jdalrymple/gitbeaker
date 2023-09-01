@@ -949,6 +949,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "demedos",
+      "name": "Alessandro Diez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16702156?v=4",
+      "profile": "https://github.com/demedos",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 26

@@ -227,6 +227,7 @@ import { Gitlab } from '@gitbeaker/core';
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/ravewill"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/128541928?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Will"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/ArnaudTA"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/33383276?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="ArnaudTA"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/kouak"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/48335?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Benjamin Beret"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/demedos"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/16702156?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Alessandro Diez"/></td>
     </tr>
 </p>
 
