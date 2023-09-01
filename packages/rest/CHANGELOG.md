@@ -1,3 +1,19 @@
+# v39.13.0 (Fri Sep 01 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all your work!
+
+#### 📚 Documentation
+
+- Fix typo in the rest package readme [#3394](https://github.com/jdalrymple/gitbeaker/pull/3394) ([@demedos](https://github.com/demedos))
+
+#### Authors: 1
+
+- Alessandro Diez ([@demedos](https://github.com/demedos))
+
+---
+
 # v39.10.3 (Tue Aug 08 2023)
 
 #### 🔨 Technical Debt

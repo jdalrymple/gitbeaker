@@ -1,3 +1,30 @@
+# v39.13.0 (Fri Sep 01 2023)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@davidclaybourne](https://github.com/davidclaybourne)
+
+:heart: David Claybourne ([@Djcd](https://github.com/Djcd))
+
+#### 🐛 Bug Fix
+
+- Fixing `straight` option type for Repositories.compare [#3401](https://github.com/jdalrymple/gitbeaker/pull/3401) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding more argument options to the MergeRequestDraftNotes create and edit methods [#3400](https://github.com/jdalrymple/gitbeaker/pull/3400) ([@jdalrymple](https://github.com/jdalrymple))
+- Update DiscussionNoteSchema to include proper type values [#3397](https://github.com/jdalrymple/gitbeaker/pull/3397) ([@jdalrymple](https://github.com/jdalrymple))
+- Add missing Access Token scopes and token attribute to Schema [#3395](https://github.com/jdalrymple/gitbeaker/pull/3395) ([@davidclaybourne](https://github.com/davidclaybourne) [@Djcd](https://github.com/Djcd))
+- Adding the prepared_at attribute to the MergeRequest schema [#3393](https://github.com/jdalrymple/gitbeaker/pull/3393) ([@demedos](https://github.com/demedos))
+
+#### Authors: 4
+
+- [@davidclaybourne](https://github.com/davidclaybourne)
+- Alessandro Diez ([@demedos](https://github.com/demedos))
+- David Claybourne ([@Djcd](https://github.com/Djcd))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.12.0 (Mon Aug 21 2023)
 
 #### 🐛 Bug Fix
