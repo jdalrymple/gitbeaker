@@ -34,7 +34,6 @@ describe('Projects API', () => {
 
     const response: Record<string, unknown> = await page.evaluate(
       async ([host, token, testId]) => {
-        console.log(window);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const { Gitlab } = window.gitbeaker;
