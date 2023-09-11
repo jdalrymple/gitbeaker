@@ -10,13 +10,7 @@ import type {
 } from '../infrastructure';
 
 export interface MergeRequestNoteSchema extends NoteSchema {
-  confidential: boolean;
-  attachment?: string;
-  system: boolean;
-  noteable_id: number;
-  noteable_type: string;
-  noteable_iid: number;
-  resolvable: boolean;
+  noteable_type: 'Merge request';
 }
 
 export interface MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {

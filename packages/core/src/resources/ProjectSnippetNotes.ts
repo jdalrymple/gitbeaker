@@ -10,9 +10,7 @@ import type {
 } from '../infrastructure';
 
 export interface SnippetNoteSchema extends NoteSchema {
-  confidential: boolean;
-  file_name: string;
-  expires_at: string;
+  noteable_type: 'Snippet';
 }
 
 export interface ProjectSnippetNotes<C extends boolean = false> extends ResourceNotes<C> {

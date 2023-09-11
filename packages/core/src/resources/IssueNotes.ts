@@ -10,13 +10,7 @@ import type {
 } from '../infrastructure';
 
 export interface IssueNoteSchema extends NoteSchema {
-  confidential: boolean;
-  attachment?: string;
-  system: boolean;
-  noteable_id: number;
-  noteable_type: string;
-  noteable_iid: number;
-  resolvable: boolean;
+  noteable_type: 'Issue';
 }
 
 export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> {

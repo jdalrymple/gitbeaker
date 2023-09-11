@@ -14,9 +14,16 @@ import { UserSchema } from '../resources/Users';
 export interface NoteSchema extends Record<string, unknown> {
   id: number;
   body: string;
+  attachment: string | null;
   author: MappedOmit<UserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
+  system: boolean;
+  noteable_id: number;
+  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'Merge request';
+  noteable_iid: number;
+  project_id: number;
+  resolvable: boolean;
 }
 
 export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
