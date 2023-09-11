@@ -10,9 +10,7 @@ import type {
 } from '../infrastructure';
 
 export interface EpicNoteSchema extends NoteSchema {
-  confidential: boolean;
-  file_name: string;
-  expires_at: string;
+  noteable_type: 'Epic';
 }
 
 export interface EpicNotes<C extends boolean = false> extends ResourceNotes<C> {
