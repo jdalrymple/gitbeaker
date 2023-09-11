@@ -1,3 +1,17 @@
+# 39.14.0 (Mon Sep 11 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Add archive type to the allProjects function under the Groups API [#3407](https://github.com/jdalrymple/gitbeaker/pull/3407) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating NoteSchema [#3408](https://github.com/jdalrymple/gitbeaker/pull/3408) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.13.0 (Fri Sep 01 2023)
 
 :tada: This release contains work from new contributors! :tada:
