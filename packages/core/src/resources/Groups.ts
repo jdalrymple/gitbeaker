@@ -91,6 +91,7 @@ export type AllGroupProjectsOptions = {
     | 'similarity'
     | 'last_activity_at';
   sort?: 'asc' | 'desc';
+  archive?: boolean;
   search?: string;
   simple?: boolean;
   owned?: boolean;
