@@ -1,3 +1,16 @@
+# 39.15.0 (Tue Sep 12 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Property should be `archived` not `archive` [#3409](https://github.com/jdalrymple/gitbeaker/pull/3409) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.14.0 (Mon Sep 11 2023)
 
 #### 🐛 Bug Fix
