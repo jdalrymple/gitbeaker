@@ -1,3 +1,19 @@
+# v39.16.0 (Tue Sep 26 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fixed issue 3414: Add merge request to merge train using the wrong HT… [#3415](https://github.com/jdalrymple/gitbeaker/pull/3415) ([@artlist-scottambrose](https://github.com/artlist-scottambrose))
+
+#### Authors: 1
+
+- [@artlist-scottambrose](https://github.com/artlist-scottambrose)
+
+---
+
 # v39.15.0 (Tue Sep 12 2023)
 
 #### 🐛 Bug Fix
