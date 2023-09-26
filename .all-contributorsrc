@@ -959,6 +959,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "artlist-scottambrose",
+      "name": "artlist-scottambrose",
+      "avatar_url": "https://avatars.githubusercontent.com/u/124692101?v=4",
+      "profile": "https://github.com/artlist-scottambrose",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
