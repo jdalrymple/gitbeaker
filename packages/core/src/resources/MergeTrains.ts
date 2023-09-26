@@ -61,7 +61,7 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
     options?: { whenPipelineSucceeds?: boolean; sha?: string; squash?: boolean } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
-    return RequestHelper.get<MergeTrainSchema>()(
+    return RequestHelper.post<MergeTrainSchema>()(
       this,
       endpoint`projects/${projectId}/merge_trains/merge_requests/${mergeRequestIId}`,
       options,
