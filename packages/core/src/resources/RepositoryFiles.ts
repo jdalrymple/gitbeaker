@@ -142,8 +142,8 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     filePath: string,
     ref: string,
     options?: { lfs?: boolean } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<string, C, E, void>> {
-    return RequestHelper.get<string>()(
+  ): Promise<GitlabAPIResponse<string | Blob, C, E, void>> {
+    return RequestHelper.get<string | Blob>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}/raw`,
       {
