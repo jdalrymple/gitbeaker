@@ -194,6 +194,7 @@
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/kouak"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/48335?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Benjamin Beret"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/demedos"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/16702156?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Alessandro Diez"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/artlist-scottambrose"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/124692101?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="artlist-scottambrose"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/mercutiodesign"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/1114120?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Martin Dreher"/></td>
     </tr>
 </p>
 
