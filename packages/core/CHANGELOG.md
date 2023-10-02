@@ -1,3 +1,19 @@
+# v39.17.0 (Mon Oct 02 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Martin Dreher ([@mercutiodesign](https://github.com/mercutiodesign)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add Blob to RepositoryFiles.showRaw response type [#3418](https://github.com/jdalrymple/gitbeaker/pull/3418) ([@mercutiodesign](https://github.com/mercutiodesign))
+
+#### Authors: 1
+
+- Martin Dreher ([@mercutiodesign](https://github.com/mercutiodesign))
+
+---
+
 # v39.16.0 (Tue Sep 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
