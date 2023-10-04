@@ -231,7 +231,7 @@ import { Gitlab } from '@gitbeaker/core';
 <a href="./packages/core/src/resources/CommitDiscussions.ts">⌨️</a>
 </td>
 </tr>
-<!-- <tr>
+<tr>
 <th>Code Suggestions</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/code_suggestions.html">🦊</a>
@@ -239,7 +239,7 @@ import { Gitlab } from '@gitbeaker/core';
 <td>
 <a href="./packages/core/src/resources/CodeSuggestions.ts">⌨️</a>
 </td>
-</tr> -->
+</tr>
 <tr>
 <th>Commits</th>
 <td>
@@ -492,7 +492,7 @@ import { Gitlab } from '@gitbeaker/core';
 <a href="./packages/core/src/resources/GeoNodes.ts">⌨️</a>
 </td>
 </tr>
-<!-- <tr>
+<tr>
 <th>GeoSites</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/geo_sites.html">🦊</a>
@@ -500,7 +500,7 @@ import { Gitlab } from '@gitbeaker/core';
 <td>
 <a href="./packages/core/src/resources/GeoSites.ts">⌨️</a>
 </td>
-</tr> -->
+</tr>
 <tr>
 <th>GitLabCIYMLTemplates</th>
 <td>
@@ -565,7 +565,7 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<!-- <tr>
+<tr>
 <th>GroupEpicBoards</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/group_epic_boards.html">🦊</a>
@@ -573,7 +573,7 @@ import { Gitlab } from '@gitbeaker/core';
 <td>
 <a href="./packages/core/src/resources/GroupEpicBoards.ts">⌨️</a>
 </td>
-</tr> -->
+</tr>
 <th>GroupBadges</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/group_badges.html">🦊</a>
@@ -1617,7 +1617,7 @@ import { Gitlab } from '@gitbeaker/core';
 <a href="./packages/core/src/resources/Search.ts">⌨️</a>
 </td>
 </tr>
-<!-- <tr>
+<tr>
 <th>SearchAdmin</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/search_admin.html">🦊</a>
@@ -1625,7 +1625,7 @@ import { Gitlab } from '@gitbeaker/core';
 <td>
 <a href="./packages/core/src/resources/SearchAdmin.ts">⌨️</a>
 </td>
-</tr> -->
+</tr>
 <tr>
 <th>SecureFiles</th>
 <td>
