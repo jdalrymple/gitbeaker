@@ -72,9 +72,9 @@
 ## Table of Contents
 
 - [Usage](#usage)
-- [Supported APIs](#supported)
+- [Supported APIs](#supported-apis)
 - [Testing](../../docs/TESTING.md)
-- [FAQ](../../FAQ.md)
+- [FAQ](../../docs/FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 
