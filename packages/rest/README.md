@@ -74,6 +74,7 @@
 - [Features](#features)
 - [Usage](#usage)
 - [API Client](#api-client)
+  - [Expanded Payloads](#expanded-payloads)
   - [Pagination](#pagination)
   - [Error Handling](#error-handling)
 - [Examples](#examples)
@@ -84,7 +85,7 @@
 
 ## Features
 
-- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/16.0/ee/api/api_resources.html).
+- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/16.0/ee/api/api_resources.html). See [here](./packages/core/README.md#supported) for the full list.
 - **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), and [Deno](https://deno.land/).
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
@@ -156,6 +157,8 @@ Available instantiating options:
 | `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 > \*One of these options must be supplied.
+
+### Expanded Payloads
 
 ### Pagination
 

@@ -72,6 +72,7 @@
 ## Table of Contents
 
 - [Usage](#usage)
+- [Supported APIs](#supported)
 - [Testing](../../docs/TESTING.md)
 - [FAQ](../../FAQ.md)
 - [Contributors](#contributors)
@@ -116,6 +117,8 @@ import { Gitlab } from '@gitbeaker/core';
 </td></tr>
 </tbody>
 </table>
+
+## Supported APIs
 
 ## Contributors
 
