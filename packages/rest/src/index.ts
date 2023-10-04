@@ -179,6 +179,7 @@ export const {
   GroupRepositoryStorageMoves,
   Groups,
   GroupSAMLIdentities,
+  GroupSAMLLinks,
   GroupSCIMIdentities,
   GroupVariables,
   GroupWikis,

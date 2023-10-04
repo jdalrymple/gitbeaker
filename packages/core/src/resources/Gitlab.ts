@@ -172,6 +172,7 @@ import { GroupReleases } from './GroupReleases';
 import { GroupRepositoryStorageMoves } from './GroupRepositoryStorageMoves';
 import { Groups } from './Groups';
 import { GroupSAMLIdentities } from './GroupSAMLIdentities';
+import { GroupSAMLLinks } from './GroupSAMLLinks';
 import { GroupSCIMIdentities } from './GroupSCIMIdentities';
 import { GroupVariables } from './GroupVariables';
 import { GroupWikis } from './GroupWikis';
@@ -357,6 +358,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupRepositoryStorageMoves: GroupRepositoryStorageMoves<C>;
   Groups: Groups<C>;
   GroupSAMLIdentities: GroupSAMLIdentities<C>;
+  GroupSAMLLinks: GroupSAMLLinks<C>;
   GroupSCIMIdentities: GroupSCIMIdentities<C>;
   GroupVariables: GroupVariables<C>;
   GroupWikis: GroupWikis<C>;
@@ -540,6 +542,7 @@ const resources = {
   GroupRepositoryStorageMoves,
   Groups,
   GroupSAMLIdentities,
+  GroupSAMLLinks,
   GroupSCIMIdentities,
   GroupVariables,
   GroupWikis,
