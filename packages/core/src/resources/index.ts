@@ -21,6 +21,7 @@ export * from './DockerfileTemplates';
 export * from './Events';
 export * from './Experiments';
 export * from './GeoNodes';
+export * from './GeoSites';
 export * from './GitignoreTemplates';
 export * from './GitLabCIYMLTemplates';
 export * from './Import';

@@ -31,6 +31,7 @@ export const {
   Events,
   Experiments,
   GeoNodes,
+  GeoSites,
   GitignoreTemplates,
   GitLabCIYMLTemplates,
   Import,

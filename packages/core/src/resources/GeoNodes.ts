@@ -156,21 +156,7 @@ export type CreateGeoNodeOptions = {
   minimumReverificationInterval?: number;
 };
 
-export type EditGeoNodeOptions = {
-  enabled?: boolean;
-  name?: string;
-  url?: string;
-  internalUrl?: string;
-  filesMaxCapacity?: number;
-  reposMaxCapacity?: number;
-  verificationMaxCapacity?: number;
-  containerRepositoriesMaxCapacity?: number;
-  syncObjectStorage?: boolean;
-  selectiveSyncType?: 'namespaces' | 'shards';
-  selectiveSyncShards?: string[];
-  selectiveSyncNamespaceIds?: number[];
-  minimumReverificationInterval?: number;
-};
+export type EditGeoNodeOptions = CreateGeoNodeOptions;
 
 export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

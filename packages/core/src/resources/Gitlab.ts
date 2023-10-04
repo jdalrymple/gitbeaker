@@ -24,6 +24,7 @@ import { DockerfileTemplates } from './DockerfileTemplates';
 import { Events } from './Events';
 import { Experiments } from './Experiments';
 import { GeoNodes } from './GeoNodes';
+import { GeoSites } from './GeoSites';
 import { GitignoreTemplates } from './GitignoreTemplates';
 import { GitLabCIYMLTemplates } from './GitLabCIYMLTemplates';
 import { Import } from './Import';
@@ -210,6 +211,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Events: Events<C>;
   Experiments: Experiments<C>;
   GeoNodes: GeoNodes<C>;
+  GeoSites: GeoSites<C>;
   GitignoreTemplates: GitignoreTemplates<C>;
   GitLabCIYMLTemplates: GitLabCIYMLTemplates<C>;
   Import: Import<C>;
@@ -394,6 +396,7 @@ const resources = {
   Events,
   Experiments,
   GeoNodes,
+  GeoSites,
   GitignoreTemplates,
   GitLabCIYMLTemplates,
   Import,
