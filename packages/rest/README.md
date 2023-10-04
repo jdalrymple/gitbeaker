@@ -74,17 +74,18 @@
 - [Features](#features)
 - [Usage](#usage)
 - [API Client](#api-client)
+  - [Expanded Payloads](#expanded-payloads)
   - [Pagination](#pagination)
   - [Error Handling](#error-handling)
 - [Examples](#examples)
 - [Testing](../../docs/TESTING.md)
-- [FAQ](../../FAQ.md)
+- [FAQ](../../docs/FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 
 ## Features
 
-- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/16.0/ee/api/api_resources.html).
+- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.0](https://docs.gitlab.com/16.0/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
 - **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), and [Deno](https://deno.land/).
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
@@ -156,6 +157,33 @@ Available instantiating options:
 | `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 
 > \*One of these options must be supplied.
+
+### Expanded Payloads
+
+For simplicity, only the response body is returned from the API methods. However, seeing additional response fields, such as the status, headers, etc., may be helpful. For this purpose, an additional optional parameter, `showExpanded` can be passed for most API methods.
+
+For methods that return non-paginated results, the payload has this structure:
+
+```ts
+type ResponseBodyTypes =
+  | Record<string, unknown>
+  | Record<string, unknown>[]
+  | ReadableStream
+  | Blob
+  | string
+  | string[]
+  | number
+  | void
+  | null;
+
+interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTypes> {
+  body: T;
+  headers: Record<string, string>;
+  status: number;
+}
+```
+
+For methods that return paginated results, the payload also includes paginated information outlined in the [Pagination documentation](#pagination)
 
 ### Pagination
 

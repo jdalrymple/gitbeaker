@@ -73,7 +73,7 @@
 
 - [Usage](#usage)
 - [Testing](../../docs/TESTING.md)
-- [FAQ](../../FAQ.md)
+- [FAQ](../../docs/FAQ.md)
 - [Contributors](#contributors)
 - [Changelog](./CHANGELOG.md)
 
