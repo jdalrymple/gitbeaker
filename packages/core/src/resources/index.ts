@@ -173,6 +173,7 @@ export * from './GroupReleases';
 export * from './GroupRepositoryStorageMoves';
 export * from './Groups';
 export * from './GroupSAMLIdentities';
+export * from './GroupSAMLLinks';
 export * from './GroupSCIMIdentities';
 export * from './GroupVariables';
 export * from './GroupWikis';
