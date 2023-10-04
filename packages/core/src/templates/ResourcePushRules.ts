@@ -15,6 +15,8 @@ export interface PushRuleSchema extends Record<string, unknown> {
   author_email_regex: string;
   file_name_regex: string;
   max_file_size: number;
+  commit_committer_check?: boolean;
+  reject_unsigned_commits?: boolean;
 }
 
 export interface CreateAndEditPushRuleOptions {
