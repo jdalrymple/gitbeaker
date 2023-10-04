@@ -977,6 +977,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "glensc",
+      "name": "Elan Ruusamäe",
+      "avatar_url": "https://avatars.githubusercontent.com/u/199095?v=4",
+      "profile": "https://github.com/glensc",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 26
