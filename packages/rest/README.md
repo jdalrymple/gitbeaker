@@ -160,6 +160,31 @@ Available instantiating options:
 
 ### Expanded Payloads
 
+For simplicity, only the response body is returned from the API methods. However, seeing additional response fields, such as the status, headers, etc., may be helpful. For this purpose, an additional optional parameter, `showExpanded` can be passed for most API methods.
+
+For methods that return non-paginated results, the payload has this structure:
+
+```ts
+type ResponseBodyTypes =
+  | Record<string, unknown>
+  | Record<string, unknown>[]
+  | ReadableStream
+  | Blob
+  | string
+  | string[]
+  | number
+  | void
+  | null;
+
+interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTypes> {
+  body: T;
+  headers: Record<string, string>;
+  status: number;
+}
+```
+
+For methods that return paginated results, the payload also includes paginated information outlined in the [Pagination documentation](#pagination)
+
 ### Pagination
 
 Available pagination options:
