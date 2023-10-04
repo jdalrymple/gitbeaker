@@ -12,6 +12,7 @@ import { ApplicationStatistics } from './ApplicationStatistics';
 import { AuditEvents } from './AuditEvents';
 import { Avatar } from './Avatar';
 import { BroadcastMessages } from './BroadcastMessages';
+import { CodeSuggestions } from './CodeSuggestions';
 import { Composer } from './Composer';
 import { Conan } from './Conan';
 import { DashboardAnnotations } from './DashboardAnnotations';
@@ -23,6 +24,7 @@ import { DockerfileTemplates } from './DockerfileTemplates';
 import { Events } from './Events';
 import { Experiments } from './Experiments';
 import { GeoNodes } from './GeoNodes';
+import { GeoSites } from './GeoSites';
 import { GitignoreTemplates } from './GitignoreTemplates';
 import { GitLabCIYMLTemplates } from './GitLabCIYMLTemplates';
 import { Import } from './Import';
@@ -43,6 +45,7 @@ import { PersonalAccessTokens } from './PersonalAccessTokens';
 import { PyPI } from './PyPI';
 import { RubyGems } from './RubyGems';
 import { Search } from './Search';
+import { SearchAdmin } from './SearchAdmin';
 import { ServiceData } from './ServiceData';
 import { SidekiqMetrics } from './SidekiqMetrics';
 import { SidekiqQueues } from './SidekiqQueues';
@@ -155,6 +158,7 @@ import { GroupActivityAnalytics } from './GroupActivityAnalytics';
 import { GroupBadges } from './GroupBadges';
 import { GroupCustomAttributes } from './GroupCustomAttributes';
 import { GroupDORA4Metrics } from './GroupDORA4Metrics';
+import { GroupEpicBoards } from './GroupEpicBoards';
 import { GroupHooks } from './GroupHooks';
 import { GroupImportExports } from './GroupImportExports';
 import { GroupInvitations } from './GroupInvitations';
@@ -197,6 +201,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   AuditEvents: AuditEvents<C>;
   Avatar: Avatar<C>;
   BroadcastMessages: BroadcastMessages<C>;
+  CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
   Conan: Conan<C>;
   DashboardAnnotations: DashboardAnnotations<C>;
@@ -208,6 +213,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Events: Events<C>;
   Experiments: Experiments<C>;
   GeoNodes: GeoNodes<C>;
+  GeoSites: GeoSites<C>;
   GitignoreTemplates: GitignoreTemplates<C>;
   GitLabCIYMLTemplates: GitLabCIYMLTemplates<C>;
   Import: Import<C>;
@@ -228,6 +234,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   PyPI: PyPI<C>;
   RubyGems: RubyGems<C>;
   Search: Search<C>;
+  SearchAdmin: SearchAdmin<C>;
   ServiceData: ServiceData<C>;
   SidekiqMetrics: SidekiqMetrics<C>;
   SidekiqQueues: SidekiqQueues<C>;
@@ -340,6 +347,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupBadges: GroupBadges<C>;
   GroupCustomAttributes: GroupCustomAttributes<C>;
   GroupDORA4Metrics: GroupDORA4Metrics<C>;
+  GroupEpicBoards: GroupEpicBoards<C>;
   GroupHooks: GroupHooks<C>;
   GroupImportExports: GroupImportExports<C>;
   GroupInvitations: GroupInvitations<C>;
@@ -380,6 +388,7 @@ const resources = {
   AuditEvents,
   Avatar,
   BroadcastMessages,
+  CodeSuggestions,
   Composer,
   Conan,
   DashboardAnnotations,
@@ -391,6 +400,7 @@ const resources = {
   Events,
   Experiments,
   GeoNodes,
+  GeoSites,
   GitignoreTemplates,
   GitLabCIYMLTemplates,
   Import,
@@ -411,6 +421,7 @@ const resources = {
   PyPI,
   RubyGems,
   Search,
+  SearchAdmin,
   ServiceData,
   SidekiqMetrics,
   SidekiqQueues,
@@ -523,6 +534,7 @@ const resources = {
   GroupBadges,
   GroupCustomAttributes,
   GroupDORA4Metrics,
+  GroupEpicBoards,
   GroupHooks,
   GroupImportExports,
   GroupInvitations,
