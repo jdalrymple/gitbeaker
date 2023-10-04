@@ -14,7 +14,7 @@ import { LabelSchema } from './ResourceLabels';
 
 export interface IssueBoardListSchema extends Record<string, unknown> {
   id: number;
-  label: Pick<LabelSchema, 'name' | 'color' | 'description'>;
+  label: Pick<LabelSchema, 'id' | 'name' | 'color' | 'description'>;
   position: number;
   max_issue_count: number;
   max_issue_weight: number;
