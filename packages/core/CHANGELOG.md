@@ -1,3 +1,20 @@
+# v39.18.0 (Wed Oct 04 2023)
+
+#### ✨ Feature
+
+- Add support for the SearchAdmin, GroupEpicBoards, GeoSites and CodeSuggestion APIs [#3424](https://github.com/jdalrymple/gitbeaker/pull/3424) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Improve docs to highlight supported APIs [#3423](https://github.com/jdalrymple/gitbeaker/pull/3423) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding missed push rule attributes [#3425](https://github.com/jdalrymple/gitbeaker/pull/3425) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.17.0 (Mon Oct 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:

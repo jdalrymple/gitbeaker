@@ -1,3 +1,37 @@
+# 39.18.0 (Wed Oct 04 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Elan Ruusamäe ([@glensc](https://github.com/glensc)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Add support for the SearchAdmin, GroupEpicBoards, GeoSites and CodeSuggestion APIs [#3424](https://github.com/jdalrymple/gitbeaker/pull/3424) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Improve docs to highlight supported APIs [#3423](https://github.com/jdalrymple/gitbeaker/pull/3423) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Adding missed push rule attributes [#3425](https://github.com/jdalrymple/gitbeaker/pull/3425) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- `@gitbeaker/rest`
+  - Adjust e2e tests for latest API additions ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- docs/FAQ.md: Add js code fence syntax [#3422](https://github.com/jdalrymple/gitbeaker/pull/3422) ([@glensc](https://github.com/glensc))
+
+#### Authors: 2
+
+- Elan Ruusamäe ([@glensc](https://github.com/glensc))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.17.0 (Mon Oct 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:

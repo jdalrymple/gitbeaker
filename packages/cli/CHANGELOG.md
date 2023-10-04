@@ -1,3 +1,15 @@
+# v39.18.0 (Wed Oct 04 2023)
+
+#### 🐛 Bug Fix
+
+- Improve docs to highlight supported APIs [#3423](https://github.com/jdalrymple/gitbeaker/pull/3423) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.6.0 (Wed Jul 12 2023)
 
 #### ↕️ Dependencies
