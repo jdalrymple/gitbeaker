@@ -12,6 +12,7 @@ import { ApplicationStatistics } from './ApplicationStatistics';
 import { AuditEvents } from './AuditEvents';
 import { Avatar } from './Avatar';
 import { BroadcastMessages } from './BroadcastMessages';
+import { CodeSuggestions } from './CodeSuggestions';
 import { Composer } from './Composer';
 import { Conan } from './Conan';
 import { DashboardAnnotations } from './DashboardAnnotations';
@@ -197,6 +198,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   AuditEvents: AuditEvents<C>;
   Avatar: Avatar<C>;
   BroadcastMessages: BroadcastMessages<C>;
+  CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
   Conan: Conan<C>;
   DashboardAnnotations: DashboardAnnotations<C>;
@@ -380,6 +382,7 @@ const resources = {
   AuditEvents,
   Avatar,
   BroadcastMessages,
+  CodeSuggestions,
   Composer,
   Conan,
   DashboardAnnotations,

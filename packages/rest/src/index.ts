@@ -19,6 +19,7 @@ export const {
   AuditEvents,
   Avatar,
   BroadcastMessages,
+  CodeSuggestions,
   Composer,
   Conan,
   DashboardAnnotations,

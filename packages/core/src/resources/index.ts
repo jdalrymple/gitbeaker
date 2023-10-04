@@ -9,6 +9,7 @@ export * from './ApplicationStatistics';
 export * from './AuditEvents';
 export * from './Avatar';
 export * from './BroadcastMessages';
+export * from './CodeSuggestions';
 export * from './Composer';
 export * from './Conan';
 export * from './DashboardAnnotations';
