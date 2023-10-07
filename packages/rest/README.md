@@ -322,17 +322,17 @@ Rate limits can be overridden when instantiating a API wrapper. For ease of use,
 2. The glob for the endpoint, with an object specifying the specific method for the endpoint and the corresponding rate limit
 
 ```js
-const api = new Projects({
-  token: 1234
+const api = new Gitlab({
+  token: 'token',
   rateLimits: {
-   '**': 30,
-   'projects/import/*': 40,
-   'projects/*/issues/*/notes': {
-     method: 'post',
-     limit: 300,
-   },
-  }
-})
+    '**': 30,
+    'projects/import/*': 40,
+    'projects/*/issues/*/notes': {
+      method: 'post',
+      limit: 300,
+    },
+  },
+});
 ```
 
 ### Error Handling
