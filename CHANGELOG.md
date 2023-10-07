@@ -1,3 +1,16 @@
+# 39.19.0 (Sat Oct 07 2023)
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Support for endpoint rate limits [#3426](https://github.com/jdalrymple/gitbeaker/pull/3426) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.18.0 (Wed Oct 04 2023)
 
 :tada: This release contains work from a new contributor! :tada:

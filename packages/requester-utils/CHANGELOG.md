@@ -1,3 +1,15 @@
+# v39.19.0 (Sat Oct 07 2023)
+
+#### ✨ Feature
+
+- Support for endpoint rate limits [#3426](https://github.com/jdalrymple/gitbeaker/pull/3426) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.18.0 (Wed Oct 04 2023)
 
 #### 🐛 Bug Fix
