@@ -3,7 +3,7 @@ import type {
   ResourceOptions,
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
-import { createRequesterFn } from '@gitbeaker/requester-utils';
+import { createRequesterFn, getMatchingRateLimiter } from '@gitbeaker/requester-utils';
 
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
@@ -93,7 +93,8 @@ function getConditionalMode(endpoint: string) {
 export async function defaultRequestHandler(endpoint: string, options?: RequestOptions) {
   const retryCodes = [429, 502];
   const maxRetries = 10;
-  const { prefixUrl, asStream, searchParams, ...opts } = options || {};
+  const { prefixUrl, asStream, searchParams, rateLimiters, method, ...opts } = options || {};
+  const endpointRateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
   let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
@@ -107,7 +108,10 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
-    const request = new Request(url, { ...opts, mode });
+    const request = new Request(url, { ...opts, method, mode });
+
+    await endpointRateLimit();
+
     const response = await fetch(request).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
         throw new Error('Query timeout was reached');

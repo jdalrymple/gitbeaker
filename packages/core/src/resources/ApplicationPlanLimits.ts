@@ -61,6 +61,7 @@ export class ApplicationPlanLimits<C extends boolean = false> extends BaseResour
     } = options;
 
     return RequestHelper.put<ApplicationPlanLimitSchema>()(this, 'application/plan_limits', {
+      ...opts,
       searchParams: {
         planName,
         ciPipelineSize,
@@ -81,7 +82,6 @@ export class ApplicationPlanLimits<C extends boolean = false> extends BaseResour
         terraformModuleMaxFileSize,
         storageSizeLimit,
       },
-      opts,
     });
   }
 }

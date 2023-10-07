@@ -76,6 +76,7 @@
 - [API Client](#api-client)
   - [Expanded Payloads](#expanded-payloads)
   - [Pagination](#pagination)
+  - [Rate Limits](#rate-limits)
   - [Error Handling](#error-handling)
 - [Examples](#examples)
 - [Testing](../../docs/TESTING.md)
@@ -155,6 +156,7 @@ Available instantiating options:
 | `queryTimeout`       | Yes      | `300000`                                                                                                                                | Query Timeout in ms                                                                                                |
 | `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 | `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
 
 > \*One of these options must be supplied.
 
@@ -264,6 +266,72 @@ const { data } = await api.Projects.all({
   pagination: 'keyset',
   sort: 'asc',
   orderBy: 'created_at',
+});
+```
+
+### Rate Limits
+
+Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [Gitlab Docs](https://docs.gitlab.com/ee/security/rate_limits.html). See below for the default values:
+
+```js
+const DEFAULT_RATE_LIMITS = Object.freeze({
+  // Default rate limit
+  '**': 3000,
+
+  // Import/Export
+  'projects/import': 6,
+  'projects/*/export': 6,
+  'projects/*/download': 1,
+  'groups/import': 6,
+  'groups/*/export': 6,
+  'groups/*/download': 1,
+
+  // Note creation
+  'projects/*/issues/*/notes': {
+    method: 'post',
+    limit: 300,
+  },
+  'projects/*/snippets/*/notes': {
+    method: 'post',
+    limit: 300,
+  },
+  'projects/*/merge_requests/*/notes': {
+    method: 'post',
+    limit: 300,
+  },
+  'groups/*/epics/*/notes': {
+    method: 'post',
+    limit: 300,
+  },
+
+  // Repositories - get file archive
+  'projects/*/repository/archive*': 5,
+
+  // Project Jobs
+  'projects/*/jobs': 600,
+
+  // Member deletion
+  'projects/*/members': 60,
+  'groups/*/members': 60,
+});
+```
+
+Rate limits can be overridden when instantiating a API wrapper. For ease of use, these limits are configured using glob patterns, and can be formatted in two ways.
+
+1. The glob for the endpoint with the corresponding rate per second
+2. The glob for the endpoint, with an object specifying the specific method for the endpoint and the corresponding rate limit
+
+```js
+const api = new Gitlab({
+  token: 'token',
+  rateLimits: {
+    '**': 30,
+    'projects/import/*': 40,
+    'projects/*/issues/*/notes': {
+      method: 'post',
+      limit: 300,
+    },
+  },
 });
 ```
 

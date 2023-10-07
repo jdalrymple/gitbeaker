@@ -1,21 +1,26 @@
+import * as AsyncSema from 'async-sema';
 import {
   RequestOptions,
+  ResourceOptions,
+  createRateLimiters,
   createRequesterFn,
   defaultOptionsHandler,
   formatQuery,
+  getMatchingRateLimiter,
   presetResourceArguments,
 } from '../../src/RequesterUtils';
 
 const methods = ['get', 'put', 'patch', 'delete', 'post'];
 
 describe('defaultOptionsHandler', () => {
-  const serviceOptions = {
+  const serviceOptions: ResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
     },
     url: 'testurl',
     rejectUnauthorized: false,
+    rateLimits: {},
   };
 
   it('should not use default request options if not passed', async () => {
@@ -105,7 +110,7 @@ describe('defaultOptionsHandler', () => {
 describe('createInstance', () => {
   const requestHandler = jest.fn();
   const optionsHandler = jest.fn(() => Promise.resolve({} as RequestOptions));
-  const serviceOptions = {
+  const serviceOptions: ResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
       token: () => Promise.resolve('1234'),
@@ -141,26 +146,28 @@ describe('createInstance', () => {
         serviceOptions,
         expect.objectContaining({ method: m.toUpperCase() }),
       );
-      expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {});
+      expect(requestHandler).toHaveBeenCalledWith(testEndpoint, { rateLimiters: {} });
     }
   });
 
   it('should respect the closure variables', async () => {
-    const serviceOptions1 = {
+    const serviceOptions1: ResourceOptions = {
       headers: { test: '5' },
       authHeaders: {
         token: () => Promise.resolve('1234'),
       },
       url: 'testurl',
       rejectUnauthorized: false,
+      rateLimits: {},
     };
-    const serviceOptions2 = {
+    const serviceOptions2: ResourceOptions = {
       headers: { test: '5' },
       authHeaders: {
         token: () => Promise.resolve('1234'),
       },
       url: 'testurl2',
       rejectUnauthorized: true,
+      rateLimits: {},
     };
 
     const requesterFn = createRequesterFn(optionsHandler, requestHandler);
@@ -180,6 +187,65 @@ describe('createInstance', () => {
       serviceOptions2,
       expect.objectContaining({ method: 'GET' }),
     );
+  });
+
+  it('should pass the rate limiters to the requestHandler function', async () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    const testEndpoint = 'test endpoint';
+    const requester = createRequesterFn(
+      optionsHandler,
+      requestHandler,
+    )({
+      ...serviceOptions,
+      rateLimits: {
+        '*': 40,
+        'projects/*/test': {
+          method: 'GET',
+          limit: 10,
+        },
+      },
+    });
+
+    await requester.get(testEndpoint, {});
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
+
+    expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {
+      rateLimiters: {
+        '*': expect.toBeFunction(),
+        'projects/*/test': {
+          method: 'GET',
+          limit: expect.toBeFunction(),
+        },
+      },
+    });
+  });
+});
+
+describe('createRateLimiters', () => {
+  it('should create rate limiter functions when configured', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    const limiters = createRateLimiters({
+      '*': 40,
+      'projects/*/test': {
+        method: 'GET',
+        limit: 10,
+      },
+    });
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
+
+    expect(limiters).toStrictEqual({
+      '*': expect.toBeFunction(),
+      'projects/*/test': {
+        method: 'GET',
+        limit: expect.toBeFunction(),
+      },
+    });
   });
 });
 
@@ -242,5 +308,77 @@ describe('formatQuery', () => {
     const string = formatQuery({ test: 6, not: { test: 7 } });
 
     expect(string).toBe('test=6&not%5Btest%5D=7');
+  });
+});
+
+describe('getMatchingRateLimiter', () => {
+  it('should default the method to GET if not passed', async () => {
+    const rateLimiter = jest.fn();
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'GET', limit: rateLimiter },
+    });
+
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
+  });
+
+  it('should uppercase method for matching', async () => {
+    const rateLimiter = jest.fn();
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'get', limit: rateLimiter },
+    });
+
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
+  });
+
+  it('should default the rateLimiters to an empty object if not passed and return the default rate of 3000 rpm', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    getMatchingRateLimiter('endpoint');
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+  });
+
+  it('should return the most specific rate limit', async () => {
+    const rateLimiter = jest.fn();
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', {
+      '*': jest.fn(),
+      'endpoint/testing*': rateLimiter,
+    });
+
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a default rate limit of 3000 rpm if nothing matches', () => {
+    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+
+    getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
+
+    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+  });
+
+  it('should handle expanded rate limit options with a particular method and limit', async () => {
+    const rateLimiter = jest.fn();
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
+      '*': { method: 'get', limit: rateLimiter },
+    });
+
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle simple rate limit options with a particular limit', async () => {
+    const rateLimiter = jest.fn();
+    const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', { '**': rateLimiter });
+
+    await matchingRateLimiter();
+
+    expect(rateLimiter).toHaveBeenCalledTimes(1);
   });
 });

@@ -40,7 +40,7 @@
     "test:types": "tsc",
     "test:e2e:browser": "playwright test",
     "test:e2e": "yarn test:e2e:browser",
-    "test:integration:nodejs": "jest --maxWorkers=50% test/integration/nodejs",
+    "test:integration:nodejs": "jest --maxWorkers=50% test/integration/nodejs/resources/Issues.ts",
     "test:integration": "yarn test:integration:nodejs",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",

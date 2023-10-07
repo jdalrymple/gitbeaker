@@ -26,6 +26,7 @@ describe('Issues.all', () => {
     const newIssues: ReturnType<typeof issueAPI.create<false>>[] = [];
 
     for (let i = 0; i < 10; i += 1) {
+      console.log(`start ${i}`);
       newIssues.push(
         issueAPI.create(project.id, `Issue.all Test - NoteJS ${TEST_ID} ${i}`, {
           description: 'A test issue',
@@ -34,7 +35,7 @@ describe('Issues.all', () => {
     }
 
     await Promise.all(newIssues);
-  }, 20000);
+  }, 60000);
 
   it('should get 10 issues using keyset pagination', async () => {
     const projects = await issueAPI.all({

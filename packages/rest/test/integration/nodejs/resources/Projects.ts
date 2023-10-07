@@ -32,7 +32,7 @@ describe('Projects.all', () => {
     }
 
     await Promise.all(newProjects);
-  }, 20000);
+  }, 60000);
 
   it('should get 10 projects using offset pagination', async () => {
     const projects = await service.all({

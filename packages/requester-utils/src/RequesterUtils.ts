@@ -1,7 +1,15 @@
 import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
+import { RateLimit } from 'async-sema';
+import micromatch from 'micromatch';
 
 // Types
+export type RateLimiters = Record<
+  string,
+  ReturnType<typeof RateLimit> | { method: string; limit: ReturnType<typeof RateLimit> }
+>;
+export type RateLimitOptions = Record<string, number | { method: string; limit: number }>;
+
 export type ResponseBodyTypes =
   | Record<string, unknown>
   | Record<string, unknown>[]
@@ -28,6 +36,7 @@ export type ResourceOptions = {
   authHeaders: { [authHeader: string]: () => Promise<string> };
   url: string;
   rejectUnauthorized: boolean;
+  rateLimits?: RateLimitOptions;
 };
 
 export type DefaultRequestOptions = {
@@ -48,6 +57,7 @@ export type RequestOptions = {
   body?: string | FormData;
   asStream?: boolean;
   signal?: AbortSignal;
+  rateLimiters?: Record<string, ReturnType<typeof RateLimit>>;
 };
 
 export interface RequesterType {
@@ -72,6 +82,11 @@ export interface RequesterType {
     options?: DefaultRequestOptions,
   ): Promise<FormattedResponse<T>>;
 }
+
+export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = (
+  endpoint: string,
+  options?: Record<string, unknown>,
+) => Promise<FormattedResponse<T>>;
 
 // Utility methods
 export function formatQuery(params: Record<string, unknown> = {}): string {
@@ -137,10 +152,20 @@ export async function defaultOptionsHandler(
   return Promise.resolve(defaultOptions);
 }
 
-export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = (
-  endpoint: string,
-  options?: Record<string, unknown>,
-) => Promise<FormattedResponse<T>>;
+export function createRateLimiters(rateLimitOptions: RateLimitOptions = {}) {
+  const rateLimiters: RateLimiters = {};
+
+  Object.entries(rateLimitOptions).forEach(([key, config]) => {
+    if (typeof config === 'number') rateLimiters[key] = RateLimit(config, { timeUnit: 60000 });
+    else
+      rateLimiters[key] = {
+        method: config.method.toUpperCase(),
+        limit: RateLimit(config.limit, { timeUnit: 60000 }),
+      };
+  });
+
+  return rateLimiters;
+}
 
 export function createRequesterFn(
   optionsHandler: OptionsHandlerFn,
@@ -150,6 +175,7 @@ export function createRequesterFn(
 
   return (serviceOptions) => {
     const requester: RequesterType = {} as RequesterType;
+    const rateLimiters = createRateLimiters(serviceOptions.rateLimits);
 
     methods.forEach((m) => {
       requester[m] = async (endpoint: string, options: Record<string, unknown>) => {
@@ -159,7 +185,7 @@ export function createRequesterFn(
         });
         const requestOptions = await optionsHandler(serviceOptions, defaultRequestOptions);
 
-        return requestHandler(endpoint, requestOptions);
+        return requestHandler(endpoint, { ...requestOptions, rateLimiters });
       };
     });
 
@@ -167,10 +193,7 @@ export function createRequesterFn(
   };
 }
 
-function extendClass<T extends Constructable>(
-  Base: T,
-  customConfig: Record<string, unknown> = {},
-): T {
+function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
   return class extends Base {
     constructor(...options: any[]) {
       // eslint-disable-line
@@ -194,4 +217,22 @@ export function presetResourceArguments<T extends Record<string, Constructable>>
     });
 
   return updated as T;
+}
+
+export function getMatchingRateLimiter(
+  endpoint: string,
+  rateLimiters: RateLimiters = {},
+  method: string = 'GET',
+): () => Promise<void> {
+  const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
+  const match = sortedEndpoints.find((ep) => micromatch.isMatch(endpoint, ep));
+  const rateLimitConfig = match && rateLimiters[match];
+
+  if (rateLimitConfig && typeof rateLimitConfig !== 'object') {
+    return rateLimitConfig;
+  }
+  if (rateLimitConfig && rateLimitConfig.method.toUpperCase() === method.toUpperCase()) {
+    return rateLimitConfig.limit;
+  }
+  return RateLimit(3000, { timeUnit: 60000 });
 }
