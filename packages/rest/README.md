@@ -271,7 +271,7 @@ const { data } = await api.Projects.all({
 
 ### Rate Limits
 
-Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while certain endpoints have a much smaller rate as dictated by the [Gitlab Docs](https://docs.gitlab.com/ee/security/rate_limits.html). See below for the default values:
+Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [Gitlab Docs](https://docs.gitlab.com/ee/security/rate_limits.html). See below for the default values:
 
 ```js
 const DEFAULT_RATE_LIMITS = Object.freeze({
@@ -316,7 +316,7 @@ const DEFAULT_RATE_LIMITS = Object.freeze({
 });
 ```
 
-Rate limits can be override when instantiating a API wrapper. For ease of use, these limits are configured using glob patterns, and can be formatted in two ways.
+Rate limits can be overridden when instantiating a API wrapper. For ease of use, these limits are configured using glob patterns, and can be formatted in two ways.
 
 1. The glob for the endpoint with the corresponding rate per second
 2. The glob for the endpoint, with an object specifying the specific method for the endpoint and the corresponding rate limit
@@ -325,7 +325,7 @@ Rate limits can be override when instantiating a API wrapper. For ease of use, t
 const api = new Projects({
   token: 1234
   rateLimits: {
-   '*': 30,
+   '**': 30,
    'projects/import/*': 40,
    'projects/*/issues/*/notes': {
      method: 'post',
