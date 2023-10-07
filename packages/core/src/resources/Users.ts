@@ -407,27 +407,6 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<void>()(this, endpoint`users/${userId}/block`, options);
   }
 
-  deactivate<E extends boolean = false>(
-    userId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/deactivate`, options);
-  }
-
-  disableTwoFactor<E extends boolean = false>(
-    userId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.patch<void>()(this, endpoint`users/${userId}/disable_two_factor`, options);
-  }
-
-  follow<E extends boolean = false>(
-    userId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema, C, E, void>> {
-    return RequestHelper.post<UserSchema>()(this, endpoint`users/${userId}/follow`, options);
-  }
-
   create<E extends boolean = false>(
     options?: CreateUserOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserSchema | ExpandedUserSchema, C, E, void>> {
@@ -461,6 +440,20 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
+  deactivate<E extends boolean = false>(
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/deactivate`, options);
+  }
+
+  disableTwoFactor<E extends boolean = false>(
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.patch<void>()(this, endpoint`users/${userId}/disable_two_factor`, options);
+  }
+
   edit<E extends boolean = false>(
     userId: number,
     options?: EditUserOptions & Sudo & ShowExpanded<E>,
@@ -491,11 +484,18 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     showWhitespaceInDiffs: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserPreferenceSchema, C, E, void>> {
-    return RequestHelper.get<UserPreferenceSchema>()(this, 'user/preferences', {
+    return RequestHelper.put<UserPreferenceSchema>()(this, 'user/preferences', {
       viewDiffsFileByFile,
       showWhitespaceInDiffs,
       ...options,
     });
+  }
+
+  follow<E extends boolean = false>(
+    userId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<UserSchema, C, E, void>> {
+    return RequestHelper.post<UserSchema>()(this, endpoint`users/${userId}/follow`, options);
   }
 
   reject<E extends boolean = false>(
@@ -549,12 +549,15 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<UserPreferenceSchema>()(this, 'user/preferences', options);
   }
 
-  showStatus<E extends boolean = false>(
-    options?: { iDOrUsername?: string | number } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserStatusSchema, C, E, void>> {
+  showStatus<E extends boolean = false>({
+    iDOrUsername,
+    ...options
+  }: { iDOrUsername?: string | number } & Sudo & ShowExpanded<E> = {}): Promise<
+    GitlabAPIResponse<UserStatusSchema, C, E, void>
+  > {
     let url: string;
 
-    if (options?.iDOrUsername) url = `users/${options?.iDOrUsername}/status`;
+    if (iDOrUsername) url = `users/${iDOrUsername}/status`;
     else url = 'user/status';
 
     return RequestHelper.get<UserStatusSchema>()(this, url, options);
