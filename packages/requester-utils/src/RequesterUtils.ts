@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
 import { RateLimit } from 'async-sema';
-import micromatch from 'micromatch';
+import { isMatch as isGlobMatch } from 'picomatch-browser';
 
 // Types
 export type RateLimiters = Record<
@@ -221,7 +221,7 @@ export function getMatchingRateLimiter(
   method: string = 'GET',
 ): () => Promise<void> {
   const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
-  const match = sortedEndpoints.find((ep) => micromatch.isMatch(endpoint, ep));
+  const match = sortedEndpoints.find((ep) => isGlobMatch(endpoint, ep));
   const rateLimitConfig = match && rateLimiters[match];
 
   if (rateLimitConfig && typeof rateLimitConfig !== 'object') {
