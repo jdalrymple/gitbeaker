@@ -22,7 +22,7 @@ export async function defaultOptionsHandler(
     resourceOptions.rejectUnauthorized != null &&
     resourceOptions.rejectUnauthorized === false
   ) {
-    if (typeof window !== 'object') {
+    if (typeof window === 'undefined') {
       const { Agent } = await import('https');
 
       options.agent = new Agent({
