@@ -66,7 +66,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     targetIssueIId: number,
     options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedIssueLinkSchema>()(
+    return RequestHelper.post<ExpandedIssueLinkSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/links`,
       {
