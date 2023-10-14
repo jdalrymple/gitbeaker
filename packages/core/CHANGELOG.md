@@ -1,3 +1,15 @@
+# v39.20.0 (Sat Oct 14 2023)
+
+#### 🐛 Bug Fix
+
+- Fix incorrect HTTP method used in IssueLinks API create method [#3430](https://github.com/jdalrymple/gitbeaker/pull/3430) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature
