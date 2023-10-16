@@ -322,7 +322,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   allDiffs<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<MergeRequestDiffSchema[], C, E, P>> {
     return RequestHelper.get<MergeRequestDiffSchema[]>()(
       this,
@@ -334,7 +334,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   allCommits<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>> {
     return RequestHelper.get<CommitSchema[]>()(
       this,
