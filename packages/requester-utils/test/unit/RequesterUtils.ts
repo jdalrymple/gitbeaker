@@ -45,6 +45,10 @@ describe('defaultOptionsHandler', () => {
 
     testBody.set('test', 'one');
 
+    if (testBody instanceof FormData) {
+      console.log('IS FORM DATA');
+    }
+
     const { body } = await defaultOptionsHandler(serviceOptions, {
       body: testBody,
       method: 'POST',
