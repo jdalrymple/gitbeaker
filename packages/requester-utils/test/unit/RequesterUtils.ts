@@ -41,7 +41,10 @@ describe('defaultOptionsHandler', () => {
   });
 
   it('should not stringify body if it of type FormData', async () => {
-    const testBody: globalThis.FormData = new FormData() as unknown as globalThis.FormData;
+    const testBody = new FormData();
+
+    testBody.set('test', 'one');
+
     const { body } = await defaultOptionsHandler(serviceOptions, {
       body: testBody,
       method: 'POST',
