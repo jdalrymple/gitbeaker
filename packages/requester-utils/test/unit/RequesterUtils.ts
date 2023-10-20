@@ -54,7 +54,7 @@ describe('defaultOptionsHandler', () => {
       method: 'POST',
     });
 
-    expect(body).toBeInstanceOf(FormData);
+    expect(body).toEqual(expect.any(FormData));
   });
 
   it('should not assign the sudo property if omitted', async () => {
