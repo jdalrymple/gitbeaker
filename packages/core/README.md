@@ -1915,6 +1915,7 @@ import { Gitlab } from '@gitbeaker/core';
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/artlist-scottambrose"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/124692101?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="artlist-scottambrose"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/mercutiodesign"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/1114120?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Martin Dreher"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/glensc"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/199095?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Elan Ruusamäe"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/Artemoire"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/18062266?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="artemoire"/></td>
     </tr>
 </p>
 

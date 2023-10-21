@@ -986,6 +986,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Artemoire",
+      "name": "artemoire",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18062266?v=4",
+      "profile": "https://github.com/Artemoire",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 26
