@@ -178,6 +178,7 @@ import { Groups } from './Groups';
 import { GroupSAMLIdentities } from './GroupSAMLIdentities';
 import { GroupSAMLLinks } from './GroupSAMLLinks';
 import { GroupSCIMIdentities } from './GroupSCIMIdentities';
+import { GroupServiceAccounts } from './GroupServiceAccounts';
 import { GroupVariables } from './GroupVariables';
 import { GroupWikis } from './GroupWikis';
 import { LinkedEpics } from './LinkedEpics';
@@ -368,6 +369,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupSAMLIdentities: GroupSAMLIdentities<C>;
   GroupSAMLLinks: GroupSAMLLinks<C>;
   GroupSCIMIdentities: GroupSCIMIdentities<C>;
+  GroupServiceAccounts: GroupServiceAccounts<C>;
   GroupVariables: GroupVariables<C>;
   GroupWikis: GroupWikis<C>;
   LinkedEpics: LinkedEpics<C>;
@@ -556,6 +558,7 @@ const resources = {
   GroupSAMLIdentities,
   GroupSAMLLinks,
   GroupSCIMIdentities,
+  GroupServiceAccounts,
   GroupVariables,
   GroupWikis,
   LinkedEpics,
