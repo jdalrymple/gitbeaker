@@ -41,11 +41,22 @@ describe('defaultOptionsHandler', () => {
   });
 
   it('should not stringify body if it of type FormData', async () => {
-    const testBody: globalThis.FormData = new FormData() as unknown as globalThis.FormData;
+    const testBody = new FormData();
+
+    testBody.set('test', 'one');
+
+    if (testBody instanceof FormData) {
+      console.log('IS FORM DATA');
+    }
+
     const { body } = await defaultOptionsHandler(serviceOptions, {
       body: testBody,
       method: 'POST',
     });
+
+    if (body instanceof FormData) {
+      console.log('BOD IS FORM DATA');
+    }
 
     expect(body).toBeInstanceOf(FormData);
   });

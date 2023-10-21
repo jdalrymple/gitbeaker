@@ -101,10 +101,6 @@ export type OptionsHandlerFn = (
   requestOptions: RequestOptions,
 ) => Promise<RequestOptions>;
 
-function isFormData(object: FormData | Record<string, unknown>) {
-  return typeof object === 'object' && object.constructor.name === 'FormData';
-}
-
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
   {
@@ -131,8 +127,8 @@ export async function defaultOptionsHandler(
 
   // FIXME: Not the best comparison, but...it will have to do for now.
   if (body) {
-    if (isFormData(body)) {
-      defaultOptions.body = body as FormData;
+    if (body instanceof FormData) {
+      defaultOptions.body = body;
     } else {
       defaultOptions.body = JSON.stringify(decamelizeKeys(body));
       defaultOptions.headers['content-type'] = 'application/json';
