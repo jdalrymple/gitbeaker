@@ -54,6 +54,10 @@ describe('defaultOptionsHandler', () => {
       method: 'POST',
     });
 
+    if (body instanceof FormData) {
+      console.log('BOD IS FORM DATA');
+    }
+
     expect(body).toEqual(expect.any(FormData));
   });
 
