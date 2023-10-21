@@ -11,6 +11,7 @@ yarn-error.log
 .npmrc
 .turbo
 tmp
+.nx
 
 .pnp.*
 .yarn/*
