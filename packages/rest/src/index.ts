@@ -185,6 +185,7 @@ export const {
   GroupSAMLIdentities,
   GroupSAMLLinks,
   GroupSCIMIdentities,
+  GroupServiceAccounts,
   GroupVariables,
   GroupWikis,
   LinkedEpics,

@@ -179,6 +179,7 @@ export * from './Groups';
 export * from './GroupSAMLIdentities';
 export * from './GroupSAMLLinks';
 export * from './GroupSCIMIdentities';
+export * from './GroupServiceAccounts';
 export * from './GroupVariables';
 export * from './GroupWikis';
 export * from './LinkedEpics';

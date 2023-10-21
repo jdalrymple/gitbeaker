@@ -763,6 +763,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>GroupServiceAccounts</th>
+<td>
+<a href="https://docs.gitlab.com/16.4/ee/api/groups.html#create-personal-access-token-for-service-account-user">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupServiceAccounts.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupVariables</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/group_level_variables.html">🦊</a>
