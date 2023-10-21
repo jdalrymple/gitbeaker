@@ -1,3 +1,34 @@
+# 39.21.0 (Sat Oct 21 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add support for Service Accounts API [#3438](https://github.com/jdalrymple/gitbeaker/pull/3438) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`
+  - Add approvals property to Deployments Schema [#3439](https://github.com/jdalrymple/gitbeaker/pull/3439) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Add Missing PaginationRequestOptions in allDiffs and allCommits [#3431](https://github.com/jdalrymple/gitbeaker/pull/3431) ([@Artemoire](https://github.com/Artemoire))
+
+#### ↕️ Dependencies
+
+- `@gitbeaker/rest`
+  - Bump lint-staged from 14.0.0 to 15.0.2 [#3435](https://github.com/jdalrymple/gitbeaker/pull/3435) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- artemoire ([@Artemoire](https://github.com/Artemoire))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.20.0 (Sat Oct 14 2023)
 
 #### 🐛 Bug Fix

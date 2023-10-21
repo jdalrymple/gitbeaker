@@ -1,3 +1,19 @@
+# v39.21.0 (Sat Oct 21 2023)
+
+#### ✨ Feature
+
+- Add support for Service Accounts API [#3438](https://github.com/jdalrymple/gitbeaker/pull/3438) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Add approvals property to Deployments Schema [#3439](https://github.com/jdalrymple/gitbeaker/pull/3439) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature

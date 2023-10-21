@@ -1,3 +1,20 @@
+# v39.21.0 (Sat Oct 21 2023)
+
+#### ✨ Feature
+
+- Add support for Service Accounts API [#3438](https://github.com/jdalrymple/gitbeaker/pull/3438) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump lint-staged from 14.0.0 to 15.0.2 [#3435](https://github.com/jdalrymple/gitbeaker/pull/3435) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature

@@ -1,3 +1,25 @@
+# v39.21.0 (Sat Oct 21 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your work!
+
+#### ✨ Feature
+
+- Add support for Service Accounts API [#3438](https://github.com/jdalrymple/gitbeaker/pull/3438) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Add approvals property to Deployments Schema [#3439](https://github.com/jdalrymple/gitbeaker/pull/3439) ([@jdalrymple](https://github.com/jdalrymple))
+- Add Missing PaginationRequestOptions in allDiffs and allCommits [#3431](https://github.com/jdalrymple/gitbeaker/pull/3431) ([@Artemoire](https://github.com/Artemoire))
+
+#### Authors: 2
+
+- artemoire ([@Artemoire](https://github.com/Artemoire))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.20.0 (Sat Oct 14 2023)
 
 #### 🐛 Bug Fix
