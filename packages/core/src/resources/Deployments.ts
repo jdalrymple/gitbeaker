@@ -51,6 +51,8 @@ export interface DeploymentSchema extends Record<string, unknown> {
   user: UserSchema;
   deployable: DeployableSchema;
   environment: EnvironmentSchema;
+  pending_approval_count?: number;
+  approvals?: DeploymentApprovalStatusSchema[];
 }
 
 export type AllDeploymentsOptions = {
