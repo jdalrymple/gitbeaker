@@ -181,6 +181,7 @@ describe('Browser Import', () => {
     'GroupSAMLIdentities',
     'GroupSAMLLinks',
     'GroupSCIMIdentities',
+    'GroupServiceAccounts',
     'GroupVariables',
     'GroupWikis',
     'LinkedEpics',
