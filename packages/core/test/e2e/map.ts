@@ -172,6 +172,7 @@ describe('API Map', () => {
       'Groups',
       'GroupSAMLIdentities',
       'GroupSCIMIdentities',
+      'GroupServiceAccounts',
       'GroupVariables',
       'GroupWikis',
       'LinkedEpics',
