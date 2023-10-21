@@ -1,3 +1,15 @@
+# v39.21.1 (Sat Oct 21 2023)
+
+#### ↕️ Dependencies
+
+- Updating all dependencies to their latest supported versions [#3441](https://github.com/jdalrymple/gitbeaker/pull/3441) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.18.0 (Wed Oct 04 2023)
 
 #### 🐛 Bug Fix
