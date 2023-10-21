@@ -45,18 +45,10 @@ describe('defaultOptionsHandler', () => {
 
     testBody.set('test', 'one');
 
-    if (testBody instanceof FormData) {
-      console.log('IS FORM DATA');
-    }
-
     const { body } = await defaultOptionsHandler(serviceOptions, {
       body: testBody,
       method: 'POST',
     });
-
-    if (body instanceof FormData) {
-      console.log('BOD IS FORM DATA');
-    }
 
     expect(body).toBeInstanceOf(FormData);
   });
