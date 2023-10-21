@@ -184,9 +184,9 @@ describe('API Map', () => {
       'UserSSHKeys',
     ];
     // eslint-disable-next-line
-    const map: Record<string, unknown> = await import('../../dist/map.json');
+    const map = await import('../../dist/map.json');
 
-    expect(map).toBeInstanceOf(Object);
+    expect(map).toBeObject();
     expect(Object.keys(map)).toIncludeAllMembers(keys);
   });
 });
