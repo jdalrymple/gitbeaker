@@ -63,7 +63,7 @@
     "@types/node": "^20.8.7",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
     "tsup": "^7.2.0",
-    "tsx": "^3.14.0",
+    "tsx": "^4.0.0",
     "typescript": "^5.2.2"
   }
 }
