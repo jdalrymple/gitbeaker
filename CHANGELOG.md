@@ -1,3 +1,16 @@
+# 39.22.0 (Wed Nov 15 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Add addLabels and removeLabels properties to EditMergeRequestOptions [#3454](https://github.com/jdalrymple/gitbeaker/pull/3454) ([@pataar](https://github.com/pataar))
+
+#### Authors: 1
+
+- Pieter Willekens ([@pataar](https://github.com/pataar))
+
+---
+
 # 39.21.2 (Thu Oct 26 2023)
 
 #### ↕️ Dependencies
