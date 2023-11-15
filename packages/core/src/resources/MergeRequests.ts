@@ -247,7 +247,9 @@ export type EditMergeRequestOptions = {
   reviewerId?: number;
   reviewerIds?: number[];
   milestoneId?: number;
+  addLabels?: string;
   labels?: string | Array<string>;
+  removeLabels?: string;
   description?: string;
   stateEvent?: string;
   removeSourceBranch?: boolean;
