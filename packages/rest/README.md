@@ -508,6 +508,7 @@ projectsAPI.create({
     <td align="center"><a href="https://github.com/mercutiodesign"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/1114120?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Martin Dreher"/></td>
     <td align="center"><a href="https://github.com/glensc"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/199095?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Elan Ruusamäe"/></td>
     <td align="center"><a href="https://github.com/Artemoire"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/18062266?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="artemoire"/></td>
+    <td align="center"><a href="https://github.com/pataar"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3403851?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Pieter Willekens"/></td>
   </tr>
 </table>
 
