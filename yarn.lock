@@ -846,7 +846,7 @@ __metadata:
     get-param-names: "github:jdalrymple/get-param-names#1-improve-functionality"
     qs: ^6.11.2
     tsup: ^7.2.0
-    tsx: ^3.14.0
+    tsx: ^4.1.2
     typescript: ^5.2.2
     xcase: ^2.0.1
   languageName: unknown
@@ -10685,9 +10685,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^3.14.0":
-  version: 3.14.0
-  resolution: "tsx@npm:3.14.0"
+"tsx@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "tsx@npm:4.1.2"
   dependencies:
     esbuild: ~0.18.20
     fsevents: ~2.3.3
@@ -10698,7 +10698,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: afcef5d9b90b5800cf1ffb749e943f63042d78a4c0d9eef6e13e43f4ecab465d45e2c9812a2c515cbdc2ee913ff1cd01bf5c606a48013dd3ce2214a631b45557
+  checksum: 8825c5607538d4c84070d3511e2d88f68760efd577d51867ba330f31086c0d2baca7549b2f15253027abf1d8dbedebdc94cccefb14af2c8b8d1a78660c95f071
   languageName: node
   linkType: hard
 
