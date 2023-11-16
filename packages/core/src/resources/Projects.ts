@@ -42,6 +42,14 @@ export interface ProjectStatisticsSchema {
   uploads_size: number;
 }
 
+export interface ProjectLicenseSchema {
+  key: string;
+  name: string;
+  nickname: string;
+  html_url: string;
+  source_url: string;
+}
+
 export interface CondensedProjectSchema extends Record<string, unknown> {
   id: number;
   web_url: string;
@@ -390,6 +398,23 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+    options: PaginationRequestOptions<P> &
+      AllProjectsOptions &
+      Sudo &
+      ShowExpanded<E> & { statistics: true; withCustomAttributes: true },
+  ): Promise<
+    GitlabAPIResponse<
+      (ProjectSchema & {
+        statistics: ProjectStatisticsSchema;
+        custom_attributes: CustomAttributeSchema[];
+      })[],
+      C,
+      E,
+      P
+    >
+  >;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options?: PaginationRequestOptions<P> & AllProjectsOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
@@ -691,6 +716,87 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       ...options,
     });
   }
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { license: true } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema & { license: ProjectLicenseSchema }, C, E, void>>;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { withCustomAttributes: true } & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<ProjectSchema & { custom_attributes: CustomAttributeSchema[] }, C, E, void>
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { statistics: true } & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<ProjectSchema & { statistics: ProjectStatisticsSchema }, C, E, void>
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { withCustomAttributes: true; license: true } & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<
+      ProjectSchema & { custom_attributes: CustomAttributeSchema[]; license: ProjectLicenseSchema },
+      C,
+      E,
+      void
+    >
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { withCustomAttributes: true; statistics: true } & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<
+      ProjectSchema & {
+        custom_attributes: CustomAttributeSchema[];
+        statistics: ProjectStatisticsSchema;
+      },
+      C,
+      E,
+      void
+    >
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { license: true; statistics: true } & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<
+      ProjectSchema & { license: ProjectLicenseSchema; statistics: ProjectStatisticsSchema },
+      C,
+      E,
+      void
+    >
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options: { withCustomAttributes: true; license: true; statistics: true } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<
+      ProjectSchema & {
+        custom_attributes: CustomAttributeSchema[];
+        license: ProjectLicenseSchema;
+        statistics: ProjectStatisticsSchema;
+      },
+      C,
+      E,
+      void
+    >
+  >;
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options?: { license?: boolean; statistics?: boolean; withCustomAttributes?: boolean } & Sudo &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
