@@ -18,10 +18,10 @@
     "name": "Justin Dalrymple"
   },
   "keywords": [
-    "gitbeaker",
     "gitlab",
     "api",
-    "cli"
+    "cli",
+    "gitbeaker"
   ],
   "bin": {
     "gb": "dist/index.mjs",

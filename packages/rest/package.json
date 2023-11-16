@@ -18,11 +18,11 @@
     "name": "Justin Dalrymple"
   },
   "keywords": [
-    "gitbeaker",
     "gitlab",
     "api",
     "rest",
-    "browser"
+    "browser",
+    "gitbeaker"
   ],
   "types": "./dist/index.d.ts",
   "exports": {
