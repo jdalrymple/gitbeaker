@@ -1,3 +1,15 @@
+# v39.23.0 (Thu Nov 16 2023)
+
+#### 🐛 Bug Fix
+
+- Fix typing on Project.show methods [#3456](https://github.com/jdalrymple/gitbeaker/pull/3456) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
