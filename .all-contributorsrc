@@ -10,7 +10,7 @@
     "packages/cli/README.md",
     "packages/requester-utils/README.md"
   ],
-  "imageSize": 25,
+  "imageSize": 50,
   "commit": false,
   "wrapperTemplate": "<p><%= bodyContent %></p>",
   "commitConvention": "angular",
