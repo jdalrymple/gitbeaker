@@ -1,7 +1,7 @@
 <div align="center">
   <br>
   <br>
-  <img alt="gitbeaker" src="../../.github/ASSETS/header.svg">
+  <img alt="gitbeaker" src="https://github.com/jdalrymple/gitbeaker/blob/main/.github/ASSETS/header.svg">
   <br>
   <br>
   <br>
