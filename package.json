@@ -9,6 +9,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "resolutions": {
+    "all-contributors-cli": "6.26.1"
+  },
   "scripts": {
     "build": "nx run-many --target=build",
     "clean": "npx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",

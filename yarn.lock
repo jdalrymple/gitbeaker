@@ -2721,23 +2721,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"all-contributors-cli@npm:6.19.0":
-  version: 6.19.0
-  resolution: "all-contributors-cli@npm:6.19.0"
+"all-contributors-cli@npm:6.26.1":
+  version: 6.26.1
+  resolution: "all-contributors-cli@npm:6.26.1"
   dependencies:
     "@babel/runtime": ^7.7.6
-    async: ^3.0.1
+    async: ^3.1.0
     chalk: ^4.0.0
     didyoumean: ^1.2.1
-    inquirer: ^7.0.4
-    json-fixer: ^1.5.1
+    inquirer: ^7.3.3
+    json-fixer: ^1.6.8
     lodash: ^4.11.2
     node-fetch: ^2.6.0
     pify: ^5.0.0
+    prettier: ^2
     yargs: ^15.0.1
+  dependenciesMeta:
+    prettier:
+      optional: true
   bin:
     all-contributors: dist/cli.js
-  checksum: 42e0d00ec0a9c141247e48a017b04ee8fff8edb6e36ee728de1992bd0ca0a05f018d17b95a98e5952c670fe640d12f39629ba51abe3008b67ae288d9cd164861
+  checksum: beb26d059cb4eba272f301b770f678b9729f55501ce658f0fe339b0ba4669cc38562876be162dadb97b163adb79281edac09f3168fac8f472af8455e2249c06b
   languageName: node
   linkType: hard
 
@@ -3016,7 +3020,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.0.1, async@npm:^3.2.3":
+"async@npm:^3.1.0":
+  version: 3.2.5
+  resolution: "async@npm:3.2.5"
+  checksum: 5ec77f1312301dee02d62140a6b1f7ee0edd2a0f983b6fd2b0849b969f245225b990b47b8243e7b9ad16451a53e7f68e753700385b706198ced888beedba3af4
+  languageName: node
+  linkType: hard
+
+"async@npm:^3.2.3":
   version: 3.2.4
   resolution: "async@npm:3.2.4"
   checksum: 43d07459a4e1d09b84a20772414aa684ff4de085cbcaec6eea3c7a8f8150e8c62aa6cd4e699fe8ee93c3a5b324e777d34642531875a0817a35697522c1b02e89
@@ -6083,7 +6094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^7.0.4":
+"inquirer@npm:^7.3.3":
   version: 7.3.3
   resolution: "inquirer@npm:7.3.3"
   dependencies:
@@ -7132,7 +7143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-fixer@npm:^1.5.1":
+"json-fixer@npm:^1.6.8":
   version: 1.6.15
   resolution: "json-fixer@npm:1.6.15"
   dependencies:
@@ -9109,6 +9120,15 @@ __metadata:
   dependencies:
     fast-diff: ^1.1.2
   checksum: 00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
+  bin:
+    prettier: bin-prettier.js
+  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
   languageName: node
   linkType: hard
 
