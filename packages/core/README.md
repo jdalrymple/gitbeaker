@@ -1645,6 +1645,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>ServiceAccounts</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/users.html#create-service-account-user">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ServiceAccounts.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ServiceData</th>
 <td>
 <a href="https://docs.gitlab.com/16.4/ee/api/usage_data.html">🦊</a>

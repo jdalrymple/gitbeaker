@@ -53,6 +53,7 @@ export const {
   RubyGems,
   Search,
   SearchAdmin,
+  ServiceAccounts,
   ServiceData,
   SidekiqMetrics,
   SidekiqQueues,

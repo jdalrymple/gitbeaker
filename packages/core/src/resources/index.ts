@@ -43,6 +43,7 @@ export * from './PyPI';
 export * from './RubyGems';
 export * from './Search';
 export * from './SearchAdmin';
+export * from './ServiceAccounts';
 export * from './ServiceData';
 export * from './SidekiqMetrics';
 export * from './SidekiqQueues';
