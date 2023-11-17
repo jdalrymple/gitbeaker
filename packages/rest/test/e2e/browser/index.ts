@@ -146,6 +146,7 @@ describe('Browser Import', () => {
     'ResourceGroups',
     'Runners',
     'SecureFiles',
+    'ServiceAccounts',
     'Tags',
     'UserStarredMetricsDashboard',
     'EpicAwardEmojis',
