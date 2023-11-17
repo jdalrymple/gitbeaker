@@ -46,6 +46,7 @@ import { PyPI } from './PyPI';
 import { RubyGems } from './RubyGems';
 import { Search } from './Search';
 import { SearchAdmin } from './SearchAdmin';
+import { ServiceAccounts } from './ServiceAccounts';
 import { ServiceData } from './ServiceData';
 import { SidekiqMetrics } from './SidekiqMetrics';
 import { SidekiqQueues } from './SidekiqQueues';
@@ -237,6 +238,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   RubyGems: RubyGems<C>;
   Search: Search<C>;
   SearchAdmin: SearchAdmin<C>;
+  ServiceAccounts: ServiceAccounts<C>;
   ServiceData: ServiceData<C>;
   SidekiqMetrics: SidekiqMetrics<C>;
   SidekiqQueues: SidekiqQueues<C>;
@@ -426,6 +428,7 @@ const resources = {
   RubyGems,
   Search,
   SearchAdmin,
+  ServiceAccounts,
   ServiceData,
   SidekiqMetrics,
   SidekiqQueues,
