@@ -1,3 +1,30 @@
+# v39.24.0 (Fri Nov 17 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your work!
+
+#### ✨ Feature
+
+- Add creation for service accounts on selfhosted instances [#3458](https://github.com/jdalrymple/gitbeaker/pull/3458) ([@Djcd](https://github.com/Djcd))
+- Add rotate to PersonalAccessTokens resource [#3459](https://github.com/jdalrymple/gitbeaker/pull/3459) ([@Djcd](https://github.com/Djcd))
+
+#### ↕️ Dependencies
+
+- Dependencies [#3457](https://github.com/jdalrymple/gitbeaker/pull/3457) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'docs/updating-readme' into main ([@jdalrymple](https://github.com/jdalrymple))
+- Updating contributors settings and the readme image url ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- David Claybourne ([@Djcd](https://github.com/Djcd))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix

@@ -1,3 +1,43 @@
+# 39.24.0 (Fri Nov 17 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Add creation for service accounts on selfhosted instances [#3458](https://github.com/jdalrymple/gitbeaker/pull/3458) ([@Djcd](https://github.com/Djcd))
+- `@gitbeaker/core`
+  - Add rotate to PersonalAccessTokens resource [#3459](https://github.com/jdalrymple/gitbeaker/pull/3459) ([@Djcd](https://github.com/Djcd))
+
+#### ↕️ Dependencies
+
+- Bump nx from 17.0.2 to 17.1.2 [#3451](https://github.com/jdalrymple/gitbeaker/pull/3451) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Dependencies [#3457](https://github.com/jdalrymple/gitbeaker/pull/3457) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- `@gitbeaker/cli`
+  - Updating image url ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Merge branch 'docs/updating-readme' into main ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating contributors settings and the readme image url ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- `@gitbeaker/rest`
+  - Add service account API test updates [#3460](https://github.com/jdalrymple/gitbeaker/pull/3460) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- David Claybourne ([@Djcd](https://github.com/Djcd))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix

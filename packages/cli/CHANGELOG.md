@@ -1,3 +1,21 @@
+# v39.24.0 (Fri Nov 17 2023)
+
+#### ↕️ Dependencies
+
+- Dependencies [#3457](https://github.com/jdalrymple/gitbeaker/pull/3457) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Updating image url ([@jdalrymple](https://github.com/jdalrymple))
+- Merge branch 'docs/updating-readme' into main ([@jdalrymple](https://github.com/jdalrymple))
+- Updating contributors settings and the readme image url ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
