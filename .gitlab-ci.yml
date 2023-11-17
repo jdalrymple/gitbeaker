@@ -338,7 +338,7 @@ test:e2e:core:
 
 test:e2e:rest:
   extends: .test:e2e:base
-  image: mcr.microsoft.com/playwright:v1.39.0-focal
+  image: mcr.microsoft.com/playwright:v1.40.0-focal 
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
