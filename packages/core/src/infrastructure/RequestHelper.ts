@@ -48,8 +48,8 @@ export interface BasePaginationRequestOptions<P extends PaginationTypes | void> 
 export type PaginationRequestSubOptions<P extends PaginationTypes | void> = P extends 'keyset'
   ? AllOrNone<KeysetPaginationRequestOptions>
   : P extends 'offset'
-  ? OffsetPaginationRequestOptions
-  : AllOrNone<KeysetPaginationRequestOptions> & OffsetPaginationRequestOptions;
+    ? OffsetPaginationRequestOptions
+    : AllOrNone<KeysetPaginationRequestOptions> & OffsetPaginationRequestOptions;
 
 export type PaginationRequestOptions<P extends PaginationTypes | void = void> =
   BasePaginationRequestOptions<P> & PaginationRequestSubOptions<P>;
