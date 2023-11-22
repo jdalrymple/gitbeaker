@@ -54,7 +54,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "tsup": "^7.3.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   }
 }
