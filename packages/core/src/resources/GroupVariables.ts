@@ -11,12 +11,12 @@ import type {
 
 export interface GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    projectId: string | number,
+    groupId: string | number,
     options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<VariableSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
-    projectId: string | number,
+    groupId: string | number,
     key: string,
     value: string,
     options?: {
@@ -29,7 +29,7 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
-    projectId: string | number,
+    groupId: string | number,
     key: string,
     value: string,
     options?: {
@@ -42,13 +42,13 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   show<E extends boolean = false>(
-    projectId: string | number,
+    groupId: string | number,
     key: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
-    projectId: string | number,
+    groupId: string | number,
     key: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
