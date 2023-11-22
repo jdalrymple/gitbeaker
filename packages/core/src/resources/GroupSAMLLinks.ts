@@ -48,12 +48,11 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
     samlGroupName: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}/saml_group_links`, {
-      searchParams: {
-        samlGroupName,
-      },
-      ...options,
-    });
+    return RequestHelper.del()(
+      this,
+      endpoint`groups/${groupId}/saml_group_links/${samlGroupName}`,
+      options,
+    );
   }
 
   show<E extends boolean = false>(
@@ -63,11 +62,8 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     return RequestHelper.get<SAMLGroupSchema>()(
       this,
-      endpoint`groups/${groupId}/saml_group_links`,
-      {
-        samlGroupName,
-        ...options,
-      },
+      endpoint`groups/${groupId}/saml_group_links/${samlGroupName}`,
+      options,
     );
   }
 }
