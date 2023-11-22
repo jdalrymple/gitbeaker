@@ -1,3 +1,20 @@
+# v39.25.0 (Wed Nov 22 2023)
+
+#### 🐛 Bug Fix
+
+- Fixing position argument naming [#3473](https://github.com/jdalrymple/gitbeaker/pull/3473) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing Group SAML Links API for the show and remove methods [#3474](https://github.com/jdalrymple/gitbeaker/pull/3474) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Update commitId to be of type string [#3475](https://github.com/jdalrymple/gitbeaker/pull/3475) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.24.0 (Fri Nov 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
