@@ -16,7 +16,7 @@ import type {
 export interface CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote<E extends boolean = false>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     discussionId: string,
     noteId: number,
     body: string,
@@ -25,13 +25,13 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     body: string,
     options?: {
       position?: DiscussionNotePositionOptions;
@@ -43,7 +43,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   editNote<E extends boolean = false>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     discussionId: string,
     noteId: number,
     options?: Sudo & ShowExpanded<E> & { body?: string },
@@ -51,7 +51,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   removeNote<E extends boolean = false>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     discussionId: string,
     noteId: number,
     options?: Sudo & ShowExpanded<E>,
@@ -59,7 +59,7 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 
   show<E extends boolean = false>(
     projectId: string | number,
-    commitId: number,
+    commitId: string,
     discussionId: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
