@@ -151,7 +151,7 @@ export type CreateUserOptions = {
   externUid?: number;
   external?: boolean;
   extraSharedRunnersMinutesLimit?: number;
-  forceRandomPassword?: string;
+  forceRandomPassword?: boolean;
   groupIdForSaml?: number;
   linkedin?: string;
   location?: string;

@@ -18,7 +18,7 @@ export interface PersonalAccessTokenSchema extends Record<string, unknown> {
   last_used_at: string;
   active: boolean;
   expires_at?: string;
-  token?: string;
+  token: string;
 }
 
 export type PersonalAccessTokenScopes =
