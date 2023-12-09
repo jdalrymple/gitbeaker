@@ -165,7 +165,7 @@ function getManyMore<
   response: FormattedResponse<T>,
   requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
   acc?: T,
-): E extends true ? Promise<PaginatedResponse<T, P>> : Promise<T>;
+): Promise<E extends true ? PaginatedResponse<T, P> : T>;
 
 async function getManyMore<
   T extends Record<string, unknown>[],
@@ -178,7 +178,7 @@ async function getManyMore<
   response: FormattedResponse<T>,
   requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
   acc?: T,
-): Promise<T | PaginatedResponse<T, P>> {
+): Promise<PaginatedResponse<T, P> | T> {
   const { sudo, showExpanded, maxPages, pagination, page, perPage, idAfter, orderBy, sort } =
     requestOptions;
 
