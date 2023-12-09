@@ -82,7 +82,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     return RequestHelper.post<DiscussionNoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes`,
-      { searchParams: { body }, noteId, ...options },
+      { ...options, body, noteId },
     );
   }
 
@@ -108,15 +108,10 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     }: { position?: DiscussionNotePositionOptions; commitId?: string; createdAt?: string } & Sudo &
       ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
-    const opts: Record<string, unknown> = { ...options };
+    const opts: Record<string, unknown> = { ...options, body };
 
     if (position) {
       Object.assign(opts, reformatObjectOptions(position, 'position', true));
-
-      opts.isForm = true;
-      opts.body = body;
-    } else {
-      opts.searchParams = { body };
     }
 
     return RequestHelper.post<DiscussionSchema>()(
@@ -131,15 +126,12 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    { body, ...options }: Sudo & ShowExpanded<E> & { body?: string; resolved?: boolean } = {},
+    options: Sudo & ShowExpanded<E> & { body?: string; resolved?: boolean },
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
     return RequestHelper.put<DiscussionNoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes/${noteId}`,
-      {
-        searchParams: { body },
-        ...options,
-      },
+      options,
     );
   }
 

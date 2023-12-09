@@ -32,9 +32,7 @@ describe('ResourceDiscussions.addNote', () => {
       '1/resource2/2/discussions/3/notes',
       {
         noteId: 4,
-        searchParams: {
-          body: 'test',
-        },
+        body: 'test',
       },
     );
   });
@@ -57,9 +55,7 @@ describe('ResourceDiscussions.create', () => {
     await service.create(1, 2, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      searchParams: {
-        body: 'test',
-      },
+      body: 'test',
     });
   });
 
@@ -82,7 +78,6 @@ describe('ResourceDiscussions.create', () => {
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      isForm: true,
       body: 'test',
       'position[base_sha]': 'sha1',
       'position[start_sha]': 'sha2',
@@ -104,9 +99,7 @@ describe('ResourceDiscussions.editNote', () => {
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        searchParams: {
-          body: 'test',
-        },
+        body: 'test',
       },
     );
   });
@@ -118,7 +111,6 @@ describe('ResourceDiscussions.editNote', () => {
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        searchParams: {},
         resolved: true,
       },
     );
