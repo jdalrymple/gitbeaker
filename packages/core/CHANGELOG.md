@@ -1,3 +1,21 @@
+# v39.26.0 (Sat Dec 09 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Updating MergeRequestDiscussion's endpoints [#3479](https://github.com/jdalrymple/gitbeaker/pull/3479) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix a couple of types in Users and PersonalAccessTokens resources [#3482](https://github.com/jdalrymple/gitbeaker/pull/3482) ([@domharrington](https://github.com/domharrington))
+
+#### Authors: 2
+
+- Dom Harrington ([@domharrington](https://github.com/domharrington))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
