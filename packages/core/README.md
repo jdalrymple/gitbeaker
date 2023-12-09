@@ -1927,6 +1927,9 @@ import { Gitlab } from '@gitbeaker/core';
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/Artemoire"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/18062266?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="artemoire"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/pataar"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3403851?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Pieter Willekens"/></td>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/Djcd"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/761764?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="David Claybourne"/></td>
+    </tr><br />
+    <tr>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/domharrington"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/848223?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Dom Harrington"/></td>
     </tr>
 </p>
 

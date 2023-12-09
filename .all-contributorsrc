@@ -743,6 +743,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/761764?v=4",
       "profile": "https://github.com/Djcd",
       "contributions": ["doc", "code"]
+    },
+    {
+      "login": "domharrington",
+      "name": "Dom Harrington",
+      "avatar_url": "https://avatars.githubusercontent.com/u/848223?v=4",
+      "profile": "https://github.com/domharrington",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 26
