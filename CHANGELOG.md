@@ -1,3 +1,16 @@
+# 39.25.1 (Sat Dec 09 2023)
+
+#### ↕️ Dependencies
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating all package deps [#3483](https://github.com/jdalrymple/gitbeaker/pull/3483) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.25.0 (Wed Nov 22 2023)
 
 #### 🐛 Bug Fix

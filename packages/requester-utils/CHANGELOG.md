@@ -1,3 +1,15 @@
+# v39.25.1 (Sat Dec 09 2023)
+
+#### ↕️ Dependencies
+
+- Updating all package deps [#3483](https://github.com/jdalrymple/gitbeaker/pull/3483) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.24.0 (Fri Nov 17 2023)
 
 #### ↕️ Dependencies
