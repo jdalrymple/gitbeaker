@@ -247,6 +247,7 @@ This could be set globally or using a [.env](https://github.com/motdotla/dotenv#
     </tr><br />
     <tr>
       <td align="center" valign="top" width="3.84%"><a href="https://github.com/domharrington"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/848223?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Dom Harrington"/></td>
+      <td align="center" valign="top" width="3.84%"><a href="https://github.com/kseino"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/1378066?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Kohei Seino"/></td>
     </tr>
 </p>
 
