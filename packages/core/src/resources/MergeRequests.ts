@@ -117,6 +117,21 @@ export interface MergeRequestSchema extends CondensedMergeRequestSchema {
     | 'can_be_merged'
     | 'cannot_be_merged'
     | 'cannot_be_merged_recheck';
+  detailed_merge_status:
+    | 'blocked_status'
+    | 'broken_status'
+    | 'checking'
+    | 'unchecked'
+    | 'ci_must_pass'
+    | 'ci_still_running'
+    | 'discussions_not_resolved'
+    | 'draft_status'
+    | 'external_status_checks'
+    | 'mergeable'
+    | 'not_approved'
+    | 'not_open'
+    | 'policies_denied'
+    | 'jira_association_missing';
   sha: string;
   merge_commit_sha: string | null;
   squash_commit_sha: string | null;
