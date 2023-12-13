@@ -1,3 +1,20 @@
+# 39.26.1 (Wed Dec 13 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Kohei Seino ([@kseino](https://github.com/kseino)), for all your work!
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/core`
+  - add detailed_merge_status to MergeRequestSchema [#3488](https://github.com/jdalrymple/gitbeaker/pull/3488) ([@kseino](https://github.com/kseino))
+
+#### Authors: 1
+
+- Kohei Seino ([@kseino](https://github.com/kseino))
+
+---
+
 # 39.26.0 (Sat Dec 09 2023)
 
 :tada: This release contains work from a new contributor! :tada:
