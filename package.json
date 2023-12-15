@@ -58,7 +58,7 @@
     "jest-junit": "^16.0.0",
     "lerna": "^8.0.0",
     "lint-staged": "^15.2.0",
-    "nx": "17.1.2",
+    "nx": "17.2.5",
     "prettier": "^3.1.0",
     "typescript": "^5.3.3"
   },
