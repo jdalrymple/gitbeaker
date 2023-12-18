@@ -1,3 +1,15 @@
+# 39.26.2 (Mon Dec 18 2023)
+
+#### ↕️ Dependencies
+
+- Bump nx from 17.1.2 to 17.2.5 [#3489](https://github.com/jdalrymple/gitbeaker/pull/3489) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # 39.26.1 (Wed Dec 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
