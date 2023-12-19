@@ -20,7 +20,7 @@ export interface NoteSchema extends Record<string, unknown> {
   updated_at: string;
   system: boolean;
   noteable_id: number;
-  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'Merge request' | 'MergeRequest';
+  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'MergeRequest';
   noteable_iid: number;
   project_id: number;
   resolvable: boolean;
