@@ -116,7 +116,7 @@ describe('defaultRequestHandler', () => {
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message: 'Really Bad Error',
-      name: 'Error',
+      name: 'GitbeakerRequestError',
       cause: {
         description: 'msg',
       },
@@ -141,7 +141,7 @@ describe('defaultRequestHandler', () => {
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message: 'Really Bad Error',
-      name: 'Error',
+      name: 'GitbeakerRequestError',
       cause: {
         description: stringBody,
       },
@@ -160,7 +160,7 @@ describe('defaultRequestHandler', () => {
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message: 'Query timeout was reached',
-      name: 'Error',
+      name: 'GitbeakerTimeoutError',
     });
   });
 
@@ -176,7 +176,7 @@ describe('defaultRequestHandler', () => {
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message: 'Query timeout was reached',
-      name: 'Error',
+      name: 'GitbeakerTimeoutError',
     });
   });
 
@@ -287,7 +287,7 @@ describe('defaultRequestHandler', () => {
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message:
         'Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.',
-      name: 'Error',
+      name: 'GitbeakerRetryError',
     });
 
     MockFetch.mockRestore();

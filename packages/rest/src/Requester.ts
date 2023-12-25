@@ -3,7 +3,13 @@ import type {
   ResourceOptions,
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
-import { createRequesterFn, getMatchingRateLimiter } from '@gitbeaker/requester-utils';
+import {
+  GitbeakerRequestError,
+  GitbeakerRetryError,
+  GitbeakerTimeoutError,
+  createRequesterFn,
+  getMatchingRateLimiter,
+} from '@gitbeaker/requester-utils';
 
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
@@ -63,7 +69,10 @@ async function parseResponse(response: Response, asStream = false) {
   return { body, headers, status };
 }
 
-async function throwFailedRequestError(request: Request, response: Response) {
+async function throwFailedRequestError(
+  request: Request,
+  response: Response,
+): Promise<GitbeakerRequestError> {
   const content = await response.text();
   const contentType = response.headers.get('Content-Type');
   let description = 'API Request Error';
@@ -76,7 +85,7 @@ async function throwFailedRequestError(request: Request, response: Response) {
     description = content;
   }
 
-  throw new Error(response.statusText, {
+  throw new GitbeakerRequestError(response.statusText, {
     cause: {
       description,
       request,
@@ -114,7 +123,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
 
     const response = await fetch(request).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
-        throw new Error('Query timeout was reached');
+        throw new GitbeakerTimeoutError('Query timeout was reached');
       }
 
       throw e;
@@ -131,7 +140,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   }
   /* eslint-enable */
 
-  throw new Error(
+  throw new GitbeakerRetryError(
     `Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.`,
   );
 }
