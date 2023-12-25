@@ -49,7 +49,7 @@ export interface DiscussionNoteSchema extends Record<string, unknown> {
   updated_at: string;
   system: boolean;
   noteable_id: number;
-  noteable_type: string;
+  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'MergeRequest';
   noteable_iid: number | null;
   resolvable: boolean;
 }

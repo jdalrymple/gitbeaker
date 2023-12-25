@@ -10,7 +10,7 @@ import type {
 } from '../infrastructure';
 
 export interface MergeRequestNoteSchema extends NoteSchema {
-  noteable_type: 'Merge request';
+  noteable_type: 'MergeRequest';
 }
 
 export interface MergeRequestNotes<C extends boolean = false> extends ResourceNotes<C> {
