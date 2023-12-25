@@ -1,3 +1,26 @@
+# 39.27.0 (Mon Dec 25 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, JounQin ([@JounQin](https://github.com/JounQin)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - fix: incorrect `noteable_type` type for `MergeRequest` [#3491](https://github.com/jdalrymple/gitbeaker/pull/3491) ([@JounQin](https://github.com/JounQin) [@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump nx from 17.2.5 to 17.2.7 [#3495](https://github.com/jdalrymple/gitbeaker/pull/3495) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- JounQin ([@JounQin](https://github.com/JounQin))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.26.2 (Mon Dec 18 2023)
 
 #### ↕️ Dependencies

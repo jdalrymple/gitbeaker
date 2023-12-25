@@ -1,3 +1,20 @@
+# v39.27.0 (Mon Dec 25 2023)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, JounQin ([@JounQin](https://github.com/JounQin)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: incorrect `noteable_type` type for `MergeRequest` [#3491](https://github.com/jdalrymple/gitbeaker/pull/3491) ([@JounQin](https://github.com/JounQin) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- JounQin ([@JounQin](https://github.com/JounQin))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.26.1 (Wed Dec 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
