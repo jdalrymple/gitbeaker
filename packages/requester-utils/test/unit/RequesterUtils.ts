@@ -1,4 +1,5 @@
-import * as AsyncSema from 'async-sema';
+import * as RateLimiter from 'rate-limiter-flexible';
+
 import {
   RequestOptions,
   ResourceOptions,
@@ -193,7 +194,7 @@ describe('createInstance', () => {
   });
 
   it('should pass the rate limiters to the requestHandler function', async () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+    const rateLimitSpy = jest.spyOn(RateLimiter, 'RateLimiterQueue');
 
     const testEndpoint = 'test endpoint';
     const requester = createRequesterFn(
@@ -229,7 +230,7 @@ describe('createInstance', () => {
 
 describe('createRateLimiters', () => {
   it('should create rate limiter functions when configured', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+    const rateLimitSpy = jest.spyOn(RateLimiter, 'RateLimiterQueue');
 
     const limiters = createRateLimiters({
       '*': 40,
@@ -338,11 +339,11 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should default the rateLimiters to an empty object if not passed and return the default rate of 3000 rpm', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+    const rateLimitSpy = jest.spyOn(RateLimiter, 'RateLimiterMemory');
 
     getMatchingRateLimiter('endpoint');
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith({ points: 3000, duration: 60 });
   });
 
   it('should return the most specific rate limit', async () => {
@@ -358,11 +359,11 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should return a default rate limit of 3000 rpm if nothing matches', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
+    const rateLimitSpy = jest.spyOn(RateLimiter, 'RateLimiterMemory');
 
     getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+    expect(rateLimitSpy).toHaveBeenCalledWith({ points: 3000, duration: 60 });
   });
 
   it('should handle expanded rate limit options with a particular method and limit', async () => {

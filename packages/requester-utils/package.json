@@ -25,9 +25,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "files": [
@@ -51,13 +56,13 @@
     "release": "auto shipit"
   },
   "dependencies": {
-    "async-sema": "^3.1.1",
     "picomatch-browser": "^2.2.6",
     "qs": "^6.11.2",
+    "rate-limiter-flexible": "^4.0.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.5",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }

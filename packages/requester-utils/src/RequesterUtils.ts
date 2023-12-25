@@ -1,13 +1,11 @@
 import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
-import { RateLimit } from 'async-sema';
+import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 import { isMatch as isGlobMatch } from 'picomatch-browser';
 
 // Types
-export type RateLimiters = Record<
-  string,
-  ReturnType<typeof RateLimit> | { method: string; limit: ReturnType<typeof RateLimit> }
->;
+export type RateLimiterFn = () => Promise<number>;
+export type RateLimiters = Record<string, RateLimiterFn | { method: string; limit: RateLimiterFn }>;
 export type RateLimitOptions = Record<string, number | { method: string; limit: number }>;
 
 export type ResponseBodyTypes =
@@ -57,7 +55,7 @@ export type RequestOptions = {
   body?: string | FormData;
   asStream?: boolean;
   signal?: AbortSignal;
-  rateLimiters?: Record<string, ReturnType<typeof RateLimit>>;
+  rateLimiters?: Record<string, RateLimiterFn>;
 };
 
 export interface RequesterType {
@@ -89,6 +87,14 @@ export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = 
 ) => Promise<FormattedResponse<T>>;
 
 // Utility methods
+export function generateRateLimiterFn(limit: number, interval: number) {
+  const limiter = new RateLimiterQueue(
+    new RateLimiterMemory({ points: limit, duration: interval }),
+  );
+
+  return () => limiter.removeTokens(1);
+}
+
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
@@ -152,11 +158,11 @@ export function createRateLimiters(rateLimitOptions: RateLimitOptions = {}) {
   const rateLimiters: RateLimiters = {};
 
   Object.entries(rateLimitOptions).forEach(([key, config]) => {
-    if (typeof config === 'number') rateLimiters[key] = RateLimit(config, { timeUnit: 60000 });
+    if (typeof config === 'number') rateLimiters[key] = generateRateLimiterFn(config, 60);
     else
       rateLimiters[key] = {
         method: config.method.toUpperCase(),
-        limit: RateLimit(config.limit, { timeUnit: 60000 }),
+        limit: generateRateLimiterFn(config.limit, 60),
       };
   });
 
@@ -219,16 +225,16 @@ export function getMatchingRateLimiter(
   endpoint: string,
   rateLimiters: RateLimiters = {},
   method: string = 'GET',
-): () => Promise<void> {
+): RateLimiterFn {
   const sortedEndpoints = Object.keys(rateLimiters).sort().reverse();
   const match = sortedEndpoints.find((ep) => isGlobMatch(endpoint, ep));
   const rateLimitConfig = match && rateLimiters[match];
 
-  if (rateLimitConfig && typeof rateLimitConfig !== 'object') {
-    return rateLimitConfig;
-  }
-  if (rateLimitConfig && rateLimitConfig.method.toUpperCase() === method.toUpperCase()) {
+  if (typeof rateLimitConfig === 'function') return rateLimitConfig;
+
+  if (rateLimitConfig && rateLimitConfig?.method?.toUpperCase() === method.toUpperCase()) {
     return rateLimitConfig.limit;
   }
-  return RateLimit(3000, { timeUnit: 60000 });
+
+  return generateRateLimiterFn(3000, 60);
 }

@@ -103,7 +103,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   const retryCodes = [429, 502];
   const maxRetries = 10;
   const { prefixUrl, asStream, searchParams, rateLimiters, method, ...opts } = options || {};
-  const endpointRateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
+  const rateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
   let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
@@ -119,7 +119,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   for (let i = 0; i < maxRetries; i += 1) {
     const request = new Request(url, { ...opts, method, mode });
 
-    await endpointRateLimit();
+    await rateLimit();
 
     const response = await fetch(request).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
