@@ -8,7 +8,7 @@ about: Something is not working as it should
 
 - Node.js version:
 - Gitbeaker version:
-- Gitbeaker release (cli, node, browser, core, requester-utils):
+- Gitbeaker release (cli, rest, core, requester-utils):
 - OS & version:
 
 <!-- *(Brief description of your issue here)*

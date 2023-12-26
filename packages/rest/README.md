@@ -339,16 +339,25 @@ const api = new Gitlab({
 
 Request errors are returned back within a plain Error instance, using the cause to hold the original response and a text description of the error pulled from the response's error or message fields if JSON, or its plain text value:
 
-```js
-Error: Bad Request
-<stack trace>
-{
-  [cause]: {
-    description: <text description>,
-    response: <original Response object>
+```ts
+class GitbeakerError extends Error {
+  constructor(
+    message: string,
+    options?: {
+      cause: {
+        description: string;
+        request: Request;
+        response: Response;
+      };
+    },
+  ) {
+    super(message, options);
+    this.name = 'GitbeakerError';
   }
 }
 ```
+
+Note, the message is assigned to the Response's `statusText`, and the [Request](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#request) and [Response](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#response) types are from the NodeJS API.
 
 ## Examples
 
