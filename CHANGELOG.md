@@ -1,3 +1,16 @@
+# 39.27.1 (Tue Dec 26 2023)
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add explicit error types for easier debugging [#3496](https://github.com/jdalrymple/gitbeaker/pull/3496) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.27.0 (Mon Dec 25 2023)
 
 :tada: This release contains work from a new contributor! :tada:

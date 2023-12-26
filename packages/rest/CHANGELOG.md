@@ -1,3 +1,15 @@
+# v39.27.1 (Tue Dec 26 2023)
+
+#### 🔨 Technical Debt
+
+- Add explicit error types for easier debugging [#3496](https://github.com/jdalrymple/gitbeaker/pull/3496) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
