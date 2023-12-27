@@ -263,21 +263,22 @@ export type EditMergeRequestOptions = {
   allowMaintainerToPush?: boolean;
 };
 
-
 export type CreateMergeRequestOptions = {
-  targetProjectId?: number;} & Pick<EditMergeRequestOptions, 
-  'assigneeId' |
-  'assigneeIds' |
-  'description' |
-  'labels' |
-  'title' |
-  'milestoneId' |
-  'reviewerId' |
-  'reviewerIds' |
-  'removeSourceBranch' |
-  'allowCollaboration' |
-  'allowMaintainerToPush' |
-  'squash'
+  targetProjectId?: number;
+} & Pick<
+  EditMergeRequestOptions,
+  | 'assigneeId'
+  | 'assigneeIds'
+  | 'description'
+  | 'labels'
+  | 'title'
+  | 'milestoneId'
+  | 'reviewerId'
+  | 'reviewerIds'
+  | 'removeSourceBranch'
+  | 'allowCollaboration'
+  | 'allowMaintainerToPush'
+  | 'squash'
 >;
 
 // Export API
