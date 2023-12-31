@@ -1,6 +1,5 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMembers } from '../templates';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   AddMemeberOptions,
   AllMembersOptions,
@@ -17,6 +16,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface BillableGroupMemberSchema extends CondensedMemberSchema {
   last_activity_on: string;
@@ -34,7 +34,7 @@ export interface BillableGroupMemberMembershipSchema extends Record<string, unkn
   expires_at: string;
   access_level: {
     string_value: string;
-    integer_value: AccessLevel;
+    integer_value: Exclude<AccessLevel, AccessLevel.ADMIN>;
   };
 }
 
@@ -46,7 +46,7 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
   add<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
@@ -62,7 +62,7 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
   edit<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 

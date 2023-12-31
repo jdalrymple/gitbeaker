@@ -8,8 +8,14 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
-export type ProtectedBranchAccessLevel = 0 | 30 | 40 | 60;
+export type ProtectedBranchAccessLevel =
+  | AccessLevel.NO_ACCESS
+  | AccessLevel.DEVELOPER
+  | AccessLevel.MAINTAINER
+  | AccessLevel.ADMIN;
+
 export interface ExtendedProtectedBranchAccessLevelSchema {
   id: number;
   access_level: ProtectedBranchAccessLevel;

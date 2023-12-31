@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessRequests } from '../templates';
-import type { AccessLevel, AccessRequestSchema } from '../templates/ResourceAccessRequests';
+import type { AccessRequestSchema } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface ProjectAccessRequests<C extends boolean = false>
   extends ResourceAccessRequests<C> {
@@ -24,7 +25,7 @@ export interface ProjectAccessRequests<C extends boolean = false>
   approve<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    options?: { accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>>;
 
   deny<E extends boolean = false>(

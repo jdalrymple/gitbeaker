@@ -1,6 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface SAMLGroupSchema extends Record<string, unknown> {
   name: string;
@@ -29,7 +29,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     return RequestHelper.post<SAMLGroupSchema>()(

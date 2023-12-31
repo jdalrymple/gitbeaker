@@ -14,8 +14,10 @@ import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { UserSchema } from './Users';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { SimpleGroupSchema } from './Groups';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import { AccessLevel } from '../constants';
+
+export type AccessLevelSettingState = 'disabled' | 'enabled' | 'private';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;
@@ -176,7 +178,7 @@ export type AllProjectsOptions = {
   lastActivityAfter?: string;
   lastActivityBefore?: string;
   membership?: boolean;
-  minAccessLevel?: number;
+  minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
   owned?: boolean;
   repositoryChecksumFailed?: boolean;
@@ -204,7 +206,7 @@ export type CreateProjectOptions = {
   avatar?: { content: Blob; filename: string };
   allowMergeOnSkippedPipeline?: boolean;
   onlyAllowMergeIfAllStatusChecksPassed?: boolean;
-  analyticsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  analyticsAccessLevel?: AccessLevelSettingState;
   approvalsBeforeMerge?: number;
   autoCancelPendingPipelines?: string;
   autoDevopsDeployStrategy?: 'continuous' | 'manual' | 'timed_incremental';
@@ -212,23 +214,23 @@ export type CreateProjectOptions = {
   autocloseReferencedIssues?: boolean;
   buildGitStrategy?: string;
   buildTimeout?: number;
-  buildsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  buildsAccessLevel?: AccessLevelSettingState;
   ciConfigPath?: string;
   containerExpirationPolicyAttributes?: Record<string, string>;
-  containerRegistryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  containerRegistryAccessLevel?: AccessLevelSettingState;
   defaultBranch?: string;
   description?: string;
   emailsDisabled?: boolean;
   externalAuthorizationClassificationLabel?: string;
-  forkingAccessLevel?: 'disabled' | 'private' | 'enabled';
+  forkingAccessLevel?: AccessLevelSettingState;
   groupWithProjectTemplatesId?: number;
   importUrl?: string;
   initializeWithReadme?: boolean;
-  issuesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  issuesAccessLevel?: AccessLevelSettingState;
   lfsEnabled?: boolean;
   mergeMethod?: string;
   mergePipelinesEnabled?: boolean;
-  mergeRequestsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  mergeRequestsAccessLevel?: AccessLevelSettingState;
   mergeTrainsEnabled?: boolean;
   mirrorTriggerBuilds?: boolean;
   mirror?: boolean;
@@ -236,31 +238,31 @@ export type CreateProjectOptions = {
   onlyAllowMergeIfAllDiscussionsAreResolved?: boolean;
   onlyAllowMergeIfPipelineSucceeds?: boolean;
   packagesEnabled?: boolean;
-  pagesAccessLevel?: 'disabled' | 'private' | 'enabled' | 'public';
+  pagesAccessLevel?: AccessLevelSettingState | 'public';
   printingMergeRequestLinkEnabled?: boolean;
   publicBuilds?: boolean;
-  releasesAccessLevel?: 'disabled' | 'private' | 'enabled';
-  environmentsAccessLevel?: 'disabled' | 'private' | 'enabled';
-  featureFlagsAccessLevel?: 'disabled' | 'private' | 'enabled';
-  infrastructureAccessLevel?: 'disabled' | 'private' | 'enabled';
-  monitorAccessLevel?: 'disabled' | 'private' | 'enabled';
+  releasesAccessLevel?: AccessLevelSettingState;
+  environmentsAccessLevel?: AccessLevelSettingState;
+  featureFlagsAccessLevel?: AccessLevelSettingState;
+  infrastructureAccessLevel?: AccessLevelSettingState;
+  monitorAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
-  repositoryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  repositoryAccessLevel?: AccessLevelSettingState;
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
-  requirementsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  requirementsAccessLevel?: AccessLevelSettingState;
   resolveOutdatedDiffDiscussions?: boolean;
-  securityAndComplianceAccessLevel?: 'disabled' | 'private' | 'enabled';
+  securityAndComplianceAccessLevel?: AccessLevelSettingState;
   sharedRunnersEnabled?: boolean;
   groupRunnersEnabled?: boolean;
-  snippetsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  snippetsAccessLevel?: AccessLevelSettingState;
   squashOption?: 'never' | 'always' | 'default_on' | 'default_off';
   templateName?: string;
   templateProjectId?: number;
   topics?: string[];
   useCustomTemplate?: boolean;
   visibility?: 'public' | 'internal' | 'private';
-  wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
+  wikiAccessLevel?: AccessLevelSettingState;
 };
 
 export type EditProjectOptions = {
@@ -268,7 +270,7 @@ export type EditProjectOptions = {
   allowMergeOnSkippedPipeline?: boolean;
   allowPipelineTriggerApproveDeployment?: boolean;
   onlyAllowMergeIfAllStatusChecksPassed?: boolean;
-  analyticsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  analyticsAccessLevel?: AccessLevelSettingState;
   approvalsBeforeMerge?: number;
   autoCancelPendingPipelines?: string;
   autoDevopsDeployStrategy?: 'continuous' | 'manual' | 'timed_incremental';
@@ -276,7 +278,7 @@ export type EditProjectOptions = {
   autocloseReferencedIssues?: boolean;
   buildGitStrategy?: string;
   buildTimeout?: number;
-  buildsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  buildsAccessLevel?: AccessLevelSettingState;
   ciConfigPath?: string;
   ciDefaultGitDepth?: number;
   ciForwardDeploymentEnabled?: boolean;
@@ -289,16 +291,16 @@ export type EditProjectOptions = {
   emailsDisabled?: boolean;
   enforceAuthChecksOnUploads?: boolean;
   externalAuthorizationClassificationLabel?: string;
-  forkingAccessLevel?: 'disabled' | 'private' | 'enabled';
+  forkingAccessLevel?: AccessLevelSettingState;
   importUrl?: string;
-  issuesAccessLevel?: 'disabled' | 'private' | 'enabled';
+  issuesAccessLevel?: AccessLevelSettingState;
   issuesTemplate?: string;
   keepLatestArtifact?: boolean;
   lfsEnabled?: boolean;
   mergeCommitTemplate?: string;
   mergeMethod?: string;
   mergePipelinesEnabled?: boolean;
-  mergeRequestsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  mergeRequestsAccessLevel?: AccessLevelSettingState;
   mergeRequestsTemplate?: string;
   mergeTrainsEnabled?: boolean;
   mirrorOverwritesDivergedBranches?: boolean;
@@ -315,30 +317,30 @@ export type EditProjectOptions = {
   path?: string;
   printingMergeRequestLinkEnabled?: boolean;
   publicBuilds?: boolean;
-  releasesAccessLevel?: 'disabled' | 'private' | 'enabled';
-  environmentsAccessLevel?: 'disabled' | 'private' | 'enabled';
-  featureFlagsAccessLevel?: 'disabled' | 'private' | 'enabled';
-  infrastructureAccessLevel?: 'disabled' | 'private' | 'enabled';
-  monitorAccessLevel?: 'disabled' | 'private' | 'enabled';
+  releasesAccessLevel?: AccessLevelSettingState;
+  environmentsAccessLevel?: AccessLevelSettingState;
+  featureFlagsAccessLevel?: AccessLevelSettingState;
+  infrastructureAccessLevel?: AccessLevelSettingState;
+  monitorAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
-  repositoryAccessLevel?: 'disabled' | 'private' | 'enabled';
+  repositoryAccessLevel?: AccessLevelSettingState;
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
-  requirementsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  requirementsAccessLevel?: AccessLevelSettingState;
   resolveOutdatedDiffDiscussions?: boolean;
   restrictUserDefinedVariables?: boolean;
-  securityAndComplianceAccessLevel?: 'disabled' | 'private' | 'enabled';
+  securityAndComplianceAccessLevel?: AccessLevelSettingState;
   serviceDeskEnabled?: boolean;
   sharedRunnersEnabled?: boolean;
   groupRunnersEnabled?: boolean;
-  snippetsAccessLevel?: 'disabled' | 'private' | 'enabled';
+  snippetsAccessLevel?: AccessLevelSettingState;
   issueBranchTemplate?: string;
   squashCommitTemplate?: string;
   squashOption?: 'never' | 'always' | 'default_on' | 'default_off';
   suggestionCommitMessage?: string;
   topics?: string[];
   visibility?: 'public' | 'internal' | 'private';
-  wikiAccessLevel?: 'disabled' | 'private' | 'enabled';
+  wikiAccessLevel?: AccessLevelSettingState;
 };
 
 export type ForkProjectOptions = {
@@ -355,7 +357,7 @@ export type ForkProjectOptions = {
 export type AllForksOptions = {
   archived?: boolean;
   membership?: boolean;
-  minAccessLevel?: 'disabled' | 'private' | 'enabled';
+  minAccessLevel?: AccessLevelSettingState;
   orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
   owned?: boolean;
   search?: string;
@@ -464,7 +466,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       search?: string;
       skipGroups?: number[];
       withShared?: boolean;
-      sharedMinAccessLevel?: AccessLevel;
+      sharedMinAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
       sharedVisibleOnly?: boolean;
     } & Sudo &
       ShowExpanded<E>,

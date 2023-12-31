@@ -5,6 +5,7 @@ const { describe } = it;
 
 describe('Browser Import', () => {
   const keys = [
+    'AccessLevel',
     'Agents',
     'AlertManagement',
     'ApplicationAppearance',

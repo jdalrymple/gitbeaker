@@ -11,6 +11,7 @@ import type {
 import type { CondensedProjectSchema, ProjectSchema } from './Projects';
 import type { UserSchema } from './Users';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import { AccessLevel } from '../constants';
 
 export interface GroupStatisticsSchema {
   storage_size: number;
@@ -76,7 +77,7 @@ export type AllGroupsOptions = {
   statistics?: boolean;
   withCustomAttributes?: boolean;
   owned?: boolean;
-  minAccessLevel?: number;
+  minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   topLevelOnly?: boolean;
 };
 
@@ -100,7 +101,7 @@ export type AllGroupProjectsOptions = {
   withMergeRequestsEnabled?: boolean;
   withShared?: boolean;
   includeSubgroups?: boolean;
-  minAccessLevel?: number;
+  minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   withCustomAttributes?: boolean;
   withSecurityReports?: boolean;
 };

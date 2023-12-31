@@ -1,5 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
-import { ProtectedTags } from '../../../src';
+import { AccessLevel, ProtectedTags } from '../../../src';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -29,12 +29,12 @@ describe('ProtectedTags.all', () => {
 
 describe('ProtectedTags.create', () => {
   it('should request POST /projects/:id/protected_tags', async () => {
-    await service.create(1, 'name', { createAccessLevel: 30 });
+    await service.create(1, 'name', { createAccessLevel: AccessLevel.DEVELOPER });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/protected_tags', {
       searchParams: {
         name: 'name',
-        createAccessLevel: 30,
+        createAccessLevel: AccessLevel.DEVELOPER,
       },
     });
   });
@@ -44,9 +44,9 @@ describe('ProtectedTags.protect', () => {
   it('should request POST /projects/:id/protected_tags', async () => {
     const spy = jest.spyOn(service, 'create');
 
-    await service.protect(1, 'name', { createAccessLevel: 30 });
+    await service.protect(1, 'name', { createAccessLevel: AccessLevel.DEVELOPER });
 
-    expect(spy).toHaveBeenCalledWith(1, 'name', { createAccessLevel: 30 });
+    expect(spy).toHaveBeenCalledWith(1, 'name', { createAccessLevel: AccessLevel.DEVELOPER });
   });
 });
 

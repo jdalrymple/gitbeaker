@@ -9,11 +9,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-
-export type ProtectedEnvironmentAccessLevel = 30 | 40 | 60;
+import { AccessLevel } from '../constants';
 
 export interface ProtectedEnvironmentAccessLevelSummarySchema {
-  access_level: ProtectedEnvironmentAccessLevel;
+  access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;
   access_level_description: string;
   user_id?: number;
   group_id?: number;
@@ -28,7 +27,7 @@ export interface ProtectedEnvironmentSchema extends Record<string, unknown> {
 export type ProtectedEnvironmentAccessLevelEntity = OneOf<{
   userId: number;
   groupId: number;
-  accessLevel: number;
+  accessLevel: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;
 }>;
 
 export class ResourceProtectedEnvironments<C extends boolean = false> extends BaseResource<C> {

@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { AccessLevel } from './ResourceAccessRequests';
+import { AccessLevel } from '../constants';
 
 export type AccessTokenScopes =
   | 'api'
@@ -28,7 +28,10 @@ export interface AccessTokenSchema extends Record<string, unknown> {
   active: boolean;
   created_at: string;
   revoked: boolean;
-  access_level: AccessLevel;
+  access_level: Exclude<
+    AccessLevel,
+    AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
+  >;
   token?: string;
 }
 
@@ -52,7 +55,14 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
     resourceId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
-    options?: { accessLevel?: AccessLevel; expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      accessLevel?: Exclude<
+        AccessLevel,
+        AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
+      >;
+      expiresAt?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>> {
     return RequestHelper.post<AccessTokenSchema>()(this, endpoint`${resourceId}/access_tokens`, {
       name,
