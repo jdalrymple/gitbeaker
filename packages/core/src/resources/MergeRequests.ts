@@ -242,18 +242,6 @@ export type AcceptMergeRequestOptions = {
   sha?: string;
 };
 
-export type CreateMergeRequestOptions = {
-  assigneeId?: number;
-  description?: string;
-  targetProjectId?: number;
-  labels?: string | Array<string>;
-  milestoneId?: number;
-  removeSourceBranch?: boolean;
-  allowCollaboration?: boolean;
-  allowMaintainerToPush?: boolean;
-  squash?: boolean;
-};
-
 export type EditMergeRequestOptions = {
   targetBranch?: string;
   title?: string;
@@ -274,6 +262,24 @@ export type EditMergeRequestOptions = {
   allowCollaboration?: boolean;
   allowMaintainerToPush?: boolean;
 };
+
+export type CreateMergeRequestOptions = {
+  targetProjectId?: number;
+} & Pick<
+  EditMergeRequestOptions,
+  | 'assigneeId'
+  | 'assigneeIds'
+  | 'description'
+  | 'labels'
+  | 'title'
+  | 'milestoneId'
+  | 'reviewerId'
+  | 'reviewerIds'
+  | 'removeSourceBranch'
+  | 'allowCollaboration'
+  | 'allowMaintainerToPush'
+  | 'squash'
+>;
 
 // Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
