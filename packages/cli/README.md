@@ -23,23 +23,6 @@
   </a>
 
   <br>
-	<br>
-  <br>
-
-  <a href="https://axolo.co/gitlab-slack-integration/?ref=gitbeaker">
-  <div>
-    <img src="https://apichaos.s3.eu-west-3.amazonaws.com/logo_axolo.png" width="210" alt="Axolo Logo"/>
-    <br>
-    <br>
-  </div>
-  <b>Review merge requests in Slack to merge code faster</b>
-  <div>
-    <sub>Improve your code review process by creating an ephemeral channel per merge request.</sub>
-    <br>
-  </div>
-  </a>
-
-  <br>
   <hr>
 </div>
 
