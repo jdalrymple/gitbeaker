@@ -8,8 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-
-export type AccessLevel = 0 | 5 | 10 | 20 | 30 | 40 | 50;
+import { AccessLevel } from '../constants';
 
 export interface AccessRequestSchema extends Record<string, unknown> {
   id: number;
@@ -50,7 +49,7 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
   approve<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: { accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
     return RequestHelper.post<AccessRequestSchema>()(
       this,

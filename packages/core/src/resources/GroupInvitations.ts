@@ -1,7 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceInvitations } from '../templates';
 import type { InvitationSchema } from '../templates/ResourceInvitations';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   OneOf,
@@ -10,11 +9,12 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface GroupInvitations<C extends boolean = false> {
   add<E extends boolean = false>(
     groupId: string | number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options: OneOf<{ email: string; userId: string }> & {
       expiresAt?: string;
       inviteSource?: string;
@@ -32,7 +32,8 @@ export interface GroupInvitations<C extends boolean = false> {
   edit<E extends boolean = false>(
     groupId: string | number,
     email: string,
-    options?: { expiresAt?: string; accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string; accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 
   remove<E extends boolean = false>(

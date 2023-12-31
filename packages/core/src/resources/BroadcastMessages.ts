@@ -1,6 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface BroadcastMessageSchema extends Record<string, unknown> {
   message: string;
@@ -18,7 +18,10 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   id: number;
   active: boolean;
   target_path: string;
-  target_access_levels: AccessLevel[];
+  target_access_levels: Exclude<
+    AccessLevel,
+    AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
+  >[];
   broadcast_type: string;
   dismissable: boolean;
 }
@@ -31,7 +34,10 @@ export interface BroadcastMessageOptions extends Record<string, unknown> {
   font?: string;
   active?: boolean;
   targetPath?: string;
-  targetAccessLevels?: AccessLevel[];
+  targetAccessLevels?: Exclude<
+    AccessLevel,
+    AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
+  >[];
   broadcastType?: string;
   dismissable?: boolean;
 }

@@ -8,8 +8,13 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
-export type ProtectedTagAccessLevel = 0 | 30 | 40 | 60;
+export type ProtectedTagAccessLevel =
+  | AccessLevel.NO_ACCESS
+  | AccessLevel.DEVELOPER
+  | AccessLevel.MAINTAINER
+  | AccessLevel.ADMIN;
 
 export interface ProtectedTagAccessLevelSummarySchema {
   id: number;
@@ -25,7 +30,7 @@ export interface ProtectedTagSchema extends Record<string, unknown> {
 export type ProtectedTagAccessLevelEntity = OneOf<{
   userId: number;
   groupId: number;
-  accessLevel: number;
+  accessLevel: ProtectedTagAccessLevel;
 }>;
 
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {

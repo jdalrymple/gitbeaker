@@ -6,7 +6,6 @@ import type {
   IncludeInherited,
   MemberSchema,
 } from '../templates/ResourceMembers';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -14,12 +13,13 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
   add<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 

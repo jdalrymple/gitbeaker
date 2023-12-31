@@ -12,7 +12,7 @@ import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from
 import type { AllEventOptions, EventSchema } from './Events';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
+import { AccessLevel } from '../constants';
 
 export interface UserSchema extends Record<string, unknown> {
   id: number;
@@ -108,7 +108,7 @@ export interface UserMembershipSchema extends Record<string, unknown> {
   source_id: number;
   source_name: string;
   source_type: 'Project' | 'Namespace';
-  access_level: AccessLevel;
+  access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
 }
 
 export interface UserRunnerSchema extends Record<string, unknown> {
@@ -194,7 +194,7 @@ export type AllUserProjectsOptions = {
   idAfter?: number;
   idBefore?: number;
   membership?: boolean;
-  minAccessLevel?: number;
+  minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   orderBy?: 'id' | 'name' | 'path' | 'created_at' | 'updated_at' | 'last_activity_at';
   owned?: boolean;
   search?: string;

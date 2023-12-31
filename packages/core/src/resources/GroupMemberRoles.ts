@@ -1,5 +1,4 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import type { AccessLevel } from '../templates/ResourceAccessRequests';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
@@ -8,6 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { AccessLevel } from '../constants';
 
 export interface MemberRoleSchema extends Record<string, unknown> {
   id: number;
@@ -19,7 +19,10 @@ export interface MemberRoleSchema extends Record<string, unknown> {
 export class GroupMemberRoles<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     groupId: string | number,
-    baseAccessLevel: AccessLevel,
+    baseAccessLevel: Exclude<
+      AccessLevel,
+      AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
+    >,
     options?: { readCode?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberRoleSchema, C, E, void>> {
     return RequestHelper.post<MemberRoleSchema>()(this, endpoint`groups/${groupId}/members`, {

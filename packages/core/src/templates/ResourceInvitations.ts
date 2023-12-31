@@ -9,13 +9,13 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { AccessLevel } from './ResourceAccessRequests';
+import { AccessLevel } from '../constants';
 
 export interface InvitationSchema extends Record<string, unknown> {
   id: number;
   invite_email: string;
   created_at: string;
-  access_level: AccessLevel;
+  access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
   expires_at: string;
   user_name: string;
   created_by_name: string;
@@ -28,7 +28,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
 
   add<E extends boolean = false>(
     resourceId: string | number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options: OneOf<{ email: string; userId: string }> & {
       expiresAt?: string;
       inviteSource?: string;
@@ -62,7 +62,8 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   edit<E extends boolean = false>(
     resourceId: string | number,
     email: string,
-    options?: { expiresAt?: string; accessLevel?: AccessLevel } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string; accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     return RequestHelper.put<InvitationSchema>()(
       this,

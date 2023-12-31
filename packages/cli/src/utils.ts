@@ -172,8 +172,8 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
 }
 
 export function getExposedAPIs(map: Record<string, MethodTemplate[]>) {
-  // Exclude Gitlab resource from exposure
-  const { Gitlab, ...expose } = map;
+  // Exclude Gitlab resource and constants from exposure
+  const { Gitlab, AccessLevel, ...exposed } = map;
 
-  return expose;
+  return exposed;
 }

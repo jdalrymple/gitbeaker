@@ -9,7 +9,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { AccessLevel } from './ResourceAccessRequests';
+import { AccessLevel } from '../constants';
 
 export interface IncludeInherited {
   includeInherited?: boolean;
@@ -26,7 +26,7 @@ export interface CondensedMemberSchema extends Record<string, unknown> {
 
 export interface SimpleMemberSchema extends CondensedMemberSchema {
   expires_at: string;
-  access_level: AccessLevel;
+  access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
   email: string;
 }
 
@@ -60,7 +60,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   add<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
@@ -90,7 +90,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   edit<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    accessLevel: AccessLevel,
+    accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.put<MemberSchema>()(this, endpoint`${resourceId}/members/${userId}`, {
