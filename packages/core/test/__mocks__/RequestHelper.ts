@@ -6,5 +6,6 @@ export default {
     get: () => mockHelperFn,
     put: () => mockHelperFn,
     del: () => mockHelperFn,
+    patch: () => mockHelperFn,
   },
 };

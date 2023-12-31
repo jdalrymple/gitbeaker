@@ -95,7 +95,7 @@ describe('ResourceIssueBoards.editList', () => {
   });
 });
 
-describe('ResourceIssueBoards.lists', () => {
+describe('ResourceIssueBoards.allLists', () => {
   it('should call the correct url with a resource id and board id', async () => {
     await service.allLists('5', 6);
 
