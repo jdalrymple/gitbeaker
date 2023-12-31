@@ -49,9 +49,6 @@
   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
     <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
   </a>
-  <a href="https://img.shields.io/librariesio/release/npm/@gitbeaker/cli">
-    <img src="https://img.shields.io/librariesio/release/npm/@gitbeaker/cli" alt="Dependency Status" />
-  </a>
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
@@ -62,8 +59,8 @@
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
   </a>
-  <a href="https://packagephobia.now.sh/result?p=@gitbeaker/cli">
-    <img src="https://packagephobia.now.sh/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
+  <a href="https://packagephobia.com/result?p=@gitbeaker/cli">
+    <img src="https://packagephobia.com/badge?p=@gitbeaker/cli" alt="Install Size: CLI">
   </a>
 </p>
 
