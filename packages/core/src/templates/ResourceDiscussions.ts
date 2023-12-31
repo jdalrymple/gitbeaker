@@ -112,6 +112,8 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
 
     if (position) {
       Object.assign(opts, reformatObjectOptions(position, 'position', true));
+
+      opts.isForm = true;
     }
 
     return RequestHelper.post<DiscussionSchema>()(

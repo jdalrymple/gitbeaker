@@ -79,6 +79,7 @@ describe('ResourceDiscussions.create', () => {
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
       body: 'test',
+      isForm: true,
       'position[base_sha]': 'sha1',
       'position[start_sha]': 'sha2',
       'position[head_sha]': 'sha3',
