@@ -1,3 +1,20 @@
+# v39.28.0 (Sun Dec 31 2023)
+
+#### 🔨 Technical Debt
+
+- Restructuring the AccessLevel enum [#3501](https://github.com/jdalrymple/gitbeaker/pull/3501) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Updating sponsors header [#3504](https://github.com/jdalrymple/gitbeaker/pull/3504) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating badges [#3502](https://github.com/jdalrymple/gitbeaker/pull/3502) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies

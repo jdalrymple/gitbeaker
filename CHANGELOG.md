@@ -1,3 +1,36 @@
+# 39.28.0 (Sun Dec 31 2023)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing Users.edit HTTP Method [#3503](https://github.com/jdalrymple/gitbeaker/pull/3503) ([@jdalrymple](https://github.com/jdalrymple))
+  - Add back isForm when setting position within the create Discussions API [#3497](https://github.com/jdalrymple/gitbeaker/pull/3497) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/rest`
+  - Restructuring the AccessLevel enum [#3501](https://github.com/jdalrymple/gitbeaker/pull/3501) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Types - Add more options to MR create [#3498](https://github.com/jdalrymple/gitbeaker/pull/3498) ([@pataar](https://github.com/pataar))
+
+#### ↕️ Dependencies
+
+- Bump nx from 17.2.7 to 17.2.8 [#3499](https://github.com/jdalrymple/gitbeaker/pull/3499) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating sponsors header [#3504](https://github.com/jdalrymple/gitbeaker/pull/3504) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating badges [#3502](https://github.com/jdalrymple/gitbeaker/pull/3502) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Pieter Willekens ([@pataar](https://github.com/pataar))
+
+---
+
 # 39.27.1 (Tue Dec 26 2023)
 
 #### 🔨 Technical Debt

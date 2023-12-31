@@ -1,3 +1,27 @@
+# v39.28.0 (Sun Dec 31 2023)
+
+#### 🐛 Bug Fix
+
+- Fixing Users.edit HTTP Method [#3503](https://github.com/jdalrymple/gitbeaker/pull/3503) ([@jdalrymple](https://github.com/jdalrymple))
+- Add back isForm when setting position within the create Discussions API [#3497](https://github.com/jdalrymple/gitbeaker/pull/3497) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Restructuring the AccessLevel enum [#3501](https://github.com/jdalrymple/gitbeaker/pull/3501) ([@jdalrymple](https://github.com/jdalrymple))
+- Types - Add more options to MR create [#3498](https://github.com/jdalrymple/gitbeaker/pull/3498) ([@pataar](https://github.com/pataar))
+
+#### 📚 Documentation
+
+- Updating sponsors header [#3504](https://github.com/jdalrymple/gitbeaker/pull/3504) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating badges [#3502](https://github.com/jdalrymple/gitbeaker/pull/3502) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Pieter Willekens ([@pataar](https://github.com/pataar))
+
+---
+
 # v39.27.0 (Mon Dec 25 2023)
 
 :tada: This release contains work from a new contributor! :tada:
