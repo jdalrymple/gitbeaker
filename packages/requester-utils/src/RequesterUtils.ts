@@ -1,7 +1,9 @@
 import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
-import { isMatch as isGlobMatch } from 'picomatch-browser';
+import * as Picomatch from 'picomatch-browser';
+
+const { isMatch: isGlobMatch } = Picomatch;
 
 // Types
 export type RateLimiterFn = () => Promise<number>;
