@@ -1,3 +1,16 @@
+# 39.29.0 (Sun Jan 14 2024)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix bad externUid type in Users API [#3508](https://github.com/jdalrymple/gitbeaker/pull/3508) ([@ArnaudTA](https://github.com/ArnaudTA))
+
+#### Authors: 1
+
+- [@ArnaudTA](https://github.com/ArnaudTA)
+
+---
+
 # 39.28.0 (Sun Dec 31 2023)
 
 #### 🐛 Bug Fix
