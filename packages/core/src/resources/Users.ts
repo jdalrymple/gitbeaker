@@ -148,7 +148,7 @@ export type CreateUserOptions = {
   canCreateGroup?: boolean;
   colorSchemeId?: number;
   email?: string;
-  externUid?: number;
+  externUid?: string;
   external?: boolean;
   extraSharedRunnersMinutesLimit?: number;
   forceRandomPassword?: boolean;
