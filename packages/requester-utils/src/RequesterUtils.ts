@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
-import * as Picomatch from 'picomatch-browser';
+import Picomatch from 'picomatch-browser';
 
 const { isMatch: isGlobMatch } = Picomatch;
 
