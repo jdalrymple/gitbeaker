@@ -92,22 +92,20 @@ export type GitlabAPIExpandedResponse<T, E extends boolean | void, P> = E extend
     : ExpandedResponse<T>
   : T;
 
-export type GitlabAPISingleResponse<
-  T,
-  C extends boolean | void,
-  E extends boolean | void,
-> = T extends Record<string, unknown>
-  ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>, E, undefined>
-  : GitlabAPIExpandedResponse<T, E, undefined>;
+export type GitlabAPISingleResponse<T, C extends boolean | void, E extends boolean | void> =
+  T extends Record<string, unknown>
+    ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>, E, undefined>
+    : GitlabAPIExpandedResponse<T, E, undefined>;
 
 export type GitlabAPIMultiResponse<
   T,
   C extends boolean | void,
   E extends boolean | void,
   P extends PaginationTypes | void,
-> = T extends Record<string, unknown>
-  ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>[], E, P>
-  : GitlabAPIExpandedResponse<T[], E, P>;
+> =
+  T extends Record<string, unknown>
+    ? GitlabAPIExpandedResponse<CamelizedResponse<T, C>[], E, P>
+    : GitlabAPIExpandedResponse<T[], E, P>;
 
 export type GitlabAPIResponse<
   T,

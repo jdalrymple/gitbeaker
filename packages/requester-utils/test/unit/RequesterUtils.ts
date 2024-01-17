@@ -1,4 +1,4 @@
-import * as AsyncSema from 'async-sema';
+import { RateLimiterMemory } from 'rate-limiter-flexible';
 import {
   RequestOptions,
   ResourceOptions,
@@ -9,6 +9,8 @@ import {
   getMatchingRateLimiter,
   presetResourceArguments,
 } from '../../src/RequesterUtils';
+
+jest.mock('rate-limiter-flexible');
 
 const methods = ['get', 'put', 'patch', 'delete', 'post'];
 
@@ -193,8 +195,6 @@ describe('createInstance', () => {
   });
 
   it('should pass the rate limiters to the requestHandler function', async () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
-
     const testEndpoint = 'test endpoint';
     const requester = createRequesterFn(
       optionsHandler,
@@ -212,9 +212,6 @@ describe('createInstance', () => {
 
     await requester.get(testEndpoint, {});
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
-    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
-
     expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {
       rateLimiters: {
         '*': expect.toBeFunction(),
@@ -229,8 +226,6 @@ describe('createInstance', () => {
 
 describe('createRateLimiters', () => {
   it('should create rate limiter functions when configured', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
-
     const limiters = createRateLimiters({
       '*': 40,
       'projects/*/test': {
@@ -239,8 +234,8 @@ describe('createRateLimiters', () => {
       },
     });
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(10, { timeUnit: 60000 });
-    expect(rateLimitSpy).toHaveBeenCalledWith(40, { timeUnit: 60000 });
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 10, duration: 60 });
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 40, duration: 60 });
 
     expect(limiters).toStrictEqual({
       '*': expect.toBeFunction(),
@@ -338,11 +333,9 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should default the rateLimiters to an empty object if not passed and return the default rate of 3000 rpm', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
-
     getMatchingRateLimiter('endpoint');
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 3000, duration: 60 });
   });
 
   it('should return the most specific rate limit', async () => {
@@ -358,11 +351,9 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should return a default rate limit of 3000 rpm if nothing matches', () => {
-    const rateLimitSpy = jest.spyOn(AsyncSema, 'RateLimit');
-
     getMatchingRateLimiter('endpoint', { someurl: jest.fn() });
 
-    expect(rateLimitSpy).toHaveBeenCalledWith(3000, { timeUnit: 60000 });
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 3000, duration: 60 });
   });
 
   it('should handle expanded rate limit options with a particular method and limit', async () => {
