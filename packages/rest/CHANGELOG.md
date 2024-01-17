@@ -1,3 +1,15 @@
+# v39.30.0 (Wed Jan 17 2024)
+
+#### 🐛 Bug Fix
+
+- Update rate limit feature to be more browser freindly [#3428](https://github.com/jdalrymple/gitbeaker/pull/3428) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.28.0 (Sun Dec 31 2023)
 
 #### 🔨 Technical Debt

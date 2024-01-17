@@ -1,3 +1,16 @@
+# 39.30.0 (Wed Jan 17 2024)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Update rate limit feature to be more browser freindly [#3428](https://github.com/jdalrymple/gitbeaker/pull/3428) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.29.0 (Sun Jan 14 2024)
 
 #### 🐛 Bug Fix
