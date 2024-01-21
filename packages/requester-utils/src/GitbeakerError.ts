@@ -14,6 +14,12 @@ export class GitbeakerRequestError extends Error {
 
     this.name = 'GitbeakerRequestError';
   }
+
+  cause?: {
+    description: string;
+    request: Request;
+    response: Response;
+  };
 }
 
 export class GitbeakerTimeoutError extends Error {
