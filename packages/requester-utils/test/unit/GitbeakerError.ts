@@ -8,7 +8,7 @@ describe('GitbeakerRequestError', () => {
   it('should create a custom error with the name "GitbeakerRequestError"', () => {
     const error = new GitbeakerRequestError('my message');
 
-    expect(error.name).toBe(GitbeakerRequestError);
+    expect(error.name).toBe('GitbeakerRequestError');
     expect(error).toBeInstanceOf(GitbeakerRequestError);
   });
 
@@ -35,7 +35,7 @@ describe('GitbeakerRetryError', () => {
   it('should create a custom error with the name "GitbeakerRetryError"', () => {
     const error = new GitbeakerRetryError('my message');
 
-    expect(error.name).toBe(GitbeakerRetryError);
+    expect(error.name).toBe('GitbeakerRetryError');
     expect(error).toBeInstanceOf(GitbeakerRetryError);
   });
 });
@@ -44,7 +44,7 @@ describe('GitbeakerTimeoutError', () => {
   it('should create a custom error with the name "GitbeakerTimeoutError"', () => {
     const error = new GitbeakerTimeoutError('my message');
 
-    expect(error.name).toBe(GitbeakerTimeoutError);
+    expect(error.name).toBe('GitbeakerTimeoutError');
     expect(error).toBeInstanceOf(GitbeakerTimeoutError);
   });
 });
