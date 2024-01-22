@@ -1,3 +1,15 @@
+# v39.31.0 (Mon Jan 22 2024)
+
+#### 🐛 Bug Fix
+
+- Add missing premium/ultimate Project attributes [#3512](https://github.com/jdalrymple/gitbeaker/pull/3512) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
