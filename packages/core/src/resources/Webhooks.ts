@@ -42,6 +42,27 @@ export interface WebhookProjectSchema {
   http_url: string;
 }
 
+export interface WebhookPipelineSchema {
+  project: {
+    id: number;
+    web_url: string;
+    path_with_namespace: string;
+  };
+  pipeline_id: number;
+  job_id: number;
+}
+
+export interface WebhookDiffSchema {
+  diff: string;
+  new_path: string;
+  old_path: string;
+  a_mode: string;
+  b_mode: string;
+  new_file: boolean;
+  renamed_file: boolean;
+  deleted_file: boolean;
+}
+
 export interface BaseWebhookEventSchema {
   object_kind: string;
   event_name: string;
@@ -72,16 +93,7 @@ export interface WebhookBaseNoteEventSchema extends BaseWebhookEventSchema {
     commit_id: string;
     noteable_id: string | null;
     system: boolean;
-    st_diff: {
-      diff: string;
-      new_path: string;
-      old_path: string;
-      a_mode: string;
-      b_mode: string;
-      new_file: boolean;
-      renamed_file: boolean;
-      deleted_file: boolean;
-    };
+    st_diff: WebhookDiffSchema | null;
     url: string;
   };
 }
@@ -171,7 +183,7 @@ export interface WebhookIssueEventSchema extends BaseWebhookEventSchema {
       id: number;
       name: string;
     };
-    labels: WebhookEventLabelSchema[] | null;
+    labels: WebhookLabelSchema[] | null;
   };
   repository: {
     name: string;
@@ -438,15 +450,7 @@ export interface WebhookPipelineEventSchema
       email: string;
     };
   };
-  source_pipeline: {
-    project: {
-      id: number;
-      web_url: string;
-      path_with_namespace: string;
-    };
-    pipeline_id: number;
-    job_id: number;
-  };
+  source_pipeline: WebhookPipelineSchema;
   builds:
     | {
         id: number;
@@ -531,15 +535,7 @@ export interface WebhookJobEventSchema extends MappedOmit<BaseWebhookEventSchema
     action: string;
     deployment_tier: string;
   } | null;
-  source_pipeline: {
-    project: {
-      id: number;
-      web_url: string;
-      path_with_namespace: string;
-    };
-    pipeline_id: number;
-    job_id: number;
-  };
+  source_pipeline: WebhookPipelineSchema;
 }
 
 export interface WebhookDeploymentEventSchema
@@ -676,16 +672,7 @@ export interface WebhookEmojiEventSchema extends BaseWebhookEventSchema {
     resolved_at: string | null;
     resolved_by_id: number | null;
     resolved_by_push: boolean | null;
-    st_diff: {
-      diff: string;
-      new_path: string;
-      old_path: string;
-      a_mode: string;
-      b_mode: string;
-      new_file: boolean;
-      renamed_file: boolean;
-      deleted_file: boolean;
-    } | null;
+    st_diff: WebhookDiffSchema | null;
     system: boolean;
     type: string | null;
     updated_at: string;
