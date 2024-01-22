@@ -80,7 +80,7 @@ async function throwFailedRequestError(
   if (contentType?.includes('application/json')) {
     const output = JSON.parse(content);
 
-    description = output.message
+    description = output.message;
   } else {
     description = content;
   }
