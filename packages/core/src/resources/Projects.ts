@@ -65,12 +65,12 @@ export interface SimpleProjectSchema extends CondensedProjectSchema {
   path_with_namespace: string;
   created_at: string;
   default_branch: string;
-  topics?: string[];
+  topics: string[] | null;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   readme_url: string;
   forks_count: number;
-  avatar_url?: string;
+  avatar_url: string | null;
   star_count: number;
   last_activity_at: string;
   namespace: CondensedNamespaceSchema;
