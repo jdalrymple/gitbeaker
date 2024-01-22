@@ -77,6 +77,9 @@ export interface SimpleProjectSchema extends CondensedProjectSchema {
 }
 
 export interface ProjectSchema extends SimpleProjectSchema {
+  issues_template?: string;
+  merge_requests_template?: string;
+  mirror_trigger_builds?: boolean;
   container_registry_image_prefix: string;
   _links: {
     self: string;
