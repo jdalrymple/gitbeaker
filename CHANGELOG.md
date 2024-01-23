@@ -1,3 +1,16 @@
+# 39.32.0 (Tue Jan 23 2024)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating Gitbeaker Error typings [#3513](https://github.com/jdalrymple/gitbeaker/pull/3513) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.31.1 (Tue Jan 23 2024)
 
 #### 🗃️ Typescript Definitions

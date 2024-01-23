@@ -1,3 +1,15 @@
+# v39.32.0 (Tue Jan 23 2024)
+
+#### 🐛 Bug Fix
+
+- Updating Gitbeaker Error typings [#3513](https://github.com/jdalrymple/gitbeaker/pull/3513) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
