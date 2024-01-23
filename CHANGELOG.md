@@ -1,3 +1,16 @@
+# 39.31.1 (Tue Jan 23 2024)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Add typing exports for Webhook Events [#3511](https://github.com/jdalrymple/gitbeaker/pull/3511) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.31.0 (Mon Jan 22 2024)
 
 #### 🐛 Bug Fix
