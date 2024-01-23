@@ -1,3 +1,21 @@
+# 39.33.0 (Tue Jan 23 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix - export Webhook Interfaces [#3514](https://github.com/jdalrymple/gitbeaker/pull/3514) (elaine.mattos@gmail.com= [@elaine-mattos](https://github.com/elaine-mattos))
+
+#### Authors: 2
+
+- Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos))
+- elaine-mattos= (elaine.mattos@gmail.com=)
+
+---
+
 # 39.32.0 (Tue Jan 23 2024)
 
 #### 🐛 Bug Fix
