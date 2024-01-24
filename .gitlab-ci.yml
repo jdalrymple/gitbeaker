@@ -308,6 +308,7 @@ test:live:teardown:
   stage: test
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
+    - test:live:setup
     - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
@@ -326,8 +327,8 @@ test:live:teardown:
     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
 
 ## Integration Tests
-test:integration:rest:browser:
-  extends: .test:e2e:base
+test:integration:browser:
+  extends: .test:integration:base
   image: mcr.microsoft.com/playwright:v1.40.0-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
