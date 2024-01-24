@@ -179,7 +179,8 @@ format:
     - build
     - test:live:setup
 
-## Unit Tests
+
+## Test Setup
 test:unit:setup:
   stage: setup
   image: alpine/curl
@@ -192,71 +193,6 @@ test:unit:setup:
     - <<: *cachecodeclimate
       policy: pull-push
 
-test:unit:utils:
-  extends: .test:unit:base
-  script: yarn test:unit --projects=@gitbeaker/requester-utils
-  variables:
-    PKG_PATH: 'packages/requester-utils'
-
-test:unit:core:
-  extends: .test:unit:base
-  script: yarn test:unit --projects=@gitbeaker/core
-  variables:
-    PKG_PATH: 'packages/core'
-
-test:unit:rest:
-  extends: .test:unit:base
-  script: yarn test:unit --projects=@gitbeaker/rest
-  variables:
-    PKG_PATH: 'packages/rest'
-
-test:unit:cli:
-  extends: .test:unit:base
-  script: yarn test:unit --projects=@gitbeaker/cli
-  variables:
-    PKG_PATH: 'packages/cli'
-
-test:unit:teardown:
-  stage: teardown
-  image: alpine/curl
-  except:
-    refs:
-      - /^pr-[0-9]+$/
-  needs:
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:rest
-    - test:unit:cli
-  cache:
-    - <<: *cachecodeclimate
-      policy: pull
-  before_script:
-    - mkdir coverage
-    - ls tmp/codeclimate
-  script:
-    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
-    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
-
-## Types Tests
-test:types:utils:
-  extends: .test:types:base
-  variables:
-    PKG_PATH: 'packages/requester-utils'
-  script: yarn test:types --projects=@gitbeaker/requester-utils
-
-test:types:core:
-  extends: .test:types:base
-  variables:
-    PKG_PATH: 'packages/core'
-  script: yarn test:types --projects=@gitbeaker/core
-
-test:types:rest:
-  extends: .test:types:base
-  variables:
-    PKG_PATH: 'packages/rest'
-  script: yarn test:types --projects=@gitbeaker/rest
-
-## Live Test Setup and Clean Up
 test:live:setup:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   stage: setup
@@ -306,26 +242,50 @@ test:live:setup:
     reports:
       dotenv: intergration.env
 
-test:live:teardown:
-  stage: teardown
-  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  needs:
-    - test:e2e:core
-    - test:e2e:cli
-    - test:e2e:rest:browser
-    - test:e2e:rest:nodejs
-  when: always
-  only:
-    refs:
-      - /^pr-[0-9]+$/
-      - main
-      - next
+## Unit Tests
+
+test:unit:utils:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/requester-utils
   variables:
-    GIT_STRATEGY: none
-  script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-    - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
+    PKG_PATH: 'packages/requester-utils'
+
+test:unit:core:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/core
+  variables:
+    PKG_PATH: 'packages/core'
+
+test:unit:rest:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/rest
+  variables:
+    PKG_PATH: 'packages/rest'
+
+test:unit:cli:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/cli
+  variables:
+    PKG_PATH: 'packages/cli'
+
+## Types Tests
+test:types:utils:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/requester-utils'
+  script: yarn test:types --projects=@gitbeaker/requester-utils
+
+test:types:core:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/core'
+  script: yarn test:types --projects=@gitbeaker/core
+
+test:types:rest:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/rest'
+  script: yarn test:types --projects=@gitbeaker/rest
 
 ## Integration Tests
 test:integration:browser:
@@ -334,7 +294,7 @@ test:integration:browser:
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
-  script: yarn test:integration:browser --projects=@gitbeaker/rest
+  script: yarn test:integration --projects=@gitbeaker/rest
 
 ## End-to-End Tests
 test:e2e:core:
@@ -356,6 +316,49 @@ test:e2e:rest:nodejs:
 test:e2e:cli:
   extends: .test:e2e:base
   script: yarn test:e2e --projects=@gitbeaker/cli
+
+# Teardown
+test:unit:teardown:
+  stage: teardown
+  image: alpine/curl
+  except:
+    refs:
+      - /^pr-[0-9]+$/
+  needs:
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:rest
+    - test:unit:cli
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull
+  before_script:
+    - mkdir coverage
+    - ls tmp/codeclimate
+  script:
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
+
+test:live:teardown:
+  stage: teardown
+  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  needs:
+    - test:e2e:core
+    - test:e2e:cli
+    - test:e2e:rest:browser
+    - test:e2e:rest:nodejs
+  when: always
+  only:
+    refs:
+      - /^pr-[0-9]+$/
+      - main
+      - next
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+    - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
 
 # Releases
 .release:base:
@@ -382,7 +385,14 @@ test:e2e:cli:
 release:special:
   extends: .release:base
   needs:
-    - build
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:browser
     - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
@@ -412,14 +422,21 @@ release:special:
 release:
   extends: .release:base
   needs:
-    - build
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:browser
     - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
     - test:e2e:rest:nodejs
-    - test:unit:teardown
   only:
     refs:
       - main
       - next
+
   script: echo 'release' #yarn release

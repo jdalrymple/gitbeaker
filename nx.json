@@ -4,6 +4,7 @@
       "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
+          "build",
           "lint",
           "lint:fix",
           "format",
@@ -11,8 +12,11 @@
           "test:types",
           "test:unit",
           "test:integration",
+          "test:integration:browser",
+          "test:integration:nodejs",
           "test:e2e",
-          "build"
+          "test:e2e:browser",
+          "test:e2e:nodejs"
         ]
       }
     }
@@ -35,7 +39,7 @@
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/dist",
+        "{projectRoot}/dist"
       ]
     },
     "test:types": {
@@ -48,6 +52,16 @@
         "build"
       ]
     },
+    "test:e2e:browser": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "test:e2e:nodejs": {
+      "dependsOn": [
+        "build"
+      ]
+    }
   },
   "defaultBase": "main"
 }
