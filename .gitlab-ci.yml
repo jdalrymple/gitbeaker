@@ -351,6 +351,7 @@ test:live:teardown:
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
+    - test:live:setup
     - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
