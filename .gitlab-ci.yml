@@ -301,11 +301,11 @@ test:integration:browser:
     - yarn add @swc/core
   script: yarn test:integration:browser --projects=@gitbeaker/rest
 
-## End-to-End Tests
+test:integration:core:
+  extends: .test:integration:base
+  script: yarn test:integration --projects=@gitbeaker/core
 
-test:e2e:core:
-  extends: .test:e2e:base
-  script: yarn test:e2e --projects=@gitbeaker/core
+## End-to-End Tests
 
 test:e2e:rest:browser:
   extends: .test:e2e:base
@@ -352,7 +352,6 @@ test:unit:teardown:
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
     - test:e2e:rest:nodejs
@@ -411,7 +410,7 @@ release:special:
     - test:types:core
     - test:types:rest
     - test:integration:browser
-    - test:e2e:core
+    - test:integration:core
     - test:e2e:cli
     - test:e2e:rest:browser
     - test:e2e:rest:nodejs
@@ -449,7 +448,7 @@ release:
     - test:types:core
     - test:types:rest
     - test:integration:browser
-    - test:e2e:core
+    - test:integration:core
     - test:e2e:cli
     - test:e2e:rest:browser
     - test:e2e:rest:nodejs

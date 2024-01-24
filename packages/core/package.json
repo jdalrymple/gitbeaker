@@ -45,7 +45,7 @@
     "build:map": "tsx scripts/generate.ts",
     "build:self": "tsup src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
-    "test:e2e": "jest --maxWorkers=50% test/e2e",
+    "test:integration": "jest --maxWorkers=50% test/integration",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",
     "format:docs:fix": "yarn format:docs --write",
