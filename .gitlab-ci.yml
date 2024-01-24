@@ -231,16 +231,16 @@ test:live:setup:
 
 .test:integration:base:
   extends: .test:base
-  only:
-    refs:
-      - /^pr-[0-9]+$/
-      - main
-      - next
   needs:
     - build
 
 .test:e2e:base:
-  extends: .test:integration:base
+  extends: .test:base
+  only:
+  refs:
+    - /^pr-[0-9]+$/
+    - main
+    - next
   needs:
     - build
     - test:live:setup
