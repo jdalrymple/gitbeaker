@@ -1,38 +1,18 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "lint:fix",
-          "format",
-          "format:fix",
-          "test:types",
-          "test:unit",
-          "test:integration",
-          "test:integration:browser",
-          "test:integration:nodejs",
-          "test:e2e",
-          "test:e2e:browser",
-          "test:e2e:nodejs"
-        ]
-      }
-    }
-  },
   "targetDefaults": {
     "test:unit": {
       "outputs": [
         "{projectRoot}/coverage",
         "{projectRoot}/reports"
-      ]
+      ],
+      "cache": true
     },
     "test:integration": {
       "outputs": [
         "{projectRoot}/coverage",
         "{projectRoot}/reports"
-      ]
+      ],
+      "cache": true
     },
     "build": {
       "dependsOn": [
@@ -40,28 +20,61 @@
       ],
       "outputs": [
         "{projectRoot}/dist"
-      ]
+      ],
+      "cache": true
     },
     "test:types": {
       "dependsOn": [
         "build"
-      ]
+      ],
+      "cache": true
     },
     "test:e2e": {
       "dependsOn": [
         "build"
-      ]
+      ],
+      "cache": true
     },
     "test:e2e:browser": {
       "dependsOn": [
         "build"
-      ]
+      ],
+      "cache": true
     },
     "test:e2e:nodejs": {
       "dependsOn": [
         "build"
-      ]
+      ],
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "lint:fix": {
+      "cache": true
+    },
+    "format": {
+      "cache": true
+    },
+    "format:fix": {
+      "cache": true
+    },
+    "test:integration:browser": {
+      "cache": true
+    },
+    "test:integration:nodejs": {
+      "cache": true
     }
   },
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [],
+    "production": [
+      "default"
+    ]
+  }
 }

@@ -60,11 +60,11 @@
     "jest": "^29.7.0",
     "jest-extended": "^4.0.2",
     "jest-junit": "^16.0.0",
-    "lerna": "^8.0.1",
+    "lerna": "^8.0.2",
     "lint-staged": "^15.2.0",
     "nx": "17.2.8",
     "prettier": "^3.1.1",
     "typescript": "^5.3.3"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@4.0.2"
 }
