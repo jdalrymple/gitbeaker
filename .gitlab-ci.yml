@@ -348,14 +348,14 @@ test:unit:teardown:
     - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 ### Note work around due to odd when/needs behaviour for CI DAG. This stops skipped jobs from triggering teardown
-test:live:teardown: &testlive_teardown
+.test:live:teardown: &testlive_teardown
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-  - test:e2e:core
-  - test:e2e:cli
-  - test:e2e:rest:browser
-  - test:e2e:rest:nodejs
+    - test:e2e:core
+    - test:e2e:cli
+    - test:e2e:rest:browser
+    - test:e2e:rest:nodejs
   only:
     refs:
       - /^pr-[0-9]+$/
