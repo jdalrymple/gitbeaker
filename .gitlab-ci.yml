@@ -136,9 +136,9 @@ test:live:setup:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
+      allow_failure: false
     - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
       when: manual
-      allow_failure: true
   variables:
     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
     CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
@@ -159,8 +159,8 @@ test:live:setup:
         --container-arg="-c" \
         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --max-run-duration=25m
-        --instance-termination-action=DELETE
+        --max-run-duration=25m \
+        --instance-termination-action=DELETE \
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
         | head -2 | tail -1 )
 
