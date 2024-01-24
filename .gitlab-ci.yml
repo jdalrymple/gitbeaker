@@ -169,8 +169,7 @@ format:
       - main
       - next
   needs:
-    - install
-    - test:live:setup
+    - build
 
 .test:e2e:base:
   extends: .test:integration:base
@@ -264,9 +263,9 @@ test:live:setup:
       when: always
     - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
       when: manual
+      allow_failure: true
   needs:
     - build
-  allow_failure: false
   variables:
     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
     CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
@@ -287,8 +286,8 @@ test:live:setup:
         --container-arg="-c" \
         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-        --metadata-from-file startup-script=./scripts/shutdown.sh \
+        --max-run-duration=25m
+        --instance-termination-action=DELETE
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
         | head -2 | tail -1 )
 
@@ -309,10 +308,10 @@ test:live:teardown:
   stage: test
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:integration:rest
     - test:e2e:core
     - test:e2e:cli
-    - test:e2e:rest
+    - test:e2e:rest:browser
+    - test:e2e:rest:nodejs
   when: always
   only:
     refs:
@@ -327,22 +326,30 @@ test:live:teardown:
     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
 
 ## Integration Tests
-test:integration:rest:
-  extends: .test:integration:base
-  script: yarn test:integration --projects=@gitbeaker/rest
+test:integration:rest:browser:
+  extends: .test:e2e:base
+  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  before_script:
+    # reinstall swc due to missing binding for ubuntu image
+    - yarn add @swc/core
+  script: yarn test:integration:browser --projects=@gitbeaker/rest
 
 ## End-to-End Tests
 test:e2e:core:
   extends: .test:e2e:base
   script: yarn test:e2e --projects=@gitbeaker/core
 
-test:e2e:rest:
+test:e2e:rest:browser:
   extends: .test:e2e:base
   image: mcr.microsoft.com/playwright:v1.40.0-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
-  script: yarn test:e2e --projects=@gitbeaker/rest
+  script: yarn test:e2e:browser --projects=@gitbeaker/rest
+
+test:e2e:rest:nodejs:
+  extends: .test:e2e:base
+  script: yarn test:e2e:nodejs --projects=@gitbeaker/rest
 
 test:e2e:cli:
   extends: .test:e2e:base
@@ -374,41 +381,43 @@ release:special:
   extends: .release:base
   needs:
     - build
-    - test:integration:rest
     - test:e2e:core
     - test:e2e:cli
-    - test:e2e:rest
+    - test:e2e:rest:browser
+    - test:e2e:rest:nodejs
   only:
     refs:
       - /^pr-[0-9]+$/
+
   script:
-    - echo "Checking for special release..."
-    - |
-      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
-        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+    - echo 'release'
+    # - echo "Checking for special release..."
+    # - |
+    #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+    #     pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
 
-        export CI_MERGE_REQUEST_ID=$pr_id
-        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+    #     export CI_MERGE_REQUEST_ID=$pr_id
+    #     export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
 
-        labels=$(yarn auto label --pr $pr_id)
+    #     labels=$(yarn auto label --pr $pr_id)
 
-        if [[ "$labels" =~ "release:canary" ]]; then
-          yarn release:canary
-        fi
-      fi
+    #     if [[ "$labels" =~ "release:canary" ]]; then
+    #       yarn release:canary
+    #     fi
+    #   fi
 
 ## Production
 release:
   extends: .release:base
   needs:
     - build
-    - test:integration:rest
     - test:e2e:core
     - test:e2e:cli
-    - test:e2e:rest
+    - test:e2e:rest:browser
+    - test:e2e:rest:nodejs
     - test:unit:teardown
   only:
     refs:
       - main
       - next
-  script: yarn release
+  script: echo 'release' #yarn release

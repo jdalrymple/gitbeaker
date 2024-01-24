@@ -196,8 +196,10 @@ describe('Browser Import', () => {
     'Gitlab',
   ].sort();
 
-  it('should import the Gitbeaker library though the global gitbeaker', async ({ page }) => {
-    const filepath = path.resolve(__dirname, 'assets', 'test-import.html');
+  it('should import all resources in the Gitbeaker library though the global gitbeaker ', async ({
+    page,
+  }) => {
+    const filepath = path.resolve(__dirname, '..', '..', 'assets', 'test-import.html');
 
     await page.goto(`file://${filepath}`);
 
