@@ -3,7 +3,9 @@ stages:
   - build
   - lint
   - format
+  - setup
   - test
+  - teardown
   - release
 
 # Fallback variables
@@ -179,7 +181,7 @@ format:
 
 ## Unit Tests
 test:unit:setup:
-  stage: test
+  stage: setup
   image: alpine/curl
   script:
     - mkdir -p tmp/codeclimate
@@ -215,7 +217,7 @@ test:unit:cli:
     PKG_PATH: 'packages/cli'
 
 test:unit:teardown:
-  stage: test
+  stage: teardown
   image: alpine/curl
   except:
     refs:
@@ -257,7 +259,7 @@ test:types:rest:
 ## Live Test Setup and Clean Up
 test:live:setup:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  stage: test
+  stage: setup
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
@@ -305,10 +307,9 @@ test:live:setup:
       dotenv: intergration.env
 
 test:live:teardown:
-  stage: test
+  stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:live:setup
     - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest:browser
