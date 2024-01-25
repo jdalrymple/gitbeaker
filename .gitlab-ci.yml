@@ -166,7 +166,7 @@ test:live:setup:
         --project gitbeaker \
         --machine-type=e2-standard-2 \
         --zone=northamerica-northeast1-b \
-        --boot-disk-size=15GB
+        --boot-disk-size=15GB \
         --tags http-server,https-server \
         --container-image docker.io/gitlab/gitlab-ce:latest \
         --container-command '/bin/sh' \
