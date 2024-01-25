@@ -167,7 +167,7 @@ test:live:setup:
         --machine-type=e2-standard-2 \
         --zone=northamerica-northeast1-b \
         --boot-disk-size=15GB \
-        --scopes=https://www.googleapis.com/auth/cloud-platform
+        --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server,https-server \
         --container-image docker.io/gitlab/gitlab-ce:latest \
         --container-command '/bin/sh' \
