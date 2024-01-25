@@ -13,6 +13,9 @@ else
     TIMEOUT=$TIMEOUT_FROM_METADATA
 fi
 
+# Install at
+toolbox apt-get install at
+
 # schedule the instance to delete itself
 echo "gcloud compute instances delete $(hostname) --zone \
 $(curl -H Metadata-Flavor:Google http://metadata.google.internal/computeMetadata/v1/instance/zone -s | cut -d/ -f4) -q" | at Now + $TIMEOUT Minutes
