@@ -121,6 +121,8 @@ format:
 test:unit:setup:
   stage: setup
   image: alpine/curl
+  needs:
+  - install
   script:
     - mkdir -p tmp/codeclimate
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
@@ -131,11 +133,13 @@ test:unit:setup:
       policy: pull-push
 
 test:live:setup:
-  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   stage: setup
+  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  needs:
+  - install
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: always
+      when: on_success
       allow_failure: false
     - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
       when: manual
@@ -349,7 +353,34 @@ test:unit:teardown:
     - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 ### Note work around due to odd when/needs behaviour for CI DAG. This stops skipped jobs from triggering teardown
-.test:live:teardown: &testlive_teardown
+# .test:live:teardown: &testlive_teardown
+#   stage: teardown
+#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+#   needs:
+#     - test:e2e:cli
+#     - test:e2e:rest:browser
+#     - test:e2e:rest:nodejs
+#   only:
+#     refs:
+#       - /^pr-[0-9]+$/
+#       - main
+#       - next
+#   variables:
+#     GIT_STRATEGY: none
+#   script:
+#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
+
+# test:live:teardown:success:
+#   when: on_success
+#   <<: *testlive_teardown
+
+# test:live:teardown:failure:
+#   when: on_failure
+#   <<: *testlive_teardown
+
+test:live:teardown:
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
@@ -367,14 +398,6 @@ test:unit:teardown:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
-
-test:live:teardown:success:
-  when: on_success
-  <<: *testlive_teardown
-
-test:live:teardown:failure:
-  when: on_failure
-  <<: *testlive_teardown
 
 # Releases
 
