@@ -159,8 +159,8 @@ test:live:setup:
         --container-arg="-c" \
         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --max-run-duration=25m \
-        --instance-termination-action=DELETE \
+        --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
+        --metadata-from-file startup-script=./scripts/shutdown.sh \
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
         | head -2 | tail -1 )
 
@@ -295,7 +295,7 @@ test:types:rest:
 
 test:integration:browser:
   extends: .test:integration:base
-  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
@@ -309,7 +309,7 @@ test:integration:core:
 
 test:e2e:rest:browser:
   extends: .test:e2e:base
-  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
