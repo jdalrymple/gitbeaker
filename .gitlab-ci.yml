@@ -46,6 +46,8 @@ variables:
 install:
   image: node:20-alpine
   stage: install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
     - apk add --no-cache libc6-compat jq
     - echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq ".children.Version")" >> install.env
@@ -65,6 +67,8 @@ build:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -91,6 +95,8 @@ lint:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -107,6 +113,8 @@ format:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -189,6 +197,8 @@ test:live:setup:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -407,6 +417,7 @@ test:live:teardown:
   variables:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull

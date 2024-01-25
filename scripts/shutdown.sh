@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 # use this as a startup script for a compute instance and it will self-destruct after specified interval
 # (default = 2 hours)
