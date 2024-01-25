@@ -14,7 +14,7 @@ else
 fi
 
 # Install at
-toolbox apt-get install at
+toolbox apt-get update && apt-get install -y at
 
 # schedule the instance to delete itself
 INSTANCE_NAME=$(curl -sq "http://metadata.google.internal/computeMetadata/v1/instance/name" -H "Metadata-Flavor: Google")
