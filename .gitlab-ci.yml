@@ -39,7 +39,7 @@ variables:
     files:
       - yarn.lock
   paths:
-    - node_modules/.cache/nx
+    - .nx/cache
 
 #Link and Install all required dependancies
 
