@@ -34,7 +34,7 @@
     "build": "tsup src/index.ts --format esm --treeshake --target node18",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
-    "format:docs": "prettier '**/(*.json|.yml|.js|.md)' --ignore-path ../../.prettierignore",
+    "format:docs": "prettier './(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ../../.prettierignore --check",
     "format:docs:fix": "yarn format:docs --write",
     "format:src": "prettier '{src,test}/**/*.ts' --ignore-path ../../.prettierignore",
     "format:src:fix": "yarn format:src --write",
