@@ -180,13 +180,13 @@ test:live:setup:
     - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE
     - |
       gcloud beta compute instances set-scheduling $CONTAINER_NAME \
-        --zone=$GCP_ZONE
+        --zone=$GCP_ZONE \
         --max-run-duration=600s \
         --instance-termination-action=DELETE
     - |
-      GITLAB_HOST="$(gcloud compose instances start $CONTAINER_NAME\
-        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
-        --zone=$GCP_ZONE
+      GITLAB_HOST="$(gcloud compose instances start $CONTAINER_NAME \
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
+        --zone=$GCP_ZONE \
       ) | head -2 | tail -1 )"
     - GITLAB_URL="http://${GITLAB_HOST}"
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
