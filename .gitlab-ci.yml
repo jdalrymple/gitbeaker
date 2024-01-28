@@ -270,6 +270,8 @@ test:live:setup:
     - build
     - test:live:setup
 
+  when: on_success
+
 ## Unit Tests
 
 test:unit:utils:
