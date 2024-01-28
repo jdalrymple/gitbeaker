@@ -155,6 +155,7 @@ test:live:setup:
   variables:
     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
     CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
+    GITLAB_VERSION: 16.8.1-ce.0
     GITLAB_ROOT_PASSWORD: gitbeaker
   before_script:
     - apk add jq curl
@@ -162,24 +163,28 @@ test:live:setup:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
     - |
-      GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
+      gcloud compute instances create-with-container $CONTAINER_NAME \
         --project gitbeaker \
         --machine-type=e2-standard-2 \
-        --zone=northamerica-northeast1-b \
-        --boot-disk-size=15GB \
+        --zone=us-central1-c \
         --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server,https-server \
-        --container-image docker.io/gitlab/gitlab-ce:latest \
+        --container-image docker.io/gitlab/gitlab-ce:$GITLAB_VERSION \
         --container-command '/bin/sh' \
         --container-arg="-c" \
         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --metadata=SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-        --metadata-from-file=startup-script=./scripts/shutdown.sh \
-        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
-        | head -2 | tail -1 )
+        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];"
 
-    - GITLAB_URL="http://${GITLAB_URL}"
+    - gcloud compute instance stop $CONTAINER_NAME
+    - |
+      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+        --max-run-duration=600s \
+        --instance-termination-action=DELETE
+    - |
+      GITLAB_HOST="$(gcloud compose instances start $CONTAINER_NAME\
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
+      ) | head -2 | tail -1 )"
+    - GITLAB_URL="http://${GITLAB_HOST}"
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
     - cat intergration.env
