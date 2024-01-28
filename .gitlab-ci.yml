@@ -160,6 +160,7 @@ test:live:setup:
     GCP_ZONE: us-central1-c
   before_script:
     - apk add jq curl
+    - gcloud components install beta -q
   script:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
@@ -178,7 +179,7 @@ test:live:setup:
 
     - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE
     - |
-      gcloud compute instances set-scheduling $CONTAINER_NAME \
+      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
         --zone=$GCP_ZONE
         --max-run-duration=600s \
         --instance-termination-action=DELETE
