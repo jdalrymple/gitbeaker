@@ -184,7 +184,7 @@ test:live:setup:
         --max-run-duration=600s \
         --instance-termination-action=DELETE
     - |
-      GITLAB_HOST="$(gcloud compose instances start $CONTAINER_NAME \
+      GITLAB_HOST="$(gcloud compute instances start $CONTAINER_NAME \
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
         --zone=$GCP_ZONE \
       ) | head -2 | tail -1 )"
