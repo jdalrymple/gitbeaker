@@ -157,6 +157,7 @@ test:live:setup:
     CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
     GITLAB_VERSION: 16.8.1-ce.0
     GITLAB_ROOT_PASSWORD: gitbeaker
+    GCP_ZONE: us-central1-c
   before_script:
     - apk add jq curl
   script:
@@ -166,7 +167,7 @@ test:live:setup:
       gcloud compute instances create-with-container $CONTAINER_NAME \
         --project gitbeaker \
         --machine-type=e2-standard-2 \
-        --zone=us-central1-c \
+        --zone=$GCP_ZONE \
         --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server,https-server \
         --container-image docker.io/gitlab/gitlab-ce:$GITLAB_VERSION \
@@ -175,14 +176,16 @@ test:live:setup:
         --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];"
 
-    - gcloud compute instances stop $CONTAINER_NAME
+    - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE
     - |
       gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+        --zone=$GCP_ZONE
         --max-run-duration=600s \
         --instance-termination-action=DELETE
     - |
       GITLAB_HOST="$(gcloud compose instances start $CONTAINER_NAME\
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
+        --zone=$GCP_ZONE
       ) | head -2 | tail -1 )"
     - GITLAB_URL="http://${GITLAB_HOST}"
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
