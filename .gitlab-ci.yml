@@ -315,13 +315,13 @@ test:types:rest:
 
 ## Integration Tests
 
-test:integration:browser:
+test:integration:rest:
   extends: .test:integration:base
   image: mcr.microsoft.com/playwright:v1.41.1-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
-  script: yarn test:integration:browser --projects=@gitbeaker/rest
+  script: yarn test:integration --projects=@gitbeaker/rest
 
 test:integration:core:
   extends: .test:integration:base
@@ -329,17 +329,13 @@ test:integration:core:
 
 ## End-to-End Tests
 
-test:e2e:rest:browser:
+test:e2e:rest:
   extends: .test:e2e:base
   image: mcr.microsoft.com/playwright:v1.41.1-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
-  script: yarn test:e2e:browser --projects=@gitbeaker/rest
-
-test:e2e:rest:nodejs:
-  extends: .test:e2e:base
-  script: yarn test:e2e:nodejs --projects=@gitbeaker/rest
+  script: yarn test:e2e --projects=@gitbeaker/rest
 
 test:e2e:cli:
   extends: .test:e2e:base
