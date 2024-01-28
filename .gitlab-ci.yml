@@ -178,7 +178,7 @@ test:live:setup:
 
     - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE
     - |
-      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+      gcloud compute instances set-scheduling $CONTAINER_NAME \
         --zone=$GCP_ZONE
         --max-run-duration=600s \
         --instance-termination-action=DELETE
