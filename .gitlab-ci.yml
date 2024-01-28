@@ -365,34 +365,6 @@ test:unit:teardown:
     - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
     - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
-### Note work around due to odd when/needs behaviour for CI DAG. This stops skipped jobs from triggering teardown
-# .test:live:teardown: &testlive_teardown
-#   stage: teardown
-#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-#   needs:
-#     - test:e2e:cli
-#     - test:e2e:rest:browser
-#     - test:e2e:rest:nodejs
-#   only:
-#     refs:
-#       - /^pr-[0-9]+$/
-#       - main
-#       - next
-#   variables:
-#     GIT_STRATEGY: none
-#   script:
-#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-#     - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
-
-# test:live:teardown:success:
-#   when: on_success
-#   <<: *testlive_teardown
-
-# test:live:teardown:failure:
-#   when: on_failure
-#   <<: *testlive_teardown
-
 test:live:teardown:
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
@@ -456,20 +428,20 @@ release:special:
 
   script:
     - echo 'release'
-    # - echo "Checking for special release..."
-    # - |
-    #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
-    #     pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+    - echo "Checking for special release..."
+    - |
+      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
 
-    #     export CI_MERGE_REQUEST_ID=$pr_id
-    #     export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+        export CI_MERGE_REQUEST_ID=$pr_id
+        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
 
-    #     labels=$(yarn auto label --pr $pr_id)
+        labels=$(yarn auto label --pr $pr_id)
 
-    #     if [[ "$labels" =~ "release:canary" ]]; then
-    #       yarn release:canary
-    #     fi
-    #   fi
+        if [[ "$labels" =~ "release:canary" ]]; then
+          yarn release:canary
+        fi
+      fi
 
 ## Production
 
@@ -492,4 +464,4 @@ release:
       - main
       - next
 
-  script: echo 'release' #yarn release
+  script: yarn release

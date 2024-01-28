@@ -47,7 +47,7 @@
     "test:e2e:nodejs": "jest --maxWorkers=50% test/e2e/nodejs",
     "test:e2e": "yarn test:e2e:browser && yarn test:e2e:nodejs",
     "test:integration:browser": "playwright test --project=integration",
-    "test:integration": "test:integration:browser",
+    "test:integration": "yarn test:integration:browser",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
     "lint:fix": "yarn lint --fix"
