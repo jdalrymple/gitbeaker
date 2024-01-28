@@ -398,8 +398,7 @@ test:live:teardown:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
     - test:e2e:cli
-    - test:e2e:rest:browser
-    - test:e2e:rest:nodejs
+    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
@@ -447,11 +446,10 @@ release:special:
     - test:types:utils
     - test:types:core
     - test:types:rest
-    - test:integration:browser
+    - test:integration:rest
     - test:integration:core
     - test:e2e:cli
-    - test:e2e:rest:browser
-    - test:e2e:rest:nodejs
+    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
@@ -485,11 +483,10 @@ release:
     - test:types:utils
     - test:types:core
     - test:types:rest
-    - test:integration:browser
+    - test:integration:rest
     - test:integration:core
     - test:e2e:cli
-    - test:e2e:rest:browser
-    - test:e2e:rest:nodejs
+    - test:e2e:rest
   only:
     refs:
       - main
