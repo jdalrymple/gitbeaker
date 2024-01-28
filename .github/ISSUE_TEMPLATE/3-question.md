@@ -1,5 +1,5 @@
 ---
-name: "❓ Question"
+name: '❓ Question'
 labels: question
 about: Something is unclear or needs to be discussed
 ---
@@ -11,5 +11,6 @@ about: Something is unclear or needs to be discussed
 <!-- *(Brief description of your question here)*-->
 
 **Checklist**
+
 - [ ] I have checked that this is not a duplicate issue.
 - [ ] I have read the documentation.

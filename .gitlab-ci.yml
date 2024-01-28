@@ -130,7 +130,7 @@ test:unit:setup:
   stage: setup
   image: alpine/curl
   needs:
-  - install
+    - install
   script:
     - mkdir -p tmp/codeclimate
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
@@ -144,7 +144,7 @@ test:live:setup:
   stage: setup
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-  - install
+    - install
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success

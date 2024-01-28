@@ -34,17 +34,8 @@
     "build": "tsup src/index.ts --format esm --treeshake --target node18",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
-    "format:docs": "prettier './(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ../../.prettierignore --check",
-    "format:docs:fix": "yarn format:docs --write",
-    "format:src": "prettier '{src,test}/**/*.ts' --ignore-path ../../.prettierignore",
-    "format:src:fix": "yarn format:src --write",
-    "format": "yarn format:src && yarn format:docs",
-    "format:fix": "yarn format:src:fix && yarn format:docs:fix",
-    "lint": "eslint '{src,test}/**/*.ts'",
-    "lint:fix": "yarn lint --fix",
-    "release:rc": "auto next",
-    "release:canary": "auto canary",
-    "release": "auto shipit"
+    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
+    "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
     "@gitbeaker/core": "^39.33.0",

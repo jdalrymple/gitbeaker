@@ -3,5 +3,7 @@ coverage
 dist
 package.json
 yarn.lock
+.yarn
+.nx
+.husky
 CHANGELOG.md
-/.nx/cache

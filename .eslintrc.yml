@@ -30,7 +30,7 @@ plugins:
   - jest-extended
 
 rules:
-  "@typescript-eslint/dot-notation": error
+  '@typescript-eslint/dot-notation': error
   no-shadow: off
   import/no-default-export: off
   import/prefer-default-export: off

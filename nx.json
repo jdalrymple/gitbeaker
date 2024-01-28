@@ -1,50 +1,24 @@
 {
   "targetDefaults": {
     "test:unit": {
-      "outputs": [
-        "{projectRoot}/coverage",
-        "{projectRoot}/reports"
-      ],
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
       "cache": true
     },
     "test:integration": {
-      "outputs": [
-        "{projectRoot}/coverage",
-        "{projectRoot}/reports"
-      ],
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
       "cache": true
     },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "{projectRoot}/dist"
-      ],
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
       "cache": true
     },
     "test:types": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "cache": true
     },
     "test:e2e": {
-      "dependsOn": [
-        "build"
-      ],
-      "cache": true
-    },
-    "test:e2e:browser": {
-      "dependsOn": [
-        "build"
-      ],
-      "cache": true
-    },
-    "test:e2e:nodejs": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "cache": true
     },
     "lint": {
@@ -58,23 +32,12 @@
     },
     "format:fix": {
       "cache": true
-    },
-    "test:integration:browser": {
-      "cache": true
-    },
-    "test:integration:nodejs": {
-      "cache": true
     }
   },
   "defaultBase": "main",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [],
-    "production": [
-      "default"
-    ]
+    "production": ["default"]
   }
 }
