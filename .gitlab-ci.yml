@@ -425,7 +425,7 @@ test:live:teardown:
 release:special:
   extends: .release:base
   needs:
-    - build
+    # - build
     - test:unit:utils
     - test:unit:core
     - test:unit:cli
