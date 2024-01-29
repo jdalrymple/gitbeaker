@@ -196,15 +196,15 @@ test:live:setup:
     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
     - echo "Waiting for service to start"
     - sleep 180
+    - attempt=1
     - |
-      attempt=1;
-      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]];
-      do
-        echo -ne "Polling Attempt: $attempt - Gitlab service still not alive yet!";
+      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+        echo -ne "Polling Attempt: $attempt - Gitlab service is not alive yet\033[0K\r";
         sleep 10;
         ((attempt++));
-      done;
-    - echo "Service is up and running!"
+      done
+    - printf "\n"
+    - echo "Service is up and running"
   artifacts:
     reports:
       dotenv: intergration.env
