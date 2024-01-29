@@ -1,3 +1,17 @@
+# 39.33.2 (Mon Jan 29 2024)
+
+#### ↕️ Dependencies
+
+- Bump rate-limiter-flexible from 4.0.0 to 4.0.1 [#3519](https://github.com/jdalrymple/gitbeaker/pull/3519) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 20.11.6 to 20.11.10 [#3520](https://github.com/jdalrymple/gitbeaker/pull/3520) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @swc/core from 1.3.105 to 1.3.107 [#3518](https://github.com/jdalrymple/gitbeaker/pull/3518) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # 39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
