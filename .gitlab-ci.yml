@@ -195,16 +195,15 @@ test:live:setup:
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
     - echo "Waiting for service to start"
-    - sleep 180
+    - sleep 210
+    - attempt=1
     - |
-      attempt=1;
-      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]];
-      do
-        echo -ne "Polling Attempt: $attempt - Gitlab service still not alive yet!";
+      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+        echo "Polling Attempt: $attempt - Gitlab service is not alive yet";
         sleep 10;
         ((attempt++));
-      done;
-    - echo "Service is up and running!"
+      done
+    - echo "Service is up and running"
   artifacts:
     reports:
       dotenv: intergration.env
@@ -406,6 +405,19 @@ test:live:teardown:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  needs:
+    - build # CHECKME: Needed for the artifacts
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:rest
+    - test:integration:core
+    - test:e2e:cli
+    - test:e2e:rest
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -419,29 +431,20 @@ test:live:teardown:
     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
     - git branch $CI_COMMIT_BRANCH HEAD
     - git checkout $CI_COMMIT_BRANCH
+    - echo 'Ensure build files are present'
+    - ls -A packages/requester-utils/dist
+    - ls -A packages/core/dist
+    - ls -A packages/rest/dist
+    - ls -A packages/cli/dist
 
 ## Canary or RC Special Releases
 
 release:special:
   extends: .release:base
-  needs:
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:cli
-    - test:unit:rest
-    - test:types:utils
-    - test:types:core
-    - test:types:rest
-    - test:integration:rest
-    - test:integration:core
-    - test:e2e:cli
-    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
-
   script:
-    - echo 'release'
     - echo "Checking for special release..."
     - |
       if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
@@ -461,21 +464,8 @@ release:special:
 
 release:
   extends: .release:base
-  needs:
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:cli
-    - test:unit:rest
-    - test:types:utils
-    - test:types:core
-    - test:types:rest
-    - test:integration:rest
-    - test:integration:core
-    - test:e2e:cli
-    - test:e2e:rest
   only:
     refs:
       - main
       - next
-
   script: yarn release
