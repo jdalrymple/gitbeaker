@@ -1,3 +1,15 @@
+# v39.34.0 (Mon Jan 29 2024)
+
+#### 🚑 Hot Fix
+
+- Missing build files [#3522](https://github.com/jdalrymple/gitbeaker/pull/3522) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt

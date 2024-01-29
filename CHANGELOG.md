@@ -1,3 +1,16 @@
+# 39.34.0 (Mon Jan 29 2024)
+
+#### 🚑 Hot Fix
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/rest`
+  - Missing build files [#3522](https://github.com/jdalrymple/gitbeaker/pull/3522) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.33.2 (Mon Jan 29 2024)
 
 #### ↕️ Dependencies
