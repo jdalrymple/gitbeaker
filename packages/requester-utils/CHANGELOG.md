@@ -1,3 +1,15 @@
+# v39.33.1 (Mon Jan 29 2024)
+
+#### 🔨 Technical Debt
+
+- CI/CD Re-organization and Optimization [#3515](https://github.com/jdalrymple/gitbeaker/pull/3515) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.32.0 (Tue Jan 23 2024)
 
 #### 🐛 Bug Fix

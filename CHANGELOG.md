@@ -1,3 +1,21 @@
+# 39.33.1 (Mon Jan 29 2024)
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - CI/CD Re-organization and Optimization [#3515](https://github.com/jdalrymple/gitbeaker/pull/3515) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump husky from 8.0.3 to 9.0.6 [#3517](https://github.com/jdalrymple/gitbeaker/pull/3517) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.33.0 (Tue Jan 23 2024)
 
 :tada: This release contains work from a new contributor! :tada:
