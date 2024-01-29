@@ -53,8 +53,8 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^39.33.2",
-    "@gitbeaker/requester-utils": "^39.33.2"
+    "@gitbeaker/core": "39.33.2",
+    "@gitbeaker/requester-utils": "39.33.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
