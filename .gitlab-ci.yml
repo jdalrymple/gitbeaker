@@ -433,6 +433,9 @@ test:live:teardown:
     - git branch $CI_COMMIT_BRANCH HEAD
     - git checkout $CI_COMMIT_BRANCH
     - echo 'Ensure build files are present'
+
+    - rm -r packages/requester-utils/dist # Testing to make sure this fails
+
     - ls -A packages/requester-utils/dist
     - ls -A packages/core/dist
     - ls -A packages/rest/dist
