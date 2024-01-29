@@ -429,20 +429,20 @@ release:special:
     - test:unit:core
     - test:unit:cli
     - test:unit:rest
-    - test:types:utils
-    - test:types:core
-    - test:types:rest
-    - test:integration:rest
-    - test:integration:core
-    - test:e2e:cli
-    - test:e2e:rest
+    # - test:types:utils
+    # - test:types:core
+    # - test:types:rest
+    # - test:integration:rest
+    # - test:integration:core
+    # - test:e2e:cli
+    # - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
 
   script:
-    - echo 'release'
     - echo "Checking for special release..."
+    - ls -al packages/core/dist
     - |
       if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
         pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
@@ -453,7 +453,7 @@ release:special:
         labels=$(yarn auto label --pr $pr_id)
 
         if [[ "$labels" =~ "release:canary" ]]; then
-          yarn release:canary
+          yarn release:canary --dryRun
         fi
       fi
 
