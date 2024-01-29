@@ -419,50 +419,56 @@ test:live:teardown:
     - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
     - git branch $CI_COMMIT_BRANCH HEAD
     - git checkout $CI_COMMIT_BRANCH
+    - echo 'Ensure build files are present'
+    - ls -A packages/requester-utils/dist
+    - ls -A packages/core/dist
+    - ls -A packages/rest/dist
+    - ls -A packages/cli/dist
+
 
 ## Canary or RC Special Releases
 
 release:special:
   extends: .release:base
   needs:
-    # - build
+    - build # CHECKME: Needed for the artifacts
     - test:unit:utils
     - test:unit:core
     - test:unit:cli
     - test:unit:rest
-    # - test:types:utils
-    # - test:types:core
-    # - test:types:rest
-    # - test:integration:rest
-    # - test:integration:core
-    # - test:e2e:cli
-    # - test:e2e:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:rest
+    - test:integration:core
+    - test:e2e:cli
+    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
 
   script:
     - echo "Checking for special release..."
-    - ls -al ./packages/core/dist
-    - |
-      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
-        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+    # - |
+    #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+    #     pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
 
-        export CI_MERGE_REQUEST_ID=$pr_id
-        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+    #     export CI_MERGE_REQUEST_ID=$pr_id
+    #     export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
 
-        labels=$(yarn auto label --pr $pr_id)
+    #     labels=$(yarn auto label --pr $pr_id)
 
-        if [[ "$labels" =~ "release:canary" ]]; then
-          yarn release:canary
-        fi
-      fi
+    #     if [[ "$labels" =~ "release:canary" ]]; then
+    #       yarn release:canary
+    #     fi
+    #   fi
 
 ## Production
 
 release:
   extends: .release:base
   needs:
+    - build # CHECKME: Needed for the artifacts
     - test:unit:utils
     - test:unit:core
     - test:unit:cli
