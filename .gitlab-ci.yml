@@ -406,6 +406,19 @@ test:live:teardown:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  needs:
+    - build # CHECKME: Needed for the artifacts
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:rest
+    - test:integration:core
+    - test:e2e:cli
+    - test:e2e:rest
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -429,59 +442,31 @@ test:live:teardown:
 
 release:special:
   extends: .release:base
-  needs:
-    - build # CHECKME: Needed for the artifacts
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:cli
-    - test:unit:rest
-    - test:types:utils
-    - test:types:core
-    - test:types:rest
-    - test:integration:rest
-    - test:integration:core
-    - test:e2e:cli
-    - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
-
   script:
     - echo "Checking for special release..."
-    # - |
-    #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
-    #     pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+    - |
+      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
 
-    #     export CI_MERGE_REQUEST_ID=$pr_id
-    #     export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+        export CI_MERGE_REQUEST_ID=$pr_id
+        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
 
-    #     labels=$(yarn auto label --pr $pr_id)
+        labels=$(yarn auto label --pr $pr_id)
 
-    #     if [[ "$labels" =~ "release:canary" ]]; then
-    #       yarn release:canary
-    #     fi
-    #   fi
+        if [[ "$labels" =~ "release:canary" ]]; then
+          yarn release:canary
+        fi
+      fi
 
 ## Production
 
 release:
   extends: .release:base
-  needs:
-    - build # CHECKME: Needed for the artifacts
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:cli
-    - test:unit:rest
-    - test:types:utils
-    - test:types:core
-    - test:types:rest
-    - test:integration:rest
-    - test:integration:core
-    - test:e2e:cli
-    - test:e2e:rest
   only:
     refs:
       - main
       - next
-
   script: yarn release
