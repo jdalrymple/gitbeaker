@@ -197,7 +197,7 @@ test:live:setup:
     - echo "Waiting for service to start"
     - |
       sleep 180
-      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do -ne echo "Polling service - not alive yet"; sleep 10; done;
+      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo -ne "Polling service - not alive yet"; sleep 10; done;
       echo "Service is up and running!"
   artifacts:
     reports:
