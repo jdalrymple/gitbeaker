@@ -4,7 +4,7 @@ import { expect, test as it } from '@playwright/test';
 const { describe } = it;
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
-const htmlFilePath = path.resolve(__dirname, '..', 'assets', 'test-import.html');
+const htmlFilePath = path.resolve(__dirname, '..', '..', '..', 'assets', 'test-import.html');
 
 describe('Projects API', () => {
   it('should create a project', async ({ page }) => {

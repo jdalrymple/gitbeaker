@@ -1,5 +1,5 @@
 ---
-name: "🐞 Bug report"
+name: '🐞 Bug report'
 labels: bug
 about: Something is not working as it should
 ---
@@ -33,5 +33,6 @@ logs, and code as it's very hard to read otherwise.) -->
 <!-- *(Any possible suggestions on how to fix this problem)* -->
 
 **Checklist**
+
 - [ ] I have checked that this is not a duplicate issue.
 - [ ] I have read the documentation.

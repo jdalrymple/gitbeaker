@@ -8,10 +8,10 @@ plugins:
   - ./scripts/auto-before-commit-changelog-plugin.js
   - - omit-release-notes
     - username:
-      - coqbot
+        - coqbot
   - - omit-commits
     - username:
-      - coqbot
+        - coqbot
 
 prereleaseBranches:
   - next

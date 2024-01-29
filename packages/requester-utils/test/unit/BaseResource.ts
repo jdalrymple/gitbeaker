@@ -35,10 +35,15 @@ describe('Creation of BaseResource instance', () => {
     await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
   });
 
-  it('should accept a function oauthToken that returns a promise<string>', async () => {
+  it('should accept a dynamic oauthToken that returns a promise<string>', async () => {
     const service = new BaseResource({
       requesterFn: jest.fn(),
-      oauthToken: () => Promise.resolve('1234'),
+      oauthToken: () =>
+        new Promise((res) => {
+          setTimeout(() => {
+            res('1234');
+          }, 1000);
+        }),
     });
 
     expect(service.authHeaders.authorization).toBeFunction();

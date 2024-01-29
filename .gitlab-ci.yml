@@ -3,16 +3,22 @@ stages:
   - build
   - lint
   - format
+  - setup
   - test
+  - teardown
   - release
 
 # Fallback variables
+
 variables:
   PLAYWRIGHT_VERSION: $CI_JOB_IMAGE
   TEST_ID: $CI_JOB_ID
   CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
+  GCP_ZONE: us-central1-c
+  CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
 
 # Cache Config
+
 .cache:install:modules: &cacheinstallmodules
   key:
     files:
@@ -35,12 +41,15 @@ variables:
     files:
       - yarn.lock
   paths:
-    - node_modules/.cache/nx
+    - .nx/cache
 
 #Link and Install all required dependancies
+
 install:
   image: node:20-alpine
   stage: install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
     - apk add --no-cache libc6-compat jq
     - echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq ".children.Version")" >> install.env
@@ -60,6 +69,8 @@ build:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -80,11 +91,14 @@ build:
     expire_in: 2d
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
+
 lint:
   stage: lint
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -101,6 +115,8 @@ format:
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -110,12 +126,98 @@ format:
     - apk add --no-cache libc6-compat
   script: yarn format
 
-# Tests
+## Test Setup
+
+test:unit:setup:
+  stage: setup
+  image: alpine/curl
+  needs:
+    - install
+  script:
+    - mkdir -p tmp/codeclimate
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
+    - ls tmp/codeclimate/
+    - chmod +x ./tmp/codeclimate/cc-test-reporter
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull-push
+
+test:live:setup:
+  stage: setup
+  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  needs:
+    - install
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+      allow_failure: false
+    - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
+      when: manual
+      allow_failure: true
+  variables:
+    GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+    GITLAB_VERSION: 16.8.1-ce.0
+    GITLAB_ROOT_PASSWORD: gitbeaker
+  before_script:
+    - apk add jq curl
+    - gcloud components install beta -q
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID} --no-user-output-enabled
+    - |
+      gcloud compute instances create-with-container $CONTAINER_NAME \
+        --project gitbeaker \
+        --machine-type=e2-standard-2 \
+        --zone=$GCP_ZONE \
+        --scopes=https://www.googleapis.com/auth/cloud-platform \
+        --tags http-server,https-server \
+        --container-image docker.io/gitlab/gitlab-ce:$GITLAB_VERSION \
+        --container-command '/bin/sh' \
+        --container-arg="-c" \
+        --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
+        --no-user-output-enabled
+
+    - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE --no-user-output-enabled
+    - |
+      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+        --zone=$GCP_ZONE \
+        --max-run-duration=720s \
+        --instance-termination-action=DELETE \
+        --no-user-output-enabled
+    - |
+      GITLAB_HOST="$(gcloud compute instances start $CONTAINER_NAME \
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
+        --zone=$GCP_ZONE \
+        2>/dev/null \
+      )"
+    - GITLAB_URL="http://${GITLAB_HOST}"
+    - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
+    - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
+    - echo "Waiting for service to start"
+    - sleep 180
+    - |
+      attempt=1;
+      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]];
+      do
+        echo -ne "Polling Attempt: $attempt - Gitlab service still not alive yet!";
+        sleep 10;
+        ((attempt++));
+      done;
+    - echo "Service is up and running!"
+  artifacts:
+    reports:
+      dotenv: intergration.env
+
+# Tests Templates
+
 .test:base:
   stage: test
   image: node:20-alpine
   needs:
     - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -163,33 +265,23 @@ format:
 
 .test:integration:base:
   extends: .test:base
+  needs:
+    - build
+
+.test:e2e:base:
+  extends: .test:base
   only:
     refs:
       - /^pr-[0-9]+$/
       - main
       - next
   needs:
-    - install
-    - test:live:setup
-
-.test:e2e:base:
-  extends: .test:integration:base
-  needs:
     - build
     - test:live:setup
 
+  when: on_success
+
 ## Unit Tests
-test:unit:setup:
-  stage: test
-  image: alpine/curl
-  script:
-    - mkdir -p tmp/codeclimate
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
-    - ls tmp/codeclimate/
-    - chmod +x ./tmp/codeclimate/cc-test-reporter
-  cache:
-    - <<: *cachecodeclimate
-      policy: pull-push
 
 test:unit:utils:
   extends: .test:unit:base
@@ -215,28 +307,8 @@ test:unit:cli:
   variables:
     PKG_PATH: 'packages/cli'
 
-test:unit:teardown:
-  stage: test
-  image: alpine/curl
-  except:
-    refs:
-      - /^pr-[0-9]+$/
-  needs:
-    - test:unit:utils
-    - test:unit:core
-    - test:unit:rest
-    - test:unit:cli
-  cache:
-    - <<: *cachecodeclimate
-      policy: pull
-  before_script:
-    - mkdir coverage
-    - ls tmp/codeclimate
-  script:
-    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
-    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
-
 ## Types Tests
+
 test:types:utils:
   extends: .test:types:base
   variables:
@@ -255,65 +327,64 @@ test:types:rest:
     PKG_PATH: 'packages/rest'
   script: yarn test:types --projects=@gitbeaker/rest
 
-## Live Test Setup and Clean Up
-test:live:setup:
-  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  stage: test
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: always
-    - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
-      when: manual
-  needs:
-    - build
-  allow_failure: false
-  variables:
-    GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
-    CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
-    GITLAB_ROOT_PASSWORD: gitbeaker
-  before_script:
-    - apk add jq curl
-  script:
-    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-    - |
-      GITLAB_URL=$(gcloud compute instances create-with-container $CONTAINER_NAME \
-        --project gitbeaker \
-        --machine-type=e2-standard-2 \
-        --zone=northamerica-northeast1-b \
-        --tags http-server,https-server \
-        --container-image docker.io/gitlab/gitlab-ce:latest \
-        --container-command '/bin/sh' \
-        --container-arg="-c" \
-        --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --metadata SELF_DESTRUCT_INTERVAL_MINUTES=15 \
-        --metadata-from-file startup-script=./scripts/shutdown.sh \
-        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'\
-        | head -2 | tail -1 )
+## Integration Tests
 
-    - GITLAB_URL="http://${GITLAB_URL}"
-    - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
-    - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
-    - cat intergration.env
-    - echo "Waiting for service to start"
-    - |
-      sleep 180
-      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do echo "Polling service - not alive yet"; sleep 10; done;
-      echo "Service is up and running!"
-  artifacts:
-    reports:
-      dotenv: intergration.env
+test:integration:rest:
+  extends: .test:integration:base
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
+  before_script:
+    # reinstall swc due to missing binding for ubuntu image
+    - yarn add @swc/core
+  script: yarn test:integration --projects=@gitbeaker/rest
+
+test:integration:core:
+  extends: .test:integration:base
+  script: yarn test:integration --projects=@gitbeaker/core
+
+## End-to-End Tests
+
+test:e2e:rest:
+  extends: .test:e2e:base
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
+  before_script:
+    # reinstall swc due to missing binding for ubuntu image
+    - yarn add @swc/core
+  script: yarn test:e2e --projects=@gitbeaker/rest
+
+test:e2e:cli:
+  extends: .test:e2e:base
+  script: yarn test:e2e --projects=@gitbeaker/cli
+
+# Teardown
+
+test:unit:teardown:
+  stage: teardown
+  image: alpine/curl
+  except:
+    refs:
+      - /^pr-[0-9]+$/
+  needs:
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:rest
+    - test:unit:cli
+  when: always
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull
+  before_script:
+    - mkdir coverage
+    - ls tmp/codeclimate
+  script:
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
 test:live:teardown:
-  stage: test
+  stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:integration:rest
-    - test:e2e:core
     - test:e2e:cli
     - test:e2e:rest
-  when: always
   only:
     refs:
       - /^pr-[0-9]+$/
@@ -324,37 +395,17 @@ test:live:teardown:
   script:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-    - gcloud compute instances delete gitlab-${CI_PIPELINE_ID} --zone=northamerica-northeast1-b
-
-## Integration Tests
-test:integration:rest:
-  extends: .test:integration:base
-  script: yarn test:integration --projects=@gitbeaker/rest
-
-## End-to-End Tests
-test:e2e:core:
-  extends: .test:e2e:base
-  script: yarn test:e2e --projects=@gitbeaker/core
-
-test:e2e:rest:
-  extends: .test:e2e:base
-  image: mcr.microsoft.com/playwright:v1.40.0-focal
-  before_script:
-    # reinstall swc due to missing binding for ubuntu image
-    - yarn add @swc/core
-  script: yarn test:e2e --projects=@gitbeaker/rest
-
-test:e2e:cli:
-  extends: .test:e2e:base
-  script: yarn test:e2e --projects=@gitbeaker/cli
+    - gcloud compute instances delete $CONTAINER_NAME --zone=$GCP_ZONE
 
 # Releases
+
 .release:base:
   stage: release
   image: node:20-alpine
   variables:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   cache:
     - <<: *cacheinstallmodules
       policy: pull
@@ -370,18 +421,27 @@ test:e2e:cli:
     - git checkout $CI_COMMIT_BRANCH
 
 ## Canary or RC Special Releases
+
 release:special:
   extends: .release:base
   needs:
-    - build
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
     - test:integration:rest
-    - test:e2e:core
+    - test:integration:core
     - test:e2e:cli
     - test:e2e:rest
   only:
     refs:
       - /^pr-[0-9]+$/
+
   script:
+    - echo 'release'
     - echo "Checking for special release..."
     - |
       if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
@@ -398,17 +458,24 @@ release:special:
       fi
 
 ## Production
+
 release:
   extends: .release:base
   needs:
-    - build
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
     - test:integration:rest
-    - test:e2e:core
+    - test:integration:core
     - test:e2e:cli
     - test:e2e:rest
-    - test:unit:teardown
   only:
     refs:
       - main
       - next
+
   script: yarn release

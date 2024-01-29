@@ -14,11 +14,15 @@
   },
   "scripts": {
     "build": "nx run-many --target=build",
-    "clean": "npx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
-    "format": "nx run-many --target=format",
-    "format:fix": "nx run-many --target=format:fix",
+    "clean": "yarn dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
+    "format:docs": "prettier './**/(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ./.prettierignore --check",
+    "format:docs:fix": "yarn format:docs --write",
+    "format:src": "prettier '**/{src,test,scripts}/**/*.ts' --ignore-path ./.prettierignore --check",
+    "format:src:fix": "yarn format:src --write",
+    "format": "yarn format:src && yarn format:docs",
+    "format:fix": "yarn format:src:fix && yarn format:docs:fix",
     "test:types": "nx run-many --target=test:types",
     "test:unit": "nx run-many --target=test:unit",
     "test:integration": "nx run-many --target=test:integration",
@@ -56,11 +60,11 @@
     "jest": "^29.7.0",
     "jest-extended": "^4.0.2",
     "jest-junit": "^16.0.0",
-    "lerna": "^8.0.1",
+    "lerna": "^8.0.2",
     "lint-staged": "^15.2.0",
     "nx": "17.2.8",
     "prettier": "^3.1.1",
     "typescript": "^5.3.3"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@4.0.2"
 }

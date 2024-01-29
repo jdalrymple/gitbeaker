@@ -1,53 +1,43 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "lint",
-          "lint:fix",
-          "format",
-          "format:fix",
-          "test:types",
-          "test:unit",
-          "test:integration",
-          "test:e2e",
-          "build"
-        ]
-      }
-    }
-  },
   "targetDefaults": {
     "test:unit": {
-      "outputs": [
-        "{projectRoot}/coverage",
-        "{projectRoot}/reports"
-      ]
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
+      "cache": true
     },
     "test:integration": {
-      "outputs": [
-        "{projectRoot}/coverage",
-        "{projectRoot}/reports"
-      ]
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
+      "cache": true
     },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "{projectRoot}/dist",
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
     },
     "test:types": {
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"],
+      "cache": true
     },
     "test:e2e": {
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"],
+      "cache": true
     },
+    "lint": {
+      "cache": true
+    },
+    "lint:fix": {
+      "cache": true
+    },
+    "format": {
+      "cache": true
+    },
+    "format:fix": {
+      "cache": true
+    }
   },
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  }
 }

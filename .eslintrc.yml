@@ -30,8 +30,6 @@ plugins:
   - jest-extended
 
 rules:
-  "@typescript-eslint/dot-notation": error
-  no-shadow: off
   import/no-default-export: off
   import/prefer-default-export: off
   import/no-extraneous-dependencies:
@@ -47,15 +45,15 @@ rules:
       ts: never
       json: always
 
-  '@typescript-eslint/explicit-function-return-type': off
-  '@typescript-eslint/explicit-module-boundary-types': off
+  no-shadow: off
+  '@typescript-eslint/no-shadow': error
+  '@typescript-eslint/dot-notation': error
   '@typescript-eslint/no-unsafe-member-access': off
   '@typescript-eslint/no-unsafe-return': off
   '@typescript-eslint/no-unsafe-assignment': off
   '@typescript-eslint/no-unsafe-call': off
   '@typescript-eslint/no-explicit-any': off
-  '@typescript-eslint/no-unsafe-declaration-merging': off
-  '@typescript-eslint/unbound-method': error
+  '@typescript-eslint/no-unsafe-declaration-merging': off # For all the template extensions
   '@typescript-eslint/no-unused-vars':
     - error
     - ignoreRestSiblings: true

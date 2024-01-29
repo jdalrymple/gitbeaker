@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@gitbeaker/*": ["../*/src"]
-    }
+      "@gitbeaker/*": ["../*/src"],
+    },
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts"],
 }

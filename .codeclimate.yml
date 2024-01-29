@@ -9,6 +9,6 @@ checks:
     enabled: false
 
 exclude_patterns:
-  - "**/test/"
-  - "**/*.d.ts"
-  - ".yarn/"
+  - '**/test/'
+  - '**/*.d.ts'
+  - '.yarn/'

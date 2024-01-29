@@ -35,10 +35,10 @@ Since everything builds off fetch support, applying a poly fill will allow for N
 2. Set the following in your entry point:
 
 ```js
-const semver = require('semver')
+const semver = require('semver');
 
-if ( semver.lt(process.version, '20.0.0') ) {
-  global.fetch = require('node-fetch')
+if (semver.lt(process.version, '20.0.0')) {
+  global.fetch = require('node-fetch');
 }
 ```
 
@@ -47,9 +47,9 @@ if ( semver.lt(process.version, '20.0.0') ) {
 This is caused by the internal undici fetch implementation's dispatcher [defaults](https://github.com/nodejs/undici/issues/1373) for the headers and body timeout when performing a request. In the future we will support modifying these properties in a more defined way, but for now, once can override this by setting the global symbol at the beginning of your script:
 
 ```js
-import { Agent } from 'undici'
+import { Agent } from 'undici';
 
-globalThis[Symbol.for("undici.globalDispatcher.1")] = new Agent({
+globalThis[Symbol.for('undici.globalDispatcher.1')] = new Agent({
   headersTimeout: 0,
   bodyTimeout: 0,
 });

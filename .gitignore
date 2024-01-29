@@ -12,6 +12,7 @@ yarn-error.log
 .turbo
 tmp
 .nx
+*.tgz
 
 .pnp.*
 .yarn/*

@@ -9,5 +9,7 @@ reports
 yarn-error.log
 .env
 .npmrc
-.turbo
 scripts
+.yarn
+.nx
+.husky
