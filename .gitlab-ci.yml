@@ -443,7 +443,7 @@ release:special:
 
   script:
     - echo "Checking for special release..."
-    - la -al packages/core
+    - ls -al packages/core
     - ls -al ./packages/core/dist
     # - |
     #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
