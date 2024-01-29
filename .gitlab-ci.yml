@@ -425,6 +425,7 @@ test:live:teardown:
 release:special:
   extends: .release:base
   needs:
+    - build
     - test:unit:utils
     - test:unit:core
     - test:unit:cli
@@ -442,20 +443,21 @@ release:special:
 
   script:
     - echo "Checking for special release..."
-    - ls -al packages/core/dist
-    - |
-      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
-        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+    - la -al packages/core
+    - ls -al ./packages/core/dist
+    # - |
+    #   if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+    #     pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
 
-        export CI_MERGE_REQUEST_ID=$pr_id
-        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+    #     export CI_MERGE_REQUEST_ID=$pr_id
+    #     export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
 
-        labels=$(yarn auto label --pr $pr_id)
+    #     labels=$(yarn auto label --pr $pr_id)
 
-        if [[ "$labels" =~ "release:canary" ]]; then
-          yarn release:canary --dryRun
-        fi
-      fi
+    #     if [[ "$labels" =~ "release:canary" ]]; then
+    #       yarn release:canary --dryRun
+    #     fi
+    #   fi
 
 ## Production
 
