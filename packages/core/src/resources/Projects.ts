@@ -4,10 +4,10 @@ import type {
   BaseRequestOptions,
   GitlabAPIResponse,
   MappedOmit,
-  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
+  SomeOf,
   Sudo,
 } from '../infrastructure';
 import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
@@ -561,7 +561,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       userId,
       avatar,
       ...options
-    }: OneOf<{ name: string; path: string }> &
+    }: SomeOf<{ name: string; path: string }> &
       CreateProjectOptions &
       Sudo &
       ShowExpanded<E> = {} as any,
