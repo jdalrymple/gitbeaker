@@ -147,6 +147,7 @@ test:live:setup:
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
     - install
+  timeout: 15m
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
@@ -195,7 +196,7 @@ test:live:setup:
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
     - echo "Waiting for service to start"
-    - sleep 210
+    - sleep 240
     - attempt=1
     - |
       while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
