@@ -1,7 +1,7 @@
 {
   "packages": ["packages/*"],
   "npmClient": "yarn",
-  "version": "39.34.0",
+  "version": "39.34.1",
   "tagVersionPrefix": "",
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
