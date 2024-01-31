@@ -1,3 +1,29 @@
+# 39.34.1 (Wed Jan 31 2024)
+
+#### 🔨 Technical Debt
+
+- Set timeout on e2e test setup job to avoid long CI builds [#3529](https://github.com/jdalrymple/gitbeaker/pull/3529) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump @types/node from 20.11.10 to 20.11.13 [#3530](https://github.com/jdalrymple/gitbeaker/pull/3530) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/parser from 6.19.1 to 6.20.0 [#3524](https://github.com/jdalrymple/gitbeaker/pull/3524) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump nx from 17.2.8 to 17.3.0 [#3526](https://github.com/jdalrymple/gitbeaker/pull/3526) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 9.0.6 to 9.0.7 [#3525](https://github.com/jdalrymple/gitbeaker/pull/3525) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @typescript-eslint/eslint-plugin from 6.19.1 to 6.20.0 [#3523](https://github.com/jdalrymple/gitbeaker/pull/3523) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Changing project create types for path and name [#3528](https://github.com/jdalrymple/gitbeaker/pull/3528) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix

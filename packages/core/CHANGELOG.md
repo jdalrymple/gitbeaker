@@ -1,3 +1,15 @@
+# v39.34.1 (Wed Jan 31 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Changing project create types for path and name [#3528](https://github.com/jdalrymple/gitbeaker/pull/3528) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
