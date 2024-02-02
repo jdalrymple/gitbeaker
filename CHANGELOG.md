@@ -1,3 +1,27 @@
+# 39.34.2 (Fri Feb 02 2024)
+
+#### ↕️ Dependencies
+
+- Bump @types/node from 20.11.14 to 20.11.16 [#3538](https://github.com/jdalrymple/gitbeaker/pull/3538) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @playwright/test from 1.41.1 to 1.41.2 [#3537](https://github.com/jdalrymple/gitbeaker/pull/3537) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @swc/jest from 0.2.31 to 0.2.34 [#3536](https://github.com/jdalrymple/gitbeaker/pull/3536) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/jest from 29.5.11 to 29.5.12 [#3535](https://github.com/jdalrymple/gitbeaker/pull/3535) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump husky from 9.0.7 to 9.0.10 [#3534](https://github.com/jdalrymple/gitbeaker/pull/3534) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump nx from 17.3.0 to 17.3.1 [#3533](https://github.com/jdalrymple/gitbeaker/pull/3533) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @types/node from 20.11.13 to 20.11.14 [#3532](https://github.com/jdalrymple/gitbeaker/pull/3532) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump lint-staged from 15.2.0 to 15.2.1 [#3531](https://github.com/jdalrymple/gitbeaker/pull/3531) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### ⚠️ Pushed to `main`
+
+- Removing auto merge to avoid blowing up the e2e tests ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.34.1 (Wed Jan 31 2024)
 
 #### 🔨 Technical Debt
