@@ -14,21 +14,22 @@ import {
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
   requestOptions: RequestOptions,
-): Promise<RequestOptions & { agent?: unknown }> {
-  const options: RequestOptions & { agent?: unknown } = { ...requestOptions };
+): Promise<RequestOptions & { dispatcher?: unknown }> {
+  const options: RequestOptions & { dispatcher?: unknown } = { ...requestOptions };
 
   if (
     resourceOptions.url.includes('https') &&
     resourceOptions.rejectUnauthorized != null &&
-    resourceOptions.rejectUnauthorized === false
+    resourceOptions.rejectUnauthorized === false &&
+    typeof window === 'undefined'
   ) {
-    if (typeof window === 'undefined') {
-      const { Agent } = await import('https');
+    const { Agent } = await import('undici');
 
-      options.agent = new Agent({
+    options.dispatcher = new Agent({
+      connect: {
         rejectUnauthorized: false,
-      });
-    }
+      },
+    });
   }
 
   return options;
