@@ -30,7 +30,7 @@
     "release:next": "auto next",
     "release:canary": "auto canary",
     "release": "auto shipit",
-    "postinstall": "husky install"
+    "postinstall": "husky init"
   },
   "dependencies": {
     "types": "^0.1.1"
