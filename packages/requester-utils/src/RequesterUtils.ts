@@ -121,7 +121,6 @@ export async function defaultOptionsHandler(
   }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
   const { headers: preconfiguredHeaders, authHeaders, url } = resourceOptions;
-  const headers = { ...preconfiguredHeaders };
   const defaultOptions: RequestOptions = {
     method,
     asStream,
@@ -129,7 +128,7 @@ export async function defaultOptionsHandler(
     prefixUrl: url,
   };
 
-  defaultOptions.headers = headers;
+  defaultOptions.headers = { ...preconfiguredHeaders };
 
   if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 

@@ -25,7 +25,7 @@ If your Gitlab server is running via HTTPS, the proper way to pass in your certi
 },
 ```
 
-> **NOTE**: _Using `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` will not work with the `gitlab` library. The `rejectUnauthorized` key is the only way to allow insecure certificates to be bypassed._
+> **NOTE**: Setting `process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'` can also allow insecure certificates to be bypassed.
 
 #### Support for Node v16.18+
 

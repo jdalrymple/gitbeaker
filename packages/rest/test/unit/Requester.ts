@@ -1,5 +1,5 @@
 import type { RequestOptions } from '@gitbeaker/requester-utils';
-import { defaultOptionsHandler, defaultRequestHandler, processBody } from '../../src/Requester';
+import { defaultRequestHandler, processBody } from '../../src/Requester';
 
 global.fetch = jest.fn();
 
@@ -472,57 +472,5 @@ describe('defaultRequestHandler', () => {
     });
 
     expect(MockFetch).toHaveBeenCalledWith(request3);
-  });
-});
-
-describe('defaultRequest', () => {
-  const service = {
-    headers: { test: '5' },
-    url: 'testurl',
-    rejectUnauthorized: true,
-    authHeaders: {
-      token: () => Promise.resolve('1234'),
-    },
-  };
-
-  it('should not assign the dispatcher property if given https url and not rejectUnauthorized', async () => {
-    const { dispatcher } = await defaultOptionsHandler(
-      { ...service, url: 'https://test.com' },
-      { method: 'POST' },
-    );
-
-    expect(dispatcher).toBeUndefined();
-  });
-
-  it('should not assign the dispatcher property if given http url and rejectUnauthorized', async () => {
-    const { dispatcher } = await defaultOptionsHandler(
-      { ...service, url: 'http://test.com' },
-      { method: 'POST' },
-    );
-
-    expect(dispatcher).toBeUndefined();
-  });
-
-  it('should assign the dispatcher property if given https url and rejectUnauthorized is false', async () => {
-    const { dispatcher: agent1 } = await defaultOptionsHandler(
-      { ...service, url: 'https://test.com', rejectUnauthorized: false },
-      { method: 'POST' },
-    );
-
-    expect(agent1).toBeDefined();
-
-    const { dispatcher: agent2 } = await defaultOptionsHandler(
-      { ...service, url: 'https://test.com', rejectUnauthorized: true },
-      { method: 'POST' },
-    );
-
-    expect(agent2).toBeUndefined();
-
-    const { dispatcher: agent3 } = await defaultOptionsHandler(
-      { ...service, url: 'https://test.com' },
-      { method: 'POST' },
-    );
-
-    expect(agent3).toBeUndefined();
   });
 });
