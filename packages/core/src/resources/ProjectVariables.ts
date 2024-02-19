@@ -29,7 +29,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       masked?: boolean;
       environmentScope?: string;
       description?: string;
-      raw?: string;
+      raw?: boolean;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
@@ -43,6 +43,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       protected?: boolean;
       masked?: boolean;
       environmentScope?: string;
+      raw?: boolean;
       filter: VariableFilter;
     } & Sudo &
       ShowExpanded<E>,
