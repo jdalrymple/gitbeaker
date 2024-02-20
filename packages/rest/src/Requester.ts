@@ -11,29 +11,6 @@ import {
   getMatchingRateLimiter,
 } from '@gitbeaker/requester-utils';
 
-export async function defaultOptionsHandler(
-  resourceOptions: ResourceOptions,
-  requestOptions: RequestOptions,
-): Promise<RequestOptions & { agent?: unknown }> {
-  const options: RequestOptions & { agent?: unknown } = { ...requestOptions };
-
-  if (
-    resourceOptions.url.includes('https') &&
-    resourceOptions.rejectUnauthorized != null &&
-    resourceOptions.rejectUnauthorized === false
-  ) {
-    if (typeof window === 'undefined') {
-      const { Agent } = await import('https');
-
-      options.agent = new Agent({
-        rejectUnauthorized: false,
-      });
-    }
-  }
-
-  return options;
-}
-
 export async function processBody(response: Response): Promise<ResponseBodyTypes> {
   // Split to remove potential charset info from the content type
   const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
@@ -145,4 +122,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   );
 }
 
-export const requesterFn = createRequesterFn(defaultOptionsHandler, defaultRequestHandler);
+export const requesterFn = createRequesterFn(
+  (_: ResourceOptions, reqo: RequestOptions) => Promise.resolve(reqo),
+  defaultRequestHandler,
+);
