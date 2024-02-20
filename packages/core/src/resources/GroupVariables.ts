@@ -1,6 +1,6 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables } from '../templates';
-import type { VariableSchema, VariableType } from '../templates/ResourceVariables';
+import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -24,6 +24,8 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       protected?: boolean;
       masked?: boolean;
       environmentScope?: string;
+      description?: string;
+      raw?: boolean;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
@@ -37,6 +39,9 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       protected?: boolean;
       masked?: boolean;
       environmentScope?: string;
+      description?: string;
+      raw?: boolean;
+      filter: VariableFilter;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;

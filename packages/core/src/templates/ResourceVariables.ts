@@ -40,6 +40,8 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       protected?: boolean;
       masked?: boolean;
       environmentScope?: string;
+      description?: string;
+      raw?: boolean;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
@@ -60,6 +62,8 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       masked?: boolean;
       environmentScope?: string;
       filter: VariableFilter;
+      description?: string;
+      raw?: boolean;
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
