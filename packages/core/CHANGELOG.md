@@ -1,3 +1,15 @@
+# v39.34.3 (Tue Feb 20 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Fixing types to include description, raw for edit and create for the CI/CD Variables API [#3542](https://github.com/jdalrymple/gitbeaker/pull/3542) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.1 (Wed Jan 31 2024)
 
 #### 🗃️ Typescript Definitions

@@ -1,3 +1,21 @@
+# 39.34.3 (Tue Feb 20 2024)
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Removing native support for rejectUnauthorized - Suggest nodejs env NODE_TLS_REJECT_UNAUTHORIZED=0 instead [#3540](https://github.com/jdalrymple/gitbeaker/pull/3540) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Fixing types to include description, raw for edit and create for the CI/CD Variables API [#3542](https://github.com/jdalrymple/gitbeaker/pull/3542) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.34.2 (Fri Feb 02 2024)
 
 #### ↕️ Dependencies

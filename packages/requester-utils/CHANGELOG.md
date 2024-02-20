@@ -1,3 +1,15 @@
+# v39.34.3 (Tue Feb 20 2024)
+
+#### 🔨 Technical Debt
+
+- Removing native support for rejectUnauthorized - Suggest nodejs env NODE_TLS_REJECT_UNAUTHORIZED=0 instead [#3540](https://github.com/jdalrymple/gitbeaker/pull/3540) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
