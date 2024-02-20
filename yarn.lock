@@ -827,13 +827,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/busboy@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "@fastify/busboy@npm:2.1.0"
-  checksum: 10c0/7bb641080aac7cf01d88749ad331af10ba9ec3713ec07cabbe833908c75df21bd56249bb6173bdec07f5a41896b21e3689316f86684c06635da45f91ff4565a2
-  languageName: node
-  linkType: hard
-
 "@gitbeaker/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@gitbeaker/cli@workspace:packages/cli"
@@ -890,10 +883,6 @@ __metadata:
     "@types/node": "npm:^20.10.5"
     tsup: "npm:^8.0.1"
     typescript: "npm:^5.3.3"
-    undici: "npm:^6.6.0"
-  dependenciesMeta:
-    undici:
-      optional: true
   languageName: unknown
   linkType: soft
 
@@ -11229,15 +11218,6 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
-  languageName: node
-  linkType: hard
-
-"undici@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "undici@npm:6.6.0"
-  dependencies:
-    "@fastify/busboy": "npm:^2.0.0"
-  checksum: 10c0/7c31ef256adab266bd98ebdef0da7584041f7a06f320d360fdbd10ce53758182e6a1dee0ddc9cc456a08cb96923d3b7d277fe67c02963e6e2cc2586ee77d5b3f
   languageName: node
   linkType: hard
 

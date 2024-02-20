@@ -1,1 +1,1 @@
-yarn test
+npx --no-install lint-staged

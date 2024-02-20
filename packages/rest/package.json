@@ -56,9 +56,6 @@
     "@gitbeaker/core": "^39.34.2",
     "@gitbeaker/requester-utils": "^39.34.2"
   },
-  "optionalDependencies": {
-    "undici": "^6.6.0"
-  },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
     "@types/node": "^20.10.5",
