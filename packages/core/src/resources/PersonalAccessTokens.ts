@@ -87,7 +87,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
   }
 
   rotate<E extends boolean = false>(
-    tokenId: number,
+    tokenId: number | "self",
     options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     return RequestHelper.post<PersonalAccessTokenSchema>()(
