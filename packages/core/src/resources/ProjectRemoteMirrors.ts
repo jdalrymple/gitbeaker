@@ -98,7 +98,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
-      options
+      options,
     );
   }
 
