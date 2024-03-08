@@ -510,12 +510,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   rebase<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    { skipCI, ...options }: { skipCI?: boolean } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<MergeRequestRebaseSchema, C, E, void>> {
     return RequestHelper.put<MergeRequestRebaseSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/rebase`,
-      options,
+      {
+        ...options,
+        skipCi: skipCI,
+      },
     );
   }
 
