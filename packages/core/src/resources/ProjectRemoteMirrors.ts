@@ -91,10 +91,15 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
   }
 
   remove<E extends boolean = false>(
-    name: string,
+    projectId: string | number,
+    mirrorId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `project_aliases/${name}`, options);
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
+      options,
+    );
   }
 
   show<E extends boolean = false>(
