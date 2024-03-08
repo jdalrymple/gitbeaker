@@ -32,7 +32,10 @@ export interface AccessTokenSchema extends Record<string, unknown> {
     AccessLevel,
     AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
   >;
-  token?: string;
+}
+
+export interface AccessTokenExposedSchema extends AccessTokenSchema {
+  token: string;
 }
 
 export class ResourceAccessTokens<C extends boolean = false> extends BaseResource<C> {
@@ -55,20 +58,25 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
     resourceId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
+    expiresAt: string,
     options?: {
       accessLevel?: Exclude<
         AccessLevel,
         AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
       >;
-      expiresAt?: string;
     } & Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>> {
-    return RequestHelper.post<AccessTokenSchema>()(this, endpoint`${resourceId}/access_tokens`, {
-      name,
-      scopes,
-      ...options,
-    });
+  ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
+    return RequestHelper.post<AccessTokenExposedSchema>()(
+      this,
+      endpoint`${resourceId}/access_tokens`,
+      {
+        name,
+        scopes,
+        expiresAt,
+        ...options,
+      },
+    );
   }
 
   revoke<E extends boolean = false>(
@@ -77,6 +85,18 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(this, endpoint`${resourceId}/access_tokens/${tokenId}`, options);
+  }
+
+  rotate<E extends boolean = false>(
+    resourceId: string | number,
+    tokenId: string | number,
+    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
+    return RequestHelper.post<AccessTokenExposedSchema>()(
+      this,
+      endpoint`${resourceId}/access_tokens/${tokenId}/rotate`,
+      options,
+    );
   }
 
   show<E extends boolean = false>(

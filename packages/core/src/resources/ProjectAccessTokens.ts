@@ -1,6 +1,10 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessTokens } from '../templates';
-import type { AccessTokenSchema, AccessTokenScopes } from '../templates/ResourceAccessTokens';
+import type {
+  AccessTokenExposedSchema,
+  AccessTokenSchema,
+  AccessTokenScopes,
+} from '../templates/ResourceAccessTokens';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -20,21 +24,27 @@ export interface ProjectAccessTokens<C extends boolean = false> extends Resource
     projectId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
+    expiresAt: string,
     options?: {
       accessLevel?: Exclude<
         AccessLevel,
         AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
       >;
-      expiresAt?: string;
     } & Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   revoke<E extends boolean = false>(
     projectId: string | number,
     tokenId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  rotate<E extends boolean = false>(
+    projectId: string | number,
+    tokenId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
