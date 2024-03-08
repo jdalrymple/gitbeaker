@@ -48,6 +48,7 @@ describe('ResourceAccessTokens.create', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_tokens', {
       name: 'test',
       scopes: ['api'],
+      expiredAt: '2021-01-31',
     });
   });
 
@@ -57,6 +58,7 @@ describe('ResourceAccessTokens.create', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_tokens', {
       name: 'test',
       scopes: ['api'],
+      expiredAt: '2021-01-31',
     });
   });
 });
