@@ -1,3 +1,16 @@
+# 40.0.1 (Mon Mar 18 2024)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Fixing incorrect Pick typing within the Webhooks API [#3558](https://github.com/jdalrymple/gitbeaker/pull/3558) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 40.0.0 (Mon Mar 18 2024)
 
 :tada: This release contains work from new contributors! :tada:
