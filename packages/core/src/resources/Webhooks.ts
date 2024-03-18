@@ -191,8 +191,8 @@ export interface WebhookIssueEventSchema extends BaseWebhookEventSchema {
     description: string;
     homepage: string;
   };
-  assignees: Pick<UserSchema, 'name|username|avatar_url'>[] | null;
-  assignee: Pick<UserSchema, 'name|username|avatar_url'> | null;
+  assignees: Pick<UserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
+  assignee: Pick<UserSchema, 'name' | 'username' | 'avatar_url'> | null;
   labels: WebhookLabelSchema[] | null;
   changes: {
     updated_by_id: {
@@ -256,7 +256,7 @@ export interface WebhookMergeRequestNoteEventSchema extends WebhookBaseNoteEvent
     };
     work_in_progress: boolean;
     draft: boolean;
-    assignee: Pick<UserSchema, 'name|username|avatar_url'> | null;
+    assignee: Pick<UserSchema, 'name' | 'username' | 'avatar_url'> | null;
     detailed_merge_status: string;
   };
 }
@@ -377,7 +377,7 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       current: number | null;
     };
   };
-  assignees: Pick<UserSchema, 'name|username|avatar_url'>[] | null;
+  assignees: Pick<UserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
   reviewers: WebhookLabelSchema[] | null;
 }
 
