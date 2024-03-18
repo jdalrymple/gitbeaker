@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/requester-utils",
-  "version": "39.34.3",
+  "version": "40.0.0",
   "description": "Utility functions for requester implementatons used in @gitbeaker",
   "license": "MIT",
   "engines": {

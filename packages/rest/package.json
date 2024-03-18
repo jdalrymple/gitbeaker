@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/rest",
-  "version": "39.34.3",
+  "version": "40.0.0",
   "description": "Cross Platform implementation of the GitLab API",
   "license": "MIT",
   "engines": {
@@ -53,8 +53,8 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^39.34.3",
-    "@gitbeaker/requester-utils": "^39.34.3"
+    "@gitbeaker/core": "^40.0.0",
+    "@gitbeaker/requester-utils": "^40.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
