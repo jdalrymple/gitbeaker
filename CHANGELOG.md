@@ -1,3 +1,49 @@
+# 40.0.0 (Mon Mar 18 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@nhollander-alert](https://github.com/nhollander-alert)
+
+:heart: DK ([@vitamindck](https://github.com/vitamindck))
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/core`
+  - Updating Access Token API wrapper [#3554](https://github.com/jdalrymple/gitbeaker/pull/3554) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Implement GitlabPages.showSettings() [#3546](https://github.com/jdalrymple/gitbeaker/pull/3546) ([@kouak](https://github.com/kouak))
+  - Allow 'self' for personal access token rotation [#3547](https://github.com/jdalrymple/gitbeaker/pull/3547) ([@nhollander-alert](https://github.com/nhollander-alert))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix endpoint for the removal of remote mirrors [#3550](https://github.com/jdalrymple/gitbeaker/pull/3550) ([@vitamindck](https://github.com/vitamindck))
+
+#### ↕️ Dependencies
+
+- Bump follow-redirects from 1.15.5 to 1.15.6 [#3557](https://github.com/jdalrymple/gitbeaker/pull/3557) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ip from 2.0.0 to 2.0.1 [#3543](https://github.com/jdalrymple/gitbeaker/pull/3543) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Adding skipci type for rebase [#3552](https://github.com/jdalrymple/gitbeaker/pull/3552) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@nhollander-alert](https://github.com/nhollander-alert)
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- DK ([@vitamindck](https://github.com/vitamindck))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt

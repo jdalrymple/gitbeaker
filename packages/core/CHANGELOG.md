@@ -1,3 +1,39 @@
+# v40.0.0 (Mon Mar 18 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@nhollander-alert](https://github.com/nhollander-alert)
+
+:heart: DK ([@vitamindck](https://github.com/vitamindck))
+
+#### 💥 Breaking Change
+
+- Updating Access Token API wrapper [#3554](https://github.com/jdalrymple/gitbeaker/pull/3554) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ✨ Feature
+
+- Implement GitlabPages.showSettings() [#3546](https://github.com/jdalrymple/gitbeaker/pull/3546) ([@kouak](https://github.com/kouak))
+- Allow 'self' for personal access token rotation [#3547](https://github.com/jdalrymple/gitbeaker/pull/3547) ([@nhollander-alert](https://github.com/nhollander-alert))
+
+#### 🐛 Bug Fix
+
+- Fix endpoint for the removal of remote mirrors [#3550](https://github.com/jdalrymple/gitbeaker/pull/3550) ([@vitamindck](https://github.com/vitamindck))
+
+#### 🗃️ Typescript Definitions
+
+- Adding skipci type for rebase [#3552](https://github.com/jdalrymple/gitbeaker/pull/3552) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 4
+
+- [@nhollander-alert](https://github.com/nhollander-alert)
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- DK ([@vitamindck](https://github.com/vitamindck))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.3 (Tue Feb 20 2024)
 
 #### 🗃️ Typescript Definitions
