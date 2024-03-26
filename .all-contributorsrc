@@ -778,6 +778,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/10766587?v=4",
       "profile": "https://github.com/vitamindck",
       "contributions": ["code"]
+    },
+    {
+      "login": "KoenBrouwer",
+      "name": "Koen Brouwer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3260168?v=4",
+      "profile": "http://www.koenbrouwer.com/",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
