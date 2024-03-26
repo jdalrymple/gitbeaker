@@ -193,7 +193,7 @@ export type AllMergeRequestsOptions = {
   approvedByIds?: number[];
   approverIds?: number[];
   approved?: string;
-  assigneeId?: number;
+  assigneeId?: number | 'Any' | 'None';
   authorId?: number;
   authorUsername?: string;
   createdAfter?: string;
