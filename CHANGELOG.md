@@ -1,3 +1,20 @@
+# 40.0.2 (Tue Mar 26 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer)), for all your work!
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Allow "Any" and "None" for AllMergeRequestsOptions["assigneeId"] [#3563](https://github.com/jdalrymple/gitbeaker/pull/3563) ([@KoenBrouwer](https://github.com/KoenBrouwer))
+
+#### Authors: 1
+
+- Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer))
+
+---
+
 # 40.0.1 (Mon Mar 18 2024)
 
 #### 🗃️ Typescript Definitions
