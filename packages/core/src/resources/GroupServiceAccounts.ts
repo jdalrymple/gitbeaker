@@ -3,6 +3,11 @@ import type { AccessTokenSchema } from '../templates/ResourceAccessTokens';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 
+export interface GroupServiceAccountCreateOptions {
+  name?: string;
+  username?: string;
+}
+
 export interface GroupServiceAccountSchema extends Record<string, unknown> {
   id: number;
   username: string;
@@ -14,7 +19,7 @@ export type ServiceAccountAccessTokenSchema = MappedOmit<AccessTokenSchema, 'acc
 export class GroupServiceAccounts<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: GroupServiceAccountCreateOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupServiceAccountSchema, C, E, void>> {
     return RequestHelper.post<GroupServiceAccountSchema>()(
       this,
