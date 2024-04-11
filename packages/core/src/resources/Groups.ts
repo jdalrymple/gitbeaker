@@ -47,7 +47,7 @@ export interface GroupSchema extends SimpleGroupSchema {
   project_creation_level: string;
   auto_devops_enabled?: boolean;
   subgroup_creation_level: string;
-  emails_disabled?: boolean;
+  emails_enabled?: boolean;
   mentions_disabled?: boolean;
   lfs_enabled: boolean;
   default_branch_protection: number;
