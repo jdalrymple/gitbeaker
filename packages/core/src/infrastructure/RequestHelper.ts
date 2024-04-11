@@ -32,7 +32,7 @@ export type PaginationTypes = 'keyset' | 'offset';
 
 export interface KeysetPaginationRequestOptions {
   orderBy: string;
-  sort: 'asc' | 'dec';
+  sort: 'asc' | 'desc';
 }
 
 export interface OffsetPaginationRequestOptions {
@@ -70,7 +70,7 @@ export interface KeysetPagination {
   idAfter: number;
   perPage: number;
   orderBy: string;
-  sort: 'asc' | 'dec';
+  sort: 'asc' | 'desc';
 }
 
 export interface ExpandedResponse<T> {
