@@ -96,6 +96,7 @@ export const {
   IssueWeightEvents,
   JobArtifacts,
   Jobs,
+  JobTokenScopes,
   MergeRequestApprovals,
   MergeRequestAwardEmojis,
   MergeRequestContextCommits,
