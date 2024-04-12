@@ -21,10 +21,23 @@ export interface DiscussionNotePositionBaseSchema extends Record<string, unknown
   new_path?: string;
 }
 
+export interface DiscussionNotePositionTextLineSchema {
+  line_code?: string;
+  type?: 'new' | 'old';
+  old_line?: number;
+  new_line?: number;
+}
+
+export interface DiscussionNotePositionLineRangeSchema {
+  start?: DiscussionNotePositionTextLineSchema;
+  end?: DiscussionNotePositionTextLineSchema;
+}
+
 export type DiscussionNotePositionTextSchema = DiscussionNotePositionBaseSchema & {
   position_type: 'text';
   new_line?: string;
   old_line?: string;
+  line_range?: DiscussionNotePositionLineRangeSchema;
 };
 
 export type DiscussionNotePositionImageSchema = DiscussionNotePositionBaseSchema & {
