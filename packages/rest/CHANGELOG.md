@@ -1,3 +1,15 @@
+# v40.0.3 (Fri Apr 12 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Updating groups schema to use email_enabled updated min version of Gitlab supported [#3569](https://github.com/jdalrymple/gitbeaker/pull/3569) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt

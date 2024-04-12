@@ -1,3 +1,20 @@
+# 40.0.3 (Fri Apr 12 2024)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Updating groups schema to use email_enabled updated min version of Gitlab supported [#3569](https://github.com/jdalrymple/gitbeaker/pull/3569) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Fixing Keyset Pagination sort option from 'dec' to 'desc' [#3570](https://github.com/jdalrymple/gitbeaker/pull/3570) ([@jdalrymple](https://github.com/jdalrymple))
+  - Adding missing field for DiscussionNotePositionTextSchema [#3572](https://github.com/jdalrymple/gitbeaker/pull/3572) ([@jdalrymple](https://github.com/jdalrymple))
+  - Fixing search commit types [#3573](https://github.com/jdalrymple/gitbeaker/pull/3573) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 40.0.2 (Tue Mar 26 2024)
 
 :tada: This release contains work from a new contributor! :tada:
