@@ -28,6 +28,10 @@ export interface BlobSchema extends Record<string, unknown> {
   project_id: number;
 }
 
+export interface SearchCommitSchema extends CommitSchema {
+  projectId: string | number;
+}
+
 export type SearchScopes =
   | 'projects'
   | 'issues'
@@ -85,7 +89,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
       Sudo &
       ShowExpanded<E> &
       PaginationRequestOptions<P>,
-  ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
+  ): Promise<GitlabAPIResponse<SearchCommitSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'wiki_blobs',
