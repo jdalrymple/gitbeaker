@@ -16,7 +16,7 @@ export interface AllowListSchema extends Record<string, unknown> {
 export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.get<JobTokenScopeSchema>()(
       this,
@@ -28,7 +28,7 @@ export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     enabled: boolean,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.patch<JobTokenScopeSchema>()(
       this,
@@ -39,7 +39,7 @@ export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
 
   showInboundAllowList<E extends boolean = false>(
     projectId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>> {
     return RequestHelper.get<SimpleProjectSchema[]>()(
       this,
@@ -51,7 +51,7 @@ export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
   addToInboundAllowList<E extends boolean = false>(
     projectId: string | number,
     targetProjectId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AllowListSchema, C, E, void>> {
     return RequestHelper.post<AllowListSchema>()(
       this,
@@ -63,7 +63,7 @@ export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
   removeFromInboundAllowList<E extends boolean = false>(
     projectId: string | number,
     targetProjectId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
