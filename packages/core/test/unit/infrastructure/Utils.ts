@@ -1,4 +1,4 @@
-import { appendFormFromObject, endpoint } from '../../../src/infrastructure';
+import { appendFormFromObject, endpoint, reformatObjectOptions } from '../../../src/infrastructure';
 
 describe('appendFormFromObject', () => {
   it('should convert object key/values to formdata instance', () => {
@@ -33,5 +33,31 @@ describe('endpoint', () => {
     const url: string = endpoint`/projects/${projectId}`;
 
     expect(url).toBe('/projects/1');
+  });
+});
+
+describe('reformatObjectOptions', () => {
+  it('should convert simple nested object to be query parameter friendly', () => {
+    const data = {
+      a: {
+        b: 'test',
+      },
+    };
+
+    const formatted = reformatObjectOptions(data, 'test');
+
+    expect(formatted).toMatchObject({ 'test[a][b]': 'test' });
+  });
+
+  it('should convert nested object with "=" characters in the value', () => {
+    const data = {
+      a: {
+        b: '=5',
+      },
+    };
+
+    const formatted = reformatObjectOptions(data, 'test');
+
+    expect(formatted).toMatchObject({ 'test[a][b]': '=5' });
   });
 });
