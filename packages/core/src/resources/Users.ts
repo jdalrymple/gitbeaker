@@ -25,23 +25,23 @@ export interface UserSchema extends Record<string, unknown> {
 }
 
 export interface ExpandedUserSchema extends UserSchema {
-  is_admin?: boolean;
-  bio?: string;
+  is_admin: boolean | null;
+  bio: string | null;
   bot: boolean;
-  location?: string;
+  location: string | null;
   public_email: string;
   skype: string;
   linkedin: string;
   twitter: string;
   website_url: string;
-  organization?: string;
-  job_title?: string;
-  prnouns?: string;
-  work_information?: string;
-  followers?: number;
-  following?: number;
-  local_time?: string;
-  is_followed?: boolean;
+  organization: string | null;
+  job_title: string | null;
+  prnouns: string | null;
+  work_information: string | null;
+  followers: number | null;
+  following: number | null;
+  local_time: string | null;
+  is_followed: boolean | null;
   last_sign_in_at: string;
   confirmed_at: string;
   last_activity_on: string;
@@ -49,23 +49,23 @@ export interface ExpandedUserSchema extends UserSchema {
   theme_id: number;
   color_scheme_id: number;
   projects_limit: number;
-  current_sign_in_at?: string;
-  note?: string;
-  identities?: { provider: string; extern_uid: string; saml_provider_id?: number }[];
+  current_sign_in_at: string | null;
+  note: string | null;
+  identities: { provider: string; extern_uid: string; saml_provider_id: number }[] | null;
   can_create_group: boolean;
   can_create_project: boolean;
   two_factor_enabled: boolean;
   external: boolean;
-  private_profile?: string;
+  private_profile: string | null;
   current_sign_in_ip: string;
   last_sign_in_ip: string;
-  namespace_id?: number;
-  created_by?: string;
-  shared_runners_minutes_limit?: number;
-  extra_shared_runners_minutes_limit?: number;
-  is_auditor?: boolean;
-  using_license_seat?: boolean;
-  provisioned_by_group_id?: number;
+  namespace_id: number | null;
+  created_by: string | null;
+  shared_runners_minutes_limit: number | null;
+  extra_shared_runners_minutes_limit: number | null;
+  is_auditor: boolean | null;
+  using_license_seat: boolean | null;
+  provisioned_by_group_id: number | null;
 }
 
 export interface UserActivitySchema extends Record<string, unknown> {
@@ -114,7 +114,7 @@ export interface UserMembershipSchema extends Record<string, unknown> {
 export interface UserRunnerSchema extends Record<string, unknown> {
   id: number;
   token: string;
-  token_expires_at?: string;
+  token_expires_at: string | null;
 }
 
 export type AllUsersOptions = {
@@ -226,7 +226,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       ShowExpanded<E> & { withCustomAttributes: true },
   ): Promise<
     GitlabAPIResponse<
-      ((UserSchema | ExpandedUserSchema) & { custom_attributes: CustomAttributeSchema[] })[],
+      (ExpandedUserSchema & { custom_attributes: CustomAttributeSchema[] })[],
       C,
       E,
       P
@@ -235,12 +235,12 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(UserSchema | ExpandedUserSchema)[], C, E, P>>;
+  ): Promise<GitlabAPIResponse<ExpandedUserSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(UserSchema | ExpandedUserSchema)[], C, E, P>> {
-    return RequestHelper.get<(UserSchema | ExpandedUserSchema)[]>()(this, 'users', options);
+  ): Promise<GitlabAPIResponse<ExpandedUserSchema[], C, E, P>> {
+    return RequestHelper.get<ExpandedUserSchema[]>()(this, 'users', options);
   }
 
   allActivities<E extends boolean = false, P extends PaginationTypes = 'offset'>(
