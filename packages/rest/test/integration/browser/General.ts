@@ -89,6 +89,7 @@ describe('Browser Import', () => {
     'IssueWeightEvents',
     'JobArtifacts',
     'Jobs',
+    'JobTokenScopes',
     'MergeRequestApprovals',
     'MergeRequestAwardEmojis',
     'MergeRequestContextCommits',

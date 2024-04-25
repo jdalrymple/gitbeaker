@@ -85,6 +85,7 @@ export * from './Issues';
 export * from './IssuesStatistics';
 export * from './JobArtifacts';
 export * from './Jobs';
+export * from './JobTokenScopes';
 export * from './MergeRequestApprovals';
 export * from './MergeRequestAwardEmojis';
 export * from './MergeRequestContextCommits';
