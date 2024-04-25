@@ -74,13 +74,13 @@ export function reformatObjectOptions(
   obj: Record<string, unknown>,
   prefixKey: string,
   decamelizeValues = false,
-) {
+): Record<string, string> {
   const formatted = decamelizeValues ? decamelizeKeys(obj) : obj;
 
   return QS.stringify({ [prefixKey]: formatted }, { encode: false })
     .split('&')
     .reduce((acc: Record<string, string>, cur: string) => {
-      const [key, val] = cur.split('=');
+      const [key, val] = cur.split(/=(.*)/);
 
       acc[key] = val;
 
