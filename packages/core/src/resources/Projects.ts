@@ -94,8 +94,8 @@ export interface ProjectSchema extends SimpleProjectSchema {
   packages_enabled: boolean;
   empty_repo: boolean;
   archived: boolean;
-  visibility: string;
   owner: Pick<SimpleUserSchema, 'id' | 'name' | 'created_at'>;
+  visibility: 'public' | 'internal' | 'private';
   resolve_outdated_diff_discussions: boolean;
   container_expiration_policy: {
     cadence: string;
