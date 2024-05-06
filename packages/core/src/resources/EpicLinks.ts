@@ -7,7 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { UserSchema } from './Users';
+import { SimpleUserSchema } from './Users';
 
 export interface CondensedEpicLinkSchema extends Record<string, unknown> {
   id: number;
@@ -29,7 +29,7 @@ export interface EpicLinkSchema extends Record<string, unknown> {
   parent_id: number;
   title: string;
   description: string;
-  author: UserSchema;
+  author: SimpleUserSchema;
   start_date?: string;
   start_date_is_fixed: boolean;
   start_date_fixed?: string;

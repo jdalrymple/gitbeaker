@@ -9,7 +9,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { CommitSchema } from './Commits';
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
 
@@ -38,7 +38,7 @@ export interface ReleaseSchema extends Record<string, unknown> {
   name: string | null;
   created_at: string;
   released_at: string | null;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   commit: CommitSchema;
   milestones: MilestoneSchema[] | null;
   commit_path: string;

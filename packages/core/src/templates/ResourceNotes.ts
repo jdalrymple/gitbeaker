@@ -9,13 +9,13 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { UserSchema } from '../resources/Users';
+import { SimpleUserSchema } from '../resources/Users';
 
 export interface NoteSchema extends Record<string, unknown> {
   id: number;
   body: string;
   attachment: string | null;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;

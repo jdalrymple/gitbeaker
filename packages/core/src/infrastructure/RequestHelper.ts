@@ -25,6 +25,10 @@ export interface ShowExpanded<E extends boolean = false> {
   showExpanded?: E;
 }
 
+export interface AsAdmin<A extends boolean = false> {
+  asAdmin?: A;
+}
+
 export type BaseRequestOptions<E extends boolean = false> = Sudo &
   ShowExpanded<E> & { [Key in string]?: any };
 

@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
 import type { CommitablePipelineStatus } from './Pipelines';
@@ -111,7 +111,7 @@ export type CommitSignatureSchema =
 
 export interface CondensedCommitCommentSchema extends Record<string, unknown> {
   note: string;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
 }
 
 export interface CommitCommentSchema extends CondensedCommitCommentSchema {
@@ -137,7 +137,7 @@ export interface CommitStatusSchema extends Record<string, unknown> {
   started_at?: string;
   name: string;
   allow_failure: boolean;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   description?: string;
   sha: string;
   target_url: string;

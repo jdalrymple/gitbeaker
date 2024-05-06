@@ -7,7 +7,7 @@ import type {
   Sudo,
   UserAgentDetailSchema,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 
 export type SnippetVisibility = 'private' | 'public' | 'internal';
 
@@ -16,7 +16,7 @@ export interface SimpleSnippetSchema extends Record<string, unknown> {
   title: string;
   file_name: string;
   description?: string;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   updated_at: string;
   created_at: string;
   project_id?: string | number;

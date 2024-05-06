@@ -11,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { SimpleGroupSchema } from './Groups';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
@@ -21,7 +21,7 @@ export type AccessLevelSettingState = 'disabled' | 'enabled' | 'private';
 
 export interface ProjectStarrerSchema extends Record<string, unknown> {
   starred_since: string;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
 }
 
 export interface ProjectStoragePath extends Record<string, unknown> {
@@ -95,7 +95,7 @@ export interface ProjectSchema extends SimpleProjectSchema {
   empty_repo: boolean;
   archived: boolean;
   visibility: string;
-  owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
+  owner: Pick<SimpleUserSchema, 'id' | 'name' | 'created_at'>;
   resolve_outdated_diff_discussions: boolean;
   container_expiration_policy: {
     cadence: string;
@@ -455,8 +455,8 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   allUsers<E extends boolean = false>(
     projectId: string | number,
     options?: { search?: string; skipUsers?: number[] } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MappedOmit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<MappedOmit<UserSchema, 'created_at'>[]>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<SimpleUserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<MappedOmit<SimpleUserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/users`,
       options,

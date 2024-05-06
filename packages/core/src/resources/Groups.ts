@@ -9,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CondensedProjectSchema, ProjectSchema } from './Projects';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import { AccessLevel } from '../constants';
 
@@ -303,8 +303,8 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   allProvisionedUsers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: AllProvisionedUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
-    return RequestHelper.get<UserSchema[]>()(
+  ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
+    return RequestHelper.get<SimpleUserSchema[]>()(
       this,
       endpoint`groups/${groupId}/provisioned_users`,
       options,

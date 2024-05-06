@@ -9,11 +9,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from '../resources/Users';
+import type { SimpleUserSchema } from '../resources/Users';
 
 export interface WeightEventSchema extends Record<string, unknown> {
   id: number;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   issue_id: number;
   weight: number;

@@ -9,7 +9,7 @@ import type {
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
 import type { PipelineSchema } from './Pipelines';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { RunnerSchema } from './Runners';
 import type { EnvironmentSchema } from './Environments';
 import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
@@ -29,12 +29,12 @@ export interface DeployableSchema extends Record<string, unknown> {
   coverage?: string;
   created_at?: string;
   finished_at?: string;
-  user?: UserSchema;
+  user?: SimpleUserSchema;
   pipeline?: PipelineSchema;
 }
 
 export interface DeploymentApprovalStatusSchema extends Record<string, unknown> {
-  user: UserSchema;
+  user: SimpleUserSchema;
   status: 'approved' | 'rejected';
   created_at: string;
   comment: string;
@@ -48,7 +48,7 @@ export interface DeploymentSchema extends Record<string, unknown> {
   created_at: string;
   updated_at: string;
   status: DeploymentStatus;
-  user: UserSchema;
+  user: SimpleUserSchema;
   deployable: DeployableSchema;
   environment: EnvironmentSchema;
   pending_approval_count?: number;

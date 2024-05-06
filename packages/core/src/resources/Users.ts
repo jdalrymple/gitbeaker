@@ -2,6 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   AllOrNone,
+  AsAdmin,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -14,34 +15,40 @@ import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import { AccessLevel } from '../constants';
 
-export interface UserSchema extends Record<string, unknown> {
+export interface SimpleUserSchema extends Record<string, unknown> {
   id: number;
   name: string;
   username: string;
   state: string;
   avatar_url: string;
   web_url: string;
-  created_at?: string;
+  created_at: string;
 }
 
-export interface ExpandedUserSchema extends UserSchema {
-  is_admin: boolean | null;
+export interface UserSchema extends SimpleUserSchema {
+  locked: boolean | null;
   bio: string | null;
-  bot: boolean;
+  bot: boolean | null;
   location: string | null;
-  public_email: string;
-  skype: string;
-  linkedin: string;
-  twitter: string;
-  website_url: string;
+  public_email: string | null;
+  skype: string | null;
+  linkedin: string | null;
+  twitter: string | null;
+  discord: string | null;
+  website_url: string | null;
+  pronouns: string | null;
   organization: string | null;
   job_title: string | null;
-  prnouns: string | null;
   work_information: string | null;
   followers: number | null;
   following: number | null;
   local_time: string | null;
   is_followed: boolean | null;
+}
+
+export interface ExpandedUserSchema extends UserSchema {
+  is_admin: boolean | null;
+  bot: boolean;
   last_sign_in_at: string;
   confirmed_at: string;
   last_activity_on: string;
@@ -57,15 +64,21 @@ export interface ExpandedUserSchema extends UserSchema {
   two_factor_enabled: boolean;
   external: boolean;
   private_profile: string | null;
-  current_sign_in_ip: string;
-  last_sign_in_ip: string;
   namespace_id: number | null;
   created_by: string | null;
-  shared_runners_minutes_limit: number | null;
-  extra_shared_runners_minutes_limit: number | null;
-  is_auditor: boolean | null;
+}
+
+export interface AdminUserSchema extends ExpandedUserSchema {
+  current_sign_in_ip: string;
+  last_sign_in_ip: string;
   using_license_seat: boolean | null;
-  provisioned_by_group_id: number | null;
+  email_reset_offered_at: string | null;
+  shared_runners_minutes_limit?: number | null;
+  extra_shared_runners_minutes_limit?: number | null;
+  is_auditor?: boolean | null;
+  provisioned_by_group_id?: number | null;
+  plan?: string;
+  trial?: boolean;
 }
 
 export interface UserActivitySchema extends Record<string, unknown> {
@@ -147,6 +160,7 @@ export type CreateUserOptions = {
   bio?: string;
   canCreateGroup?: boolean;
   colorSchemeId?: number;
+  commitEmail?: string;
   email?: string;
   externUid?: string;
   external?: boolean;
@@ -161,7 +175,9 @@ export type CreateUserOptions = {
   password?: string;
   privateProfile?: string;
   projectsLimit?: number;
+  pronouns?: string;
   provider?: string;
+  publicEmail?: string;
   resetPassword?: boolean;
   sharedRunnersMinutesLimit?: number;
   skipConfirmation?: boolean;
@@ -219,28 +235,35 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<void>()(this, endpoint`users/${userId}/activate`, options);
   }
 
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: AllUsersOptions &
+  all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: { withCustomAttributes: true } & AsAdmin<A> &
+      AllUsersOptions &
       PaginationRequestOptions<P> &
       Sudo &
-      ShowExpanded<E> & { withCustomAttributes: true },
+      ShowExpanded<E>,
   ): Promise<
     GitlabAPIResponse<
-      (ExpandedUserSchema & { custom_attributes: CustomAttributeSchema[] })[],
+      ((A extends false ? SimpleUserSchema : AdminUserSchema) & {
+        custom_attributes: CustomAttributeSchema[];
+      })[],
       C,
       E,
       P
     >
   >;
 
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedUserSchema[], C, E, P>>;
+  all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: AllUsersOptions & AsAdmin<A> & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>>;
 
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: AllUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedUserSchema[], C, E, P>> {
-    return RequestHelper.get<ExpandedUserSchema[]>()(this, 'users', options);
+  all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: AllUsersOptions & AsAdmin<A> & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>> {
+    return RequestHelper.get<(A extends false ? SimpleUserSchema : AdminUserSchema)[]>()(
+      this,
+      'users',
+      options,
+    );
   }
 
   allActivities<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -259,15 +282,23 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   allFollowers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
-    return RequestHelper.get<UserSchema[]>()(this, endpoint`users/${userId}/followers`, options);
+  ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
+    return RequestHelper.get<SimpleUserSchema[]>()(
+      this,
+      endpoint`users/${userId}/followers`,
+      options,
+    );
   }
 
   allFollowing<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema[], C, E, P>> {
-    return RequestHelper.get<UserSchema[]>()(this, endpoint`users/${userId}/following`, options);
+  ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
+    return RequestHelper.get<SimpleUserSchema[]>()(
+      this,
+      endpoint`users/${userId}/following`,
+      options,
+    );
   }
 
   allMemberships<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -409,8 +440,8 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   create<E extends boolean = false>(
     options?: CreateUserOptions & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema | ExpandedUserSchema, C, E, void>> {
-    return RequestHelper.post<UserSchema>()(this, 'users', options);
+  ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
+    return RequestHelper.post<ExpandedUserSchema>()(this, 'users', options);
   }
 
   createPersonalAccessToken<E extends boolean = false>(
@@ -458,7 +489,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     userId: number,
     options?: EditUserOptions & Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.put<UserSchema>()(this, endpoint`users/${userId}`, options);
+    return RequestHelper.put<ExpandedUserSchema>()(this, endpoint`users/${userId}`, options);
   }
 
   editStatus<E extends boolean = false>(
@@ -494,8 +525,8 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   follow<E extends boolean = false>(
     userId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema, C, E, void>> {
-    return RequestHelper.post<UserSchema>()(this, endpoint`users/${userId}/follow`, options);
+  ): Promise<GitlabAPIResponse<SimpleUserSchema, C, E, void>> {
+    return RequestHelper.post<SimpleUserSchema>()(this, endpoint`users/${userId}/follow`, options);
   }
 
   reject<E extends boolean = false>(
@@ -509,11 +540,11 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  show<E extends boolean = false>(
+  show<A extends boolean = false, E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<UserSchema | ExpandedUserSchema, C, E, void>> {
-    return RequestHelper.get<UserSchema | ExpandedUserSchema>()(
+    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<A extends false ? UserSchema : AdminUserSchema, C, E, void>> {
+    return RequestHelper.get<A extends false ? UserSchema : AdminUserSchema>()(
       this,
       endpoint`users/${userId}`,
       options,
@@ -537,10 +568,16 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  showCurrentUser<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedUserSchema>()(this, 'user', options);
+  showCurrentUser<A extends boolean = false, E extends boolean = false>(
+    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+  ): Promise<
+    GitlabAPIResponse<A extends false ? ExpandedUserSchema : AdminUserSchema, C, E, void>
+  > {
+    return RequestHelper.get<A extends false ? ExpandedUserSchema : AdminUserSchema>()(
+      this,
+      'user',
+      options,
+    );
   }
 
   showCurrentUserPreferences<E extends boolean = false>(

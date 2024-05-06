@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { PipelineVariableSchema } from './PipelineScheduleVariables';
 
 export type CommitablePipelineStatus = 'pending' | 'running' | 'success' | 'failed' | 'canceled';
@@ -39,7 +39,7 @@ export interface ExpandedPipelineSchema extends PipelineSchema {
   before_sha: string;
   tag: boolean;
   yaml_errors?: unknown;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   started_at: string;
   finished_at: string;
   committed_at?: string;
@@ -97,7 +97,7 @@ export interface PipelineTestReportSummarySchema extends Record<string, unknown>
     failed: number;
     skipped: number;
     error: number;
-    suite_error?: null;
+    suite_error: string | null;
   };
   test_suites?: PipelineTestSuiteSchema[];
 }

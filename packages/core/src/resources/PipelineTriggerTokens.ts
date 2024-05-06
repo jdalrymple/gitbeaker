@@ -9,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { ExpandedPipelineSchema } from './Pipelines';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 
 export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   id: number;
@@ -18,7 +18,7 @@ export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   last_used: string | null;
   token: string;
   updated_at: string;
-  owner: MappedOmit<UserSchema, 'created_at'> | null;
+  owner: MappedOmit<SimpleUserSchema, 'created_at'> | null;
 }
 
 export class PipelineTriggerTokens<C extends boolean = false> extends BaseResource<C> {

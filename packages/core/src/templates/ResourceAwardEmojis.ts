@@ -8,12 +8,12 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from '../resources/Users';
+import type { SimpleUserSchema } from '../resources/Users';
 
 export interface AwardEmojiSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  user: UserSchema;
+  user: SimpleUserSchema;
   created_at: string;
   updated_at: string;
   awardable_id: number;

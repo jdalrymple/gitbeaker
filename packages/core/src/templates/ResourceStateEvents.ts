@@ -9,11 +9,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from '../resources/Users';
+import type { SimpleUserSchema } from '../resources/Users';
 
 export interface StateEventSchema extends Record<string, unknown> {
   id: number;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   resource_type: 'Issue';
   resource_id: number;
