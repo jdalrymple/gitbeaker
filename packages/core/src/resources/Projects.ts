@@ -82,6 +82,7 @@ export interface ProjectSchema extends SimpleProjectSchema {
   merge_requests_template?: string;
   empty_repo: boolean;
   issues_template?: string;
+  archived: boolean;
   owner: Pick<UserSchema, 'id' | 'name' | 'created_at'>;
   issues_enabled: boolean;
   open_issues_count: number;

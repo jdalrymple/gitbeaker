@@ -40,7 +40,7 @@ export interface SimpleGroupSchema extends CondensedGroupSchema {
 export interface GroupSchema extends SimpleGroupSchema {
   path: string;
   description: string;
-  visibility: string;
+  visibility: 'public' | 'internal' | 'private';
   share_with_group_lock: boolean;
   require_two_factor_authentication: boolean;
   two_factor_grace_period: number;
@@ -74,6 +74,7 @@ export type AllGroupsOptions = {
   search?: string;
   orderBy?: 'name' | 'path' | 'id';
   sort?: 'asc' | 'desc';
+  visibility?: 'public' | 'internal' | 'private';
   statistics?: boolean;
   withCustomAttributes?: boolean;
   owned?: boolean;
@@ -82,7 +83,7 @@ export type AllGroupsOptions = {
 };
 
 export type AllGroupProjectsOptions = {
-  visibility?: string;
+  visibility?: 'public' | 'internal' | 'private';
   orderBy?:
     | 'id'
     | 'name'
@@ -121,7 +122,7 @@ export type CreateGroupOptions = {
   shareWithGroupLock?: boolean;
   subgroupCreationLevel?: string;
   twoFactorGracePeriod?: number;
-  visibility?: 'private' | 'public';
+  visibility?: 'public' | 'internal' | 'private';
   membershipLock?: boolean;
   extraSharedRunnersMinutesLimit?: number;
   sharedRunnersMinutesLimit?: number;
@@ -149,7 +150,7 @@ export type EditGroupOptions = {
   shareWithGroupLock?: boolean;
   subgroupCreationLevel?: string;
   twoFactorGracePeriod?: number;
-  visibility?: 'private' | 'public';
+  visibility?: 'public' | 'internal' | 'private';
   extraSharedRunnersMinutesLimit?: number;
   fileTemplateProjectId?: number;
   membershipLock?: boolean;
