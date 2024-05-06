@@ -9,14 +9,14 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { PipelineSchema } from './Pipelines';
 import type { CondensedMergeRequestSchema } from './MergeRequests';
 
 export interface MergeTrainSchema extends Record<string, unknown> {
   id: number;
   merge_request: CondensedMergeRequestSchema;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   pipeline: PipelineSchema;
   created_at: string;
   updated_at: string;

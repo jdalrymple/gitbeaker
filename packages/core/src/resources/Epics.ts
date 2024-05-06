@@ -9,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { TodoSchema } from './TodoLists';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { GroupSchema } from './Groups';
 import type { SimpleLabelSchema } from '../templates/ResourceLabels';
 
@@ -29,7 +29,7 @@ export interface EpicSchema extends Record<string, unknown> {
     relative: string;
     full: string;
   };
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   start_date?: string;
   start_date_is_fixed: boolean;
   start_date_fixed?: string;

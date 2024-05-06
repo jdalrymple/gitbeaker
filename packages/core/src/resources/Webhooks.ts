@@ -1,5 +1,5 @@
 import type { MappedOmit } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 
 // Sub / Base Schemas
 export interface WebhookRepositorySchema {
@@ -67,7 +67,7 @@ export interface BaseWebhookEventSchema {
   object_kind: string;
   event_name: string;
   project: WebhookProjectSchema;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
 }
 
 export interface WebhookBaseNoteEventSchema extends BaseWebhookEventSchema {
@@ -191,8 +191,8 @@ export interface WebhookIssueEventSchema extends BaseWebhookEventSchema {
     description: string;
     homepage: string;
   };
-  assignees: Pick<UserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
-  assignee: Pick<UserSchema, 'name' | 'username' | 'avatar_url'> | null;
+  assignees: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
+  assignee: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'> | null;
   labels: WebhookLabelSchema[] | null;
   changes: {
     updated_by_id: {
@@ -256,7 +256,7 @@ export interface WebhookMergeRequestNoteEventSchema extends WebhookBaseNoteEvent
     };
     work_in_progress: boolean;
     draft: boolean;
-    assignee: Pick<UserSchema, 'name' | 'username' | 'avatar_url'> | null;
+    assignee: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'> | null;
     detailed_merge_status: string;
   };
 }
@@ -377,7 +377,7 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       current: number | null;
     };
   };
-  assignees: Pick<UserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
+  assignees: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
   reviewers: WebhookLabelSchema[] | null;
 }
 
@@ -466,7 +466,7 @@ export interface WebhookPipelineEventSchema
         when: string;
         manual: boolean;
         allow_failure: boolean;
-        user: MappedOmit<UserSchema, 'created_at'>;
+        user: MappedOmit<SimpleUserSchema, 'created_at'>;
         runner: {
           id: number;
           description: string;

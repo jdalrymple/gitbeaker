@@ -8,7 +8,7 @@ import type {
   PaginationRequestOptions,
   PaginationTypes,
 } from '../infrastructure';
-import { UserSchema } from './Users';
+import { SimpleUserSchema } from './Users';
 
 export type AllEventOptions = {
   action?:
@@ -40,7 +40,7 @@ export interface EventSchema extends Record<string, unknown> {
   author_id: number;
   target_title: string;
   created_at: string;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   author_username: string;
 }
 

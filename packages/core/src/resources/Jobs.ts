@@ -12,7 +12,7 @@ import type {
 import type { SimpleProjectSchema } from './Projects';
 import type { CondensedCommitSchema } from './Commits';
 import type { RunnerSchema } from './Runners';
-import type { ExpandedUserSchema, UserSchema } from './Users';
+import type { ExpandedUserSchema, SimpleUserSchema } from './Users';
 import type { PipelineSchema } from './Pipelines';
 
 export type JobScope =
@@ -105,7 +105,7 @@ export interface JobKubernetesAgentsSchema extends Record<string, unknown> {
   job: CondensedJobSchema;
   pipeline: PipelineSchema;
   project: MappedOmit<SimpleProjectSchema, 'web_url'>;
-  user: UserSchema;
+  user: SimpleUserSchema;
 }
 
 export interface JobVariableAttributeOption extends Record<string, unknown> {

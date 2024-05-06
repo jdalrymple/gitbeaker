@@ -9,12 +9,12 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from '../resources/Users';
+import type { SimpleUserSchema } from '../resources/Users';
 import type { LabelSchema } from './ResourceLabels';
 
 export interface LabelEventSchema extends Record<string, unknown> {
   id: number;
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   resource_type: 'Issue' | 'Epic' | 'MergeRequest';
   resource_id: number;

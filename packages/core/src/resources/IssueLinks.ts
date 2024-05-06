@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { UserSchema } from './Users';
+import { SimpleUserSchema } from './Users';
 import { MilestoneSchema } from '../templates/ResourceMilestones';
 
 export interface IssueLinkSchema extends Record<string, unknown> {
@@ -19,9 +19,9 @@ export interface IssueLinkSchema extends Record<string, unknown> {
   state: string;
   description: string;
   weight?: number;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   milestone: MilestoneSchema;
-  assignees?: MappedOmit<UserSchema, 'created_at'>[];
+  assignees?: MappedOmit<SimpleUserSchema, 'created_at'>[];
   title: string;
   labels?: string[];
   user_notes_count: number;

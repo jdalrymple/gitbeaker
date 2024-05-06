@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { GroupSchema } from './Groups';
 import type { ProtectedBranchSchema } from './ProtectedBranches';
 
@@ -15,7 +15,7 @@ export interface ProjectLevelMergeRequestApprovalSchema extends Record<string, u
 }
 
 export interface ApprovedByEntity {
-  user: MappedOmit<UserSchema, 'created_at'>;
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
 }
 
 export interface MergeRequestLevelMergeRequestApprovalSchema extends Record<string, unknown> {
@@ -37,9 +37,9 @@ export interface ApprovalRuleSchema extends Record<string, unknown> {
   id: number;
   name: string;
   rule_type: string;
-  eligible_approvers?: MappedOmit<UserSchema, 'created_at'>[];
+  eligible_approvers?: MappedOmit<SimpleUserSchema, 'created_at'>[];
   approvals_required: number;
-  users?: MappedOmit<UserSchema, 'created_at'>[];
+  users?: MappedOmit<SimpleUserSchema, 'created_at'>[];
   groups?: GroupSchema[];
   contains_hidden_groups: boolean;
   overridden: boolean;

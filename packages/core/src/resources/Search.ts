@@ -15,7 +15,7 @@ import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { SimpleSnippetSchema } from './Snippets';
 import type { CommitSchema } from './Commits';
 import type { NoteSchema } from '../templates/ResourceNotes';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 
 export interface BlobSchema extends Record<string, unknown> {
   id: number;
@@ -59,7 +59,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
       Sudo &
       ShowExpanded<E> &
       PaginationRequestOptions<P>,
-  ): Promise<GitlabAPIResponse<UserSchema[], C, E, void>>;
+  ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'notes',

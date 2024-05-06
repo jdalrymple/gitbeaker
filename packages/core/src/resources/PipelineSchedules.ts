@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { PipelineSchema } from './Pipelines';
 import type { PipelineVariableSchema } from './PipelineScheduleVariables';
 
@@ -22,7 +22,7 @@ export interface CondensedPipelineScheduleSchema extends Record<string, unknown>
   active: boolean;
   created_at: string;
   updated_at: string;
-  owner: MappedOmit<UserSchema, 'created_at'>;
+  owner: MappedOmit<SimpleUserSchema, 'created_at'>;
 }
 
 export interface PipelineScheduleSchema extends CondensedPipelineScheduleSchema {

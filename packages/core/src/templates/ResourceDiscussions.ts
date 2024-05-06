@@ -10,7 +10,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from '../resources/Users';
+import type { SimpleUserSchema } from '../resources/Users';
 
 export interface DiscussionNotePositionBaseSchema extends Record<string, unknown> {
   base_sha: string;
@@ -57,7 +57,7 @@ export interface DiscussionNoteSchema extends Record<string, unknown> {
   type: 'DiffNote' | 'DiscussionNote' | null;
   body: string;
   attachment: string | null;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;

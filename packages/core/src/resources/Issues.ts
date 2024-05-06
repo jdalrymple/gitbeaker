@@ -11,7 +11,7 @@ import type {
   Sudo,
   UserAgentDetailSchema,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
 import type { MetricImageSchema } from './AlertManagement';
@@ -30,10 +30,10 @@ export interface IssueSchema extends Record<string, unknown> {
   description: string;
   health_status?: string;
   weight?: number;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   milestone: MilestoneSchema;
   project_id: number;
-  assignees?: MappedOmit<UserSchema, 'created_at'>[];
+  assignees?: MappedOmit<SimpleUserSchema, 'created_at'>[];
   type: string;
   updated_at: string;
   closed_at?: string;
@@ -241,8 +241,8 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<MappedOmit<UserSchema, 'created_at'>[], C, E, void>> {
-    return RequestHelper.get<MappedOmit<UserSchema, 'created_at'>[]>()(
+  ): Promise<GitlabAPIResponse<MappedOmit<SimpleUserSchema, 'created_at'>[], C, E, void>> {
+    return RequestHelper.get<MappedOmit<SimpleUserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/participants`,
       options,

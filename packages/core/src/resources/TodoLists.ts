@@ -8,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { UserSchema } from './Users';
+import type { SimpleUserSchema } from './Users';
 import type { SimpleProjectSchema } from './Projects';
 
 export type TodoAction =
@@ -31,7 +31,7 @@ export type TodoState = 'pending' | 'done';
 
 export interface TodoSchema extends Record<string, unknown> {
   id: number;
-  author: MappedOmit<UserSchema, 'created_at'>;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   project: Pick<
     SimpleProjectSchema,
     'id' | 'name' | 'name_with_namespace' | 'path' | 'path_with_namespace'
