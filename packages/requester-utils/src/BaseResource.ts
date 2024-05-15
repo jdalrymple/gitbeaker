@@ -28,7 +28,10 @@ export interface BaseRequestOptionsWithJobToken<C> extends RootResourceOptions<C
   jobToken: GitlabToken;
 }
 
+export interface BaseRequestOptionsWithoutToken<C> extends RootResourceOptions<C> {}
+
 export type BaseResourceOptions<C> =
+  | BaseRequestOptionsWithoutToken<C>
   | BaseRequestOptionsWithOAuthToken<C>
   | BaseRequestOptionsWithAccessToken<C>
   | BaseRequestOptionsWithJobToken<C>;
@@ -127,9 +130,6 @@ export class BaseResource<C extends boolean = false> {
       this.authHeaders['job-token'] = async () => getDynamicToken(tokens.jobToken);
     else if ('token' in tokens)
       this.authHeaders['private-token'] = async () => getDynamicToken(tokens.token);
-    else {
-      throw new ReferenceError('A token, oauthToken or jobToken must be passed');
-    }
 
     // Profiling
     if (profileToken) {

@@ -103,14 +103,6 @@ describe('Creation of BaseResource instance', () => {
     await expect(service.authHeaders['job-token']()).resolves.toBe('1234');
   });
 
-  it('should throw an error if a token, jobToken or oauthToken is not passed', () => {
-    expect(() => {
-      // eslint-disable-next-line
-      // @ts-ignore
-      new BaseResource({ requesterFn: jest.fn() }); // eslint-disable-line
-    }).toThrow();
-  });
-
   it('should set the X-Profile-Token header if the profileToken option is given', () => {
     const service = new BaseResource({
       token: '123',
