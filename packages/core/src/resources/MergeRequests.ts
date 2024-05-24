@@ -163,6 +163,7 @@ export interface ExpandedMergeRequestSchema extends MergeRequestSchema {
   user: {
     can_merge: boolean;
   };
+  rebase_in_progress?: boolean;
 }
 
 export interface MergeRequestSchemaWithExpandedLabels extends MergeRequestSchema {
