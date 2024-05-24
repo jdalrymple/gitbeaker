@@ -1,0 +1,43 @@
+{
+  "targetDefaults": {
+    "test:unit": {
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
+      "cache": true
+    },
+    "test:integration": {
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/reports"],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "test:types": {
+      "dependsOn": ["build"],
+      "cache": true
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "lint:fix": {
+      "cache": true
+    },
+    "format": {
+      "cache": true
+    },
+    "format:fix": {
+      "cache": true
+    }
+  },
+  "defaultBase": "main",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  }
+}

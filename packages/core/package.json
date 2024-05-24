@@ -1,0 +1,65 @@
+{
+  "name": "@gitbeaker/core",
+  "version": "40.0.3",
+  "description": "Core API implementation of the GitLab API",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/gitbeaker"
+  },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "keywords": [
+    "gitlab",
+    "api",
+    "core",
+    "gitbeaker"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./map.json": "./dist/map.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn run build:map && yarn run build:self",
+    "build:map": "tsx scripts/generate.ts",
+    "build:self": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "test:types": "tsc",
+    "test:integration": "jest --maxWorkers=50% test/integration",
+    "test:unit": "jest --maxWorkers=50% test/unit",
+    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@gitbeaker/requester-utils": "^40.0.3",
+    "qs": "^6.11.2",
+    "xcase": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "Projects": [
+    {
+      "name": "constructor",
+      "args": [
+        "token",
+        "jobToken",
+        "oauthToken",
+        "sudo",
+        "profileToken",
+        "requesterFn",
+        "camelize",
+        "profileMode",
+        "host",
+        "prefixUrl",
+        "rejectUnauthorized",
+        "queryTimeout"
+      ]
+    },
+    {
+      "name": "all",
+      "args": []
+    },
+    {
+      "name": "allTransferLocations",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allUsers",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allGroups",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allSharableGroups",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allForks",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allStarrers",
+      "args": ["projectId"]
+    },
+    {
+      "name": "allStoragePaths",
+      "args": ["projectId"]
+    },
+    {
+      "name": "archive",
+      "args": ["projectId"]
+    },
+    {
+      "name": "create",
+      "args": []
+    },
+    {
+      "name": "createForkRelationship",
+      "args": ["projectId", "forkedFromId"]
+    },
+    {
+      "name": "createPullMirror",
+      "args": ["projectId", "url", "mirror"]
+    },
+    {
+      "name": "downloadSnapshot",
+      "args": ["projectId"]
+    },
+    {
+      "name": "edit",
+      "args": ["projectId"]
+    },
+    {
+      "name": "fork",
+      "args": ["projectId"]
+    },
+    {
+      "name": "housekeeping",
+      "args": ["projectId"]
+    },
+    {
+      "name": "importProjectMembers",
+      "args": ["projectId", "sourceProjectId"]
+    },
+    {
+      "name": "remove",
+      "args": ["projectId"]
+    },
+    {
+      "name": "removeForkRelationship",
+      "args": ["projectId"]
+    },
+    {
+      "name": "removeAvatar",
+      "args": ["projectId"]
+    },
+    {
+      "name": "restore",
+      "args": ["projectId"]
+    },
+    {
+      "name": "search",
+      "args": ["projectName"]
+    },
+    {
+      "name": "share",
+      "args": ["projectId", "groupId", "groupAccess"]
+    },
+    {
+      "name": "show",
+      "args": ["projectId"]
+    },
+    {
+      "name": "showLanguages",
+      "args": ["projectId"]
+    },
+    {
+      "name": "showPullMirror",
+      "args": ["projectId"]
+    },
+    {
+      "name": "star",
+      "args": ["projectId"]
+    },
+    {
+      "name": "transfer",
+      "args": ["projectId", "namespaceId"]
+    },
+    {
+      "name": "unarchive",
+      "args": ["projectId"]
+    },
+    {
+      "name": "unshare",
+      "args": ["projectId", "groupId"]
+    },
+    {
+      "name": "unstar",
+      "args": ["projectId"]
+    },
+    {
+      "name": "upload",
+      "args": ["projectId", "file"]
+    },
+    {
+      "name": "uploadAvatar",
+      "args": ["projectId", "avatar"]
+    }
+  ]
+}

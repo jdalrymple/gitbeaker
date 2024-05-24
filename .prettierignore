@@ -1,1 +1,9 @@
-lerna.json
+reports
+coverage
+dist
+package.json
+yarn.lock
+.yarn
+.nx
+.husky
+CHANGELOG.md

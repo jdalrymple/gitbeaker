@@ -5,55 +5,66 @@ plugins:
   - released
   - first-time-contributor
   - all-contributors
-  - - exec
-    - beforeCommitChangelog: 'yarn lint:doc:fix && git add .'
+  - ./scripts/auto-before-commit-changelog-plugin.js
+  - - omit-release-notes
+    - username:
+        - coqbot
+  - - omit-commits
+    - username:
+        - coqbot
+
+prereleaseBranches:
+  - next
+
+noDefaultLabels: true
 
 labels:
   - name: breaking
     changelogTitle: 💥 Breaking Change
-    description: Increment the major version when merged
+    description: Changes are not backwards compatible
     releaseType: major
 
-  - name: feature
-    changelogTitle: 💥 Feature
-    description: A new feature addtion
+  - name: type:feature
+    changelogTitle: ✨ Feature
+    description: Changes add a new feature
     releaseType: minor
 
-  - name: enhancement
-    changelogTitle: 🚀 Enhancement
-    description: Increment the minor version when merged
-    releaseType: minor
-
-  - name: bug
+  - name: type:bug
     changelogTitle: 🐛 Bug Fix
-    description: Fixing a minor bug
+    description: Changes fix a minor bug
     releaseType: minor
 
-  - name: patch
-    changelogTitle: 🤷 Misc
-    description: Increment the patch version when merged
+  - name: type:hot fix
+    changelogTitle: 🚑 Hot Fix
+    description: Changes fix a critical bug
+    releaseType: minor
+
+  - name: type:technical debt
+    changelogTitle: 🔨 Technical Debt
+    description: Changes only affect the internal code, improving performance/quality
     releaseType: patch
 
-  - name: security
-    changelogTitle: 🏿‍♀️ Security
+  - name: type:security
+    changelogTitle: 🔒 Security
     description: Changes improve the code security
     releaseType: patch
 
-  - name: technical debt
-    changelogTitle: 👷🏼‍♀️ Technical Debt
-    description: Changes only affect the internal code, improving performance/quaility
+  - name: type:dependencies
+    changelogTitle: ↕️ Dependencies
+    description: Changes upgrade or remove dependencies
     releaseType: patch
 
-  - name: dependencies
-    changelogTitle: 🔩 Dependencies
-    description: Dependencies Updates
+  - name: type:types
+    changelogTitle: 🗃️ Typescript Definitions
+    description: Changes only affect typescript definitions
+    releaseType: patch
+
+  - name: type:testing
+    changelogTitle: 🚨 Tests
+    description: Changes affect test code
     releaseType: none
 
-  - name: documentation
-    changelogTitle: 📝 Documentation
+  - name: type:documentation
+    changelogTitle: 📚 Documentation
     description: Changes only affect the documentation
     releaseType: none
-
-  - name: skip-release
-    description: Preserve the current version when merged
-    releaseType: skip

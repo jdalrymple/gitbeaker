@@ -1,22 +1,14 @@
-engines:
-  tslint:
-    enabled: true
-    config: tslint.json
-  shellcheck:
-    enabled: true
-  duplication:
-    enabled: true
-    config:
-      languages:
-        typescript:
-          mass_threshold: 70
-          count_threshold: 3
+version: '2'
 
-ratings:
-  paths:
-    - '**.ts'
+checks:
+  similar-code:
+    enabled: false
+  file-lines:
+    enabled: false
+  method-count:
+    enabled: false
 
-exclude_paths:
-  - node_modules
-  - coverage
-  - dist
+exclude_patterns:
+  - '**/test/'
+  - '**/*.d.ts'
+  - '.yarn/'

@@ -1,0 +1,65 @@
+{
+  "name": "@gitbeaker/rest",
+  "version": "40.0.3",
+  "description": "Cross Platform implementation of the GitLab API",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdalrymple/gitbeaker"
+  },
+  "bugs": {
+    "url": "https://github.com/jdalrymple/gitbeaker/issues"
+  },
+  "homepage": "https://github.com/jdalrymple/gitbeaker#readme",
+  "author": {
+    "name": "Justin Dalrymple"
+  },
+  "keywords": [
+    "gitlab",
+    "api",
+    "rest",
+    "browser",
+    "gitbeaker"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "test:types": "tsc",
+    "test:e2e:browser": "playwright test --project=e2e",
+    "test:e2e:nodejs": "jest --maxWorkers=50% test/e2e/nodejs",
+    "test:e2e": "yarn test:e2e:browser && yarn test:e2e:nodejs",
+    "test:integration:browser": "playwright test --project=integration",
+    "test:integration": "yarn test:integration:browser",
+    "test:unit": "jest --maxWorkers=50% test/unit",
+    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@gitbeaker/core": "^40.0.3",
+    "@gitbeaker/requester-utils": "^40.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}

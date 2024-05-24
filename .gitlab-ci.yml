@@ -1,137 +1,470 @@
-default:
-  image: node:lts-alpine
-
-# Cache modules in between jobs
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - packages/gitbeaker-core/node_modules/
-    - packages/gitbeaker-cli/node_modules/
-    - packages/gitbeaker-browser/node_modules/
-    - packages/gitbeaker-node/node_modules/
-    - packages/gitbeaker-requester-utils/node_modules/
-    - node_modules/
-
 stages:
   - install
   - build
   - lint
+  - format
+  - setup
   - test
+  - teardown
   - release
 
+# Fallback variables
+
+variables:
+  PLAYWRIGHT_VERSION: $CI_JOB_IMAGE
+  TEST_ID: $CI_JOB_ID
+  CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
+  GCP_ZONE: us-central1-c
+  CONTAINER_NAME: gitlab-${CI_PIPELINE_ID}
+
+# Cache Config
+
+.cache:install:modules: &cacheinstallmodules
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - node_modules
+
+.cache:install:cc: &cachecodeclimate
+  key: codeclimate-0.11.1
+  paths:
+    - tmp/codeclimate
+
+.cache:install:yarn: &cacheinstallyarn
+  key: yarn-$CI_JOB_IMAGE
+  paths:
+    - .yarn
+
+.cache:nx: &cachenx
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .nx/cache
+
 #Link and Install all required dependancies
+
 install:
-  image: node:lts
+  image: node:20-alpine
   stage: install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  before_script:
+    - apk add --no-cache libc6-compat jq
+    - echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq ".children.Version")" >> install.env
   script:
     - yarn
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull-push
+    - <<: *cacheinstallyarn
+      policy: pull-push
+  artifacts:
+    reports:
+      dotenv: install.env
 
-# Build core (cjs, es, and browser) and cli packages
-# Uses work around to allow for linking of the cli packages
 build:
   stage: build
+  image: node:20-alpine
+  needs:
+    - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+    - <<: *cachenx
+      policy: pull-push
+  before_script:
+    - apk add --no-cache libc6-compat git
   script:
     - yarn build
   artifacts:
     paths:
-      - packages/gitbeaker-core/dist/
-      - packages/gitbeaker-cli/dist/
-      - packages/gitbeaker-browser/dist/
-      - packages/gitbeaker-node/dist/
-      - packages/gitbeaker-requester-utils/dist/
+      - packages/core/dist/
+      - packages/cli/dist/
+      - packages/rest/dist/
+      - packages/requester-utils/dist/
+    expire_in: 2d
 
 # Lint all code, tests and supporting documentation (README, CHANGELOG etc)
-lint:src:
+
+lint:
   stage: lint
+  image: node:20-alpine
+  needs:
+    - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+    - <<: *cachenx
+      policy: pull-push
+  before_script:
+    - apk add --no-cache libc6-compat
   script: yarn lint
 
-lint:docs:
-  stage: lint
-  script: yarn lint:doc
-
-# Unit Tests
-test:unit:core:
-  stage: test
-  script: yarn jest core/test/unit && yarn codecov -F core
-
-test:unit:node:
-  stage: test
-  script: yarn jest node/test/unit && yarn codecov -F node
-
-test:unit:browser:
-  image: buildkite/puppeteer
-  stage: test
-  script: yarn jest browser/test/unit && yarn codecov -F browser
-
-test:unit:utils:
-  stage: test
-  script: yarn jest utils/test/unit && yarn codecov -F utils
-
-# Integration Tests
-.test:integration: &integration
-  image:
-    name: docker/compose:latest
-    entrypoint: ['/bin/sh', '-c']
+format:
+  stage: format
+  image: node:20-alpine
+  needs:
+    - install
   variables:
-    DOCKER_HOST: tcp://docker:2375
-    GITLAB_URL: http://docker:8080
-  services:
-    - docker:dind
-  stage: test
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
   before_script:
-    # Install docker compose
-    - apk add --no-cache nodejs yarn git
+    - apk add --no-cache libc6-compat
+  script: yarn format
 
-    # Spin up container
-    - cd scripts
-    - docker-compose -f docker-compose.yml up -d
+## Test Setup
 
-    # Verify Gitlab instance is up and running
-    - node probe.js
+test:unit:setup:
+  stage: setup
+  image: alpine/curl
+  needs: []
+  script:
+    - mkdir -p tmp/codeclimate
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/codeclimate/cc-test-reporter
+    - ls tmp/codeclimate/
+    - chmod +x ./tmp/codeclimate/cc-test-reporter
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull-push
 
-    # Get the personal token
-    - export PERSONAL_ACCESS_TOKEN=$(docker exec -i gitlab sh -c 'gitlab-rails r /mnt/init.rb')
+test:live:setup:
+  stage: setup
+  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  needs: []
+  timeout: 15m
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+      allow_failure: false
+    - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
+      when: manual
+      allow_failure: true
+  variables:
+    GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+    GITLAB_VERSION: 16.8.1-ce.0
+    GITLAB_ROOT_PASSWORD: gitbeaker
+  before_script:
+    - apk add jq curl
+    - gcloud components install beta -q
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID} --no-user-output-enabled
+    - |
+      gcloud compute instances create-with-container $CONTAINER_NAME \
+        --project gitbeaker \
+        --machine-type=e2-standard-2 \
+        --zone=$GCP_ZONE \
+        --scopes=https://www.googleapis.com/auth/cloud-platform \
+        --tags http-server,https-server \
+        --container-image docker.io/gitlab/gitlab-ce:$GITLAB_VERSION \
+        --container-command '/bin/sh' \
+        --container-arg="-c" \
+        --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
+        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
+        --no-user-output-enabled
 
-    - cd ..
-    - echo $PERSONAL_ACCESS_TOKEN
-    - echo $GITLAB_URL
-    - echo $CODECOV_TOKEN
+    - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE --no-user-output-enabled
+    - |
+      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+        --zone=$GCP_ZONE \
+        --max-run-duration=720s \
+        --instance-termination-action=DELETE \
+        --no-user-output-enabled
+    - |
+      GITLAB_HOST="$(gcloud compute instances start $CONTAINER_NAME \
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
+        --zone=$GCP_ZONE \
+        2>/dev/null \
+      )"
+    - GITLAB_URL="http://${GITLAB_HOST}"
+    - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
+    - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
+    - echo "Waiting for service to start"
+    - sleep 240
+    - attempt=1
+    - |
+      while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+        echo "Polling Attempt: $attempt - Gitlab service is not alive yet";
+        sleep 10;
+        ((attempt++));
+      done
+    - echo "Service is up and running"
+  artifacts:
+    reports:
+      dotenv: intergration.env
 
-test:integration:browser:
-  image: buildkite/puppeteer
+# Tests Templates
+
+.test:base:
   stage: test
-  script: yarn jest browser/test/integration
+  image: node:20-alpine
+  needs:
+    - install
+  variables:
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+    - <<: *cachenx
+      policy: pull-push
+  before_script:
+    - apk add --no-cache libc6-compat
 
-test:integration:cli:
-  <<: *integration
-  script: yarn jest cli/test/integration
+.test:unit:base:
+  extends: .test:base
+  needs:
+    - install
+    - test:unit:setup
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+    - <<: *cachecodeclimate
+      policy: pull
+    - <<: *cachenx
+      policy: pull-push
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  before_script:
+    - apk add --no-cache libc6-compat git
+  after_script:
+    - cd $PKG_PATH
+    - ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
+  artifacts:
+    when: always
+    paths:
+      - $PKG_PATH/coverage/cc-coverage.json
+    reports:
+      junit: $PKG_PATH/reports/*junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: $PKG_PATH/coverage/cobertura-coverage.xml
 
-# test:integration:node:
-#   <<: *integration
-#   script: yarn jest node/test/integration && yarn codecov -F node
+.test:types:base:
+  extends: .test:base
+  needs:
+    - build
 
-# test:cli:integration:dist:
-#   <<: *integration
-#   script: yarn jest core/test/integration --runInBand && yarn codecov
+.test:integration:base:
+  extends: .test:base
+  needs:
+    - build
 
-# test:core:integration:dist-cjs:
-#   <<: *integration
-#   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
-
-# test:core:integration:dist-es
-#   <<: *integration
-#   script: yarn jest core/test/integration --runInBand --moduleNameMapper="{dist:dist/index.es.js}"
-
-# Release
-release:
+.test:e2e:base:
+  extends: .test:base
   only:
     refs:
-      - master
-  stage: release
+      - /^pr-[0-9]+$/
+      - main
+      - next
+  needs:
+    - build
+    - test:live:setup
+
+  when: on_success
+
+## Unit Tests
+
+test:unit:utils:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/requester-utils
+  variables:
+    PKG_PATH: 'packages/requester-utils'
+
+test:unit:core:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/core
+  variables:
+    PKG_PATH: 'packages/core'
+
+test:unit:rest:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/rest
+  variables:
+    PKG_PATH: 'packages/rest'
+
+test:unit:cli:
+  extends: .test:unit:base
+  script: yarn test:unit --projects=@gitbeaker/cli
+  variables:
+    PKG_PATH: 'packages/cli'
+
+## Types Tests
+
+test:types:utils:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/requester-utils'
+  script: yarn test:types --projects=@gitbeaker/requester-utils
+
+test:types:core:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/core'
+  script: yarn test:types --projects=@gitbeaker/core
+
+test:types:rest:
+  extends: .test:types:base
+  variables:
+    PKG_PATH: 'packages/rest'
+  script: yarn test:types --projects=@gitbeaker/rest
+
+## Integration Tests
+
+test:integration:rest:
+  extends: .test:integration:base
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
   before_script:
-    - apk add --no-cache git
-    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-    - git checkout master
+    # reinstall swc due to missing binding for ubuntu image
+    - yarn add @swc/core
+  script: yarn test:integration --projects=@gitbeaker/rest
+
+test:integration:core:
+  extends: .test:integration:base
+  script: yarn test:integration --projects=@gitbeaker/core
+
+## End-to-End Tests
+
+test:e2e:rest:
+  extends: .test:e2e:base
+  image: mcr.microsoft.com/playwright:v1.41.1-focal
+  before_script:
+    # reinstall swc due to missing binding for ubuntu image
+    - yarn add @swc/core
+  script: yarn test:e2e --projects=@gitbeaker/rest
+
+test:e2e:cli:
+  extends: .test:e2e:base
+  script: yarn test:e2e --projects=@gitbeaker/cli
+
+# Teardown
+
+test:unit:teardown:
+  stage: teardown
+  image: alpine/curl
+  except:
+    refs:
+      - /^pr-[0-9]+$/
+  needs:
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:rest
+    - test:unit:cli
+  when: always
+  cache:
+    - <<: *cachecodeclimate
+      policy: pull
+  before_script:
+    - mkdir coverage
+    - ls tmp/codeclimate
+  script:
+    - ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
+    - ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
+
+test:live:teardown:
+  stage: teardown
+  image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  needs:
+    - test:e2e:cli
+    - test:e2e:rest
+  only:
+    refs:
+      - /^pr-[0-9]+$/
+      - main
+      - next
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+    - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+    - gcloud compute instances delete $CONTAINER_NAME --zone=$GCP_ZONE
+
+# Releases
+
+.release:base:
+  stage: release
+  image: node:20-alpine
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+    NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+  needs:
+    - build # CHECKME: Needed for the artifacts
+    - test:unit:utils
+    - test:unit:core
+    - test:unit:cli
+    - test:unit:rest
+    - test:types:utils
+    - test:types:core
+    - test:types:rest
+    - test:integration:rest
+    - test:integration:core
+    - test:e2e:cli
+    - test:e2e:rest
+  cache:
+    - <<: *cacheinstallmodules
+      policy: pull
+    - <<: *cacheinstallyarn
+      policy: pull
+  before_script:
+    - apk add --no-cache libc6-compat git openssh
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - npm config set always-auth=true
+    - git config --global user.name "Autobot"
+    - git config --global user.email "ci@gitlab.com"
+    - git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+    - git branch $CI_COMMIT_BRANCH HEAD
+    - git checkout $CI_COMMIT_BRANCH
+    - echo 'Ensure build files are present'
+    - ls -A packages/requester-utils/dist
+    - ls -A packages/core/dist
+    - ls -A packages/rest/dist
+    - ls -A packages/cli/dist
+
+## Canary or RC Special Releases
+
+release:special:
+  extends: .release:base
+  only:
+    refs:
+      - /^pr-[0-9]+$/
+  script:
+    - echo "Checking for special release..."
+    - |
+      if [[ $CI_COMMIT_BRANCH =~ ^pr-[0-9]*$ ]]; then
+        pr_id="${CI_COMMIT_BRANCH//[!0-9]/}"
+
+        export CI_MERGE_REQUEST_ID=$pr_id
+        export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CI_COMMIT_BRANCH
+
+        labels=$(yarn auto label --pr $pr_id)
+
+        if [[ "$labels" =~ "release:canary" ]]; then
+          yarn release:canary
+        fi
+      fi
+
+## Production
+
+release:
+  extends: .release:base
+  only:
+    refs:
+      - main
+      - next
   script: yarn release
