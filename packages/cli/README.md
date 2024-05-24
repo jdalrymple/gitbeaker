@@ -101,8 +101,6 @@ GITLAB_TOKEN=personaltoken
 GITBEAKER_CAMELIZE=true
 ```
 
-This could be set globally or using a [.env](https://github.com/motdotla/dotenv#readme) file in the project folder.
-
 </td></tr>
 </tbody>
 </table>
