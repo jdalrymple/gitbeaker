@@ -63,7 +63,14 @@ export interface GroupSchema extends SimpleGroupSchema {
 export interface ExpandedGroupSchema extends GroupSchema {
   runners_token: string;
   file_template_project_id: number;
-  shared_with_groups?: ProjectSchema[];
+  shared_with_groups:
+    | {
+        group_id: number;
+        group_name: string;
+        group_full_path: string;
+        group_access_level: number;
+      }[]
+    | null;
   projects?: ProjectSchema[];
   shared_projects?: ProjectSchema[];
 }
