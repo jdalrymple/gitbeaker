@@ -126,9 +126,9 @@ Available instantiating options:
 | Name                 | Optional | Default                                                                                                                                 | Description                                                                                                        |
 | -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `host`               | Yes      | `https://gitlab.com`                                                                                                                    | Gitlab Instance Host URL                                                                                           |
-| `token`              | No\*     | N/A                                                                                                                                     | Personal Token. Required (one of the three tokens are required)                                                    |
-| `oauthToken`         | No\*     | N/A                                                                                                                                     | OAuth Token. Required (one of the three tokens are required)                                                       |
-| `jobToken`           | No\*     | N/A                                                                                                                                     | CI Job Token. Required (one of the three tokens are required)                                                      |
+| `token`              | Yes\*    | N/A                                                                                                                                     | Personal Token. Recommended (one of the three tokens are recommended)                                              |
+| `oauthToken`         | Yes\*    | N/A                                                                                                                                     | OAuth Token. Recommended (one of the three tokens are recommended)                                                 |
+| `jobToken`           | Yes\*    | N/A                                                                                                                                     | CI Job Token. Recommended (one of the three tokens are recommended)                                                |
 | `rejectUnauthorized` | Yes      | `true`                                                                                                                                  | Http Certificate setting, Only applies to non-browser releases and HTTPS hosts urls                                |
 | `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
 | `camelize`           | Yes      | `false`                                                                                                                                 | Camelizes all response body keys                                                                                   |
@@ -138,7 +138,7 @@ Available instantiating options:
 | `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
 | `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
 
-> \*One of these options must be supplied.
+> \*One of these options should be supplied, as most API requests require authentication.
 
 ### Expanded Payloads
 

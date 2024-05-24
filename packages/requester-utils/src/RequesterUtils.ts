@@ -142,10 +142,12 @@ export async function defaultOptionsHandler(
     }
   }
 
-  // Append dynamic auth header
-  const [authHeaderKey, authHeaderFn] = Object.entries(authHeaders)[0];
+  if (Object.keys(authHeaders).length > 0) {
+    // Append dynamic auth header
+    const [authHeaderKey, authHeaderFn] = Object.entries(authHeaders)[0];
 
-  defaultOptions.headers[authHeaderKey] = await authHeaderFn();
+    defaultOptions.headers[authHeaderKey] = await authHeaderFn();
+  }
 
   // Format query parameters
   const q = formatQuery(searchParams);
