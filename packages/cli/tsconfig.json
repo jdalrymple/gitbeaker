@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "module": "esnext",
     "paths": {
       "@gitbeaker/core/map.json": ["../core/dist/map.json"],
       "@gitbeaker/*": ["../*/src"],
