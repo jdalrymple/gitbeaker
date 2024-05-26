@@ -28,6 +28,6 @@ export interface EpicLabelEvents<C extends boolean = false> {
 export class EpicLabelEvents<C extends boolean = false> extends ResourceLabelEvents<C> {
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
-    super('groups', 'epic', options);
+    super('groups', 'epics', options);
   }
 }
