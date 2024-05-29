@@ -170,7 +170,7 @@ test:live:setup:
         --zone=$GCP_ZONE \
         --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server \
-        --metadata-from-file scripts/startup.sh \
+        --metadata-from-file startup-script=scripts/startup.sh \
         --max-run-duration=720s
         --instance-termination-action=DELETE
         --image-family=debian-11 \
