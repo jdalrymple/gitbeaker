@@ -166,7 +166,8 @@ test:live:setup:
     - |
       gcloud compute instances create-with-container $CONTAINER_NAME \
         --project gitbeaker \
-        --machine-type=e2-standard-2 \
+        --machine-type=e2-highmem-2 \
+        --boot-disk-size=25GB \
         --zone=$GCP_ZONE \
         --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server,https-server \
