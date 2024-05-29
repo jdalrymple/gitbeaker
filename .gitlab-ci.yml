@@ -178,14 +178,14 @@ test:live:setup:
         --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
         --no-user-output-enabled
 
-    - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE --no-user-output-enabled
-    - |
-      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
-        --zone=$GCP_ZONE \
-        --max-run-duration=720s \
-        --instance-termination-action=DELETE \
-        --no-user-output-enabled
-    - |
+    # - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE --no-user-output-enabled
+    # - |
+    #   gcloud beta compute instances set-scheduling $CONTAINER_NAME \
+    #     --zone=$GCP_ZONE \
+    #     --max-run-duration=720s \
+    #     --instance-termination-action=DELETE \
+    #     --no-user-output-enabled
+    # - |
       GITLAB_HOST="$(gcloud compute instances start $CONTAINER_NAME \
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
         --zone=$GCP_ZONE \
