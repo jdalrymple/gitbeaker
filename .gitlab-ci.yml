@@ -163,7 +163,7 @@ test:live:setup:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID} --no-user-output-enabled
     - |
-      gcloud compute instances $CONTAINER_NAME \
+      gcloud compute instances create $CONTAINER_NAME \
         --project gitbeaker \
         --machine-type=e2-highmem-2 \
         --boot-disk-size=25GB \
