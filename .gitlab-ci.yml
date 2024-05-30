@@ -169,7 +169,6 @@ test:live:setup:
         --machine-type=e2-highmem-2 \
         --boot-disk-size=25GB \
         --zone=$GCP_ZONE \
-        --scopes=https://www.googleapis.com/auth/cloud-platform \
         --tags http-server \
         --metadata-from-file startup-script=scripts/startup.sh \
         --max-run-duration=12m \
