@@ -171,8 +171,6 @@ test:live:setup:
         --zone=$GCP_ZONE \
         --tags http-server \
         --metadata-from-file startup-script=scripts/startup.sh \
-        --max-run-duration=12m \
-        --instance-termination-action=DELETE \
         --image-family=debian-12 \
         --image-project=debian-cloud \
         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
