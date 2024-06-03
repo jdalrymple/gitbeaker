@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --treeshake --target node18",
+    "build": "tsup src/index.ts --format esm --treeshake --target esnext",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",

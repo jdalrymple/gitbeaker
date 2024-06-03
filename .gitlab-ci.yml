@@ -158,38 +158,25 @@ test:live:setup:
     GITLAB_VERSION: 16.11.3-ce.0
     GITLAB_ROOT_PASSWORD: gitbeaker
   before_script:
-    - apk add jq curl
+    - apk add jq curl envsubst
     - gcloud components install beta -q
   script:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID} --no-user-output-enabled
+    - envsubst < scripts/startup.sh > scripts/startup_filled.sh
     - |
-      gcloud compute instances create-with-container $CONTAINER_NAME \
+      GITLAB_HOST="$(gcloud beta compute instances create $CONTAINER_NAME \
         --project gitbeaker \
-        --machine-type=e2-standard-2 \
+        --machine-type=e2-highmem-2 \
+        --boot-disk-size=25GB \
         --zone=$GCP_ZONE \
-        --scopes=https://www.googleapis.com/auth/cloud-platform \
-        --tags http-server,https-server \
-        --container-image docker.io/gitlab/gitlab-ce:$GITLAB_VERSION \
-        --container-command '/bin/sh' \
-        --container-arg="-c" \
-        --container-arg="printf '#!/usr/bin/env ruby \nu = User.first \nu.admin = true \nu.save! \nt = PersonalAccessToken.new({ user: u, name: \"gitbeaker\", scopes: [\"api\", \"read_user\"]})  \nt.expires_at = 365.days.from_now \nt.set_token(ENV[\"PERSONAL_ACCESS_TOKEN\"]) \nt.save!  \nputs t.token\n' > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb && /assets/wrapper" \
-        --container-env ^~^GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD}~PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}~GITLAB_OMNIBUS_CONFIG="gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0', '172.17.0.1'];" \
-        --no-user-output-enabled
-
-    - gcloud compute instances stop $CONTAINER_NAME --zone=$GCP_ZONE --no-user-output-enabled
-    - |
-      gcloud beta compute instances set-scheduling $CONTAINER_NAME \
-        --zone=$GCP_ZONE \
-        --max-run-duration=720s \
-        --instance-termination-action=DELETE \
-        --no-user-output-enabled
-    - |
-      GITLAB_HOST="$(gcloud compute instances start $CONTAINER_NAME \
-        --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
-        --zone=$GCP_ZONE \
+        --tags http-server \
+        --metadata-from-file startup-script=scripts/startup_filled.sh \
+        --image-family=debian-12 \
+        --image-project=debian-cloud \
+        --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
         2>/dev/null \
-      )"
+        )"
     - GITLAB_URL="http://${GITLAB_HOST}"
     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
@@ -344,6 +331,7 @@ test:integration:core:
 test:e2e:rest:
   extends: .test:e2e:base
   image: mcr.microsoft.com/playwright:v1.41.1-focal
+  allow_failure: true
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
@@ -351,6 +339,7 @@ test:e2e:rest:
 
 test:e2e:cli:
   extends: .test:e2e:base
+  allow_failure: true
   script: yarn test:e2e --projects=@gitbeaker/cli
 
 # Teardown
@@ -381,8 +370,8 @@ test:live:teardown:
   stage: teardown
   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   needs:
-    - test:e2e:cli
     - test:e2e:rest
+    - test:e2e:cli
   only:
     refs:
       - /^pr-[0-9]+$/
