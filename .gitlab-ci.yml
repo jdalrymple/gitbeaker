@@ -158,7 +158,7 @@ test:live:setup:
     GITLAB_VERSION: 16.11.3-ce.0
     GITLAB_ROOT_PASSWORD: gitbeaker
   before_script:
-    - apk add jq curl
+    - apk add jq curl envsubst
     - gcloud components install beta -q
   script:
     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
