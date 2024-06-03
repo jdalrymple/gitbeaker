@@ -74,7 +74,7 @@ const hintStyle = Chalk.hex('#6a5f88');
 const cli = Sywac.version('-v, --version')
   .help('-h, --help')
   .showHelpByDefault()
-  .epilogue('Copyright 2023')
+  .epilogue(`Copyright ${new Date().getFullYear()}`)
   .style({
     usagePrefix: usageStyle,
     group: groupStyle,
