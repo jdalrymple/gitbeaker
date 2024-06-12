@@ -325,6 +325,7 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     draft: boolean;
     first_contribution: boolean;
     merge_status: string;
+    merge_commit_sha: string;
     target_project_id: number;
     description: string;
     total_time_spent: number;
