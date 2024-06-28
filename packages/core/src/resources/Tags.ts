@@ -17,6 +17,7 @@ export interface TagSchema extends Record<string, unknown> {
   target: string;
   message?: string;
   protected: boolean;
+  created_at?: string;
 }
 
 export interface TagSignatureSchema extends Record<string, unknown> {
