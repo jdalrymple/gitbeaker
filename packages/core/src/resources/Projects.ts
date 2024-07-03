@@ -377,7 +377,7 @@ export type EditProjectOptions = {
 };
 
 export type ForkProjectOptions = {
-  branches?: string; 
+  branches?: string;
   description?: string;
   mrDefaultTargetSelf?: boolean;
   name?: string;
