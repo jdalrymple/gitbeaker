@@ -4,8 +4,8 @@
     "module": "esnext",
     "paths": {
       "@gitbeaker/core/map.json": ["../core/dist/map.json"],
-      "@gitbeaker/*": ["../*/src"],
-    },
+      "@gitbeaker/*": ["../*/src"]
+    }
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts"]
 }

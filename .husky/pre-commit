@@ -1,1 +1,1 @@
-npx --no-install lint-staged
+yarn dlx --no-install lint-staged
