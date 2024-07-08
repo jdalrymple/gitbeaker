@@ -1,3 +1,64 @@
+# v40.1.0 (Mon Jul 08 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@YupaTT](https://github.com/YupaTT)
+
+:heart: null[@nhollander-alert](https://github.com/nhollander-alert)
+
+:heart: Ali Souidan ([@ali-souidan](https://github.com/ali-souidan))
+
+:heart: null[@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum)
+
+:heart: Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+#### ✨ Feature
+
+- Add support for the JobTokenScopes API [#3571](https://github.com/jdalrymple/gitbeaker/pull/3571) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Epic label events super used singular 'epic', not 'epics' [#3594](https://github.com/jdalrymple/gitbeaker/pull/3594) ([@arsdehnel](https://github.com/arsdehnel))
+
+#### 🚑 Hot Fix
+
+- Updating minimum node version and JSON assert keyword [#3592](https://github.com/jdalrymple/gitbeaker/pull/3592) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Added created_at attribute [#3605](https://github.com/jdalrymple/gitbeaker/pull/3605) ([@nhollander-alert](https://github.com/nhollander-alert))
+- Adding merge_commit_sha to WebhookMergeRequestEventSchema [#3600](https://github.com/jdalrymple/gitbeaker/pull/3600) ([@ali-souidan](https://github.com/ali-souidan))
+- Extend support for the reformat function & add tests for verification [#3576](https://github.com/jdalrymple/gitbeaker/pull/3576) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- feat: Add 'branches' field to ForkProjectOptions type [#3606](https://github.com/jdalrymple/gitbeaker/pull/3606) ([@YupaTT](https://github.com/YupaTT))
+- Fixing missing types reference for shared_with_groups (Groups Schema) [#3589](https://github.com/jdalrymple/gitbeaker/pull/3589) ([@jdalrymple](https://github.com/jdalrymple))
+- Add `rebase_in_progress` to `ExpandedMergeRequestSchema` [#3585](https://github.com/jdalrymple/gitbeaker/pull/3585) ([@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum))
+- Handling Admin endpoints for the Users API [#3584](https://github.com/jdalrymple/gitbeaker/pull/3584) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating ProjectSchema to include `marked_for_deletion_on` and adding includeHidden and includePendingDelete to AllProjectOptions [#3583](https://github.com/jdalrymple/gitbeaker/pull/3583) ([@jdalrymple](https://github.com/jdalrymple))
+- Update visibility typing for Groups and Projects APIs [#3582](https://github.com/jdalrymple/gitbeaker/pull/3582) ([@jdalrymple](https://github.com/jdalrymple))
+- Add ServiceAccount creation options [#3560](https://github.com/jdalrymple/gitbeaker/pull/3560) ([@Scrumplex](https://github.com/Scrumplex) [@jdalrymple](https://github.com/jdalrymple))
+- Use extended type as primary return type of the Users.all function [#3577](https://github.com/jdalrymple/gitbeaker/pull/3577) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Minor dependency changes ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 7
+
+- [@nhollander-alert](https://github.com/nhollander-alert)
+- [@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum)
+- [@YupaTT](https://github.com/YupaTT)
+- Adam Dehnel ([@arsdehnel](https://github.com/arsdehnel))
+- Ali Souidan ([@ali-souidan](https://github.com/ali-souidan))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+---
+
 # v40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions

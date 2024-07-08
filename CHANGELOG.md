@@ -1,3 +1,92 @@
+# 40.1.0 (Mon Jul 08 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@YupaTT](https://github.com/YupaTT)
+
+:heart: null[@nhollander-alert](https://github.com/nhollander-alert)
+
+:heart: Ali Souidan ([@ali-souidan](https://github.com/ali-souidan))
+
+:heart: null[@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum)
+
+:heart: null[@michael-smt](https://github.com/michael-smt)
+
+:heart: Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+#### ✨ Feature
+
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Remove token requirement to support access without authentication [#3588](https://github.com/jdalrymple/gitbeaker/pull/3588) ([@michael-smt](https://github.com/michael-smt))
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Add support for the JobTokenScopes API [#3571](https://github.com/jdalrymple/gitbeaker/pull/3571) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Epic label events super used singular 'epic', not 'epics' [#3594](https://github.com/jdalrymple/gitbeaker/pull/3594) ([@arsdehnel](https://github.com/arsdehnel))
+
+#### 🚑 Hot Fix
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating minimum node version and JSON assert keyword [#3592](https://github.com/jdalrymple/gitbeaker/pull/3592) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/core`
+  - Added created_at attribute [#3605](https://github.com/jdalrymple/gitbeaker/pull/3605) ([@nhollander-alert](https://github.com/nhollander-alert))
+  - Adding merge_commit_sha to WebhookMergeRequestEventSchema [#3600](https://github.com/jdalrymple/gitbeaker/pull/3600) ([@ali-souidan](https://github.com/ali-souidan))
+  - Extend support for the reformat function & add tests for verification [#3576](https://github.com/jdalrymple/gitbeaker/pull/3576) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ↕️ Dependencies
+
+- Bump braces from 3.0.2 to 3.0.3 [#3601](https://github.com/jdalrymple/gitbeaker/pull/3601) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump ejs from 3.1.9 to 3.1.10 [#3581](https://github.com/jdalrymple/gitbeaker/pull/3581) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - feat: Add 'branches' field to ForkProjectOptions type [#3606](https://github.com/jdalrymple/gitbeaker/pull/3606) ([@YupaTT](https://github.com/YupaTT))
+  - Fixing missing types reference for shared_with_groups (Groups Schema) [#3589](https://github.com/jdalrymple/gitbeaker/pull/3589) ([@jdalrymple](https://github.com/jdalrymple))
+  - Add `rebase_in_progress` to `ExpandedMergeRequestSchema` [#3585](https://github.com/jdalrymple/gitbeaker/pull/3585) ([@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum))
+  - Handling Admin endpoints for the Users API [#3584](https://github.com/jdalrymple/gitbeaker/pull/3584) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating ProjectSchema to include `marked_for_deletion_on` and adding includeHidden and includePendingDelete to AllProjectOptions [#3583](https://github.com/jdalrymple/gitbeaker/pull/3583) ([@jdalrymple](https://github.com/jdalrymple))
+  - Update visibility typing for Groups and Projects APIs [#3582](https://github.com/jdalrymple/gitbeaker/pull/3582) ([@jdalrymple](https://github.com/jdalrymple))
+  - Add ServiceAccount creation options [#3560](https://github.com/jdalrymple/gitbeaker/pull/3560) ([@Scrumplex](https://github.com/Scrumplex) [@jdalrymple](https://github.com/jdalrymple))
+  - Use extended type as primary return type of the Users.all function [#3577](https://github.com/jdalrymple/gitbeaker/pull/3577) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Minor dependency changes ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- Updating GL version [#3596](https://github.com/jdalrymple/gitbeaker/pull/3596) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/rest`
+  - Upgrade CI test instance specs [#3598](https://github.com/jdalrymple/gitbeaker/pull/3598) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`
+  - Removing misleading docs from the CLI package README.md [#3590](https://github.com/jdalrymple/gitbeaker/pull/3590) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 9
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@michael-smt](https://github.com/michael-smt)
+- [@nhollander-alert](https://github.com/nhollander-alert)
+- [@omer-rivlin-platinum](https://github.com/omer-rivlin-platinum)
+- [@YupaTT](https://github.com/YupaTT)
+- Adam Dehnel ([@arsdehnel](https://github.com/arsdehnel))
+- Ali Souidan ([@ali-souidan](https://github.com/ali-souidan))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+---
+
 # 40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions

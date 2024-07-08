@@ -1,3 +1,33 @@
+# v40.1.0 (Mon Jul 08 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work!
+
+#### ✨ Feature
+
+- Remove token requirement to support access without authentication [#3588](https://github.com/jdalrymple/gitbeaker/pull/3588) ([@michael-smt](https://github.com/michael-smt))
+- Add support for the JobTokenScopes API [#3571](https://github.com/jdalrymple/gitbeaker/pull/3571) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚑 Hot Fix
+
+- Updating minimum node version and JSON assert keyword [#3592](https://github.com/jdalrymple/gitbeaker/pull/3592) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Minor dependency changes ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- Upgrade CI test instance specs [#3598](https://github.com/jdalrymple/gitbeaker/pull/3598) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@michael-smt](https://github.com/michael-smt)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions

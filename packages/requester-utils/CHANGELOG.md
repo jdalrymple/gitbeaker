@@ -1,3 +1,28 @@
+# v40.1.0 (Mon Jul 08 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work!
+
+#### ✨ Feature
+
+- Remove token requirement to support access without authentication [#3588](https://github.com/jdalrymple/gitbeaker/pull/3588) ([@michael-smt](https://github.com/michael-smt))
+
+#### 🚑 Hot Fix
+
+- Updating minimum node version and JSON assert keyword [#3592](https://github.com/jdalrymple/gitbeaker/pull/3592) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Minor dependency changes ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@michael-smt](https://github.com/michael-smt)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt

@@ -1,3 +1,27 @@
+# v40.1.0 (Mon Jul 08 2024)
+
+#### 🚑 Hot Fix
+
+- Updating minimum node version and JSON assert keyword [#3592](https://github.com/jdalrymple/gitbeaker/pull/3592) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Minor dependency changes ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- Upgrade CI test instance specs [#3598](https://github.com/jdalrymple/gitbeaker/pull/3598) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Removing misleading docs from the CLI package README.md [#3590](https://github.com/jdalrymple/gitbeaker/pull/3590) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
