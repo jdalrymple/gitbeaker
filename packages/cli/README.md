@@ -222,6 +222,7 @@ GITBEAKER_CAMELIZE=true
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/elaine-mattos"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/79633988?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Elaine Mattos"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/vitamindck"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/10766587?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="DK"/></td>
       <td align="center" valign="top" width="0.33%"><a href="http://www.koenbrouwer.com/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3260168?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Koen Brouwer"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://scrumplex.net/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/11587657?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Sefa Eyeoglu"/></td>
     </tr>
 </p>
 

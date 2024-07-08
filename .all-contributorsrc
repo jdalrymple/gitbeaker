@@ -785,6 +785,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/3260168?v=4",
       "profile": "http://www.koenbrouwer.com/",
       "contributions": ["code"]
+    },
+    {
+      "login": "Scrumplex",
+      "name": "Sefa Eyeoglu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11587657?v=4",
+      "profile": "https://scrumplex.net/",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
