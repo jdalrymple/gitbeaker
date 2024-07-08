@@ -1,3 +1,15 @@
+# 40.1.1 (Mon Jul 08 2024)
+
+#### ↕️ Dependencies
+
+- Bump tar from 6.2.0 to 6.2.1 [#3608](https://github.com/jdalrymple/gitbeaker/pull/3608) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # 40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from new contributors! :tada:
