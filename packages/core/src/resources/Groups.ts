@@ -87,6 +87,7 @@ export type AllGroupsOptions = {
   owned?: boolean;
   minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   topLevelOnly?: boolean;
+  markedForDeletionOn?: string;
 };
 
 export type AllGroupProjectsOptions = {
