@@ -232,6 +232,7 @@ export type AllProjectsOptions = {
   withProgrammingLanguage?: string;
   updatedBefore?: string;
   updatedAfter?: string;
+  markedForDeletionOn?: string;
 };
 
 export type CreateProjectOptions = {
