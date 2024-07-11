@@ -1,3 +1,16 @@
+# 40.1.2 (Thu Jul 11 2024)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Adding filtering support for `marked for deletion on` [#3609](https://github.com/jdalrymple/gitbeaker/pull/3609) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 40.1.1 (Mon Jul 08 2024)
 
 #### ↕️ Dependencies

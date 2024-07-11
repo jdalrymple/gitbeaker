@@ -1,3 +1,15 @@
+# v40.1.2 (Thu Jul 11 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Adding filtering support for `marked for deletion on` [#3609](https://github.com/jdalrymple/gitbeaker/pull/3609) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from new contributors! :tada:
