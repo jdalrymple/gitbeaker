@@ -26,6 +26,7 @@ export interface WebhookLabelSchema {
 }
 
 export interface WebhookProjectSchema {
+  id: number;
   name: string;
   description: string;
   web_url: string;
