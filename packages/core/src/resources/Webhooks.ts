@@ -26,6 +26,7 @@ export interface WebhookLabelSchema {
 }
 
 export interface WebhookProjectSchema {
+  id: number;
   name: string;
   description: string;
   web_url: string;
@@ -378,8 +379,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       current: number | null;
     };
   };
-  assignees: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
-  reviewers: WebhookLabelSchema[] | null;
+  assignees: Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>[] | null;
+  reviewers: Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>[] | null;
 }
 
 export interface WebhookWikiEventSchema extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
