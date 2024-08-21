@@ -357,7 +357,7 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     target_branch: {
       previous: string | null;
       current: string | null;
-    },
+    };
     updated_by_id: {
       previous: number | null;
       current: number | null;
