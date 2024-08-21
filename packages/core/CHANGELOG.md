@@ -1,3 +1,26 @@
+# v40.1.3 (Wed Aug 21 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Peace ([@julian-piehl](https://github.com/julian-piehl))
+
+:heart: Carmi Raz ([@crazfb](https://github.com/crazfb))
+
+#### 🗃️ Typescript Definitions
+
+- Add changes.target_branch to WebhookMergeRequestEventSchema [#3617](https://github.com/jdalrymple/gitbeaker/pull/3617) ([@julian-piehl](https://github.com/julian-piehl) [@jdalrymple](https://github.com/jdalrymple))
+- Fix/webhook project schema add [#3612](https://github.com/jdalrymple/gitbeaker/pull/3612) ([@crazfb](https://github.com/crazfb))
+
+#### Authors: 3
+
+- Carmi Raz ([@crazfb](https://github.com/crazfb))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Peace ([@julian-piehl](https://github.com/julian-piehl))
+
+---
+
 # v40.1.2 (Thu Jul 11 2024)
 
 #### 🗃️ Typescript Definitions

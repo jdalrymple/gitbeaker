@@ -1,3 +1,19 @@
+# v40.1.3 (Wed Aug 21 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your work!
+
+#### 🔨 Technical Debt
+
+- Remove --treeshake option to work with node 22 [#3613](https://github.com/jdalrymple/gitbeaker/pull/3613) ([@kashz](https://github.com/kashz))
+
+#### Authors: 1
+
+- Shunta KARASAWA ([@kashz](https://github.com/kashz))
+
+---
+
 # v40.1.0 (Mon Jul 08 2024)
 
 #### 🚑 Hot Fix

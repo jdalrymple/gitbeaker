@@ -1,3 +1,40 @@
+# 40.1.3 (Wed Aug 21 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Shunta KARASAWA ([@kashz](https://github.com/kashz))
+
+:heart: Peace ([@julian-piehl](https://github.com/julian-piehl))
+
+:heart: Carmi Raz ([@crazfb](https://github.com/crazfb))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/cli`
+  - Remove --treeshake option to work with node 22 [#3613](https://github.com/jdalrymple/gitbeaker/pull/3613) ([@kashz](https://github.com/kashz))
+
+#### ↕️ Dependencies
+
+- Bump axios from 1.6.5 to 1.7.4 [#3618](https://github.com/jdalrymple/gitbeaker/pull/3618) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Add changes.target_branch to WebhookMergeRequestEventSchema [#3617](https://github.com/jdalrymple/gitbeaker/pull/3617) ([@julian-piehl](https://github.com/julian-piehl) [@jdalrymple](https://github.com/jdalrymple))
+  - Fix/webhook project schema add [#3612](https://github.com/jdalrymple/gitbeaker/pull/3612) ([@crazfb](https://github.com/crazfb))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Carmi Raz ([@crazfb](https://github.com/crazfb))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Peace ([@julian-piehl](https://github.com/julian-piehl))
+- Shunta KARASAWA ([@kashz](https://github.com/kashz))
+
+---
+
 # 40.1.2 (Thu Jul 11 2024)
 
 #### 🗃️ Typescript Definitions
