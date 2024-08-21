@@ -14,6 +14,7 @@ yarn-error.log
 tmp
 .nx
 *.tgz
+test-results
 
 .pnp.*
 .yarn/*

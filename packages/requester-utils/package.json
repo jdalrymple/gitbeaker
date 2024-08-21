@@ -48,8 +48,8 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
+    "neoqs": "^6.12.4",
     "picomatch-browser": "^2.2.6",
-    "qs": "^6.12.2",
     "rate-limiter-flexible": "^4.0.1",
     "xcase": "^2.0.1"
   },
