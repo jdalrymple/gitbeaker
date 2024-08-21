@@ -792,6 +792,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/11587657?v=4",
       "profile": "https://scrumplex.net/",
       "contributions": ["code"]
+    },
+    {
+      "login": "crazfb",
+      "name": "Carmi Raz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/157008803?v=4",
+      "profile": "https://github.com/crazfb",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
