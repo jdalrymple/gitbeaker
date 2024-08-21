@@ -354,6 +354,10 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
   };
   labels: WebhookLabelSchema[] | null;
   changes: {
+    target_branch: {
+      previous: string | null;
+      current: string | null;
+    },
     updated_by_id: {
       previous: number | null;
       current: number | null;
