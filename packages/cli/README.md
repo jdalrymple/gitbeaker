@@ -7,6 +7,8 @@
   <br>
 </div>
 
+<hr>
+
 <div align="center">
   <p>
 		<sup>
@@ -22,6 +24,10 @@
     <img src=".github/ASSETS/cws.svg" width="210">
   </a>
 
+  <a href="http://coderabbit.ai">
+    <img src=".github/ASSETS/coderabbit.png" width="210">
+  </a>
+  <br>
   <br>
   <hr>
 </div>
