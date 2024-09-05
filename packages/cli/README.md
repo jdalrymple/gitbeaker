@@ -1,7 +1,7 @@
 <div align="center">
   <br>
   <br>
-  <img alt="gitbeaker" src=".github/ASSETS/header.svg">
+  <img alt="gitbeaker" src="../../.github/ASSETS/header.svg">
   <br>
   <br>
   <br>
@@ -21,12 +21,12 @@
 	<br>
 
   <a href="https://wearecws.com/">
-    <img src=".github/ASSETS/cws.svg" width="210">
+    <img src="../../.github/ASSETS/cws.svg" width="180">
   </a>
   <br>
   <br>
   <a href="http://coderabbit.ai">
-    <img src=".github/ASSETS/coderabbit.png" width="210">
+    <img src="../../.github/ASSETS/coderabbit.png" width="180">
   </a>
   <br>
   <br>
