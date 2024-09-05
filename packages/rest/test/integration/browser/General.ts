@@ -205,8 +205,17 @@ describe('Browser Import', () => {
     await page.goto(`file://${filepath}`);
 
     // Run import JS
-    const importObject: Record<string, unknown> = await page.evaluate('window.gitbeaker');
+    const importObjectKeys: Record<string, unknown> = await page.evaluate(() => {
+      return Object.keys(window['gitbeaker'])
+    });
 
-    expect(Object.keys(importObject)).toMatchObject(keys);
+    const importObjectValuesPresent: Record<string, unknown> = await page.evaluate(() => {
+      return Object.values(window['gitbeaker']).filter(v => v)
+    });
+
+
+    expect(importObjectKeys).toMatchObject(keys);
+
+    expect(importObjectValuesPresent).toHaveLength(keys.length);
   });
 });

@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example Import</title>
   </head>
   <body>
+    <!-- Import Map for Module Resolution -->
     <script type="importmap">
       {
         "imports": {
@@ -18,11 +19,16 @@
         }
       }
     </script>
+
+    <!-- Importing Gitbeaker Module -->
     <script type="module">
       import * as gitbeaker from '../../dist/index.mjs';
 
-      // BAD PRACTISE!!! - Just for testing purposes
+      // Assign to global for testing
       window.gitbeaker = gitbeaker;
+
+      // Optionally log to console to check if it loaded
+      console.log('Gitbeaker loaded:', gitbeaker);
     </script>
   </body>
 </html>
