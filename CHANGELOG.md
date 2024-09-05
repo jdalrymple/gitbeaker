@@ -1,3 +1,21 @@
+# 40.1.4 (Thu Sep 05 2024)
+
+#### ↕️ Dependencies
+
+- Bump micromatch from 4.0.5 to 4.0.8 [#3620](https://github.com/jdalrymple/gitbeaker/pull/3620) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Updating sponsors and broken logo links [#3621](https://github.com/jdalrymple/gitbeaker/pull/3621) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 40.1.3 (Wed Aug 21 2024)
 
 :tada: This release contains work from new contributors! :tada:

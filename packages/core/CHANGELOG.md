@@ -1,3 +1,15 @@
+# v40.1.4 (Thu Sep 05 2024)
+
+#### 📚 Documentation
+
+- Updating sponsors and broken logo links [#3621](https://github.com/jdalrymple/gitbeaker/pull/3621) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.1.3 (Wed Aug 21 2024)
 
 :tada: This release contains work from new contributors! :tada:
