@@ -113,4 +113,16 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
       options,
     );
   }
+
+  sync<E extends boolean = false>(
+    projectId: string | number,
+    mirrorId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.post<void>()(
+      this,
+      endpoint`projects/${projectId}/remote_mirrors/${mirrorId}/sync`,
+      options,
+    );
+  }
 }
