@@ -194,6 +194,7 @@
       <td align="center" valign="top" width="0.33%"><a href="http://www.koenbrouwer.com/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3260168?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Koen Brouwer"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://scrumplex.net/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/11587657?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Sefa Eyeoglu"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/crazfb"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/157008803?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Carmi Raz"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/unilynx"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/2772353?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Arnold Hendriks"/></td>
     </tr>
 </p>
 
