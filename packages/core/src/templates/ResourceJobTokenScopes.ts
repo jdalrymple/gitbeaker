@@ -1,7 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
+import { BaseResource, BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
-import { SimpleProjectSchema } from './Projects';
 
 export interface JobTokenScopeSchema extends Record<string, unknown> {
   inbound_enabled: boolean;
@@ -13,61 +12,65 @@ export interface AllowListSchema extends Record<string, unknown> {
   target_project_id: number;
 }
 
-export class JobTokenScopes<C extends boolean = false> extends BaseResource<C> {
+export class ResourceJobTokenScopes<C extends boolean = false> extends BaseResource<C> {
+  constructor(resourceType: string, options: BaseResourceOptions<C>) {
+    super({ prefixUrl: resourceType, ...options });
+  }
+
   show<E extends boolean = false>(
-    projectId: string | number,
+    resourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.get<JobTokenScopeSchema>()(
       this,
-      endpoint`projects/${projectId}/job_token_scope`,
+      endpoint`${resourceId}/job_token_scope`,
       options,
     );
   }
 
   edit<E extends boolean = false>(
-    projectId: string | number,
+    resourceId: string | number,
     enabled: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.patch<JobTokenScopeSchema>()(
       this,
-      endpoint`projects/${projectId}/job_token_scope`,
+      endpoint`${resourceId}/job_token_scope`,
       { ...options, enabled },
     );
   }
 
   showInboundAllowList<E extends boolean = false>(
-    projectId: string | number,
+    resourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>> {
-    return RequestHelper.get<SimpleProjectSchema[]>()(
+  ): Promise<GitlabAPIResponse<Record<string, unknown>[], C, E, void>> {
+    return RequestHelper.get<Record<string, unknown>[]>()(
       this,
-      endpoint`projects/${projectId}/job_token_scope/allowlist`,
+      endpoint`${resourceId}/job_token_scope/allowlist`,
       options,
     );
   }
 
   addToInboundAllowList<E extends boolean = false>(
-    projectId: string | number,
-    targetProjectId: string | number,
+    resourceId: string | number,
+    targetResourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AllowListSchema, C, E, void>> {
     return RequestHelper.post<AllowListSchema>()(
       this,
-      endpoint`projects/${projectId}/job_token_scope/allowlist/${targetProjectId}`,
+      endpoint`${resourceId}/job_token_scope/allowlist/${targetResourceId}`,
       options,
     );
   }
 
   removeFromInboundAllowList<E extends boolean = false>(
-    projectId: string | number,
-    targetProjectId: string | number,
+    resourceId: string | number,
+    targetResourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
-      endpoint`projects/${projectId}/job_token_scope/allowlist/${targetProjectId}`,
+      endpoint`${resourceId}/job_token_scope/allowlist/${targetResourceId}`,
       options,
     );
   }
