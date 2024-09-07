@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import { stringify } from 'neoqs/legacy';
 import { decamelizeKeys } from 'xcase';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 import Picomatch from 'picomatch-browser';

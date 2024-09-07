@@ -1,15 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example Import</title>
   </head>
   <body>
+    <!-- Import Map for Module Resolution -->
     <script type="importmap">
       {
         "imports": {
-          "qs": "https://esm.sh/qs?min",
+          "neoqs/legacy": "https://esm.sh/neoqs/legacy?min",
           "xcase": "https://esm.sh/xcase?min",
           "rate-limiter-flexible": "https://esm.sh/rate-limiter-flexible?min",
           "picomatch-browser": "https://esm.sh/picomatch-browser?min",
@@ -18,10 +19,12 @@
         }
       }
     </script>
+
+    <!-- Importing Gitbeaker Module -->
     <script type="module">
       import * as gitbeaker from '../../dist/index.mjs';
 
-      // BAD PRACTISE!!! - Just for testing purposes
+      // Assign to global for testing
       window.gitbeaker = gitbeaker;
     </script>
   </body>

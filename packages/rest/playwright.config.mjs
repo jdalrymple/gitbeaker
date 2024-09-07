@@ -6,7 +6,6 @@ const launchOptions = {
 
 export default defineConfig({
   testMatch: /.*.ts/,
-  testMatch: /.*.ts/,
   reporter: [['line'], ['junit', { outputFile: './reports/browser_junit.xml' }]],
   projects: [
     {

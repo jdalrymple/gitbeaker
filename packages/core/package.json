@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@gitbeaker/requester-utils": "^40.1.4",
-    "qs": "^6.12.2",
+    "neoqs": "^6.12.4",
     "xcase": "^2.0.1"
   },
   "devDependencies": {

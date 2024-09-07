@@ -1,4 +1,4 @@
-import { parse as parseQueryString } from 'qs';
+import { parse as parseQueryString } from 'neoqs/legacy';
 import { camelizeKeys } from 'xcase';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type {

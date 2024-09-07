@@ -1,5 +1,5 @@
 import { decamelizeKeys } from 'xcase';
-import QS from 'qs';
+import * as QS from 'neoqs/legacy';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
