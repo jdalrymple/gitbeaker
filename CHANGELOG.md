@@ -1,3 +1,26 @@
+# 40.2.0 (Sat Sep 07 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Arnold Hendriks ([@unilynx](https://github.com/unilynx)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Add sync to ProjectRemoteMirrors (#3616) [#3623](https://github.com/jdalrymple/gitbeaker/pull/3623) (arnold@webhare.nl)
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Adding directory information to the package.json file to fix npm relative path resolution [#3622](https://github.com/jdalrymple/gitbeaker/pull/3622) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Arnold Hendriks ([@unilynx](https://github.com/unilynx))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 40.1.4 (Thu Sep 05 2024)
 
 #### ↕️ Dependencies

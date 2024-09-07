@@ -1,3 +1,15 @@
+# v40.2.0 (Sat Sep 07 2024)
+
+#### 📚 Documentation
+
+- Adding directory information to the package.json file to fix npm relative path resolution [#3622](https://github.com/jdalrymple/gitbeaker/pull/3622) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.1.4 (Thu Sep 05 2024)
 
 #### 📚 Documentation
