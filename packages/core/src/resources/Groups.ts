@@ -234,16 +234,16 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
+    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
+
+  allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
     options?: { simple: true } & AllGroupProjectsOptions &
       PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
-
-  allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    groupId: string | number,
-    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
