@@ -1,3 +1,15 @@
+# v40.2.1 (Sat Sep 14 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Declare Groups API `allProjects` function default type first (#3624) [#3624](https://github.com/jdalrymple/gitbeaker/pull/3624) ([@ArnaudTA](https://github.com/ArnaudTA))
+
+#### Authors: 1
+
+- Nonot ([@ArnaudTA](https://github.com/ArnaudTA))
+
+---
+
 # v40.2.0 (Sat Sep 07 2024)
 
 :tada: This release contains work from a new contributor! :tada:
