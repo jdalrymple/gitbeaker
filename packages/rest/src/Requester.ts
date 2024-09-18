@@ -120,7 +120,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   /* eslint-enable */
 
   throw new GitbeakerRetryError(
-    `Could not successfully complete this request after ${maxRetries} retries, last status code: ${lastStatus}. ${lastStatus == 429 ? "Check the applicable rate limits for this endpoint" : "Verify the status of the endpoint"}.`
+    `Could not successfully complete this request after ${maxRetries} retries, last status code: ${lastStatus}. ${lastStatus == 429 ? "Check the applicable rate limits for this endpoint" : "Verify the status of the endpoint"}.`,
   );
 }
 
