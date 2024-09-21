@@ -93,7 +93,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     environment: string,
     sha: string,
     ref: string,
-    tag: string,
+    tag: boolean,
     options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
     return RequestHelper.post<DeploymentSchema>()(
