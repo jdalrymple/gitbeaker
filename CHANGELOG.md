@@ -1,3 +1,20 @@
+# 40.2.2 (Sat Sep 21 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee)), for all your work!
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - 🐛 Update Deployment.tag to be a boolean. [#3627](https://github.com/jdalrymple/gitbeaker/pull/3627) ([@mxbaylee](https://github.com/mxbaylee))
+
+#### Authors: 1
+
+- Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee))
+
+---
+
 # 40.2.1 (Sat Sep 14 2024)
 
 #### 🗃️ Typescript Definitions
