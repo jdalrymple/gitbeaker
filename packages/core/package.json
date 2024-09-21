@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/core",
-  "version": "40.2.1",
+  "version": "40.2.2",
   "description": "Core API implementation of the GitLab API",
   "license": "MIT",
   "engines": {
@@ -52,7 +52,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
-    "@gitbeaker/requester-utils": "^40.2.1",
+    "@gitbeaker/requester-utils": "^40.2.2",
     "qs": "^6.12.2",
     "xcase": "^2.0.1"
   },
