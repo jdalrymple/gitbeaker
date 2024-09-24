@@ -1,3 +1,15 @@
+# 40.2.3 (Tue Sep 24 2024)
+
+#### ↕️ Dependencies
+
+- Bump rollup from 4.9.6 to 4.22.4 [#3628](https://github.com/jdalrymple/gitbeaker/pull/3628) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # 40.2.2 (Sat Sep 21 2024)
 
 :tada: This release contains work from a new contributor! :tada:
