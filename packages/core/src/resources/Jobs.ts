@@ -23,7 +23,8 @@ export type JobScope =
   | 'success'
   | 'canceled'
   | 'skipped'
-  | 'manual';
+  | 'manual'
+  | 'waiting_for_resource';
 
 export interface ArtifactSchema extends Record<string, unknown> {
   file_type: string;
