@@ -1,3 +1,30 @@
+# 40.3.0 (Thu Sep 26 2024)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Akhil Babu Vazheparambil ([@akhilbv](https://github.com/akhilbv))
+
+:heart: Andy ([@andys8](https://github.com/andys8))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix `upcoming jobs by resource group` endpoint [#3632](https://github.com/jdalrymple/gitbeaker/pull/3632) ([@akhilbv](https://github.com/akhilbv))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Include additional job scope "waiting_for_resource" [#3631](https://github.com/jdalrymple/gitbeaker/pull/3631) ([@andys8](https://github.com/andys8))
+
+#### Authors: 2
+
+- Akhil Babu Vazheparambil ([@akhilbv](https://github.com/akhilbv))
+- Andy ([@andys8](https://github.com/andys8))
+
+---
+
 # 40.2.3 (Tue Sep 24 2024)
 
 #### ↕️ Dependencies
