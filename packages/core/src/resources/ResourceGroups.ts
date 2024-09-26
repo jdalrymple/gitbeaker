@@ -55,11 +55,12 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
 
   allUpcomingJobs<E extends boolean = false>(
     projectId: string | number,
+    key: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, void>> {
     return RequestHelper.get<JobSchema[]>()(
       this,
-      endpoint`projects/${projectId}/resource_groups/upcoming_jobs`,
+      endpoint`projects/${projectId}/resource_groups/${key}/upcoming_jobs`,
       options,
     );
   }
