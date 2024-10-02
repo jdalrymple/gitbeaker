@@ -1,3 +1,16 @@
+# 40.4.0 (Wed Oct 02 2024)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix Namespace `exists` method typing [#3635](https://github.com/jdalrymple/gitbeaker/pull/3635) ([@Scrumplex](https://github.com/Scrumplex))
+
+#### Authors: 1
+
+- Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+---
+
 # 40.3.0 (Thu Sep 26 2024)
 
 :tada: This release contains work from new contributors! :tada:
