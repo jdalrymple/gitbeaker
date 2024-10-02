@@ -27,6 +27,11 @@ export interface NamespaceSchema extends CondensedNamespaceSchema {
   trial: boolean;
 }
 
+export interface NamespaceExistsSchema extends Record<string, unknown> {
+  exists: boolean;
+  suggests: string[];
+}
+
 export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { search?: string; ownedOnly?: string } & PaginationRequestOptions<P> &
@@ -37,12 +42,12 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   }
 
   exists<E extends boolean = false>(
-    namespaceId: string | number,
+    namespace: string,
     options?: { parentId?: string } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<NamespaceSchema, C, E, void>> {
-    return RequestHelper.get<NamespaceSchema>()(
+  ): Promise<GitlabAPIResponse<NamespaceExistsSchema, C, E, void>> {
+    return RequestHelper.get<NamespaceExistsSchema>()(
       this,
-      endpoint`namespaces/${namespaceId}/exists`,
+      endpoint`namespaces/${namespace}/exists`,
       options,
     );
   }
