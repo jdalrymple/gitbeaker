@@ -77,7 +77,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     email: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
-    return RequestHelper.put<InvitationSchema>()(
+    return RequestHelper.del<InvitationSchema>()(
       this,
       endpoint`${resourceId}/invitations/${email}`,
       options,
