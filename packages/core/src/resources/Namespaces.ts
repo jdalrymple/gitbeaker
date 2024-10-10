@@ -34,7 +34,11 @@ export interface NamespaceExistsSchema extends Record<string, unknown> {
 
 export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { search?: string; ownedOnly?: string } & PaginationRequestOptions<P> &
+    options?: {
+      search?: string;
+      ownedOnly?: string;
+      topLevelOnly?: boolean;
+    } & PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NamespaceSchema[], C, E, P>> {
