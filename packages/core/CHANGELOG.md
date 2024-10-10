@@ -1,3 +1,19 @@
+# v40.5.0 (Thu Oct 10 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@roberta-pavel](https://github.com/roberta-pavel), for all your work!
+
+#### 🐛 Bug Fix
+
+- Update method for removing invitations [#3639](https://github.com/jdalrymple/gitbeaker/pull/3639) ([@roberta-pavel](https://github.com/roberta-pavel))
+
+#### Authors: 1
+
+- [@roberta-pavel](https://github.com/roberta-pavel)
+
+---
+
 # v40.4.0 (Wed Oct 02 2024)
 
 #### 🐛 Bug Fix
