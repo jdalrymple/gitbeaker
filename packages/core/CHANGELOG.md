@@ -1,3 +1,19 @@
+# v40.5.1 (Sun Oct 13 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Youssef ([@yousinix](https://github.com/yousinix)), for all your work!
+
+#### 🗃️ Typescript Definitions
+
+- Add missing `topLevelOnly` typing to `Namespaces.all` [#3637](https://github.com/jdalrymple/gitbeaker/pull/3637) ([@yousinix](https://github.com/yousinix))
+
+#### Authors: 1
+
+- Youssef ([@yousinix](https://github.com/yousinix))
+
+---
+
 # v40.5.0 (Thu Oct 10 2024)
 
 :tada: This release contains work from a new contributor! :tada:
