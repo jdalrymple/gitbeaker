@@ -510,6 +510,7 @@ projectsAPI.create({
       <td align="center" valign="top" width="0.33%"><a href="https://baylee.dev/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/119542904?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Baylee Schmeisser"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/andys8"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/13085980?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Andy"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/roberta-pavel"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/26488965?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="roberta-pavel"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/yousinix"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/41103290?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Youssef"/></td>
     </tr>
 </p>
 

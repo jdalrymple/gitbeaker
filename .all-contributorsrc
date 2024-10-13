@@ -827,6 +827,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/26488965?v=4",
       "profile": "https://github.com/roberta-pavel",
       "contributions": ["code"]
+    },
+    {
+      "login": "yousinix",
+      "name": "Youssef",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41103290?v=4",
+      "profile": "https://github.com/yousinix",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
