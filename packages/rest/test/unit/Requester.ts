@@ -286,7 +286,7 @@ describe('defaultRequestHandler', () => {
 
     await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
       message:
-        'Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.',
+        'Could not successfully complete this request after 10 retries, last status code: 429. Check the applicable rate limits for this endpoint.',
       name: 'GitbeakerRetryError',
     });
 
