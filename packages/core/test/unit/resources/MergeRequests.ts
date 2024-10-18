@@ -123,6 +123,18 @@ describe('MergeRequests.allIssuesClosed', () => {
   });
 });
 
+describe('MergeRequests.allIssuesRelated', () => {
+  it('should request GET projects/:id/merge_requests/:iid/related_issues', async () => {
+    await service.allIssuesRelated(2, 3);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/related_issues',
+      undefined,
+    );
+  });
+});
+
 describe('MergeRequests.allCommits', () => {
   it('should request GET projects/:id/merge_requests/:id/commits', async () => {
     await service.allCommits(2, 3);
