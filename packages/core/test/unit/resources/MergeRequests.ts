@@ -301,3 +301,27 @@ describe('MergeRequests.unsubscribe', () => {
     );
   });
 });
+
+describe('MergeRequests.allIssuesClosed', () => {
+  it('should request GET projects/:id/merge_requests/:iid/closes_issues', async () => {
+    await service.allIssuesClosed(2, 3);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/closes_issues',
+      undefined,
+    );
+  });
+});
+
+describe('MergeRequests.allIssuesRelated', () => {
+  it('should request GET projects/:id/merge_requests/:iid/related_issues', async () => {
+    await service.allIssuesRelated(2, 3);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/related_issues',
+      undefined,
+    );
+  });
+});

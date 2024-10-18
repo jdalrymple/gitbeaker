@@ -391,6 +391,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  allIssuesRelated<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
+    return RequestHelper.get<IssueSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/related_issues`,
+      options,
+    );
+  }
+
   allParticipants<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
