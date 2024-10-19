@@ -1,3 +1,20 @@
+# v40.6.0 (Sat Oct 19 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your work!
+
+#### 🔨 Technical Debt
+
+- Request Retry Error Message Adjustment [#3626](https://github.com/jdalrymple/gitbeaker/pull/3626) ([@Incisive](https://github.com/Incisive) [@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Ryan Smith ([@Incisive](https://github.com/Incisive))
+
+---
+
 # v40.2.0 (Sat Sep 07 2024)
 
 #### 📚 Documentation

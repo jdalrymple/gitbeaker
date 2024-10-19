@@ -1,3 +1,21 @@
+# v40.6.0 (Sat Oct 19 2024)
+
+#### ✨ Feature
+
+- Implement MergeRequests.allIssuesRelated() [#3642](https://github.com/jdalrymple/gitbeaker/pull/3642) ([@kouak](https://github.com/kouak))
+
+#### 🗃️ Typescript Definitions
+
+- Updating missing expanded types for `Issues.all` [#3640](https://github.com/jdalrymple/gitbeaker/pull/3640) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating `allowedToCreate` type to an array [#3641](https://github.com/jdalrymple/gitbeaker/pull/3641) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.5.1 (Sun Oct 13 2024)
 
 :tada: This release contains work from a new contributor! :tada:

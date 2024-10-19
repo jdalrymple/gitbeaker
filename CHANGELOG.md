@@ -1,3 +1,33 @@
+# 40.6.0 (Sat Oct 19 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your work!
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Implement MergeRequests.allIssuesRelated() [#3642](https://github.com/jdalrymple/gitbeaker/pull/3642) ([@kouak](https://github.com/kouak))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/rest`
+  - Request Retry Error Message Adjustment [#3626](https://github.com/jdalrymple/gitbeaker/pull/3626) ([@Incisive](https://github.com/Incisive) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Updating missing expanded types for `Issues.all` [#3640](https://github.com/jdalrymple/gitbeaker/pull/3640) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating `allowedToCreate` type to an array [#3641](https://github.com/jdalrymple/gitbeaker/pull/3641) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Benjamin Beret ([@kouak](https://github.com/kouak))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Ryan Smith ([@Incisive](https://github.com/Incisive))
+
+---
+
 # 40.5.1 (Sun Oct 13 2024)
 
 :tada: This release contains work from a new contributor! :tada:
