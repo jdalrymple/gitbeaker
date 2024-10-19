@@ -81,6 +81,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   const maxRetries = 10;
   const { prefixUrl, asStream, searchParams, rateLimiters, method, ...opts } = options || {};
   const rateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
+  let lastStatus: number | undefined;
   let baseUrl: string | undefined;
 
   if (prefixUrl) baseUrl = prefixUrl.endsWith('/') ? prefixUrl : `${prefixUrl}/`;
@@ -110,6 +111,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(request, response);
 
     // Retry
+    lastStatus = response.status;
     await delay(2 ** i * 0.25);
 
     // eslint-disable-next-line
@@ -118,7 +120,7 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   /* eslint-enable */
 
   throw new GitbeakerRetryError(
-    `Could not successfully complete this request due to Error 429. Check the applicable rate limits for this endpoint.`,
+    `Could not successfully complete this request after ${maxRetries} retries, last status code: ${lastStatus}. ${lastStatus === 429 ? 'Check the applicable rate limits for this endpoint' : 'Verify the status of the endpoint'}.`,
   );
 }
 
