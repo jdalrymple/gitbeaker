@@ -196,12 +196,16 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> &
       AllIssuesOptions & { withLabelsDetails: true },
   ): Promise<GitlabAPIResponse<IssueSchemaWithExpandedLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> &
       AllIssuesOptions &
       BaseRequestOptions<E> & { withLabelsDetails?: false },
   ): Promise<GitlabAPIResponse<IssueSchemaWithBasicLabels[], C, E, P>>;
@@ -213,6 +217,8 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E> &
       AllIssuesOptions &
       BaseRequestOptions<E> = {} as any,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
