@@ -50,7 +50,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
-      allowedToCreate?: ProtectedTagAccessLevelEntity;
+      allowedToCreate?: ProtectedTagAccessLevelEntity[];
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
@@ -76,7 +76,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
-      allowedToCreate?: ProtectedTagAccessLevelEntity;
+      allowedToCreate?: ProtectedTagAccessLevelEntity[];
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
