@@ -1,3 +1,15 @@
+# v41.0.0 (Sat Oct 19 2024)
+
+#### 💥 Breaking Change
+
+- Adding support for `GroupJobTokenScopes` and moved `JobTokenScopes` to `ProjectJobTokenScopes`(#3643) [#3643](https://github.com/jdalrymple/gitbeaker/pull/3643) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.6.0 (Sat Oct 19 2024)
 
 :tada: This release contains work from a new contributor! :tada:
