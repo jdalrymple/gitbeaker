@@ -25,3 +25,4 @@ export * from './ResourceLabelEvents';
 export * from './ResourceMilestoneEvents';
 export * from './ResourceStateEvents';
 export * from './ResourceWeightEvents';
+export * from './ResourceJobTokenScopes';

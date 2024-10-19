@@ -1,1 +1,1 @@
-yarn dlx --no-install lint-staged
+yarn test
