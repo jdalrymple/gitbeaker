@@ -1,3 +1,15 @@
+# v41.1.0 (Sun Oct 20 2024)
+
+#### 🐛 Bug Fix
+
+- Update `Users.edit` to use FormData when submitting `avatar` updates [#3644](https://github.com/jdalrymple/gitbeaker/pull/3644) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v41.0.0 (Sat Oct 19 2024)
 
 #### 💥 Breaking Change
