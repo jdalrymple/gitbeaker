@@ -181,7 +181,10 @@ describe('Users.edit', () => {
   it('should request PUT users/:id', async () => {
     await service.edit(1, { name: 'Okoye' });
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'users/1', { name: 'Okoye' });
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'users/1', {
+      isForm: true,
+      name: 'Okoye'
+    });
   });
 });
 
