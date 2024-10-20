@@ -156,7 +156,7 @@ export type AllUsersOptions = {
 export type CreateUserOptions = {
   admin?: boolean;
   auditor?: boolean;
-  avatar?: { content: Blob; filepath?: string };
+  avatar?: { content: Blob; filename?: string };
   bio?: string;
   canCreateGroup?: boolean;
   colorSchemeId?: number;
@@ -487,9 +487,16 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     userId: number,
-    options?: EditUserOptions & Sudo & ShowExpanded<E>,
+    { avatar, ...options }: EditUserOptions & Sudo & ShowExpanded<E> = {},
   ) {
-    return RequestHelper.put<ExpandedUserSchema>()(this, endpoint`users/${userId}`, options);
+    const opts: Record<string, unknown> = {
+      ...options,
+      isForm: true,
+    };
+
+    if (avatar) opts.avatar = [avatar.content, avatar.filename];
+
+    return RequestHelper.put<ExpandedUserSchema>()(this, endpoint`users/${userId}`, opts);
   }
 
   editStatus<E extends boolean = false>(
