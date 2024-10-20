@@ -183,7 +183,7 @@ describe('Users.edit', () => {
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'users/1', {
       isForm: true,
-      name: 'Okoye'
+      name: 'Okoye',
     });
   });
 });
