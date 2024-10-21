@@ -39,9 +39,11 @@ export type ResourceOptions = {
   rateLimits?: RateLimitOptions;
 };
 
+export type OptionValueType = string | boolean | Blob | number | (Blob | string)[];
+export type RequesterBodyType = string | Blob | FormData | Record<string, OptionValueType>;
 export type DefaultRequestOptions = {
-  body?: FormData | Record<string, unknown>;
-  searchParams?: Record<string, unknown>;
+  body?: RequesterBodyType;
+  searchParams?: Record<string, string>;
   sudo?: string | number;
   method?: string;
   asStream?: boolean;
@@ -54,7 +56,7 @@ export type RequestOptions = {
   method?: string;
   searchParams?: string;
   prefixUrl?: string;
-  body?: string | FormData;
+  body?: BodyInit;
   asStream?: boolean;
   signal?: AbortSignal;
   rateLimiters?: Record<string, RateLimiterFn>;
@@ -132,14 +134,10 @@ export async function defaultOptionsHandler(
 
   if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 
-  // FIXME: Not the best comparison, but...it will have to do for now.
-  if (body) {
-    if (body instanceof FormData) {
-      defaultOptions.body = body;
-    } else {
-      defaultOptions.body = JSON.stringify(decamelizeKeys(body));
-      defaultOptions.headers['content-type'] = 'application/json';
-    }
+  if (body instanceof FormData || body instanceof Blob || typeof body === 'string') {
+    defaultOptions.body = body;
+  } else {
+    defaultOptions.body = JSON.stringify(decamelizeKeys(body));
   }
 
   if (Object.keys(authHeaders).length > 0) {

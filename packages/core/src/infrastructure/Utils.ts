@@ -26,8 +26,6 @@ export type AllOrNone<T extends Record<string, any>> = T | Partial<Record<keyof 
 
 export type MappedOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
 
-export type OptionValueType = undefined | string | boolean | Blob | number | (Blob | string)[];
-
 export function appendFormFromObject(object: Record<string, OptionValueType>): FormData {
   const form = new FormData();
 
