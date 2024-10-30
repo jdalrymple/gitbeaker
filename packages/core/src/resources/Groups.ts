@@ -100,6 +100,7 @@ export type AllGroupProjectsOptions = {
     | 'updated_at'
     | 'similarity'
     | 'last_activity_at';
+  topic?: string;
   sort?: 'asc' | 'desc';
   archived?: boolean;
   search?: string;
