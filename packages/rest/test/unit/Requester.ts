@@ -98,7 +98,54 @@ describe('processBody', () => {
 });
 
 describe('defaultRequestHandler', () => {
-  it('should return an error with the statusText as the primary message and a description derived from a error property when response has an error property', async () => {
+  it.only('should return an error with the statusText as the primary message', async () => {
+    const responseContent = { error: 'msg' };
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        ok: false,
+        status: 501,
+        statusText: 'Really Bad Error',
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
+        json: () => Promise.resolve(responseContent),
+        text: () => Promise.resolve(JSON.stringify(responseContent)),
+      }),
+    );
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Really Bad Error',
+      name: 'GitbeakerRequestError',
+    });
+  });
+
+  it('should return an error with a description property derived from the error property when response has an error property', async () => {
+    const stringBody = { error: 'msg' };
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        ok: false,
+        status: 501,
+        statusText: 'Really Bad Error',
+        headers: new Headers({
+          'content-type': 'application/json',
+        }),
+        json: () => Promise.resolve(stringBody),
+        text: () => Promise.resolve(JSON.stringify(stringBody)),
+      }),
+    );
+
+    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
+      message: 'Really Bad Error',
+      name: 'GitbeakerRequestError',
+      cause: {
+        description: 'msg',
+      },
+    });
+  });
+
+  it('should return an error with a description property derived from the error property when response has an error property', async () => {
     const stringBody = { error: 'msg' };
 
     MockFetch.mockReturnValueOnce(
