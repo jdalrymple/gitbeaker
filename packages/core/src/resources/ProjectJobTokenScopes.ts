@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { SimpleProjectSchema } from './Projects';
-import { CondensedGroupSchema } from './Groups'
+import { CondensedGroupSchema } from './Groups';
 
 export interface JobTokenScopeSchema extends Record<string, unknown> {
   inbound_enabled: boolean;
