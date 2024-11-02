@@ -454,7 +454,7 @@ describe('defaultRequestHandler', () => {
     });
   });
 
-  it.only('should return correct properties as stream if request is valid', async () => {
+  it('should return correct properties as stream if request is valid', async () => {
     MockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response('text', {
