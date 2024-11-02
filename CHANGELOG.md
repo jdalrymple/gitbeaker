@@ -1,3 +1,16 @@
+# 41.1.1 (Sat Nov 02 2024)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Add support for topic filtering in `AllGroupProjectsOptions` type [#3651](https://github.com/jdalrymple/gitbeaker/pull/3651) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 41.1.0 (Sun Oct 20 2024)
 
 #### 🐛 Bug Fix
