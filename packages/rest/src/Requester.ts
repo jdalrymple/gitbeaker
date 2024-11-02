@@ -56,8 +56,10 @@ async function throwFailedRequestError(
 
   if (contentType?.includes('application/json')) {
     const output = JSON.parse(content);
+    const contentProperty = output.error || output.message;
 
-    description = typeof output.message === 'string' ? output.message : JSON.stringify(output);
+    description =
+      typeof contentProperty === 'string' ? contentProperty : JSON.stringify(contentProperty);
   } else {
     description = content;
   }
