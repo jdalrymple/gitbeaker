@@ -160,7 +160,6 @@ describe('API Map', () => {
       'GroupInvitations',
       'GroupIssueBoards',
       'GroupIterations',
-      'GroupJobTokenScopes',
       'GroupLabels',
       'GroupLDAPLinks',
       'GroupMembers',
