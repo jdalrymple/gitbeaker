@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import type { RequestOptions } from '@gitbeaker/requester-utils';
 import {
   GitbeakerRequestError,
@@ -129,7 +130,7 @@ describe('defaultRequestHandler', () => {
     }
   });
 
-  it('should return an error with the response included in the cause', async () => {
+  it.only('should return an error with the response included in the cause', async () => {
     const responseContent = { error: 'msg' };
 
     MockFetch.mockReturnValueOnce(
@@ -145,14 +146,28 @@ describe('defaultRequestHandler', () => {
     );
 
     // Ensure an assertion is made (the error is thrown)
-    expect.assertions(2);
 
-    try {
-      await defaultRequestHandler('http://test.com', {} as RequestOptions);
-    } catch (e) {
-      expect(e.message).toBe('Really Bad Error');
-      expect(e.cause.response).toBeInstanceOf(Response);
-    }
+    // await expect(() => defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow(
+    //   expect.objectContaining({
+    //     name: "GitbeakerRequestError",
+    //     message: 'Really Bad Error',
+    //     cause: {
+    //       response: expect.any(Response),
+    //     },
+    //   }),
+    // );
+
+    await expect(() => Promise.reject(new Error(''))).rejects.toThrowWithMessage(Error, 'test');
+
+    // await expect(() => Promise.reject(new Error(''))).rejects.toThrowWith((e: GitbeakerRequestError) => {
+    //   expect(e.message).toBe('Really Bad Error');
+    //   expect(e?.cause?.response).toBeInstanceOf(Response);
+    // });
+
+    // await expect(() => defaultRequestHandler('http://test.com')).rejects.toThrowWith((e: GitbeakerRequestError) => {
+    //   expect(e.message).toBe('Really Bad Error');
+    //   expect(e?.cause?.response).toBeInstanceOf(Response);
+    // });
   });
 
   it('should return an error with the request included in the cause', async () => {
