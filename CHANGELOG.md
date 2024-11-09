@@ -1,3 +1,20 @@
+# 41.1.2 (Sat Nov 09 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your work!
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/core`
+  - Add options `username` and `expires_at` to DeployTokens.create [#3652](https://github.com/jdalrymple/gitbeaker/pull/3652) ([@mpsanchis](https://github.com/mpsanchis))
+
+#### Authors: 1
+
+- Miguel ([@mpsanchis](https://github.com/mpsanchis))
+
+---
+
 # 41.1.1 (Sat Nov 02 2024)
 
 #### 🗃️ Typescript Definitions
