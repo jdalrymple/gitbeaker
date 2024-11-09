@@ -50,13 +50,15 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
 
   create<E extends boolean = false>(
     name: string,
-    scopes: string[],
+    scopes: DeployTokenScope[],
     {
       projectId,
       groupId,
       ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
+    }: OneOf<{ projectId: string | number; groupId: string | number }> & {
+      expires_at?: string;
+      username?: string;
+    } & Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
     let url: string;
