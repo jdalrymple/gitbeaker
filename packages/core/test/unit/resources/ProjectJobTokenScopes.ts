@@ -63,7 +63,7 @@ describe('ProjectJobTokenScopes.addToInboundAllowList', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       '5/job_token_scope/allowlist/6',
-      undefined,
+      { targetGroupId: 6 },
     );
   });
 });
@@ -98,8 +98,8 @@ describe('ProjectJobTokenScopes.addToGroupsAllowList', () => {
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/groups_allowlist/6',
-      undefined,
+      '5/job_token_scope/groups_allowlist',
+      { targetProjectId: 6 },
     );
   });
 });
