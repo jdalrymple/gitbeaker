@@ -834,6 +834,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/41103290?v=4",
       "profile": "https://github.com/yousinix",
       "contributions": ["code"]
+    },
+    {
+      "login": "mpsanchis",
+      "name": "Miguel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33475618?v=4",
+      "profile": "https://github.com/mpsanchis",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300
