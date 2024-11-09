@@ -60,11 +60,9 @@ describe('ProjectJobTokenScopes.addToInboundAllowList', () => {
   it('should call the correct resource and targetResource id', async () => {
     await service.addToInboundAllowList('5', 6);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
-      service,
-      '5/job_token_scope/allowlist/6',
-      { targetGroupId: 6 },
-    );
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/job_token_scope/allowlist/6', {
+      targetGroupId: 6,
+    });
   });
 });
 
