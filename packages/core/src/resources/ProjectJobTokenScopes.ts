@@ -61,8 +61,8 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<ProjectAllowListSchema, C, E, void>> {
     return RequestHelper.post<ProjectAllowListSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope/allowlist/${targetProjectId}`,
-      options,
+      endpoint`${projectId}/job_token_scope/allowlist`,
+      { ...options, targetProjectId },
     );
   }
 
@@ -96,8 +96,8 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<GroupAllowListSchema, C, E, void>> {
     return RequestHelper.post<GroupAllowListSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope/groups_allowlist/${targetGroupId}`,
-      options,
+      endpoint`${projectId}/job_token_scope/groups_allowlist`,
+      { ...options, targetGroupId },
     );
   }
 
