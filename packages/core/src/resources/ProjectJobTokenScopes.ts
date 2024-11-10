@@ -1,43 +1,115 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
-import type { SimpleProjectSchema } from './Projects';
-import type { AllowListSchema, JobTokenScopeSchema } from '../templates/ResourceJobTokenScopes';
-import { ResourceJobTokenScopes } from '../templates/ResourceJobTokenScopes';
+import { SimpleProjectSchema } from './Projects';
+import { CondensedGroupSchema } from './Groups';
 
-export interface ProjectJobTokenScopes<C extends boolean = false>
-  extends ResourceJobTokenScopes<C> {
+export interface JobTokenScopeSchema extends Record<string, unknown> {
+  inbound_enabled: boolean;
+  outbound_enabled: boolean;
+}
+
+export interface ProjectAllowListSchema extends Record<string, unknown> {
+  source_project_id: number;
+  target_project_id: number;
+}
+
+export interface GroupAllowListSchema extends Record<string, unknown> {
+  source_project_id: number;
+  target_group_id: number;
+}
+
+export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResource<C> {
+  show<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
+    return RequestHelper.get<JobTokenScopeSchema>()(
+      this,
+      endpoint`${projectId}/job_token_scope`,
+      options,
+    );
+  }
+
   edit<E extends boolean = false>(
     projectId: string | number,
     enabled: boolean,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>>;
-
-  show<E extends boolean = false>(
-    projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
+    return RequestHelper.patch<JobTokenScopeSchema>()(
+      this,
+      endpoint`${projectId}/job_token_scope`,
+      { ...options, enabled },
+    );
+  }
 
   showInboundAllowList<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>>;
+  ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>> {
+    return RequestHelper.get<SimpleProjectSchema[]>()(
+      this,
+      endpoint`${projectId}/job_token_scope/allowlist`,
+      options,
+    );
+  }
 
   addToInboundAllowList<E extends boolean = false>(
     projectId: string | number,
     targetProjectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<AllowListSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<ProjectAllowListSchema, C, E, void>> {
+    return RequestHelper.post<ProjectAllowListSchema>()(
+      this,
+      endpoint`${projectId}/job_token_scope/allowlist`,
+      { ...options, targetProjectId },
+    );
+  }
 
   removeFromInboundAllowList<E extends boolean = false>(
     projectId: string | number,
     targetProjectId: string | number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<void, C, E, void>>;
-}
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(
+      this,
+      endpoint`${projectId}/job_token_scope/allowlist/${targetProjectId}`,
+      options,
+    );
+  }
 
-export class ProjectJobTokenScopes<C extends boolean = false> extends ResourceJobTokenScopes<C> {
-  constructor(options: BaseResourceOptions<C>) {
-    /* istanbul ignore next */
-    super('projects', options);
+  showGroupsAllowList<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CondensedGroupSchema[], C, E, void>> {
+    return RequestHelper.get<CondensedGroupSchema[]>()(
+      this,
+      endpoint`${projectId}/job_token_scope/groups_allowlist`,
+      options,
+    );
+  }
+
+  addToGroupsAllowList<E extends boolean = false>(
+    projectId: string | number,
+    targetGroupId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupAllowListSchema, C, E, void>> {
+    return RequestHelper.post<GroupAllowListSchema>()(
+      this,
+      endpoint`${projectId}/job_token_scope/groups_allowlist`,
+      { ...options, targetGroupId },
+    );
+  }
+
+  removeFromGroupsAllowList<E extends boolean = false>(
+    projectId: string | number,
+    targetGroupId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    return RequestHelper.del()(
+      this,
+      endpoint`${projectId}/job_token_scope/groups_allowlist/${targetGroupId}`,
+      options,
+    );
   }
 }

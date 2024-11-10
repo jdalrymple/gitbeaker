@@ -167,7 +167,6 @@ export * from './GroupImportExports';
 export * from './GroupInvitations';
 export * from './GroupIssueBoards';
 export * from './GroupIterations';
-export * from './GroupJobTokenScopes';
 export * from './GroupLDAPLinks';
 export * from './GroupLabels';
 export * from './GroupMemberRoles';

@@ -170,7 +170,6 @@ describe('Browser Import', () => {
     'GroupInvitations',
     'GroupIssueBoards',
     'GroupIterations',
-    'GroupJobTokenScopes',
     'GroupLabels',
     'GroupLDAPLinks',
     'GroupMembers',

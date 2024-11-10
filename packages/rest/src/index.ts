@@ -176,7 +176,6 @@ export const {
   GroupInvitations,
   GroupIssueBoards,
   GroupIterations,
-  GroupJobTokenScopes,
   GroupLabels,
   GroupLDAPLinks,
   GroupMembers,

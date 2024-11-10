@@ -166,7 +166,6 @@ import { GroupImportExports } from './GroupImportExports';
 import { GroupInvitations } from './GroupInvitations';
 import { GroupIssueBoards } from './GroupIssueBoards';
 import { GroupIterations } from './GroupIterations';
-import { GroupJobTokenScopes } from './GroupJobTokenScopes';
 import { GroupLabels } from './GroupLabels';
 import { GroupLDAPLinks } from './GroupLDAPLinks';
 import { GroupMembers } from './GroupMembers';
@@ -360,7 +359,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupInvitations: GroupInvitations<C>;
   GroupIssueBoards: GroupIssueBoards<C>;
   GroupIterations: GroupIterations<C>;
-  GroupJobTokenScopes: GroupJobTokenScopes<C>;
   GroupLabels: GroupLabels<C>;
   GroupLDAPLinks: GroupLDAPLinks<C>;
   GroupMembers: GroupMembers<C>;
@@ -552,7 +550,6 @@ const resources = {
   GroupInvitations,
   GroupIssueBoards,
   GroupIterations,
-  GroupJobTokenScopes,
   GroupLabels,
   GroupLDAPLinks,
   GroupMembers,
