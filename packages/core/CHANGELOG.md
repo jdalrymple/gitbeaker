@@ -1,3 +1,15 @@
+# v41.2.0 (Sun Nov 10 2024)
+
+#### 🐛 Bug Fix
+
+- Fix ProjectJobTokenScopes to use the correct endpoints [#3650](https://github.com/jdalrymple/gitbeaker/pull/3650) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v41.1.2 (Sat Nov 09 2024)
 
 :tada: This release contains work from a new contributor! :tada:
