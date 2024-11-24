@@ -1,3 +1,19 @@
+# v41.3.0 (Sun Nov 24 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Use correct HTTP method on AccessRequest approve [#3660](https://github.com/jdalrymple/gitbeaker/pull/3660) ([@Retr0-01](https://github.com/Retr0-01))
+
+#### Authors: 1
+
+- Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01))
+
+---
+
 # v41.2.0 (Sun Nov 10 2024)
 
 #### 🐛 Bug Fix
