@@ -51,7 +51,7 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
     userId: number,
     options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
-    return RequestHelper.post<AccessRequestSchema>()(
+    return RequestHelper.put<AccessRequestSchema>()(
       this,
       endpoint`${resourceId}/access_requests/${userId}/approve`,
       options,

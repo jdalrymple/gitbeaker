@@ -59,7 +59,7 @@ describe('ResourceAccessRequests.approve', () => {
   it('should call the correct url for approving access requests with the resource id and user id', async () => {
     await service.approve('5', 1);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       '5/access_requests/1/approve',
       undefined,
