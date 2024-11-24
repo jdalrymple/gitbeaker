@@ -841,6 +841,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/33475618?v=4",
       "profile": "https://github.com/mpsanchis",
       "contributions": ["test", "code"]
+    },
+    {
+      "login": "Retr0-01",
+      "name": "Giannis Kepas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61121754?v=4",
+      "profile": "https://github.com/Retr0-01",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300

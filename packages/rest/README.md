@@ -512,6 +512,7 @@ projectsAPI.create({
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/roberta-pavel"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/26488965?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="roberta-pavel"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/yousinix"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/41103290?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Youssef"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/mpsanchis"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/33475618?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Miguel"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/Retr0-01"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/61121754?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Giannis Kepas"/></td>
     </tr>
 </p>
 
