@@ -18,7 +18,7 @@ import { AccessLevel } from '../constants';
 export interface ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
   add<E extends boolean = false>(
     projectId: string | number,
-    userId: number,
+    user: number | string, // userId if number, username if string
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;

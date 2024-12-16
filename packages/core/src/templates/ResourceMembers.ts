@@ -59,12 +59,12 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
   add<E extends boolean = false>(
     resourceId: string | number,
-    userId: number,
+    user: number | string, // userId if number, username if string
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
     options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
-      userId: String(userId),
+      ...(typeof user === 'number' ? { userId: String(user) } : { username: user }),
       accessLevel,
       ...options,
     });

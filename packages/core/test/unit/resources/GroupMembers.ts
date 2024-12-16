@@ -30,6 +30,15 @@ describe('GroupMembers.add', () => {
       accessLevel: 10,
     });
   });
+
+  it('should request POST /groups/user.name/members', async () => {
+    await service.add(1, 'user.name', 10);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members', {
+      username: 'user.name',
+      accessLevel: 10,
+    });
+  });
 });
 
 describe('GroupMembers.all', () => {
