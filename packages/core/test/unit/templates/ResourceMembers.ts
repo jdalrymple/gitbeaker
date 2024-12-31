@@ -33,7 +33,7 @@ describe('ResourceMembers.add', () => {
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/members', {
       accessLevel: 10,
-      userId: '5',
+      userId: 5,
     });
   });
 });
