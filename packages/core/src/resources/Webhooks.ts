@@ -64,6 +64,8 @@ export interface WebhookDiffSchema {
   deleted_file: boolean;
 }
 
+export type WebhookUserSchema = Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>;
+
 export interface BaseWebhookEventSchema {
   object_kind: string;
   event_name: string;
@@ -192,8 +194,8 @@ export interface WebhookIssueEventSchema extends BaseWebhookEventSchema {
     description: string;
     homepage: string;
   };
-  assignees: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>[] | null;
-  assignee: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'> | null;
+  assignees: WebhookUserSchema[] | null;
+  assignee: WebhookUserSchema | null;
   labels: WebhookLabelSchema[] | null;
   changes: {
     updated_by_id: {
@@ -257,7 +259,7 @@ export interface WebhookMergeRequestNoteEventSchema extends WebhookBaseNoteEvent
     };
     work_in_progress: boolean;
     draft: boolean;
-    assignee: Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'> | null;
+    assignee: WebhookUserSchema | null;
     detailed_merge_status: string;
   };
 }
@@ -311,7 +313,6 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     source_project_id: number;
     author_id: number;
     assignee_ids: number[] | null;
-    assignee_id: number;
     reviewer_ids: number[] | null;
     title: string;
     created_at: string;
@@ -325,7 +326,6 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     work_in_progress: boolean;
     draft: boolean;
     first_contribution: boolean;
-    merge_status: string;
     merge_commit_sha: string;
     target_project_id: number;
     description: string;
@@ -370,6 +370,10 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       previous: string | null;
       current: string | null;
     };
+    reviewers: {
+      previous: WebhookUserSchema[] | null;
+      current: WebhookUserSchema[] | null;
+    };
     labels: {
       previous: WebhookLabelSchema[] | null;
       current: WebhookLabelSchema[] | null;
@@ -383,8 +387,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       current: number | null;
     };
   };
-  assignees: Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>[] | null;
-  reviewers: Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>[] | null;
+  assignees: WebhookUserSchema[] | null;
+  reviewers: WebhookUserSchema[] | null;
 }
 
 export interface WebhookWikiEventSchema extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
