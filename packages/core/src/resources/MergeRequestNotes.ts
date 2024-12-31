@@ -29,7 +29,8 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
     projectId: string | number,
     mergerequestIId: number,
     body: string,
-    options?: { mergeRequestDiffSha?: string; createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { mergeRequestDiffSha?: string; createdAt?: string; internal?: boolean } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
