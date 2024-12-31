@@ -30,7 +30,11 @@ describe('ProjectJobTokenScopes.show', () => {
   it('should call the correct url with a resource id', async () => {
     await service.show(5);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/job_token_scope', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/5/job_token_scope',
+      undefined,
+    );
   });
 });
 
@@ -38,7 +42,7 @@ describe('ProjectJobTokenScopes.edit', () => {
   it('should call the correct url with a resource id and resource id', async () => {
     await service.edit('5', true);
 
-    expect(RequestHelper.patch()).toHaveBeenCalledWith(service, '5/job_token_scope', {
+    expect(RequestHelper.patch()).toHaveBeenCalledWith(service, 'projects/5/job_token_scope', {
       enabled: true,
     });
   });
@@ -50,7 +54,7 @@ describe('ProjectJobTokenScopes.showInboundAllowList', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/allowlist',
+      'projects/5/job_token_scope/allowlist',
       undefined,
     );
   });
@@ -60,9 +64,13 @@ describe('ProjectJobTokenScopes.addToInboundAllowList', () => {
   it('should call the correct resource and targetResource id', async () => {
     await service.addToInboundAllowList('5', 6);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/job_token_scope/allowlist', {
-      targetProjectId: 6,
-    });
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/5/job_token_scope/allowlist',
+      {
+        targetProjectId: 6,
+      },
+    );
   });
 });
 
@@ -72,7 +80,7 @@ describe('ProjectJobTokenScopes.removeFromInboundAllowList', () => {
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/allowlist/6',
+      'projects/5/job_token_scope/allowlist/6',
       undefined,
     );
   });
@@ -84,7 +92,7 @@ describe('ProjectJobTokenScopes.showGroupsAllowList', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/groups_allowlist',
+      'projects/5/job_token_scope/groups_allowlist',
       undefined,
     );
   });
@@ -96,7 +104,7 @@ describe('ProjectJobTokenScopes.addToGroupsAllowList', () => {
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/groups_allowlist',
+      'projects/5/job_token_scope/groups_allowlist',
       { targetGroupId: 6 },
     );
   });
@@ -108,7 +116,7 @@ describe('ProjectJobTokenScopes.removeFromGroupsAllowList', () => {
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
-      '5/job_token_scope/groups_allowlist/6',
+      'projects/5/job_token_scope/groups_allowlist/6',
       undefined,
     );
   });
