@@ -1,3 +1,16 @@
+# v42.0.1 (Tue Dec 31 2024)
+
+#### 🗃️ Typescript Definitions
+
+- Updating `DeployTokens.create` to return the `token` [#3672](https://github.com/jdalrymple/gitbeaker/pull/3672) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding `reviewers` to changes of the MergeRequestWebhookEvent [#3671](https://github.com/jdalrymple/gitbeaker/pull/3671) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v42.0.0 (Tue Dec 31 2024)
 
 :tada: This release contains work from a new contributor! :tada:
