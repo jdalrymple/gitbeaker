@@ -42,7 +42,11 @@ export interface TagSignatureSchema extends Record<string, unknown> {
 export class Tags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { orderBy?: 'name' | 'updated'; sort?: 'asc' | 'desc'; search?: string } & Sudo &
+    options?: {
+      orderBy?: 'name' | 'updated' | 'version';
+      sort?: 'asc' | 'desc';
+      search?: string;
+    } & Sudo &
       ShowExpanded<E> &
       PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<TagSchema[], C, E, P>> {
