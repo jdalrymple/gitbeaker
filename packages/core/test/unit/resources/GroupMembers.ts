@@ -23,10 +23,19 @@ describe('GroupMembers General', () => {
 
 describe('GroupMembers.add', () => {
   it('should request POST /groups/1/members', async () => {
-    await service.add(1, 2, 10);
+    await service.add(1, 10, { userId: 2 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members', {
-      userId: '2',
+      userId: 2,
+      accessLevel: 10,
+    });
+  });
+
+  it('should request POST /groups/user.name/members', async () => {
+    await service.add(1, 10, { username: 'user.name' });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members', {
+      username: 'user.name',
       accessLevel: 10,
     });
   });

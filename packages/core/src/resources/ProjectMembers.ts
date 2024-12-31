@@ -1,7 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceMembers } from '../templates';
 import type {
-  AddMemeberOptions,
+  AddMemberOptions,
   AllMembersOptions,
   IncludeInherited,
   MemberSchema,
@@ -18,9 +18,8 @@ import { AccessLevel } from '../constants';
 export interface ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
   add<E extends boolean = false>(
     projectId: string | number,
-    userId: number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
+    options?: AddMemberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(

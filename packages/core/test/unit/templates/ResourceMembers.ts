@@ -29,11 +29,11 @@ describe('Instantiating ResourceMembers service', () => {
 
 describe('ResourceMembers.add', () => {
   it('should call the correct url for adding a member with a resource id, user id and access level', async () => {
-    await service.add('5', 5, 10);
+    await service.add('5', 10, { userId: 5 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/members', {
       accessLevel: 10,
-      userId: '5',
+      userId: 5,
     });
   });
 });
