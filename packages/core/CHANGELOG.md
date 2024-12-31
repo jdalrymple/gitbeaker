@@ -1,3 +1,29 @@
+# v42.0.0 (Tue Dec 31 2024)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Talysson de Oliveira Cassiano ([@talyssonoc](https://github.com/talyssonoc)), for all your work!
+
+#### 💥 Breaking Change
+
+- Accept username in ProjectMembers#add [#3666](https://github.com/jdalrymple/gitbeaker/pull/3666) ([@talyssonoc](https://github.com/talyssonoc) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Updating endpoint for Job Token Scopes support [#3669](https://github.com/jdalrymple/gitbeaker/pull/3669) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Add the `internal` option to `MergeRequestNotes.create` [#3670](https://github.com/jdalrymple/gitbeaker/pull/3670) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating orderBy options for the Tags API [#3668](https://github.com/jdalrymple/gitbeaker/pull/3668) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Talysson de Oliveira Cassiano ([@talyssonoc](https://github.com/talyssonoc))
+
+---
+
 # v41.3.0 (Sun Nov 24 2024)
 
 :tada: This release contains work from a new contributor! :tada:
