@@ -30,7 +30,6 @@
     "release:next": "auto next",
     "release:canary": "auto canary",
     "release": "auto shipit",
-    "postinstall": "husky init",
     "prepare": "husky"
   },
   "dependencies": {
@@ -67,5 +66,5 @@
     "prettier": "^3.3.2",
     "typescript": "^5.5.3"
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.6.0"
 }

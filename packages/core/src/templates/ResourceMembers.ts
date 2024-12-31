@@ -4,6 +4,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,
+  OneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -38,12 +39,12 @@ export interface MemberSchema extends SimpleMemberSchema {
   };
 }
 
-export interface AddMemeberOptions {
+export type AddMemberOptions = OneOf<{ userId: string | number; username: string }> & {
   expiresAt?: string;
   inviteSource?: string;
   tasksToBeDone?: string[];
   tasksProjectId?: number;
-}
+};
 
 export interface AllMembersOptions {
   query?: string;
@@ -59,12 +60,10 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
   add<E extends boolean = false>(
     resourceId: string | number,
-    user: number | string, // userId if number, username if string
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: AddMemeberOptions & Sudo & ShowExpanded<E>,
+    options?: AddMemberOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     return RequestHelper.post<MemberSchema>()(this, endpoint`${resourceId}/members`, {
-      ...(typeof user === 'number' ? { userId: String(user) } : { username: user }),
       accessLevel,
       ...options,
     });
