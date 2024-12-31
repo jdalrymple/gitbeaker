@@ -28,6 +28,10 @@ export interface DeployTokenSchema extends Record<string, unknown> {
   scopes?: DeployTokenScope[];
 }
 
+export interface NewDeployTokenSchema extends DeployTokenSchema {
+  token: string;
+}
+
 export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     {
@@ -60,7 +64,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       username?: string;
     } & Sudo &
       ShowExpanded<E> = {} as any,
-  ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<NewDeployTokenSchema, C, E, void>> {
     let url: string;
 
     if (projectId) url = endpoint`projects/${projectId}/deploy_tokens`;
@@ -71,7 +75,7 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
       );
     }
 
-    return RequestHelper.post<DeployTokenSchema>()(this, url, {
+    return RequestHelper.post<NewDeployTokenSchema>()(this, url, {
       name,
       scopes,
       ...options,
