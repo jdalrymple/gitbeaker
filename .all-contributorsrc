@@ -848,6 +848,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/61121754?v=4",
       "profile": "https://github.com/Retr0-01",
       "contributions": ["test", "code"]
+    },
+    {
+      "login": "talyssonoc",
+      "name": "Talysson de Oliveira Cassiano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4325587?v=4",
+      "profile": "https://github.com/talyssonoc",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300
