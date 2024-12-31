@@ -26,7 +26,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.get<JobTokenScopeSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope`,
+      endpoint`projects/${projectId}/job_token_scope`,
       options,
     );
   }
@@ -38,7 +38,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
     return RequestHelper.patch<JobTokenScopeSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope`,
+      endpoint`projects/${projectId}/job_token_scope`,
       { ...options, enabled },
     );
   }
@@ -49,7 +49,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>> {
     return RequestHelper.get<SimpleProjectSchema[]>()(
       this,
-      endpoint`${projectId}/job_token_scope/allowlist`,
+      endpoint`projects/${projectId}/job_token_scope/allowlist`,
       options,
     );
   }
@@ -61,7 +61,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<ProjectAllowListSchema, C, E, void>> {
     return RequestHelper.post<ProjectAllowListSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope/allowlist`,
+      endpoint`projects/${projectId}/job_token_scope/allowlist`,
       { ...options, targetProjectId },
     );
   }
@@ -73,7 +73,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
-      endpoint`${projectId}/job_token_scope/allowlist/${targetProjectId}`,
+      endpoint`projects/${projectId}/job_token_scope/allowlist/${targetProjectId}`,
       options,
     );
   }
@@ -84,7 +84,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<CondensedGroupSchema[], C, E, void>> {
     return RequestHelper.get<CondensedGroupSchema[]>()(
       this,
-      endpoint`${projectId}/job_token_scope/groups_allowlist`,
+      endpoint`projects/${projectId}/job_token_scope/groups_allowlist`,
       options,
     );
   }
@@ -96,7 +96,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<GroupAllowListSchema, C, E, void>> {
     return RequestHelper.post<GroupAllowListSchema>()(
       this,
-      endpoint`${projectId}/job_token_scope/groups_allowlist`,
+      endpoint`projects/${projectId}/job_token_scope/groups_allowlist`,
       { ...options, targetGroupId },
     );
   }
@@ -108,7 +108,7 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
-      endpoint`${projectId}/job_token_scope/groups_allowlist/${targetGroupId}`,
+      endpoint`projects/${projectId}/job_token_scope/groups_allowlist/${targetGroupId}`,
       options,
     );
   }
