@@ -248,7 +248,6 @@ export type EditMergeRequestOptions = {
   title?: string;
   assigneeId?: number;
   assigneeIds?: number[];
-  reviewerId?: number;
   reviewerIds?: number[];
   milestoneId?: number;
   addLabels?: string;
@@ -274,7 +273,6 @@ export type CreateMergeRequestOptions = {
   | 'labels'
   | 'title'
   | 'milestoneId'
-  | 'reviewerId'
   | 'reviewerIds'
   | 'removeSourceBranch'
   | 'allowCollaboration'
