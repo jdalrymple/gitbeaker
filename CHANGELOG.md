@@ -1,3 +1,16 @@
+# 42.0.2 (Thu Jan 02 2025)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Remove unsupported `MergeRequest.create` option `reviewerId` [#3673](https://github.com/jdalrymple/gitbeaker/pull/3673) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 42.0.1 (Tue Dec 31 2024)
 
 #### 🗃️ Typescript Definitions
