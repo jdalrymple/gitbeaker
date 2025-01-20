@@ -1,3 +1,21 @@
+# 42.1.0 (Mon Jan 20 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fixing ProjectProtectedEnvironments using correct api [#3678](https://github.com/jdalrymple/gitbeaker/pull/3678) (marco.vermeulen@leaseplan.com [@Sephyr0s](https://github.com/Sephyr0s))
+
+#### Authors: 2
+
+- Marco ([@Sephyr0s](https://github.com/Sephyr0s))
+- Marco Vermeulen (External) (marco.vermeulen@leaseplan.com)
+
+---
+
 # 42.0.2 (Thu Jan 02 2025)
 
 #### 🗃️ Typescript Definitions
