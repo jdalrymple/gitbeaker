@@ -855,6 +855,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/4325587?v=4",
       "profile": "https://github.com/talyssonoc",
       "contributions": ["test", "code"]
+    },
+    {
+      "login": "Sephyr0s",
+      "name": "Marco",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34128667?v=4",
+      "profile": "https://github.com/Sephyr0s",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
