@@ -58,6 +58,6 @@ export class ProjectProtectedEnvironments<
 > extends ResourceProtectedEnvironments<C> {
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
-    super('groups', options);
+    super('projects', options);
   }
 }
