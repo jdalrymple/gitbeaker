@@ -11,6 +11,12 @@ const API = presetResourceArguments(Resources, { requesterFn });
 
 export const AccessLevel = AL;
 
+export {
+  GitbeakerRequestError,
+  GitbeakerTimeoutError,
+  GitbeakerRetryError,
+} from '@gitbeaker/requester-utils';
+
 export const {
   Agents,
   AlertManagement,
