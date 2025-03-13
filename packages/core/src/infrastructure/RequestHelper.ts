@@ -41,12 +41,12 @@ export interface KeysetPaginationRequestOptions {
 
 export interface OffsetPaginationRequestOptions {
   page?: number | string;
-  maxPages?: number;
 }
 
 export interface BasePaginationRequestOptions<P extends PaginationTypes | void> {
   pagination?: P;
   perPage?: number | string;
+  maxPages?: number;
 }
 
 export type PaginationRequestSubOptions<P extends PaginationTypes | void> = P extends 'keyset'
