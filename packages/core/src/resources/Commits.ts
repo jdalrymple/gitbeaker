@@ -9,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from './Users';
-import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
+import type { MergeRequestSchema } from './MergeRequests';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
 import type { CommitablePipelineStatus } from './Pipelines';
 
@@ -271,7 +271,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allMergeRequests<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     sha: string,
-    options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
