@@ -31,7 +31,7 @@ export interface IssueSchema extends Record<string, unknown> {
   health_status?: string;
   weight?: number;
   author: MappedOmit<SimpleUserSchema, 'created_at'>;
-  milestone: MilestoneSchema;
+  milestone?: MilestoneSchema;
   project_id: number;
   assignees?: MappedOmit<SimpleUserSchema, 'created_at'>[];
   type: string;
