@@ -64,7 +64,7 @@ export interface WebhookDiffSchema {
   deleted_file: boolean;
 }
 
-export type WebhookUserSchema = Pick<SimpleUserSchema, 'name' | 'username' | 'avatar_url'>;
+export type WebhookUserSchema = Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>;
 
 export interface BaseWebhookEventSchema {
   object_kind: string;
