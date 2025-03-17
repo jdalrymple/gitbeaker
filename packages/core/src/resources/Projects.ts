@@ -142,7 +142,7 @@ export interface ProjectSchema extends SimpleProjectSchema {
   repository_storage: string;
   only_allow_merge_if_pipeline_succeeds: boolean;
   allow_merge_on_skipped_pipeline: boolean;
-  restrict_user_defined_variables: boolean;
+  ci_pipeline_variables_minimum_override_role: boolean;
   only_allow_merge_if_all_discussions_are_resolved: boolean;
   remove_source_branch_after_merge: boolean;
   printing_merge_requests_link_enabled: boolean;
