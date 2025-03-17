@@ -24,7 +24,7 @@ export interface CreateAndEditPushRuleOptions {
   memberCheck?: boolean;
   preventSecrets?: boolean;
   commitMessageRegex?: string;
-  commitMessagNegativeRegex?: string;
+  commitMessageNegativeRegex?: string;
   branchNameRegex?: string;
   authorEmailRegex?: string;
   fileNameRegex?: string;
