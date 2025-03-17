@@ -4,7 +4,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -118,10 +117,10 @@ export type AllPipelinesOptions = {
 };
 
 export class Pipelines<C extends boolean = false> extends BaseResource<C> {
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+  all<E extends boolean = false>(
     projectId: string | number,
-    options?: AllPipelinesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
+    options?: AllPipelinesOptions & PaginationRequestOptions<'offset'> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, 'offset'>> {
     return RequestHelper.get<PipelineSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipelines`,
