@@ -32,7 +32,7 @@ export function appendFormFromObject(object: Record<string, OptionValueType>): F
   const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {
-    if (!v) return;
+    if (v == null) return;
     if (Array.isArray(v)) form.append(k, v[0] as Blob, v[1] as string);
     else form.append(k, v as unknown as string | Blob);
   });
