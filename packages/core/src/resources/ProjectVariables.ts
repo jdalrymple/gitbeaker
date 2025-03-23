@@ -27,6 +27,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      masked_and_hidden?: boolean;
       environmentScope?: string;
       description?: string;
       raw?: boolean;
@@ -42,6 +43,7 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      masked_and_hidden?: boolean;
       environmentScope?: string;
       raw?: boolean;
       filter: VariableFilter;
