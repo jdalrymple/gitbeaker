@@ -1932,6 +1932,7 @@ import { Gitlab } from '@gitbeaker/core';
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/Retr0-01"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/61121754?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Giannis Kepas"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/talyssonoc"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/4325587?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Talysson de Oliveira Cassiano"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/Sephyr0s"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/34128667?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Marco"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/enduity"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/19674002?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Endrik Einberg"/></td>
     </tr>
 </p>
 

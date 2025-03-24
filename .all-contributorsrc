@@ -862,6 +862,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/34128667?v=4",
       "profile": "https://github.com/Sephyr0s",
       "contributions": ["code"]
+    },
+    {
+      "login": "enduity",
+      "name": "Endrik Einberg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19674002?v=4",
+      "profile": "https://github.com/enduity",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300
