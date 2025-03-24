@@ -5,6 +5,9 @@ const { describe } = it;
 
 describe('Browser Import', () => {
   const keys = [
+    "GitbeakerRequestError",
+    "GitbeakerRetryError",
+    "GitbeakerTimeoutError",
     'AccessLevel',
     'Agents',
     'AlertManagement',
