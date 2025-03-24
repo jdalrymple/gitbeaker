@@ -1,3 +1,31 @@
+# v42.2.0 (Mon Mar 24 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Lucas ([@cz-lucas](https://github.com/cz-lucas)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Allow using falsey values in isForm requests [#3702](https://github.com/jdalrymple/gitbeaker/pull/3702) ([@Scrumplex](https://github.com/Scrumplex) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Added masked_and_hidden option to the ProjectVariables [#3701](https://github.com/jdalrymple/gitbeaker/pull/3701) ([@cz-lucas](https://github.com/cz-lucas))
+- Make offset pagination for listing all CI Pipelines explicit [#3694](https://github.com/jdalrymple/gitbeaker/pull/3694) ([@jdalrymple](https://github.com/jdalrymple))
+- Remove filtering options from the Commit.mergeRequests function [#3698](https://github.com/jdalrymple/gitbeaker/pull/3698) ([@jdalrymple](https://github.com/jdalrymple))
+- Support ci_pipeline_variables_minimum_override_role in the Projects API [#3696](https://github.com/jdalrymple/gitbeaker/pull/3696) ([@jdalrymple](https://github.com/jdalrymple))
+- Fixing typo in CreateAndEditPushRuleOptions [#3697](https://github.com/jdalrymple/gitbeaker/pull/3697) ([@jdalrymple](https://github.com/jdalrymple))
+- Make an Issues milestone property optional [#3695](https://github.com/jdalrymple/gitbeaker/pull/3695) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding missing Id attribute to the WebhookUserSchema [#3693](https://github.com/jdalrymple/gitbeaker/pull/3693) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Lucas ([@cz-lucas](https://github.com/cz-lucas))
+- Sefa Eyeoglu ([@Scrumplex](https://github.com/Scrumplex))
+
+---
+
 # v42.1.0 (Mon Jan 20 2025)
 
 :tada: This release contains work from a new contributor! :tada:

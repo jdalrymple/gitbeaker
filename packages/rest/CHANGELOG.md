@@ -1,3 +1,28 @@
+# v42.2.0 (Mon Mar 24 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Endrik Einberg ([@enduity](https://github.com/enduity)), for all your work!
+
+#### 🐛 Bug Fix
+
+- fix: Typing of Error description can be incorrect depending on the respose payload [#3703](https://github.com/jdalrymple/gitbeaker/pull/3703) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Export error classes in rest package [#3690](https://github.com/jdalrymple/gitbeaker/pull/3690) ([@enduity](https://github.com/enduity))
+
+#### ⚠️ Pushed to `main`
+
+- Adding missing test keys [skip-ci] ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Endrik Einberg ([@enduity](https://github.com/enduity))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v41.2.0 (Sun Nov 10 2024)
 
 #### 🐛 Bug Fix
