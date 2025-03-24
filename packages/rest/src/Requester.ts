@@ -52,12 +52,14 @@ async function throwFailedRequestError(
 ): Promise<GitbeakerRequestError> {
   const content = await response.text();
   const contentType = response.headers.get('Content-Type');
-  let description = 'API Request Error';
+  let description: string;
 
   if (contentType?.includes('application/json')) {
     const output = JSON.parse(content);
+    const contentProperty = output?.error || output?.message || '';
 
-    description = output.message;
+    description =
+      typeof contentProperty === 'string' ? contentProperty : JSON.stringify(contentProperty);
   } else {
     description = content;
   }

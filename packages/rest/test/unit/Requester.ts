@@ -1,4 +1,10 @@
 import type { RequestOptions } from '@gitbeaker/requester-utils';
+import {
+  GitbeakerRequestError,
+  GitbeakerRetryError,
+  GitbeakerTimeoutError,
+} from '@gitbeaker/requester-utils';
+import { getError } from '../utils/index';
 import { defaultRequestHandler, processBody } from '../../src/Requester';
 
 global.fetch = jest.fn();
@@ -98,54 +104,142 @@ describe('processBody', () => {
 });
 
 describe('defaultRequestHandler', () => {
-  it('should return an error with the statusText as the primary message and a description derived from a error property when response has an error property', async () => {
-    const stringBody = { error: 'msg' };
+  it('should return an error with the statusText as the Error message', async () => {
+    const responseContent = { error: 'msg' };
 
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        ok: false,
-        status: 501,
-        statusText: 'Really Bad Error',
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 501,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-        json: () => Promise.resolve(stringBody),
-        text: () => Promise.resolve(JSON.stringify(stringBody)),
-      }),
+      ),
     );
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message: 'Really Bad Error',
-      name: 'GitbeakerRequestError',
-      cause: {
-        description: 'msg',
-      },
-    });
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Really Bad Error');
+    expect(error).toBeInstanceOf(GitbeakerRequestError);
   });
 
-  it('should return an error the content of the error message if response is not JSON', async () => {
-    const stringBody = 'Bad things happened';
+  it('should return an error with the response included in the cause', async () => {
+    const responseContent = { error: 'msg' };
 
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        ok: false,
-        status: 501,
-        statusText: 'Really Bad Error',
-        headers: new Headers({
-          'content-type': 'text/plain',
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 501,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-        json: () => Promise.resolve(stringBody),
-        text: () => Promise.resolve(stringBody),
-      }),
+      ),
     );
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message: 'Really Bad Error',
-      name: 'GitbeakerRequestError',
-      cause: {
-        description: stringBody,
-      },
-    });
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Really Bad Error');
+    expect(error?.cause?.response).toBeInstanceOf(Response);
+  });
+
+  it('should return an error with the request included in the cause', async () => {
+    const responseContent = { error: 'msg' };
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 501,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
+
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Really Bad Error');
+    expect(error?.cause?.request).toBeInstanceOf(Request);
+  });
+
+  it("should return an error with a description property derived from the response's error property when response is JSON", async () => {
+    const responseContent = { error: 'msg' };
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 501,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
+
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error?.cause?.description).toBe('msg');
+    expect(error).toBeInstanceOf(GitbeakerRequestError);
+  });
+
+  it("should return an error with a description property derived from the response's message property when response is JSON", async () => {
+    const responseContent = { message: 'msg' };
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 501,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
+
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error?.cause?.description).toBe('msg');
+    expect(error).toBeInstanceOf(GitbeakerRequestError);
+  });
+
+  it('should return an error with the plain response text if response is not JSON', async () => {
+    const responseContent = 'Bad things happened';
+
+    MockFetch.mockReturnValueOnce(
+      Promise.resolve(
+        new Response(responseContent, {
+          status: 500,
+          statusText: 'Really Bad Error',
+          headers: {
+            'content-type': 'text/plain',
+          },
+        }),
+      ),
+    );
+
+    const error = await getError<GitbeakerRequestError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error?.cause?.description).toBe(responseContent);
+    expect(error).toBeInstanceOf(GitbeakerRequestError);
   });
 
   it('should return an error with a message "Query timeout was reached" if fetch throws a TimeoutError', async () => {
@@ -158,10 +252,12 @@ describe('defaultRequestHandler', () => {
 
     MockFetch.mockRejectedValueOnce(new TimeoutError('Hit timeout'));
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message: 'Query timeout was reached',
-      name: 'GitbeakerTimeoutError',
-    });
+    const error = await getError<GitbeakerTimeoutError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Query timeout was reached');
+    expect(error).toBeInstanceOf(GitbeakerTimeoutError);
   });
 
   it('should return an error with a message "Query timeout was reached" if fetch throws a AbortError', async () => {
@@ -174,10 +270,12 @@ describe('defaultRequestHandler', () => {
 
     MockFetch.mockRejectedValueOnce(new AbortError('Abort signal triggered'));
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message: 'Query timeout was reached',
-      name: 'GitbeakerTimeoutError',
-    });
+    const error = await getError<GitbeakerTimeoutError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Query timeout was reached');
+    expect(error).toBeInstanceOf(GitbeakerTimeoutError);
   });
 
   it('should return an unchanged error if fetch throws an error thats not an AbortError or TimeoutError', async () => {
@@ -190,36 +288,40 @@ describe('defaultRequestHandler', () => {
 
     MockFetch.mockRejectedValueOnce(new RandomError('Random Error'));
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message: 'Random Error',
-      name: 'RandomError',
-    });
+    const error = await getError<RandomError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe('Random Error');
+    expect(error).toBeInstanceOf(RandomError);
   });
 
   it('should retry request if a 429 retry code is returned', async () => {
-    const stringBody = { error: 'msg' };
-    const fakeFailedReturnValue = Promise.resolve({
-      ok: false,
-      status: 429,
-      statusText: 'Retry Code',
-      headers: new Headers({
-        'content-type': 'application/json',
-      }),
-      json: () => Promise.resolve(stringBody),
-      text: () => Promise.resolve(JSON.stringify(stringBody)),
-    });
+    const responseContent = { error: 'msg' };
+    const fakeFailedReturnValue = Promise.resolve(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 429,
+          statusText: 'Retry Code',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
 
-    const fakeSuccessfulReturnValue = Promise.resolve({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: new Headers({
-        'content-type': 'application/json',
-      }),
-    });
+    const fakeSuccessfulReturnValue = Promise.resolve(
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
 
-    // Mock return 10 times
     MockFetch.mockReturnValue(fakeFailedReturnValue);
     MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
 
@@ -233,29 +335,31 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should retry request if a 502 retry code is returned', async () => {
-    const stringBody = { error: 'msg' };
-    const fakeFailedReturnValue = Promise.resolve({
-      ok: false,
-      status: 502,
-      statusText: 'Retry Code',
-      headers: new Headers({
-        'content-type': 'application/json',
-      }),
-      json: () => Promise.resolve(stringBody),
-      text: () => Promise.resolve(JSON.stringify(stringBody)),
-    });
+    const responseContent = { error: 'msg' };
+    const fakeFailedReturnValue = Promise.resolve(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 502,
+          statusText: 'Retry Code',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
 
-    const fakeSuccessfulReturnValue = Promise.resolve({
-      json: () => Promise.resolve({}),
-      text: () => Promise.resolve(JSON.stringify({})),
-      ok: true,
-      status: 200,
-      headers: new Headers({
-        'content-type': 'application/json',
-      }),
-    });
+    const fakeSuccessfulReturnValue = Promise.resolve(
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
 
-    // Mock return 10 times
     MockFetch.mockReturnValue(fakeFailedReturnValue);
     MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
 
@@ -269,41 +373,44 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should return a default error if retries are unsuccessful', async () => {
-    const stringBody = { error: 'msg' };
-    const fakeReturnValue = Promise.resolve({
-      ok: false,
-      status: 429,
-      statusText: 'Retry Code',
-      headers: new Headers({
-        'content-type': 'application/json',
-      }),
-      json: () => Promise.resolve(stringBody),
-      text: () => Promise.resolve(JSON.stringify(stringBody)),
-    });
+    const responseContent = { error: 'msg' };
+    const fakeReturnValue = Promise.resolve(
+      Promise.resolve(
+        new Response(JSON.stringify(responseContent), {
+          status: 429,
+          statusText: 'Retry Code',
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      ),
+    );
 
-    // Mock return 10 times
     MockFetch.mockReturnValue(fakeReturnValue);
 
-    await expect(defaultRequestHandler('http://test.com', {} as RequestOptions)).rejects.toThrow({
-      message:
-        'Could not successfully complete this request after 10 retries, last status code: 429. Check the applicable rate limits for this endpoint.',
-      name: 'GitbeakerRetryError',
-    });
+    const error = await getError<GitbeakerRetryError>(() =>
+      defaultRequestHandler('http://test.com', {} as RequestOptions),
+    );
+
+    expect(error.message).toBe(
+      'Could not successfully complete this request after 10 retries, last status code: 429. Check the applicable rate limits for this endpoint.',
+    );
+    expect(error).toBeInstanceOf(GitbeakerRetryError);
 
     MockFetch.mockRestore();
   });
 
   it('should return correct properties if request is valid', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
@@ -317,16 +424,15 @@ describe('defaultRequestHandler', () => {
 
   it('should return correct properties as stream if request is valid', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        body: 'text',
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response('text', {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     const output = await defaultRequestHandler('http://test.com', {
@@ -334,23 +440,27 @@ describe('defaultRequestHandler', () => {
     } as RequestOptions);
 
     expect(output).toMatchObject({
-      body: 'text',
+      body: expect.any(ReadableStream),
       headers: { 'content-type': 'application/json' },
       status: 200,
     });
+
+    const outputContent = await new Response(output.body as ReadableStream).text();
+
+    expect(outputContent).toBe('text');
   });
 
   it('should handle a prefix url correctly', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     await defaultRequestHandler('testurl', {
@@ -364,15 +474,15 @@ describe('defaultRequestHandler', () => {
 
   it('should handle a searchParams correctly', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     await defaultRequestHandler('testurl/123', {
@@ -387,15 +497,15 @@ describe('defaultRequestHandler', () => {
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     await defaultRequestHandler('http://test.com/repository/archive');
@@ -409,15 +519,15 @@ describe('defaultRequestHandler', () => {
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
     MockFetch.mockReturnValueOnce(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     await defaultRequestHandler('http://test.com/test/something');
@@ -428,16 +538,16 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should handle multipart prefixUrls correctly', async () => {
-    MockFetch.mockReturnValue(
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve(JSON.stringify({})),
-        ok: true,
-        status: 200,
-        headers: new Headers({
-          'content-type': 'application/json',
+    MockFetch.mockImplementation(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          statusText: 'Good',
+          headers: {
+            'content-type': 'application/json',
+          },
         }),
-      }),
+      ),
     );
 
     await defaultRequestHandler('testurl/123', {
