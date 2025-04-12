@@ -370,6 +370,10 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       previous: string | null;
       current: string | null;
     };
+    assignees: {
+      previous: WebhookUserSchema[] | null;
+      current: WebhookUserSchema[] | null;
+    };
     reviewers: {
       previous: WebhookUserSchema[] | null;
       current: WebhookUserSchema[] | null;
