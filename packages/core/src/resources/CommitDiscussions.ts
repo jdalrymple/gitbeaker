@@ -1,11 +1,12 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
-import type {
-  GitlabAPIResponse,
-  PaginationRequestOptions,
-  PaginationTypes,
-  ShowExpanded,
-  Sudo,
+import {
+  type GitlabAPIResponse,
+  type PaginationRequestOptions,
+  type PaginationTypes,
+  RawPathSegment,
+  type ShowExpanded,
+  type Sudo,
 } from '../infrastructure';
 import type {
   DiscussionNotePositionOptions,
@@ -68,6 +69,6 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
 export class CommitDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   constructor(options: BaseResourceOptions<C>) {
     /* istanbul ignore next */
-    super('projects', 'repository/commits', options);
+    super('projects', new RawPathSegment('repository/commits'), options);
   }
 }

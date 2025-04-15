@@ -7,6 +7,7 @@ import type {
   MappedOmit,
   PaginationRequestOptions,
   PaginationTypes,
+  RawPathSegment,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -76,9 +77,13 @@ export interface DiscussionSchema extends Record<string, unknown> {
 export type DiscussionNotePositionOptions = Camelize<DiscussionNotePositionSchema>;
 
 export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
-  protected resource2Type: string;
+  protected resource2Type: string | RawPathSegment;
 
-  constructor(resourceType: string, resource2Type: string, options: BaseResourceOptions<C>) {
+  constructor(
+    resourceType: string,
+    resource2Type: string | RawPathSegment,
+    options: BaseResourceOptions<C>,
+  ) {
     super({ prefixUrl: resourceType, ...options });
 
     this.resource2Type = resource2Type;
