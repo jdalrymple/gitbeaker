@@ -41,15 +41,39 @@ export function appendFormFromObject(object: Record<string, OptionValueType>): F
 }
 
 /**
- * Normalize GitLab API endpoint by encoding route parameters.
- * @param strings
- * @param values
+ * A special class to mark path segments that should not be URL-encoded.
+ * Used for paths that already contain special characters like '/' that should be preserved.
+ * For example, in API paths like 'repository/commits', the slash should not be encoded to '%2F'.
  */
-export function endpoint(strings: TemplateStringsArray, ...values: (string | number)[]): string {
-  return values.reduce<string>(
-    (string, value, index) => string + encodeURIComponent(value) + strings[index + 1],
-    strings[0],
-  );
+export class RawPathSegment {
+  public readonly value: string;
+
+  constructor(value: string) {
+    this.value = value;
+  }
+
+  toString(): string {
+    return this.value;
+  }
+}
+
+/**
+ * Normalize GitLab API endpoint by encoding route parameters.
+ * Handles special cases where certain path segments (wrapped in RawPathSegment)
+ * should not be URL-encoded.
+ * @param strings Template string parts
+ * @param values Values to be encoded and inserted between string parts
+ */
+export function endpoint(
+  strings: TemplateStringsArray,
+  ...values: (string | number | RawPathSegment)[]
+): string {
+  return values.reduce<string>((result, value, index) => {
+    const encodedValue =
+      value instanceof RawPathSegment ? value.value : encodeURIComponent(String(value));
+
+    return result + encodedValue + strings[index + 1];
+  }, strings[0]);
 }
 
 /**
