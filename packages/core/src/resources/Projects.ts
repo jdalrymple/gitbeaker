@@ -521,7 +521,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 		} & Sudo &
 			ShowExpanded<E>,
 	): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
-		return get<SimpleGroupSchema[]>()(
+		return RequestHelper.get<SimpleGroupSchema[]>()(
 			this,
 			endpoint`projects/${projectId}/invited_groups`,
 			options,

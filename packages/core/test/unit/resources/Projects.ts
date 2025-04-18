@@ -51,6 +51,18 @@ describe('Projects.allGroups', () => {
   });
 });
 
+describe('Projects.allSharedGroups', () => {
+  it('should request GET /projects/2/groups', async () => {
+    await service.allSharedGroups(2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/invited_groups',
+      undefined,
+    );
+  });
+});
+
 describe('Projects.allSharableGroups', () => {
   it('should request GET /projects/2/groups', async () => {
     await service.allSharableGroups(2);
