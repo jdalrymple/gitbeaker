@@ -511,6 +511,23 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+	allSharedGroups<E extends boolean = false>(
+		projectId: string | number,
+		options?: {
+			search?: string;
+			sharedMinAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
+			relation?: 'direct' | 'inherited';
+			withCustomAttributes: true;
+		} & Sudo &
+			ShowExpanded<E>,
+	): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
+		return get<SimpleGroupSchema[]>()(
+			this,
+			endpoint`projects/${projectId}/invited_groups`,
+			options,
+		);
+	}
+
   allSharableGroups<E extends boolean = false>(
     projectId: string | number,
     options?: {
