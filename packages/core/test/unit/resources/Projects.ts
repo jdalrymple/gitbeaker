@@ -52,7 +52,7 @@ describe('Projects.allGroups', () => {
 });
 
 describe('Projects.allSharedGroups', () => {
-  it('should request GET /projects/2/groups', async () => {
+  it('should request GET /projects/2/invited_groups', async () => {
     await service.allSharedGroups(2);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
