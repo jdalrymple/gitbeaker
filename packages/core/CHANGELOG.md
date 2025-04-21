@@ -1,3 +1,36 @@
+# v42.3.0 (Mon Apr 21 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Zack ([@zk-kb4](https://github.com/zk-kb4))
+
+:heart: Bryan Lee ([@liby](https://github.com/liby))
+
+#### ✨ Feature
+
+- Update packages/core/test/unit/resources/Projects.ts [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@jdalrymple](https://github.com/jdalrymple))
+- Update packages/core/src/resources/Projects.ts [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@jdalrymple](https://github.com/jdalrymple))
+- fix linter errors [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- revert version numbers back [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- remove wrong attribute [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- fix test call [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- fix invalid get call [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- Add invited_groups API request for projects [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+
+#### 🗃️ Typescript Definitions
+
+- Adding `assignees` to changes of the `MergeRequestWebhookEvent.changes` [#3706](https://github.com/jdalrymple/gitbeaker/pull/3706) ([@liby](https://github.com/liby))
+
+#### Authors: 3
+
+- Bryan Lee ([@liby](https://github.com/liby))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Zack ([@zk-kb4](https://github.com/zk-kb4))
+
+---
+
 # v42.2.0 (Mon Mar 24 2025)
 
 :tada: This release contains work from a new contributor! :tada:

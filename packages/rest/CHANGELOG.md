@@ -1,3 +1,20 @@
+# v42.3.0 (Mon Apr 21 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Zack ([@zk-kb4](https://github.com/zk-kb4)), for all your work!
+
+#### ✨ Feature
+
+- revert version numbers back [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+- Add invited_groups API request for projects [#3710](https://github.com/jdalrymple/gitbeaker/pull/3710) ([@zk-kb4](https://github.com/zk-kb4))
+
+#### Authors: 1
+
+- Zack ([@zk-kb4](https://github.com/zk-kb4))
+
+---
+
 # v42.2.0 (Mon Mar 24 2025)
 
 :tada: This release contains work from a new contributor! :tada:
