@@ -1,3 +1,16 @@
+# v42.4.0 (Mon Apr 21 2025)
+
+#### 🐛 Bug Fix
+
+- Add comprehensive unit tests for endpoint utility [#3708](https://github.com/jdalrymple/gitbeaker/pull/3708) ([@liby](https://github.com/liby))
+- Add RawPathSegment class to preserve slashes in API paths [#3708](https://github.com/jdalrymple/gitbeaker/pull/3708) ([@liby](https://github.com/liby))
+
+#### Authors: 1
+
+- Bryan Lee ([@liby](https://github.com/liby))
+
+---
+
 # v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from new contributors! :tada:
