@@ -54,7 +54,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^42.3.0",
+    "@gitbeaker/core": "^42.2.0",
     "@gitbeaker/requester-utils": "^42.2.0"
   },
   "devDependencies": {
