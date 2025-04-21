@@ -511,7 +511,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allSharedGroups<E extends boolean = false>(
+  allInvitedGroups<E extends boolean = false>(
     projectId: string | number,
     options?: {
       search?: string;
