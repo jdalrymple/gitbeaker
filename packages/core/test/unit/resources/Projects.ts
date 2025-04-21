@@ -51,7 +51,7 @@ describe('Projects.allGroups', () => {
   });
 });
 
-describe('Projects.allSharedGroups', () => {
+describe('Projects.allInvitedGroups', () => {
   it('should request GET /projects/2/invited_groups', async () => {
     await service.allSharedGroups(2);
 
