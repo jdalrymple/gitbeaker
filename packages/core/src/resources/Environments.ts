@@ -10,6 +10,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DeployableSchema, DeploymentSchema } from './Deployments';
+import { SimpleProjectSchema } from './Projects';
 
 export type EnvironmentTier = 'production' | 'staging' | 'testing' | 'development' | 'other';
 
@@ -24,8 +25,14 @@ export interface EnvironmentSchema extends Record<string, unknown> {
   updated_at: string;
   enable_advanced_logs_querying: boolean;
   logs_api_path: string;
+  flux_resource_path?: string;
+  kubernetes_namespace?: string;
   last_deployment: DeploymentSchema;
   deployable: DeployableSchema;
+  project?: SimpleProjectSchema;
+  auto_stop_at: string | null;
+  description: string | null;
+  auto_stop_setting: string;
 }
 
 export type CondensedEnvironmentSchema = MappedOmit<
