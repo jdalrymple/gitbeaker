@@ -1,3 +1,16 @@
+# 42.4.1 (Thu Apr 24 2025)
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Update EnvironmentSchema with additional fields [#3713](https://github.com/jdalrymple/gitbeaker/pull/3713) ([@liby](https://github.com/liby))
+
+#### Authors: 1
+
+- Bryan Lee ([@liby](https://github.com/liby))
+
+---
+
 # 42.4.0 (Mon Apr 21 2025)
 
 #### 🐛 Bug Fix
