@@ -149,6 +149,7 @@ export const {
   ProjectSnippets,
   ProjectStatistics,
   ProjectTemplates,
+  ProjectTerraformState,
   ProjectVariables,
   ProjectVulnerabilities,
   ProjectWikis,
