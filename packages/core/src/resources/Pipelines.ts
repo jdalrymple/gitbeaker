@@ -215,6 +215,17 @@ export class Pipelines<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  showLatest<E extends boolean = false>(
+    projectId: string | number,
+    options?: { ref?: string } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    return RequestHelper.get<ExpandedPipelineSchema>()(
+      this,
+      endpoint`projects/${projectId}/pipelines/latest`,
+      options,
+    );
+  }
+
   showTestReport<E extends boolean = false>(
     projectId: string | number,
     pipelineId: number,
