@@ -18,12 +18,6 @@
   <br>
 	<sup>Special thanks to:</sup>
 	<br>
-	<br>
-
-  <a href="https://wearecws.com/">
-    <img src="../../.github/ASSETS/cws.svg" width="180">
-  </a>
-  <br>
   <br>
   <a href="http://coderabbit.ai">
     <img src="../../.github/ASSETS/coderabbit.png" width="180">
