@@ -9,7 +9,11 @@ import { defaultRequestHandler, processBody } from '../../src/Requester';
 
 global.fetch = jest.fn();
 
-const MockFetch = global.fetch as jest.Mock;
+const mockFetch = global.fetch as jest.Mock;
+
+beforeEach(() => {
+  mockFetch.mockReset();
+});
 
 describe('processBody', () => {
   it('should return a json object if type is application/json', async () => {
@@ -107,7 +111,7 @@ describe('defaultRequestHandler', () => {
   it('should return an error with the statusText as the Error message', async () => {
     const responseContent = { error: 'msg' };
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify(responseContent), {
           status: 501,
@@ -130,7 +134,7 @@ describe('defaultRequestHandler', () => {
   it('should return an error with the response included in the cause', async () => {
     const responseContent = { error: 'msg' };
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify(responseContent), {
           status: 501,
@@ -153,7 +157,7 @@ describe('defaultRequestHandler', () => {
   it('should return an error with the request included in the cause', async () => {
     const responseContent = { error: 'msg' };
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify(responseContent), {
           status: 501,
@@ -176,7 +180,7 @@ describe('defaultRequestHandler', () => {
   it("should return an error with a description property derived from the response's error property when response is JSON", async () => {
     const responseContent = { error: 'msg' };
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify(responseContent), {
           status: 501,
@@ -199,7 +203,7 @@ describe('defaultRequestHandler', () => {
   it("should return an error with a description property derived from the response's message property when response is JSON", async () => {
     const responseContent = { message: 'msg' };
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify(responseContent), {
           status: 501,
@@ -222,7 +226,7 @@ describe('defaultRequestHandler', () => {
   it('should return an error with the plain response text if response is not JSON', async () => {
     const responseContent = 'Bad things happened';
 
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(responseContent, {
           status: 500,
@@ -250,7 +254,7 @@ describe('defaultRequestHandler', () => {
       }
     }
 
-    MockFetch.mockRejectedValueOnce(new TimeoutError('Hit timeout'));
+    mockFetch.mockRejectedValueOnce(new TimeoutError('Hit timeout'));
 
     const error = await getError<GitbeakerTimeoutError>(() =>
       defaultRequestHandler('http://test.com', {} as RequestOptions),
@@ -268,7 +272,7 @@ describe('defaultRequestHandler', () => {
       }
     }
 
-    MockFetch.mockRejectedValueOnce(new AbortError('Abort signal triggered'));
+    mockFetch.mockRejectedValueOnce(new AbortError('Abort signal triggered'));
 
     const error = await getError<GitbeakerTimeoutError>(() =>
       defaultRequestHandler('http://test.com', {} as RequestOptions),
@@ -286,7 +290,7 @@ describe('defaultRequestHandler', () => {
       }
     }
 
-    MockFetch.mockRejectedValueOnce(new RandomError('Random Error'));
+    mockFetch.mockRejectedValueOnce(new RandomError('Random Error'));
 
     const error = await getError<RandomError>(() =>
       defaultRequestHandler('http://test.com', {} as RequestOptions),
@@ -322,8 +326,8 @@ describe('defaultRequestHandler', () => {
       ),
     );
 
-    MockFetch.mockReturnValue(fakeFailedReturnValue);
-    MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
+    mockFetch.mockReturnValue(fakeFailedReturnValue);
+    mockFetch.mockReturnValue(fakeSuccessfulReturnValue);
 
     const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
 
@@ -360,8 +364,8 @@ describe('defaultRequestHandler', () => {
       ),
     );
 
-    MockFetch.mockReturnValue(fakeFailedReturnValue);
-    MockFetch.mockReturnValue(fakeSuccessfulReturnValue);
+    mockFetch.mockReturnValue(fakeFailedReturnValue);
+    mockFetch.mockReturnValue(fakeSuccessfulReturnValue);
 
     const output = await defaultRequestHandler('http://test.com', {} as RequestOptions);
 
@@ -386,7 +390,7 @@ describe('defaultRequestHandler', () => {
       ),
     );
 
-    MockFetch.mockReturnValue(fakeReturnValue);
+    mockFetch.mockReturnValue(fakeReturnValue);
 
     const error = await getError<GitbeakerRetryError>(() =>
       defaultRequestHandler('http://test.com', {} as RequestOptions),
@@ -396,12 +400,10 @@ describe('defaultRequestHandler', () => {
       'Could not successfully complete this request after 10 retries, last status code: 429. Check the applicable rate limits for this endpoint.',
     );
     expect(error).toBeInstanceOf(GitbeakerRetryError);
-
-    MockFetch.mockRestore();
   });
 
   it('should return correct properties if request is valid', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -423,7 +425,7 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should return correct properties as stream if request is valid', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response('text', {
           status: 200,
@@ -451,7 +453,7 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should handle a prefix url correctly', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -469,11 +471,11 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/testurl'), { mode: undefined });
 
-    expect(MockFetch).toHaveBeenCalledWith(request);
+    expect(mockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should handle a searchParams correctly', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -492,11 +494,11 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/testurl/123?test=4'), { mode: undefined });
 
-    expect(MockFetch).toHaveBeenCalledWith(request);
+    expect(mockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -514,11 +516,11 @@ describe('defaultRequestHandler', () => {
       mode: 'same-origin',
     });
 
-    expect(MockFetch).toHaveBeenCalledWith(request);
+    expect(mockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
-    MockFetch.mockReturnValueOnce(
+    mockFetch.mockReturnValueOnce(
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -534,11 +536,11 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/test/something'), { mode: undefined });
 
-    expect(MockFetch).toHaveBeenCalledWith(request);
+    expect(mockFetch).toHaveBeenCalledWith(request);
   });
 
   it('should handle multipart prefixUrls correctly', async () => {
-    MockFetch.mockImplementation(() =>
+    mockFetch.mockImplementation(() =>
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 200,
@@ -559,7 +561,7 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(MockFetch).toHaveBeenCalledWith(request);
+    expect(mockFetch).toHaveBeenCalledWith(request);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
@@ -570,7 +572,7 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(MockFetch).toHaveBeenCalledWith(request2);
+    expect(mockFetch).toHaveBeenCalledWith(request2);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
@@ -581,6 +583,6 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(MockFetch).toHaveBeenCalledWith(request3);
+    expect(mockFetch).toHaveBeenCalledWith(request3);
   });
 });
