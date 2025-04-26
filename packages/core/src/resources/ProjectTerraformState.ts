@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { GitlabAPIResponse, ShowExpanded, Sudo } from '@gitbeaker/core';
-import { endpoint, RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TerraformStateSchema extends Record<string, unknown> {
   version: number;
