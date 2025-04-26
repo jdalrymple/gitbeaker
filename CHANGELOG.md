@@ -1,3 +1,22 @@
+# 42.5.0 (Sat Apr 26 2025)
+
+#### ✨ Feature
+
+- `@gitbeaker/rest`
+  - More test updates [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Updating Gitlab export [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@jdalrymple](https://github.com/jdalrymple))
+  - Linting [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Add Terraform State API [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@zk-kb4](https://github.com/zk-kb4))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Zack ([@zk-kb4](https://github.com/zk-kb4))
+
+---
+
 # 42.4.1 (Thu Apr 24 2025)
 
 #### 🗃️ Typescript Definitions

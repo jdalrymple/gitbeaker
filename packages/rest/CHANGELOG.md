@@ -1,3 +1,17 @@
+# v42.5.0 (Sat Apr 26 2025)
+
+#### ✨ Feature
+
+- More test updates [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@jdalrymple](https://github.com/jdalrymple))
+- Add Terraform State API [#3711](https://github.com/jdalrymple/gitbeaker/pull/3711) ([@zk-kb4](https://github.com/zk-kb4))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Zack ([@zk-kb4](https://github.com/zk-kb4))
+
+---
+
 # v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from a new contributor! :tada:
