@@ -43,7 +43,7 @@ export interface ProjectAccessTokens<C extends boolean = false> extends Resource
   rotate<E extends boolean = false>(
     projectId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   show<E extends boolean = false>(
