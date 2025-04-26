@@ -131,7 +131,7 @@ export * from './ProjectSnippetNotes';
 export * from './ProjectSnippets';
 export * from './ProjectStatistics';
 export * from './ProjectTemplates';
-export * from './ProjectTerraformState'
+export * from './ProjectTerraformState';
 export * from './ProjectVariables';
 export * from './ProjectVulnerabilities';
 export * from './ProjectWikis';
