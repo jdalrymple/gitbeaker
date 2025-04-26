@@ -81,7 +81,7 @@ function getConditionalMode(endpoint: string) {
 export async function defaultRequestHandler(endpoint: string, options?: RequestOptions) {
   const retryCodes = [429, 502];
   const maxRetries = 10;
-  const { prefixUrl, asStream, searchParams, rateLimiters, method, ...opts } = options || {};
+  const { rateLimiters, agent, asStream, prefixUrl, searchParams, method, ...opts } = options || {};
   const rateLimit = getMatchingRateLimiter(endpoint, rateLimiters, method);
   let lastStatus: number | undefined;
   let baseUrl: string | undefined;
@@ -95,13 +95,19 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
+  const initOptions: Record<string, unknown> = {};
+
+  if (agent) {
+    initOptions.dispatcher = agent;
+  }
+
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
     const request = new Request(url, { ...opts, method, mode });
 
     await rateLimit();
 
-    const response = await fetch(request).catch((e) => {
+    const response = await fetch(request, initOptions).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
         throw new GitbeakerTimeoutError('Query timeout was reached');
       }
