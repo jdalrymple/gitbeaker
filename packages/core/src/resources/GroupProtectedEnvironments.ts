@@ -21,7 +21,7 @@ export interface GroupProtectedEnvironments<C extends boolean = false> {
   create<E extends boolean = false>(
     groupId: string | number,
     name: string,
-    deployAccessLevel: ProtectedEnvironmentAccessLevelEntity[],
+    deployAccessLevels: ProtectedEnvironmentAccessLevelEntity[],
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
