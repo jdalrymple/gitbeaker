@@ -133,6 +133,7 @@ import { ProjectSnippetNotes } from './ProjectSnippetNotes';
 import { ProjectSnippets } from './ProjectSnippets';
 import { ProjectStatistics } from './ProjectStatistics';
 import { ProjectTemplates } from './ProjectTemplates';
+import { ProjectTerraformState } from './ProjectTerraformState';
 import { ProjectVariables } from './ProjectVariables';
 import { ProjectVulnerabilities } from './ProjectVulnerabilities';
 import { ProjectWikis } from './ProjectWikis';
@@ -326,6 +327,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectSnippets: ProjectSnippets<C>;
   ProjectStatistics: ProjectStatistics<C>;
   ProjectTemplates: ProjectTemplates<C>;
+  ProjectTerraformState: ProjectTerraformState<C>;
   ProjectVariables: ProjectVariables<C>;
   ProjectVulnerabilities: ProjectVulnerabilities<C>;
   ProjectWikis: ProjectWikis<C>;
@@ -517,6 +519,7 @@ const resources = {
   ProjectSnippets,
   ProjectStatistics,
   ProjectTemplates,
+  ProjectTerraformState,
   ProjectVariables,
   ProjectVulnerabilities,
   ProjectWikis,
