@@ -43,7 +43,7 @@ export interface GroupAccessTokens<C extends boolean = false> extends ResourceAc
   rotate<E extends boolean = false>(
     groupId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   show<E extends boolean = false>(
