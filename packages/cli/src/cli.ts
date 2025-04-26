@@ -76,13 +76,13 @@ const cli = Sywac.version('-v, --version')
   .showHelpByDefault()
   .epilogue(`Copyright ${new Date().getFullYear()}`)
   .style({
-    usagePrefix: (s) => usageStyle(s),
-    group: (s) => groupStyle(s),
-    usageCommandPlaceholder: s => commandStyle(s),
-    flags: (s) => optionStyle(s),
-    usageOptionsPlaceholder: (s) => optionStyle(s),
-    desc: (s) => descriptionStyle(s),
-    hints: (s) => hintStyle(s),
+    usagePrefix: (s: string) => usageStyle(s),
+    group: (s: string) => groupStyle(s),
+    usageCommandPlaceholder: (s: string) => commandStyle(s),
+    flags: (s: string) => optionStyle(s),
+    usageOptionsPlaceholder: (s: string) => optionStyle(s),
+    desc: (s: string) => descriptionStyle(s),
+    hints: (s: string) => hintStyle(s),
   });
 
 // Add Global commands
