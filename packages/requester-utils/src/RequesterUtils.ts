@@ -2,6 +2,7 @@ import { stringify } from 'qs';
 import { decamelizeKeys } from 'xcase';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 import Picomatch from 'picomatch-browser';
+import type { Agent } from 'http';
 
 const { isMatch: isGlobMatch } = Picomatch;
 
@@ -35,9 +36,9 @@ export type ResourceOptions = {
   headers: { [header: string]: string };
   authHeaders: { [authHeader: string]: () => Promise<string> };
   url: string;
-  rejectUnauthorized: boolean;
   rateLimits?: RateLimitOptions;
   rateLimitDuration?: number;
+  agent?: Agent;
 };
 
 export type DefaultRequestOptions = {
@@ -59,6 +60,7 @@ export type RequestOptions = {
   asStream?: boolean;
   signal?: AbortSignal;
   rateLimiters?: Record<string, RateLimiterFn>;
+  agent?: Agent;
 };
 
 export interface RequesterType {
@@ -121,12 +123,13 @@ export async function defaultOptionsHandler(
     method = 'GET',
   }: DefaultRequestOptions = {},
 ): Promise<RequestOptions> {
-  const { headers: preconfiguredHeaders, authHeaders, url } = resourceOptions;
+  const { headers: preconfiguredHeaders, authHeaders, url, agent } = resourceOptions;
   const defaultOptions: RequestOptions = {
     method,
     asStream,
     signal,
     prefixUrl: url,
+    agent,
   };
 
   defaultOptions.headers = { ...preconfiguredHeaders };
