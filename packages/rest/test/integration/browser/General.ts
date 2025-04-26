@@ -139,6 +139,7 @@ describe('Browser Import', () => {
     'ProjectSnippets',
     'ProjectStatistics',
     'ProjectTemplates',
+    'ProjectTerraformState',
     'ProjectVariables',
     'ProjectVulnerabilities',
     'ProjectWikis',
