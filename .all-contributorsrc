@@ -876,6 +876,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/38807139?v=4",
       "profile": "https://note.itswhat.me/",
       "contributions": ["code", "test"]
+    },
+    {
+      "login": "zk-kb4",
+      "name": "Zack",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42388953?v=4",
+      "profile": "https://github.com/zk-kb4",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300
