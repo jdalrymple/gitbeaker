@@ -35,16 +35,13 @@ function runAPIMethod(ctx, args: Record<string, string>, apiName: string, method
     .then((r) => {
       ctx.output = JSON.stringify(r, null, 3);
     })
-    .catch((e) => {
-      ctx.output = e;
-    });
 }
 
 function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
   const globalConfig = getGlobalConfig();
 
   Object.entries(globalConfig).forEach(([k, v]) => {
-    setupArgs.option(`${k} <value>`, {
+    setupArgs.option(`--${k} <value>`, {
       group: 'Base Options',
       ...v,
     });
