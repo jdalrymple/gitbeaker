@@ -44,9 +44,10 @@ variables:
     - .nx/cache
 
 #Link and Install all required dependencies
-default:
+workflow:
   rules:
     - if: '$CI_MERGE_REQUEST_ID'
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 install:
   image: node:20-alpine
