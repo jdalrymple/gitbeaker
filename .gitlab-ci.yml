@@ -44,12 +44,13 @@ variables:
     - .nx/cache
 
 #Link and Install all required dependencies
+default:
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID'
 
 install:
   image: node:20-alpine
   stage: install
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   variables:
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
@@ -149,10 +150,10 @@ test:live:setup:
   needs: []
   timeout: 15m
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && '$CI_MERGE_REQUEST_ID'
       when: on_success
       allow_failure: false
-    - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
+    - if: ($CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/) && '$CI_MERGE_REQUEST_ID'
       when: manual
       allow_failure: true
   variables:
