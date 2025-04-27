@@ -43,11 +43,13 @@ variables:
   paths:
     - .nx/cache
 
-#Link and Install all required dependancies
+#Link and Install all required dependencies
 
 install:
   image: node:20-alpine
   stage: install
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   variables:
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
