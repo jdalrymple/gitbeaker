@@ -1,5 +1,10 @@
 name: 'Base Pipeline'
 
+on:
+  pull_request:
+    branches:
+      - main
+
 env:
   NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   NODE_VERSION: 20
