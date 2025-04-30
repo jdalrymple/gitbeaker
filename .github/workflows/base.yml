@@ -21,7 +21,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
   lint:
     runs-on: ubuntu-latest
@@ -35,6 +35,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
 
@@ -50,6 +52,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Format
         run: yarn format
 
@@ -65,6 +69,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Cache NX cache
         uses: actions/cache@v4
         with:
