@@ -18,8 +18,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -33,8 +33,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
       - name: Lint
         run: yarn lint
 
@@ -48,8 +48,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
       - name: Format
         run: yarn format
 
@@ -63,8 +63,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
       - name: Cache NX cache
         uses: actions/cache@v4
         with:
