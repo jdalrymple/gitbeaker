@@ -13,7 +13,7 @@ defaults: &defaults
   steps:
     - &checkout
       name: Checkout code
-      ses: actions/checkout@v4
+      uses: actions/checkout@v4
 
     - &setup-node
       name: Set up Node.js
