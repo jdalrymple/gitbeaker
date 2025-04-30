@@ -9,25 +9,17 @@ env:
   NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   NODE_VERSION: 20
 
-defaults: &defaults
-  steps:
-    - &checkout
-      name: Checkout code
-      uses: actions/checkout@v4
-
-    - &setup-node
-      name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
-
 jobs:
   warmup:
     runs-on: ubuntu-latest
     steps:
-      - *checkout
-      - *setup-node
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -36,8 +28,13 @@ jobs:
     needs:
       - warmup
     steps:
-      - *checkout
-      - *setup-node
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'yarn'
       - name: Lint
         run: yarn lint
 
@@ -46,8 +43,13 @@ jobs:
     needs:
       - warmup
     steps:
-      - *checkout
-      - *setup-node
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'yarn'
       - name: Format
         run: yarn format
 
@@ -56,8 +58,13 @@ jobs:
     needs:
       - warmup
     steps:
-      - *checkout
-      - *setup-node
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'yarn'
       - name: Cache NX cache
         uses: actions/cache@v4
         with:
