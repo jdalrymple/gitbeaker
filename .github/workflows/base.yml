@@ -173,7 +173,7 @@ jobs:
       - build
     strategy:
       matrix:
-        package-name: [requester-utils, core, rest, cli]
+        package-name: [core, rest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
