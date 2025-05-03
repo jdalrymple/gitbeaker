@@ -3,7 +3,8 @@ export default {
   testRegex: 'test\\/.*\\.ts$',
   coverageDirectory: 'coverage',
   collectCoverage: true,
-  coverageReporters: ['text', 'text-summary', ['lcov', {projectRoot: '../'}]],  moduleNameMapper: {
+  coverageReporters: ['text', 'text-summary', ['lcov', { projectRoot: '../' }]],
+  moduleNameMapper: {
     '^@gitbeaker/(.*)$': '<rootDir>/../$1/src',
   },
   transformIgnorePatterns: [
