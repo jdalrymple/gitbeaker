@@ -1,3 +1,4 @@
+import type { Agent } from 'http';
 import { RateLimitOptions, RequesterType, ResourceOptions } from './RequesterUtils';
 
 export interface RootResourceOptions<C> {
@@ -5,13 +6,13 @@ export interface RootResourceOptions<C> {
   requesterFn?: (resourceOptions: ResourceOptions) => RequesterType;
   host?: string;
   prefixUrl?: string;
-  rejectUnauthorized?: boolean;
   camelize?: C;
   queryTimeout?: number | null;
   sudo?: string | number;
   profileToken?: string;
   profileMode?: 'execution' | 'memory';
   rateLimits?: RateLimitOptions;
+  agent?: Agent;
 }
 
 export type GitlabToken = string | (() => Promise<string>);
@@ -95,17 +96,15 @@ export class BaseResource<C extends boolean = false> {
 
   public readonly camelize: C | undefined;
 
-  public readonly rejectUnauthorized: boolean;
-
   constructor({
     sudo,
     profileToken,
     camelize,
     requesterFn,
+    agent,
     profileMode = 'execution',
     host = 'https://gitlab.com',
     prefixUrl = '',
-    rejectUnauthorized = true,
     queryTimeout = 300000,
     rateLimits = DEFAULT_RATE_LIMITS,
     ...tokens
@@ -115,7 +114,6 @@ export class BaseResource<C extends boolean = false> {
     this.url = [host, 'api', 'v4', prefixUrl].join('/');
     this.headers = {};
     this.authHeaders = {};
-    this.rejectUnauthorized = rejectUnauthorized;
     this.camelize = camelize;
     this.queryTimeout = queryTimeout;
 
@@ -141,6 +139,6 @@ export class BaseResource<C extends boolean = false> {
     if (sudo) this.headers.Sudo = `${sudo}`;
 
     // Set requester instance using this information
-    this.requester = requesterFn({ ...this, rateLimits });
+    this.requester = requesterFn({ ...this, rateLimits, agent });
   }
 }

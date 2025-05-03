@@ -19,7 +19,6 @@ describe('Instantiating GroupHooks service', () => {
   it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(GroupHooks);
     expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
   });
 
   it('should call /groups prefix', () => {
