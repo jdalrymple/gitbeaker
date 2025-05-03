@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   NODE_VERSION: 20
   CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
   GCP_ZONE: us-central1-c
@@ -131,7 +130,7 @@ jobs:
         run: yarn install --immutable
       - name: Test
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
-      - run: cat ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/info.info
+      - run: cat ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info
       - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage
       - name: Upload Coverage
         uses: paambaati/codeclimate-action@v9
