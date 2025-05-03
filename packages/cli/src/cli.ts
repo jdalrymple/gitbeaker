@@ -31,10 +31,9 @@ function runAPIMethod(ctx, args: Record<string, string>, apiName: string, method
   const s = new Gitbeaker[apiName](initArgs);
 
   // Execute function
-  return s[method.name](...Object.values(coreArgs), optionalArgs)
-    .then((r) => {
-      ctx.output = JSON.stringify(r, null, 3);
-    })
+  return s[method.name](...Object.values(coreArgs), optionalArgs).then((r) => {
+    ctx.output = JSON.stringify(r, null, 3);
+  });
 }
 
 function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
