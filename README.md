@@ -33,10 +33,9 @@
 </div>
 
 <p align="center">
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
-   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker/test_coverage"><img src="https://api.codeclimate.com/v1/badges/be4b0562607b21214adc/test_coverage" /></a>
-  <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
-    <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
+  <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
+  <a href="https://qlty.sh/gh/jdalrymple/projects/gitbeaker"><img src="https://qlty.sh/badges/6c245fd9-3773-4c8a-87b7-12d658fe9ded/test_coverage.svg" alt="Code Coverage" /></a>
+  <a href="https://qlty.sh/gh/jdalrymple/projects/gitbeaker"><img src="https://qlty.sh/badges/6c245fd9-3773-4c8a-87b7-12d658fe9ded/maintainability.svg" alt="Maintainability" /></a>
   </a>
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
