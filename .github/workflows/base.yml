@@ -193,8 +193,6 @@ jobs:
         run: yarn install --immutable
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
-
-
 # test:live:setup:
 #   stage: setup
 #   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
@@ -248,32 +246,32 @@ jobs:
 #     reports:
 #       dotenv: intergration.env
 
-  # test:e2e:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     -
-  #     - build
-  #   strategy:
-  #     matrix:
-  #       package-name: [requester-utils, core, rest, cli]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
-  #         cache: 'yarn'
-  #     - name: Cache NX cache
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: .nx/cache
-  #         key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-  #         restore-keys: ${{ runner.os }}-nx-
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
-  #     - name: Test
-  #       run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
+# test:e2e:
+#   runs-on: ubuntu-latest
+#   needs:
+#     -
+#     - build
+#   strategy:
+#     matrix:
+#       package-name: [requester-utils, core, rest, cli]
+#   steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ env.NODE_VERSION }}
+#         cache: 'yarn'
+#     - name: Cache NX cache
+#       uses: actions/cache@v4
+#       with:
+#         path: .nx/cache
+#         key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
+#         restore-keys: ${{ runner.os }}-nx-
+#     - name: Install dependencies
+#       run: yarn install --immutable
+#     - name: Test
+#       run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 
 # test:e2e:rest:
 #   extends: .test:e2e:base
