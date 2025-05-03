@@ -15,7 +15,7 @@ runs:
         cache: 'yarn'
 
     - name: Install dependencies
-      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+      shell: bash
       run: yarn install --immutable --no-progress --non-interactive --prefer-offline
 
     # - name: Cache nx cache
