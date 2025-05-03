@@ -95,7 +95,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: packages
+          name: build-artifacts
           path: |
             packages/core/dist/
             packages/cli/dist/
@@ -190,6 +190,10 @@ jobs:
           restore-keys: ${{ runner.os }}-nx-
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 # test:live:setup:
