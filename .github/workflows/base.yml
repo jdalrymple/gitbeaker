@@ -81,12 +81,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
       - name: Restore node_modules from cache
         uses: actions/cache@v4
         id: cache-nodemodules
@@ -112,12 +106,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
       - name: Restore node_modules from cache
         uses: actions/cache@v4
         id: cache-nodemodules
@@ -157,12 +145,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
       - name: Restore node_modules from cache
         uses: actions/cache@v4
         id: cache-nodemodules
@@ -199,12 +181,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx/cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
       - name: Restore node_modules from cache
         uses: actions/cache@v4
         id: cache-nodemodules
@@ -236,12 +212,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
       - name: Restore node_modules from cache
         uses: actions/cache@v4
         id: cache-nodemodules
