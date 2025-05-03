@@ -131,7 +131,7 @@ jobs:
         run: yarn install --immutable
       - name: Test
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
-      - run: ls
+      - run: cat ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/info.info
       - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage
       - name: Upload Coverage
         uses: paambaati/codeclimate-action@v9
