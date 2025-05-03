@@ -11,113 +11,39 @@ env:
   GCP_CONTAINER_NAME: gitlab-${{ github.run_id }}
 
 jobs:
-  warmup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
-
   lint:
     runs-on: ubuntu-latest
-    needs:
-      - warmup
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Cache NX cache
-        uses: actions/cache@v4
-        with:
-          path: .nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-nx-
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Lint
         run: yarn lint
 
   format:
     runs-on: ubuntu-latest
-    needs:
-      - warmup
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Format
         run: yarn format
 
   build:
     runs-on: ubuntu-latest
-    needs:
-      - warmup
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Build Packages
         run: yarn build
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -138,25 +64,14 @@ jobs:
       matrix:
         package-name: [requester-utils, core, rest, cli]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Test
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
+
       - name: Upload Coverage
         uses: qltysh/qlty-action/coverage@v1
         with:
@@ -174,23 +89,11 @@ jobs:
       matrix:
         package-name: [requester-utils, core, rest, cli]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Test
         run: yarn test:types --projects=@gitbeaker/${{ matrix.package-name }}
 
@@ -205,30 +108,20 @@ jobs:
       matrix:
         package-name: [core, rest]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Job
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Restore node_modules from cache
-        uses: actions/cache@v4
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-
-      - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+
       - name: Install playwright
         run: yarn dlx playwright install --with-deps chromium
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
+
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 # test:live:setup:
