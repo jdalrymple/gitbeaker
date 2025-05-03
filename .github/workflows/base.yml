@@ -7,7 +7,6 @@ on:
 
 env:
   NODE_VERSION: 20
-  CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
   GCP_ZONE: us-central1-c
   GCP_CONTAINER_NAME: gitlab-${{ github.run_id }}
 
@@ -130,10 +129,10 @@ jobs:
         run: yarn install --immutable
       - name: Test
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
-      - run: cat ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info
-      - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage
       - name: Upload Coverage
         uses: paambaati/codeclimate-action@v9
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
           coverageLocations: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info:lcov
           debug: true
