@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -76,7 +76,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -104,7 +104,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -126,7 +126,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Job
+      - name: Sync Dependencies and Caches
         uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
