@@ -1,0 +1,31 @@
+name: Setup
+description: Setup Node.js, cache and install dependencies
+inputs:
+  node-version:
+    description: Node.js version
+    required: false
+    default: 'lts'
+runs:
+  using: composite
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'yarn'
+
+    - name: Install dependencies
+      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+      run: yarn install --immutable --no-progress --non-interactive --prefer-offline
+
+    # - name: Cache nx cache
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: .nx/cache
+    #     key: ${{ runner.os }}-${{ hashFiles('**/project.json') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}
