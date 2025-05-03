@@ -171,13 +171,13 @@ jobs:
           restore-keys: ${{ runner.os }}-nx-
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Install playwright
+        run: yarn playwright install
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
-      - run: ls
-      - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/dist
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 # test:live:setup:
