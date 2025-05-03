@@ -175,6 +175,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
+      - run: ls
+      - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/dist
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 # test:live:setup:
