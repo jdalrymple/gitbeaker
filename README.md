@@ -34,7 +34,7 @@
 
 <p align="center">
    <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="coverage report" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/coverage.svg" /></a>
+   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker/test_coverage"><img src="https://api.codeclimate.com/v1/badges/be4b0562607b21214adc/test_coverage" /></a>
   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
     <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
   </a>
@@ -54,12 +54,10 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Packages](#packages)
-- [Usage](./packages/rest/README.md#usage)
-- [FAQ](./docs/FAQ.md)
 - [Contributors](#contributors)
-- [Changelog](./CHANGELOG.md)
 
 ## Features
 
