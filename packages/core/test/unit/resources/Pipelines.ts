@@ -155,7 +155,11 @@ describe('Pipelines', () => {
 
       await service.showLatest(projectId, options);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/latest', options);
+      expect(RequestHelper.get()).toHaveBeenCalledWith(
+        service,
+        'projects/1/pipelines/latest',
+        options,
+      );
     });
   });
 
