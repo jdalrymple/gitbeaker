@@ -104,7 +104,8 @@ jobs:
             packages/rest/dist/
             packages/requester-utils/dist/
 
-  test:unit:
+  test-unit:
+    name: Unit Tests
     runs-on: ubuntu-latest
     needs:
       - lint
@@ -135,7 +136,8 @@ jobs:
         with:
           coverageLocations: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info:lcov
 
-  test:types:
+  test-types:
+    name: Types Tests
     runs-on: ubuntu-latest
     needs:
       - lint
@@ -163,7 +165,8 @@ jobs:
       - name: Test
         run: yarn test:types --projects=@gitbeaker/${{ matrix.package-name }}
 
-  test:integration:
+  test-integration:
+    name: Integration Tests
     runs-on: ubuntu-latest
     needs:
       - lint
