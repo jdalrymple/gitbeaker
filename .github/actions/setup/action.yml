@@ -1,0 +1,28 @@
+name: Setup
+description: Setup Node.js, cache and install dependencies
+inputs:
+  node-version:
+    description: Node.js version
+    required: false
+    default: 'lts'
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'yarn'
+
+    - name: Install dependencies
+      shell: bash
+      run: yarn install --immutable
+
+    - name: Cache nx cache
+      uses: actions/cache@v4
+      with:
+        save-always: true
+        path: .cache
+        key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock', 'package.json') }}-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nx-${{ hashFiles('yarn.lock', 'package.json') }}-
