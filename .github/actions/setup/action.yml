@@ -16,7 +16,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: yarn install --immutable --no-progress --non-interactive --prefer-offline
+      run: yarn install --immutable
 
     # - name: Cache nx cache
     #   uses: actions/cache@v4
