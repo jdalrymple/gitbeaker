@@ -132,7 +132,8 @@ jobs:
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
       - name: Upload Coverage
         uses: paambaati/codeclimate-action@v9
-        coverageLocations: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info:lcov
+        with:
+          coverageLocations: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info:lcov
 
   test:types:
     runs-on: ubuntu-latest
