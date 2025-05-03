@@ -14,6 +14,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
@@ -25,6 +28,9 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
@@ -36,6 +42,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
@@ -64,6 +73,9 @@ jobs:
       matrix:
         package-name: [requester-utils, core, rest, cli]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
@@ -89,6 +101,9 @@ jobs:
       matrix:
         package-name: [requester-utils, core, rest, cli]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
@@ -108,6 +123,9 @@ jobs:
       matrix:
         package-name: [core, rest]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Job
         uses: ./.github/actions/setup
         with:
