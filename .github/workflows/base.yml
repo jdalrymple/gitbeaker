@@ -131,10 +131,13 @@ jobs:
         run: yarn install --immutable
       - name: Test
         run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
+      - run: ls
+      - run: ls ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage
       - name: Upload Coverage
         uses: paambaati/codeclimate-action@v9
         with:
           coverageLocations: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info:lcov
+          debug: true
 
   test-types:
     name: Types Tests
