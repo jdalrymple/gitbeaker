@@ -11,6 +11,9 @@ export default {
   moduleNameMapper: {
     '^@gitbeaker/(.*)$': '<rootDir>/../$1/src',
   },
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!chalk).+\\.js$', // Needed for chalkv5
+  ],
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },

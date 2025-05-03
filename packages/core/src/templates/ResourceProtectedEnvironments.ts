@@ -49,7 +49,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
   create<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    deployAccessLevel: ProtectedEnvironmentAccessLevelEntity[],
+    deployAccessLevels: ProtectedEnvironmentAccessLevelEntity[],
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
@@ -61,7 +61,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
       `${resourceId}/protected_environments`,
       {
         name,
-        deployAccessLevel,
+        deployAccessLevels,
         ...options,
       },
     );

@@ -43,7 +43,11 @@ variables:
   paths:
     - .nx/cache
 
-#Link and Install all required dependancies
+#Link and Install all required dependencies
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/'
 
 install:
   image: node:20-alpine
@@ -150,7 +154,7 @@ test:live:setup:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
       allow_failure: false
-    - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
+    - if: ($CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/)
       when: manual
       allow_failure: true
   variables:

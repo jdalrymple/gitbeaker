@@ -31,20 +31,16 @@ function runAPIMethod(ctx, args: Record<string, string>, apiName: string, method
   const s = new Gitbeaker[apiName](initArgs);
 
   // Execute function
-  return s[method.name](...Object.values(coreArgs), optionalArgs)
-    .then((r) => {
-      ctx.output = JSON.stringify(r, null, 3);
-    })
-    .catch((e) => {
-      ctx.output = e;
-    });
+  return s[method.name](...Object.values(coreArgs), optionalArgs).then((r) => {
+    ctx.output = JSON.stringify(r, null, 3);
+  });
 }
 
 function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
   const globalConfig = getGlobalConfig();
 
   Object.entries(globalConfig).forEach(([k, v]) => {
-    setupArgs.option(`${k} <value>`, {
+    setupArgs.option(`--${k} <value>`, {
       group: 'Base Options',
       ...v,
     });
@@ -76,13 +72,13 @@ const cli = Sywac.version('-v, --version')
   .showHelpByDefault()
   .epilogue(`Copyright ${new Date().getFullYear()}`)
   .style({
-    usagePrefix: usageStyle,
-    group: groupStyle,
-    flags: optionStyle,
-    usageCommandPlaceholder: commandStyle,
-    usageOptionsPlaceholder: optionStyle,
-    desc: descriptionStyle,
-    hints: hintStyle,
+    usagePrefix: (s: string) => usageStyle(s),
+    group: (s: string) => groupStyle(s),
+    usageCommandPlaceholder: (s: string) => commandStyle(s),
+    flags: (s: string) => optionStyle(s),
+    usageOptionsPlaceholder: (s: string) => optionStyle(s),
+    desc: (s: string) => descriptionStyle(s),
+    hints: (s: string) => hintStyle(s),
   });
 
 // Add Global commands

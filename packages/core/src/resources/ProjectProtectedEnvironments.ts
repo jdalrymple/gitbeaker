@@ -21,10 +21,10 @@ export interface ProjectProtectedEnvironments<C extends boolean = false> {
   create<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    deployAccessLevel: ProtectedEnvironmentAccessLevelEntity[],
+    deployAccessLevels: ProtectedEnvironmentAccessLevelEntity[],
     options?: {
       requiredApprovalCount?: number;
-      approvalLevels: ProtectedEnvironmentAccessLevelEntity[];
+      approvalRules: ProtectedEnvironmentAccessLevelEntity[];
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>>;
