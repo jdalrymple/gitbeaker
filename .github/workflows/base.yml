@@ -172,7 +172,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Install playwright
-        run: yarn playwright install
+        run: yarn dlx playwright install --with-deps chromium
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
