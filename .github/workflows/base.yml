@@ -1,14 +1,15 @@
-name: 'Base Pipeline'
+name: 'CI/CD Pipeline'
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 env:
   NODE_VERSION: 20
-  GCP_ZONE: us-central1-c
-  GCP_CONTAINER_NAME: gitlab-${{ github.run_id }}
 
 jobs:
   lint:
@@ -142,114 +143,181 @@ jobs:
 
       - name: Test
         run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
-# test:live:setup:
-#   stage: setup
-#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-#   needs: []
-#   timeout: 15m
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-#       when: on_success
-#       allow_failure: false
-#     - if: $CI_COMMIT_BRANCH == "next" || $CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/
-#       when: manual
-#       allow_failure: true
-#   variables:
-#     GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
-#     GITLAB_VERSION: 16.11.3-ce.0
-#     GITLAB_ROOT_PASSWORD: gitbeaker
-#   before_script:
-#     - apk add jq curl envsubst
-#     - gcloud components install beta -q
-#   script:
-#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID} --no-user-output-enabled
-#     - envsubst < scripts/startup.sh > scripts/startup_filled.sh
-#     - |
-#       GITLAB_HOST="$(gcloud beta compute instances create $CONTAINER_NAME \
-#         --project gitbeaker \
-#         --machine-type=e2-highmem-2 \
-#         --boot-disk-size=25GB \
-#         --zone=$GCP_ZONE \
-#         --tags http-server \
-#         --metadata-from-file startup-script=scripts/startup_filled.sh \
-#         --image-family=debian-12 \
-#         --image-project=debian-cloud \
-#         --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
-#         2>/dev/null \
-#         )"
-#     - GITLAB_URL="http://${GITLAB_HOST}"
-#     - echo "GITLAB_URL=${GITLAB_URL}" >> intergration.env
-#     - echo "GITLAB_PERSONAL_ACCESS_TOKEN=${GITLAB_PERSONAL_ACCESS_TOKEN}" >> intergration.env
-#     - echo "Waiting for service to start"
-#     - sleep 240
-#     - attempt=1
-#     - |
-#       while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
-#         echo "Polling Attempt: $attempt - Gitlab service is not alive yet";
-#         sleep 10;
-#         ((attempt++));
-#       done
-#     - echo "Service is up and running"
-#   artifacts:
-#     reports:
-#       dotenv: intergration.env
 
-# test:e2e:
+  #---
+  test-e2e-setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+      GITLAB_VERSION: 16.11.3-ce.0
+      GITLAB_ROOT_PASSWORD: gitbeaker
+      GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+      GCP_ZONE: us-central1-c
+      GCP_CONTAINER_NAME: gitlab-${{ github.run_id }}
+
+    outputs:
+      GITLAB_URL: ${{ steps.gitlab-creds.outputs.GITLAB_URL }}
+      GITLAB_PERSONAL_ACCESS_TOKEN: ${{ steps.gitlab-creds.outputs.GITLAB_PERSONAL_ACCESS_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - id: 'Authenticate with GCP'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Fill startup script
+        run: |
+          envsubst < scripts/startup.sh > scripts/startup_filled.sh
+
+      - name: Create GCP Instance
+        id: create_instance
+        run: |
+          gcloud --quiet config set project ${{env.GOOGLE_PROJECT_ID}} --no-user-output-enabled
+          GITLAB_HOST="$(gcloud beta compute instances create $CONTAINER_NAME \
+            --project ${{env.GOOGLE_PROJECT_ID}} \
+            --machine-type=e2-highmem-2 \
+            --boot-disk-size=25GB \
+            --zone=$GCP_ZONE \
+            --tags http-server \
+            --metadata-from-file startup-script=scripts/startup_filled.sh \
+            --image-family=debian-12 \
+            --image-project=debian-cloud \
+            --format='get(networkInterfaces[0].accessConfigs[0].natIP)' 2>/dev/null)"
+          echo "GITLAB_URL=http://$GITLAB_HOST" >> $GITHUB_ENV
+
+      - name: Write environment variables
+        id: gitlab-creds
+        run: |
+          echo "GITLAB_URL=${{ env.GITLAB_URL }}" >> "$GITHUB_OUTPUT"
+          echo "GITLAB_PERSONAL_ACCESS_TOKEN=${{ env.GITLAB_PERSONAL_ACCESS_TOKEN }}" >> "$GITHUB_OUTPUT"
+
+      - name: Check GitLab instance readiness
+        run: |
+          echo "Waiting for service to start"
+          sleep 240
+          attempt=1
+          while [[ "$(curl --fail --silent -X GET "${{ env.GITLAB_URL }}/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+            echo "Polling Attempt: $attempt - GitLab service is not alive yet"
+            sleep 10
+            ((attempt++))
+          done
+          echo "Service is up and running"
+
+# echo "The first color is ${{ steps.gitlab-creds.outputs.GITLAB_URL }}"
+# echo "The second color is ${{ steps.gitlab-creds.outputs.GITLAB_PERSONAL_ACCESS_TOKEN }}"
+
+# test-e2e:
+#   name: End-to-end Tests
 #   runs-on: ubuntu-latest
 #   needs:
-#     -
-#     - build
+#     - e2e-setup
 #   strategy:
 #     matrix:
-#       package-name: [requester-utils, core, rest, cli]
+#       package-name: [rest, cli]
 #   steps:
 #     - name: Checkout code
 #       uses: actions/checkout@v4
-#     - name: Set up Node.js
-#       uses: actions/setup-node@v4
+
+#     - name: Sync Dependencies and Caches
+#       uses: ./.github/actions/setup
 #       with:
 #         node-version: ${{ env.NODE_VERSION }}
-#         cache: 'yarn'
-#     - name: Cache NX cache
-#       uses: actions/cache@v4
+
+#     - name: Install playwright
+#       run: yarn dlx playwright install --with-deps chromium
+
+#     - name: Download build artifacts
+#       uses: actions/download-artifact@v4
 #       with:
-#         path: .nx/cache
-#         key: ${{ runner.os }}-nx-${{ hashFiles('yarn.lock') }}
-#         restore-keys: ${{ runner.os }}-nx-
-#     - name: Install dependencies
-#       run: yarn install --immutable
+#         name: build-artifacts
+#         path: packages
+
 #     - name: Test
-#       run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
+#       run: yarn test:e2e --projects=@gitbeaker/${{ matrix.package-name }}
 
-# test:e2e:rest:
-#   extends: .test:e2e:base
-#   image: mcr.microsoft.com/playwright:v1.45.1-focal
-#   allow_failure: true
-#   before_script:
-#     # reinstall swc due to missing binding for ubuntu image
-#     - yarn add @swc/core
-#   script: yarn test:e2e --projects=@gitbeaker/rest
-
-# test:e2e:cli:
-#   extends: .test:e2e:base
-#   allow_failure: true
-#   script: yarn test:e2e --projects=@gitbeaker/cli
-
-# test:live:teardown:
-#   stage: teardown
-#   image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+# teardown-e2e:
+#   runs-on: ubuntu-latest
 #   needs:
-#     - test:e2e:rest
-#     - test:e2e:cli
-#   only:
-#     refs:
-#       - /^pr-[0-9]+$/
-#       - main
-#       - next
-#   variables:
-#     GIT_STRATEGY: none
-#   script:
-#     - echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-#     - gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-#     - gcloud compute instances delete $CONTAINER_NAME --zone=$GCP_ZONE
+#     - test-e2e
+#   steps:
+#     - name: Test
+#       run: |
+#         echo ${{GCLOUD_SERVICE_KEY}} | base64 -d | gcloud auth activate-service-account --key-file=-
+#         gcloud --quiet config set project ${{GOOGLE_PROJECT_ID}}
+#         gcloud compute instances delete $GCP_CONTAINER_NAME --zone=${{GCP_ZONE}}
+
+# release-canary:
+#   name: Publish packages to npm and github
+#   if: github.event_name == 'pull_request' && github.event.pull_request.number != null
+#   runs-on: ubuntu-latest
+#   needs:
+#     - test-unit
+#     - test-types
+#     - test-integration
+#     # - test:e2e
+#   steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Sync Dependencies and Caches
+#       uses: ./.github/actions/setup
+#       with:
+#         node-version: ${{ env.NODE_VERSION }}
+
+#     - name: Download build artifacts
+#       uses: actions/download-artifact@v4
+#       with:
+#         name: build-artifacts
+#         path: packages
+
+#     - name: Check for canary tags
+#       id: check-canary-status
+#       run: |
+#         labels=$(yarn auto label --pr ${{github.event.pull_request.number}})
+
+#         if [[ "$labels" =~ "release:canary" ]];
+#           echo "::set-output name=DEPLOY_CANARY::true"
+#         fi
+
+#     - name: Publish Canary
+#       if: steps.check-canary-status.outputs.DEPLOY_CANARY == 'true'
+#       env:
+#         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#       run: yarn release:canary
+
+# release:
+#   name: Publish packages to npm and github
+#   if: github.ref_name == 'main'
+#   runs-on: ubuntu-latest
+#   needs:
+#     - test-unit
+#     - test-types
+#     - test-integration
+#     # - test:e2e
+#   steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Sync Dependencies and Caches
+#       uses: ./.github/actions/setup
+#       with:
+#         node-version: ${{ env.NODE_VERSION }}
+
+#     - name: Download build artifacts
+#       uses: actions/download-artifact@v4
+#       with:
+#         name: build-artifacts
+#         path: packages
+
+#     - name: Publish
+#       env:
+#         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#       run: yarn release
