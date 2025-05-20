@@ -656,6 +656,7 @@ export interface WebhookReleaseEventSchema {
 export interface WebhookEmojiEventSchema extends BaseWebhookEventSchema {
   object_kind: 'emoji';
   event_type: 'award';
+  merge_request?: WebhookMergeRequestEventSchema['object_attributes'];
   project_id: number;
   object_attributes: {
     user_id: number;
