@@ -429,6 +429,7 @@ export interface WebhookPipelineEventSchema
     before_sha: string;
     source: string;
     status: string;
+    detailed_status: string;
     stages: string[] | null;
     created_at: string;
     finished_at: string;
@@ -441,7 +442,7 @@ export interface WebhookPipelineEventSchema
       | null;
     url: string;
   };
-  merge_request: {
+  merge_request: null | {
     id: number;
     iid: number;
     title: string;
