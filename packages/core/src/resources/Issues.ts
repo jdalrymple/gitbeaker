@@ -103,7 +103,7 @@ export type AllIssuesOptions = {
   iids?: number[];
   in?: string;
   issueType?: string;
-  iterationId?: number;
+  iterationId?: string;
   iterationTitle?: string;
   labels?: string;
   milestone?: string;
