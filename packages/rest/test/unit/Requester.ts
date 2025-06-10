@@ -471,7 +471,7 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/testurl'), { mode: undefined });
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    expect(MockFetch).toHaveBeenCalledWith(request, undefined);
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -494,7 +494,7 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/testurl/123?test=4'), { mode: undefined });
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    expect(MockFetch).toHaveBeenCalledWith(request, undefined);
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
@@ -516,7 +516,7 @@ describe('defaultRequestHandler', () => {
       mode: 'same-origin',
     });
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    expect(MockFetch).toHaveBeenCalledWith(request, undefined);
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
@@ -536,7 +536,7 @@ describe('defaultRequestHandler', () => {
 
     const request = new Request(new URL('http://test.com/test/something'), { mode: undefined });
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    expect(MockFetch).toHaveBeenCalledWith(request, undefined);
   });
 
   it('should handle multipart prefixUrls correctly', async () => {
@@ -561,7 +561,7 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    expect(MockFetch).toHaveBeenCalledWith(request, undefined);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
@@ -572,7 +572,7 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(mockFetch).toHaveBeenCalledWith(request2);
+    expect(MockFetch).toHaveBeenCalledWith(request2, undefined);
 
     await defaultRequestHandler('123/testurl', {
       searchParams: 'test=4',
@@ -583,6 +583,6 @@ describe('defaultRequestHandler', () => {
       mode: undefined,
     });
 
-    expect(mockFetch).toHaveBeenCalledWith(request3);
+    expect(MockFetch).toHaveBeenCalledWith(request3, undefined);
   });
 });

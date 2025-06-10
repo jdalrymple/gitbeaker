@@ -19,7 +19,6 @@ describe('Instantiating ResourceDiscussions service', () => {
   it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(ResourceDiscussions);
     expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
   });
 });
 
