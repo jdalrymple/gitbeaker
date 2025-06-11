@@ -64,7 +64,7 @@ async function throwFailedRequestError(
     description = content;
   }
 
-  throw new GitbeakerRequestError(response.statusText, {
+  throw new GitbeakerRequestError(description, {
     cause: {
       description,
       request,
