@@ -127,7 +127,7 @@ describe('defaultRequestHandler', () => {
       defaultRequestHandler('http://test.com', {} as RequestOptions),
     );
 
-    expect(error.message).toBe('Really Bad Error');
+    expect(error.message).toBe('msg');
     expect(error).toBeInstanceOf(GitbeakerRequestError);
   });
 
@@ -150,7 +150,7 @@ describe('defaultRequestHandler', () => {
       defaultRequestHandler('http://test.com', {} as RequestOptions),
     );
 
-    expect(error.message).toBe('Really Bad Error');
+    expect(error.message).toBe('msg');
     expect(error?.cause?.response).toBeInstanceOf(Response);
   });
 
@@ -173,7 +173,7 @@ describe('defaultRequestHandler', () => {
       defaultRequestHandler('http://test.com', {} as RequestOptions),
     );
 
-    expect(error.message).toBe('Really Bad Error');
+    expect(error.message).toBe('msg');
     expect(error?.cause?.request).toBeInstanceOf(Request);
   });
 
