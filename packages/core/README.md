@@ -643,6 +643,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>GroupMarkdownUploads</th>
+<td>
+<a href="https://docs.gitlab.com/17.9/api/group_markdown_uploads.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupMarkdownUploads.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupMemberRoles</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/member_roles.html">🦊</a>
@@ -1351,6 +1360,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/ProjectLabels.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ProjectMarkdownUploads</th>
+<td>
+<a href="https://docs.gitlab.com/17.9/api/project_markdown_uploads.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ProjectMarkdownUploads.ts">⌨️</a>
 </td>
 </tr>
 <tr>

@@ -8,6 +8,7 @@ export * from './ResourceDORA4Metrics';
 export * from './ResourceDiscussions';
 export * from './ResourceIssueBoards';
 export * from './ResourceLabels';
+export * from './ResourceMarkdownUploads';
 export * from './ResourceMembers';
 export * from './ResourceMilestones';
 export * from './ResourceNotes';
