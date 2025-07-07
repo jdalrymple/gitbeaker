@@ -105,10 +105,12 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<RunnerSchema[]>()(this, url, options);
   }
 
-  allJobs<E extends boolean = false>(
+  allJobs<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     runnerId: number,
-    options?: Sudo & ShowExpanded<E> & { status?: string; orderBy?: string; sort?: string },
-  ): Promise<GitlabAPIResponse<JobSchema[], C, E, void>> {
+    options?: Sudo &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> & { status?: string; orderBy?: string; sort?: string },
+  ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
     return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, options);
   }
 
