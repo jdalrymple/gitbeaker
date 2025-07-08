@@ -12,137 +12,137 @@ env:
   NODE_VERSION: 20
 
 jobs:
-  # lint:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Lint
-  #       run: yarn lint
+      - name: Lint
+        run: yarn lint
 
-  # format:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Format
-  #       run: yarn format
+      - name: Format
+        run: yarn format
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Build Packages
-  #       run: yarn build
+      - name: Build Packages
+        run: yarn build
 
-  #     - name: Upload build artifacts
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: build-artifacts
-  #         path: |
-  #           packages/core/dist/
-  #           packages/cli/dist/
-  #           packages/rest/dist/
-  #           packages/requester-utils/dist/
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            packages/core/dist/
+            packages/cli/dist/
+            packages/rest/dist/
+            packages/requester-utils/dist/
 
-  # test-unit:
-  #   name: Unit Tests
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - lint
-  #     - format
-  #   strategy:
-  #     matrix:
-  #       package-name: [requester-utils, core, rest, cli]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  test-unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - format
+    strategy:
+      matrix:
+        package-name: [requester-utils, core, rest, cli]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Test
-  #       run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
+      - name: Test
+        run: yarn test:unit --projects=@gitbeaker/${{ matrix.package-name }}
 
-  #     - name: Upload Coverage
-  #       uses: qltysh/qlty-action/coverage@v1
-  #       with:
-  #         token: ${{secrets.QLTY_COVERAGE_TOKEN}}
-  #         files: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info
+      - name: Upload Coverage
+        uses: qltysh/qlty-action/coverage@v1
+        with:
+          token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: ${{github.workspace}}/packages/${{ matrix.package-name }}/coverage/lcov.info
 
-  # test-types:
-  #   name: Types Tests
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - lint
-  #     - format
-  #     - build
-  #   strategy:
-  #     matrix:
-  #       package-name: [requester-utils, core, rest, cli]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  test-types:
+    name: Types Tests
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - format
+      - build
+    strategy:
+      matrix:
+        package-name: [requester-utils, core, rest, cli]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Test
-  #       run: yarn test:types --projects=@gitbeaker/${{ matrix.package-name }}
+      - name: Test
+        run: yarn test:types --projects=@gitbeaker/${{ matrix.package-name }}
 
-  # test-integration:
-  #   name: Integration Tests
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - lint
-  #     - format
-  #     - build
-  #   strategy:
-  #     matrix:
-  #       package-name: [core, rest]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  test-integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - format
+      - build
+    strategy:
+      matrix:
+        package-name: [core, rest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Sync Dependencies and Caches
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-  #     - name: Install playwright
-  #       run: yarn dlx playwright install --with-deps chromium
+      - name: Install playwright
+        run: yarn dlx playwright install --with-deps chromium
 
-  #     - name: Download build artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: build-artifacts
-  #         path: packages
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: packages
 
-  #     - name: Test
-  #       run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
+      - name: Test
+        run: yarn test:integration --projects=@gitbeaker/${{ matrix.package-name }}
 
   #---
   test-e2e-setup:
@@ -178,7 +178,6 @@ jobs:
       - name: Create GCP Instance
         id: create_instance
         run: |
-          gcloud --quiet --no-user-output-enabled
           GITLAB_HOST="$(gcloud beta compute instances create $CONTAINER_NAME \
             --machine-type=e2-highmem-2 \
             --boot-disk-size=25GB \
