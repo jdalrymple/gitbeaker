@@ -146,6 +146,8 @@ jobs:
 
   #---
   test-e2e-setup:
+    name: Setup E2E Testing Infrastructure
+    if: github.repository == 'jdalrymple/gitbeaker'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -178,7 +180,7 @@ jobs:
       - name: Create GCP Instance
         id: create_instance
         run: |
-          gcloud compute instances create ${{env.GCP_CONTAINER_NAME}} \
+          GITLAB_HOST="$(gcloud compute instances create ${{env.GCP_CONTAINER_NAME}} \
             --machine-type=e2-highmem-2 \
             --boot-disk-size=25GB \
             --zone=${{env.GCP_ZONE}} \
@@ -186,70 +188,56 @@ jobs:
             --metadata-from-file startup-script=scripts/startup_filled.sh \
             --image-family=debian-12 \
             --image-project=debian-cloud \
-            --format='get(networkInterfaces[0].accessConfigs[0].natIP)' 2>/dev/null
+            --format='get(networkInterfaces[0].accessConfigs[0].natIP)' 2>/dev/null)"
 
-        # run: |
-        #   GITLAB_HOST="$(gcloud compute instances create $CONTAINER_NAME \
-        #     --machine-type=e2-highmem-2 \
-        #     --boot-disk-size=25GB \
-        #     --zone=$GCP_ZONE \
-        #     --tags http-server \
-        #     --metadata-from-file startup-script=scripts/startup_filled.sh \
-        #     --image-family=debian-12 \
-        #     --image-project=debian-cloud \
-        #     --format='get(networkInterfaces[0].accessConfigs[0].natIP)' 2>/dev/null)"
+          echo "GITLAB_URL=http://$GITLAB_HOST" >> $GITHUB_ENV
 
-        #   echo "GITLAB_URL=http://$GITLAB_HOST" >> $GITHUB_ENV
+      - name: Write environment variables
+        id: gitlab-creds
+        run: |
+          echo "GITLAB_URL=${{ env.GITLAB_URL }}" >> "$GITHUB_OUTPUT"
+          echo "GITLAB_PERSONAL_ACCESS_TOKEN=${{ env.GITLAB_PERSONAL_ACCESS_TOKEN }}" >> "$GITHUB_OUTPUT"
 
-      # - name: Write environment variables
-      #   id: gitlab-creds
-      #   run: |
-      #     echo "GITLAB_URL=${{ env.GITLAB_URL }}" >> "$GITHUB_OUTPUT"
-      #     echo "GITLAB_PERSONAL_ACCESS_TOKEN=${{ env.GITLAB_PERSONAL_ACCESS_TOKEN }}" >> "$GITHUB_OUTPUT"
+      - name: Check GitLab instance readiness
+        run: |
+          echo "Waiting for service to start"
+          sleep 240
+          attempt=1
+          while [[ "$(curl --fail --silent -X GET "${{ env.GITLAB_URL }}/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+            echo "Polling Attempt: $attempt - GitLab service is not alive yet"
+            sleep 10
+            ((attempt++))
+          done
+          echo "Service is up and running"
 
-      # - name: Check GitLab instance readiness
-      #   run: |
-      #     echo "Waiting for service to start"
-      #     sleep 240
-      #     attempt=1
-      #     while [[ "$(curl --fail --silent -X GET "${{ env.GITLAB_URL }}/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
-      #       echo "Polling Attempt: $attempt - GitLab service is not alive yet"
-      #       sleep 10
-      #       ((attempt++))
-      #     done
-      #     echo "Service is up and running"
+test-e2e:
+  name: End-to-end Tests
+  runs-on: ubuntu-latest
+  needs:
+    - e2e-setup
+  strategy:
+    matrix:
+      package-name: [rest, cli]
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-# echo "The first color is ${{ steps.gitlab-creds.outputs.GITLAB_URL }}"
-# echo "The second color is ${{ steps.gitlab-creds.outputs.GITLAB_PERSONAL_ACCESS_TOKEN }}"
+    - name: Sync Dependencies and Caches
+      uses: ./.github/actions/setup
+      with:
+        node-version: ${{ env.NODE_VERSION }}
 
-# test-e2e:
-#   name: End-to-end Tests
-#   runs-on: ubuntu-latest
-#   needs:
-#     - e2e-setup
-#   strategy:
-#     matrix:
-#       package-name: [rest, cli]
-#   steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v4
+    - name: Install playwright
+      run: yarn dlx playwright install --with-deps chromium
 
-#     - name: Sync Dependencies and Caches
-#       uses: ./.github/actions/setup
-#       with:
-#         node-version: ${{ env.NODE_VERSION }}
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-artifacts
+        path: packages
 
-#     - name: Install playwright
-#       run: yarn dlx playwright install --with-deps chromium
-
-#     - name: Download build artifacts
-#       uses: actions/download-artifact@v4
-#       with:
-#         name: build-artifacts
-#         path: packages
-
-#     - name: Test
-#       run: yarn test:e2e --projects=@gitbeaker/${{ matrix.package-name }}
+    - name: Test
+      run: yarn test:e2e --projects=@gitbeaker/${{ matrix.package-name }}
 
 # teardown-e2e:
 #   runs-on: ubuntu-latest
@@ -303,7 +291,7 @@ jobs:
 
 # release:
 #   name: Publish packages to npm and github
-#   if: github.ref_name == 'main'
+#   if: github.ref_name == 'main' && github.repository == 'jdalrymple/gitbeaker'
 #   runs-on: ubuntu-latest
 #   needs:
 #     - test-unit
