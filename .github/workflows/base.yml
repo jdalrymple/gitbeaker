@@ -181,7 +181,7 @@ jobs:
           gcloud compute instances create ${{env.GCP_CONTAINER_NAME}} \
             --machine-type=e2-highmem-2 \
             --boot-disk-size=25GB \
-            --zone=${{GCP_ZONE}} \
+            --zone=${{env.GCP_ZONE}} \
             --tags http-server \
             --metadata-from-file startup-script=scripts/startup_filled.sh \
             --image-family=debian-12 \
