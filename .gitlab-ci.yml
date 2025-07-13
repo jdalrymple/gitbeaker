@@ -320,7 +320,7 @@ test:types:rest:
 
 test:integration:rest:
   extends: .test:integration:base
-  image: mcr.microsoft.com/playwright:v1.45.1-focal
+  image: mcr.microsoft.com/playwright:v1.54.1-focal
   before_script:
     # reinstall swc due to missing binding for ubuntu image
     - yarn add @swc/core
@@ -334,7 +334,7 @@ test:integration:core:
 
 test:e2e:rest:
   extends: .test:e2e:base
-  image: mcr.microsoft.com/playwright:v1.45.1-focal
+  image: mcr.microsoft.com/playwright:v1.54.1-focal
   allow_failure: true
   before_script:
     # reinstall swc due to missing binding for ubuntu image
