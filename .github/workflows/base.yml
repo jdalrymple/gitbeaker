@@ -210,34 +210,34 @@ jobs:
           done
           echo "Service is up and running"
 
-test-e2e:
-  name: End-to-end Tests
-  runs-on: ubuntu-latest
-  needs:
-    - e2e-setup
-  strategy:
-    matrix:
-      package-name: [rest, cli]
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  test-e2e:
+    name: End-to-end Tests
+    runs-on: ubuntu-latest
+    needs:
+      - e2e-setup
+    strategy:
+      matrix:
+        package-name: [rest, cli]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Sync Dependencies and Caches
-      uses: ./.github/actions/setup
-      with:
-        node-version: ${{ env.NODE_VERSION }}
+      - name: Sync Dependencies and Caches
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-    - name: Install playwright
-      run: yarn dlx playwright install --with-deps chromium
+      - name: Install playwright
+        run: yarn dlx playwright install --with-deps chromium
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: build-artifacts
-        path: packages
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: packages
 
-    - name: Test
-      run: yarn test:e2e --projects=@gitbeaker/${{ matrix.package-name }}
+      - name: Test
+        run: yarn test:e2e --projects=@gitbeaker/${{ matrix.package-name }}
 
 # teardown-e2e:
 #   runs-on: ubuntu-latest
