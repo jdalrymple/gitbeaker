@@ -19,7 +19,7 @@ describe('Pipelines', () => {
   describe('all', () => {
     it('should request GET /projects/:id/pipelines', async () => {
       const projectId = 1;
-      const options = { scope: 'running' };
+      const options = { scope: 'running' as const };
 
       await service.all(projectId, options);
 
