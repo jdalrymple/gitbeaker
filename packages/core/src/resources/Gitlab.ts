@@ -118,6 +118,7 @@ import { ProjectIssueBoards } from './ProjectIssueBoards';
 import { ProjectIterations } from './ProjectIterations';
 import { ProjectJobTokenScopes } from './ProjectJobTokenScopes';
 import { ProjectLabels } from './ProjectLabels';
+import { ProjectMarkdownUploads } from './ProjectMarkdownUploads';
 import { ProjectMembers } from './ProjectMembers';
 import { ProjectMilestones } from './ProjectMilestones';
 import { ProjectProtectedEnvironments } from './ProjectProtectedEnvironments';
@@ -169,6 +170,7 @@ import { GroupIssueBoards } from './GroupIssueBoards';
 import { GroupIterations } from './GroupIterations';
 import { GroupLabels } from './GroupLabels';
 import { GroupLDAPLinks } from './GroupLDAPLinks';
+import { GroupMarkdownUploads } from './GroupMarkdownUploads';
 import { GroupMembers } from './GroupMembers';
 import { GroupMemberRoles } from './GroupMemberRoles';
 import { GroupMilestones } from './GroupMilestones';
@@ -312,6 +314,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectIterations: ProjectIterations<C>;
   ProjectJobTokenScopes: ProjectJobTokenScopes<C>;
   ProjectLabels: ProjectLabels<C>;
+  ProjectMarkdownUploads: ProjectMarkdownUploads<C>;
   ProjectMembers: ProjectMembers<C>;
   ProjectMilestones: ProjectMilestones<C>;
   ProjectProtectedEnvironments: ProjectProtectedEnvironments<C>;
@@ -363,6 +366,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupIterations: GroupIterations<C>;
   GroupLabels: GroupLabels<C>;
   GroupLDAPLinks: GroupLDAPLinks<C>;
+  GroupMarkdownUploads: GroupMarkdownUploads<C>;
   GroupMembers: GroupMembers<C>;
   GroupMemberRoles: GroupMemberRoles<C>;
   GroupMilestones: GroupMilestones<C>;
@@ -504,6 +508,7 @@ const resources = {
   ProjectIterations,
   ProjectJobTokenScopes,
   ProjectLabels,
+  ProjectMarkdownUploads,
   ProjectMembers,
   ProjectMilestones,
   ProjectProtectedEnvironments,
@@ -555,6 +560,7 @@ const resources = {
   GroupIterations,
   GroupLabels,
   GroupLDAPLinks,
+  GroupMarkdownUploads,
   GroupMembers,
   GroupMemberRoles,
   GroupMilestones,

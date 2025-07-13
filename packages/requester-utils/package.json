@@ -42,7 +42,6 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
-    "test:integration": "jest --maxWorkers=50% test/integration",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
     "lint:fix": "yarn lint --fix"
