@@ -8,18 +8,18 @@ import type {
   Sudo,
 } from '../infrastructure';
 
+export interface MarkdownUploadUserSchema extends Record<string, unknown> {
+  id: number;
+  name: string;
+  username: string;
+}
+
 export interface MarkdownUploadSchema extends Record<string, unknown> {
   id: number;
   size: number;
   filename: string;
   created_at: string;
   uploaded_by: MarkdownUploadUserSchema;
-}
-
-export interface MarkdownUploadUserSchema extends Record<string, unknown> {
-  id: number;
-  name: string;
-  username: string;
 }
 
 export interface MarkdownUploadCreatedSchema extends Record<string, unknown> {
