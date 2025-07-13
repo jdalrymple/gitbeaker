@@ -41,12 +41,12 @@ export interface KeysetPaginationRequestOptions {
 
 export interface OffsetPaginationRequestOptions {
   page?: number | string;
-  maxPages?: number;
 }
 
 export interface BasePaginationRequestOptions<P extends PaginationTypes | void> {
   pagination?: P;
   perPage?: number | string;
+  maxPages?: number;
 }
 
 export type PaginationRequestSubOptions<P extends PaginationTypes | void> = P extends 'keyset'
@@ -165,7 +165,7 @@ function getManyMore<
   getFn: RequestHandlerFn<T>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  requestOptions: PaginationRequestOptions<P> & BaseRequestOptions<E>,
   acc?: T,
 ): Promise<E extends true ? PaginatedResponse<T, P> : T>;
 
@@ -178,7 +178,7 @@ async function getManyMore<
   getFn: RequestHandlerFn<T>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+  requestOptions: PaginationRequestOptions<P> & BaseRequestOptions<E>,
   acc?: T,
 ): Promise<PaginatedResponse<T, P> | T> {
   const { sudo, showExpanded, maxPages, pagination, page, perPage, idAfter, orderBy, sort } =
@@ -201,7 +201,7 @@ async function getManyMore<
       maxPages,
       sudo,
       showExpanded,
-    } as unknown as { maxPages?: number } & PaginationRequestOptions<P> & BaseRequestOptions<E>;
+    } as unknown as PaginationRequestOptions<P> & BaseRequestOptions<E>;
 
     const nextResponse: FormattedResponse<T> = await getFn(endpoint, {
       searchParams: qs,
