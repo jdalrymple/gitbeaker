@@ -58,9 +58,9 @@
     "@gitbeaker/requester-utils": "^42.5.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.1",
-    "@types/node": "^20.14.10",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.3"
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.13",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   }
 }

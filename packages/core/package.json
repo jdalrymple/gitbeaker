@@ -53,14 +53,14 @@
   },
   "dependencies": {
     "@gitbeaker/requester-utils": "^42.5.0",
-    "qs": "^6.12.2",
+    "qs": "^6.14.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10",
+    "@types/node": "^24.0.13",
     "get-param-names": "github:jdalrymple/get-param-names#1-improve-functionality",
-    "tsup": "^8.1.0",
-    "tsx": "^4.16.2",
-    "typescript": "^5.5.3"
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }
