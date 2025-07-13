@@ -244,9 +244,6 @@ export type AcceptMergeRequestOptions = {
    */
   mergeWhenPipelineSucceeds?: boolean;
   sha?: string;
-  /**
-   * If true, the merge request merges when the pipeline succeeds.
-   */
   autoMerge?: boolean;
 };
 
