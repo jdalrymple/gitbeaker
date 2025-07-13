@@ -83,7 +83,7 @@ export interface CondensedMergeRequestSchema extends Record<string, unknown> {
   iid: number;
   project_id: number;
   title: string;
-  description: string;
+  description: string | null;
   state: string;
   created_at: string;
   updated_at: string;
