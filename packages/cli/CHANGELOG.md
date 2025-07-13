@@ -1,3 +1,29 @@
+# v43.0.0 (Sun Jul 13 2025)
+
+#### 🐛 Bug Fix
+
+- Linting [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- Updating chalk [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- Update deps [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- Dont handle the errors, have them bubble up [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- Update typing [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix styling [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Merge branch 'chore/assets' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Major dep update ([@jdalrymple](https://github.com/jdalrymple))
+- Removing CWS from the README ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from a new contributor! :tada:

@@ -1,3 +1,60 @@
+# v43.0.0 (Sun Jul 13 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+
+:heart: Jiahao Guo ([@frantic1048](https://github.com/frantic1048))
+
+:heart: Damien Lajarretie ([@dlajarretie](https://github.com/dlajarretie))
+
+:heart: Kay W. ([@kayw-geek](https://github.com/kayw-geek))
+
+#### ✨ Feature
+
+- Add support for Markdown Uploads [#3737](https://github.com/jdalrymple/gitbeaker/pull/3737) ([@aidinabedi](https://github.com/aidinabedi) [@jdalrymple](https://github.com/jdalrymple))
+- Formatting [#3717](https://github.com/jdalrymple/gitbeaker/pull/3717) ([@jdalrymple](https://github.com/jdalrymple))
+- Adding support for getting the latest pipeline [#3717](https://github.com/jdalrymple/gitbeaker/pull/3717) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Updating variable names, and adding tests [#3715](https://github.com/jdalrymple/gitbeaker/pull/3715) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Merge branch 'chore/assets' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Fix includeDivergedCommitsCount Type Definition [#3732](https://github.com/jdalrymple/gitbeaker/pull/3732) ([@liby](https://github.com/liby))
+- Set merge request `description` type to nullable [#3733](https://github.com/jdalrymple/gitbeaker/pull/3733) ([@frantic1048](https://github.com/frantic1048))
+- Move maxPages under BasePaginationRequestOptions [#3736](https://github.com/jdalrymple/gitbeaker/pull/3736) ([@dlajarretie](https://github.com/dlajarretie))
+- Update AcceptMergeRequestOptions type definition [#3734](https://github.com/jdalrymple/gitbeaker/pull/3734) ([@liby](https://github.com/liby) [@jdalrymple](https://github.com/jdalrymple))
+- Updating test typing [#3739](https://github.com/jdalrymple/gitbeaker/pull/3739) ([@jdalrymple](https://github.com/jdalrymple))
+- feat: Support pagination on runner jobs [#3739](https://github.com/jdalrymple/gitbeaker/pull/3739) ([@sandercox](https://github.com/sandercox))
+- Add missing `detailed_status` field to WebhookPipelineEventSchema [#3729](https://github.com/jdalrymple/gitbeaker/pull/3729) ([@kayw-geek](https://github.com/kayw-geek))
+- Update `WebhookEmojiEventSchema` to include `merge_request` attribute [#3725](https://github.com/jdalrymple/gitbeaker/pull/3725) ([@liby](https://github.com/liby))
+- Adding expires_at to the rotate method of the AccessToken resources [#3714](https://github.com/jdalrymple/gitbeaker/pull/3714) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Major dep update ([@jdalrymple](https://github.com/jdalrymple))
+- Removing CWS from the README ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 7
+
+- Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+- Bryan Lee ([@liby](https://github.com/liby))
+- Damien Lajarretie ([@dlajarretie](https://github.com/dlajarretie))
+- Jiahao Guo ([@frantic1048](https://github.com/frantic1048))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Kay W. ([@kayw-geek](https://github.com/kayw-geek))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # v42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature

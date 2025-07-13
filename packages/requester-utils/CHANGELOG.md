@@ -1,3 +1,29 @@
+# v43.0.0 (Sun Jul 13 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi)), for all your work!
+
+#### ✨ Feature
+
+- Add support for Markdown Uploads [#3737](https://github.com/jdalrymple/gitbeaker/pull/3737) ([@aidinabedi](https://github.com/aidinabedi) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Merge branch 'chore/assets' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Major dep update ([@jdalrymple](https://github.com/jdalrymple))
+- Removing CWS from the README ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v40.2.0 (Sat Sep 07 2024)
 
 #### 📚 Documentation

@@ -1,3 +1,42 @@
+# v43.0.0 (Sun Jul 13 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: kang ([@kang8](https://github.com/kang8))
+
+:heart: Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+
+#### 💥 Breaking Change
+
+- Enhance error messaging in GitbeakerRequestError to clearly display only the description context [#3731](https://github.com/jdalrymple/gitbeaker/pull/3731) ([@kang8](https://github.com/kang8))
+
+#### ✨ Feature
+
+- Add support for Markdown Uploads [#3737](https://github.com/jdalrymple/gitbeaker/pull/3737) ([@aidinabedi](https://github.com/aidinabedi) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Updating variable names, and adding tests [#3715](https://github.com/jdalrymple/gitbeaker/pull/3715) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Merge branch 'chore/assets' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Major dep update ([@jdalrymple](https://github.com/jdalrymple))
+- Removing CWS from the README ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- kang ([@kang8](https://github.com/kang8))
+
+---
+
 # v42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature

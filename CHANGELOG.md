@@ -1,3 +1,90 @@
+# 43.0.0 (Sun Jul 13 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: kang ([@kang8](https://github.com/kang8))
+
+:heart: Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+
+:heart: Jiahao Guo ([@frantic1048](https://github.com/frantic1048))
+
+:heart: Damien Lajarretie ([@dlajarretie](https://github.com/dlajarretie))
+
+:heart: Kay W. ([@kayw-geek](https://github.com/kayw-geek))
+
+#### 💥 Breaking Change
+
+- `@gitbeaker/rest`
+  - Enhance error messaging in GitbeakerRequestError to clearly display only the description context [#3731](https://github.com/jdalrymple/gitbeaker/pull/3731) ([@kang8](https://github.com/kang8))
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add support for Markdown Uploads [#3737](https://github.com/jdalrymple/gitbeaker/pull/3737) ([@aidinabedi](https://github.com/aidinabedi) [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Formatting [#3717](https://github.com/jdalrymple/gitbeaker/pull/3717) ([@jdalrymple](https://github.com/jdalrymple))
+  - Adding support for getting the latest pipeline [#3717](https://github.com/jdalrymple/gitbeaker/pull/3717) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Dont transform chalk for jest [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`
+  - Linting [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+  - Updating chalk [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+  - Update deps [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+  - Dont handle the errors, have them bubble up [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+  - Update typing [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+  - Fix styling [#3718](https://github.com/jdalrymple/gitbeaker/pull/3718) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`, `@gitbeaker/rest`
+  - Updating variable names, and adding tests [#3715](https://github.com/jdalrymple/gitbeaker/pull/3715) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Branch from gitlabs perspective [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- Tweaks [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- Tinkering [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- Default doesnt support rules [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- Using default [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- For now, limit pipeline usage to MRs [#3720](https://github.com/jdalrymple/gitbeaker/pull/3720) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Merge branch 'chore/assets' ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Fix includeDivergedCommitsCount Type Definition [#3732](https://github.com/jdalrymple/gitbeaker/pull/3732) ([@liby](https://github.com/liby))
+  - Set merge request `description` type to nullable [#3733](https://github.com/jdalrymple/gitbeaker/pull/3733) ([@frantic1048](https://github.com/frantic1048))
+  - Move maxPages under BasePaginationRequestOptions [#3736](https://github.com/jdalrymple/gitbeaker/pull/3736) ([@dlajarretie](https://github.com/dlajarretie))
+  - Update AcceptMergeRequestOptions type definition [#3734](https://github.com/jdalrymple/gitbeaker/pull/3734) ([@liby](https://github.com/liby) [@jdalrymple](https://github.com/jdalrymple))
+  - Updating test typing [#3739](https://github.com/jdalrymple/gitbeaker/pull/3739) ([@jdalrymple](https://github.com/jdalrymple))
+  - feat: Support pagination on runner jobs [#3739](https://github.com/jdalrymple/gitbeaker/pull/3739) ([@sandercox](https://github.com/sandercox))
+  - Add missing `detailed_status` field to WebhookPipelineEventSchema [#3729](https://github.com/jdalrymple/gitbeaker/pull/3729) ([@kayw-geek](https://github.com/kayw-geek))
+  - Update `WebhookEmojiEventSchema` to include `merge_request` attribute [#3725](https://github.com/jdalrymple/gitbeaker/pull/3725) ([@liby](https://github.com/liby))
+  - Adding expires_at to the rotate method of the AccessToken resources [#3714](https://github.com/jdalrymple/gitbeaker/pull/3714) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Playwright ubuntu version update ([@jdalrymple](https://github.com/jdalrymple))
+- Updating playwright version ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Major dep update ([@jdalrymple](https://github.com/jdalrymple))
+  - Removing CWS from the README ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 8
+
+- Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi))
+- Bryan Lee ([@liby](https://github.com/liby))
+- Damien Lajarretie ([@dlajarretie](https://github.com/dlajarretie))
+- Jiahao Guo ([@frantic1048](https://github.com/frantic1048))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- kang ([@kang8](https://github.com/kang8))
+- Kay W. ([@kayw-geek](https://github.com/kayw-geek))
+- Sander Cox ([@sandercox](https://github.com/sandercox))
+
+---
+
 # 42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature
