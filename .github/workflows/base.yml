@@ -214,7 +214,7 @@ jobs:
     name: End-to-end Tests
     runs-on: ubuntu-latest
     needs:
-      - e2e-setup
+      - test-e2e-setup
     strategy:
       matrix:
         package-name: [rest, cli]
