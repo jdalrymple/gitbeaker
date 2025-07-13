@@ -594,7 +594,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: {
       renderHtml?: boolean;
-      includeDivergedCommitsCount?: true;
+      includeDivergedCommitsCount?: boolean;
       includeRebaseInProgress?: boolean;
     } & Sudo &
       ShowExpanded<E>,
