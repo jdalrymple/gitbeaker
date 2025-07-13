@@ -239,8 +239,12 @@ export type AcceptMergeRequestOptions = {
   squashCommitMessage?: string;
   squash?: boolean;
   shouldRemoveSourceBranch?: boolean;
+  /**
+   * @deprecated Use `autoMerge` instead. Deprecated in GitLab 17.11.
+   */
   mergeWhenPipelineSucceeds?: boolean;
   sha?: string;
+  autoMerge?: boolean;
 };
 
 export type EditMergeRequestOptions = {
