@@ -33,6 +33,11 @@ describe('ResourceMarkdownUploads.download', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6', undefined);
   });
+  it('should call the correct url with a resource id and a secret and a filename', async () => {
+    await service.download(5, '6', '7.txt');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6/7.txt', undefined);
+  });
 });
 
 describe('ResourceMarkdownUploads.all', () => {

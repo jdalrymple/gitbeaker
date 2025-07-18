@@ -50,8 +50,33 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
     resourceId: string | number,
     uploadId: string | number,
     options?: Sudo,
+  ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
+
+  download<E extends boolean = false>(
+    resourceId: string | number,
+    secret: string,
+    filename: string,
+    options?: Sudo,
+  ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
+
+  download<E extends boolean = false>(
+    resourceId: string | number,
+    uploadIdOrSecret: string | number,
+    filename?: any,
+    options?: Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
-    return RequestHelper.get<Blob>()(this, endpoint`${resourceId}/uploads/${uploadId}`, options);
+    if (typeof filename === 'object' || filename === undefined) {
+      return RequestHelper.get<Blob>()(
+        this,
+        endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
+        options,
+      );
+    }
+    return RequestHelper.get<Blob>()(
+      this,
+      endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
+      options,
+    );
   }
 
   remove<E extends boolean = false>(
