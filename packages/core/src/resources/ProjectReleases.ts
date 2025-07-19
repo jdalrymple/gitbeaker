@@ -38,7 +38,7 @@ export interface ReleaseSchema extends Record<string, unknown> {
   description: string | null;
   created_at: string;
   released_at: string | null;
-  upcoming_release: boolean | null
+  upcoming_release: boolean | null;
   author: MappedOmit<SimpleUserSchema, 'created_at'>;
   commit: CommitSchema;
   milestones: MilestoneSchema[] | null;
