@@ -1,4 +1,4 @@
-import { camelize, depascalize } from 'xcase';
+import { camelize, decamelize } from 'xcase';
 import type { Options as SywacOptions } from 'sywac';
 
 export interface MethodTemplate {
@@ -28,21 +28,40 @@ const NORMALIZED_EXCEPTION_TERMS: Record<string, string> = [
   return { ...prev, [cur]: cur.charAt(0).toUpperCase() + cur.slice(1).toLowerCase() };
 }, {});
 
-export function normalizeTerm(value: string): string {
-  let normalized = value;
+export function getCLISafeNormalizedTerm(term: string): string {
+  if (term.length === 0) return term;
+
+  let normalized = term;
 
   // Handle exceptions
-  Object.keys(NORMALIZED_EXCEPTION_TERMS)
-    .filter((e) => value.includes(e))
-    .forEach((ex) => {
-      normalized = normalized.replace(ex, NORMALIZED_EXCEPTION_TERMS[ex]);
+  Object.entries(NORMALIZED_EXCEPTION_TERMS)
+    .filter(([k]) => term.includes(k))
+    .forEach(([k, v]) => {
+      normalized = normalized.replace(k, v);
     });
 
-  // Decamelize / Depascalize
-  return depascalize(normalized, '-');
+  // Convert from pascalcase to camelcase
+  normalized = normalized.charAt(0).toLowerCase() + normalized.slice(1);
+
+  return decamelize(normalized, '-');
 }
 
-export function normalizeEnviromentVariables(env: NodeJS.ProcessEnv): Record<string, string> {
+export function getAPISafeNormalizedTerm(term: string): string {
+  if (term.length === 0) return term;
+
+  let normalized = camelize(term.replace(/(gb|gl)-/g, ''), '-');
+
+  // Handle exceptions
+  Object.entries(NORMALIZED_EXCEPTION_TERMS)
+    .filter(([, v]) => normalized.includes(v))
+    .forEach(([k, v]) => {
+      normalized = normalized.replace(v, k);
+    });
+
+  return normalized;
+}
+
+export function normalizeEnvVariables(env: NodeJS.ProcessEnv): Record<string, string> {
   const normalized = {};
   const suffixes = [
     'TOKEN',
@@ -78,12 +97,13 @@ export function buildArgumentObjects(
   Object.entries(rawArgs).forEach(([argName, value]) => {
     if (ignoreOptions.includes(argName) || value == null) return;
 
-    const camelCased: string = camelize(argName.replace('gb-', '').replace('gl-', ''), '-');
+    const term = argName.replace('gl-', 'gb-');
+    const normalized: string = getAPISafeNormalizedTerm(term);
 
-    if (globalConfig[argName.replace('gl-', 'gb-')]) {
-      initArgs[camelCased] = value;
-    } else if (method.args.includes(camelCased)) coreArgs[camelCased] = value;
-    else optionalArgs[camelCased] = value;
+    if (globalConfig[term]) {
+      initArgs[normalized] = value;
+    } else if (method.args.includes(normalized)) coreArgs[normalized] = value;
+    else optionalArgs[normalized] = value;
   });
 
   return {
@@ -110,7 +130,7 @@ export function getDisplayConfig(globalConfig: GlobalCLIConfig) {
 }
 
 export function getGlobalConfig(env = process.env): GlobalCLIConfig {
-  const normalEnv = normalizeEnviromentVariables(env);
+  const normalEnv = normalizeEnvVariables(env);
 
   return {
     'gb-token': {
