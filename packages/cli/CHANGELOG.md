@@ -1,3 +1,15 @@
+# v43.1.0 (Sat Jul 19 2025)
+
+#### 🐛 Bug Fix
+
+- fix: Mapping export is incorrectly generating argument lists [#3743](https://github.com/jdalrymple/gitbeaker/pull/3743) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.0.0 (Sun Jul 13 2025)
 
 #### 🐛 Bug Fix
