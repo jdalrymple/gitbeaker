@@ -4,19 +4,22 @@ import * as Gitbeaker from '@gitbeaker/rest';
 import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' }; // eslint-disable-line import/no-unresolved
 import {
   buildArgumentObjects,
+  getCLISafeNormalizedTerm,
   getDisplayConfig,
   getExposedAPIs,
   getGlobalConfig,
-  normalizeTerm,
 } from './utils';
 import type { MethodTemplate } from './utils';
 
 function setupAPIMethods(setupArgs, methodArgs: string[]) {
   methodArgs.forEach((name) => {
-    setupArgs.positional(`[--${normalizeTerm(name)}] <${normalizeTerm(name)}>`, {
-      group: 'Required Options',
-      type: 'string',
-    });
+    setupArgs.positional(
+      `[--${getCLISafeNormalizedTerm(name)}] <${getCLISafeNormalizedTerm(name)}>`,
+      {
+        group: 'Required Options',
+        type: 'string',
+      },
+    );
   });
 
   return setupArgs;
@@ -49,7 +52,7 @@ function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
   for (let i = 0; i < methods.length; i += 1) {
     const method = methods[i];
 
-    setupArgs.command(normalizeTerm(method.name), {
+    setupArgs.command(getCLISafeNormalizedTerm(method.name), {
       setup: (setupMethodArgs) => setupAPIMethods(setupMethodArgs, method.args),
       run: (args: Record<string, string>, ctx) => runAPIMethod(ctx, args, apiName, method),
     });
@@ -102,7 +105,7 @@ cli.command('*', (argv, ctx) => {
 const exposedAPIs = getExposedAPIs(API_MAP as Record<string, MethodTemplate[]>);
 
 Object.entries(exposedAPIs).forEach(([apiName, methods]) => {
-  cli.command(normalizeTerm(apiName), {
+  cli.command(getCLISafeNormalizedTerm(apiName), {
     desc: `The ${apiName} API`,
     setup: (setupArgs) => setupAPIs(setupArgs, apiName, methods),
   });
