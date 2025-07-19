@@ -20,6 +20,13 @@ export interface GroupMarkdownUploads<C extends boolean = false>
     options?: Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
 
+  download<E extends boolean = false>(
+    projectId: string | number,
+    secret: string,
+    filename: string,
+    options?: Sudo,
+  ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
+
   remove<E extends boolean = false>(
     groupId: string | number,
     uploadId: string | number,
