@@ -1,3 +1,16 @@
+# 43.2.0 (Sat Jul 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/cli`
+  - fix: Incorrect camelization when passing properties to the CLI [#3744](https://github.com/jdalrymple/gitbeaker/pull/3744) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 43.1.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
