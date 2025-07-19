@@ -1074,7 +1074,6 @@ __metadata:
   dependencies:
     "@gitbeaker/requester-utils": "npm:^43.0.0"
     "@types/node": "npm:^24.0.13"
-    get-param-names: "github:jdalrymple/get-param-names#1-improve-functionality"
     qs: "npm:^6.14.0"
     tsup: "npm:^8.5.0"
     tsx: "npm:^4.20.3"
@@ -6633,15 +6632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-param-names@github:jdalrymple/get-param-names#1-improve-functionality":
-  version: 1.0.1
-  resolution: "get-param-names@https://github.com/jdalrymple/get-param-names.git#commit=ce58f9269c0ca1798326d07b4043e73451af8fc1"
-  dependencies:
-    strip-json-comments: "npm:^3.0.1"
-  checksum: 10c0/af391e60c4a3aea970efb05f96878dfe8fe7d837783a589e4b5fe9b95b79a83d6d02014e2da7d456f4884d8262faed3dc1b08176b2d265494469eac7d9aecebf
-  languageName: node
-  linkType: hard
-
 "get-pkg-repo@npm:^4.2.1":
   version: 4.2.1
   resolution: "get-pkg-repo@npm:4.2.1"
@@ -12195,7 +12185,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:^3.0.1, strip-json-comments@npm:^3.1.1":
+"strip-json-comments@npm:^3.1.1":
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 10c0/9681a6257b925a7fa0f285851c0e613cc934a50661fa7bb41ca9cbbff89686bb4a0ee366e6ecedc4daafd01e83eee0720111ab294366fe7c185e935475ebcecd

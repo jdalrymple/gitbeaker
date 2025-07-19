@@ -7,13 +7,13 @@ import {
   getDisplayConfig,
   getExposedAPIs,
   getGlobalConfig,
-  param,
+  normalizeTerm,
 } from './utils';
 import type { MethodTemplate } from './utils';
 
 function setupAPIMethods(setupArgs, methodArgs: string[]) {
   methodArgs.forEach((name) => {
-    setupArgs.positional(`[--${param(name)}] <${param(name)}>`, {
+    setupArgs.positional(`[--${normalizeTerm(name)}] <${normalizeTerm(name)}>`, {
       group: 'Required Options',
       type: 'string',
     });
@@ -46,10 +46,10 @@ function setupAPIs(setupArgs, apiName: string, methods: MethodTemplate[]) {
     });
   });
 
-  for (let i = 1; i < methods.length; i += 1) {
+  for (let i = 0; i < methods.length; i += 1) {
     const method = methods[i];
 
-    setupArgs.command(param(method.name), {
+    setupArgs.command(normalizeTerm(method.name), {
       setup: (setupMethodArgs) => setupAPIMethods(setupMethodArgs, method.args),
       run: (args: Record<string, string>, ctx) => runAPIMethod(ctx, args, apiName, method),
     });
@@ -102,7 +102,7 @@ cli.command('*', (argv, ctx) => {
 const exposedAPIs = getExposedAPIs(API_MAP as Record<string, MethodTemplate[]>);
 
 Object.entries(exposedAPIs).forEach(([apiName, methods]) => {
-  cli.command(param(apiName), {
+  cli.command(normalizeTerm(apiName), {
     desc: `The ${apiName} API`,
     setup: (setupArgs) => setupAPIs(setupArgs, apiName, methods),
   });

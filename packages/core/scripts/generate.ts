@@ -1,6 +1,6 @@
 import FS from 'node:fs';
-import getParamNames from 'get-param-names';
-import { BaseResource, RequesterType } from '@gitbeaker/requester-utils';
+import { RequesterType } from '@gitbeaker/requester-utils';
+import { getParamNames } from './getParamNames';
 import * as resources from '../src/resources';
 
 function getInstanceMethods(x: object): string[] {
@@ -29,17 +29,16 @@ function removeOptionalArg(list: (string | Record<string, unknown>)[] = []): str
 
 export function buildMap() {
   const map: Record<string, { name: string; args: string[] }[]> = {};
-  const baseArgs = Object.keys(getParamNames(BaseResource)[0] as Record<string, unknown>);
   const { Gitlab, ...directResources } = resources;
 
   Object.entries(directResources).forEach(([name, Resource]) => {
     const r = new Resource({ token: 'dummey', requesterFn: () => ({}) as RequesterType });
     const formattedInstanceMethods = getInstanceMethods(r).map((m) => ({
       name: m,
-      args: removeOptionalArg(getParamNames(r[m]) as (string | Record<string, unknown>)[]),
+      args: removeOptionalArg(getParamNames(r[m] as () => unknown)),
     }));
 
-    map[name] = [{ name: 'constructor', args: baseArgs }].concat(formattedInstanceMethods);
+    map[name] = formattedInstanceMethods;
   });
 
   return map;
