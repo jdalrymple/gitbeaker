@@ -33,12 +33,13 @@ export interface ReleaseAssetLink {
 }
 
 export interface ReleaseSchema extends Record<string, unknown> {
+  name: string | null;
   tag_name: string;
   description: string | null;
-  name: string | null;
   created_at: string;
   released_at: string | null;
-  user: MappedOmit<SimpleUserSchema, 'created_at'>;
+  upcoming_release: boolean | null;
+  author: MappedOmit<SimpleUserSchema, 'created_at'>;
   commit: CommitSchema;
   milestones: MilestoneSchema[] | null;
   commit_path: string;
