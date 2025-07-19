@@ -1055,8 +1055,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gitbeaker/cli@workspace:packages/cli"
   dependencies:
-    "@gitbeaker/core": "npm:^43.0.0"
-    "@gitbeaker/rest": "npm:^43.0.0"
+    "@gitbeaker/core": "npm:^43.1.0"
+    "@gitbeaker/rest": "npm:^43.1.0"
     chalk: "npm:^5.4.1"
     sywac: "npm:^1.3.0"
     tsup: "npm:^8.5.0"
@@ -1068,11 +1068,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gitbeaker/core@npm:^43.0.0, @gitbeaker/core@workspace:packages/core":
+"@gitbeaker/core@npm:^43.1.0, @gitbeaker/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@gitbeaker/core@workspace:packages/core"
   dependencies:
-    "@gitbeaker/requester-utils": "npm:^43.0.0"
+    "@gitbeaker/requester-utils": "npm:^43.1.0"
     "@types/node": "npm:^24.0.13"
     qs: "npm:^6.14.0"
     tsup: "npm:^8.5.0"
@@ -1082,7 +1082,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gitbeaker/requester-utils@npm:^43.0.0, @gitbeaker/requester-utils@workspace:packages/requester-utils":
+"@gitbeaker/requester-utils@npm:^43.1.0, @gitbeaker/requester-utils@workspace:packages/requester-utils":
   version: 0.0.0-use.local
   resolution: "@gitbeaker/requester-utils@workspace:packages/requester-utils"
   dependencies:
@@ -1096,12 +1096,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gitbeaker/rest@npm:^43.0.0, @gitbeaker/rest@workspace:packages/rest":
+"@gitbeaker/rest@npm:^43.1.0, @gitbeaker/rest@workspace:packages/rest":
   version: 0.0.0-use.local
   resolution: "@gitbeaker/rest@workspace:packages/rest"
   dependencies:
-    "@gitbeaker/core": "npm:^43.0.0"
-    "@gitbeaker/requester-utils": "npm:^43.0.0"
+    "@gitbeaker/core": "npm:^43.1.0"
+    "@gitbeaker/requester-utils": "npm:^43.1.0"
     "@playwright/test": "npm:^1.54.1"
     "@types/node": "npm:^24.0.13"
     tsup: "npm:^8.5.0"
