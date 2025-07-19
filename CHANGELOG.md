@@ -1,3 +1,30 @@
+# 43.3.0 (Sat Jul 19 2025)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - fix: Parsing param names from functions with destructured params was not working correctly [#3746](https://github.com/jdalrymple/gitbeaker/pull/3746) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - types: Adding upcoming_release to Project Release type [#3745](https://github.com/jdalrymple/gitbeaker/pull/3745) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### ⚠️ Pushed to `main`
+
+- Housekeeping ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- `@gitbeaker/rest`
+  - tests: Recent resources added were missing from e2e tests [#3747](https://github.com/jdalrymple/gitbeaker/pull/3747) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 43.2.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix

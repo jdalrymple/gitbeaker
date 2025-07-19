@@ -1,3 +1,15 @@
+# v43.3.0 (Sat Jul 19 2025)
+
+#### 🚨 Tests
+
+- tests: Recent resources added were missing from e2e tests [#3747](https://github.com/jdalrymple/gitbeaker/pull/3747) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from new contributors! :tada:
