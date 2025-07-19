@@ -1,4 +1,4 @@
-import { camelize, decamelize, depascalize } from 'xcase';
+import { camelize, depascalize } from 'xcase';
 import type { Options as SywacOptions } from 'sywac';
 
 export interface MethodTemplate {
@@ -10,36 +10,36 @@ export interface GlobalCLIConfig {
   [name: string]: SywacOptions;
 }
 
-export function param(value: string): string {
-  let cleaned = value;
+const NORMALIZED_EXCEPTION_TERMS: Record<string, string> = [
+  'GitLabCI',
+  'YML',
+  'GPG',
+  'SSH',
+  'IId',
+  'NPM',
+  'NuGet',
+  'DORA4',
+  'LDAP',
+  'CICD',
+  'SAML',
+  'SCIM',
+  'PyPI',
+].reduce((prev, cur) => {
+  return { ...prev, [cur]: cur.charAt(0).toUpperCase() + cur.slice(1).toLowerCase() };
+}, {});
+
+export function normalizeTerm(value: string): string {
+  let normalized = value;
 
   // Handle exceptions
-  const exceptions = [
-    'GitLabCI',
-    'YML',
-    'GPG',
-    'SSH',
-    'IId',
-    'NPM',
-    'NuGet',
-    'DORA4',
-    'LDAP',
-    'CICD',
-    'SAML',
-    'SCIM',
-    'PyPI',
-  ];
-
-  exceptions
+  Object.keys(NORMALIZED_EXCEPTION_TERMS)
     .filter((e) => value.includes(e))
     .forEach((ex) => {
-      cleaned = cleaned.replace(ex, ex.charAt(0).toUpperCase() + ex.slice(1).toLowerCase());
+      normalized = normalized.replace(ex, NORMALIZED_EXCEPTION_TERMS[ex]);
     });
 
-  // Decamelize
-  const decamelized = decamelize(cleaned, '-');
-
-  return decamelized !== cleaned ? decamelized : depascalize(cleaned, '-');
+  // Decamelize / Depascalize
+  return depascalize(normalized, '-');
 }
 
 export function normalizeEnviromentVariables(env: NodeJS.ProcessEnv): Record<string, string> {
@@ -139,7 +139,7 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
     },
     'gb-sudo': {
       alias: 'gl-sudo',
-      desc: '[Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter',
+      desc: 'Sudo query parameter - https://docs.gitlab.com/ee/api/#sudo',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_SUDO,
     },
@@ -158,13 +158,13 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
     },
     'gb-profile-token': {
       alias: 'gl-profile-token',
-      desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
+      desc: `Requests Profiles Token - https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html`,
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_TOKEN,
     },
     'gb-profile-mode': {
       alias: 'gl-profile-mode',
-      desc: '[Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html)',
+      desc: 'Requests Profiles Token - https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_MODE,
     },
