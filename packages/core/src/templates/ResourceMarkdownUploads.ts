@@ -83,7 +83,32 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
     resourceId: string | number,
     uploadId: string | number,
     options?: Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  remove<E extends boolean = false>(
+    resourceId: string | number,
+    secret: string,
+    filename: string,
+    options?: Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  remove<E extends boolean = false>(
+    resourceId: string | number,
+    uploadIdOrSecret: string | number,
+    filename?: any,
+    options?: Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/uploads/${uploadId}`, options);
+    if (typeof filename === 'object' || filename === undefined) {
+      return RequestHelper.del()(
+        this,
+        endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
+        options,
+      );
+    }
+    return RequestHelper.del()(
+      this,
+      endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
+      options,
+    );
   }
 }

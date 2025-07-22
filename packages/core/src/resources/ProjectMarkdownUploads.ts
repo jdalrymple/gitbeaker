@@ -44,6 +44,13 @@ export interface ProjectMarkdownUploads<C extends boolean = false>
     uploadId: string | number,
     options?: Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  remove<E extends boolean = false>(
+    projectId: string | number,
+    secret: string,
+    filename: string,
+    options?: Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
 export class ProjectMarkdownUploads<C extends boolean = false> extends ResourceMarkdownUploads<C> {
