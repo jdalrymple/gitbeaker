@@ -1,3 +1,19 @@
+# v43.3.0 (Sat Jul 19 2025)
+
+#### 🐛 Bug Fix
+
+- fix: Parsing param names from functions with destructured params was not working correctly [#3746](https://github.com/jdalrymple/gitbeaker/pull/3746) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- types: Adding upcoming_release to Project Release type [#3745](https://github.com/jdalrymple/gitbeaker/pull/3745) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 1
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.1.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix

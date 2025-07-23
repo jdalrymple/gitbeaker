@@ -1,5 +1,5 @@
 function isValidParam(param: string): boolean {
-  return Boolean(param) && !param.startsWith('{') && !param.startsWith('...');
+  return Boolean(param) && !param.startsWith('...');
 }
 
 function removeDefaultValues(param: string): string {
@@ -12,6 +12,7 @@ export const getParamNames = (func: () => unknown): string[] => {
   const paramString = paramPattern.exec(funcString)?.[1] || '';
 
   return paramString
+    .replace(/(\{[^}]*\}|\s*=\s*{[^}]*})/g, '') // Remove destructured params
     .replace(/\/\*.*?\*\//g, '') // Remove comments
     .replace(/ /g, '') // Remove spaces
     .split(',') // Split into array
