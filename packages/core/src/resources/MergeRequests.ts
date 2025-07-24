@@ -612,7 +612,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     options?: { accessRawDiffs?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestChangesSchema, C, E, void>> {
     process.emitWarning(
-      'This endpoint was deprecated in Gitlab API 15.7 and will be removed in API v5. Please use the "allDiffs" function instead.',
+      'This endpoint was deprecated in GitLab API 15.7 and will be removed in API v5. Please use the "allDiffs" function instead.',
       'DeprecationWarning',
     );
     return RequestHelper.get<MergeRequestChangesSchema>()(

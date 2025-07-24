@@ -10,7 +10,7 @@ yarn test:unit
 
 **Integration Tests**
 
-1. First, run Gitlab in a docker container:
+1. First, run GitLab in a docker container:
 
 ```bash
 docker-compose -f scripts/docker-compose.yml up
@@ -36,4 +36,4 @@ You can also define them in front of the yarn script
 PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' yarn test
 ```
 
-> Note it may take about 3 minutes to get the variables while Gitlab is starting up in the container
+> Note it may take about 3 minutes to get the variables while GitLab is starting up in the container
