@@ -131,12 +131,12 @@ Available instantiating options:
 | `oauthToken`         | Yes\*    | N/A                                                                                                                                     | OAuth Token. Recommended (one of the three tokens are recommended)                                                 |
 | `jobToken`           | Yes\*    | N/A                                                                                                                                     | CI Job Token. Recommended (one of the three tokens are recommended)                                                |
 | `rejectUnauthorized` | Yes      | `true`                                                                                                                                  | Http Certificate setting, Only applies to non-browser releases and HTTPS hosts urls                                |
-| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/api/#sudo) query parameter                                                       |
 | `camelize`           | Yes      | `false`                                                                                                                                 | Camelizes all response body keys                                                                                   |
 | `requesterFn`        | No       | @gitbeaker/rest & @gitbeaker/cli : fetch-based, The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
 | `queryTimeout`       | Yes      | `300000`                                                                                                                                | Query Timeout in ms                                                                                                |
-| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
 | `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
 
 > \*One of these options should be supplied, as most API requests require authentication.
@@ -240,7 +240,7 @@ paginationInfo: {
 
 #### Keyset Pagination
 
-Similarly, support for [Keyset pagination](https://docs.gitlab.com/ee/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
+Similarly, support for [Keyset pagination](https://docs.gitlab.com/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
 
 ```js
 const { data } = await api.Projects.all({
@@ -252,7 +252,7 @@ const { data } = await api.Projects.all({
 
 ### Rate Limits
 
-Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [Gitlab Docs](https://docs.gitlab.com/ee/security/rate_limits.html). See below for the default values:
+Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [Gitlab Docs](https://docs.gitlab.com/security/rate_limits.html). See below for the default values:
 
 ```js
 const DEFAULT_RATE_LIMITS = Object.freeze({
