@@ -65,16 +65,16 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
     filename?: any,
     options?: Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
-    if (typeof filename === 'object' || filename === undefined) {
+    if (filename && typeof filename === 'string') {
       return RequestHelper.get<Blob>()(
         this,
-        endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
+        endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
         options,
       );
     }
     return RequestHelper.get<Blob>()(
       this,
-      endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
+      endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
       options,
     );
   }
@@ -98,16 +98,16 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
     filename?: any,
     options?: Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    if (typeof filename === 'object' || filename === undefined) {
+    if (filename && typeof filename === 'string') {
       return RequestHelper.del()(
         this,
-        endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
+        endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
         options,
       );
     }
     return RequestHelper.del()(
       this,
-      endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
+      endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
       options,
     );
   }
