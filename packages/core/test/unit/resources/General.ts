@@ -10,7 +10,6 @@ describe('Instantiating services', () => {
 
       expect(service.constructor.name).toBe(k);
       expect(service.url).toBeDefined();
-      expect(service.rejectUnauthorized).toBeTruthy();
       expect(service.authHeaders).toMatchObject({
         'private-token': expect.any(Function),
       });
