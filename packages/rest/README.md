@@ -131,13 +131,14 @@ Available instantiating options:
 | `oauthToken`         | Yes\*    | N/A                                                                                                                                     | OAuth Token. Recommended (one of the three tokens are recommended)                                                 |
 | `jobToken`           | Yes\*    | N/A                                                                                                                                     | CI Job Token. Recommended (one of the three tokens are recommended)                                                |
 | `rejectUnauthorized` | Yes      | `true`                                                                                                                                  | Http Certificate setting, Only applies to non-browser releases and HTTPS hosts urls                                |
-| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/api/#sudo) query parameter                                                       |
+| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/api/#sudo) query parameter                                                          |
 | `camelize`           | Yes      | `false`                                                                                                                                 | Camelizes all response body keys                                                                                   |
 | `requesterFn`        | No       | @gitbeaker/rest & @gitbeaker/cli : fetch-based, The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
 | `queryTimeout`       | Yes      | `300000`                                                                                                                                | Query Timeout in ms                                                                                                |
-| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
+| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html)    |
+| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html)    |
 | `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
+| `rateLimitDuration`  | No       | `60`                                                                                                                                    | Timeout duration when rate limit is reached                                                                        |
 
 > \*One of these options should be supplied, as most API requests require authentication.
 
@@ -302,6 +303,8 @@ Rate limits can be overridden when instantiating a API wrapper. For ease of use,
 1. The glob for the endpoint with the corresponding rate per second
 2. The glob for the endpoint, with an object specifying the specific method for the endpoint and the corresponding rate limit
 
+You can also override the `rateLimitDuration` default value of 60 seconds. This is how long a specific endpoint will be timed out for when its rate limit is reached.
+
 ```js
 const api = new Gitlab({
   token: 'token',
@@ -313,6 +316,7 @@ const api = new Gitlab({
       limit: 300,
     },
   },
+  rateLimitDuration: 30
 });
 ```
 
