@@ -73,7 +73,7 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
-    projectId: string | number,
+    groupId: string | number,
     labelId: number | string,
     options?: { includeAncestorGroups?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;

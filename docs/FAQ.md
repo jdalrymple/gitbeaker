@@ -17,7 +17,7 @@ const api = new Gitlab({
 
 #### Handling HTTPS certificates
 
-If your Gitlab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
+If your GitLab server is running via HTTPS, the proper way to pass in your certificates is via a `NODE_EXTRA_CA_CERTS` environment key, like this:
 
 ```js
 "scripts": {

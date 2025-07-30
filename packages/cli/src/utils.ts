@@ -135,31 +135,31 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
   return {
     'gb-token': {
       alias: 'gl-token',
-      desc: 'Your Gitlab Personal Token',
+      desc: 'Your GitLab Personal Token',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_TOKEN,
     },
     'gb-oauth-token': {
       alias: 'gl-oauth-token',
-      desc: 'Your Gitlab OAuth Token',
+      desc: 'Your GitLab OAuth Token',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_OAUTH_TOKEN,
     },
     'gb-job-token': {
       alias: 'gl-job-token',
-      desc: 'Your Gitlab Job Token',
+      desc: 'Your GitLab Job Token',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_JOB_TOKEN,
     },
     'gb-host': {
       alias: 'gl-host',
-      desc: 'Your Gitlab API host (Defaults to https://www.gitlab.com)',
+      desc: 'Your GitLab API host (Defaults to https://www.gitlab.com)',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_HOST,
     },
     'gb-sudo': {
       alias: 'gl-sudo',
-      desc: 'Sudo query parameter - https://docs.gitlab.com/ee/api/#sudo',
+      desc: 'Sudo query parameter - https://docs.gitlab.com/api/#sudo',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_SUDO,
     },
@@ -178,13 +178,13 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
     },
     'gb-profile-token': {
       alias: 'gl-profile-token',
-      desc: `Requests Profiles Token - https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html`,
+      desc: `Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html`,
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_TOKEN,
     },
     'gb-profile-mode': {
       alias: 'gl-profile-mode',
-      desc: 'Requests Profiles Token - https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html',
+      desc: 'Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_MODE,
     },
@@ -192,7 +192,7 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
 }
 
 export function getExposedAPIs(map: Record<string, MethodTemplate[]>) {
-  // Exclude Gitlab resource and constants from exposure
+  // Exclude GitLab resource and constants from exposure
   const { Gitlab, AccessLevel, ...exposed } = map;
 
   return exposed;

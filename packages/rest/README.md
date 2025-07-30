@@ -67,7 +67,7 @@
 
 ## Features
 
-- **Complete** - All features of Gitlab's exposed APIs are covered up to version [16.5](https://docs.gitlab.com/16.5/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
+- **Complete** - All features of GitLab's exposed APIs are covered up to version [16.5](https://docs.gitlab.com/16.5/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
 - **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), and [Deno](https://deno.land/).
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
@@ -114,7 +114,7 @@ import { Gitlab } from '@gitbeaker/rest';
 
 ## API Client
 
-Instantiate the library using a basic token created in your [Gitlab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
+Instantiate the library using a basic token created in your [GitLab Profile](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html)
 
 ```javascript
 const api = new Gitlab({
@@ -131,12 +131,12 @@ Available instantiating options:
 | `oauthToken`         | Yes\*    | N/A                                                                                                                                     | OAuth Token. Recommended (one of the three tokens are recommended)                                                 |
 | `jobToken`           | Yes\*    | N/A                                                                                                                                     | CI Job Token. Recommended (one of the three tokens are recommended)                                                |
 | `rejectUnauthorized` | Yes      | `true`                                                                                                                                  | Http Certificate setting, Only applies to non-browser releases and HTTPS hosts urls                                |
-| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/ee/api/#sudo) query parameter                                                       |
+| `sudo`               | Yes      | `false`                                                                                                                                 | [Sudo](https://docs.gitlab.com/api/#sudo) query parameter                                                       |
 | `camelize`           | Yes      | `false`                                                                                                                                 | Camelizes all response body keys                                                                                   |
 | `requesterFn`        | No       | @gitbeaker/rest & @gitbeaker/cli : fetch-based, The @gitbeaker/core package **does not** have a default and thus must be set explicitly | Request Library Wrapper                                                                                            |
 | `queryTimeout`       | Yes      | `300000`                                                                                                                                | Query Timeout in ms                                                                                                |
-| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
-| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/ee/administration/monitoring/performance/request_profiling.html) |
+| `profileToken`       | Yes      | N/A                                                                                                                                     | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
+| `profileMode`        | Yes      | `execution`                                                                                                                             | [Requests Profiles Token](https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html) |
 | `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
 
 > \*One of these options should be supplied, as most API requests require authentication.
@@ -184,7 +184,7 @@ Available pagination options:
 
 #### Offset Pagination
 
-For any .all() function on a resource, it will return **all** the items from Gitlab. This can be troublesome if there are many items, as the request itself can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
+For any .all() function on a resource, it will return **all** the items from GitLab. This can be troublesome if there are many items, as the request itself can take a while to be fulfilled. As such, a maxPages option can be passed to limit the scope of the all function.
 
 ```javascript
 import { Gitlab } from '@gitbeaker/rest';
@@ -236,11 +236,11 @@ paginationInfo: {
 }
 ```
 
-> Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the Gitlab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
+> Note: Supplying any pagination restrictions is call intensive. Some resources will require many requests which can put a significant load on the GitLab Server. The general best practice would be setting the page request option to only return the first page if all results are not required.
 
 #### Keyset Pagination
 
-Similarly, support for [Keyset pagination](https://docs.gitlab.com/ee/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
+Similarly, support for [Keyset pagination](https://docs.gitlab.com/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
 
 ```js
 const { data } = await api.Projects.all({
@@ -252,7 +252,7 @@ const { data } = await api.Projects.all({
 
 ### Rate Limits
 
-Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [Gitlab Docs](https://docs.gitlab.com/ee/security/rate_limits.html). See below for the default values:
+Rate limits are completely customizable, and are used to limit the request rate between consecutive API requests within the library. By default, all non-specified endpoints use a 3000 rps rate limit, while some endpoints have much smaller rates as dictated by the [GitLab Docs](https://docs.gitlab.com/security/rate_limits.html). See below for the default values:
 
 ```js
 const DEFAULT_RATE_LIMITS = Object.freeze({
@@ -379,7 +379,7 @@ const projectsAPI = new Projects({
 });
 
 projectsAPI.create({
-  //options defined in the Gitlab API documentation
+  //options defined in the GitLab API documentation
 });
 ```
 

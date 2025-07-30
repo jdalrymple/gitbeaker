@@ -9,7 +9,7 @@ import type {
 } from '../infrastructure';
 import { AccessLevel } from '../constants';
 
-// Documentation: https://docs.gitlab.com/ee/api/groups.html#ldap-group-links
+// Documentation: https://docs.gitlab.com/api/groups/#ldap-group-links
 export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     groupId: string | number,
