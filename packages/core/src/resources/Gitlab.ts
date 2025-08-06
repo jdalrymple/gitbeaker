@@ -92,8 +92,9 @@ import { MergeRequestContextCommits } from './MergeRequestContextCommits';
 import { MergeRequestDiscussions } from './MergeRequestDiscussions';
 import { MergeRequestLabelEvents } from './MergeRequestLabelEvents';
 import { MergeRequestMilestoneEvents } from './MergeRequestMilestoneEvents';
-import { MergeRequestNotes } from './MergeRequestNotes';
+import { MergeRequestStateEvents } from './MergeRequestStateEvents';
 import { MergeRequestDraftNotes } from './MergeRequestDraftNotes';
+import { MergeRequestNotes } from './MergeRequestNotes';
 import { MergeRequestNoteAwardEmojis } from './MergeRequestNoteAwardEmojis';
 import { MergeRequests } from './MergeRequests';
 import { MergeTrains } from './MergeTrains';
@@ -288,6 +289,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   MergeRequestDiscussions: MergeRequestDiscussions<C>;
   MergeRequestLabelEvents: MergeRequestLabelEvents<C>;
   MergeRequestMilestoneEvents: MergeRequestMilestoneEvents<C>;
+  MergeRequestStateEvents: MergeRequestStateEvents<C>;
   MergeRequestDraftNotes: MergeRequestDraftNotes<C>;
   MergeRequestNotes: MergeRequestNotes<C>;
   MergeRequestNoteAwardEmojis: MergeRequestNoteAwardEmojis<C>;
@@ -482,6 +484,7 @@ const resources = {
   MergeRequestDiscussions,
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
+  MergeRequestStateEvents,
   MergeRequestDraftNotes,
   MergeRequestNotes,
   MergeRequestNoteAwardEmojis,
