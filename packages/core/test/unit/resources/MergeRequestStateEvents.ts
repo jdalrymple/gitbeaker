@@ -57,4 +57,4 @@ describe('MergeRequestStateEvents.show', () => {
       { sudo: 'admin' },
     );
   });
-}); 
+});
