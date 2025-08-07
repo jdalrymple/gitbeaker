@@ -225,7 +225,7 @@ describe('createInstance', () => {
 });
 
 describe('createRateLimiters', () => {
-  it('should create rate limiter functions when configured', () => {
+  it('should create rate limiter functions when configured, with a default timeout duration of 60', () => {
     const limiters = createRateLimiters({
       '*': 40,
       'projects/*/test': {
@@ -236,6 +236,30 @@ describe('createRateLimiters', () => {
 
     expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 10, duration: 60 });
     expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 40, duration: 60 });
+
+    expect(limiters).toStrictEqual({
+      '*': expect.toBeFunction(),
+      'projects/*/test': {
+        method: 'GET',
+        limit: expect.toBeFunction(),
+      },
+    });
+  });
+
+  it('should respect a custom timeout duration when passed to createRateLimiters', () => {
+    const limiters = createRateLimiters(
+      {
+        '*': 40,
+        'projects/*/test': {
+          method: 'GET',
+          limit: 10,
+        },
+      },
+      30,
+    );
+
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 10, duration: 30 });
+    expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 40, duration: 30 });
 
     expect(limiters).toStrictEqual({
       '*': expect.toBeFunction(),
