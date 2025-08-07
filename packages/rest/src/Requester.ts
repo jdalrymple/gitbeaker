@@ -1,4 +1,3 @@
-import type { Agent } from 'http'
 import type {
   RequestOptions,
   ResourceOptions,
@@ -99,10 +98,10 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
     const request = new Request(url, { ...opts, method, mode });
-    const fetchArgs: [Request, RequestInit?] = [request]
+    const fetchArgs: [Request, RequestInit?] = [request];
 
     // Append agent information if given
-    if (agent) fetchArgs.push({ dispatcher: agent } as RequestInit)
+    if (agent) fetchArgs.push({ dispatcher: agent } as RequestInit);
 
     await rateLimit();
 
