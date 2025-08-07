@@ -105,10 +105,6 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
         options,
       );
     }
-    return RequestHelper.del()(
-      this,
-      endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
-      options,
-    );
+    return RequestHelper.del()(this, endpoint`${resourceId}/uploads/${uploadIdOrSecret}`, options);
   }
 }
