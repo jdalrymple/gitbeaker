@@ -1,3 +1,25 @@
+# v43.4.0 (Thu Aug 07 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Florian Imdahl ([@ffflorian](https://github.com/ffflorian)), for all your work!
+
+#### 🔒 Security
+
+- Addressing security alert through updating affected packages [#3756](https://github.com/jdalrymple/gitbeaker/pull/3756) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- docs: Renamed Gitlab to GitLab [#3750](https://github.com/jdalrymple/gitbeaker/pull/3750) ([@ffflorian](https://github.com/ffflorian) [@jdalrymple](https://github.com/jdalrymple))
+- docs: Remove 'ee' from URLs [#3751](https://github.com/jdalrymple/gitbeaker/pull/3751) ([@ffflorian](https://github.com/ffflorian))
+
+#### Authors: 2
+
+- Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.2.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix

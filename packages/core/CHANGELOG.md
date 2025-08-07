@@ -1,3 +1,43 @@
+# v43.4.0 (Thu Aug 07 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+:heart: Cody Hutchins ([@cody-hutchins](https://github.com/cody-hutchins))
+
+:heart: Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+
+#### ✨ Feature
+
+- Adding support for Commit sequences [#3755](https://github.com/jdalrymple/gitbeaker/pull/3755) ([@jdalrymple](https://github.com/jdalrymple))
+- Add support for MergeRequestStateEvents [#3754](https://github.com/jdalrymple/gitbeaker/pull/3754) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla) [@jdalrymple](https://github.com/jdalrymple))
+- Add missing function definitions for Markdown Uploads [#3742](https://github.com/jdalrymple/gitbeaker/pull/3742) (chutchins@teamraft.com [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔒 Security
+
+- Addressing security alert through updating affected packages [#3756](https://github.com/jdalrymple/gitbeaker/pull/3756) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- fix(core): Rename projectId to groupId in types [#3749](https://github.com/jdalrymple/gitbeaker/pull/3749) ([@ffflorian](https://github.com/ffflorian))
+
+#### 📚 Documentation
+
+- docs: Renamed Gitlab to GitLab [#3750](https://github.com/jdalrymple/gitbeaker/pull/3750) ([@ffflorian](https://github.com/ffflorian) [@jdalrymple](https://github.com/jdalrymple))
+- docs: Remove 'ee' from URLs [#3751](https://github.com/jdalrymple/gitbeaker/pull/3751) ([@ffflorian](https://github.com/ffflorian))
+
+#### Authors: 4
+
+- Cody Hutchins ([@cody-hutchins](https://github.com/cody-hutchins))
+- Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+---
+
 # v43.3.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix

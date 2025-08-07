@@ -1,3 +1,58 @@
+# 43.4.0 (Thu Aug 07 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@tcasebiw](https://github.com/tcasebiw)
+
+:heart: Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+:heart: Cody Hutchins ([@cody-hutchins](https://github.com/cody-hutchins))
+
+:heart: Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Adding support for Commit sequences [#3755](https://github.com/jdalrymple/gitbeaker/pull/3755) ([@jdalrymple](https://github.com/jdalrymple))
+  - Add support for MergeRequestStateEvents [#3754](https://github.com/jdalrymple/gitbeaker/pull/3754) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla) [@jdalrymple](https://github.com/jdalrymple))
+  - Add missing function definitions for Markdown Uploads [#3742](https://github.com/jdalrymple/gitbeaker/pull/3742) (chutchins@teamraft.com [@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add support for configuring the rate limit duration [#3753](https://github.com/jdalrymple/gitbeaker/pull/3753) ([@tcasebiw](https://github.com/tcasebiw) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- `@gitbeaker/rest`
+  - Bump form-data from 4.0.0 to 4.0.4 [#3748](https://github.com/jdalrymple/gitbeaker/pull/3748) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔒 Security
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Addressing security alert through updating affected packages [#3756](https://github.com/jdalrymple/gitbeaker/pull/3756) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - fix(core): Rename projectId to groupId in types [#3749](https://github.com/jdalrymple/gitbeaker/pull/3749) ([@ffflorian](https://github.com/ffflorian))
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/rest`
+  - docs: Renamed Gitlab to GitLab [#3750](https://github.com/jdalrymple/gitbeaker/pull/3750) ([@ffflorian](https://github.com/ffflorian) [@jdalrymple](https://github.com/jdalrymple))
+  - docs: Remove 'ee' from URLs [#3751](https://github.com/jdalrymple/gitbeaker/pull/3751) ([@ffflorian](https://github.com/ffflorian))
+
+#### Authors: 6
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@tcasebiw](https://github.com/tcasebiw)
+- Cody Hutchins ([@cody-hutchins](https://github.com/cody-hutchins))
+- Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+---
+
 # 43.3.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
