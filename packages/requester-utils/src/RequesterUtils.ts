@@ -158,11 +158,15 @@ export async function defaultOptionsHandler(
   return Promise.resolve(defaultOptions);
 }
 
-export function createRateLimiters(rateLimitOptions: RateLimitOptions = {}, rateLimitDuration: number = 60) {
+export function createRateLimiters(
+  rateLimitOptions: RateLimitOptions = {},
+  rateLimitDuration: number = 60,
+) {
   const rateLimiters: RateLimiters = {};
 
   Object.entries(rateLimitOptions).forEach(([key, config]) => {
-    if (typeof config === 'number') rateLimiters[key] = generateRateLimiterFn(config, rateLimitDuration);
+    if (typeof config === 'number')
+      rateLimiters[key] = generateRateLimiterFn(config, rateLimitDuration);
     else
       rateLimiters[key] = {
         method: config.method.toUpperCase(),
@@ -181,7 +185,10 @@ export function createRequesterFn(
 
   return (serviceOptions) => {
     const requester: RequesterType = {} as RequesterType;
-    const rateLimiters = createRateLimiters(serviceOptions.rateLimits, serviceOptions.rateLimitDuration);
+    const rateLimiters = createRateLimiters(
+      serviceOptions.rateLimits,
+      serviceOptions.rateLimitDuration,
+    );
 
     methods.forEach((m) => {
       requester[m] = async (endpoint: string, options: Record<string, unknown>) => {
