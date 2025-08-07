@@ -1,3 +1,4 @@
+import type { Agent } from 'http'
 import type {
   RequestOptions,
   ResourceOptions,
@@ -95,17 +96,17 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
-  const initOptions: Record<string, unknown> | undefined = agent
-    ? { dispatcher: agent }
-    : undefined;
-
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
     const request = new Request(url, { ...opts, method, mode });
+    const fetchArgs: [Request, RequestInit?] = [request]
+
+    // Append agent information if given
+    if (agent) fetchArgs.push({ dispatcher: agent } as RequestInit)
 
     await rateLimit();
 
-    const response = await fetch(request, initOptions).catch((e) => {
+    const response = await fetch(...fetchArgs).catch((e) => {
       if (e.name === 'TimeoutError' || e.name === 'AbortError') {
         throw new GitbeakerTimeoutError('Query timeout was reached');
       }
