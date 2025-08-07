@@ -151,6 +151,10 @@ export interface CommitReferenceSchema extends Record<string, unknown> {
   name: string;
 }
 
+export interface CommitSequenceSchema extends Record<string, unknown> {
+  count: number;
+}
+
 export interface CommitDiscussionNoteSchema extends MappedOmit<DiscussionNoteSchema, 'position'> {
   confidential?: boolean;
   commands_changes: Record<string, unknown>;
@@ -420,6 +424,18 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<CommitSignatureSchema>()(
       this,
       endpoint`projects/${projectId}/repository/commits/${sha}/signature`,
+      options,
+    );
+  }
+
+  showSequence<E extends boolean = false>(
+    projectId: string | number,
+    sha: string,
+    options?: { firstParent?: boolean } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<CommitSequenceSchema, C, E, void>> {
+    return RequestHelper.get<CommitSequenceSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/commits/${sha}/sequence`,
       options,
     );
   }

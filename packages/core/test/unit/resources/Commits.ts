@@ -168,3 +168,25 @@ describe('Commits.allMergeRequests', () => {
     );
   });
 });
+
+describe('Commits.showSequence', () => {
+  it('should request GET projects/:id/repository/commits/:sha/sequence', async () => {
+    await service.showSequence(1, '5a');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/commits/5a/sequence',
+      undefined,
+    );
+  });
+
+  it('should request GET projects/:id/repository/commits/:sha/sequence with firstParent option', async () => {
+    await service.showSequence(1, '5a', { firstParent: true });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/commits/5a/sequence',
+      { firstParent: true },
+    );
+  });
+});
