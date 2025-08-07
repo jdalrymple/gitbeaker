@@ -140,6 +140,7 @@ Available instantiating options:
 | `rateLimits`         | No       | [DEFAULT_RATE_LIMITS](#rate-limits)                                                                                                     | Global and endpoint specific adjustable rate limits                                                                |
 | `rateLimitDuration`  | No       | `60`                                                                                                                                    | Timeout duration when rate limit is reached                                                                        |
 
+
 > \*One of these options should be supplied, as most API requests require authentication.
 
 ### Expanded Payloads
