@@ -95,7 +95,9 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
-  const initOptions: Record<string, unknown> | undefined = agent ? { dispatcher: agent } : undefined;
+  const initOptions: Record<string, unknown> | undefined = agent
+    ? { dispatcher: agent }
+    : undefined;
 
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
