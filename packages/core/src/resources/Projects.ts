@@ -250,6 +250,7 @@ export type CreateProjectOptions = {
   buildTimeout?: number;
   buildsAccessLevel?: AccessLevelSettingState;
   ciConfigPath?: string;
+  ciDeletePipelinesInSeconds?: number;
   containerExpirationPolicyAttributes?: Record<string, string>;
   containerRegistryAccessLevel?: AccessLevelSettingState;
   defaultBranch?: string;
@@ -318,6 +319,7 @@ export type EditProjectOptions = {
   ciForwardDeploymentEnabled?: boolean;
   ciAllowForkPipelinesToRunInParentProject?: boolean;
   ciSeparatedCaches?: boolean;
+  ciDeletePipelinesInSeconds?: number;
   containerExpirationPolicyAttributes?: Record<string, string>;
   containerRegistryAccessLevel?: string;
   defaultBranch?: string;
