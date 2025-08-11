@@ -21,7 +21,6 @@ describe('defaultOptionsHandler', () => {
       token: () => Promise.resolve('1234'),
     },
     url: 'testurl',
-    rejectUnauthorized: false,
     rateLimits: {},
   };
 
@@ -121,7 +120,6 @@ describe('createInstance', () => {
       token: () => Promise.resolve('1234'),
     },
     url: 'testurl',
-    rejectUnauthorized: false,
   };
 
   it('should have a createInstance function', () => {
@@ -162,7 +160,6 @@ describe('createInstance', () => {
         token: () => Promise.resolve('1234'),
       },
       url: 'testurl',
-      rejectUnauthorized: false,
       rateLimits: {},
     };
     const serviceOptions2: ResourceOptions = {
@@ -171,7 +168,6 @@ describe('createInstance', () => {
         token: () => Promise.resolve('1234'),
       },
       url: 'testurl2',
-      rejectUnauthorized: true,
       rateLimits: {},
     };
 
