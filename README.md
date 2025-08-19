@@ -45,7 +45,7 @@
   </a>
 </p>
 
-> A typed [GitLab](https://gitlab.com/gitlab-org/gitlab/) SDK for Browser, Node.js, Deno and CLI usage.
+> A typed [GitLab](https://gitlab.com/gitlab-org/gitlab/) SDK for Browser, Node.js, Deno, Bun and CLI usage.
 
 ## Table of Contents
 
@@ -59,7 +59,7 @@
 ## Features
 
 - **Complete** - All features of GitLab's exposed APIs are covered up to version [16.5](https://docs.gitlab.com/16.5/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
-- **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), and [Deno](https://deno.land/) and supports [CLI](https://www.npmjs.com/package/@gitbeaker/cli) usage.
+- **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), [Deno](https://deno.land/) and [Bun](https://bun.com/) and supports [CLI](https://www.npmjs.com/package/@gitbeaker/cli) usage.
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
 
@@ -67,7 +67,7 @@
 
 - :wrench: [**@gitbeaker/requester-utils**](https://www.npmjs.com/package/@gitbeaker/requester-utils) - Utilities for the underlying HTTP request functionality.
 - :scroll: [**@gitbeaker/core**](https://www.npmjs.com/package/@gitbeaker/core) - The core API detailing all the GitLab resource support.
-- :computer: [**@gitbeaker/rest**](https://www.npmjs.com/package/@gitbeaker/rest) - The Node.js, Deno and Modern Browser wrapper around the gitbeaker core API, using native fetch. This is the primary library for consumption.
+- :computer: [**@gitbeaker/rest**](https://www.npmjs.com/package/@gitbeaker/rest) - The Node.js, Deno, Bun and Modern Browser wrapper around the gitbeaker core API, using native fetch. This is the primary library for consumption.
 - :pager: [**@gitbeaker/cli**](https://www.npmjs.com/package/@gitbeaker/cli) - The CLI Wrapper around the @gitbeaker/rest distribution.
 
 ## Contributors
@@ -211,4 +211,4 @@
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This started as a fork from [node-gitlab-legacy](https://github.com/rest-gitlab/rest-gitlab-legacy) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/rest-gitlab/rest-gitlab-legacy#contributors).
+This started as a fork from [node-gitlab-legacy](https://github.com/node-gitlab/node-gitlab-legacy) but I ended up rewriting much of the code. Here are the original work's [contributors](https://github.com/node-gitlab/node-gitlab-legacy/graphs/contributors).
