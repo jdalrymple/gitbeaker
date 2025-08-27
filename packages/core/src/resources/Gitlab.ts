@@ -157,6 +157,7 @@ import { EpicLabelEvents } from './EpicLabelEvents';
 import { EpicLinks } from './EpicLinks';
 import { EpicNotes } from './EpicNotes';
 import { Epics } from './Epics';
+import { EpicStateEvents } from './EpicStateEvents';
 import { GroupAccessRequests } from './GroupAccessRequests';
 import { GroupAccessTokens } from './GroupAccessTokens';
 import { GroupActivityAnalytics } from './GroupActivityAnalytics';
@@ -354,6 +355,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   EpicLinks: EpicLinks<C>;
   EpicNotes: EpicNotes<C>;
   Epics: Epics<C>;
+  EpicStateEvents: EpicStateEvents<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
   GroupAccessTokens: GroupAccessTokens<C>;
   GroupActivityAnalytics: GroupActivityAnalytics<C>;
@@ -549,6 +551,7 @@ const resources = {
   EpicLinks,
   EpicNotes,
   Epics,
+  EpicStateEvents,
   GroupAccessRequests,
   GroupAccessTokens,
   GroupActivityAnalytics,
