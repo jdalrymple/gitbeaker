@@ -161,6 +161,14 @@ describe('Projects.edit', () => {
       name: 'test proj 2',
     });
   });
+
+  it('should request PUT /projects with ciDeletePipelinesInSeconds', async () => {
+    await service.edit(12, { ciDeletePipelinesInSeconds: 3600 });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/12', {
+      ciDeletePipelinesInSeconds: 3600,
+    });
+  });
 });
 
 describe('Projects.fork', () => {
