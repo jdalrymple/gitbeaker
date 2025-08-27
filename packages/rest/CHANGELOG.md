@@ -1,3 +1,39 @@
+# v43.4.0 (Thu Aug 07 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@tcasebiw](https://github.com/tcasebiw)
+
+:heart: Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+
+#### ✨ Feature
+
+- Add support for configuring the rate limit duration [#3753](https://github.com/jdalrymple/gitbeaker/pull/3753) ([@tcasebiw](https://github.com/tcasebiw) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔨 Technical Debt
+
+- Bump form-data from 4.0.0 to 4.0.4 [#3748](https://github.com/jdalrymple/gitbeaker/pull/3748) ([@dependabot[bot]](https://github.com/dependabot[bot]) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔒 Security
+
+- Addressing security alert through updating affected packages [#3756](https://github.com/jdalrymple/gitbeaker/pull/3756) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- docs: Renamed Gitlab to GitLab [#3750](https://github.com/jdalrymple/gitbeaker/pull/3750) ([@ffflorian](https://github.com/ffflorian) [@jdalrymple](https://github.com/jdalrymple))
+- docs: Remove 'ee' from URLs [#3751](https://github.com/jdalrymple/gitbeaker/pull/3751) ([@ffflorian](https://github.com/ffflorian))
+
+#### Authors: 4
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@tcasebiw](https://github.com/tcasebiw)
+- Florian Imdahl ([@ffflorian](https://github.com/ffflorian))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.3.0 (Sat Jul 19 2025)
 
 #### 🚨 Tests

@@ -890,6 +890,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/29700073?v=4",
       "profile": "https://github.com/kayw-geek",
       "contributions": ["code"]
+    },
+    {
+      "login": "ffflorian",
+      "name": "Florian Imdahl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5497598?v=4",
+      "profile": "https://ffflorian.dev/",
+      "contributions": ["doc", "code"]
     }
   ],
   "contributorsPerLine": 300

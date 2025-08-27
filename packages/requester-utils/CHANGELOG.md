@@ -1,3 +1,24 @@
+# v43.4.0 (Thu Aug 07 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@tcasebiw](https://github.com/tcasebiw), for all your work!
+
+#### ✨ Feature
+
+- Add support for configuring the rate limit duration [#3753](https://github.com/jdalrymple/gitbeaker/pull/3753) ([@tcasebiw](https://github.com/tcasebiw) [@jdalrymple](https://github.com/jdalrymple))
+
+#### 🔒 Security
+
+- Addressing security alert through updating affected packages [#3756](https://github.com/jdalrymple/gitbeaker/pull/3756) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- [@tcasebiw](https://github.com/tcasebiw)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from a new contributor! :tada:

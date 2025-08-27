@@ -228,6 +228,7 @@ import { RequesterUtils, BaseResource } from '@gitbeaker/requester-utils';
       <td align="center" valign="top" width="0.33%"><a href="https://note.itswhat.me/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/38807139?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Bryan Lee"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/zk-kb4"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/42388953?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Zack"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/kayw-geek"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/29700073?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Kay W."/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://ffflorian.dev/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/5497598?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Florian Imdahl"/></td>
     </tr>
 </p>
 
