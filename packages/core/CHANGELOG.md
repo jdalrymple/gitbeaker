@@ -1,3 +1,24 @@
+# v43.5.0 (Tue Sep 02 2025)
+
+#### ✨ Feature
+
+- Add support for EpicStateEvents [#3757](https://github.com/jdalrymple/gitbeaker/pull/3757) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+#### 🔒 Security
+
+- Update dependencies and address security alert [#3763](https://github.com/jdalrymple/gitbeaker/pull/3763) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Add ciDeletePipeLineInSeconds to CreateProjectOptions [#3758](https://github.com/jdalrymple/gitbeaker/pull/3758) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+---
+
 # v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:

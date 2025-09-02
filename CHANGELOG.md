@@ -1,3 +1,46 @@
+# 43.5.0 (Tue Sep 02 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+:heart: Roman ([@GameRoMan](https://github.com/GameRoMan))
+
+:heart: null[@lanthier](https://github.com/lanthier)
+
+#### ✨ Feature
+
+- `@gitbeaker/core`
+  - Add support for EpicStateEvents [#3757](https://github.com/jdalrymple/gitbeaker/pull/3757) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+#### 🔒 Security
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Update dependencies and address security alert [#3763](https://github.com/jdalrymple/gitbeaker/pull/3763) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - Add ciDeletePipeLineInSeconds to CreateProjectOptions [#3758](https://github.com/jdalrymple/gitbeaker/pull/3758) ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+#### 📚 Documentation
+
+- Update README to fix node-gitlab-legacy urls and include Bun in supported runtimes [#3759](https://github.com/jdalrymple/gitbeaker/pull/3759) ([@GameRoMan](https://github.com/GameRoMan))
+- `@gitbeaker/rest`
+  - docs: fix broken README link to Supported APIs [#3761](https://github.com/jdalrymple/gitbeaker/pull/3761) (alex.lanthier@thetradedesk.com [@lanthier](https://github.com/lanthier))
+
+#### Authors: 5
+
+- [@lanthier](https://github.com/lanthier)
+- alex lanthier (alex.lanthier@thetradedesk.com)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- Roman ([@GameRoMan](https://github.com/GameRoMan))
+- Suhas Kalagotla ([@Suhas-Kalagotla](https://github.com/Suhas-Kalagotla))
+
+---
+
 # 43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:

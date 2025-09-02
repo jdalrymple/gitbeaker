@@ -1,3 +1,25 @@
+# v43.5.0 (Tue Sep 02 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@lanthier](https://github.com/lanthier), for all your work!
+
+#### 🔒 Security
+
+- Update dependencies and address security alert [#3763](https://github.com/jdalrymple/gitbeaker/pull/3763) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- docs: fix broken README link to Supported APIs [#3761](https://github.com/jdalrymple/gitbeaker/pull/3761) (alex.lanthier@thetradedesk.com [@lanthier](https://github.com/lanthier))
+
+#### Authors: 3
+
+- [@lanthier](https://github.com/lanthier)
+- alex lanthier (alex.lanthier@thetradedesk.com)
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:
