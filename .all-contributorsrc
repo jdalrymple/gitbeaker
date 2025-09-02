@@ -897,6 +897,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5497598?v=4",
       "profile": "https://ffflorian.dev/",
       "contributions": ["doc", "code"]
+    },
+    {
+      "login": "lanthier",
+      "name": "lanthier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9666344?v=4",
+      "profile": "https://github.com/lanthier",
+      "contributions": ["doc"]
     }
   ],
   "contributorsPerLine": 300
