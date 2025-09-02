@@ -49,11 +49,11 @@
   "dependencies": {
     "picomatch-browser": "^2.2.6",
     "qs": "^6.14.0",
-    "rate-limiter-flexible": "^4.0.1",
+    "rate-limiter-flexible": "^7.2.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.2.0",
+    "@types/node": "^24.3.0",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   }

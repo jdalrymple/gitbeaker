@@ -3,7 +3,7 @@ import { BroadcastMessages } from '../../../src';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
-  () => require('../../__mocks__/RequestHelper').default,
+  () => jest.requireActual('../../__mocks__/RequestHelper').default,
 );
 
 let service: BroadcastMessages;

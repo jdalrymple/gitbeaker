@@ -29,7 +29,7 @@ export interface BaseRequestOptionsWithJobToken<C> extends RootResourceOptions<C
   jobToken: GitlabToken;
 }
 
-export interface BaseRequestOptionsWithoutToken<C> extends RootResourceOptions<C> {}
+export type BaseRequestOptionsWithoutToken<C> = RootResourceOptions<C>;
 
 export type BaseResourceOptions<C> =
   | BaseRequestOptionsWithoutToken<C>
