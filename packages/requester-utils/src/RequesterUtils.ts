@@ -206,30 +206,39 @@ export function createRequesterFn(
   };
 }
 
-function extendClass<T extends Constructable>(Base: T, customConfig: Record<string, unknown>): T {
-  return class extends Base {
-    constructor(...options: any[]) {
-      // eslint-disable-line
-      const [config, ...opts] = options;
 
-      super({ ...customConfig, ...config }, ...opts); // eslint-disable-line
+type PresetConstructors<T> = {
+  [K in keyof T]: T[K]
+};
+
+function createPresetConstructor<T extends new (...args: any[]) => any>(
+  Constructor: T,
+  presetConfig: Record<string, unknown>
+): T {
+  return class extends Constructor {
+    constructor(...args: any[]) {
+      const [config, ...rest] = args;
+      super({ ...presetConfig, ...config }, ...rest);
     }
-  };
+  } as T;
 }
 
-export function presetResourceArguments<T extends Record<string, Constructable>>(
+export function presetResourceArguments<T>(
   resources: T,
   customConfig: Record<string, unknown> = {},
-) {
-  const updated = {};
-
-  Object.entries(resources)
-    .filter(([, s]) => typeof s === 'function') // FIXME: Odd default artifact included in this list during testing
-    .forEach(([k, r]) => {
-      updated[k] = extendClass(r, customConfig);
-    });
-
-  return updated as T;
+): PresetConstructors<T> {
+  const result = {} as PresetConstructors<T>;
+  
+  for (const key in resources) {
+    const Constructor = resources[key];
+    if (typeof Constructor === 'function') {
+      result[key] = createPresetConstructor(Constructor, customConfig) as any;
+    } else {
+      result[key] = Constructor as any;
+    }
+  }
+  
+  return result;
 }
 
 export function getMatchingRateLimiter(
