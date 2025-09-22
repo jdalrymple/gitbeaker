@@ -206,19 +206,18 @@ export function createRequesterFn(
   };
 }
 
-
 type PresetConstructors<T> = {
-  [K in keyof T]: T[K]
+  [K in keyof T]: T[K];
 };
 
 function createPresetConstructor<T extends new (...args: any[]) => any>(
   Constructor: T,
-  presetConfig: Record<string, unknown>
+  presetConfig: Record<string, unknown>,
 ): T {
   return class extends Constructor {
     constructor(...args: any[]) {
       const [config, ...rest] = args;
-      super({ ...presetConfig, ...config }, ...rest);
+      super({ ...presetConfig, ...config }, ...(rest as ConstructorParameters<T>));
     }
   } as T;
 }
@@ -228,16 +227,15 @@ export function presetResourceArguments<T>(
   customConfig: Record<string, unknown> = {},
 ): PresetConstructors<T> {
   const result = {} as PresetConstructors<T>;
-  
-  for (const key in resources) {
-    const Constructor = resources[key];
+
+  Object.entries(resources).forEach(([key, Constructor]) => {
     if (typeof Constructor === 'function') {
-      result[key] = createPresetConstructor(Constructor, customConfig) as any;
+      result[key as keyof T] = createPresetConstructor(Constructor, customConfig) as any;
     } else {
-      result[key] = Constructor as any;
+      result[key as keyof T] = Constructor as any;
     }
-  }
-  
+  });
+
   return result;
 }
 
