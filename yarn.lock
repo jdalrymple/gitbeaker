@@ -1322,7 +1322,7 @@ __metadata:
     "@types/node": "npm:^24.3.0"
     picomatch-browser: "npm:^2.2.6"
     qs: "npm:^6.14.0"
-    rate-limiter-flexible: "npm:^7.2.0"
+    rate-limiter-flexible: "npm:^8.0.1"
     tsup: "npm:^8.5.0"
     typescript: "npm:^5.9.2"
     xcase: "npm:^2.0.1"
@@ -11152,10 +11152,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rate-limiter-flexible@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "rate-limiter-flexible@npm:7.2.0"
-  checksum: 10c0/d3bd9ba51b417ff5c60ec3a511f9b88a7a1e067a1f379d54cfb13940f9e92337102ce14f0e727ec73478a1be9fd6499ad5ac8b571c7330fb776f681e3d3a1bf3
+"rate-limiter-flexible@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "rate-limiter-flexible@npm:8.0.1"
+  checksum: 10c0/c904dcd83cc2fdcf536c938f1c8bac026749b8e2c2b58cf4dc33e4e2ce18c8488c689056fbc30232b465bd0f01e28f76a1f9a9c4ad319c6ee704e79166ef0d3d
   languageName: node
   linkType: hard
 
