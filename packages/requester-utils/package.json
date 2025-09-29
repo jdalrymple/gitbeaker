@@ -49,7 +49,7 @@
   "dependencies": {
     "picomatch-browser": "^2.2.6",
     "qs": "^6.14.0",
-    "rate-limiter-flexible": "^7.2.0",
+    "rate-limiter-flexible": "^8.0.1",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
