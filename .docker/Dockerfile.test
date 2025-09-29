@@ -12,23 +12,11 @@ COPY .yarn/releases .yarn/releases
 # Install dependencies (will be cached if package files haven't changed)
 RUN yarn install
 
-# Create type declarations for packages without @types
-RUN echo 'declare module "xcase";' > node_modules/@types/xcase.d.ts
-RUN echo 'declare module "rate-limiter-flexible";' > node_modules/@types/rate-limiter-flexible.d.ts  
-RUN echo 'declare module "picomatch-browser";' > node_modules/@types/picomatch-browser.d.ts
-
 # Now copy the rest of the project
 COPY . .
 
-# Install missing build tools after copying workspace configuration
-RUN yarn add --dev @types/qs tsx || true
-
 # Add node_modules/.bin to PATH so NX can find build tools like tsup
 ENV PATH="/app/node_modules/.bin:$PATH"
-
-# Fix TypeScript compilation errors for DTS generation
-RUN sed -i 's/Object.entries(resources)/Object.entries(resources as Record<string, unknown>)/' packages/requester-utils/src/RequesterUtils.ts
-RUN sed -i 's/createPresetConstructor(Constructor, customConfig)/createPresetConstructor(Constructor as new (...args: any[]) => any, customConfig)/' packages/requester-utils/src/RequesterUtils.ts
 
 # Run build
 RUN yarn build
