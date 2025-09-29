@@ -222,7 +222,7 @@ function createPresetConstructor<T extends new (...args: any[]) => any>(
   } as T;
 }
 
-export function presetResourceArguments<T>(
+export function presetResourceArguments<T extends Record<string, any>>(
   resources: T,
   customConfig: Record<string, unknown> = {},
 ): PresetConstructors<T> {
@@ -230,7 +230,7 @@ export function presetResourceArguments<T>(
 
   Object.entries(resources).forEach(([key, Constructor]) => {
     if (typeof Constructor === 'function') {
-      result[key as keyof T] = createPresetConstructor(Constructor, customConfig) as any;
+      result[key as keyof T] = createPresetConstructor(Constructor as new (...args: any[]) => any, customConfig) as any;
     } else {
       result[key as keyof T] = Constructor as any;
     }
