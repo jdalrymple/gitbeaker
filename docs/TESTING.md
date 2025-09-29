@@ -15,28 +15,33 @@ The easiest way to run the full test suite is using Docker, which provides a con
 Run the complete test suite (unit + integration + e2e):
 
 ```bash
-yarn docker:test:full
+yarn test:full
 ```
 
 This command will:
-- Start a GitLab CE instance
-- Build the test container
-- Run all test types sequentially
-- Clean up automatically when done
+- Start a GitLab CE instance using Docker Compose
+- Wait for GitLab to be healthy and ready
+- Set required environment variables
+- Clean and build the project
+- Run all test types sequentially (types, unit, integration, e2e)
+- Keep GitLab running for additional testing (optional cleanup)
 
 ### Individual Test Types
 
-You can also run specific test types in Docker:
+You can also run specific test types individually:
 
 ```bash
-# Unit tests only
-cd .docker && docker-compose --profile test run --rm test yarn test:unit
+# Type tests only
+yarn test:types
 
-# Integration tests only  
-cd .docker && docker-compose --profile test run --rm test yarn test:integration
+# Unit tests only
+yarn test:unit
+
+# Integration tests only (requires GitLab running)
+yarn test:integration
 
 # End-to-end tests only
-cd .docker && docker-compose --profile test run --rm test yarn test:e2e
+yarn test:e2e
 ```
 
 ### Manual GitLab Instance
@@ -70,11 +75,11 @@ yarn test:unit
 cd .docker && docker-compose up gitlab
 ```
 
-2. Once GitLab is up on localhost:8080, get the environment variables:
+2. Once GitLab is up on localhost:8080, set the environment variables:
 
 ```bash
-export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
-export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
+export GITLAB_URL="http://localhost:8080"
+export GITLAB_PERSONAL_ACCESS_TOKEN="superstrongpassword123"
 ```
 
 3. Run the integration tests:
@@ -86,7 +91,7 @@ yarn test:integration
 You can also define them inline:
 
 ```bash
-PERSONAL_ACCESS_TOKEN='superstrongpassword123' GITLAB_URL='http://localhost:8080' yarn test:integration
+GITLAB_URL='http://localhost:8080' GITLAB_PERSONAL_ACCESS_TOKEN='superstrongpassword123' yarn test:integration
 ```
 
 ### End-to-End Tests
