@@ -28,11 +28,11 @@
     "test:unit": "nx run-many --target=test:unit",
     "test:integration": "nx run-many --target=test:integration",
     "test:e2e": "nx run-many --target=test:e2e",
+    "test:full": "./scripts/run-full-test-suite.sh",
     "release:next": "auto next",
     "release:canary": "auto canary",
     "release": "auto shipit",
-    "prepare": "husky",
-    "docker:test:full": "cd .docker && docker-compose --profile test run --rm test sh -c 'yarn test:unit && yarn test:integration && yarn test:e2e'"
+    "prepare": "husky"
   },
   "dependencies": {
     "types": "^0.1.1"
