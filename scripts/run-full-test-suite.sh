@@ -13,7 +13,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 GITLAB_URL="http://localhost:8080"
-PERSONAL_ACCESS_TOKEN="superstrongpassword123"
+GITLAB_PERSONAL_ACCESS_TOKEN="superstrongpassword123"
 COMPOSE_FILE=".docker/docker-compose.yml"
 
 echo -e "${YELLOW}Starting GitLab test environment...${NC}"
@@ -43,7 +43,7 @@ cd ..
 
 # Set environment variables for tests
 export GITLAB_URL="$GITLAB_URL"
-export GITLAB_PERSONAL_ACCESS_TOKEN="$PERSONAL_ACCESS_TOKEN"
+export GITLAB_PERSONAL_ACCESS_TOKEN="$GITLAB_PERSONAL_ACCESS_TOKEN"
 export CI="true"
 export NODE_ENV="test"
 

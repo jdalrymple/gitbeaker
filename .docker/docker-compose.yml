@@ -1,6 +1,5 @@
 x-common-variables: &common-variables
   GITLAB_URL: http://gitlab:80
-  PERSONAL_ACCESS_TOKEN: superstrongpassword123
   GITLAB_PERSONAL_ACCESS_TOKEN: superstrongpassword123
   GITLAB_ROOT_PASSWORD: gitbeaker
 
@@ -18,7 +17,7 @@ services:
         # Reduce memory usage for testing
         postgresql['shared_buffers'] = "256MB"
         postgresql['max_worker_processes'] = 8
-        # Disable unused services for faster startup and lower resource usage  
+        # Disable unused services for faster startup and lower resource usage
         prometheus_monitoring['enable'] = false
         alertmanager['enable'] = false
         node_exporter['enable'] = false
@@ -41,7 +40,7 @@ services:
           scopes: ["api", "read_user", "read_repository", "write_repository"]
         })
         token.expires_at = 365.days.from_now
-        token.set_token(ENV["PERSONAL_ACCESS_TOKEN"])
+        token.set_token(ENV["GITLAB_PERSONAL_ACCESS_TOKEN"])
         token.save!
         EOF
         exec /assets/wrapper
@@ -58,24 +57,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 3m
-
-  test:
-    build:
-      context: ..
-      dockerfile: .docker/Dockerfile.test
-    volumes:
-      - ..:/app
-      - /app/node_modules
-    working_dir: /app
-    environment:
-      <<: *common-variables
-      CI: "true"
-      NODE_ENV: test
-    depends_on:
-      gitlab:
-        condition: service_healthy
-    profiles:
-      - test
 
 volumes:
   gitlab_config:
