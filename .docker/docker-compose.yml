@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   gitlab:
     image: 'gitlab/gitlab-ce:16.0.1-ce.0'
@@ -16,3 +15,26 @@ services:
     ports:
       - '8080:80'
       - '8443:443'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/users/sign_in"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 2m
+
+  test:
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile.test
+    volumes:
+      - ..:/app
+      - /app/node_modules
+    working_dir: /app
+    environment:
+      - GITLAB_URL=http://gitlab:80
+      - PERSONAL_ACCESS_TOKEN=superstrongpassword123
+    depends_on:
+      gitlab:
+        condition: service_healthy
+    profiles:
+      - test

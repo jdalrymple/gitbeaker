@@ -31,7 +31,8 @@
     "release:next": "auto next",
     "release:canary": "auto canary",
     "release": "auto shipit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:test:full": "cd .docker && docker-compose --profile test run --rm test sh -c 'yarn test:unit && yarn test:integration && yarn test:e2e'"
   },
   "dependencies": {
     "types": "^0.1.1"

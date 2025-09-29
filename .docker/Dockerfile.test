@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/playwright:v1.55.0-noble
+
+# Enable Corepack for Yarn
+RUN corepack enable
+
+WORKDIR /app
+
+# Copy entire project first
+COPY . .
+
+# Install dependencies
+RUN yarn install
+
+# Skip build for now due to TS errors in current branch
+# RUN yarn build
+
+# Add swc/core for builds
+RUN yarn add @swc/core
+
+# No need to install browsers - base image has the correct ones for v1.55.0
+# The project should use @playwright/test@1.55.0 which matches the base image
+
+CMD ["echo", "Ready"]

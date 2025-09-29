@@ -1,39 +1,124 @@
-Testing is a work-in-progress right now but here is the start.
+# Testing Guide
 
-**Unit Tests**
+This guide covers both containerized testing (recommended) and manual testing approaches.
 
-Run:
+- **Unit Tests**: Test individual functions and components in isolation
+- **Integration Tests**: Test API interactions with a real GitLab instance  
+- **End-to-End Tests**: Test complete workflows from client to server
+
+## 🐳 Containerized Testing (Recommended)
+
+The easiest way to run the full test suite is using Docker, which provides a consistent, isolated environment.
+
+### Quick Start
+
+Run the complete test suite (unit + integration + e2e):
+
+```bash
+yarn docker:test:full
+```
+
+This command will:
+- Start a GitLab CE instance
+- Build the test container
+- Run all test types sequentially
+- Clean up automatically when done
+
+### Individual Test Types
+
+You can also run specific test types in Docker:
+
+```bash
+# Unit tests only
+cd .docker && docker-compose --profile test run --rm test yarn test:unit
+
+# Integration tests only  
+cd .docker && docker-compose --profile test run --rm test yarn test:integration
+
+# End-to-end tests only
+cd .docker && docker-compose --profile test run --rm test yarn test:e2e
+```
+
+### Manual GitLab Instance
+
+To start just the GitLab instance for manual testing:
+
+```bash
+cd .docker && docker-compose up gitlab
+```
+
+GitLab will be available at `http://localhost:8080` with:
+- Username: `root`
+- Password: `gitbeaker`
+- Personal Access Token: `superstrongpassword123`
+
+## 🛠️ Local Testing (Alternative)
+
+For contributors who prefer to test locally without Docker:
+
+### Unit Tests
 
 ```bash
 yarn test:unit
 ```
 
-**Integration Tests**
+### Integration Tests
 
 1. First, run GitLab in a docker container:
 
 ```bash
-docker-compose -f scripts/docker-compose.yml up
+cd .docker && docker-compose up gitlab
 ```
 
-1. Once GitLab is up on localhost:8080, get the two environment variables from the docker image could
-   either export them into environment variables locally:
+2. Once GitLab is up on localhost:8080, get the environment variables:
 
 ```bash
 export PERSONAL_ACCESS_TOKEN=$(docker exec -it gitlab bash -lc 'printf "%q" "${PERSONAL_ACCESS_TOKEN}"')
 export GITLAB_URL=$(docker exec -it gitlab bash -lc 'printf "%q" "${GITLAB_URL}"')
 ```
 
-1. Now run the tests
+3. Run the integration tests:
 
 ```bash
-yarn test:integration:node
+yarn test:integration
 ```
 
-You can also define them in front of the yarn script
+You can also define them inline:
 
-```
-PERSONAL_ACCESS_TOKEN='abcdefg' GITLAB_URL='http://localhost:8080' yarn test
+```bash
+PERSONAL_ACCESS_TOKEN='superstrongpassword123' GITLAB_URL='http://localhost:8080' yarn test:integration
 ```
 
-> Note it may take about 3 minutes to get the variables while GitLab is starting up in the container
+### End-to-End Tests
+
+```bash
+yarn test:e2e
+```
+
+> **Note:** It may take about 3 minutes for GitLab to fully start up in the container
+
+
+## 🔧 Troubleshooting
+
+### Docker Issues
+
+If you encounter Docker build issues:
+
+```bash
+# Clean Docker cache
+docker system prune -f
+
+# Rebuild containers
+cd .docker && docker-compose build --no-cache
+```
+
+### SSL Certificate Issues
+
+If you're behind a corporate firewall, you may need to configure Docker to trust your certificates or use alternative registries.
+
+### GitLab Startup
+
+GitLab requires significant resources and startup time. Ensure you have:
+- At least 4GB of available RAM
+- Docker Desktop running with sufficient memory allocation
+- Wait 2-3 minutes for GitLab to be fully ready
