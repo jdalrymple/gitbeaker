@@ -6997,6 +6997,7 @@ __metadata:
     lint-staged: "npm:^16.1.6"
     nx: "npm:^21.4.1"
     prettier: "npm:^3.6.2"
+    tsup: "npm:^8.5.0"
     types: "npm:^0.1.1"
     typescript: "npm:^5.9.2"
   languageName: unknown
