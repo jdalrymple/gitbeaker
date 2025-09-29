@@ -136,26 +136,6 @@ describe('Creation of BaseResource instance', () => {
     expect(service.headers['X-Profile-Mode']).toBe('memory');
   });
 
-  it('should default the https reject unauthorized option to true', () => {
-    const service = new BaseResource({
-      token: '123',
-      requesterFn: jest.fn(),
-      rejectUnauthorized: true,
-    });
-
-    expect(service.rejectUnauthorized).toBeTruthy();
-  });
-
-  it('should allow for the https reject unauthorized option to be set', () => {
-    const service = new BaseResource({
-      token: '123',
-      requesterFn: jest.fn(),
-      rejectUnauthorized: false,
-    });
-
-    expect(service.rejectUnauthorized).toBeFalsy();
-  });
-
   it('should default the queryTimeout to 300s', () => {
     const service = new BaseResource({ token: '123', requesterFn: jest.fn() });
 

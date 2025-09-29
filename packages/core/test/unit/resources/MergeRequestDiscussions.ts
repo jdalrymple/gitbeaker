@@ -19,7 +19,6 @@ describe('Instantiating MergeRequestDiscussions service', () => {
   it('should create a valid service object', () => {
     expect(service).toBeInstanceOf(MergeRequestDiscussions);
     expect(service.url).toBeDefined();
-    expect(service.rejectUnauthorized).toBeTruthy();
   });
 });
 
