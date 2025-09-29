@@ -5,19 +5,23 @@ RUN corepack enable
 
 WORKDIR /app
 
-# Copy entire project first
-COPY . .
+# Copy package files first for better layer caching
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn/releases .yarn/releases
 
-# Install dependencies
+# Install dependencies (will be cached if package files haven't changed)
 RUN yarn install
 
-# Skip build for now due to TS errors in current branch
+# Now copy the rest of the project
+COPY . .
+
+# Build the project (commented out due to TS errors in current branch)
 # RUN yarn build
 
 # Add swc/core for builds
 RUN yarn add @swc/core
 
-# No need to install browsers - base image has the correct ones for v1.55.0
-# The project should use @playwright/test@1.55.0 which matches the base image
+# Browsers are pre-installed in base image - no need to install again
+# Base image has browsers for Playwright v1.55.0 which matches project dependency
 
 CMD ["echo", "Ready"]
