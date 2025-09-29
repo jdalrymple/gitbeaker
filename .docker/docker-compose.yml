@@ -32,7 +32,7 @@ services:
     working_dir: /app
     environment:
       - GITLAB_URL=http://gitlab:80
-      - PERSONAL_ACCESS_TOKEN=superstrongpassword123
+      - GITLAB_PERSONAL_ACCESS_TOKEN=superstrongpassword123
     depends_on:
       gitlab:
         condition: service_healthy
