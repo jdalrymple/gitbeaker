@@ -1,0 +1,64 @@
+x-common-variables: &common-variables
+  GITLAB_URL: http://gitlab:80
+  GITLAB_PERSONAL_ACCESS_TOKEN: superstrongpassword123
+  GITLAB_ROOT_PASSWORD: gitbeaker
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:16.0.1-ce.0
+    container_name: gitlab
+    restart: unless-stopped
+    hostname: gitlab
+    environment:
+      <<: *common-variables
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab'
+        gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0']
+        # Reduce memory usage for testing
+        postgresql['shared_buffers'] = "256MB"
+        postgresql['max_worker_processes'] = 8
+        # Disable unused services for faster startup and lower resource usage
+        prometheus_monitoring['enable'] = false
+        alertmanager['enable'] = false
+        node_exporter['enable'] = false
+        redis_exporter['enable'] = false
+        postgres_exporter['enable'] = false
+        gitlab_exporter['enable'] = false
+        grafana['enable'] = false
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        cat > /opt/gitlab/embedded/service/gitlab-rails/db/fixtures/production/40_access_token.rb << 'EOF'
+        #!/usr/bin/env ruby
+        u = User.first
+        u.admin = true
+        u.save!
+        token = PersonalAccessToken.new({
+          user: u,
+          name: "gitbeaker",
+          scopes: ["api", "read_user", "read_repository", "write_repository"]
+        })
+        token.expires_at = 365.days.from_now
+        token.set_token(ENV["GITLAB_PERSONAL_ACCESS_TOKEN"])
+        token.save!
+        EOF
+        exec /assets/wrapper
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/users/sign_in"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 3m
+
+volumes:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:

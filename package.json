@@ -28,6 +28,7 @@
     "test:unit": "nx run-many --target=test:unit",
     "test:integration": "nx run-many --target=test:integration",
     "test:e2e": "nx run-many --target=test:e2e",
+    "test:full": "./scripts/run-full-test-suite.sh",
     "release:next": "auto next",
     "release:canary": "auto canary",
     "release": "auto shipit",
@@ -65,6 +66,7 @@
     "lint-staged": "^16.1.6",
     "nx": "^21.4.1",
     "prettier": "^3.6.2",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
   "packageManager": "yarn@4.9.4"
