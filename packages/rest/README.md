@@ -241,7 +241,7 @@ paginationInfo: {
 
 #### Keyset Pagination
 
-Similarly, support for [Keyset pagination](https://docs.gitlab.com/api/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
+Similarly, support for [Keyset pagination](https://docs.gitlab.com/api/rest/#keyset-based-pagination) can be toggled on by passing a pagination parameter as a query option
 
 ```js
 const { data } = await api.Projects.all({
