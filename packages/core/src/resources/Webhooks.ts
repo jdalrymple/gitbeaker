@@ -87,6 +87,7 @@ export interface WebhookBaseNoteEventSchema extends BaseWebhookEventSchema {
     id: number;
     note: string;
     noteable_type: string;
+    discussion_id: string;
     author_id: number;
     created_at: string;
     updated_at: string;
