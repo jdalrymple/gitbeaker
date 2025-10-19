@@ -32,7 +32,7 @@ export interface CondensedGroupSchema extends Record<string, unknown> {
 }
 
 export interface SimpleGroupSchema extends CondensedGroupSchema {
-  avatar_url: string;
+  avatar_url: string | null;
   full_name: string;
   full_path: string;
 }
