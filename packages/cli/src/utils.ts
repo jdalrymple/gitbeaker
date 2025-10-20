@@ -159,7 +159,7 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
     },
     'gb-sudo': {
       alias: 'gl-sudo',
-      desc: 'Sudo query parameter - https://docs.gitlab.com/api/#sudo',
+      desc: 'Sudo query parameter - https://docs.gitlab.com/api/rest/authentication/#sudo',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_SUDO,
     },
@@ -178,13 +178,13 @@ export function getGlobalConfig(env = process.env): GlobalCLIConfig {
     },
     'gb-profile-token': {
       alias: 'gl-profile-token',
-      desc: `Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html`,
+      desc: `Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/`,
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_TOKEN,
     },
     'gb-profile-mode': {
       alias: 'gl-profile-mode',
-      desc: 'Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/request_profiling.html',
+      desc: 'Requests Profiles Token - https://docs.gitlab.com/administration/monitoring/performance/',
       type: 'string',
       defaultValue: normalEnv.GITBEAKER_PROFILE_MODE,
     },
