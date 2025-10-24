@@ -55,7 +55,7 @@ install:
   variables:
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
-    - apk add --no-cache libc6-compat jq python3 make g++
+    - apk add --no-cache libc6-compat jq python3 make g++ musl-dev linux-headers
     - echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq ".children.Version")" >> install.env
   script:
     - yarn
