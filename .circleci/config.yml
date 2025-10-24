@@ -34,7 +34,7 @@ executors:
 # ====================
 commands:
   setup_workspace:
-    description: "Set up workspace with dependencies and cache"
+    description: 'Set up workspace with dependencies and cache'
     steps:
       - checkout
       - restore_cache:
@@ -57,13 +57,13 @@ commands:
             - .
 
   restore_workspace:
-    description: "Restore workspace from previous jobs"
+    description: 'Restore workspace from previous jobs'
     steps:
       - attach_workspace:
           at: .
 
   setup_nx_cache:
-    description: "Set up NX cache"
+    description: 'Set up NX cache'
     steps:
       - restore_cache:
           keys:
@@ -74,7 +74,7 @@ commands:
           command: echo "export NX_REJECT_UNKNOWN_LOCAL_CACHE=0" >> $BASH_ENV
 
   save_nx_cache:
-    description: "Save NX cache"
+    description: 'Save NX cache'
     steps:
       - save_cache:
           key: v1-nx-cache-{{ checksum "yarn.lock" }}
@@ -82,7 +82,7 @@ commands:
             - .nx/cache
 
   setup_codeclimate:
-    description: "Set up CodeClimate test reporter"
+    description: 'Set up CodeClimate test reporter'
     steps:
       - restore_cache:
           keys:
@@ -101,7 +101,7 @@ commands:
             - tmp/codeclimate
 
   run_package_tests:
-    description: "Run tests for a specific package"
+    description: 'Run tests for a specific package'
     parameters:
       package:
         type: string
@@ -185,8 +185,8 @@ jobs:
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/requester-utils"
-          test_type: "unit"
+          package: '@gitbeaker/requester-utils'
+          test_type: 'unit'
           coverage: true
 
   test-unit-core:
@@ -194,8 +194,8 @@ jobs:
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/core"
-          test_type: "unit"
+          package: '@gitbeaker/core'
+          test_type: 'unit'
           coverage: true
 
   test-unit-rest:
@@ -203,8 +203,8 @@ jobs:
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/rest"
-          test_type: "unit"
+          package: '@gitbeaker/rest'
+          test_type: 'unit'
           coverage: true
 
   test-unit-cli:
@@ -212,8 +212,8 @@ jobs:
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/cli"
-          test_type: "unit"
+          package: '@gitbeaker/cli'
+          test_type: 'unit'
           coverage: true
 
   # ====================
@@ -224,24 +224,24 @@ jobs:
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/requester-utils"
-          test_type: "types"
+          package: '@gitbeaker/requester-utils'
+          test_type: 'types'
 
   test-types-core:
     executor: node-executor
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/core"
-          test_type: "types"
+          package: '@gitbeaker/core'
+          test_type: 'types'
 
   test-types-rest:
     executor: node-executor
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/rest"
-          test_type: "types"
+          package: '@gitbeaker/rest'
+          test_type: 'types'
 
   # ====================
   # INTEGRATION TESTS
@@ -254,16 +254,16 @@ jobs:
           name: Reinstall SWC for Ubuntu
           command: yarn add @swc/core
       - run_package_tests:
-          package: "@gitbeaker/rest"
-          test_type: "integration"
+          package: '@gitbeaker/rest'
+          test_type: 'integration'
 
   test-integration-core:
     executor: node-executor
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/core"
-          test_type: "integration"
+          package: '@gitbeaker/core'
+          test_type: 'integration'
 
   # ====================
   # LIVE TEST SETUP
@@ -281,13 +281,13 @@ jobs:
             export GITLAB_ROOT_PASSWORD=gitbeaker
             export GCP_ZONE=us-central1-c
             export CONTAINER_NAME=gitlab-${CIRCLE_BUILD_NUM}
-            
+
             echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            
+
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
-            
+
             # Create GCP instance
             GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
               --project gitbeaker \
@@ -300,13 +300,13 @@ jobs:
               --image-project=debian-cloud \
               --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
               2>/dev/null)
-            
+
             export GITLAB_URL="http://${GITLAB_HOST}"
-            
+
             # Wait for GitLab to be ready
             echo "Waiting for GitLab to start..."
             sleep 240
-            
+
             attempt=1
             while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
               echo "Polling Attempt: $attempt - GitLab service is not alive yet"
@@ -317,7 +317,7 @@ jobs:
                 exit 1
               fi
             done
-            
+
             echo "GitLab is ready!"
             echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
             echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
@@ -338,16 +338,16 @@ jobs:
           name: Reinstall SWC for Ubuntu
           command: yarn add @swc/core
       - run_package_tests:
-          package: "@gitbeaker/rest"
-          test_type: "e2e"
+          package: '@gitbeaker/rest'
+          test_type: 'e2e'
 
   test-e2e-cli:
     executor: node-executor
     steps:
       - restore_workspace
       - run_package_tests:
-          package: "@gitbeaker/cli"
-          test_type: "e2e"
+          package: '@gitbeaker/cli'
+          test_type: 'e2e'
 
   # ====================
   # TEARDOWN

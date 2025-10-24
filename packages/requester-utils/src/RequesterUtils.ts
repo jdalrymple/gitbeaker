@@ -238,7 +238,7 @@ export function presetResourceArguments<T extends Record<string, any>>(
         customConfig,
       ) as any;
     } else {
-      result[key as keyof T] = Constructor as any;
+      result[key as keyof T] = Constructor;
     }
   });
 
