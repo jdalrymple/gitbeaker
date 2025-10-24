@@ -70,7 +70,7 @@ install:
 
 build:
   stage: build
-  image: node:20-alpine
+  image: node:20
   needs:
     - install
   variables:
@@ -83,7 +83,7 @@ build:
     - <<: *cachenx
       policy: pull-push
   before_script:
-    - apk add --no-cache libc6-compat git
+    - apt-get update && apt-get install -y git
   script:
     - yarn build
   artifacts:
@@ -98,7 +98,7 @@ build:
 
 lint:
   stage: lint
-  image: node:20-alpine
+  image: node:20
   needs:
     - install
   variables:
@@ -110,13 +110,11 @@ lint:
       policy: pull
     - <<: *cachenx
       policy: pull-push
-  before_script:
-    - apk add --no-cache libc6-compat
   script: yarn lint
 
 format:
   stage: format
-  image: node:20-alpine
+  image: node:20
   needs:
     - install
   variables:
@@ -126,8 +124,6 @@ format:
       policy: pull
     - <<: *cacheinstallyarn
       policy: pull
-  before_script:
-    - apk add --no-cache libc6-compat
   script: yarn format
 
 ## Test Setup
@@ -202,7 +198,7 @@ test:live:setup:
 
 .test:base:
   stage: test
-  image: node:20-alpine
+  image: node:20
   needs:
     - install
   variables:
@@ -214,8 +210,6 @@ test:live:setup:
       policy: pull
     - <<: *cachenx
       policy: pull-push
-  before_script:
-    - apk add --no-cache libc6-compat
 
 .test:unit:base:
   extends: .test:base
@@ -233,7 +227,7 @@ test:live:setup:
       policy: pull-push
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   before_script:
-    - apk add --no-cache libc6-compat git
+    - apt-get update && apt-get install -y git
   after_script:
     - cd $PKG_PATH
     - ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
@@ -391,7 +385,7 @@ test:live:teardown:
 
 .release:base:
   stage: release
-  image: node:20-alpine
+  image: node:20
   variables:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
@@ -415,7 +409,7 @@ test:live:teardown:
     - <<: *cacheinstallyarn
       policy: pull
   before_script:
-    - apk add --no-cache libc6-compat git openssh
+    - apt-get update && apt-get install -y git openssh-client
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
     - git config --global user.name "Autobot"
     - git config --global user.email "ci@gitlab.com"
