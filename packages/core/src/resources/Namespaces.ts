@@ -14,8 +14,8 @@ export interface CondensedNamespaceSchema extends Record<string, unknown> {
   path: string;
   kind: string;
   full_path: string;
-  parent_id?: number;
-  avatar_url: string;
+  parent_id?: number | null;
+  avatar_url: string | null;
   web_url: string;
 }
 

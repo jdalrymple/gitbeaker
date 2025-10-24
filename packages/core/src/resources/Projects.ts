@@ -60,7 +60,7 @@ export interface CondensedProjectSchema extends Record<string, unknown> {
 }
 
 export interface SimpleProjectSchema extends CondensedProjectSchema {
-  description: string;
+  description: string | null;
   name_with_namespace: string;
   path_with_namespace: string;
   created_at: string;
@@ -68,7 +68,7 @@ export interface SimpleProjectSchema extends CondensedProjectSchema {
   topics: string[] | null;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
-  readme_url: string;
+  readme_url: string | null;
   forks_count: number;
   avatar_url: string | null;
   star_count: number;
