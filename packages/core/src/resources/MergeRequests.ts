@@ -417,13 +417,11 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
-  allPipelines<E extends boolean = false>(
+  allPipelines<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<
-    GitlabAPIResponse<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[], C, E, void>
-  > {
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[], C, E, P>> {
     return RequestHelper.get<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,

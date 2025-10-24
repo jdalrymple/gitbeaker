@@ -233,7 +233,10 @@ export function presetResourceArguments<T extends Record<string, any>>(
 
   Object.entries(resources).forEach(([key, Constructor]) => {
     if (typeof Constructor === 'function') {
-      result[key as keyof T] = createPresetConstructor(Constructor as new (...args: any[]) => any, customConfig) as any;
+      result[key as keyof T] = createPresetConstructor(
+        Constructor as new (...args: any[]) => any,
+        customConfig,
+      ) as any;
     } else {
       result[key as keyof T] = Constructor as any;
     }

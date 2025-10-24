@@ -3,7 +3,7 @@
 This guide covers both containerized testing (recommended) and manual testing approaches.
 
 - **Unit Tests**: Test individual functions and components in isolation
-- **Integration Tests**: Test API interactions with a real GitLab instance  
+- **Integration Tests**: Test API interactions with a real GitLab instance
 - **End-to-End Tests**: Test complete workflows from client to server
 
 ## 🐳 Containerized Testing (Recommended)
@@ -19,6 +19,7 @@ yarn test:full
 ```
 
 This command will:
+
 - Start a GitLab CE instance using Docker Compose
 - Wait for GitLab to be healthy and ready
 - Set required environment variables
@@ -53,6 +54,7 @@ cd .docker && docker-compose up gitlab
 ```
 
 GitLab will be available at `http://localhost:8080` with:
+
 - Username: `root`
 - Password: `gitbeaker`
 - Personal Access Token: `superstrongpassword123`
@@ -102,7 +104,6 @@ yarn test:e2e
 
 > **Note:** It may take about 3 minutes for GitLab to fully start up in the container
 
-
 ## 🔧 Troubleshooting
 
 ### Docker Issues
@@ -124,6 +125,7 @@ If you're behind a corporate firewall, you may need to configure Docker to trust
 ### GitLab Startup
 
 GitLab requires significant resources and startup time. Ensure you have:
+
 - At least 4GB of available RAM
 - Docker Desktop running with sufficient memory allocation
 - Wait 2-3 minutes for GitLab to be fully ready
