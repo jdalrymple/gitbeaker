@@ -1,0 +1,582 @@
+version: 2.1
+
+# ====================
+# ORBS
+# ====================
+orbs:
+  node: circleci/node@5.1.0
+  gcp-cli: circleci/gcp-cli@3.1.0
+
+# ====================
+# EXECUTORS
+# ====================
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.18
+    resource_class: medium
+    working_directory: ~/project
+
+  playwright-executor:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.55.0-focal
+    resource_class: medium
+    working_directory: ~/project
+
+  gcp-executor:
+    docker:
+      - image: cimg/gcp:2024.01.1
+    resource_class: small
+    working_directory: ~/project
+
+# ====================
+# COMMANDS
+# ====================
+commands:
+  setup_workspace:
+    description: "Set up workspace with dependencies and cache"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: |
+            yarn install --frozen-lockfile
+            echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq '.children.Version')" >> $BASH_ENV
+      - save_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+            - .yarn/cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  restore_workspace:
+    description: "Restore workspace from previous jobs"
+    steps:
+      - attach_workspace:
+          at: .
+
+  setup_nx_cache:
+    description: "Set up NX cache"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-nx-cache-{{ checksum "yarn.lock" }}
+            - v1-nx-cache-
+      - run:
+          name: Setup NX
+          command: echo "export NX_REJECT_UNKNOWN_LOCAL_CACHE=0" >> $BASH_ENV
+
+  save_nx_cache:
+    description: "Save NX cache"
+    steps:
+      - save_cache:
+          key: v1-nx-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - .nx/cache
+
+  setup_codeclimate:
+    description: "Set up CodeClimate test reporter"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-codeclimate-0.11.1
+      - run:
+          name: Download CodeClimate reporter
+          command: |
+            mkdir -p tmp/codeclimate
+            if [ ! -f tmp/codeclimate/cc-test-reporter ]; then
+              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > tmp/codeclimate/cc-test-reporter
+              chmod +x tmp/codeclimate/cc-test-reporter
+            fi
+      - save_cache:
+          key: v1-codeclimate-0.11.1
+          paths:
+            - tmp/codeclimate
+
+  run_package_tests:
+    description: "Run tests for a specific package"
+    parameters:
+      package:
+        type: string
+      test_type:
+        type: string
+      coverage:
+        type: boolean
+        default: false
+    steps:
+      - when:
+          condition: << parameters.coverage >>
+          steps:
+            - setup_codeclimate
+      - setup_nx_cache
+      - run:
+          name: Run << parameters.test_type >> tests for << parameters.package >>
+          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+      - when:
+          condition: << parameters.coverage >>
+          steps:
+            - run:
+                name: Format coverage for CodeClimate
+                command: |
+                  PKG_PATH=$(echo "<< parameters.package >>" | sed 's/@gitbeaker\///g' | sed 's/^/packages\//')
+                  cd $PKG_PATH
+                  ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
+            - store_artifacts:
+                path: packages/*/coverage/cc-coverage.json
+      - save_nx_cache
+      - store_test_results:
+          path: packages/*/reports
+      - store_artifacts:
+          path: packages/*/coverage
+
+# ====================
+# JOBS
+# ====================
+jobs:
+  install:
+    executor: node-executor
+    steps:
+      - setup_workspace
+
+  build:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - setup_nx_cache
+      - run:
+          name: Build packages
+          command: yarn build
+      - save_nx_cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/*/dist
+
+  lint:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - setup_nx_cache
+      - run:
+          name: Lint code
+          command: yarn lint
+      - save_nx_cache
+
+  format:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Check formatting
+          command: yarn format
+
+  # ====================
+  # UNIT TESTS
+  # ====================
+  test-unit-utils:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/requester-utils"
+          test_type: "unit"
+          coverage: true
+
+  test-unit-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/core"
+          test_type: "unit"
+          coverage: true
+
+  test-unit-rest:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/rest"
+          test_type: "unit"
+          coverage: true
+
+  test-unit-cli:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/cli"
+          test_type: "unit"
+          coverage: true
+
+  # ====================
+  # TYPE TESTS
+  # ====================
+  test-types-utils:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/requester-utils"
+          test_type: "types"
+
+  test-types-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/core"
+          test_type: "types"
+
+  test-types-rest:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/rest"
+          test_type: "types"
+
+  # ====================
+  # INTEGRATION TESTS
+  # ====================
+  test-integration-rest:
+    executor: playwright-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Reinstall SWC for Ubuntu
+          command: yarn add @swc/core
+      - run_package_tests:
+          package: "@gitbeaker/rest"
+          test_type: "integration"
+
+  test-integration-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/core"
+          test_type: "integration"
+
+  # ====================
+  # LIVE TEST SETUP
+  # ====================
+  setup-live-tests:
+    executor: gcp-executor
+    steps:
+      - checkout
+      - gcp-cli/install
+      - run:
+          name: Setup live GitLab instance
+          command: |
+            export GITLAB_PERSONAL_ACCESS_TOKEN=gitbeaker
+            export GITLAB_VERSION=16.11.3-ce.0
+            export GITLAB_ROOT_PASSWORD=gitbeaker
+            export GCP_ZONE=us-central1-c
+            export CONTAINER_NAME=gitlab-${CIRCLE_BUILD_NUM}
+            
+            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            
+            # Create startup script
+            envsubst < scripts/startup.sh > scripts/startup_filled.sh
+            
+            # Create GCP instance
+            GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
+              --project gitbeaker \
+              --machine-type=e2-highmem-2 \
+              --boot-disk-size=25GB \
+              --zone=$GCP_ZONE \
+              --tags http-server \
+              --metadata-from-file startup-script=scripts/startup_filled.sh \
+              --image-family=debian-12 \
+              --image-project=debian-cloud \
+              --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
+              2>/dev/null)
+            
+            export GITLAB_URL="http://${GITLAB_HOST}"
+            
+            # Wait for GitLab to be ready
+            echo "Waiting for GitLab to start..."
+            sleep 240
+            
+            attempt=1
+            while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
+              echo "Polling Attempt: $attempt - GitLab service is not alive yet"
+              sleep 10
+              ((attempt++))
+              if [ $attempt -gt 30 ]; then
+                echo "GitLab failed to start within timeout"
+                exit 1
+              fi
+            done
+            
+            echo "GitLab is ready!"
+            echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+            echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+            echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .env
+
+  # ====================
+  # E2E TESTS
+  # ====================
+  test-e2e-rest:
+    executor: playwright-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Reinstall SWC for Ubuntu
+          command: yarn add @swc/core
+      - run_package_tests:
+          package: "@gitbeaker/rest"
+          test_type: "e2e"
+
+  test-e2e-cli:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: "@gitbeaker/cli"
+          test_type: "e2e"
+
+  # ====================
+  # TEARDOWN
+  # ====================
+  upload-coverage:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - setup_codeclimate
+      - run:
+          name: Aggregate and upload coverage
+          command: |
+            mkdir -p coverage
+            ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
+            ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
+
+  teardown-live-tests:
+    executor: gcp-executor
+    steps:
+      - restore_workspace
+      - gcp-cli/install
+      - run:
+          name: Cleanup GCP resources
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud compute instances delete gitlab-${CIRCLE_BUILD_NUM} --zone=us-central1-c --quiet || true
+
+  # ====================
+  # RELEASE JOBS
+  # ====================
+  release-canary:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Check for canary release
+          command: |
+            if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
+              PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+              export CI_MERGE_REQUEST_ID=$PR_NUMBER
+              export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CIRCLE_BRANCH
+              
+              labels=$(yarn auto label --pr $PR_NUMBER)
+              if [[ "$labels" =~ "release:canary" ]]; then
+                yarn release:canary
+              fi
+            fi
+
+  release-production:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+            git fetch --all
+            git checkout $CIRCLE_BRANCH
+      - run:
+          name: Verify build artifacts
+          command: |
+            ls -A packages/requester-utils/dist
+            ls -A packages/core/dist
+            ls -A packages/rest/dist
+            ls -A packages/cli/dist
+      - run:
+          name: Release
+          command: yarn release
+
+# ====================
+# WORKFLOWS
+# ====================
+workflows:
+  version: 2
+
+  # Main workflow for PRs and main branch
+  ci:
+    jobs:
+      # Setup
+      - install:
+          filters:
+            branches:
+              ignore: /^dependabot\/.*/
+
+      # Build
+      - build:
+          requires: [install]
+
+      # Quality checks
+      - lint:
+          requires: [install]
+      - format:
+          requires: [install]
+
+      # Unit tests (parallel)
+      - test-unit-utils:
+          requires: [install]
+      - test-unit-core:
+          requires: [install]
+      - test-unit-rest:
+          requires: [install]
+      - test-unit-cli:
+          requires: [install]
+
+      # Type tests (parallel)
+      - test-types-utils:
+          requires: [build]
+      - test-types-core:
+          requires: [build]
+      - test-types-rest:
+          requires: [build]
+
+      # Integration tests (parallel)
+      - test-integration-rest:
+          requires: [build]
+      - test-integration-core:
+          requires: [build]
+
+      # Live test setup (manual for PRs, auto for main/next)
+      - setup-live-tests:
+          requires: [build]
+          filters:
+            branches:
+              only: [main, next]
+
+      - approve-live-tests:
+          type: approval
+          requires: [build]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - setup-live-tests-manual:
+          requires: [approve-live-tests]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # E2E tests
+      - test-e2e-rest:
+          requires: [setup-live-tests]
+          filters:
+            branches:
+              only: [main, next]
+      - test-e2e-rest:
+          name: test-e2e-rest-manual
+          requires: [setup-live-tests-manual]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - test-e2e-cli:
+          requires: [setup-live-tests]
+          filters:
+            branches:
+              only: [main, next]
+      - test-e2e-cli:
+          name: test-e2e-cli-manual
+          requires: [setup-live-tests-manual]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # Coverage upload (only for main branch)
+      - upload-coverage:
+          requires:
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+          filters:
+            branches:
+              only: [main]
+
+      # Cleanup
+      - teardown-live-tests:
+          requires: [test-e2e-rest, test-e2e-cli]
+          filters:
+            branches:
+              only: [main, next]
+      - teardown-live-tests:
+          name: teardown-live-tests-manual
+          requires: [test-e2e-rest-manual, test-e2e-cli-manual]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # Releases
+      - release-canary:
+          requires:
+            - build
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - release-production:
+          requires:
+            - build
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+            - test-e2e-rest
+            - test-e2e-cli
+          filters:
+            branches:
+              only: [main, next]
