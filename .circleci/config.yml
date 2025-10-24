@@ -491,7 +491,8 @@ workflows:
             branches:
               ignore: [main, next]
 
-      - setup-live-tests-manual:
+      - setup-live-tests:
+          name: setup-live-tests-manual
           requires: [approve-live-tests]
           filters:
             branches:
