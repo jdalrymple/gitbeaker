@@ -6,6 +6,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.1.0
   gcp-cli: circleci/gcp-cli@3.1.0
+  codecov: codecov/codecov@4.0.1
 
 # ====================
 # EXECUTORS
@@ -81,25 +82,6 @@ commands:
           paths:
             - .nx/cache
 
-  setup_codeclimate:
-    description: 'Set up CodeClimate test reporter'
-    steps:
-      - restore_cache:
-          keys:
-            - v1-codeclimate-0.11.1
-      - run:
-          name: Download CodeClimate reporter
-          command: |
-            mkdir -p tmp/codeclimate
-            if [ ! -f tmp/codeclimate/cc-test-reporter ]; then
-              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > tmp/codeclimate/cc-test-reporter
-              chmod +x tmp/codeclimate/cc-test-reporter
-            fi
-      - save_cache:
-          key: v1-codeclimate-0.11.1
-          paths:
-            - tmp/codeclimate
-
   run_package_tests:
     description: 'Run tests for a specific package'
     parameters:
@@ -113,8 +95,7 @@ commands:
     steps:
       - when:
           condition: << parameters.coverage >>
-          steps:
-            - setup_codeclimate
+          steps: []
       - setup_nx_cache
       - run:
           name: Run << parameters.test_type >> tests for << parameters.package >>
@@ -122,14 +103,8 @@ commands:
       - when:
           condition: << parameters.coverage >>
           steps:
-            - run:
-                name: Format coverage for CodeClimate
-                command: |
-                  PKG_PATH=$(echo "<< parameters.package >>" | sed 's/@gitbeaker\///g' | sed 's/^/packages\//')
-                  cd $PKG_PATH
-                  ../../tmp/codeclimate/cc-test-reporter format-coverage -t lcov -o coverage/cc-coverage.json coverage/lcov.info
-            - store_artifacts:
-                path: packages/*/coverage/cc-coverage.json
+            - codecov/upload:
+                file: packages/*/coverage/lcov.info
       - save_nx_cache
       - store_test_results:
           path: packages/*/reports
@@ -352,17 +327,6 @@ jobs:
   # ====================
   # TEARDOWN
   # ====================
-  upload-coverage:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - setup_codeclimate
-      - run:
-          name: Aggregate and upload coverage
-          command: |
-            mkdir -p coverage
-            ./tmp/codeclimate/cc-test-reporter sum-coverage packages/*/coverage/cc-coverage.json -p 4 -o ./coverage/codeclimate.json
-            ./tmp/codeclimate/cc-test-reporter upload-coverage -i ./coverage/codeclimate.json
 
   teardown-live-tests:
     executor: gcp-executor
@@ -522,17 +486,6 @@ workflows:
           filters:
             branches:
               ignore: [main, next]
-
-      # Coverage upload (only for main branch)
-      - upload-coverage:
-          requires:
-            - test-unit-utils
-            - test-unit-core
-            - test-unit-rest
-            - test-unit-cli
-          filters:
-            branches:
-              only: [main]
 
       # Cleanup
       - teardown-live-tests:
