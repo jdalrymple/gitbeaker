@@ -233,6 +233,7 @@ export type AllProjectsOptions = {
   updatedBefore?: string;
   updatedAfter?: string;
   markedForDeletionOn?: string;
+  active?: boolean;
 };
 
 export type CreateProjectOptions = {

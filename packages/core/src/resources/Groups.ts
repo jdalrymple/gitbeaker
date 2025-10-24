@@ -88,6 +88,8 @@ export type AllGroupsOptions = {
   minAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
   topLevelOnly?: boolean;
   markedForDeletionOn?: string;
+  active?: boolean;
+  archived?: boolean;
 };
 
 export type AllGroupProjectsOptions = {
