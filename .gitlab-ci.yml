@@ -50,12 +50,12 @@ workflow:
     - if: '$CI_COMMIT_BRANCH =~ /^pr-[0-9]+$/'
 
 install:
-  image: node:20-alpine
+  image: node:20
   stage: install
   variables:
     NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
   before_script:
-    - apk add --no-cache libc6-compat jq python3 make g++ musl-dev linux-headers
+    - apt-get update && apt-get install -y jq
     - echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq ".children.Version")" >> install.env
   script:
     - yarn
