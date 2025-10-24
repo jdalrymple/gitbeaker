@@ -19,6 +19,8 @@ const API = presetResourceArguments(Resources, { requesterFn });
 // Export AccessLevel separately (not a class)
 export { AccessLevel };
 
+export { defaultRequestHandler } from './Requester';
+
 // Dual Export Pattern: Each class exported as both constructor and instance type
 
 export const { Agents } = API;
