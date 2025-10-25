@@ -26,11 +26,13 @@
 </div>
 
 <p align="center">
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="coverage report" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/coverage.svg?job=test:unit:rest" /></a>
-  <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
-    <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
+  <a href="https://dl.circleci.com/status-badge/redirect/gh/jdalrymple/gitbeaker/tree/main">
+    <img alt="CircleCI" src="https://dl.circleci.com/status-badge/img/gh/jdalrymple/gitbeaker/tree/main.svg?style=svg" />
   </a>
+  <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
+    <img alt="REST Coverage" src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker?flag=rest&logo=codecov&label=coverage"/>
+  </a>
+  
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
@@ -50,6 +52,7 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Usage](#usage)
 - [API Client](#api-client)
@@ -60,10 +63,7 @@
   - [Rate Limits](#rate-limits)
   - [Error Handling](#error-handling)
 - [Examples](#examples)
-- [Testing](../../docs/TESTING.md)
-- [FAQ](../../docs/FAQ.md)
 - [Contributors](#contributors)
-- [Changelog](./CHANGELOG.md)
 
 ## Features
 
