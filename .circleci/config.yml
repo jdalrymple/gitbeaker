@@ -4,8 +4,6 @@ version: 2.1
 # ORBS
 # ====================
 orbs:
-  node: circleci/node@5.1.0
-  gcp-cli: circleci/gcp-cli@3.1.0
   codecov: codecov/codecov@4.0.1
 
 # ====================
@@ -15,7 +13,7 @@ executors:
   node-executor:
     docker:
       - image: cimg/node:20.18
-    resource_class: medium+
+    resource_class: medium
     working_directory: ~/project
 
   playwright-executor:
@@ -26,7 +24,7 @@ executors:
 
   gcp-executor:
     docker:
-      - image: cimg/gcp:2024.03
+      - image: cimg/gcp:2025.01
     resource_class: small
     working_directory: ~/project
 
@@ -251,7 +249,6 @@ jobs:
     executor: gcp-executor
     steps:
       - checkout
-      - gcp-cli/install
       - run:
           name: Setup live GitLab instance
           command: |
@@ -332,11 +329,10 @@ jobs:
   # TEARDOWN
   # ====================
 
-  teardown-live-tests:
+  teardown-e2e-tests:
     executor: gcp-executor
     steps:
       - restore_workspace
-      - gcp-cli/install
       - run:
           name: Cleanup GCP resources
           command: |
@@ -365,7 +361,7 @@ jobs:
               PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
               export CI_MERGE_REQUEST_ID=$PR_NUMBER
               export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CIRCLE_BRANCH
-              
+
               labels=$(yarn auto label --pr $PR_NUMBER)
               if [[ "$labels" =~ "release:canary" ]]; then
                 yarn release:canary
@@ -452,7 +448,7 @@ workflows:
             branches:
               only: [main, next]
 
-      - approve-live-tests:
+      - approve-e2e-tests:
           type: approval
           requires: [build]
           filters:
@@ -461,7 +457,7 @@ workflows:
 
       - setup-e2e-tests:
           name: setup-e2e-tests-manual
-          requires: [approve-live-tests]
+          requires: [approve-e2e-tests]
           filters:
             branches:
               ignore: [main, next]
