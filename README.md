@@ -28,10 +28,11 @@
 </div>
 
 <p align="center">
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="coverage report" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/coverage.svg" /></a>
-  <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
-    <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
+  <a href="https://dl.circleci.com/status-badge/redirect/gh/jdalrymple/gitbeaker/tree/main">
+    <img alt="CircleCI" src="https://dl.circleci.com/status-badge/img/gh/jdalrymple/gitbeaker/tree/main.svg?style=svg" />
+  </a>
+  <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
+    <img alt="Codecov" src="https://codecov.io/gh/jdalrymple/gitbeaker/graph/badge.svg?token=ZwhUP8XMeW"/>
   </a>
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">

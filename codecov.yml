@@ -1,0 +1,61 @@
+coverage:
+  ignore:
+    - '.nx/**/*'
+    - 'node_modules/**/*'
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+        base: auto
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+        base: auto
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+  individual_components:
+    - component_id: requester-utils
+      name: 'Requester Utils'
+      paths:
+        - packages/requester-utils/**
+    - component_id: core
+      name: 'Core'
+      paths:
+        - packages/core/**
+    - component_id: rest
+      name: 'REST'
+      paths:
+        - packages/rest/**
+    - component_id: cli
+      name: 'CLI'
+      paths:
+        - packages/cli/**
+
+comment:
+  layout: 'reach,diff,components,tree'
+  behavior: default
+  require_changes: false
+  require_base: no
+  require_head: yes
+  show_carryforward_flags: false
+
+github_checks:
+  annotations: true
+
+bundler_analysis:
+  project_id: gitbeaker
+  packages:
+    - name: requester-utils
+      path: packages/requester-utils/dist
+    - name: core
+      path: packages/core/dist
+    - name: rest
+      path: packages/rest/dist
+    - name: cli
+      path: packages/cli/dist

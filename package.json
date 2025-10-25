@@ -44,6 +44,7 @@
     "@auto-it/omit-commits": "^11.3.0",
     "@auto-it/omit-release-notes": "^11.3.0",
     "@auto-it/released": "^11.3.0",
+    "@codecov/bundle-analyzer": "^1.0.0",
     "@swc/core": "^1.13.5",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
@@ -69,5 +70,5 @@
     "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }
