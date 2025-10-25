@@ -26,7 +26,7 @@ executors:
 
   gcp-executor:
     docker:
-      - image: cimg/gcp:2024.01.1
+      - image: cimg/gcp:2024.03
     resource_class: small
     working_directory: ~/project
 
@@ -247,7 +247,7 @@ jobs:
   # ====================
   # LIVE TEST SETUP
   # ====================
-  setup-live-tests:
+  setup-e2e-tests:
     executor: gcp-executor
     steps:
       - checkout
@@ -446,7 +446,7 @@ workflows:
           requires: [build]
 
       # Live test setup (manual for PRs, auto for main/next)
-      - setup-live-tests:
+      - setup-e2e-tests:
           requires: [build]
           filters:
             branches:
@@ -459,8 +459,8 @@ workflows:
             branches:
               ignore: [main, next]
 
-      - setup-live-tests:
-          name: setup-live-tests-manual
+      - setup-e2e-tests:
+          name: setup-e2e-tests-manual
           requires: [approve-live-tests]
           filters:
             branches:
@@ -468,25 +468,25 @@ workflows:
 
       # E2E tests
       - test-e2e-rest:
-          requires: [setup-live-tests]
+          requires: [setup-e2e-tests]
           filters:
             branches:
               only: [main, next]
       - test-e2e-rest:
           name: test-e2e-rest-manual
-          requires: [setup-live-tests-manual]
+          requires: [setup-e2e-tests-manual]
           filters:
             branches:
               ignore: [main, next]
 
       - test-e2e-cli:
-          requires: [setup-live-tests]
+          requires: [setup-e2e-tests]
           filters:
             branches:
               only: [main, next]
       - test-e2e-cli:
           name: test-e2e-cli-manual
-          requires: [setup-live-tests-manual]
+          requires: [setup-e2e-tests-manual]
           filters:
             branches:
               ignore: [main, next]
