@@ -538,13 +538,32 @@ workflows:
 
       # Cleanup - runs on success OR failure of tests
       - teardown-e2e-tests:
-          requires: [test-e2e-rest, test-e2e-cli]
+          name: teardown-e2e-setup-failure
+          requires:
+            - setup-e2e-tests:
+                - failed
+
+      - teardown-e2e-tests:
+          requires:
+            - test-e2e-rest-manual:
+                - failed
+                - success
+            - test-e2e-cli-manual:
+                - failed
+                - success
           filters:
             branches:
               only: [main, next]
+
       - teardown-e2e-tests:
           name: teardown-e2e-tests-manual
-          requires: [test-e2e-rest-manual, test-e2e-cli-manual]
+          requires:
+            - test-e2e-rest-manual:
+                - failed
+                - success
+            - test-e2e-cli-manual:
+                - failed
+                - success
           filters:
             branches:
               ignore: [main, next]
