@@ -264,11 +264,12 @@ jobs:
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
-            # Create GCP instance
+            # Create GCP instance with better specs for faster GitLab startup
             GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
               --project gitbeaker \
-              --machine-type=e2-highmem-2 \
-              --boot-disk-size=25GB \
+              --machine-type=e2-standard-4 \
+              --boot-disk-size=50GB \
+              --boot-disk-type=pd-ssd \
               --zone=$GCP_ZONE \
               --tags http-server \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
@@ -279,20 +280,43 @@ jobs:
 
             export GITLAB_URL="http://${GITLAB_HOST}"
 
-            # Wait for GitLab to be ready
+            # Wait for GitLab to be ready with smarter polling
             echo "Waiting for GitLab to start..."
-            sleep 240
 
+            # Start polling earlier with exponential backoff
             attempt=1
-            while [[ "$(curl --fail --silent -X GET "$GITLAB_URL/-/readiness?all=1" --insecure | jq -r '.master_check[0].status')" != "ok" ]]; do
-              echo "Polling Attempt: $attempt - GitLab service is not alive yet"
-              sleep 10
+            wait_time=30
+            max_attempts=40  # ~20 minutes total with exponential backoff
+
+            while [ $attempt -le $max_attempts ]; do
+              echo "Polling Attempt: $attempt - Checking if GitLab is ready (waiting ${wait_time}s)..."
+              sleep $wait_time
+              
+              # Check if GitLab is responding
+              if curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /dev/null 2>&1; then
+                readiness_response=$(curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure)
+                if echo "$readiness_response" | jq -e '.master_check[0].status == "ok"' > /dev/null 2>&1; then
+                  echo "GitLab is ready!"
+                  break
+                else
+                  echo "GitLab responding but not fully ready yet. Status check output:"
+                  echo "$readiness_response" | jq '.' || echo "$readiness_response"
+                fi
+              else
+                echo "GitLab not responding yet (connection failed or timeout)..."
+              fi
+              
               ((attempt++))
-              if [ $attempt -gt 30 ]; then
-                echo "GitLab failed to start within timeout"
-                exit 1
+              # Exponential backoff: 30s, 45s, 60s, then cap at 60s
+              if [ $wait_time -lt 60 ]; then
+                wait_time=$((wait_time + 15))
               fi
             done
+
+            if [ $attempt -gt $max_attempts ]; then
+              echo "GitLab failed to start within timeout (~20 minutes)"
+              exit 1
+            fi
 
             echo "GitLab is ready!"
             echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
