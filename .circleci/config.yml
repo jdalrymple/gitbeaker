@@ -106,7 +106,7 @@ commands:
           condition: << parameters.coverage >>
           steps:
             - codecov/upload:
-                file: packages/*/coverage/lcov.info
+                file: packages/*/coverage/lcov.info,packages/*/reports/*junit.xml
       - save_nx_cache
       - store_test_results:
           path: packages/*/reports
@@ -264,7 +264,8 @@ jobs:
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
-            # Create GCP instance with custom GitLab-ready image for faster startup
+            # Create GCP instance with custom GitLab-ready image and auto-expiry
+            EXPIRY_TIME=$(date -u -d '+30 minutes' '+%Y-%m-%dT%H:%M:%SZ')
             GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=e2-standard-4 \
@@ -272,7 +273,9 @@ jobs:
               --boot-disk-type=pd-ssd \
               --zone=$GCP_ZONE \
               --tags http-server \
+              --preemptible \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
+              --metadata max-run-duration=30m,auto-delete-time="$EXPIRY_TIME" \
               --image=gitlab-ready-image-16 \
               --image-project=gitbeaker \
               --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
@@ -319,13 +322,20 @@ jobs:
             fi
 
             echo "GitLab is ready!"
+            
+            # Create environment file for e2e tests
+            echo "GITLAB_URL=$GITLAB_URL" > gitlab-env.txt
+            echo "GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> gitlab-env.txt
+            echo "CONTAINER_NAME=$CONTAINER_NAME" >> gitlab-env.txt
+            
+            # Also set for this job
             echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
             echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
             echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
       - persist_to_workspace:
           root: .
           paths:
-            - .env
+            - gitlab-env.txt
 
   # ====================
   # E2E TESTS
@@ -334,6 +344,13 @@ jobs:
     executor: playwright-executor
     steps:
       - restore_workspace
+      - run:
+          name: Load GitLab environment
+          command: |
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              export GITLAB_URL GITLAB_PERSONAL_ACCESS_TOKEN CONTAINER_NAME
+            fi
       - run:
           name: Reinstall SWC for Ubuntu
           command: yarn add @swc/core
@@ -345,6 +362,13 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
+      - run:
+          name: Load GitLab environment
+          command: |
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              export GITLAB_URL GITLAB_PERSONAL_ACCESS_TOKEN CONTAINER_NAME
+            fi
       - run_package_tests:
           package: '@gitbeaker/cli'
           test_type: 'e2e'
@@ -511,15 +535,33 @@ workflows:
             branches:
               ignore: [main, next]
 
-      # Cleanup
+      # Cleanup - wait for tests to complete (even if they fail)
       - teardown-e2e-tests:
           requires: [test-e2e-rest, test-e2e-cli]
+          when: always
           filters:
             branches:
               only: [main, next]
       - teardown-e2e-tests:
           name: teardown-e2e-tests-manual
           requires: [test-e2e-rest-manual, test-e2e-cli-manual]
+          when: always
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # Emergency cleanup - runs if setup fails (tests never start)
+      - teardown-e2e-tests:
+          name: teardown-e2e-tests-emergency
+          requires: [setup-e2e-tests]
+          when: on_fail
+          filters:
+            branches:
+              only: [main, next]
+      - teardown-e2e-tests:
+          name: teardown-e2e-tests-emergency-manual
+          requires: [setup-e2e-tests-manual]
+          when: on_fail
           filters:
             branches:
               ignore: [main, next]
