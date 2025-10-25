@@ -28,8 +28,12 @@
 </div>
 
 <p align="center">
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="pipeline status" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/pipeline.svg?ignore_skipped=true" /></a>
-   <a href="https://gitlab.com/jdalrymple/gitbeaker/-/commits/main"><img alt="coverage report" src="https://gitlab.com/jdalrymple/gitbeaker/badges/main/coverage.svg?job=test:unit:cli" /></a>
+  <a href="https://dl.circleci.com/status-badge/redirect/gh/jdalrymple/gitbeaker/tree/main">
+    <img alt="CircleCI" src="https://dl.circleci.com/status-badge/img/gh/jdalrymple/gitbeaker/tree/main.svg?style=svg" />
+  </a>
+  <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
+    <img alt="CLI Coverage" src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker?flag=cli&logo=codecov&label=coverage"/>
+  </a>
   <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
     <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
   </a>

@@ -4,7 +4,7 @@ version: 2.1
 # ORBS
 # ====================
 orbs:
-  codecov: codecov/codecov@4.0.1
+  codecov: codecov/codecov@5.4.3
 
 # ====================
 # ENVIRONMENT VARIABLES
@@ -124,8 +124,18 @@ commands:
       - when:
           condition: << parameters.coverage >>
           steps:
+            - run:
+                name: Calculate package directory
+                command: |
+                  PACKAGE_DIR=$(echo "<< parameters.package >>" | rev | cut -d'/' -f1 | rev)
+                  echo "export PACKAGE_DIR=${PACKAGE_DIR}" >> $BASH_ENV
             - codecov/upload:
-                file: packages/*/coverage/lcov.info,packages/*/reports/*junit.xml
+                files: packages/${PACKAGE_DIR}/coverage/lcov.info
+                disable_search: true
+            - codecov/upload:
+                files: packages/${PACKAGE_DIR}/reports/*junit.xml
+                report_type: test_results
+                disable_search: true
       - save_nx_cache
       - store_test_results:
           path: packages/*/reports
@@ -151,6 +161,21 @@ jobs:
       - run:
           name: Build packages
           command: yarn build
+      - run:
+          name: Upload bundle analysis
+          command: |
+            yarn dlx @codecov/bundle-analyzer packages/requester-utils/dist \
+              --bundle-name=requester-utils \
+              --upload-token=$CODECOV_TOKEN
+            yarn dlx @codecov/bundle-analyzer packages/core/dist \
+              --bundle-name=core \
+              --upload-token=$CODECOV_TOKEN
+            yarn dlx @codecov/bundle-analyzer packages/rest/dist \
+              --bundle-name=rest \
+              --upload-token=$CODECOV_TOKEN
+            yarn dlx @codecov/bundle-analyzer packages/cli/dist \
+              --bundle-name=cli \
+              --upload-token=$CODECOV_TOKEN
       - save_nx_cache
       - persist_to_workspace:
           root: .
@@ -284,8 +309,7 @@ jobs:
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            EXPIRY_TIME=$(date -u -d '+15 minutes' '+%Y-%m-%dT%H:%M:%SZ')
-            GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
+            GITLAB_HOST=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
               --boot-disk-size=50GB \
@@ -293,8 +317,9 @@ jobs:
               --zone=$GCP_ZONE \
               --tags http-server \
               --preemptible \
+              --max-run-duration=15m
+              --instance-termination-action=DELETE
               --metadata-from-file startup-script=scripts/startup_filled.sh \
-              --metadata max-run-duration=15m,auto-delete-time="$EXPIRY_TIME" \
               --image=gitlab-ready-image-16 \
               --image-project=gitbeaker \
               --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
