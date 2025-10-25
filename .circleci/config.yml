@@ -99,13 +99,11 @@ commands:
       - setup_nx_cache
       - run:
           name: Run << parameters.test_type >> tests for << parameters.package >>
-          command: |
-            if [ "<< parameters.test_type >>" = "types" ]; then
-              yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
-            else
-              yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --maxWorkers=1 --logHeapUsage
-            fi
-          no_output_timeout: 20m
+          environment:
+            NODE_OPTIONS: '--max-old-space-size=3584'
+            JEST_MAX_WORKERS: '1'
+          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+          no_output_timeout: 30m
       - when:
           condition: << parameters.coverage >>
           steps:
