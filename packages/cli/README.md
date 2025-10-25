@@ -34,9 +34,7 @@
   <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
     <img alt="CLI Coverage" src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker?flag=cli&logo=codecov&label=coverage"/>
   </a>
-  <a href="https://codeclimate.com/github/jdalrymple/gitbeaker">
-    <img src="https://codeclimate.com/github/jdalrymple/gitbeaker/badges/gpa.svg" alt="Code Climate maintainability">
-  </a>
+
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>
