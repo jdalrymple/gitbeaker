@@ -349,7 +349,9 @@ jobs:
           command: |
             if [ -f gitlab-env.txt ]; then
               source gitlab-env.txt
-              export GITLAB_URL GITLAB_PERSONAL_ACCESS_TOKEN CONTAINER_NAME
+              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
             fi
       - run:
           name: Reinstall SWC for Ubuntu
@@ -367,7 +369,9 @@ jobs:
           command: |
             if [ -f gitlab-env.txt ]; then
               source gitlab-env.txt
-              export GITLAB_URL GITLAB_PERSONAL_ACCESS_TOKEN CONTAINER_NAME
+              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
             fi
       - run_package_tests:
           package: '@gitbeaker/cli'
@@ -383,11 +387,16 @@ jobs:
       - restore_workspace
       - run:
           when: always
-          name: Cleanup GCP resources
+          name: Load container name and cleanup GCP resources
           command: |
-            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud compute instances delete gitlab-${CIRCLE_BUILD_NUM} --zone=us-central1-c --quiet || true
+            # Load the container name from setup job
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+
+              echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+              gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+              gcloud compute instances delete "$CONTAINER_NAME" --zone=us-central1-c --quiet || true
 
   # ====================
   # RELEASE JOBS
