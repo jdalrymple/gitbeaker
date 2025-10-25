@@ -264,7 +264,7 @@ jobs:
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
-            # Create GCP instance with better specs for faster GitLab startup
+            # Create GCP instance with custom GitLab-ready image for faster startup
             GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=e2-standard-4 \
@@ -273,8 +273,8 @@ jobs:
               --zone=$GCP_ZONE \
               --tags http-server \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
-              --image-family=debian-12 \
-              --image-project=debian-cloud \
+              --image=gitlab-ready-image-16 \
+              --image-project=gitbeaker \
               --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
               2>/dev/null)
 
@@ -291,7 +291,7 @@ jobs:
             while [ $attempt -le $max_attempts ]; do
               echo "Polling Attempt: $attempt - Checking if GitLab is ready (waiting ${wait_time}s)..."
               sleep $wait_time
-              
+
               # Check if GitLab is responding
               if curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /dev/null 2>&1; then
                 readiness_response=$(curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure)
@@ -305,7 +305,7 @@ jobs:
               else
                 echo "GitLab not responding yet (connection failed or timeout)..."
               fi
-              
+
               ((attempt++))
               # Exponential backoff: 30s, 45s, 60s, then cap at 60s
               if [ $wait_time -lt 60 ]; then
