@@ -488,13 +488,13 @@ workflows:
               ignore: [main, next]
 
       # Cleanup
-      - teardown-live-tests:
+      - teardown-e2e-tests:
           requires: [test-e2e-rest, test-e2e-cli]
           filters:
             branches:
               only: [main, next]
-      - teardown-live-tests:
-          name: teardown-live-tests-manual
+      - teardown-e2e-tests:
+          name: teardown-e2e-tests-manual
           requires: [test-e2e-rest-manual, test-e2e-cli-manual]
           filters:
             branches:
