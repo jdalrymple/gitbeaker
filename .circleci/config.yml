@@ -1,0 +1,637 @@
+version: 2.1
+
+# ====================
+# ORBS
+# ====================
+orbs:
+  codecov: codecov/codecov@4.0.1
+
+# ====================
+# ENVIRONMENT VARIABLES
+# ====================
+# Note: GITLAB_VERSION is fixed by the custom image (gitlab-ready-image-16) to 16.11.10-ce.0
+x-environment: &default_environment
+  GCP_ZONE: us-central1-c
+  GITLAB_VERSION: 16.11.10-ce.0 # Fixed by custom image
+  GITLAB_MACHINE_TYPE: e2-standard-4
+  GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+  GITLAB_ROOT_PASSWORD: gitbeaker
+
+# ====================
+# EXECUTORS
+# ====================
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.18
+    resource_class: medium
+    working_directory: ~/project
+
+  playwright-executor:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.55.1-noble
+    resource_class: medium
+    working_directory: ~/project
+
+  gcp-executor:
+    docker:
+      - image: cimg/gcp:2025.01
+    resource_class: small
+    working_directory: ~/project
+
+# ====================
+# COMMANDS
+# ====================
+commands:
+  gcp_auth:
+    description: 'Authenticate with GCP and set project'
+    steps:
+      - run:
+          name: Authenticate with GCP
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 -d | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+  setup_workspace:
+    description: 'Set up workspace with dependencies and cache'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: |
+            yarn install --frozen-lockfile
+            echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq '.children.Version')" >> $BASH_ENV
+      - save_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+            - .yarn/cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  restore_workspace:
+    description: 'Restore workspace from previous jobs'
+    steps:
+      - attach_workspace:
+          at: .
+
+  setup_nx_cache:
+    description: 'Set up NX cache'
+    steps:
+      - restore_cache:
+          keys:
+            - v1-nx-cache-{{ checksum "yarn.lock" }}
+            - v1-nx-cache-
+      - run:
+          name: Setup NX
+          command: echo "export NX_REJECT_UNKNOWN_LOCAL_CACHE=0" >> $BASH_ENV
+
+  save_nx_cache:
+    description: 'Save NX cache'
+    steps:
+      - save_cache:
+          key: v1-nx-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - .nx/cache
+
+  run_package_tests:
+    description: 'Run tests for a specific package'
+    parameters:
+      package:
+        type: string
+      test_type:
+        type: string
+      coverage:
+        type: boolean
+        default: false
+    steps:
+      - when:
+          condition: << parameters.coverage >>
+          steps: []
+      - setup_nx_cache
+      - run:
+          name: Run << parameters.test_type >> tests for << parameters.package >>
+          environment:
+            NODE_OPTIONS: '--max-old-space-size=3584'
+            JEST_MAX_WORKERS: '1'
+          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+          no_output_timeout: 30m
+      - when:
+          condition: << parameters.coverage >>
+          steps:
+            - codecov/upload:
+                file: packages/*/coverage/lcov.info,packages/*/reports/*junit.xml
+      - save_nx_cache
+      - store_test_results:
+          path: packages/*/reports
+      - store_artifacts:
+          path: packages/*/coverage
+
+# ====================
+# JOBS
+# ====================
+jobs:
+  install:
+    executor: node-executor
+    description: 'Install project dependencies with caching'
+    steps:
+      - setup_workspace
+
+  build:
+    executor: node-executor
+    description: 'Build all packages using NX'
+    steps:
+      - restore_workspace
+      - setup_nx_cache
+      - run:
+          name: Build packages
+          command: yarn build
+      - save_nx_cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/*/dist
+
+  lint:
+    executor: node-executor
+    description: 'Run ESLint on all packages'
+    steps:
+      - restore_workspace
+      - setup_nx_cache
+      - run:
+          name: Lint code
+          command: yarn lint
+      - save_nx_cache
+
+  format:
+    executor: node-executor
+    description: 'Check code formatting with Prettier'
+    steps:
+      - restore_workspace
+      - run:
+          name: Check formatting
+          command: yarn format
+
+  # ====================
+  # UNIT TESTS
+  # ====================
+  test-unit-utils:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/requester-utils'
+          test_type: 'unit'
+          coverage: true
+
+  test-unit-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/core'
+          test_type: 'unit'
+          coverage: true
+
+  test-unit-rest:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/rest'
+          test_type: 'unit'
+          coverage: true
+
+  test-unit-cli:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/cli'
+          test_type: 'unit'
+          coverage: true
+
+  # ====================
+  # TYPE TESTS
+  # ====================
+  test-types-utils:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/requester-utils'
+          test_type: 'types'
+
+  test-types-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/core'
+          test_type: 'types'
+
+  test-types-rest:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/rest'
+          test_type: 'types'
+
+  # ====================
+  # INTEGRATION TESTS
+  # ====================
+  test-integration-rest:
+    executor: playwright-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Reinstall SWC for Ubuntu
+          command: yarn add @swc/core
+      - run_package_tests:
+          package: '@gitbeaker/rest'
+          test_type: 'integration'
+
+  test-integration-core:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run_package_tests:
+          package: '@gitbeaker/core'
+          test_type: 'integration'
+
+  # ====================
+  # LIVE TEST SETUP
+  # ====================
+  setup-e2e-tests:
+    executor: gcp-executor
+    description: 'Create GitLab instance on GCP for e2e testing'
+    environment: *default_environment
+    steps:
+      - checkout
+      - gcp_auth
+      - run:
+          name: Setup live GitLab instance
+          command: |
+            export CONTAINER_NAME=gitlab-${CIRCLE_BUILD_NUM}
+
+            # Create startup script
+            envsubst < scripts/startup.sh > scripts/startup_filled.sh
+
+            # Create GCP instance with custom GitLab-ready image and auto-expiry
+            EXPIRY_TIME=$(date -u -d '+15 minutes' '+%Y-%m-%dT%H:%M:%SZ')
+            GITLAB_HOST=$(gcloud beta compute instances create $CONTAINER_NAME \
+              --project gitbeaker \
+              --machine-type=$GITLAB_MACHINE_TYPE \
+              --boot-disk-size=50GB \
+              --boot-disk-type=pd-ssd \
+              --zone=$GCP_ZONE \
+              --tags http-server \
+              --preemptible \
+              --metadata-from-file startup-script=scripts/startup_filled.sh \
+              --metadata max-run-duration=15m,auto-delete-time="$EXPIRY_TIME" \
+              --image=gitlab-ready-image-16 \
+              --image-project=gitbeaker \
+              --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
+              2>/dev/null)
+
+            export GITLAB_URL="http://${GITLAB_HOST}"
+
+            # Wait for GitLab to be ready with smarter polling
+            echo "Waiting for GitLab to start..."
+
+            # Start polling earlier with exponential backoff
+            attempt=1
+            wait_time=30
+            max_attempts=40  # ~20 minutes total with exponential backoff
+
+            while [ $attempt -le $max_attempts ]; do
+              echo "Polling Attempt: $attempt - Checking if GitLab is ready (waiting ${wait_time}s)..."
+              sleep $wait_time
+
+              # Check if GitLab is responding
+              if curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /dev/null 2>&1; then
+                readiness_response=$(curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure)
+                if echo "$readiness_response" | jq -e '.master_check[0].status == "ok"' > /dev/null 2>&1; then
+                  echo "GitLab is ready!"
+                  break
+                else
+                  echo "GitLab responding but not fully ready yet. Status check output:"
+                  echo "$readiness_response" | jq '.' || echo "$readiness_response"
+                fi
+              else
+                echo "GitLab not responding yet (connection failed or timeout)..."
+              fi
+
+              ((attempt++))
+              # Exponential backoff: 30s, 45s, 60s, then cap at 60s
+              if [ $wait_time -lt 60 ]; then
+                wait_time=$((wait_time + 15))
+              fi
+            done
+
+            if [ $attempt -gt $max_attempts ]; then
+              echo "GitLab failed to start within timeout (~20 minutes)"
+              exit 1
+            fi
+
+            echo "GitLab is ready!"
+
+            # Create environment file for e2e tests
+            echo "GITLAB_URL=$GITLAB_URL" > gitlab-env.txt
+            echo "GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> gitlab-env.txt
+            echo "CONTAINER_NAME=$CONTAINER_NAME" >> gitlab-env.txt
+
+            # Also set for this job
+            echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+            echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+            echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+      - persist_to_workspace:
+          root: .
+          paths:
+            - gitlab-env.txt
+
+  # ====================
+  # E2E TESTS
+  # ====================
+  test-e2e-rest:
+    executor: playwright-executor
+    description: 'Run REST API e2e tests against live GitLab instance'
+    steps:
+      - restore_workspace
+      - run:
+          name: Load GitLab environment
+          command: |
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+            fi
+      - run:
+          name: Reinstall SWC for Ubuntu
+          command: yarn add @swc/core
+      - run_package_tests:
+          package: '@gitbeaker/rest'
+          test_type: 'e2e'
+
+  test-e2e-cli:
+    executor: node-executor
+    description: 'Run CLI e2e tests against live GitLab instance'
+    steps:
+      - restore_workspace
+      - run:
+          name: Load GitLab environment
+          command: |
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+            fi
+      - run_package_tests:
+          package: '@gitbeaker/cli'
+          test_type: 'e2e'
+
+  # ====================
+  # TEARDOWN
+  # ====================
+
+  teardown-e2e-tests:
+    executor: gcp-executor
+    description: 'Clean up GitLab GCP instance after e2e tests complete'
+    environment: *default_environment
+    steps:
+      - restore_workspace
+      - gcp_auth
+      - run:
+          when: always
+          name: Cleanup GitLab GCP instance
+          command: |
+            # Load the container name from setup job and delete instance
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              echo "Cleaning up GitLab instance: $CONTAINER_NAME"
+              gcloud compute instances delete "$CONTAINER_NAME" --zone=$GCP_ZONE --quiet || true
+            else
+              echo "No gitlab-env.txt file found - no GitLab instance to clean up"
+            fi
+
+  # ====================
+  # RELEASE JOBS
+  # ====================
+  release-canary:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Check for canary release
+          command: |
+            if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
+              PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+              export CI_MERGE_REQUEST_ID=$PR_NUMBER
+              export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CIRCLE_BRANCH
+
+              labels=$(yarn auto label --pr $PR_NUMBER)
+              if [[ "$labels" =~ "release:canary" ]]; then
+                yarn release:canary
+              fi
+            fi
+
+  release-production:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+            git fetch --all
+            git checkout $CIRCLE_BRANCH
+      - run:
+          name: Verify build artifacts
+          command: |
+            ls -A packages/requester-utils/dist
+            ls -A packages/core/dist
+            ls -A packages/rest/dist
+            ls -A packages/cli/dist
+      - run:
+          name: Release
+          command: yarn release
+
+# ====================
+# WORKFLOWS
+# ====================
+workflows:
+  version: 2
+
+  # Main workflow for PRs and main branch
+  ci:
+    jobs:
+      # Setup
+      - install:
+          filters:
+            branches:
+              ignore: /^dependabot\/.*/
+
+      # Build
+      - build:
+          requires: [install]
+
+      # Quality checks
+      - lint:
+          requires: [install]
+      - format:
+          requires: [install]
+
+      # Unit tests (parallel)
+      - test-unit-utils:
+          requires: [install]
+      - test-unit-core:
+          requires: [install]
+      - test-unit-rest:
+          requires: [install]
+      - test-unit-cli:
+          requires: [install]
+
+      # Type tests (parallel)
+      - test-types-utils:
+          requires: [build]
+      - test-types-core:
+          requires: [build]
+      - test-types-rest:
+          requires: [build]
+
+      # Integration tests (parallel)
+      - test-integration-rest:
+          requires: [build]
+      - test-integration-core:
+          requires: [build]
+
+      # Live test setup (manual for PRs, auto for main/next)
+      - setup-e2e-tests:
+          requires: [build]
+          filters:
+            branches:
+              only: [main, next]
+
+      - approve-e2e-tests:
+          type: approval
+          requires: [build]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - setup-e2e-tests:
+          name: setup-e2e-tests-manual
+          requires: [approve-e2e-tests]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # E2E tests
+      - test-e2e-rest:
+          requires: [setup-e2e-tests]
+          filters:
+            branches:
+              only: [main, next]
+      - test-e2e-rest:
+          name: test-e2e-rest-manual
+          requires: [setup-e2e-tests-manual]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - test-e2e-cli:
+          requires: [setup-e2e-tests]
+          filters:
+            branches:
+              only: [main, next]
+      - test-e2e-cli:
+          name: test-e2e-cli-manual
+          requires: [setup-e2e-tests-manual]
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # Cleanup - runs on success OR failure of tests
+      - teardown-e2e-tests:
+          name: teardown-e2e-setup-failure
+          requires:
+            - setup-e2e-tests:
+                - failed
+
+      - teardown-e2e-tests:
+          requires:
+            - test-e2e-rest-manual:
+                - failed
+                - success
+            - test-e2e-cli-manual:
+                - failed
+                - success
+          filters:
+            branches:
+              only: [main, next]
+
+      - teardown-e2e-tests:
+          name: teardown-e2e-tests-manual
+          requires:
+            - test-e2e-rest-manual:
+                - failed
+                - success
+            - test-e2e-cli-manual:
+                - failed
+                - success
+          filters:
+            branches:
+              ignore: [main, next]
+
+      # Releases
+      - release-canary:
+          requires:
+            - build
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+          filters:
+            branches:
+              ignore: [main, next]
+
+      - release-production:
+          requires:
+            - build
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+            - test-e2e-rest
+            - test-e2e-cli
+          filters:
+            branches:
+              only: [main, next]
