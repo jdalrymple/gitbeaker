@@ -14,7 +14,6 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     groupId: string | number,
     epicId: number,
     discussionId: string,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;

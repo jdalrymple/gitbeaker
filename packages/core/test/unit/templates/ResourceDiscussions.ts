@@ -24,13 +24,12 @@ describe('Instantiating ResourceDiscussions service', () => {
 
 describe('ResourceDiscussions.addNote', () => {
   it('should call the correct url', async () => {
-    await service.addNote(1, 2, 3, 4, 'test');
+    await service.addNote(1, 2, 3, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/discussions/3/notes',
       {
-        noteId: 4,
         body: 'test',
       },
     );

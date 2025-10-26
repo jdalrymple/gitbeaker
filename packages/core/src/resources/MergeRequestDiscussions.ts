@@ -40,7 +40,6 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     projectId: string | number,
     mergerequestId: string | number,
     discussionId: string,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;

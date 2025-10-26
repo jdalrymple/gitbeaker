@@ -93,14 +93,13 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
     return RequestHelper.post<DiscussionNoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/discussions/${discussionId}/notes`,
-      { ...options, body, noteId },
+      { ...options, body },
     );
   }
 

@@ -14,7 +14,6 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
     projectId: string | number,
     issueIId: number,
     discussionId: string,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
