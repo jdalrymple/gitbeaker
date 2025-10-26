@@ -137,10 +137,6 @@ commands:
                 report_type: test_results
                 disable_search: true
       - save_nx_cache
-      - store_test_results:
-          path: packages/*/reports
-      - store_artifacts:
-          path: packages/*/coverage
 
 # ====================
 # JOBS
