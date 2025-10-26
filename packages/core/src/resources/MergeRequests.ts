@@ -421,8 +421,8 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     mergerequestIId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[], C, E, P>> {
-    return RequestHelper.get<Pick<PipelineSchema, 'id' | 'sha' | 'ref' | 'status'>[]>()(
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
+    return RequestHelper.get<PipelineSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,
       options,
