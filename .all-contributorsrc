@@ -911,6 +911,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/6925907?v=4",
       "profile": "https://github.com/Teo-ShaoWei",
       "contributions": ["code"]
+    },
+    {
+      "login": "danielrentz",
+      "name": "Daniel Rentz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5064304?v=4",
+      "profile": "https://github.com/danielrentz",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
