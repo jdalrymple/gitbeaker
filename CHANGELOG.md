@@ -1,3 +1,26 @@
+# 43.7.0 (Sun Oct 26 2025)
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/core`
+  - Fix Discussions addNote function arguments [#3792](https://github.com/jdalrymple/gitbeaker/pull/3792) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`
+  - fix: return type of "MergeRequests.allPipelines" is "PipelineSchema[]" [#3794](https://github.com/jdalrymple/gitbeaker/pull/3794) ([@danielrentz](https://github.com/danielrentz))
+
+#### 📚 Documentation
+
+- Include codecov reports in PR comments [#3795](https://github.com/jdalrymple/gitbeaker/pull/3795) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # 43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from new contributors! :tada:

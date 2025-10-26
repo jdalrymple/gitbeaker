@@ -1,3 +1,20 @@
+# v43.7.0 (Sun Oct 26 2025)
+
+#### 🐛 Bug Fix
+
+- Fix Discussions addNote function arguments [#3792](https://github.com/jdalrymple/gitbeaker/pull/3792) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- fix: return type of "MergeRequests.allPipelines" is "PipelineSchema[]" [#3794](https://github.com/jdalrymple/gitbeaker/pull/3794) ([@danielrentz](https://github.com/danielrentz))
+
+#### Authors: 2
+
+- Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from new contributors! :tada:
