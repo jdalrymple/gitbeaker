@@ -1,3 +1,31 @@
+# v43.6.0 (Sun Oct 26 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Daniel Rentz ([@danielrentz](https://github.com/danielrentz)), for all your work!
+
+#### ✨ Feature
+
+- Add support for passing custom agents [#3716](https://github.com/jdalrymple/gitbeaker/pull/3716) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Add pagination types to MergeRequests.allPipelines [#3784](https://github.com/jdalrymple/gitbeaker/pull/3784) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix typing of Resource exports in @gitbeaker/rest [#3767](https://github.com/jdalrymple/gitbeaker/pull/3767) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Add improved codecov support and further repo maintenance [#3790](https://github.com/jdalrymple/gitbeaker/pull/3790) ([@jdalrymple](https://github.com/jdalrymple))
+- Update a few links to docs.gitlab.com [#3781](https://github.com/jdalrymple/gitbeaker/pull/3781) ([@danielrentz](https://github.com/danielrentz))
+- Fix README's Keyset pagination hyperlink [#3771](https://github.com/jdalrymple/gitbeaker/pull/3771) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.5.0 (Tue Sep 02 2025)
 
 :tada: This release contains work from a new contributor! :tada:

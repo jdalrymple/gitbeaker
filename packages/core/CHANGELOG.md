@@ -1,3 +1,36 @@
+# v43.6.0 (Sun Oct 26 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@fabb](https://github.com/fabb)
+
+:heart: Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+
+#### ✨ Feature
+
+- Add support for passing custom agents [#3716](https://github.com/jdalrymple/gitbeaker/pull/3716) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🗃️ Typescript Definitions
+
+- Add pagination types to MergeRequests.allPipelines [#3784](https://github.com/jdalrymple/gitbeaker/pull/3784) ([@jdalrymple](https://github.com/jdalrymple))
+- Add discussion_id to WebhookBaseNoteEventSchema [#3775](https://github.com/jdalrymple/gitbeaker/pull/3775) ([@fabb](https://github.com/fabb))
+- Add missing query parameters "archived", "active" to Groups|Projects.all [#3778](https://github.com/jdalrymple/gitbeaker/pull/3778) ([@danielrentz](https://github.com/danielrentz))
+- Add missing "null" type for response properties [#3780](https://github.com/jdalrymple/gitbeaker/pull/3780) ([@danielrentz](https://github.com/danielrentz))
+
+#### 📚 Documentation
+
+- Add improved codecov support and further repo maintenance [#3790](https://github.com/jdalrymple/gitbeaker/pull/3790) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 3
+
+- [@fabb](https://github.com/fabb)
+- Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+
+---
+
 # v43.5.0 (Tue Sep 02 2025)
 
 #### ✨ Feature

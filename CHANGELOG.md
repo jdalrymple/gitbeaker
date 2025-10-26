@@ -1,3 +1,67 @@
+# 43.6.0 (Sun Oct 26 2025)
+
+:tada: This release contains work from new contributors! :tada:
+
+Thanks for all your work!
+
+:heart: null[@fabb](https://github.com/fabb)
+
+:heart: Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+
+:heart: ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei))
+
+#### ✨ Feature
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add support for passing custom agents [#3716](https://github.com/jdalrymple/gitbeaker/pull/3716) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- `@gitbeaker/requester-utils`
+  - Fix compilation issue due to rate-limiter-flexible [#3769](https://github.com/jdalrymple/gitbeaker/pull/3769) ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei))
+
+#### 🔨 Technical Debt
+
+- Update yarn lock [#3773](https://github.com/jdalrymple/gitbeaker/pull/3773) ([@jdalrymple](https://github.com/jdalrymple))
+- Bump @babel/runtime from 7.23.8 to 7.28.3 [#3765](https://github.com/jdalrymple/gitbeaker/pull/3765) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### 🗃️ Typescript Definitions
+
+- `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add pagination types to MergeRequests.allPipelines [#3784](https://github.com/jdalrymple/gitbeaker/pull/3784) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/core`
+  - Add discussion_id to WebhookBaseNoteEventSchema [#3775](https://github.com/jdalrymple/gitbeaker/pull/3775) ([@fabb](https://github.com/fabb))
+  - Add missing query parameters "archived", "active" to Groups|Projects.all [#3778](https://github.com/jdalrymple/gitbeaker/pull/3778) ([@danielrentz](https://github.com/danielrentz))
+  - Add missing "null" type for response properties [#3780](https://github.com/jdalrymple/gitbeaker/pull/3780) ([@danielrentz](https://github.com/danielrentz))
+- `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Fix typing of Resource exports in @gitbeaker/rest [#3767](https://github.com/jdalrymple/gitbeaker/pull/3767) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- Update production deployment pipeline [#3791](https://github.com/jdalrymple/gitbeaker/pull/3791) ([@jdalrymple](https://github.com/jdalrymple))
+- Update docker-compose file for easier local testing [#3770](https://github.com/jdalrymple/gitbeaker/pull/3770) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/requester-utils`
+  - Migrate to Circle CI to improve PR cycle time [#3788](https://github.com/jdalrymple/gitbeaker/pull/3788) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- `@gitbeaker/cli`, `@gitbeaker/core`, `@gitbeaker/requester-utils`, `@gitbeaker/rest`
+  - Add improved codecov support and further repo maintenance [#3790](https://github.com/jdalrymple/gitbeaker/pull/3790) ([@jdalrymple](https://github.com/jdalrymple))
+- `@gitbeaker/cli`, `@gitbeaker/rest`
+  - Update a few links to docs.gitlab.com [#3781](https://github.com/jdalrymple/gitbeaker/pull/3781) ([@danielrentz](https://github.com/danielrentz))
+- `@gitbeaker/rest`
+  - Fix README's Keyset pagination hyperlink [#3771](https://github.com/jdalrymple/gitbeaker/pull/3771) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 5
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- [@fabb](https://github.com/fabb)
+- Daniel Rentz ([@danielrentz](https://github.com/danielrentz))
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei))
+
+---
+
 # 43.5.0 (Tue Sep 02 2025)
 
 :tada: This release contains work from new contributors! :tada:

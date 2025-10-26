@@ -1,3 +1,37 @@
+# v43.6.0 (Sun Oct 26 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei)), for all your work!
+
+#### ✨ Feature
+
+- Add support for passing custom agents [#3716](https://github.com/jdalrymple/gitbeaker/pull/3716) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🐛 Bug Fix
+
+- Fix compilation issue due to rate-limiter-flexible [#3769](https://github.com/jdalrymple/gitbeaker/pull/3769) ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei))
+
+#### 🗃️ Typescript Definitions
+
+- Add pagination types to MergeRequests.allPipelines [#3784](https://github.com/jdalrymple/gitbeaker/pull/3784) ([@jdalrymple](https://github.com/jdalrymple))
+- Fix typing of Resource exports in @gitbeaker/rest [#3767](https://github.com/jdalrymple/gitbeaker/pull/3767) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 🚨 Tests
+
+- Migrate to Circle CI to improve PR cycle time [#3788](https://github.com/jdalrymple/gitbeaker/pull/3788) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### 📚 Documentation
+
+- Add improved codecov support and further repo maintenance [#3790](https://github.com/jdalrymple/gitbeaker/pull/3790) ([@jdalrymple](https://github.com/jdalrymple))
+
+#### Authors: 2
+
+- Justin Dalrymple ([@jdalrymple](https://github.com/jdalrymple))
+- ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei))
+
+---
+
 # v43.5.0 (Tue Sep 02 2025)
 
 #### 🔒 Security
