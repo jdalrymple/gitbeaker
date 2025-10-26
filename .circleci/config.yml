@@ -316,9 +316,9 @@ jobs:
               --boot-disk-type=pd-ssd \
               --zone=$GCP_ZONE \
               --tags http-server \
-              --preemptible \
-              --max-run-duration=15m
-              --instance-termination-action=DELETE
+              --provisioning-model=SPOT \
+              --max-run-duration=15m \
+              --instance-termination-action=DELETE \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
               --image=gitlab-ready-image-16 \
               --image-project=gitbeaker \
@@ -489,13 +489,6 @@ jobs:
             git fetch --all
             git checkout $CIRCLE_BRANCH
       - run:
-          name: Verify build artifacts
-          command: |
-            ls -A packages/requester-utils/dist
-            ls -A packages/core/dist
-            ls -A packages/rest/dist
-            ls -A packages/cli/dist
-      - run:
           name: Release
           command: yarn release
 
@@ -603,10 +596,10 @@ workflows:
 
       - teardown-e2e-tests:
           requires:
-            - test-e2e-rest-manual:
+            - test-e2e-rest:
                 - failed
                 - success
-            - test-e2e-cli-manual:
+            - test-e2e-cli:
                 - failed
                 - success
           filters:
