@@ -205,6 +205,7 @@
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/kayw-geek"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/29700073?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Kay W."/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://ffflorian.dev/"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/5497598?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Florian Imdahl"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/lanthier"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/9666344?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="lanthier"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/Teo-ShaoWei"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/6925907?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="ShaoWei Teo"/></td>
     </tr>
 </p>
 

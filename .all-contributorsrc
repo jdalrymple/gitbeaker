@@ -904,6 +904,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/9666344?v=4",
       "profile": "https://github.com/lanthier",
       "contributions": ["doc"]
+    },
+    {
+      "login": "Teo-ShaoWei",
+      "name": "ShaoWei Teo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6925907?v=4",
+      "profile": "https://github.com/Teo-ShaoWei",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 300
