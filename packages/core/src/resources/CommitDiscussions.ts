@@ -19,7 +19,6 @@ export interface CommitDiscussions<C extends boolean = false> extends ResourceDi
     projectId: string | number,
     commitId: string,
     discussionId: string,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;

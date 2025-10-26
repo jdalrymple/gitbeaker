@@ -15,7 +15,6 @@ export interface ProjectSnippetDiscussions<C extends boolean = false>
     projectId: string | number,
     snippetId: string | number,
     discussionId: string,
-    noteId: number,
     body: string,
     options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
