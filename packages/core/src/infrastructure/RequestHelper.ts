@@ -4,10 +4,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type {
   FormattedResponse,
   RequestHandlerFn,
+  RequesterBodyType,
   ResponseBodyTypes,
 } from '@gitbeaker/requester-utils';
 import { appendFormFromObject, parseLinkHeader } from './Utils';
-import type { AllOrNone, Camelize, OptionValueType } from './Utils';
+import type { AllOrNone, Camelize } from './Utils';
 
 export interface IsForm {
   isForm?: boolean;
@@ -321,11 +322,12 @@ export function post<T extends ResponseBodyTypes>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+    { searchParams, sudo, showExpanded, rawBody, ...options }: IsForm & BaseRequestOptions<E> = {},
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
-    const body = isForm
-      ? appendFormFromObject(options as Record<string, OptionValueType>)
-      : options;
+    let body: RequesterBodyType | undefined;
+
+    if (rawBody) body = rawBody;
+    else body = options;
 
     const response = await service.requester.post(endpoint, {
       searchParams,
@@ -345,11 +347,12 @@ export function put<T extends ResponseBodyTypes>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+    { searchParams, sudo, showExpanded, rawBody, ...options }: IsForm & BaseRequestOptions<E> = {},
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
-    const body = isForm
-      ? appendFormFromObject(options as Record<string, OptionValueType>)
-      : options;
+    let body: RequesterBodyType | undefined;
+
+    if (rawBody) body = rawBody;
+    else body = options;
 
     const response = await service.requester.put(endpoint, {
       body,
@@ -369,11 +372,20 @@ export function patch<T extends ResponseBodyTypes>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    { searchParams, isForm, sudo, showExpanded, ...options }: IsForm & BaseRequestOptions<E> = {},
+    {
+      searchParams,
+      sudo,
+      showExpanded,
+      rawBody,
+      isForm,
+      ...options
+    }: IsForm & BaseRequestOptions<E> = {},
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
-    const body = isForm
-      ? appendFormFromObject(options as Record<string, OptionValueType>)
-      : options;
+    let body: RequesterBodyType | undefined;
+
+    if (rawBody) body = rawBody;
+    else if (isForm) body = appendFormFromObject(options as Record<string, ResponseBodyTypes>);
+    else body = options;
 
     const response = await service.requester.patch(endpoint, {
       body,
