@@ -313,3 +313,15 @@ describe('MergeRequests.unsubscribe', () => {
     );
   });
 });
+
+describe('MergeRequests.showReviewers', () => {
+  it('should request GET projects/:id/merge_requests/:iid/reviewers', async () => {
+    await service.showReviewers(2, 3);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/reviewers',
+      undefined,
+    );
+  });
+});

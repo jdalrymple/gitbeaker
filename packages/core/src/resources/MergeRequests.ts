@@ -189,6 +189,12 @@ export interface MergeRequestChangesSchema
   overflow: boolean;
 }
 
+export interface MergeRequestReviewerSchema extends Record<string, unknown> {
+  user: MappedOmit<SimpleUserSchema, 'created_at'>;
+  state: 'unreviewed' | 'requested_changes' | 'reviewed' | 'approved' | 'review_started';
+  created_at: string;
+}
+
 // Select method options
 export type AllMergeRequestsOptions = {
   approvedByIds?: number[];
@@ -665,6 +671,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/unsubscribe`,
+      options,
+    );
+  }
+
+  showReviewers<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<MergeRequestReviewerSchema[], C, E, void>> {
+    return RequestHelper.get<MergeRequestReviewerSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/reviewers`,
       options,
     );
   }
