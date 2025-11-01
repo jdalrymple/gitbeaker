@@ -51,18 +51,14 @@ export default [
       ...typescript.configs.recommended.rules,
       ...typescript.configs['recommended-requiring-type-checking'].rules,
       ...prettierConfig.rules,
-      
+
       // Import rules
       'import/no-default-export': 'off',
       'import/prefer-default-export': 'off',
       'import/no-extraneous-dependencies': [
         'error',
         {
-          devDependencies: [
-            '**/*.config.ts',
-            '**/scripts/*.[tj]s',
-            '**/test/**/*.ts',
-          ],
+          devDependencies: ['**/*.config.ts', '**/scripts/*.[tj]s', '**/test/**/*.ts'],
         },
       ],
       'import/extensions': [
@@ -85,10 +81,7 @@ export default [
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unsafe-declaration-merging': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { ignoreRestSiblings: true },
-      ],
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
 
       // General rules
       camelcase: 'error',
