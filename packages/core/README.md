@@ -1952,6 +1952,7 @@ import { Gitlab } from '@gitbeaker/core';
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/lanthier"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/9666344?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="lanthier"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/Teo-ShaoWei"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/6925907?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="ShaoWei Teo"/></td>
       <td align="center" valign="top" width="0.33%"><a href="https://github.com/danielrentz"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/5064304?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Daniel Rentz"/></td>
+      <td align="center" valign="top" width="0.33%"><a href="https://github.com/matejsmisek"><img src="https://images.weserv.nl/?url=https://avatars.githubusercontent.com/u/3141623?v=4&h=25&w=25&fit=cover&mask=circle&maxage=7d" alt="Matěj Smíšek"/></td>
     </tr>
 </p>
 

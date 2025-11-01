@@ -918,6 +918,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5064304?v=4",
       "profile": "https://github.com/danielrentz",
       "contributions": ["code"]
+    },
+    {
+      "login": "matejsmisek",
+      "name": "Matěj Smíšek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3141623?v=4",
+      "profile": "https://github.com/matejsmisek",
+      "contributions": ["test", "code"]
     }
   ],
   "contributorsPerLine": 300
