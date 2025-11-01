@@ -1,3 +1,20 @@
+# v43.8.0 (Sat Nov 01 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek)), for all your work!
+
+#### ✨ Feature
+
+- Add "reviewers" sub-resource for MergeRequests resource [#3796](https://github.com/jdalrymple/gitbeaker/pull/3796) (matej.smisek@shipmonk.com [@matejsmisek](https://github.com/matejsmisek))
+
+#### Authors: 2
+
+- Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek))
+- Matej Smisek (matej.smisek@shipmonk.com)
+
+---
+
 # v43.7.0 (Sun Oct 26 2025)
 
 #### 🐛 Bug Fix
