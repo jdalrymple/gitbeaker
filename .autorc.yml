@@ -5,7 +5,7 @@ plugins:
   - released
   - first-time-contributor
   - all-contributors
-  - ./scripts/auto-before-commit-changelog-plugin.js
+  - ./scripts/auto-before-commit-changelog-plugin.cjs
   - - omit-release-notes
     - username:
         - coqbot

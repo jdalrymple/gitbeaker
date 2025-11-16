@@ -356,8 +356,8 @@ describe('RequestHelper.get()', () => {
       Promise.resolve({
         status: 200,
         body: [
-          { id: 3, gravatar_enable: true }, // eslint-disable-line
-          { id: 4, gravatar_enable: false }, // eslint-disable-line
+          { id: 3, gravatar_enable: true },
+          { id: 4, gravatar_enable: false },
         ],
         headers: {},
       }),
@@ -394,7 +394,7 @@ describe('RequestHelper.get()', () => {
 
     const results = await specialService.show();
 
-    expect(results).toMatchObject({ id: 3, gravatar_enable: true }); // eslint-disable-line
+    expect(results).toMatchObject({ id: 3, gravatar_enable: true });
   });
 
   it('should return a stream if asStream is passed', async () => {

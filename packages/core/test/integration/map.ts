@@ -186,7 +186,7 @@ describe('API Map', () => {
       'Users',
       'UserSSHKeys',
     ];
-    // eslint-disable-next-line
+
     const map: Record<string, unknown> = await import('../../dist/map.json');
 
     expect(map).toBeObject();

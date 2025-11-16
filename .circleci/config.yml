@@ -29,7 +29,7 @@ executors:
 
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.55.1-noble
+      - image: mcr.microsoft.com/playwright:v1.56.1-noble
     resource_class: medium
     working_directory: ~/project
 
@@ -467,7 +467,10 @@ jobs:
 
               labels=$(yarn auto label --pr $PR_NUMBER)
               if [[ "$labels" =~ "release:canary" ]]; then
+                echo "Found release:canary label - proceeding with canary release"
                 yarn release:canary
+              else
+                echo "No release:canary label found - skipping canary release"
               fi
             fi
 

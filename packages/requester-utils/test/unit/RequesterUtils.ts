@@ -140,9 +140,7 @@ describe('createInstance', () => {
     const testEndpoint = 'test endpoint';
     const requester = createRequesterFn(optionsHandler, requestHandler)(serviceOptions);
 
-    // eslint-disable-next-line
     for (const m of methods) {
-      // eslint-disable-next-line
       await requester[m](testEndpoint, {});
 
       expect(optionsHandler).toHaveBeenCalledWith(

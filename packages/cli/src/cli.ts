@@ -1,7 +1,7 @@
 import Chalk from 'chalk';
 import Sywac from 'sywac';
 import * as Gitbeaker from '@gitbeaker/rest';
-import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' }; // eslint-disable-line import/no-unresolved
+import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' };
 import {
   buildArgumentObjects,
   getCLISafeNormalizedTerm,
