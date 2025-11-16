@@ -460,16 +460,46 @@ jobs:
       - run:
           name: Check for canary release
           command: |
+            set -x  # Enable debug output
+            echo "=== Debug: Canary Release Check ==="
+            echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
+            echo "CIRCLE_BRANCH: $CIRCLE_BRANCH"
+            
             if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
+              echo "=== Debug: Processing PR ==="
               PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+              echo "Extracted PR_NUMBER: $PR_NUMBER"
+              
               export CI_MERGE_REQUEST_ID=$PR_NUMBER
               export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CIRCLE_BRANCH
+              echo "Set CI_MERGE_REQUEST_ID: $CI_MERGE_REQUEST_ID"
+              echo "Set CI_MERGE_REQUEST_SOURCE_BRANCH_NAME: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
 
-              labels=$(yarn auto label --pr $PR_NUMBER)
-              if [[ "$labels" =~ "release:canary" ]]; then
-                yarn release:canary
+              echo "=== Debug: Fetching PR labels ==="
+              set +e  # Don't exit on error for label command
+              labels=$(yarn auto label --pr $PR_NUMBER 2>&1)
+              label_exit_code=$?
+              set -e  # Re-enable exit on error
+              
+              echo "yarn auto label exit code: $label_exit_code"
+              echo "Labels output: $labels"
+              
+              if [ $label_exit_code -ne 0 ]; then
+                echo "ERROR: Failed to fetch PR labels"
+                exit 1
               fi
+              
+              echo "=== Debug: Checking for canary label ==="
+              if [[ "$labels" =~ "release:canary" ]]; then
+                echo "Found release:canary label - proceeding with canary release"
+                yarn release:canary
+              else
+                echo "No release:canary label found - skipping canary release"
+              fi
+            else
+              echo "No CIRCLE_PULL_REQUEST found - skipping canary release"
             fi
+            echo "=== Debug: Canary release check completed ==="
 
   release-production:
     executor: node-executor
