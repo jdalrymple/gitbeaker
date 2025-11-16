@@ -33,11 +33,14 @@ export default [
       parser: tsParser,
       parserOptions: {
         project: ['./packages/*/tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
       globals: {
         ...globals.browser,
+        ...globals.node,
+        NodeJS: 'readonly',
         page: true,
         context: true,
       },
@@ -85,6 +88,8 @@ export default [
 
       // General rules
       camelcase: 'error',
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'off',
       'sort-imports': [
         'error',
         {

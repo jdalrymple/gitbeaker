@@ -179,13 +179,13 @@ describe('Creation of BaseResource instance', () => {
     expect(() => {
       // eslint-disable-next-line
       // @ts-ignore
-      new BaseResource(); // eslint-disable-line
+      new BaseResource();
     }).toThrow();
 
     expect(() => {
       // eslint-disable-next-line
       // @ts-ignore
-      new BaseResource({}); // eslint-disable-line
+      new BaseResource({});
     }).toThrow();
   });
 

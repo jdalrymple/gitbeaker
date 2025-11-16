@@ -40,7 +40,7 @@ async function parseResponse(response: Response, asStream = false) {
   if (asStream) {
     body = response.body;
   } else {
-    body = status === 204 ? null : await processBody(response); // eslint-disable-line
+    body = status === 204 ? null : await processBody(response);
   }
 
   return { body, headers, status };
@@ -95,7 +95,6 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
-  /* eslint-disable no-await-in-loop */
   for (let i = 0; i < maxRetries; i += 1) {
     const request = new Request(url, { ...opts, method, mode });
     const fetchArgs: [Request, RequestInit?] = [request];
@@ -120,10 +119,8 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     lastStatus = response.status;
     await delay(2 ** i * 0.25);
 
-    // eslint-disable-next-line
     continue;
   }
-  /* eslint-enable */
 
   throw new GitbeakerRetryError(
     `Could not successfully complete this request after ${maxRetries} retries, last status code: ${lastStatus}. ${lastStatus === 429 ? 'Check the applicable rate limits for this endpoint' : 'Verify the status of the endpoint'}.`,

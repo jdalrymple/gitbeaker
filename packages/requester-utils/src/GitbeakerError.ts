@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 export class GitbeakerRequestError extends Error {
   readonly cause?: {
     description: string;
