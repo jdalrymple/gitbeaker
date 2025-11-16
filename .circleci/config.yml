@@ -29,7 +29,7 @@ executors:
 
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.55.1-noble
+      - image: mcr.microsoft.com/playwright:v1.56.1-noble
     resource_class: medium
     working_directory: ~/project
 
