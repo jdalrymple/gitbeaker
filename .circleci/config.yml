@@ -464,7 +464,7 @@ jobs:
             echo "=== Debug: Canary Release Check ==="
             echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
             echo "CIRCLE_BRANCH: $CIRCLE_BRANCH"
-            
+
             if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
               echo "=== Debug: Processing PR ==="
               PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
