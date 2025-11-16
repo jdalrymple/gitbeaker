@@ -57,8 +57,8 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.9.2",
-    "tsup": "^8.5.0",
+    "@types/node": "^24.10.1",
+    "tsup": "^8.5.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
