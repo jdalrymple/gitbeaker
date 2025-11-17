@@ -18,4 +18,10 @@ export default {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
   setupFilesAfterEnv: ['jest-extended/all'],
+  // Memory optimization settings
+  maxWorkers: '50%',
+  workerIdleMemoryLimit: '512MB',
+  clearMocks: true,
+  restoreMocks: true,
+  resetModules: true,
 };
