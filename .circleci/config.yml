@@ -87,9 +87,6 @@ commands:
           keys:
             - v1-nx-cache-{{ checksum "yarn.lock" }}
             - v1-nx-cache-
-      - run:
-          name: Setup NX
-          command: echo "export NX_REJECT_UNKNOWN_LOCAL_CACHE=0" >> $BASH_ENV
 
   save_nx_cache:
     description: 'Save NX cache'
@@ -130,7 +127,12 @@ commands:
           name: Run << parameters.test_type >> tests for << parameters.package >>
           environment:
             # NODE_OPTIONS: '--max-old-space-size=3584'
-          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --logHeapUsage
+          command: |
+            if [[ "<< parameters.test_type >>" == "unit" || "<< parameters.test_type >>" == "types" ]]; then
+              yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --logHeapUsage
+            else
+              yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+            fi
           no_output_timeout: 30m
       - when:
           condition: << parameters.coverage >>
