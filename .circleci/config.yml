@@ -129,9 +129,9 @@ commands:
             # NODE_OPTIONS: '--max-old-space-size=3584'
           command: |
             if [[ "<< parameters.test_type >>" == "unit" || "<< parameters.test_type >>" == "types" ]]; then
-              yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --logHeapUsage
+              yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --maxWorkers=4 --workerIdleMemoryLimit=150MB --logHeapUsage
             else
-              yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+              yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --maxWorkers=4
             fi
           no_output_timeout: 30m
       - when:
