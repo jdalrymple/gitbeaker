@@ -13,7 +13,6 @@
   "resolutions": {
     "all-contributors-cli": "6.26.1",
     "socks-proxy-agent": "8.0.5",
-    "js-yaml": "4.1.1",
     "tmp": "0.2.4"
   },
   "scripts": {
