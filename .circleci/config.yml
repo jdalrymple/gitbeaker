@@ -129,7 +129,7 @@ commands:
             # NODE_OPTIONS: '--max-old-space-size=3584'
           command: |
             if [[ "<< parameters.test_type >>" == "unit" || "<< parameters.test_type >>" == "types" ]]; then
-              yarn test:<< parameters.test_type >> --projects=<< parameters.package >>  --logHeapUsage
+              yarn test:<< parameters.test_type >> --projects=<< parameters.package >>  --logHeapUsage --detectOpenHandles
             else
               yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
             fi
