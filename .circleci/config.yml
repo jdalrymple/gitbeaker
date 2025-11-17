@@ -119,7 +119,7 @@ commands:
           environment:
             NODE_OPTIONS: '--max-old-space-size=3584'
             JEST_MAX_WORKERS: '1'
-          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --maxWorkers=1
           no_output_timeout: 30m
       - when:
           condition: << parameters.coverage >>
