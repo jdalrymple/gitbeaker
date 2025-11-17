@@ -115,10 +115,22 @@ commands:
           steps: []
       - setup_nx_cache
       - run:
+          name: Check system specs
+          command: |
+            echo "=== System Information ==="
+            echo "CPU Info:"
+            nproc --all
+            cat /proc/cpuinfo | grep "model name" | head -1
+            echo "Memory Info:"
+            free -h
+            echo "Node.js Info:"
+            node -e "console.log('Node version:', process.version); console.log('Available CPUs:', require('os').cpus().length); console.log('Total Memory:', Math.round(require('os').totalmem() / 1024 / 1024 / 1024) + 'GB'); console.log('50% workers would be:', Math.max(1, Math.floor(require('os').cpus().length * 0.5)));"
+            echo "========================="
+      - run:
           name: Run << parameters.test_type >> tests for << parameters.package >>
           environment:
-            NODE_OPTIONS: '--max-old-space-size=3584'
-          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --maxWorkers=2 --logHeapUsage
+            # NODE_OPTIONS: '--max-old-space-size=3584'
+          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >> --logHeapUsage
           no_output_timeout: 30m
       - when:
           condition: << parameters.coverage >>
