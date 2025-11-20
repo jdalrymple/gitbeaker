@@ -1,16 +1,21 @@
 import { GroupImportExports } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock(
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock(
   '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
+  async () => {
+    const mock = await vi.importActual('../../__mocks__/RequestHelper');
+    return (mock as any).default;
+  },
 );
 
 let service: GroupImportExports;
 
 beforeEach(() => {
   service = new GroupImportExports({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn(),
     token: 'abcdefg',
   });
 });

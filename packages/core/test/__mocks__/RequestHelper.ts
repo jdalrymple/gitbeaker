@@ -1,4 +1,6 @@
-const mockHelperFn = jest.fn();
+import { vi } from 'vitest';
+
+const mockHelperFn = vi.fn();
 
 export default {
   RequestHelper: {

@@ -1,5 +1,7 @@
 import { Lint, Projects } from '../../../../src';
 
+import { beforeEach, describe, expect, it } from 'vitest';
+
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 const CREDENTIALS = {
   host: GITLAB_URL,

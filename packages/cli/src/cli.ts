@@ -1,8 +1,8 @@
 import type { MethodTemplate } from './utils';
-import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' };
 import * as Gitbeaker from '@gitbeaker/rest';
 import Chalk from 'chalk';
 import Sywac from 'sywac';
+import API_MAP from './map';
 import {
   buildArgumentObjects,
   getCLISafeNormalizedTerm,

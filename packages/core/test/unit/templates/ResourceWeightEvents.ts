@@ -1,22 +1,27 @@
 import { RequestHelper } from '../../../src/infrastructure';
 import { ResourceWeightEvents } from '../../../src/templates';
 
-jest.mock(
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock(
   '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
+  async () => {
+    const mock = await vi.importActual('../../__mocks__/RequestHelper');
+    return (mock as any).default;
+  },
 );
 
 let service: ResourceWeightEvents;
 
 beforeEach(() => {
   service = new ResourceWeightEvents('resource', 'resource2', {
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn(),
     token: 'abcdefg',
   });
 });
 
 afterEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 
 describe('Instantiating ResourceWeightEvents service', () => {

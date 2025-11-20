@@ -42,7 +42,7 @@
   "scripts": {
     "build": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
-    "test:unit": "jest --maxWorkers=50% test/unit",
+    "test:unit": "vitest run --config vitest.config.mjs test/unit",
     "lint": "oxlint src test scripts",
     "lint:fix": "oxlint src test scripts --fix"
   },

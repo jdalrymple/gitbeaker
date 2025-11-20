@@ -4,12 +4,13 @@ import {
   GitbeakerRetryError,
   GitbeakerTimeoutError,
 } from '@gitbeaker/requester-utils';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultRequestHandler, processBody } from '../../src/Requester';
 import { getError } from '../utils/index';
 
-global.fetch = jest.fn();
+global.fetch = vi.fn();
 
-const mockFetch = global.fetch as jest.Mock;
+const mockFetch = global.fetch as any;
 
 beforeEach(() => {
   mockFetch.mockReset();

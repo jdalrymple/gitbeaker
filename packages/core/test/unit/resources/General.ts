@@ -1,10 +1,11 @@
+import { vi, describe, expect, it } from 'vitest';
 import * as Resources from '../../../src/resources';
 
 describe('Instantiating services', () => {
   it('should create a valid service object for each export', () => {
     Object.entries(Resources).forEach(([k, V]) => {
       const service = new V({
-        requesterFn: jest.fn(),
+        requesterFn: vi.fn(),
         token: 'abcdefg',
       });
 

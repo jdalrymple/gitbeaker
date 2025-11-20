@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 describe('API Map', () => {
   it('should return object representing all resources in JSON format', async () => {
     const keys = [

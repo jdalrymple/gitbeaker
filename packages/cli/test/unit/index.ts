@@ -1,12 +1,17 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import pkg from '../../package.json';
+import mockMapData from '../__mocks__/map.json';
 
-jest.mock('@gitbeaker/rest');
+vi.mock('@gitbeaker/rest');
+vi.mock('../../src/map', () => ({
+  default: mockMapData
+}));
 
 const OLD_ENV = process.env;
 let Projects;
 
 beforeEach(async () => {
-  jest.resetModules();
+  vi.resetModules();
 
   ({ Projects } = await import('@gitbeaker/rest'));
 
@@ -17,7 +22,7 @@ afterEach(() => {
   process.env = OLD_ENV;
 });
 
-describe('gitbeaker -v -- Package Version', () => {
+describe.only('gitbeaker -v -- Package Version', () => {
   it('should return the current version number of the package', async () => {
     const { cli } = await import('../../src/cli');
     const { output } = await cli.parse('-v');

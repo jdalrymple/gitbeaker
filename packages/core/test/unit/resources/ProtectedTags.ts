@@ -1,16 +1,21 @@
 import { AccessLevel, ProtectedTags } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock(
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock(
   '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
+  async () => {
+    const mock = await vi.importActual('../../__mocks__/RequestHelper');
+    return (mock as any).default;
+  },
 );
 
 let service: ProtectedTags;
 
 beforeEach(() => {
   service = new ProtectedTags({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn(),
     token: 'abcdefg',
   });
 });
@@ -45,7 +50,7 @@ describe('ProtectedTags.create', () => {
 
 describe('ProtectedTags.protect', () => {
   it('should request POST /projects/:id/protected_tags', async () => {
-    const spy = jest.spyOn(service, 'create');
+    const spy = vi.spyOn(service, 'create');
 
     await service.protect(1, 'name', { createAccessLevel: AccessLevel.DEVELOPER });
 
@@ -105,7 +110,7 @@ describe('ProtectedTags.remove', () => {
 
 describe('ProtectedTags.unprotect', () => {
   it('should request DEL /projects/:id/protected_tags/:tag_name without options', async () => {
-    const spy = jest.spyOn(service, 'remove');
+    const spy = vi.spyOn(service, 'remove');
 
     await service.unprotect(1, 'name');
 
@@ -113,7 +118,7 @@ describe('ProtectedTags.unprotect', () => {
   });
 
   it('should request DEL /projects/:id/protected_tags/:tag_name', async () => {
-    const spy = jest.spyOn(service, 'remove');
+    const spy = vi.spyOn(service, 'remove');
 
     await service.unprotect(1, 'name', { sudo: 1 });
 

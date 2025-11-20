@@ -1,5 +1,7 @@
 import pkg from '../../package.json';
 
+import { describe, expect, it } from 'vitest';
+
 describe('General', () => {
   it('should return the expose a gitbeaker commnad', () => {
     expect(pkg.bin).toHaveProperty('gitbeaker');

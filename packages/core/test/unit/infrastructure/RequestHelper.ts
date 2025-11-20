@@ -1,3 +1,4 @@
+import { vi, beforeEach, describe, expect, it } from 'vitest';
 import {
   BaseResource,
   DefaultRequesterOptions,
@@ -99,13 +100,13 @@ function mockedTimedoutRequest(
     });
 }
 
-const mockedRequester: jest.Mocked<RequesterType> = {
-  get: jest.fn(),
-  post: jest.fn(),
-  delete: jest.fn(),
-  put: jest.fn(),
-  patch: jest.fn(),
-};
+const mockedRequester = {
+  get: vi.fn(),
+  post: vi.fn(),
+  delete: vi.fn(),
+  put: vi.fn(),
+  patch: vi.fn(),
+} as RequesterType;
 
 let service: BaseResource;
 

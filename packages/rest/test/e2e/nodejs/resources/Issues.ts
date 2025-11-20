@@ -1,5 +1,7 @@
 import { Issues, Projects } from '../../../../src';
 
+import { beforeAll, describe, expect, it } from 'vitest';
+
 const {
   GITLAB_PERSONAL_ACCESS_TOKEN = '',
   GITLAB_URL = '',
