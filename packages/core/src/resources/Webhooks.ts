@@ -64,7 +64,16 @@ export interface WebhookDiffSchema {
   deleted_file: boolean;
 }
 
-export type WebhookUserSchema = Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>;
+export type ReviewerState = 'unreviewed' | 'requested_changes' | 'reviewed' | 'approved' | 'review_started' | 'unapproved';
+
+export type WebhookUserSchema = Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'> & {
+  email: string;
+};
+
+export interface WebhookReviewerSchema extends WebhookUserSchema {
+  state: ReviewerState;
+  re_requested: boolean;
+}
 
 export interface BaseWebhookEventSchema {
   object_kind: string;
@@ -376,8 +385,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
       current: WebhookUserSchema[] | null;
     };
     reviewers: {
-      previous: WebhookUserSchema[] | null;
-      current: WebhookUserSchema[] | null;
+      previous: WebhookReviewerSchema[] | null;
+      current: WebhookReviewerSchema[] | null;
     };
     labels: {
       previous: WebhookLabelSchema[] | null;
@@ -393,7 +402,7 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     };
   };
   assignees: WebhookUserSchema[] | null;
-  reviewers: WebhookUserSchema[] | null;
+  reviewers: WebhookReviewerSchema[] | null;
 }
 
 export interface WebhookWikiEventSchema extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {

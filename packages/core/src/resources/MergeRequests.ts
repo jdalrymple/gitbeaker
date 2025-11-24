@@ -13,6 +13,7 @@ import type {
 import type { CommitDiffSchema, CommitSchema } from './Commits';
 import type { IssueSchema, TimeStatsSchema } from './Issues';
 import type { ExpandedPipelineSchema, PipelineSchema } from './Pipelines';
+import type { ReviewerState } from './Webhooks';
 import type { SimpleProjectSchema } from './Projects';
 import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
@@ -191,7 +192,7 @@ export interface MergeRequestChangesSchema
 
 export interface MergeRequestReviewerSchema extends Record<string, unknown> {
   user: MappedOmit<SimpleUserSchema, 'created_at'>;
-  state: 'unreviewed' | 'requested_changes' | 'reviewed' | 'approved' | 'review_started';
+  state: ReviewerState;
   created_at: string;
 }
 
