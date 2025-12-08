@@ -115,9 +115,9 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     if (response.ok) return parseResponse(response, asStream);
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(request, response);
 
-    // Retry
+    // Retry with exponential backoff (in milliseconds)
     lastStatus = response.status;
-    await delay(2 ** i * 0.25);
+    await delay(2 ** i * 250);
 
     continue;
   }
