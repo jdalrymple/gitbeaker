@@ -37,6 +37,7 @@ export interface ExpandedHookSchema extends HookSchema {
 }
 
 export interface AddResourceHookOptions {
+  memberEvents?: boolean;
   pushEvents?: boolean;
   pushEventsBranchFilter?: string;
   issuesEvents?: boolean;
