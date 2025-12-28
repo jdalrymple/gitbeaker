@@ -377,6 +377,8 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should return a default error if retries are unsuccessful', async () => {
+    jest.useFakeTimers();
+
     const responseContent = { error: 'msg' };
     const fakeReturnValue = Promise.resolve(
       Promise.resolve(
@@ -392,14 +394,21 @@ describe('defaultRequestHandler', () => {
 
     mockFetch.mockReturnValue(fakeReturnValue);
 
-    const error = await getError<GitbeakerRetryError>(() =>
+    const errorPromise = getError<GitbeakerRetryError>(() =>
       defaultRequestHandler('http://test.com', {} as RequestOptions),
     );
+
+    // Fast-forward through all retry delays
+    await jest.runAllTimersAsync();
+
+    const error = await errorPromise;
 
     expect(error.message).toBe(
       'Could not successfully complete this request after 10 retries, last status code: 429. Check the applicable rate limits for this endpoint.',
     );
     expect(error).toBeInstanceOf(GitbeakerRetryError);
+
+    jest.useRealTimers();
   });
 
   it('should return correct properties if request is valid', async () => {
