@@ -155,7 +155,11 @@ export class Pipelines<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     projectId: string | number,
     ref: string,
-    options?: { variables?: PipelineVariableSchema[] } & Sudo & ShowExpanded<E>,
+    options?: {
+      variables?: PipelineVariableSchema[];
+      inputs?: Record<string, string>;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
