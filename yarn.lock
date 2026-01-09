@@ -5841,6 +5841,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-formatter-gha@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "eslint-formatter-gha@npm:2.0.1"
+  dependencies:
+    eslint-formatter-json: "npm:^9.0.0"
+    eslint-formatter-stylish: "npm:^9.0.0"
+  checksum: 10c0/02f75555416285d10b8d2d58c1c9e2d786f0fd6b3fc6c3025c038f4d4e93cf3fc799670570642a634caa1015a4cf9c7e91e932888be3af116bdb45e1a92fb1e6
+  languageName: node
+  linkType: hard
+
+"eslint-formatter-json@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "eslint-formatter-json@npm:9.0.1"
+  checksum: 10c0/96ca809356f03a71f85828c9ea3dae85584a0449133d3ac67a5dd2feb6582844d82a24dde102ec99abffe7d4b4f276632be3d52d1c05d3e433be37a8f3623fca
+  languageName: node
+  linkType: hard
+
+"eslint-formatter-stylish@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "eslint-formatter-stylish@npm:9.0.1"
+  dependencies:
+    chalk: "npm:^4.0.0"
+    strip-ansi: "npm:^6.0.1"
+    text-table: "npm:^0.2.0"
+  checksum: 10c0/29264948e8d4625b904c8e37fe1be5c06e724b9e590876b80de2f58a62dbbb9440f5a426d8c20bc8d88954e972d7df2246968c201701332cc1c5981e0215364c
+  languageName: node
+  linkType: hard
+
 "eslint-import-context@npm:^0.1.8":
   version: 0.1.9
   resolution: "eslint-import-context@npm:0.1.9"
@@ -6762,6 +6790,7 @@ __metadata:
     eslint: "npm:^9.39.1"
     eslint-config-airbnb-base: "npm:^15.0.0"
     eslint-config-prettier: "npm:^9.1.2"
+    eslint-formatter-gha: "npm:^2.0.1"
     eslint-import-resolver-typescript: "npm:^4.4.4"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-plugin-jest: "npm:^29.1.0"
@@ -11914,6 +11943,13 @@ __metadata:
   version: 1.9.0
   resolution: "text-extensions@npm:1.9.0"
   checksum: 10c0/9ad5a9f723a871e2d884e132d7e93f281c60b5759c95f3f6b04704856548715d93a36c10dbaf5f12b91bf405f0cf3893bf169d4d143c0f5509563b992d385443
+  languageName: node
+  linkType: hard
+
+"text-table@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "text-table@npm:0.2.0"
+  checksum: 10c0/02805740c12851ea5982686810702e2f14369a5f4c5c40a836821e3eefc65ffeec3131ba324692a37608294b0fd8c1e55a2dd571ffed4909822787668ddbee5c
   languageName: node
   linkType: hard
 
