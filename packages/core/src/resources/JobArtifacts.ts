@@ -38,7 +38,13 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     }: (
       | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
       | { jobId: number; artifactPath: string; job?: undefined; ref?: undefined }
-      | { ref: string; job: string; jobId?: undefined; artifactPath?: undefined }
+      | {
+          ref: string;
+          job: string;
+          jobId?: undefined;
+          artifactPath?: undefined;
+          searchRecentSuccessfulPipelines?: boolean;
+        }
       | { ref: string; job: string; artifactPath: string; jobId?: undefined }
     ) & { jobToken?: string } & Sudo &
       ShowExpanded<E> = {} as any,

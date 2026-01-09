@@ -108,6 +108,23 @@ describe('JobArtifacts.downloadArchive', () => {
       },
     );
   });
+
+  it('should request GET /projects/:id/jobs/artifacts/:ref/download?job=:name&search_recent_successful_pipelines=true when searchRecentSuccessfulPipelines is true', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      searchRecentSuccessfulPipelines: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/download`,
+      {
+        job: 'job1',
+        searchRecentSuccessfulPipelines: true,
+      },
+    );
+  });
 });
 
 describe('JobArtifacts.keep', () => {
