@@ -76,6 +76,12 @@ export interface SimpleProjectSchema extends CondensedProjectSchema {
   namespace: CondensedNamespaceSchema;
 }
 
+export interface ForkedProjectSchema extends SimpleProjectSchema {
+  license_url: string;
+  license: ProjectLicenseSchema;
+  repository_storage: string;
+}
+
 export interface ProjectSchema extends SimpleProjectSchema {
   description_html: string;
   visibility: 'public' | 'internal' | 'private';
@@ -128,8 +134,11 @@ export interface ProjectSchema extends SimpleProjectSchema {
   ci_forward_deployment_enabled: boolean;
   ci_forward_deployment_rollback_allowed: boolean;
   ci_allow_fork_pipelines_to_run_in_parent_project: boolean;
+  ci_id_token_sub_claim_components: string[];
   ci_separated_caches: boolean;
   ci_restrict_pipeline_cancellation_role: string;
+  ci_pipeline_variables_minimum_override_role: string;
+  ci_push_repository_for_job_token_allowed: boolean;
   public_jobs: boolean;
   shared_with_groups:
     | {
@@ -142,7 +151,8 @@ export interface ProjectSchema extends SimpleProjectSchema {
   repository_storage: string;
   only_allow_merge_if_pipeline_succeeds: boolean;
   allow_merge_on_skipped_pipeline: boolean;
-  ci_pipeline_variables_minimum_override_role: boolean;
+  allow_pipeline_trigger_approve_deployment: boolean;
+  restrict_user_defined_variables: boolean;
   only_allow_merge_if_all_discussions_are_resolved: boolean;
   remove_source_branch_after_merge: boolean;
   printing_merge_requests_link_enabled: boolean;
@@ -169,6 +179,8 @@ export interface ProjectSchema extends SimpleProjectSchema {
   marked_for_deletion_on: string;
   compliance_frameworks: string[] | null;
   warn_about_potentially_unwanted_characters: boolean;
+  secret_push_protection_enabled: boolean;
+  statistics: ProjectStatisticsSchema;
   container_registry_image_prefix: string;
   _links: {
     self: string;
@@ -180,6 +192,9 @@ export interface ProjectSchema extends SimpleProjectSchema {
     members: string;
     cluster_agents: string;
   };
+  only_allow_merge_if_all_status_checks_passed?: boolean;
+  mr_default_target_self?: boolean;
+  forked_from_project?: ForkedProjectSchema;
 }
 
 export interface ProjectFileUploadSchema extends Record<string, unknown> {
@@ -299,6 +314,7 @@ export type CreateProjectOptions = {
   useCustomTemplate?: boolean;
   visibility?: 'public' | 'internal' | 'private';
   wikiAccessLevel?: AccessLevelSettingState;
+  warnAboutPotentiallyUnwantedCharacters?: boolean;
 };
 
 export type EditProjectOptions = {
