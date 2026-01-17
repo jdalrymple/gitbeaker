@@ -68,6 +68,10 @@ describe('Pipelines', () => {
             value: 'TEST',
           },
         ],
+        inputs: {
+          INPUT_1: 'value1',
+          INPUT_2: 'value2',
+        },
       };
 
       await service.create(projectId, ref, options);
