@@ -497,16 +497,10 @@ jobs:
 workflows:
   version: 2
 
-  # Main workflow for PRs and main branch
-  ci:
+  # Main workflow
+  main:
     jobs:
-      # Setup
-      - install:
-          filters:
-            branches:
-              ignore: /^dependabot\/.*/
-
-      # Build
+      - install
       - build:
           requires: [install]
 
@@ -542,14 +536,14 @@ workflows:
 
       # Live test setup (manual for PRs, auto for main/next)
       - setup-e2e-tests:
-          requires: [build]
+          requires: [build, lint, format]
           filters:
             branches:
               only: [main, next]
 
       - approve-e2e-tests:
           type: approval
-          requires: [build]
+          requires: [build, lint, format]
           filters:
             branches:
               ignore: [main, next]
