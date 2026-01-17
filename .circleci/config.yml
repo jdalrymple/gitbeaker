@@ -106,13 +106,7 @@ commands:
         type: string
       test_type:
         type: string
-      coverage:
-        type: boolean
-        default: false
     steps:
-      - when:
-          condition: << parameters.coverage >>
-          steps: []
       - setup_nx_cache
       - run:
           name: Run << parameters.test_type >> tests for << parameters.package >>
@@ -121,21 +115,6 @@ commands:
             JEST_MAX_WORKERS: '1'
           command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
           no_output_timeout: 30m
-      - when:
-          condition: << parameters.coverage >>
-          steps:
-            - run:
-                name: Calculate package directory
-                command: |
-                  PACKAGE_DIR=$(echo "<< parameters.package >>" | rev | cut -d'/' -f1 | rev)
-                  echo "export PACKAGE_DIR=${PACKAGE_DIR}" >> $BASH_ENV
-            - codecov/upload:
-                files: packages/${PACKAGE_DIR}/coverage/lcov.info
-                disable_search: true
-            - codecov/upload:
-                files: packages/${PACKAGE_DIR}/reports/*junit.xml
-                report_type: test_results
-                disable_search: true
       - save_nx_cache
 
 # ====================
@@ -157,21 +136,6 @@ jobs:
       - run:
           name: Build packages
           command: yarn build
-      - run:
-          name: Upload bundle analysis
-          command: |
-            yarn dlx @codecov/bundle-analyzer packages/requester-utils/dist \
-              --bundle-name=requester-utils \
-              --upload-token=$CODECOV_TOKEN
-            yarn dlx @codecov/bundle-analyzer packages/core/dist \
-              --bundle-name=core \
-              --upload-token=$CODECOV_TOKEN
-            yarn dlx @codecov/bundle-analyzer packages/rest/dist \
-              --bundle-name=rest \
-              --upload-token=$CODECOV_TOKEN
-            yarn dlx @codecov/bundle-analyzer packages/cli/dist \
-              --bundle-name=cli \
-              --upload-token=$CODECOV_TOKEN
       - save_nx_cache
       - persist_to_workspace:
           root: .
@@ -208,7 +172,6 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/requester-utils'
           test_type: 'unit'
-          coverage: true
 
   test-unit-core:
     executor: node-executor
@@ -217,7 +180,6 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/core'
           test_type: 'unit'
-          coverage: true
 
   test-unit-rest:
     executor: node-executor
@@ -226,7 +188,6 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'unit'
-          coverage: true
 
   test-unit-cli:
     executor: node-executor
@@ -235,7 +196,6 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/cli'
           test_type: 'unit'
-          coverage: true
 
   # ====================
   # TYPE TESTS
@@ -444,6 +404,53 @@ jobs:
             fi
 
   # ====================
+  # CODECOV UPLOAD
+  # ====================
+  codecov-upload:
+    executor: node-executor
+    description: 'Upload coverage reports and bundle analysis to Codecov'
+    steps:
+      - restore_workspace
+      - run:
+          name: Upload coverage reports
+          command: |
+            # Upload coverage reports for each package that has coverage
+            for coverage_file in packages/*/coverage/lcov.info; do
+              if [ -f "$coverage_file" ]; then
+                package=$(basename $(dirname $(dirname "$coverage_file")))
+                echo "Uploading coverage for ${package}..."
+                yarn dlx @codecov/cli upload-coverage \
+                  --file "$coverage_file" \
+                  --flags ${package}
+              fi
+            done
+      - run:
+          name: Upload test results
+          command: |
+            # Upload test results for each package that has test reports
+            for reports_dir in packages/*/reports; do
+              if [ -d "$reports_dir" ] && [ "$(ls -A "$reports_dir"/*.xml 2>/dev/null)" ]; then
+                package=$(basename $(dirname "$reports_dir"))
+                echo "Uploading test results for ${package}..."
+                yarn dlx @codecov/cli upload-test-results \
+                  --dir "$reports_dir"
+              fi
+            done
+      - run:
+          name: Upload bundle analysis
+          command: |
+            # Upload bundle analysis for each package that has built dist
+            for dist_dir in packages/*/dist; do
+              if [ -d "$dist_dir" ]; then
+                package=$(basename $(dirname "$dist_dir"))
+                echo "Uploading bundle analysis for ${package}..."
+                yarn dlx @codecov/bundle-analyzer "$dist_dir" \
+                  --bundle-name=${package} \
+                  --upload-token=$CODECOV_TOKEN
+              fi
+            done
+
+  # ====================
   # RELEASE JOBS
   # ====================
   release-canary:
@@ -611,6 +618,19 @@ workflows:
           filters:
             branches:
               ignore: [main, next]
+
+      # Codecov uploads (only on non-forked branches to avoid token access issues)
+      - codecov-upload:
+          requires:
+            - build
+            - test-unit-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+          filters:
+            branches:
+              # Only run on main repository branches, not forks
+              only: /^(?!.*\/.*).*/
 
       # Releases
       - release-canary:
