@@ -64,9 +64,18 @@ export interface WebhookDiffSchema {
   deleted_file: boolean;
 }
 
-export type ReviewerState = 'unreviewed' | 'requested_changes' | 'reviewed' | 'approved' | 'review_started' | 'unapproved';
+export type ReviewerState =
+  | 'unreviewed'
+  | 'requested_changes'
+  | 'reviewed'
+  | 'approved'
+  | 'review_started'
+  | 'unapproved';
 
-export type WebhookUserSchema = Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'> & {
+export type WebhookUserSchema = Pick<
+  SimpleUserSchema,
+  'id' | 'name' | 'username' | 'avatar_url'
+> & {
   email: string;
 };
 
