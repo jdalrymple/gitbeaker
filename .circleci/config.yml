@@ -629,8 +629,8 @@ workflows:
             - test-unit-cli
           filters:
             branches:
-              # Only run on main repository branches, not forks
-              only: /^(?!.*\/.*).*/
+              # Exclude forked PR branches which start with 'pull/'
+              ignore: /^pull\/.*/
 
       # Releases
       - release-canary:
