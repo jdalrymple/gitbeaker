@@ -30,7 +30,7 @@ async function release() {
 
   // Generate changeset from PR labels
   // Adds limitation to only release from PRs for now
-  let prNumber = process.env.CIRCLE_PR_NUMBER;
+  let prNumber = process.env.PR_NUMBER;
 
   if (!prNumber) {
     logStep('No PR number found - skipping release');

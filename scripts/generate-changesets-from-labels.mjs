@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { execSync } from 'child_process';
+import { fetchPRData } from './github-api.mjs';
 
 const labelToChangeType = {
   breaking: 'major',
@@ -43,41 +44,16 @@ function generateChangesetYaml(packageNames, changeType) {
 }
 
 async function generateChangesetFromPR() {
-  const prNumber = process.env.CIRCLE_PR_NUMBER;
-  const repoUrl = process.env.CIRCLE_REPOSITORY_URL;
+  const prNumber = process.env.PR_NUMBER;
 
   if (!prNumber) {
     console.log('No PR number found in environment, skipping changeset generation');
     return;
   }
 
-  // Extract owner/repo from URL
-  const match = repoUrl.match(/github\.com[/:]([\w-]+)\/([\w-]+)/);
-  if (!match) {
-    console.error('Could not parse repository URL:', repoUrl);
-    return;
-  }
-  const [, owner, repo] = match;
-
   try {
     // Fetch PR data from GitHub API
-    const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-          Accept: 'application/vnd.github.v3+json',
-          'User-Agent': 'gitbeaker-changeset-generator',
-        },
-      },
-    );
-
-    if (!response.ok) {
-      console.error(`GitHub API error: ${response.status} ${response.statusText}`);
-      return;
-    }
-
-    const prData = await response.json();
+    const prData = await fetchPRData(prNumber);
 
     // Get labels
     const labels = prData.labels.map((label) => label.name);

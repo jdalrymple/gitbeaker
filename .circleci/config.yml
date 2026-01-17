@@ -467,11 +467,11 @@ jobs:
       - run:
           name: Check for canary release
           command: |
-            echo "$CIRCLE_PR_NUMBER"
-            echo "$CIRCLE_PULL_REQUEST"
-            if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
+            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+
+            if [[ -n "$PR_NUMBER" ]]; then
               # Check if PR has release:canary label
-              if ./scripts/check-release-label.sh $CIRCLE_PR_NUMBER; then
+              if node scripts/check-release-label.mjs $PR_NUMBER; then
                 echo "Proceeding with canary release"
                 yarn release:canary
               else
@@ -496,7 +496,10 @@ jobs:
             git checkout $CIRCLE_BRANCH
       - run:
           name: Release production
-          command: yarn release
+          command: |
+            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+
+            yarn release
 
 # ====================
 # WORKFLOWS
