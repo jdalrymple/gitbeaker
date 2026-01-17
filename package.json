@@ -11,9 +11,7 @@
     "packages/*"
   ],
   "resolutions": {
-    "all-contributors-cli": "6.26.1",
-    "socks-proxy-agent": "8.0.5",
-    "tar": "^7.5.2"
+    "tar": "^7.5.3"
   },
   "scripts": {
     "build": "nx run-many --target=build",
@@ -31,28 +29,23 @@
     "test:integration": "nx run-many --target=test:integration",
     "test:e2e": "nx run-many --target=test:e2e",
     "test:full": "./scripts/run-full-test-suite.sh",
-    "release:next": "auto next",
-    "release:canary": "auto canary",
-    "release": "auto shipit",
+    "release": "node scripts/release.mjs",
+    "release:canary": "node scripts/release.mjs canary",
     "prepare": "husky"
   },
   "dependencies": {
     "types": "^0.1.1"
   },
   "devDependencies": {
-    "@auto-it/all-contributors": "^11.3.6",
-    "@auto-it/core": "^11.3.6",
-    "@auto-it/first-time-contributor": "^11.3.6",
-    "@auto-it/omit-commits": "^11.3.6",
-    "@auto-it/omit-release-notes": "^11.3.6",
-    "@auto-it/released": "^11.3.6",
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
     "@codecov/bundle-analyzer": "^1.9.1",
     "@swc/core": "^1.15.2",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
-    "auto": "^11.3.6",
+    "all-contributors-cli": "6.26.1",
     "eslint": "^9.39.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.2",
@@ -66,7 +59,6 @@
     "jest": "^30.2.0",
     "jest-extended": "^7.0.0",
     "jest-junit": "^16.0.0",
-    "lerna": "^9.0.1",
     "lint-staged": "^16.2.6",
     "nx": "^22.0.3",
     "prettier": "^3.6.2",

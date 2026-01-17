@@ -468,17 +468,15 @@ jobs:
           name: Check for canary release
           command: |
             if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
-              PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
-              export CI_MERGE_REQUEST_ID=$PR_NUMBER
-              export CI_MERGE_REQUEST_SOURCE_BRANCH_NAME=$CIRCLE_BRANCH
-
-              labels=$(yarn auto label --pr $PR_NUMBER)
-              if [[ "$labels" =~ "release:canary" ]]; then
-                echo "Found release:canary label - proceeding with canary release"
+              # Check if PR has release:canary label
+              if ./scripts/check-release-label.sh $CIRCLE_PR_NUMBER; then
+                echo "Proceeding with canary release"
                 yarn release:canary
               else
-                echo "No release:canary label found - skipping canary release"
+                echo "Skipping canary release"
               fi
+            else
+              echo "No PR found - skipping canary release"
             fi
 
   release-production:
@@ -495,7 +493,7 @@ jobs:
             git fetch --all
             git checkout $CIRCLE_BRANCH
       - run:
-          name: Release
+          name: Release production
           command: yarn release
 
 # ====================
