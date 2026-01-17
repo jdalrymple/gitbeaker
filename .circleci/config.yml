@@ -467,6 +467,8 @@ jobs:
       - run:
           name: Check for canary release
           command: |
+            echo "$CIRCLE_PR_NUMBER"
+            echo "$CIRCLE_PULL_REQUEST"
             if [[ -n "$CIRCLE_PULL_REQUEST" ]]; then
               # Check if PR has release:canary label
               if ./scripts/check-release-label.sh $CIRCLE_PR_NUMBER; then
