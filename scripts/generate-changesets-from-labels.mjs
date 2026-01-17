@@ -3,7 +3,7 @@ import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { execSync } from 'child_process';
 
 const labelToChangeType = {
-  'breaking': 'major',
+  breaking: 'major',
   'type:feature': 'minor',
   'type:bug': 'minor',
   'type:hot fix': 'minor',
@@ -12,19 +12,22 @@ const labelToChangeType = {
   'type:dependencies': 'patch',
   'type:types': 'patch',
   'type:testing': null,
-  'type:documentation': null
+  'type:documentation': null,
 };
 
 function getPackageNames() {
   try {
     // Get all workspace packages using yarn
     const output = execSync('yarn workspaces list --json', { encoding: 'utf8' });
-    const workspaces = output.trim().split('\n').map(line => JSON.parse(line));
+    const workspaces = output
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
 
     // Filter out the root workspace and get package names
     const packageNames = workspaces
-      .filter(ws => ws.location !== '.' && ws.name) // Skip root workspace
-      .map(ws => ws.name);
+      .filter((ws) => ws.location !== '.' && ws.name) // Skip root workspace
+      .map((ws) => ws.name);
 
     return packageNames;
   } catch (error) {
@@ -36,9 +39,7 @@ function getPackageNames() {
 function generateChangesetYaml(packageNames, changeType) {
   if (packageNames.length === 0) return '';
 
-  return packageNames
-    .map(name => `"${name}": ${changeType}`)
-    .join('\n');
+  return packageNames.map((name) => `"${name}": ${changeType}`).join('\n');
 }
 
 async function generateChangesetFromPR() {
@@ -60,13 +61,16 @@ async function generateChangesetFromPR() {
 
   try {
     // Fetch PR data from GitHub API
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`, {
-      headers: {
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'gitbeaker-changeset-generator'
-      }
-    });
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json',
+          'User-Agent': 'gitbeaker-changeset-generator',
+        },
+      },
+    );
 
     if (!response.ok) {
       console.error(`GitHub API error: ${response.status} ${response.statusText}`);
@@ -76,14 +80,16 @@ async function generateChangesetFromPR() {
     const prData = await response.json();
 
     // Get labels
-    const labels = prData.labels.map(label => label.name);
+    const labels = prData.labels.map((label) => label.name);
     console.log(`Found PR labels: ${labels.join(', ')}`);
 
     // Find change type
     const changeType = labels
-      .map(label => labelToChangeType[label])
+      .map((label) => labelToChangeType[label])
       .filter(Boolean)
-      .sort((a, b) => ['major', 'minor', 'patch'].indexOf(a) - ['major', 'minor', 'patch'].indexOf(b))[0];
+      .sort(
+        (a, b) => ['major', 'minor', 'patch'].indexOf(a) - ['major', 'minor', 'patch'].indexOf(b),
+      )[0];
 
     if (!changeType) {
       console.log('No labels found that trigger a release, skipping changeset generation');

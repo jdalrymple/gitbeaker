@@ -37,7 +37,12 @@ async function release() {
     return;
   }
 
-  if (!execCommand('node scripts/generate-changesets-from-labels.mjs', 'Generating changeset from PR labels')) {
+  if (
+    !execCommand(
+      'node scripts/generate-changesets-from-labels.mjs',
+      'Generating changeset from PR labels',
+    )
+  ) {
     process.exit(1);
   }
 
@@ -80,17 +85,27 @@ async function release() {
     const hasChanges = execSync('git status --porcelain', { encoding: 'utf8' }).trim();
     if (hasChanges) {
       if (!execCommand('git add .', 'Staging changes')) process.exit(1);
-      if (!execCommand('git commit -m "Version packages and update contributors"', 'Committing changes')) process.exit(1);
+      if (
+        !execCommand(
+          'git commit -m "Version packages and update contributors"',
+          'Committing changes',
+        )
+      )
+        process.exit(1);
       if (!execCommand('git push', 'Pushing changes')) process.exit(1);
       logStep('Successfully committed and pushed version changes');
     }
   }
 
-  logStep(`✅ ${releaseType.charAt(0).toUpperCase() + releaseType.slice(1)} release completed successfully!`);
-
+  logStep(
+    `✅ ${releaseType.charAt(0).toUpperCase() + releaseType.slice(1)} release completed successfully!`,
+  );
 }
 
-release().catch(error => {
-  console.error(`❌ ${releaseType.charAt(0).toUpperCase() + releaseType.slice(1)} release failed:`, error);
+release().catch((error) => {
+  console.error(
+    `❌ ${releaseType.charAt(0).toUpperCase() + releaseType.slice(1)} release failed:`,
+    error,
+  );
   process.exit(1);
 });
