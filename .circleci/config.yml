@@ -469,17 +469,7 @@ jobs:
           command: |
             export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
 
-            if [[ -n "$PR_NUMBER" ]]; then
-              # Check if PR has release:canary label
-              if node scripts/check-release-label.mjs $PR_NUMBER; then
-                echo "Proceeding with canary release"
-                yarn release:canary
-              else
-                echo "Skipping canary release"
-              fi
-            else
-              echo "No PR found - skipping canary release"
-            fi
+            yarn release:canary
 
   release-production:
     executor: node-executor
