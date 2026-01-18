@@ -29,7 +29,7 @@ executors:
 
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.56.1-noble
+      - image: mcr.microsoft.com/playwright:v1.57.0-noble
     resource_class: medium
     working_directory: ~/project
 
@@ -235,7 +235,7 @@ jobs:
       - run:
           name: Reinstall SWC for Ubuntu
           command: |
-            npm install -g pnpm@9.15.2
+            npm install -g pnpm@10.28.0
             pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
@@ -360,7 +360,7 @@ jobs:
       - run:
           name: Reinstall SWC for Ubuntu
           command: |
-            npm install -g pnpm@9.15.2
+            npm install -g pnpm@10.28.0
             pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
