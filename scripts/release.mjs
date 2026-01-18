@@ -61,14 +61,12 @@ function extractPublishedPackages(publishOutput, isCanary) {
   const publishLines = publishOutput.split('\n');
 
   return publishLines
-    .filter(line => {
+    .filter((line) => {
       return line.includes('@') && (isCanary ? line.includes('canary') : !line.includes('canary'));
     })
-    .map(line => {
+    .map((line) => {
       // Extract package@version from changeset output lines
-      const regex = isCanary
-        ? /(@[^@]+@[\d\.-]+canary[\d-]+)/
-        : /(@[^@\s]+@[\d\.\-\w]+)/;
+      const regex = isCanary ? /(@[^@]+@[\d\.-]+canary[\d-]+)/ : /(@[^@\s]+@[\d\.\-\w]+)/;
       const match = line.match(regex);
       return match ? match[1] : null;
     })
@@ -86,7 +84,7 @@ function getRepoInfo() {
 
   return {
     owner: match[1],
-    repo: match[2]
+    repo: match[2],
   };
 }
 
@@ -118,7 +116,7 @@ async function findReleaseComment(prNumber) {
     ? '🐤 **Canary Release Published** 🐤'
     : '🚀 **Production Release Published** 🚀';
 
-  return comments.find(comment => comment.body.includes(searchText));
+  return comments.find((comment) => comment.body.includes(searchText));
 }
 
 async function triggerReleaseComment(prNumber, comment, commentType) {
@@ -130,9 +128,9 @@ async function triggerReleaseComment(prNumber, comment, commentType) {
       inputs: {
         pr_number: prNumber.toString(),
         comment_body: comment,
-        comment_type: commentType
-      }
-    })
+        comment_type: commentType,
+      },
+    }),
   });
 
   return { triggered: true };
@@ -242,7 +240,7 @@ async function release() {
   let publishedPackages = [];
 
   try {
-      // Capture publish output to extract version info
+    // Capture publish output to extract version info
     logStep(`Publishing ${releaseType} packages`);
 
     const publishOutput = execSync(publishCommand, { stdio: 'pipe', encoding: 'utf8' });
@@ -266,13 +264,15 @@ async function release() {
 
       logStep(`Posting ${releaseType} release comment to PR`);
 
-      const releaseLinks = publishedPackages.map(pkgVersion => {
-        // Handle scoped packages like @gitbeaker/cli@1.0.0
-        const lastAtIndex = pkgVersion.lastIndexOf('@');
-        const packageName = pkgVersion.substring(0, lastAtIndex);
-        const version = pkgVersion.substring(lastAtIndex + 1);
-        return `- [\`${packageName}@${version}\`](https://www.npmjs.com/package/${packageName}/v/${version})`;
-      }).join('\n');
+      const releaseLinks = publishedPackages
+        .map((pkgVersion) => {
+          // Handle scoped packages like @gitbeaker/cli@1.0.0
+          const lastAtIndex = pkgVersion.lastIndexOf('@');
+          const packageName = pkgVersion.substring(0, lastAtIndex);
+          const version = pkgVersion.substring(lastAtIndex + 1);
+          return `- [\`${packageName}@${version}\`](https://www.npmjs.com/package/${packageName}/v/${version})`;
+        })
+        .join('\n');
 
       const comment = `${emoji} **${releaseTitle}** ${emoji}
 
