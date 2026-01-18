@@ -1,13 +1,11 @@
 #!/usr/bin/env node
-/**
- * Unified release script
- */
 
 import { execSync } from 'child_process';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 
 const isCanary = process.argv[2] === 'canary';
 const releaseType = isCanary ? 'canary' : 'production';
+const emoji = isCanary ? '🐤' : '🚀';
 
 const labelToChangeType = {
   breaking: 'major',
@@ -24,7 +22,6 @@ const labelToChangeType = {
 };
 
 function logStep(message) {
-  const emoji = isCanary ? '🐤' : '🚀';
   console.log(`${emoji} ${message}`);
 }
 
@@ -60,7 +57,25 @@ function generateChangesetYaml(packageNames, changeType) {
   return packageNames.map((name) => `"${name}": ${changeType}`).join('\n');
 }
 
-async function fetchPRData(prNumber) {
+function extractPublishedPackages(publishOutput, isCanary) {
+  const publishLines = publishOutput.split('\n');
+
+  return publishLines
+    .filter(line => {
+      return line.includes('@') && (isCanary ? line.includes('canary') : !line.includes('canary'));
+    })
+    .map(line => {
+      // Extract package@version from changeset output lines
+      const regex = isCanary
+        ? /(@[^@]+@[\d\.-]+canary[\d-]+)/
+        : /(@[^@\s]+@[\d\.\-\w]+)/;
+      const match = line.match(regex);
+      return match ? match[1] : null;
+    })
+    .filter(Boolean);
+}
+
+function getRepoInfo() {
   const repoUrl = process.env.CIRCLE_REPOSITORY_URL || 'https://github.com/jdalrymple/gitbeaker';
 
   // Extract owner/repo from URL
@@ -68,14 +83,26 @@ async function fetchPRData(prNumber) {
   if (!match) {
     throw new Error(`Could not parse repository URL: ${repoUrl}`);
   }
-  const [, owner, repo] = match;
 
-  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`, {
+  return {
+    owner: match[1],
+    repo: match[2]
+  };
+}
+
+async function githubApiRequest(endpoint, options = {}) {
+  const { owner, repo } = getRepoInfo();
+  const url = `https://api.github.com/repos/${owner}/${repo}${endpoint}`;
+
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       Accept: 'application/vnd.github.v3+json',
       'User-Agent': 'gitbeaker-api-client',
+      'Content-Type': 'application/json',
+      ...options.headers,
     },
+    ...options,
   });
 
   if (!response.ok) {
@@ -83,6 +110,38 @@ async function fetchPRData(prNumber) {
   }
 
   return response.json();
+}
+
+async function findReleaseComment(prNumber, commentType) {
+  const comments = await githubApiRequest(`/issues/${prNumber}/comments`);
+  const searchText = commentType === 'canary'
+    ? '🐤 **Canary Release Published** 🐤'
+    : '🚀 **Production Release Published** 🚀';
+
+  return comments.find(comment => comment.body.includes(searchText));
+}
+
+async function updateOrCreateReleaseComment(prNumber, comment, commentType) {
+  // First, try to find existing release comment
+  const existingComment = await findReleaseComment(prNumber, commentType);
+
+  if (existingComment) {
+    // Update existing comment
+    const updatedComment = await githubApiRequest(`/issues/comments/${existingComment.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ body: comment }),
+    });
+
+    return { updated: true, comment: updatedComment };
+  } else {
+    // Create new comment
+    const newComment = await githubApiRequest(`/issues/${prNumber}/comments`, {
+      method: 'POST',
+      body: JSON.stringify({ body: comment }),
+    });
+
+    return { updated: false, comment: newComment };
+  }
 }
 
 async function generateChangesetFromPR(prNumber, labels, prTitle) {
@@ -146,7 +205,7 @@ async function release() {
   }
 
   // Get PR data
-  const prData = await fetchPRData(prNumber);
+  const prData = await githubApiRequest(`/pulls/${prNumber}`);
   const labels = prData.labels.map((label) => label.name);
 
   if (isCanary && !labels.includes('release:canary')) {
@@ -186,15 +245,71 @@ async function release() {
     ? 'yarn changeset publish --tag canary --no-git-tag'
     : 'yarn changeset publish';
 
-  if (!execCommand(publishCommand, `Publishing ${releaseType} packages`)) {
+  let publishedPackages = [];
+
+  try {
+      // Capture publish output to extract version info
+    logStep(`Publishing ${releaseType} packages`);
+
+    const publishOutput = execSync(publishCommand, { stdio: 'pipe', encoding: 'utf8' });
+
+    logStep(publishOutput); // Show the output to user
+
+    publishedPackages = extractPublishedPackages(publishOutput, isCanary);
+  } catch (error) {
+    console.error(`❌ Failed to parse published packages: ${error.message}`);
     process.exit(1);
+  }
+
+  // Post PR comment for releases
+  if (prNumber && publishedPackages.length > 0) {
+    try {
+      const releaseTitle = isCanary ? 'Canary Release Published' : 'Production Release Published';
+      const releaseDescription = isCanary ? 'canary versions' : 'new versions';
+      const installNote = isCanary
+        ? 'Note: Canary releases are temporary and may be unstable. Use for testing purposes only.'
+        : 'Note: These are production releases available on the `latest` tag.';
+
+      logStep(`Posting ${releaseType} release comment to PR`);
+
+      const releaseLinks = publishedPackages.map(pkgVersion => {
+        const [packageName, version] = pkgVersion.split('@');
+        return `- [\`${packageName}@${version}\`](https://www.npmjs.com/package/${packageName}/v/${version})`;
+      }).join('\n');
+
+      const installCommand = publishedPackages.join(' ');
+
+      const comment = `${emoji} **${releaseTitle}** ${emoji}
+
+The following packages have been published with ${releaseDescription}:
+
+${releaseLinks}
+
+Install with:
+\`\`\`bash
+npm install ${installCommand}
+\`\`\`
+
+${installNote}`;
+
+      const result = await updateOrCreateReleaseComment(prNumber, comment, commentType);
+      if (result.updated) {
+        logStep(`Successfully updated existing ${commentType} release comment`);
+      } else {
+        logStep(`Successfully posted new ${commentType} release comment`);
+      }
+    } catch (error) {
+      console.warn('Failed to post PR comment:', error.message);
+    }
   }
 
   // Commit and push (production only)
   if (!isCanary) {
     const hasChanges = execCommand('git status --porcelain', { encoding: 'utf8' }).trim();
+
     if (hasChanges) {
       if (!execCommand('git add .', 'Staging changes')) process.exit(1);
+
       if (
         !execCommand(
           'git commit -m "Version packages and update contributors"',
@@ -202,7 +317,9 @@ async function release() {
         )
       )
         process.exit(1);
+
       if (!execCommand('git push', 'Pushing changes')) process.exit(1);
+
       logStep('Successfully committed and pushed version changes');
     }
   }
