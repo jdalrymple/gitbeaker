@@ -42,7 +42,7 @@ function execCommand(command, description) {
 
 function getPackageNames() {
   try {
-    const output = execCommand('yarn workspaces list --json', { encoding: 'utf8' });
+    const output = execSync('yarn workspaces list --json', { encoding: 'utf8' });
     const workspaces = output
       .trim()
       .split('\n')
