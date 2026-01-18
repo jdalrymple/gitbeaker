@@ -24,7 +24,7 @@ const labelToChangeType = {
 
 function logStep(message) {
   const emoji = isCanary ? '🐤' : '🚀';
-  logStep(`${emoji} ${message}`);
+  console.log(`${emoji} ${message}`);
 }
 
 function execCommand(command, description) {
