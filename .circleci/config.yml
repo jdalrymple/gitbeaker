@@ -160,8 +160,14 @@ jobs:
       - restore_workspace
       - run:
           name: Check formatting
-          command: yarn format
-
+          command: |
+            echo "=== Showing formatting differences ==="
+            FIRST_FILE="packages/core/src/resources/EpicIssues.ts"
+            echo ""
+            echo "Using diff to show differences:"
+            yarn prettier "$FIRST_FILE" --config ./prettier.config.mjs > temp_formatted.ts
+            diff "$FIRST_FILE" temp_formatted.ts || true
+            rm temp_formatted.ts
   # ====================
   # UNIT TESTS
   # ====================

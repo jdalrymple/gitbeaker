@@ -9,9 +9,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface UserCustomAttributes<
-  C extends boolean = false,
-> extends ResourceCustomAttributes<C> {
+export interface UserCustomAttributes<C extends boolean = false>
+  extends ResourceCustomAttributes<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

@@ -181,10 +181,11 @@ export interface MergeRequestTodoSchema extends TodoSchema {
   target: ExpandedMergeRequestSchema;
 }
 
-export interface MergeRequestChangesSchema extends MappedOmit<
-  MergeRequestSchema,
-  'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
-> {
+export interface MergeRequestChangesSchema
+  extends MappedOmit<
+    MergeRequestSchema,
+    'has_conflicts' | 'blocking_discussions_resolved' | 'approvals_before_merge'
+  > {
   changes: CommitDiffSchema[];
   overflow: boolean;
 }

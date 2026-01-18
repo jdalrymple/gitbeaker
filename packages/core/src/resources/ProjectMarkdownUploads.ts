@@ -13,9 +13,8 @@ import {
   endpoint,
 } from '../infrastructure';
 
-export interface ProjectMarkdownUploads<
-  C extends boolean = false,
-> extends ResourceMarkdownUploads<C> {
+export interface ProjectMarkdownUploads<C extends boolean = false>
+  extends ResourceMarkdownUploads<C> {
   create<E extends boolean = false>(
     projectId: string | number,
     file: { content: Blob; filename: string },

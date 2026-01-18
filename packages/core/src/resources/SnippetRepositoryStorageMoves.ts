@@ -27,9 +27,8 @@ export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMov
   >;
 }
 
-export interface SnippetRepositoryStorageMoves<
-  C extends boolean = false,
-> extends ResourceRepositoryStorageMoves<C> {
+export interface SnippetRepositoryStorageMoves<C extends boolean = false>
+  extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { snippetId?: string | number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema[], C, E, P>>;

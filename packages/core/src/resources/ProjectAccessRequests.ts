@@ -10,9 +10,8 @@ import type {
 } from '../infrastructure';
 import { AccessLevel } from '../constants';
 
-export interface ProjectAccessRequests<
-  C extends boolean = false,
-> extends ResourceAccessRequests<C> {
+export interface ProjectAccessRequests<C extends boolean = false>
+  extends ResourceAccessRequests<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
