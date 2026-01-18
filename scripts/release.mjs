@@ -121,27 +121,21 @@ async function findReleaseComment(prNumber) {
   return comments.find(comment => comment.body.includes(searchText));
 }
 
-async function updateOrCreateReleaseComment(prNumber, comment) {
-  // First, try to find existing release comment
-  const existingComment = await findReleaseComment(prNumber);
+async function triggerReleaseComment(prNumber, comment, commentType) {
+  // Trigger GitHub Actions workflow to post comment via github-actions[bot]
+  await githubApiRequest('/actions/workflows/post-release-comment.yml/dispatches', {
+    method: 'POST',
+    body: JSON.stringify({
+      ref: 'main',
+      inputs: {
+        pr_number: prNumber.toString(),
+        comment_body: comment,
+        comment_type: commentType
+      }
+    })
+  });
 
-  if (existingComment) {
-    // Update existing comment
-    const updatedComment = await githubApiRequest(`/issues/comments/${existingComment.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ body: comment }),
-    });
-
-    return { updated: true, comment: updatedComment };
-  } else {
-    // Create new comment
-    const newComment = await githubApiRequest(`/issues/${prNumber}/comments`, {
-      method: 'POST',
-      body: JSON.stringify({ body: comment }),
-    });
-
-    return { updated: false, comment: newComment };
-  }
+  return { triggered: true };
 }
 
 async function generateChangesetFromPR(prNumber, labels, prTitle) {
@@ -288,11 +282,10 @@ ${releaseLinks}
 
 ${installNote}`;
 
-      const result = await updateOrCreateReleaseComment(prNumber, comment);
-      if (result.updated) {
-        logStep(`Successfully updated existing ${releaseType} release comment`);
-      } else {
-        logStep(`Successfully posted new ${releaseType} release comment`);
+      const commentType = isCanary ? 'canary' : 'production';
+      const result = await triggerReleaseComment(prNumber, comment, commentType);
+      if (result.triggered) {
+        logStep(`Successfully triggered ${releaseType} release comment workflow`);
       }
     } catch (error) {
       console.warn('Failed to post PR comment:', error.message);
