@@ -4325,7 +4325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^9.1.2":
+"eslint-config-prettier@npm:9.1.2":
   version: 9.1.2
   resolution: "eslint-config-prettier@npm:9.1.2"
   peerDependencies:
@@ -4456,7 +4456,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.5.4":
+"eslint-plugin-prettier@npm:5.5.4":
   version: 5.5.4
   resolution: "eslint-plugin-prettier@npm:5.5.4"
   dependencies:
@@ -5098,12 +5098,12 @@ __metadata:
     all-contributors-cli: "npm:6.26.1"
     eslint: "npm:^9.39.1"
     eslint-config-airbnb-base: "npm:^15.0.0"
-    eslint-config-prettier: "npm:^9.1.2"
+    eslint-config-prettier: "npm:9.1.2"
     eslint-import-resolver-typescript: "npm:^4.4.4"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-plugin-jest: "npm:^29.1.0"
     eslint-plugin-jest-extended: "npm:^3.0.1"
-    eslint-plugin-prettier: "npm:^5.5.4"
+    eslint-plugin-prettier: "npm:5.5.4"
     globals: "npm:^16.5.0"
     husky: "npm:^9.1.7"
     jest: "npm:^30.2.0"
