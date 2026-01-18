@@ -162,7 +162,6 @@ jobs:
           name: Check formatting
           command: |
             yarn prettier --version
-            yarn prettier --get-config packages/core/src/resources/EpicIssues.ts
 
             echo "=== Showing formatting differences ==="
             FIRST_FILE="packages/core/src/resources/EpicIssues.ts"
