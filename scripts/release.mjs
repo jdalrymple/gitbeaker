@@ -20,6 +20,7 @@ const labelToChangeType = {
   'type:types': 'patch',
   'type:testing': null,
   'type:documentation': null,
+  'release:canary': 'patch',
 };
 
 function logStep(message) {
@@ -57,6 +58,31 @@ function getPackageNames() {
 function generateChangesetYaml(packageNames, changeType) {
   if (packageNames.length === 0) return '';
   return packageNames.map((name) => `"${name}": ${changeType}`).join('\n');
+}
+
+async function fetchPRData(prNumber) {
+  const repoUrl = process.env.CIRCLE_REPOSITORY_URL || 'https://github.com/jdalrymple/gitbeaker';
+
+  // Extract owner/repo from URL
+  const match = repoUrl.match(/github\.com[/:]([\w-]+)\/([\w-]+)/);
+  if (!match) {
+    throw new Error(`Could not parse repository URL: ${repoUrl}`);
+  }
+  const [, owner, repo] = match;
+
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github.v3+json',
+      'User-Agent': 'gitbeaker-api-client',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
 }
 
 async function generateChangesetFromPR(prNumber, labels, prTitle) {
@@ -107,84 +133,36 @@ ${prTitle}`;
   return filename;
 }
 
-async function fetchPRData(prNumber) {
-  const repoUrl = process.env.CIRCLE_REPOSITORY_URL || 'https://github.com/jdalrymple/gitbeaker';
-
-  // Extract owner/repo from URL
-  const match = repoUrl.match(/github\.com[/:]([\w-]+)\/([\w-]+)/);
-  if (!match) {
-    throw new Error(`Could not parse repository URL: ${repoUrl}`);
-  }
-  const [, owner, repo] = match;
-
-  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v3+json',
-      'User-Agent': 'gitbeaker-api-client',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
 async function release() {
   logStep(`Starting ${releaseType} release`);
 
-  if (isCanary) {
-    // For canary releases, check for release:canary label but don't generate changesets
-    let prNumber = process.env.PR_NUMBER;
-    if (prNumber) {
-      const prData = await fetchPRData(prNumber);
-      const labels = prData.labels.map((label) => label.name);
-      
-      if (!labels.includes('release:canary')) {
-        logStep('No canary label present - skipping canary release');
-        return;
-      }
-    }
-    
-    logStep('Proceeding with canary release (no changeset required)');
-  } else {
-    // For production releases, generate changeset from PR labels
-    let prNumber = process.env.PR_NUMBER;
+  const prNumber = process.env.PR_NUMBER;
 
-    if (!prNumber) {
-      logStep('No PR number found - skipping release');
+  if (!prNumber) {
+    logStep('No PR number found - skipping release');
+    return;
+  }
+
+  // Get PR data
+  const prData = await fetchPRData(prNumber);
+  const labels = prData.labels.map((label) => label.name);
+
+  if (isCanary && !labels.includes('release:canary')) {
+    logStep('No canary label present - skipping canary release');
+    return;
+  }
+
+  // Generate changesets (direct function call, no subprocess)
+  logStep('Generating changeset from PR labels');
+  try {
+    const changesetFile = await generateChangesetFromPR(prNumber, labels, prData.title);
+    if (!changesetFile) {
+      logStep(`No changeset generated - skipping ${releaseType} release`);
       return;
     }
-
-    // Get PR data
-    const prData = await fetchPRData(prNumber);
-    const labels = prData.labels.map((label) => label.name);
-
-    // Generate changesets (direct function call, no subprocess)
-    logStep('Generating changeset from PR labels');
-    try {
-      const changesetFile = await generateChangesetFromPR(prNumber, labels, prData.title);
-      if (!changesetFile) {
-        logStep(`No changeset generated - skipping ${releaseType} release`);
-        return;
-      }
-    } catch (error) {
-      console.error(`❌ Failed to generate changeset: ${error.message}`);
-      process.exit(1);
-    }
-
-    // Check if there are any changesets to process
-    try {
-      execCommand('yarn changeset version', { stdio: 'pipe' });
-    } catch (error) {
-      // changeset status exits with non-zero when no changesets found
-      logStep(`No changesets found - skipping ${releaseType} release`);
-      return;
-    }
-
-    logStep(`Changesets found - proceeding with ${releaseType} release`);
+  } catch (error) {
+    console.error(`❌ Failed to generate changeset: ${error.message}`);
+    process.exit(1);
   }
 
   // Version packages
