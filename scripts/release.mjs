@@ -273,22 +273,18 @@ async function release() {
       logStep(`Posting ${releaseType} release comment to PR`);
 
       const releaseLinks = publishedPackages.map(pkgVersion => {
-        const [packageName, version] = pkgVersion.split('@');
+        // Handle scoped packages like @gitbeaker/cli@1.0.0
+        const lastAtIndex = pkgVersion.lastIndexOf('@');
+        const packageName = pkgVersion.substring(0, lastAtIndex);
+        const version = pkgVersion.substring(lastAtIndex + 1);
         return `- [\`${packageName}@${version}\`](https://www.npmjs.com/package/${packageName}/v/${version})`;
       }).join('\n');
-
-      const installCommand = publishedPackages.join(' ');
 
       const comment = `${emoji} **${releaseTitle}** ${emoji}
 
 The following packages have been published with ${releaseDescription}:
 
 ${releaseLinks}
-
-Install with:
-\`\`\`bash
-npm install ${installCommand}
-\`\`\`
 
 ${installNote}`;
 
