@@ -262,7 +262,7 @@ jobs:
       - run:
           name: Setup live GitLab instance
           command: |
-            export CONTAINER_NAME=gitlab-${CIRCLE_BUILD_NUM}
+            export CONTAINER_NAME=gitlab-${GITLAB_VERSION}-${CIRCLE_BUILD_NUM}
 
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
