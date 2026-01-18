@@ -110,32 +110,6 @@ async function githubApiRequest(endpoint, options = {}) {
   return response.json();
 }
 
-async function findReleaseComment(prNumber) {
-  const comments = await githubApiRequest(`/issues/${prNumber}/comments`);
-  const searchText = isCanary
-    ? '🐤 **Canary Release Published** 🐤'
-    : '🚀 **Production Release Published** 🚀';
-
-  return comments.find((comment) => comment.body.includes(searchText));
-}
-
-async function triggerReleaseComment(prNumber, comment, commentType) {
-  // Trigger GitHub Actions workflow to post comment via github-actions[bot]
-  await githubApiRequest('/actions/workflows/post-release-comment.yml/dispatches', {
-    method: 'POST',
-    body: JSON.stringify({
-      ref: 'main',
-      inputs: {
-        pr_number: prNumber.toString(),
-        comment_body: comment,
-        comment_type: commentType,
-      },
-    }),
-  });
-
-  return { triggered: true };
-}
-
 async function generateChangesetFromPR(prNumber, labels, prTitle) {
   if (!prNumber) {
     logStep('No PR number provided, skipping changeset generation');
@@ -283,10 +257,20 @@ ${releaseLinks}
 ${installNote}`;
 
       const commentType = isCanary ? 'canary' : 'production';
-      const result = await triggerReleaseComment(prNumber, comment, commentType);
-      if (result.triggered) {
-        logStep(`Successfully triggered ${releaseType} release comment workflow`);
-      }
+
+      await githubApiRequest('/actions/workflows/post-release-comment.yml/dispatches', {
+        method: 'POST',
+        body: JSON.stringify({
+          ref: 'main',
+          inputs: {
+            pr_number: prNumber.toString(),
+            comment_body: comment,
+            comment_type: commentType,
+          },
+        }),
+      });
+
+      logStep(`Successfully triggered ${releaseType} release comment workflow`);
     } catch (error) {
       console.warn('Failed to post PR comment:', error.message);
     }
