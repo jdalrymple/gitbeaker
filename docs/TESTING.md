@@ -15,7 +15,7 @@ The easiest way to run the full test suite is using Docker, which provides a con
 Run the complete test suite (unit + integration + e2e):
 
 ```bash
-yarn test:full
+pnpm test:full
 ```
 
 This command will:
@@ -33,16 +33,16 @@ You can also run specific test types individually:
 
 ```bash
 # Type tests only
-yarn test:types
+pnpm test:types
 
 # Unit tests only
-yarn test:unit
+pnpm test:unit
 
 # Integration tests only (requires GitLab running)
-yarn test:integration
+pnpm test:integration
 
 # End-to-end tests only
-yarn test:e2e
+pnpm test:e2e
 ```
 
 ### Manual GitLab Instance
@@ -66,7 +66,7 @@ For contributors who prefer to test locally without Docker:
 ### Unit Tests
 
 ```bash
-yarn test:unit
+pnpm test:unit
 ```
 
 ### Integration Tests
@@ -87,19 +87,19 @@ export GITLAB_PERSONAL_ACCESS_TOKEN="superstrongpassword123"
 3. Run the integration tests:
 
 ```bash
-yarn test:integration
+pnpm test:integration
 ```
 
 You can also define them inline:
 
 ```bash
-GITLAB_URL='http://localhost:8080' GITLAB_PERSONAL_ACCESS_TOKEN='superstrongpassword123' yarn test:integration
+GITLAB_URL='http://localhost:8080' GITLAB_PERSONAL_ACCESS_TOKEN='superstrongpassword123' pnpm test:integration
 ```
 
 ### End-to-End Tests
 
 ```bash
-yarn test:e2e
+pnpm test:e2e
 ```
 
 > **Note:** It may take about 3 minutes for GitLab to fully start up in the container

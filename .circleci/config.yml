@@ -29,7 +29,7 @@ executors:
 
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.56.1-noble
+      - image: mcr.microsoft.com/playwright:v1.57.0-noble
     resource_class: medium
     working_directory: ~/project
 
@@ -57,18 +57,17 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
             - v1-dependencies-
       - run:
           name: Install dependencies
           command: |
-            yarn install --frozen-lockfile
-            echo "PLAYWRIGHT_VERSION=$(yarn info @playwright/test -A --json | jq '.children.Version')" >> $BASH_ENV
+            pnpm install --frozen-lockfile
+            echo "PLAYWRIGHT_VERSION=$(pnpm view @playwright/test version --json | jq -r '.')" >> $BASH_ENV
       - save_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - node_modules
-            - .yarn/cache
       - persist_to_workspace:
           root: .
           paths:
@@ -85,7 +84,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-nx-cache-{{ checksum "yarn.lock" }}
+            - v1-nx-cache-{{ checksum "pnpm-lock.yaml" }}
             - v1-nx-cache-
       - run:
           name: Setup NX
@@ -95,7 +94,7 @@ commands:
     description: 'Save NX cache'
     steps:
       - save_cache:
-          key: v1-nx-cache-{{ checksum "yarn.lock" }}
+          key: v1-nx-cache-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - .nx/cache
 
@@ -113,7 +112,7 @@ commands:
           environment:
             NODE_OPTIONS: '--max-old-space-size=3584'
             JEST_MAX_WORKERS: '1'
-          command: yarn test:<< parameters.test_type >> --projects=<< parameters.package >>
+          command: pnpm test:<< parameters.test_type >> --projects=<< parameters.package >>
           no_output_timeout: 30m
       - save_nx_cache
 
@@ -135,7 +134,7 @@ jobs:
       - setup_nx_cache
       - run:
           name: Build packages
-          command: yarn build
+          command: pnpm build
       - save_nx_cache
       - persist_to_workspace:
           root: .
@@ -150,7 +149,7 @@ jobs:
       - setup_nx_cache
       - run:
           name: Lint code
-          command: yarn lint
+          command: pnpm lint
       - save_nx_cache
 
   format:
@@ -161,7 +160,7 @@ jobs:
       - setup_nx_cache
       - run:
           name: Check formatting
-          command: yarn format
+          command: pnpm format
       - save_nx_cache
 
   # ====================
@@ -235,7 +234,9 @@ jobs:
       - restore_workspace
       - run:
           name: Reinstall SWC for Ubuntu
-          command: yarn add @swc/core
+          command: |
+            npm install -g pnpm@10.28.0
+            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'integration'
@@ -358,7 +359,9 @@ jobs:
             fi
       - run:
           name: Reinstall SWC for Ubuntu
-          command: yarn add @swc/core
+          command: |
+            npm install -g pnpm@10.28.0
+            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'e2e'
@@ -421,7 +424,7 @@ jobs:
               if [ -f "$coverage_file" ]; then
                 package=$(basename $(dirname $(dirname "$coverage_file")))
                 echo "Uploading coverage for ${package}..."
-                yarn dlx @codecov/cli upload-coverage \
+                pnpm dlx @codecov/cli upload-coverage \
                   --file "$coverage_file" \
                   --flags ${package}
               fi
@@ -434,7 +437,7 @@ jobs:
               if [ -d "$reports_dir" ] && [ "$(ls -A "$reports_dir"/*.xml 2>/dev/null)" ]; then
                 package=$(basename $(dirname "$reports_dir"))
                 echo "Uploading test results for ${package}..."
-                yarn dlx @codecov/cli upload-test-results \
+                pnpm dlx @codecov/cli upload-test-results \
                   --dir "$reports_dir"
               fi
             done
@@ -446,7 +449,7 @@ jobs:
               if [ -d "$dist_dir" ]; then
                 package=$(basename $(dirname "$dist_dir"))
                 echo "Uploading bundle analysis for ${package}..."
-                yarn dlx @codecov/bundle-analyzer "$dist_dir" \
+                pnpm dlx @codecov/bundle-analyzer "$dist_dir" \
                   --bundle-name=${package} \
                   --upload-token=$CODECOV_TOKEN
               fi
@@ -471,7 +474,7 @@ jobs:
           command: |
             export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
 
-            yarn release:canary
+            pnpm release:canary
 
   release-production:
     executor: node-executor
@@ -491,7 +494,7 @@ jobs:
           command: |
             export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
 
-            yarn release
+            pnpm release
 
 # ====================
 # WORKFLOWS

@@ -1,4 +1,4 @@
 export default {
-  '**/*.{ts,js,json,md,yml}': ['yarn format:fix'],
-  '**/*.{ts,js}': ['yarn lint:fix'],
+  '**/*.{ts,js,json,md,yml}': ['pnpm --workspace-root format:fix'],
+  '**/*.{ts,js}': ['pnpm --workspace-root lint:fix'],
 };

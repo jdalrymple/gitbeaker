@@ -102,7 +102,7 @@ import { Gitlab } from 'https://esm.sh/@gitbeaker/rest?dts';
 Node 18+
 </th><td>
 
-Install with <code>npm install @gitbeaker/rest</code>, or <code>yarn add @gitbeaker/rest</code>
+Install with <code>npm install @gitbeaker/rest</code>, <code>yarn add @gitbeaker/rest</code>, or <code>pnpm add @gitbeaker/rest</code>
 
 ```js
 import { Gitlab } from '@gitbeaker/rest';

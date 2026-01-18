@@ -7,21 +7,20 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "author": "Justin Dalrymple",
-  "workspaces": [
-    "packages/*"
-  ],
-  "resolutions": {
-    "tar": "^7.5.3"
+  "pnpm": {
+    "overrides": {
+      "tar": "^7.5.3"
+    }
   },
   "scripts": {
     "build": "nx run-many --target=build",
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
-    "clean": "yarn dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
+    "clean": "pnpm dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
     "format:docs": "prettier './**/(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check ",
     "format:src": "prettier '**/{src,test,scripts}/**/*.ts' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check",
-    "format": "yarn format:src && yarn format:docs",
-    "format:fix": "yarn format:src --write && yarn format:docs --write",
+    "format": "pnpm format:src && pnpm format:docs",
+    "format:fix": "pnpm format:src --write && pnpm format:docs --write",
     "test:types": "nx run-many --target=test:types",
     "test:unit": "nx run-many --target=test:unit",
     "test:integration": "nx run-many --target=test:integration",
@@ -64,5 +63,5 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "pnpm@9.15.2"
 }

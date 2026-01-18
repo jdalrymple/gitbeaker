@@ -42,14 +42,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:map && yarn run build:self",
+    "build": "pnpm run build:map && pnpm run build:self",
     "build:map": "tsx scripts/generate.ts",
     "build:self": "tsup src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
     "test:integration": "jest --maxWorkers=50% test/integration",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@gitbeaker/requester-utils": "^43.8.0",
