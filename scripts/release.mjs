@@ -135,52 +135,62 @@ async function fetchPRData(prNumber) {
 async function release() {
   logStep(`Starting ${releaseType} release`);
 
-  // Generate changeset from PR labels
-  // Adds limitation to only release from PRs for now
-  let prNumber = process.env.PR_NUMBER;
+  if (isCanary) {
+    // For canary releases, check for release:canary label but don't generate changesets
+    let prNumber = process.env.PR_NUMBER;
+    if (prNumber) {
+      const prData = await fetchPRData(prNumber);
+      const labels = prData.labels.map((label) => label.name);
+      
+      if (!labels.includes('release:canary')) {
+        logStep('No canary label present - skipping canary release');
+        return;
+      }
+    }
+    
+    logStep('Proceeding with canary release (no changeset required)');
+  } else {
+    // For production releases, generate changeset from PR labels
+    let prNumber = process.env.PR_NUMBER;
 
-  if (!prNumber) {
-    logStep('No PR number found - skipping release');
-    return;
-  }
-
-  // Get PR data
-  const prData = await fetchPRData(prNumber);
-  const labels = prData.labels.map((label) => label.name);
-
-  if (isCanary && !labels.includes('release:canary')) {
-    logStep('No canary label present - skipping canary release');
-    return;
-  }
-
-  // Generate changesets (direct function call, no subprocess)
-  logStep('Generating changeset from PR labels');
-  try {
-    const changesetFile = await generateChangesetFromPR(prNumber, labels, prData.title);
-    if (!changesetFile) {
-      logStep(`No changeset generated - skipping ${releaseType} release`);
+    if (!prNumber) {
+      logStep('No PR number found - skipping release');
       return;
     }
-  } catch (error) {
-    console.error(`❌ Failed to generate changeset: ${error.message}`);
-    process.exit(1);
-  }
 
-  // Check if there are any changesets to process
-  try {
-    execCommand('yarn changeset version', { stdio: 'pipe' });
-  } catch (error) {
-    // changeset status exits with non-zero when no changesets found
-    logStep(`No changesets found - skipping ${releaseType} release`);
-    return;
-  }
+    // Get PR data
+    const prData = await fetchPRData(prNumber);
+    const labels = prData.labels.map((label) => label.name);
 
-  logStep(`Changesets found - proceeding with ${releaseType} release`);
+    // Generate changesets (direct function call, no subprocess)
+    logStep('Generating changeset from PR labels');
+    try {
+      const changesetFile = await generateChangesetFromPR(prNumber, labels, prData.title);
+      if (!changesetFile) {
+        logStep(`No changeset generated - skipping ${releaseType} release`);
+        return;
+      }
+    } catch (error) {
+      console.error(`❌ Failed to generate changeset: ${error.message}`);
+      process.exit(1);
+    }
+
+    // Check if there are any changesets to process
+    try {
+      execCommand('yarn changeset version', { stdio: 'pipe' });
+    } catch (error) {
+      // changeset status exits with non-zero when no changesets found
+      logStep(`No changesets found - skipping ${releaseType} release`);
+      return;
+    }
+
+    logStep(`Changesets found - proceeding with ${releaseType} release`);
+  }
 
   // Version packages
   const versionCommand = isCanary
-    ? 'yarn changeset:version --snapshot canary'
-    : 'yarn changeset:version';
+    ? 'yarn changeset version --snapshot canary'
+    : 'yarn changeset version';
 
   if (!execCommand(versionCommand, `Creating ${releaseType} versions`)) {
     process.exit(1);
@@ -193,8 +203,8 @@ async function release() {
 
   // Publish packages
   const publishCommand = isCanary
-    ? 'yarn changeset:publish --tag canary --no-git-tag'
-    : 'yarn changeset:publish';
+    ? 'yarn changeset publish --tag canary --no-git-tag'
+    : 'yarn changeset publish';
 
   if (!execCommand(publishCommand, `Publishing ${releaseType} packages`)) {
     process.exit(1);
