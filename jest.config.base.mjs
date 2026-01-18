@@ -17,5 +17,5 @@ export default {
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
-  setupFilesAfterEnv: ['jest-extended/all'],
+  setupFilesAfterEnv: ['<rootDir>/../../jest.setup.ts'],
 };

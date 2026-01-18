@@ -1,0 +1,78 @@
+name: Post Release Comment
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to comment on'
+        required: true
+        type: string
+      comment_body:
+        description: 'Comment body content'
+        required: true
+        type: string
+      comment_type:
+        description: 'Type of comment (canary or production)'
+        required: true
+        type: string
+
+jobs:
+  post-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Find existing comment
+        id: find-comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commentType = '${{ inputs.comment_type }}';
+            const searchText = commentType === 'canary' 
+              ? '🐤 **Canary Release Published** 🐤'
+              : '🚀 **Production Release Published** 🚀';
+
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.pr_number }}
+            });
+
+            const existingComment = comments.data.find(comment => 
+              comment.body.includes(searchText)
+            );
+
+            if (existingComment) {
+              core.setOutput('comment_id', existingComment.id);
+              core.setOutput('found', 'true');
+            } else {
+              core.setOutput('found', 'false');
+            }
+
+      - name: Update existing comment
+        if: steps.find-comment.outputs.found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ steps.find-comment.outputs.comment_id }},
+              body: `${{ inputs.comment_body }}`
+            });
+            console.log('Updated existing comment');
+
+      - name: Create new comment
+        if: steps.find-comment.outputs.found == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.pr_number }},
+              body: `${{ inputs.comment_body }}`
+            });
+            console.log('Created new comment');

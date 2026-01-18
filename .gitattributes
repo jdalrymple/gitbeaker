@@ -1,3 +1,5 @@
 * text=auto
 *.js eol=lf
+*.mjs eol=lf
+*.cjs eol=lf
 *.ts eol=lf
