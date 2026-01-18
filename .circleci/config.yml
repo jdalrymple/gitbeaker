@@ -170,7 +170,7 @@ jobs:
             head -10 "$FIRST_FILE"
             echo ""
             echo "What prettier wants (first 10 lines):"
-            yarn prettier "$FIRST_FILE" | head -10
+            yarn prettier "$FIRST_FILE" --config ./prettier.config.cjs | head -10
             echo ""
             echo "Using diff to show differences:"
             yarn prettier "$FIRST_FILE" > temp_formatted.ts
