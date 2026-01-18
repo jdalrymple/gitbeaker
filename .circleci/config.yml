@@ -234,7 +234,7 @@ jobs:
       - restore_workspace
       - run:
           name: Reinstall SWC for Ubuntu
-          command: pnpm add @swc/core
+          command: npx pnpm add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'integration'
@@ -357,7 +357,7 @@ jobs:
             fi
       - run:
           name: Reinstall SWC for Ubuntu
-          command: pnpm add @swc/core
+          command: npx pnpm add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'e2e'
