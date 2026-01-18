@@ -61,7 +61,7 @@ export default [
       'import/no-extraneous-dependencies': [
         'error',
         {
-          devDependencies: ['**/*.config.ts', '**/scripts/*.[tj]s', '**/test/**/*.ts'],
+          devDependencies: ['**/*.config.ts', '**/scripts/*.[tj]s', '**/test/**/*.ts', '**/jest.setup.ts', 'jest.setup.ts'],
         },
       ],
       'import/extensions': [

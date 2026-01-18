@@ -40,6 +40,7 @@
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
     "@codecov/bundle-analyzer": "^1.9.1",
+    "@jest/globals": "^30.2.0",
     "@swc/core": "^1.15.2",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
