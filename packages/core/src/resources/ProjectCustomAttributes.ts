@@ -9,8 +9,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface ProjectCustomAttributes<C extends boolean = false>
-  extends ResourceCustomAttributes<C> {
+export interface ProjectCustomAttributes<
+  C extends boolean = false,
+> extends ResourceCustomAttributes<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,

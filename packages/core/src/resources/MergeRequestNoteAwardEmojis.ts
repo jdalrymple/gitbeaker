@@ -9,8 +9,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
-  extends ResourceNoteAwardEmojis<C> {
+export interface MergeRequestNoteAwardEmojis<
+  C extends boolean = false,
+> extends ResourceNoteAwardEmojis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergeRequestIId: number,

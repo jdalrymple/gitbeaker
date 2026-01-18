@@ -10,8 +10,10 @@ import type {
 } from '../infrastructure';
 import type { IssueSchema } from './Issues';
 
-export interface EpicIssueSchema
-  extends MappedOmit<IssueSchema, 'references' | 'task_completion_status'> {
+export interface EpicIssueSchema extends MappedOmit<
+  IssueSchema,
+  'references' | 'task_completion_status'
+> {
   epic_issue_id: number;
 }
 

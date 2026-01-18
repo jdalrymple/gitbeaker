@@ -7,8 +7,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface GroupMarkdownUploads<C extends boolean = false>
-  extends ResourceMarkdownUploads<C> {
+export interface GroupMarkdownUploads<
+  C extends boolean = false,
+> extends ResourceMarkdownUploads<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: Sudo & PaginationRequestOptions<P>,

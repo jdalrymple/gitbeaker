@@ -9,8 +9,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-export interface ProjectSnippetAwardEmojis<C extends boolean = false>
-  extends ResourceAwardEmojis<C> {
+export interface ProjectSnippetAwardEmojis<
+  C extends boolean = false,
+> extends ResourceAwardEmojis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     snippetId: number,

@@ -435,8 +435,10 @@ export interface WebhookWikiEventSchema extends MappedOmit<BaseWebhookEventSchem
   };
 }
 
-export interface WebhookPipelineEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookPipelineEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'pipeline';
   object_attributes: {
     id: number;
@@ -572,8 +574,10 @@ export interface WebhookJobEventSchema extends MappedOmit<BaseWebhookEventSchema
   source_pipeline: WebhookPipelineSchema;
 }
 
-export interface WebhookDeploymentEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookDeploymentEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'deployment';
   status: string;
   status_changed_at: string;
@@ -620,8 +624,10 @@ export interface WebhookSubGroupEventSchema {
   parent_full_path: string;
 }
 
-export interface WebhookFeatureFlagEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookFeatureFlagEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'feature_flag';
   user_url: string;
   object_attributes: {
