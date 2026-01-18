@@ -5,7 +5,6 @@
 
 import { execSync } from 'child_process';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
-import { fetchPRData } from './github-api.mjs';
 
 const isCanary = process.argv[2] === 'canary';
 const releaseType = isCanary ? 'canary' : 'production';
