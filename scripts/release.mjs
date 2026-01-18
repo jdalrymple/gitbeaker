@@ -112,18 +112,18 @@ async function githubApiRequest(endpoint, options = {}) {
   return response.json();
 }
 
-async function findReleaseComment(prNumber, commentType) {
+async function findReleaseComment(prNumber) {
   const comments = await githubApiRequest(`/issues/${prNumber}/comments`);
-  const searchText = commentType === 'canary'
+  const searchText = isCanary
     ? '🐤 **Canary Release Published** 🐤'
     : '🚀 **Production Release Published** 🚀';
 
   return comments.find(comment => comment.body.includes(searchText));
 }
 
-async function updateOrCreateReleaseComment(prNumber, comment, commentType) {
+async function updateOrCreateReleaseComment(prNumber, comment) {
   // First, try to find existing release comment
-  const existingComment = await findReleaseComment(prNumber, commentType);
+  const existingComment = await findReleaseComment(prNumber);
 
   if (existingComment) {
     // Update existing comment
@@ -292,11 +292,11 @@ npm install ${installCommand}
 
 ${installNote}`;
 
-      const result = await updateOrCreateReleaseComment(prNumber, comment, commentType);
+      const result = await updateOrCreateReleaseComment(prNumber, comment);
       if (result.updated) {
-        logStep(`Successfully updated existing ${commentType} release comment`);
+        logStep(`Successfully updated existing ${releaseType} release comment`);
       } else {
-        logStep(`Successfully posted new ${commentType} release comment`);
+        logStep(`Successfully posted new ${releaseType} release comment`);
       }
     } catch (error) {
       console.warn('Failed to post PR comment:', error.message);
