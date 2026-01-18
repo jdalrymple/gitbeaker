@@ -117,8 +117,10 @@ async function generateChangesetFromPR(prNumber, labels, prTitle) {
 
   logStep(`Found packages: ${packageNames.join(', ')}`);
 
-  // Create changeset
-  if (!execCommand('.changeset')) mkdirSync('.changeset');
+  // Create changeset directory if it doesn't exist
+  if (!existsSync('.changeset')) {
+    mkdirSync('.changeset');
+  }
 
   const changesetContent = `---
 ${generateChangesetYaml(packageNames, changeType)}
