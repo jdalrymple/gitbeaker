@@ -89,7 +89,7 @@ commands:
             - v1-nx-cache-
       - run:
           name: Setup NX
-          command: echo "export NX_REJECT_UNKNOWN_LOCAL_CACHE=0" >> $BASH_ENV
+          command: echo "NX setup complete"
 
   save_nx_cache:
     description: 'Save NX cache'
@@ -158,16 +158,12 @@ jobs:
     description: 'Check code formatting with Prettier'
     steps:
       - restore_workspace
+      - setup_nx_cache
       - run:
           name: Check formatting
-          command: |
-            echo "=== Showing formatting differences ==="
-            FIRST_FILE="packages/core/src/resources/EpicIssues.ts"
-            echo ""
-            echo "Using diff to show differences:"
-            yarn prettier "$FIRST_FILE" --config ./prettier.config.mjs > temp_formatted.ts
-            diff "$FIRST_FILE" temp_formatted.ts || true
-            rm temp_formatted.ts
+          command: yarn format
+      - save_nx_cache
+
   # ====================
   # UNIT TESTS
   # ====================
