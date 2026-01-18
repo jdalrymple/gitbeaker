@@ -36,7 +36,7 @@
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@gitbeaker/core": "^43.8.0",

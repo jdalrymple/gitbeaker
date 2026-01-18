@@ -44,7 +44,7 @@
     "test:types": "tsc",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "picomatch-browser": "^2.2.6",

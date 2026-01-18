@@ -46,12 +46,12 @@
     "test:types": "tsc",
     "test:e2e:browser": "playwright test --project=e2e",
     "test:e2e:nodejs": "jest --maxWorkers=50% test/e2e/nodejs",
-    "test:e2e": "yarn test:e2e:browser && yarn test:e2e:nodejs",
+    "test:e2e": "pnpm test:e2e:browser && pnpm test:e2e:nodejs",
     "test:integration:browser": "playwright test --project=integration",
-    "test:integration": "yarn test:integration:browser",
+    "test:integration": "pnpm test:integration:browser",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@gitbeaker/core": "^43.8.0",

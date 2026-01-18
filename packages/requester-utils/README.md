@@ -88,7 +88,7 @@ import { RequesterUtils, BaseResource } from 'https://esm.sh/@gitbeaker/requeste
 Node 18+
 </th><td>
 
-Install with <code>npm install @gitbeaker/requester-utils</code>, or <code>yarn add @gitbeaker/requester-utils</code>
+Install with <code>npm install @gitbeaker/requester-utils</code>, <code>yarn add @gitbeaker/requester-utils</code>, or <code>pnpm add @gitbeaker/requester-utils</code>
 
 ```js
 import { RequesterUtils, BaseResource } from '@gitbeaker/requester-utils';

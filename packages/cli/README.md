@@ -68,7 +68,7 @@
 Node 18+
 </th><td>
 
-Install with <code>npm install -g @gitbeaker/cli</code>, or <code>yarn add -g @gitbeaker/cli</code>
+Install with <code>npm install -g @gitbeaker/cli</code>, <code>yarn add -g @gitbeaker/cli</code>, or <code>pnpm add -g @gitbeaker/cli</code>
 
 ```bash
 gitbeaker [service name] [method name] --config_args pos_arg1 pos_argN --opts_arg1 --opts_argN

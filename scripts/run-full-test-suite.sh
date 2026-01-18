@@ -51,28 +51,28 @@ echo -e "${YELLOW}Running tests locally with GitLab environment...${NC}"
 
 # Clean artifacts
 echo "Clean artifacts..."
-yarn clean
+pnpm clean
 
 # Clean artifacts
 echo "Install deps..."
-yarn install
+pnpm install
 
 # Build
 echo "Building project..."
-yarn build
+pnpm build
 
 # Run the tests
 echo "Running type tests..."
-yarn test:types
+pnpm test:types
 
 echo "Running unit tests..."
-yarn test:unit
+pnpm test:unit
 
 echo "Running integration tests..."
-yarn test:integration
+pnpm test:integration
 
 echo "Running e2e tests..."
-yarn test:e2e
+pnpm test:e2e
 
 echo -e "${GREEN}All tests completed successfully!${NC}"
 
