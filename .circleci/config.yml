@@ -160,7 +160,7 @@ jobs:
       - restore_workspace
       - run:
           name: Check formatting
-          command: yarn format
+          command: yarn prettier --list-different '**/{src,test,scripts}/**/*.ts'
 
   # ====================
   # UNIT TESTS
