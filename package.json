@@ -9,8 +9,7 @@
   "author": "Justin Dalrymple",
   "pnpm": {
     "overrides": {
-      "tar": "^7.5.3",
-      "glob": ">=10.5.0"
+      "tar": "^7.5.3"
     }
   },
   "scripts": {
