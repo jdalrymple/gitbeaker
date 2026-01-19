@@ -9,7 +9,8 @@
   "author": "Justin Dalrymple",
   "pnpm": {
     "overrides": {
-      "tar": "^7.5.3"
+      "tar": "^7.5.3",
+      "glob": ">=10.5.0"
     }
   },
   "scripts": {
@@ -43,7 +44,7 @@
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
-    "all-contributors-cli": "6.26.1",
+    "all-contributors-cli": "github:jdalrymple/all-contributors-cli#dist",
     "eslint": "^9.39.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "9.1.2",
