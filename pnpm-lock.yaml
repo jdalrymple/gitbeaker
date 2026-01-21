@@ -130,9 +130,9 @@ importers:
       '@gitbeaker/requester-utils':
         specifier: ^43.8.0
         version: 43.8.0
-      qs:
-        specifier: ^6.14.0
-        version: 6.14.1
+      picoquery:
+        specifier: ^2.5.0
+        version: 2.5.0
       xcase:
         specifier: ^2.0.1
         version: 2.0.1
@@ -155,9 +155,9 @@ importers:
       picomatch:
         specifier: ^4.0.3
         version: 4.0.3
-      qs:
-        specifier: ^6.14.0
-        version: 6.14.1
+      picoquery:
+        specifier: ^2.5.0
+        version: 2.5.0
       rate-limiter-flexible:
         specifier: ^8.2.1
         version: 8.3.0
@@ -168,9 +168,6 @@ importers:
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.9
-      '@types/qs':
-        specifier: ^6.14.0
-        version: 6.14.0
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(@swc/core@1.15.8)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2)
@@ -1337,9 +1334,6 @@ packages:
 
   '@types/node@24.10.9':
     resolution: {integrity: sha512-ne4A0IpG3+2ETuREInjPNhUGis1SFjv1d5asp8MzEAGtOZeTeHVDOYqOgqfhvseqg/iXty2hjBf1zAOb7RNiNw==}
-
-  '@types/qs@6.14.0':
-    resolution: {integrity: sha512-eOunJqu0K1923aExK6y8p6fsihYEn/BYuQ4g0CxAAgFc4b/ZLN4CrsRZ55srTdqoiLzU2B2evC+apEIxprEzkQ==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -3211,6 +3205,9 @@ packages:
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
+
+  picoquery@2.5.0:
+    resolution: {integrity: sha512-j1kgOFxtaCyoFCkpoYG2Oj3OdGakadO7HZ7o5CqyRazlmBekKhbDoUnNnXASE07xSY4nDImWZkrZv7toSxMi/g==}
 
   pidtree@0.6.0:
     resolution: {integrity: sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==}
@@ -5125,8 +5122,6 @@ snapshots:
   '@types/node@24.10.9':
     dependencies:
       undici-types: 7.16.0
-
-  '@types/qs@6.14.0': {}
 
   '@types/stack-utils@2.0.3': {}
 
@@ -7302,6 +7297,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
+
+  picoquery@2.5.0: {}
 
   pidtree@0.6.0: {}
 

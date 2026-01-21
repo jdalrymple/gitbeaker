@@ -1,4 +1,4 @@
-import { parse as parseQueryString } from 'qs';
+import { parse as parseQueryString } from 'picoquery';
 import { camelizeKeys } from 'xcase';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type {
@@ -194,7 +194,12 @@ async function getManyMore<
   const { next = '' } = parseLinkHeader(response.headers.link);
 
   if (!(page && (acc || []).length === 0) && next && withinBounds) {
-    const parsedQueryString = parseQueryString(next.split('?')[1]);
+    const parsedQueryString = parseQueryString(next.split('?')[1], {
+      nesting: true,
+      nestingSyntax: 'index',
+      arrayRepeat: true,
+      arrayRepeatSyntax: 'bracket',
+    });
     const qs = { ...camelizeKeys(parsedQueryString) };
     const newOpts = {
       ...qs,

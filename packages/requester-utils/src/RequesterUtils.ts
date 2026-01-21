@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import { stringify } from 'picoquery';
 import { decamelizeKeys } from 'xcase';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 import Picomatch from 'picomatch';
@@ -103,8 +103,13 @@ export function generateRateLimiterFn(limit: number, interval: number) {
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
-  // Using qs instead of query-string to support stringifying nested objects :/
-  return stringify(decamelized, { arrayFormat: 'brackets' });
+  // Using picoquery instead of qs to support stringifying nested objects with bracket notation
+  return stringify(decamelized, {
+    nesting: true,
+    nestingSyntax: 'index',
+    arrayRepeat: true,
+    arrayRepeatSyntax: 'bracket',
+  });
 }
 
 export type OptionsHandlerFn = (

@@ -9,7 +9,7 @@ describe('gitbeaker projects create', () => {
   it('should create a valid project', async () => {
     const command = `projects create --name="CLI Project - e2e ${TEST_ID}" --gb-token="${GITLAB_PERSONAL_ACCESS_TOKEN}" --gb-host="${GITLAB_URL}"`;
     const { stdout } = await execP(`node dist/index.mjs ${command}`);
-    const { name } = JSON.parse(stdout);
+    const { name } = JSON.parse(stdout as string);
 
     expect(name).toBe(`CLI Project - e2e ${TEST_ID}`);
   });

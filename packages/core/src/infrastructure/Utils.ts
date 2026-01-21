@@ -1,5 +1,5 @@
 import { decamelizeKeys } from 'xcase';
-import QS from 'qs';
+import { stringify } from 'picoquery';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
@@ -100,12 +100,21 @@ export function reformatObjectOptions(
 ): Record<string, string> {
   const formatted = decamelizeValues ? decamelizeKeys(obj) : obj;
 
-  return QS.stringify({ [prefixKey]: formatted }, { encode: false })
+  // Use picoquery for complex object serialization, then parse back to object format
+  return stringify(
+    { [prefixKey]: formatted },
+    {
+      nesting: true,
+      nestingSyntax: 'index',
+      arrayRepeat: true,
+      arrayRepeatSyntax: 'bracket',
+    },
+  )
     .split('&')
     .reduce((acc: Record<string, string>, cur: string) => {
       const [key, val] = cur.split(/=(.*)/);
 
-      acc[key] = val;
+      acc[decodeURIComponent(key)] = decodeURIComponent(val);
 
       return acc;
     }, {});
