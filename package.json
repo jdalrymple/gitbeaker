@@ -9,7 +9,8 @@
   "author": "Justin Dalrymple",
   "pnpm": {
     "overrides": {
-      "tar": "^7.5.3"
+      "tar": "^7.5.3",
+      "lodash": ">4.17.22"
     }
   },
   "scripts": {
