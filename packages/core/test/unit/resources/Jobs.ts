@@ -49,15 +49,22 @@ describe('Jobs.all', () => {
 
     await service.all(1, options);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', options);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', {
+      scope: 'failed',
+    });
   });
 
   it('should request GET /projects/:id/pipelines/:id/jobs with array of scopes', async () => {
-    const options: { pipelineId: number; scope: JobScope[] } = { pipelineId: 2, scope: ['pending', 'running'] };
+    const options: { pipelineId: number; scope: JobScope[] } = {
+      pipelineId: 2,
+      scope: ['pending', 'running'],
+    };
 
     await service.all(1, options);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', options);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', {
+      scope: ['pending', 'running'],
+    });
   });
 });
 
