@@ -120,7 +120,11 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     {
       pipelineId,
       ...options
-    }: { pipelineId?: number; scope?: JobScope | JobScope[]; includeRetried?: boolean } & BaseRequestOptions<E> &
+    }: {
+      pipelineId?: number;
+      scope?: JobScope | JobScope[];
+      includeRetried?: boolean;
+    } & BaseRequestOptions<E> &
       PaginationRequestOptions<P> = {} as any,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
     const url = pipelineId
