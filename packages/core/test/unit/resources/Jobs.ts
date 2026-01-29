@@ -1,4 +1,4 @@
-import { Jobs } from '../../../src';
+import { type JobScope, Jobs } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
@@ -27,6 +27,38 @@ describe('Jobs.all', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', {});
   });
+
+  it('should request GET /projects/:id/jobs with single scope', async () => {
+    const options: { scope: JobScope } = { scope: 'pending' };
+
+    await service.all(1, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs', options);
+  });
+
+  it('should request GET /projects/:id/jobs with array of scopes', async () => {
+    const options: { scope: JobScope[] } = { scope: ['pending', 'running'] };
+
+    await service.all(1, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs', options);
+  });
+
+  it('should request GET /projects/:id/pipelines/:id/jobs with single scope', async () => {
+    const options: { pipelineId: number; scope: JobScope } = { pipelineId: 2, scope: 'failed' };
+
+    await service.all(1, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', options);
+  });
+
+  it('should request GET /projects/:id/pipelines/:id/jobs with array of scopes', async () => {
+    const options: { pipelineId: number; scope: JobScope[] } = { pipelineId: 2, scope: ['pending', 'running'] };
+
+    await service.all(1, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines/2/jobs', options);
+  });
 });
 
 describe('Jobs.allPipelineBridges', () => {
@@ -37,6 +69,30 @@ describe('Jobs.allPipelineBridges', () => {
       service,
       'projects/1/pipelines/2/bridges',
       undefined,
+    );
+  });
+
+  it('should request GET /projects/:id/pipelines/:id/bridges with single scope', async () => {
+    const options: { scope: JobScope } = { scope: 'pending' };
+
+    await service.allPipelineBridges(1, 2, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/pipelines/2/bridges',
+      options,
+    );
+  });
+
+  it('should request GET /projects/:id/pipelines/:id/bridges with array of scopes', async () => {
+    const options: { scope: JobScope[] } = { scope: ['pending', 'running'] };
+
+    await service.allPipelineBridges(1, 2, options);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/pipelines/2/bridges',
+      options,
     );
   });
 });

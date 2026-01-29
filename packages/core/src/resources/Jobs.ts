@@ -120,7 +120,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     {
       pipelineId,
       ...options
-    }: { pipelineId?: number; scope?: JobScope; includeRetried?: boolean } & BaseRequestOptions<E> &
+    }: { pipelineId?: number; scope?: JobScope | JobScope[]; includeRetried?: boolean } & BaseRequestOptions<E> &
       PaginationRequestOptions<P> = {} as any,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
     const url = pipelineId
@@ -133,7 +133,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   allPipelineBridges<E extends boolean = false>(
     projectId: string | number,
     pipelineId: number,
-    options?: { scope?: JobScope } & Sudo & ShowExpanded<E>,
+    options?: { scope?: JobScope | JobScope[] } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BridgeSchema[], C, E, void>> {
     return RequestHelper.get<BridgeSchema[]>()(
       this,
