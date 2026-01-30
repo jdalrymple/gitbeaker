@@ -1,6 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-// touch
 import type {
   BaseRequestOptions,
   GitlabAPIResponse,
