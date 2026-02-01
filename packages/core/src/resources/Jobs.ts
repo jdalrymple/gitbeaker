@@ -166,7 +166,8 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     options?: {
       /** Filter bridges by scope(s). Can be a single JobScope or array of JobScope values. */
       scope?: JobScope | JobScope[];
-    } & Sudo & ShowExpanded<E>,
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BridgeSchema[], C, E, void>> {
     return RequestHelper.get<BridgeSchema[]>()(
       this,
@@ -232,7 +233,8 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     options?: {
       /** Array of job variable attributes to pass when playing the job. */
       jobVariablesAttributes?: JobVariableAttributeOption[];
-    } & Sudo & ShowExpanded<E>,
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
     return RequestHelper.post<JobSchema>()(
       this,
