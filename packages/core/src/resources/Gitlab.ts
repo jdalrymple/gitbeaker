@@ -283,6 +283,12 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   IssueStateEvents: IssueStateEvents<C>;
   IssueWeightEvents: IssueWeightEvents<C>;
   JobArtifacts: JobArtifacts<C>;
+  /**
+   * Jobs API resource for managing GitLab CI/CD jobs.
+   * Provides methods to list, cancel, retry, and manage jobs and their artifacts.
+   *
+   * @see {@link https://docs.gitlab.com/api/jobs/}
+   */
   Jobs: Jobs<C>;
   MergeRequestApprovals: MergeRequestApprovals<C>;
   MergeRequestAwardEmojis: MergeRequestAwardEmojis<C>;
