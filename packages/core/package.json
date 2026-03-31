@@ -44,7 +44,7 @@
   "scripts": {
     "build": "pnpm run build:map && pnpm run build:self",
     "build:map": "tsx scripts/generate.ts",
-    "build:self": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "build:self": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
     "test:integration": "jest --maxWorkers=50% test/integration",
     "test:unit": "jest --maxWorkers=50% test/unit",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.7",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }

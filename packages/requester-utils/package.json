@@ -40,7 +40,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "build": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.7",
     "typescript": "^5.9.3"
   }
 }
