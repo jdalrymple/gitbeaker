@@ -43,8 +43,8 @@
     "build": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
     "test:unit": "jest --maxWorkers=50% test/unit",
-    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "pnpm lint --fix"
+    "lint": "oxlint src test scripts",
+    "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
     "picomatch": "^4.0.3",

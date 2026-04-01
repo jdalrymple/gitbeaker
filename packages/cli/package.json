@@ -35,8 +35,8 @@
     "build": "tsdown src/index.ts --format esm --target esnext",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
-    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "pnpm lint --fix"
+    "lint": "oxlint src test scripts",
+    "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
     "@gitbeaker/core": "^43.8.0",

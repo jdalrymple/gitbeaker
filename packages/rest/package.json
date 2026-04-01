@@ -50,8 +50,8 @@
     "test:integration:browser": "playwright test --project=integration",
     "test:integration": "pnpm test:integration:browser",
     "test:unit": "jest --maxWorkers=50% test/unit",
-    "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
-    "lint:fix": "pnpm lint --fix"
+    "lint": "oxlint src test scripts",
+    "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
     "@gitbeaker/core": "^43.8.0",
