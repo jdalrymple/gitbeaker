@@ -42,7 +42,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm run build:map && pnpm run build:self",
+    "build": "pnpm run build:self && pnpm run build:map",
     "build:map": "tsx scripts/generate.ts",
     "build:self": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
