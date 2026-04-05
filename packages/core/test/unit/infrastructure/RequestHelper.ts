@@ -46,7 +46,7 @@ function mockedGetMany(url: string, rawRequestOptions: DefaultRequestOptions = {
 
   return {
     status: 200,
-    body: Array.from({length: +perPage}).map((_, i) => ({
+    body: Array.from({ length: +perPage }).map((_, i) => ({
       prop1: (+page - 1) * +perPage + i + 1, // Index from 1, not 0
       prop2: `test property ${(page - 1) * perPage + i + 1}`,
     })),

@@ -29,7 +29,6 @@ describe('Keys.show', () => {
   });
 
   it('should throw an error if keyId or fingerprint is not passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.show({} as any)).toThrow();
   });
 });

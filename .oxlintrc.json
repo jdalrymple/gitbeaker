@@ -1,12 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "unicorn",
-    "oxc",
-    "import",
-    "jest"
-  ],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "jest"],
   "categories": {
     "correctness": "error"
   },
@@ -14,20 +8,27 @@
     "typescript/no-unsafe-declaration-merging": "off",
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "typescript/no-explicit-any": "off",
-    "sort-imports": ["error", {
-      "ignoreCase": false,
-      "ignoreDeclarationSort": true,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-      "allowSeparatedGroups": true
-    }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": true
+      }
+    ],
     "import/no-default-export": "off",
     "import/prefer-default-export": "off",
-    "import/extensions": ["error", "ignorePackages", {
-      "js": "never",
-      "ts": "never",
-      "json": "always"
-    }]
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+        "json": "always"
+      }
+    ]
   },
   "env": {
     "builtin": true
