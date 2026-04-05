@@ -23,7 +23,7 @@ x-environment: &default_environment
 executors:
   node-executor:
     docker:
-      - image: cimg/node:22
+      - image: cimg/node:22.22.2
     resource_class: medium
     working_directory: ~/project
 
