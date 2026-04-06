@@ -15,21 +15,35 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
     relation: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/export_relations/download`,
       {
-        relation,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          ...searchParams,
+          relation,
+        },
       },
     );
   }
 
-  showExportStatus(projectId: string | number, options?: Sudo) {
+  showExportStatus<E extends boolean = false>(
+    projectId: string | number,
+    options?: Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<RelationsExportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<RelationsExportStatusSchema>()(
       this,
       endpoint`projects/${projectId}/export_relations/status`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -37,10 +51,16 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/export_relations`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 }

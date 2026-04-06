@@ -1,8 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
+  PaginationRequestOptions,
+  PaginationRequestSearchParams,
   ShowExpanded,
   Sudo,
   UserAgentDetailSchema,
@@ -59,20 +62,40 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     public: ppublic,
     ...options
-  }: { public?: boolean; createdAfter?: string; createdBefore?: string } & Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, void>> {
-    const url = ppublic ? 'snippets/public' : 'snippets';
+  }: {
+    public?: boolean;
+    createdAfter?: string;
+    createdBefore?: string;
+  } & BaseRequestSearchParams &
+    PaginationRequestOptions<'offset'> &
+    Sudo &
+    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, 'offset'>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options;
 
-    return RequestHelper.get<SnippetSchema[]>()(this, url, options);
+    const url = getPrefixedUrl('', { snippets: true, public: ppublic });
+
+    return RequestHelper.get<SnippetSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<'offset'> &
+        BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
     title: string,
     options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedSnippetSchema>()(this, 'snippets', {
-      title,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        title,
+        ...body,
+      },
     });
   }
 
@@ -80,25 +103,46 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     snippetId: number,
     options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.put<ExpandedSnippetSchema>()(this, `snippets/${snippetId}`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<ExpandedSnippetSchema>()(this, `snippets/${snippetId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   remove<E extends boolean = false>(snippetId: number, options?: Sudo & ShowExpanded<E>) {
-    return RequestHelper.del()(this, `snippets/${snippetId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `snippets/${snippetId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SnippetSchema, C, E, void>> {
-    return RequestHelper.get<SnippetSchema>()(this, `snippets/${snippetId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<SnippetSchema>()(this, `snippets/${snippetId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showContent<E extends boolean = false>(
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
-    return RequestHelper.get<string>()(this, `snippets/${snippetId}/raw`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, `snippets/${snippetId}/raw`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showRepositoryFileContent<E extends boolean = false>(
@@ -107,10 +151,15 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     filePath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<string>()(
       this,
       endpoint`snippets/${snippetId}/files/${ref}/${filePath}/raw`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -118,10 +167,15 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ) {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<UserAgentDetailSchema>()(
       this,
       `snippets/${snippetId}/user_agent_detail`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

@@ -1,5 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  ensureRequiredParams,
+  getPrefixedUrl,
+} from '../infrastructure';
 import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 
 export interface NuGetPackageIndexSchema extends Record<string, unknown> {
@@ -67,18 +73,6 @@ export interface NuGetSearchResultsSchema extends Record<string, unknown> {
   data: NuGetSearchResultSchema[];
 }
 
-function url({
-  projectId,
-  groupId,
-}: { projectId?: string | number; groupId?: string | number } = {}): string {
-  if (projectId) return endpoint`/projects/${projectId}/packages/nuget`;
-  if (groupId) return endpoint`/groups/${groupId}/-/packages/nuget`;
-
-  throw new Error(
-    'Missing required argument. Please supply a projectId or a groupId in the options parameter',
-  );
-}
-
 export class NuGet<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
     projectId: string | number,
@@ -87,43 +81,55 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     filename: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/nuget/download/${packageName}/${packageVersion}/${filename}`,
-      options,
+      {
+        showExpanded,
+      },
     );
   }
 
   search<E extends boolean = false>(
     q: string,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> & {
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & {
       skip?: number;
       take?: number;
       prerelease?: boolean;
     } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NuGetSearchResultsSchema, C, E, void>> {
-    const uri = url({ projectId, groupId });
-    return RequestHelper.get<NuGetSearchResultsSchema>()(this, `${uri}/query`, { q, ...options });
+    const { projectId, groupId, showExpanded, ...searchParams } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+
+    return RequestHelper.get<NuGetSearchResultsSchema>()(this, `${uri}/query`, {
+      showExpanded,
+      searchParams: {
+        ...searchParams,
+        q,
+      },
+    });
   }
 
   showMetadata<E extends boolean = false>(
     packageName: string,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NuGetServiceMetadataSchema, C, E, void>> {
-    const uri = url({ projectId, groupId });
+    const { projectId, groupId, showExpanded } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
 
     return RequestHelper.get<NuGetServiceMetadataSchema>()(
       this,
       `${uri}/metadata/${packageName}/index`,
-      options as ShowExpanded<E>,
+      {
+        showExpanded,
+      },
     );
   }
 
@@ -132,44 +138,48 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     packageName: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NuGetPackageIndexSchema, C, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.get<NuGetPackageIndexSchema>()(
       this,
       endpoint`projects/${projectId}/packages/nuget/download/${packageName}/index`,
-      options,
+      {
+        showExpanded,
+      },
     );
   }
 
-  showServiceIndex<E extends boolean = false>({
-    projectId,
-    groupId,
-    ...options
-  }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>): Promise<
-    GitlabAPIResponse<NuGetServiceIndexSchema, C, E, void>
-  > {
-    const uri = url({ projectId, groupId });
+  showServiceIndex<E extends boolean = false>(
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<NuGetServiceIndexSchema, C, E, void>> {
+    const { projectId, groupId, showExpanded } = options;
 
-    return RequestHelper.get<NuGetServiceIndexSchema>()(
-      this,
-      `${uri}/index`,
-      options as ShowExpanded<E>,
-    );
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+
+    return RequestHelper.get<NuGetServiceIndexSchema>()(this, `${uri}/index`, {
+      showExpanded,
+    });
   }
 
   showVersionMetadata<E extends boolean = false>(
     packageName: string,
     packageVersion: string,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NuGetServiceMetadataVersionSchema, C, E, void>> {
-    const uri = url({ projectId, groupId });
+    const { projectId, groupId, showExpanded } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
 
     return RequestHelper.get<NuGetServiceMetadataVersionSchema>()(
       this,
       `${uri}/metadata/${packageName}/${packageVersion}`,
-      options as ShowExpanded<E>,
+      {
+        showExpanded,
+      },
     );
   }
 
@@ -180,12 +190,16 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { showExpanded, ...body } = options || {};
+
     return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/nuget`, {
-      isForm: true,
-      ...options,
-      packageName,
-      packageVersion,
-      file: [packageFile.content, packageFile.filename],
+      showExpanded,
+      body: createFormData({
+        ...body,
+        packageName,
+        packageVersion,
+        file: [packageFile.content, packageFile.filename],
+      }),
     });
   }
 
@@ -196,15 +210,19 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { showExpanded, ...body } = options || {};
+
     return RequestHelper.put<void>()(
       this,
       endpoint`projects/${projectId}/packages/nuget/symbolpackage`,
       {
-        isForm: true,
-        ...options,
-        packageName,
-        packageVersion,
-        file: [packageFile.content, packageFile.filename],
+        showExpanded,
+        body: createFormData({
+          ...body,
+          packageName,
+          packageVersion,
+          file: [packageFile.content, packageFile.filename],
+        }),
       },
     );
   }

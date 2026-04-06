@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -29,10 +31,17 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BranchSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<BranchSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/branches`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -42,13 +51,18 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
     ref: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BranchSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<BranchSchema>()(
       this,
       endpoint`projects/${projectId}/repository/branches`,
       {
-        branch: branchName,
-        ref,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          branch: branchName,
+          ref,
+        },
       },
     );
   }

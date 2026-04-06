@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface PagesDomainSchema extends Record<string, unknown> {
@@ -16,15 +16,17 @@ export interface PagesDomainSchema extends Record<string, unknown> {
 }
 
 export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
-  all<E extends boolean = false>({
-    projectId,
-    ...options
-  }: { projectId?: string | number } & Sudo & ShowExpanded<E> = {}): Promise<
-    GitlabAPIResponse<PagesDomainSchema[], C, E, void>
-  > {
-    const prefix = projectId ? endpoint`projects/${projectId}/` : '';
+  all<E extends boolean = false>(
+    options?: { projectId?: string | number } & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<PagesDomainSchema[], C, E, void>> {
+    const { projectId, sudo, showExpanded } = options || {};
 
-    return RequestHelper.get<PagesDomainSchema[]>()(this, `${prefix}pages/domains`, options);
+    const url = getPrefixedUrl('pages/domains', { projects: projectId });
+
+    return RequestHelper.get<PagesDomainSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -33,12 +35,18 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
     options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<PagesDomainSchema>()(
       this,
       endpoint`projects/${projectId}/pages/domains`,
       {
-        domain,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          domain,
+        },
       },
     );
   }
@@ -49,10 +57,16 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
     options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<PagesDomainSchema>()(
       this,
       endpoint`projects/${projectId}/pages/domains/${domain}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -62,10 +76,15 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
     options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<PagesDomainSchema>()(
       this,
       endpoint`projects/${projectId}/pages/domains/${domain}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -74,10 +93,11 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
     domain: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/pages/domains/${domain}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/pages/domains/${domain}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

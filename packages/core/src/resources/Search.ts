@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
@@ -55,122 +56,140 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     scope: 'users',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'notes',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'blobs',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'commits',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SearchCommitSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'wiki_blobs',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BlobSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'snippet_titles',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleSnippetSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'milestones',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'merge_requests',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'issues',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'projects',
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: SearchScopes,
     search: string,
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllSearchOptions &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): any {
-    const { projectId, groupId, ...opts } = options || {};
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/`;
-    else if (groupId) url = endpoint`groups/${groupId}/`;
-    else url = '';
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
-    return RequestHelper.get()(this, `${url}search`, {
-      scope,
-      search,
-      ...opts,
+    const url = getPrefixedUrl('search', {
+      projects: projectId,
+      groups: groupId,
+    });
+
+    return RequestHelper.get()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: {
+        ...searchParams,
+        scope,
+        search,
+      },
     });
   }
 }

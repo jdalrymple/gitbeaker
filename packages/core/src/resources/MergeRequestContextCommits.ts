@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -27,27 +29,39 @@ export class MergeRequestContextCommits<C extends boolean = false> extends BaseR
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<MergeRequestContextCommitSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestContextCommitSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/context_commits`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
     commits: string[],
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {},
+    mergerequestIId: number,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = endpoint`projects/${projectId}/merge_requests`;
-    const url = mergerequestIId ? `${prefix}/${mergerequestIId}/context_commits` : prefix;
+    const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<void>()(this, url, {
-      commits,
-      ...options,
-    });
+    return RequestHelper.post<void>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/context_commits`,
+      {
+        sudo,
+        showExpanded,
+        body: { ...body, commits },
+      },
+    );
   }
 
   remove<E extends boolean = false>(
@@ -55,10 +69,12 @@ export class MergeRequestContextCommits<C extends boolean = false> extends BaseR
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/context_commits`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

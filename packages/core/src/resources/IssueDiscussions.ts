@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../templates';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -21,7 +22,7 @@ export interface IssueDiscussions<C extends boolean = false> extends ResourceDis
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

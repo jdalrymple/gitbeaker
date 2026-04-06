@@ -2,9 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -46,6 +48,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(LabelSchema & LabelCountSchema)[], C, E, P>>;
@@ -56,6 +59,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
@@ -67,10 +71,18 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>> {
-    return RequestHelper.get<LabelSchema[]>()(this, endpoint`${resourceId}/labels`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<LabelSchema[]>()(this, endpoint`${resourceId}/labels`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -79,10 +91,16 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     color: string,
     options?: { description?: string; priority?: number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<LabelSchema>()(this, endpoint`${resourceId}/labels`, {
-      name: labelName,
-      color,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name: labelName,
+        color,
+      },
     });
   }
 
@@ -100,11 +118,13 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
         'Missing required argument. Please supply a color or a newName in the options parameter.',
       );
 
-    return RequestHelper.put<LabelSchema>()(
-      this,
-      endpoint`${resourceId}/labels/${labelId}`,
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<LabelSchema>()(this, endpoint`${resourceId}/labels/${labelId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   promote<E extends boolean = false>(
@@ -112,10 +132,16 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<LabelSchema>()(
       this,
       endpoint`${resourceId}/labels/${labelId}/promote`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -124,7 +150,12 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/labels/${labelId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/labels/${labelId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -132,11 +163,13 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: { includeAncestorGroups?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
-    return RequestHelper.get<LabelSchema>()(
-      this,
-      endpoint`${resourceId}/labels/${labelId}`,
-      options,
-    );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<LabelSchema>()(this, endpoint`${resourceId}/labels/${labelId}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   subscribe<E extends boolean = false>(
@@ -144,10 +177,16 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<LabelSchema>()(
       this,
       endpoint`${resourceId}/issues/${labelId}/subscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -156,10 +195,16 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     labelId: number | string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<LabelSchema>()(
       this,
       endpoint`${resourceId}/issues/${labelId}/unsubscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 }

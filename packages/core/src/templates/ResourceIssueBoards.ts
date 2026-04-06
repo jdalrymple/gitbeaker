@@ -2,9 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -35,9 +37,16 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema[], C, E, P>> {
-    return RequestHelper.get<IssueBoardSchema[]>()(this, endpoint`${resourceId}/boards`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<IssueBoardSchema[]>()(this, endpoint`${resourceId}/boards`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allLists<E extends boolean = false>(
@@ -45,10 +54,15 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IssueBoardListSchema[]>()(
       this,
       endpoint`${resourceId}/boards/${boardId}/lists`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -57,9 +71,15 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueBoardSchema>()(this, endpoint`${resourceId}/boards`, {
-      name,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+      },
     });
   }
 
@@ -70,10 +90,16 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueBoardListSchema>()(
       this,
       endpoint`${resourceId}/boards/${boardId}/lists`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -89,11 +115,13 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
-    return RequestHelper.put<IssueBoardSchema>()(
-      this,
-      endpoint`${resourceId}/boards/${boardId}`,
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<IssueBoardSchema>()(this, endpoint`${resourceId}/boards/${boardId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   editList<E extends boolean = false>(
@@ -103,12 +131,18 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     position: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<IssueBoardListSchema>()(
       this,
       endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
       {
-        position,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          position,
+        },
       },
     );
   }
@@ -118,7 +152,12 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/boards/${boardId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/boards/${boardId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   removeList<E extends boolean = false>(
@@ -127,11 +166,12 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     listId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/boards/${boardId}/lists/${listId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -139,11 +179,12 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
-    return RequestHelper.get<IssueBoardSchema>()(
-      this,
-      endpoint`${resourceId}/boards/${boardId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<IssueBoardSchema>()(this, endpoint`${resourceId}/boards/${boardId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showList<E extends boolean = false>(
@@ -152,10 +193,15 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     listId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IssueBoardListSchema>()(
       this,
       endpoint`${resourceId}/boards/${boardId}/lists/${listId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

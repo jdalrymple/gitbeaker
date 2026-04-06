@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceAccessRequests } from '../templates';
 import type { AccessRequestSchema } from '../templates/ResourceAccessRequests';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -13,7 +14,7 @@ import { AccessLevel } from '../constants';
 export interface GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>>;
 
   request<E extends boolean = false>(

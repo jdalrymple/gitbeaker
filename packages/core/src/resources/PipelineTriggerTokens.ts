@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, reformatObjectOptions } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -24,12 +26,19 @@ export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
 export class PipelineTriggerTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<PipelineTriggerTokenSchema[]>()(
       this,
       endpoint`projects/${projectId}/triggers`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -38,12 +47,18 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     description: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<PipelineTriggerTokenSchema>()(
       this,
       endpoint`projects/${projectId}/triggers`,
       {
-        description,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          description,
+        },
       },
     );
   }
@@ -53,10 +68,16 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     triggerId: number,
     options?: { description?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<PipelineTriggerTokenSchema>()(
       this,
       endpoint`projects/${projectId}/triggers/${triggerId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -65,11 +86,12 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     triggerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/triggers/${triggerId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/triggers/${triggerId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -77,10 +99,15 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     triggerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<PipelineTriggerTokenSchema>()(
       this,
       endpoint`projects/${projectId}/triggers/${triggerId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -88,26 +115,22 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     projectId: string | number,
     ref: string,
     token: string,
-    { variables, ...options }: { variables?: Record<string, string> } & Sudo & ShowExpanded<E> = {},
+    options?: { variables?: Record<string, string> } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
-    const opts: Record<string, unknown> = {
-      ...options,
-      searchParams: {
-        token,
-        ref,
-      },
-    };
-
-    if (variables) {
-      opts.isForm = true;
-
-      Object.assign(opts, reformatObjectOptions(variables, 'variables'));
-    }
+    const { variables, sudo, showExpanded } = options || {};
 
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
       endpoint`projects/${projectId}/trigger/pipeline`,
-      opts,
+      {
+        sudo,
+        showExpanded,
+        searchParams: {
+          token,
+          ref,
+        },
+        body: variables ? createFormData(reformatObjectOptions(variables, 'variables')) : undefined,
+      },
     );
   }
 }

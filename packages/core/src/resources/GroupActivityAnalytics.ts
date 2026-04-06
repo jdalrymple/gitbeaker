@@ -19,14 +19,17 @@ export class GroupActivityAnalytics<C extends boolean = false> extends BaseResou
     groupPath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupAnalyticsIssuesCountSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupAnalyticsIssuesCountSchema>()(
       this,
       'analytics/group_activity/issues_count',
       {
+        sudo,
+        showExpanded,
         searchParams: {
           groupPath,
         },
-        ...options,
       },
     );
   }
@@ -35,14 +38,17 @@ export class GroupActivityAnalytics<C extends boolean = false> extends BaseResou
     groupPath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupAnalyticsMRsCountSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupAnalyticsMRsCountSchema>()(
       this,
       'analytics/group_activity/merge_requests_count',
       {
+        sudo,
+        showExpanded,
         searchParams: {
           groupPath,
         },
-        ...options,
       },
     );
   }
@@ -51,14 +57,17 @@ export class GroupActivityAnalytics<C extends boolean = false> extends BaseResou
     groupPath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupAnalyticsNewMembersCountSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupAnalyticsNewMembersCountSchema>()(
       this,
       'analytics/group_activity/new_members_count',
       {
+        sudo,
+        showExpanded,
         searchParams: {
           groupPath,
         },
-        ...options,
       },
     );
   }

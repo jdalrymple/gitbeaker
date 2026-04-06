@@ -2,9 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -41,14 +43,22 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     options?: {
       sort?: 'asc' | 'desc';
       orderBy?: 'created_at' | 'updated_at';
-    } & PaginationRequestOptions<P> &
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<NoteSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -58,12 +68,18 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     body: string,
     options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...bodyOptions } = options || {};
+
     return RequestHelper.post<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
       {
-        body,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...bodyOptions,
+          body,
+        },
       },
     );
   }
@@ -74,10 +90,16 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     noteId: number,
     options?: { body?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...bodyOptions } = options || {};
+
     return RequestHelper.put<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body: bodyOptions,
+      },
     );
   }
 

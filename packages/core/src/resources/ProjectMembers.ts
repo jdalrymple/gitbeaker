@@ -7,6 +7,7 @@ import type {
   MemberSchema,
 } from '../templates/ResourceMembers';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -27,6 +28,7 @@ export interface ProjectMembers<C extends boolean = false> extends ResourceMembe
     options?: IncludeInherited &
       PaginationRequestOptions<P> &
       AllMembersOptions &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>>;

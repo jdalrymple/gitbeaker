@@ -2,9 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -34,12 +36,19 @@ export class ResourceLabelEvents<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<LabelEventSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<LabelEventSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/resource_label_events`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 

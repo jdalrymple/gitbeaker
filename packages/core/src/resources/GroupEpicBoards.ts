@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -31,12 +33,19 @@ export interface GroupEpicBoardSchema extends Record<string, unknown> {
 export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<GroupEpicBoardSchema[]>()(
       this,
       endpoint`groups/${groupId}/epic_boards`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -45,10 +54,15 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardListSchema[]>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}/lists`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -57,10 +71,15 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardSchema>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -70,10 +89,15 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
     listId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardListSchema>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}/lists/${listId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

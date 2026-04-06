@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceStateEvents } from '../templates';
 import type { StateEventSchema } from '../templates/ResourceStateEvents';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -13,7 +14,7 @@ export interface MergeRequestStateEvents<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<StateEventSchema[], C, E, P>>;
 
   show<E extends boolean = false>(

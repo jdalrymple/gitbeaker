@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -16,9 +18,16 @@ export interface ProjectAliasSchema extends Record<string, unknown> {
 
 export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema[], C, E, P>> {
-    return RequestHelper.get<ProjectAliasSchema[]>()(this, 'project_aliases', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ProjectAliasSchema[]>()(this, 'project_aliases', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -26,10 +35,16 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectAliasSchema>()(this, 'project_aliases', {
-      name,
-      projectId,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+        projectId,
+      },
     });
   }
 
@@ -37,13 +52,23 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema, C, E, void>> {
-    return RequestHelper.post<ProjectAliasSchema>()(this, `project_aliases/${name}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ProjectAliasSchema>()(this, `project_aliases/${name}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `project_aliases/${name}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `project_aliases/${name}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

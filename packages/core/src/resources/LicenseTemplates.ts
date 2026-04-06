@@ -1,6 +1,7 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceTemplates } from '../templates';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -24,7 +25,10 @@ export interface LicenseTemplateSchema extends Record<string, unknown> {
 
 export interface LicenseTemplates<C extends boolean = false> extends ResourceTemplates<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { popular?: boolean } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { popular?: boolean } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LicenseTemplateSchema[], C, E, P>>;
 
   show<E extends boolean = false>(

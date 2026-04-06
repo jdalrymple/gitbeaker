@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
 
 export interface PackageSnapshotSchema extends Record<string, unknown> {
@@ -14,10 +14,6 @@ export interface RecipeSnapshotSchema extends Record<string, unknown> {
   'conanmanifest.txt': string;
 }
 
-function url(projectId?: string | number): string {
-  return projectId ? endpoint`projects/${projectId}/packages/conan/v1` : 'packages/conan/v1';
-}
-
 export class Conan<C extends boolean = false> extends BaseResource<C> {
   authenticate<E extends boolean = false>({
     projectId,
@@ -25,7 +21,12 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
   }: { projectId?: string | number } & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<string, C, E, void>
   > {
-    return RequestHelper.get<string>()(this, `${url(projectId)}/users/authenticate`, options);
+    const { showExpanded } = options || {};
+    const uri = getPrefixedUrl('packages/conan/v1/users/authenticate', { projects: projectId });
+
+    return RequestHelper.get<string>()(this, uri, {
+      showExpanded,
+    });
   }
 
   checkCredentials<E extends boolean = false>({
@@ -34,9 +35,14 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
   }: { projectId?: string | number } & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<string, C, E, void>
   > {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const uri = getPrefixedUrl('packages/conan/v1/users/check_credentials', {
+      projects: projectId,
+    });
 
-    return RequestHelper.get<string>()(this, `${prefix}/users/check_credentials`, options);
+    return RequestHelper.get<string>()(this, uri, {
+      showExpanded,
+    });
   }
 
   downloadPackageFile<E extends boolean = false>(
@@ -50,13 +56,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     filename: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/package/${conanPackageReference}/${packageRevision}/${filename}`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/package/${conanPackageReference}/${packageRevision}/${filename}`,
-      options,
-    );
+    return RequestHelper.get<Blob>()(this, uri, {
+      showExpanded,
+    });
   }
 
   downloadRecipeFile<E extends boolean = false>(
@@ -68,13 +74,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     filename: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${filename}`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${filename}`,
-      options,
-    );
+    return RequestHelper.get<Blob>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showPackageUploadUrls<E extends boolean = false>(
@@ -85,13 +91,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     conanPackageReference: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<PackageSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/upload_urls`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<PackageSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/upload_urls`,
-      options,
-    );
+    return RequestHelper.get<PackageSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showPackageDownloadUrls<E extends boolean = false>(
@@ -102,13 +108,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     conanPackageReference: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<PackageSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/download_urls`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<PackageSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/download_urls`,
-      options,
-    );
+    return RequestHelper.get<PackageSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showPackageManifest<E extends boolean = false>(
@@ -119,13 +125,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     conanPackageReference: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<PackageSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/digest`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<PackageSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}/digest`,
-      options,
-    );
+    return RequestHelper.get<PackageSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showPackageSnapshot<E extends boolean = false>(
@@ -136,13 +142,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     conanPackageReference: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<PackageSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<PackageSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/packages/${conanPackageReference}`,
-      options,
-    );
+    return RequestHelper.get<PackageSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   ping<E extends boolean = false>({
@@ -151,7 +157,12 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
   }: { projectId?: string | number } & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<string, C, E, void>
   > {
-    return RequestHelper.post<string>()(this, `${url(projectId)}/ping`, options);
+    const { showExpanded } = options || {};
+    const uri = getPrefixedUrl('packages/conan/v1/ping', { projects: projectId });
+
+    return RequestHelper.post<string>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showRecipeUploadUrls<E extends boolean = false>(
@@ -161,13 +172,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageChannel: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<RecipeSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/upload_urls`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<RecipeSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/upload_urls`,
-      options,
-    );
+    return RequestHelper.get<RecipeSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showRecipeDownloadUrls<E extends boolean = false>(
@@ -177,13 +188,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageChannel: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<RecipeSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/download_urls`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<RecipeSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/download_urls`,
-      options,
-    );
+    return RequestHelper.get<RecipeSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showRecipeManifest<E extends boolean = false>(
@@ -193,13 +204,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageChannel: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<RecipeSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/digest`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<RecipeSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/digest`,
-      options,
-    );
+    return RequestHelper.get<RecipeSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   showRecipeSnapshot<E extends boolean = false>(
@@ -209,13 +220,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageChannel: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<RecipeSnapshotSchema, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<RecipeSnapshotSchema>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`,
-      options,
-    );
+    return RequestHelper.get<RecipeSnapshotSchema>()(this, uri, {
+      showExpanded,
+    });
   }
 
   removePackageFile<E extends boolean = false>(
@@ -225,13 +236,13 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageChannel: string,
     { projectId, ...options }: { projectId?: string | number } & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const suffix = endpoint`packages/conan/v1/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`;
+    const uri = getPrefixedUrl(suffix, { projects: projectId });
 
-    return RequestHelper.get<void>()(
-      this,
-      `${prefix}/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}`,
-      options,
-    );
+    return RequestHelper.del<void>()(this, uri, {
+      showExpanded,
+    });
   }
 
   search<E extends boolean = false>({
@@ -240,9 +251,12 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
   }: { projectId?: string | number } & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<{ results: string[] }, C, E, void>
   > {
-    const prefix = url(projectId);
+    const { showExpanded } = options || {};
+    const uri = getPrefixedUrl('packages/conan/v1/conans/search', { projects: projectId });
 
-    return RequestHelper.get<{ results: string[] }>()(this, `${prefix}/conans/search`, options);
+    return RequestHelper.get<{ results: string[] }>()(this, uri, {
+      showExpanded,
+    });
   }
 
   uploadPackageFile<E extends boolean = false>(
@@ -256,15 +270,14 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     packageRevision: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = url();
-
-    return RequestHelper.get<void>()(
+    return RequestHelper.put<void>()(
       this,
-      `${prefix}/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/package/${conanPackageReference}/${packageRevision}/${packageFile.filename}`,
+      endpoint`packages/conan/v1/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/package/${conanPackageReference}/${packageRevision}/${packageFile.filename}`,
       {
-        isForm: true,
         ...options,
-        file: [packageFile.content, packageFile.filename],
+        body: createFormData({
+          file: [packageFile.content, packageFile.filename],
+        }),
       },
     );
   }
@@ -278,15 +291,14 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
     recipeRevision: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = url();
-
-    return RequestHelper.get<void>()(
+    return RequestHelper.put<void>()(
       this,
-      `${prefix}/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${packageFile.filename}`,
+      endpoint`packages/conan/v1/files/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/${recipeRevision}/export/${packageFile.filename}`,
       {
-        isForm: true,
         ...options,
-        file: [packageFile.content, packageFile.filename],
+        body: createFormData({
+          file: [packageFile.content, packageFile.filename],
+        }),
       },
     );
   }

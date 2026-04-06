@@ -1,10 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -37,12 +39,22 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProtectedEnvironmentSchema[]>()(
       this,
-      `${resourceId}/protected_environments`,
-      options,
+      endpoint`${resourceId}/protected_environments`,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -56,13 +68,19 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments`,
+      endpoint`${resourceId}/protected_environments`,
       {
-        name,
-        deployAccessLevels,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name,
+          deployAccessLevels,
+        },
       },
     );
   }
@@ -77,10 +95,16 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments/${name}`,
-      options,
+      endpoint`${resourceId}/protected_environments/${name}`,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -89,10 +113,15 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments/${name}`,
-      options,
+      endpoint`${resourceId}/protected_environments/${name}`,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -101,6 +130,11 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${resourceId}/protected_environments/${name}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/protected_environments/${name}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

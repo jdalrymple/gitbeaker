@@ -4,6 +4,7 @@ import type { SimpleProjectSchema } from './Projects';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -57,10 +58,17 @@ export class ProjectVulnerabilities<C extends boolean = false> extends BaseResou
     projectId: string | number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectVulnerabilitySchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectVulnerabilitySchema[]>()(
       this,
       endpoint`projects/${projectId}/vulnerabilities`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P>,
+      },
     );
   }
 
@@ -69,11 +77,14 @@ export class ProjectVulnerabilities<C extends boolean = false> extends BaseResou
     findingId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectVulnerabilitySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ProjectVulnerabilitySchema>()(
       this,
       endpoint`projects/${projectId}/vulnerabilities`,
       {
-        ...options,
+        sudo,
+        showExpanded,
         searchParams: {
           findingId,
         },

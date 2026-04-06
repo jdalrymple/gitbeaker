@@ -1,7 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export type MetricType =
   | 'deployment_frequency'
@@ -27,11 +27,18 @@ export class ResourceDORA4Metrics<C extends boolean = false> extends BaseResourc
       endDate?: string;
       interval?: 'all' | 'monthly' | 'daily';
       environmentTiers?: string[];
-    } & BaseRequestOptions<E>,
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DORA4MetricSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<DORA4MetricSchema[]>()(this, endpoint`${resourceId}/dora/metrics`, {
-      metric,
-      ...options,
+      sudo,
+      showExpanded,
+      searchParams: {
+        ...searchParams,
+        metric,
+      },
     });
   }
 }

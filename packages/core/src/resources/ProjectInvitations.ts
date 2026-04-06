@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceInvitations } from '../templates';
 import type { InvitationSchema } from '../templates/ResourceInvitations';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -26,7 +27,9 @@ export interface ProjectInvitations<C extends boolean = false> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & { query?: string } & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & { query?: string } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(

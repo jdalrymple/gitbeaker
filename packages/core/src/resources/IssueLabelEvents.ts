@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceLabelEvents } from '../templates';
 import type { LabelEventSchema } from '../templates/ResourceLabelEvents';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -13,7 +14,7 @@ export interface IssueLabelEvents<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<LabelEventSchema[], C, E, P>>;
 
   show<E extends boolean = false>(

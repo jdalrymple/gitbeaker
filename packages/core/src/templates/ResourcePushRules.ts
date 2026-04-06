@@ -42,27 +42,49 @@ export class ResourcePushRules<C extends boolean = false> extends BaseResource<C
     resourceId: string | number,
     options?: CreateAndEditPushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>> {
-    return RequestHelper.post<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
     options?: CreateAndEditPushRuleOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>> {
-    return RequestHelper.put<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/push_rule`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/push_rule`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PushRuleSchema, C, E, void>> {
-    return RequestHelper.get<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<PushRuleSchema>()(this, endpoint`${resourceId}/push_rule`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

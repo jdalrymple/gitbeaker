@@ -6,6 +6,7 @@ import type {
   AccessTokenScopes,
 } from '../templates/ResourceAccessTokens';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -17,7 +18,7 @@ import { AccessLevel } from '../constants';
 export interface ProjectAccessTokens<C extends boolean = false> extends ResourceAccessTokens<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

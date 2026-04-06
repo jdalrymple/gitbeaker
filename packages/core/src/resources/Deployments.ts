@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -69,10 +70,17 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: AllDeploymentsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema[], C, E, P>> {
+    const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<DeploymentSchema[]>()(
       this,
       endpoint`projects/${projectId}/deployments`,
-      options,
+      {
+        showExpanded,
+        sudo,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & AllDeploymentsOptions,
+      },
     );
   }
 
@@ -81,10 +89,17 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     deploymentId: number,
     options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
+    const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}/merge_requests`,
-      options,
+      {
+        showExpanded,
+        sudo,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & AllMergeRequestsOptions,
+      },
     );
   }
 
@@ -96,15 +111,21 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     tag: boolean,
     options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo, ...searchParams } = options || {};
+
     return RequestHelper.post<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments`,
       {
-        environment,
-        sha,
-        ref,
-        tag,
-        ...options,
+        showExpanded,
+        sudo,
+        searchParams: {
+          ...searchParams,
+          environment,
+          sha,
+          ref,
+          tag,
+        },
       },
     );
   }
@@ -115,12 +136,18 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     status: 'running' | 'success' | 'failed' | 'canceled',
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.put<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
       {
-        ...options,
-        status,
+        showExpanded,
+        sudo,
+        body: {
+          ...body,
+          status,
+        },
       },
     );
   }
@@ -130,10 +157,15 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     deploymentId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.del<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 
@@ -143,12 +175,18 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     status: 'approved' | 'rejected',
     options?: { comment?: string; representedAs?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentApprovalStatusSchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.post<DeploymentApprovalStatusSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}/approval`,
       {
-        ...options,
-        status,
+        showExpanded,
+        sudo,
+        body: {
+          ...body,
+          status,
+        },
       },
     );
   }
@@ -158,10 +196,15 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     deploymentId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.get<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 }

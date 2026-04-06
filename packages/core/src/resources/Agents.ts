@@ -27,10 +27,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentSchema[]>()(
       this,
       endpoint`projects/${projectId}/cluster_agents`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -39,10 +44,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     agentId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentTokenSchema[]>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -52,12 +62,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     name: string,
     options?: { description?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
-    return RequestHelper.get<ClusterAgentTokenSchema>()(
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ClusterAgentTokenSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens`,
       {
-        name,
-        ...options,
+        sudo,
+        showExpanded,
+        body: { ...body, name },
       },
     );
   }
@@ -67,10 +80,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     agentId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -80,10 +98,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     tokenId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentTokenSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -92,12 +115,17 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ClusterAgentSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents`,
       {
-        name,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          name,
+        },
       },
     );
   }
@@ -108,10 +136,15 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     tokenId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -120,10 +153,11 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     agentId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/cluster_agents/${agentId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/cluster_agents/${agentId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

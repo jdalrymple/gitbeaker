@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -37,14 +39,22 @@ export interface ExpandedPipelineScheduleSchema extends PipelineScheduleSchema {
 export class PipelineSchedules<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { scope?: 'active' | 'inactive' } & Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+    options?: { scope?: 'active' | 'inactive' } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedPipelineScheduleSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<CondensedPipelineScheduleSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -53,10 +63,15 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     pipelineScheduleId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<PipelineSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/pipelines`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -67,14 +82,20 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     cron: string,
     options?: { cronTimezone?: string; active?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<PipelineScheduleSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules`,
       {
-        description,
-        ref,
-        cron,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          description,
+          ref,
+          cron,
+        },
       },
     );
   }
@@ -91,10 +112,16 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<PipelineScheduleSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -103,10 +130,15 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     pipelineScheduleId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del<PipelineScheduleSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -115,10 +147,15 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     pipelineScheduleId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/play`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -127,10 +164,15 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     pipelineScheduleId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineScheduleSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ExpandedPipelineScheduleSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -139,10 +181,15 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     pipelineScheduleId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<PipelineScheduleSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/take_ownership`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

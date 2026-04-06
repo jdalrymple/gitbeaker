@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -29,12 +31,19 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestDraftNoteSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -50,12 +59,15 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes`,
       {
-        ...options,
-        note,
+        sudo,
+        showExpanded,
+        body: { ...body, note },
       },
     );
   }
@@ -67,10 +79,16 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     options?: { note?: string; position?: Camelize<MergeRequestDraftNotePositionSchema> } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -80,10 +98,15 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}/publish`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -92,10 +115,15 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<MergeRequestDraftNoteSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/bulk_publish`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -105,10 +133,15 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -118,10 +151,15 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     draftNoteId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

@@ -2,8 +2,10 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -38,12 +40,19 @@ export class ResourceIterations<C extends boolean = false> extends BaseResource<
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: AllIterationsOptions & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: AllIterationsOptions &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<IterationSchema[], C, E, P>> {
-    return RequestHelper.get<IterationSchema[]>()(
-      this,
-      endpoint`${resourceId}/iterations`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<IterationSchema[]>()(this, endpoint`${resourceId}/iterations`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 }

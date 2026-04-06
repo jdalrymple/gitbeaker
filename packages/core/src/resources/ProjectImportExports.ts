@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
@@ -55,10 +55,16 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     options?: AsStream & ShowExpanded<E> & Sudo,
   ): Promise<any> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<Blob | ReadableStream>()(
       this,
       endpoint`projects/${projectId}/export/download`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -73,11 +79,16 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
-      isForm: true,
-      ...options,
-      file: [file.content, file.filename],
-      path,
+      sudo,
+      showExpanded,
+      body: createFormData({
+        ...body,
+        file: [file.content, file.filename],
+        path,
+      }),
     });
   }
 
@@ -92,10 +103,16 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
-      ...options,
-      path,
-      url,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        path,
+        url,
+      },
     });
   }
 
@@ -108,14 +125,20 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     secretAccessKey: string,
     options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
-      ...options,
-      accessKeyId,
-      bucketName,
-      fileKey,
-      path,
-      region,
-      secretAccessKey,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        accessKeyId,
+        bucketName,
+        fileKey,
+        path,
+        region,
+        secretAccessKey,
+      },
     });
   }
 
@@ -123,22 +146,24 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.get<ExportStatusSchema>()(
-      this,
-      endpoint`projects/${projectId}/export`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExportStatusSchema>()(this, endpoint`projects/${projectId}/export`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showImportStatus<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.get<ImportStatusSchema>()(
-      this,
-      endpoint`projects/${projectId}/import`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ImportStatusSchema>()(this, endpoint`projects/${projectId}/import`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   scheduleExport<E extends boolean = false>(
@@ -149,9 +174,15 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     },
     options?: { description?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<{ message: string }>()(this, endpoint`projects/${projectId}/export`, {
-      ...options,
-      upload: uploadConfig,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        upload: uploadConfig,
+      },
     });
   }
 }

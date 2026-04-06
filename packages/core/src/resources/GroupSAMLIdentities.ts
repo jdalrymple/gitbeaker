@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -18,10 +20,17 @@ export class GroupSAMLIdentities<C extends boolean = false> extends BaseResource
     groupId: string | number,
     options: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IdentitySchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<IdentitySchema[]>()(
       this,
       endpoint`groups/${groupId}/saml/identities`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -30,10 +39,12 @@ export class GroupSAMLIdentities<C extends boolean = false> extends BaseResource
     identityId: string,
     options: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.patch<void>()(
-      this,
-      endpoint`groups/${groupId}/saml/${identityId}`,
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.patch<void>()(this, endpoint`groups/${groupId}/saml/${identityId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 }

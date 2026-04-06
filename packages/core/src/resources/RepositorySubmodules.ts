@@ -13,15 +13,24 @@ export class RepositorySubmodules<C extends boolean = false> extends BaseResourc
     submodule: string,
     branch: string,
     commitSha: string,
-    options?: { commitMessage?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      commitMessage?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositorySubmoduleSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<RepositorySubmoduleSchema>()(
       this,
       endpoint`projects/${projectId}/repository/submodules/${submodule}`,
       {
-        branch,
-        commitSha,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          branch,
+          commitSha,
+        },
       },
     );
   }

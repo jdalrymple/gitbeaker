@@ -1,6 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  BaseRequestBodyRecordOptions,
+  GitlabAPIResponse,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export interface CodeSuggestionSchema extends Record<string, unknown> {
   access_token: string;
@@ -27,16 +32,23 @@ export class CodeSuggestions<C extends boolean = false> extends BaseResource<C> 
   createAccessToken<E extends boolean = false>(
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CodeSuggestionSchema, C, E, void>> {
-    return RequestHelper.post<CodeSuggestionSchema>()(this, 'code_suggestions/tokens', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<CodeSuggestionSchema>()(this, 'code_suggestions/tokens', {
+      sudo,
+      showExpanded,
+    });
   }
 
   generateCompletion<E extends boolean = false>(
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E> & BaseRequestBodyRecordOptions,
   ): Promise<GitlabAPIResponse<CodeCompletionSchema, C, E, void>> {
-    return RequestHelper.post<CodeCompletionSchema>()(
-      this,
-      'code_suggestions/completions',
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<CodeCompletionSchema>()(this, 'code_suggestions/completions', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 }

@@ -2,9 +2,11 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -33,12 +35,19 @@ export class ResourceStateEvents<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<StateEventSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<StateEventSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/resource_state_events`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -48,10 +57,15 @@ export class ResourceStateEvents<C extends boolean = false> extends BaseResource
     stateEventId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<StateEventSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<StateEventSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/resource_state_events/${stateEventId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

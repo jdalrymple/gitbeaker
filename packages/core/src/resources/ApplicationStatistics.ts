@@ -20,6 +20,11 @@ export class ApplicationStatistics<C extends boolean = false> extends BaseResour
   show<E extends boolean = false>(
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ApplicationStatisticSchema, C, E, void>> {
-    return RequestHelper.get<ApplicationStatisticSchema>()(this, 'application/statistics', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ApplicationStatisticSchema>()(this, 'application/statistics', {
+      sudo,
+      showExpanded,
+    });
   }
 }

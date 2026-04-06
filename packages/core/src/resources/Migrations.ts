@@ -1,5 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  endpoint,
+} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -54,9 +59,17 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
       status?: MigrationStatus;
     } & PaginationRequestOptions<P> &
       Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema[], C, E, P>> {
-    return RequestHelper.get<MigrationStatusSchema[]>()(this, 'bulk_imports', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<MigrationStatusSchema[]>()(this, 'bulk_imports', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -64,49 +77,72 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
     entities: MigrationEntityOptions[],
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MigrationStatusSchema>()(this, 'bulk_imports', {
-      configuration,
-      entities,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        configuration,
+        entities,
+      },
     });
   }
 
   allEntities<E extends boolean = false>({
     bulkImportId,
-    ...options
+    sudo,
+    showExpanded,
+    maxPages,
+    ...searchParams
   }: {
     status?: MigrationStatus;
     bulkImportId?: number;
   } & PaginationRequestOptions<'offset'> &
     Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>> {
+    ShowExpanded<E> &
+    BaseRequestSearchParams = {}): Promise<
+    GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>
+  > {
     const url = bulkImportId
       ? endpoint`bulk_imports/${bulkImportId}/entities`
       : 'bulk_imports/entities';
 
-    return RequestHelper.get<MigrationEntitySchema[]>()(this, url, options);
+    return RequestHelper.get<MigrationEntitySchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams,
+    });
   }
 
   show<E extends boolean = false>(
     bulkImportId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema, C, E, void>> {
-    return RequestHelper.get<MigrationStatusSchema>()(
-      this,
-      `bulk_imports/${bulkImportId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<MigrationStatusSchema>()(this, `bulk_imports/${bulkImportId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showEntity<E extends boolean = false>(
     bulkImportId: number,
-    entitityId: number,
+    entityId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MigrationEntitySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MigrationEntitySchema>()(
       this,
-      `bulk_imports/${bulkImportId}/entities/${entitityId}`,
-      options,
+      `bulk_imports/${bulkImportId}/entities/${entityId}`,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

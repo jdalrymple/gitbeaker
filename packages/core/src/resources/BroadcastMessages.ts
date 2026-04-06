@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
+  Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -23,46 +25,51 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
     AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
   >[];
   broadcast_type: string;
-  dismissable: boolean;
+  dismissible: boolean;
 }
 
-export interface BroadcastMessageOptions extends Record<string, unknown> {
-  message?: string;
-  startsAt?: string;
-  endsAt?: string;
-  color?: string;
-  font?: string;
-  active?: boolean;
-  targetPath?: string;
-  targetAccessLevels?: Exclude<
-    AccessLevel,
-    AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
-  >[];
-  broadcastType?: string;
-  dismissable?: boolean;
-}
+type BroadcastMessageOptions = Partial<Camelize<BroadcastMessageSchema>>;
 
 export class BroadcastMessages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema[], C, E, P>> {
-    return RequestHelper.get<BroadcastMessageSchema[]>()(this, 'broadcast_messages', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<BroadcastMessageSchema[]>()(this, 'broadcast_messages', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P>,
+    });
   }
 
   create<E extends boolean = false>(
     options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
-    return RequestHelper.post<BroadcastMessageSchema>()(this, 'broadcast_messages', options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<BroadcastMessageSchema>()(this, 'broadcast_messages', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   edit<E extends boolean = false>(
     broadcastMessageId: number,
     options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<BroadcastMessageSchema>()(
       this,
       `broadcast_messages/${broadcastMessageId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -70,17 +77,24 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
     broadcastMessageId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `broadcast_messages/${broadcastMessageId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `broadcast_messages/${broadcastMessageId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     broadcastMessageId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<BroadcastMessageSchema>()(
       this,
       `broadcast_messages/${broadcastMessageId}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

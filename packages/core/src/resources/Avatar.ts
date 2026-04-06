@@ -11,6 +11,12 @@ export class Avatar<C extends boolean = false> extends BaseResource<C> {
     email: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AvatarSchema, C, E, void>> {
-    return RequestHelper.get<AvatarSchema>()(this, 'avatar', { email, ...options });
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<AvatarSchema>()(this, 'avatar', {
+      sudo,
+      showExpanded,
+      searchParams: { email },
+    });
   }
 }

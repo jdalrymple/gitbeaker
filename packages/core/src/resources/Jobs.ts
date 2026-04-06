@@ -1,10 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -117,21 +118,24 @@ export interface JobVariableAttributeOption extends Record<string, unknown> {
 export class Jobs<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    {
-      pipelineId,
-      ...options
-    }: {
+    options?: {
       pipelineId?: number;
       scope?: JobScope | JobScope[];
       includeRetried?: boolean;
-    } & BaseRequestOptions<E> &
-      PaginationRequestOptions<P> = {} as any,
+    } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
-    const url = pipelineId
-      ? endpoint`projects/${projectId}/pipelines/${pipelineId}/jobs`
-      : endpoint`projects/${projectId}/jobs`;
+    const { pipelineId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const url = getPrefixedUrl('jobs', { projects: projectId, pipelines: pipelineId });
 
-    return RequestHelper.get<JobSchema[]>()(this, url, options);
+    return RequestHelper.get<JobSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allPipelineBridges<E extends boolean = false>(
@@ -139,10 +143,16 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     pipelineId: number,
     options?: { scope?: JobScope | JobScope[] } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<BridgeSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<BridgeSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipelines/${pipelineId}/bridges`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -151,10 +161,15 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     jobId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/cancel`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -163,22 +178,33 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     jobId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/erase`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   play<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: { jobVariablesAttributes: JobVariableAttributeOption[] } & Sudo & ShowExpanded<E>,
+    options?: { jobVariablesAttributes?: JobVariableAttributeOption[] } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/play`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -187,10 +213,15 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     jobId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/retry`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -199,11 +230,12 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     jobId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
-    return RequestHelper.get<JobSchema>()(
-      this,
-      endpoint`projects/${projectId}/jobs/${jobId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobSchema>()(this, endpoint`projects/${projectId}/jobs/${jobId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showConnectedJob<E extends boolean = false>(
@@ -211,7 +243,12 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
     if (!this.headers['job-token']) throw new Error('Missing required header "job-token"');
 
-    return RequestHelper.get<JobSchema>()(this, 'job', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobSchema>()(this, 'job', {
+      sudo,
+      showExpanded,
+    });
   }
 
   showConnectedJobK8Agents<E extends boolean = false>(
@@ -219,7 +256,12 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<JobKubernetesAgentsSchema, C, E, void>> {
     if (!this.headers['job-token']) throw new Error('Missing required header "job-token"');
 
-    return RequestHelper.get<JobKubernetesAgentsSchema>()(this, 'job/allowed_agents', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobKubernetesAgentsSchema>()(this, 'job/allowed_agents', {
+      sudo,
+      showExpanded,
+    });
   }
 
   showLog<E extends boolean = false>(
@@ -227,10 +269,11 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
     jobId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, void, E, void>> {
-    return RequestHelper.get<string>()(
-      this,
-      endpoint`projects/${projectId}/jobs/${jobId}/trace`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, endpoint`projects/${projectId}/jobs/${jobId}/trace`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

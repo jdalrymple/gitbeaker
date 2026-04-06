@@ -1,38 +1,42 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded } from '../infrastructure';
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
+import { createFormData, getPrefixedUrl } from '../infrastructure';
 
 export class Maven<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
     path: string,
     filename: string,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    let url = endpoint`packages/maven/${path}/${filename}`;
+    const { projectId, groupId, sudo, showExpanded } = options || {};
+    const url = getPrefixedUrl(`packages/maven/${path}/${filename}`, {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
 
-    if (projectId) url = endpoint`projects/${projectId}/${url}`;
-    else if (groupId) url = endpoint`groups/${groupId}/-/${url}`;
-
-    return RequestHelper.get<Blob>()(this, url, options as ShowExpanded<E>);
+    return RequestHelper.get<Blob>()(this, url, { sudo, showExpanded });
   }
 
   uploadPackageFile<E extends boolean = false>(
     projectId: string | number,
     path: string,
     packageFile: { content: Blob; filename: string },
-    options?: ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<void>()(
       this,
       endpoint`projects/${projectId}/packages/maven/${path}/${packageFile.filename}`,
       {
-        isForm: true,
-        ...options,
-        file: [packageFile.content, packageFile.filename],
+        sudo,
+        showExpanded,
+        body: createFormData({
+          file: [packageFile.content, packageFile.filename],
+        }),
       },
     );
   }

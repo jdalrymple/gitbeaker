@@ -14,7 +14,13 @@ export class Lint<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options: { ref?: string; includeJobs?: boolean; dryRun?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LintSchema, C, E, void>> {
-    return RequestHelper.get<LintSchema>()(this, endpoint`projects/${projectId}/ci/lint`, options);
+    const { sudo, showExpanded, ...searchParams } = options;
+
+    return RequestHelper.get<LintSchema>()(this, endpoint`projects/${projectId}/ci/lint`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   lint<E extends boolean = false>(
@@ -27,9 +33,12 @@ export class Lint<C extends boolean = false> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LintSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<LintSchema>()(this, endpoint`projects/${projectId}/ci/lint`, {
-      ...options,
-      content,
+      sudo,
+      showExpanded,
+      body: { ...body, content },
     });
   }
 }

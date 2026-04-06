@@ -2,7 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceRepositoryStorageMoves } from '../templates';
 import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -30,7 +30,10 @@ export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMov
 export interface SnippetRepositoryStorageMoves<C extends boolean = false>
   extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { snippetId?: string | number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { snippetId?: string | number } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema[], C, E, P>>;
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(

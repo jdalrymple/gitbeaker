@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNotes } from '../templates';
 import type { NoteSchema } from '../templates/ResourceNotes';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -21,6 +22,7 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
       sort?: 'asc' | 'desc';
       orderBy?: 'created_at' | 'updated_at';
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema[], C, E, P>>;

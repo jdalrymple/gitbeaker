@@ -1,5 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  endpoint,
+} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -40,19 +45,33 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
       topLevelOnly?: boolean;
     } & PaginationRequestOptions<P> &
       Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<NamespaceSchema[], C, E, P>> {
-    return RequestHelper.get<NamespaceSchema[]>()(this, 'namespaces', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<NamespaceSchema[]>()(this, 'namespaces', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   exists<E extends boolean = false>(
     namespace: string,
     options?: { parentId?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NamespaceExistsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<NamespaceExistsSchema>()(
       this,
       endpoint`namespaces/${namespace}/exists`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -60,6 +79,11 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
     namespaceId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NamespaceSchema, C, E, void>> {
-    return RequestHelper.get<NamespaceSchema>()(this, endpoint`namespaces/${namespaceId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<NamespaceSchema>()(this, endpoint`namespaces/${namespaceId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

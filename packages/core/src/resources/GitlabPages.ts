@@ -19,17 +19,27 @@ export class GitlabPages<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/pages`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/pages`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showSettings<E extends boolean = false>(
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GitlabPagesSettingsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GitlabPagesSettingsSchema>()(
       this,
       endpoint`projects/${projectId}/pages`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

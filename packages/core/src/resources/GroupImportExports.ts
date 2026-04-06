@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { ImportStatusSchema } from './ProjectImportExports';
 
@@ -18,10 +18,17 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
     groupId: string | number,
     options?: AsStream & ShowExpanded<E> & Sudo,
   ): Promise<any> {
+    const { sudo, showExpanded, asStream, ...searchParams } = options || {};
+
     return RequestHelper.get<Blob | ReadableStream>()(
       this,
       endpoint`groups/${groupId}/export/download`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        asStream,
+        searchParams,
+      },
     );
   }
 
@@ -30,13 +37,18 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
     path: string,
     { parentId, name, ...options }: { parentId?: number; name?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'groups/import', {
-      isForm: true,
-      ...options,
-      file: [file.content, file.filename],
-      path,
-      name: name || path.split('/').at(0),
-      parentId,
+      sudo,
+      showExpanded,
+      body: createFormData({
+        ...body,
+        file: [file.content, file.filename],
+        path,
+        name: name || path.split('/').at(0),
+        parentId,
+      }),
     });
   }
 
@@ -44,10 +56,11 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
     groupId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
-    return RequestHelper.post<{ message: string }>()(
-      this,
-      endpoint`groups/${groupId}/export`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<{ message: string }>()(this, endpoint`groups/${groupId}/export`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

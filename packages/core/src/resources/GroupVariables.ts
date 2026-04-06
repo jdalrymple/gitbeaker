@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceVariables } from '../templates';
 import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -12,7 +13,7 @@ import type {
 export interface GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<VariableSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

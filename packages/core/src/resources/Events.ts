@@ -1,12 +1,15 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, getPrefixedUrl } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 import { SimpleUserSchema } from './Users';
 
@@ -46,21 +49,22 @@ export interface EventSchema extends Record<string, unknown> {
 
 export class Events<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      userId,
-      ...options
-    }: OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
+    options?: OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
       AllEventOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
-    let url: string;
+    const { projectId, userId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/events`;
-    else if (userId) url = endpoint`users/${userId}/events`;
-    else url = 'events';
+    const url = getPrefixedUrl('events', { projects: projectId, users: userId });
 
-    return RequestHelper.get<EventSchema[]>()(this, url, options);
+    return RequestHelper.get<EventSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 }

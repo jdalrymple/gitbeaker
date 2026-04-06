@@ -6,6 +6,7 @@ import type {
   MilestoneSchema,
 } from '../templates/ResourceMilestones';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -18,7 +19,11 @@ import type { MergeRequestSchema } from './MergeRequests';
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllMilestonesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllMilestonesOptions &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
 
   allAssignedIssues<E extends boolean = false>(

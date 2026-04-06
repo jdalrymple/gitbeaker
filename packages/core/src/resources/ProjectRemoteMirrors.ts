@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -24,12 +26,19 @@ export interface ProjectRemoteMirrorSchema extends Record<string, unknown> {
 export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectRemoteMirrorSchema[]>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -40,13 +49,19 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     mirror: boolean,
     options?: { onlyProtectedBranches?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/mirror/pull`,
       {
-        importUrl: url,
-        mirror,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          importUrl: url,
+          mirror,
+        },
       },
     );
   }
@@ -62,12 +77,18 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors`,
       {
-        url,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          url,
+        },
       },
     );
   }
@@ -83,10 +104,16 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -95,11 +122,12 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     mirrorId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -107,10 +135,15 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     mirrorId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -119,10 +152,16 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     mirrorId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}/sync`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 }

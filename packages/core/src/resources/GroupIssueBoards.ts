@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -10,15 +11,15 @@ import type {
 } from '../infrastructure';
 import type { CondensedGroupSchema } from './Groups';
 
-export interface GrouptIssueBoardSchema extends IssueBoardSchema {
+export interface GroupIssueBoardSchema extends IssueBoardSchema {
   group: CondensedGroupSchema;
 }
 
 export interface GroupIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema[], C, E, P>>;
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<GroupIssueBoardSchema[], C, E, P>>;
 
   allLists<E extends boolean = false>(
     resourceId: string | number,
@@ -30,7 +31,7 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
     groupId: string | number,
     name: string,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<GroupIssueBoardSchema, C, E, void>>;
 
   createList<E extends boolean = false>(
     groupId: string | number,
@@ -51,7 +52,7 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
       weight?: number;
     } & Sudo &
       ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<GroupIssueBoardSchema, C, E, void>>;
 
   editList<E extends boolean = false>(
     groupId: string | number,
@@ -78,7 +79,7 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
     groupId: string | number,
     boardId: number,
     options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GrouptIssueBoardSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<GroupIssueBoardSchema, C, E, void>>;
 
   showList<E extends boolean = false>(
     groupId: string | number,

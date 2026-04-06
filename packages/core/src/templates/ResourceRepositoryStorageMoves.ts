@@ -2,8 +2,10 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -37,44 +39,58 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema[], C, E, P>> {
-    const resourceId = options?.[`${this.resourceTypeSingular}Id`] as string | number;
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const resourceId = searchParams?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId
       ? endpoint`${this.resourceType}/${resourceId}/repository_storage_moves`
       : `${this.resourceTypeSingular}_repository_storage_moves`;
 
-    return RequestHelper.get<RepositoryStorageMoveSchema[]>()(this, url, options);
+    return RequestHelper.get<RepositoryStorageMoveSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     repositoryStorageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
-    const resourceId = options?.[`${this.resourceTypeSingular}Id`] as string | number;
+    const { sudo, showExpanded, ...searchParams } = options || {};
+    const resourceId = searchParams?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId
       ? endpoint`${this.resourceType}/${resourceId}/repository_storage_moves`
       : `${this.resourceTypeSingular}_repository_storage_moves`;
 
-    return RequestHelper.get<RepositoryStorageMoveSchema>()(
-      this,
-      `${url}/${repositoryStorageId}`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    return RequestHelper.get<RepositoryStorageMoveSchema>()(this, `${url}/${repositoryStorageId}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: { destinationStorageName?: string } & Sudo & ShowExpanded<E>,
+    options?: { destinationStorageName?: string } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
-    const resourceId = options?.[`${this.resourceTypeSingular}Id`] as string | number;
+    const { sudo, showExpanded, ...body } = options || {};
+    const resourceId = body?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId
       ? endpoint`${this.resourceType}/${resourceId}/repository_storage_moves`
       : `${this.resourceTypeSingular}_repository_storage_moves`;
 
     return RequestHelper.post<RepositoryStorageMoveSchema>()(this, url, {
-      sourceStorageName,
-      ...(options as Sudo & ShowExpanded<E>),
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        sourceStorageName,
+      },
     });
   }
 }

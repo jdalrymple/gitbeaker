@@ -3,6 +3,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -20,11 +21,14 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<SnippetSchema[], C, E, P>> {
-    return RequestHelper.get<SnippetSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/snippets`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<SnippetSchema[]>()(this, endpoint`projects/${projectId}/snippets`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P>,
+    });
   }
 
   create<E extends boolean = false>(
@@ -32,12 +36,18 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     title: string,
     options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedSnippetSchema>()(
       this,
       endpoint`projects/${projectId}/snippets`,
       {
-        title,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          title,
+        },
       },
     );
   }
@@ -47,10 +57,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
   ) {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ExpandedSnippetSchema>()(
       this,
       endpoint`projects/${projectId}/snippets/${snippetId}`,
-      options,
+      { sudo, showExpanded, body },
     );
   }
 
@@ -59,11 +71,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/snippets/${snippetId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/snippets/${snippetId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -71,10 +84,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SnippetSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<SnippetSchema>()(
       this,
       endpoint`projects/${projectId}/snippets/${snippetId}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
@@ -83,10 +98,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<string>()(
       this,
       endpoint`projects/${projectId}/snippets/${snippetId}/raw`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
@@ -97,10 +114,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     filePath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<string>()(
       this,
       endpoint`projects/${projectId}/snippets/${snippetId}/files/${ref}/${filePath}/raw`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
@@ -109,10 +128,12 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     options?: Sudo & ShowExpanded<E>,
   ) {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<UserAgentDetailSchema>()(
       this,
       endpoint`projects/${projectId}/snippets/${snippetId}/user_agent_detail`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

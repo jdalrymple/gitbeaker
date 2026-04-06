@@ -3,6 +3,7 @@ import { RequestHelper } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -21,7 +22,14 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ApplicationSchema[], C, E, P>> {
-    return RequestHelper.get<ApplicationSchema[]>()(this, 'applications', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ApplicationSchema[]>()(this, 'applications', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P>,
+    });
   }
 
   create<E extends boolean = false>(
@@ -30,11 +38,17 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
     scopes: string,
     options?: { confidential?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ApplicationSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ApplicationSchema>()(this, 'applications', {
-      name,
-      redirectUri,
-      scopes,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+        redirectUri,
+        scopes,
+      },
     });
   }
 
@@ -42,6 +56,11 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
     applicationId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `applications/${applicationId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `applications/${applicationId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

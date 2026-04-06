@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -118,6 +120,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     options: AllEpicsOptions &
       PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E> & { withLabelsDetails: true },
   ): Promise<GitlabAPIResponse<EpicSchemaWithExpandedLabels[], C, E, P>>;
@@ -126,15 +129,27 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     options?: AllEpicsOptions &
       PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E> & { withLabelsDetails?: false },
   ): Promise<GitlabAPIResponse<EpicSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllEpicsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllEpicsOptions &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EpicSchema[], C, E, P>> {
-    return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -142,9 +157,15 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     title: string,
     options?: CreateEpicOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<EpicSchema>()(this, endpoint`groups/${groupId}/epics`, {
-      title,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        title,
+      },
     });
   }
 
@@ -153,10 +174,15 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EpicTodoSchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.post<EpicTodoSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/todos`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 
@@ -165,10 +191,16 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     options?: EditEpicOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MappedOmit<EpicSchema, '_links'>, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<MappedOmit<EpicSchema, '_links'>>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -177,7 +209,12 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicIId}`, options);
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicIId}`, {
+      showExpanded,
+      sudo,
+    });
   }
 
   show<E extends boolean = false>(
@@ -185,10 +222,11 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
-    return RequestHelper.get<EpicSchema>()(
-      this,
-      endpoint`groups/${groupId}/epics/${epicIId}`,
-      options,
-    );
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.get<EpicSchema>()(this, endpoint`groups/${groupId}/epics/${epicIId}`, {
+      showExpanded,
+      sudo,
+    });
   }
 }

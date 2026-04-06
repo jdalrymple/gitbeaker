@@ -7,10 +7,15 @@ export class ProductAnalytics<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Record<string, unknown>>()(
       this,
       endpoint`projects/${projectId}/product_analytics/funnels`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -18,10 +23,16 @@ export class ProductAnalytics<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     options?: { includeToken?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/load`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -29,10 +40,16 @@ export class ProductAnalytics<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     options?: { includeToken?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/dry-run`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -40,10 +57,15 @@ export class ProductAnalytics<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/meta`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

@@ -17,15 +17,18 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
     integrated: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<ErrorTrackingSettingsSchema>()(
       this,
       endpoint`projects/${projectId}/error_tracking/settings`,
       {
+        sudo,
+        showExpanded,
         searchParams: {
           active,
           integrated,
         },
-        ...options,
       },
     );
   }
@@ -33,17 +36,20 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
   edit<E extends boolean = false>(
     projectId: string | number,
     active: boolean,
-    { integrated, ...options }: { integrated?: boolean } & Sudo & ShowExpanded<E> = {},
+    options?: { integrated?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.patch<ErrorTrackingSettingsSchema>()(
       this,
       endpoint`projects/${projectId}/error_tracking/settings`,
       {
+        sudo,
+        showExpanded,
         searchParams: {
+          ...searchParams,
           active,
-          integrated,
         },
-        ...options,
       },
     );
   }
@@ -52,10 +58,15 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ErrorTrackingSettingsSchema>()(
       this,
       endpoint`projects/${projectId}/error_tracking/settings`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 }

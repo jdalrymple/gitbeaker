@@ -1,6 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  BaseRequestSearchParams,
+  GitlabAPIResponse,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 import type { CommitSchema } from './Commits';
 
 export interface RepositoryFileExpandedSchema extends Record<string, unknown> {
@@ -55,14 +60,24 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     filePath: string,
     ref: string,
-    options?: { range?: { start: number; end: number } } & Sudo & ShowExpanded<E>,
+    options?: {
+      range?: { start: number; end: number };
+    } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileBlameSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<RepositoryFileBlameSchema[]>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}/blame`,
       {
-        ref,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          ...searchParams,
+          ref,
+        },
       },
     );
   }
@@ -73,16 +88,22 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     branch: string,
     content: string,
     commitMessage: string,
-    options?: CreateRepositoryFileOptions & Sudo & ShowExpanded<E>,
+    options?: CreateRepositoryFileOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RepositoryFileSchema>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
-        branch,
-        content,
-        commitMessage,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          branch,
+          content,
+          commitMessage,
+        },
       },
     );
   }
@@ -93,16 +114,22 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     branch: string,
     content: string,
     commitMessage: string,
-    options?: EditRepositoryFileOptions & Sudo & ShowExpanded<E>,
+    options?: EditRepositoryFileOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<RepositoryFileSchema>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
-        branch,
-        content,
-        commitMessage,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          branch,
+          content,
+          commitMessage,
+        },
       },
     );
   }
@@ -112,12 +139,18 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     filePath: string,
     branch: string,
     commitMessage: string,
-    options?: RemoveRepositoryFileOptions & Sudo & ShowExpanded<E>,
+    options?: RemoveRepositoryFileOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.del()(this, endpoint`projects/${projectId}/repository/files/${filePath}`, {
-      branch,
-      commitMessage,
-      ...options,
+      sudo,
+      showExpanded,
+      searchParams: {
+        ...searchParams,
+        branch,
+        commitMessage,
+      },
     });
   }
 
@@ -127,12 +160,17 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     ref: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryFileExpandedSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<RepositoryFileExpandedSchema>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}`,
       {
-        ref,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          ref,
+        },
       },
     );
   }
@@ -141,14 +179,23 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     filePath: string,
     ref: string,
-    options?: { lfs?: boolean } & Sudo & ShowExpanded<E>,
+    options?: {
+      lfs?: boolean;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string | Blob, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<string | Blob>()(
       this,
       endpoint`projects/${projectId}/repository/files/${filePath}/raw`,
       {
-        ref,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          ...searchParams,
+          ref,
+        },
       },
     );
   }

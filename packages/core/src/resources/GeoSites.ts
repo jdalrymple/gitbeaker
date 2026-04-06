@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -304,21 +306,42 @@ export type EditGeoSiteOptions = CreateGeoSiteOptions;
 
 export class GeoSites<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteSchema[], C, E, P>> {
-    return RequestHelper.get<GeoSiteSchema[]>()(this, 'geo_sites', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<GeoSiteSchema[]>()(this, 'geo_sites', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allStatuses<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteStatusSchema[], C, E, P>> {
-    return RequestHelper.get<GeoSiteStatusSchema[]>()(this, 'geo_sites/statuses', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<GeoSiteStatusSchema[]>()(this, 'geo_sites/statuses', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allFailures<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteFailureSchema[], C, E, P>> {
-    return RequestHelper.get<GeoSiteFailureSchema[]>()(this, 'geo_sites/current/failures', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<GeoSiteFailureSchema[]>()(this, 'geo_sites/current/failures', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -326,41 +349,73 @@ export class GeoSites<C extends boolean = false> extends BaseResource<C> {
     url: string,
     options?: CreateGeoSiteOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteSchema, C, E, void>> {
-    return RequestHelper.post<GeoSiteSchema>()(this, 'geo_sites', { name, url, ...options });
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<GeoSiteSchema>()(this, 'geo_sites', {
+      sudo,
+      showExpanded,
+      body: { ...body, name, url },
+    });
   }
 
   edit<E extends boolean = false>(
     geositeId: number,
     options?: EditGeoSiteOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteSchema, C, E, void>> {
-    return RequestHelper.put<GeoSiteSchema>()(this, `geo_sites/${geositeId}`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<GeoSiteSchema>()(this, `geo_sites/${geositeId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   repair<E extends boolean = false>(
     geositeId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteSchema, C, E, void>> {
-    return RequestHelper.post<GeoSiteSchema>()(this, `geo_sites/${geositeId}/repair`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<GeoSiteSchema>()(this, `geo_sites/${geositeId}/repair`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     geositeId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `geo_sites/${geositeId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `geo_sites/${geositeId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     geositeId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteSchema, C, E, void>> {
-    return RequestHelper.get<GeoSiteSchema>()(this, `geo_sites/${geositeId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<GeoSiteSchema>()(this, `geo_sites/${geositeId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showStatus<E extends boolean = false>(
     geositeId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoSiteStatusSchema, C, E, void>> {
-    return RequestHelper.get<GeoSiteStatusSchema>()(this, `geo_sites/${geositeId}/status`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<GeoSiteStatusSchema>()(this, `geo_sites/${geositeId}/status`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

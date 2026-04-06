@@ -7,6 +7,11 @@ export class DependencyProxy<C extends boolean = false> extends BaseResource<C> 
     groupId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, `groups/${groupId}/dependency_proxy/cache`, options);
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.post<void>()(this, `groups/${groupId}/dependency_proxy/cache`, {
+      showExpanded,
+      sudo,
+    });
   }
 }

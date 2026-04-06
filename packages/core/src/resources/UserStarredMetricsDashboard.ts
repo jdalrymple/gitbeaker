@@ -15,24 +15,35 @@ export class UserStarredMetricsDashboard<C extends boolean = false> extends Base
     dashboardPath: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<StarredDashboardSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<StarredDashboardSchema>()(
       this,
       endpoint`projects/${projectId}/metrics/user_starred_dashboards`,
       {
-        dashboardPath,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          dashboardPath,
+        },
       },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: { dashboard_path?: string } & Sudo & ShowExpanded<E>,
+    options?: { dashboardPath?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ deleted_rows: number }, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.del<{ deleted_rows: number }>()(
       this,
       endpoint`projects/${projectId}/metrics/user_starred_dashboards`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 }

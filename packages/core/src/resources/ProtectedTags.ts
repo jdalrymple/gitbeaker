@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -36,12 +38,19 @@ export type ProtectedTagAccessLevelEntity = OneOf<{
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProtectedTagSchema[]>()(
       this,
       endpoint`projects/${projectId}/protected_tags`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -51,21 +60,22 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
-    } & Sudo &
+    } & BaseRequestSearchParams &
+      Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
-    const { sudo, showExpanded, ...opts } = options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.post<ProtectedTagSchema>()(
       this,
       endpoint`projects/${projectId}/protected_tags`,
       {
-        searchParams: {
-          name: tagName,
-          ...opts,
-        },
         sudo,
         showExpanded,
+        body: {
+          ...body,
+          name: tagName,
+        },
       },
     );
   }
@@ -77,7 +87,8 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
-    } & Sudo &
+    } & BaseRequestSearchParams &
+      Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     return this.create(projectId, tagName, options);
@@ -88,10 +99,15 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProtectedTagSchema>()(
       this,
       endpoint`projects/${projectId}/protected_tags/${tagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -100,11 +116,12 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/protected_tags/${tagName}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/protected_tags/${tagName}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   // Convenience method - remove

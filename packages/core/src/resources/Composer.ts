@@ -54,10 +54,15 @@ export class Composer<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: { tag?: string; branch?: string } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { showExpanded, ...body } = options || {};
+
     return RequestHelper.post<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/packages/composer`,
-      options,
+      {
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -67,12 +72,14 @@ export class Composer<C extends boolean = false> extends BaseResource<C> {
     sha: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/composer/archives/${packageName}`,
       {
+        showExpanded,
         searchParams: { sha },
-        ...options,
       },
     );
   }
@@ -82,15 +89,19 @@ export class Composer<C extends boolean = false> extends BaseResource<C> {
     packageName: string,
     options?: { sha?: string } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ComposerPackageMetadataSchema, C, E, void>> {
+    const { showExpanded, ...searchParams } = options || {};
     let url: string;
 
-    if (options && options.sha) {
-      url = endpoint`groups/${groupId}/-/packages/composer/${packageName}$${options.sha}`;
+    if (searchParams?.sha) {
+      url = endpoint`groups/${groupId}/-/packages/composer/${packageName}$${searchParams.sha}`;
     } else {
       url = endpoint`groups/${groupId}/-/packages/composer/p2/${packageName}`;
     }
 
-    return RequestHelper.get<ComposerPackageMetadataSchema>()(this, url, options);
+    return RequestHelper.get<ComposerPackageMetadataSchema>()(this, url, {
+      showExpanded,
+      searchParams,
+    });
   }
 
   showPackages<E extends boolean = false>(
@@ -121,16 +132,20 @@ export class Composer<C extends boolean = false> extends BaseResource<C> {
   ): Promise<
     GitlabAPIResponse<ComposerV1BaseRepositorySchema | ComposerV2BaseRepositorySchema, C, E, void>
   > {
+    const { showExpanded, ...searchParams } = options || {};
     const clonedService = { ...this };
 
-    if (options && options.composerVersion === '2') {
+    if (searchParams.composerVersion === '2') {
       clonedService.headers['User-Agent'] = 'Composer/2';
     }
 
     return RequestHelper.get<ComposerV1BaseRepositorySchema | ComposerV2BaseRepositorySchema>()(
       clonedService,
       endpoint`groups/${groupId}/-/packages/composer/packages`,
-      options,
+      {
+        showExpanded,
+        searchParams,
+      },
     );
   }
 }

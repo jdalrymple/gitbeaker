@@ -6,6 +6,7 @@ import type {
   ExpandedHookSchema,
 } from '../templates/ResourceHooks';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -26,7 +27,7 @@ export interface ProjectHooks<C extends boolean = false> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectHookSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(

@@ -1,11 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -85,33 +86,53 @@ export type CreateRunnerOptions = {
 
 export class Runners<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      groupId,
-      owned,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; owned: boolean; groupId: string | number }> &
+    options?: OneOrNoneOf<{
+      projectId: string | number;
+      owned: boolean;
+      groupId: string | number;
+    }> &
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       AllRunnersOptions &
-      BaseRequestOptions<E> &
-      PaginationRequestOptions<P> = {} as any,
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RunnerSchema[], C, E, P>> {
-    let url: string;
+    const { projectId, groupId, owned, sudo, showExpanded, maxPages, ...searchParams } =
+      options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/runners`;
-    else if (groupId) url = endpoint`groups/${groupId}/runners`;
-    else if (owned) url = 'runners';
-    else url = 'runners/all';
+    ensureRequiredParams({ projectId, groupId, owned }, { minExpected: 0 });
 
-    return RequestHelper.get<RunnerSchema[]>()(this, url, options);
+    const url =
+      !owned && !projectId && !groupId
+        ? 'runners/all'
+        : getPrefixedUrl('runners', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<RunnerSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allJobs<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     runnerId: number,
-    options?: Sudo &
-      PaginationRequestOptions<P> &
-      ShowExpanded<E> & { status?: string; orderBy?: string; sort?: string },
+    options?: PaginationRequestOptions<P> &
+      BaseRequestSearchParams & {
+        status?: string;
+        orderBy?: string;
+        sort?: string;
+      } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
-    return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<JobSchema[]>()(this, `runners/${runnerId}/jobs`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   // https://docs.gitlab.com/15.9/ee/api/runners.html#register-a-new-runner
@@ -119,9 +140,15 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     token: string,
     options?: CreateRunnerOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RunnerToken, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RunnerToken>()(this, `runners`, {
-      token,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        token,
+      },
     });
   }
 
@@ -129,7 +156,13 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId: number,
     options?: EditRunnerOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedRunnerSchema, C, E, void>> {
-    return RequestHelper.put<ExpandedRunnerSchema>()(this, `runners/${runnerId}`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<ExpandedRunnerSchema>()(this, `runners/${runnerId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   enable<E extends boolean = false>(
@@ -137,9 +170,14 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RunnerSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<RunnerSchema>()(this, endpoint`projects/${projectId}/runners`, {
-      runnerId,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        runnerId,
+      },
     });
   }
 
@@ -148,7 +186,12 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/runners/${runnerId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/runners/${runnerId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   // Create - Convenience method
@@ -166,19 +209,22 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   }: OneOf<{ runnerId: number; token: string }> & Sudo & ShowExpanded<E>): Promise<
     GitlabAPIResponse<void, C, E, void>
   > {
-    let url: string;
+    const { sudo, showExpanded, ...searchParams } = options;
 
-    if (runnerId) url = `runners/${runnerId}`;
-    else if (token) {
-      url = 'runners';
-    } else
-      throw new Error(
-        'Missing required argument. Please supply a runnerId or a token in the options parameter',
-      );
+    ensureRequiredParams({ runnerId, token });
+
+    const url = getPrefixedUrl('', { runners: runnerId || true });
+    const sp = runnerId
+      ? searchParams
+      : {
+          ...searchParams,
+          token,
+        };
 
     return RequestHelper.del()(this, url, {
-      token,
-      ...options,
+      sudo,
+      showExpanded,
+      searchParams: sp,
     });
   }
 
@@ -189,17 +235,19 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOrNoneOf<{ runnerId: string; token: string }> & Sudo & ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    let url: string;
+    const { sudo, showExpanded, ...body } = options;
 
-    if (runnerId) url = endpoint`runners/${runnerId}/reset_registration_token`;
-    else if (token) url = 'runners/reset_registration_token';
-    else {
-      throw new Error('Missing either runnerId or token parameters');
-    }
+    ensureRequiredParams({ runnerId, token });
+
+    const url = getPrefixedUrl('reset_registration_token', { runners: runnerId || true });
 
     return RequestHelper.post<void>()(this, url, {
-      token,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        token,
+      },
     });
   }
 
@@ -207,12 +255,26 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedRunnerSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedRunnerSchema>()(this, `runners/${runnerId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExpandedRunnerSchema>()(this, `runners/${runnerId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   verify<E extends boolean = false>(
-    options?: { systemId?: string } & Sudo & ShowExpanded<E>,
+    options?: {
+      systemId?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, `runners/verify`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<void>()(this, `runners/verify`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 }

@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -58,13 +60,21 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: { scope?: 'enabled' | 'disabled' } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<FeatureFlagSchema[]>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -74,13 +84,19 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     version: string,
     options?: CreateFeatureFlagOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
       {
-        name: flagName,
-        version,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name: flagName,
+          version,
+        },
       },
     );
   }
@@ -90,10 +106,16 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     featureFlagName: string,
     options?: EditFeatureFlagOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags/${featureFlagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -102,11 +124,12 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     flagName: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/feature_flags/${flagName}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/feature_flags/${flagName}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -114,10 +137,15 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     flagName: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags/${flagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

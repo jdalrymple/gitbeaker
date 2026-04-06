@@ -1,10 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -31,26 +32,25 @@ export interface ExpandedDeployKeySchema extends DeployKeySchema {
 
 export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      userId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; userId: string | number }> & {
+    options?: OneOrNoneOf<{ projectId: string | number; userId: string | number }> & {
       public?: boolean;
     } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+      BaseRequestSearchParams &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ExpandedDeployKeySchema[], C, E, P>> {
-    let url: string;
+    const { showExpanded, sudo, maxPages, projectId, userId, ...searchParams } = options || {};
 
-    if (projectId) {
-      url = endpoint`projects/${projectId}/deploy_keys`;
-    } else if (userId) {
-      url = endpoint`users/${userId}/project_deploy_keys`;
-    } else {
-      url = 'deploy_keys';
-    }
+    const url = userId
+      ? getPrefixedUrl('project_deploy_keys', { users: userId })
+      : getPrefixedUrl('deploy_keys', { projects: projectId });
 
-    return RequestHelper.get<ExpandedDeployKeySchema[]>()(this, url, options);
+    return RequestHelper.get<ExpandedDeployKeySchema[]>()(this, url, {
+      showExpanded,
+      sudo,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -59,13 +59,19 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     key: string,
     options?: { canPush?: boolean } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.post<DeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys`,
       {
-        title,
-        key,
-        ...options,
+        showExpanded,
+        sudo,
+        body: {
+          ...body,
+          title,
+          key,
+        },
       },
     );
   }
@@ -75,10 +81,16 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     options?: { canPush?: boolean; title?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.put<DeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+        body,
+      },
     );
   }
 
@@ -87,10 +99,15 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedDeployKeySchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.post<CondensedDeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}/enable`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 
@@ -99,7 +116,12 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/deploy_keys/${keyId}`, options);
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/deploy_keys/${keyId}`, {
+      showExpanded,
+      sudo,
+    });
   }
 
   show<E extends boolean = false>(
@@ -107,10 +129,15 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.get<DeployKeySchema>()(
       this,
       endpoint`projects/${projectId}/deploy_keys/${keyId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 }

@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceWikis } from '../templates';
 import type { WikiAttachmentSchema, WikiSchema } from '../templates/ResourceWikis';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -13,17 +14,23 @@ import type {
 export interface GroupWikis<C extends boolean = false> extends ResourceWikis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: { withContent: true } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options: { withContent: true } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<(WikiSchema & { content: string })[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { withContent?: boolean } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { withContent?: boolean } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
 
   create<E extends boolean = false>(

@@ -15,10 +15,16 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ServiceAccountSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ServiceAccountSchema>()(
       this,
       endpoint`groups/${groupId}/service_accounts`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -36,10 +42,15 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
     serviceAccountId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ServiceAccountAccessTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ServiceAccountAccessTokenSchema>()(
       this,
       endpoint`groups/${groupId}/service_accounts/${serviceAccountId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -49,10 +60,15 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
     tokenId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ServiceAccountAccessTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ServiceAccountAccessTokenSchema>()(
       this,
       endpoint`groups/${groupId}/service_accounts/${serviceAccountId}/personal_access_tokens/${tokenId}/rotate`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

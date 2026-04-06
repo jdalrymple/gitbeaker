@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceLabels } from '../templates';
 import type { LabelCountSchema, LabelSchema } from '../templates/ResourceLabels';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -18,6 +19,7 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<(LabelSchema & LabelCountSchema)[], C, E, P>>;
@@ -28,6 +30,7 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
@@ -39,6 +42,7 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
       includeAncestorGroups?: boolean;
       search?: string;
     } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;

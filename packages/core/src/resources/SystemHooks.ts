@@ -1,6 +1,13 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  BaseRequestSearchParams,
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 import type { HookSchema } from '../templates/ResourceHooks';
 
 export interface SystemHookTestResponse extends Record<string, unknown> {
@@ -23,9 +30,17 @@ export interface CreateSystemHook {
 
 export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<HookSchema[], C, E, void>> {
-    return RequestHelper.get<HookSchema[]>()(this, 'hooks', options);
+    options?: BaseRequestSearchParams & PaginationRequestOptions<'offset'> & Sudo & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<HookSchema[], C, E, 'offset'>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<HookSchema[]>()(this, 'hooks', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<'offset'> &
+        BaseRequestSearchParams,
+    });
   }
 
   // Convenience method
@@ -40,9 +55,15 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
     url: string,
     options?: CreateSystemHook & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<HookSchema>()(this, 'hooks', {
-      url,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        url,
+        ...body,
+      },
     });
   }
 
@@ -50,20 +71,35 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
     hookId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SystemHookTestResponse, C, E, void>> {
-    return RequestHelper.post<SystemHookTestResponse>()(this, `hooks/${hookId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<SystemHookTestResponse>()(this, `hooks/${hookId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     hookId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `hooks/${hookId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `hooks/${hookId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     hookId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
-    return RequestHelper.post<HookSchema>()(this, `hooks/${hookId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<HookSchema>()(this, `hooks/${hookId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

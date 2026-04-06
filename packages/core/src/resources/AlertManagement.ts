@@ -1,8 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -23,10 +24,17 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     alertIId: number,
     options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MetricImageSchema[]>()(
       this,
       endpoint`projects/${projectId}/alert_management_alerts/${alertIId}/metric_images`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P>,
+      },
     );
   }
 
@@ -36,10 +44,16 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     imageId: number,
     options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<MetricImageSchema>()(
       this,
       endpoint`projects/${projectId}/alert_management_alerts/${alertIId}/metric_images/${imageId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -49,10 +63,12 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     imageId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/alert_management_alerts/${alertIId}/metric_images/${imageId}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
@@ -62,13 +78,19 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     metricImage: { content: Blob; filename: string },
     options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MetricImageSchema>()(
       this,
       endpoint`projects/${projectId}/alert_management_alerts/${alertIId}/metric_images`,
       {
-        isForm: true,
-        file: [metricImage.content, metricImage.filename],
-        ...options,
+        sudo,
+        showExpanded,
+        body: createFormData({
+          file: [metricImage.content, metricImage.filename],
+          url: body?.url,
+          urlText: body?.urlText,
+        }),
       },
     );
   }

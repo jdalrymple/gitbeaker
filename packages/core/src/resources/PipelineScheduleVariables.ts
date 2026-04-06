@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -18,12 +20,19 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineVariableSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<PipelineVariableSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -34,13 +43,19 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     value: string,
     options?: { variableType?: 'env_var' | 'file' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineVariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<PipelineVariableSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables`,
       {
-        ...options,
-        key,
-        value,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          key,
+          value,
+        },
       },
     );
   }
@@ -52,12 +67,18 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     value: string,
     options?: { variableType?: 'env_var' | 'file' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<PipelineVariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<PipelineVariableSchema>()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${key}`,
       {
-        ...options,
-        value,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          value,
+        },
       },
     );
   }
@@ -68,10 +89,15 @@ export class PipelineScheduleVariables<C extends boolean = false> extends BaseRe
     key: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/pipeline_schedules/${pipelineScheduleId}/variables/${key}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

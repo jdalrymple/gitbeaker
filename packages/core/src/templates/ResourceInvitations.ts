@@ -1,10 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, ensureRequiredParams } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -37,26 +39,34 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
-    if (!options?.email && !options?.userId)
-      throw new Error(
-        'Missing required argument. Please supply a email or a userId in the options parameter.',
-      );
+    ensureRequiredParams({ email: options?.email, userId: options?.userId });
+
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.post<InvitationSchema>()(this, endpoint`${resourceId}/invitations`, {
-      accessLevel,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        accessLevel,
+      },
     });
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & { query?: string } & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & { query?: string } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>> {
-    return RequestHelper.get<InvitationSchema[]>()(
-      this,
-      endpoint`${resourceId}/invitations`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<InvitationSchema[]>()(this, endpoint`${resourceId}/invitations`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   edit<E extends boolean = false>(
@@ -65,10 +75,16 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     options?: { expiresAt?: string; accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<InvitationSchema>()(
       this,
       endpoint`${resourceId}/invitations/${email}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -77,10 +93,15 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     email: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del<InvitationSchema>()(
       this,
       endpoint`${resourceId}/invitations/${email}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

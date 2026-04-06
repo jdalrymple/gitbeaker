@@ -1,7 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  endpoint,
+} from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
@@ -33,13 +37,22 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
       targetBranch?: string;
       scope?: 'active' | 'complete';
       sort?: 'asc' | 'desc';
-    } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E>,
+    } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> &
+      PaginationRequestOptions<P>,
   ): Promise<GitlabAPIResponse<MergeTrainSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeTrainSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_trains`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -48,10 +61,15 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
     mergeRequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeTrainSchema>()(
       this,
       endpoint`projects/${projectId}/merge_trains/merge_requests/${mergeRequestIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -61,10 +79,16 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
     options?: { whenPipelineSucceeds?: boolean; sha?: string; squash?: boolean } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MergeTrainSchema>()(
       this,
       endpoint`projects/${projectId}/merge_trains/merge_requests/${mergeRequestIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 }

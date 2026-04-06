@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -20,12 +22,19 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ReleaseLinkSchema[]>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/assets/links`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -34,15 +43,27 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     name: string,
     url: string,
-    options?: Sudo & { filePath?: string; linkType?: string; directAssetPath?: string },
+    options?: {
+      filePath?: string;
+      linkType?: string;
+      directAssetPath?: string;
+    } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ReleaseLinkSchema>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/assets/links`,
       {
-        name,
-        url,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name,
+          url,
+        },
       },
     );
   }
@@ -51,19 +72,26 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     tagName: string,
     linkId: number,
-    options?: Sudo &
-      ShowExpanded<E> & {
-        name?: string;
-        url?: string;
-        filePath?: string;
-        linkType?: string;
-        directAssetPath?: string;
-      },
+    options?: {
+      name?: string;
+      url?: string;
+      filePath?: string;
+      linkType?: string;
+      directAssetPath?: string;
+    } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ReleaseLinkSchema>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/assets/links/${linkId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -73,10 +101,15 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     linkId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/assets/links/${linkId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -85,11 +118,16 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     tagName: string,
     linkId: number,
     options?: Sudo & ShowExpanded<E>,
-  ) {
+  ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ReleaseLinkSchema>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/assets/links/${linkId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

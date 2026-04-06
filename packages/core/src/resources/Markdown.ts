@@ -11,6 +11,12 @@ export class Markdown<C extends boolean = false> extends BaseResource<C> {
     text: string,
     options?: { gfm?: string; project?: string | number } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MarkdownSchema, C, E, void>> {
-    return RequestHelper.post<MarkdownSchema>()(this, 'markdown', { text, ...options });
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<MarkdownSchema>()(this, 'markdown', {
+      sudo,
+      showExpanded,
+      body: { ...body, text },
+    });
   }
 }

@@ -1,5 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -38,14 +42,21 @@ export interface UserImpersonationTokenSchema extends Record<string, unknown> {
 export class UserImpersonationTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: { state?: ImpersonationTokenState } & PaginationRequestOptions<P> &
-      Sudo &
+    options?: PaginationRequestOptions<P> &
+      BaseRequestSearchParams & { state?: ImpersonationTokenState } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserImpersonationTokenSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<UserImpersonationTokenSchema[]>()(
       this,
       `users/${userId}/impersonation_tokens`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
+      },
     );
   }
 
@@ -55,13 +66,19 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     scopes: ImpersonationTokenScope[],
     options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserImpersonationTokenSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<UserImpersonationTokenSchema>()(
       this,
       `users/${userId}/impersonation_tokens`,
       {
-        name,
-        scopes,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          name,
+          scopes,
+          ...body,
+        },
       },
     );
   }
@@ -71,10 +88,15 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     tokenId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<UserImpersonationTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<UserImpersonationTokenSchema>()(
       this,
       `users/${userId}/impersonation_tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -83,7 +105,12 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     tokenId: number,
     options?: Sudo & ShowExpanded<E>,
   ) {
-    return RequestHelper.del()(this, `users/${userId}/impersonation_tokens/${tokenId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, `users/${userId}/impersonation_tokens/${tokenId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   // Convienence method

@@ -1,40 +1,56 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export class RubyGems<C extends boolean = false> extends BaseResource<C> {
   allDependencies<E extends boolean = false>(
     projectId: string,
-    options?: { gems?: string } & ShowExpanded<E>,
+    options?: {
+      gems?: string;
+    } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, void, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<string>()(
       this,
       endpoint`projects/${projectId}/packages/rubygems/api/v1/dependencies`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
   downloadGemFile<E extends boolean = false>(
     projectId: string,
     fileName: string,
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/rubygems/gems/${fileName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   uploadGemFile<E extends boolean = false>(
     projectId: string | number,
     packageFile: { content: Blob; filename: string },
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<void>()(this, `projects/${projectId}/packages/rubygems/api/v1/gems`, {
-      isForm: true,
-      ...options,
-      file: [packageFile.content, packageFile.filename],
+      sudo,
+      showExpanded,
+      body: createFormData({ file: [packageFile.content, packageFile.filename] }),
     });
   }
 }

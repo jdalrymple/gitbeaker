@@ -7,6 +7,7 @@ import type {
 } from '../templates/ResourceMilestones';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -19,7 +20,11 @@ import type { MergeRequestSchema } from './MergeRequests';
 export interface ProjectMilestones<C extends boolean = false> extends ResourceMilestones<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllMilestonesOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllMilestonesOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>>;
 
   allAssignedIssues<E extends boolean = false>(
@@ -84,10 +89,16 @@ export class ProjectMilestones<C extends boolean = false> extends ResourceMilest
     milestoneId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`${projectId}/milestones/${milestoneId}/promote`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 }

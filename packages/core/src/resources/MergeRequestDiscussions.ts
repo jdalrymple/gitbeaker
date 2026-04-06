@@ -8,6 +8,7 @@ import type {
 } from '../templates/ResourceDiscussions';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -47,7 +48,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -107,12 +108,15 @@ export class MergeRequestDiscussions<C extends boolean = false> extends Resource
     resolved: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<DiscussionSchema>()(
       this,
       endpoint`${projectId}/merge_requests/${mergerequestId}/discussions/${discussionId}`,
       {
+        sudo,
+        showExpanded,
         searchParams: { resolved },
-        ...options,
       },
     );
   }

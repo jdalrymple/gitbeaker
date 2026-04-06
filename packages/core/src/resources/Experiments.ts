@@ -1,10 +1,13 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
 
 export interface ExperimentGateSchema {
@@ -31,8 +34,15 @@ export interface ExperimentSchema extends Record<string, unknown> {
 
 export class Experiments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExperimentSchema[], C, E, P>> {
-    return RequestHelper.get<ExperimentSchema[]>()(this, 'experiments', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ExperimentSchema[]>()(this, 'experiments', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 }

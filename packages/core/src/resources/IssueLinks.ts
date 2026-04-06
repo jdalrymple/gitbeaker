@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -50,12 +52,19 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<IssueLinkSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<IssueLinkSchema[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/links`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -66,13 +75,19 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     targetIssueIId: number,
     options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedIssueLinkSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/links`,
       {
-        targetProjectId,
-        targetIssueIid: targetIssueIId,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          targetProjectId,
+          targetIssueIid: targetIssueIId,
+        },
       },
     );
   }
@@ -83,10 +98,12 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     issueLinkId: number,
     options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.del<ExpandedIssueLinkSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/links/${issueLinkId}`,
-      options,
+      { sudo, showExpanded, body },
     );
   }
 }

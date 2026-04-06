@@ -1,6 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  BaseRequestBodyRecordOptions,
+  GitlabAPIResponse,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 export type SupportedIntegration =
   | 'asana'
@@ -62,22 +67,26 @@ export class Integrations<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IntegrationSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IntegrationSchema[]>()(
       this,
       endpoint`projects/${projectId}/integrations`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
   edit<E extends boolean = false>(
     projectId: string | number,
     integrationName: SupportedIntegration,
-    options?: BaseRequestOptions<E>,
+    options?: Sudo & ShowExpanded<E> & BaseRequestBodyRecordOptions,
   ): Promise<GitlabAPIResponse<IntegrationSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<IntegrationSchema>()(
       this,
       endpoint`projects/${projectId}/integrations/${integrationName}`,
-      options,
+      { sudo, showExpanded, body },
     );
   }
 
@@ -86,10 +95,12 @@ export class Integrations<C extends boolean = false> extends BaseResource<C> {
     integrationName: SupportedIntegration,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/integrations/${integrationName}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 
@@ -98,10 +109,12 @@ export class Integrations<C extends boolean = false> extends BaseResource<C> {
     integrationName: SupportedIntegration,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IntegrationSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IntegrationSchema>()(
       this,
       endpoint`projects/${projectId}/integrations/${integrationName}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

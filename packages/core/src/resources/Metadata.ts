@@ -17,6 +17,11 @@ export class Metadata<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MetadataSchema, C, E, void>> {
-    return RequestHelper.get<MetadataSchema>()(this, 'metadata', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<MetadataSchema>()(this, 'metadata', {
+      sudo,
+      showExpanded,
+    });
   }
 }

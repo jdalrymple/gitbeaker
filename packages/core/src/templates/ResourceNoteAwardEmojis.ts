@@ -1,34 +1,16 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
 import type { AwardEmojiSchema } from './ResourceAwardEmojis';
-
-function url(
-  resourceId: number | string,
-  resourceType2: string,
-  resourceId2: number | string,
-  noteId: number,
-  awardId?: number,
-) {
-  const [rId, rId2] = [resourceId, resourceId2].map(encodeURIComponent);
-  const output: (string | number)[] = [rId, resourceType2, rId2];
-
-  output.push('notes');
-  output.push(noteId);
-  output.push('award_emoji');
-
-  if (awardId) output.push(awardId);
-
-  return output.join('/');
-}
 
 export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseResource<C> {
   protected resourceType: string;
@@ -43,13 +25,17 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     projectId: string | number,
     resourceIId: number,
     noteId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>> {
-    return RequestHelper.get<AwardEmojiSchema[]>()(
-      this,
-      url(projectId, this.resourceType, resourceIId, noteId),
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji`;
+
+    return RequestHelper.get<AwardEmojiSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   award<E extends boolean = false>(
@@ -59,14 +45,16 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     name: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
-    return RequestHelper.post<AwardEmojiSchema>()(
-      this,
-      url(projectId, this.resourceType, resourceIId, noteId),
-      {
+    const { sudo, showExpanded } = options || {};
+    const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji`;
+
+    return RequestHelper.post<AwardEmojiSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
         name,
-        ...options,
       },
-    );
+    });
   }
 
   remove<E extends boolean = false>(
@@ -76,11 +64,13 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     awardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      url(projectId, this.resourceType, resourceIId, noteId, awardId),
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+    const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji/${awardId}`;
+
+    return RequestHelper.del()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
@@ -90,10 +80,12 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     awardId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
-    return RequestHelper.get<AwardEmojiSchema>()(
-      this,
-      url(projectId, this.resourceType, resourceIId, noteId, awardId),
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+    const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji/${awardId}`;
+
+    return RequestHelper.get<AwardEmojiSchema>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 }

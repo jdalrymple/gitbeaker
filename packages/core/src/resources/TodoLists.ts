@@ -1,9 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, getPrefixedUrl } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -48,18 +50,25 @@ export interface TodoSchema extends Record<string, unknown> {
 
 export class TodoLists<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: {
-      action?: TodoAction;
-      authorId?: number;
-      projectId?: string | number;
-      groupId?: string | number;
-      state?: TodoState;
-      type?: TodoType;
-    } & Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> &
+      BaseRequestSearchParams & {
+        action?: TodoAction;
+        authorId?: number;
+        projectId?: string | number;
+        groupId?: string | number;
+        state?: TodoState;
+        type?: TodoType;
+      } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TodoSchema[], C, E, P>> {
-    return RequestHelper.get<TodoSchema[]>()(this, 'todos', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<TodoSchema[]>()(this, 'todos', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   done<E extends boolean = false>(
@@ -76,14 +85,13 @@ export class TodoLists<C extends boolean = false> extends BaseResource<C> {
   }: { todoId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<void | TodoSchema, C, E, void>
   > {
-    let prefix = 'todos';
+    const { sudo, showExpanded } = options || {};
 
-    if (todoId) prefix += `/${todoId}`;
+    const url = getPrefixedUrl('mark_as_done', { todos: todoId || true });
 
-    return RequestHelper.post<void | TodoSchema>()(
-      this,
-      `${prefix}/mark_as_done`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    return RequestHelper.post<void | TodoSchema>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 }

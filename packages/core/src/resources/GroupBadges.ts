@@ -6,6 +6,7 @@ import type {
   EditBadgeOptions,
 } from '../templates/ResourceBadges';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -27,7 +28,10 @@ export interface GroupBadges<C extends boolean = false> extends ResourceBadges<C
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { name?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { name?: string } & PaginationRequestOptions<P> &
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupBadgeSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(

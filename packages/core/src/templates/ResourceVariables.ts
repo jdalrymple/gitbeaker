@@ -2,8 +2,10 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -26,9 +28,16 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema[], C, E, P>> {
-    return RequestHelper.get<VariableSchema[]>()(this, endpoint`${resourceId}/variables`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<VariableSchema[]>()(this, endpoint`${resourceId}/variables`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   create<E extends boolean = false>(
@@ -45,10 +54,16 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<VariableSchema>()(this, endpoint`${resourceId}/variables`, {
-      key,
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        key,
+        value,
+      },
     });
   }
 
@@ -67,9 +82,15 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<VariableSchema>()(this, endpoint`${resourceId}/variables/${key}`, {
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        value,
+      },
     });
   }
 
@@ -78,11 +99,13 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
     key: string,
     options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
-    return RequestHelper.get<VariableSchema>()(
-      this,
-      endpoint`${resourceId}/variables/${key}`,
-      options,
-    );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<VariableSchema>()(this, endpoint`${resourceId}/variables/${key}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   remove<E extends boolean = false>(
@@ -90,6 +113,12 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
     key: string,
     options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/variables/${key}`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/variables/${key}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 }

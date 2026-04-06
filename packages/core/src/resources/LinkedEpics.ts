@@ -1,8 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -31,12 +33,20 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
       updatedBefore?: string;
     } & Sudo &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      PaginationRequestOptions<P> &
+      BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<RelatedEpicSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<RelatedEpicSchema[]>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -47,15 +57,19 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     targetGroupId: string | number,
     options?: { linkType?: RelatedEpicLinkType } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RelatedEpicLinkSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics`,
       {
+        sudo,
+        showExpanded,
         searchParams: {
           targetGroupId,
           targetEpicIid: targetEpicIId,
         },
-        ...options,
+        body,
       },
     );
   }
@@ -66,10 +80,12 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     relatedEpicLinkId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del<RelatedEpicLinkSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics/${relatedEpicLinkId}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

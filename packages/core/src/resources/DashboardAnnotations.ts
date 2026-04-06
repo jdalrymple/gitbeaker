@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface DashboardAnnotationSchema extends Record<string, unknown> {
@@ -17,27 +17,27 @@ export class DashboardAnnotations<C extends boolean = false> extends BaseResourc
     dashboardPath: string,
     startingAt: string,
     description: string,
-    {
-      environmentId,
-      clusterId,
-      ...options
-    }: OneOf<{ environmentId: number; clusterId: number }> & { endingAt?: string } & Sudo &
-      ShowExpanded<E> = {} as any,
+    options?: OneOf<{ environmentId: number; clusterId: number }> & { endingAt?: string } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<DashboardAnnotationSchema, C, E, void>> {
-    let url: string;
+    const { environmentId, clusterId, sudo, showExpanded, ...body } = options || {};
 
-    if (environmentId) url = endpoint`environments/${environmentId}/metrics_dashboard/annotations`;
-    else if (clusterId) url = endpoint`clusters/${clusterId}/metrics_dashboard/annotations`;
-    else
-      throw new Error(
-        'Missing required argument. Please supply a environmentId or a cluserId in the options parameter.',
-      );
+    ensureRequiredParams({ environmentId, clusterId });
+
+    const url = getPrefixedUrl('metrics_dashboard/annotations', {
+      environments: environmentId,
+      clusters: clusterId,
+    });
 
     return RequestHelper.post<DashboardAnnotationSchema>()(this, url, {
-      dashboardPath,
-      startingAt,
-      description,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        dashboardPath,
+        startingAt,
+        description,
+        ...body,
+      },
     });
   }
 }

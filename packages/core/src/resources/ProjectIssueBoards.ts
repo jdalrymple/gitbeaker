@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceIssueBoards } from '../templates';
 import { IssueBoardListSchema, IssueBoardSchema } from '../templates/ResourceIssueBoards';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
@@ -18,7 +19,7 @@ export interface ProjectIssueBoardSchema extends IssueBoardSchema {
 export interface ProjectIssueBoards<C extends boolean = false> extends ResourceIssueBoards<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectIssueBoardSchema[], C, E, P>>;
 
   allLists<E extends boolean = false>(

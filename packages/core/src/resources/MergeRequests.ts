@@ -1,7 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  endpoint,
+  getPrefixedUrl,
+} from '../infrastructure';
 import type {
-  BaseRequestOptions,
   GitlabAPIResponse,
   MappedOmit,
   OneOrNoneOf,
@@ -291,7 +296,6 @@ export type CreateMergeRequestOptions = {
   | 'squash'
 >;
 
-// Export API
 export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   // convenience method
   accept<E extends boolean = false>(
@@ -308,12 +312,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     duration: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/add_spent_time`,
       {
-        duration,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          duration,
+        },
       },
     );
   }
@@ -321,58 +331,74 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      AllMergeRequestsOptions & { withLabelsDetails: true },
+      AllMergeRequestsOptions & { withLabelsDetails: true } & BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchemaWithExpandedLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       AllMergeRequestsOptions &
-      BaseRequestOptions<E> & { withLabelsDetails?: false },
+      BaseRequestSearchParams & { withLabelsDetails?: false } & Sudo &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      groupId,
-      ...options
-    }: AllMergeRequestsOptions &
+    options: AllMergeRequestsOptions &
       OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+      BaseRequestSearchParams &
+      Sudo &
+      ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
-    let prefix = '';
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options;
 
-    if (projectId) {
-      prefix = endpoint`projects/${projectId}/`;
-    } else if (groupId) {
-      prefix = endpoint`groups/${groupId}/`;
-    }
+    const url = getPrefixedUrl('merge_requests', { projects: projectId, groups: groupId });
 
-    return RequestHelper.get<MergeRequestSchema[]>()(this, `${prefix}merge_requests`, options);
+    return RequestHelper.get<MergeRequestSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+    });
   }
 
   allDiffs<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<MergeRequestDiffSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestDiffSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/diffs`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
   allCommits<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<CommitSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/commits`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -381,10 +407,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestDiffVersionsSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeRequestDiffVersionsSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/versions`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -393,10 +424,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IssueSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/closes_issues`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -405,10 +441,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<IssueSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/related_issues`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -417,22 +458,34 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MappedOmit<SimpleUserSchema, 'created_at'>[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MappedOmit<SimpleUserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/participants`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   allPipelines<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E> & BaseRequestSearchParams,
   ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<PipelineSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      },
     );
   }
 
@@ -441,10 +494,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/cancel_merge_when_pipeline_succeeds`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -455,14 +513,20 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     title: string,
     options?: CreateMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests`,
       {
-        sourceBranch,
-        targetBranch,
-        title,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          sourceBranch,
+          targetBranch,
+          title,
+        },
       },
     );
   }
@@ -472,10 +536,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ExpandedPipelineSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/pipelines`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -484,10 +553,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestTodoSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<MergeRequestTodoSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/todo`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -496,10 +570,16 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: EditMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -508,10 +588,16 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: AcceptMergeRequestOptions & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/merge`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -520,24 +606,33 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<{ commit_id: string }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<{ commit_id: string }>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/merge_ref`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   rebase<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    { skipCI, ...options }: { skipCI?: boolean } & Sudo & ShowExpanded<E> = {},
+    { skipCI, sudo, showExpanded, ...body }: { skipCI?: boolean } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<MergeRequestRebaseSchema, C, E, void>> {
     return RequestHelper.put<MergeRequestRebaseSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/rebase`,
       {
-        ...options,
-        skipCi: skipCI,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          skipCi: skipCI,
+        },
       },
     );
   }
@@ -547,10 +642,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -559,10 +659,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/reset_spent_time`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -571,10 +676,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/reset_time_estimate`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -584,12 +694,18 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     duration: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/time_estimate`,
       {
-        duration,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          duration,
+        },
       },
     );
   }
@@ -604,10 +720,16 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -620,10 +742,16 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       'This endpoint was deprecated in GitLab API 15.7 and will be removed in API v5. Please use the "allDiffs" function instead.',
       'DeprecationWarning',
     );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestChangesSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/changes`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -633,10 +761,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     versionId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestDiffVersionsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ExpandedMergeRequestDiffVersionsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/versions/${versionId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -645,10 +778,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/time_stats`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -657,10 +795,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/subscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -669,10 +812,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ExpandedMergeRequestSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ExpandedMergeRequestSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/unsubscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -681,10 +829,15 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
     mergerequestIId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestReviewerSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeRequestReviewerSchema[]>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/reviewers`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

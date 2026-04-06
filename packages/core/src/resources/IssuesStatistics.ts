@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface StatisticsSchema extends Record<string, unknown> {
@@ -41,12 +41,13 @@ export class IssuesStatistics<C extends boolean = false> extends BaseResource<C>
       Sudo &
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<StatisticsSchema, C, E, void>> {
-    let url: string;
+    const { sudo, showExpanded, ...searchParams } = options;
+    const url = getPrefixedUrl('issues_statistics', { projects: projectId, groups: groupId });
 
-    if (projectId) url = endpoint`projects/${projectId}/issues_statistics`;
-    else if (groupId) url = endpoint`groups/${groupId}/issues_statistics`;
-    else url = 'issues_statistics';
-
-    return RequestHelper.get<StatisticsSchema>()(this, url, options);
+    return RequestHelper.get<StatisticsSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      searchParams: searchParams as AllIssueStatisticsOptions,
+    });
   }
 }

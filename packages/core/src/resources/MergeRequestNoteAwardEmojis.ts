@@ -2,6 +2,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { ResourceNoteAwardEmojis } from '../templates';
 import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -15,7 +16,7 @@ export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
     projectId: string | number,
     mergeRequestIId: number,
     noteId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>>;
 
   award<E extends boolean = false>(

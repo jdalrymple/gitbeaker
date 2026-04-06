@@ -24,10 +24,15 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<JobTokenScopeSchema>()(
       this,
       endpoint`projects/${projectId}/job_token_scope`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -36,10 +41,19 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     enabled: boolean,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<JobTokenScopeSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.patch<JobTokenScopeSchema>()(
       this,
       endpoint`projects/${projectId}/job_token_scope`,
-      { ...options, enabled },
+      {
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          enabled,
+        },
+      },
     );
   }
 
@@ -47,10 +61,15 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<SimpleProjectSchema[]>()(
       this,
       endpoint`projects/${projectId}/job_token_scope/allowlist`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -59,10 +78,19 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     targetProjectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<ProjectAllowListSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectAllowListSchema>()(
       this,
       endpoint`projects/${projectId}/job_token_scope/allowlist`,
-      { ...options, targetProjectId },
+      {
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          targetProjectId,
+        },
+      },
     );
   }
 
@@ -71,10 +99,15 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     targetProjectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/job_token_scope/allowlist/${targetProjectId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -82,10 +115,15 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     projectId: string | number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedGroupSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<CondensedGroupSchema[]>()(
       this,
       endpoint`projects/${projectId}/job_token_scope/groups_allowlist`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -94,10 +132,19 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     targetGroupId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GroupAllowListSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<GroupAllowListSchema>()(
       this,
       endpoint`projects/${projectId}/job_token_scope/groups_allowlist`,
-      { ...options, targetGroupId },
+      {
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          targetGroupId,
+        },
+      },
     );
   }
 
@@ -106,10 +153,15 @@ export class ProjectJobTokenScopes<C extends boolean = false> extends BaseResour
     targetGroupId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/job_token_scope/groups_allowlist/${targetGroupId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

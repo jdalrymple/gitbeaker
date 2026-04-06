@@ -28,11 +28,17 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RepositoryImportStatusSchema>()(this, 'import/github', {
-      personalAccessToken,
-      repoId: repositoryId,
-      targetNamespace,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        personalAccessToken,
+        repoId: repositoryId,
+        targetNamespace,
+      },
     });
   }
 
@@ -40,9 +46,12 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     projectId: number,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RepositoryImportStatusSchema>()(this, 'import/github/cancel', {
-      projectId,
-      ...options,
+      sudo,
+      showExpanded,
+      body: { ...body, projectId },
     });
   }
 
@@ -50,9 +59,12 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     personalAccessToken: string,
     options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(this, 'import/github/gists', {
-      personalAccessToken,
-      ...options,
+      sudo,
+      showExpanded,
+      body: { ...body, personalAccessToken },
     });
   }
 
@@ -64,13 +76,19 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     bitbucketServerRepository: string,
     options?: { newName?: string; targetNamespace?: string } & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RepositoryImportStatusSchema>()(this, 'import/bitbucket_server', {
-      bitbucketServerUrl,
-      bitbucketServerUsername,
-      personalAccessToken,
-      bitbucketServerProject,
-      bitbucketServerRepo: bitbucketServerRepository,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        bitbucketServerUrl,
+        bitbucketServerUsername,
+        personalAccessToken,
+        bitbucketServerProject,
+        bitbucketServerRepo: bitbucketServerRepository,
+      },
     });
   }
 }

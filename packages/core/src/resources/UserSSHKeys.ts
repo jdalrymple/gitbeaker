@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface UserSSHKeySchema extends Record<string, unknown> {
@@ -8,8 +8,6 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
   title: string;
   created_at: string;
 }
-
-const url = (userId?: number) => (userId ? `users/${userId}/keys` : 'user/keys');
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   // Convienence method for create
@@ -32,11 +30,14 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
     GitlabAPIResponse<UserSSHKeySchema[], C, E, void>
   > {
-    return RequestHelper.get<UserSSHKeySchema[]>()(
-      this,
-      url(userId),
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    const url = getPrefixedUrl('keys', { users: userId, user: !userId });
+
+    return RequestHelper.get<UserSSHKeySchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -52,10 +53,18 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
     } & Sudo &
       ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
-    return RequestHelper.post<UserSSHKeySchema>()(this, url(userId), {
-      title,
-      key,
-      ...options,
+    const { sudo, showExpanded, ...body } = options || {};
+
+    const url = getPrefixedUrl('keys', { users: userId, user: !userId });
+
+    return RequestHelper.post<UserSSHKeySchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        title,
+        key,
+      },
     });
   }
 
@@ -63,17 +72,26 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
     keyId: number,
     { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
-    return RequestHelper.get<UserSSHKeySchema>()(
-      this,
-      `${url(userId)}/${keyId}`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.get<UserSSHKeySchema>()(this, uri, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     keyId: number,
     { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options as Sudo & ShowExpanded<E>);
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.del()(this, uri, { sudo, showExpanded });
   }
 }

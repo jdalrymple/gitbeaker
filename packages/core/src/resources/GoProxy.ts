@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface GoProxyModuleVersionSchema extends Record<string, unknown> {
   Version: string;
@@ -11,12 +11,17 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     projectId: string | number,
     moduleName: string,
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<string>()(
       this,
       endpoint`projects/${projectId}/packages/go/${moduleName}/@v/list`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -24,12 +29,17 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GoProxyModuleVersionSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GoProxyModuleVersionSchema>()(
       this,
       endpoint`projects/${projectId}/packages/go/${moduleName}/@v/${moduleVersion}.info`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -37,12 +47,17 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/go/${moduleName}/@v/${moduleVersion}.mod`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -50,12 +65,17 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: ShowExpanded<E>,
+    options?: Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/go/${moduleName}/@v/${moduleVersion}.zip`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }
