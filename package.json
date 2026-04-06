@@ -18,7 +18,7 @@
     "build": "nx run-many --target=build",
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
-    "clean": "pnpm dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports}'",
+    "clean": "pnpm dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports,.nx}'",
     "format:docs": "prettier './**/(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check ",
     "format:src": "prettier '**/{src,test,scripts}/**/*.ts' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check",
     "format": "pnpm format:src && pnpm format:docs",
