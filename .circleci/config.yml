@@ -264,9 +264,12 @@ jobs:
           command: |
             set -x  # Enable debug output
 
-            export CONTAINER_NAME=gitlab-${GITLAB_VERSION}-${CIRCLE_BUILD_NUM}
+            # Replace periods and other invalid characters with hyphens for GCP instance name
+            GITLAB_VERSION_SAFE=$(echo "${GITLAB_VERSION}" | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/-$//')
+            export CONTAINER_NAME=gitlab-${GITLAB_VERSION_SAFE}-${CIRCLE_BUILD_NUM}
+            echo "DEBUG: Original GitLab version: $GITLAB_VERSION"
+            echo "DEBUG: Safe GitLab version: $GITLAB_VERSION_SAFE"
             echo "DEBUG: Container name: $CONTAINER_NAME"
-            echo "DEBUG: GitLab version: $GITLAB_VERSION"
             echo "DEBUG: Build number: $CIRCLE_BUILD_NUM"
             echo "DEBUG: GCP Zone: $GCP_ZONE"
             echo "DEBUG: Machine type: $GITLAB_MACHINE_TYPE"
