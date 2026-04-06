@@ -32,7 +32,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --target esnext",
+    "build": "tsdown src/index.ts --format esm --target esnext",
     "test:unit": "jest --maxWorkers=50% test/unit",
     "test:e2e": "jest --maxWorkers=50% test/e2e",
     "lint": "eslint '**/{src,test,scripts}/**/*.ts'",
@@ -46,7 +46,7 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.7",
     "typescript": "^5.9.3"
   }
 }

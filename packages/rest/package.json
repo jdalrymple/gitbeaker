@@ -42,7 +42,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "build": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
     "test:types": "tsc",
     "test:e2e:browser": "playwright test --project=e2e",
     "test:e2e:nodejs": "jest --maxWorkers=50% test/e2e/nodejs",
@@ -60,7 +60,7 @@
   "devDependencies": {
     "@playwright/test": "1.57.0",
     "@types/node": "^24.10.1",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.7",
     "typescript": "^5.9.3"
   }
 }
