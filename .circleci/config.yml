@@ -291,7 +291,8 @@ jobs:
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
             echo "DEBUG: Creating GCP instance..."
-            GITLAB_HOST=$(gcloud compute instances create $CONTAINER_NAME \
+            # Create instance and capture full output for debugging
+            GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
               --boot-disk-size=50GB \
@@ -304,15 +305,29 @@ jobs:
               --metadata-from-file startup-script=scripts/startup_filled.sh \
               --image=gitlab-ready-image-16 \
               --image-project=gitbeaker \
-              --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
-              2>&1)
+              --image-project=gitbeaker 2>&1)
 
             GCLOUD_EXIT_CODE=$?
             echo "DEBUG: gcloud command exit code: $GCLOUD_EXIT_CODE"
-            echo "DEBUG: GitLab host IP: $GITLAB_HOST"
+            echo "DEBUG: Full gcloud output: $GCLOUD_OUTPUT"
 
             if [ $GCLOUD_EXIT_CODE -ne 0 ]; then
               echo "ERROR: Failed to create GCP instance"
+              echo "ERROR: $GCLOUD_OUTPUT"
+              exit 1
+            fi
+
+            # Extract IP address from the created instance
+            echo "DEBUG: Getting instance IP address..."
+            GITLAB_HOST=$(gcloud compute instances describe $CONTAINER_NAME \
+              --zone=$GCP_ZONE \
+              --project=gitbeaker \
+              --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+
+            echo "DEBUG: GitLab host IP: $GITLAB_HOST"
+
+            if [ -z "$GITLAB_HOST" ]; then
+              echo "ERROR: Failed to get IP address for instance $CONTAINER_NAME"
               exit 1
             fi
 
