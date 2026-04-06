@@ -21,14 +21,11 @@ describe('PackageRegistry.publish', () => {
 
     await service.publish(1, 'name', 'v1.0', { content, filename: 'filename.txt' });
 
-    const formData = new FormData();
-    formData.append('file', content);
-
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       `projects/1/packages/generic/name/v1.0/filename.txt`,
       {
-        body: formData,
+        body: content,
         showExpanded: undefined,
         sudo: undefined,
       },

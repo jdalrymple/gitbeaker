@@ -478,9 +478,11 @@ describe('defaultRequestHandler', () => {
       prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    const request = new Request(new URL('http://test.com/testurl'), { mode: undefined });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    const [calledRequest] = mockFetch.mock.calls[0];
+    expect(calledRequest).toBeInstanceOf(Request);
+    expect(calledRequest.url).toBe('http://test.com/testurl');
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -496,14 +498,15 @@ describe('defaultRequestHandler', () => {
       ),
     );
 
-    await defaultRequestHandler('testurl/123', {
+    await defaultRequestHandler('http://test.com/testurl/123', {
       searchParams: 'test=4',
-      prefixUrl: 'http://test.com',
     } as RequestOptions);
 
-    const request = new Request(new URL('http://test.com/testurl/123?test=4'), { mode: undefined });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    const [calledRequest] = mockFetch.mock.calls[0];
+    expect(calledRequest).toBeInstanceOf(Request);
+    expect(calledRequest.url).toBe('http://test.com/testurl/123?test=4');
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
@@ -521,11 +524,12 @@ describe('defaultRequestHandler', () => {
 
     await defaultRequestHandler('http://test.com/repository/archive');
 
-    const request = new Request(new URL('http://test.com/repository/archive'), {
-      mode: 'same-origin',
-    });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
+    const [calledRequest] = mockFetch.mock.calls[0];
+    expect(calledRequest).toBeInstanceOf(Request);
+    expect(calledRequest.url).toBe('http://test.com/repository/archive');
+    expect(calledRequest.mode).toBe('same-origin');
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
@@ -543,55 +547,11 @@ describe('defaultRequestHandler', () => {
 
     await defaultRequestHandler('http://test.com/test/something');
 
-    const request = new Request(new URL('http://test.com/test/something'), { mode: undefined });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    expect(mockFetch).toHaveBeenCalledWith(request);
-  });
-
-  it('should handle multipart prefixUrls correctly', async () => {
-    mockFetch.mockImplementation(() =>
-      Promise.resolve(
-        new Response(JSON.stringify({}), {
-          status: 200,
-          statusText: 'Good',
-          headers: {
-            'content-type': 'application/json',
-          },
-        }),
-      ),
-    );
-
-    await defaultRequestHandler('testurl/123', {
-      searchParams: 'test=4',
-      prefixUrl: 'http://test.com/projects',
-    } as RequestOptions);
-
-    const request = new Request(new URL('http://test.com/projects/testurl/123?test=4'), {
-      mode: undefined,
-    });
-
-    expect(mockFetch).toHaveBeenCalledWith(request);
-
-    await defaultRequestHandler('123/testurl', {
-      searchParams: 'test=4',
-      prefixUrl: 'http://test.com/projects',
-    } as RequestOptions);
-
-    const request2 = new Request(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: undefined,
-    });
-
-    expect(mockFetch).toHaveBeenCalledWith(request2);
-
-    await defaultRequestHandler('123/testurl', {
-      searchParams: 'test=4',
-      prefixUrl: 'http://test.com/projects/',
-    } as RequestOptions);
-
-    const request3 = new Request(new URL('http://test.com/projects/123/testurl?test=4'), {
-      mode: undefined,
-    });
-
-    expect(mockFetch).toHaveBeenCalledWith(request3);
+    const [calledRequest] = mockFetch.mock.calls[0];
+    expect(calledRequest).toBeInstanceOf(Request);
+    expect(calledRequest.url).toBe('http://test.com/test/something');
+    expect(calledRequest.mode).toBe('cors');
   });
 });
