@@ -45,7 +45,6 @@ describe('DashboardAnnotations.create', () => {
   });
 
   it('should throw an error if environmentId or clusterId isnt passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow();
   });
 });

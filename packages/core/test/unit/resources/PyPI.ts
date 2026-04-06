@@ -37,7 +37,6 @@ describe('PyPI.downloadPackageFile', () => {
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.downloadPackageFile('sha', 'id', {} as any)).toThrow();
   });
 });
@@ -64,7 +63,6 @@ describe('PyPI.showPackageDescriptor', () => {
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.showPackageDescriptor('name', {} as any)).toThrow();
   });
 });
