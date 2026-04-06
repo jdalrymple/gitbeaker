@@ -263,6 +263,7 @@ jobs:
           name: Setup live GitLab instance
           command: |
             set -x  # Enable debug output
+            set +e  # Don't exit on errors, we handle them manually
 
             # Replace periods and other invalid characters with hyphens for GCP instance name
             GITLAB_VERSION_SAFE=$(echo "${GITLAB_VERSION}" | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/-$//')
@@ -304,7 +305,6 @@ jobs:
               --instance-termination-action=DELETE \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
               --image=gitlab-ready-image-16 \
-              --image-project=gitbeaker \
               --image-project=gitbeaker 2>&1)
 
             GCLOUD_EXIT_CODE=$?
@@ -348,8 +348,12 @@ jobs:
 
               # Check if GitLab is responding
               echo "DEBUG: Attempting to connect to $GITLAB_URL/-/readiness?all=1"
-              curl_output=$(curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure 2>&1)
+              curl_output=""
+              curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /tmp/curl_output 2>&1
               curl_exit_code=$?
+              if [ -f /tmp/curl_output ]; then
+                curl_output=$(cat /tmp/curl_output)
+              fi
               echo "DEBUG: curl exit code: $curl_exit_code"
               
               if [ $curl_exit_code -eq 0 ]; then
