@@ -46,7 +46,7 @@
     "test:types": "tsc",
     "test:e2e:browser": "playwright test --project=e2e",
     "test:e2e:nodejs": "vitest run --config vitest.config.mjs test/e2e/nodejs",
-    "test:e2e": "yarn test:e2e:browser && yarn test:e2e:nodejs",
+    "test:e2e": "pnpm test:e2e:browser && pnpm test:e2e:nodejs",
     "test:integration:browser": "playwright test --project=integration",
     "test:integration": "pnpm test:integration:browser",
     "test:unit": "vitest run --config vitest.config.mjs test/unit",
