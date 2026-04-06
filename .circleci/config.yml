@@ -262,37 +262,17 @@ jobs:
       - run:
           name: Setup live GitLab instance
           command: |
-            set -x  # Enable debug output
             set +e  # Don't exit on errors, we handle them manually
 
             # Replace periods and other invalid characters with hyphens for GCP instance name
             GITLAB_VERSION_SAFE=$(echo "${GITLAB_VERSION}" | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/-$//')
             export CONTAINER_NAME=gitlab-${GITLAB_VERSION_SAFE}-${CIRCLE_BUILD_NUM}
-            echo "DEBUG: Original GitLab version: $GITLAB_VERSION"
-            echo "DEBUG: Safe GitLab version: $GITLAB_VERSION_SAFE"
-            echo "DEBUG: Container name: $CONTAINER_NAME"
-            echo "DEBUG: Build number: $CIRCLE_BUILD_NUM"
-            echo "DEBUG: GCP Zone: $GCP_ZONE"
-            echo "DEBUG: Machine type: $GITLAB_MACHINE_TYPE"
-
-            # Check GCP authentication
-            echo "DEBUG: Checking GCP authentication..."
-            gcloud auth list
-            gcloud config list
 
             # Create startup script
-            echo "DEBUG: Creating startup script..."
-            if [ ! -f scripts/startup.sh ]; then
-              echo "ERROR: scripts/startup.sh not found"
-              ls -la scripts/
-              exit 1
-            fi
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
-            echo "DEBUG: Startup script created successfully"
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            echo "DEBUG: Creating GCP instance..."
-            # Create instance and capture full output for debugging
+            echo "Creating GCP instance..."
             GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
@@ -307,24 +287,12 @@ jobs:
               --image=gitlab-ready-image-16 \
               --image-project=gitbeaker 2>&1)
 
-            GCLOUD_EXIT_CODE=$?
-            echo "DEBUG: gcloud command exit code: $GCLOUD_EXIT_CODE"
-            echo "DEBUG: Full gcloud output: $GCLOUD_OUTPUT"
-
-            if [ $GCLOUD_EXIT_CODE -ne 0 ]; then
-              echo "ERROR: Failed to create GCP instance"
-              echo "ERROR: $GCLOUD_OUTPUT"
-              exit 1
-            fi
-
             # Extract IP address from the created instance
-            echo "DEBUG: Getting instance IP address..."
             GITLAB_HOST=$(gcloud compute instances describe $CONTAINER_NAME \
               --zone=$GCP_ZONE \
               --project=gitbeaker \
               --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 
-            echo "DEBUG: GitLab host IP: $GITLAB_HOST"
 
             if [ -z "$GITLAB_HOST" ]; then
               echo "ERROR: Failed to get IP address for instance $CONTAINER_NAME"
@@ -332,10 +300,9 @@ jobs:
             fi
 
             export GITLAB_URL="http://${GITLAB_HOST}"
-            echo "DEBUG: GitLab URL: $GITLAB_URL"
 
             # Wait for GitLab to be ready with smarter polling
-            echo "DEBUG: Waiting for GitLab to start..."
+            echo "Waiting for GitLab to start..."
 
             # Start polling earlier with exponential backoff
             attempt=1
@@ -343,40 +310,30 @@ jobs:
             max_attempts=40  # ~20 minutes total with exponential backoff
 
             while [ $attempt -le $max_attempts ]; do
-              echo "DEBUG: Polling Attempt: $attempt - Checking if GitLab is ready (waiting ${wait_time}s)..."
+              echo "Polling attempt $attempt (waiting ${wait_time}s)..."
               sleep $wait_time
 
               # Check if GitLab is responding
-              echo "DEBUG: Attempting to connect to $GITLAB_URL/-/readiness?all=1"
               curl_output=""
               curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /tmp/curl_output 2>&1
+
               curl_exit_code=$?
+
               if [ -f /tmp/curl_output ]; then
                 curl_output=$(cat /tmp/curl_output)
               fi
-              echo "DEBUG: curl exit code: $curl_exit_code"
-              
+
               if [ $curl_exit_code -eq 0 ]; then
                 readiness_response="$curl_output"
-                echo "DEBUG: Readiness response received: $readiness_response"
-                
+
                 if echo "$readiness_response" | jq -e '.master_check[0].status == "ok"' > /dev/null 2>&1; then
-                  echo "DEBUG: GitLab is ready!"
+                  echo "GitLab is ready!"
                   break
                 else
-                  echo "DEBUG: GitLab responding but not fully ready yet. Status check output:"
-                  echo "$readiness_response" | jq '.' 2>/dev/null || echo "$readiness_response"
+                  echo "GitLab responding but not fully ready yet..."
                 fi
               else
-                echo "DEBUG: GitLab not responding yet. curl output: $curl_output"
-                
-                # Try basic connectivity test
-                echo "DEBUG: Testing basic connectivity with ping..."
-                ping -c 1 "${GITLAB_HOST}" || echo "DEBUG: Ping failed"
-                
-                # Check if port 80 is open
-                echo "DEBUG: Testing port 80 connectivity..."
-                nc -z -w5 "${GITLAB_HOST}" 80 && echo "DEBUG: Port 80 is open" || echo "DEBUG: Port 80 is closed/filtered"
+                echo "GitLab not responding yet..."
               fi
 
               ((attempt++))
@@ -388,12 +345,10 @@ jobs:
 
             if [ $attempt -gt $max_attempts ]; then
               echo "ERROR: GitLab failed to start within timeout (~20 minutes)"
-              echo "DEBUG: Final connection test..."
-              curl -v "$GITLAB_URL" || true
               exit 1
             fi
 
-            echo "DEBUG: GitLab is ready and operational!"
+            echo "GitLab is ready and operational!"
 
             # Create environment file for e2e tests
             echo "GITLAB_URL=$GITLAB_URL" > gitlab-env.txt
