@@ -35,8 +35,7 @@ describe('Projects.all', () => {
   }, 60000);
 
   it('should get 10 projects using offset pagination', async () => {
-    const projects = await service.all({
-      pagination: 'offset',
+    const projects = await service.all<false, 'offset'>({
       maxPages: 2,
       perPage: 5,
       simple: true,
@@ -54,8 +53,7 @@ describe('Projects.all', () => {
     });
 
     await expect(() =>
-      timedService.all({
-        pagination: 'offset',
+      timedService.all<false, 'offset'>({
         simple: true,
       }),
     ).rejects.toThrow('Query timeout was reached');
