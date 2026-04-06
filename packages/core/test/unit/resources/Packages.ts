@@ -19,18 +19,28 @@ describe('Packages.all', () => {
   it('should request GET /projects/:id/packages', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /groups/:id/packages', async () => {
     await service.all({ groupId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/1/packages', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/1/packages', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should throw an error is neither groupId or projectId is passed', () => {
     expect(() => service.all()).toThrow(
-      'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
     );
   });
 });
@@ -39,7 +49,10 @@ describe('Packages.remove', () => {
   it('should request DEL /projects/:id/packages/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/packages/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -50,7 +63,7 @@ describe('Packages.removeFile', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/packages/2/package_files/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -59,7 +72,10 @@ describe('Packages.show', () => {
   it('should request GET /projects/:id/packages/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -70,7 +86,7 @@ describe('Packages.allFiles', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/packages/2/package_files',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

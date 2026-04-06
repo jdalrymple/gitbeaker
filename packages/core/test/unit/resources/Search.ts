@@ -20,8 +20,13 @@ describe('Search.all', () => {
     await service.all('users', 'search terms');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'search', {
-      scope: 'users',
-      search: 'search terms',
+      maxPages: undefined,
+      searchParams: {
+        scope: 'users',
+        search: 'search terms',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -29,8 +34,13 @@ describe('Search.all', () => {
     await service.all('projects', 'search terms', { projectId: 1 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/search', {
-      scope: 'projects',
-      search: 'search terms',
+      maxPages: undefined,
+      searchParams: {
+        scope: 'projects',
+        search: 'search terms',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -38,8 +48,13 @@ describe('Search.all', () => {
     await service.all('issues', 'search terms', { groupId: 2 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/search', {
-      scope: 'issues',
-      search: 'search terms',
+      maxPages: undefined,
+      searchParams: {
+        scope: 'issues',
+        search: 'search terms',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

@@ -31,7 +31,12 @@ describe('ResourceVariables.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -40,8 +45,12 @@ describe('ResourceVariables.create', () => {
     await service.create('5', 'key', 'value');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/variables', {
-      key: 'key',
-      value: 'value',
+      body: {
+        key: 'key',
+        value: 'value',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -51,7 +60,11 @@ describe('ResourceVariables.edit', () => {
     await service.edit('5', 'key', 'value');
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/variables/key', {
-      value: 'value',
+      body: {
+        value: 'value',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -60,7 +73,11 @@ describe('ResourceVariables.remove', () => {
   it('should call the correct url with a resource id and key id', async () => {
     await service.remove('5', '6');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/variables/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/variables/6', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -68,6 +85,10 @@ describe('ResourceVariables.show', () => {
   it('should call the correct url with a resource id and key id', async () => {
     await service.show('5', '6');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/variables/6', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

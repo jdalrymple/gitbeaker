@@ -22,17 +22,27 @@ describe('MergeRequestStateEvents.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       '1/merge_requests/2/resource_state_events',
-      undefined,
+      {
+        maxPages: undefined,
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 
   it('should request GET projects/:id/merge_requests/:merge_request_iid/resource_state_events with options', async () => {
     await service.all(1, 2, { sudo: 'admin' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       '1/merge_requests/2/resource_state_events',
-      { sudo: 'admin' },
+      {
+        maxPages: undefined,
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: 'admin',
+      },
     );
   });
 });
@@ -41,10 +51,13 @@ describe('MergeRequestStateEvents.show', () => {
   it('should request GET projects/:id/merge_requests/:merge_request_iid/resource_state_events/:resource_state_event_id', async () => {
     await service.show(1, 2, 3);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       '1/merge_requests/2/resource_state_events/3',
-      undefined,
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 

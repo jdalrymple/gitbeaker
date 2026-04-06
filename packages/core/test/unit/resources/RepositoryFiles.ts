@@ -20,9 +20,13 @@ describe('RepositoryFiles.create', () => {
     await service.create(1, 'path', 'main', 'content', 'message');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
-      branch: 'main',
-      content: 'content',
-      commitMessage: 'message',
+      body: {
+        branch: 'main',
+        content: 'content',
+        commitMessage: 'message',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -32,9 +36,13 @@ describe('RepositoryFiles.edit', () => {
     await service.edit(1, 'path', 'main', 'content', 'message');
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
-      branch: 'main',
-      content: 'content',
-      commitMessage: 'message',
+      body: {
+        branch: 'main',
+        content: 'content',
+        commitMessage: 'message',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -44,8 +52,12 @@ describe('RepositoryFiles.remove', () => {
     await service.remove(1, 'path', 'main', 'message');
 
     expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
-      branch: 'main',
-      commitMessage: 'message',
+      searchParams: {
+        branch: 'main',
+        commitMessage: 'message',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -55,7 +67,9 @@ describe('RepositoryFiles.show', () => {
     await service.show(1, 'path', 'main');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/files/path', {
-      ref: 'main',
+      searchParams: { ref: 'main' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -68,7 +82,9 @@ describe('RepositoryFiles.allFileBlames', () => {
       service,
       'projects/1/repository/files/path/blame',
       {
-        ref: 'main',
+        searchParams: { ref: 'main' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -80,11 +96,15 @@ describe('RepositoryFiles.allFileBlames', () => {
       service,
       'projects/1/repository/files/path/blame',
       {
-        ref: 'main',
-        range: {
-          start: 1,
-          end: 2,
+        searchParams: {
+          ref: 'main',
+          range: {
+            start: 1,
+            end: 2,
+          },
         },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -97,7 +117,7 @@ describe('RepositoryFiles.showRaw', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/files/path/raw',
-      { ref: 'main' },
+      { searchParams: { ref: 'main' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });

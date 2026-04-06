@@ -21,12 +21,16 @@ describe('PackageRegistry.publish', () => {
 
     await service.publish(1, 'name', 'v1.0', { content, filename: 'filename.txt' });
 
+    const formData = new FormData();
+    formData.append('file', content);
+
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       `projects/1/packages/generic/name/v1.0/filename.txt`,
       {
-        isForm: true,
-        file: [content, 'filename.txt'],
+        body: formData,
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -36,10 +40,10 @@ describe('PackageRegistry.download', () => {
   it('should request GET projects/:projectId/packages/generic/:packageName/:packageVersion/:filename', async () => {
     await service.download(1, 'name', 'v1.0', 'filename.txt');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/packages/generic/name/v1.0/filename.txt`,
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

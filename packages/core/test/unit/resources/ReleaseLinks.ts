@@ -22,7 +22,7 @@ describe('ReleaseLinks.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/releases/tag/assets/links',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -34,7 +34,7 @@ describe('ReleaseLinks.create', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/releases/tag/assets/links',
-      { name: 'name', url: 'url' },
+      { body: { name: 'name', url: 'url' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -46,7 +46,7 @@ describe('ReleaseLinks.edit', () => {
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       'projects/1/releases/tag/assets/links/2',
-      { name: 'new name' },
+      { body: { name: 'new name' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -58,7 +58,7 @@ describe('ReleaseLinks.remove', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/releases/tag/assets/links/2',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -70,7 +70,7 @@ describe('ReleaseLinks.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/releases/tag/assets/links/2',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

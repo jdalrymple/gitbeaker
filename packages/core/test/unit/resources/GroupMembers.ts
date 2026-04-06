@@ -26,17 +26,25 @@ describe('GroupMembers.add', () => {
     await service.add(1, 10, { userId: 2 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members', {
-      userId: 2,
-      accessLevel: 10,
+      body: {
+        userId: 2,
+        accessLevel: 10,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
   it('should request POST /groups/user.name/members', async () => {
     await service.add(1, 10, { username: 'user.name' });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members', {
-      username: 'user.name',
-      accessLevel: 10,
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, '1/members', {
+      body: {
+        username: 'user.name',
+        accessLevel: 10,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -45,13 +53,23 @@ describe('GroupMembers.all', () => {
   it('should request GET /groups/1/members', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/members', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/members', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /groups/1/members/all', async () => {
     await service.all(1, { includeInherited: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/members/all', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/members/all', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -59,8 +77,12 @@ describe('GroupMembers.edit', () => {
   it('should request PUT /groups/1/members', async () => {
     await service.edit(1, 2, 10);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '1/members/2', {
-      accessLevel: 10,
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, '1/members/2', {
+      body: {
+        accessLevel: 10,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -69,13 +91,21 @@ describe('GroupMembers.show', () => {
   it('should request GET /groups/1/members/2', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/members/2', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/members/2', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /groups/1/members/all/2', async () => {
     await service.show(1, 2, { includeInherited: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/members/all/2', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/members/all/2', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -83,7 +113,11 @@ describe('GroupMembers.remove', () => {
   it('should request DEL /groups/1/members/2', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '1/members/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, '1/members/2', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -91,7 +125,12 @@ describe('GroupMembers.allBillable', () => {
   it('should request GET /groups/1/billable_members', async () => {
     await service.allBillable(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/billable_members', undefined);
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/billable_members', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -99,7 +138,12 @@ describe('GroupMembers.allPending', () => {
   it('should request GET /groups/1/pending_members', async () => {
     await service.allPending(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/pending_members', undefined);
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/pending_members', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -107,10 +151,15 @@ describe('GroupMembers.allBillableMemberships', () => {
   it('should request GET /groups/1/billable_members/2/memberships', async () => {
     await service.allBillableMemberships(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       '1/billable_members/2/memberships',
-      undefined,
+      {
+        maxPages: undefined,
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 });
@@ -119,7 +168,10 @@ describe('GroupMembers.approve', () => {
   it('should request PUT /groups/1/members/2/approve', async () => {
     await service.approve(1, 2);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '1/members/2/approve', undefined);
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, '1/members/2/approve', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -127,7 +179,10 @@ describe('GroupMembers.approveAll', () => {
   it('should request PUT /groups/1/members/approve_all', async () => {
     await service.approveAll(1);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '1/members/approve_all', undefined);
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, '1/members/approve_all', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -135,7 +190,10 @@ describe('GroupMembers.removeBillable', () => {
   it('should request DEL /groups/1/billable_members/2', async () => {
     await service.removeBillable(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '1/billable_members/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, '1/billable_members/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -143,7 +201,10 @@ describe('GroupMembers.removeOverrideFlag', () => {
   it('should request DEL /groups/1/members/2/override', async () => {
     await service.removeOverrideFlag(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '1/members/2/override', undefined);
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, '1/members/2/override', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -151,6 +212,9 @@ describe('GroupMembers.setOverrideFlag', () => {
   it('should request DEL /groups/1/members/2/override', async () => {
     await service.setOverrideFlag(1, 2);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/members/2/override', undefined);
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, '1/members/2/override', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

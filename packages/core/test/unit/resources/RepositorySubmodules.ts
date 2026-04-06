@@ -23,8 +23,12 @@ describe('Releases.edit', () => {
       service,
       'projects/1/repository/submodules/submod',
       {
-        branch: 'branch',
-        commitSha: 'sha',
+        body: {
+          branch: 'branch',
+          commitSha: 'sha',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });

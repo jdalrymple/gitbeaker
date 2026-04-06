@@ -19,7 +19,11 @@ describe('ApplicationPlanLimits.show', () => {
   it('should request GET /application/plan_limits', async () => {
     await service.show();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/plan_limits', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/plan_limits', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 

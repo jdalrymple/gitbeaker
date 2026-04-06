@@ -13,17 +13,18 @@ beforeEach(() => {
     requesterFn: jest.fn(),
     token: 'abcdefg',
   });
+  jest.clearAllMocks();
 });
 
 describe('MergeRequests.accept', () => {
   it('should request PUT projects/:id/merge_requests:id/merge', async () => {
     await service.accept(2, 3);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(
-      service,
-      'projects/2/merge_requests/3/merge',
-      undefined,
-    );
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/2/merge_requests/3/merge', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -35,7 +36,9 @@ describe('MergeRequests.addSpentTime', () => {
       service,
       'projects/2/merge_requests/3/add_spent_time',
       {
-        duration: '10m',
+        body: { duration: '10m' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -49,7 +52,9 @@ describe('MergeRequests.setTimeEstimate', () => {
       service,
       'projects/2/merge_requests/3/time_estimate',
       {
-        duration: '10m',
+        body: { duration: '10m' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -59,19 +64,34 @@ describe('MergeRequests.all', () => {
   it('should request GET /merge_requests', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'merge_requests', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'merge_requests', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/merge_requests when project Id is passed', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/merge_requests', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/merge_requests', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /group/:id/merge_requests when group Id is passed', async () => {
     await service.all({ groupId: 2 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/merge_requests', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/merge_requests', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -82,7 +102,7 @@ describe('MergeRequests.cancelOnPipelineSuccess', () => {
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/cancel_merge_when_pipeline_succeeds',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -91,11 +111,12 @@ describe('MergeRequests.allDiffs', () => {
   it('should request GET projects/:id/merge_requests/:id/diffs', async () => {
     await service.allDiffs(2, 3);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/2/merge_requests/3/diffs',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/2/merge_requests/3/diffs', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -106,7 +127,7 @@ describe('MergeRequests.showChanges', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/changes',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -118,7 +139,7 @@ describe('MergeRequests.allIssuesClosed', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/closes_issues',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -127,10 +148,10 @@ describe('MergeRequests.allIssuesRelated', () => {
   it('should request GET projects/:id/merge_requests/:iid/related_issues', async () => {
     await service.allIssuesRelated(2, 3);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/related_issues',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -142,7 +163,7 @@ describe('MergeRequests.allCommits', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/commits',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -153,9 +174,9 @@ describe('MergeRequests.create', () => {
     await service.create(2, 'dev', 'main', 'Test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/2/merge_requests', {
-      sourceBranch: 'dev',
-      targetBranch: 'main',
-      title: 'Test',
+      body: { sourceBranch: 'dev', targetBranch: 'main', title: 'Test' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -167,7 +188,7 @@ describe('MergeRequests.createPipeline', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/pipelines',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -177,7 +198,9 @@ describe('MergeRequests.edit', () => {
     await service.edit(1, 2, { title: 'Testing MR' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/merge_requests/2', {
-      title: 'Testing MR',
+      body: { title: 'Testing MR' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -189,7 +212,7 @@ describe('MergeRequests.allParticipants', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/participants',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -201,7 +224,7 @@ describe('MergeRequests.allPipelines', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/pipelines',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -210,11 +233,10 @@ describe('MergeRequests.remove', () => {
   it('should request DEL /projects/:id/merge_requests/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/merge_requests/2',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/merge_requests/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -225,7 +247,7 @@ describe('MergeRequests.resetSpentTime', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/reset_spent_time',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -237,7 +259,7 @@ describe('MergeRequests.resetTimeEstimate', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/reset_time_estimate',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -246,11 +268,11 @@ describe('MergeRequests.show', () => {
   it('should request GET /projects/:id/merge_requests/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/merge_requests/2',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/merge_requests/2', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -261,7 +283,7 @@ describe('MergeRequests.subscribe', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/subscribe',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -273,7 +295,7 @@ describe('MergeRequests.showTimeStats', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/time_stats',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -285,7 +307,7 @@ describe('MergeRequests.showDiffVersion', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/versions/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -297,7 +319,7 @@ describe('MergeRequests.allDiffVersions', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/versions',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -309,7 +331,7 @@ describe('MergeRequests.unsubscribe', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/unsubscribe',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -321,7 +343,7 @@ describe('MergeRequests.showReviewers', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/2/merge_requests/3/reviewers',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

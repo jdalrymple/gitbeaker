@@ -31,21 +31,23 @@ describe('ResourceProtectedEnvironments.all', () => {
   it('should call the correct url for getting all protected environments with a string identifier', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '5/protected_environments',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/protected_environments', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should call the correct url for getting all protected environments with a number identifier', async () => {
     await service.all(5);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '5/protected_environments',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/protected_environments', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -55,8 +57,12 @@ describe('ResourceProtectedEnvironments.create', () => {
     await service.create('5', 'test-env', deployAccessLevels);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/protected_environments', {
-      name: 'test-env',
-      deployAccessLevels,
+      body: {
+        name: 'test-env',
+        deployAccessLevels,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -68,7 +74,11 @@ describe('ResourceProtectedEnvironments.edit', () => {
     await service.edit('5', 'test-env', { deployAccessLevels });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/protected_environments/test-env', {
-      deployAccessLevels,
+      body: {
+        deployAccessLevels,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -77,11 +87,10 @@ describe('ResourceProtectedEnvironments.show', () => {
   it('should call the correct url for showing a protected environment', async () => {
     await service.show('5', 'test-env');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '5/protected_environments/test-env',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/protected_environments/test-env', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -89,10 +98,9 @@ describe('ResourceProtectedEnvironments.remove', () => {
   it('should call the correct url for removing a protected environment', async () => {
     await service.remove('5', 'test-env');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      '5/protected_environments/test-env',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/protected_environments/test-env', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

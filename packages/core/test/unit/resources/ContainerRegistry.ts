@@ -19,11 +19,12 @@ describe('ContainerRegistry.allRepositories', () => {
   it('should request GET /projects/:id/registry/repositories', async () => {
     await service.allRepositories({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/registry/repositories',
-      {},
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/registry/repositories', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -34,7 +35,7 @@ describe('ContainerRegistry.allTags', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories/2/tags',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -46,7 +47,7 @@ describe('ContainerRegistry.removeRepository', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories/2',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -58,7 +59,7 @@ describe('ContainerRegistry.removeTag', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories/2/tags/name',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -70,7 +71,7 @@ describe('ContainerRegistry.removeTags', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories/2/tags',
-      { nameRegexDelete: 'name' },
+      { body: { nameRegexDelete: 'name' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -79,7 +80,12 @@ describe('ContainerRegistry.showRepository', () => {
   it('should request GET /registry/repositories/:id', async () => {
     await service.showRepository(2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'registry/repositories/2', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'registry/repositories/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+      maxPages: undefined,
+      searchParams: {},
+    });
   });
 });
 
@@ -90,7 +96,7 @@ describe('ContainerRegistry.showTag', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/registry/repositories/2/tags/name',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

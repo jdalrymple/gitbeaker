@@ -32,8 +32,12 @@ describe('ResourceBadges.add', () => {
     await service.add(5, 'link', 'image');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/badges', {
-      linkUrl: 'link',
-      imageUrl: 'image',
+      body: {
+        linkUrl: 'link',
+        imageUrl: 'image',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -42,7 +46,12 @@ describe('ResourceBadges.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/badges', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/badges', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -50,7 +59,11 @@ describe('ResourceBadges.edit', () => {
   it('should call the correct url with a resource id and badge id', async () => {
     await service.edit('5', 6);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/badges/6', undefined);
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/badges/6', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -59,8 +72,12 @@ describe('ResourceBadges.preview', () => {
     await service.preview('5', 'https://url.com', 'https://image.com');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/badges/render', {
-      linkUrl: 'https://url.com',
-      imageUrl: 'https://image.com',
+      searchParams: {
+        linkUrl: 'https://url.com',
+        imageUrl: 'https://image.com',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -69,7 +86,10 @@ describe('ResourceBadges.remove', () => {
   it('should call the correct url with a resource id and badge id', async () => {
     await service.remove('5', 6);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/badges/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/badges/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -77,6 +97,9 @@ describe('ResourceBadges.show', () => {
   it('should call the correct url with a resource id and badge id', async () => {
     await service.show('5', 6);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/badges/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/badges/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

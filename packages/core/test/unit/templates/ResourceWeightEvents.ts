@@ -34,7 +34,7 @@ describe('ResourceWeightEvents.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/resource_weight_events',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -45,7 +45,7 @@ describe('ResourceWeightEvents.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/resource_weight_events/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

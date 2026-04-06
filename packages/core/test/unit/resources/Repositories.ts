@@ -22,7 +22,7 @@ describe('Repositorys.allContributors', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/contributors',
-      undefined,
+      { searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -32,7 +32,7 @@ describe('Repositorys.allContributors', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/contributors',
-      { sort: 'asc' },
+      { searchParams: { sort: 'asc' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -41,11 +41,11 @@ describe('Repositorys.allRepositoryTrees', () => {
   it('should request GET /projects/:id/repository/tree', async () => {
     await service.allRepositoryTrees(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/tree',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/tree', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -54,8 +54,9 @@ describe('Repositorys.compare', () => {
     await service.compare(1, 'from', 'to');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/compare', {
-      from: 'from',
-      to: 'to',
+      searchParams: { from: 'from', to: 'to' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -65,7 +66,9 @@ describe('Repositorys.editChangelog', () => {
     await service.editChangelog(1, '1.1.0');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/changelog', {
-      version: '1.1.0',
+      body: { version: '1.1.0' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -75,7 +78,9 @@ describe('Repositorys.mergeBase', () => {
     await service.mergeBase(1, ['ref1', 'ref2']);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/merge_base', {
-      refs: ['ref1', 'ref2'],
+      searchParams: { refs: ['ref1', 'ref2'] },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -87,18 +92,18 @@ describe('Repositorys.showArchive', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/archive.tar.gz',
-      {},
+      { searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should request GET /projects/:id/repository/archive.zip (one of the allowed filetypes)', async () => {
     await service.showArchive(1, { fileType: 'zip' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/archive.zip',
-      {},
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/archive.zip', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/repository/archive.tar.gz with sha', async () => {
@@ -108,7 +113,9 @@ describe('Repositorys.showArchive', () => {
       service,
       'projects/1/repository/archive.tar.gz',
       {
-        sha: 'sha1',
+        searchParams: { sha: 'sha1' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -118,11 +125,10 @@ describe('Repositorys.showBlob', () => {
   it('should request GET /projects/:id/repository/blobs/:sha', async () => {
     await service.showBlob(1, 'sha1');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/blobs/sha1',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/blobs/sha1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -133,7 +139,7 @@ describe('Repositorys.showBlobRaw', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/blobs/sha1/raw',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -143,7 +149,9 @@ describe('Repositorys.showChangelog', () => {
     await service.showChangelog(1, '1.0.0');
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/changelog', {
-      version: '1.0.0',
+      searchParams: { version: '1.0.0' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

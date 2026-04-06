@@ -19,11 +19,12 @@ describe('Commits.all', () => {
   it('should request GET /projects/:id/repository/commits', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/commits',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/commits', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -35,7 +36,11 @@ describe('Commits.cherryPick', () => {
       service,
       'projects/1/repository/commits/5a/cherry_pick',
       {
-        branch: 'master',
+        body: {
+          branch: 'master',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -64,15 +69,19 @@ describe('Commits.create', () => {
     ]);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/commits', {
-      branch: 'master',
-      commitMessage: 'Test API commit creation',
-      actions: [
-        {
-          action: 'create',
-          filePath: 'foo/bar',
-          content: 'some content',
-        },
-      ],
+      body: {
+        branch: 'master',
+        commitMessage: 'Test API commit creation',
+        actions: [
+          {
+            action: 'create',
+            filePath: 'foo/bar',
+            content: 'some content',
+          },
+        ],
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -80,9 +89,13 @@ describe('Commits.create', () => {
     await service.create(1, 'master', 'Test API commit creation');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/commits', {
-      branch: 'master',
-      commitMessage: 'Test API commit creation',
-      actions: [],
+      body: {
+        branch: 'master',
+        commitMessage: 'Test API commit creation',
+        actions: [],
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -94,7 +107,11 @@ describe('Commits.createComment', () => {
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/comments',
-      { note: 'note' },
+      {
+        body: { note: 'note' },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 });
@@ -106,7 +123,7 @@ describe('Commits.showDiff', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/diff',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -116,7 +133,11 @@ describe('Commits.editStatus', () => {
     await service.editStatus(1, '5a', 'pending');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/statuses/5a', {
-      state: 'pending',
+      body: {
+        state: 'pending',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -128,7 +149,7 @@ describe('Commits.allReferences', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/refs',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -137,11 +158,12 @@ describe('Commits.show', () => {
   it('should request GET projects/:id/repository/commits/:sha', async () => {
     await service.show(1, '5a');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/commits/5a',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/commits/5a', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -152,7 +174,7 @@ describe('Commits.allStatuses', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/statuses',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -164,7 +186,7 @@ describe('Commits.allMergeRequests', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/merge_requests',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -176,7 +198,7 @@ describe('Commits.showSequence', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/sequence',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -186,7 +208,11 @@ describe('Commits.showSequence', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/repository/commits/5a/sequence',
-      { firstParent: true },
+      {
+        searchParams: { firstParent: true },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 });

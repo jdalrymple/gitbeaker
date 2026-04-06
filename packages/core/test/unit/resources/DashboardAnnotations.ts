@@ -23,9 +23,13 @@ describe('DashboardAnnotations.create', () => {
       service,
       'environments/1/metrics_dashboard/annotations',
       {
-        dashboardPath: 'path',
-        startingAt: 'start',
-        description: 'desc',
+        body: {
+          dashboardPath: 'path',
+          startingAt: 'start',
+          description: 'desc',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -37,9 +41,13 @@ describe('DashboardAnnotations.create', () => {
       service,
       'clusters/1/metrics_dashboard/annotations',
       {
-        dashboardPath: 'path',
-        startingAt: 'start',
-        description: 'desc',
+        body: {
+          dashboardPath: 'path',
+          startingAt: 'start',
+          description: 'desc',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });

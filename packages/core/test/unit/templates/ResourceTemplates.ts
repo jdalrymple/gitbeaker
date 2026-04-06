@@ -31,7 +31,12 @@ describe('ResourceTemplates.all', () => {
   it('should call the correct url', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -39,6 +44,9 @@ describe('ResourceTemplates.show', () => {
   it('should call the correct url with a resource id', async () => {
     await service.show(6);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

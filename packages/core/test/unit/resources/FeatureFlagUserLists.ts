@@ -22,7 +22,7 @@ describe('FeatureFlagUserLists.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/feature_flags_user_lists',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -33,7 +33,10 @@ describe('FeatureFlagUserLists.all', () => {
       service,
       'projects/1/feature_flags_user_lists',
       {
-        search: 'string',
+        maxPages: undefined,
+        searchParams: { search: 'string' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -47,8 +50,12 @@ describe('FeatureFlagUserLists.create', () => {
       service,
       'projects/1/feature_flags_user_lists',
       {
-        name: 'name',
-        userXids: 'xids',
+        body: {
+          name: 'name',
+          userXids: 'xids',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -62,7 +69,11 @@ describe('FeatureFlagUserLists.edit', () => {
       service,
       'projects/1/feature_flags_user_lists/2',
       {
-        name: 'test',
+        body: {
+          name: 'test',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -76,6 +87,7 @@ describe('FeatureFlagUserLists.remove', () => {
       service,
       'projects/1/feature_flags_user_lists/2',
       {
+        showExpanded: undefined,
         sudo: 1,
       },
     );
@@ -89,7 +101,7 @@ describe('FeatureFlags.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/feature_flags_user_lists/2',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

@@ -31,7 +31,12 @@ describe('ResourceIssueBoards.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -40,7 +45,9 @@ describe('ResourceIssueBoards.create', () => {
     await service.create('5', 'todo');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards', {
-      name: 'todo',
+      body: { name: 'todo' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -49,14 +56,20 @@ describe('ResourceIssueBoards.createList', () => {
   it('should call the correct url with a resource id, board id', async () => {
     await service.createList('5', 6);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards/6/lists', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards/6/lists', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should call the correct url with a resource id, board id and milestoneId', async () => {
     await service.createList('5', 6, { milestoneId: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards/6/lists', {
-      milestoneId: 1,
+      body: { milestoneId: 1 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -64,7 +77,9 @@ describe('ResourceIssueBoards.createList', () => {
     await service.createList('5', 6, { assigneeId: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards/6/lists', {
-      assigneeId: 1,
+      body: { assigneeId: 1 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -72,7 +87,9 @@ describe('ResourceIssueBoards.createList', () => {
     await service.createList('5', 6, { labelId: 1 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/boards/6/lists', {
-      labelId: 1,
+      body: { labelId: 1 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -81,7 +98,11 @@ describe('ResourceIssueBoards.edit', () => {
   it('should call the correct url with a resource id and board id', async () => {
     await service.edit('5', 6);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/boards/6', undefined);
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/boards/6', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -90,7 +111,9 @@ describe('ResourceIssueBoards.editList', () => {
     await service.editList('5', 6, 1, 2);
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/boards/6/lists/1', {
-      position: 2,
+      body: { position: 2 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -99,7 +122,10 @@ describe('ResourceIssueBoards.allLists', () => {
   it('should call the correct url with a resource id and board id', async () => {
     await service.allLists('5', 6);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6/lists', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6/lists', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -107,7 +133,10 @@ describe('ResourceIssueBoards.remove', () => {
   it('should call the correct url with a resource id and board id', async () => {
     await service.remove('5', 6);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/boards/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/boards/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -115,7 +144,10 @@ describe('ResourceIssueBoards.removeList', () => {
   it('should call the correct url with a resource id, board id and list id', async () => {
     await service.removeList('5', 6, 7);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/boards/6/lists/7', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/boards/6/lists/7', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -123,7 +155,10 @@ describe('ResourceIssueBoards.show', () => {
   it('should call the correct url with a resource id and board id', async () => {
     await service.show('5', 6);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -131,6 +166,9 @@ describe('ResourceIssueBoards.showList', () => {
   it('should call the correct url with a resource id, board id and list id', async () => {
     await service.showList('5', 6, 7);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6/lists/7', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/boards/6/lists/7', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

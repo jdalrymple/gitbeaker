@@ -19,6 +19,9 @@ describe('ApplicationStatistics.show', () => {
   it('should request GET /application/statistics', async () => {
     await service.show();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/statistics', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/statistics', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

@@ -19,13 +19,21 @@ describe('Keys.show', () => {
   it('should request GET /keys/1', async () => {
     await service.show({ keyId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'keys/1', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'keys/1', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /keys?fingerprint=1', async () => {
     await service.show({ fingerprint: '1' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'keys?fingerprint=1', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'keys?fingerprint=1', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should throw an error if keyId or fingerprint is not passed', () => {

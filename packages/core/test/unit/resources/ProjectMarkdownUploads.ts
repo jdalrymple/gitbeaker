@@ -33,9 +33,13 @@ describe('ProjectMarkdownUploads.create', () => {
     const file = { content, filename: 'content.txt' };
     await service.create('5', file);
 
+    const expectedFormData = new FormData();
+    expectedFormData.append('file', content, 'content.txt');
+
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/uploads', {
-      isForm: true,
-      file: [file.content, file.filename],
+      body: expectedFormData,
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

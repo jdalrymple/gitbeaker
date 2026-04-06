@@ -31,12 +31,18 @@ describe('ResourceMarkdownUploads.download', () => {
   it('should call the correct url with a resource id and upload id', async () => {
     await service.download(5, 6);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
   it('should call the correct url with a resource id and a secret and a filename', async () => {
     await service.download(5, '6', '7.txt');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6/7.txt', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads/6/7.txt', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -44,7 +50,12 @@ describe('ResourceMarkdownUploads.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/uploads', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -52,11 +63,17 @@ describe('ResourceMarkdownUploads.remove', () => {
   it('should call the correct url with a resource id and upload id', async () => {
     await service.remove('5', '6');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/uploads/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/uploads/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
   it('should call the correct url with a resource id and a secret and a filename', async () => {
     await service.remove('5', '6', '7.txt');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/uploads/6/7.txt', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/uploads/6/7.txt', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

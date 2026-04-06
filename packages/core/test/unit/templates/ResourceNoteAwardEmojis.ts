@@ -31,11 +31,12 @@ describe('ResourceNoteAwardEmojis.all', () => {
   it('should call the correct url with a project id, resource id, and note id', async () => {
     await service.all('5', 6, 7);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '5/resource/6/notes/7/award_emoji',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/resource/6/notes/7/award_emoji', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -44,7 +45,9 @@ describe('ResourceAccessRequests.award', () => {
     await service.award('5', 6, 7, 'frank');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/resource/6/notes/7/award_emoji', {
-      name: 'frank',
+      body: { name: 'frank' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -52,7 +55,8 @@ describe('ResourceAccessRequests.award', () => {
     await service.award('5', 6, 7, 'frank', { sudo: 'test' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/resource/6/notes/7/award_emoji', {
-      name: 'frank',
+      body: { name: 'frank' },
+      showExpanded: undefined,
       sudo: 'test',
     });
   });
@@ -65,7 +69,7 @@ describe('ResourceAccessRequests.remove', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       '5/resource/6/notes/7/award_emoji/9',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -76,6 +80,7 @@ describe('ResourceAccessRequests.remove', () => {
       service,
       '5/resource/6/notes/7/award_emoji/9',
       {
+        showExpanded: undefined,
         sudo: 'test',
       },
     );
@@ -89,7 +94,7 @@ describe('ResourceAccessRequests.show', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       '5/resource/6/notes/7/award_emoji/9',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -100,6 +105,7 @@ describe('ResourceAccessRequests.show', () => {
       service,
       '5/resource/6/notes/7/award_emoji/9',
       {
+        showExpanded: undefined,
         sudo: 'test',
       },
     );

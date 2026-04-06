@@ -19,7 +19,10 @@ describe('ApplicationSettings.show', () => {
   it('should request GET /application/settings', async () => {
     await service.show();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/settings', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'application/settings', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -28,7 +31,11 @@ describe('ApplicationSettings.edit', () => {
     await service.edit({ terms: 'Testing terms' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/settings', {
-      terms: 'Testing terms',
+      body: {
+        terms: 'Testing terms',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

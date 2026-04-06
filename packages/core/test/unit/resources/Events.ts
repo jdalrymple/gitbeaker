@@ -19,12 +19,22 @@ describe('Events.all', () => {
   it('should request GET /projects/:id/events', async () => {
     await service.all({ projectId: 12 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/12/events', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/12/events', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/events without options', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'events', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'events', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

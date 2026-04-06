@@ -19,13 +19,19 @@ describe('PagesDomains.all', () => {
   it('should request GET /projects/:id/pages/domains', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pages/domains', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pages/domains', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /pages/domains', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'pages/domains', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'pages/domains', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -33,8 +39,12 @@ describe('PagesDomains.create', () => {
   it('should request POST /projects/:id/pages/domains', async () => {
     await service.create(1, 'domain');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/pages/domains', {
-      domain: 'domain',
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/pages/domains', {
+      body: {
+        domain: 'domain',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -43,10 +53,10 @@ describe('PagesDomains.edit', () => {
   it('should request PUT /projects/:id/pages/domains/:domain', async () => {
     await service.edit(1, 'domain');
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
       service,
       'projects/1/pages/domains/domain',
-      undefined,
+      { body: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -55,11 +65,10 @@ describe('PagesDomains.show', () => {
   it('should request GET /projects/:id/pages/domains/:domain', async () => {
     await service.show(1, 'domain');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/pages/domains/domain',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pages/domains/domain', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -67,10 +76,9 @@ describe('PagesDomains.remove', () => {
   it('should request DEL /projects/:id/pages/domains/:domain', async () => {
     await service.remove(1, 'domain');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/pages/domains/domain',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/pages/domains/domain', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
