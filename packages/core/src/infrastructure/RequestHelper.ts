@@ -29,6 +29,10 @@ export type BaseRequestSearchParams = RequesterSearchParams;
 
 export type PaginationTypes = 'keyset' | 'offset';
 
+export interface PaginationType<P extends PaginationTypes | void = 'offset'> {
+  pagination?: P;
+}
+
 export interface KeysetPaginationRequestParams {
   pagination: 'keyset';
   perPage?: number | string;
@@ -52,7 +56,7 @@ export type PaginationRequestSearchParams<P extends PaginationTypes | void> = P 
   : OffsetPaginationRequestParams; // if offset or void
 
 export type PaginationRequestOptions<P extends PaginationTypes | void = void> =
-  BasePaginationRequestOptions & PaginationRequestSearchParams<P>;
+  BasePaginationRequestOptions & PaginationType<P> & PaginationRequestSearchParams<P>;
 
 // Internal types
 type RequestHelperSearchParamOptions = {
