@@ -1,11 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers } from '../templates';
-import type {
-  AddMemberOptions,
-  AllMembersOptions,
-  IncludeInherited,
-  MemberSchema,
-} from '../templates/ResourceMembers';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -14,42 +6,50 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  AddMemberOptions,
+  AllMembersOptions,
+  IncludeInherited,
+  MemberSchema,
+} from '../templates/ResourceMembers';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { ResourceMembers } from '../templates';
 
 export interface ProjectMembers<C extends boolean = false> extends ResourceMembers<C> {
   add<E extends boolean = false>(
     projectId: string | number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: AddMemberOptions & Sudo & ShowExpanded<E>,
+    options?: AddMemberOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: IncludeInherited &
-      PaginationRequestOptions<P> &
-      AllMembersOptions &
+    options?: AllMembersOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      IncludeInherited &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     userId: number,
     accessLevel: AccessLevel,
-    options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string; memberRoleId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    options?: IncludeInherited & Sudo & ShowExpanded<E>,
+    options?: IncludeInherited & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    options?: { skipSubresourceS?: boolean; unassignIssuables?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { skipSubresourceS?: boolean; unassignIssuables?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 

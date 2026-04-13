@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { SimpleUserSchema } from './Users';
 
 export interface CondensedEpicLinkSchema extends Record<string, unknown> {
@@ -50,7 +50,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     epicIId: number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicLinkSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -70,7 +70,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     childEpicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicLinkSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -88,7 +88,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     title: string,
-    options?: { confidential?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { confidential?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEpicLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -110,7 +110,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     childEpicId: number,
-    options?: { moveBeforeId?: number; moveAfterId?: number } & Sudo & ShowExpanded<E>,
+    options?: { moveBeforeId?: number; moveAfterId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -129,7 +129,7 @@ export class EpicLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     childEpicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicLinkSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

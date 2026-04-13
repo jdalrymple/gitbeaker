@@ -1,7 +1,7 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { CommitSchema } from './Commits';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface RepositorySubmoduleSchema extends CommitSchema {
   status?: string;
@@ -15,8 +15,8 @@ export class RepositorySubmodules<C extends boolean = false> extends BaseResourc
     commitSha: string,
     options?: {
       commitMessage?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositorySubmoduleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

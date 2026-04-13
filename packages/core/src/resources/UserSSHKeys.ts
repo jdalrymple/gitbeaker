@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface UserSSHKeySchema extends Record<string, unknown> {
   id: number;
@@ -18,8 +18,8 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
       userId?: number;
       expiresAt?: string;
       usageType?: 'auth' | 'signing' | 'auth_and_signing';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     return this.create<E>(title, key, options);
   }
@@ -27,7 +27,7 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     userId,
     ...options
-  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { userId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserSSHKeySchema[], C, E, void>
   > {
     const { sudo, showExpanded } = options || {};
@@ -50,8 +50,8 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
       userId?: number;
       expiresAt?: string;
       usageType?: 'auth' | 'signing' | 'auth_and_signing';
-    } & Sudo &
-      ShowExpanded<E> = {},
+    } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -70,7 +70,7 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -85,7 +85,7 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

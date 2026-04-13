@@ -1,11 +1,11 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   BaseRequestBodyRecordOptions,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface ApplicationSettingsSchema extends Record<string, unknown> {
   admin_mode?: boolean;
@@ -266,7 +266,7 @@ export interface ApplicationSettingsSchema extends Record<string, unknown> {
 
 export class ApplicationSettings<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationSettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -277,7 +277,7 @@ export class ApplicationSettings<C extends boolean = false> extends BaseResource
   }
 
   edit<E extends boolean = false>(
-    options?: BaseRequestBodyRecordOptions & Sudo & ShowExpanded<E>,
+    options?: BaseRequestBodyRecordOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationSettingsSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface CondensedBadgeSchema extends Record<string, unknown> {
   link_url: string;
@@ -39,7 +39,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: { name?: string } & Sudo & ShowExpanded<E>,
+    options?: { name?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -56,7 +56,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: { name?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { name?: string } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -64,14 +64,14 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: EditBadgeOptions & Sudo & ShowExpanded<E>,
+    options?: EditBadgeOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -86,7 +86,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedBadgeSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -103,7 +103,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -116,7 +116,7 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

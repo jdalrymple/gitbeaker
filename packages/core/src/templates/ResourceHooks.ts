@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface HookSchema extends Record<string, unknown> {
   id: number;
@@ -68,7 +68,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     resourceId: string | number,
     url: string,
-    options?: AddResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: AddResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -84,7 +84,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -92,7 +92,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -100,7 +100,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     hookId: number,
     url: string,
-    options?: EditResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: EditResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -117,7 +117,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     resourceId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -130,7 +130,7 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     resourceId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,8 +8,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { MilestoneSchema } from './ResourceMilestones';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { LabelSchema } from './ResourceLabels';
+import { MilestoneSchema } from './ResourceMilestones';
 
 export interface IssueBoardListSchema extends Record<string, unknown> {
   id: number;
@@ -37,7 +37,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -45,14 +45,14 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   allLists<E extends boolean = false>(
     resourceId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -69,7 +69,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   create<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -87,8 +87,8 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     boardId: number,
     options?: OneOrNoneOf<{ labelId: number; assigneeId: number; milestoneId: number }> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -112,8 +112,8 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
       milestoneId?: number;
       labels?: string;
       weight?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -129,7 +129,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     boardId: number,
     listId: number,
     position: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -150,7 +150,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   remove<E extends boolean = false>(
     resourceId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -164,7 +164,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -177,7 +177,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
   show<E extends boolean = false>(
     resourceId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -191,7 +191,7 @@ export class ResourceIssueBoards<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface ApplicationSchema extends Record<string, unknown> {
   id: number;
@@ -20,7 +20,7 @@ export interface ApplicationSchema extends Record<string, unknown> {
 
 export class Applications<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -36,7 +36,7 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
     name: string,
     redirectUri: string,
     scopes: string,
-    options?: { confidential?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { confidential?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -54,7 +54,7 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     applicationId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

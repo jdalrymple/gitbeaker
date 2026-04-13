@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface MetadataSchema extends Record<string, unknown> {
   version: string;
@@ -15,7 +15,7 @@ export interface MetadataSchema extends Record<string, unknown> {
 
 export class Metadata<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetadataSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

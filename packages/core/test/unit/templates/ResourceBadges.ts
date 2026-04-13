@@ -1,5 +1,5 @@
-import { ResourceBadges } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceBadges } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +8,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { SimpleUserSchema } from '../resources/Users';
 
 export interface NoteSchema extends Record<string, unknown> {
@@ -45,8 +45,8 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
       orderBy?: 'created_at' | 'updated_at';
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -57,7 +57,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -66,7 +66,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { internal?: boolean; createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...bodyOptions } = options || {};
 
@@ -88,7 +88,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: { body?: string } & Sudo & ShowExpanded<E>,
+    options?: { body?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...bodyOptions } = options || {};
 
@@ -107,7 +107,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -120,7 +120,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     return RequestHelper.get<NoteSchema>()(
       this,

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -15,11 +13,13 @@ import type {
   ExpandedSnippetSchema,
   SnippetSchema,
 } from './Snippets';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SnippetSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -34,7 +34,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   create<E extends boolean = false>(
     projectId: string | number,
     title: string,
-    options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
+    options?: CreateSnippetOptions & ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -55,7 +55,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   edit<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
+    options?: EditSnippetOptions & ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -69,7 +69,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   remove<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded } = options || {};
 
@@ -82,7 +82,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   show<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SnippetSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -96,7 +96,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   showContent<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -112,7 +112,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
     snippetId: number,
     ref: string,
     filePath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -126,7 +126,7 @@ export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> 
   showUserAgentDetails<E extends boolean = false>(
     projectId: string | number,
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface GroupAnalyticsIssuesCountSchema extends Record<string, unknown> {
   issues_count: number;
@@ -17,7 +17,7 @@ export interface GroupAnalyticsNewMembersCountSchema extends Record<string, unkn
 export class GroupActivityAnalytics<C extends boolean = false> extends BaseResource<C> {
   showIssuesCount<E extends boolean = false>(
     groupPath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupAnalyticsIssuesCountSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -36,7 +36,7 @@ export class GroupActivityAnalytics<C extends boolean = false> extends BaseResou
 
   showMergeRequestsCount<E extends boolean = false>(
     groupPath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupAnalyticsMRsCountSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -55,7 +55,7 @@ export class GroupActivityAnalytics<C extends boolean = false> extends BaseResou
 
   showNewMembersCount<E extends boolean = false>(
     groupPath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupAnalyticsNewMembersCountSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

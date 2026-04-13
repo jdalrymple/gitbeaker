@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +6,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MemberRoleSchema extends Record<string, unknown> {
   id: number;
@@ -24,7 +24,7 @@ export class GroupMemberRoles<C extends boolean = false> extends BaseResource<C>
       AccessLevel,
       AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
     >,
-    options?: { readCode?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { readCode?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberRoleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -37,7 +37,7 @@ export class GroupMemberRoles<C extends boolean = false> extends BaseResource<C>
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberRoleSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -45,14 +45,14 @@ export class GroupMemberRoles<C extends boolean = false> extends BaseResource<C>
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   remove<E extends boolean = false>(
     groupId: string | number,
     memberRoleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +9,8 @@ import type {
   UserAgentDetailSchema,
 } from '../infrastructure';
 import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export type SnippetVisibility = 'private' | 'public' | 'internal';
 
@@ -68,8 +68,8 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     createdBefore?: string;
   } & BaseRequestSearchParams &
     PaginationRequestOptions<'offset'> &
-    Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, 'offset'>> {
+    ShowExpanded<E> &
+    Sudo = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options;
 
     const url = getPrefixedUrl('', { snippets: true, public: ppublic });
@@ -78,14 +78,14 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<'offset'> &
-        BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<'offset'>,
     });
   }
 
   create<E extends boolean = false>(
     title: string,
-    options?: CreateSnippetOptions & Sudo & ShowExpanded<E>,
+    options?: CreateSnippetOptions & ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -101,7 +101,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     snippetId: number,
-    options?: EditSnippetOptions & Sudo & ShowExpanded<E>,
+    options?: EditSnippetOptions & ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -112,7 +112,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  remove<E extends boolean = false>(snippetId: number, options?: Sudo & ShowExpanded<E>) {
+  remove<E extends boolean = false>(snippetId: number, options?: ShowExpanded<E> & Sudo) {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.del()(this, `snippets/${snippetId}`, {
@@ -123,7 +123,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SnippetSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -135,7 +135,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
 
   showContent<E extends boolean = false>(
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -149,7 +149,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
     snippetId: number,
     ref: string,
     filePath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -165,7 +165,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
 
   showUserAgentDetails<E extends boolean = false>(
     snippetId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded } = options || {};
 

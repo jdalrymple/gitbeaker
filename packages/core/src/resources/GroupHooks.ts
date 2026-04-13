@@ -1,10 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceHooks } from '../templates';
-import type {
-  AddResourceHookOptions,
-  EditResourceHookOptions,
-  ExpandedHookSchema,
-} from '../templates/ResourceHooks';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -13,6 +6,13 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  AddResourceHookOptions,
+  EditResourceHookOptions,
+  ExpandedHookSchema,
+} from '../templates/ResourceHooks';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceHooks } from '../templates';
 
 export interface GroupHookSchema extends ExpandedHookSchema {
   groupId: number;
@@ -23,31 +23,31 @@ export interface GroupHooks<C extends boolean = false> {
   add<E extends boolean = false>(
     groupId: string | number,
     url: string,
-    options?: AddResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: AddResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupHookSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupHookSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     groupId: string | number,
     hookId: number,
     url: string,
-    options?: EditResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: EditResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupHookSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupHookSchema, C, E, void>>;
 }
 

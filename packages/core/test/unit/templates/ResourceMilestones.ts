@@ -1,5 +1,5 @@
-import { ResourceMilestones } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceMilestones } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   Camelize,
@@ -14,6 +11,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 
 export interface DiscussionNotePositionBaseSchema extends Record<string, unknown> {
   base_sha: string;
@@ -36,20 +36,20 @@ export interface DiscussionNotePositionLineRangeSchema {
   end?: DiscussionNotePositionTextLineSchema;
 }
 
-export type DiscussionNotePositionTextSchema = DiscussionNotePositionBaseSchema & {
+export type DiscussionNotePositionTextSchema = {
   position_type: 'text';
   new_line?: string;
   old_line?: string;
   line_range?: DiscussionNotePositionLineRangeSchema;
-};
+} & DiscussionNotePositionBaseSchema;
 
-export type DiscussionNotePositionImageSchema = DiscussionNotePositionBaseSchema & {
+export type DiscussionNotePositionImageSchema = {
   position_type: 'image';
   width?: string;
   height?: string;
   x?: number;
   y?: number;
-};
+} & DiscussionNotePositionBaseSchema;
 
 export type DiscussionNotePositionSchema =
   | DiscussionNotePositionTextSchema
@@ -96,7 +96,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resource2Id: string | number,
     discussionId: string | number,
     body: string,
-    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...bodyOptions } = options || {};
 
@@ -110,7 +110,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -121,7 +121,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -133,8 +133,12 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     {
       position,
       ...options
-    }: { position?: DiscussionNotePositionOptions; commitId?: string; createdAt?: string } & Sudo &
-      ShowExpanded<E> = {},
+    }: {
+      position?: DiscussionNotePositionOptions;
+      commitId?: string;
+      createdAt?: string;
+    } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
     const { sudo, showExpanded, ...bodyOptions } = options;
 
@@ -163,7 +167,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    options: Sudo & ShowExpanded<E> & { body?: string; resolved?: boolean },
+    options: { body?: string; resolved?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options;
 
@@ -183,7 +187,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resource2Id: string | number,
     discussionId: string | number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -201,7 +205,7 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resource2Id: string | number,
     discussionId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

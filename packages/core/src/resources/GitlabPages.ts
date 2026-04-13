@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface GitlabPagesSettingsSchema extends Record<string, unknown> {
   url: string;
@@ -17,7 +17,7 @@ export interface GitlabPagesSettingsSchema extends Record<string, unknown> {
 export class GitlabPages<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -29,7 +29,7 @@ export class GitlabPages<C extends boolean = false> extends BaseResource<C> {
 
   showSettings<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GitlabPagesSettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface StatisticsSchema extends Record<string, unknown> {
   statistics: {
@@ -30,16 +30,16 @@ export type AllIssueStatisticsOptions = {
 
 export class IssuesStatistics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      OneOrNoneOf<{ authorId: number; authorUsername: string }> &
+    options?: AllIssueStatisticsOptions &
       OneOrNoneOf<{ assigneeId: number; assigneeUsername: string }> &
-      AllIssueStatisticsOptions &
-      Sudo &
-      ShowExpanded<E>,
+      OneOrNoneOf<{ authorId: number; authorUsername: string }> &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<StatisticsSchema, C, E, void>> {
     const { sudo, showExpanded, projectId, groupId, ...searchParams } = options || {};
 
-    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
     const url = getPrefixedUrl('issues_statistics', { projects: projectId, groups: groupId });
 

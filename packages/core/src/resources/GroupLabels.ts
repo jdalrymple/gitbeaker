@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceLabels } from '../templates';
-import type { LabelCountSchema, LabelSchema } from '../templates/ResourceLabels';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { LabelCountSchema, LabelSchema } from '../templates/ResourceLabels';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceLabels } from '../templates';
 
 export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -18,21 +18,21 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
       withCounts: true;
       includeAncestorGroups?: boolean;
       search?: string;
-    } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(LabelSchema & LabelCountSchema)[], C, E, P>>;
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<(LabelCountSchema & LabelSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options: {
       includeAncestorGroups?: boolean;
       search?: string;
-    } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -41,57 +41,58 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
       withCounts?: boolean;
       includeAncestorGroups?: boolean;
       search?: string;
-    } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     groupId: string | number,
     labelName: string,
     color: string,
-    options?: { description?: string; priority?: number } & Sudo & ShowExpanded<E>,
+    options?: { description?: string; priority?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options: OneOf<{ newName: string; color: string }> & {
+    options: {
       description?: string;
       priority?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & OneOf<{ newName: string; color: string }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   promote<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: { includeAncestorGroups?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { includeAncestorGroups?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   subscribe<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   unsubscribe<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 }
 

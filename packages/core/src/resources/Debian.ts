@@ -1,3 +1,4 @@
+import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   RequestHelper,
@@ -6,7 +7,6 @@ import {
   ensureRequiredParams,
   getPrefixedUrl,
 } from '../infrastructure';
-import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 
 export class Debian<C extends boolean = false> extends BaseResource<C> {
   downloadBinaryFileIndex<E extends boolean = false>(

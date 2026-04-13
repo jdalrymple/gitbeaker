@@ -1,5 +1,5 @@
-import { ResourceAccessTokens } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceAccessTokens } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

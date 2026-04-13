@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNoteAwardEmojis } from '../templates';
-import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,6 +6,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceNoteAwardEmojis } from '../templates';
 
 export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
   extends ResourceNoteAwardEmojis<C> {
@@ -16,7 +16,7 @@ export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
     projectId: string | number,
     mergeRequestIId: number,
     noteId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>>;
 
   award<E extends boolean = false>(
@@ -24,7 +24,7 @@ export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
     mergeRequestIId: number,
     noteId: number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
@@ -32,7 +32,7 @@ export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
     mergeRequestIId: number,
     noteId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
@@ -40,7 +40,7 @@ export interface MergeRequestNoteAwardEmojis<C extends boolean = false>
     mergeRequestIId: number,
     noteId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 }
 

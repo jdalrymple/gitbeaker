@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { EpicSchema } from './Epics';
 
 export interface RelatedEpicSchema extends EpicSchema {
@@ -30,10 +30,10 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
       createdBefore?: string;
       updatedAfter?: string;
       updatedBefore?: string;
-    } & Sudo &
-      ShowExpanded<E> &
+    } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      BaseRequestSearchParams,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -44,8 +44,8 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
-      }
+        searchParams,
+      },
     );
   }
 
@@ -54,7 +54,7 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     targetEpicIId: string | number,
     targetGroupId: string | number,
-    options?: { linkType?: RelatedEpicLinkType } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: RelatedEpicLinkType } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -77,7 +77,7 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     relatedEpicLinkId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

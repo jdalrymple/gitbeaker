@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export type NotificationSettingLevel =
   | 'disabled'
@@ -60,14 +60,14 @@ export type EditNotificationSettingsOptions = {
 
 export class NotificationSettings<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
-    options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      EditNotificationSettingsOptions &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+    options: EditNotificationSettingsOptions &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo = {} as any,
   ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded, ...body } = options;
 
-    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
     const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
 
@@ -80,12 +80,12 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
 
   show<E extends boolean = false>(
     options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      ShowExpanded<E> &
+      Sudo = {} as any,
   ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded } = options;
 
-    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
     const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
 

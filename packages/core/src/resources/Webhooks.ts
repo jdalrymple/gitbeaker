@@ -72,12 +72,9 @@ export type ReviewerState =
   | 'review_started'
   | 'unapproved';
 
-export type WebhookUserSchema = Pick<
-  SimpleUserSchema,
-  'id' | 'name' | 'username' | 'avatar_url'
-> & {
+export type WebhookUserSchema = {
   email: string;
-};
+} & Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>;
 
 export interface WebhookReviewerSchema extends WebhookUserSchema {
   state: ReviewerState;

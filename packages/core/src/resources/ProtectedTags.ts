@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ProtectedTagAccessLevel =
   | AccessLevel.NO_ACCESS
@@ -37,7 +37,7 @@ export type ProtectedTagAccessLevelEntity = OneOf<{
 export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -48,7 +48,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -60,8 +60,8 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -87,8 +87,8 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     return this.create(projectId, tagName, options);
   }
@@ -96,7 +96,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -113,7 +113,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -127,7 +127,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
   unprotect<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return this.remove(projectId, tagName, options);
   }

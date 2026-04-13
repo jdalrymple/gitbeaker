@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,7 +7,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface AccessRequestSchema extends Record<string, unknown> {
   id: number;
@@ -28,7 +28,7 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -39,14 +39,14 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
 
   request<E extends boolean = false>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -63,7 +63,7 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
   approve<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
+    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -81,7 +81,7 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
   deny<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

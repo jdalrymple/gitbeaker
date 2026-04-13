@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,6 +7,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CondensedGroupSchema } from './Groups';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { LabelSchema } from '../templates/ResourceLabels';
 
 export interface GroupEpicBoardListSchema extends Record<string, unknown> {
@@ -32,7 +32,7 @@ export interface GroupEpicBoardSchema extends Record<string, unknown> {
 export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -43,7 +43,7 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -51,7 +51,7 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
   allLists<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -68,7 +68,7 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
   show<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -86,7 +86,7 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
     groupId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

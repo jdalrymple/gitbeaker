@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface SecureFileSchema extends Record<string, unknown> {
   id: number;
@@ -38,7 +38,7 @@ export interface SecureFileSchema extends Record<string, unknown> {
 export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -49,7 +49,7 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -58,7 +58,7 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     name: string,
     file: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -75,7 +75,7 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
     secureFileId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -92,7 +92,7 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     secureFileId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -105,7 +105,7 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     secureFileId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { TodoLists } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

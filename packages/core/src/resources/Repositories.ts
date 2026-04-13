@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   AsStream,
   BaseRequestSearchParams,
@@ -11,6 +9,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitDiffSchema, CommitSchema, CondensedCommitSchema } from './Commits';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';
 
@@ -81,8 +81,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     options?: {
       orderBy?: string;
       sort?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryContributorSchema[], C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -99,11 +99,11 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
 
   allRepositoryTrees<E extends boolean = false>(
     projectId: string | number,
-    options?: PaginationRequestOptions<'keyset'> &
+    options?: AllRepositoryTreesOptions &
       BaseRequestSearchParams &
-      AllRepositoryTreesOptions &
-      Sudo &
-      ShowExpanded<E>,
+      PaginationRequestOptions<'keyset'> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryTreeSchema[], C, E, 'keyset'>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -114,8 +114,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<'keyset'> &
-          BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<'keyset'>,
       },
     );
   }
@@ -128,8 +128,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
       fromProjectId?: string | number;
       straight?: boolean;
       unidiff?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryCompareSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -151,7 +151,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   editChangelog<E extends boolean = false>(
     projectId: string | number,
     version: string,
-    options?: EditChangelogOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & EditChangelogOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -172,7 +172,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   mergeBase<E extends boolean = false>(
     projectId: string | number,
     refs: string[],
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -197,8 +197,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
       path?: string;
       asStream: true;
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
 
   showArchive<E extends boolean = false>(
@@ -209,8 +209,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
       path?: string;
       asStream?: boolean;
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
 
   showArchive<E extends boolean = false>(
@@ -218,8 +218,8 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     {
       fileType = 'tar.gz',
       ...options
-    }: { fileType?: ArchiveType; sha?: string; path?: string } & BaseRequestSearchParams &
-      AsStream &
+    }: { fileType?: ArchiveType; sha?: string; path?: string } & AsStream &
+      BaseRequestSearchParams &
       ShowExpanded<E> &
       Sudo = {} as { fileType: ArchiveType },
   ): Promise<any> {
@@ -240,7 +240,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   showBlob<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryBlobSchema, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -257,7 +257,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   showBlobRaw<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -274,7 +274,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
   showChangelog<E extends boolean = false>(
     projectId: string | number,
     version: string,
-    options?: ShowChangelogOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & ShowChangelogOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryChangelogSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

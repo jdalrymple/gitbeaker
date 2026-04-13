@@ -1,6 +1,6 @@
+import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
-import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -43,12 +43,12 @@ export interface ImportStatusSchema extends Record<string, unknown> {
 export class ProjectImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
-    options: { asStream: true } & Sudo & ShowExpanded<E>,
+    options: { asStream: true } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
 
   download<E extends boolean = false>(
     projectId: string | number,
-    options?: { asStream?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { asStream?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
 
   download<E extends boolean = false>(
@@ -76,8 +76,8 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       namespace?: number | string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -100,8 +100,8 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       namespace?: number | string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -123,7 +123,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     path: string,
     region: string,
     secretAccessKey: string,
-    options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E>,
+    options?: { name?: number; namespace?: number | string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -144,7 +144,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
 
   showExportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded } = options || {};
 
@@ -156,7 +156,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
 
   showImportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded } = options || {};
 
@@ -172,7 +172,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       url: string;
       http_method?: string;
     },
-    options?: { description?: string } & Sudo & ShowExpanded<E>,
+    options?: { description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

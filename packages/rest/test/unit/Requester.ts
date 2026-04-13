@@ -4,8 +4,8 @@ import {
   GitbeakerRetryError,
   GitbeakerTimeoutError,
 } from '@gitbeaker/requester-utils';
-import { getError } from '../utils/index';
 import { defaultRequestHandler, processBody } from '../../src/Requester';
+import { getError } from '../utils/index';
 
 global.fetch = jest.fn();
 

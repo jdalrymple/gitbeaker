@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ProjectRemoteMirrorSchema extends Record<string, unknown> {
   enabled: boolean;
@@ -25,7 +25,7 @@ export interface ProjectRemoteMirrorSchema extends Record<string, unknown> {
 export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -36,7 +36,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -46,7 +46,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     url: string,
     mirror: boolean,
-    options?: { onlyProtectedBranches?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { onlyProtectedBranches?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -73,8 +73,8 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
       mirrorBranchRegex?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -100,8 +100,8 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
       mirrorBranchRegex?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -119,7 +119,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
   remove<E extends boolean = false>(
     projectId: string | number,
     mirrorId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -132,7 +132,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
   show<E extends boolean = false>(
     projectId: string | number,
     mirrorId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -149,7 +149,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
   sync<E extends boolean = false>(
     projectId: string | number,
     mirrorId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

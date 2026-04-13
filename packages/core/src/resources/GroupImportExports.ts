@@ -1,17 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { ImportStatusSchema } from './ProjectImportExports';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export class GroupImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     groupId: string | number,
-    options: { asStream: true } & Sudo & ShowExpanded<E>,
+    options: { asStream: true } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
 
   download<E extends boolean = false>(
     groupId: string | number,
-    options?: { asStream?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { asStream?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
 
   download<E extends boolean = false>(
@@ -35,7 +35,7 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
   import<E extends boolean = false>(
     file: { content: Blob; filename: string },
     path: string,
-    { parentId, name, ...options }: { parentId?: number; name?: string } & Sudo & ShowExpanded<E>,
+    { parentId, name, ...options }: { parentId?: number; name?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -54,7 +54,7 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
 
   scheduleExport<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

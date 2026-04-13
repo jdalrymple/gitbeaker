@@ -1,14 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceMembers } from '../templates';
-import type {
-  AddMemberOptions,
-  AllMembersOptions,
-  CondensedMemberSchema,
-  IncludeInherited,
-  MemberSchema,
-  SimpleMemberSchema,
-} from '../templates/ResourceMembers';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -17,7 +6,18 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  AddMemberOptions,
+  AllMembersOptions,
+  CondensedMemberSchema,
+  IncludeInherited,
+  MemberSchema,
+  SimpleMemberSchema,
+} from '../templates/ResourceMembers';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
+import { ResourceMembers } from '../templates';
 
 export interface BillableGroupMemberSchema extends CondensedMemberSchema {
   last_activity_on: string;
@@ -47,36 +47,36 @@ export interface GroupMembers<C extends boolean = false> extends ResourceMembers
   add<E extends boolean = false>(
     projectId: string | number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: AddMemberOptions & Sudo & ShowExpanded<E>,
+    options?: AddMemberOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: IncludeInherited &
-      PaginationRequestOptions<P> &
+    options?: AllMembersOptions &
       BaseRequestSearchParams &
-      AllMembersOptions &
-      Sudo &
-      ShowExpanded<E>,
+      IncludeInherited &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     userId: number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string; memberRoleId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    options?: IncludeInherited & Sudo & ShowExpanded<E>,
+    options?: IncludeInherited & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
@@ -88,7 +88,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   allBillable<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BillableGroupMemberSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -99,14 +99,14 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
 
   allPending<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -114,7 +114,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
@@ -134,8 +134,8 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
         | 'recent_sign_in'
         | 'last_activity_on_asc'
         | 'last_activity_on_desc';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -153,7 +153,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   approve<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -165,7 +165,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   approveAll<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -178,7 +178,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   removeBillable<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -191,7 +191,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   removeOverrideFlag<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<OverrodeGroupMemberSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -208,7 +208,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   setOverrideFlag<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<OverrodeGroupMemberSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

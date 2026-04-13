@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceIterations } from '../templates';
-import type { AllIterationsOptions, IterationSchema } from '../templates/ResourceIterations';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,15 +6,18 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { AllIterationsOptions, IterationSchema } from '../templates/ResourceIterations';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceIterations } from '../templates';
 
 export interface ProjectIterations<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: AllIterationsOptions &
       BaseRequestSearchParams &
-      Sudo &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<IterationSchema[], C, E, P>>;
 }
 

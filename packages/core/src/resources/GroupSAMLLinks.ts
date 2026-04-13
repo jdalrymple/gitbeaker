@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +6,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface SAMLGroupSchema extends Record<string, unknown> {
   name: string;
@@ -18,7 +18,7 @@ export interface SAMLGroupSchema extends Record<string, unknown> {
 export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -29,7 +29,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -38,7 +38,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     samlGroupName: string,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -56,7 +56,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -73,7 +73,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    options: Sudo & ShowExpanded<E>,
+    options: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

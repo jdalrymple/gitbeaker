@@ -1,10 +1,10 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export class ServiceData<C extends boolean = false> extends BaseResource<C> {
   showMetricDefinitions<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -15,7 +15,7 @@ export class ServiceData<C extends boolean = false> extends BaseResource<C> {
   }
 
   showServicePingSQLQueries<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -26,7 +26,7 @@ export class ServiceData<C extends boolean = false> extends BaseResource<C> {
   }
 
   showUsageDataNonSQLMetrics<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

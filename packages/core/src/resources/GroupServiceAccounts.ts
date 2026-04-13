@@ -1,8 +1,8 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
+import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 import type { AccessTokenSchema } from '../templates/ResourceAccessTokens';
 import type { ServiceAccountSchema } from './ServiceAccounts';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 
 export type ServiceAccountAccessTokenSchema = MappedOmit<AccessTokenSchema, 'access_level'>;
 
@@ -12,8 +12,8 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
     options?: {
       name?: string;
       username?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ServiceAccountSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -32,7 +32,7 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
   addPersonalAccessToken<E extends boolean = false>(
     groupId: string | number,
     serviceAccountId: number,
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ServiceAccountAccessTokenSchema, C, E, void>> {
     return this.createPersonalAccessToken(groupId, serviceAccountId, options);
   }
@@ -40,7 +40,7 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
   createPersonalAccessToken<E extends boolean = false>(
     groupId: string | number,
     serviceAccountId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ServiceAccountAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -58,7 +58,7 @@ export class GroupServiceAccounts<C extends boolean = false> extends BaseResourc
     groupId: string | number,
     serviceAccountId: number,
     tokenId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ServiceAccountAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface SuggestionSchema extends Record<string, unknown> {
   id: number;
@@ -15,7 +15,7 @@ export interface SuggestionSchema extends Record<string, unknown> {
 export class Suggestions<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     suggestionId: number,
-    options?: { commitMessage?: string } & Sudo & ShowExpanded<E>,
+    options?: { commitMessage?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SuggestionSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -28,7 +28,7 @@ export class Suggestions<C extends boolean = false> extends BaseResource<C> {
 
   editBatch<E extends boolean = false>(
     suggestionIds: number[],
-    options?: { commitMessage?: string } & Sudo & ShowExpanded<E>,
+    options?: { commitMessage?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SuggestionSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

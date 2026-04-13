@@ -1,5 +1,5 @@
-import { ResourceDiscussions } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceDiscussions } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

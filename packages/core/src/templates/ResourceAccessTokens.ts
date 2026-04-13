@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,7 +7,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type AccessTokenScopes =
   | 'api'
@@ -47,7 +47,7 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -55,7 +55,7 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -69,8 +69,8 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
         AccessLevel,
         AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
       >;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -93,7 +93,7 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
   revoke<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -106,7 +106,7 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
   rotate<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -124,7 +124,7 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
   show<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

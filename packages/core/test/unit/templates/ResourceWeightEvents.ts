@@ -1,5 +1,5 @@
-import { ResourceWeightEvents } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceWeightEvents } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

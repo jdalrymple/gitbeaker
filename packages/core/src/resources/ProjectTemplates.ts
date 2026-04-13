@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -7,6 +5,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ProjectTemplateType =
   | 'dockerfiles'
@@ -24,7 +24,7 @@ export class ProjectTemplates<C extends boolean = false> extends BaseResource<C>
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     type: ProjectTemplateType,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectTemplateSchema[], C, E, P>> {
     return RequestHelper.get<ProjectTemplateSchema[]>()(
       this,
@@ -37,8 +37,12 @@ export class ProjectTemplates<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     type: ProjectTemplateType,
     name: string,
-    options?: { project?: string; fullname?: string; sourceTemplateProjectId?: number } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      project?: string;
+      fullname?: string;
+      sourceTemplateProjectId?: number;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectTemplateSchema, C, E, void>> {
     return RequestHelper.get<ProjectTemplateSchema>()(
       this,

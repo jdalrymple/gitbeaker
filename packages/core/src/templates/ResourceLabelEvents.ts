@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -13,6 +10,9 @@ import type {
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
 import type { LabelSchema } from './ResourceLabels';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface LabelEventSchema extends Record<string, unknown> {
   id: number;
@@ -36,7 +36,7 @@ export class ResourceLabelEvents<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelEventSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -47,7 +47,7 @@ export class ResourceLabelEvents<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -56,7 +56,7 @@ export class ResourceLabelEvents<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resource2Id: string | number,
     labelEventId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelEventSchema, C, E, void>> {
     return RequestHelper.get<LabelEventSchema>()(
       this,

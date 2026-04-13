@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface UserEmailSchema extends Record<string, unknown> {
   id: number;
@@ -12,7 +12,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   // Convenience method for create
   add<E extends boolean = false>(
     email: string,
-    options?: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { userId?: number; skipConfirmation?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     return this.create<E>(email, options);
   }
@@ -20,7 +20,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     userId,
     ...options
-  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { userId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserEmailSchema[], C, E, void>
   > {
     const { sudo, showExpanded } = options || {};
@@ -37,7 +37,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
     {
       userId,
       ...options
-    }: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E> = {},
+    }: { userId?: number; skipConfirmation?: boolean } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
     const url = getPrefixedUrl('emails', { users: userId, user: !userId });
@@ -54,7 +54,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     emailId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -66,7 +66,7 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     emailId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ReleaseLinkSchema extends Record<string, unknown> {
   id: number;
@@ -21,7 +21,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     tagName: string,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -32,7 +32,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -47,8 +47,8 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
       linkType?: string;
       directAssetPath?: string;
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -78,8 +78,8 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
       linkType?: string;
       directAssetPath?: string;
     } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -98,7 +98,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     tagName: string,
     linkId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -116,7 +116,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     tagName: string,
     linkId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseLinkSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -9,11 +7,13 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
-import type { PipelineSchema } from './Pipelines';
-import type { SimpleUserSchema } from './Users';
-import type { RunnerSchema } from './Runners';
 import type { EnvironmentSchema } from './Environments';
 import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
+import type { PipelineSchema } from './Pipelines';
+import type { RunnerSchema } from './Runners';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
@@ -68,7 +68,7 @@ export type AllDeploymentsOptions = {
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema[], C, E, P>> {
     const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
 
@@ -79,7 +79,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
         showExpanded,
         sudo,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & AllDeploymentsOptions,
+        searchParams: searchParams as AllDeploymentsOptions & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -87,7 +87,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   allMergeRequests<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     deploymentId: number,
-    options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
     const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
 
@@ -98,7 +98,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
         showExpanded,
         sudo,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & AllMergeRequestsOptions,
+        searchParams: searchParams as AllMergeRequestsOptions & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -109,7 +109,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     sha: string,
     ref: string,
     tag: boolean,
-    options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & Sudo & ShowExpanded<E>,
+    options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
     const { showExpanded, sudo, ...searchParams } = options || {};
 
@@ -134,7 +134,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     deploymentId: number,
     status: 'running' | 'success' | 'failed' | 'canceled',
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
     const { showExpanded, sudo, ...body } = options || {};
 
@@ -155,7 +155,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     deploymentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -173,7 +173,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     deploymentId: number,
     status: 'approved' | 'rejected',
-    options?: { comment?: string; representedAs?: string } & Sudo & ShowExpanded<E>,
+    options?: { comment?: string; representedAs?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentApprovalStatusSchema, C, E, void>> {
     const { showExpanded, sudo, ...body } = options || {};
 
@@ -194,7 +194,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     deploymentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

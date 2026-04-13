@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ErrorTrackingClientKeySchema extends Record<string, unknown> {
   id: number;
@@ -19,7 +19,7 @@ export interface ErrorTrackingClientKeySchema extends Record<string, unknown> {
 export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ErrorTrackingClientKeySchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -37,7 +37,7 @@ export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseReso
 
   create<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ErrorTrackingClientKeySchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -53,7 +53,7 @@ export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseReso
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

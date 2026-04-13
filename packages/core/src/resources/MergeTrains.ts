@@ -1,9 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestSearchParams,
-  RequestHelper,
-  endpoint,
-} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   MappedOmit,
@@ -12,9 +6,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
-import type { PipelineSchema } from './Pipelines';
 import type { CondensedMergeRequestSchema } from './MergeRequests';
+import type { PipelineSchema } from './Pipelines';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
 
 export interface MergeTrainSchema extends Record<string, unknown> {
   id: number;
@@ -38,8 +34,8 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
       sort?: 'asc' | 'desc';
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeTrainSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -58,7 +54,7 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
   showStatus<E extends boolean = false>(
     projectId: string | number,
     mergeRequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -75,8 +71,8 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
   addMergeRequest<E extends boolean = false>(
     projectId: string | number,
     mergeRequestIId: number,
-    options?: { whenPipelineSucceeds?: boolean; sha?: string; squash?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: { whenPipelineSucceeds?: boolean; sha?: string; squash?: boolean } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface LintSchema extends Record<string, unknown> {
   valid: boolean;
@@ -12,7 +12,7 @@ export interface LintSchema extends Record<string, unknown> {
 export class Lint<C extends boolean = false> extends BaseResource<C> {
   check<E extends boolean = false>(
     projectId: string | number,
-    options: { ref?: string; includeJobs?: boolean; dryRun?: boolean } & Sudo & ShowExpanded<E>,
+    options: { ref?: string; includeJobs?: boolean; dryRun?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LintSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options;
 
@@ -30,8 +30,8 @@ export class Lint<C extends boolean = false> extends BaseResource<C> {
       ref?: string;
       includeJobs?: boolean;
       dryRun?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LintSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

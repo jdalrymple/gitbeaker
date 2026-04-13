@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface PersonalAccessTokenSchema extends Record<string, unknown> {
   id: number;
@@ -50,8 +50,8 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
     options?: AllPersonalAccessTokenOptions &
       BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -59,7 +59,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
@@ -68,7 +68,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
     userId: number,
     name: string,
     scopes: string[],
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -88,7 +88,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
   }
 
   remove<E extends boolean = false>(
-    options?: { tokenId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { tokenId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { tokenId, sudo, showExpanded } = options || {};
 
@@ -104,7 +104,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
 
   rotate<E extends boolean = false>(
     tokenId: number | 'self',
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -120,7 +120,7 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
   }
 
   show<E extends boolean = false>(
-    options?: { tokenId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { tokenId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     const { tokenId, sudo, showExpanded } = options || {};
 

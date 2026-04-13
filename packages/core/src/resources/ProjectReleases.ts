@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestBodyRecordOptions,
   BaseRequestSearchParams,
@@ -10,9 +8,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
-import type { CommitSchema } from './Commits';
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type { CommitSchema } from './Commits';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ReleaseEvidence {
   sha: string;
@@ -66,21 +66,23 @@ export interface ReleaseSchema extends Record<string, unknown> {
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { includeHtmlDescription: true } & Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(ReleaseSchema & { description_html: string })[], C, E, P>>;
+    options?: { includeHtmlDescription: true } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ description_html: string } & ReleaseSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { includeHtmlDescription?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: { includeHtmlDescription?: boolean } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -88,13 +90,13 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestBodyRecordOptions & Sudo & ShowExpanded<E>,
+    options?: BaseRequestBodyRecordOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -108,7 +110,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
   createEvidence<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<number, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -125,7 +127,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
   edit<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: BaseRequestBodyRecordOptions & Sudo & ShowExpanded<E>,
+    options?: BaseRequestBodyRecordOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -144,7 +146,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     tagName: string,
     filepath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -161,7 +163,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
   downloadLatest<E extends boolean = false>(
     projectId: string | number,
     filepath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -178,7 +180,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
   remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -191,7 +193,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
   show<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: { includeHtmlDescription?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { includeHtmlDescription?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -208,7 +210,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
 
   showLatest<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -224,7 +226,7 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
 
   showLatestEvidence<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

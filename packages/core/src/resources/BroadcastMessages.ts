@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   Camelize,
   GitlabAPIResponse,
@@ -9,7 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper } from '../infrastructure';
 
 export interface BroadcastMessageSchema extends Record<string, unknown> {
   message: string;
@@ -32,7 +32,7 @@ type BroadcastMessageOptions = Partial<Camelize<BroadcastMessageSchema>>;
 
 export class BroadcastMessages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -45,7 +45,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
   }
 
   create<E extends boolean = false>(
-    options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
+    options?: BroadcastMessageOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -58,7 +58,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
 
   edit<E extends boolean = false>(
     broadcastMessageId: number,
-    options?: BroadcastMessageOptions & Sudo & ShowExpanded<E>,
+    options?: BroadcastMessageOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -75,7 +75,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
 
   remove<E extends boolean = false>(
     broadcastMessageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -87,7 +87,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
 
   show<E extends boolean = false>(
     broadcastMessageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface ProjectAliasSchema extends Record<string, unknown> {
   id: number;
@@ -17,7 +17,7 @@ export interface ProjectAliasSchema extends Record<string, unknown> {
 
 export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -25,14 +25,14 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -49,7 +49,7 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -61,7 +61,7 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface RelationsExportStatusSchema extends Record<string, unknown> {
   relation: string;
@@ -13,7 +13,7 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
   download<E extends boolean = false>(
     projectId: string | number,
     relation: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -33,7 +33,7 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
 
   showExportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RelationsExportStatusSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -49,7 +49,7 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
 
   scheduleExport<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

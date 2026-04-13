@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TemplateSchema extends Record<string, unknown> {
   name: string;
@@ -22,7 +22,7 @@ export class ResourceTemplates<C extends boolean = false> extends BaseResource<C
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TemplateSchema[], C, E, P>> {
     process.emitWarning(
       'This API will be deprecated as of Gitlabs v5 API. Please make the switch to "ProjectTemplates".',
@@ -35,13 +35,13 @@ export class ResourceTemplates<C extends boolean = false> extends BaseResource<C
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   show<E extends boolean = false>(
     key: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TemplateSchema, C, E, void>> {
     process.emitWarning(
       'This API will be deprecated as of Gitlabs v5 API. Please make the switch to "ProjectTemplates".',

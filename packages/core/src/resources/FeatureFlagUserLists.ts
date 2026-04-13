@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface FeatureFlagUserListSchema extends Record<string, unknown> {
   name: string;
@@ -24,8 +24,8 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     options?: { search?: string } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -45,7 +45,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     name: string,
     userXids: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -67,7 +67,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   edit<E extends boolean = false>(
     projectId: string | number,
     featureFlagUserListIId: string | number,
-    options?: { name?: string; userXIds?: string } & Sudo & ShowExpanded<E>,
+    options?: { name?: string; userXIds?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -85,7 +85,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   remove<E extends boolean = false>(
     projectId: string | number,
     featureFlagUserListIId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -102,7 +102,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   show<E extends boolean = false>(
     projectId: string | number,
     featureFlagUserListIId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

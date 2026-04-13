@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ErrorTrackingSettingsSchema extends Record<string, unknown> {
   active: boolean;
@@ -15,7 +15,7 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
     projectId: string | number,
     active: boolean,
     integrated: boolean,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -36,7 +36,7 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
   edit<E extends boolean = false>(
     projectId: string | number,
     active: boolean,
-    options?: { integrated?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { integrated?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -56,7 +56,7 @@ export class ErrorTrackingSettings<C extends boolean = false> extends BaseResour
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ErrorTrackingSettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

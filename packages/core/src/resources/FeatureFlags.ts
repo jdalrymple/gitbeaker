@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,6 +7,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface FeatureFlagStrategyScopeSchema {
   id: number;
@@ -51,7 +51,7 @@ export type EditFeatureFlagOptions = {
     name?: string;
     _destroy?: boolean;
     parameters?: Record<string, string>;
-    scopes?: (FeatureFlagStrategyScopeSchema & { _destroy?: boolean })[];
+    scopes?: ({ _destroy?: boolean } & FeatureFlagStrategyScopeSchema)[];
   };
 };
 
@@ -60,8 +60,8 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: { scope?: 'enabled' | 'disabled' } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -81,7 +81,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     flagName: string,
     version: string,
-    options?: CreateFeatureFlagOptions & Sudo & ShowExpanded<E>,
+    options?: CreateFeatureFlagOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -103,7 +103,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     featureFlagName: string,
-    options?: EditFeatureFlagOptions & Sudo & ShowExpanded<E>,
+    options?: EditFeatureFlagOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -121,7 +121,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     flagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -134,7 +134,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     flagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

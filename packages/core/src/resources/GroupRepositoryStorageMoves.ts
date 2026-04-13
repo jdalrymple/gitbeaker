@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceRepositoryStorageMoves } from '../templates';
-import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +6,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type { GroupSchema } from './Groups';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceRepositoryStorageMoves } from '../templates';
 
 export interface GroupRepositoryStorageMoveSchema extends RepositoryStorageMoveSchema {
   group: Pick<GroupSchema, 'id' | 'web_url' | 'name'>;
@@ -18,21 +18,21 @@ export interface GroupRepositoryStorageMoveSchema extends RepositoryStorageMoveS
 export interface GroupRepositoryStorageMoves<C extends boolean = false>
   extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { groupId?: string | number } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { groupId?: string | number } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema[], C, E, P>>;
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     repositoryStorageId: number,
-    options?: { groupId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { groupId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema, C, E, P>>;
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: { groupId?: string | number; destinationStorageName?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { groupId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema, C, E, P>>;
 }
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
 import type { ReleaseSchema } from './ProjectReleases';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TagSchema extends Record<string, unknown> {
   commit: CommitSchema;
@@ -43,13 +43,14 @@ export interface TagSignatureSchema extends Record<string, unknown> {
 export class Tags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & {
-        orderBy?: 'name' | 'updated' | 'version';
-        sort?: 'asc' | 'desc';
-        search?: string;
-      } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      orderBy?: 'name' | 'updated' | 'version';
+      sort?: 'asc' | 'desc';
+      search?: string;
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<TagSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -57,7 +58,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
@@ -65,7 +66,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     tagName: string,
     ref: string,
-    options?: { message?: string } & Sudo & ShowExpanded<E>,
+    options?: { message?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -83,7 +84,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -96,7 +97,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -113,7 +114,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
   showSignature<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSignatureSchema | { message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

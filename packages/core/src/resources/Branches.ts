@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface BranchSchema extends Record<string, unknown> {
   name: string;
@@ -27,8 +27,8 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: { search?: string; regex?: string } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<BranchSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -39,7 +39,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestOptions<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestOptions<P>,
       },
     );
   }
@@ -48,7 +48,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     branchName: string,
     ref: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BranchSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -69,7 +69,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -80,7 +80,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
 
   removeMerged<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -92,7 +92,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BranchSchema, C, E, void>> {
     return RequestHelper.get<BranchSchema>()(
       this,

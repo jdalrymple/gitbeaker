@@ -1,12 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestSearchParams,
-  PaginationRequestSearchParams,
-  RequestHelper,
-  createFormData,
-  endpoint,
-  getPrefixedUrl,
-} from '../infrastructure';
 import type {
   AllOrNone,
   GitlabAPIResponse,
@@ -15,11 +6,20 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type { AllEventOptions, EventSchema } from './Events';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
-import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  createFormData,
+  endpoint,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export interface AsAdmin<A extends boolean = false> {
   asAdmin?: A;
@@ -240,7 +240,7 @@ export type AllUserProjectsOptions = {
 export class Users<C extends boolean = false> extends BaseResource<C> {
   activate<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -251,17 +251,17 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { withCustomAttributes: true } & AsAdmin<A> &
-      AllUsersOptions &
+    options?: { withCustomAttributes: true } & AllUsersOptions &
+      AsAdmin<A> &
       BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ((A extends false ? SimpleUserSchema : AdminUserSchema) & {
+      ({
         custom_attributes: CustomAttributeSchema[];
-      })[],
+      } & (A extends false ? SimpleUserSchema : AdminUserSchema))[],
       C,
       E,
       P
@@ -270,20 +270,20 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: AllUsersOptions &
-      BaseRequestSearchParams &
       AsAdmin<A> &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>>;
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: AllUsersOptions &
-      BaseRequestSearchParams &
       AsAdmin<A> &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -294,17 +294,18 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> &
-          AllUsersOptions &
-          BaseRequestSearchParams,
+        searchParams: searchParams as AllUsersOptions &
+          BaseRequestSearchParams &
+          PaginationRequestSearchParams<P>,
       },
     );
   }
 
   allActivities<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { from?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { from?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserActivitySchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -312,7 +313,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
@@ -321,8 +322,8 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     options?: AllEventOptions &
       BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ) {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -336,7 +337,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   allFollowers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -344,13 +345,13 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   allFollowing<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -358,15 +359,16 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   allMemberships<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { type?: 'Project' | 'Namespace' } & Sudo &
-      ShowExpanded<E>,
+    options?: { type?: 'Project' | 'Namespace' } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserMembershipSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -377,47 +379,47 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
+    options: { simple: true } & AllUserProjectsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
+    options: { statistics: true } & AllUserProjectsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
+    options?: AllUserProjectsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
+    options?: AllUserProjectsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -425,38 +427,38 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> &
-        AllUserProjectsOptions &
-        BaseRequestSearchParams,
+      searchParams: searchParams as AllUserProjectsOptions &
+        BaseRequestSearchParams &
+        PaginationRequestSearchParams<P>,
     });
   }
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -475,30 +477,30 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   // Convenience method - Functionality already present in the all method in the Projects wrapper
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -512,7 +514,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   approve<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -524,7 +526,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   ban<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -536,7 +538,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   block<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -547,7 +549,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   create<E extends boolean = false>(
-    options?: CreateUserOptions & Sudo & ShowExpanded<E>,
+    options?: CreateUserOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -562,7 +564,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
     userId: number,
     name: string,
     scopes: string[],
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -583,7 +585,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   createCIRunner<E extends boolean = false>(
     runnerType: 'instance_type' | 'group_type' | 'project_type',
-    options?: CreateUserCIRunnerOptions & Sudo & ShowExpanded<E>,
+    options?: CreateUserCIRunnerOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserRunnerSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -599,7 +601,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   deactivate<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -611,7 +613,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   disableTwoFactor<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -623,7 +625,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     userId: number,
-    { avatar, ...options }: EditUserOptions & Sudo & ShowExpanded<E> = {},
+    { avatar, ...options }: EditUserOptions & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options;
 
@@ -651,8 +653,8 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
         | '3_days'
         | '7_days'
         | '30_days';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -666,7 +668,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   editCurrentUserPreferences<E extends boolean = false>(
     viewDiffsFileByFile: boolean,
     showWhitespaceInDiffs: boolean,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserPreferenceSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -683,7 +685,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   follow<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -695,7 +697,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   reject<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -707,7 +709,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   show<A extends boolean = false, E extends boolean = false>(
     userId: number,
-    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+    options?: AsAdmin<A> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<A extends false ? UserSchema : AdminUserSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -722,7 +724,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   showCount<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserCountSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -734,7 +736,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   showAssociationsCount<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserAssociationCountSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -749,7 +751,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   showCurrentUser<A extends boolean = false, E extends boolean = false>(
-    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+    options?: AsAdmin<A> & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<A extends false ? ExpandedUserSchema : AdminUserSchema, C, E, void>
   > {
@@ -766,7 +768,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   showCurrentUserPreferences<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserPreferenceSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -779,7 +781,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   showStatus<E extends boolean = false>({
     iDOrUsername,
     ...options
-  }: { iDOrUsername?: string | number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { iDOrUsername?: string | number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserStatusSchema, C, E, void>
   > {
     const { sudo, showExpanded } = options || {};
@@ -793,7 +795,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     userId: number,
-    options?: { hardDelete?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { hardDelete?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -806,7 +808,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   removeAuthenticationIdentity<E extends boolean = false>(
     userId: number,
     provider: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -818,7 +820,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   unban<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -830,7 +832,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   unblock<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -842,7 +844,7 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
 
   unfollow<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

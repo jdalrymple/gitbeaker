@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface GeoNodeSchema extends Record<string, unknown> {
   id: number;
@@ -175,7 +175,7 @@ export type EditGeoNodeOptions = {
 
 export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -188,7 +188,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   }
 
   allStatuses<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeStatusSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -201,7 +201,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   }
 
   allFailures<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeFailureSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -216,7 +216,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     name: string,
     url: string,
-    options?: CreateGeoNodeOptions & Sudo & ShowExpanded<E>,
+    options?: CreateGeoNodeOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -229,7 +229,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     geonodeId: number,
-    options?: EditGeoNodeOptions & Sudo & ShowExpanded<E>,
+    options?: EditGeoNodeOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -242,7 +242,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
 
   repair<E extends boolean = false>(
     geonodeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -254,7 +254,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     geonodeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -266,7 +266,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     geonodeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -278,7 +278,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
 
   showStatus<E extends boolean = false>(
     geonodeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoNodeStatusSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

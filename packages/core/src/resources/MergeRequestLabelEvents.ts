@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceLabelEvents } from '../templates';
-import type { LabelEventSchema } from '../templates/ResourceLabelEvents';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,19 +6,22 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { LabelEventSchema } from '../templates/ResourceLabelEvents';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceLabelEvents } from '../templates';
 
 export interface MergeRequestLabelEvents<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelEventSchema[], C, E, P>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     labelEventId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LabelEventSchema, C, E, void>>;
 }
 

@@ -1,3 +1,10 @@
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestSearchParams,
@@ -5,13 +12,6 @@ import {
   RequestHelper,
   createFormData,
   endpoint,
-} from '../infrastructure';
-import type {
-  GitlabAPIResponse,
-  PaginationRequestOptions,
-  PaginationTypes,
-  ShowExpanded,
-  Sudo,
 } from '../infrastructure';
 
 export interface TopicSchema extends Record<string, unknown> {
@@ -24,9 +24,10 @@ export interface TopicSchema extends Record<string, unknown> {
 
 export class Topics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { search?: string; withoutProjects?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: { search?: string; withoutProjects?: boolean } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -43,8 +44,8 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
     {
       avatar,
       ...options
-    }: { avatar?: { content: Blob; filename: string }; description?: string } & Sudo &
-      ShowExpanded<E> = {},
+    }: { avatar?: { content: Blob; filename: string }; description?: string } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -71,8 +72,8 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       title?: string;
       avatar?: { content: Blob; filename: string };
       description?: string;
-    } & Sudo &
-      ShowExpanded<E> = {},
+    } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -91,7 +92,7 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
   merge<E extends boolean = false>(
     sourceTopicId: number,
     targetTopicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -107,7 +108,7 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     topicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -119,7 +120,7 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     topicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

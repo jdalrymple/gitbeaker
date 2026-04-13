@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +8,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { AwardEmojiSchema } from './ResourceAwardEmojis';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseResource<C> {
   protected resourceType: string;
@@ -25,7 +25,7 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     projectId: string | number,
     resourceIId: number,
     noteId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
     const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji`;
@@ -34,7 +34,7 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -43,7 +43,7 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     resourceIId: number,
     noteId: number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji`;
@@ -62,7 +62,7 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     resourceIId: number,
     noteId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji/${awardId}`;
@@ -78,7 +78,7 @@ export class ResourceNoteAwardEmojis<C extends boolean = false> extends BaseReso
     resourceIId: number,
     noteId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${projectId}/${this.resourceType}/${resourceIId}/notes/${noteId}/award_emoji/${awardId}`;

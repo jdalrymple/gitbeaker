@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +8,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface IncludeInherited {
   includeInherited?: boolean;
@@ -40,12 +40,12 @@ export interface MemberSchema extends SimpleMemberSchema {
   };
 }
 
-export type AddMemberOptions = OneOf<{ userId: string | number; username: string }> & {
+export type AddMemberOptions = {
   expiresAt?: string;
   inviteSource?: string;
   tasksToBeDone?: string[];
   tasksProjectId?: number;
-};
+} & OneOf<{ userId: string | number; username: string }>;
 
 export interface AllMembersOptions {
   query?: string;
@@ -62,7 +62,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   add<E extends boolean = false>(
     resourceId: string | number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: AddMemberOptions & Sudo & ShowExpanded<E>,
+    options?: AddMemberOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -78,12 +78,12 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: IncludeInherited &
-      PaginationRequestOptions<P> &
-      AllMembersOptions &
+    options?: AllMembersOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      IncludeInherited &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
     const { includeInherited, sudo, showExpanded, maxPages, ...searchParams } = options || {};
     const url = includeInherited
@@ -94,7 +94,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -102,7 +102,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
     resourceId: string | number,
     userId: number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: { expiresAt?: string; memberRoleId?: number } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string; memberRoleId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -119,7 +119,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   show<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: IncludeInherited & Sudo & ShowExpanded<E>,
+    options?: IncludeInherited & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MemberSchema, C, E, void>> {
     const { includeInherited, sudo, showExpanded, ...searchParams } = options || {};
     const url = includeInherited
@@ -136,7 +136,7 @@ export class ResourceMembers<C extends boolean = false> extends BaseResource<C> 
   remove<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: { skipSubresources?: boolean; unassignIssuables?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { skipSubresources?: boolean; unassignIssuables?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,8 +7,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { MilestoneSchema } from '../templates/ResourceMilestones';
+import { SimpleUserSchema } from './Users';
 
 export interface IssueLinkSchema extends Record<string, unknown> {
   id: number;
@@ -51,7 +51,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueLinkSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -62,7 +62,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -72,7 +72,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     issueIId: number,
     targetProjectId: string | number,
     targetIssueIId: number,
-    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -95,7 +95,7 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     issueLinkId: number,
-    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: 'relates_to' | 'blocks' | 'is_blocked_by' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

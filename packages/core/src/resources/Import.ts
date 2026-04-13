@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface RepositoryImportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -25,8 +25,8 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
       newName?: string;
       githubHostname?: string;
       optionalStages?: Record<string, string>;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -44,7 +44,7 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
 
   cancelGithubRepositoryImport<E extends boolean = false>(
     projectId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -57,7 +57,7 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
 
   importGithubGists<E extends boolean = false>(
     personalAccessToken: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -74,7 +74,7 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     personalAccessToken: string,
     bitbucketServerProject: string,
     bitbucketServerRepository: string,
-    options?: { newName?: string; targetNamespace?: string } & Sudo & ShowExpanded<E>,
+    options?: { newName?: string; targetNamespace?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

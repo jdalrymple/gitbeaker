@@ -1,12 +1,12 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export class Helm<C extends boolean = false> extends BaseResource<C> {
   downloadChartIndex<E extends boolean = false>(
     projectId: string | number,
     channel: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -21,7 +21,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     channel: string,
     filename: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -36,7 +36,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     channel: string,
     chart: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -58,7 +58,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     channel: string,
     chart: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return this.uploadChart(projectId, channel, chart, options);
   }

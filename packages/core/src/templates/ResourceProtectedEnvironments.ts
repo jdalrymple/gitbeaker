@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +8,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ProtectedEnvironmentAccessLevelSummarySchema {
   access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;
@@ -40,9 +40,9 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     options?: { search?: string } & BaseRequestSearchParams &
-      Sudo &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -53,7 +53,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -65,8 +65,8 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -92,8 +92,8 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
       deployAccessLevels?: ProtectedEnvironmentAccessLevelEntity[];
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -111,7 +111,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
   show<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -128,7 +128,7 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
   remove<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

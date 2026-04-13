@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface SearchMigrationSchema extends Record<string, unknown> {
   version: number;
@@ -30,7 +30,7 @@ export interface SearchMigrationSchema extends Record<string, unknown> {
 
 export class SearchAdmin<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SearchMigrationSchema, C, E, void>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -38,13 +38,13 @@ export class SearchAdmin<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     versionOrName: string,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SearchMigrationSchema, C, E, void>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -55,7 +55,7 @@ export class SearchAdmin<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }

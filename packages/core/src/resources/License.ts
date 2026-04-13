@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface LicenseSchema extends Record<string, unknown> {
   id: number;
@@ -33,7 +33,7 @@ export interface LicenseSchema extends Record<string, unknown> {
 export class License<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     license: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -46,7 +46,7 @@ export class License<C extends boolean = false> extends BaseResource<C> {
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -54,12 +54,12 @@ export class License<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   show<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -68,7 +68,7 @@ export class License<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     licenceId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -77,7 +77,7 @@ export class License<C extends boolean = false> extends BaseResource<C> {
 
   recalculateBillableUsers<E extends boolean = false>(
     licenceId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ success: boolean }, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

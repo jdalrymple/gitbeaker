@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,10 +8,12 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
-import type { MergeRequestSchema } from './MergeRequests';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
+import type { MergeRequestSchema } from './MergeRequests';
 import type { CommittablePipelineStatus } from './Pipelines';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type CommitAction = {
   /** The action to perform */
@@ -205,29 +205,29 @@ export type EditPipelineStatusOptions = {
 export class Commits<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: AllCommitsOptions &
+    options: { withStats: true } & AllCommitsOptions &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> & { withStats: true },
-  ): Promise<GitlabAPIResponse<(CommitSchema & { stats: CommitStatsSchema })[], C, E, P>>;
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ stats: CommitStatsSchema } & CommitSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: AllCommitsOptions &
+    options: { trailers: true } & AllCommitsOptions &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> & { trailers: true },
-  ): Promise<GitlabAPIResponse<(CommitSchema & { trailers: Record<string, unknown> })[], C, E, P>>;
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ trailers: Record<string, unknown> } & CommitSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: AllCommitsOptions &
+    options: { withStats: true; trailers: true } & AllCommitsOptions &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> & { withStats: true; trailers: true },
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      (CommitSchema & { trailers: Record<string, unknown>; stats: CommitStatsSchema })[],
+      ({ trailers: Record<string, unknown>; stats: CommitStatsSchema } & CommitSchema)[],
       C,
       E,
       P
@@ -236,12 +236,12 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllCommitsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllCommitsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllCommitsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllCommitsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -252,7 +252,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & AllCommitsOptions,
+        searchParams: searchParams as AllCommitsOptions & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -260,7 +260,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allComments<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedCommitCommentSchema[], C, E, void>> {
     return RequestHelper.get<CondensedCommitCommentSchema[]>()(
       this,
@@ -272,7 +272,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allDiscussions<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, void>> {
     return RequestHelper.get<DiscussionSchema[]>()(
       this,
@@ -284,7 +284,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allMergeRequests<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     sha: string,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -303,7 +303,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allReferences<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     sha: string,
-    options?: { type?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { type?: string } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitReferenceSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -314,7 +314,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -322,8 +322,8 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allStatuses<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: { ref?: string; stage?: string; name?: string; all?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: { ref?: string; stage?: string; name?: string; all?: boolean } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CommitStatusSchema[], C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -342,7 +342,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     sha: string,
     branch: string,
-    options?: { dryRun?: boolean; message?: string } & Sudo & ShowExpanded<E>,
+    options?: { dryRun?: boolean; message?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -365,7 +365,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     branch: string,
     message: string,
     actions: CommitAction[] = [],
-    options?: CreateCommitOptions & Sudo & ShowExpanded<E>,
+    options?: CreateCommitOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedCommitSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -389,7 +389,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     sha: string,
     note: string,
-    options?: { path?: string; line?: number; lineType?: string } & Sudo & ShowExpanded<E>,
+    options?: { path?: string; line?: number; lineType?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitCommentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -411,7 +411,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     sha: string,
     state: CommittablePipelineStatus,
-    options?: EditPipelineStatusOptions & Sudo & ShowExpanded<E>,
+    options?: EditPipelineStatusOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -433,7 +433,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     sha: string,
     branch: string,
-    options?: { dryRun?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { dryRun?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -454,7 +454,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: { stats?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { stats?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedCommitSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -472,7 +472,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   showDiff<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     sha: string,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitDiffSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -491,7 +491,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   showGPGSignature<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSignatureSchema, C, E, void>> {
     return RequestHelper.get<CommitSignatureSchema>()(
       this,
@@ -503,7 +503,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   showSequence<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: { firstParent?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { firstParent?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CommitSequenceSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

@@ -1,5 +1,5 @@
-import { ResourceIssueBoards } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceIssueBoards } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

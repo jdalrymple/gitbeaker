@@ -1,14 +1,14 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export class RubyGems<C extends boolean = false> extends BaseResource<C> {
   allDependencies<E extends boolean = false>(
     projectId: string,
     options?: {
       gems?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<string, void, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -26,7 +26,7 @@ export class RubyGems<C extends boolean = false> extends BaseResource<C> {
   downloadGemFile<E extends boolean = false>(
     projectId: string,
     fileName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -43,7 +43,7 @@ export class RubyGems<C extends boolean = false> extends BaseResource<C> {
   uploadGemFile<E extends boolean = false>(
     projectId: string | number,
     packageFile: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, ensureRequiredParams } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +8,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint, ensureRequiredParams } from '../infrastructure';
 
 export interface InvitationSchema extends Record<string, unknown> {
   id: number;
@@ -31,13 +31,14 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   add<E extends boolean = false>(
     resourceId: string | number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options: OneOf<{ email: string; userId: string }> & {
+    options: {
       expiresAt?: string;
       inviteSource?: string;
       tasksToBeDone?: string[];
       tasksProjectId?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & OneOf<{ email: string; userId: string }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     ensureRequiredParams({ email: options?.email, userId: options?.userId });
 
@@ -55,9 +56,10 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & { query?: string } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { query?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -65,15 +67,18 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
     email: string,
-    options?: { expiresAt?: string; accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      expiresAt?: string;
+      accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -91,7 +96,7 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
   remove<E extends boolean = false>(
     resourceId: string | number,
     email: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

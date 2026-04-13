@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +9,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DeployableSchema, DeploymentSchema } from './Deployments';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { SimpleProjectSchema } from './Projects';
 
 export type EnvironmentTier = 'production' | 'staging' | 'testing' | 'development' | 'other';
@@ -46,12 +46,13 @@ export type ReviewAppSchema = MappedOmit<CondensedEnvironmentSchema, 'state'>;
 export class Environments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: OneOrNoneOf<{ name: string; search: string }> & {
+    options?: {
       states?: 'available' | 'stopping' | 'stopped';
     } & BaseRequestSearchParams &
+      OneOrNoneOf<{ name: string; search: string }> &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -70,7 +71,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: { externalUrl?: string; tier?: EnvironmentTier } & Sudo & ShowExpanded<E>,
+    options?: { externalUrl?: string; tier?: EnvironmentTier } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -91,7 +92,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     environmentId: number,
-    options?: { externalUrl?: string; tier?: EnvironmentTier } & Sudo & ShowExpanded<E>,
+    options?: { externalUrl?: string; tier?: EnvironmentTier } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -109,7 +110,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     environmentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -125,7 +126,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
 
   removeReviewApps<E extends boolean = false>(
     projectId: string | number,
-    options?: { before?: string; limit?: number; dryRun?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { before?: string; limit?: number; dryRun?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<
       { scheduled_entries: ReviewAppSchema[]; unprocessable_entries: ReviewAppSchema[] },
@@ -149,7 +150,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     environmentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EnvironmentSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -166,7 +167,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   stop<E extends boolean = false>(
     projectId: string | number,
     environmentId: number,
-    options?: { force?: string } & Sudo & ShowExpanded<E>,
+    options?: { force?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -184,7 +185,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   stopStale<E extends boolean = false>(
     projectId: string | number,
     before: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

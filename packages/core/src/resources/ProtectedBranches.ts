@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +6,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ProtectedBranchAccessLevel =
   | AccessLevel.NO_ACCESS
@@ -72,9 +72,10 @@ export type EditProtectedBranchOptions = {
 export class ProtectedBranches<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & { search?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -85,7 +86,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -93,7 +94,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   create<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: CreateProtectedBranchOptions & Sudo & ShowExpanded<E>,
+    options?: CreateProtectedBranchOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -115,7 +116,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   protect<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: CreateProtectedBranchOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & CreateProtectedBranchOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
     return this.create(projectId, branchName, options);
   }
@@ -123,7 +124,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   edit<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: EditProtectedBranchOptions & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & EditProtectedBranchOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -141,7 +142,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   show<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -158,7 +159,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   remove<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -176,7 +177,7 @@ export class ProtectedBranches<C extends boolean = false> extends BaseResource<C
   unprotect<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return this.remove(projectId, branchName, options);
   }

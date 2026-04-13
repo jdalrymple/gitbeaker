@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceVariables } from '../templates';
-import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +5,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceVariables } from '../templates';
 
 export interface ProjectVariableSchema extends VariableSchema {
   environment_scope: string;
@@ -16,7 +16,7 @@ export interface ProjectVariableSchema extends VariableSchema {
 export interface ProjectVariables<C extends boolean = false> extends ResourceVariables<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectVariableSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -31,8 +31,8 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       environmentScope?: string;
       description?: string;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
@@ -47,20 +47,20 @@ export interface ProjectVariables<C extends boolean = false> extends ResourceVar
       environmentScope?: string;
       raw?: boolean;
       filter: VariableFilter;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     key: string,
-    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectVariableSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     key: string,
-    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 

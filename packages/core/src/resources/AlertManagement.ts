@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface MetricImageSchema extends Record<string, unknown> {
   id: number;
@@ -22,7 +22,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
   allMetricImages<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     alertIId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -42,7 +42,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     alertIId: number,
     imageId: number,
-    options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
+    options?: { url?: string; urlText?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -61,7 +61,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     alertIId: number,
     imageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -76,7 +76,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     alertIId: number,
     metricImage: { content: Blob; filename: string },
-    options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
+    options?: { url?: string; urlText?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

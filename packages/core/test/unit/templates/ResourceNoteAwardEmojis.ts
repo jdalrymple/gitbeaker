@@ -1,5 +1,5 @@
-import { ResourceNoteAwardEmojis } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceNoteAwardEmojis } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

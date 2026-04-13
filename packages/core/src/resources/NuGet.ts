@@ -1,3 +1,4 @@
+import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   RequestHelper,
@@ -6,7 +7,6 @@ import {
   ensureRequiredParams,
   getPrefixedUrl,
 } from '../infrastructure';
-import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
 
 export interface NuGetPackageIndexSchema extends Record<string, unknown> {
   versions: string[];
@@ -94,11 +94,12 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
   search<E extends boolean = false>(
     q: string,
-    options: OneOf<{ projectId: string | number; groupId: string | number }> & {
+    options: {
       skip?: number;
       take?: number;
       prerelease?: boolean;
-    } & ShowExpanded<E>,
+    } & OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NuGetSearchResultsSchema, C, E, void>> {
     const { projectId, groupId, showExpanded, ...searchParams } = options;
 

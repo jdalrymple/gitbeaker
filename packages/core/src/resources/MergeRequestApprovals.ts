@@ -1,9 +1,9 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
 import type { GroupSchema } from './Groups';
 import type { ProtectedBranchSchema } from './ProtectedBranches';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface ProjectLevelMergeRequestApprovalSchema extends Record<string, unknown> {
   approvals_before_merge: number;
@@ -89,17 +89,17 @@ export type EditConfigurationOptions = {
 export class MergeRequestApprovals<C extends boolean = false> extends BaseResource<C> {
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    options: { mergerequestIId: number } & Sudo & ShowExpanded<E>,
+    options: { mergerequestIId: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema[], C, E, void>>;
 
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema[], C, E, void>>;
 
   allApprovalRules<E extends boolean = false>(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {},
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<
     GitlabAPIResponse<
       (ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema)[],
@@ -122,7 +122,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   approve<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: { sha?: string; approvalPassword?: string } & Sudo & ShowExpanded<E>,
+    options?: { sha?: string; approvalPassword?: string } & ShowExpanded<E> & Sudo,
   ) {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -137,14 +137,14 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options: { mergerequestIId: number } & CreateApprovalRuleOptions & Sudo & ShowExpanded<E>,
+    options: { mergerequestIId: number } & CreateApprovalRuleOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema, C, E, void>>;
 
   createApprovalRule<E extends boolean = false>(
     projectId: string | number,
     name: string,
     approvalsRequired: number,
-    options?: CreateApprovalRuleOptions & Sudo & ShowExpanded<E>,
+    options?: CreateApprovalRuleOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>>;
 
   createApprovalRule<E extends boolean = false>(
@@ -154,7 +154,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     {
       mergerequestIId,
       ...options
-    }: { mergerequestIId?: number } & CreateApprovalRuleOptions & Sudo & ShowExpanded<E> = {},
+    }: { mergerequestIId?: number } & CreateApprovalRuleOptions & ShowExpanded<E> & Sudo = {},
   ): Promise<
     GitlabAPIResponse<
       ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema,
@@ -179,7 +179,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     approvalRuleId: number,
     name: string,
     approvalsRequired: number,
-    options: { mergerequestIId: number } & EditApprovalRuleOptions & Sudo & ShowExpanded<E>,
+    options: { mergerequestIId: number } & EditApprovalRuleOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestLevelApprovalRuleSchema, C, E, void>>;
 
   editApprovalRule<E extends boolean = false>(
@@ -187,7 +187,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     approvalRuleId: number,
     name: string,
     approvalsRequired: number,
-    options?: EditApprovalRuleOptions & Sudo & ShowExpanded<E>,
+    options?: EditApprovalRuleOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>>;
 
   editApprovalRule<E extends boolean = false>(
@@ -198,7 +198,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     {
       mergerequestIId,
       ...options
-    }: { mergerequestIId?: number } & EditApprovalRuleOptions & Sudo & ShowExpanded<E> = {},
+    }: { mergerequestIId?: number } & EditApprovalRuleOptions & ShowExpanded<E> & Sudo = {},
   ): Promise<
     GitlabAPIResponse<
       ProjectLevelApprovalRuleSchema | MergeRequestLevelApprovalRuleSchema,
@@ -220,7 +220,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   editConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options?: EditConfigurationOptions & Sudo & ShowExpanded<E>,
+    options?: EditConfigurationOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelMergeRequestApprovalSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -237,7 +237,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     {
       mergerequestIId,
       ...options
-    }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {} as any,
+    }: { mergerequestIId?: number } & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options;
     const url = getPrefixedUrl(endpoint`approval_rules/${approvalRuleId}`, {
@@ -251,7 +251,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   showApprovalRule<E extends boolean = false>(
     projectId: string | number,
     approvalRuleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelApprovalRuleSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -265,7 +265,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   showApprovalState<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApprovalStateSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -278,17 +278,17 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options: { mergerequestIId: number } & Sudo & ShowExpanded<E>,
+    options: { mergerequestIId: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestLevelMergeRequestApprovalSchema, C, E, void>>;
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectLevelMergeRequestApprovalSchema, C, E, void>>;
 
   showConfiguration<E extends boolean = false>(
     projectId: string | number,
-    { mergerequestIId, ...options }: { mergerequestIId?: number } & Sudo & ShowExpanded<E> = {},
+    { mergerequestIId, ...options }: { mergerequestIId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<
     GitlabAPIResponse<
       MergeRequestLevelMergeRequestApprovalSchema | ProjectLevelMergeRequestApprovalSchema,
@@ -311,7 +311,7 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
   unapprove<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

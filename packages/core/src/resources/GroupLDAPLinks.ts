@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +6,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 // Documentation: https://docs.gitlab.com/api/groups/#ldap-group-links
 export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
@@ -16,8 +16,11 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     groupAccess: number,
     provider: string,
-    options?: { cn?: string; groupAccess?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      cn?: string;
+      groupAccess?: Exclude<AccessLevel, AccessLevel.ADMIN>;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -30,7 +33,7 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -38,14 +41,14 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   remove<E extends boolean = false>(
     groupId: string | number,
     provider: string,
-    options?: { cn?: string; filter?: string } & Sudo & ShowExpanded<E>,
+    options?: { cn?: string; filter?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -56,7 +59,7 @@ export class GroupLDAPLinks<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  sync(groupId: string | number, options?: Sudo & ShowExpanded) {
+  sync(groupId: string | number, options?: ShowExpanded & Sudo) {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.post()(this, endpoint`groups/${groupId}/ldap_sync`, {

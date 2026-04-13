@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export type DeployTokenScope =
   | 'read_repository'
@@ -34,12 +34,13 @@ export interface NewDeployTokenSchema extends DeployTokenSchema {
 
 export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> & {
+    options?: {
       active?: boolean;
-    } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    } & BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<DeployTokenSchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -58,11 +59,12 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     name: string,
     scopes: DeployTokenScope[],
-    options?: OneOf<{ projectId: string | number; groupId: string | number }> & {
+    options?: {
       expires_at?: string;
       username?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<NewDeployTokenSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded, ...body } = options || {};
 
@@ -84,8 +86,8 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     tokenId: number,
     options?: OneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded } = options || {};
 
@@ -105,8 +107,8 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     tokenId: number,
     options?: OneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded } = options || {};
 

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +9,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { PipelineSchema } from './Pipelines';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface PackageSchema extends Record<string, unknown> {
   id: number;
@@ -49,12 +49,12 @@ export type AllPackageOptions = {
 
 export class Packages<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOf<{ projectId: string | number; groupId: string | number }> &
-      AllPackageOptions &
+    options?: AllPackageOptions &
       BaseRequestSearchParams &
+      OneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PackageSchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -66,14 +66,14 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   allFiles<E extends boolean = false>(
     projectId: string | number,
     packageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PackageFileSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -90,7 +90,7 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     packageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -104,7 +104,7 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     packageId: number,
     projectFileId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -121,7 +121,7 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     packageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedPackageSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

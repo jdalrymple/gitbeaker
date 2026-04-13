@@ -1,11 +1,11 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface GroupRelationExportStatusSchema extends Record<string, unknown> {
   relation: string;
@@ -18,7 +18,7 @@ export class GroupRelationExports<C extends boolean = false> extends BaseResourc
   download<E extends boolean = false>(
     groupId: string | number,
     relation: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -31,7 +31,7 @@ export class GroupRelationExports<C extends boolean = false> extends BaseResourc
 
   exportStatus<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupRelationExportStatusSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -47,7 +47,7 @@ export class GroupRelationExports<C extends boolean = false> extends BaseResourc
 
   scheduleExport<E extends boolean = false>(
     groupId: string | number,
-    options?: ShowExpanded<E> & Sudo & BaseRequestSearchParams,
+    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface GoProxyModuleVersionSchema extends Record<string, unknown> {
   Version: string;
@@ -11,7 +11,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     projectId: string | number,
     moduleName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -29,7 +29,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GoProxyModuleVersionSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -47,7 +47,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -65,7 +65,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     moduleName: string,
     moduleVersion: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded } = options || {};
 

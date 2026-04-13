@@ -1,6 +1,4 @@
-import { parse as parseQueryString } from 'picoquery';
-import { camelizeKeys } from 'xcase';
-import { BaseResource } from '@gitbeaker/requester-utils';
+import type { Camelize } from './Utils';
 import type {
   DefaultRequesterOptions,
   FormattedResponse,
@@ -8,8 +6,10 @@ import type {
   RequesterSearchParams,
   ResponseType,
 } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { parse as parseQueryString } from 'picoquery';
+import { camelizeKeys } from 'xcase';
 import { parseLinkHeader } from './Utils';
-import type { Camelize } from './Utils';
 
 export interface AsStream {
   asStream?: boolean;
@@ -56,7 +56,7 @@ export type PaginationRequestSearchParams<P extends PaginationTypes | void> = P 
   : OffsetPaginationRequestParams; // if offset or void
 
 export type PaginationRequestOptions<P extends PaginationTypes | void = void> =
-  BasePaginationRequestOptions & PaginationType<P> & PaginationRequestSearchParams<P>;
+  BasePaginationRequestOptions & PaginationRequestSearchParams<P> & PaginationType<P>;
 
 // Internal types
 type RequestHelperSearchParamOptions = {
@@ -67,8 +67,8 @@ type RequestHelperSearchParamWithPaginationOptions<P extends PaginationTypes | v
   searchParams?:
     | RequesterSearchParams
     | PaginationRequestSearchParams<P>
-    | (PaginationRequestSearchParams<P> &
-        Omit<RequesterSearchParams, keyof PaginationRequestSearchParams<P>>);
+    | (Omit<RequesterSearchParams, keyof PaginationRequestSearchParams<P>> &
+        PaginationRequestSearchParams<P>);
 };
 
 type RequestHelperBodyOptions = {
@@ -186,10 +186,10 @@ function getMany<
   getFn: (ep: string, op: DefaultRequesterOptions) => Promise<FormattedResponse<T>>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: Sudo &
+  requestOptions: BasePaginationRequestOptions &
+    RequestHelperSearchParamWithPaginationOptions<P> &
     ShowExpanded<E> &
-    BasePaginationRequestOptions &
-    RequestHelperSearchParamWithPaginationOptions<P>,
+    Sudo,
   acc?: T,
 ): Promise<E extends true ? PaginatedResponse<T, P> : T>;
 
@@ -202,10 +202,10 @@ async function getMany<
   getFn: (ep: string, op: DefaultRequesterOptions) => Promise<FormattedResponse<T>>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: Sudo &
+  requestOptions: BasePaginationRequestOptions &
+    RequestHelperSearchParamWithPaginationOptions<P> &
     ShowExpanded<E> &
-    BasePaginationRequestOptions &
-    RequestHelperSearchParamWithPaginationOptions<P>,
+    Sudo,
   acc?: T,
 ): Promise<PaginatedResponse<T, P> | T> {
   const { sudo, showExpanded, maxPages, searchParams } = requestOptions;
@@ -293,7 +293,7 @@ type getOverload<T extends ResponseType> = {
   <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & { asStream: true },
+    options: { asStream: true } & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReadableStream, C, E, void>>;
 
   //Many Get
@@ -304,17 +304,17 @@ type getOverload<T extends ResponseType> = {
   >(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo &
+    options?: BasePaginationRequestOptions &
+      RequestHelperSearchParamWithPaginationOptions<P> &
       ShowExpanded<E> &
-      BasePaginationRequestOptions &
-      RequestHelperSearchParamWithPaginationOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, P>>;
 
   //Single Get
   <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & AsStream,
+    options?: AsStream & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, void>>;
 };
 
@@ -322,11 +322,11 @@ export function get<T extends ResponseType = Record<string, unknown>>(): getOver
   return async <C extends boolean, E extends boolean, P extends 'keyset' | 'offset' | void>(
     service: BaseResource<C>,
     endpoint: string,
-    options: Sudo &
-      ShowExpanded<E> &
-      AsStream &
+    options: AsStream &
       BasePaginationRequestOptions &
-      RequestHelperSearchParamWithPaginationOptions<P> = {},
+      RequestHelperSearchParamWithPaginationOptions<P> &
+      ShowExpanded<E> &
+      Sudo = {},
   ): Promise<any> => {
     const { asStream, sudo, showExpanded, searchParams } = options;
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
@@ -350,7 +350,7 @@ export function get<T extends ResponseType = Record<string, unknown>>(): getOver
       (ep, op) => service.requester.get(ep, { ...op, signal }),
       endpoint,
       response as FormattedResponse<Record<string, unknown>[]>,
-      options as Sudo & ShowExpanded<E> & RequestHelperSearchParamWithPaginationOptions<P>,
+      options as RequestHelperSearchParamWithPaginationOptions<P> & ShowExpanded<E> & Sudo,
     );
   };
 }
@@ -359,7 +359,7 @@ export function post<T extends ResponseType>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & RequestHelperBodyOptions,
+    options?: RequestHelperBodyOptions & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
     const { body, searchParams, sudo, showExpanded } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
@@ -382,7 +382,7 @@ export function put<T extends ResponseType>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & RequestHelperBodyOptions,
+    options?: RequestHelperBodyOptions & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
     const { body, searchParams, sudo, showExpanded } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
@@ -405,7 +405,7 @@ export function patch<T extends ResponseType>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & RequestHelperBodyOptions,
+    options?: RequestHelperBodyOptions & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
     const { body, searchParams, sudo, showExpanded } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
@@ -428,7 +428,7 @@ export function del<T extends ResponseType = void>() {
   return async <C extends boolean = false, E extends boolean = false>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: Sudo & ShowExpanded<E> & RequestHelperSearchParamOptions & RequestHelperBodyOptions,
+    options?: RequestHelperBodyOptions & RequestHelperSearchParamOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, void>> => {
     const { body, searchParams, sudo, showExpanded } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;

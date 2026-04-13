@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import { SimpleUserSchema } from './Users';
 
 export type AllEventOptions = {
@@ -48,12 +48,12 @@ export interface EventSchema extends Record<string, unknown> {
 
 export class Events<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
-      AllEventOptions &
+    options?: AllEventOptions &
       BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
     const { projectId, userId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 

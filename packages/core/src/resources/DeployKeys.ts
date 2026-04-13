@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface CondensedDeployKeySchema extends Record<string, unknown> {
   id: number;
@@ -31,10 +31,11 @@ export interface ExpandedDeployKeySchema extends DeployKeySchema {
 
 export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{ projectId: string | number; userId: string | number }> & {
+    options?: {
       public?: boolean;
-    } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
+    } & BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; userId: string | number }> &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ExpandedDeployKeySchema[], C, E, P>> {
@@ -50,7 +51,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       showExpanded,
       sudo,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
@@ -58,7 +59,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     title: string,
     key: string,
-    options?: { canPush?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { canPush?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     const { showExpanded, sudo, ...body } = options || {};
 
@@ -80,7 +81,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     keyId: number,
-    options?: { canPush?: boolean; title?: string } & Sudo & ShowExpanded<E>,
+    options?: { canPush?: boolean; title?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     const { showExpanded, sudo, ...body } = options || {};
 
@@ -98,7 +99,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   enable<E extends boolean = false>(
     projectId: string | number,
     keyId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedDeployKeySchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -115,7 +116,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     keyId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -128,7 +129,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     keyId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

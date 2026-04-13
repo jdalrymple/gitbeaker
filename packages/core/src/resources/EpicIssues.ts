@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +8,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { IssueSchema } from './Issues';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface EpicIssueSchema
   extends MappedOmit<IssueSchema, 'references' | 'task_completion_status'> {
@@ -25,7 +25,7 @@ export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     epicIId: number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicIssueSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -45,7 +45,7 @@ export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     epicIssueId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicIssueSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -63,7 +63,7 @@ export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     epicIssueId: number,
-    options?: { moveBeforeId?: number; moveAfterId?: number } & Sudo & ShowExpanded<E>,
+    options?: { moveBeforeId?: number; moveAfterId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedEpicIssueSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -82,7 +82,7 @@ export class EpicIssues<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     epicIssueId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

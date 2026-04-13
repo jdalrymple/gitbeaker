@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface BaseExternalStatusCheckSchema extends Record<string, unknown> {
   id: number;
@@ -37,21 +37,21 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     options: { mergerequestIId: number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestExternalStatusCheckSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: { mergerequestIId?: number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<any> {
     const { mergerequestIId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -74,7 +74,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     name: string,
     externalUrl: string,
-    options?: { protectedBranchIds: number[] } & Sudo & ShowExpanded<E>,
+    options?: { protectedBranchIds: number[] } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -100,8 +100,8 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       protectedBranchIds?: number[];
       externalUrl?: string;
       name?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -119,7 +119,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
   remove<E extends boolean = false>(
     projectId: string | number,
     externalStatusCheckId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -138,7 +138,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     mergerequestIId: number,
     sha: string,
     externalStatusCheckId: number,
-    options?: { status?: 'passed' | 'failed' } & Sudo & ShowExpanded<E>,
+    options?: { status?: 'passed' | 'failed' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

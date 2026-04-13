@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
 
 export interface NPMVersionSchema {
   name: string;

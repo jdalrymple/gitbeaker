@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,9 +8,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { CondensedGroupSchema } from './Groups';
 import type { JobSchema } from './Jobs';
 import type { SimpleProjectSchema } from './Projects';
-import type { CondensedGroupSchema } from './Groups';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface RunnerToken extends Record<string, unknown> {
   id: number;
@@ -85,16 +85,16 @@ export type CreateRunnerOptions = {
 
 export class Runners<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{
-      projectId: string | number;
-      owned: boolean;
-      groupId: string | number;
-    }> &
-      PaginationRequestOptions<P> &
+    options?: AllRunnersOptions &
       BaseRequestSearchParams &
-      AllRunnersOptions &
-      Sudo &
-      ShowExpanded<E>,
+      OneOrNoneOf<{
+        projectId: string | number;
+        owned: boolean;
+        groupId: string | number;
+      }> &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RunnerSchema[], C, E, P>> {
     const { projectId, groupId, owned, sudo, showExpanded, maxPages, ...searchParams } =
       options || {};
@@ -110,19 +110,20 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   allJobs<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     runnerId: number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & {
-        status?: string;
-        orderBy?: string;
-        sort?: string;
-      } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      status?: string;
+      orderBy?: string;
+      sort?: string;
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -130,14 +131,14 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   // https://docs.gitlab.com/15.9/ee/api/runners.html#register-a-new-runner
   create<E extends boolean = false>(
     token: string,
-    options?: CreateRunnerOptions & Sudo & ShowExpanded<E>,
+    options?: CreateRunnerOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RunnerToken, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -153,7 +154,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
 
   edit<E extends boolean = false>(
     runnerId: number,
-    options?: EditRunnerOptions & Sudo & ShowExpanded<E>,
+    options?: EditRunnerOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedRunnerSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -167,7 +168,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   enable<E extends boolean = false>(
     projectId: string | number,
     runnerId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RunnerSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -183,7 +184,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   disable<E extends boolean = false>(
     projectId: string | number,
     runnerId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -196,7 +197,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   // Create - Convenience method
   register<E extends boolean = false>(
     token: string,
-    options?: CreateRunnerOptions & Sudo & ShowExpanded<E>,
+    options?: CreateRunnerOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RunnerToken, C, E, void>> {
     return this.create<E>(token, options);
   }
@@ -205,7 +206,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
     runnerId,
     token,
     ...options
-  }: OneOf<{ runnerId: number; token: string }> & Sudo & ShowExpanded<E>): Promise<
+  }: OneOf<{ runnerId: number; token: string }> & ShowExpanded<E> & Sudo): Promise<
     GitlabAPIResponse<void, C, E, void>
   > {
     const { sudo, showExpanded, ...searchParams } = options;
@@ -232,7 +233,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       runnerId,
       token,
       ...options
-    }: OneOrNoneOf<{ runnerId: string; token: string }> & Sudo & ShowExpanded<E> = {} as any,
+    }: OneOrNoneOf<{ runnerId: string; token: string }> & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options;
 
@@ -252,7 +253,7 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     runnerId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedRunnerSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -265,8 +266,8 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
   verify<E extends boolean = false>(
     options?: {
       systemId?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface StarredDashboardSchema extends Record<string, unknown> {
   id: number;
@@ -13,7 +13,7 @@ export class UserStarredMetricsDashboard<C extends boolean = false> extends Base
   create<E extends boolean = false>(
     projectId: string | number,
     dashboardPath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<StarredDashboardSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -32,7 +32,7 @@ export class UserStarredMetricsDashboard<C extends boolean = false> extends Base
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: { dashboardPath?: string } & Sudo & ShowExpanded<E>,
+    options?: { dashboardPath?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ deleted_rows: number }, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

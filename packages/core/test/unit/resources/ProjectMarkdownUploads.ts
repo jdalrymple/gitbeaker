@@ -1,5 +1,5 @@
-import { ProjectMarkdownUploads } from '../../../src/resources';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ProjectMarkdownUploads } from '../../../src/resources';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

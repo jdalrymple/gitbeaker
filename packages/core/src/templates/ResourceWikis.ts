@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +8,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface WikiSchema extends Record<string, unknown> {
   content: string;
@@ -37,23 +37,23 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options: { withContent: true } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(WikiSchema & { content: string })[], C, E, P>>;
+    options: { withContent: true } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ content: string } & WikiSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: { withContent?: boolean } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { withContent?: boolean } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<WikiSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -61,7 +61,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -69,7 +69,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     content: string,
     title: string,
-    options?: { format?: string } & Sudo & ShowExpanded<E>,
+    options?: { format?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WikiSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -87,8 +87,9 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     resourceId: string | number,
     slug: string,
-    options?: OneOf<{ content: string; title: string }> & { format?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { format?: string } & OneOf<{ content: string; title: string }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<WikiSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -102,7 +103,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     resourceId: string | number,
     slug: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -115,7 +116,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     resourceId: string | number,
     slug: string,
-    options?: { renderHtml?: boolean; version?: string } & Sudo & ShowExpanded<E>,
+    options?: { renderHtml?: boolean; version?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WikiSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -129,7 +130,7 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
   uploadAttachment<E extends boolean = false>(
     resourceId: string | number,
     file: { content: Blob; filename: string },
-    options?: { branch?: string } & Sudo & ShowExpanded<E>,
+    options?: { branch?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WikiAttachmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

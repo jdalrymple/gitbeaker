@@ -1,5 +1,5 @@
-import { ResourceMarkdownUploads } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceMarkdownUploads } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   Camelize,
@@ -10,10 +8,12 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DiscussionNotePositionSchema } from '../templates/ResourceDiscussions';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
-export type MergeRequestDraftNotePositionSchema = DiscussionNotePositionSchema & {
+export type MergeRequestDraftNotePositionSchema = {
   line_range?: number;
-};
+} & DiscussionNotePositionSchema;
 export interface MergeRequestDraftNoteSchema extends Record<string, unknown> {
   id: number;
   author_id: number;
@@ -30,7 +30,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -41,7 +41,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -55,8 +55,8 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
       inReplyToDiscussionId?: number;
       resolveDiscussion?: boolean;
       position?: Camelize<MergeRequestDraftNotePositionSchema>;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -75,8 +75,11 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     draftNoteId: number,
-    options?: { note?: string; position?: Camelize<MergeRequestDraftNotePositionSchema> } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      note?: string;
+      position?: Camelize<MergeRequestDraftNotePositionSchema>;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -95,7 +98,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     draftNoteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -112,7 +115,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
   publishBulk<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -130,7 +133,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     draftNoteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -148,7 +151,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
     projectId: string | number,
     mergerequestIId: number,
     draftNoteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

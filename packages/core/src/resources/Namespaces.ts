@@ -1,9 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestSearchParams,
-  RequestHelper,
-  endpoint,
-} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -11,6 +5,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
 
 export interface CondensedNamespaceSchema extends Record<string, unknown> {
   id: number;
@@ -42,10 +38,10 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
       search?: string;
       ownedOnly?: string;
       topLevelOnly?: boolean;
-    } & PaginationRequestOptions<P> &
-      Sudo &
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      BaseRequestSearchParams,
+      Sudo,
   ): Promise<GitlabAPIResponse<NamespaceSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -53,13 +49,13 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   exists<E extends boolean = false>(
     namespace: string,
-    options?: { parentId?: string } & Sudo & ShowExpanded<E>,
+    options?: { parentId?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NamespaceExistsSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -76,7 +72,7 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     namespaceId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NamespaceSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

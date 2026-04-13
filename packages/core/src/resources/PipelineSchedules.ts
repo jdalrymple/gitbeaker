@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,9 +7,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
 import type { PipelineSchema } from './Pipelines';
 import type { PipelineVariableSchema } from './PipelineScheduleVariables';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface CondensedPipelineScheduleSchema extends Record<string, unknown> {
   id: number;
@@ -40,8 +40,8 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     projectId: string | number,
     options?: { scope?: 'active' | 'inactive' } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedPipelineScheduleSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -52,7 +52,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -60,7 +60,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   allTriggeredPipelines<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -79,7 +79,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     description: string,
     ref: string,
     cron: string,
-    options?: { cronTimezone?: string; active?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { cronTimezone?: string; active?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -108,8 +108,8 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
       cron?: string;
       cronTimezone?: string;
       active?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -127,7 +127,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   remove<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -144,7 +144,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   run<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -161,7 +161,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   show<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedPipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -178,7 +178,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
   takeOwnership<E extends boolean = false>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

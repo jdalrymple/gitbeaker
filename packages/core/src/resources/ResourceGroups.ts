@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,6 +7,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { JobSchema } from './Jobs';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ResourceGroupSchema extends Record<string, unknown> {
   id: number;
@@ -21,7 +21,7 @@ export interface ResourceGroupSchema extends Record<string, unknown> {
 export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ResourceGroupSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -32,7 +32,7 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -42,8 +42,8 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
     key: string,
     options?: {
       processMode?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ResourceGroupSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -61,7 +61,7 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     key: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ResourceGroupSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -78,7 +78,7 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
   allUpcomingJobs<E extends boolean = false>(
     projectId: string | number,
     key: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

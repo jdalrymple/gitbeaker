@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAccessRequests } from '../templates';
-import type { AccessRequestSchema } from '../templates/ResourceAccessRequests';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,23 +6,26 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { AccessRequestSchema } from '../templates/ResourceAccessRequests';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { ResourceAccessRequests } from '../templates';
 
 export interface GroupAccessRequests<C extends boolean = false> extends ResourceAccessRequests<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>>;
 
   request<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>>;
 
   approve<E extends boolean = false>(
     groupId: string | number,
     userId: number,
-    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
+    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>>;
 
   deny<E extends boolean = false>(

@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceRepositoryStorageMoves } from '../templates';
-import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +6,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type { SimpleProjectSchema } from './Projects';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceRepositoryStorageMoves } from '../templates';
 
 export interface ProjectRepositoryStorageMoveSchema extends RepositoryStorageMoveSchema {
   project: SimpleProjectSchema;
@@ -20,19 +20,19 @@ export interface ProjectRepositoryStorageMoves<C extends boolean = false>
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { projectId?: string | number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema[], C, E, P>>;
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     repositoryStorageId: number,
-    options?: { projectId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { projectId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: { projectId?: string | number; destinationStorageName?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { projectId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 }
 

@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceIterationEvents } from '../templates';
-import type { IterationEventSchema } from '../templates/ResourceIterationEvents';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,19 +6,22 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { IterationEventSchema } from '../templates/ResourceIterationEvents';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceIterationEvents } from '../templates';
 
 export interface IssueIterationEvents<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P> & BaseRequestSearchParams,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IterationEventSchema[], C, E, P>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     iterationEventId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IterationEventSchema, C, E, void>>;
 }
 

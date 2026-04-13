@@ -1,5 +1,5 @@
-import { GroupEpicBoards } from '../../../src/resources';
 import { RequestHelper } from '../../../src/infrastructure';
+import { GroupEpicBoards } from '../../../src/resources';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

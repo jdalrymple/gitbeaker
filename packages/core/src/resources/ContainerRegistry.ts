@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   MappedOmit,
@@ -10,6 +8,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface RegistryRepositoryTagSchema extends Record<string, unknown> {
   name: string;
@@ -46,12 +46,13 @@ export type CondensedRegistryRepositorySchema = MappedOmit<
 
 export class ContainerRegistry<C extends boolean = false> extends BaseResource<C> {
   allRepositories<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOf<{ projectId: string | number; groupId: string | number }> & {
+    options?: {
       tags?: boolean;
       tagsCount?: boolean;
-    } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    } & OneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedRegistryRepositorySchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -63,17 +64,17 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & {
+      searchParams: searchParams as {
         tags?: boolean;
         tagsCount?: boolean;
-      },
+      } & PaginationRequestSearchParams<P>,
     });
   }
 
   allTags<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     repositoryId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedRegistryRepositoryTagSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -91,8 +92,10 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
 
   editRegistryVisibility<E extends boolean = false>(
     projectId: string | number,
-    options?: { containerRegistryAccessLevel: 'enabled' | 'private' | 'disabled' } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      containerRegistryAccessLevel: 'enabled' | 'private' | 'disabled';
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedRegistryRepositorySchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -110,7 +113,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
   removeRepository<E extends boolean = false>(
     projectId: string | number,
     repositoryId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -125,7 +128,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     projectId: string | number,
     repositoryId: number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -145,8 +148,8 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
       nameRegexKeep?: string;
       keepN?: string;
       olderThan?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -166,7 +169,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
 
   showRepository<E extends boolean = false>(
     repositoryId: number,
-    options?: { tags?: boolean; tagsCount?: boolean; size?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { tags?: boolean; tagsCount?: boolean; size?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RegistryRepositorySchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -185,7 +188,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     projectId: string | number,
     repositoryId: number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RegistryRepositoryTagSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

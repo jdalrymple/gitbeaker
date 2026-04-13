@@ -1,9 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import {
-  BaseRequestSearchParams,
-  RequestHelper,
-  endpoint,
-} from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -11,6 +5,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
 
 export type MigrationStatus = 'created' | 'started' | 'finished' | 'failed';
 
@@ -56,10 +52,10 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: {
       status?: MigrationStatus;
-    } & PaginationRequestOptions<P> &
-      Sudo &
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      BaseRequestSearchParams,
+      Sudo,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -67,14 +63,14 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   create<E extends boolean = false>(
     configuration: { url: string; access_token: string },
     entities: MigrationEntityOptions[],
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -98,12 +94,10 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
   }: {
     status?: MigrationStatus;
     bulkImportId?: number;
-  } & PaginationRequestOptions<'offset'> &
-    Sudo &
+  } & BaseRequestSearchParams &
+    PaginationRequestOptions<'offset'> &
     ShowExpanded<E> &
-    BaseRequestSearchParams = {}): Promise<
-    GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>
-  > {
+    Sudo = {}): Promise<GitlabAPIResponse<MigrationEntitySchema[], C, E, 'offset'>> {
     const url = bulkImportId
       ? endpoint`bulk_imports/${bulkImportId}/entities`
       : 'bulk_imports/entities';
@@ -118,7 +112,7 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     bulkImportId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MigrationStatusSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -131,7 +125,7 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
   showEntity<E extends boolean = false>(
     bulkImportId: number,
     entityId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MigrationEntitySchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

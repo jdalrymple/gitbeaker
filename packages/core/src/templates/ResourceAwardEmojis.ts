@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +8,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface AwardEmojiSchema extends Record<string, unknown> {
   id: number;
@@ -34,7 +34,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resourceIId: number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
     const url = endpoint`${resourceId}/${this.resourceType2}/${resourceIId}/award_emoji`;
@@ -43,7 +43,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -51,7 +51,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resourceIId: number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${resourceId}/${this.resourceType2}/${resourceIId}/award_emoji`;
@@ -69,7 +69,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resourceIId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${resourceId}/${this.resourceType2}/${resourceIId}/award_emoji/${awardId}`;
@@ -84,7 +84,7 @@ export class ResourceAwardEmojis<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     resourceIId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
     const url = endpoint`${resourceId}/${this.resourceType2}/${resourceIId}/award_emoji/${awardId}`;

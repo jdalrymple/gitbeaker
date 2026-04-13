@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,8 +7,10 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
 import type { SimpleProjectSchema } from './Projects';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, getPrefixedUrl } from '../infrastructure';
 
 export type TodoAction =
   | 'assigned'
@@ -49,16 +49,17 @@ export interface TodoSchema extends Record<string, unknown> {
 
 export class TodoLists<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> &
-      BaseRequestSearchParams & {
-        action?: TodoAction;
-        authorId?: number;
-        projectId?: string | number;
-        groupId?: string | number;
-        state?: TodoState;
-        type?: TodoType;
-      } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      action?: TodoAction;
+      authorId?: number;
+      projectId?: string | number;
+      groupId?: string | number;
+      state?: TodoState;
+      type?: TodoType;
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<TodoSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -66,22 +67,22 @@ export class TodoLists<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams
+      searchParams,
     });
   }
 
   done<E extends boolean = false>(
-    options: { todoId: number } & Sudo & ShowExpanded<E>,
+    options: { todoId: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TodoSchema, C, E, void>>;
 
   done<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   done<E extends boolean = false>({
     todoId,
     ...options
-  }: { todoId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { todoId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<void | TodoSchema, C, E, void>
   > {
     const { sudo, showExpanded } = options || {};

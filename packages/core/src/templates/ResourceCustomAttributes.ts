@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface CustomAttributeSchema extends Record<string, unknown> {
   key: string;
@@ -23,7 +23,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -34,7 +34,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -42,7 +42,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
   remove<E extends boolean = false>(
     resourceId: string | number,
     customAttributeId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -60,7 +60,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     resourceId: string | number,
     customAttributeId: string,
     value: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -81,7 +81,7 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
   show<E extends boolean = false>(
     resourceId: string | number,
     customAttributeId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

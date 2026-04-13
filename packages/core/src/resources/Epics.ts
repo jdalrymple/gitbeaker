@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,10 +7,12 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import type { GroupSchema } from './Groups';
 import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
-import type { GroupSchema } from './Groups';
-import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface EpicSchema extends Record<string, unknown> {
   id: number;
@@ -117,20 +117,20 @@ export type EditEpicOptions = {
 export class Epics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: AllEpicsOptions &
-      PaginationRequestOptions<P> &
+    options: { withLabelsDetails: true } & AllEpicsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E> & { withLabelsDetails: true },
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchemaWithExpandedLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllEpicsOptions &
-      PaginationRequestOptions<P> &
+    options?: { withLabelsDetails?: false } & AllEpicsOptions &
       BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E> & { withLabelsDetails?: false },
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -138,8 +138,8 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
     options?: AllEpicsOptions &
       BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -154,7 +154,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     groupId: string | number,
     title: string,
-    options?: CreateEpicOptions & Sudo & ShowExpanded<E>,
+    options?: CreateEpicOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -171,7 +171,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   createTodo<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicTodoSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -188,7 +188,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: EditEpicOptions & Sudo & ShowExpanded<E>,
+    options?: EditEpicOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MappedOmit<EpicSchema, '_links'>, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -206,7 +206,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
@@ -219,7 +219,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 

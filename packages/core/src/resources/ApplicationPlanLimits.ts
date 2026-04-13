@@ -1,6 +1,6 @@
+import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ApplicationPlanLimitSchema extends Record<string, unknown> {
   ci_pipeline_size: number;
@@ -26,7 +26,7 @@ export type ApplicationPlanLimitOptions = Partial<Camelize<ApplicationPlanLimitS
 
 export class ApplicationPlanLimits<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: { planName?: string } & Sudo & ShowExpanded<E>,
+    options?: { planName?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationPlanLimitSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -39,7 +39,7 @@ export class ApplicationPlanLimits<C extends boolean = false> extends BaseResour
 
   edit<E extends boolean = false>(
     planName: string,
-    options?: ApplicationPlanLimitOptions & Sudo & ShowExpanded<E>,
+    options?: ApplicationPlanLimitOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationPlanLimitSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

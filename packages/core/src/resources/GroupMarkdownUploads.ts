@@ -1,5 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { MarkdownUploadSchema, ResourceMarkdownUploads } from '../templates';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,12 +5,14 @@ import type {
   PaginationTypes,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { MarkdownUploadSchema, ResourceMarkdownUploads } from '../templates';
 
 export interface GroupMarkdownUploads<C extends boolean = false>
   extends ResourceMarkdownUploads<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & Sudo & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo,
   ): Promise<GitlabAPIResponse<MarkdownUploadSchema[], C, E, P>>;
 
   download<E extends boolean = false>(

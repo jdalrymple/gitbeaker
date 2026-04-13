@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   OneOrNoneOf,
@@ -9,6 +7,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface AuditEventSchema extends Record<string, unknown> {
   id: number;
@@ -40,11 +40,11 @@ export interface AllAuditEventOptions {
 
 export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      AllAuditEventOptions &
-      Sudo &
+    options?: AllAuditEventOptions &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<AuditEventSchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -56,7 +56,7 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & AllAuditEventOptions,
+      searchParams: searchParams as AllAuditEventOptions & PaginationRequestSearchParams<P>,
     });
   }
 
@@ -67,8 +67,8 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
       groupId,
       ...options
     }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E> = {},
+      ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<AuditEventSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

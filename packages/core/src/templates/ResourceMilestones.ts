@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -12,6 +9,9 @@ import type {
 } from '../infrastructure';
 import type { IssueSchema } from '../resources/Issues';
 import type { MergeRequestSchema } from '../resources/MergeRequests';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MilestoneSchema extends Record<string, unknown> {
   id: number;
@@ -54,8 +54,8 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
     options?: AllMilestonesOptions &
       BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MilestoneSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -63,14 +63,14 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   allAssignedIssues<E extends boolean = false>(
     resourceId: string | number,
     milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -87,7 +87,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   allAssignedMergeRequests<E extends boolean = false>(
     resourceId: string | number,
     milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -104,7 +104,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   allBurndownChartEvents<E extends boolean = false>(
     resourceId: string | number,
     milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BurndownChartEventSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -121,8 +121,8 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   create<E extends boolean = false>(
     resourceId: string | number,
     title: string,
-    options?: { description?: string; dueDate?: string; startDate?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { description?: string; dueDate?: string; startDate?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -145,8 +145,8 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
       dueDate?: string;
       startDate?: string;
       stateEvent?: 'close' | 'activate';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -164,7 +164,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   remove<E extends boolean = false>(
     resourceId: string | number,
     milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -177,7 +177,7 @@ export class ResourceMilestones<C extends boolean = false> extends BaseResource<
   show<E extends boolean = false>(
     resourceId: string | number,
     milestoneId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MilestoneSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

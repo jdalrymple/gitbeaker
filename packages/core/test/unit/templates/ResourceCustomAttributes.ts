@@ -1,5 +1,5 @@
-import { ResourceCustomAttributes } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceCustomAttributes } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

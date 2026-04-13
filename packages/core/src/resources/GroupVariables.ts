@@ -1,6 +1,3 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceVariables } from '../templates';
-import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,11 +6,14 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceVariables } from '../templates';
 
 export interface GroupVariables<C extends boolean = false> extends ResourceVariables<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -27,8 +27,8 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       environmentScope?: string;
       description?: string;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
@@ -43,20 +43,20 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       description?: string;
       raw?: boolean;
       filter: VariableFilter;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     key: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     key: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 

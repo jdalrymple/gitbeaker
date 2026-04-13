@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,6 +7,8 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { HookSchema } from '../templates/ResourceHooks';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface SystemHookTestResponse extends Record<string, unknown> {
   project_id: number;
@@ -30,7 +30,7 @@ export interface CreateSystemHook {
 
 export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    options?: BaseRequestSearchParams & PaginationRequestOptions<'offset'> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<'offset'> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<HookSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -38,22 +38,22 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<'offset'> &
-        BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<'offset'>,
     });
   }
 
   // Convenience method
   add<E extends boolean = false>(
     url: string,
-    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
+    options?: CreateSystemHook & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
     return this.create<E>(url, options);
   }
 
   create<E extends boolean = false>(
     url: string,
-    options?: CreateSystemHook & Sudo & ShowExpanded<E>,
+    options?: CreateSystemHook & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -69,7 +69,7 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
 
   test<E extends boolean = false>(
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SystemHookTestResponse, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -81,7 +81,7 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
 
   remove<E extends boolean = false>(
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -93,7 +93,7 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<HookSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

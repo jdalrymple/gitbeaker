@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { createFormData, getPrefixedUrl } from '../infrastructure';
 
 export class Maven<C extends boolean = false> extends BaseResource<C> {

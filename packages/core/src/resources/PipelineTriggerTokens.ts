@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,6 +9,8 @@ import type {
 } from '../infrastructure';
 import type { ExpandedPipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 
 export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   id: number;
@@ -25,7 +25,7 @@ export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
 export class PipelineTriggerTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -36,7 +36,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }
@@ -44,7 +44,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
   create<E extends boolean = false>(
     projectId: string | number,
     description: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -65,7 +65,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
   edit<E extends boolean = false>(
     projectId: string | number,
     triggerId: number,
-    options?: { description?: string } & Sudo & ShowExpanded<E>,
+    options?: { description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -83,7 +83,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
   remove<E extends boolean = false>(
     projectId: string | number,
     triggerId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -96,7 +96,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
   show<E extends boolean = false>(
     projectId: string | number,
     triggerId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PipelineTriggerTokenSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -114,7 +114,7 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
     projectId: string | number,
     ref: string,
     token: string,
-    options?: { variables?: Record<string, string> } & Sudo & ShowExpanded<E>,
+    options?: { variables?: Record<string, string> } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedPipelineSchema, C, E, void>> {
     const { variables, sudo, showExpanded } = options || {};
 

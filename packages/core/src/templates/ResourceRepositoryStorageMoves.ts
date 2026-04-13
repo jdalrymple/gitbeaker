@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface RepositoryStorageMoveSchema extends Record<string, unknown> {
   id: number;
@@ -39,7 +39,7 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
     const resourceId = searchParams?.[`${this.resourceTypeSingular}Id`] as string | number;
@@ -51,13 +51,13 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     repositoryStorageId: number,
-    options?: BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
     const resourceId = searchParams?.[`${this.resourceTypeSingular}Id`] as string | number;
@@ -75,8 +75,8 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
     options?: { destinationStorageName?: string } & BaseRequestSearchParams &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
     const { sudo, showExpanded, ...body } = options || {};
     const resourceId = body?.[`${this.resourceTypeSingular}Id`] as string | number;

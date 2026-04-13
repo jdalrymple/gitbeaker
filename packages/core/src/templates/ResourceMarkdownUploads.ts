@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,6 +7,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MarkdownUploadUserSchema extends Record<string, unknown> {
   id: number;
@@ -40,7 +40,7 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E> & BaseRequestSearchParams & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MarkdownUploadSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -48,28 +48,28 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
     });
   }
 
   download<E extends boolean = false>(
     resourceId: string | number,
     uploadId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
 
   download<E extends boolean = false>(
     resourceId: string | number,
     secret: string,
     filename: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
 
   download<E extends boolean = false>(
     resourceId: string | number,
     uploadIdOrSecret: string | number,
     filename?: any,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     if (filename && typeof filename === 'string') {
       const { sudo, showExpanded } = options || {};
@@ -92,21 +92,21 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
   remove<E extends boolean = false>(
     resourceId: string | number,
     uploadId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     secret: string,
     filename: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     uploadIdOrSecret: string | number,
     filename?: any,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     if (filename && typeof filename === 'string') {
       const { sudo, showExpanded } = options || {};

@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -12,6 +9,9 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface WeightEventSchema extends Record<string, unknown> {
   id: number;
@@ -33,7 +33,7 @@ export class ResourceWeightEvents<C extends boolean = false> extends BaseResourc
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WeightEventSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -44,7 +44,7 @@ export class ResourceWeightEvents<C extends boolean = false> extends BaseResourc
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
       },
     );
   }
@@ -53,7 +53,7 @@ export class ResourceWeightEvents<C extends boolean = false> extends BaseResourc
     resourceId: string | number,
     resource2Id: string | number,
     weightEventId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<WeightEventSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

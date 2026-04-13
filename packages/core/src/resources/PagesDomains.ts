@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface PagesDomainSchema extends Record<string, unknown> {
   domain: string;
@@ -17,7 +17,7 @@ export interface PagesDomainSchema extends Record<string, unknown> {
 
 export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    options?: { projectId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { projectId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PagesDomainSchema[], C, E, void>> {
     const { projectId, sudo, showExpanded } = options || {};
 
@@ -32,8 +32,8 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     projectId: string | number,
     domain: string,
-    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -54,8 +54,8 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     domain: string,
-    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -73,8 +73,8 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     domain: string,
-    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { autoSslEnabled?: string; certificate?: string; key?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -91,7 +91,7 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     domain: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

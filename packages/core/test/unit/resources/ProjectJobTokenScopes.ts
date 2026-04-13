@@ -1,5 +1,5 @@
-import { ProjectJobTokenScopes } from '../../../src/resources/ProjectJobTokenScopes';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ProjectJobTokenScopes } from '../../../src/resources/ProjectJobTokenScopes';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',

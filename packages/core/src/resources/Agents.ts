@@ -1,7 +1,7 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ClusterAgentSchema extends Record<string, unknown> {
   id: number;
@@ -25,7 +25,7 @@ export interface ClusterAgentTokenSchema extends Record<string, unknown> {
 export class Agents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -42,7 +42,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
   allTokens<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -60,7 +60,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     name: string,
-    options?: { description?: string } & Sudo & ShowExpanded<E>,
+    options?: { description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -78,7 +78,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -96,7 +96,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     tokenId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -113,7 +113,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
   register<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -134,7 +134,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     tokenId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -151,7 +151,7 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
   unregister<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 

@@ -1,7 +1,8 @@
+import type { MethodTemplate } from './utils';
+import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' };
+import * as Gitbeaker from '@gitbeaker/rest';
 import Chalk from 'chalk';
 import Sywac from 'sywac';
-import * as Gitbeaker from '@gitbeaker/rest';
-import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' };
 import {
   buildArgumentObjects,
   getCLISafeNormalizedTerm,
@@ -9,7 +10,6 @@ import {
   getExposedAPIs,
   getGlobalConfig,
 } from './utils';
-import type { MethodTemplate } from './utils';
 
 function setupAPIMethods(setupArgs, methodArgs: string[]) {
   methodArgs.forEach((name) => {

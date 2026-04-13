@@ -1,11 +1,11 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData } from '../infrastructure';
 import type {
   BaseRequestBodyRecordOptions,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData } from '../infrastructure';
 
 export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   title: string;
@@ -28,7 +28,7 @@ export interface ApplicationAppearanceSchema extends Record<string, unknown> {
 
 export class ApplicationAppearance<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationAppearanceSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
@@ -39,11 +39,12 @@ export class ApplicationAppearance<C extends boolean = false> extends BaseResour
   }
 
   edit<E extends boolean = false>(
-    options?: Sudo &
-      ShowExpanded<E> & {
-        logo?: { content: Blob; filename: string };
-        pwaIcon?: { content: Blob; filename: string };
-      } & BaseRequestBodyRecordOptions,
+    options?: {
+      logo?: { content: Blob; filename: string };
+      pwaIcon?: { content: Blob; filename: string };
+    } & BaseRequestBodyRecordOptions &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ApplicationAppearanceSchema, C, E, void>> {
     const { sudo, showExpanded, logo, pwaIcon, ...remaining } = options || {};
     let body: FormData | BaseRequestBodyRecordOptions;

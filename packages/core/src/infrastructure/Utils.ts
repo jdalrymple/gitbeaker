@@ -1,5 +1,5 @@
-import { decamelizeKeys } from 'xcase';
 import { stringify } from 'picoquery';
+import { decamelizeKeys } from 'xcase';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
@@ -26,7 +26,7 @@ export type Camelize<Value> = Value extends any[]
 export type Simplify<T> = T extends infer S ? { [K in keyof S]: S[K] } : never;
 export type Never<T> = Simplify<{ [P in keyof T]?: never }>;
 export type SomeOf<T> = { [K in keyof T]: Pick<Required<T>, K> }[keyof T];
-export type OneOf<T> = { [K in keyof T]: Simplify<Pick<T, K> & Never<Omit<T, K>>> }[keyof T];
+export type OneOf<T> = { [K in keyof T]: Simplify<Never<Omit<T, K>> & Pick<T, K>> }[keyof T];
 export type OneOrNoneOf<T> = Never<T> | OneOf<T>;
 export type AllOrNone<T extends Record<string, any>> = T | Partial<Record<keyof T, never>>;
 export type MappedOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
