@@ -6,7 +6,6 @@ import type {
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -47,10 +46,10 @@ export type ReviewAppSchema = MappedOmit<CondensedEnvironmentSchema, 'state'>;
 export class Environments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      OneOrNoneOf<{ name: string; search: string }> & {
-        states?: 'available' | 'stopping' | 'stopped';
-      } & BaseRequestSearchParams &
+    options?: OneOrNoneOf<{ name: string; search: string }> & {
+      states?: 'available' | 'stopping' | 'stopped';
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema[], C, E, P>> {
@@ -63,7 +62,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams,
       },
     );
   }

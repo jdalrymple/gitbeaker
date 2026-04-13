@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestSearchParams,
-  PaginationRequestSearchParams,
   RequestHelper,
   endpoint,
 } from '../infrastructure';
@@ -38,9 +37,9 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
       scope?: 'active' | 'complete';
       sort?: 'asc' | 'desc';
     } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
-      ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeTrainSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -51,7 +50,7 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams,
       },
     );
   }

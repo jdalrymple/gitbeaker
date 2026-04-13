@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -40,8 +39,8 @@ export class MergeRequestContextCommits<C extends boolean = false> extends BaseR
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
-      },
+        searchParams
+      }
     );
   }
 

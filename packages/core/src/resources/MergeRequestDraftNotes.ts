@@ -5,7 +5,6 @@ import type {
   Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -42,7 +41,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }

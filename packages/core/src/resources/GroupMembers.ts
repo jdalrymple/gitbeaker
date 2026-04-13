@@ -13,7 +13,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -100,7 +99,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }
@@ -115,7 +114,7 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams
     });
   }
 

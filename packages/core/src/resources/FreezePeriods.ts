@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -22,7 +21,7 @@ export interface FreezePeriodSchema extends Record<string, unknown> {
 export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -33,7 +32,7 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams,
       },
     );
   }

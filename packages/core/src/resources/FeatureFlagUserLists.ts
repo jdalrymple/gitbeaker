@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -23,8 +22,8 @@ export interface FeatureFlagUserListSchema extends Record<string, unknown> {
 export class FeatureFlagUserLists<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { search?: string } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema[], C, E, P>> {
@@ -37,7 +36,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams,
       },
     );
   }

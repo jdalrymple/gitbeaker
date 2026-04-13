@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -37,7 +36,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }

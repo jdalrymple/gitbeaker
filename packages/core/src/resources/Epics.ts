@@ -5,7 +5,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -137,8 +136,8 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: AllEpicsOptions &
-      PaginationRequestOptions<P> &
       BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<EpicSchema[], C, E, P>> {
@@ -148,7 +147,7 @@ export class Epics<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 

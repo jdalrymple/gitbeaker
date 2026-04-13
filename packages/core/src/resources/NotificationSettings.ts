@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, getPrefixedUrl } from '../infrastructure';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
 export type NotificationSettingLevel =
@@ -66,6 +66,9 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded, ...body } = options;
+
+    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
+
     const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
 
     return RequestHelper.put<NotificationSettingSchema>()(this, url, {
@@ -81,6 +84,9 @@ export class NotificationSettings<C extends boolean = false> extends BaseResourc
       ShowExpanded<E> = {} as any,
   ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
     const { projectId, groupId, sudo, showExpanded } = options;
+
+    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
+
     const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
 
     return RequestHelper.get<NotificationSettingSchema>()(this, url, {

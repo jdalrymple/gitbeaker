@@ -5,7 +5,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -59,8 +58,8 @@ export type EditFeatureFlagOptions = {
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { scope?: 'enabled' | 'disabled' } & PaginationRequestOptions<P> &
-      BaseRequestSearchParams &
+    options?: { scope?: 'enabled' | 'disabled' } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       Sudo &
       ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema[], C, E, P>> {
@@ -73,7 +72,7 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams,
       },
     );
   }

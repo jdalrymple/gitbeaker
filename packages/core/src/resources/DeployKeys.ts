@@ -1,11 +1,10 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
+import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -41,6 +40,8 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<ExpandedDeployKeySchema[], C, E, P>> {
     const { showExpanded, sudo, maxPages, projectId, userId, ...searchParams } = options || {};
 
+    ensureRequiredParams({ projectId, userId }, { minExpected: 0 });
+
     const url = userId
       ? getPrefixedUrl('project_deploy_keys', { users: userId })
       : getPrefixedUrl('deploy_keys', { projects: projectId });
@@ -49,7 +50,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       showExpanded,
       sudo,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams
     });
   }
 

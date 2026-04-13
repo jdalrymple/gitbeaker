@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -176,7 +175,7 @@ export type EditGeoNodeOptions = {
 
 export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoNodeSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -184,12 +183,12 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 
   allStatuses<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoNodeStatusSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -197,12 +196,12 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 
   allFailures<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & BaseRequestSearchParams & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<GeoNodeFailureSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -210,7 +209,7 @@ export class GeoNodes<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 

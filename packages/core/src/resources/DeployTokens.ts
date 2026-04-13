@@ -6,7 +6,6 @@ import type {
   OneOf,
   OneOrNoneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -44,13 +43,15 @@ export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<DeployTokenSchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
+
     const url = getPrefixedUrl('deploy_tokens', { projects: projectId, groups: groupId });
 
     return RequestHelper.get<DeployTokenSchema[]>()(this, url, {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 

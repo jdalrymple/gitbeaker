@@ -1,5 +1,5 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -233,6 +233,8 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       AllIssuesOptions,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
     const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
 
     const url = getPrefixedUrl('issues', { projects: projectId, groups: groupId });
 

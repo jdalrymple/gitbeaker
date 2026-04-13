@@ -1,12 +1,11 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, getPrefixedUrl } from '../infrastructure';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -58,13 +57,15 @@ export class Events<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
     const { projectId, userId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
+    ensureRequiredParams({ projectId, userId }, { minExpected: 0 });
+
     const url = getPrefixedUrl('events', { projects: projectId, users: userId });
 
     return RequestHelper.get<EventSchema[]>()(this, url, {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 }

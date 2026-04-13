@@ -5,7 +5,6 @@ import type {
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -49,7 +48,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }

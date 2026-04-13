@@ -72,7 +72,7 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<AuditEventSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    ensureRequiredParams({ projectId, groupId });
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
     const uri = getPrefixedUrl('audit_events', { projects: projectId, groups: groupId });
 

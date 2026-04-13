@@ -314,7 +314,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams
       },
     );
   }

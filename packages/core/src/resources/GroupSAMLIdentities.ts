@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
@@ -29,7 +28,7 @@ export class GroupSAMLIdentities<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as PaginationRequestSearchParams<P>,
       },
     );
   }

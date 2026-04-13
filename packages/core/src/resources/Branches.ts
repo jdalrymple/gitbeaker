@@ -5,7 +5,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -40,7 +39,7 @@ export class Branches<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams: searchParams as PaginationRequestOptions<P> & BaseRequestSearchParams,
       },
     );
   }

@@ -4,7 +4,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -55,6 +54,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       ShowExpanded<E>,
   ): Promise<any> {
     const { mergerequestIId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     const url = getPrefixedUrl(mergerequestIId ? 'status_checks' : 'external_status_checks', {
       projects: projectId,
       merge_requests: mergerequestIId,
@@ -66,7 +66,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 

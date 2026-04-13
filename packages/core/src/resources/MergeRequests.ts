@@ -1,9 +1,9 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestSearchParams,
-  PaginationRequestSearchParams,
   RequestHelper,
   endpoint,
+  ensureRequiredParams,
   getPrefixedUrl,
 } from '../infrastructure';
 import type {
@@ -345,14 +345,16 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<MergeRequestSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options: AllMergeRequestsOptions &
+    options?: AllMergeRequestsOptions &
       OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       BaseRequestSearchParams &
       Sudo &
-      ShowExpanded<E> = {} as any,
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
-    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options;
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    ensureRequiredParams({ projectId, groupId }, {  minExpected: 0 });
 
     const url = getPrefixedUrl('merge_requests', { projects: projectId, groups: groupId });
 
@@ -360,7 +362,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams,
     });
   }
 
@@ -378,7 +380,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }
@@ -397,7 +399,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }
@@ -484,7 +486,7 @@ export class MergeRequests<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+        searchParams
       },
     );
   }

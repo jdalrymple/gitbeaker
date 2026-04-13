@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestSearchParams,
-  PaginationRequestSearchParams,
   RequestHelper,
   endpoint,
 } from '../infrastructure';
@@ -68,7 +67,7 @@ export class Migrations<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P> & BaseRequestSearchParams,
+      searchParams
     });
   }
 
