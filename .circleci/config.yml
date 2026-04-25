@@ -380,10 +380,8 @@ jobs:
               echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
             fi
       - run:
-          name: Reinstall SWC for Ubuntu
-          command: |
-            npm install -g pnpm@10.28.0
-            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
+          name: Install pnpm
+          command: npm install -g pnpm@10.28.0
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'e2e'
