@@ -3,8 +3,8 @@ import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
-  PaginationTypes,
   PaginationType,
+  PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';

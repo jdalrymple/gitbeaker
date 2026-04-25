@@ -5,8 +5,8 @@ import type {
   OneOrNoneOf,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
-  PaginationTypes,
   PaginationType,
+  PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
