@@ -232,11 +232,6 @@ jobs:
     executor: playwright-executor
     steps:
       - restore_workspace
-      - run:
-          name: Reinstall SWC for Ubuntu
-          command: |
-            npm install -g pnpm@10.28.0
-            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'integration'
