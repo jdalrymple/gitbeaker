@@ -14,11 +14,11 @@ export default defineConfig({
     setupFiles: [new URL('./vitest.setup.ts', import.meta.url).pathname],
   },
   resolve: {
-    alias: {
-      '@gitbeaker/core': new URL('../core/src', import.meta.url).pathname,
-      '@gitbeaker/rest': new URL('../rest/src', import.meta.url).pathname,
-      '@gitbeaker/cli': new URL('../cli/src', import.meta.url).pathname,
-      '@gitbeaker/requester-utils': new URL('../requester-utils/src', import.meta.url).pathname,
-    },
+    alias: [
+      {
+        find: /^@gitbeaker\/(.*)$/,
+        replacement: new URL('./packages/$1/src', import.meta.url).pathname,
+      },
+    ],
   },
 });

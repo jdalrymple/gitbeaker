@@ -40,7 +40,7 @@ describe('PyPI.downloadPackageFile', () => {
 
   it('should throw an error if groupId or projectId is not passed', () => {
     expect(() => service.downloadPackageFile('sha', 'id', {} as any)).toThrow(
-      'Missing required parameter',
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
     );
   });
 });
@@ -68,7 +68,7 @@ describe('PyPI.showPackageDescriptor', () => {
 
   it('should throw an error if groupId or projectId is not passed', () => {
     expect(() => service.showPackageDescriptor('name', {} as any)).toThrow(
-      'Missing required parameter',
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
     );
   });
 });

@@ -15,7 +15,7 @@ beforeEach(() => {
     requesterFn: vi.fn(),
     token: 'abcdefg',
   });
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 
 describe('MergeRequestApprovals.showConfiguration', () => {

@@ -378,7 +378,7 @@ describe('defaultRequestHandler', () => {
   });
 
   it('should return a default error if retries are unsuccessful', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const responseContent = { error: 'msg' };
     const fakeReturnValue = Promise.resolve(
@@ -400,7 +400,7 @@ describe('defaultRequestHandler', () => {
     );
 
     // Fast-forward through all retry delays
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     const error = await errorPromise;
 
@@ -409,7 +409,7 @@ describe('defaultRequestHandler', () => {
     );
     expect(error).toBeInstanceOf(GitbeakerRetryError);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should return correct properties if request is valid', async () => {

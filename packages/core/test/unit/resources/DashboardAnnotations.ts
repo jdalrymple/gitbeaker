@@ -56,7 +56,7 @@ describe('DashboardAnnotations.create', () => {
 
   it('should throw an error if environmentId or clusterId isnt passed', () => {
     expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow(
-      'Missing required parameter',
+      'Missing required argument. Please supply a environmentId or clusterId in the options parameter.',
     );
   });
 });

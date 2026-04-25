@@ -39,6 +39,8 @@ describe('Keys.show', () => {
   });
 
   it('should throw an error if keyId or fingerprint is not passed', () => {
-    expect(() => service.show({} as any)).toThrow('Missing required parameter');
+    expect(() => service.show({} as any)).toThrow(
+      'Missing required argument. Please supply a keyId or fingerprint in the options parameter.',
+    );
   });
 });

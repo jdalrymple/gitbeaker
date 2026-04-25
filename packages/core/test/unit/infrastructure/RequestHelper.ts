@@ -470,7 +470,7 @@ describe('RequestHelper.get()', () => {
   });
 
   it('should timeout if a single query takes too long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -490,15 +490,15 @@ describe('RequestHelper.get()', () => {
     const promise = RequestHelper.get()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(60);
+    vi.advanceTimersByTime(60);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should timeout if multiple queries cumulatively take long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -518,15 +518,15 @@ describe('RequestHelper.get()', () => {
     const promise = RequestHelper.get()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(200);
+    vi.advanceTimersByTime(200);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should not timeout if a single query takes less time than the specified timeout to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -546,7 +546,7 @@ describe('RequestHelper.get()', () => {
     const promise = RequestHelper.get()(timedService, 'test');
 
     // Fast-forward time but not enough to trigger timeout
-    jest.advanceTimersByTime(100);
+    vi.advanceTimersByTime(100);
 
     const response = await promise;
 
@@ -554,7 +554,7 @@ describe('RequestHelper.get()', () => {
       message: 'pass',
     });
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });
 
@@ -606,7 +606,7 @@ describe('RequestHelper.post()', () => {
   });
 
   it('should timeout if a single query takes too long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -626,11 +626,11 @@ describe('RequestHelper.post()', () => {
     const promise = RequestHelper.post()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(60);
+    vi.advanceTimersByTime(60);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });
 
@@ -682,7 +682,7 @@ describe('RequestHelper.put()', () => {
   });
 
   it('should timeout if a single query takes too long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -702,11 +702,11 @@ describe('RequestHelper.put()', () => {
     const promise = RequestHelper.put()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(60);
+    vi.advanceTimersByTime(60);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });
 
@@ -782,7 +782,7 @@ describe('RequestHelper.patch()', () => {
   });
 
   it('should timeout if a single query takes too long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -802,11 +802,11 @@ describe('RequestHelper.patch()', () => {
     const promise = RequestHelper.patch()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(60);
+    vi.advanceTimersByTime(60);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });
 
@@ -825,7 +825,7 @@ describe('RequestHelper.del()', () => {
   });
 
   it('should timeout if a single query takes too long to execute', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const timedService = new BaseResource({
       requesterFn: () => mockedRequester,
@@ -845,10 +845,10 @@ describe('RequestHelper.del()', () => {
     const promise = RequestHelper.del()(timedService, 'test');
 
     // Fast-forward time to trigger timeout
-    jest.advanceTimersByTime(60);
+    vi.advanceTimersByTime(60);
 
     await expect(promise).rejects.toThrow('Request Timeout');
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });
