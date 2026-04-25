@@ -3,6 +3,8 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   SomeOf,
@@ -485,7 +487,9 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 
@@ -505,7 +509,9 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -873,7 +879,7 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       orderBy?: 'id' | 'name' | 'created_at' | 'last_activity_at';
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>> {
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<ProjectSchema[]>()(this, endpoint`projects`, {

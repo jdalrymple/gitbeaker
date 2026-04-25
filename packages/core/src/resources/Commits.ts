@@ -1,9 +1,7 @@
 import type {
-  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -252,7 +250,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as AllCommitsOptions & PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }
@@ -295,7 +293,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }
@@ -314,7 +312,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }
@@ -483,7 +481,7 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

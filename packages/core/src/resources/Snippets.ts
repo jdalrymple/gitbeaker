@@ -3,7 +3,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   ShowExpanded,
   Sudo,
   UserAgentDetailSchema,
@@ -78,8 +77,7 @@ export class Snippets<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as BaseRequestSearchParams &
-        PaginationRequestSearchParams<'offset'>,
+      searchParams,
     });
   }
 

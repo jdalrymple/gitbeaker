@@ -65,7 +65,7 @@ export class RepositoryFiles<C extends boolean = false> extends BaseResource<C> 
     } & BaseRequestSearchParams &
       ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<RepositoryFileBlameSchema[], C, E, void>> {
+  ): Promise<GitlabAPIResponse<RepositoryFileBlameSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<RepositoryFileBlameSchema[]>()(

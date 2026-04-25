@@ -3,6 +3,7 @@ import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -55,7 +56,9 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 

@@ -4,7 +4,9 @@ import type {
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
   PaginationTypes,
+  PaginationType,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -63,7 +65,9 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }

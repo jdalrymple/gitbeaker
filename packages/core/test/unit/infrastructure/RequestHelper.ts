@@ -178,6 +178,7 @@ describe('RequestHelper.get()', () => {
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       maxPages: 50,
+      searchParams: { pagination: 'offset' },
     });
 
     response.forEach((l, index: number) => {
@@ -197,6 +198,7 @@ describe('RequestHelper.get()', () => {
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
       maxPages: 3,
+      searchParams: { pagination: 'offset' },
     });
 
     expect(response).toHaveLength(6);
@@ -306,8 +308,8 @@ describe('RequestHelper.get()', () => {
     );
 
     const response = await RequestHelper.get<Record<string, unknown>[]>()(service, 'test', {
-      searchParams: { pagination: 'keyset' },
       maxPages: 2,
+      searchParams: { pagination: 'keyset', orderBy: 'id', sort: 'asc' },
     });
 
     expect(response).toHaveLength(4);

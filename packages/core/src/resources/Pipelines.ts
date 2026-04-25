@@ -3,7 +3,6 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -133,8 +132,7 @@ export class Pipelines<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as BaseRequestSearchParams &
-        PaginationRequestSearchParams<'offset'>,
+      searchParams,
     });
   }
 

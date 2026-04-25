@@ -1,7 +1,6 @@
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -24,7 +23,7 @@ export class GroupSCIMIdentities<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

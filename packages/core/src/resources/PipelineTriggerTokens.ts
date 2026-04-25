@@ -3,6 +3,8 @@ import type {
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -36,7 +38,9 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
         sudo,
         showExpanded,
         maxPages,
-        searchParams,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }

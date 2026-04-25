@@ -1,7 +1,6 @@
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -33,7 +32,7 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

@@ -3,6 +3,8 @@ import type {
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -51,7 +53,9 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
       showExpanded,
       sudo,
       maxPages,
-      searchParams,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 

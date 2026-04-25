@@ -5,6 +5,7 @@ import type {
   OneOrNoneOf,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -248,9 +249,9 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as AllIssuesOptions &
-        BaseRequestSearchParams &
-        PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 

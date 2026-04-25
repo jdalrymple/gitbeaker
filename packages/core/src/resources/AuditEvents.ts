@@ -2,7 +2,6 @@ import type {
   GitlabAPIResponse,
   OneOrNoneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -56,7 +55,7 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as AllAuditEventOptions & PaginationRequestSearchParams<P>,
+      searchParams,
     });
   }
 

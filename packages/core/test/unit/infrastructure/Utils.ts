@@ -225,9 +225,8 @@ describe('getPrefixedUrl', () => {
     expect(result).toBe('users');
   });
 
-  it('should return suffix when all prefix values are null, undefined, or false', () => {
+  it('should return suffix when all prefix values are undefined, or false', () => {
     const result = getPrefixedUrl('users', {
-      projectId: null,
       groupId: undefined,
       adminArea: false,
     });
@@ -280,7 +279,7 @@ describe('getPrefixedUrl', () => {
   it('should filter out false and null values while keeping valid ones', () => {
     const result = getPrefixedUrl('members', {
       admin: false,
-      projects: null,
+      projects: undefined,
       groups: 'valid-group',
       users: 789,
     });

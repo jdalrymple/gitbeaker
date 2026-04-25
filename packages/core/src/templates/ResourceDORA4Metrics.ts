@@ -29,7 +29,7 @@ export class ResourceDORA4Metrics<C extends boolean = false> extends BaseResourc
       environmentTiers?: string[];
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<DORA4MetricSchema[], C, E, void>> {
+  ): Promise<GitlabAPIResponse<DORA4MetricSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<DORA4MetricSchema[]>()(this, endpoint`${resourceId}/dora/metrics`, {

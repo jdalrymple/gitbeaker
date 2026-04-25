@@ -1,7 +1,6 @@
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -67,7 +66,7 @@ export class ProjectVulnerabilities<C extends boolean = false> extends BaseResou
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

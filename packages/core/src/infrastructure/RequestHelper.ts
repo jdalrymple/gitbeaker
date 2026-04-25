@@ -29,7 +29,7 @@ export type BaseRequestSearchParams = RequesterSearchParams;
 
 export type PaginationTypes = 'keyset' | 'offset';
 
-export interface PaginationType<P extends PaginationTypes | void = 'offset'> {
+export interface PaginationType<P extends PaginationTypes = 'offset'> {
   pagination?: P;
 }
 
@@ -51,24 +51,17 @@ export interface BasePaginationRequestOptions {
   maxPages?: number;
 }
 
-export type PaginationRequestSearchParams<P extends PaginationTypes | void> = P extends 'keyset'
+export type PaginationRequestSearchParams<P extends PaginationTypes> = P extends 'keyset'
   ? KeysetPaginationRequestParams
-  : OffsetPaginationRequestParams; // if offset or void
+  : OffsetPaginationRequestParams;
 
-export type PaginationRequestOptions<P extends PaginationTypes | void = void> =
-  BasePaginationRequestOptions & PaginationRequestSearchParams<P> & PaginationType<P>;
+export type PaginationRequestOptions<P extends PaginationTypes> = BasePaginationRequestOptions &
+  PaginationRequestSearchParams<P> &
+  PaginationType<P>;
 
 // Internal types
 type RequestHelperSearchParamOptions = {
   searchParams?: RequesterSearchParams;
-};
-
-type RequestHelperSearchParamWithPaginationOptions<P extends PaginationTypes | void = void> = {
-  searchParams?:
-    | RequesterSearchParams
-    | PaginationRequestSearchParams<P>
-    | (Omit<RequesterSearchParams, keyof PaginationRequestSearchParams<P>> &
-        PaginationRequestSearchParams<P>);
 };
 
 type RequestHelperBodyOptions = {
@@ -177,17 +170,14 @@ function getSingle<E extends boolean>(
 }
 
 // Overload used to simplify return types based on conditional
-function getMany<
-  T extends Record<string, unknown>[],
-  E extends boolean,
-  P extends PaginationTypes = PaginationTypes,
->(
+function getMany<T extends Record<string, unknown>[], E extends boolean, P extends PaginationTypes>(
   camelize: boolean,
   getFn: (ep: string, op: DefaultRequesterOptions) => Promise<FormattedResponse<T>>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: BasePaginationRequestOptions &
-    RequestHelperSearchParamWithPaginationOptions<P> &
+  requestOptions: {
+    searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+  } & BasePaginationRequestOptions &
     ShowExpanded<E> &
     Sudo,
   acc?: T,
@@ -196,19 +186,20 @@ function getMany<
 async function getMany<
   T extends Record<string, unknown>[],
   E extends boolean,
-  P extends PaginationTypes = 'offset',
+  P extends PaginationTypes,
 >(
   camelize: boolean,
   getFn: (ep: string, op: DefaultRequesterOptions) => Promise<FormattedResponse<T>>,
   endpoint: string,
   response: FormattedResponse<T>,
-  requestOptions: BasePaginationRequestOptions &
-    RequestHelperSearchParamWithPaginationOptions<P> &
+  requestOptions: {
+    searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+  } & BasePaginationRequestOptions &
     ShowExpanded<E> &
     Sudo,
   acc?: T,
 ): Promise<PaginatedResponse<T, P> | T> {
-  const { sudo, showExpanded, maxPages, searchParams } = requestOptions;
+  const { sudo, showExpanded, maxPages, searchParams } = requestOptions || {};
 
   if (camelize) response.body = camelizeKeys(response?.body);
 
@@ -223,8 +214,8 @@ async function getMany<
 
   const isLookingForASpecificPage =
     searchParams &&
-    !('pagination' in searchParams) &&
-    searchParams?.page &&
+    searchParams?.pagination !== 'keyset' &&
+    'page' in searchParams &&
     (acc || []).length === 0;
 
   const skipPagination = !nextResultsUrl || !withinBounds || isLookingForASpecificPage;
@@ -241,7 +232,10 @@ async function getMany<
       maxPages,
       sudo,
       showExpanded,
-      searchParams: qs,
+      searchParams: {
+        ...qs,
+        ...(searchParams?.pagination && { pagination: searchParams.pagination }),
+      } as PaginationRequestSearchParams<P> & PaginationType<P>,
     };
 
     const nextResponse: FormattedResponse<T> = await getFn(endpoint, {
@@ -249,7 +243,7 @@ async function getMany<
       sudo,
     });
 
-    return getMany<T, E, P>(camelize, getFn, endpoint, nextResponse, newOpts, newAcc);
+    return getMany(camelize, getFn, endpoint, nextResponse, newOpts, newAcc);
   }
 
   if (!showExpanded) return newAcc;
@@ -257,19 +251,21 @@ async function getMany<
   // Parse out pagination information
   let paginationInfo;
 
-  if (searchParams && 'pagination' in searchParams && searchParams?.pagination == 'keyset') {
-    const orderBy = searchParams?.orderBy;
-    const sort = searchParams?.sort;
-    const idAfter = searchParams?.idAfter;
-    const cursor = searchParams?.cursor;
+  if (searchParams?.pagination === ('keyset' as const)) {
+    const keysetParams = searchParams as KeysetPaginationRequestParams;
+
+    const orderBy = keysetParams?.orderBy;
+    const sort = keysetParams?.sort;
+    const idAfter = keysetParams?.idAfter;
+    const cursor = keysetParams?.cursor;
     const perPage = searchParams?.perPage;
 
     paginationInfo = {
       idAfter: idAfter ? +idAfter : null,
       cursor: cursor || null,
       perPage: perPage ? +perPage : null,
-      orderBy: orderBy as string,
-      sort: sort as 'asc' | 'desc',
+      orderBy: orderBy,
+      sort: sort,
     };
   } else {
     paginationInfo = {
@@ -297,15 +293,23 @@ type getOverload<T extends ResponseType> = {
   ): Promise<GitlabAPIResponse<ReadableStream, C, E, void>>;
 
   //Many Get
-  <
-    C extends boolean = false,
-    E extends boolean = false,
-    P extends 'keyset' | 'offset' | void = void,
-  >(
+  <C extends boolean = false, E extends boolean = false, P extends 'keyset' | 'offset' = 'offset'>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: BasePaginationRequestOptions &
-      RequestHelperSearchParamWithPaginationOptions<P> &
+    options?: {
+      searchParams: BaseRequestSearchParams &
+        (PaginationRequestSearchParams<P> & PaginationType<P>);
+    } & BasePaginationRequestOptions &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<T, C, E, P>>;
+
+  <C extends boolean = false, E extends boolean = false, P extends 'keyset' | 'offset' = 'offset'>(
+    service: BaseResource<C>,
+    endpoint: string,
+    options?: {
+      searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+    } & BasePaginationRequestOptions &
       ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<T, C, E, P>>;
@@ -319,16 +323,20 @@ type getOverload<T extends ResponseType> = {
 };
 
 export function get<T extends ResponseType = Record<string, unknown>>(): getOverload<T> {
-  return async <C extends boolean, E extends boolean, P extends 'keyset' | 'offset' | void>(
+  return async <C extends boolean, E extends boolean, P extends 'keyset' | 'offset'>(
     service: BaseResource<C>,
     endpoint: string,
-    options: AsStream &
-      BasePaginationRequestOptions &
-      RequestHelperSearchParamWithPaginationOptions<P> &
+    options?: AsStream &
       ShowExpanded<E> &
-      Sudo = {},
+      Sudo &
+      (
+        | ({
+            searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+          } & BasePaginationRequestOptions)
+        | RequestHelperSearchParamOptions
+      ),
   ): Promise<any> => {
-    const { asStream, sudo, showExpanded, searchParams } = options;
+    const { asStream, sudo, showExpanded, searchParams } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;
 
     const response = await service.requester.get(endpoint, {
@@ -350,7 +358,11 @@ export function get<T extends ResponseType = Record<string, unknown>>(): getOver
       (ep, op) => service.requester.get(ep, { ...op, signal }),
       endpoint,
       response as FormattedResponse<Record<string, unknown>[]>,
-      options as RequestHelperSearchParamWithPaginationOptions<P> & ShowExpanded<E> & Sudo,
+      options as {
+        searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+      } & BasePaginationRequestOptions &
+        ShowExpanded<E> &
+        Sudo,
     );
   };
 }

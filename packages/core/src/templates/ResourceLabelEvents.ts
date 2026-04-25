@@ -4,6 +4,7 @@ import type {
   MappedOmit,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -47,7 +48,9 @@ export class ResourceLabelEvents<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }

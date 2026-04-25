@@ -3,7 +3,6 @@ import type {
   MappedOmit,
   OneOf,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -64,10 +63,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as {
-        tags?: boolean;
-        tagsCount?: boolean;
-      } & PaginationRequestSearchParams<P>,
+      searchParams,
     });
   }
 
@@ -85,7 +81,7 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

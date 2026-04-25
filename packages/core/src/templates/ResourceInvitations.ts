@@ -4,6 +4,7 @@ import type {
   OneOf,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -67,7 +68,9 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as BaseRequestSearchParams & PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 

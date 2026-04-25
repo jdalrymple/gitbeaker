@@ -2,7 +2,6 @@ import type {
   Camelize,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -40,7 +39,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as PaginationRequestSearchParams<P>,
+      searchParams,
     });
   }
 

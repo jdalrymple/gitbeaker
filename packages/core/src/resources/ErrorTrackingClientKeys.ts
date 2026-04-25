@@ -2,6 +2,8 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -30,7 +32,9 @@ export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseReso
         sudo,
         showExpanded,
         maxPages,
-        searchParams,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }

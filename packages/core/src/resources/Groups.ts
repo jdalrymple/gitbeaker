@@ -4,6 +4,7 @@ import type {
   PaginationRequestOptions,
   PaginationRequestSearchParams,
   PaginationTypes,
+  PaginationType,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -225,9 +226,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as AllGroupsOptions &
-        BaseRequestSearchParams &
-        PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 
@@ -263,9 +264,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as AllGroupsOptions &
-        BaseRequestSearchParams &
-        PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 
@@ -304,9 +305,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as AllGroupProjectsOptions &
-          BaseRequestSearchParams &
-          PaginationRequestSearchParams<P>,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -346,9 +347,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as AllGroupProjectsOptions &
-          BaseRequestSearchParams &
-          PaginationRequestSearchParams<P>,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -394,9 +395,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as AllGroupsOptions &
-        BaseRequestSearchParams &
-        PaginationRequestSearchParams<P>,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 
@@ -417,9 +418,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as AllProvisionedUsersOptions &
-          BaseRequestSearchParams &
-          PaginationRequestSearchParams<P>,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -440,10 +441,9 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams: searchParams as {
-          search?: string;
-        } & BaseRequestSearchParams &
-          PaginationRequestSearchParams<P>,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -544,7 +544,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
   search<E extends boolean = false>(
     nameOrPath: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, void>> {
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.get<GroupSchema[]>()(this, 'groups', {

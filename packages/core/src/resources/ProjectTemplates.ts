@@ -26,10 +26,17 @@ export class ProjectTemplates<C extends boolean = false> extends BaseResource<C>
     type: ProjectTemplateType,
     options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectTemplateSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectTemplateSchema[]>()(
       this,
       endpoint`projects/${projectId}/templates/${type}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams,
+      },
     );
   }
 
@@ -44,10 +51,16 @@ export class ProjectTemplates<C extends boolean = false> extends BaseResource<C>
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ProjectTemplateSchema, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectTemplateSchema>()(
       this,
       endpoint`projects/${projectId}/templates/${type}/${name}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 }

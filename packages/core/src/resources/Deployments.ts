@@ -1,7 +1,6 @@
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -79,7 +78,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
         showExpanded,
         sudo,
         maxPages,
-        searchParams: searchParams as AllDeploymentsOptions & PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }
@@ -98,7 +97,7 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
         showExpanded,
         sudo,
         maxPages,
-        searchParams: searchParams as AllMergeRequestsOptions & PaginationRequestSearchParams<P>,
+        searchParams,
       },
     );
   }

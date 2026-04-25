@@ -2,6 +2,8 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
@@ -59,7 +61,9 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
       maxPages,
-      searchParams,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
     });
   }
 

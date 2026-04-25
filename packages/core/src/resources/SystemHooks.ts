@@ -2,7 +2,6 @@ import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
-  PaginationRequestSearchParams,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
@@ -38,8 +37,7 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       maxPages,
-      searchParams: searchParams as BaseRequestSearchParams &
-        PaginationRequestSearchParams<'offset'>,
+      searchParams,
     });
   }
 
