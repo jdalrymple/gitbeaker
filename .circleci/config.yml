@@ -232,6 +232,9 @@ jobs:
     executor: playwright-executor
     steps:
       - restore_workspace
+      - run:
+          name: Install pnpm
+          command: npm install -g pnpm@10.28.0
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'integration'
