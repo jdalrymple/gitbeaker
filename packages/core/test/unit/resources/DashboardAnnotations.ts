@@ -3,13 +3,10 @@ import { RequestHelper } from '../../../src/infrastructure';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock(
-  '../../../src/infrastructure/RequestHelper',
-  async () => {
-    const mock = await vi.importActual('../../__mocks__/RequestHelper');
-    return (mock as any).default;
-  },
-);
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: DashboardAnnotations;
 
@@ -58,6 +55,8 @@ describe('DashboardAnnotations.create', () => {
   });
 
   it('should throw an error if environmentId or clusterId isnt passed', () => {
-    expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow();
+    expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow(
+      'Missing required parameter',
+    );
   });
 });

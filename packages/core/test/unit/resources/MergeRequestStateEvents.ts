@@ -3,13 +3,10 @@ import { MergeRequestStateEvents } from '../../../src/resources/MergeRequestStat
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock(
-  '../../../src/infrastructure/RequestHelper',
-  async () => {
-    const mock = await vi.importActual('../../__mocks__/RequestHelper');
-    return (mock as any).default;
-  },
-);
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: MergeRequestStateEvents;
 

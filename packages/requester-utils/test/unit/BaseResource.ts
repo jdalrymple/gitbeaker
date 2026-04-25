@@ -1,4 +1,4 @@
-import { vi, describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { BaseResource } from '../../src/BaseResource';
 import { createRequesterFn } from '../../src/RequesterUtils';
 
@@ -180,12 +180,12 @@ describe('Creation of BaseResource instance', () => {
     expect(() => {
       // @ts-ignore
       new BaseResource();
-    }).toThrow();
+    }).toThrow('Missing requesterFn: BaseResource requires a function to handle HTTP requests');
 
     expect(() => {
       // @ts-ignore
       new BaseResource({});
-    }).toThrow();
+    }).toThrow('Missing requesterFn: BaseResource requires a function to handle HTTP requests');
   });
 
   it('should set the internal requester based on the required requesterFn parameter', async () => {

@@ -1,4 +1,4 @@
-import { vi, describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import {
   RequestOptions,

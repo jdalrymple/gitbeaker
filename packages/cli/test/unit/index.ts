@@ -4,7 +4,7 @@ import mockMapData from '../__mocks__/map.json';
 
 vi.mock('@gitbeaker/rest');
 vi.mock('../../src/map', () => ({
-  default: mockMapData
+  default: mockMapData,
 }));
 
 const OLD_ENV = process.env;
@@ -22,7 +22,7 @@ afterEach(() => {
   process.env = OLD_ENV;
 });
 
-describe.only('gitbeaker -v -- Package Version', () => {
+describe('gitbeaker -v -- Package Version', () => {
   it('should return the current version number of the package', async () => {
     const { cli } = await import('../../src/cli');
     const { output } = await cli.parse('-v');

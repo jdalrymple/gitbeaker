@@ -7,8 +7,8 @@ export default mergeConfig(base, {
     testTimeout: 10000,
     server: {
       deps: {
-        inline: ['@gitbeaker/core']
-      }
-    }
+        inline: ['@gitbeaker/core'],
+      },
+    },
   },
 });

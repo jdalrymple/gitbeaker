@@ -111,8 +111,11 @@ export class BaseResource<C extends boolean = false> {
     rateLimitDuration = 60,
     rateLimits = DEFAULT_RATE_LIMITS,
     ...tokens
-  }: BaseResourceOptions<C>) {
-    if (!requesterFn) throw new ReferenceError('requesterFn must be passed');
+  }: BaseResourceOptions<C> = {}) {
+    if (!requesterFn)
+      throw new ReferenceError(
+        'Missing requesterFn: BaseResource requires a function to handle HTTP requests',
+      );
 
     this.url = [host, 'api', 'v4', prefixUrl].join('/');
     this.headers = {};
