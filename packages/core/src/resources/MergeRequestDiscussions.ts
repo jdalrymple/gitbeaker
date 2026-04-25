@@ -1,13 +1,5 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDiscussions } from '../templates';
 import type {
-  DiscussionNotePositionOptions,
-  DiscussionNotePositionSchema,
-  DiscussionNoteSchema,
-  DiscussionSchema,
-} from '../templates/ResourceDiscussions';
-import { RequestHelper, endpoint } from '../infrastructure';
-import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -15,6 +7,15 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  DiscussionNotePositionOptions,
+  DiscussionNotePositionSchema,
+  DiscussionNoteSchema,
+  DiscussionSchema,
+} from '../templates/ResourceDiscussions';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
+import { ResourceDiscussions } from '../templates';
 
 export interface MergeRequestDiscussionNoteSchema extends DiscussionNoteSchema {
   resolved_by: string;
@@ -22,7 +23,7 @@ export interface MergeRequestDiscussionNoteSchema extends DiscussionNoteSchema {
   position?: DiscussionNotePositionSchema;
 }
 
-export type MergeRequestDiscussionNotePositionOptions = DiscussionNotePositionOptions & {
+export type MergeRequestDiscussionNotePositionOptions = {
   lineRange?: {
     start?: {
       lineCode: string;
@@ -33,7 +34,7 @@ export type MergeRequestDiscussionNotePositionOptions = DiscussionNotePositionOp
       type: 'new' | 'old';
     };
   };
-};
+} & DiscussionNotePositionOptions;
 
 export interface MergeRequestDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote<E extends boolean = false>(
@@ -41,13 +42,13 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     body: string,
-    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -58,8 +59,8 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
       position?: DiscussionNotePositionOptions;
       commitId?: string;
       createdAt?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
   editNote<E extends boolean = false>(
@@ -67,7 +68,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     noteId: number,
-    options: Sudo & ShowExpanded<E> & OneOf<{ body: string; resolved: boolean }>,
+    options: OneOf<{ body: string; resolved: boolean }> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestDiscussionNoteSchema, C, E, void>>;
 
   removeNote<E extends boolean = false>(
@@ -75,7 +76,7 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   resolve<E extends boolean = false>(
@@ -83,14 +84,14 @@ export interface MergeRequestDiscussions<C extends boolean = false> extends Reso
     mergerequestId: string | number,
     discussionId: string,
     resolve: boolean,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     mergerequestId: string | number,
     discussionId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 }
 
@@ -105,14 +106,17 @@ export class MergeRequestDiscussions<C extends boolean = false> extends Resource
     mergerequestId: string | number,
     discussionId: string,
     resolved: boolean,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<DiscussionSchema>()(
       this,
       endpoint`${projectId}/merge_requests/${mergerequestId}/discussions/${discussionId}`,
       {
+        sudo,
+        showExpanded,
         searchParams: { resolved },
-        ...options,
       },
     );
   }

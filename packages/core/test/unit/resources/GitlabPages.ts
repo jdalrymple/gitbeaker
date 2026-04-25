@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { GitlabPages } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,6 +19,9 @@ describe('GitlabPages.remove', () => {
   it('should request DEL /projects/1/pages', async () => {
     await service.remove(1);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/pages', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/pages', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

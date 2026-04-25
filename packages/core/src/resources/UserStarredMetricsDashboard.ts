@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface StarredDashboardSchema extends Record<string, unknown> {
   id: number;
@@ -13,26 +13,37 @@ export class UserStarredMetricsDashboard<C extends boolean = false> extends Base
   create<E extends boolean = false>(
     projectId: string | number,
     dashboardPath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<StarredDashboardSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<StarredDashboardSchema>()(
       this,
       endpoint`projects/${projectId}/metrics/user_starred_dashboards`,
       {
-        dashboardPath,
-        ...options,
+        sudo,
+        showExpanded,
+        searchParams: {
+          dashboardPath,
+        },
       },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: { dashboard_path?: string } & Sudo & ShowExpanded<E>,
+    options?: { dashboardPath?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ deleted_rows: number }, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.del<{ deleted_rows: number }>()(
       this,
       endpoint`projects/${projectId}/metrics/user_starred_dashboards`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 }

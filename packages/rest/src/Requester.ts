@@ -1,8 +1,4 @@
-import type {
-  RequestOptions,
-  ResourceOptions,
-  ResponseBodyTypes,
-} from '@gitbeaker/requester-utils';
+import type { RequestOptions, ResourceOptions, ResponseBodyType } from '@gitbeaker/requester-utils';
 import {
   GitbeakerRequestError,
   GitbeakerRetryError,
@@ -11,7 +7,7 @@ import {
   getMatchingRateLimiter,
 } from '@gitbeaker/requester-utils';
 
-export async function processBody(response: Response): Promise<ResponseBodyTypes> {
+export async function processBody(response: Response): Promise<ResponseBodyType> {
   // Split to remove potential charset info from the content type
   const contentType = (response.headers.get('content-type') || '').split(';')[0].trim();
 
@@ -35,7 +31,7 @@ function delay(ms: number) {
 async function parseResponse(response: Response, asStream = false) {
   const { status, headers: rawHeaders } = response;
   const headers = Object.fromEntries(rawHeaders.entries());
-  let body: ResponseBodyTypes | null;
+  let body: ResponseBodyType | null;
 
   if (asStream) {
     body = response.body;
@@ -95,8 +91,10 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
   // CHECKME: https://github.com/nodejs/undici/issues/1305
   const mode = getConditionalMode(endpoint);
 
+  const baseRequest = new Request(url, { ...opts, method, mode });
+
   for (let i = 0; i < maxRetries; i += 1) {
-    const request = new Request(url, { ...opts, method, mode });
+    const request = baseRequest.clone();
     const fetchArgs: [Request, RequestInit?] = [request];
 
     // Append agent information if given
@@ -128,6 +126,6 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
 }
 
 export const requesterFn = createRequesterFn(
-  (_: ResourceOptions, reqo: RequestOptions) => Promise.resolve(reqo),
+  (_: ResourceOptions, ro: RequestOptions) => Promise.resolve(ro),
   defaultRequestHandler,
 );

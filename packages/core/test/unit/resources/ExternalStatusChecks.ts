@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { ExternalStatusChecks } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,11 +19,12 @@ describe('ExternalStatusChecks.all', () => {
   it('should request GET /projects/:id/external_status_checks', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/external_status_checks',
-      {},
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/external_status_checks', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/merge_requests/:idd/status_checks', async () => {
@@ -32,7 +33,7 @@ describe('ExternalStatusChecks.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/merge_requests/2/status_checks',
-      {},
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -45,22 +46,30 @@ describe('ExternalStatusChecks.create', () => {
       service,
       'projects/1/external_status_checks',
       {
-        name: 'name',
-        externalUrl: 'url',
+        body: {
+          name: 'name',
+          externalUrl: 'url',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
 
   it('should request POST /projects/:id/external_status_checks with options', async () => {
-    await service.create(1, 'name', 'url', { protectedBrancheIds: [1, 2] });
+    await service.create(1, 'name', 'url', { protectedBranchIds: [1, 2] });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/external_status_checks',
       {
-        name: 'name',
-        externalUrl: 'url',
-        protectedBrancheIds: [1, 2],
+        body: {
+          name: 'name',
+          externalUrl: 'url',
+          protectedBranchIds: [1, 2],
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -73,7 +82,7 @@ describe('ExternalStatusChecks.edit', () => {
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       'projects/1/external_status_checks/2',
-      undefined,
+      { body: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 
@@ -83,7 +92,7 @@ describe('ExternalStatusChecks.edit', () => {
     expect(RequestHelper.put()).toHaveBeenCalledWith(
       service,
       'projects/1/external_status_checks/2',
-      { name: 'name' },
+      { body: { name: 'name' }, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -96,8 +105,12 @@ describe('ExternalStatusChecks.set', () => {
       service,
       'projects/1/merge_requests/2/status_check_responses',
       {
-        sha: 'sha',
-        externalStatusCheckId: 3,
+        body: {
+          sha: 'sha',
+          externalStatusCheckId: 3,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -110,7 +123,7 @@ describe('ExternalStatusChecks.remove', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/external_status_checks/2',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

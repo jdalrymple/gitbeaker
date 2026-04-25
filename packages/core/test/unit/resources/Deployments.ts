@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Deployments } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,7 +19,12 @@ describe('Deployments.all', () => {
   it('should request GET /projects/:id/deployments', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deployments', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deployments', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -27,11 +32,10 @@ describe('Deployments.show', () => {
   it('should request GET /projects/:id/deployments/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/deployments/2',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deployments/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -42,7 +46,7 @@ describe('Deployments.allMergeRequests', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/deployments/2/merge_requests',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });

@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   OneOrNoneOf,
@@ -8,6 +6,8 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface AuditEventSchema extends Record<string, unknown> {
   id: number;
@@ -30,18 +30,6 @@ export interface AuditEventSchema extends Record<string, unknown> {
   created_at: string;
 }
 
-function url({
-  projectId,
-  groupId,
-}: { projectId?: string | number; groupId?: string | number } = {}): string {
-  let prefix = '';
-
-  if (projectId) prefix = endpoint`projects/${projectId}/`;
-  else if (groupId) prefix = endpoint`groups/${groupId}/`;
-
-  return `${prefix}audit_events`;
-}
-
 export interface AllAuditEventOptions {
   createdAfter?: string;
   createdBefore?: string;
@@ -51,23 +39,24 @@ export interface AllAuditEventOptions {
 
 export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      AllAuditEventOptions &
-      Sudo &
+    options?: AllAuditEventOptions &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P> = {} as any,
+      Sudo,
   ): Promise<GitlabAPIResponse<AuditEventSchema[], C, E, P>> {
-    const uri = url({ projectId, groupId });
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    return RequestHelper.get<AuditEventSchema[]>()(
-      this,
-      uri,
-      options as AllAuditEventOptions & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
-    );
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
+
+    const uri = getPrefixedUrl('audit_events', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<AuditEventSchema[]>()(this, uri, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams,
+    });
   }
 
   show<E extends boolean = false>(
@@ -77,11 +66,18 @@ export class AuditEvents<C extends boolean = false> extends BaseResource<C> {
       groupId,
       ...options
     }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E> = {},
+      ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<AuditEventSchema, C, E, void>> {
-    const uri = url({ projectId, groupId });
+    const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.get<AuditEventSchema>()(this, `${uri}/${auditEventId}`, options);
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
+
+    const uri = getPrefixedUrl('audit_events', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<AuditEventSchema>()(this, `${uri}/${auditEventId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

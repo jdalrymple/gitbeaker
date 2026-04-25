@@ -1,23 +1,24 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAccessTokens } from '../templates';
 import type {
-  AccessTokenExposedSchema,
-  AccessTokenSchema,
-  AccessTokenScopes,
-} from '../templates/ResourceAccessTokens';
-import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  AccessTokenExposedSchema,
+  AccessTokenSchema,
+  AccessTokenScopes,
+} from '../templates/ResourceAccessTokens';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { ResourceAccessTokens } from '../templates';
 
 export interface GroupAccessTokens<C extends boolean = false> extends ResourceAccessTokens<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -30,26 +31,26 @@ export interface GroupAccessTokens<C extends boolean = false> extends ResourceAc
         AccessLevel,
         AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
       >;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   revoke<E extends boolean = false>(
     groupId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   rotate<E extends boolean = false>(
     groupId: string | number,
     tokenId: string | number,
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>>;
 }
 

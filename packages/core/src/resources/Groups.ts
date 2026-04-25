@@ -1,17 +1,19 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type { CondensedProjectSchema, ProjectSchema } from './Projects';
 import type { SimpleUserSchema } from './Users';
-import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface GroupStatisticsSchema {
   storage_size: number;
@@ -187,224 +189,368 @@ export type AllProvisionedUsersOptions = {
 export class Groups<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options: { withCustomAttributes: true } & AllGroupsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(GroupSchema & { custom_attributes: CustomAttributeSchema[] })[], C, E, P>
+    GitlabAPIResponse<({ custom_attributes: CustomAttributeSchema[] } & GroupSchema)[], C, E, P>
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     options: { statistics: true } & AllGroupsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ statistics: GroupStatisticsSchema } & GroupSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
-    return RequestHelper.get<GroupSchema[]>()(this, 'groups', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<GroupSchema[]>()(this, 'groups', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options: { statistics: true } & AllGroupsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ statistics: GroupStatisticsSchema } & GroupSchema)[], C, E, P>>;
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
 
   allDescendantGroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>> {
-    return RequestHelper.get<GroupSchema[]>()(
-      this,
-      endpoint`groups/${groupId}/descendant_groups`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<GroupSchema[]>()(this, endpoint`groups/${groupId}/descendant_groups`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: { simple: true } & AllGroupProjectsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[] | ProjectSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<CondensedProjectSchema[] | ProjectSchema[]>()(
       this,
       endpoint`groups/${groupId}/projects`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: { simple: true } & AllGroupProjectsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[], C, E, P>>;
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allSharedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CondensedProjectSchema[] | ProjectSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<CondensedProjectSchema[] | ProjectSchema[]>()(
       this,
       endpoint`groups/${groupId}/projects/shared`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: { statistics: true } & AllGroupsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<(GroupSchema & { statistics: GroupStatisticsSchema })[], C, E, P>>;
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ statistics: GroupStatisticsSchema } & GroupSchema)[], C, E, P>>;
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<GroupSchema[], C, E, P>>;
 
   allSubgroups<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllGroupsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllGroupsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      GroupSchema[] | (GroupSchema & { statistics: GroupStatisticsSchema })[],
+      GroupSchema[] | ({ statistics: GroupStatisticsSchema } & GroupSchema)[],
       C,
       E,
       P
     >
   > {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<
-      GroupSchema[] | (GroupSchema & { statistics: GroupStatisticsSchema })[]
-    >()(this, endpoint`groups/${groupId}/subgroups`, options);
+      GroupSchema[] | ({ statistics: GroupStatisticsSchema } & GroupSchema)[]
+    >()(this, endpoint`groups/${groupId}/subgroups`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allProvisionedUsers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllProvisionedUsersOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllProvisionedUsersOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<SimpleUserSchema[]>()(
       this,
       endpoint`groups/${groupId}/provisioned_users`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allTransferLocations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
       endpoint`groups/${groupId}/transfer_locations`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   create<E extends boolean = false>(
     name: string,
     path: string,
-    { avatar, ...options }: CreateGroupOptions & Sudo & ShowExpanded<E> = {} as any,
+    { avatar, ...options }: CreateGroupOptions & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
-    if (avatar) {
-      return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', {
-        ...options,
-        isForm: true,
-        avatar: [avatar.content, avatar.filename],
-        name,
-        path,
-      });
-    }
+    const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', { name, path, ...options });
+    return RequestHelper.post<ExpandedGroupSchema>()(this, 'groups', {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            name,
+            path,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : {
+            ...body,
+            name,
+            path,
+          },
+    });
   }
 
   downloadAvatar<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(this, endpoint`groups/${groupId}/avatar`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<Blob>()(this, endpoint`groups/${groupId}/avatar`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   edit<E extends boolean = false>(
     groupId: string | number,
-    { avatar, ...options }: EditGroupOptions & Sudo & ShowExpanded<E> = {} as any,
+    { avatar, ...options }: EditGroupOptions & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
-    if (avatar) {
-      return RequestHelper.post<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {
-        ...options,
-        isForm: true,
-        avatar: [avatar.content, avatar.filename],
-      });
-    }
+    const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.put<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, options);
+    return RequestHelper.put<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : body,
+    });
   }
 
   remove<E extends boolean = false>(
     groupId: string | number,
-    options?: { permanentlyRemove?: boolean | string; fullPath?: string } & Sudo & ShowExpanded<E>,
+    options?: { permanentlyRemove?: boolean | string; fullPath?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   removeAvatar<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<void>()(this, endpoint`groups/${groupId}`, {
-      ...options,
-      avatar: '',
+      sudo,
+      showExpanded,
+      body: { avatar: '' },
     });
   }
 
   restore<E extends boolean = false>(
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/restore`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/restore`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   search<E extends boolean = false>(
     nameOrPath: string,
-    options?: Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, void>> {
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<GroupSchema[], C, E, 'offset'>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupSchema[]>()(this, 'groups', {
-      search: nameOrPath,
-      ...options,
+      sudo,
+      showExpanded,
+      searchParams: { search: nameOrPath },
     });
   }
 
@@ -412,58 +558,82 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     sharedGroupId: string | number,
     groupAccess: number,
-    options: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}/share`, {
-      groupId: sharedGroupId,
-      groupAccess,
-      ...options,
+      sudo,
+      showExpanded,
+      body: { ...body, groupId: sharedGroupId, groupAccess },
     });
   }
 
   show<E extends boolean = false>(
     groupId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   transfer<E extends boolean = false>(
     groupId: string | number,
-    options?: { groupId?: number } & Sudo & ShowExpanded<E>,
+    options?: { groupId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/transfer`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/transfer`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   transferProject<E extends boolean = false>(
     groupId: string | number,
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(
-      this,
-      endpoint`groups/${groupId}/projects/${projectId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`groups/${groupId}/projects/${projectId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unshare<E extends boolean = false>(
     groupId: string | number,
     sharedGroupId: string | number,
-    options: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}/share/${sharedGroupId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/share/${sharedGroupId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   uploadAvatar<E extends boolean = false>(
     groupId: string | number,
     content: Blob,
-    { filename, ...options }: { filename?: string } & Sudo & ShowExpanded<E> = {},
+    { filename, ...options }: { filename?: string } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<{ avatar_url: string }, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<{ avatar_url: string }>()(this, endpoint`groups/${groupId}/avatar`, {
-      isForm: true,
-      ...options,
-      file: [content, filename],
+      sudo,
+      showExpanded,
+      body: createFormData({
+        ...body,
+        file: [content, filename],
+      }),
     });
   }
 }

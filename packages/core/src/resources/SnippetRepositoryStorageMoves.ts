@@ -1,15 +1,15 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceRepositoryStorageMoves } from '../templates';
-import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type { SnippetSchema } from './Snippets';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceRepositoryStorageMoves } from '../templates';
 
 export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMoveSchema {
   snippet: Pick<
@@ -30,18 +30,21 @@ export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMov
 export interface SnippetRepositoryStorageMoves<C extends boolean = false>
   extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { snippetId?: string | number } & PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: { snippetId?: string | number } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema[], C, E, P>>;
 
   show<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     repositoryStorageId: number,
-    options?: { snippetId?: string | number } & Sudo & ShowExpanded<E>,
+    options?: { snippetId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema, C, E, P>>;
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     sourceStorageName: string,
-    options?: { snippetId?: string | number; destinationStorageName?: string } & Sudo &
-      ShowExpanded<E>,
+    options?: { snippetId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema, C, E, P>>;
 }
 

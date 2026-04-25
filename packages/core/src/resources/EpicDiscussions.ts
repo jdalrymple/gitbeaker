@@ -1,13 +1,14 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceDiscussions } from '../templates';
-import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceDiscussions } from '../templates';
 
 export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {
   addNote<E extends boolean = false>(
@@ -15,20 +16,20 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: string,
     body: string,
-    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     epicId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     groupId: string | number,
     epicId: number,
     body: string,
-    options?: { createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 
   editNote<E extends boolean = false>(
@@ -36,7 +37,7 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: string,
     noteId: number,
-    options: Sudo & ShowExpanded<E> & { body: string },
+    options: { body: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionNoteSchema, C, E, void>>;
 
   removeNote<E extends boolean = false>(
@@ -44,14 +45,14 @@ export interface EpicDiscussions<C extends boolean = false> extends ResourceDisc
     epicId: number,
     discussionId: string,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     epicId: number,
     discussionId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DiscussionSchema, C, E, void>>;
 }
 

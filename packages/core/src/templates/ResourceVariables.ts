@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type VariableType = 'env_var' | 'file';
 export interface VariableSchema extends Record<string, unknown> {
@@ -26,9 +29,18 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema[], C, E, P>> {
-    return RequestHelper.get<VariableSchema[]>()(this, endpoint`${resourceId}/variables`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<VariableSchema[]>()(this, endpoint`${resourceId}/variables`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
@@ -42,13 +54,19 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       environmentScope?: string;
       description?: string;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<VariableSchema>()(this, endpoint`${resourceId}/variables`, {
-      key,
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        key,
+        value,
+      },
     });
   }
 
@@ -64,32 +82,46 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       filter: VariableFilter;
       description?: string;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<VariableSchema>()(this, endpoint`${resourceId}/variables/${key}`, {
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        value,
+      },
     });
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     key: string,
-    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>> {
-    return RequestHelper.get<VariableSchema>()(
-      this,
-      endpoint`${resourceId}/variables/${key}`,
-      options,
-    );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<VariableSchema>()(this, endpoint`${resourceId}/variables/${key}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     key: string,
-    options?: { filter?: VariableFilter } & Sudo & ShowExpanded<E>,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/variables/${key}`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/variables/${key}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 }

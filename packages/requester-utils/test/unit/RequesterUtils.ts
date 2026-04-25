@@ -37,7 +37,7 @@ describe('defaultOptionsHandler', () => {
       body: testBody,
     });
 
-    expect(headers).toContainEntry(['content-type', 'application/json']);
+    expect(headers).toMatchObject({ test: '5', token: '1234' });
     expect(body).toBe(JSON.stringify(testBody));
   });
 

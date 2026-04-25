@@ -1,6 +1,12 @@
+import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  ensureRequiredParams,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export class PyPI<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
@@ -11,21 +17,22 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
       groupId,
       ...options
     }: OneOf<{ projectId: string | number; groupId: string | number }> &
-      ShowExpanded<E> = {} as any,
+      ShowExpanded<E> &
+      Sudo = {} as any,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    let url: string;
+    ensureRequiredParams({ projectId, groupId });
 
-    if (projectId) {
-      url = endpoint`projects/${projectId}/packages/pypi/files/${sha}/${fileIdentifier}`;
-    } else if (groupId) {
-      url = endpoint`groups/${groupId}/packages/pypi/files/${sha}/${fileIdentifier}`;
-    } else {
-      throw new Error(
-        'Missing required argument. Please supply a projectId or a groupId in the options parameter',
-      );
-    }
+    const url = getPrefixedUrl(endpoint`/packages/pypi/files/${sha}/${fileIdentifier}`, {
+      projects: projectId,
+      groups: groupId,
+    });
 
-    return RequestHelper.get<Blob>()(this, url, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<Blob>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showPackageDescriptor<E extends boolean = false>(
@@ -34,32 +41,34 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
       projectId,
       groupId,
       ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+    }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
-    let url: string;
+    ensureRequiredParams({ projectId, groupId });
 
-    if (projectId) {
-      url = endpoint`projects/${projectId}/packages/pypi/simple/${packageName}`;
-    } else if (groupId) {
-      url = endpoint`groups/${groupId}/packages/pypi/simple/${packageName}`;
-    } else {
-      throw new Error(
-        'Missing required argument. Please supply a projectId or a groupId in the options parameter',
-      );
-    }
+    const url = getPrefixedUrl(endpoint`/packages/pypi/simple/${packageName}`, {
+      projects: projectId,
+      groups: groupId,
+    });
 
-    return RequestHelper.get<string>()(this, url, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   uploadPackageFile<E extends boolean = false>(
     projectId: string | number,
     packageFile: { content: Blob; filename: string },
-    options?: ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/pypi`, {
-      ...options,
-      isForm: true,
-      file: [packageFile.content, packageFile.filename],
+      sudo,
+      showExpanded,
+      body: createFormData({ file: [packageFile.content, packageFile.filename] }),
     });
   }
 }

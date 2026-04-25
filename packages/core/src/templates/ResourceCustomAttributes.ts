@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface CustomAttributeSchema extends Record<string, unknown> {
   key: string;
@@ -21,24 +24,38 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<CustomAttributeSchema[]>()(
       this,
       endpoint`${resourceId}/custom_attributes`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     customAttributeId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -46,14 +63,20 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
     resourceId: string | number,
     customAttributeId: string,
     value: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
       {
-        value,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          value,
+        },
       },
     );
   }
@@ -61,12 +84,17 @@ export class ResourceCustomAttributes<C extends boolean = false> extends BaseRes
   show<E extends boolean = false>(
     resourceId: string | number,
     customAttributeId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CustomAttributeSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<CustomAttributeSchema>()(
       this,
       endpoint`${resourceId}/custom_attributes/${customAttributeId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

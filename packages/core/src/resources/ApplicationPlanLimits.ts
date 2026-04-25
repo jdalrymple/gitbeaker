@@ -1,6 +1,6 @@
+import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface ApplicationPlanLimitSchema extends Record<string, unknown> {
   ci_pipeline_size: number;
@@ -26,61 +26,29 @@ export type ApplicationPlanLimitOptions = Partial<Camelize<ApplicationPlanLimitS
 
 export class ApplicationPlanLimits<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: { planName?: string } & Sudo & ShowExpanded<E>,
+    options?: { planName?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationPlanLimitSchema, C, E, void>> {
-    return RequestHelper.get<ApplicationPlanLimitSchema>()(
-      this,
-      'application/plan_limits',
-      options,
-    );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<ApplicationPlanLimitSchema>()(this, 'application/plan_limits', {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   edit<E extends boolean = false>(
     planName: string,
-    options: ApplicationPlanLimitOptions & Sudo & ShowExpanded<E> = {},
+    options?: ApplicationPlanLimitOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationPlanLimitSchema, C, E, void>> {
-    const {
-      ciPipelineSize,
-      ciActiveJobs,
-      ciActivePipelines,
-      ciProjectSubscriptions,
-      ciPipelineSchedules,
-      ciNeedsSizeLimit,
-      ciRegisteredGroupRunners,
-      ciRegisteredProjectRunners,
-      conanMaxFileSize,
-      genericPackagesMaxFileSize,
-      helmMaxFileSize,
-      mavenMaxFileSize,
-      npmMaxFileSize,
-      nugetMaxFileSize,
-      pypiMaxFileSize,
-      terraformModuleMaxFileSize,
-      storageSizeLimit,
-      ...opts
-    } = options;
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.put<ApplicationPlanLimitSchema>()(this, 'application/plan_limits', {
-      ...opts,
+      sudo,
+      showExpanded,
       searchParams: {
+        ...searchParams,
         planName,
-        ciPipelineSize,
-        ciActiveJobs,
-        ciActivePipelines,
-        ciProjectSubscriptions,
-        ciPipelineSchedules,
-        ciNeedsSizeLimit,
-        ciRegisteredGroupRunners,
-        ciRegisteredProjectRunners,
-        conanMaxFileSize,
-        genericPackagesMaxFileSize,
-        helmMaxFileSize,
-        mavenMaxFileSize,
-        npmMaxFileSize,
-        nugetMaxFileSize,
-        pypiMaxFileSize,
-        terraformModuleMaxFileSize,
-        storageSizeLimit,
       },
     });
   }

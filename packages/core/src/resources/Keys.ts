@@ -1,7 +1,7 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 import type { ExpandedUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams } from '../infrastructure';
 
 export interface DeployKeyProjectsSchema extends Record<string, unknown> {
   id: number;
@@ -28,19 +28,22 @@ export class Keys<C extends boolean = false> extends BaseResource<C> {
     {
       keyId,
       fingerprint,
-      ...options
-    }: OneOf<{ keyId: number; fingerprint: string }> & Sudo & ShowExpanded<E> = {} as any,
+      sudo,
+      showExpanded,
+      ...searchParams
+    }: OneOf<{ keyId: number; fingerprint: string }> & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<KeySchema, C, E, void>> {
     let url: string;
 
-    if (keyId) url = `keys/${keyId}`;
-    else if (fingerprint) url = `keys?fingerprint=${fingerprint}`;
-    else {
-      throw new Error(
-        'Missing required argument. Please supply a fingerprint or a keyId in the options parameter',
-      );
-    }
+    ensureRequiredParams({ keyId, fingerprint });
 
-    return RequestHelper.get<KeySchema>()(this, url, options);
+    if (keyId) url = `keys/${keyId}`;
+    else url = `keys?fingerprint=${fingerprint}`;
+
+    return RequestHelper.get<KeySchema>()(this, url, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 }

@@ -1,21 +1,25 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceProtectedEnvironments } from '../templates';
-import {
-  ProtectedEnvironmentAccessLevelEntity,
-  ProtectedEnvironmentSchema,
-} from '../templates/ResourceProtectedEnvironments';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceProtectedEnvironments } from '../templates';
+import {
+  ProtectedEnvironmentAccessLevelEntity,
+  ProtectedEnvironmentSchema,
+} from '../templates/ResourceProtectedEnvironments';
 
 export interface GroupProtectedEnvironments<C extends boolean = false> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
@@ -25,8 +29,8 @@ export interface GroupProtectedEnvironments<C extends boolean = false> {
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
@@ -36,20 +40,20 @@ export interface GroupProtectedEnvironments<C extends boolean = false> {
       deployAccessLevels?: ProtectedEnvironmentAccessLevelEntity[];
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 

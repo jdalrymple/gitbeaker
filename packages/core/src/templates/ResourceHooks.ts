@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface HookSchema extends Record<string, unknown> {
   id: number;
@@ -66,50 +69,77 @@ export class ResourceHooks<C extends boolean = false> extends BaseResource<C> {
   add<E extends boolean = false>(
     resourceId: string | number,
     url: string,
-    options?: AddResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: AddResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ExpandedHookSchema>()(this, endpoint`${resourceId}/hooks`, {
-      url,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        url,
+      },
     });
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema[], C, E, P>> {
-    return RequestHelper.get<ExpandedHookSchema[]>()(this, endpoint`${resourceId}/hooks`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ExpandedHookSchema[]>()(this, endpoint`${resourceId}/hooks`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
     hookId: number,
     url: string,
-    options?: EditResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: EditResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ExpandedHookSchema>()(this, endpoint`${resourceId}/hooks/${hookId}`, {
-      url,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        url,
+      },
     });
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/hooks/${hookId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/hooks/${hookId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedHookSchema, C, E, void>> {
-    return RequestHelper.get<ExpandedHookSchema>()(
-      this,
-      endpoint`${resourceId}/hooks/${hookId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExpandedHookSchema>()(this, endpoint`${resourceId}/hooks/${hookId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

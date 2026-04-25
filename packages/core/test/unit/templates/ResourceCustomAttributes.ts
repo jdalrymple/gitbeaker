@@ -1,5 +1,5 @@
-import { ResourceCustomAttributes } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceCustomAttributes } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -31,7 +31,12 @@ describe('ResourceCustomAttributes.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/custom_attributes', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/custom_attributes', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -40,7 +45,11 @@ describe('ResourceCustomAttributes.set', () => {
     await service.set('5', '6', 'on');
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/custom_attributes/6', {
-      value: 'on',
+      body: {
+        value: 'on',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -49,7 +58,10 @@ describe('ResourceCustomAttributes.remove', () => {
   it('should call the correct url with a resource id and custom attribute id', async () => {
     await service.remove('5', '6');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/custom_attributes/6', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/custom_attributes/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -57,6 +69,9 @@ describe('ResourceCustomAttributes.show', () => {
   it('should call the correct url with a resource id and custom attribute id', async () => {
     await service.show('5', '6');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/custom_attributes/6', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/custom_attributes/6', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

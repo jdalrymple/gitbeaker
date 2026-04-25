@@ -1,7 +1,7 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ClusterAgentSchema extends Record<string, unknown> {
   id: number;
@@ -25,24 +25,34 @@ export interface ClusterAgentTokenSchema extends Record<string, unknown> {
 export class Agents<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentSchema[]>()(
       this,
       endpoint`projects/${projectId}/cluster_agents`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   allTokens<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentTokenSchema[]>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -50,14 +60,17 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     name: string,
-    options?: { description?: string } & Sudo & ShowExpanded<E>,
+    options?: { description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
-    return RequestHelper.get<ClusterAgentTokenSchema>()(
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ClusterAgentTokenSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens`,
       {
-        name,
-        ...options,
+        sudo,
+        showExpanded,
+        body: { ...body, name },
       },
     );
   }
@@ -65,12 +78,17 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -78,26 +96,36 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     tokenId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ClusterAgentTokenSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   register<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ClusterAgentSchema>()(
       this,
       endpoint`projects/${projectId}/cluster_agents`,
       {
-        name,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          name,
+        },
       },
     );
   }
@@ -106,24 +134,30 @@ export class Agents<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     agentId: number,
     tokenId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/cluster_agents/${agentId}/tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   unregister<E extends boolean = false>(
     projectId: string | number,
     agentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/cluster_agents/${agentId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/cluster_agents/${agentId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

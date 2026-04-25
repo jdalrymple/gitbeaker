@@ -1,5 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,11 +6,13 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
-import type { PipelineSchema } from './Pipelines';
-import type { SimpleUserSchema } from './Users';
-import type { RunnerSchema } from './Runners';
 import type { EnvironmentSchema } from './Environments';
 import type { AllMergeRequestsOptions, MergeRequestSchema } from './MergeRequests';
+import type { PipelineSchema } from './Pipelines';
+import type { RunnerSchema } from './Runners';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type DeploymentStatus = 'created' | 'running' | 'success' | 'failed' | 'canceled';
 
@@ -67,24 +67,38 @@ export type AllDeploymentsOptions = {
 export class Deployments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllDeploymentsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema[], C, E, P>> {
+    const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<DeploymentSchema[]>()(
       this,
       endpoint`projects/${projectId}/deployments`,
-      options,
+      {
+        showExpanded,
+        sudo,
+        maxPages,
+        searchParams,
+      },
     );
   }
 
   allMergeRequests<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     deploymentId: number,
-    options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllMergeRequestsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, P>> {
+    const { showExpanded, sudo, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}/merge_requests`,
-      options,
+      {
+        showExpanded,
+        sudo,
+        maxPages,
+        searchParams,
+      },
     );
   }
 
@@ -94,17 +108,23 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     sha: string,
     ref: string,
     tag: boolean,
-    options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & Sudo & ShowExpanded<E>,
+    options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo, ...searchParams } = options || {};
+
     return RequestHelper.post<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments`,
       {
-        environment,
-        sha,
-        ref,
-        tag,
-        ...options,
+        showExpanded,
+        sudo,
+        searchParams: {
+          ...searchParams,
+          environment,
+          sha,
+          ref,
+          tag,
+        },
       },
     );
   }
@@ -113,14 +133,20 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     deploymentId: number,
     status: 'running' | 'success' | 'failed' | 'canceled',
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.put<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
       {
-        ...options,
-        status,
+        showExpanded,
+        sudo,
+        body: {
+          ...body,
+          status,
+        },
       },
     );
   }
@@ -128,12 +154,17 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     deploymentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.del<{ message: string }>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 
@@ -141,14 +172,20 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     deploymentId: number,
     status: 'approved' | 'rejected',
-    options?: { comment?: string; representedAs?: string } & Sudo & ShowExpanded<E>,
+    options?: { comment?: string; representedAs?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentApprovalStatusSchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
     return RequestHelper.post<DeploymentApprovalStatusSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}/approval`,
       {
-        ...options,
-        status,
+        showExpanded,
+        sudo,
+        body: {
+          ...body,
+          status,
+        },
       },
     );
   }
@@ -156,12 +193,17 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     deploymentId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.get<DeploymentSchema>()(
       this,
       endpoint`projects/${projectId}/deployments/${deploymentId}`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 }

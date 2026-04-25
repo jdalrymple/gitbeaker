@@ -1,13 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
+  ShowExpanded,
+  Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 import { SimpleUserSchema } from './Users';
 
 export type AllEventOptions = {
@@ -46,21 +50,26 @@ export interface EventSchema extends Record<string, unknown> {
 
 export class Events<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      userId,
-      ...options
-    }: OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
-      AllEventOptions &
+    options?: AllEventOptions &
+      BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId?: string | number; userId: string | number }> &
       PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EventSchema[], C, E, P>> {
-    let url: string;
+    const { projectId, userId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/events`;
-    else if (userId) url = endpoint`users/${userId}/events`;
-    else url = 'events';
+    ensureRequiredParams({ projectId, userId }, { minExpected: 0 });
 
-    return RequestHelper.get<EventSchema[]>()(this, url, options);
+    const url = getPrefixedUrl('events', { projects: projectId, users: userId });
+
+    return RequestHelper.get<EventSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 }

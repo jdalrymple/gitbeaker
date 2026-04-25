@@ -1,49 +1,71 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export class ProductAnalytics<C extends boolean = false> extends BaseResource<C> {
   allFunnels<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Record<string, unknown>>()(
       this,
       endpoint`projects/${projectId}/product_analytics/funnels`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   load<E extends boolean = false>(
     projectId: string | number,
-    options?: { includeToken?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { includeToken?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/load`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   dryRun<E extends boolean = false>(
     projectId: string | number,
-    options?: { includeToken?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { includeToken?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/dry-run`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   showMetadata<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<void>()(
       this,
       endpoint`projects/${projectId}/product_analytics/request/meta`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

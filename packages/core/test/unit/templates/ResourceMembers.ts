@@ -1,5 +1,5 @@
-import { ResourceMembers } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceMembers } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -32,8 +32,9 @@ describe('ResourceMembers.add', () => {
     await service.add('5', 10, { userId: 5 });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/members', {
-      accessLevel: 10,
-      userId: 5,
+      body: { accessLevel: 10, userId: 5 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -42,13 +43,23 @@ describe('ResourceMembers.all', () => {
   it('should call the correct url for getting all members for a resource', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should call the correct url for getting all members for a resource including inherited ones', async () => {
     await service.all('5', { includeInherited: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/all', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/all', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -57,7 +68,9 @@ describe('ResourceMembers.edit', () => {
     await service.edit('5', 5, 10);
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/members/5', {
-      accessLevel: 10,
+      body: { accessLevel: 10 },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -66,13 +79,21 @@ describe('ResourceMembers.show', () => {
   it('should call the correct url for showing a member with a resource id, and user id', async () => {
     await service.show('5', 5);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/5', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/5', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should call the correct url for showing a member with a resource id, and user id, including inherited ones', async () => {
     await service.show('5', 5, { includeInherited: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/all/5', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/members/all/5', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -80,6 +101,10 @@ describe('ResourceMembers.remove', () => {
   it('should call the correct url for removing a member with a resource id, and user id', async () => {
     await service.remove('5', 5);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/members/5', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/members/5', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

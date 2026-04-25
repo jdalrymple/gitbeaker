@@ -1,7 +1,5 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceInvitations } from '../templates';
-import type { InvitationSchema } from '../templates/ResourceInvitations';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
@@ -9,37 +7,47 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { InvitationSchema } from '../templates/ResourceInvitations';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { ResourceInvitations } from '../templates';
 
 export interface GroupInvitations<C extends boolean = false> {
   add<E extends boolean = false>(
     groupId: string | number,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options: OneOf<{ email: string; userId: string }> & {
+    options: {
       expiresAt?: string;
       inviteSource?: string;
       tasksToBeDone?: string[];
       tasksProjectId?: number;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & OneOf<{ email: string; userId: string }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & { query?: string } & Sudo & ShowExpanded<E>,
+    options?: { query?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     groupId: string | number,
     email: string,
-    options?: { expiresAt?: string; accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      expiresAt?: string;
+      accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     email: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
 }
 

@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { PipelineScheduleVariables } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -22,7 +22,7 @@ describe('PipelineScheduleVariables.all', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/pipeline_schedules/2/variables',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -31,12 +31,16 @@ describe('PipelineScheduleVariables.create', () => {
   it('should request POST /projects/:id/pipeline_schedules/:id/variables', async () => {
     await service.create(1, 2, 'key', 'value');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
       service,
       'projects/1/pipeline_schedules/2/variables',
       {
-        key: 'key',
-        value: 'value',
+        body: {
+          key: 'key',
+          value: 'value',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -46,11 +50,15 @@ describe('PipelineScheduleVariables.edit', () => {
   it('should request PUT /projects/:id/pipeline_schedules/:id/variables/:key', async () => {
     await service.edit(1, 2, 'key', 'value');
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
       service,
       'projects/1/pipeline_schedules/2/variables/key',
       {
-        value: 'value',
+        body: {
+          value: 'value',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -60,10 +68,10 @@ describe('PipelineScheduleVariables.remove', () => {
   it('should request DEL /projects/:id/pipeline_schedules/:id/variables/:key', async () => {
     await service.remove(1, 2, 'key');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(
       service,
       'projects/1/pipeline_schedules/2/variables/key',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

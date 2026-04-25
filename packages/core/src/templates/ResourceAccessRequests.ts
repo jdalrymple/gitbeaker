@@ -1,14 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface AccessRequestSchema extends Record<string, unknown> {
   id: number;
@@ -26,43 +29,68 @@ export class ResourceAccessRequests<C extends boolean = false> extends BaseResou
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<AccessRequestSchema[]>()(
       this,
       endpoint`${resourceId}/access_requests`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   request<E extends boolean = false>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<AccessRequestSchema>()(
       this,
       endpoint`${resourceId}/access_requests`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   approve<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & Sudo & ShowExpanded<E>,
+    options?: { accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN> } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessRequestSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<AccessRequestSchema>()(
       this,
       endpoint`${resourceId}/access_requests/${userId}/approve`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   deny<E extends boolean = false>(
     resourceId: string | number,
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/access_requests/${userId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/access_requests/${userId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

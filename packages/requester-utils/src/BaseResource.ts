@@ -2,12 +2,13 @@ import type { Agent } from 'http';
 import { RateLimitOptions, RequesterType, ResourceOptions } from './RequesterUtils';
 
 export interface RootResourceOptions<C> {
-  // TODO: Not actually optional - Need to fix wrapper typing in requestUtils.ts:
+  // TODO: Remove optional prop from here by retyping the presetResourceArguments
+  // Initial efforts ran into an omit typing issue
   requesterFn?: (resourceOptions: ResourceOptions) => RequesterType;
   host?: string;
   prefixUrl?: string;
   camelize?: C;
-  queryTimeout?: number | null;
+  queryTimeout?: number;
   rateLimitDuration?: number;
   sudo?: string | number;
   profileToken?: string;
@@ -89,13 +90,13 @@ export class BaseResource<C extends boolean = false> {
 
   public readonly requester: RequesterType;
 
-  public readonly queryTimeout: number | null;
-
   public readonly headers: { [header: string]: string };
 
   public readonly authHeaders: { [authHeader: string]: () => Promise<string> };
 
   public readonly camelize: C | undefined;
+
+  public readonly queryTimeout?: number;
 
   constructor({
     sudo,

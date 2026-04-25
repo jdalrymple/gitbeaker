@@ -1,13 +1,14 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceNotes } from '../templates';
-import type { NoteSchema } from '../templates/ResourceNotes';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { NoteSchema } from '../templates/ResourceNotes';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceNotes } from '../templates';
 
 export interface MergeRequestNoteSchema extends NoteSchema {
   noteable_type: 'MergeRequest';
@@ -20,24 +21,29 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
     options?: {
       sort?: 'asc' | 'desc';
       orderBy?: 'created_at' | 'updated_at';
-    } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     body: string,
-    options?: { mergeRequestDiffSha?: string; createdAt?: string; internal?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      mergeRequestDiffSha?: string;
+      createdAt?: string;
+      internal?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     noteId: number,
-    options: { body: string } & Sudo & ShowExpanded<E>,
+    options: { body: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
@@ -51,7 +57,7 @@ export interface MergeRequestNotes<C extends boolean = false> extends ResourceNo
     projectId: string | number,
     mergerequestIId: number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestNoteSchema, C, E, void>>;
 }
 

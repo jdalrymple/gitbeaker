@@ -23,7 +23,12 @@ describe('Pipelines', () => {
 
       await service.all(projectId, options);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines', options);
+      expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pipelines', {
+        maxPages: undefined,
+        searchParams: { scope: 'running' },
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
   });
 
@@ -34,10 +39,10 @@ describe('Pipelines', () => {
 
       await service.allVariables(projectId, pipelineId);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/variables',
-        undefined,
+        { showExpanded: undefined, sudo: undefined },
       );
     });
   });
@@ -49,10 +54,10 @@ describe('Pipelines', () => {
 
       await service.cancel(projectId, pipelineId);
 
-      expect(RequestHelper.post()).toHaveBeenCalledWith(
+      expect(RequestHelper.post()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/cancel',
-        undefined,
+        { showExpanded: undefined, sudo: undefined },
       );
     });
   });
@@ -76,9 +81,13 @@ describe('Pipelines', () => {
 
       await service.create(projectId, ref, options);
 
-      expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/pipeline', {
-        ref,
-        ...options,
+      expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/pipeline', {
+        body: {
+          ref,
+          ...options,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       });
     });
   });
@@ -90,11 +99,10 @@ describe('Pipelines', () => {
 
       await service.remove(projectId, pipelineId);
 
-      expect(RequestHelper.del()).toHaveBeenCalledWith(
-        service,
-        'projects/1/pipelines/2',
-        undefined,
-      );
+      expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'projects/1/pipelines/2', {
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
   });
 
@@ -105,10 +113,10 @@ describe('Pipelines', () => {
 
       await service.retry(projectId, pipelineId);
 
-      expect(RequestHelper.post()).toHaveBeenCalledWith(
+      expect(RequestHelper.post()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/retry',
-        undefined,
+        { showExpanded: undefined, sudo: undefined },
       );
     });
   });
@@ -120,11 +128,11 @@ describe('Pipelines', () => {
 
       await service.show(projectId, pipelineId);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
-        service,
-        'projects/1/pipelines/2',
-        undefined,
-      );
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/pipelines/2', {
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
 
     it('should request GET /projects/:id/pipelines/latest when pipelineId is "latest"', async () => {
@@ -132,11 +140,11 @@ describe('Pipelines', () => {
 
       await service.show(projectId, 'latest');
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
-        service,
-        'projects/1/pipelines/latest',
-        undefined,
-      );
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/pipelines/latest', {
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
   });
 
@@ -146,11 +154,11 @@ describe('Pipelines', () => {
 
       await service.showLatest(projectId);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
-        service,
-        'projects/1/pipelines/latest',
-        undefined,
-      );
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/pipelines/latest', {
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
 
     it('should request with ref option if provided', async () => {
@@ -159,11 +167,12 @@ describe('Pipelines', () => {
 
       await service.showLatest(projectId, options);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
-        service,
-        'projects/1/pipelines/latest',
-        options,
-      );
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/pipelines/latest', {
+        maxPages: undefined,
+        searchParams: { ref: 'main' },
+        showExpanded: undefined,
+        sudo: undefined,
+      });
     });
   });
 
@@ -174,10 +183,10 @@ describe('Pipelines', () => {
 
       await service.showTestReport(projectId, pipelineId);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/test_report',
-        undefined,
+        { showExpanded: undefined, sudo: undefined },
       );
     });
 
@@ -188,10 +197,13 @@ describe('Pipelines', () => {
 
       await service.showTestReport(projectId, pipelineId, options);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/test_report',
-        options,
+        {
+          showExpanded: undefined,
+          sudo: 'test',
+        },
       );
     });
   });
@@ -203,10 +215,10 @@ describe('Pipelines', () => {
 
       await service.showTestReportSummary(projectId, pipelineId);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/test_report_summary',
-        undefined,
+        { showExpanded: undefined, sudo: undefined },
       );
     });
 
@@ -217,10 +229,13 @@ describe('Pipelines', () => {
 
       await service.showTestReportSummary(projectId, pipelineId, options);
 
-      expect(RequestHelper.get()).toHaveBeenCalledWith(
+      expect(RequestHelper.get()).toHaveBeenLastCalledWith(
         service,
         'projects/1/pipelines/2/test_report_summary',
-        options,
+        {
+          showExpanded: undefined,
+          sudo: 'test',
+        },
       );
     });
   });

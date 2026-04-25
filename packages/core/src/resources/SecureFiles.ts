@@ -1,12 +1,15 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface SecureFileSchema extends Record<string, unknown> {
   id: number;
@@ -37,12 +40,21 @@ export interface SecureFileSchema extends Record<string, unknown> {
 export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<SecureFileSchema[]>()(
       this,
       endpoint`projects/${projectId}/secure_files`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -50,49 +62,64 @@ export class SecureFiles<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     name: string,
     file: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<SecureFileSchema>()(this, `projects/${projectId}/secure_files`, {
-      isForm: true,
-      ...options,
-      file: [file.content, file.filename],
-      name,
+      sudo,
+      showExpanded,
+      body: createFormData({
+        file: [file.content, file.filename],
+        name,
+      }),
     });
   }
 
   download<E extends boolean = false>(
     projectId: string | number,
     secureFileId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/secure_files/${secureFileId}/download`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
     secureFileId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/secure_files/${secureFileId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/secure_files/${secureFileId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
     secureFileId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SecureFileSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<SecureFileSchema>()(
       this,
       endpoint`projects/${projectId}/secure_files/${secureFileId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

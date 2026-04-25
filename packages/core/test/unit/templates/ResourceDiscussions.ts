@@ -1,5 +1,5 @@
-import { ResourceDiscussions } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceDiscussions } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -30,7 +30,9 @@ describe('ResourceDiscussions.addNote', () => {
       service,
       '1/resource2/2/discussions/3/notes',
       {
-        body: 'test',
+        body: { body: 'test' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -40,11 +42,12 @@ describe('ResourceCustomAttributes.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '1/resource2/2/discussions',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/resource2/2/discussions', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -53,7 +56,9 @@ describe('ResourceDiscussions.create', () => {
     await service.create(1, 2, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      body: 'test',
+      body: { body: 'test' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
@@ -75,17 +80,21 @@ describe('ResourceDiscussions.create', () => {
       },
     });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '1/resource2/2/discussions', {
-      body: 'test',
-      isForm: true,
-      'position[base_sha]': 'sha1',
-      'position[start_sha]': 'sha2',
-      'position[head_sha]': 'sha3',
-      'position[position_type]': 'text',
-      'position[new_line]': '1',
-      'position[new_path]': 'index.js',
-      'position[line_range][start][type]': 'new',
-      'position[line_range][start][line_code]': '1',
+    const formData = new FormData();
+    formData.append('body', 'test');
+    formData.append('position[base_sha]', 'sha1');
+    formData.append('position[start_sha]', 'sha2');
+    formData.append('position[head_sha]', 'sha3');
+    formData.append('position[position_type]', 'text');
+    formData.append('position[new_line]', '1');
+    formData.append('position[new_path]', 'index.js');
+    formData.append('position[line_range][start][type]', 'new');
+    formData.append('position[line_range][start][line_code]', '1');
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, '1/resource2/2/discussions', {
+      body: formData,
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -98,7 +107,9 @@ describe('ResourceDiscussions.editNote', () => {
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        body: 'test',
+        body: { body: 'test' },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -106,11 +117,13 @@ describe('ResourceDiscussions.editNote', () => {
   it('should PUT request 1/resource2/2/discussions/3/notes/4 with empty searchParams parameters and a resolved: true body payload', async () => {
     await service.editNote(1, 2, 3, 4, { resolved: true });
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
       service,
       '1/resource2/2/discussions/3/notes/4',
       {
-        resolved: true,
+        body: { resolved: true },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -123,7 +136,7 @@ describe('ResourceDiscussions.removeNote', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       '1/resource2/2/discussions/3/notes/4',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -132,10 +145,9 @@ describe('ResourceDiscussions.show', () => {
   it('should call the correct url', async () => {
     await service.show(1, 2, 3);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      '1/resource2/2/discussions/3',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, '1/resource2/2/discussions/3', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

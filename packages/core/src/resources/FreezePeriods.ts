@@ -1,12 +1,15 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface FreezePeriodSchema extends Record<string, unknown> {
   id: number;
@@ -20,12 +23,21 @@ export interface FreezePeriodSchema extends Record<string, unknown> {
 export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<FreezePeriodSchema[]>()(
       this,
       endpoint`projects/${projectId}/freeze_periods`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -33,15 +45,21 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     freezeStart: string,
     freezeEnd: string,
-    options?: { cronTimezone?: string } & Sudo & ShowExpanded<E>,
+    options?: { cronTimezone?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<FreezePeriodSchema>()(
       this,
       endpoint`projects/${projectId}/freeze_periods`,
       {
-        freezeStart,
-        freezeEnd,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          freezeStart,
+          freezeEnd,
+        },
       },
     );
   }
@@ -53,37 +71,53 @@ export class FreezePeriods<C extends boolean = false> extends BaseResource<C> {
       freezeStart?: string;
       freezeEnd?: string;
       cronTimezone?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<FreezePeriodSchema>()(
       this,
       endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
     freezePeriodId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
     freezePeriodId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FreezePeriodSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<FreezePeriodSchema>()(
       this,
       endpoint`projects/${projectId}/freeze_periods/${freezePeriodId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

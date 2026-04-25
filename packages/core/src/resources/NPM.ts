@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface NPMVersionSchema {
   name: string;
@@ -21,10 +21,6 @@ export interface NPMPackageMetadataSchema extends Record<string, unknown> {
   };
 }
 
-function url(projectId?: string | number): string {
-  return projectId ? endpoint`/projects/${projectId}/packages/npm` : 'packages/npm';
-}
-
 export class NPM<C extends boolean = false> extends BaseResource<C> {
   downloadPackageFile<E extends boolean = false>(
     projectId: string | number,
@@ -32,10 +28,14 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     filename: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/npm/${packageName}/-/${filename}`,
-      options,
+      {
+        showExpanded,
+      },
     );
   }
 
@@ -44,13 +44,12 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     tag: string,
     options?: { projectId?: string | number } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = url(options?.projectId);
+    const { showExpanded, projectId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
 
-    return RequestHelper.del()(
-      this,
-      `${prefix}/-/package/${packageName}/dist-tags/${tag}`,
-      options,
-    );
+    return RequestHelper.del()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
+      showExpanded,
+    });
   }
 
   setDistTag<E extends boolean = false>(
@@ -58,25 +57,27 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     tag: string,
     options?: { projectId?: string | number } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const prefix = url(options?.projectId);
+    const { showExpanded, projectId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
 
-    return RequestHelper.put<void>()(
-      this,
-      `${prefix}/-/package/${packageName}/dist-tags/${tag}`,
-      options,
-    );
+    return RequestHelper.put<void>()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
+      showExpanded,
+    });
   }
 
   showDistTags<E extends boolean = false>(
     packageName: string,
     options?: { projectId?: string | number } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Record<string, string>, C, E, void>> {
-    const prefix = url(options?.projectId);
+    const { showExpanded, projectId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
 
     return RequestHelper.get<Record<string, string>>()(
       this,
       `${prefix}/-/package/${packageName}/dist-tags`,
-      options,
+      {
+        showExpanded,
+      },
     );
   }
 
@@ -84,9 +85,12 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     packageName: string,
     options?: { projectId?: string | number } & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NPMPackageMetadataSchema, C, E, void>> {
-    const prefix = url(options?.projectId);
+    const { showExpanded, projectId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
 
-    return RequestHelper.get<NPMPackageMetadataSchema>()(this, `${prefix}/${packageName}`, options);
+    return RequestHelper.get<NPMPackageMetadataSchema>()(this, `${prefix}/${packageName}`, {
+      showExpanded,
+    });
   }
 
   uploadPackageFile<E extends boolean = false>(
@@ -96,13 +100,17 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     metadata: Record<string, unknown>,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Record<string, unknown>, C, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.put<Record<string, unknown>>()(
       this,
       endpoint`projects/${projectId}/packages/npm/${packageName}`,
       {
-        ...options,
-        versions,
-        ...metadata,
+        showExpanded,
+        body: {
+          ...metadata,
+          versions,
+        },
       },
     );
   }

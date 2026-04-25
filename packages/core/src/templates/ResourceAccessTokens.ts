@@ -1,14 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export type AccessTokenScopes =
   | 'api'
@@ -45,13 +48,18 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>> {
-    return RequestHelper.get<AccessTokenSchema[]>()(
-      this,
-      endpoint`${resourceId}/access_tokens`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<AccessTokenSchema[]>()(this, endpoint`${resourceId}/access_tokens`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
@@ -64,17 +72,23 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
         AccessLevel,
         AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
       >;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<AccessTokenExposedSchema>()(
       this,
       endpoint`${resourceId}/access_tokens`,
       {
-        name,
-        scopes,
-        expiresAt,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name,
+          scopes,
+          expiresAt,
+        },
       },
     );
   }
@@ -82,32 +96,48 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
   revoke<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/access_tokens/${tokenId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/access_tokens/${tokenId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   rotate<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenExposedSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<AccessTokenExposedSchema>()(
       this,
       endpoint`${resourceId}/access_tokens/${tokenId}/rotate`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     tokenId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<AccessTokenSchema>()(
       this,
       endpoint`${resourceId}/access_tokens/${tokenId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

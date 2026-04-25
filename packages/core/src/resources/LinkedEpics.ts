@@ -1,12 +1,15 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { EpicSchema } from './Epics';
 
 export interface RelatedEpicSchema extends EpicSchema {
@@ -29,14 +32,24 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
       createdBefore?: string;
       updatedAfter?: string;
       updatedBefore?: string;
-    } & Sudo &
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<RelatedEpicSchema[]>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -45,17 +58,21 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     epicIId: number,
     targetEpicIId: string | number,
     targetGroupId: string | number,
-    options?: { linkType?: RelatedEpicLinkType } & Sudo & ShowExpanded<E>,
+    options?: { linkType?: RelatedEpicLinkType } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<RelatedEpicLinkSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics`,
       {
+        sudo,
+        showExpanded,
         searchParams: {
           targetGroupId,
           targetEpicIid: targetEpicIId,
         },
-        ...options,
+        body,
       },
     );
   }
@@ -64,12 +81,14 @@ export class LinkedEpics<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     epicIId: number,
     relatedEpicLinkId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RelatedEpicLinkSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del<RelatedEpicLinkSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/related_epics/${relatedEpicLinkId}`,
-      options,
+      { sudo, showExpanded },
     );
   }
 }

@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../infrastructure';
-import type { GitlabAPIResponse } from '../infrastructure';
 
 export interface ProcessMetricSchema {
   hostname: string;
@@ -36,8 +36,8 @@ export interface SidekickJobStatsSchema extends Record<string, unknown> {
 }
 
 export type SidekickCompoundMetricsSchema = SidekickJobStatsSchema &
-  SidekickQueueMetricsSchema &
-  SidekickProcessMetricsSchema;
+  SidekickProcessMetricsSchema &
+  SidekickQueueMetricsSchema;
 
 export class SidekiqMetrics<C extends boolean = false> extends BaseResource<C> {
   queueMetrics<E extends boolean = false>(): Promise<

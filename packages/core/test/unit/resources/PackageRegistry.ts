@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { PackageRegistry } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -25,8 +25,9 @@ describe('PackageRegistry.publish', () => {
       service,
       `projects/1/packages/generic/name/v1.0/filename.txt`,
       {
-        isForm: true,
-        file: [content, 'filename.txt'],
+        body: content,
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -36,10 +37,10 @@ describe('PackageRegistry.download', () => {
   it('should request GET projects/:projectId/packages/generic/:packageName/:packageVersion/:filename', async () => {
     await service.download(1, 'name', 'v1.0', 'filename.txt');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/packages/generic/name/v1.0/filename.txt`,
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

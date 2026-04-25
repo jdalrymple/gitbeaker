@@ -1,21 +1,23 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   SomeOf,
   Sudo,
 } from '../infrastructure';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import type { SimpleGroupSchema } from './Groups';
+import type { CondensedNamespaceSchema } from './Namespaces';
 import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { SimpleUserSchema } from './Users';
-import type { CondensedNamespaceSchema } from './Namespaces';
-import type { SimpleGroupSchema } from './Groups';
-import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export type AccessLevelSettingState = 'disabled' | 'enabled' | 'private';
 
@@ -413,41 +415,45 @@ export type AllForksOptions = {
 
 export class Projects<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: PaginationRequestOptions<P> &
-      AllProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { withCustomAttributes: true },
+    options: { withCustomAttributes: true } & AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { custom_attributes: CustomAttributeSchema[] })[], C, E, P>
+    GitlabAPIResponse<({ custom_attributes: CustomAttributeSchema[] } & ProjectSchema)[], C, E, P>
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: PaginationRequestOptions<P> &
-      AllProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: PaginationRequestOptions<P> &
-      AllProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options: PaginationRequestOptions<P> &
-      AllProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true; withCustomAttributes: true },
+    options: { statistics: true; withCustomAttributes: true } & AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      (ProjectSchema & {
+      ({
         statistics: ProjectStatisticsSchema;
         custom_attributes: CustomAttributeSchema[];
-      })[],
+      } & ProjectSchema)[],
       C,
       E,
       P
@@ -455,44 +461,75 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   >;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    options?: PaginationRequestOptions<P> & AllProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
-    {
-      userId,
-      starredOnly,
-      ...options
-    }: AllProjectsOptions & PaginationRequestOptions<P> & BaseRequestOptions<E> = {} as any,
+    options?: AllProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<Record<string, unknown>[], C, E, P>> {
+    const { userId, starredOnly, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     let uri: string;
 
     if (userId && starredOnly) uri = endpoint`users/${userId}/starred_projects`;
     else if (userId) uri = endpoint`users/${userId}/projects`;
     else uri = 'projects';
 
-    return RequestHelper.get<Record<string, unknown>[]>()(this, uri, options);
+    return RequestHelper.get<Record<string, unknown>[]>()(this, uri, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allTransferLocations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { search?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
       endpoint`projects/${projectId}/transfer_locations`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allUsers<E extends boolean = false>(
     projectId: string | number,
-    options?: { search?: string; skipUsers?: number[] } & Sudo & ShowExpanded<E>,
+    options?: { search?: string; skipUsers?: number[] } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MappedOmit<SimpleUserSchema, 'created_at'>[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<MappedOmit<SimpleUserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/users`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -504,14 +541,16 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       withShared?: boolean;
       sharedMinAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
       sharedVisibleOnly?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
-    return RequestHelper.get<SimpleGroupSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/groups`,
-      options,
-    );
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<SimpleGroupSchema[]>()(this, endpoint`projects/${projectId}/groups`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   allInvitedGroups<E extends boolean = false>(
@@ -520,13 +559,19 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       search?: string;
       sharedMinAccessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
       relation?: 'direct' | 'inherited';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
       endpoint`projects/${projectId}/invited_groups`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -534,75 +579,99 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     options?: {
       search?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleGroupSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<SimpleGroupSchema[]>()(
       this,
       endpoint`projects/${projectId}/share_locations`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
   allForks<E extends boolean = false>(
     projectId: string | number,
-    options: AllForksOptions & Sudo & ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllForksOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, void>>;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
-    options: AllForksOptions & Sudo & ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllForksOptions & ShowExpanded<E> & Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, void>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, void>
   >;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
-    options?: AllForksOptions & Sudo & ShowExpanded<E>,
+    options?: AllForksOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>>;
 
   allForks<E extends boolean = false>(
     projectId: string | number,
-    options?: AllForksOptions & Sudo & ShowExpanded<E>,
+    options?: AllForksOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Record<string, unknown>[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<Record<string, unknown>[]>()(
       this,
       endpoint`projects/${projectId}/forks`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
   allStarrers<E extends boolean = false>(
     projectId: string | number,
-    options?: { search?: string } & Sudo & ShowExpanded<E>,
+    options?: { search?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectStarrerSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectStarrerSchema[]>()(
       this,
       endpoint`projects/${projectId}/starrers`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
   allStoragePaths<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectStoragePath[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProjectStoragePath[]>()(
       this,
       endpoint`projects/${projectId}/storage`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   archive<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.post<ProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/archive`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/archive`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -610,138 +679,197 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       userId,
       avatar,
       ...options
-    }: SomeOf<{ name: string; path: string }> &
-      CreateProjectOptions &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+    }: CreateProjectOptions &
+      ShowExpanded<E> &
+      SomeOf<{ name: string; path: string }> &
+      Sudo = {} as any,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    const url = userId ? `projects/user/${userId}` : 'projects';
+    const { sudo, showExpanded, ...body } = options;
+    const url = getPrefixedUrl('', { projects: true, user: userId });
 
-    if (avatar) {
-      return RequestHelper.post<ProjectSchema>()(this, url, {
-        ...options,
-        isForm: true,
-        avatar: [avatar.content, avatar.filename],
-      });
-    }
-
-    return RequestHelper.post<ProjectSchema>()(this, url, { ...options, avatar });
+    return RequestHelper.post<ProjectSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : body,
+    });
   }
 
   createForkRelationship<E extends boolean = false>(
     projectId: string | number,
     forkedFromId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(
-      this,
-      endpoint`projects/${projectId}/fork/${forkedFromId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/fork/${forkedFromId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   // Helper method - Duplicated from ProjectRemoteMirrors
   createPullMirror<E extends boolean = false>(
     projectId: string | number,
-    url: string,
+    importUrl: string,
     mirror: boolean,
     options?: {
       mirrorTriggerBuilds?: boolean;
       mirrorBranchRegex?: string;
       onlyProtectedBranches?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/mirror/pull`,
       {
-        importUrl: url,
-        mirror,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          importUrl,
+          mirror,
+        },
       },
     );
   }
 
   downloadSnapshot<E extends boolean = false>(
     projectId: string | number,
-    options?: { wiki?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { wiki?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(this, endpoint`projects/${projectId}/snapshot`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<Blob>()(this, endpoint`projects/${projectId}/snapshot`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   edit<E extends boolean = false>(
     projectId: string | number,
-    { avatar, ...options }: EditProjectOptions & Sudo & ShowExpanded<E> = {} as any,
+    { avatar, ...options }: EditProjectOptions & ShowExpanded<E> & Sudo = {} as any,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options;
     const url = endpoint`projects/${projectId}`;
 
-    if (avatar) {
-      return RequestHelper.put<ProjectSchema>()(this, url, {
-        ...options,
-        isForm: true,
-        avatar: [avatar.content, avatar.filename],
-      });
-    }
-
-    return RequestHelper.put<ProjectSchema>()(this, url, { ...options, avatar });
+    return RequestHelper.put<ProjectSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        sudo,
+        showExpanded,
+        body: avatar
+          ? createFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            })
+          : body,
+      },
+    });
   }
 
   fork<E extends boolean = false>(
     projectId: string | number,
-    options?: ForkProjectOptions & Sudo & ShowExpanded<E>,
+    options?: ForkProjectOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/fork`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/fork`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   housekeeping<E extends boolean = false>(
     projectId: string | number,
-    options?: { task?: string } & Sudo & ShowExpanded<E>,
+    options?: { task?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/housekeeping`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/housekeeping`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   importProjectMembers<E extends boolean = false>(
     projectId: string | number,
     sourceProjectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/import_project_members/${sourceProjectId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
-    options?: { permanentlyRemove?: boolean; fullPath?: string } & Sudo & ShowExpanded<E>,
+    options?: { permanentlyRemove?: boolean; fullPath?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   removeForkRelationship<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/fork`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/fork`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   removeAvatar<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<void>()(this, endpoint`projects/${projectId}`, {
-      ...options,
-      avatar: '',
+      sudo,
+      showExpanded,
+      body: {
+        avatar: '',
+      },
     });
   }
 
   restore<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/restore`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/restore`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   search<E extends boolean = false>(
@@ -749,12 +877,18 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     options?: {
       sort?: 'asc' | 'desc';
       orderBy?: 'id' | 'name' | 'created_at' | 'last_activity_at';
-    } & Sudo &
-      ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, void>> {
-    return RequestHelper.get<ProjectSchema[]>()(this, 'projects', {
-      search: projectName,
-      ...options,
+    } & ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, 'offset'>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<ProjectSchema[]>()(this, endpoint`projects`, {
+      sudo,
+      showExpanded,
+      searchParams: {
+        ...searchParams,
+        search: projectName,
+      },
     });
   }
 
@@ -762,40 +896,46 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     groupId: string | number,
     groupAccess: number,
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/share`, {
-      groupId,
-      groupAccess,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        groupId,
+        groupAccess,
+      },
     });
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { license: true } & Sudo & ShowExpanded<E>,
-  ): Promise<GitlabAPIResponse<ProjectSchema & { license: ProjectLicenseSchema }, C, E, void>>;
+    options: { license: true } & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<{ license: ProjectLicenseSchema } & ProjectSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { withCustomAttributes: true } & Sudo & ShowExpanded<E>,
+    options: { withCustomAttributes: true } & ShowExpanded<E> & Sudo,
   ): Promise<
-    GitlabAPIResponse<ProjectSchema & { custom_attributes: CustomAttributeSchema[] }, C, E, void>
+    GitlabAPIResponse<{ custom_attributes: CustomAttributeSchema[] } & ProjectSchema, C, E, void>
   >;
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { statistics: true } & Sudo & ShowExpanded<E>,
+    options: { statistics: true } & ShowExpanded<E> & Sudo,
   ): Promise<
-    GitlabAPIResponse<ProjectSchema & { statistics: ProjectStatisticsSchema }, C, E, void>
+    GitlabAPIResponse<{ statistics: ProjectStatisticsSchema } & ProjectSchema, C, E, void>
   >;
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { withCustomAttributes: true; license: true } & Sudo & ShowExpanded<E>,
+    options: { withCustomAttributes: true; license: true } & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ProjectSchema & { custom_attributes: CustomAttributeSchema[]; license: ProjectLicenseSchema },
+      { custom_attributes: CustomAttributeSchema[]; license: ProjectLicenseSchema } & ProjectSchema,
       C,
       E,
       void
@@ -804,13 +944,13 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { withCustomAttributes: true; statistics: true } & Sudo & ShowExpanded<E>,
+    options: { withCustomAttributes: true; statistics: true } & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ProjectSchema & {
+      {
         custom_attributes: CustomAttributeSchema[];
         statistics: ProjectStatisticsSchema;
-      },
+      } & ProjectSchema,
       C,
       E,
       void
@@ -819,10 +959,10 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { license: true; statistics: true } & Sudo & ShowExpanded<E>,
+    options: { license: true; statistics: true } & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ProjectSchema & { license: ProjectLicenseSchema; statistics: ProjectStatisticsSchema },
+      { license: ProjectLicenseSchema; statistics: ProjectStatisticsSchema } & ProjectSchema,
       C,
       E,
       void
@@ -831,15 +971,15 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options: { withCustomAttributes: true; license: true; statistics: true } & Sudo &
-      ShowExpanded<E>,
+    options: { withCustomAttributes: true; license: true; statistics: true } & ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ProjectSchema & {
+      {
         custom_attributes: CustomAttributeSchema[];
         license: ProjectLicenseSchema;
         statistics: ProjectStatisticsSchema;
-      },
+      } & ProjectSchema,
       C,
       E,
       void
@@ -848,86 +988,127 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options?: { license?: boolean; statistics?: boolean; withCustomAttributes?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      license?: boolean;
+      statistics?: boolean;
+      withCustomAttributes?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
-    options?: { license?: boolean; statistics?: boolean; withCustomAttributes?: boolean } & Sudo &
-      ShowExpanded<E>,
+    options?: {
+      license?: boolean;
+      statistics?: boolean;
+      withCustomAttributes?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.get<ProjectSchema>()(this, endpoint`projects/${projectId}`, options);
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
+    return RequestHelper.get<ProjectSchema>()(this, endpoint`projects/${projectId}`, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   showLanguages<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ [name: string]: number }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<{ [name: string]: number }>()(
       this,
       endpoint`projects/${projectId}/languages`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showPullMirror<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/mirror/pull`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   star<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/star`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/star`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   transfer<E extends boolean = false>(
     projectId: string | number,
     namespaceId: string | number,
-    options?: Sudo & ShowExpanded<E>,
-  ) {
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<ProjectSchema>()(this, endpoint`projects/${projectId}/transfer`, {
-      ...options,
-      namespace: namespaceId,
+      sudo,
+      showExpanded,
+      body: {
+        namespace: namespaceId,
+      },
     });
   }
 
   unarchive<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.post<ProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/unarchive`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/unarchive`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unshare<E extends boolean = false>(
     projectId: string | number,
     groupId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/share/${groupId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/share/${groupId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unstar<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema, C, E, void>> {
-    return RequestHelper.post<ProjectSchema>()(
-      this,
-      endpoint`projects/${projectId}/unstar`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ProjectSchema>()(this, endpoint`projects/${projectId}/unstar`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   /* Upload file to be used a reference within an issue, merge request or
@@ -936,15 +1117,19 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   uploadForReference<E extends boolean = false>(
     projectId: string | number,
     file: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectFileUploadSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ProjectFileUploadSchema>()(
       this,
       endpoint`projects/${projectId}/uploads`,
       {
-        ...options,
-        isForm: true,
-        file: [file.content, file.filename],
+        sudo,
+        showExpanded,
+        body: createFormData({
+          file: [file.content, file.filename],
+        }),
       },
     );
   }
@@ -952,12 +1137,16 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
   uploadAvatar<E extends boolean = false>(
     projectId: string | number,
     avatar: { content: Blob; filename: string },
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ avatar_url: string }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.put<{ avatar_url: string }>()(this, endpoint`projects/${projectId}`, {
-      ...options,
-      isForm: true,
-      avatar: [avatar.content, avatar.filename],
+      sudo,
+      showExpanded,
+      body: createFormData({
+        avatar: [avatar.content, avatar.filename],
+      }),
     });
   }
 }
