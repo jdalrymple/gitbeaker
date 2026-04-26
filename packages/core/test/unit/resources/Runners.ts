@@ -115,7 +115,7 @@ describe('Runners.remove', () => {
   it('should request DEL /runners/:id', async () => {
     await service.remove({ runnerId: 2 });
 
-    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners/2/', {
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners/2', {
       searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
@@ -125,7 +125,7 @@ describe('Runners.remove', () => {
   it('should request DEL /runners with token', async () => {
     await service.remove({ token: 'token' });
 
-    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners/', {
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners', {
       searchParams: { token: 'token' },
       showExpanded: undefined,
       sudo: undefined,

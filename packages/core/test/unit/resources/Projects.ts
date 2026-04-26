@@ -154,7 +154,7 @@ describe('Projects.create', () => {
   it('should request POST /projects when userId undefined', async () => {
     await service.create({ name: 'test proj' });
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/', {
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects', {
       body: {
         name: 'test proj',
       },
@@ -166,7 +166,7 @@ describe('Projects.create', () => {
   it('should request POST /projects/user/:id when userId defined', async () => {
     await service.create({ userId: 2, name: 'test proj' });
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/user/2/', {
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/user/2', {
       body: {
         name: 'test proj',
       },
@@ -184,7 +184,7 @@ describe('Projects.create', () => {
     expectedFormData.append('name', 'test proj');
     expectedFormData.append('avatar', content, 'image.jpeg');
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/', {
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects', {
       body: expectedFormData,
       showExpanded: undefined,
       sudo: undefined,

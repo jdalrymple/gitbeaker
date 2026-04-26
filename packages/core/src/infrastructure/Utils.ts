@@ -141,7 +141,7 @@ export function getPrefixedUrl(
 
   const combinedPath = pathSegments.join('/');
 
-  return `${combinedPath}/${suffix}`;
+  return suffix ? `${combinedPath}/${suffix}` : combinedPath;
 }
 
 export function ensureRequiredParams(
