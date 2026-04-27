@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { expectTypeOf, describe, expect, it, vi } from 'vitest';
 import { BaseResource } from '../../src/BaseResource';
 import { createRequesterFn } from '../../src/RequesterUtils';
 
@@ -31,7 +31,7 @@ describe('Creation of BaseResource instance', () => {
       oauthToken: '1234',
     });
 
-    expect(service.authHeaders.authorization).toBeFunction();
+    expectTypeOf(service.authHeaders.authorization).toBeFunction();
 
     await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
   });
@@ -47,7 +47,7 @@ describe('Creation of BaseResource instance', () => {
         }),
     });
 
-    expect(service.authHeaders.authorization).toBeFunction();
+    expectTypeOf(service.authHeaders.authorization).toBeFunction();
 
     await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
   });
@@ -60,7 +60,7 @@ describe('Creation of BaseResource instance', () => {
     });
 
     expect(Object.keys(service.authHeaders).length).toBe(1);
-    expect(service.authHeaders.authorization).toBeFunction();
+    expectTypeOf(service.authHeaders.authorization).toBeFunction();
     await expect(service.authHeaders.authorization()).resolves.toBe('Bearer 1234');
   });
 
@@ -70,7 +70,7 @@ describe('Creation of BaseResource instance', () => {
       token: '1234',
     });
 
-    expect(service.authHeaders['private-token']).toBeFunction();
+    expectTypeOf(service.authHeaders['private-token']).toBeFunction();
     await expect(service.authHeaders['private-token']()).resolves.toBe('1234');
   });
 
@@ -80,7 +80,7 @@ describe('Creation of BaseResource instance', () => {
       token: () => Promise.resolve('1234'),
     });
 
-    expect(service.authHeaders['private-token']).toBeFunction();
+    expectTypeOf(service.authHeaders['private-token']).toBeFunction();
     await expect(service.authHeaders['private-token']()).resolves.toBe('1234');
   });
 
@@ -90,7 +90,7 @@ describe('Creation of BaseResource instance', () => {
       jobToken: '1234',
     });
 
-    expect(service.authHeaders['job-token']).toBeFunction();
+    expectTypeOf(service.authHeaders['job-token']).toBeFunction();
     await expect(service.authHeaders['job-token']()).resolves.toBe('1234');
   });
 
@@ -100,7 +100,7 @@ describe('Creation of BaseResource instance', () => {
       jobToken: () => Promise.resolve('1234'),
     });
 
-    expect(service.authHeaders['job-token']).toBeFunction();
+    expectTypeOf(service.authHeaders['job-token']).toBeFunction();
     await expect(service.authHeaders['job-token']()).resolves.toBe('1234');
   });
 

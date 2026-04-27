@@ -10,6 +10,7 @@
 
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
@@ -21,5 +22,4 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "files": ["./global.d.ts", "./jest.setup.ts"]
 }

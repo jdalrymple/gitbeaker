@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  projects: ['packages/*'],
   test: {
     environment: 'node',
     include: ['**/test/**/*.ts'],
@@ -11,7 +12,6 @@ export default defineConfig({
       reporter: ['lcov', 'text', 'text-summary', 'cobertura'],
       reportsDirectory: 'coverage',
     },
-    setupFiles: [new URL('./vitest.setup.ts', import.meta.url).pathname],
   },
   resolve: {
     alias: [

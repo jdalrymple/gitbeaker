@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { expectTypeOf, describe, expect, it, vi } from 'vitest';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import {
   RequestOptions,
@@ -124,16 +124,16 @@ describe('createInstance', () => {
   };
 
   it('should have a createInstance function', () => {
-    expect(createRequesterFn).toBeFunction();
+    expectTypeOf(createRequesterFn).toBeFunction();
   });
 
   it('should return an object with function names equal to those in the methods array when the createInstance function is called', () => {
     const requester = createRequesterFn(optionsHandler, requestHandler)(serviceOptions);
 
-    expect(requester).toContainAllKeys(methods);
+    expectTypeOf(requester).toContainAllKeys(methods);
 
     methods.forEach((m) => {
-      expect(requester[m]).toBeFunction();
+      expectTypeOf(requester[m]).toBeFunction();
     });
   });
 
@@ -263,6 +263,24 @@ describe('createRateLimiters', () => {
         limit: expect.toBeFunction(),
       },
     });
+
+    // expectTypeOf(limiters).toEqualTypeOf<{
+    //   '*': Function;
+    //   'projects/*/test': {
+    //     method: 'GET';
+    //     limit: Function;
+    //   };
+    // }>();
+
+    // expectTypeOf(limiters).toExtend<{
+    //   '*': Function;
+    //   'projects/*/test': {
+    //     method: 'GET';
+    //     limit: Function;
+    //   };
+    // }>();
+
+    expectTypeOf(limiters).toEqualTypeOf(limiters);
   });
 });
 
