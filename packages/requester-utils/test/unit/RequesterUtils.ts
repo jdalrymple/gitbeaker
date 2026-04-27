@@ -263,24 +263,6 @@ describe('createRateLimiters', () => {
         limit: expect.toBeFunction(),
       },
     });
-
-    // expectTypeOf(limiters).toEqualTypeOf<{
-    //   '*': Function;
-    //   'projects/*/test': {
-    //     method: 'GET';
-    //     limit: Function;
-    //   };
-    // }>();
-
-    // expectTypeOf(limiters).toExtend<{
-    //   '*': Function;
-    //   'projects/*/test': {
-    //     method: 'GET';
-    //     limit: Function;
-    //   };
-    // }>();
-
-    expectTypeOf(limiters).toEqualTypeOf(limiters);
   });
 });
 
