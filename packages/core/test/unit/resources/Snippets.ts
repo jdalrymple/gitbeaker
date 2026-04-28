@@ -19,7 +19,7 @@ describe('Snippets.all', () => {
   it('should request GET /snippets', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets/', {
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets', {
       maxPages: undefined,
       searchParams: {},
       showExpanded: undefined,
@@ -30,7 +30,7 @@ describe('Snippets.all', () => {
   it('should request GET /snippets/public', async () => {
     await service.all({ public: true });
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets/public/', {
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets/public', {
       maxPages: undefined,
       searchParams: {},
       showExpanded: undefined,

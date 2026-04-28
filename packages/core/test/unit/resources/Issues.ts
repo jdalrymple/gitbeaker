@@ -181,7 +181,7 @@ describe('Issues.show', () => {
   it('should request GET /projects/:id/issues/:id', async () => {
     await service.show(1, { projectId: 2 });
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/2/issues/1/', {
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/2/issues/1', {
       searchParams: {},
       showExpanded: undefined,
       sudo: undefined,

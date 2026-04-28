@@ -25,7 +25,7 @@ describe('JobArtifacts.downloadArchive', () => {
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via private token', async () => {
     await service.downloadArchive(1, { jobId: 43 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts/`, {
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
       searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
@@ -35,7 +35,7 @@ describe('JobArtifacts.downloadArchive', () => {
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via jobToken parameter', async () => {
     await service.downloadArchive(1, { jobId: 43, jobToken: 'token' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts/`, {
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
       searchParams: {
         jobToken: 'token',
       },
@@ -49,7 +49,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/download/`,
+      `projects/1/jobs/artifacts/ref1/download`,
       {
         searchParams: {},
         showExpanded: undefined,
@@ -63,7 +63,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/download/`,
+      `projects/1/jobs/artifacts/ref1/download`,
       {
         searchParams: {
           jobToken: 'token',
@@ -79,7 +79,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/43/artifacts/path/`,
+      `projects/1/jobs/43/artifacts/path`,
       {
         searchParams: {},
         showExpanded: undefined,
@@ -93,7 +93,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/43/artifacts/path/`,
+      `projects/1/jobs/43/artifacts/path`,
       {
         searchParams: {
           jobToken: 'token',
@@ -109,7 +109,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/raw/path/`,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
       {
         searchParams: {},
         showExpanded: undefined,
@@ -128,7 +128,7 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/raw/path/`,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
       {
         searchParams: {
           jobToken: 'token',
@@ -148,9 +148,53 @@ describe('JobArtifacts.downloadArchive', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      `projects/1/jobs/artifacts/ref1/download/`,
+      `projects/1/jobs/artifacts/ref1/download`,
       {
         searchParams: {
+          searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request GET /projects/:id/jobs/artifacts/:ref/raw/:artifact_path?job=:name&search_recent_successful_pipelines=true when searchRecentSuccessfulPipelines is true with artifactPath', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      artifactPath: 'path',
+      searchRecentSuccessfulPipelines: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
+      {
+        searchParams: {
+          searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request GET /projects/:id/jobs/artifacts/:ref/raw/:artifact_path?job=:name&search_recent_successful_pipelines=true with artifactPath via job token', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      artifactPath: 'path',
+      jobToken: 'token',
+      searchRecentSuccessfulPipelines: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
+      {
+        searchParams: {
+          jobToken: 'token',
           searchRecentSuccessfulPipelines: true,
         },
         showExpanded: undefined,
