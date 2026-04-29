@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -5,7 +7,7 @@ import type {
   PaginationTypes,
   Sudo,
 } from '../infrastructure';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { MarkdownUploadSchema, ResourceMarkdownUploads } from '../templates';
 
 export interface GroupMarkdownUploads<C extends boolean = false>

@@ -1,10 +1,12 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface SidekiqQueueStatus extends Record<string, unknown> {

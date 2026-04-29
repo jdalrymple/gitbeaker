@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import {
   RawPathSegment,
   createFormData,
@@ -7,8 +9,6 @@ import {
   parseLinkHeader,
   reformatObjectOptions,
 } from '../../../src/infrastructure';
-
-import { describe, expect, it } from 'vitest';
 describe('createFormData', () => {
   it('should convert object key/values to formdata instance', () => {
     const data = { a: 5, b: 'test' };

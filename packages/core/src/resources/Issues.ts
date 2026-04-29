@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -17,7 +19,7 @@ import type { MetricImageSchema } from './AlertManagement';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import {
   RequestHelper,
   createFormData,

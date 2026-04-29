@@ -1,8 +1,10 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 import type { GroupSchema } from './Groups';
 import type { ProtectedBranchSchema } from './ProtectedBranches';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface ProjectLevelMergeRequestApprovalSchema extends Record<string, unknown> {

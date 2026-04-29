@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { LabelEventSchema } from '../templates/ResourceLabelEvents';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceLabelEvents } from '../templates';
 
 export interface MergeRequestLabelEvents<C extends boolean = false> {

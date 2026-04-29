@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +10,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { WikiAttachmentSchema, WikiSchema } from '../templates/ResourceWikis';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceWikis } from '../templates';
 
 export interface GroupWikis<C extends boolean = false> extends ResourceWikis<C> {

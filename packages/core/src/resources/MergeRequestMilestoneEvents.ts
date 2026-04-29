@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { MilestoneEventSchema } from '../templates/ResourceMilestoneEvents';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceMilestoneEvents } from '../templates';
 
 export interface MergeRequestMilestoneEvents<C extends boolean = false> {

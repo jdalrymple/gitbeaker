@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -15,7 +17,7 @@ import type { MergeRequestSchema } from './MergeRequests';
 import type { ProjectSchema } from './Projects';
 import type { SimpleSnippetSchema } from './Snippets';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface BlobSchema extends Record<string, unknown> {

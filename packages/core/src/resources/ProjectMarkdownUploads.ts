@@ -1,4 +1,5 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import {
   type BaseRequestSearchParams,
   type GitlabAPIResponse,

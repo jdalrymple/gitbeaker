@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -16,7 +18,7 @@ import type {
   MemberSchema,
   SimpleMemberSchema,
 } from '../templates/ResourceMembers';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import { RequestHelper, endpoint } from '../infrastructure';
 import { ResourceMembers } from '../templates';

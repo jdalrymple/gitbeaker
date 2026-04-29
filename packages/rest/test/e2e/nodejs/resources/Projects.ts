@@ -1,6 +1,6 @@
-import { Projects } from '../../../../src';
-
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
+
+import { Projects } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 

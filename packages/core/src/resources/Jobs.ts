@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -14,7 +16,7 @@ import type { PipelineSchema } from './Pipelines';
 import type { SimpleProjectSchema } from './Projects';
 import type { RunnerSchema } from './Runners';
 import type { ExpandedUserSchema, SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export type JobScope =

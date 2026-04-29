@@ -1,4 +1,5 @@
 import type { Agent } from 'http';
+
 import { RateLimitOptions, RequesterFn, RequesterType } from './RequesterUtils';
 
 export interface RootResourceOptions<C> {

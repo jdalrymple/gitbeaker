@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { ReleaseSchema } from './ProjectReleases';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export class GroupReleases<C extends boolean = false> extends BaseResource<C> {

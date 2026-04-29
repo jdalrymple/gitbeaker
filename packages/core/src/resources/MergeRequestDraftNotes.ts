@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   Camelize,
@@ -10,7 +12,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DiscussionNotePositionSchema } from '../templates/ResourceDiscussions';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export type MergeRequestDraftNotePositionSchema = {

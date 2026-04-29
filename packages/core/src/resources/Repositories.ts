@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   AsStream,
   BaseRequestSearchParams,
@@ -9,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitDiffSchema, CommitSchema, CondensedCommitSchema } from './Commits';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ArchiveType = 'tar.gz' | 'tar.bz2' | 'tbz' | 'tbz2' | 'tb2' | 'bz2' | 'tar' | 'zip';

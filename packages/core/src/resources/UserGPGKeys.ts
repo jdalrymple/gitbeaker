@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface UserGPGKeySchema extends Record<string, unknown> {

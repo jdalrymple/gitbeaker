@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceNoteAwardEmojis } from '../templates';
 
 export interface IssueNoteAwardEmojis<C extends boolean = false>

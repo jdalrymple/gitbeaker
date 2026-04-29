@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import pkg from '../../package.json';
+
 import mockMapData from '../__mocks__/map.json';
+import pkg from '../../package.json';
 
 vi.mock('@gitbeaker/rest');
 vi.mock('../../src/map', () => ({

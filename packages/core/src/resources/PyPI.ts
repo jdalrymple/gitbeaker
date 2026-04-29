@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
+
 import {
   RequestHelper,
   createFormData,

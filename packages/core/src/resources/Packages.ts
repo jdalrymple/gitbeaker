@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { PipelineSchema } from './Pipelines';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface PackageSchema extends Record<string, unknown> {

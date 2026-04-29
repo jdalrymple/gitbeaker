@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +10,7 @@ import type {
 } from '../infrastructure';
 import type { RepositoryStorageMoveSchema } from '../templates/ResourceRepositoryStorageMoves';
 import type { SnippetSchema } from './Snippets';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceRepositoryStorageMoves } from '../templates';
 
 export interface SnippetRepositoryStorageMoveSchema extends RepositoryStorageMoveSchema {

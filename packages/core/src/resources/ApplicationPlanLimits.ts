@@ -1,5 +1,7 @@
-import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { Camelize, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper } from '../infrastructure';
 
 export interface ApplicationPlanLimitSchema extends Record<string, unknown> {

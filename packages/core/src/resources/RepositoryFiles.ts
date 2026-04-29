@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -5,7 +7,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface RepositoryFileExpandedSchema extends Record<string, unknown> {

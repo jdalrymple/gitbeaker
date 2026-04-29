@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
   AccessTokenSchema,
   AccessTokenScopes,
 } from '../templates/ResourceAccessTokens';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import { ResourceAccessTokens } from '../templates';
 

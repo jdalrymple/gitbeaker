@@ -1,6 +1,8 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { CreateAndEditPushRuleOptions, PushRuleSchema } from '../templates/ResourcePushRules';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourcePushRules } from '../templates';
 
 export interface GroupPushRules<C extends boolean = false> extends ResourcePushRules<C> {

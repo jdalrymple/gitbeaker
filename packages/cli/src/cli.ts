@@ -1,9 +1,11 @@
-import type { MethodTemplate } from './utils';
 import * as Gitbeaker from '@gitbeaker/rest';
 import Chalk from 'chalk';
 import Sywac from 'sywac';
-import API_MAP from './map';
+
+import type { MethodTemplate } from './utils';
+
 import pkg from '../package.json';
+import API_MAP from './map';
 import {
   buildArgumentObjects,
   getCLISafeNormalizedTerm,
@@ -32,6 +34,7 @@ function runAPIMethod(ctx, args: Record<string, string>, apiName: string, method
   const { initArgs, coreArgs, optionalArgs } = buildArgumentObjects(globalConfig, method, args);
 
   // Create service
+  // oxlint-disable-next-line import/namespace
   const s = new Gitbeaker[apiName](initArgs);
 
   // Execute function

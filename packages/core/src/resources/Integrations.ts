@@ -1,10 +1,12 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestBodyRecordOptions,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export type SupportedIntegration =

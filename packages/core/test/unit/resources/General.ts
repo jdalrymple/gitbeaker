@@ -1,5 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
 import { RequesterFn } from '@gitbeaker/requester-utils';
+import { describe, expect, it, vi } from 'vitest';
+
 import * as Resources from '../../../src/resources';
 
 describe('Instantiating services', () => {

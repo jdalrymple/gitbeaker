@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -7,7 +9,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
 
 export interface CondensedNamespaceSchema extends Record<string, unknown> {

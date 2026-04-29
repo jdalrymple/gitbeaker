@@ -1,6 +1,8 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, OneOf, ShowExpanded, Sudo } from '../infrastructure';
 import type { ExpandedUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, ensureRequiredParams } from '../infrastructure';
 
 export interface DeployKeyProjectsSchema extends Record<string, unknown> {

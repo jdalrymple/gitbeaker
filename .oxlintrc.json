@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "unicorn", "oxc", "import", "vitest"],
+  "jsPlugins": ["eslint-plugin-perfectionist"],
   "categories": {
     "correctness": "error"
   },
@@ -8,14 +9,12 @@
     "typescript/no-unsafe-declaration-merging": "off",
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "typescript/no-explicit-any": "off",
-    "sort-imports": [
+    "perfectionist/sort-imports": "error",
+    "perfectionist/sort-intersection-types": [
       "error",
       {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-        "allowSeparatedGroups": true
+        "type": "alphabetical",
+        "groups": ["object", "unknown"]
       }
     ],
     "import/no-default-export": "off",

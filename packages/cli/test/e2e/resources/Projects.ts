@@ -1,7 +1,7 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-
 import { describe, expect, it } from 'vitest';
+
 const execP: (command: string) => Promise<{ stdout: string }> = promisify(exec);
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;

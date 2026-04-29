@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   MappedOmit,
@@ -19,7 +21,6 @@ import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
 import type { ReviewerState } from './Webhooks';
 
-import { BaseResource } from '@gitbeaker/requester-utils';
 import {
   BaseRequestSearchParams,
   RequestHelper,

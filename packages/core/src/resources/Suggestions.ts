@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper } from '../infrastructure';
 
 export interface SuggestionSchema extends Record<string, unknown> {

@@ -1,7 +1,7 @@
 import * as coreResources from '@gitbeaker/core';
-import * as resources from '../../src';
-
 import { describe, expect, it } from 'vitest';
+
+import * as resources from '../../src';
 
 describe('Import', () => {
   it('should re-export all resources from core', () => {

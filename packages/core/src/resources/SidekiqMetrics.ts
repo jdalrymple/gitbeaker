@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse } from '../infrastructure';
+
 import { RequestHelper } from '../infrastructure';
 
 export interface ProcessMetricSchema {

@@ -1,8 +1,8 @@
+import { RequesterFn } from '@gitbeaker/requester-utils';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { ApplicationPlanLimits } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
-import { RequesterFn } from '@gitbeaker/requester-utils';
-
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../../src/infrastructure/RequestHelper', async () => {
   const mock = await vi.importActual('../../__mocks__/RequestHelper');

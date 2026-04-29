@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type { CondensedProjectSchema, ProjectSchema } from './Projects';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 

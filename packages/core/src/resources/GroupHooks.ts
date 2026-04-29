@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
   EditResourceHookOptions,
   ExpandedHookSchema,
 } from '../templates/ResourceHooks';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceHooks } from '../templates';
 
 export interface GroupHookSchema extends ExpandedHookSchema {

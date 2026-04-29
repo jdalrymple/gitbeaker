@@ -1,3 +1,7 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,8 +13,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 import { LabelSchema } from './ResourceLabels';
 import { MilestoneSchema } from './ResourceMilestones';

@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { StateEventSchema } from '../templates/ResourceStateEvents';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceStateEvents } from '../templates';
 
 export interface EpicStateEvents<C extends boolean = false> {

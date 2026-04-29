@@ -1,8 +1,8 @@
-import { ProjectHooks } from '../../../src';
 import { RequesterFn } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../../../src/infrastructure';
-
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { ProjectHooks } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 vi.mock('../../../src/infrastructure/RequestHelper', async () => {
   const mock = await vi.importActual('../../__mocks__/RequestHelper');

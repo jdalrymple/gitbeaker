@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -5,7 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper } from '../infrastructure';
 
 export interface ApplicationSchema extends Record<string, unknown> {

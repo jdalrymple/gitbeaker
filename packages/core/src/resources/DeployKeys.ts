@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,7 +12,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface CondensedDeployKeySchema extends Record<string, unknown> {

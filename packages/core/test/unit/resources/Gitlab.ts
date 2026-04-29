@@ -1,7 +1,7 @@
 import { RequesterFn } from '@gitbeaker/requester-utils';
-import * as Resources from '../../../src/resources';
-
 import { describe, expect, it, vi } from 'vitest';
+
+import * as Resources from '../../../src/resources';
 
 const { Gitlab, ...resources } = Resources;
 

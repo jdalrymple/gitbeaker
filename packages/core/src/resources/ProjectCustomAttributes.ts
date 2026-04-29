@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceCustomAttributes } from '../templates';
 
 export interface ProjectCustomAttributes<C extends boolean = false>

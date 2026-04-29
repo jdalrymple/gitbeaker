@@ -1,9 +1,11 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   DiscussionNotePositionOptions,
   DiscussionNoteSchema,
   DiscussionSchema,
 } from '../templates/ResourceDiscussions';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import {
   type GitlabAPIResponse,
   type PaginationRequestOptions,

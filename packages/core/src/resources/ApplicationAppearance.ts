@@ -1,10 +1,12 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestBodyRecordOptions,
   GitlabAPIResponse,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, createFormData } from '../infrastructure';
 
 export interface ApplicationAppearanceSchema extends Record<string, unknown> {

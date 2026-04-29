@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -5,7 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface MetricImageSchema extends Record<string, unknown> {

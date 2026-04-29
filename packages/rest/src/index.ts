@@ -2,6 +2,7 @@
 
 import * as CORE from '@gitbeaker/core';
 import { presetResourceArguments } from '@gitbeaker/requester-utils';
+
 import { requesterFn } from './Requester';
 
 // Re-export all core types and utility errors

@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -6,7 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceDiscussions } from '../templates';
 
 export interface ProjectSnippetDiscussions<C extends boolean = false>

@@ -1,4 +1,5 @@
 import FS from 'node:fs';
+
 import * as resources from '../src/resources';
 import { getParamNames } from './getParamNames';
 

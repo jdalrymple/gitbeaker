@@ -1,4 +1,5 @@
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { BaseResource } from '@gitbeaker/requester-utils';
 
 // General

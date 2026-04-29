@@ -1,10 +1,12 @@
 import type { RequestOptions } from '@gitbeaker/requester-utils';
+
 import {
   GitbeakerRequestError,
   GitbeakerRetryError,
   GitbeakerTimeoutError,
 } from '@gitbeaker/requester-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { defaultRequestHandler, processBody } from '../../src/Requester';
 import { getError } from '../utils/index';
 
