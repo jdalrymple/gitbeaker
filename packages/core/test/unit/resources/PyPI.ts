@@ -1,16 +1,19 @@
 import { PyPI } from '../../../src';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock(
-  '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
-);
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: PyPI;
 
 beforeEach(() => {
   service = new PyPI({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
@@ -37,7 +40,9 @@ describe('PyPI.downloadPackageFile', () => {
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    expect(() => service.downloadPackageFile('sha', 'id', {} as any)).toThrow();
+    expect(() => service.downloadPackageFile('sha', 'id', {} as any)).toThrow(
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
+    );
   });
 });
 
@@ -63,7 +68,9 @@ describe('PyPI.showPackageDescriptor', () => {
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    expect(() => service.showPackageDescriptor('name', {} as any)).toThrow();
+    expect(() => service.showPackageDescriptor('name', {} as any)).toThrow(
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
+    );
   });
 });
 

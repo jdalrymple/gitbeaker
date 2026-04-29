@@ -32,9 +32,9 @@
     "dist"
   ],
   "scripts": {
+    "test:unit": "vitest run --config vitest.config.mjs test/unit",
+    "test:e2e": "vitest run --config vitest.config.mjs test/e2e",
     "build": "tsdown src/index.ts --format esm --target esnext",
-    "test:unit": "jest --maxWorkers=50% test/unit",
-    "test:e2e": "jest --maxWorkers=50% test/e2e",
     "lint": "oxlint src test scripts",
     "lint:fix": "oxlint src test scripts --fix"
   },
@@ -47,6 +47,8 @@
   },
   "devDependencies": {
     "tsdown": "^0.21.7",
-    "typescript": "^5.9.3"
+    "@vitest/expect": "^4.0.10",
+    "typescript": "^5.9.3",
+    "vitest-extended": "^0.0.1"
   }
 }

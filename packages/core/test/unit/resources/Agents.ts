@@ -1,16 +1,19 @@
 import { Agents } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 
-jest.mock(
-  '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
-);
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: Agents;
 
 beforeEach(() => {
   service = new Agents({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

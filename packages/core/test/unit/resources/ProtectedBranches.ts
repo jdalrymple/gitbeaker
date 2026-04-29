@@ -1,16 +1,19 @@
 import { ProtectedBranches } from '../../../src';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock(
-  '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
-);
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: ProtectedBranches;
 
 beforeEach(() => {
   service = new ProtectedBranches({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
@@ -56,7 +59,7 @@ describe('ProtectedBranches.create', () => {
 
 describe('ProtectedBranches.protect', () => {
   it('should request POST /projects/:id/protected_branches', async () => {
-    const spy = jest.spyOn(service, 'create');
+    const spy = vi.spyOn(service, 'create');
 
     await service.protect(1, 'name', { allowForcePush: true });
 
@@ -113,7 +116,7 @@ describe('ProtectedBranches.remove', () => {
 
 describe('ProtectedBranches.unprotect', () => {
   it('should request DEL /projects/:id/protected_branches/:branch_name without options', async () => {
-    const spy = jest.spyOn(service, 'remove');
+    const spy = vi.spyOn(service, 'remove');
 
     await service.unprotect(1, 'name');
 
@@ -121,7 +124,7 @@ describe('ProtectedBranches.unprotect', () => {
   });
 
   it('should request DEL /projects/:id/protected_branches/:branch_name', async () => {
-    const spy = jest.spyOn(service, 'remove');
+    const spy = vi.spyOn(service, 'remove');
 
     await service.unprotect(1, 'name', { sudo: 1 });
 

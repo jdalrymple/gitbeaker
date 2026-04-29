@@ -1,8 +1,9 @@
 import type { MethodTemplate } from './utils';
-import API_MAP from '@gitbeaker/core/map.json' with { type: 'json' };
 import * as Gitbeaker from '@gitbeaker/rest';
 import Chalk from 'chalk';
 import Sywac from 'sywac';
+import API_MAP from './map';
+import pkg from '../package.json';
 import {
   buildArgumentObjects,
   getCLISafeNormalizedTerm,
@@ -70,7 +71,9 @@ const optionStyle = Chalk.white.bold;
 const descriptionStyle = Chalk.hex('#848484');
 const hintStyle = Chalk.hex('#6a5f88');
 
-const cli = Sywac.version('-v, --version')
+const cli = Sywac.version('-v, --version', {
+  version: pkg.version,
+})
   .help('-h, --help')
   .showHelpByDefault()
   .epilogue(`Copyright ${new Date().getFullYear()}`)

@@ -1,16 +1,19 @@
 import { Keys } from '../../../src';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 
-jest.mock(
-  '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
-);
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: Keys;
 
 beforeEach(() => {
   service = new Keys({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
@@ -37,6 +40,8 @@ describe('Keys.show', () => {
   });
 
   it('should throw an error if keyId or fingerprint is not passed', () => {
-    expect(() => service.show({} as any)).toThrow();
+    expect(() => service.show({} as any)).toThrow(
+      'Missing required argument. Please supply a keyId or fingerprint in the options parameter.',
+    );
   });
 });

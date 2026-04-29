@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 describe('API Map', () => {
   it('should return object representing all resources in JSON format', async () => {
     const keys = [
@@ -189,7 +191,8 @@ describe('API Map', () => {
 
     const map: Record<string, unknown> = await import('../../dist/map.json');
 
-    expect(map).toBeObject();
-    expect(Object.keys(map)).toIncludeAllMembers(keys);
+    keys.forEach((key) => {
+      expect(Object.keys(map)).include(key);
+    });
   });
 });

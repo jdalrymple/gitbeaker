@@ -13,6 +13,8 @@ export type RateLimiters = Record<string, RateLimiterFn | { method: string; limi
 
 export type RateLimitOptions = Record<string, number | { method: string; limit: number }>;
 
+export type RequesterFn = (resourceOptions: ResourceOptions) => RequesterType;
+
 export type ResponseBodyType =
   | Record<string, unknown>[]
   | string[]

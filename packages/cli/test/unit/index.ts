@@ -1,12 +1,17 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import pkg from '../../package.json';
+import mockMapData from '../__mocks__/map.json';
 
-jest.mock('@gitbeaker/rest');
+vi.mock('@gitbeaker/rest');
+vi.mock('../../src/map', () => ({
+  default: mockMapData,
+}));
 
 const OLD_ENV = process.env;
 let Projects;
 
 beforeEach(async () => {
-  jest.resetModules();
+  vi.resetModules();
 
   ({ Projects } = await import('@gitbeaker/rest'));
 

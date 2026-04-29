@@ -1,16 +1,19 @@
 import { DashboardAnnotations } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 
-jest.mock(
-  '../../../src/infrastructure/RequestHelper',
-  () => jest.requireActual('../../__mocks__/RequestHelper').default,
-);
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('../../../src/infrastructure/RequestHelper', async () => {
+  const mock = await vi.importActual('../../__mocks__/RequestHelper');
+  return (mock as any).default;
+});
 
 let service: DashboardAnnotations;
 
 beforeEach(() => {
   service = new DashboardAnnotations({
-    requesterFn: jest.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
@@ -53,6 +56,8 @@ describe('DashboardAnnotations.create', () => {
   });
 
   it('should throw an error if environmentId or clusterId isnt passed', () => {
-    expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow();
+    expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow(
+      'Missing required argument. Please supply a environmentId or clusterId in the options parameter.',
+    );
   });
 });

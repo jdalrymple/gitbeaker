@@ -3,6 +3,7 @@ import {
   GitbeakerRetryError,
   GitbeakerTimeoutError,
 } from '../../src/GitbeakerError';
+import { describe, expect, it } from 'vitest';
 
 describe('GitbeakerRequestError', () => {
   it('should create a custom error with the name "GitbeakerRequestError"', () => {

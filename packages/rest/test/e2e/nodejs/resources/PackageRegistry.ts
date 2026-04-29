@@ -1,3 +1,5 @@
+import { beforeAll, describe, expect, it } from 'vitest';
+
 import { PackageRegistry, Projects } from '../../../../src';
 
 const {
@@ -47,11 +49,11 @@ describe('PackageRegistry.publish and download', () => {
       filename,
     );
 
-    expect(downloadedFile).toBeDefined();
+    expect(downloadedFile).toBeInstanceOf(Blob);
 
-    if (downloadedFile instanceof Blob) {
-      const downloadedData = new Uint8Array(await downloadedFile.arrayBuffer());
-      expect(downloadedData).toEqual(originalData);
-    }
+    const arrayBuffer = await downloadedFile.arrayBuffer();
+    const downloadedData = new Uint8Array(arrayBuffer);
+
+    expect(downloadedData).toEqual(originalData);
   });
 });

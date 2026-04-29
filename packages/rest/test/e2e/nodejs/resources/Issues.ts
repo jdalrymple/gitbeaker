@@ -1,5 +1,7 @@
 import { Issues, Projects } from '../../../../src';
 
+import { beforeAll, describe, expect, it } from 'vitest';
+
 const {
   GITLAB_PERSONAL_ACCESS_TOKEN = '',
   GITLAB_URL = '',
@@ -45,7 +47,7 @@ describe('Issues.all', () => {
       pagination: 'keyset',
     });
 
-    expect(projects).toBeArray();
+    expect(projects).toBeInstanceOf(Array);
     expect(projects).toHaveLength(10);
   });
 });
