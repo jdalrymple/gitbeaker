@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -15,7 +17,7 @@ import type { SimpleGroupSchema } from './Groups';
 import type { CondensedNamespaceSchema } from './Namespaces';
 import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
 

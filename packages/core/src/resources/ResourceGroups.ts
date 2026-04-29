@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { JobSchema } from './Jobs';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ResourceGroupSchema extends Record<string, unknown> {

@@ -1,3 +1,7 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   Camelize,
@@ -12,8 +16,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 
 export interface DiscussionNotePositionBaseSchema extends Record<string, unknown> {

@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export class Helm<C extends boolean = false> extends BaseResource<C> {

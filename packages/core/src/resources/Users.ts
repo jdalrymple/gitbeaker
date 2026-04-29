@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   AllOrNone,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type { CustomAttributeSchema } from '../templates/ResourceCustomAttribute
 import type { AllEventOptions, EventSchema } from './Events';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import {
   BaseRequestSearchParams,

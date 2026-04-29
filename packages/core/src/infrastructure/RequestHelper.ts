@@ -1,4 +1,3 @@
-import type { Camelize } from './Utils';
 import type {
   DefaultRequesterOptions,
   FormattedResponse,
@@ -6,9 +5,13 @@ import type {
   RequesterSearchParams,
   ResponseType,
 } from '@gitbeaker/requester-utils';
+
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { parse as parseQueryString } from 'picoquery';
 import { camelizeKeys } from 'xcase';
+
+import type { Camelize } from './Utils';
+
 import { parseLinkHeader } from './Utils';
 
 export interface AsStream {
@@ -326,15 +329,15 @@ export function get<T extends ResponseType = Record<string, unknown>>(): getOver
   return async <C extends boolean, E extends boolean, P extends 'keyset' | 'offset'>(
     service: BaseResource<C>,
     endpoint: string,
-    options?: AsStream &
+    options?: (
+      | ({
+          searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
+        } & BasePaginationRequestOptions)
+      | RequestHelperSearchParamOptions
+    ) &
+      AsStream &
       ShowExpanded<E> &
-      Sudo &
-      (
-        | ({
-            searchParams: PaginationRequestSearchParams<P> & PaginationType<P>;
-          } & BasePaginationRequestOptions)
-        | RequestHelperSearchParamOptions
-      ),
+      Sudo,
   ): Promise<any> => {
     const { asStream, sudo, showExpanded, searchParams } = options || {};
     const signal = service.queryTimeout ? AbortSignal.timeout(service.queryTimeout) : undefined;

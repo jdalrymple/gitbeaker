@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +10,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { LabelCountSchema, LabelSchema } from '../templates/ResourceLabels';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceLabels } from '../templates';
 
 export interface ProjectLabels<C extends boolean = false> extends ResourceLabels<C> {

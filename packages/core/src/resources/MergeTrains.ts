@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   MappedOmit,
@@ -11,7 +13,7 @@ import type {
 import type { CondensedMergeRequestSchema } from './MergeRequests';
 import type { PipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
 
 export interface MergeTrainSchema extends Record<string, unknown> {

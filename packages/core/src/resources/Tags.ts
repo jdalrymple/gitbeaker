@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,7 +12,7 @@ import type {
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
 import type { ReleaseSchema } from './ProjectReleases';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TagSchema extends Record<string, unknown> {

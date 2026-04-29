@@ -1,7 +1,9 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 import type { AccessTokenSchema } from '../templates/ResourceAccessTokens';
 import type { ServiceAccountSchema } from './ServiceAccounts';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export type ServiceAccountAccessTokenSchema = MappedOmit<AccessTokenSchema, 'access_level'>;

@@ -1,6 +1,8 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { JobSchema } from './Jobs';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
@@ -14,26 +16,26 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       ...searchParams
-    }: { jobToken?: string } & ShowExpanded<E> &
-      Sudo &
-      (
-        | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
-        | { jobId: number; artifactPath: string; job?: undefined; ref?: undefined }
-        | {
-            jobId?: undefined;
-            artifactPath?: undefined;
-            job: string;
-            ref: string;
-            searchRecentSuccessfulPipelines?: boolean;
-          }
-        | {
-            jobId?: undefined;
-            artifactPath: string;
-            job: string;
-            ref: string;
-            searchRecentSuccessfulPipelines?: boolean;
-          }
-      ) = {} as any,
+    }: { jobToken?: string } & (
+      | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
+      | { jobId: number; artifactPath: string; job?: undefined; ref?: undefined }
+      | {
+          jobId?: undefined;
+          artifactPath?: undefined;
+          job: string;
+          ref: string;
+          searchRecentSuccessfulPipelines?: boolean;
+        }
+      | {
+          jobId?: undefined;
+          artifactPath: string;
+          job: string;
+          ref: string;
+          searchRecentSuccessfulPipelines?: boolean;
+        }
+    ) &
+      ShowExpanded<E> &
+      Sudo = {} as any,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     let url = '';
 

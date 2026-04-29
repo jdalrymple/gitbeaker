@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
 } from '../infrastructure';
 import type { ExpandedPipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
 
 export interface PipelineTriggerTokenSchema extends Record<string, unknown> {

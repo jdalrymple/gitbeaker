@@ -1,5 +1,7 @@
-import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {

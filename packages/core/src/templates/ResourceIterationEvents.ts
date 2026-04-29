@@ -1,3 +1,7 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,8 +15,7 @@ import type {
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
 import type { IterationSchema } from './ResourceIterations';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface IterationEventSchema extends Record<string, unknown> {

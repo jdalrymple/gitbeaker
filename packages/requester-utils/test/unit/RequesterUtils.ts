@@ -1,5 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
+import { describe, expect, it, vi } from 'vitest';
+
 import {
   type OptionsHandlerFn,
   type RateLimiterFn,

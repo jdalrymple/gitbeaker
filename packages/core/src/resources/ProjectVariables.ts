@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -6,7 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { VariableFilter, VariableSchema, VariableType } from '../templates/ResourceVariables';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceVariables } from '../templates';
 
 export interface ProjectVariableSchema extends VariableSchema {

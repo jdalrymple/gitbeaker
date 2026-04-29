@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestBodyRecordOptions,
   BaseRequestSearchParams,
@@ -13,7 +15,7 @@ import type {
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { CommitSchema } from './Commits';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ReleaseEvidence {

@@ -1,5 +1,7 @@
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface GoProxyModuleVersionSchema extends Record<string, unknown> {

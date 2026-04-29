@@ -1,6 +1,6 @@
-import pkg from '../../package.json';
-
 import { describe, expect, it } from 'vitest';
+
+import pkg from '../../package.json';
 
 describe('General', () => {
   it('should return the expose a gitbeaker commnad', () => {

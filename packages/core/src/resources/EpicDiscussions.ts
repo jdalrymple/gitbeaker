@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/ResourceDiscussions';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceDiscussions } from '../templates';
 
 export interface EpicDiscussions<C extends boolean = false> extends ResourceDiscussions<C> {

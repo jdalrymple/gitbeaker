@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { DeployableSchema, DeploymentSchema } from './Deployments';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 import { SimpleProjectSchema } from './Projects';
 

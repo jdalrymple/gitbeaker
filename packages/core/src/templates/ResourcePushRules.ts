@@ -1,6 +1,9 @@
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface PushRuleSchema extends Record<string, unknown> {

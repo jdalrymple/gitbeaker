@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { NoteSchema } from '../templates/ResourceNotes';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceNotes } from '../templates';
 
 export interface IssueNoteSchema extends NoteSchema {

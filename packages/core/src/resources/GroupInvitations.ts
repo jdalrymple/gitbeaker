@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +10,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { InvitationSchema } from '../templates/ResourceInvitations';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { AccessLevel } from '../constants';
 import { ResourceInvitations } from '../templates';
 

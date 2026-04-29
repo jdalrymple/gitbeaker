@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -12,7 +14,7 @@ import type {
   ExpandedSnippetSchema,
   SnippetSchema,
 } from './Snippets';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export class ProjectSnippets<C extends boolean = false> extends BaseResource<C> {

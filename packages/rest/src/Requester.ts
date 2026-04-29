@@ -1,4 +1,5 @@
 import type { RequestOptions, ResourceOptions, ResponseBodyType } from '@gitbeaker/requester-utils';
+
 import {
   GitbeakerRequestError,
   GitbeakerRetryError,

@@ -1,3 +1,7 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -10,8 +14,7 @@ import type {
 } from '../infrastructure';
 import type { IssueSchema } from '../resources/Issues';
 import type { MergeRequestSchema } from '../resources/MergeRequests';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MilestoneSchema extends Record<string, unknown> {

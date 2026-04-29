@@ -1,6 +1,8 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { CommitSchema } from './Commits';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface RepositorySubmoduleSchema extends CommitSchema {

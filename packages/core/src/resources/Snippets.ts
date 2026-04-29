@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -8,7 +10,7 @@ import type {
   UserAgentDetailSchema,
 } from '../infrastructure';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export type SnippetVisibility = 'private' | 'public' | 'internal';

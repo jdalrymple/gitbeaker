@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -11,7 +13,7 @@ import type {
   CondensedBadgeSchema,
   EditBadgeOptions,
 } from '../templates/ResourceBadges';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceBadges } from '../templates';
 
 export interface GroupBadgeSchema extends BadgeSchema {

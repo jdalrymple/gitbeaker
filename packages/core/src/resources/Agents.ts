@@ -1,6 +1,8 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { SimpleProjectSchema } from './Projects';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ClusterAgentSchema extends Record<string, unknown> {

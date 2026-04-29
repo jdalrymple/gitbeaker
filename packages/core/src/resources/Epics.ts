@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -13,7 +15,7 @@ import type { SimpleLabelSchema } from '../templates/ResourceLabels';
 import type { GroupSchema } from './Groups';
 import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface EpicSchema extends Record<string, unknown> {

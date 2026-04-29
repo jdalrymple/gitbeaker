@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -6,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface BaseExternalStatusCheckSchema extends Record<string, unknown> {

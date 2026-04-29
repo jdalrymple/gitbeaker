@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -13,7 +15,7 @@ import type {
 } from '../templates/ResourceMilestones';
 import type { IssueSchema } from './Issues';
 import type { MergeRequestSchema } from './MergeRequests';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceMilestones } from '../templates';
 
 export interface GroupMilestones<C extends boolean = false> extends ResourceMilestones<C> {

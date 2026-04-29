@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -13,7 +15,7 @@ import type {
 import type { CondensedGroupSchema } from './Groups';
 import type { JobSchema } from './Jobs';
 import type { SimpleProjectSchema } from './Projects';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface RunnerToken extends Record<string, unknown> {

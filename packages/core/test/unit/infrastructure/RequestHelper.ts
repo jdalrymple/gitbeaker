@@ -1,5 +1,4 @@
 /* eslint-disable vitest/require-mock-type-parameters */
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   BaseResource,
   DefaultRequesterOptions,
@@ -7,6 +6,8 @@ import {
   RequesterType,
   ResponseBodyType,
 } from '@gitbeaker/requester-utils';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { RequestHelper } from '../../../src/infrastructure/RequestHelper';
 
 /* eslint no-empty-pattern: 0 */

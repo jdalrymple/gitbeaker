@@ -1,3 +1,5 @@
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -7,7 +9,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { AllIterationsOptions, IterationSchema } from '../templates/ResourceIterations';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+
 import { ResourceIterations } from '../templates';
 
 export interface ProjectIterations<C extends boolean = false> {

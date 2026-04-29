@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   GitlabAPIResponse,
   OneOrNoneOf,
@@ -6,7 +8,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface AuditEventSchema extends Record<string, unknown> {

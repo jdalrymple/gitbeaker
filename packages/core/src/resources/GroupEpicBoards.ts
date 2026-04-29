@@ -1,3 +1,5 @@
+import { BaseResource } from '@gitbeaker/requester-utils';
+
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
@@ -9,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 import type { CondensedGroupSchema } from './Groups';
-import { BaseResource } from '@gitbeaker/requester-utils';
+
 import { RequestHelper, endpoint } from '../infrastructure';
 import { LabelSchema } from '../templates/ResourceLabels';
 
