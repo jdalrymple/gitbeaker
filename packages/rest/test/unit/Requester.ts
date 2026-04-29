@@ -8,9 +8,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultRequestHandler, processBody } from '../../src/Requester';
 import { getError } from '../utils/index';
 
-global.fetch = vi.fn();
+const mockFetch = vi.fn<typeof fetch>();
 
-const mockFetch = global.fetch as any;
+vi.stubGlobal('fetch', mockFetch);
 
 beforeEach(() => {
   mockFetch.mockReset();
@@ -481,9 +481,11 @@ describe('defaultRequestHandler', () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    const [calledRequest] = mockFetch.mock.calls[0];
-    expect(calledRequest).toBeInstanceOf(Request);
-    expect(calledRequest.url).toBe('http://test.com/testurl');
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: 'http://test.com/testurl',
+      }),
+    );
   });
 
   it('should handle a searchParams correctly', async () => {
@@ -505,9 +507,11 @@ describe('defaultRequestHandler', () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    const [calledRequest] = mockFetch.mock.calls[0];
-    expect(calledRequest).toBeInstanceOf(Request);
-    expect(calledRequest.url).toBe('http://test.com/testurl/123?test=4');
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: 'http://test.com/testurl/123?test=4',
+      }),
+    );
   });
 
   it('should add same-origin mode for repository/archive endpoint', async () => {
@@ -527,10 +531,12 @@ describe('defaultRequestHandler', () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    const [calledRequest] = mockFetch.mock.calls[0];
-    expect(calledRequest).toBeInstanceOf(Request);
-    expect(calledRequest.url).toBe('http://test.com/repository/archive');
-    expect(calledRequest.mode).toBe('same-origin');
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: 'http://test.com/repository/archive',
+        mode: 'same-origin',
+      }),
+    );
   });
 
   it('should use default mode (cors) for non-repository/archive endpoints', async () => {
@@ -550,9 +556,11 @@ describe('defaultRequestHandler', () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    const [calledRequest] = mockFetch.mock.calls[0];
-    expect(calledRequest).toBeInstanceOf(Request);
-    expect(calledRequest.url).toBe('http://test.com/test/something');
-    expect(calledRequest.mode).toBe('cors');
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: 'http://test.com/test/something',
+        mode: 'cors',
+      }),
+    );
   });
 });

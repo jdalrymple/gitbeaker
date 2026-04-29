@@ -1,10 +1,10 @@
 import type { Agent } from 'http';
-import { RateLimitOptions, RequesterType, ResourceOptions } from './RequesterUtils';
+import { RateLimitOptions, RequesterFn, RequesterType } from './RequesterUtils';
 
 export interface RootResourceOptions<C> {
   // TODO: Remove optional prop from here by retyping the presetResourceArguments
   // Initial efforts ran into an omit typing issue
-  requesterFn?: (resourceOptions: ResourceOptions) => RequesterType;
+  requesterFn?: RequesterFn;
   host?: string;
   prefixUrl?: string;
   camelize?: C;

@@ -1,4 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { ResourceDiscussions } from '../../../src/templates';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,7 +13,7 @@ let service: ResourceDiscussions;
 
 beforeEach(() => {
   service = new ResourceDiscussions('resource1', 'resource2', {
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

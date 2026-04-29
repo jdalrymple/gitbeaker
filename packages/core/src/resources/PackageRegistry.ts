@@ -29,10 +29,10 @@ export class PackageRegistry<C extends boolean = false> extends BaseResource<C> 
     packageVersion: string,
     filename: string,
     options?: ShowExpanded<E> & Sudo,
-  ) {
+  ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.get<{ message: string }>()(
+    return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/packages/generic/${packageName}/${packageVersion}/${filename}`,
       {

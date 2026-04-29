@@ -1,6 +1,6 @@
-import { Lint, Projects } from '../../../../src';
-
 import { beforeEach, describe, expect, it } from 'vitest';
+
+import { Lint, Projects } from '../../../../src';
 
 const { GITLAB_PERSONAL_ACCESS_TOKEN = '', GITLAB_URL = '', TEST_ID = Date.now() } = process.env;
 const CREDENTIALS = {
@@ -29,7 +29,9 @@ describe('Lint.lint', () => {
 
     const result = await lintAPI.lint(project.id, yaml);
 
-    expect(result).toBeObject();
-    expect(result).toContainKeys(['valid', 'merged_yaml']);
+    expect(result).toMatchObject({
+      valid: true,
+      merged_yaml: '',
+    });
   });
 });

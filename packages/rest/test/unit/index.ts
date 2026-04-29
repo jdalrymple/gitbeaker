@@ -5,6 +5,8 @@ import { describe, expect, it } from 'vitest';
 
 describe('Import', () => {
   it('should re-export all resources from core', () => {
-    expect(Object.keys(resources)).toIncludeAllMembers(Object.keys(coreResources));
+    Object.keys(coreResources).forEach((rk) => {
+      expect(Object.keys(resources)).include(rk);
+    });
   });
 });

@@ -1,4 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { ResourceTemplates } from '../../../src/templates';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,7 +13,7 @@ let service: ResourceTemplates;
 
 beforeEach(() => {
   service = new ResourceTemplates('resource', {
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

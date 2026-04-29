@@ -8,5 +8,5 @@ export default mergeConfig(
       name: 'Gitbeaker REST',
       testTimeout: 10000,
     },
-  })
+  }),
 );

@@ -1,5 +1,6 @@
 import { EpicIssues } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -12,7 +13,7 @@ let service: EpicIssues;
 
 beforeEach(() => {
   service = new EpicIssues({
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

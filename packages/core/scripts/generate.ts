@@ -1,4 +1,3 @@
-import { RequesterType } from '@gitbeaker/requester-utils';
 import FS from 'node:fs';
 import * as resources from '../src/resources';
 import { getParamNames } from './getParamNames';
@@ -32,7 +31,7 @@ export function buildMap() {
   const { Gitlab, ...directResources } = resources;
 
   Object.entries(directResources).forEach(([name, Resource]) => {
-    const r = new Resource({ token: 'dummey', requesterFn: () => ({}) as RequesterType });
+    const r = new (Resource as any)({ token: 'dummy', requesterFn: () => ({}) });
     const formattedInstanceMethods = getInstanceMethods(r).map((m) => ({
       name: m,
       args: removeOptionalArg(getParamNames(r[m] as () => unknown)),

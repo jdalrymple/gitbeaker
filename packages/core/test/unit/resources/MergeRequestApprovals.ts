@@ -1,4 +1,5 @@
 import { MergeRequestApprovals } from '../../../src';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { RequestHelper } from '../../../src/infrastructure';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,7 +13,7 @@ let service: MergeRequestApprovals;
 
 beforeEach(() => {
   service = new MergeRequestApprovals({
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
   vi.clearAllMocks();

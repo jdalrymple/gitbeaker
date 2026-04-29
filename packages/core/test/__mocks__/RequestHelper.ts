@@ -1,13 +1,14 @@
+/* eslint-disable vitest/require-mock-type-parameters */
 import { vi } from 'vitest';
 
-const mockHelperFn = vi.fn();
+export const RequestHelper = {
+  post: vi.fn(() => vi.fn()),
+  get: vi.fn(() => vi.fn()),
+  put: vi.fn(() => vi.fn()),
+  del: vi.fn(() => vi.fn()),
+  patch: vi.fn(() => vi.fn()),
+};
 
 export default {
-  RequestHelper: {
-    post: () => mockHelperFn,
-    get: () => mockHelperFn,
-    put: () => mockHelperFn,
-    del: () => mockHelperFn,
-    patch: () => mockHelperFn,
-  },
+  RequestHelper,
 };

@@ -18,7 +18,6 @@ describe('Projects.create', () => {
     const name = `Project Creation Integration Test - NODEJS ${TEST_ID}`;
     const p = await service.create({ name });
 
-    expect(p).toBeObject();
     expect(p.name).toEqual(name);
   });
 });
@@ -43,7 +42,7 @@ describe('Projects.all', () => {
       simple: true,
     });
 
-    expect(projects).toBeArray();
+    expect(projects).toBeInstanceOf(Array);
     expect(projects).toHaveLength(10);
   });
 
@@ -77,6 +76,11 @@ describe('Projects.uploadForReference', () => {
       filename: 'testfile.txt',
     });
 
-    expect(results).toContainKeys(['alt', 'url', 'full_path', 'markdown']);
+    expect(results).toMatchObject({
+      alt: '',
+      url: '',
+      full_path: '',
+      markdown: '',
+    });
   });
 });

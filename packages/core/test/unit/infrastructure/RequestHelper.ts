@@ -1,3 +1,4 @@
+/* eslint-disable vitest/require-mock-type-parameters */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   BaseResource,
@@ -100,13 +101,13 @@ function mockedTimedoutRequest(
     });
 }
 
-const mockedRequester = {
+const mockedRequester = vi.mocked<RequesterType>({
   get: vi.fn(),
   post: vi.fn(),
   delete: vi.fn(),
   put: vi.fn(),
   patch: vi.fn(),
-} as RequesterType;
+});
 
 let service: BaseResource;
 
@@ -398,10 +399,12 @@ describe('RequestHelper.get()', () => {
 
     const results = await s.show();
 
-    expect(results).toIncludeSameMembers([
-      { id: 3, gravatarEnable: true },
-      { id: 4, gravatarEnable: false },
-    ]);
+    expect(results).toEqual(
+      expect.arrayContaining([
+        { id: 3, gravatarEnable: true },
+        { id: 4, gravatarEnable: false },
+      ]),
+    );
   });
 
   it('should return simple response with default keys without camelize option', async () => {

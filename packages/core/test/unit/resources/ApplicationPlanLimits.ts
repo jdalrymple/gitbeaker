@@ -1,5 +1,6 @@
 import { ApplicationPlanLimits } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -12,7 +13,7 @@ let service: ApplicationPlanLimits;
 
 beforeEach(() => {
   service = new ApplicationPlanLimits({
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

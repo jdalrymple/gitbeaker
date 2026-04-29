@@ -1,4 +1,5 @@
 import { RequestHelper } from '../../../src/infrastructure';
+import { RequesterFn } from '@gitbeaker/requester-utils';
 import { MergeRequestStateEvents } from '../../../src/resources/MergeRequestStateEvents';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,7 +13,7 @@ let service: MergeRequestStateEvents;
 
 beforeEach(() => {
   service = new MergeRequestStateEvents({
-    requesterFn: vi.fn(),
+    requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });

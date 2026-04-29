@@ -7,5 +7,5 @@ export default mergeConfig(
     test: {
       name: 'Gitbeaker Core',
     },
-  })
+  }),
 );

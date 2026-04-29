@@ -1,6 +1,9 @@
-import { expectTypeOf, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import {
+  type OptionsHandlerFn,
+  type RateLimiterFn,
+  type RequestHandlerFn,
   RequestOptions,
   ResourceOptions,
   createRateLimiters,
@@ -113,8 +116,8 @@ describe('defaultOptionsHandler', () => {
 });
 
 describe('createInstance', () => {
-  const requestHandler = vi.fn();
-  const optionsHandler = vi.fn(() => Promise.resolve({} as RequestOptions));
+  const requestHandler = vi.fn<RequestHandlerFn>();
+  const optionsHandler = vi.fn<OptionsHandlerFn>(() => Promise.resolve({} as RequestOptions));
   const serviceOptions: ResourceOptions = {
     headers: { test: '5' },
     authHeaders: {
@@ -124,16 +127,16 @@ describe('createInstance', () => {
   };
 
   it('should have a createInstance function', () => {
-    expectTypeOf(createRequesterFn).toBeFunction();
+    expect(createRequesterFn).toBeInstanceOf(Function);
   });
 
   it('should return an object with function names equal to those in the methods array when the createInstance function is called', () => {
     const requester = createRequesterFn(optionsHandler, requestHandler)(serviceOptions);
 
-    expectTypeOf(requester).toContainAllKeys(methods);
+    expect(Object.keys(requester)).toEqual(expect.arrayContaining(methods));
 
     methods.forEach((m) => {
-      expectTypeOf(requester[m]).toBeFunction();
+      expect(requester[m]).toBeInstanceOf(Function);
     });
   });
 
@@ -209,10 +212,10 @@ describe('createInstance', () => {
 
     expect(requestHandler).toHaveBeenCalledWith(testEndpoint, {
       rateLimiters: {
-        '*': expect.toBeFunction(),
+        '*': expect.any(Function),
         'projects/*/test': {
           method: 'GET',
-          limit: expect.toBeFunction(),
+          limit: expect.any(Function),
         },
       },
     });
@@ -233,10 +236,10 @@ describe('createRateLimiters', () => {
     expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 40, duration: 60 });
 
     expect(limiters).toStrictEqual({
-      '*': expect.toBeFunction(),
+      '*': expect.any(Function),
       'projects/*/test': {
         method: 'GET',
-        limit: expect.toBeFunction(),
+        limit: expect.any(Function),
       },
     });
   });
@@ -257,10 +260,10 @@ describe('createRateLimiters', () => {
     expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 40, duration: 30 });
 
     expect(limiters).toStrictEqual({
-      '*': expect.toBeFunction(),
+      '*': expect.any(Function),
       'projects/*/test': {
         method: 'GET',
-        limit: expect.toBeFunction(),
+        limit: expect.any(Function),
       },
     });
   });
@@ -330,7 +333,7 @@ describe('formatQuery', () => {
 
 describe('getMatchingRateLimiter', () => {
   it('should default the method to GET if not passed', async () => {
-    const rateLimiter = vi.fn();
+    const rateLimiter = vi.fn<RateLimiterFn>();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'GET', limit: rateLimiter },
     });
@@ -341,7 +344,7 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should uppercase method for matching', async () => {
-    const rateLimiter = vi.fn();
+    const rateLimiter = vi.fn<RateLimiterFn>();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'get', limit: rateLimiter },
     });
@@ -358,9 +361,9 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should return the most specific rate limit', async () => {
-    const rateLimiter = vi.fn();
+    const rateLimiter = vi.fn<RateLimiterFn>();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', {
-      '*': vi.fn(),
+      '*': vi.fn<RateLimiterFn>(),
       'endpoint/testing*': rateLimiter,
     });
 
@@ -370,13 +373,13 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should return a default rate limit of 3000 rpm if nothing matches', () => {
-    getMatchingRateLimiter('endpoint', { someurl: vi.fn() });
+    getMatchingRateLimiter('endpoint', { someurl: vi.fn<RateLimiterFn>() });
 
     expect(RateLimiterMemory).toHaveBeenCalledWith({ points: 3000, duration: 60 });
   });
 
   it('should handle expanded rate limit options with a particular method and limit', async () => {
-    const rateLimiter = vi.fn();
+    const rateLimiter = vi.fn<RateLimiterFn>();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint', {
       '*': { method: 'get', limit: rateLimiter },
     });
@@ -387,7 +390,7 @@ describe('getMatchingRateLimiter', () => {
   });
 
   it('should handle simple rate limit options with a particular limit', async () => {
-    const rateLimiter = vi.fn();
+    const rateLimiter = vi.fn<RateLimiterFn>();
     const matchingRateLimiter = getMatchingRateLimiter('endpoint/testing', { '**': rateLimiter });
 
     await matchingRateLimiter();

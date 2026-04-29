@@ -47,7 +47,7 @@ describe('Issues.all', () => {
       pagination: 'keyset',
     });
 
-    expect(projects).toBeArray();
+    expect(projects).toBeInstanceOf(Array);
     expect(projects).toHaveLength(10);
   });
 });

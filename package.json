@@ -12,7 +12,10 @@
       "lodash": ">=4.18.1",
       "tar": "^7.5.13",
       "undici": ">=8.0.2"
-    }
+    },
+    "ignoredBuiltDependencies": [
+      "nx"
+    ]
   },
   "scripts": {
     "build": "nx run-many --target=build",
