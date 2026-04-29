@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Branches } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,11 +19,12 @@ describe('Branches.all', () => {
   it('should request GET /projects/:id/repository/branches', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/repository/branches',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/branches', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -32,8 +33,12 @@ describe('Branches.create', () => {
     await service.create(1, 'name', 'ref');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/repository/branches', {
-      branch: 'name',
-      ref: 'ref',
+      body: {
+        branch: 'name',
+        ref: 'ref',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

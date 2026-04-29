@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { DashboardAnnotations } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -23,9 +23,13 @@ describe('DashboardAnnotations.create', () => {
       service,
       'environments/1/metrics_dashboard/annotations',
       {
-        dashboardPath: 'path',
-        startingAt: 'start',
-        description: 'desc',
+        body: {
+          dashboardPath: 'path',
+          startingAt: 'start',
+          description: 'desc',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -37,15 +41,18 @@ describe('DashboardAnnotations.create', () => {
       service,
       'clusters/1/metrics_dashboard/annotations',
       {
-        dashboardPath: 'path',
-        startingAt: 'start',
-        description: 'desc',
+        body: {
+          dashboardPath: 'path',
+          startingAt: 'start',
+          description: 'desc',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
 
   it('should throw an error if environmentId or clusterId isnt passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.create('path', 'start', 'desc', {} as any)).toThrow();
   });
 });

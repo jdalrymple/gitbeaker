@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export type NotificationSettingLevel =
   | 'disabled'
@@ -58,41 +58,40 @@ export type EditNotificationSettingsOptions = {
   newEpic?: boolean;
 };
 
-function url({
-  projectId,
-  groupId,
-}: { projectId?: string | number; groupId?: string | number } = {}): string {
-  let prefix = '';
-
-  if (projectId) prefix = endpoint`projects/${projectId}/`;
-  if (groupId) prefix = endpoint`groups/${groupId}/`;
-
-  return `${prefix}notification_settings`;
-}
-
 export class NotificationSettings<C extends boolean = false> extends BaseResource<C> {
-  edit<E extends boolean = false>({
-    groupId,
-    projectId,
-    ...options
-  }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-    EditNotificationSettingsOptions &
-    Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
-    const uri = url({ groupId, projectId });
+  edit<E extends boolean = false>(
+    options: EditNotificationSettingsOptions &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo = {} as any,
+  ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
+    const { projectId, groupId, sudo, showExpanded, ...body } = options;
 
-    return RequestHelper.put<NotificationSettingSchema>()(this, uri, options);
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
+
+    const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
+
+    return RequestHelper.put<NotificationSettingSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
-  show<E extends boolean = false>({
-    groupId,
-    projectId,
-    ...options
-  }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-    Sudo &
-    ShowExpanded<E> = {}): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
-    const uri = url({ groupId, projectId });
+  show<E extends boolean = false>(
+    options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo = {} as any,
+  ): Promise<GitlabAPIResponse<NotificationSettingSchema, C, E, void>> {
+    const { projectId, groupId, sudo, showExpanded } = options;
 
-    return RequestHelper.get<NotificationSettingSchema>()(this, uri, options);
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
+
+    const url = getPrefixedUrl('notification_settings', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<NotificationSettingSchema>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 }

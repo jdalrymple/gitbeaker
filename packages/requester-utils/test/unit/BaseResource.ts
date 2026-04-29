@@ -177,13 +177,11 @@ describe('Creation of BaseResource instance', () => {
 
   it('should throw an error if requesterFn is not passed', () => {
     expect(() => {
-      // eslint-disable-next-line
       // @ts-ignore
       new BaseResource();
     }).toThrow();
 
     expect(() => {
-      // eslint-disable-next-line
       // @ts-ignore
       new BaseResource({});
     }).toThrow();

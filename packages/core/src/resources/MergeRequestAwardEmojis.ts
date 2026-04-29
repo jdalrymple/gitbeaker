@@ -1,40 +1,41 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceAwardEmojis } from '../templates';
-import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceAwardEmojis } from '../templates';
 
 export interface MergeRequestAwardEmojis<C extends boolean = false> extends ResourceAwardEmojis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     mergerequestIId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema[], C, E, P>>;
 
   award<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   show<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
     awardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AwardEmojiSchema, C, E, void>>;
 }
 

@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, createFormData, endpoint } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -43,22 +43,28 @@ export interface ImportStatusSchema extends Record<string, unknown> {
 export class ProjectImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
-    options: { asStream: true } & Sudo & ShowExpanded<E>,
+    options: { asStream: true } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
 
   download<E extends boolean = false>(
     projectId: string | number,
-    options?: { asStream?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { asStream?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
 
   download<E extends boolean = false>(
     projectId: string | number,
     options?: AsStream & ShowExpanded<E> & Sudo,
   ): Promise<any> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<Blob | ReadableStream>()(
       this,
       endpoint`projects/${projectId}/export/download`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -70,14 +76,19 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       namespace?: number | string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
-      isForm: true,
-      ...options,
-      file: [file.content, file.filename],
-      path,
+      sudo,
+      showExpanded,
+      body: createFormData({
+        ...body,
+        file: [file.content, file.filename],
+        path,
+      }),
     });
   }
 
@@ -89,13 +100,19 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       namespace?: number | string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
-      ...options,
-      path,
-      url,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        path,
+        url,
+      },
     });
   }
 
@@ -106,39 +123,47 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     path: string,
     region: string,
     secretAccessKey: string,
-    options?: { name?: number; namespace?: number | string } & Sudo & ShowExpanded<E>,
+    options?: { name?: number; namespace?: number | string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
-      ...options,
-      accessKeyId,
-      bucketName,
-      fileKey,
-      path,
-      region,
-      secretAccessKey,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        accessKeyId,
+        bucketName,
+        fileKey,
+        path,
+        region,
+        secretAccessKey,
+      },
     });
   }
 
   showExportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
-    return RequestHelper.get<ExportStatusSchema>()(
-      this,
-      endpoint`projects/${projectId}/export`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExportStatusSchema>()(this, endpoint`projects/${projectId}/export`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   showImportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
-    return RequestHelper.get<ImportStatusSchema>()(
-      this,
-      endpoint`projects/${projectId}/import`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ImportStatusSchema>()(this, endpoint`projects/${projectId}/import`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   scheduleExport<E extends boolean = false>(
@@ -147,11 +172,17 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       url: string;
       http_method?: string;
     },
-    options?: { description?: string } & Sudo & ShowExpanded<E>,
+    options?: { description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<{ message: string }>()(this, endpoint`projects/${projectId}/export`, {
-      ...options,
-      upload: uploadConfig,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        upload: uploadConfig,
+      },
     });
   }
 }

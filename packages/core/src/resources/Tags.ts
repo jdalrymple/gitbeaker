@@ -1,14 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
 import type { CommitSchema } from './Commits';
 import type { ReleaseSchema } from './ProjectReleases';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TagSchema extends Record<string, unknown> {
   commit: CommitSchema;
@@ -46,65 +49,86 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
       orderBy?: 'name' | 'updated' | 'version';
       sort?: 'asc' | 'desc';
       search?: string;
-    } & Sudo &
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
       ShowExpanded<E> &
-      PaginationRequestOptions<P>,
+      Sudo,
   ): Promise<GitlabAPIResponse<TagSchema[], C, E, P>> {
-    return RequestHelper.get<TagSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/repository/tags`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<TagSchema[]>()(this, endpoint`projects/${projectId}/repository/tags`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
     ref: string,
-    options?: { message?: string } & Sudo & ShowExpanded<E>,
+    options?: { message?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TagSchema>()(this, endpoint`projects/${projectId}/repository/tags`, {
-      searchParams: {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
         tagName,
         ref,
       },
-      ...options,
     });
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/repository/tags/${tagName}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/repository/tags/${tagName}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<TagSchema>()(
       this,
       endpoint`projects/${projectId}/repository/tags/${tagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showSignature<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TagSignatureSchema | { message: string }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<TagSignatureSchema | { message: string }>()(
       this,
       endpoint`projects/${projectId}/repository/tags/${tagName}/signature`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

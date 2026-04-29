@@ -1,11 +1,18 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
+} from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  createFormData,
+  endpoint,
 } from '../infrastructure';
 
 export interface TopicSchema extends Record<string, unknown> {
@@ -18,11 +25,21 @@ export interface TopicSchema extends Record<string, unknown> {
 
 export class Topics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { search?: string; withoutProjects?: boolean } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { search?: string; withoutProjects?: boolean } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema[], C, E, P>> {
-    return RequestHelper.get<TopicSchema[]>()(this, 'topics', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<TopicSchema[]>()(this, 'topics', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
@@ -30,20 +47,22 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
     {
       avatar,
       ...options
-    }: { avatar?: { content: Blob; filename: string }; description?: string } & Sudo &
-      ShowExpanded<E> = {},
+    }: { avatar?: { content: Blob; filename: string }; description?: string } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
-    const opts: Record<string, unknown> = {
-      name,
-      ...options,
-    };
+    const { sudo, showExpanded, ...body } = options || {};
 
-    if (avatar) {
-      opts.isForm = true;
-      opts.file = [avatar.content, avatar.filename];
-    }
-
-    return RequestHelper.post<TopicSchema>()(this, 'topics', opts);
+    return RequestHelper.post<TopicSchema>()(this, 'topics', {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            name,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : body,
+    });
   }
 
   edit<E extends boolean = false>(
@@ -56,42 +75,61 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       title?: string;
       avatar?: { content: Blob; filename: string };
       description?: string;
-    } & Sudo &
-      ShowExpanded<E> = {},
+    } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
-    const opts: Record<string, unknown> = { ...options };
+    const { sudo, showExpanded, ...body } = options || {};
 
-    if (avatar) {
-      opts.isForm = true;
-      opts.file = [avatar.content, avatar.filename];
-    }
-
-    return RequestHelper.put<TopicSchema>()(this, `topics/${topicId}`, opts);
+    return RequestHelper.put<TopicSchema>()(this, endpoint`topics/${topicId}`, {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : body,
+    });
   }
 
   merge<E extends boolean = false>(
     sourceTopicId: number,
     targetTopicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<TopicSchema>()(this, `topics/merge`, {
-      sourceTopicId,
-      targetTopicId,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        sourceTopicId,
+        targetTopicId,
+      },
     });
   }
 
   remove<E extends boolean = false>(
     topicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `topics/${topicId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`topics/${topicId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     topicId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
-    return RequestHelper.get<TopicSchema>()(this, `topics/${topicId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<TopicSchema>()(this, endpoint`topics/${topicId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

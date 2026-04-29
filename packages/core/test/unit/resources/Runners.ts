@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Runners } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,25 +19,45 @@ describe('Runners.all', () => {
   it('should request GET /runners/all', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/all', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/all', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/runners', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/runners', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/runners', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /groups/:id/runners', async () => {
     await service.all({ groupId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/1/runners', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/1/runners', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /runners', async () => {
     await service.all({ owned: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'runners', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -45,7 +65,11 @@ describe('Runners.edit', () => {
   it('should request PUT /runners/:id', async () => {
     await service.edit(2);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'runners/2', undefined);
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'runners/2', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -54,7 +78,11 @@ describe('Runners.enable', () => {
     await service.enable(1, 2);
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/runners', {
-      runnerId: 2,
+      body: {
+        runnerId: 2,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -63,7 +91,10 @@ describe('Runners.disable', () => {
   it('should request DELETE /projects/:id/runners/:id', async () => {
     await service.disable(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/runners/2', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/runners/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -71,7 +102,12 @@ describe('Runners.allJobs', () => {
   it('should request GET /runners/:id/jobs', async () => {
     await service.allJobs(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/1/jobs', undefined);
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'runners/1/jobs', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -79,13 +115,21 @@ describe('Runners.remove', () => {
   it('should request DEL /runners/:id', async () => {
     await service.remove({ runnerId: 2 });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners/2', {});
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners/2', {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request DEL /runners with token', async () => {
     await service.remove({ token: 'token' });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'runners', { token: 'token' });
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'runners', {
+      searchParams: { token: 'token' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -93,6 +137,9 @@ describe('Runners.show', () => {
   it('should request GET /runners/:id', async () => {
     await service.show(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'runners/1', undefined);
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'runners/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

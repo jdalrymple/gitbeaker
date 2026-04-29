@@ -1,7 +1,7 @@
-import FS from 'node:fs';
 import { RequesterType } from '@gitbeaker/requester-utils';
-import { getParamNames } from './getParamNames';
+import FS from 'node:fs';
 import * as resources from '../src/resources';
+import { getParamNames } from './getParamNames';
 
 function getInstanceMethods(x: object): string[] {
   if (!x) return [];

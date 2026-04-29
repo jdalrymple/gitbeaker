@@ -1,5 +1,5 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
 import { GitlabAPIResponse, ShowExpanded, Sudo } from '@gitbeaker/core';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TerraformStateSchema extends Record<string, unknown> {
@@ -16,7 +16,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
   show<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TerraformStateSchema, C, E, void>> {
     return RequestHelper.get<TerraformStateSchema>()(
       this,
@@ -29,7 +29,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     serial: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TerraformStateSchema, C, E, void>> {
     return RequestHelper.get<TerraformStateSchema>()(
       this,
@@ -42,7 +42,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
     projectId: string | number,
     name: string,
     serial: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -54,7 +54,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
   remove<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -66,7 +66,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
   removeTerraformStateLock<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -78,7 +78,7 @@ export class ProjectTerraformState<C extends boolean = false> extends BaseResour
   createVersion<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TerraformStateSchema, C, E, void>> {
     return RequestHelper.post<TerraformStateSchema>()(
       this,

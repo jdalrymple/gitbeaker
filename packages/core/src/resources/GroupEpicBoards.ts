@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
 import type { CondensedGroupSchema } from './Groups';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { LabelSchema } from '../templates/ResourceLabels';
 
 export interface GroupEpicBoardListSchema extends Record<string, unknown> {
@@ -31,36 +34,55 @@ export interface GroupEpicBoardSchema extends Record<string, unknown> {
 export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<GroupEpicBoardSchema[]>()(
       this,
       endpoint`groups/${groupId}/epic_boards`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allLists<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardListSchema[]>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}/lists`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   show<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardSchema>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -68,12 +90,17 @@ export class GroupEpicBoards<C extends boolean = false> extends BaseResource<C> 
     groupId: string | number,
     boardId: number,
     listId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupEpicBoardListSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<GroupEpicBoardListSchema>()(
       this,
       endpoint`groups/${groupId}/epic_boards/${boardId}/lists/${listId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

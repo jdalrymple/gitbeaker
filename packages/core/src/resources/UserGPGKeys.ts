@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface UserGPGKeySchema extends Record<string, unknown> {
   id: number;
@@ -8,13 +8,11 @@ export interface UserGPGKeySchema extends Record<string, unknown> {
   created_at: string;
 }
 
-const url = (userId?: number) => (userId ? `users/${userId}/gpg_keys` : 'user/gpg_keys');
-
 export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
   // Convienence method
   add<E extends boolean = false>(
     key: string,
-    options?: { userId?: number } & Sudo & ShowExpanded<E>,
+    options?: { userId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
     return this.create<E>(key, options);
   }
@@ -22,33 +20,63 @@ export class UserGPGKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     userId,
     ...options
-  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { userId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserGPGKeySchema[], C, E, void>
   > {
-    return RequestHelper.get<UserGPGKeySchema[]>()(this, url(userId), options);
+    const { sudo, showExpanded } = options || {};
+
+    const url = getPrefixedUrl('gpg_keys', { users: userId, user: !userId });
+
+    return RequestHelper.get<UserGPGKeySchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
     key: string,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
-    return RequestHelper.post<UserGPGKeySchema>()(this, url(userId), {
-      key,
-      ...options,
+    const { sudo, showExpanded } = options || {};
+
+    const url = getPrefixedUrl('gpg_keys', { users: userId, user: !userId });
+
+    return RequestHelper.post<UserGPGKeySchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        key,
+      },
     });
   }
 
   show<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserGPGKeySchema, C, E, void>> {
-    return RequestHelper.get<UserGPGKeySchema>()(this, `${url(userId)}/${keyId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`gpg_keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.get<UserGPGKeySchema>()(this, uri, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`gpg_keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.del()(this, uri, {
+      sudo,
+      showExpanded,
+    });
   }
 }

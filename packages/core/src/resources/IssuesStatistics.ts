@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export interface StatisticsSchema extends Record<string, unknown> {
   statistics: {
@@ -30,23 +30,23 @@ export type AllIssueStatisticsOptions = {
 
 export class IssuesStatistics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
-      OneOrNoneOf<{ authorId: number; authorUsername: string }> &
+    options?: AllIssueStatisticsOptions &
       OneOrNoneOf<{ assigneeId: number; assigneeUsername: string }> &
-      AllIssueStatisticsOptions &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+      OneOrNoneOf<{ authorId: number; authorUsername: string }> &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<StatisticsSchema, C, E, void>> {
-    let url: string;
+    const { sudo, showExpanded, projectId, groupId, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/issues_statistics`;
-    else if (groupId) url = endpoint`groups/${groupId}/issues_statistics`;
-    else url = 'issues_statistics';
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
-    return RequestHelper.get<StatisticsSchema>()(this, url, options);
+    const url = getPrefixedUrl('issues_statistics', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<StatisticsSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      searchParams: searchParams as AllIssueStatisticsOptions,
+    });
   }
 }

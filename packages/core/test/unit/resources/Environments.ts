@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Environments } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,7 +19,12 @@ describe('Environments.all', () => {
   it('should request GET /projects/:id/environments', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/environments', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/environments', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -28,8 +33,12 @@ describe('Environments.create', () => {
     await service.create(1, 'name', { tier: 'production' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/environments', {
-      name: 'name',
-      tier: 'production',
+      body: {
+        name: 'name',
+        tier: 'production',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -38,11 +47,11 @@ describe('Environments.edit', () => {
   it('should request PUT /projects/:id/environments', async () => {
     await service.edit(1, 2);
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(
-      service,
-      'projects/1/environments/2',
-      undefined,
-    );
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/environments/2', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -50,11 +59,10 @@ describe('Environments.show', () => {
   it('should request GET /projects/:id/environments/:id', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/environments/2',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/environments/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -62,11 +70,10 @@ describe('Environments.remove', () => {
   it('should request DEL /projects/:id/environments/:id', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/environments/2',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/environments/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -74,10 +81,10 @@ describe('Environments.stop', () => {
   it('should request POST /projects/:id/environments/:id/stop', async () => {
     await service.stop(1, 2);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
-      service,
-      'projects/1/environments/2/stop',
-      undefined,
-    );
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/environments/2/stop', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

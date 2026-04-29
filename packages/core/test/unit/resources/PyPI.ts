@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { PyPI } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -21,23 +21,22 @@ describe('PyPI.downloadPackageFile', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      'projects/1/packages/pypi/files/sha/id',
-      {},
+      'projects/1//packages/pypi/files/sha/id',
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should request GET /groups/1/packages/pypi/files/:sha/:fileIdentifier', async () => {
     await service.downloadPackageFile('sha', 'id', { groupId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'groups/1/packages/pypi/files/sha/id',
-      {},
+      'groups/1//packages/pypi/files/sha/id',
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.downloadPackageFile('sha', 'id', {} as any)).toThrow();
   });
 });
@@ -46,25 +45,24 @@ describe('PyPI.showPackageDescriptor', () => {
   it('should request GET /projects/1/packages/pypi/simple/:name', async () => {
     await service.showPackageDescriptor('name', { projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'projects/1/packages/pypi/simple/name',
-      {},
+      'projects/1//packages/pypi/simple/name',
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should request GET /groups/1/packages/pypi/simple/:name', async () => {
     await service.showPackageDescriptor('name', { groupId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'groups/1/packages/pypi/simple/name',
-      {},
+      'groups/1//packages/pypi/simple/name',
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should throw an error if groupId or projectId is not passed', () => {
-    /* eslint-disable-next-line */
     expect(() => service.showPackageDescriptor('name', {} as any)).toThrow();
   });
 });
@@ -76,9 +74,12 @@ describe('PyPI.uploadPackageFile', () => {
 
     await service.uploadPackageFile(1, file);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/packages/pypi', {
-      isForm: true,
-      file: [file.content, file.filename],
+    const expectedFormData = new FormData();
+    expectedFormData.append('file', content, 'pkg.txt');
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/packages/pypi', {
+      body: expectedFormData,
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

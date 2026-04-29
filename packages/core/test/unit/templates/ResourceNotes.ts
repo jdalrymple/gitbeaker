@@ -1,5 +1,5 @@
-import { ResourceNotes } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceNotes } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -31,7 +31,12 @@ describe('ResourceNotes.all', () => {
   it('should call the correct url', async () => {
     await service.all(4, 5);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '4/resource2/5/notes', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '4/resource2/5/notes', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -40,7 +45,11 @@ describe('ResourceNotes.create', () => {
     await service.create(4, 5, 'test');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '4/resource2/5/notes', {
-      body: 'test',
+      body: {
+        body: 'test',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -50,7 +59,11 @@ describe('ResourceNotes.edit', () => {
     await service.edit(4, 5, 6, { body: 'test' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, '4/resource2/5/notes/6', {
-      body: 'test',
+      body: {
+        body: 'test',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });

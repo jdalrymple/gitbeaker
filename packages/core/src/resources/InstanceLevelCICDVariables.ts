@@ -1,6 +1,6 @@
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
 import { RequestHelper, endpoint } from '../infrastructure';
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 export interface CICDVariableSchema extends Record<string, unknown> {
   key: string;
@@ -13,9 +13,14 @@ export interface CICDVariableSchema extends Record<string, unknown> {
 
 export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CICDVariableSchema[], C, E, void>> {
-    return RequestHelper.get<CICDVariableSchema[]>()(this, 'admin/ci/variables', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<CICDVariableSchema[]>()(this, 'admin/ci/variables', {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -26,13 +31,15 @@ export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseR
       protected?: boolean;
       masked?: boolean;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CICDVariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<CICDVariableSchema>()(this, 'admin/ci/variables', {
-      key,
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: { ...body, key, value },
     });
   }
 
@@ -44,30 +51,39 @@ export class InstanceLevelCICDVariables<C extends boolean = false> extends BaseR
       protected?: boolean;
       masked?: boolean;
       raw?: boolean;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CICDVariableSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<CICDVariableSchema>()(this, endpoint`admin/ci/variables/${keyId}`, {
-      value,
-      ...options,
+      sudo,
+      showExpanded,
+      body: { ...body, value },
     });
   }
 
   show<E extends boolean = false>(
     keyId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CICDVariableSchema, C, E, void>> {
-    return RequestHelper.get<CICDVariableSchema>()(
-      this,
-      endpoint`admin/ci/variables/${keyId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<CICDVariableSchema>()(this, endpoint`admin/ci/variables/${keyId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     keyId: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.get<void>()(this, endpoint`admin/ci/variables/${keyId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del<void>()(this, endpoint`admin/ci/variables/${keyId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

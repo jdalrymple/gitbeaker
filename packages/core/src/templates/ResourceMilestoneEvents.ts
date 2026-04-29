@@ -1,16 +1,19 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
 import type { MilestoneSchema } from './ResourceMilestones';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MilestoneEventSchema extends Record<string, unknown> {
   id: number;
@@ -34,12 +37,21 @@ export class ResourceMilestoneEvents<C extends boolean = false> extends BaseReso
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
     resource2Id: string | number,
-    options?: Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MilestoneEventSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<MilestoneEventSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/resource_milestone_events`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -47,12 +59,17 @@ export class ResourceMilestoneEvents<C extends boolean = false> extends BaseReso
     resourceId: string | number,
     resource2Id: string | number,
     milestoneEventId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MilestoneEventSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MilestoneEventSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/resource_milestone_events/${milestoneEventId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

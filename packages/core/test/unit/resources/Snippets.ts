@@ -19,13 +19,23 @@ describe('Snippets.all', () => {
   it('should request GET /snippets', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /snippets/public', async () => {
     await service.all({ public: true });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/public', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'snippets/public', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -33,7 +43,10 @@ describe('Snippets.showContent', () => {
   it('should request GET /snippets/:id/raw', async () => {
     await service.showContent(12);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12/raw', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12/raw', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -45,9 +58,13 @@ describe('Snippets.create', () => {
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'snippets', {
-      title: 'This is a snippet',
-      visibility: 'internal',
-      description: 'Hello World snippet',
+      body: {
+        title: 'This is a snippet',
+        visibility: 'internal',
+        description: 'Hello World snippet',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -57,7 +74,11 @@ describe('Snippets.edit', () => {
     await service.edit(12, { description: 'test snippet 2' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'snippets/12', {
-      description: 'test snippet 2',
+      body: {
+        description: 'test snippet 2',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -66,7 +87,10 @@ describe('Snippets.show', () => {
   it('should request GET /snippets/:id', async () => {
     await service.show(12);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -74,7 +98,10 @@ describe('Snippets.remove', () => {
   it('should request DELETE /snippets/:id', async () => {
     await service.remove(12);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'snippets/12', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'snippets/12', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -82,10 +109,9 @@ describe('Snippets.showUserAgentDetails', () => {
   it('should request GET /snippets/:id/user_agent_detail', async () => {
     await service.showUserAgentDetails(12);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'snippets/12/user_agent_detail',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'snippets/12/user_agent_detail', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

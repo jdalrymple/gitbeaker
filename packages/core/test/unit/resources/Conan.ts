@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Conan } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -22,7 +22,7 @@ describe('Conan.authenticate', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/users/authenticate',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -32,7 +32,7 @@ describe('Conan.authenticate', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/users/authenticate',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -44,7 +44,7 @@ describe('Conan.checkCredentials', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/users/check_credentials',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -54,7 +54,7 @@ describe('Conan.checkCredentials', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/users/check_credentials',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -75,7 +75,7 @@ describe('Conan.downloadPackageFile', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/recrev/package/pkgref/pkgrev/filename',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -95,7 +95,7 @@ describe('Conan.downloadPackageFile', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/recrev/package/pkgref/pkgrev/filename',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -107,7 +107,7 @@ describe('Conan.downloadRecipeFile', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/recrev/export/filename',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -119,7 +119,7 @@ describe('Conan.downloadRecipeFile', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/recrev/export/filename',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -131,7 +131,7 @@ describe('Conan.showPackageUploadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/upload_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -141,7 +141,7 @@ describe('Conan.showPackageUploadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/upload_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -153,7 +153,7 @@ describe('Conan.showPackageDownloadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/download_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -163,7 +163,7 @@ describe('Conan.showPackageDownloadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/download_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -175,7 +175,7 @@ describe('Conan.showPackageManifest', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/digest',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -185,7 +185,7 @@ describe('Conan.showPackageManifest', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/digest',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -197,7 +197,7 @@ describe('Conan.showPackageSnapshot', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/packages/pkgref',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -207,7 +207,7 @@ describe('Conan.showPackageSnapshot', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/packages/pkgref',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -216,17 +216,17 @@ describe('Conan.ping', () => {
   it('should request GET /packages/conan/v1/ping', async () => {
     await service.ping();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'packages/conan/v1/ping', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'packages/conan/v1/ping', {
+      showExpanded: undefined,
+    });
   });
 
   it('should request GET /project/:id/packages/conan/v1/ping', async () => {
     await service.ping({ projectId: 3 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/3/packages/conan/v1/ping',
-      {},
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/3/packages/conan/v1/ping', {
+      showExpanded: undefined,
+    });
   });
 });
 
@@ -237,7 +237,7 @@ describe('Conan.showRecipeUploadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/upload_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -247,7 +247,7 @@ describe('Conan.showRecipeUploadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/upload_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -259,7 +259,7 @@ describe('Conan.showRecipeDownloadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/download_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -269,7 +269,7 @@ describe('Conan.showRecipeDownloadUrls', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/download_urls',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -281,7 +281,7 @@ describe('Conan.showRecipeManifest', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/digest',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -291,7 +291,7 @@ describe('Conan.showRecipeManifest', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/digest',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -303,7 +303,7 @@ describe('Conan.showRecipeSnapshot', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -313,7 +313,7 @@ describe('Conan.showRecipeSnapshot', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -325,7 +325,7 @@ describe('Conan.removePackageFile', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch',
-      {},
+      { showExpanded: undefined },
     );
   });
 
@@ -335,7 +335,7 @@ describe('Conan.removePackageFile', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -344,11 +344,9 @@ describe('Conan.search', () => {
   it('should request GET /packages/conan/v1/conans/search', async () => {
     await service.search();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'packages/conan/v1/conans/search',
-      {},
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'packages/conan/v1/conans/search', {
+      showExpanded: undefined,
+    });
   });
 
   it('should request GET /project/:id/packages/conan/v1/conans/search', async () => {
@@ -357,7 +355,7 @@ describe('Conan.search', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/search',
-      {},
+      { showExpanded: undefined },
     );
   });
 });
@@ -377,12 +375,15 @@ describe('Conan.uploadPackageFile', () => {
       'pkgrev',
     );
 
+    const expectedFormData = new FormData();
+    expectedFormData.append('file', content, 'filename');
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/files/name/v1/user/ch/recrev/package/pkgref/pkgrev/filename',
       {
-        isForm: true,
-        file: [content, 'filename'],
+        body: expectedFormData,
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -401,12 +402,15 @@ describe('Conan.uploadRecipeFile', () => {
       'recrev',
     );
 
+    const expectedFormData = new FormData();
+    expectedFormData.append('file', content, 'filename');
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/files/name/v1/user/ch/recrev/export/filename',
       {
-        isForm: true,
-        file: [content, 'filename'],
+        body: expectedFormData,
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });

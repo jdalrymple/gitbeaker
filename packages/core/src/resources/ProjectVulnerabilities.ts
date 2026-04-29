@@ -1,6 +1,3 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
-import type { SimpleProjectSchema } from './Projects';
 import type {
   GitlabAPIResponse,
   PaginationRequestOptions,
@@ -8,6 +5,9 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ProjectVulnerabilitySchema extends Record<string, unknown> {
   author_id: number;
@@ -55,25 +55,35 @@ export interface ProjectVulnerabilitySchema extends Record<string, unknown> {
 export class ProjectVulnerabilities<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectVulnerabilitySchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectVulnerabilitySchema[]>()(
       this,
       endpoint`projects/${projectId}/vulnerabilities`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams,
+      },
     );
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
     findingId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectVulnerabilitySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<ProjectVulnerabilitySchema>()(
       this,
       endpoint`projects/${projectId}/vulnerabilities`,
       {
-        ...options,
+        sudo,
+        showExpanded,
         searchParams: {
           findingId,
         },

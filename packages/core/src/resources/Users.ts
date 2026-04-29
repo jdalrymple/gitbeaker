@@ -1,19 +1,30 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
   AllOrNone,
-  AsAdmin,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
+import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type { AllEventOptions, EventSchema } from './Events';
 import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
-import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
+import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import {
+  BaseRequestSearchParams,
+  PaginationRequestSearchParams,
+  RequestHelper,
+  createFormData,
+  endpoint,
+  getPrefixedUrl,
+} from '../infrastructure';
+
+export interface AsAdmin<A extends boolean = false> {
+  asAdmin?: A;
+}
 
 export interface SimpleUserSchema extends Record<string, unknown> {
   id: number;
@@ -230,22 +241,28 @@ export type AllUserProjectsOptions = {
 export class Users<C extends boolean = false> extends BaseResource<C> {
   activate<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/activate`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/activate`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { withCustomAttributes: true } & AsAdmin<A> &
-      AllUsersOptions &
+    options?: { withCustomAttributes: true } & AllUsersOptions &
+      AsAdmin<A> &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
     GitlabAPIResponse<
-      ((A extends false ? SimpleUserSchema : AdminUserSchema) & {
+      ({
         custom_attributes: CustomAttributeSchema[];
-      })[],
+      } & (A extends false ? SimpleUserSchema : AdminUserSchema))[],
       C,
       E,
       P
@@ -253,250 +270,388 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   >;
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: AllUsersOptions & AsAdmin<A> & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUsersOptions &
+      AsAdmin<A> &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>>;
 
   all<A extends boolean = false, E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: AllUsersOptions & AsAdmin<A> & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUsersOptions &
+      AsAdmin<A> &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<(A extends false ? SimpleUserSchema : AdminUserSchema)[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<(A extends false ? SimpleUserSchema : AdminUserSchema)[]>()(
       this,
       'users',
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allActivities<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: { from?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { from?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserActivitySchema[], C, E, P>> {
-    return RequestHelper.get<UserActivitySchema[]>()(this, 'user/activities', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<UserActivitySchema[]>()(this, 'user/activities', {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allEvents<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: AllEventOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllEventOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ) {
-    return RequestHelper.get<EventSchema[]>()(this, endpoint`users/${userId}/events`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<EventSchema[]>()(this, endpoint`users/${userId}/events`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams,
+    });
   }
 
   allFollowers<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
-    return RequestHelper.get<SimpleUserSchema[]>()(
-      this,
-      endpoint`users/${userId}/followers`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<SimpleUserSchema[]>()(this, endpoint`users/${userId}/followers`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allFollowing<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema[], C, E, P>> {
-    return RequestHelper.get<SimpleUserSchema[]>()(
-      this,
-      endpoint`users/${userId}/following`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<SimpleUserSchema[]>()(this, endpoint`users/${userId}/following`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allMemberships<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: number,
-    options?: { type?: 'Project' | 'Namespace' } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { type?: 'Project' | 'Namespace' } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserMembershipSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<UserMembershipSchema[]>()(
       this,
       endpoint`users/${userId}/memberships`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllUserProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllUserProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
-    return RequestHelper.get<ProjectSchema[]>()(this, endpoint`users/${userId}/projects`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ProjectSchema[]>()(this, endpoint`users/${userId}/projects`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allContributedProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProjectSchema[]>()(
       this,
       endpoint`users/${userId}/contributed_projects`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
   // Convenience method - Functionality already present in the all method in the Projects wrapper
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { simple: true },
+    options: { simple: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SimpleProjectSchema[], C, E, P>>;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options: PaginationRequestOptions<P> &
-      AllUserProjectsOptions &
-      Sudo &
-      ShowExpanded<E> & { statistics: true },
+    options: { statistics: true } & AllUserProjectsOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<
-    GitlabAPIResponse<(ProjectSchema & { statistics: ProjectStatisticsSchema })[], C, E, P>
+    GitlabAPIResponse<({ statistics: ProjectStatisticsSchema } & ProjectSchema)[], C, E, P>
   >;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
     userId: string | number,
-    options?: PaginationRequestOptions<P> & AllUserProjectsOptions & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>>;
 
   allStarredProjects<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     userId: string | number,
-    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllUserProjectsOptions & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectSchema[], C, E, P>> {
-    return RequestHelper.get<ProjectSchema[]>()(
-      this,
-      endpoint`users/${userId}/starred_projects`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ProjectSchema[]>()(this, endpoint`users/${userId}/starred_projects`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   approve<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
-    return RequestHelper.post<{ message: string }>()(
-      this,
-      endpoint`users/${userId}/approve`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<{ message: string }>()(this, endpoint`users/${userId}/approve`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   ban<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/ban`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/ban`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   block<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/block`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/block`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
-    options?: CreateUserOptions & Sudo & ShowExpanded<E>,
+    options?: CreateUserOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
-    return RequestHelper.post<ExpandedUserSchema>()(this, 'users', options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ExpandedUserSchema>()(this, 'users', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   createPersonalAccessToken<E extends boolean = false>(
     userId: number,
     name: string,
     scopes: string[],
-    options?: { expiresAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<PersonalAccessTokenSchema>()(
       this,
       endpoint`users/${userId}/personal_access_tokens`,
       {
-        name,
-        scopes,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name,
+          scopes,
+        },
       },
     );
   }
 
   createCIRunner<E extends boolean = false>(
     runnerType: 'instance_type' | 'group_type' | 'project_type',
-    options?: CreateUserCIRunnerOptions & Sudo & ShowExpanded<E>,
+    options?: CreateUserCIRunnerOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserRunnerSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<UserRunnerSchema>()(this, 'user/runners', {
-      ...options,
-      runnerType,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        runnerType,
+      },
     });
   }
 
   deactivate<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/deactivate`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/deactivate`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   disableTwoFactor<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.patch<void>()(this, endpoint`users/${userId}/disable_two_factor`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.patch<void>()(this, endpoint`users/${userId}/disable_two_factor`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   edit<E extends boolean = false>(
     userId: number,
-    { avatar, ...options }: EditUserOptions & Sudo & ShowExpanded<E> = {},
-  ) {
-    const opts: Record<string, unknown> = {
-      ...options,
-      isForm: true,
-    };
+    { avatar, ...options }: EditUserOptions & ShowExpanded<E> & Sudo = {},
+  ): Promise<GitlabAPIResponse<ExpandedUserSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options;
 
-    if (avatar) opts.avatar = [avatar.content, avatar.filename];
-
-    return RequestHelper.put<ExpandedUserSchema>()(this, endpoint`users/${userId}`, opts);
+    return RequestHelper.put<ExpandedUserSchema>()(this, endpoint`users/${userId}`, {
+      sudo,
+      showExpanded,
+      body: avatar
+        ? createFormData({
+            ...body,
+            avatar: [avatar.content, avatar.filename],
+          })
+        : body,
+    });
   }
 
   editStatus<E extends boolean = false>(
@@ -511,135 +666,204 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
         | '3_days'
         | '7_days'
         | '30_days';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserStatusSchema, C, E, void>> {
-    return RequestHelper.put<UserStatusSchema>()(this, 'user/status', options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<UserStatusSchema>()(this, 'user/status', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   editCurrentUserPreferences<E extends boolean = false>(
     viewDiffsFileByFile: boolean,
     showWhitespaceInDiffs: boolean,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserPreferenceSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<UserPreferenceSchema>()(this, 'user/preferences', {
-      viewDiffsFileByFile,
-      showWhitespaceInDiffs,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        viewDiffsFileByFile,
+        showWhitespaceInDiffs,
+      },
     });
   }
 
   follow<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SimpleUserSchema, C, E, void>> {
-    return RequestHelper.post<SimpleUserSchema>()(this, endpoint`users/${userId}/follow`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<SimpleUserSchema>()(this, endpoint`users/${userId}/follow`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   reject<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
-    return RequestHelper.post<{ message: string }>()(
-      this,
-      endpoint`users/${userId}/reject`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<{ message: string }>()(this, endpoint`users/${userId}/reject`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<A extends boolean = false, E extends boolean = false>(
     userId: number,
-    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+    options?: AsAdmin<A> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<A extends false ? UserSchema : AdminUserSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<A extends false ? UserSchema : AdminUserSchema>()(
       this,
       endpoint`users/${userId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showCount<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserCountSchema, C, E, void>> {
-    return RequestHelper.get<UserCountSchema>()(this, 'user_counts', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<UserCountSchema>()(this, 'user_counts', {
+      sudo,
+      showExpanded,
+    });
   }
 
   showAssociationsCount<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserAssociationCountSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<UserAssociationCountSchema>()(
       this,
       `users/${userId}/associations_count`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showCurrentUser<A extends boolean = false, E extends boolean = false>(
-    options?: AsAdmin<A> & Sudo & ShowExpanded<E>,
+    options?: AsAdmin<A> & ShowExpanded<E> & Sudo,
   ): Promise<
     GitlabAPIResponse<A extends false ? ExpandedUserSchema : AdminUserSchema, C, E, void>
   > {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<A extends false ? ExpandedUserSchema : AdminUserSchema>()(
       this,
       'user',
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showCurrentUserPreferences<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserPreferenceSchema, C, E, void>> {
-    return RequestHelper.get<UserPreferenceSchema>()(this, 'user/preferences', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<UserPreferenceSchema>()(this, 'user/preferences', {
+      sudo,
+      showExpanded,
+    });
   }
 
   showStatus<E extends boolean = false>({
     iDOrUsername,
     ...options
-  }: { iDOrUsername?: string | number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { iDOrUsername?: string | number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserStatusSchema, C, E, void>
   > {
-    let url: string;
+    const { sudo, showExpanded } = options || {};
+    const url = getPrefixedUrl('status', { users: iDOrUsername, user: !iDOrUsername });
 
-    if (iDOrUsername) url = `users/${iDOrUsername}/status`;
-    else url = 'user/status';
-
-    return RequestHelper.get<UserStatusSchema>()(this, url, options);
+    return RequestHelper.get<UserStatusSchema>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     userId: number,
-    options?: { hardDelete?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { hardDelete?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`users/${userId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`users/${userId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   removeAuthenticationIdentity<E extends boolean = false>(
     userId: number,
     provider: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`users/${userId}/identities/${provider}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`users/${userId}/identities/${provider}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unban<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/unban`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/unban`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unblock<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.post<void>()(this, endpoint`users/${userId}/unblock`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/unblock`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   unfollow<E extends boolean = false>(
     userId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserSchema, C, E, void>> {
-    return RequestHelper.post<UserSchema>()(this, endpoint`users/${userId}/unfollow`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<UserSchema>()(this, endpoint`users/${userId}/unfollow`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

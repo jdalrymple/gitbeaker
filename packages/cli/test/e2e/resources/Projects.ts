@@ -1,5 +1,5 @@
-import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
 
 const execP: (command: string) => Promise<{ stdout: string }> = promisify(exec);
 

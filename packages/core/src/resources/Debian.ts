@@ -1,18 +1,12 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, OneOf, ShowExpanded } from '../infrastructure';
-
-function url({
-  projectId,
-  groupId,
-}: { projectId?: string | number; groupId?: string | number } = {}): string {
-  if (projectId) return endpoint`/projects/${projectId}/packages/debian`;
-  if (groupId) return endpoint`/groups/${groupId}/-/packages/debian`;
-
-  throw new Error(
-    'Missing required argument. Please supply a projectId or a groupId in the options parameter',
-  );
-}
+import { BaseResource } from '@gitbeaker/requester-utils';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  ensureRequiredParams,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export class Debian<C extends boolean = false> extends BaseResource<C> {
   downloadBinaryFileIndex<E extends boolean = false>(
@@ -25,16 +19,17 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url({
-      projectId,
-      groupId,
-    });
+    ensureRequiredParams({ projectId, groupId });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/dists/${distribution}/${component}/binary-${architecture}/Packages`,
-      options as ShowExpanded<E>,
+    const url = getPrefixedUrl(
+      `dists/${distribution}/${component}/binary-${architecture}/Packages`,
+      {
+        projects: projectId,
+        'groups/-': groupId,
+      },
     );
+
+    return RequestHelper.get<Blob>()(this, url, options as ShowExpanded<E>);
   }
 
   downloadDistributionReleaseFile<E extends boolean = false>(
@@ -45,16 +40,14 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url({
-      projectId,
-      groupId,
+    ensureRequiredParams({ projectId, groupId });
+
+    const url = getPrefixedUrl(`packages/debian/dists/${distribution}/Release`, {
+      projects: projectId,
+      'groups/-': groupId,
     });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/dists/${distribution}/Release`,
-      options as ShowExpanded<E>,
-    );
+    return RequestHelper.get<Blob>()(this, url, options as ShowExpanded<E>);
   }
 
   downloadSignedDistributionReleaseFile<E extends boolean = false>(
@@ -65,16 +58,14 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url({
-      projectId,
-      groupId,
+    ensureRequiredParams({ projectId, groupId });
+
+    const url = getPrefixedUrl(`packages/debian/dists/${distribution}/InRelease`, {
+      projects: projectId,
+      'groups/-': groupId,
     });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/dists/${distribution}/InRelease`,
-      options as ShowExpanded<E>,
-    );
+    return RequestHelper.get<Blob>()(this, url, options as ShowExpanded<E>);
   }
 
   downloadReleaseFileSignature<E extends boolean = false>(
@@ -85,16 +76,14 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       ...options
     }: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    const prefix = url({
-      projectId,
-      groupId,
+    ensureRequiredParams({ projectId, groupId });
+
+    const url = getPrefixedUrl(`packages/debian/dists/${distribution}/Release.gpg`, {
+      projects: projectId,
+      'groups/-': groupId,
     });
 
-    return RequestHelper.get<Blob>()(
-      this,
-      `${prefix}/dists/${distribution}/Release.gpg`,
-      options as ShowExpanded<E>,
-    );
+    return RequestHelper.get<Blob>()(this, url, options as ShowExpanded<E>);
   }
 
   downloadPackageFile<E extends boolean = false>(
@@ -106,11 +95,17 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
     filename: string,
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
-    return RequestHelper.get<Blob>()(
-      this,
-      endpoint`projects/${projectId}/packages/debian/pool/${distribution}/${letter}/${packageName}/${packageVersion}/${filename}`,
-      options,
+    const { showExpanded } = options || {};
+    const url = getPrefixedUrl(
+      `packages/debian/pool/${distribution}/${letter}/${packageName}/${packageVersion}/${filename}`,
+      {
+        projects: projectId,
+      },
     );
+
+    return RequestHelper.get<Blob>()(this, url, {
+      showExpanded,
+    });
   }
 
   uploadPackageFile<E extends boolean = false>(
@@ -118,13 +113,16 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
     packageFile: { content: Blob; filename: string },
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { showExpanded } = options || {};
+
     return RequestHelper.put<void>()(
       this,
       endpoint`projects/${projectId}/packages/debian/${packageFile.filename}`,
       {
-        isForm: true,
-        ...options,
-        file: [packageFile.content, packageFile.filename],
+        showExpanded,
+        body: createFormData({
+          file: [packageFile.content, packageFile.filename],
+        }),
       },
     );
   }

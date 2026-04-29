@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface UserSSHKeySchema extends Record<string, unknown> {
   id: number;
@@ -8,8 +8,6 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
   title: string;
   created_at: string;
 }
-
-const url = (userId?: number) => (userId ? `users/${userId}/keys` : 'user/keys');
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   // Convienence method for create
@@ -20,8 +18,8 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
       userId?: number;
       expiresAt?: string;
       usageType?: 'auth' | 'signing' | 'auth_and_signing';
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
     return this.create<E>(title, key, options);
   }
@@ -29,14 +27,17 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     userId,
     ...options
-  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { userId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserSSHKeySchema[], C, E, void>
   > {
-    return RequestHelper.get<UserSSHKeySchema[]>()(
-      this,
-      url(userId),
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    const url = getPrefixedUrl('keys', { users: userId, user: !userId });
+
+    return RequestHelper.get<UserSSHKeySchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -49,31 +50,48 @@ export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {
       userId?: number;
       expiresAt?: string;
       usageType?: 'auth' | 'signing' | 'auth_and_signing';
-    } & Sudo &
-      ShowExpanded<E> = {},
+    } & ShowExpanded<E> &
+      Sudo = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
-    return RequestHelper.post<UserSSHKeySchema>()(this, url(userId), {
-      title,
-      key,
-      ...options,
+    const { sudo, showExpanded, ...body } = options || {};
+
+    const url = getPrefixedUrl('keys', { users: userId, user: !userId });
+
+    return RequestHelper.post<UserSSHKeySchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        title,
+        key,
+      },
     });
   }
 
   show<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserSSHKeySchema, C, E, void>> {
-    return RequestHelper.get<UserSSHKeySchema>()(
-      this,
-      `${url(userId)}/${keyId}`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.get<UserSSHKeySchema>()(this, uri, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     keyId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${url(userId)}/${keyId}`, options as Sudo & ShowExpanded<E>);
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`keys/${keyId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.del()(this, uri, { sudo, showExpanded });
   }
 }

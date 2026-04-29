@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { Agents } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -19,11 +19,10 @@ describe('Agents.all', () => {
   it('should request GET /projects/1/cluster_agents without options', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/cluster_agents',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/cluster_agents', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -34,7 +33,7 @@ describe('Agents.allTokens', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/cluster_agents/2/tokens',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -47,7 +46,10 @@ describe('Agents.createToken', () => {
       service,
       'projects/1/cluster_agents/2/tokens',
       {
-        name: 'name',
+        body: {
+          name: 'name',
+          description: undefined,
+        },
       },
     );
   });
@@ -59,8 +61,10 @@ describe('Agents.createToken', () => {
       service,
       'projects/1/cluster_agents/2/tokens',
       {
-        name: 'name',
-        description: 'desc',
+        body: {
+          name: 'name',
+          description: 'desc',
+        },
       },
     );
   });
@@ -70,11 +74,10 @@ describe('Agents.show', () => {
   it('should request GET /projects/1/cluster_agents/2 without options', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/cluster_agents/2',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/cluster_agents/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -85,7 +88,7 @@ describe('Agents.showToken', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/cluster_agents/2/tokens/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -95,7 +98,9 @@ describe('Agents.register', () => {
     await service.register(1, 'name');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/cluster_agents', {
-      name: 'name',
+      body: {
+        name: 'name',
+      },
     });
   });
 });
@@ -104,11 +109,10 @@ describe('Agents.unregister', () => {
   it('should request DEL /projects/1/cluster_agents/2 without options', async () => {
     await service.unregister(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/cluster_agents/2',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/cluster_agents/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -119,7 +123,7 @@ describe('Agents.removeToken', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/cluster_agents/2/tokens/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });

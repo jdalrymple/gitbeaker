@@ -1,19 +1,21 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleProjectSchema } from './Projects';
 import type { CondensedCommitSchema } from './Commits';
+import type { PipelineSchema } from './Pipelines';
+import type { SimpleProjectSchema } from './Projects';
 import type { RunnerSchema } from './Runners';
 import type { ExpandedUserSchema, SimpleUserSchema } from './Users';
-import type { PipelineSchema } from './Pipelines';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export type JobScope =
   | 'created'
@@ -86,7 +88,7 @@ export interface BridgeSchema extends Record<string, unknown> {
   queued_duration: number;
   id: number;
   name: string;
-  pipeline: MappedOmit<PipelineSchema & { project_id: number }, 'user'>;
+  pipeline: MappedOmit<{ project_id: number } & PipelineSchema, 'user'>;
   ref: string;
   stage: string;
   status: string;
@@ -131,24 +133,28 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
    */
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    {
-      pipelineId,
-      ...options
-    }: {
-      /** Filter jobs by pipeline ID. If provided, returns jobs for that specific pipeline. */
+    options?: {
       pipelineId?: number;
       /** Filter jobs by scope(s). Can be a single JobScope or array of JobScope values. */
       scope?: JobScope | JobScope[];
       /** Whether to include retried jobs in the results. */
       includeRetried?: boolean;
-    } & BaseRequestOptions<E> &
-      PaginationRequestOptions<P> = {} as any,
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<JobSchema[], C, E, P>> {
-    const url = pipelineId
-      ? endpoint`projects/${projectId}/pipelines/${pipelineId}/jobs`
-      : endpoint`projects/${projectId}/jobs`;
+    const { pipelineId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const url = getPrefixedUrl('jobs', { projects: projectId, pipelines: pipelineId });
 
-    return RequestHelper.get<JobSchema[]>()(this, url, options);
+    return RequestHelper.get<JobSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   /**
@@ -163,16 +169,18 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   allPipelineBridges<E extends boolean = false>(
     projectId: string | number,
     pipelineId: number,
-    options?: {
-      /** Filter bridges by scope(s). Can be a single JobScope or array of JobScope values. */
-      scope?: JobScope | JobScope[];
-    } & Sudo &
-      ShowExpanded<E>,
+    options?: { scope?: JobScope | JobScope[] } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BridgeSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<BridgeSchema[]>()(
       this,
       endpoint`projects/${projectId}/pipelines/${pipelineId}/bridges`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
@@ -188,12 +196,17 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   cancel<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/cancel`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -209,12 +222,17 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   erase<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/erase`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -230,16 +248,18 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   play<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: {
-      /** Array of job variable attributes to pass when playing the job. */
-      jobVariablesAttributes?: JobVariableAttributeOption[];
-    } & Sudo &
-      ShowExpanded<E>,
+    options?: { jobVariablesAttributes?: JobVariableAttributeOption[] } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/play`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -255,12 +275,17 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   retry<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<JobSchema>()(
       this,
       endpoint`projects/${projectId}/jobs/${jobId}/retry`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
@@ -276,13 +301,14 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
-    return RequestHelper.get<JobSchema>()(
-      this,
-      endpoint`projects/${projectId}/jobs/${jobId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobSchema>()(this, endpoint`projects/${projectId}/jobs/${jobId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   /**
@@ -294,11 +320,16 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
    * @see {@link https://docs.gitlab.com/api/jobs/#get-job-tokens-job}
    */
   showConnectedJob<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
     if (!this.headers['job-token']) throw new Error('Missing required header "job-token"');
 
-    return RequestHelper.get<JobSchema>()(this, 'job', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobSchema>()(this, 'job', {
+      sudo,
+      showExpanded,
+    });
   }
 
   /**
@@ -310,11 +341,16 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
    * @see {@link https://docs.gitlab.com/api/jobs/#get-gitlab-agent-for-kubernetes-by-ci_job_token}
    */
   showConnectedJobK8Agents<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobKubernetesAgentsSchema, C, E, void>> {
     if (!this.headers['job-token']) throw new Error('Missing required header "job-token"');
 
-    return RequestHelper.get<JobKubernetesAgentsSchema>()(this, 'job/allowed_agents', options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobKubernetesAgentsSchema>()(this, 'job/allowed_agents', {
+      sudo,
+      showExpanded,
+    });
   }
 
   /**
@@ -329,12 +365,13 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   showLog<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<string, void, E, void>> {
-    return RequestHelper.get<string>()(
-      this,
-      endpoint`projects/${projectId}/jobs/${jobId}/trace`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, endpoint`projects/${projectId}/jobs/${jobId}/trace`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

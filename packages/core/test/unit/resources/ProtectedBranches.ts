@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { ProtectedBranches } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -20,18 +20,24 @@ describe('ProtectedBranches.all', () => {
     await service.all(1, { search: 'dedde' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/protected_branches', {
-      search: 'dedde',
+      maxPages: undefined,
+      searchParams: {
+        search: 'dedde',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
   it('should request GET /projects/:id/protected_branches without options', async () => {
     await service.all(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/protected_branches',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/protected_branches', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -62,10 +68,11 @@ describe('ProtectedBranches.show', () => {
   it('should request GET /projects/:id/protected_branches/:branch_name', async () => {
     await service.show(1, 'name', { sudo: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       'projects/1/protected_branches/name',
       {
+        showExpanded: undefined,
         sudo: 1,
       },
     );
@@ -74,10 +81,10 @@ describe('ProtectedBranches.show', () => {
   it('should request GET /projects/:id/protected_branches/:branch_name without options', async () => {
     await service.show(1, 'name');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       'projects/1/protected_branches/name',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -86,20 +93,20 @@ describe('ProtectedBranches.remove', () => {
   it('should request DEL /projects/:id/protected_branches/:branch_name without options', async () => {
     await service.remove(1, 'name');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(
       service,
       'projects/1/protected_branches/name',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 
   it('should request DEL /projects/:id/protected_branches/:branch_name', async () => {
     await service.remove(1, 'name', { sudo: 1 });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(
       service,
       'projects/1/protected_branches/name',
-      { sudo: 1 },
+      { showExpanded: undefined, sudo: 1 },
     );
   });
 });

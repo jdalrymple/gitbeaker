@@ -1,12 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
+  ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface MarkdownUploadUserSchema extends Record<string, unknown> {
   id: number;
@@ -37,74 +41,91 @@ export class ResourceMarkdownUploads<C extends boolean> extends BaseResource<C> 
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: Sudo & PaginationRequestOptions<P>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MarkdownUploadSchema[], C, E, P>> {
-    return RequestHelper.get<MarkdownUploadSchema[]>()(
-      this,
-      endpoint`${resourceId}/uploads`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<MarkdownUploadSchema[]>()(this, endpoint`${resourceId}/uploads`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   download<E extends boolean = false>(
     resourceId: string | number,
     uploadId: string | number,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
 
   download<E extends boolean = false>(
     resourceId: string | number,
     secret: string,
     filename: string,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>>;
 
   download<E extends boolean = false>(
     resourceId: string | number,
     uploadIdOrSecret: string | number,
     filename?: any,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
     if (filename && typeof filename === 'string') {
+      const { sudo, showExpanded } = options || {};
       return RequestHelper.get<Blob>()(
         this,
         endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
-        options,
+        {
+          sudo,
+          showExpanded,
+        },
       );
     }
-    return RequestHelper.get<Blob>()(
-      this,
-      endpoint`${resourceId}/uploads/${uploadIdOrSecret}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+    return RequestHelper.get<Blob>()(this, endpoint`${resourceId}/uploads/${uploadIdOrSecret}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     uploadId: string | number,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     secret: string,
     filename: string,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     uploadIdOrSecret: string | number,
     filename?: any,
-    options?: Sudo,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     if (filename && typeof filename === 'string') {
+      const { sudo, showExpanded } = options || {};
       return RequestHelper.del()(
         this,
         endpoint`${resourceId}/uploads/${uploadIdOrSecret}/${filename}`,
-        options,
+        {
+          sudo,
+          showExpanded,
+        },
       );
     }
-    return RequestHelper.del()(this, endpoint`${resourceId}/uploads/${uploadIdOrSecret}`, options);
+    const { sudo, showExpanded } = options || {};
+    return RequestHelper.del()(this, endpoint`${resourceId}/uploads/${uploadIdOrSecret}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

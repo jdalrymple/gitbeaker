@@ -1,15 +1,18 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
 import { AccessLevel } from '../constants';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ProtectedEnvironmentAccessLevelSummarySchema {
   access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;
@@ -37,12 +40,24 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: { search?: string } & Sudo & ShowExpanded<E> & PaginationRequestOptions<P>,
+    options?: { search?: string } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<ProtectedEnvironmentSchema[]>()(
       this,
-      `${resourceId}/protected_environments`,
-      options,
+      endpoint`${resourceId}/protected_environments`,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -53,16 +68,22 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
     options?: {
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments`,
+      endpoint`${resourceId}/protected_environments`,
       {
-        name,
-        deployAccessLevels,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name,
+          deployAccessLevels,
+        },
       },
     );
   }
@@ -74,33 +95,49 @@ export class ResourceProtectedEnvironments<C extends boolean = false> extends Ba
       deployAccessLevels?: ProtectedEnvironmentAccessLevelEntity[];
       requiredApprovalCount?: number;
       approvalRules?: ProtectedEnvironmentAccessLevelEntity[];
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments/${name}`,
-      options,
+      endpoint`${resourceId}/protected_environments/${name}`,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedEnvironmentSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ProtectedEnvironmentSchema>()(
       this,
-      `${resourceId}/protected_environments/${name}`,
-      options,
+      endpoint`${resourceId}/protected_environments/${name}`,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     name: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, `${resourceId}/protected_environments/${name}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/protected_environments/${name}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

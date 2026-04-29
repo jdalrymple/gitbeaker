@@ -1,22 +1,30 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
   UserAgentDetailSchema,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
-import type { MergeRequestSchema } from './MergeRequests';
-import type { TodoSchema } from './TodoLists';
-import type { MetricImageSchema } from './AlertManagement';
 import type { SimpleLabelSchema } from '../templates/ResourceLabels';
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type { MetricImageSchema } from './AlertManagement';
+import type { MergeRequestSchema } from './MergeRequests';
+import type { TodoSchema } from './TodoLists';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  ensureRequiredParams,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export interface TimeStatsSchema extends Record<string, unknown> {
   time_estimate: number;
@@ -165,14 +173,20 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     duration: string,
-    options?: { summary?: string } & Sudo & ShowExpanded<E>,
+    options?: { summary?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/add_spent_time`,
       {
-        duration,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          duration,
+        },
       },
     );
   }
@@ -181,112 +195,149 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     duration: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/time_estimate`,
       {
-        duration,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          duration,
+        },
       },
     );
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+    options: { withLabelsDetails: true } & AllIssuesOptions &
+      BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
       ShowExpanded<E> &
-      AllIssuesOptions & { withLabelsDetails: true },
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueSchemaWithExpandedLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+    options?: { withLabelsDetails?: false } & AllIssuesOptions &
+      BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
       ShowExpanded<E> &
-      AllIssuesOptions &
-      BaseRequestOptions<E> & { withLabelsDetails?: false },
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+    options?: AllIssuesOptions &
+      BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
-      Sudo &
       ShowExpanded<E> &
-      AllIssuesOptions &
-      BaseRequestOptions<E> = {} as any,
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>> {
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/issues`;
-    else if (groupId) url = endpoint`groups/${groupId}/issues`;
-    else url = 'issues';
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
-    return RequestHelper.get<IssueSchema[]>()(this, url, options);
+    const url = getPrefixedUrl('issues', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<IssueSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   allMetricImages<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MetricImageSchema[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/metric_images`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   allParticipants<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MappedOmit<SimpleUserSchema, 'created_at'>[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MappedOmit<SimpleUserSchema, 'created_at'>[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/participants`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   allRelatedMergeRequests<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/related_merge_requests`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
     title: string,
-    options?: CreateIssueOptions & Sudo & ShowExpanded<E>,
+    options?: CreateIssueOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueSchema>()(this, endpoint`projects/${projectId}/issues`, {
-      ...options,
-      title,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        title,
+      },
     });
   }
 
   createTodo<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TodoSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TodoSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/todo`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -294,14 +345,20 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     destinationProjectId: string | number,
-    options?: { withNotes?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { withNotes?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/clone`,
       {
-        toProjectId: destinationProjectId,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          toProjectId: destinationProjectId,
+        },
       },
     );
   }
@@ -309,12 +366,18 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: EditIssueOptions & Sudo & ShowExpanded<E>,
+    options?: EditIssueOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -322,12 +385,18 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     imageId: number,
-    options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
+    options?: { url?: string; urlText?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<MetricImageSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/metric_images/${imageId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -335,14 +404,20 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     destinationProjectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/move`,
       {
-        toProjectId: destinationProjectId,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          toProjectId: destinationProjectId,
+        },
       },
     );
   }
@@ -352,16 +427,20 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     body: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...bodyOptions } = options || {};
+
     return RequestHelper.post<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/notes`,
       {
-        searchParams: {
+        sudo,
+        showExpanded,
+        body: {
+          ...bodyOptions,
           body: `${body} \n /promote`,
         },
-        ...options,
       },
     );
   }
@@ -369,114 +448,173 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/issues/${issueIId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/issues/${issueIId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   removeMetricImage<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
     imageId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/metric_images/${imageId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   reorder<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: { moveAfterId?: number; moveBeforeId?: number } & Sudo & ShowExpanded<E>,
+    options?: { moveAfterId?: number; moveBeforeId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<void>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/reorder`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   resetSpentTime<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/reset_spent_time`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   resetTimeEstimate<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/reset_time_estimate`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   show<E extends boolean = false>(
     issueId: number,
-    { projectId, ...options }: { projectId?: string | number } & Sudo & ShowExpanded<E> = {},
+    {
+      projectId,
+      sudo,
+      showExpanded,
+      ...searchParams
+    }: { projectId?: string | number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
-    const url = projectId ? endpoint`projects/${projectId}/issues/${issueId}` : `issues/${issueId}`;
+    const url = getPrefixedUrl('', { projects: projectId, issues: issueId });
 
-    return RequestHelper.get<IssueSchema>()(this, url, options as Sudo & ShowExpanded<E>);
+    return RequestHelper.get<IssueSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 
   subscribe<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/subscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   allClosedByMergeRequestst<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MergeRequestSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<MergeRequestSchema[]>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/closed_by`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showTimeStats<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TimeStatsSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<TimeStatsSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/time_stats`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   unsubscribe<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<IssueSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/unsubscribe`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -484,15 +622,20 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     issueIId: number,
     metricImage: { content: Blob; filename: string },
-    options?: { url?: string; urlText?: string } & Sudo & ShowExpanded<E>,
+    options?: { url?: string; urlText?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MetricImageSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<MetricImageSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/metric_images`,
       {
-        isForm: true,
-        ...options,
-        file: [metricImage.content, metricImage.filename],
+        sudo,
+        showExpanded,
+        body: createFormData({
+          ...body,
+          file: [metricImage.content, metricImage.filename],
+        }),
       },
     );
   }
@@ -500,12 +643,17 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
   showUserAgentDetails<E extends boolean = false>(
     projectId: string | number,
     issueIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserAgentDetailSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<UserAgentDetailSchema>()(
       this,
       endpoint`projects/${projectId}/issues/${issueIId}/user_agent_details`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

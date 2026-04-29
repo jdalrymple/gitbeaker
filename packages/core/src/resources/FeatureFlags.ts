@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface FeatureFlagStrategyScopeSchema {
   id: number;
@@ -50,21 +53,31 @@ export type EditFeatureFlagOptions = {
     name?: string;
     _destroy?: boolean;
     parameters?: Record<string, string>;
-    scopes?: (FeatureFlagStrategyScopeSchema & { _destroy?: boolean })[];
+    scopes?: ({ _destroy?: boolean } & FeatureFlagStrategyScopeSchema)[];
   };
 };
 
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { scope?: 'enabled' | 'disabled' } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    options?: { scope?: 'enabled' | 'disabled' } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<FeatureFlagSchema[]>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -72,15 +85,21 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     flagName: string,
     version: string,
-    options?: CreateFeatureFlagOptions & Sudo & ShowExpanded<E>,
+    options?: CreateFeatureFlagOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags`,
       {
-        name: flagName,
-        version,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          name: flagName,
+          version,
+        },
       },
     );
   }
@@ -88,36 +107,48 @@ export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     featureFlagName: string,
-    options?: EditFeatureFlagOptions & Sudo & ShowExpanded<E>,
+    options?: EditFeatureFlagOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags/${featureFlagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
     flagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      endpoint`projects/${projectId}/feature_flags/${flagName}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/feature_flags/${flagName}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
     flagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<FeatureFlagSchema>()(
       this,
       endpoint`projects/${projectId}/feature_flags/${flagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

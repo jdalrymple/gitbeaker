@@ -1,14 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 import { SimpleUserSchema } from '../resources/Users';
 
 export interface NoteSchema extends Record<string, unknown> {
@@ -41,14 +44,24 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     options?: {
       sort?: 'asc' | 'desc';
       orderBy?: 'created_at' | 'updated_at';
-    } & PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E>,
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
     return RequestHelper.get<NoteSchema[]>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 
@@ -56,14 +69,20 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     body: string,
-    options?: { internal?: boolean; createdAt?: string } & Sudo & ShowExpanded<E>,
+    options?: { internal?: boolean; createdAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...bodyOptions } = options || {};
+
     return RequestHelper.post<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes`,
       {
-        body,
-        ...options,
+        sudo,
+        showExpanded,
+        body: {
+          ...bodyOptions,
+          body,
+        },
       },
     );
   }
@@ -72,12 +91,18 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: { body?: string } & Sudo & ShowExpanded<E>,
+    options?: { body?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NoteSchema, C, E, void>> {
+    const { sudo, showExpanded, ...bodyOptions } = options || {};
+
     return RequestHelper.put<NoteSchema>()(
       this,
       endpoint`${resourceId}/${this.resource2Type}/${resource2Id}/notes/${noteId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body: bodyOptions,
+      },
     );
   }
 
@@ -85,7 +110,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     return RequestHelper.del()(
       this,
@@ -98,7 +123,7 @@ export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     resource2Id: string | number,
     noteId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ) {
     return RequestHelper.get<NoteSchema>()(
       this,

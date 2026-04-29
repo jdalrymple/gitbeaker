@@ -1,5 +1,5 @@
-import { decamelizeKeys } from 'xcase';
 import { stringify } from 'picoquery';
+import { decamelizeKeys } from 'xcase';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
@@ -14,21 +14,24 @@ export type CamelizeString<T extends PropertyKey> = T extends string
       ? `${F}${Capitalize<CamelizeString<R>>}`
       : T
   : T;
-
-export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: Camelize<T[K]> };
+// Deep camelization based on type-fest implementation
+export type Camelize<Value> = Value extends any[]
+  ? Value
+  : Value extends object
+    ? {
+        [K in keyof Value as CamelizeString<K>]: Camelize<Value[K]>;
+      }
+    : Value;
 
 export type Simplify<T> = T extends infer S ? { [K in keyof S]: S[K] } : never;
 export type Never<T> = Simplify<{ [P in keyof T]?: never }>;
 export type SomeOf<T> = { [K in keyof T]: Pick<Required<T>, K> }[keyof T];
-export type OneOf<T> = { [K in keyof T]: Simplify<Pick<T, K> & Never<Omit<T, K>>> }[keyof T];
+export type OneOf<T> = { [K in keyof T]: Simplify<Never<Omit<T, K>> & Pick<T, K>> }[keyof T];
 export type OneOrNoneOf<T> = Never<T> | OneOf<T>;
 export type AllOrNone<T extends Record<string, any>> = T | Partial<Record<keyof T, never>>;
-
 export type MappedOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
 
-export type OptionValueType = undefined | string | boolean | Blob | number | (Blob | string)[];
-
-export function appendFormFromObject(object: Record<string, OptionValueType>): FormData {
+export function createFormData(object: Record<string, unknown>): FormData {
   const form = new FormData();
 
   Object.entries(object).forEach(([k, v]) => {
@@ -100,7 +103,6 @@ export function reformatObjectOptions(
 ): Record<string, string> {
   const formatted = decamelizeValues ? decamelizeKeys(obj) : obj;
 
-  // Use picoquery for complex object serialization, then parse back to object format
   return stringify(
     { [prefixKey]: formatted },
     {
@@ -118,4 +120,48 @@ export function reformatObjectOptions(
 
       return acc;
     }, {});
+}
+
+export function getPrefixedUrl(
+  suffix: string,
+  prefixMapping: Record<string, string | number | boolean | undefined> = {},
+): string {
+  const validEntries = Object.entries(prefixMapping).filter(
+    ([, value]) => value != null && value !== false,
+  );
+
+  if (validEntries.length === 0) return suffix;
+
+  const pathSegments = validEntries.map(([prefixType, id]) => {
+    if (id === true) {
+      return prefixType;
+    }
+    return `${prefixType}/${encodeURIComponent(String(id))}`;
+  });
+
+  const combinedPath = pathSegments.join('/');
+
+  return suffix ? `${combinedPath}/${suffix}` : combinedPath;
+}
+
+export function ensureRequiredParams(
+  params: Record<string, unknown>,
+  { maxExpected = 1, minExpected = 1 }: { maxExpected?: number; minExpected?: number } = {},
+): void {
+  const paramNames = Object.keys(params);
+  const providedParams = paramNames.filter((name) => params[name] != null);
+
+  if (providedParams.length < minExpected) {
+    const paramList = paramNames.join(' or ');
+    throw new Error(
+      `Missing required argument. Please supply a ${paramList} in the options parameter.`,
+    );
+  }
+
+  if (providedParams.length > maxExpected) {
+    const paramList = paramNames.join(', ');
+    throw new Error(
+      `Too many arguments provided. Expected at most ${maxExpected} of: ${paramList}.`,
+    );
+  }
 }

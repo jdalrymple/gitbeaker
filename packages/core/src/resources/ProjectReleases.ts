@@ -1,17 +1,20 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestBodyRecordOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { SimpleUserSchema } from './Users';
-import type { CommitSchema } from './Commits';
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
+import type { CommitSchema } from './Commits';
+import type { SimpleUserSchema } from './Users';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ReleaseEvidence {
   sha: string;
@@ -65,59 +68,81 @@ export interface ReleaseSchema extends Record<string, unknown> {
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestOptions<E> & { includeHtmlDescription: true },
-  ): Promise<GitlabAPIResponse<(ReleaseSchema & { description_html: string })[], C, E, P>>;
+    options?: { includeHtmlDescription: true } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<({ description_html: string } & ReleaseSchema)[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & BaseRequestOptions<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> &
-      BaseRequestOptions<E> & { includeHtmlDescription?: boolean },
+    options?: { includeHtmlDescription?: boolean } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>> {
-    return RequestHelper.get<ReleaseSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/releases`,
-      options,
-    );
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ReleaseSchema[]>()(this, endpoint`projects/${projectId}/releases`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
     projectId: string | number,
-    options?: BaseRequestOptions<E>,
+    options?: BaseRequestBodyRecordOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
-    return RequestHelper.post<ReleaseSchema>()(
-      this,
-      endpoint`projects/${projectId}/releases`,
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ReleaseSchema>()(this, endpoint`projects/${projectId}/releases`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   createEvidence<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<number, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.post<number>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/evidence`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   edit<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: BaseRequestOptions<E>,
+    options?: BaseRequestBodyRecordOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<ReleaseSchema>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
@@ -125,66 +150,97 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
     projectId: string | number,
     tagName: string,
     filepath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}/downloads/${filepath}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   downloadLatest<E extends boolean = false>(
     projectId: string | number,
     filepath: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<Blob>()(
       this,
       endpoint`projects/${projectId}/releases/permalink/latest/downloads/${filepath}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/releases/${tagName}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`projects/${projectId}/releases/${tagName}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     projectId: string | number,
     tagName: string,
-    options?: { includeHtmlDescription?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { includeHtmlDescription?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
+
     return RequestHelper.get<ReleaseSchema>()(
       this,
       endpoint`projects/${projectId}/releases/${tagName}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        searchParams,
+      },
     );
   }
 
   showLatest<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ReleaseSchema>()(
       this,
       endpoint`projects/${projectId}/releases/permalink/latest`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 
   showLatestEvidence<E extends boolean = false>(
     projectId: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<ReleaseSchema>()(
       this,
       endpoint`projects/${projectId}/releases/permalink/latest/evidence`,
-      options,
+      {
+        sudo,
+        showExpanded,
+      },
     );
   }
 }

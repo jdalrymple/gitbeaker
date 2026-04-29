@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { AlertManagement } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -22,7 +22,7 @@ describe('Agents.allMetricImages', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/1/alert_management_alerts/2/metric_images',
-      undefined,
+      { maxPages: undefined, searchParams: {}, showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -37,7 +37,10 @@ describe('Agents.editMetricImage', () => {
       service,
       'projects/1/alert_management_alerts/2/metric_images/3',
       {
-        url: 'url',
+        body: {
+          url: 'url',
+          urlText: undefined,
+        },
       },
     );
   });
@@ -50,7 +53,7 @@ describe('Agents.removeMetricImage', () => {
     expect(RequestHelper.del()).toHaveBeenCalledWith(
       service,
       'projects/1/alert_management_alerts/2/metric_images/3',
-      undefined,
+      { showExpanded: undefined, sudo: undefined },
     );
   });
 });
@@ -62,13 +65,17 @@ describe('Agents.uploadMetricImage', () => {
 
     await service.uploadMetricImage(1, 2, image, { urlText: 'text' });
 
+    const expectedFormData = new FormData();
+    expectedFormData.append('file', content, 'image.jpeg');
+    expectedFormData.append('urlText', 'text');
+
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/alert_management_alerts/2/metric_images',
       {
-        isForm: true,
-        file: [image.content, image.filename],
-        urlText: 'text',
+        body: expectedFormData,
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });

@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface TemplateSchema extends Record<string, unknown> {
   name: string;
@@ -20,25 +23,39 @@ export class ResourceTemplates<C extends boolean = false> extends BaseResource<C
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TemplateSchema[], C, E, P>> {
     process.emitWarning(
       'This API will be deprecated as of Gitlabs v5 API. Please make the switch to "ProjectTemplates".',
       'DeprecationWarning',
     );
 
-    return RequestHelper.get<TemplateSchema[]>()(this, '', options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<TemplateSchema[]>()(this, endpoint``, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   show<E extends boolean = false>(
     key: string | number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<TemplateSchema, C, E, void>> {
     process.emitWarning(
       'This API will be deprecated as of Gitlabs v5 API. Please make the switch to "ProjectTemplates".',
       'DeprecationWarning',
     );
 
-    return RequestHelper.get<TemplateSchema>()(this, encodeURIComponent(key), options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<TemplateSchema>()(this, endpoint`${key}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

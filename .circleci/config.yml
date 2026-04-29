@@ -23,7 +23,7 @@ x-environment: &default_environment
 executors:
   node-executor:
     docker:
-      - image: cimg/node:20.18
+      - image: cimg/node:22.22.2
     resource_class: medium
     working_directory: ~/project
 
@@ -143,7 +143,7 @@ jobs:
 
   lint:
     executor: node-executor
-    description: 'Run ESLint on all packages'
+    description: 'Run oxlint on all packages'
     steps:
       - restore_workspace
       - setup_nx_cache
@@ -233,10 +233,8 @@ jobs:
     steps:
       - restore_workspace
       - run:
-          name: Reinstall SWC for Ubuntu
-          command: |
-            npm install -g pnpm@10.28.0
-            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
+          name: Install pnpm
+          command: npm install -g pnpm@10.28.0
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'integration'
@@ -262,13 +260,18 @@ jobs:
       - run:
           name: Setup live GitLab instance
           command: |
-            export CONTAINER_NAME=gitlab-${GITLAB_VERSION}-${CIRCLE_BUILD_NUM}
+            set +e  # Don't exit on errors, we handle them manually
+
+            # Replace periods and other invalid characters with hyphens for GCP instance name
+            GITLAB_VERSION_SAFE=$(echo "${GITLAB_VERSION}" | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/-$//')
+            export CONTAINER_NAME=gitlab-${GITLAB_VERSION_SAFE}-${CIRCLE_BUILD_NUM}
 
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            GITLAB_HOST=$(gcloud compute instances create $CONTAINER_NAME \
+            echo "Creating GCP instance..."
+            GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
               --boot-disk-size=50GB \
@@ -280,9 +283,19 @@ jobs:
               --instance-termination-action=DELETE \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
               --image=gitlab-ready-image-16 \
-              --image-project=gitbeaker \
-              --format='get(networkInterfaces[0].accessConfigs[0].natIP)' \
-              2>/dev/null)
+              --image-project=gitbeaker 2>&1)
+
+            # Extract IP address from the created instance
+            GITLAB_HOST=$(gcloud compute instances describe $CONTAINER_NAME \
+              --zone=$GCP_ZONE \
+              --project=gitbeaker \
+              --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+
+
+            if [ -z "$GITLAB_HOST" ]; then
+              echo "ERROR: Failed to get IP address for instance $CONTAINER_NAME"
+              exit 1
+            fi
 
             export GITLAB_URL="http://${GITLAB_HOST}"
 
@@ -295,21 +308,30 @@ jobs:
             max_attempts=40  # ~20 minutes total with exponential backoff
 
             while [ $attempt -le $max_attempts ]; do
-              echo "Polling Attempt: $attempt - Checking if GitLab is ready (waiting ${wait_time}s)..."
+              echo "Polling attempt $attempt (waiting ${wait_time}s)..."
               sleep $wait_time
 
               # Check if GitLab is responding
-              if curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /dev/null 2>&1; then
-                readiness_response=$(curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure)
+              curl_output=""
+              curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /tmp/curl_output 2>&1
+
+              curl_exit_code=$?
+
+              if [ -f /tmp/curl_output ]; then
+                curl_output=$(cat /tmp/curl_output)
+              fi
+
+              if [ $curl_exit_code -eq 0 ]; then
+                readiness_response="$curl_output"
+
                 if echo "$readiness_response" | jq -e '.master_check[0].status == "ok"' > /dev/null 2>&1; then
                   echo "GitLab is ready!"
                   break
                 else
-                  echo "GitLab responding but not fully ready yet. Status check output:"
-                  echo "$readiness_response" | jq '.' || echo "$readiness_response"
+                  echo "GitLab responding but not fully ready yet..."
                 fi
               else
-                echo "GitLab not responding yet (connection failed or timeout)..."
+                echo "GitLab not responding yet..."
               fi
 
               ((attempt++))
@@ -320,11 +342,11 @@ jobs:
             done
 
             if [ $attempt -gt $max_attempts ]; then
-              echo "GitLab failed to start within timeout (~20 minutes)"
+              echo "ERROR: GitLab failed to start within timeout (~20 minutes)"
               exit 1
             fi
 
-            echo "GitLab is ready!"
+            echo "GitLab is ready and operational!"
 
             # Create environment file for e2e tests
             echo "GITLAB_URL=$GITLAB_URL" > gitlab-env.txt
@@ -358,10 +380,8 @@ jobs:
               echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
             fi
       - run:
-          name: Reinstall SWC for Ubuntu
-          command: |
-            npm install -g pnpm@10.28.0
-            pnpm -w --store-dir /home/circleci/.local/share/pnpm/store/v3 add @swc/core
+          name: Install pnpm
+          command: npm install -g pnpm@10.28.0
       - run_package_tests:
           package: '@gitbeaker/rest'
           test_type: 'e2e'

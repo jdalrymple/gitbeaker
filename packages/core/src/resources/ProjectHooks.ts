@@ -1,17 +1,18 @@
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { ResourceHooks } from '../templates';
 import type {
-  AddResourceHookOptions,
-  EditResourceHookOptions,
-  ExpandedHookSchema,
-} from '../templates/ResourceHooks';
-import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type {
+  AddResourceHookOptions,
+  EditResourceHookOptions,
+  ExpandedHookSchema,
+} from '../templates/ResourceHooks';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { ResourceHooks } from '../templates';
 
 export interface ProjectHookSchema extends ExpandedHookSchema {
   projectId: number;
@@ -21,30 +22,30 @@ export interface ProjectHooks<C extends boolean = false> {
   add<E extends boolean = false>(
     projectId: string | number,
     url: string,
-    options?: AddResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: AddResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectHookSchema[], C, E, P>>;
 
   edit<E extends boolean = false>(
     projectId: string | number,
     hookId: number,
     url: string,
-    options?: EditResourceHookOptions & Sudo & ShowExpanded<E>,
+    options?: EditResourceHookOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
   show<E extends boolean = false>(
     projectId: string | number,
     hookId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectHookSchema, C, E, void>>;
 }
 

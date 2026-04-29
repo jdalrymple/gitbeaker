@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper } from '../infrastructure';
 
 export interface ServiceAccountSchema extends Record<string, unknown> {
   id: number;
@@ -13,9 +13,15 @@ export class ServiceAccounts<C extends boolean = false> extends BaseResource<C> 
     options?: {
       name?: string;
       username?: string;
-    } & Sudo &
-      ShowExpanded<E>,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ServiceAccountSchema, C, E, void>> {
-    return RequestHelper.post<ServiceAccountSchema>()(this, endpoint`service_accounts`, options);
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<ServiceAccountSchema>()(this, 'service_accounts', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 }

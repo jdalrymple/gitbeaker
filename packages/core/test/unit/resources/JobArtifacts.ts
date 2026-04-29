@@ -18,32 +18,42 @@ beforeEach(() => {
 describe('JobArtifacts.downloadArchive', () => {
   it('should throw an error if require parameters are not present', () => {
     expect(() => service.downloadArchive(1)).toThrow(
-      'Missing one of the required parameters. See typing',
+      'Missing required argument. Please supply a jobId or job and ref in the options parameter.',
     );
   });
 
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via private token', async () => {
     await service.downloadArchive(1, { jobId: 43 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting the job’s artifacts zipped archive of a project via jobToken parameter', async () => {
     await service.downloadArchive(1, { jobId: 43, jobToken: 'token' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts`, {
-      jobToken: 'token',
+      searchParams: {
+        jobToken: 'token',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 
   it('should request GET /projects/:id/jobs/artifacts/:ref/download?job=:name getting the job’s artifacts zipped archive from the latest successful pipeline via private token', async () => {
     await service.downloadArchive(1, { job: 'job1', ref: 'ref1' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/artifacts/ref1/download`,
       {
-        job: 'job1',
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -51,42 +61,59 @@ describe('JobArtifacts.downloadArchive', () => {
   it('should request GET /projects/:id/jobs/artifacts/:ref/download?job=:name getting the job’s artifacts zipped archive from the latest successful pipeline via jobToken parameter', async () => {
     await service.downloadArchive(1, { job: 'job1', ref: 'ref1', jobToken: 'token' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/artifacts/ref1/download`,
       {
-        job: 'job1',
-        jobToken: 'token',
+        searchParams: {
+          jobToken: 'token',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
 
-  it('should request GET /projects/:id/jobs/:job_id/artifacts/:artifact_path, getting a single artifact file from a job with a specified ID from inside the job’s artifacts zipped archive via private token', async () => {
+  it('should request GET /projects/:id/jobs/:job_id/artifacts/:artifact_path, getting a single artifact file from a job with a specified ID from inside the job artifacts zipped archive via private token', async () => {
     await service.downloadArchive(1, { jobId: 43, artifactPath: 'path' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/43/artifacts/path`,
-      {},
+      {
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      },
     );
   });
 
   it('should request GET /projects/:id/jobs/:job_id/artifacts, getting a single artifact file from a job with a specified ID from inside the job’s artifacts zipped archive via jobToken parameter', async () => {
     await service.downloadArchive(1, { jobId: 43, jobToken: 'token', artifactPath: 'path' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, `projects/1/jobs/43/artifacts/path`, {
-      jobToken: 'token',
-    });
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      `projects/1/jobs/43/artifacts/path`,
+      {
+        searchParams: {
+          jobToken: 'token',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
   });
 
   it('should request GET /projects/:id/jobs/artifacts/:id/:ref/raw/path?job=:job  getting a single artifact file for a specific job of the latest successful pipeline via private token', async () => {
     await service.downloadArchive(1, { job: 'job1', ref: 'ref1', artifactPath: 'path' });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/artifacts/ref1/raw/path`,
       {
-        job: 'job1',
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -99,12 +126,15 @@ describe('JobArtifacts.downloadArchive', () => {
       jobToken: 'token',
     });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/artifacts/ref1/raw/path`,
       {
-        job: 'job1',
-        jobToken: 'token',
+        searchParams: {
+          jobToken: 'token',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -116,12 +146,59 @@ describe('JobArtifacts.downloadArchive', () => {
       searchRecentSuccessfulPipelines: true,
     });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
       `projects/1/jobs/artifacts/ref1/download`,
       {
-        job: 'job1',
-        searchRecentSuccessfulPipelines: true,
+        searchParams: {
+          searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request GET /projects/:id/jobs/artifacts/:ref/raw/:artifact_path?job=:name&search_recent_successful_pipelines=true when searchRecentSuccessfulPipelines is true with artifactPath', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      artifactPath: 'path',
+      searchRecentSuccessfulPipelines: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
+      {
+        searchParams: {
+          searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request GET /projects/:id/jobs/artifacts/:ref/raw/:artifact_path?job=:name&search_recent_successful_pipelines=true with artifactPath via job token', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      artifactPath: 'path',
+      jobToken: 'token',
+      searchRecentSuccessfulPipelines: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/raw/path`,
+      {
+        searchParams: {
+          jobToken: 'token',
+          searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
@@ -131,11 +208,10 @@ describe('JobArtifacts.keep', () => {
   it('should request POST /projects/:id/jobs/:id/artifacts/keep', async () => {
     await service.keep(1, 2);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
-      service,
-      'projects/1/jobs/2/artifacts/keep',
-      undefined,
-    );
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/jobs/2/artifacts/keep', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -143,12 +219,18 @@ describe('JobArtifacts.remove', () => {
   it('should request DELETE /projects/:id/artifacts', async () => {
     await service.remove(1);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/artifacts', {});
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'projects/1/artifacts', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request DELETE /projects/:id/jobs/:id/artifacts', async () => {
     await service.remove(1, { jobId: 2 });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/jobs/2/artifacts', {});
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'projects/1/jobs/2/artifacts', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

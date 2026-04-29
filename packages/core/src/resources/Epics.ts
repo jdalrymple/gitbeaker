@@ -1,17 +1,20 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   MappedOmit,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import type { GroupSchema } from './Groups';
 import type { TodoSchema } from './TodoLists';
 import type { SimpleUserSchema } from './Users';
-import type { GroupSchema } from './Groups';
-import type { SimpleLabelSchema } from '../templates/ResourceLabels';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface EpicSchema extends Record<string, unknown> {
   id: number;
@@ -116,79 +119,117 @@ export type EditEpicOptions = {
 export class Epics<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: AllEpicsOptions &
+    options: { withLabelsDetails: true } & AllEpicsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> & { withLabelsDetails: true },
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchemaWithExpandedLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllEpicsOptions &
+    options?: { withLabelsDetails?: false } & AllEpicsOptions &
+      BaseRequestSearchParams &
       PaginationRequestOptions<P> &
-      Sudo &
-      ShowExpanded<E> & { withLabelsDetails?: false },
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchemaWithBasicLabels[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: AllEpicsOptions & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: AllEpicsOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema[], C, E, P>> {
-    return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<EpicSchema[]>()(this, endpoint`groups/${groupId}/epics`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
     groupId: string | number,
     title: string,
-    options?: CreateEpicOptions & Sudo & ShowExpanded<E>,
+    options?: CreateEpicOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<EpicSchema>()(this, endpoint`groups/${groupId}/epics`, {
-      title,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        title,
+      },
     });
   }
 
   createTodo<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicTodoSchema, C, E, void>> {
+    const { showExpanded, sudo } = options || {};
+
     return RequestHelper.post<EpicTodoSchema>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}/todos`,
-      options,
+      {
+        showExpanded,
+        sudo,
+      },
     );
   }
 
   edit<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: EditEpicOptions & Sudo & ShowExpanded<E>,
+    options?: EditEpicOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<MappedOmit<EpicSchema, '_links'>, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.put<MappedOmit<EpicSchema, '_links'>>()(
       this,
       endpoint`groups/${groupId}/epics/${epicIId}`,
-      options,
+      {
+        sudo,
+        showExpanded,
+        body,
+      },
     );
   }
 
   remove<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicIId}`, options);
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/epics/${epicIId}`, {
+      showExpanded,
+      sudo,
+    });
   }
 
   show<E extends boolean = false>(
     groupId: string | number,
     epicIId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<EpicSchema, C, E, void>> {
-    return RequestHelper.get<EpicSchema>()(
-      this,
-      endpoint`groups/${groupId}/epics/${epicIId}`,
-      options,
-    );
+    const { showExpanded, sudo } = options || {};
+
+    return RequestHelper.get<EpicSchema>()(this, endpoint`groups/${groupId}/epics/${epicIId}`, {
+      showExpanded,
+      sudo,
+    });
   }
 }

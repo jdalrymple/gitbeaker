@@ -1,6 +1,6 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
 import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface UserEmailSchema extends Record<string, unknown> {
   id: number;
@@ -8,13 +8,11 @@ export interface UserEmailSchema extends Record<string, unknown> {
   confirmed_at: string;
 }
 
-const url = (userId?: number) => (userId ? `users/${userId}/emails` : 'user/emails');
-
 export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   // Convenience method for create
   add<E extends boolean = false>(
     email: string,
-    options?: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E>,
+    options?: { userId?: number; skipConfirmation?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
     return this.create<E>(email, options);
   }
@@ -22,14 +20,16 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     userId,
     ...options
-  }: { userId?: number } & Sudo & ShowExpanded<E> = {}): Promise<
+  }: { userId?: number } & ShowExpanded<E> & Sudo = {}): Promise<
     GitlabAPIResponse<UserEmailSchema[], C, E, void>
   > {
-    return RequestHelper.get<UserEmailSchema[]>()(
-      this,
-      url(userId),
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+    const url = getPrefixedUrl('emails', { users: userId, user: !userId });
+
+    return RequestHelper.get<UserEmailSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   create<E extends boolean = false>(
@@ -37,29 +37,45 @@ export class UserEmails<C extends boolean = false> extends BaseResource<C> {
     {
       userId,
       ...options
-    }: { userId?: number; skipConfirmation?: boolean } & Sudo & ShowExpanded<E> = {},
+    }: { userId?: number; skipConfirmation?: boolean } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
-    return RequestHelper.post<UserEmailSchema>()(this, url(userId), {
-      email,
-      ...options,
+    const { sudo, showExpanded, ...body } = options || {};
+    const url = getPrefixedUrl('emails', { users: userId, user: !userId });
+
+    return RequestHelper.post<UserEmailSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        email,
+        ...body,
+      },
     });
   }
 
   show<E extends boolean = false>(
     emailId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserEmailSchema, C, E, void>> {
-    return RequestHelper.get<UserEmailSchema>()(this, `user/emails/${emailId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<UserEmailSchema>()(this, endpoint`user/emails/${emailId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   remove<E extends boolean = false>(
     emailId: number,
-    { userId, ...options }: { userId?: number } & Sudo & ShowExpanded<E> = {},
+    { userId, ...options }: { userId?: number } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(
-      this,
-      `${url(userId)}/${emailId}`,
-      options as Sudo & ShowExpanded<E>,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    const suffix = endpoint`emails/${emailId}`;
+    const uri = getPrefixedUrl(suffix, { users: userId, user: !userId });
+
+    return RequestHelper.del()(this, uri, {
+      sudo,
+      showExpanded,
+    });
   }
 }

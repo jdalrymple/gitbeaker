@@ -1,13 +1,16 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface CondensedBadgeSchema extends Record<string, unknown> {
   link_url: string;
@@ -37,64 +40,92 @@ export class ResourceBadges<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: { name?: string } & Sudo & ShowExpanded<E>,
+    options?: { name?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
     return RequestHelper.post<BadgeSchema>()(this, endpoint`${resourceId}/badges`, {
-      linkUrl,
-      imageUrl,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        linkUrl,
+        imageUrl,
+      },
     });
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     resourceId: string | number,
-    options?: { name?: string } & PaginationRequestOptions<P> & Sudo & ShowExpanded<E>,
+    options?: { name?: string } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema[], C, E, P>> {
-    return RequestHelper.get<BadgeSchema[]>()(this, endpoint`${resourceId}/badges`, options);
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<BadgeSchema[]>()(this, endpoint`${resourceId}/badges`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   edit<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: EditBadgeOptions & Sudo & ShowExpanded<E>,
+    options?: EditBadgeOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
-    return RequestHelper.put<BadgeSchema>()(
-      this,
-      endpoint`${resourceId}/badges/${badgeId}`,
-      options,
-    );
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<BadgeSchema>()(this, endpoint`${resourceId}/badges/${badgeId}`, {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 
   preview<E extends boolean = false>(
     resourceId: string | number,
     linkUrl: string,
     imageUrl: string,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedBadgeSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
     return RequestHelper.get<CondensedBadgeSchema>()(this, endpoint`${resourceId}/badges/render`, {
-      linkUrl,
-      imageUrl,
-      ...options,
+      sudo,
+      showExpanded,
+      searchParams: {
+        linkUrl,
+        imageUrl,
+      },
     });
   }
 
   remove<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    return RequestHelper.del()(this, endpoint`${resourceId}/badges/${badgeId}`, options);
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`${resourceId}/badges/${badgeId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     resourceId: string | number,
     badgeId: number,
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BadgeSchema, C, E, void>> {
-    return RequestHelper.get<BadgeSchema>()(
-      this,
-      endpoint`${resourceId}/badges/${badgeId}`,
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<BadgeSchema>()(this, endpoint`${resourceId}/badges/${badgeId}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { DeployKeys } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -20,8 +20,12 @@ describe('DeployKeys.add', () => {
     await service.create(1, 'title', 'key');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys', {
-      title: 'title',
-      key: 'key',
+      body: {
+        title: 'title',
+        key: 'key',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -30,13 +34,23 @@ describe('DeployKeys.all', () => {
   it('should request GET /deploy_keys', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'deploy_keys', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'deploy_keys', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET /projects/:id/deploy_keys', async () => {
     await service.all({ projectId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys', {});
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -45,7 +59,11 @@ describe('DeployKeys.edit', () => {
     await service.edit(1, 2, { title: 'title' });
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2', {
-      title: 'title',
+      body: {
+        title: 'title',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -54,11 +72,10 @@ describe('DeployKeys.show', () => {
   it('should request GET /projects/:id/deploy_keys/:key', async () => {
     await service.show(1, 2);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
-      service,
-      'projects/1/deploy_keys/2',
-      undefined,
-    );
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -66,10 +83,9 @@ describe('DeployKeys.remove', () => {
   it('should request DEL /projects/:id/deploy_keys/:key', async () => {
     await service.remove(1, 2);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(
-      service,
-      'projects/1/deploy_keys/2',
-      undefined,
-    );
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

@@ -19,13 +19,21 @@ describe('UserGPGKeys.add', () => {
   it('should request POST user/gpg_keys', async () => {
     await service.add('key');
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'user/gpg_keys', { key: 'key' });
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'user/gpg_keys', {
+      body: { key: 'key' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request POST users/1/gpg_keys', async () => {
     await service.add('key', { userId: 1 });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'users/1/gpg_keys', { key: 'key' });
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'users/1/gpg_keys', {
+      body: { key: 'key' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -33,13 +41,19 @@ describe('UserGPGKeys.all', () => {
   it('should request GET user/gpg_keys', async () => {
     await service.all();
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'user/gpg_keys', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'user/gpg_keys', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET users/:id/gpg_keys', async () => {
     await service.all({ userId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/gpg_keys', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'users/1/gpg_keys', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -47,13 +61,19 @@ describe('UserGPGKeys.show', () => {
   it('should request GET user/gpg_keys', async () => {
     await service.show(1);
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'user/gpg_keys/1', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'user/gpg_keys/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request GET users/1/gpg_keys', async () => {
     await service.show(1, { userId: 1 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'users/1/gpg_keys/1', {});
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'users/1/gpg_keys/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -61,12 +81,18 @@ describe('UserGPGKeys.remove', () => {
   it('should request DEL user/gpg_keys', async () => {
     await service.remove(1);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'user/gpg_keys/1', {});
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'user/gpg_keys/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 
   it('should request DEL users/1/gpg_keys', async () => {
     await service.remove(1, { userId: 1 });
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'users/1/gpg_keys/1', {});
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'users/1/gpg_keys/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

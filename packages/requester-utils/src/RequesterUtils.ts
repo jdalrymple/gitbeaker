@@ -1,28 +1,31 @@
-import { stringify } from 'picoquery';
-import { decamelizeKeys } from 'xcase';
-import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
-import Picomatch from 'picomatch';
 import type { Agent } from 'http';
+import Picomatch from 'picomatch';
+import { stringify } from 'picoquery';
+import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
+import { decamelizeKeys } from 'xcase';
 
 const { isMatch: isGlobMatch } = Picomatch;
 
 // Types
 export type RateLimiterFn = () => Promise<number>;
+
 export type RateLimiters = Record<string, RateLimiterFn | { method: string; limit: RateLimiterFn }>;
+
 export type RateLimitOptions = Record<string, number | { method: string; limit: number }>;
 
-export type ResponseBodyTypes =
-  | Record<string, unknown>
+export type ResponseBodyType =
   | Record<string, unknown>[]
+  | string[]
+  | Record<string, unknown>
   | ReadableStream
   | Blob
   | string
-  | string[]
   | number
-  | void
   | null;
 
-export interface FormattedResponse<T extends ResponseBodyTypes = ResponseBodyTypes> {
+export type ResponseType = ResponseBodyType | void;
+
+export interface FormattedResponse<T extends ResponseType = ResponseType> {
   body: T;
   headers: Record<string, string>;
   status: number;
@@ -41,14 +44,54 @@ export type ResourceOptions = {
   agent?: Agent;
 };
 
-export type DefaultRequestOptions = {
-  body?: FormData | Record<string, unknown>;
-  searchParams?: Record<string, unknown>;
+export type RequesterBodyType =
+  | Record<string, unknown>
+  | Record<string, unknown>[]
+  | FormData
+  | Blob
+  | ArrayBuffer;
+
+export type RequesterSearchParams = Record<
+  string,
+  | Record<string, string | number>[]
+  | number[]
+  | string[]
+  | Record<string, string | number>
+  | string
+  | number
+  | boolean
+>;
+
+export type DefaultRequesterOptions = {
+  body?: RequesterBodyType;
+  searchParams?: RequesterSearchParams;
   sudo?: string | number;
-  method?: string;
   asStream?: boolean;
   signal?: AbortSignal;
 };
+
+export interface RequesterType {
+  get<T extends ResponseType>(
+    endpoint: string,
+    options?: DefaultRequesterOptions,
+  ): Promise<FormattedResponse<T>>;
+  post<T extends ResponseType>(
+    endpoint: string,
+    options?: DefaultRequesterOptions,
+  ): Promise<FormattedResponse<T>>;
+  put<T extends ResponseType>(
+    endpoint: string,
+    options?: DefaultRequesterOptions,
+  ): Promise<FormattedResponse<T>>;
+  patch<T extends ResponseType>(
+    endpoint: string,
+    options?: DefaultRequesterOptions,
+  ): Promise<FormattedResponse<T>>;
+  delete<T extends ResponseType>(
+    endpoint: string,
+    options?: DefaultRequesterOptions,
+  ): Promise<FormattedResponse<T>>;
+}
 
 export type RequestOptions = {
   headers?: Record<string, string>;
@@ -56,40 +99,26 @@ export type RequestOptions = {
   method?: string;
   searchParams?: string;
   prefixUrl?: string;
-  body?: string | FormData;
+  body?: BodyInit;
   asStream?: boolean;
   signal?: AbortSignal;
-  rateLimiters?: Record<string, RateLimiterFn>;
+  rateLimiters?: RateLimiters;
   agent?: Agent;
 };
 
-export interface RequesterType {
-  get<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: DefaultRequestOptions,
-  ): Promise<FormattedResponse<T>>;
-  post<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: DefaultRequestOptions,
-  ): Promise<FormattedResponse<T>>;
-  put<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: DefaultRequestOptions,
-  ): Promise<FormattedResponse<T>>;
-  patch<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: DefaultRequestOptions,
-  ): Promise<FormattedResponse<T>>;
-  delete<T extends ResponseBodyTypes>(
-    endpoint: string,
-    options?: DefaultRequestOptions,
-  ): Promise<FormattedResponse<T>>;
-}
-
-export type RequestHandlerFn<T extends ResponseBodyTypes = ResponseBodyTypes> = (
+export type RequestHandlerFn<T extends ResponseType = ResponseType> = (
   endpoint: string,
-  options?: Record<string, unknown>,
+  options?: RequestOptions,
 ) => Promise<FormattedResponse<T>>;
+
+export type OptionsHandlerFn = (
+  serviceOptions: ResourceOptions,
+  requestOptions: RequestOptions,
+) => Promise<RequestOptions>;
+
+type PresetConstructors<T> = {
+  [K in keyof T]: T[K];
+};
 
 // Utility methods
 export function generateRateLimiterFn(limit: number, interval: number) {
@@ -103,7 +132,6 @@ export function generateRateLimiterFn(limit: number, interval: number) {
 export function formatQuery(params: Record<string, unknown> = {}): string {
   const decamelized = decamelizeKeys(params);
 
-  // Using picoquery instead of qs to support stringifying nested objects with bracket notation
   return stringify(decamelized, {
     nesting: true,
     nestingSyntax: 'index',
@@ -111,11 +139,6 @@ export function formatQuery(params: Record<string, unknown> = {}): string {
     arrayRepeatSyntax: 'bracket',
   });
 }
-
-export type OptionsHandlerFn = (
-  serviceOptions: ResourceOptions,
-  requestOptions: RequestOptions,
-) => Promise<RequestOptions>;
 
 export async function defaultOptionsHandler(
   resourceOptions: ResourceOptions,
@@ -126,7 +149,7 @@ export async function defaultOptionsHandler(
     signal,
     asStream = false,
     method = 'GET',
-  }: DefaultRequestOptions = {},
+  }: { method?: string } & DefaultRequesterOptions = {},
 ): Promise<RequestOptions> {
   const { headers: preconfiguredHeaders, authHeaders, url, agent } = resourceOptions;
   const defaultOptions: RequestOptions = {
@@ -141,14 +164,20 @@ export async function defaultOptionsHandler(
 
   if (sudo) defaultOptions.headers.sudo = `${sudo}`;
 
-  // FIXME: Not the best comparison, but...it will have to do for now.
-  if (body) {
-    if (body instanceof FormData) {
-      defaultOptions.body = body;
-    } else {
-      defaultOptions.body = JSON.stringify(decamelizeKeys(body));
-      defaultOptions.headers['content-type'] = 'application/json';
+  if (
+    body instanceof FormData ||
+    body instanceof Blob ||
+    body instanceof ArrayBuffer ||
+    typeof body === 'string'
+  ) {
+    defaultOptions.body = body;
+    // Set Content-Type header for Blobs to prevent automatic FormData conversion
+    if (body instanceof Blob && body.type) {
+      defaultOptions.headers['Content-Type'] = body.type;
     }
+  } else if (body != null) {
+    defaultOptions.body = JSON.stringify(decamelizeKeys(body));
+    defaultOptions.headers['Content-Type'] = 'application/json';
   }
 
   if (Object.keys(authHeaders).length > 0) {
@@ -204,6 +233,7 @@ export function createRequesterFn(
           ...options,
           method: m.toUpperCase(),
         });
+
         const requestOptions = await optionsHandler(serviceOptions, defaultRequestOptions);
 
         return requestHandler(endpoint, { ...requestOptions, rateLimiters });
@@ -213,10 +243,6 @@ export function createRequesterFn(
     return requester;
   };
 }
-
-type PresetConstructors<T> = {
-  [K in keyof T]: T[K];
-};
 
 function createPresetConstructor<T extends new (...args: any[]) => any>(
   Constructor: T,
@@ -230,10 +256,10 @@ function createPresetConstructor<T extends new (...args: any[]) => any>(
   } as T;
 }
 
-export function presetResourceArguments<T extends Record<string, any>>(
-  resources: T,
-  customConfig: Record<string, unknown> = {},
-): PresetConstructors<T> {
+export function presetResourceArguments<
+  T extends Record<string, any>,
+  Config extends Record<string, unknown>,
+>(resources: T, customConfig: Config = {} as Config): PresetConstructors<T> {
   const result = {} as PresetConstructors<T>;
 
   Object.entries(resources).forEach(([key, Constructor]) => {

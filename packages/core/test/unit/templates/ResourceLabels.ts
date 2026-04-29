@@ -1,5 +1,5 @@
-import { ResourceLabels } from '../../../src/templates';
 import { RequestHelper } from '../../../src/infrastructure';
+import { ResourceLabels } from '../../../src/templates';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -31,7 +31,12 @@ describe('ResourceLabels.all', () => {
   it('should call the correct url with a resource id', async () => {
     await service.all('5');
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/labels', undefined);
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '5/labels', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -40,8 +45,9 @@ describe('ResourceLabels.create', () => {
     await service.create('5', 'review', '#888888');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/labels', {
-      name: 'review',
-      color: '#888888',
+      body: { name: 'review', color: '#888888' },
+      showExpanded: undefined,
+      sudo: undefined,
     });
   });
 });
@@ -50,7 +56,11 @@ describe('ResourceLabels.edit', () => {
   it('should call the correct url with a resource id and label name', async () => {
     await service.edit(5, 2, { newName: 'review' });
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/labels/2', { newName: 'review' });
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/labels/2', {
+      body: { newName: 'review' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -58,7 +68,10 @@ describe('ResourceLabels.remove', () => {
   it('should call the correct url with a resource id and label name', async () => {
     await service.remove('5', 'review');
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/labels/review', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/labels/review', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -66,7 +79,11 @@ describe('ResourceLabels.subscribe', () => {
   it('should call the correct url with a resource id and label id', async () => {
     await service.subscribe('5', 6);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/issues/6/subscribe', undefined);
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/issues/6/subscribe', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });
 
@@ -74,6 +91,10 @@ describe('ResourceLabels.unsubscribe', () => {
   it('should call the correct url with a resource id and label id', async () => {
     await service.unsubscribe('5', 6);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/issues/6/unsubscribe', undefined);
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/issues/6/unsubscribe', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
   });
 });

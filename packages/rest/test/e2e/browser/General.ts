@@ -1,5 +1,5 @@
-import path from 'path';
 import { expect, test as it } from '@playwright/test';
+import path from 'path';
 
 const { describe } = it;
 

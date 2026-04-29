@@ -1,6 +1,11 @@
+import type {
+  BaseRequestBodyRecordOptions,
+  GitlabAPIResponse,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper } from '../infrastructure';
-import type { BaseRequestOptions, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import { RequestHelper, createFormData } from '../infrastructure';
 
 export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   title: string;
@@ -23,41 +28,42 @@ export interface ApplicationAppearanceSchema extends Record<string, unknown> {
 
 export class ApplicationAppearance<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
-    options?: Sudo & ShowExpanded<E>,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ApplicationAppearanceSchema, C, E, void>> {
-    return RequestHelper.get<ApplicationAppearanceSchema>()(
-      this,
-      'application/appearence',
-      options,
-    );
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ApplicationAppearanceSchema>()(this, 'application/appearance', {
+      sudo,
+      showExpanded,
+    });
   }
 
   edit<E extends boolean = false>(
-    {
-      logo,
-      pwaIcon,
-      ...options
-    }: {
+    options?: {
       logo?: { content: Blob; filename: string };
       pwaIcon?: { content: Blob; filename: string };
-    } & BaseRequestOptions<E> = {} as any,
+    } & BaseRequestBodyRecordOptions &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ApplicationAppearanceSchema, C, E, void>> {
+    const { sudo, showExpanded, logo, pwaIcon, ...remaining } = options || {};
+    let body: FormData | BaseRequestBodyRecordOptions;
+
     if (logo || pwaIcon) {
-      const opts: BaseRequestOptions<E> = {
-        ...options,
-        isForm: true,
-      };
+      const formDataOpts: Record<string, any> = { ...remaining };
 
-      if (logo) opts.logo = [logo.content, logo.filename];
-      if (pwaIcon) opts.pwaIcon = [pwaIcon.content, pwaIcon.filename];
+      if (logo) formDataOpts.logo = [logo.content, logo.filename];
+      if (pwaIcon) formDataOpts.pwaIcon = [pwaIcon.content, pwaIcon.filename];
 
-      return RequestHelper.put<ApplicationAppearanceSchema>()(this, 'application/appearence', opts);
+      body = createFormData(formDataOpts);
+    } else {
+      body = remaining;
     }
 
-    return RequestHelper.put<ApplicationAppearanceSchema>()(
-      this,
-      'application/appearence',
-      options,
-    );
+    return RequestHelper.put<ApplicationAppearanceSchema>()(this, 'application/appearance', {
+      sudo,
+      showExpanded,
+      body,
+    });
   }
 }

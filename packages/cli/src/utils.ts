@@ -1,5 +1,5 @@
-import { camelize, decamelize } from 'xcase';
 import type { Options as SywacOptions } from 'sywac';
+import { camelize, decamelize } from 'xcase';
 
 export interface MethodTemplate {
   name: string;

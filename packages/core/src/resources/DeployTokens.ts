@@ -1,15 +1,17 @@
-import { BaseResource } from '@gitbeaker/requester-utils';
-import { RequestHelper, endpoint } from '../infrastructure';
 import type {
-  BaseRequestOptions,
+  BaseRequestSearchParams,
   GitlabAPIResponse,
   OneOf,
   OneOrNoneOf,
   PaginationRequestOptions,
+  PaginationRequestSearchParams,
+  PaginationType,
   PaginationTypes,
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import { BaseResource } from '@gitbeaker/requester-utils';
+import { RequestHelper, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
 
 export type DeployTokenScope =
   | 'read_repository'
@@ -34,101 +36,96 @@ export interface NewDeployTokenSchema extends DeployTokenSchema {
 
 export class DeployTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> & {
+    options?: {
       active?: boolean;
-    } & PaginationRequestOptions<P> &
-      BaseRequestOptions<E> = {} as any,
+    } & BaseRequestSearchParams &
+      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<DeployTokenSchema[], C, E, P>> {
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/deploy_tokens`;
-    else if (groupId) url = endpoint`groups/${groupId}/deploy_tokens`;
-    else url = 'deploy_tokens';
+    ensureRequiredParams({ projectId, groupId }, { minExpected: 0 });
 
-    return RequestHelper.get<DeployTokenSchema[]>()(this, url, options);
+    const url = getPrefixedUrl('deploy_tokens', { projects: projectId, groups: groupId });
+
+    return RequestHelper.get<DeployTokenSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   create<E extends boolean = false>(
     name: string,
     scopes: DeployTokenScope[],
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> & {
+    options?: {
       expires_at?: string;
       username?: string;
-    } & Sudo &
-      ShowExpanded<E> = {} as any,
+    } & OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<NewDeployTokenSchema, C, E, void>> {
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded, ...body } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/deploy_tokens`;
-    else if (groupId) url = endpoint`groups/${groupId}/deploy_tokens`;
-    else {
-      throw new Error(
-        'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
-      );
-    }
+    ensureRequiredParams({ projectId, groupId });
+
+    const url = getPrefixedUrl('deploy_tokens', { projects: projectId, groups: groupId });
 
     return RequestHelper.post<NewDeployTokenSchema>()(this, url, {
-      name,
-      scopes,
-      ...options,
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+        scopes,
+      },
     });
   }
 
   remove<E extends boolean = false>(
     tokenId: number,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+    options?: OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/deploy_tokens/${tokenId}`;
-    else if (groupId) url = endpoint`groups/${groupId}/deploy_tokens/${tokenId}`;
-    else {
-      throw new Error(
-        'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
-      );
-    }
+    ensureRequiredParams({ projectId, groupId });
 
-    return RequestHelper.del()(this, url, options as any as Sudo & ShowExpanded<E>);
+    const url = getPrefixedUrl(`deploy_tokens/${tokenId}`, {
+      projects: projectId,
+      groups: groupId,
+    });
+
+    return RequestHelper.del()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 
   show<E extends boolean = false>(
     tokenId: number,
-    {
-      projectId,
-      groupId,
-      ...options
-    }: OneOf<{ projectId: string | number; groupId: string | number }> &
-      Sudo &
-      ShowExpanded<E> = {} as any,
+    options?: OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<DeployTokenSchema, C, E, void>> {
-    let url: string;
+    const { projectId, groupId, sudo, showExpanded } = options || {};
 
-    if (projectId) url = endpoint`projects/${projectId}/deploy_tokens/${tokenId}`;
-    else if (groupId) url = endpoint`groups/${groupId}/deploy_tokens/${tokenId}`;
-    else {
-      throw new Error(
-        'Missing required argument. Please supply a projectId or a groupId in the options parameter.',
-      );
-    }
+    ensureRequiredParams({ projectId, groupId });
 
-    return RequestHelper.get<DeployTokenSchema>()(
-      this,
-      url,
-      options as any as Sudo & ShowExpanded<E>,
-    );
+    const url = getPrefixedUrl(`deploy_tokens/${tokenId}`, {
+      projects: projectId,
+      groups: groupId,
+    });
+
+    return RequestHelper.get<DeployTokenSchema>()(this, url, {
+      sudo,
+      showExpanded,
+    });
   }
 }

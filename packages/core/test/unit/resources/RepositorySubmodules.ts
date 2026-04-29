@@ -1,5 +1,5 @@
-import { RequestHelper } from '../../../src/infrastructure';
 import { RepositorySubmodules } from '../../../src';
+import { RequestHelper } from '../../../src/infrastructure';
 
 jest.mock(
   '../../../src/infrastructure/RequestHelper',
@@ -23,8 +23,12 @@ describe('Releases.edit', () => {
       service,
       'projects/1/repository/submodules/submod',
       {
-        branch: 'branch',
-        commitSha: 'sha',
+        body: {
+          branch: 'branch',
+          commitSha: 'sha',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
       },
     );
   });
