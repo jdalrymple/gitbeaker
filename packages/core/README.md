@@ -310,15 +310,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>DockerfileTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/dockerfiles.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/DockerfileTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>Environments</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/environments.html">🦊</a>
@@ -481,24 +472,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>GitLabCIYMLTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/gitlab_ci_ymls.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GitLabCIYMLTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>GitignoreTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/gitignores.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GitignoreTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>GitlabPages</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/pages.html">🦊</a>
@@ -519,7 +492,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupAccessRequests</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/access_requests.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/access_requests.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupAccessRequests.ts">⌨️</a>
@@ -967,15 +940,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>LicenseTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/licenses.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/LicenseTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>LinkedEpics</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/linked_epics.html">🦊</a>
@@ -1248,7 +1212,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAccessRequests</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/access_requests.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/access_requests.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAccessRequests.ts">⌨️</a>
