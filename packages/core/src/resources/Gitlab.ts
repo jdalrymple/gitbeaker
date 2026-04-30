@@ -3,7 +3,6 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { BaseResource } from '@gitbeaker/requester-utils';
 
 // General
-import { Agents } from './Agents';
 import { AlertManagement } from './AlertManagement';
 import { ApplicationAppearance } from './ApplicationAppearance';
 import { ApplicationPlanLimits } from './ApplicationPlanLimits';
@@ -14,6 +13,7 @@ import { AuditEvents } from './AuditEvents';
 import { Avatar } from './Avatar';
 import { Branches } from './Branches';
 import { BroadcastMessages } from './BroadcastMessages';
+import { ClusterAgents } from './ClusterAgents';
 import { CodeSuggestions } from './CodeSuggestions';
 import { CommitDiscussions } from './CommitDiscussions';
 import { Commits } from './Commits';
@@ -197,7 +197,6 @@ import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
 // This will most likely be accomplished using higher kinded types: https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-750930496
 
 export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
-  Agents: Agents<C>;
   AlertManagement: AlertManagement<C>;
   ApplicationAppearance: ApplicationAppearance<C>;
   ApplicationPlanLimits: ApplicationPlanLimits<C>;
@@ -207,6 +206,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   AuditEvents: AuditEvents<C>;
   Avatar: Avatar<C>;
   BroadcastMessages: BroadcastMessages<C>;
+  ClusterAgents: ClusterAgents<C>;
   CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
   Conan: Conan<C>;
@@ -389,7 +389,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
 }
 
 const resources = {
-  Agents,
   AlertManagement,
   ApplicationAppearance,
   ApplicationPlanLimits,
@@ -399,6 +398,7 @@ const resources = {
   AuditEvents,
   Avatar,
   BroadcastMessages,
+  ClusterAgents,
   CodeSuggestions,
   Composer,
   Conan,

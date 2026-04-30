@@ -1,5 +1,5 @@
 // General
-export * from './Agents';
+export * from './ClusterAgents';
 export * from './AlertManagement';
 export * from './ApplicationAppearance';
 export * from './ApplicationPlanLimits';

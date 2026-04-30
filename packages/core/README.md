@@ -103,12 +103,12 @@ import { Gitlab } from '@gitbeaker/core';
 <tbody valign=top align=left>
 
 <tr>
-<th>Agents</th>
+<th>ClusterAgents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/cluster_agents.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/cluster_agents.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/Agents.ts">⌨️</a>
+<a href="./src/resources/ClusterAgents.ts">⌨️</a>
 </td>
 </tr>
 <tr>
