@@ -26,7 +26,6 @@ import { DependencyProxy } from './DependencyProxy';
 import { DeployKeys } from './DeployKeys';
 import { Deployments } from './Deployments';
 import { DeployTokens } from './DeployTokens';
-import { DockerfileTemplates } from './DockerfileTemplates';
 import { Environments } from './Environments';
 import { EpicAwardEmojis } from './EpicAwardEmojis';
 import { EpicDiscussions } from './EpicDiscussions';
@@ -46,8 +45,6 @@ import { FeatureFlagUserLists } from './FeatureFlagUserLists';
 import { FreezePeriods } from './FreezePeriods';
 import { GeoNodes } from './GeoNodes';
 import { GeoSites } from './GeoSites';
-import { GitignoreTemplates } from './GitignoreTemplates';
-import { GitLabCIYMLTemplates } from './GitLabCIYMLTemplates';
 import { GitlabPages } from './GitlabPages';
 import { GoProxy } from './GoProxy';
 import { GroupAccessRequests } from './GroupAccessRequests';
@@ -100,7 +97,6 @@ import { JobArtifacts } from './JobArtifacts';
 import { Jobs } from './Jobs';
 import { Keys } from './Keys';
 import { License } from './License';
-import { LicenseTemplates } from './LicenseTemplates';
 import { LinkedEpics } from './LinkedEpics';
 import { Lint } from './Lint';
 import { Markdown } from './Markdown';
@@ -219,18 +215,14 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   DependencyProxy: DependencyProxy<C>;
   DeployKeys: DeployKeys<C>;
   DeployTokens: DeployTokens<C>;
-  DockerfileTemplates: DockerfileTemplates<C>;
   Events: Events<C>;
   Experiments: Experiments<C>;
   GeoNodes: GeoNodes<C>;
   GeoSites: GeoSites<C>;
-  GitignoreTemplates: GitignoreTemplates<C>;
-  GitLabCIYMLTemplates: GitLabCIYMLTemplates<C>;
   Import: Import<C>;
   InstanceLevelCICDVariables: InstanceLevelCICDVariables<C>;
   Keys: Keys<C>;
   License: License<C>;
-  LicenseTemplates: LicenseTemplates<C>;
   Lint: Lint<C>;
   Markdown: Markdown<C>;
   Maven: Maven<C>;
@@ -415,18 +407,14 @@ const resources = {
   DependencyProxy,
   DeployKeys,
   DeployTokens,
-  DockerfileTemplates,
   Events,
   Experiments,
   GeoNodes,
   GeoSites,
-  GitignoreTemplates,
-  GitLabCIYMLTemplates,
   Import,
   InstanceLevelCICDVariables,
   Keys,
   License,
-  LicenseTemplates,
   Lint,
   Markdown,
   Maven,
