@@ -22,8 +22,8 @@ export { AccessLevel };
 
 // Dual Export Pattern: Each class exported as both constructor and instance type
 
-export const { Agents } = API;
-export type Agents<C extends boolean = false> = CORE.Agents<C>;
+export const { ClusterAgents } = API;
+export type ClusterAgents<C extends boolean = false> = CORE.ClusterAgents<C>;
 
 export const { AlertManagement } = API;
 export type AlertManagement<C extends boolean = false> = CORE.AlertManagement<C>;
