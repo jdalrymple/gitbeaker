@@ -171,11 +171,11 @@ describe('ClusterAgents.createUrlConfiguration', () => {
   });
 
   it('should request POST /projects/1/cluster_agents/2/url_configurations with mTLS options', async () => {
-    await service.createUrlConfiguration(1, 2, 'grpcs://agent.example.com:4242', { 
+    await service.createUrlConfiguration(1, 2, 'grpcs://agent.example.com:4242', {
       clientCert: 'cert-data',
       clientKey: 'key-data',
       caCert: 'ca-data',
-      tlsHost: 'agent.example.com'
+      tlsHost: 'agent.example.com',
     });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
@@ -185,7 +185,7 @@ describe('ClusterAgents.createUrlConfiguration', () => {
         body: {
           url: 'grpcs://agent.example.com:4242',
           clientCert: 'cert-data',
-          clientKey: 'key-data', 
+          clientKey: 'key-data',
           caCert: 'ca-data',
           tlsHost: 'agent.example.com',
         },

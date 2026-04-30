@@ -91,7 +91,6 @@ export type DeployTokens<C extends boolean = false> = CORE.DeployTokens<C>;
 export const { Deployments } = API;
 export type Deployments<C extends boolean = false> = CORE.Deployments<C>;
 
-
 export const { Environments } = API;
 export type Environments<C extends boolean = false> = CORE.Environments<C>;
 
@@ -145,7 +144,6 @@ export type GeoNodes<C extends boolean = false> = CORE.GeoNodes<C>;
 
 export const { GeoSites } = API;
 export type GeoSites<C extends boolean = false> = CORE.GeoSites<C>;
-
 
 export const { GitlabPages } = API;
 export type GitlabPages<C extends boolean = false> = CORE.GitlabPages<C>;
@@ -305,7 +303,6 @@ export type Keys<C extends boolean = false> = CORE.Keys<C>;
 
 export const { License } = API;
 export type License<C extends boolean = false> = CORE.License<C>;
-
 
 export const { LinkedEpics } = API;
 export type LinkedEpics<C extends boolean = false> = CORE.LinkedEpics<C>;

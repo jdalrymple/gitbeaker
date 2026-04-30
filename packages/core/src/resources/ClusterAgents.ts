@@ -218,7 +218,8 @@ export class ClusterAgents<C extends boolean = false> extends BaseResource<C> {
       clientKey?: string;
       caCert?: string;
       tlsHost?: string;
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ClusterAgentUrlConfigurationSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

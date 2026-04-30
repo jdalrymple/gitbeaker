@@ -1,5 +1,4 @@
 // General
-export * from './ClusterAgents';
 export * from './AlertManagement';
 export * from './ApplicationAppearance';
 export * from './ApplicationPlanLimits';
@@ -9,6 +8,7 @@ export * from './Applications';
 export * from './AuditEvents';
 export * from './Avatar';
 export * from './BroadcastMessages';
+export * from './ClusterAgents';
 export * from './CodeSuggestions';
 export * from './Composer';
 export * from './Conan';
