@@ -9,7 +9,7 @@ describe('Browser Import', () => {
     'GitbeakerRetryError',
     'GitbeakerTimeoutError',
     'AccessLevel',
-    'Agents',
+    'ClusterAgents',
     'AlertManagement',
     'ApplicationAppearance',
     'ApplicationPlanLimits',
