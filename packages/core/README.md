@@ -103,6 +103,15 @@ import { Gitlab } from '@gitbeaker/core';
 <tbody valign=top align=left>
 
 <tr>
+<th>AICatalog</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/admin/ai_catalog.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/AICatalog.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ClusterAgents</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/cluster_agents.html">🦊</a>

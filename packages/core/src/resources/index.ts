@@ -1,4 +1,5 @@
 // General
+export * from './AICatalog';
 export * from './AlertManagement';
 export * from './ApplicationAppearance';
 export * from './ApplicationPlanLimits';

@@ -3,6 +3,7 @@ import type { BaseResourceOptions } from '@gitbeaker/requester-utils';
 import { BaseResource } from '@gitbeaker/requester-utils';
 
 // General
+import { AICatalog } from './AICatalog';
 import { AlertManagement } from './AlertManagement';
 import { ApplicationAppearance } from './ApplicationAppearance';
 import { ApplicationPlanLimits } from './ApplicationPlanLimits';
@@ -197,6 +198,7 @@ import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
 // This will most likely be accomplished using higher kinded types: https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-750930496
 
 export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
+  AICatalog: AICatalog<C>;
   AlertManagement: AlertManagement<C>;
   ApplicationAppearance: ApplicationAppearance<C>;
   ApplicationPlanLimits: ApplicationPlanLimits<C>;
@@ -389,6 +391,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
 }
 
 const resources = {
+  AICatalog,
   AlertManagement,
   ApplicationAppearance,
   ApplicationPlanLimits,

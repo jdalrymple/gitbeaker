@@ -25,6 +25,9 @@ export { AccessLevel };
 export const { ClusterAgents } = API;
 export type ClusterAgents<C extends boolean = false> = CORE.ClusterAgents<C>;
 
+export const { AICatalog } = API;
+export type AICatalog<C extends boolean = false> = CORE.AICatalog<C>;
+
 export const { AlertManagement } = API;
 export type AlertManagement<C extends boolean = false> = CORE.AlertManagement<C>;
 
