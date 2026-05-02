@@ -8,7 +8,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface MetricImageSchema extends Record<string, unknown> {
   id: number;
@@ -87,11 +87,13 @@ export class AlertManagement<C extends boolean = false> extends BaseResource<C> 
       {
         sudo,
         showExpanded,
-        body: createFormData({
-          file: [metricImage.content, metricImage.filename],
-          url: body?.url,
-          urlText: body?.urlText,
-        }),
+        body: createFormData(
+          normalizeFormData({
+            file: [metricImage.content, metricImage.filename],
+            url: body?.url,
+            urlText: body?.urlText,
+          }),
+        ),
       },
     );
   }

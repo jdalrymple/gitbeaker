@@ -634,10 +634,12 @@ export class Issues<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
-        body: createFormData({
-          ...body,
-          file: [metricImage.content, metricImage.filename],
-        }),
+        body: createFormData(
+          normalizeFormData({
+            ...body,
+            file: [metricImage.content, metricImage.filename],
+          }),
+        ),
       },
     );
   }

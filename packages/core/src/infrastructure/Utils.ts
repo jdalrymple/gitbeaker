@@ -1,5 +1,5 @@
 import { stringify } from 'picoquery';
-import { decamelizeKeys } from 'xcase';
+import { decamelizeKeys as decamelizeObjKeys } from 'xcase';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
@@ -96,22 +96,18 @@ export function parseLinkHeader(linkString: string): { next?: string; prev?: str
   return output;
 }
 
-export function reformatObjectOptions(
+export function normalizeFormData(
   obj: Record<string, unknown>,
-  prefixKey: string,
-  decamelizeValues = false,
+  { decamelizeKeys = true }: { decamelizeKeys?: boolean } = {},
 ): Record<string, string> {
-  const formatted = decamelizeValues ? decamelizeKeys(obj) : obj;
+  const source = decamelizeKeys ? decamelizeObjKeys(obj) : obj;
 
-  return stringify(
-    { [prefixKey]: formatted },
-    {
-      nesting: true,
-      nestingSyntax: 'index',
-      arrayRepeat: true,
-      arrayRepeatSyntax: 'bracket',
-    },
-  )
+  return stringify(source, {
+    nesting: true,
+    nestingSyntax: 'index',
+    arrayRepeat: true,
+    arrayRepeatSyntax: 'bracket',
+  })
     .split('&')
     .reduce((acc: Record<string, string>, cur: string) => {
       const [key, val] = cur.split(/=(.*)/);

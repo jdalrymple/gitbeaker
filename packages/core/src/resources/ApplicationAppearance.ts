@@ -7,7 +7,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-import { RequestHelper, createFormData } from '../infrastructure';
+import { RequestHelper, createFormData, normalizeFormData } from '../infrastructure';
 
 export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   title: string;
@@ -57,7 +57,7 @@ export class ApplicationAppearance<C extends boolean = false> extends BaseResour
       if (logo) formDataOpts.logo = [logo.content, logo.filename];
       if (pwaIcon) formDataOpts.pwaIcon = [pwaIcon.content, pwaIcon.filename];
 
-      body = createFormData(formDataOpts);
+      body = createFormData(normalizeFormData(formDataOpts));
     } else {
       body = remaining;
     }
