@@ -313,6 +313,28 @@ describe('ensureRequiredParams', () => {
 });
 
 describe('normalizeFormData', () => {
+  it('should return empty object for empty input', () => {
+    const result = normalizeFormData({});
+
+    expect(result).toEqual({});
+  });
+
+  it('should maintain array property values, while still decamelizing their keys', () => {
+    const content = new Blob(['test'], { type: 'text/plain' });
+    const input = {
+      fileUpload: [content, 'test.txt'],
+      userName: 'john',
+      pwaIcon: [content, 'icon.png'],
+    };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      file_upload: [content, 'test.txt'],
+      user_name: 'john',
+      pwa_icon: [content, 'icon.png'],
+    });
+  });
+
   it('should convert keys to snake_case by default', () => {
     const input = { firstName: 'John', lastName: 'Doe', userId: 123 };
     const result = normalizeFormData(input);

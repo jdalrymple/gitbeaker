@@ -61,7 +61,7 @@ describe('ApplicationAppearance.edit', () => {
     await service.edit({ pwaIcon: { content, filename: 'test.jpeg' } });
 
     const expectedFormData = new FormData();
-    expectedFormData.append('pwaIcon', content, 'test.jpeg');
+    expectedFormData.append('pwa_icon', content, 'test.jpeg');
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearance', {
       body: expectedFormData,
