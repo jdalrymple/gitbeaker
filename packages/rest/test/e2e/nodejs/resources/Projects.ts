@@ -77,10 +77,10 @@ describe('Projects.uploadForReference', () => {
     });
 
     expect(results).toMatchObject({
-      alt: '',
-      url: '',
-      full_path: '',
-      markdown: '',
+      alt: 'testfile.txt',
+      url: expect.stringMatching(/\/uploads\/[a-f0-9]+\/testfile\.txt$/),
+      full_path: expect.stringMatching(/\/uploads\/[a-f0-9]+\/testfile\.txt$/),
+      markdown: expect.stringMatching(/\[testfile\.txt\]\(\/uploads\/[a-f0-9]+\/testfile\.txt\)/),
     });
   });
 });
