@@ -17,7 +17,7 @@ import type {
 } from '../infrastructure';
 import type { SimpleUserSchema } from '../resources/Users';
 
-import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface DiscussionNotePositionBaseSchema extends Record<string, unknown> {
   base_sha: string;
@@ -155,11 +155,13 @@ export class ResourceDiscussions<C extends boolean = false> extends BaseResource
         sudo,
         showExpanded,
         body: position
-          ? createFormData({
-              ...bodyOptions,
-              body,
-              ...reformatObjectOptions(position, 'position', true),
-            })
+          ? createFormData(
+              normalizeFormData({
+                ...bodyOptions,
+                body,
+                position,
+              }),
+            )
           : {
               ...bodyOptions,
               body,

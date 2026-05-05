@@ -49,9 +49,9 @@ describe('GroupImportExport.import', () => {
     await service.import({ content, filename: 'test.tar.gz' }, 'path', { name: 'test' });
 
     const expectedFormData = new FormData();
-    expectedFormData.append('file', new File([content], 'test.tar.gz', { type: content.type }));
     expectedFormData.append('path', 'path');
     expectedFormData.append('name', 'test');
+    expectedFormData.append('file', new File([content], 'test.tar.gz', { type: content.type }));
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/import', {
       body: expectedFormData,

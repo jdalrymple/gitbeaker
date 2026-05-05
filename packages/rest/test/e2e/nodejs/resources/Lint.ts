@@ -31,7 +31,12 @@ describe('Lint.lint', () => {
 
     expect(result).toMatchObject({
       valid: true,
-      merged_yaml: '',
+      merged_yaml: `---
+test:
+  stage: test
+  script:
+  - echo 1
+`,
     });
   });
 });

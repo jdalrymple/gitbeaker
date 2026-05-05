@@ -59,8 +59,8 @@ describe('ProjectImportExport.import', () => {
 
     const expectedFormData = new FormData();
     expectedFormData.append('name', 'test');
-    expectedFormData.append('file', new File([content], 'test.tar.gz', { type: content.type }));
     expectedFormData.append('path', 'path');
+    expectedFormData.append('file', new File([content], 'test.tar.gz', { type: content.type }));
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/import', {
       body: expectedFormData,

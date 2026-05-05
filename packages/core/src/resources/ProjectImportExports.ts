@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -86,11 +86,13 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
       sudo,
       showExpanded,
-      body: createFormData({
-        ...body,
-        file: [file.content, file.filename],
-        path,
-      }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          file: [file.content, file.filename],
+          path,
+        }),
+      ),
     });
   }
 
