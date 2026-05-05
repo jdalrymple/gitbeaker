@@ -15,6 +15,7 @@ import {
   RequestHelper,
   createFormData,
   endpoint,
+  normalizeFormData,
 } from '../infrastructure';
 
 export interface TopicSchema extends Record<string, unknown> {
@@ -58,11 +59,13 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            name,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              name,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }
@@ -86,10 +89,12 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }

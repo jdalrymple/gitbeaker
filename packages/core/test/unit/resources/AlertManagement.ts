@@ -69,8 +69,8 @@ describe('Agents.uploadMetricImage', () => {
     await service.uploadMetricImage(1, 2, image, { urlText: 'text' });
 
     const expectedFormData = new FormData();
+    expectedFormData.append('url_text', 'text');
     expectedFormData.append('file', content, 'image.jpeg');
-    expectedFormData.append('urlText', 'text');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,

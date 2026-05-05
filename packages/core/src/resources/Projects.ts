@@ -19,7 +19,13 @@ import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { SimpleUserSchema } from './Users';
 
 import { AccessLevel } from '../constants';
-import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  getPrefixedUrl,
+  normalizeFormData,
+} from '../infrastructure';
 
 export type AccessLevelSettingState = 'disabled' | 'enabled' | 'private';
 
@@ -693,10 +699,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }
@@ -770,10 +778,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         body: avatar
-          ? createFormData({
-              ...body,
-              avatar: [avatar.content, avatar.filename],
-            })
+          ? createFormData(
+              normalizeFormData({
+                ...body,
+                avatar: [avatar.content, avatar.filename],
+              }),
+            )
           : body,
       },
     });

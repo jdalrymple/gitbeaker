@@ -14,7 +14,7 @@ import type {
 import type { ExpandedPipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
 
-import { RequestHelper, createFormData, endpoint, reformatObjectOptions } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface PipelineTriggerTokenSchema extends Record<string, unknown> {
   id: number;
@@ -134,7 +134,9 @@ export class PipelineTriggerTokens<C extends boolean = false> extends BaseResour
           token,
           ref,
         },
-        body: variables ? createFormData(reformatObjectOptions(variables, 'variables')) : undefined,
+        body: variables
+          ? createFormData(normalizeFormData({ variables }, { decamelizeKeys: false }))
+          : undefined,
       },
     );
   }

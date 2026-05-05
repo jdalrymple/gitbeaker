@@ -14,7 +14,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface WikiSchema extends Record<string, unknown> {
   content: string;
@@ -146,10 +146,12 @@ export class ResourceWikis<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
-        body: createFormData({
-          ...body,
-          file: [file.content, file.filename],
-        }),
+        body: createFormData(
+          normalizeFormData({
+            ...body,
+            file: [file.content, file.filename],
+          }),
+        ),
       },
     );
   }

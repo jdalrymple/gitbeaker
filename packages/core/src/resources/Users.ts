@@ -22,6 +22,7 @@ import {
   createFormData,
   endpoint,
   getPrefixedUrl,
+  normalizeFormData,
 } from '../infrastructure';
 
 export interface AsAdmin<A extends boolean = false> {
@@ -648,10 +649,12 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }

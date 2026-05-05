@@ -8,6 +8,7 @@ import {
   endpoint,
   ensureRequiredParams,
   getPrefixedUrl,
+  normalizeFormData,
 } from '../infrastructure';
 
 export interface NuGetPackageIndexSchema extends Record<string, unknown> {
@@ -197,12 +198,14 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/nuget`, {
       showExpanded,
-      body: createFormData({
-        ...body,
-        packageName,
-        packageVersion,
-        file: [packageFile.content, packageFile.filename],
-      }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          packageName,
+          packageVersion,
+          file: [packageFile.content, packageFile.filename],
+        }),
+      ),
     });
   }
 
@@ -220,12 +223,14 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
       endpoint`projects/${projectId}/packages/nuget/symbolpackage`,
       {
         showExpanded,
-        body: createFormData({
-          ...body,
-          packageName,
-          packageVersion,
-          file: [packageFile.content, packageFile.filename],
-        }),
+        body: createFormData(
+          normalizeFormData({
+            ...body,
+            packageName,
+            packageVersion,
+            file: [packageFile.content, packageFile.filename],
+          }),
+        ),
       },
     );
   }

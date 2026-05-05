@@ -6,9 +6,10 @@ import {
   endpoint,
   ensureRequiredParams,
   getPrefixedUrl,
+  normalizeFormData,
   parseLinkHeader,
-  reformatObjectOptions,
 } from '../../../src/infrastructure';
+
 describe('createFormData', () => {
   it('should convert object key/values to formdata instance', () => {
     const data = { a: 5, b: 'test' };
@@ -104,56 +105,6 @@ describe('endpoint', () => {
     const url = endpoint`/projects/${projectPath}/something/${rawSegment}/items/${finalId}`;
 
     expect(url).toBe('/projects/group%2Fproject/something/raw/path/items/456');
-  });
-});
-
-describe('reformatObjectOptions', () => {
-  it('should convert simple nested object to be query parameter friendly', () => {
-    const data = {
-      a: {
-        b: 'test',
-      },
-    };
-
-    const formatted = reformatObjectOptions(data, 'test');
-
-    expect(formatted).toMatchObject({ 'test[a][b]': 'test' });
-  });
-
-  it('should convert nested object with "=" characters in the value', () => {
-    const data = {
-      a: {
-        b: '=5',
-      },
-    };
-
-    const formatted = reformatObjectOptions(data, 'test');
-
-    expect(formatted).toMatchObject({ 'test[a][b]': '=5' });
-  });
-
-  it('should not decamelize keys when decamelizeValues is false', () => {
-    const data = {
-      camelCaseKey: {
-        anotherCamelCase: 'test',
-      },
-    };
-
-    const formatted = reformatObjectOptions(data, 'test', false);
-
-    expect(formatted).toMatchObject({ 'test[camelCaseKey][anotherCamelCase]': 'test' });
-  });
-
-  it('should decamelize keys when decamelizeValues is true', () => {
-    const data = {
-      camelCaseKey: {
-        anotherCamelCase: 'test',
-      },
-    };
-
-    const formatted = reformatObjectOptions(data, 'test', true);
-
-    expect(formatted).toMatchObject({ 'test[camel_case_key][another_camel_case]': 'test' });
   });
 });
 
@@ -358,5 +309,104 @@ describe('ensureRequiredParams', () => {
     expect(() => ensureRequiredParams(params)).toThrow(
       'Missing required argument. Please supply a  in the options parameter.',
     );
+  });
+});
+
+describe('normalizeFormData', () => {
+  it('should return empty object for empty input', () => {
+    const result = normalizeFormData({});
+
+    expect(result).toEqual({});
+  });
+
+  it('should maintain array property values, while still decamelizing their keys', () => {
+    const content = new Blob(['test'], { type: 'text/plain' });
+    const input = {
+      fileUpload: [content, 'test.txt'],
+      userName: 'john',
+      pwaIcon: [content, 'icon.png'],
+    };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      file_upload: [content, 'test.txt'],
+      user_name: 'john',
+      pwa_icon: [content, 'icon.png'],
+    });
+  });
+
+  it('should convert keys to snake_case by default', () => {
+    const input = { firstName: 'John', lastName: 'Doe', userId: 123 };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      first_name: 'John',
+      last_name: 'Doe',
+      user_id: '123',
+    });
+  });
+
+  it('should preserve keys when decamelizeKeys is false', () => {
+    const input = { firstName: 'John', lastName: 'Doe', userId: 123 };
+    const result = normalizeFormData(input, { decamelizeKeys: false });
+
+    expect(result).toEqual({
+      firstName: 'John',
+      lastName: 'Doe',
+      userId: '123',
+    });
+  });
+
+  it('should handle arrays with bracket notation', () => {
+    const input = { tags: ['javascript', 'typescript'], items: [1, 2, 3] };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      'tags[0]': 'javascript',
+      'tags[1]': 'typescript',
+      'items[0]': '1',
+      'items[1]': '2',
+      'items[2]': '3',
+    });
+  });
+
+  it('should handle nested objects with index notation', () => {
+    const input = {
+      user: {
+        name: 'John',
+        profile: {
+          age: 30,
+          city: 'New York',
+        },
+      },
+    };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      'user[name]': 'John',
+      'user[profile][age]': '30',
+      'user[profile][city]': 'New York',
+    });
+  });
+
+  it('should handle mixed nested structures', () => {
+    const input = {
+      userDetails: {
+        preferences: ['dark', 'notifications'],
+        metadata: {
+          created: '2023-01-01',
+          tags: ['premium', 'verified'],
+        },
+      },
+    };
+    const result = normalizeFormData(input);
+
+    expect(result).toEqual({
+      'user_details[preferences][0]': 'dark',
+      'user_details[preferences][1]': 'notifications',
+      'user_details[metadata][created]': '2023-01-01',
+      'user_details[metadata][tags][0]': 'premium',
+      'user_details[metadata][tags][1]': 'verified',
+    });
   });
 });
