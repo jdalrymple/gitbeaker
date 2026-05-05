@@ -10,6 +10,7 @@ import { ApplicationPlanLimits } from './ApplicationPlanLimits';
 import { Applications } from './Applications';
 import { ApplicationSettings } from './ApplicationSettings';
 import { ApplicationStatistics } from './ApplicationStatistics';
+import { Attestations } from './Attestations';
 import { AuditEvents } from './AuditEvents';
 import { Avatar } from './Avatar';
 import { Branches } from './Branches';
@@ -205,6 +206,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Applications: Applications<C>;
   ApplicationSettings: ApplicationSettings<C>;
   ApplicationStatistics: ApplicationStatistics<C>;
+  Attestations: Attestations<C>;
   AuditEvents: AuditEvents<C>;
   Avatar: Avatar<C>;
   BroadcastMessages: BroadcastMessages<C>;
@@ -398,6 +400,7 @@ const resources = {
   Applications,
   ApplicationSettings,
   ApplicationStatistics,
+  Attestations,
   AuditEvents,
   Avatar,
   BroadcastMessages,

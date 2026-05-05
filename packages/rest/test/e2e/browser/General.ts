@@ -15,6 +15,7 @@ describe('Browser Import', () => {
     'ApplicationAppearance',
     'ApplicationPlanLimits',
     'Applications',
+    'Attestations',
     'ApplicationSettings',
     'ApplicationStatistics',
     'AuditEvents',

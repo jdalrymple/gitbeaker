@@ -6,6 +6,7 @@ export * from './ApplicationPlanLimits';
 export * from './ApplicationSettings';
 export * from './ApplicationStatistics';
 export * from './Applications';
+export * from './Attestations';
 export * from './AuditEvents';
 export * from './Avatar';
 export * from './BroadcastMessages';

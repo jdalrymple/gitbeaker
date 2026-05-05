@@ -39,6 +39,8 @@ export type ApplicationPlanLimits<C extends boolean = false> = CORE.ApplicationP
 
 export const { Applications } = API;
 export type Applications<C extends boolean = false> = CORE.Applications<C>;
+export const { Attestations } = API;
+export type Attestations<C extends boolean = false> = CORE.Attestations<C>;
 
 export const { ApplicationSettings } = API;
 export type ApplicationSettings<C extends boolean = false> = CORE.ApplicationSettings<C>;
