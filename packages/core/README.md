@@ -204,7 +204,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>BroadcastMessages</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/broadcast_messages.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/broadcast_messages.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/BroadcastMessages.ts">⌨️</a>

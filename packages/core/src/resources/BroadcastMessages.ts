@@ -10,23 +10,23 @@ import type {
 } from '../infrastructure';
 
 import { AccessLevel } from '../constants';
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface BroadcastMessageSchema extends Record<string, unknown> {
   message: string;
   starts_at: string;
   ends_at: string;
-  color: string;
   font: string;
   id: number;
   active: boolean;
-  target_path: string;
-  target_access_levels: Exclude<
+  target_path?: string;
+  target_access_levels?: Exclude<
     AccessLevel,
     AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN
   >[];
-  broadcast_type: string;
-  dismissible: boolean;
+  broadcast_type?: string;
+  dismissable?: boolean;
+  theme?: 'indigo' | 'light-indigo' | 'blue' | 'light-blue' | 'green' | 'light-green' | 'red' | 'light-red' | 'dark' | 'light';
 }
 
 type BroadcastMessageOptions = Partial<Camelize<BroadcastMessageSchema>>;
@@ -46,14 +46,15 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
   }
 
   create<E extends boolean = false>(
-    options?: BroadcastMessageOptions & ShowExpanded<E> & Sudo,
+    message: string,
+    options?: Omit<BroadcastMessageOptions, 'message'> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<BroadcastMessageSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.post<BroadcastMessageSchema>()(this, 'broadcast_messages', {
       sudo,
       showExpanded,
-      body,
+      body: { message, ...body },
     });
   }
 
@@ -65,7 +66,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
 
     return RequestHelper.put<BroadcastMessageSchema>()(
       this,
-      `broadcast_messages/${broadcastMessageId}`,
+      endpoint`broadcast_messages/${broadcastMessageId}`,
       {
         sudo,
         showExpanded,
@@ -80,7 +81,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.del()(this, `broadcast_messages/${broadcastMessageId}`, {
+    return RequestHelper.del()(this, endpoint`broadcast_messages/${broadcastMessageId}`, {
       sudo,
       showExpanded,
     });
@@ -94,7 +95,7 @@ export class BroadcastMessages<C extends boolean = false> extends BaseResource<C
 
     return RequestHelper.get<BroadcastMessageSchema>()(
       this,
-      `broadcast_messages/${broadcastMessageId}`,
+      endpoint`broadcast_messages/${broadcastMessageId}`,
       { sudo, showExpanded },
     );
   }
