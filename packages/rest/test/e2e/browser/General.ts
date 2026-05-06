@@ -63,6 +63,7 @@ describe('Browser Import', () => {
     'Branches',
     'CommitDiscussions',
     'Commits',
+    'CompliancePolicySettings',
     'ContainerRegistry',
     'Deployments',
     'Environments',

@@ -222,7 +222,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Code Suggestions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/code_suggestions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/code_suggestions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/CodeSuggestions.ts">⌨️</a>
@@ -231,10 +231,19 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Commits</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/commits.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/commits.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Commits.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>CompliancePolicySettings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/compliance_policy_settings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/CompliancePolicySettings.ts">⌨️</a>
 </td>
 </tr>
 <tr>

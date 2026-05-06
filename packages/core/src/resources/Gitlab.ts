@@ -19,6 +19,7 @@ import { ClusterAgents } from './ClusterAgents';
 import { CodeSuggestions } from './CodeSuggestions';
 import { CommitDiscussions } from './CommitDiscussions';
 import { Commits } from './Commits';
+import { CompliancePolicySettings } from './CompliancePolicySettings';
 import { Composer } from './Composer';
 import { Conan } from './Conan';
 import { ContainerRegistry } from './ContainerRegistry';
@@ -254,6 +255,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Branches: Branches<C>;
   CommitDiscussions: CommitDiscussions<C>;
   Commits: Commits<C>;
+  CompliancePolicySettings: CompliancePolicySettings<C>;
   ContainerRegistry: ContainerRegistry<C>;
   Deployments: Deployments<C>;
   Environments: Environments<C>;
@@ -448,6 +450,7 @@ const resources = {
   Branches,
   CommitDiscussions,
   Commits,
+  CompliancePolicySettings,
   ContainerRegistry,
   Deployments,
   Environments,

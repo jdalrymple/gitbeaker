@@ -58,6 +58,8 @@ export interface CommitSchema extends CondensedCommitSchema {
   committer_email?: string;
   committed_date?: string;
   web_url: string;
+  trailers?: Record<string, unknown>;
+  extended_trailers?: Record<string, unknown>;
 }
 
 export interface ExpandedCommitSchema extends CommitSchema {
@@ -102,6 +104,20 @@ export interface X509SignatureSchema extends Record<string, unknown> {
   commit_source: string;
 }
 
+export interface SSHSignatureSchema extends Record<string, unknown> {
+  signature_type: 'SSH';
+  verification_status: 'verified' | 'unverified';
+  key: {
+    id: number;
+    title: string;
+    created_at: string;
+    expires_at?: string;
+    key: string;
+    usage_type: string;
+  };
+  commit_source: string;
+}
+
 export interface MissingSignatureSchema extends Record<string, unknown> {
   message: string;
 }
@@ -109,6 +125,7 @@ export interface MissingSignatureSchema extends Record<string, unknown> {
 export type CommitSignatureSchema =
   | GPGSignatureSchema
   | X509SignatureSchema
+  | SSHSignatureSchema
   | MissingSignatureSchema;
 
 export interface CondensedCommitCommentSchema extends Record<string, unknown> {
@@ -131,6 +148,8 @@ export interface CommitDiffSchema extends Record<string, unknown> {
   new_file: boolean;
   renamed_file: boolean;
   deleted_file: boolean;
+  collapsed?: boolean;
+  too_large?: boolean;
 }
 
 export interface CommitStatusSchema extends Record<string, unknown> {
@@ -179,6 +198,7 @@ export type AllCommitsOptions = {
   firstParent?: boolean;
   order?: string;
   trailers?: boolean;
+  follow?: boolean;
 };
 
 export type CreateCommitOptions = {
@@ -190,6 +210,7 @@ export type CreateCommitOptions = {
   authorName?: string;
   stats?: boolean;
   force?: boolean;
+  allowEmpty?: boolean;
 };
 
 export type EditPipelineStatusOptions = {
@@ -322,7 +343,15 @@ export class Commits<C extends boolean = false> extends BaseResource<C> {
   allStatuses<E extends boolean = false>(
     projectId: string | number,
     sha: string,
-    options?: { ref?: string; stage?: string; name?: string; all?: boolean } & ShowExpanded<E> &
+    options?: {
+      ref?: string;
+      stage?: string;
+      name?: string;
+      all?: boolean;
+      pipelineId?: number;
+      orderBy?: string;
+      sort?: string;
+    } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<CommitStatusSchema[], C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};

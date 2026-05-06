@@ -56,6 +56,7 @@ export * from './Topics';
 export * from './Branches';
 export * from './CommitDiscussions';
 export * from './Commits';
+export * from './CompliancePolicySettings';
 export * from './ContainerRegistry';
 export * from './Deployments';
 export * from './Environments';

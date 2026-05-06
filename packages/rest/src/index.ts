@@ -69,6 +69,9 @@ export type CommitDiscussions<C extends boolean = false> = CORE.CommitDiscussion
 export const { Commits } = API;
 export type Commits<C extends boolean = false> = CORE.Commits<C>;
 
+export const { CompliancePolicySettings } = API;
+export type CompliancePolicySettings<C extends boolean = false> = CORE.CompliancePolicySettings<C>;
+
 export const { Composer } = API;
 export type Composer<C extends boolean = false> = CORE.Composer<C>;
 
