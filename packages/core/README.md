@@ -195,7 +195,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Branches</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/branches.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/branches.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Branches.ts">⌨️</a>
