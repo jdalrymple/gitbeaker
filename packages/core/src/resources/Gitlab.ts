@@ -23,7 +23,11 @@ import { CompliancePolicySettings } from './CompliancePolicySettings';
 import { Composer } from './Composer';
 import { Conan } from './Conan';
 import { ContainerRegistry } from './ContainerRegistry';
-import { DashboardAnnotations } from './DashboardAnnotations';
+import { ContainerRegistryProtectionTagRules } from './ContainerRegistryProtectionTagRules';
+import { ContainerRepositoryProtectionRules } from './ContainerRepositoryProtectionRules';
+import { ContainerVirtualRegistry } from './ContainerVirtualRegistry';
+import { DatabaseMigrations } from './DatabaseMigrations';
+import { DataManagement } from './DataManagement';
 import { Debian } from './Debian';
 import { DependencyProxy } from './DependencyProxy';
 import { DeployKeys } from './DeployKeys';
@@ -215,7 +219,8 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
   Conan: Conan<C>;
-  DashboardAnnotations: DashboardAnnotations<C>;
+  DataManagement: DataManagement<C>;
+  DatabaseMigrations: DatabaseMigrations<C>;
   Debian: Debian<C>;
   DependencyProxy: DependencyProxy<C>;
   DeployKeys: DeployKeys<C>;
@@ -257,6 +262,9 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Commits: Commits<C>;
   CompliancePolicySettings: CompliancePolicySettings<C>;
   ContainerRegistry: ContainerRegistry<C>;
+  ContainerRegistryProtectionTagRules: ContainerRegistryProtectionTagRules<C>;
+  ContainerRepositoryProtectionRules: ContainerRepositoryProtectionRules<C>;
+  ContainerVirtualRegistry: ContainerVirtualRegistry<C>;
   Deployments: Deployments<C>;
   Environments: Environments<C>;
   ErrorTrackingClientKeys: ErrorTrackingClientKeys<C>;
@@ -410,7 +418,8 @@ const resources = {
   CodeSuggestions,
   Composer,
   Conan,
-  DashboardAnnotations,
+  DataManagement,
+  DatabaseMigrations,
   Debian,
   DependencyProxy,
   DeployKeys,
@@ -452,6 +461,9 @@ const resources = {
   Commits,
   CompliancePolicySettings,
   ContainerRegistry,
+  ContainerRegistryProtectionTagRules,
+  ContainerRepositoryProtectionRules,
+  ContainerVirtualRegistry,
   Deployments,
   Environments,
   ErrorTrackingClientKeys,

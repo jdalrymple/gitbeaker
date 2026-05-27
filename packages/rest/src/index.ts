@@ -78,11 +78,24 @@ export type Composer<C extends boolean = false> = CORE.Composer<C>;
 export const { Conan } = API;
 export type Conan<C extends boolean = false> = CORE.Conan<C>;
 
+export const { DataManagement } = API;
+export type DataManagement<C extends boolean = false> = CORE.DataManagement<C>;
+
+export const { DatabaseMigrations } = API;
+export type DatabaseMigrations<C extends boolean = false> = CORE.DatabaseMigrations<C>;
+
 export const { ContainerRegistry } = API;
 export type ContainerRegistry<C extends boolean = false> = CORE.ContainerRegistry<C>;
 
-export const { DashboardAnnotations } = API;
-export type DashboardAnnotations<C extends boolean = false> = CORE.DashboardAnnotations<C>;
+export const { ContainerRegistryProtectionTagRules } = API;
+export type ContainerRegistryProtectionTagRules<C extends boolean = false> = CORE.ContainerRegistryProtectionTagRules<C>;
+
+export const { ContainerRepositoryProtectionRules } = API;
+export type ContainerRepositoryProtectionRules<C extends boolean = false> = CORE.ContainerRepositoryProtectionRules<C>;
+
+export const { ContainerVirtualRegistry } = API;
+export type ContainerVirtualRegistry<C extends boolean = false> = CORE.ContainerVirtualRegistry<C>;
+
 
 export const { Debian } = API;
 export type Debian<C extends boolean = false> = CORE.Debian<C>;

@@ -265,6 +265,24 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>DataManagement</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/admin/data_management.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DataManagement.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>DatabaseMigrations</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/database_migrations.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DatabaseMigrations.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ContainerRegistry</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/container_registry.html">🦊</a>
@@ -274,12 +292,30 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>DashboardAnnotations</th>
+<th>ContainerRegistryProtectionTagRules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metrics_dashboard_annotations.html">🦊</a>
+<a href="https://docs.gitlab.com/ee/api/container_registry_protection_tag_rules.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/DashboardAnnotations.ts">⌨️</a>
+<a href="./src/resources/ContainerRegistryProtectionTagRules.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ContainerRepositoryProtectionRules</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/container_repository_protection_rules.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ContainerRepositoryProtectionRules.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ContainerVirtualRegistry</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/container_virtual_registries.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ContainerVirtualRegistry.ts">⌨️</a>
 </td>
 </tr>
 <tr>

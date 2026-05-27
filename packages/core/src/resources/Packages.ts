@@ -45,10 +45,11 @@ export type AllPackageOptions = {
   excludeSubgroups?: boolean;
   orderBy?: 'created_at' | 'name' | 'version' | 'type' | 'project_path';
   sort?: 'asc' | 'desc';
-  packageType?: 'conan' | 'maven' | 'npm' | 'pypi' | 'composer' | 'nuget' | 'helm' | 'golang';
+  packageType?: 'conan' | 'maven' | 'npm' | 'pypi' | 'composer' | 'nuget' | 'helm' | 'golang' | 'generic' | 'terraform_module';
   packageName?: string;
+  packageVersion?: string;
   includeVersionless?: boolean;
-  status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction';
+  status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction' | 'deprecated';
 };
 
 export class Packages<C extends boolean = false> extends BaseResource<C> {
