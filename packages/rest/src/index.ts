@@ -122,7 +122,6 @@ export type Deployments<C extends boolean = false> = CORE.Deployments<C>;
 export const { Environments } = API;
 export type Environments<C extends boolean = false> = CORE.Environments<C>;
 
-
 export const { ErrorTrackingClientKeys } = API;
 export type ErrorTrackingClientKeys<C extends boolean = false> = CORE.ErrorTrackingClientKeys<C>;
 
@@ -147,7 +146,6 @@ export type FeatureFlagUserLists<C extends boolean = false> = CORE.FeatureFlagUs
 export const { FreezePeriods } = API;
 export type FreezePeriods<C extends boolean = false> = CORE.FreezePeriods<C>;
 
-
 export const { GitlabPages } = API;
 export type GitlabPages<C extends boolean = false> = CORE.GitlabPages<C>;
 
@@ -171,7 +169,6 @@ export type GroupCustomAttributes<C extends boolean = false> = CORE.GroupCustomA
 
 export const { GroupDORA4Metrics } = API;
 export type GroupDORA4Metrics<C extends boolean = false> = CORE.GroupDORA4Metrics<C>;
-
 
 export const { GroupHooks } = API;
 export type GroupHooks<C extends boolean = false> = CORE.GroupHooks<C>;
@@ -304,7 +301,6 @@ export type Keys<C extends boolean = false> = CORE.Keys<C>;
 
 export const { License } = API;
 export type License<C extends boolean = false> = CORE.License<C>;
-
 
 export const { Lint } = API;
 export type Lint<C extends boolean = false> = CORE.Lint<C>;
