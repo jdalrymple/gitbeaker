@@ -101,6 +101,12 @@ export type ContainerVirtualRegistry<C extends boolean = false> = CORE.Container
 export const { Debian } = API;
 export type Debian<C extends boolean = false> = CORE.Debian<C>;
 
+export const { Dependencies } = API;
+export type Dependencies<C extends boolean = false> = CORE.Dependencies<C>;
+
+export const { DependencyListExport } = API;
+export type DependencyListExport<C extends boolean = false> = CORE.DependencyListExport<C>;
+
 export const { DependencyProxy } = API;
 export type DependencyProxy<C extends boolean = false> = CORE.DependencyProxy<C>;
 

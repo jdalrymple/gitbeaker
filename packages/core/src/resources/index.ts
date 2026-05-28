@@ -17,6 +17,8 @@ export * from './Conan';
 export * from './DataManagement';
 export * from './DatabaseMigrations';
 export * from './Debian';
+export * from './Dependencies';
+export * from './DependencyListExport';
 export * from './DependencyProxy';
 export * from './DeployKeys';
 export * from './DeployTokens';

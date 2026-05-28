@@ -27,6 +27,8 @@ describe('Browser Import', () => {
     'DataManagement',
     'DatabaseMigrations',
     'Debian',
+    'Dependencies',
+    'DependencyListExport',
     'DependencyProxy',
     'DeployKeys',
     'DeployTokens',

@@ -328,6 +328,24 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>Dependencies</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/dependencies.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Dependencies.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>DependencyListExport</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/dependency_list_export.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DependencyListExport.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>DependencyProxy</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/dependency_proxy.html">🦊</a>

@@ -29,6 +29,8 @@ import { ContainerVirtualRegistry } from './ContainerVirtualRegistry';
 import { DatabaseMigrations } from './DatabaseMigrations';
 import { DataManagement } from './DataManagement';
 import { Debian } from './Debian';
+import { Dependencies } from './Dependencies';
+import { DependencyListExport } from './DependencyListExport';
 import { DependencyProxy } from './DependencyProxy';
 import { DeployKeys } from './DeployKeys';
 import { Deployments } from './Deployments';
@@ -222,6 +224,8 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   DataManagement: DataManagement<C>;
   DatabaseMigrations: DatabaseMigrations<C>;
   Debian: Debian<C>;
+  Dependencies: Dependencies<C>;
+  DependencyListExport: DependencyListExport<C>;
   DependencyProxy: DependencyProxy<C>;
   DeployKeys: DeployKeys<C>;
   DeployTokens: DeployTokens<C>;
@@ -421,6 +425,8 @@ const resources = {
   DataManagement,
   DatabaseMigrations,
   Debian,
+  Dependencies,
+  DependencyListExport,
   DependencyProxy,
   DeployKeys,
   DeployTokens,
