@@ -384,7 +384,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Environments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/environments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/environments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Environments.ts">⌨️</a>
@@ -393,7 +393,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>EpicAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/EpicAwardEmojis.ts">⌨️</a>
@@ -870,7 +870,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueAwardEmojis.ts">⌨️</a>
@@ -924,7 +924,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueNoteAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueNoteAwardEmojis.ts">⌨️</a>
@@ -1059,7 +1059,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestAwardEmojis.ts">⌨️</a>
@@ -1086,7 +1086,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestDraftNotes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/draft_notes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/draft_notes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestDraftNotes.ts">⌨️</a>
@@ -1113,7 +1113,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestNoteAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestNoteAwardEmojis.ts">⌨️</a>
@@ -1482,7 +1482,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippetAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippetAwardEmojis.ts">⌨️</a>
