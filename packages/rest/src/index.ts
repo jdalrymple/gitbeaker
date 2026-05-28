@@ -122,26 +122,6 @@ export type Deployments<C extends boolean = false> = CORE.Deployments<C>;
 export const { Environments } = API;
 export type Environments<C extends boolean = false> = CORE.Environments<C>;
 
-export const { EpicAwardEmojis } = API;
-export type EpicAwardEmojis<C extends boolean = false> = CORE.EpicAwardEmojis<C>;
-
-export const { EpicDiscussions } = API;
-export type EpicDiscussions<C extends boolean = false> = CORE.EpicDiscussions<C>;
-
-export const { EpicIssues } = API;
-export type EpicIssues<C extends boolean = false> = CORE.EpicIssues<C>;
-
-export const { EpicLabelEvents } = API;
-export type EpicLabelEvents<C extends boolean = false> = CORE.EpicLabelEvents<C>;
-
-export const { EpicLinks } = API;
-export type EpicLinks<C extends boolean = false> = CORE.EpicLinks<C>;
-
-export const { EpicNotes } = API;
-export type EpicNotes<C extends boolean = false> = CORE.EpicNotes<C>;
-
-export const { Epics } = API;
-export type Epics<C extends boolean = false> = CORE.Epics<C>;
 
 export const { ErrorTrackingClientKeys } = API;
 export type ErrorTrackingClientKeys<C extends boolean = false> = CORE.ErrorTrackingClientKeys<C>;
@@ -167,11 +147,6 @@ export type FeatureFlagUserLists<C extends boolean = false> = CORE.FeatureFlagUs
 export const { FreezePeriods } = API;
 export type FreezePeriods<C extends boolean = false> = CORE.FreezePeriods<C>;
 
-export const { GeoNodes } = API;
-export type GeoNodes<C extends boolean = false> = CORE.GeoNodes<C>;
-
-export const { GeoSites } = API;
-export type GeoSites<C extends boolean = false> = CORE.GeoSites<C>;
 
 export const { GitlabPages } = API;
 export type GitlabPages<C extends boolean = false> = CORE.GitlabPages<C>;
@@ -197,8 +172,6 @@ export type GroupCustomAttributes<C extends boolean = false> = CORE.GroupCustomA
 export const { GroupDORA4Metrics } = API;
 export type GroupDORA4Metrics<C extends boolean = false> = CORE.GroupDORA4Metrics<C>;
 
-export const { GroupEpicBoards } = API;
-export type GroupEpicBoards<C extends boolean = false> = CORE.GroupEpicBoards<C>;
 
 export const { GroupHooks } = API;
 export type GroupHooks<C extends boolean = false> = CORE.GroupHooks<C>;
@@ -332,8 +305,6 @@ export type Keys<C extends boolean = false> = CORE.Keys<C>;
 export const { License } = API;
 export type License<C extends boolean = false> = CORE.License<C>;
 
-export const { LinkedEpics } = API;
-export type LinkedEpics<C extends boolean = false> = CORE.LinkedEpics<C>;
 
 export const { Lint } = API;
 export type Lint<C extends boolean = false> = CORE.Lint<C>;

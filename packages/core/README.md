@@ -391,69 +391,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>EpicAwardEmojis</th>
-<td>
-<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicAwardEmojis.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicDiscussions</th>
-<td>
-<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicDiscussions.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicIssues</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epic_issues.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicIssues.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicLabelEvents</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_label_events.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicLabelEvents.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicLinks</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epic_links.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicLinks.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicNotes</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notes.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicNotes.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>Epics</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epics.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/Epics.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>ErrorTrackingClientKeys</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/error_tracking.html#error-tracking-client-keys">🦊</a>
@@ -526,24 +463,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>GeoNodes</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/geo_nodes.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GeoNodes.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>GeoSites</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/geo_sites.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GeoSites.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>GitlabPages</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/pages.html">🦊</a>
@@ -589,15 +508,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<tr>
-<th>GroupEpicBoards</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_epic_boards.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GroupEpicBoards.ts">⌨️</a>
-</td>
-</tr>
 <th>GroupBadges</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/group_badges.html">🦊</a>
@@ -1009,15 +919,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/License.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>LinkedEpics</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/linked_epics.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/LinkedEpics.ts">⌨️</a>
 </td>
 </tr>
 <tr>

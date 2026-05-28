@@ -36,14 +36,6 @@ import { DeployKeys } from './DeployKeys';
 import { Deployments } from './Deployments';
 import { DeployTokens } from './DeployTokens';
 import { Environments } from './Environments';
-import { EpicAwardEmojis } from './EpicAwardEmojis';
-import { EpicDiscussions } from './EpicDiscussions';
-import { EpicIssues } from './EpicIssues';
-import { EpicLabelEvents } from './EpicLabelEvents';
-import { EpicLinks } from './EpicLinks';
-import { EpicNotes } from './EpicNotes';
-import { Epics } from './Epics';
-import { EpicStateEvents } from './EpicStateEvents';
 import { ErrorTrackingClientKeys } from './ErrorTrackingClientKeys';
 import { ErrorTrackingSettings } from './ErrorTrackingSettings';
 import { Events } from './Events';
@@ -52,8 +44,6 @@ import { ExternalStatusChecks } from './ExternalStatusChecks';
 import { FeatureFlags } from './FeatureFlags';
 import { FeatureFlagUserLists } from './FeatureFlagUserLists';
 import { FreezePeriods } from './FreezePeriods';
-import { GeoNodes } from './GeoNodes';
-import { GeoSites } from './GeoSites';
 import { GitlabPages } from './GitlabPages';
 import { GoProxy } from './GoProxy';
 import { GroupAccessRequests } from './GroupAccessRequests';
@@ -62,7 +52,6 @@ import { GroupActivityAnalytics } from './GroupActivityAnalytics';
 import { GroupBadges } from './GroupBadges';
 import { GroupCustomAttributes } from './GroupCustomAttributes';
 import { GroupDORA4Metrics } from './GroupDORA4Metrics';
-import { GroupEpicBoards } from './GroupEpicBoards';
 import { GroupHooks } from './GroupHooks';
 import { GroupImportExports } from './GroupImportExports';
 import { GroupInvitations } from './GroupInvitations';
@@ -106,7 +95,6 @@ import { JobArtifacts } from './JobArtifacts';
 import { Jobs } from './Jobs';
 import { Keys } from './Keys';
 import { License } from './License';
-import { LinkedEpics } from './LinkedEpics';
 import { Lint } from './Lint';
 import { Markdown } from './Markdown';
 import { Maven } from './Maven';
@@ -359,21 +347,12 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SecureFiles: SecureFiles<C>;
   Tags: Tags<C>;
   UserStarredMetricsDashboard: UserStarredMetricsDashboard<C>;
-  EpicAwardEmojis: EpicAwardEmojis<C>;
-  EpicDiscussions: EpicDiscussions<C>;
-  EpicIssues: EpicIssues<C>;
-  EpicLabelEvents: EpicLabelEvents<C>;
-  EpicLinks: EpicLinks<C>;
-  EpicNotes: EpicNotes<C>;
-  Epics: Epics<C>;
-  EpicStateEvents: EpicStateEvents<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
   GroupAccessTokens: GroupAccessTokens<C>;
   GroupActivityAnalytics: GroupActivityAnalytics<C>;
   GroupBadges: GroupBadges<C>;
   GroupCustomAttributes: GroupCustomAttributes<C>;
   GroupDORA4Metrics: GroupDORA4Metrics<C>;
-  GroupEpicBoards: GroupEpicBoards<C>;
   GroupHooks: GroupHooks<C>;
   GroupImportExports: GroupImportExports<C>;
   GroupInvitations: GroupInvitations<C>;
@@ -397,7 +376,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupServiceAccounts: GroupServiceAccounts<C>;
   GroupVariables: GroupVariables<C>;
   GroupWikis: GroupWikis<C>;
-  LinkedEpics: LinkedEpics<C>;
   UserCustomAttributes: UserCustomAttributes<C>;
   UserEmails: UserEmails<C>;
   UserGPGKeys: UserGPGKeys<C>;
@@ -432,8 +410,6 @@ const resources = {
   DeployTokens,
   Events,
   Experiments,
-  GeoNodes,
-  GeoSites,
   Import,
   InstanceLevelCICDVariables,
   Keys,
@@ -560,21 +536,12 @@ const resources = {
   SecureFiles,
   Tags,
   UserStarredMetricsDashboard,
-  EpicAwardEmojis,
-  EpicDiscussions,
-  EpicIssues,
-  EpicLabelEvents,
-  EpicLinks,
-  EpicNotes,
-  Epics,
-  EpicStateEvents,
   GroupAccessRequests,
   GroupAccessTokens,
   GroupActivityAnalytics,
   GroupBadges,
   GroupCustomAttributes,
   GroupDORA4Metrics,
-  GroupEpicBoards,
   GroupHooks,
   GroupImportExports,
   GroupInvitations,
@@ -598,7 +565,6 @@ const resources = {
   GroupServiceAccounts,
   GroupVariables,
   GroupWikis,
-  LinkedEpics,
   UserCustomAttributes,
   UserEmails,
   UserGPGKeys,

@@ -24,8 +24,6 @@ export * from './DeployKeys';
 export * from './DeployTokens';
 export * from './Events';
 export * from './Experiments';
-export * from './GeoNodes';
-export * from './GeoSites';
 export * from './Import';
 export * from './InstanceLevelCICDVariables';
 export * from './Keys';
@@ -155,20 +153,12 @@ export * from './Tags';
 export * from './UserStarredMetricsDashboard';
 
 // Groups
-export * from './EpicAwardEmojis';
-export * from './EpicDiscussions';
-export * from './EpicIssues';
-export * from './EpicLabelEvents';
-export * from './EpicLinks';
-export * from './EpicNotes';
-export * from './Epics';
 export * from './GroupAccessRequests';
 export * from './GroupAccessTokens';
 export * from './GroupActivityAnalytics';
 export * from './GroupBadges';
 export * from './GroupCustomAttributes';
 export * from './GroupDORA4Metrics';
-export * from './GroupEpicBoards';
 export * from './GroupHooks';
 export * from './GroupImportExports';
 export * from './GroupInvitations';
@@ -192,7 +182,6 @@ export * from './GroupServiceAccounts';
 export * from './GroupVariables';
 export * from './GroupWikis';
 export * from './Groups';
-export * from './LinkedEpics';
 
 // Users
 export * from './UserCustomAttributes';
