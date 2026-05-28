@@ -20,7 +20,9 @@ export type DeployTokenScope =
   | 'read_registry'
   | 'write_registry'
   | 'read_package_registry'
-  | 'write_package_registry';
+  | 'write_package_registry'
+  | 'read_virtual_registry'
+  | 'write_virtual_registry';
 
 export interface DeployTokenSchema extends Record<string, unknown> {
   id: number;
