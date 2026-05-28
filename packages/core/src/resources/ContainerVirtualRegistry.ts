@@ -64,18 +64,20 @@ export interface ConnectionTestResultSchema extends Record<string, unknown> {
 }
 
 export class ContainerVirtualRegistry<C extends boolean = false> extends BaseResource<C> {
-  all<E extends boolean = false>(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<VirtualRegistrySchema[], C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<VirtualRegistrySchema[], C, E, P>> {
+    const { sudo, maxPages, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<VirtualRegistrySchema[]>()(
       this,
       endpoint`groups/${groupId}/-/virtual_registries/container/registries`,
       {
         sudo,
+        maxPages,
         showExpanded,
+        searchParams,
       },
     );
   }
@@ -220,11 +222,11 @@ export class ContainerVirtualRegistry<C extends boolean = false> extends BaseRes
     );
   }
 
-  allRegistryUpstreams<E extends boolean = false>(
+  allRegistryUpstreams<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     registryId: number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<UpstreamRegistrySchema[], C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<UpstreamRegistrySchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
     return RequestHelper.get<UpstreamRegistrySchema[]>()(
       this,
@@ -232,6 +234,8 @@ export class ContainerVirtualRegistry<C extends boolean = false> extends BaseRes
       {
         sudo,
         showExpanded,
+        maxPages,
+        searchParams,
       },
     );
   }

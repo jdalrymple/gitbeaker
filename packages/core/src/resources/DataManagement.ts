@@ -56,7 +56,7 @@ export interface ChecksumOperationResultSchema extends Record<string, unknown> {
 }
 
 export class DataManagement<C extends boolean = false> extends BaseResource<C> {
-  allRecords<E extends boolean = false, P extends PaginationTypes = 'keyset'>(
+  allRecords<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     modelName: DataModelName,
     options?: {
       checksumState?: ChecksumState;
@@ -75,7 +75,7 @@ export class DataManagement<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         maxPages,
-        searchParams
+        searchParams,
       },
     );
   }

@@ -18,7 +18,7 @@ export interface PendingMigrationsResponseSchema extends Record<string, unknown>
 }
 
 export class DatabaseMigrations<C extends boolean = false> extends BaseResource<C> {
-  mark<E extends boolean = false>(
+  markAsSuccessful<E extends boolean = false>(
     version: number,
     options?: {
       database?: string;
@@ -34,7 +34,7 @@ export class DatabaseMigrations<C extends boolean = false> extends BaseResource<
     });
   }
 
-  allPending<E extends boolean = false>(
+  showPending<E extends boolean = false>(
     options?: {
       database?: string;
     } & ShowExpanded<E> &
@@ -42,14 +42,10 @@ export class DatabaseMigrations<C extends boolean = false> extends BaseResource<
   ): Promise<GitlabAPIResponse<PendingMigrationsResponseSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
-    return RequestHelper.get<PendingMigrationsResponseSchema>()(
-      this,
-      'admin/migrations/pending',
-      {
-        sudo,
-        showExpanded,
-        searchParams,
-      },
-    );
+    return RequestHelper.get<PendingMigrationsResponseSchema>()(this, 'admin/migrations/pending', {
+      sudo,
+      showExpanded,
+      searchParams,
+    });
   }
 }

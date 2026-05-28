@@ -1,10 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type {
-  GitlabAPIResponse,
-  ShowExpanded,
-  Sudo,
-} from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 import { RequestHelper } from '../infrastructure';
 
@@ -71,7 +67,8 @@ export class CodeSuggestions<C extends boolean = false> extends BaseResource<C> 
       generationType?: 'comment' | 'empty_function' | 'small_file';
       context?: CodeSuggestionContextSchema[];
       userInstruction?: string;
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<CodeCompletionSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -105,10 +102,14 @@ export class CodeSuggestions<C extends boolean = false> extends BaseResource<C> 
   ): Promise<GitlabAPIResponse<CodeSuggestionDirectAccessSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.post<CodeSuggestionDirectAccessSchema>()(this, 'code_suggestions/direct_access', {
-      sudo,
-      showExpanded,
-    });
+    return RequestHelper.post<CodeSuggestionDirectAccessSchema>()(
+      this,
+      'code_suggestions/direct_access',
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 
   showConnectionDetails<E extends boolean = false>(
@@ -116,9 +117,13 @@ export class CodeSuggestions<C extends boolean = false> extends BaseResource<C> 
   ): Promise<GitlabAPIResponse<CodeSuggestionConnectionDetailsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.post<CodeSuggestionConnectionDetailsSchema>()(this, 'code_suggestions/connection_details', {
-      sudo,
-      showExpanded,
-    });
+    return RequestHelper.post<CodeSuggestionConnectionDetailsSchema>()(
+      this,
+      'code_suggestions/connection_details',
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 }

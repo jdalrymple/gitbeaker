@@ -1,6 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 
@@ -13,11 +19,11 @@ export interface ContainerRepositoryProtectionRuleSchema extends Record<string, 
 }
 
 export class ContainerRepositoryProtectionRules<C extends boolean = false> extends BaseResource<C> {
-  all<E extends boolean = false>(
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<ContainerRepositoryProtectionRuleSchema[], C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ContainerRepositoryProtectionRuleSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
     return RequestHelper.get<ContainerRepositoryProtectionRuleSchema[]>()(
       this,
@@ -25,6 +31,8 @@ export class ContainerRepositoryProtectionRules<C extends boolean = false> exten
       {
         sudo,
         showExpanded,
+        maxPages,
+        searchParams,
       },
     );
   }

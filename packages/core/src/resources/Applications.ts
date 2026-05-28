@@ -72,9 +72,13 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<ApplicationSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.post<ApplicationSchema>()(this, `applications/${applicationId}/renew-secret`, {
-      sudo,
-      showExpanded,
-    });
+    return RequestHelper.post<ApplicationSchema>()(
+      this,
+      `applications/${applicationId}/renew-secret`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 }

@@ -26,7 +26,17 @@ export interface BroadcastMessageSchema extends Record<string, unknown> {
   >[];
   broadcast_type?: string;
   dismissable?: boolean;
-  theme?: 'indigo' | 'light-indigo' | 'blue' | 'light-blue' | 'green' | 'light-green' | 'red' | 'light-red' | 'dark' | 'light';
+  theme?:
+    | 'indigo'
+    | 'light-indigo'
+    | 'blue'
+    | 'light-blue'
+    | 'green'
+    | 'light-green'
+    | 'red'
+    | 'light-red'
+    | 'dark'
+    | 'light';
 }
 
 type BroadcastMessageOptions = Partial<Camelize<BroadcastMessageSchema>>;

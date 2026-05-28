@@ -1,6 +1,12 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 
@@ -12,12 +18,14 @@ export interface ContainerRegistryProtectionTagRuleSchema extends Record<string,
   minimum_access_level_for_delete: 'maintainer' | 'owner' | 'admin';
 }
 
-export class ContainerRegistryProtectionTagRules<C extends boolean = false> extends BaseResource<C> {
-  all<E extends boolean = false>(
+export class ContainerRegistryProtectionTagRules<
+  C extends boolean = false,
+> extends BaseResource<C> {
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<ContainerRegistryProtectionTagRuleSchema[], C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ContainerRegistryProtectionTagRuleSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
     return RequestHelper.get<ContainerRegistryProtectionTagRuleSchema[]>()(
       this,
@@ -25,6 +33,8 @@ export class ContainerRegistryProtectionTagRules<C extends boolean = false> exte
       {
         sudo,
         showExpanded,
+        maxPages,
+        searchParams,
       },
     );
   }

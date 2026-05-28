@@ -88,14 +88,15 @@ export const { ContainerRegistry } = API;
 export type ContainerRegistry<C extends boolean = false> = CORE.ContainerRegistry<C>;
 
 export const { ContainerRegistryProtectionTagRules } = API;
-export type ContainerRegistryProtectionTagRules<C extends boolean = false> = CORE.ContainerRegistryProtectionTagRules<C>;
+export type ContainerRegistryProtectionTagRules<C extends boolean = false> =
+  CORE.ContainerRegistryProtectionTagRules<C>;
 
 export const { ContainerRepositoryProtectionRules } = API;
-export type ContainerRepositoryProtectionRules<C extends boolean = false> = CORE.ContainerRepositoryProtectionRules<C>;
+export type ContainerRepositoryProtectionRules<C extends boolean = false> =
+  CORE.ContainerRepositoryProtectionRules<C>;
 
 export const { ContainerVirtualRegistry } = API;
 export type ContainerVirtualRegistry<C extends boolean = false> = CORE.ContainerVirtualRegistry<C>;
-
 
 export const { Debian } = API;
 export type Debian<C extends boolean = false> = CORE.Debian<C>;

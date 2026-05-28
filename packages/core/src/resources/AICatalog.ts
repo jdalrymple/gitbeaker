@@ -1,13 +1,8 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type {
-  GitlabAPIResponse,
-  ShowExpanded,
-  Sudo,
-} from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 import { RequestHelper } from '../infrastructure';
-
 
 export class AICatalog<C extends boolean = false> extends BaseResource<C> {
   seedExternalAgents<E extends boolean = false>(

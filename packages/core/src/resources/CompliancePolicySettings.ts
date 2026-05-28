@@ -1,10 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type {
-  GitlabAPIResponse,
-  ShowExpanded,
-  Sudo,
-} from '../infrastructure';
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 import { RequestHelper } from '../infrastructure';
 
@@ -18,10 +14,14 @@ export class CompliancePolicySettings<C extends boolean = false> extends BaseRes
   ): Promise<GitlabAPIResponse<CompliancePolicySettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.get<CompliancePolicySettingsSchema>()(this, 'admin/security/compliance_policy_settings', {
-      sudo,
-      showExpanded,
-    });
+    return RequestHelper.get<CompliancePolicySettingsSchema>()(
+      this,
+      'admin/security/compliance_policy_settings',
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 
   edit<E extends boolean = false>(
@@ -30,12 +30,16 @@ export class CompliancePolicySettings<C extends boolean = false> extends BaseRes
   ): Promise<GitlabAPIResponse<CompliancePolicySettingsSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.put<CompliancePolicySettingsSchema>()(this, 'admin/security/compliance_policy_settings', {
-      sudo,
-      showExpanded,
-      body: {
-        cspNamespaceId,
+    return RequestHelper.put<CompliancePolicySettingsSchema>()(
+      this,
+      'admin/security/compliance_policy_settings',
+      {
+        sudo,
+        showExpanded,
+        body: {
+          cspNamespaceId,
+        },
       },
-    });
+    );
   }
 }

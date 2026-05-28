@@ -23,29 +23,29 @@ export interface AuditEventSchema extends Record<string, unknown> {
     to?: string;
     add?: string;
     remove?: string;
-    
+
     // Message fields
     custom_message?: string;
-    
+
     // Author information
     author_name?: string;
     author_email?: string;
     author_class?: string;
-    
+
     // Target information
     target_id?: string | number;
     target_type?: string;
     target_details?: string;
-    
+
     // Network and location
     ip_address?: string | null;
     entity_path?: string;
-    
+
     // Additional dynamic fields that can appear in details
     [key: string]: unknown;
   };
   created_at: string;
-  
+
   // Optional top-level fields that may appear in responses
   ip_address?: string;
   author_name?: string;
