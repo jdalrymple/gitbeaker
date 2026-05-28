@@ -213,7 +213,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>CommitDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#commits">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#commits">🦊</a>
 </td>
 <td>
 <a href="./src/resources/CommitDiscussions.ts">⌨️</a>
@@ -402,7 +402,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>EpicDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#epics">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#epics">🦊</a>
 </td>
 <td>
 <a href="./src/resources/EpicDiscussions.ts">⌨️</a>
@@ -618,7 +618,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupDORA4Metrics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/dora/metrics.html#get-group-level-dora-metrics">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/dora/metrics.html#retrieve-group-level-dora-metrics">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupDORA4Metrics.ts">⌨️</a>
@@ -879,7 +879,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueDiscussions.ts">⌨️</a>
@@ -1077,7 +1077,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#merge-requests">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#merge-requests">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestDiscussions.ts">⌨️</a>
@@ -1329,7 +1329,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectDORA4Metrics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metrics.html#get-project-level-dora-metrics">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/dora/metrics.html#retrieve-project-level-dora-metrics">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectDORA4Metrics.ts">⌨️</a>
@@ -1491,7 +1491,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippetDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#snippets">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#snippets">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippetDiscussions.ts">⌨️</a>
