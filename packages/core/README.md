@@ -427,6 +427,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>ExternalControls</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/external_controls.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ExternalControls.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ExternalStatusChecks</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/status_checks.html">🦊</a>
@@ -451,6 +460,24 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/FeatureFlags.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>Features</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/features.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Features.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>Flows</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/duo_agent_platform_flows.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Flows.ts">⌨️</a>
 </td>
 </tr>
 <tr>

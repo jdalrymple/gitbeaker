@@ -40,9 +40,12 @@ import { ErrorTrackingClientKeys } from './ErrorTrackingClientKeys';
 import { ErrorTrackingSettings } from './ErrorTrackingSettings';
 import { Events } from './Events';
 import { Experiments } from './Experiments';
+import { ExternalControls } from './ExternalControls';
 import { ExternalStatusChecks } from './ExternalStatusChecks';
 import { FeatureFlags } from './FeatureFlags';
 import { FeatureFlagUserLists } from './FeatureFlagUserLists';
+import { Features } from './Features';
+import { Flows } from './Flows';
 import { FreezePeriods } from './FreezePeriods';
 import { GitlabPages } from './GitlabPages';
 import { GoProxy } from './GoProxy';
@@ -261,9 +264,12 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Environments: Environments<C>;
   ErrorTrackingClientKeys: ErrorTrackingClientKeys<C>;
   ErrorTrackingSettings: ErrorTrackingSettings<C>;
+  ExternalControls: ExternalControls<C>;
   ExternalStatusChecks: ExternalStatusChecks<C>;
   FeatureFlags: FeatureFlags<C>;
   FeatureFlagUserLists: FeatureFlagUserLists<C>;
+  Features: Features<C>;
+  Flows: Flows<C>;
   FreezePeriods: FreezePeriods<C>;
   GitlabPages: GitlabPages<C>;
   GoProxy: GoProxy<C>;
@@ -450,9 +456,12 @@ const resources = {
   Environments,
   ErrorTrackingClientKeys,
   ErrorTrackingSettings,
+  ExternalControls,
   ExternalStatusChecks,
   FeatureFlags,
   FeatureFlagUserLists,
+  Features,
+  Flows,
   FreezePeriods,
   GitlabPages,
   GoProxy,

@@ -128,6 +128,9 @@ export type ErrorTrackingClientKeys<C extends boolean = false> = CORE.ErrorTrack
 export const { ErrorTrackingSettings } = API;
 export type ErrorTrackingSettings<C extends boolean = false> = CORE.ErrorTrackingSettings<C>;
 
+export const { ExternalControls } = API;
+export type ExternalControls<C extends boolean = false> = CORE.ExternalControls<C>;
+
 export const { Events } = API;
 export type Events<C extends boolean = false> = CORE.Events<C>;
 
@@ -142,6 +145,12 @@ export type FeatureFlags<C extends boolean = false> = CORE.FeatureFlags<C>;
 
 export const { FeatureFlagUserLists } = API;
 export type FeatureFlagUserLists<C extends boolean = false> = CORE.FeatureFlagUserLists<C>;
+
+export const { Features } = API;
+export type Features<C extends boolean = false> = CORE.Features<C>;
+
+export const { Flows } = API;
+export type Flows<C extends boolean = false> = CORE.Flows<C>;
 
 export const { FreezePeriods } = API;
 export type FreezePeriods<C extends boolean = false> = CORE.FreezePeriods<C>;

@@ -19,16 +19,24 @@ export interface FeatureFlagStrategyScopeSchema {
   environment_scope: string;
 }
 
+export interface FeatureFlagUserListSchema {
+  id: number;
+  iid: number;
+  name: string;
+  user_xids: string;
+}
+
 export interface FeatureFlagStrategySchema {
   id: number;
   name: string;
   parameters: Record<string, unknown>;
   scopes?: FeatureFlagStrategyScopeSchema[];
+  user_list?: FeatureFlagUserListSchema | null;
 }
 
 export interface FeatureFlagSchema extends Record<string, unknown> {
   name: string;
-  description: string;
+  description: string | null;
   active: boolean;
   version: string;
   created_at: string;
@@ -41,22 +49,25 @@ export type CreateFeatureFlagOptions = {
   description?: string;
   active?: boolean;
   strategies?: {
-    name: string;
-    parameters?: Record<string, string>;
+    name: 'default' | 'gradualRolloutUserId' | 'userWithId' | 'gitlabUserList' | 'flexibleRollout' | string;
+    parameters?: Record<string, unknown>;
     scopes?: MappedOmit<FeatureFlagStrategyScopeSchema, 'id'>[];
-  };
+    userListId?: number | string;
+  }[];
 };
 
 export type EditFeatureFlagOptions = {
   description?: string;
   active?: boolean;
+  name?: string;
   strategies?: {
-    id: string;
-    name?: string;
+    id?: string | number;
+    name?: 'default' | 'gradualRolloutUserId' | 'userWithId' | 'gitlabUserList' | 'flexibleRollout' | string;
     _destroy?: boolean;
-    parameters?: Record<string, string>;
-    scopes?: ({ _destroy?: boolean } & FeatureFlagStrategyScopeSchema)[];
-  };
+    parameters?: Record<string, unknown>;
+    scopes?: ({ id?: number; _destroy?: boolean } & Partial<FeatureFlagStrategyScopeSchema>)[];
+    userListId?: number | string;
+  }[];
 };
 
 export class FeatureFlags<C extends boolean = false> extends BaseResource<C> {
