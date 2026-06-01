@@ -32,7 +32,16 @@ export interface FlowSchema extends Record<string, unknown> {
   pre_approved_agent_privileges: number[];
   pre_approved_agent_privileges_names: string[];
   workflow_definition: string;
-  status: 'created' | 'running' | 'paused' | 'finished' | 'failed' | 'stopped' | 'input_required' | 'plan_approval_required' | 'tool_call_approval_required';
+  status:
+    | 'created'
+    | 'running'
+    | 'paused'
+    | 'finished'
+    | 'failed'
+    | 'stopped'
+    | 'input_required'
+    | 'plan_approval_required'
+    | 'tool_call_approval_required';
   allow_agent_to_request_user: boolean;
   image: string | null;
   environment: string | null;
@@ -73,7 +82,8 @@ export class Flows<C extends boolean = false> extends BaseResource<C> {
       sourceBranch?: string;
       startWorkflow?: boolean;
       workflowDefinition?: string;
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FlowSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

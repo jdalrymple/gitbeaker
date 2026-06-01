@@ -80,7 +80,8 @@ export class Features<C extends boolean = false> extends BaseResource<C> {
       repository?: string;
       runner?: string;
       force?: boolean;
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<FeatureSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

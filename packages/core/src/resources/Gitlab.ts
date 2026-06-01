@@ -47,7 +47,10 @@ import { FeatureFlagUserLists } from './FeatureFlagUserLists';
 import { Features } from './Features';
 import { Flows } from './Flows';
 import { FreezePeriods } from './FreezePeriods';
+import { GeoSites } from './GeoSites';
+import { GitLabDuoChat } from './GitLabDuoChat';
 import { GitlabPages } from './GitlabPages';
+import { GoogleCloudIntegration } from './GoogleCloudIntegration';
 import { GoProxy } from './GoProxy';
 import { GroupAccessRequests } from './GroupAccessRequests';
 import { GroupAccessTokens } from './GroupAccessTokens';
@@ -222,8 +225,8 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   DeployTokens: DeployTokens<C>;
   Events: Events<C>;
   Experiments: Experiments<C>;
-  GeoNodes: GeoNodes<C>;
   GeoSites: GeoSites<C>;
+  GitLabDuoChat: GitLabDuoChat<C>;
   Import: Import<C>;
   InstanceLevelCICDVariables: InstanceLevelCICDVariables<C>;
   Keys: Keys<C>;
@@ -273,6 +276,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   FreezePeriods: FreezePeriods<C>;
   GitlabPages: GitlabPages<C>;
   GoProxy: GoProxy<C>;
+  GoogleCloudIntegration: GoogleCloudIntegration<C>;
   Helm: Helm<C>;
   Integrations: Integrations<C>;
   IssueAwardEmojis: IssueAwardEmojis<C>;
@@ -463,8 +467,11 @@ const resources = {
   Features,
   Flows,
   FreezePeriods,
+  GeoSites,
+  GitLabDuoChat,
   GitlabPages,
   GoProxy,
+  GoogleCloudIntegration,
   Helm,
   Integrations,
   IssueAwardEmojis,

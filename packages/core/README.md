@@ -490,6 +490,24 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>GeoSites</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/geo_sites.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GeoSites.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GitLabDuoChat</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/chat.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GitLabDuoChat.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GitlabPages</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/pages.html">🦊</a>
@@ -505,6 +523,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/GoProxy.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GoogleCloudIntegration</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/google_cloud_integration.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GoogleCloudIntegration.ts">⌨️</a>
 </td>
 </tr>
 <tr>

@@ -30,7 +30,15 @@ export type AllEventOptions = {
     | 'destroyed'
     | 'expired'
     | 'opened';
-  targetType?: 'epic' | 'issue' | 'milestone' | 'merge_request' | 'note' | 'project' | 'snippet' | 'user';
+  targetType?:
+    | 'epic'
+    | 'issue'
+    | 'milestone'
+    | 'merge_request'
+    | 'note'
+    | 'project'
+    | 'snippet'
+    | 'user';
   before?: string;
   after?: string;
   scope?: string;

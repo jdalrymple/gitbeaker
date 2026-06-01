@@ -49,7 +49,13 @@ export type CreateFeatureFlagOptions = {
   description?: string;
   active?: boolean;
   strategies?: {
-    name: 'default' | 'gradualRolloutUserId' | 'userWithId' | 'gitlabUserList' | 'flexibleRollout' | string;
+    name:
+      | 'default'
+      | 'gradualRolloutUserId'
+      | 'userWithId'
+      | 'gitlabUserList'
+      | 'flexibleRollout'
+      | string;
     parameters?: Record<string, unknown>;
     scopes?: MappedOmit<FeatureFlagStrategyScopeSchema, 'id'>[];
     userListId?: number | string;
@@ -62,7 +68,13 @@ export type EditFeatureFlagOptions = {
   name?: string;
   strategies?: {
     id?: string | number;
-    name?: 'default' | 'gradualRolloutUserId' | 'userWithId' | 'gitlabUserList' | 'flexibleRollout' | string;
+    name?:
+      | 'default'
+      | 'gradualRolloutUserId'
+      | 'userWithId'
+      | 'gitlabUserList'
+      | 'flexibleRollout'
+      | string;
     _destroy?: boolean;
     parameters?: Record<string, unknown>;
     scopes?: ({ id?: number; _destroy?: boolean } & Partial<FeatureFlagStrategyScopeSchema>)[];

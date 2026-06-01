@@ -17,12 +17,13 @@ export class ExternalControls<C extends boolean = false> extends BaseResource<C>
       timestamp: string;
       nonce: string;
       hmacSignature: string;
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ExternalControlStatusSchema, C, E, void>> {
     const { sudo, showExpanded, timestamp, nonce, hmacSignature } = options || {};
 
     const headers: Record<string, string> = {};
-    
+
     if (timestamp) headers['X-Gitlab-Timestamp'] = timestamp;
     if (nonce) headers['X-Gitlab-Nonce'] = nonce;
     if (hmacSignature) headers['X-Gitlab-Hmac-Sha256'] = hmacSignature;

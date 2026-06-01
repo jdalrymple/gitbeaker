@@ -64,9 +64,13 @@ export class ErrorTrackingClientKeys<C extends boolean = false> extends BaseReso
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { showExpanded, sudo } = options || {};
 
-    return RequestHelper.del()(this, endpoint`projects/${projectId}/error_tracking/client_keys/${keyId}`, {
-      showExpanded,
-      sudo,
-    });
+    return RequestHelper.del()(
+      this,
+      endpoint`projects/${projectId}/error_tracking/client_keys/${keyId}`,
+      {
+        showExpanded,
+        sudo,
+      },
+    );
   }
 }

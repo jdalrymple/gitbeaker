@@ -155,11 +155,20 @@ export type Flows<C extends boolean = false> = CORE.Flows<C>;
 export const { FreezePeriods } = API;
 export type FreezePeriods<C extends boolean = false> = CORE.FreezePeriods<C>;
 
+export const { GeoSites } = API;
+export type GeoSites<C extends boolean = false> = CORE.GeoSites<C>;
+
+export const { GitLabDuoChat } = API;
+export type GitLabDuoChat<C extends boolean = false> = CORE.GitLabDuoChat<C>;
+
 export const { GitlabPages } = API;
 export type GitlabPages<C extends boolean = false> = CORE.GitlabPages<C>;
 
 export const { GoProxy } = API;
 export type GoProxy<C extends boolean = false> = CORE.GoProxy<C>;
+
+export const { GoogleCloudIntegration } = API;
+export type GoogleCloudIntegration<C extends boolean = false> = CORE.GoogleCloudIntegration<C>;
 
 export const { GroupAccessRequests } = API;
 export type GroupAccessRequests<C extends boolean = false> = CORE.GroupAccessRequests<C>;
