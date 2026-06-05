@@ -15,6 +15,7 @@ import { AuditEvents } from './AuditEvents';
 import { Avatar } from './Avatar';
 import { Branches } from './Branches';
 import { BroadcastMessages } from './BroadcastMessages';
+import { BulkImports } from './BulkImports';
 import { ClusterAgents } from './ClusterAgents';
 import { CodeSuggestions } from './CodeSuggestions';
 import { CommitDiscussions } from './CommitDiscussions';
@@ -58,6 +59,8 @@ import { GroupActivityAnalytics } from './GroupActivityAnalytics';
 import { GroupBadges } from './GroupBadges';
 import { GroupCustomAttributes } from './GroupCustomAttributes';
 import { GroupDORA4Metrics } from './GroupDORA4Metrics';
+import { GroupEnterpriseUsers } from './GroupEnterpriseUsers';
+import { GroupEpicBoards } from './GroupEpicBoards';
 import { GroupHooks } from './GroupHooks';
 import { GroupImportExports } from './GroupImportExports';
 import { GroupInvitations } from './GroupInvitations';
@@ -211,6 +214,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   AuditEvents: AuditEvents<C>;
   Avatar: Avatar<C>;
   BroadcastMessages: BroadcastMessages<C>;
+  BulkImports: BulkImports<C>;
   ClusterAgents: ClusterAgents<C>;
   CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
@@ -362,6 +366,8 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupActivityAnalytics: GroupActivityAnalytics<C>;
   GroupBadges: GroupBadges<C>;
   GroupCustomAttributes: GroupCustomAttributes<C>;
+  GroupEnterpriseUsers: GroupEnterpriseUsers<C>;
+  GroupEpicBoards: GroupEpicBoards<C>;
   GroupDORA4Metrics: GroupDORA4Metrics<C>;
   GroupHooks: GroupHooks<C>;
   GroupImportExports: GroupImportExports<C>;
@@ -406,6 +412,7 @@ const resources = {
   AuditEvents,
   Avatar,
   BroadcastMessages,
+  BulkImports,
   ClusterAgents,
   CodeSuggestions,
   Composer,
@@ -557,6 +564,8 @@ const resources = {
   GroupActivityAnalytics,
   GroupBadges,
   GroupCustomAttributes,
+  GroupEnterpriseUsers,
+  GroupEpicBoards,
   GroupDORA4Metrics,
   GroupHooks,
   GroupImportExports,

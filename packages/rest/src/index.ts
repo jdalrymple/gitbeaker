@@ -60,6 +60,9 @@ export type Branches<C extends boolean = false> = CORE.Branches<C>;
 export const { BroadcastMessages } = API;
 export type BroadcastMessages<C extends boolean = false> = CORE.BroadcastMessages<C>;
 
+export const { BulkImports } = API;
+export type BulkImports<C extends boolean = false> = CORE.BulkImports<C>;
+
 export const { CodeSuggestions } = API;
 export type CodeSuggestions<C extends boolean = false> = CORE.CodeSuggestions<C>;
 
@@ -184,6 +187,12 @@ export type GroupBadges<C extends boolean = false> = CORE.GroupBadges<C>;
 
 export const { GroupCustomAttributes } = API;
 export type GroupCustomAttributes<C extends boolean = false> = CORE.GroupCustomAttributes<C>;
+
+export const { GroupEnterpriseUsers } = API;
+export type GroupEnterpriseUsers<C extends boolean = false> = CORE.GroupEnterpriseUsers<C>;
+
+export const { GroupEpicBoards } = API;
+export type GroupEpicBoards<C extends boolean = false> = CORE.GroupEpicBoards<C>;
 
 export const { GroupDORA4Metrics } = API;
 export type GroupDORA4Metrics<C extends boolean = false> = CORE.GroupDORA4Metrics<C>;

@@ -475,12 +475,11 @@ export class GeoSites<C extends boolean = false> extends BaseResource<C> {
     siteId: string | number,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GeoSiteSchema, C, E, void>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { sudo, showExpanded } = options || {};
 
     return RequestHelper.post<GeoSiteSchema>()(this, endpoint`geo_sites/${siteId}/repair`, {
       sudo,
       showExpanded,
-      body,
     });
   }
 

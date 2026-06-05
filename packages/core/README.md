@@ -211,6 +211,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>BulkImports</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/bulk_imports.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/BulkImports.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>CommitDiscussions</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#commits">🦊</a>
@@ -577,6 +586,24 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/GroupCustomAttributes.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GroupEnterpriseUsers</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_enterprise_users.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupEnterpriseUsers.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GroupEpicBoards</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_epic_boards.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupEpicBoards.ts">⌨️</a>
 </td>
 </tr>
 <tr>

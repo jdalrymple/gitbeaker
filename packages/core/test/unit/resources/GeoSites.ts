@@ -70,19 +70,6 @@ describe('GeoSites.edit', () => {
   });
 });
 
-describe('GeoSites.allFailures', () => {
-  it('should request POST /geo_sites/current/failures', async () => {
-    await service.allFailures();
-
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'geo_sites/current/failures', {
-      maxPages: undefined,
-      searchParams: {},
-      showExpanded: undefined,
-      sudo: undefined,
-    });
-  });
-});
-
 describe('GeoSites.repair', () => {
   it('should request POST /geo_sites/:id/repair', async () => {
     await service.repair(1);
@@ -117,10 +104,10 @@ describe('GeoSites.showStatus', () => {
 });
 
 describe('GeoSites.allStatuses', () => {
-  it('should request GET /geo_sites/statuses', async () => {
+  it('should request GET /geo_sites/status', async () => {
     await service.allStatuses();
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'geo_sites/statuses', {
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'geo_sites/status', {
       maxPages: undefined,
       searchParams: {},
       showExpanded: undefined,
