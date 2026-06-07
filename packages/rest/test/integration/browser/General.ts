@@ -143,7 +143,7 @@ describe('Browser Import', () => {
     'ProjectVariables',
     'ProjectVulnerabilities',
     'ProjectWikis',
-    'ProtectedBranches',
+    'ProjectProtectedBranches',
     'ProtectedTags',
     'ReleaseLinks',
     'Repositories',

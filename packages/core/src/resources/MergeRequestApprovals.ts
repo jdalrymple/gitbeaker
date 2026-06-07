@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type { GitlabAPIResponse, MappedOmit, ShowExpanded, Sudo } from '../infrastructure';
 import type { GroupSchema } from './Groups';
-import type { ProtectedBranchSchema } from './ProtectedBranches';
+import type { ProtectedBranchSchema } from './ProjectProtectedBranches';
 import type { SimpleUserSchema } from './Users';
 
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';

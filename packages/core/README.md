@@ -634,6 +634,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>GroupIntegrations</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_integrations.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupIntegrations.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupInvitations</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/invitations.html">🦊</a>
@@ -712,6 +721,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/GroupMilestones.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GroupProtectedBranches</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_protected_branches.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupProtectedBranches.ts">⌨️</a>
 </td>
 </tr>
 <tr>
@@ -1552,12 +1570,12 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>ProtectedBranches</th>
+<th>ProjectProtectedBranches</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/protected_branches.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/ProtectedBranches.ts">⌨️</a>
+<a href="./src/resources/ProjectProtectedBranches.ts">⌨️</a>
 </td>
 </tr>
 <tr>

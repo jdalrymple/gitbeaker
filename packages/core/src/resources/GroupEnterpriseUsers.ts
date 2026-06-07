@@ -1,7 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type {
-  BaseRequestSearchParams,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationRequestSearchParams,
@@ -67,7 +66,7 @@ export interface GroupEnterpriseUserSchema extends Record<string, unknown> {
   scim_identities: GroupEnterpriseUserSCIMIdentitySchema[];
 }
 
-export interface GroupEnterpriseUserListOptions extends BaseRequestSearchParams {
+export interface GroupEnterpriseUserListOptions {
   username?: string;
   search?: string;
   active?: boolean;

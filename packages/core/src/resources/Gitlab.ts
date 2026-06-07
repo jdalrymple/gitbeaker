@@ -63,6 +63,7 @@ import { GroupEnterpriseUsers } from './GroupEnterpriseUsers';
 import { GroupEpicBoards } from './GroupEpicBoards';
 import { GroupHooks } from './GroupHooks';
 import { GroupImportExports } from './GroupImportExports';
+import { GroupIntegrations } from './GroupIntegrations';
 import { GroupInvitations } from './GroupInvitations';
 import { GroupIssueBoards } from './GroupIssueBoards';
 import { GroupIterations } from './GroupIterations';
@@ -72,6 +73,8 @@ import { GroupMarkdownUploads } from './GroupMarkdownUploads';
 import { GroupMemberRoles } from './GroupMemberRoles';
 import { GroupMembers } from './GroupMembers';
 import { GroupMilestones } from './GroupMilestones';
+import { GroupPlaceholderReassignments } from './GroupPlaceholderReassignments';
+import { GroupProtectedBranches } from './GroupProtectedBranches';
 import { GroupProtectedEnvironments } from './GroupProtectedEnvironments';
 import { GroupPushRules } from './GroupPushRules';
 import { GroupRelationExports } from './GroupRelationExports';
@@ -81,7 +84,9 @@ import { Groups } from './Groups';
 import { GroupSAMLIdentities } from './GroupSAMLIdentities';
 import { GroupSAMLLinks } from './GroupSAMLLinks';
 import { GroupSCIMIdentities } from './GroupSCIMIdentities';
+import { GroupSecuritySettings } from './GroupSecuritySettings';
 import { GroupServiceAccounts } from './GroupServiceAccounts';
+import { GroupSSHCertificates } from './GroupSSHCertificates';
 import { GroupVariables } from './GroupVariables';
 import { GroupWikis } from './GroupWikis';
 import { Helm } from './Helm';
@@ -150,6 +155,7 @@ import { ProjectLabels } from './ProjectLabels';
 import { ProjectMarkdownUploads } from './ProjectMarkdownUploads';
 import { ProjectMembers } from './ProjectMembers';
 import { ProjectMilestones } from './ProjectMilestones';
+import { ProjectProtectedBranches } from './ProjectProtectedBranches';
 import { ProjectProtectedEnvironments } from './ProjectProtectedEnvironments';
 import { ProjectPushRules } from './ProjectPushRules';
 import { ProjectRelationsExport } from './ProjectRelationsExport';
@@ -167,7 +173,6 @@ import { ProjectTerraformState } from './ProjectTerraformState';
 import { ProjectVariables } from './ProjectVariables';
 import { ProjectVulnerabilities } from './ProjectVulnerabilities';
 import { ProjectWikis } from './ProjectWikis';
-import { ProtectedBranches } from './ProtectedBranches';
 import { ProtectedTags } from './ProtectedTags';
 import { PyPI } from './PyPI';
 import { ReleaseLinks } from './ReleaseLinks';
@@ -350,7 +355,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectVariables: ProjectVariables<C>;
   ProjectVulnerabilities: ProjectVulnerabilities<C>;
   ProjectWikis: ProjectWikis<C>;
-  ProtectedBranches: ProtectedBranches<C>;
+  ProjectProtectedBranches: ProjectProtectedBranches<C>;
   ProtectedTags: ProtectedTags<C>;
   ReleaseLinks: ReleaseLinks<C>;
   Repositories: Repositories<C>;
@@ -371,20 +376,25 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupDORA4Metrics: GroupDORA4Metrics<C>;
   GroupHooks: GroupHooks<C>;
   GroupImportExports: GroupImportExports<C>;
+  GroupIntegrations: GroupIntegrations<C>;
   GroupInvitations: GroupInvitations<C>;
   GroupIssueBoards: GroupIssueBoards<C>;
   GroupIterations: GroupIterations<C>;
   GroupLabels: GroupLabels<C>;
   GroupLDAPLinks: GroupLDAPLinks<C>;
   GroupMarkdownUploads: GroupMarkdownUploads<C>;
+  GroupPlaceholderReassignments: GroupPlaceholderReassignments<C>;
   GroupMembers: GroupMembers<C>;
   GroupMemberRoles: GroupMemberRoles<C>;
   GroupMilestones: GroupMilestones<C>;
+  GroupProtectedBranches: GroupProtectedBranches<C>;
   GroupProtectedEnvironments: GroupProtectedEnvironments<C>;
   GroupPushRules: GroupPushRules<C>;
   GroupRelationExports: GroupRelationExports<C>;
   GroupReleases: GroupReleases<C>;
   GroupRepositoryStorageMoves: GroupRepositoryStorageMoves<C>;
+  GroupSecuritySettings: GroupSecuritySettings<C>;
+  GroupSSHCertificates: GroupSSHCertificates<C>;
   Groups: Groups<C>;
   GroupSAMLIdentities: GroupSAMLIdentities<C>;
   GroupSAMLLinks: GroupSAMLLinks<C>;
@@ -548,7 +558,7 @@ const resources = {
   ProjectVariables,
   ProjectVulnerabilities,
   ProjectWikis,
-  ProtectedBranches,
+  ProjectProtectedBranches,
   ProtectedTags,
   ReleaseLinks,
   Repositories,
@@ -569,20 +579,25 @@ const resources = {
   GroupDORA4Metrics,
   GroupHooks,
   GroupImportExports,
+  GroupIntegrations,
   GroupInvitations,
   GroupIssueBoards,
   GroupIterations,
   GroupLabels,
   GroupLDAPLinks,
   GroupMarkdownUploads,
+  GroupPlaceholderReassignments,
   GroupMembers,
   GroupMemberRoles,
   GroupMilestones,
+  GroupProtectedBranches,
   GroupProtectedEnvironments,
   GroupPushRules,
   GroupRelationExports,
   GroupReleases,
   GroupRepositoryStorageMoves,
+  GroupSecuritySettings,
+  GroupSSHCertificates,
   Groups,
   GroupSAMLIdentities,
   GroupSAMLLinks,

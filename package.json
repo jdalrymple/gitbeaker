@@ -7,16 +7,6 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "author": "Justin Dalrymple",
-  "pnpm": {
-    "overrides": {
-      "lodash": ">=4.18.1",
-      "tar": "^7.5.13",
-      "undici": ">=8.0.2"
-    },
-    "ignoredBuiltDependencies": [
-      "nx"
-    ]
-  },
   "scripts": {
     "build": "nx run-many --target=build",
     "lint": "nx run-many --target=lint",
@@ -58,5 +48,5 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.5"
   },
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
+  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
 }

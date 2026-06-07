@@ -73,7 +73,7 @@ export type EditProtectedBranchOptions = {
   codeOwnerApprovalRequired?: boolean;
 };
 
-export class ProtectedBranches<C extends boolean = false> extends BaseResource<C> {
+export class ProjectProtectedBranches<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     options?: { search?: string } & BaseRequestSearchParams &

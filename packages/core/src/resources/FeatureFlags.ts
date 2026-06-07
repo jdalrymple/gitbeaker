@@ -13,17 +13,11 @@ import type {
 } from '../infrastructure';
 
 import { RequestHelper, endpoint } from '../infrastructure';
+import { FeatureFlagUserListSchema } from './FeatureFlagUserLists';
 
 export interface FeatureFlagStrategyScopeSchema {
   id: number;
   environment_scope: string;
-}
-
-export interface FeatureFlagUserListSchema {
-  id: number;
-  iid: number;
-  name: string;
-  user_xids: string;
 }
 
 export interface FeatureFlagStrategySchema {

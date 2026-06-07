@@ -203,6 +203,9 @@ export type GroupHooks<C extends boolean = false> = CORE.GroupHooks<C>;
 export const { GroupImportExports } = API;
 export type GroupImportExports<C extends boolean = false> = CORE.GroupImportExports<C>;
 
+export const { GroupIntegrations } = API;
+export type GroupIntegrations<C extends boolean = false> = CORE.GroupIntegrations<C>;
+
 export const { GroupInvitations } = API;
 export type GroupInvitations<C extends boolean = false> = CORE.GroupInvitations<C>;
 
@@ -221,6 +224,10 @@ export type GroupLDAPLinks<C extends boolean = false> = CORE.GroupLDAPLinks<C>;
 export const { GroupMarkdownUploads } = API;
 export type GroupMarkdownUploads<C extends boolean = false> = CORE.GroupMarkdownUploads<C>;
 
+export const { GroupPlaceholderReassignments } = API;
+export type GroupPlaceholderReassignments<C extends boolean = false> =
+  CORE.GroupPlaceholderReassignments<C>;
+
 export const { GroupMemberRoles } = API;
 export type GroupMemberRoles<C extends boolean = false> = CORE.GroupMemberRoles<C>;
 
@@ -229,6 +236,9 @@ export type GroupMembers<C extends boolean = false> = CORE.GroupMembers<C>;
 
 export const { GroupMilestones } = API;
 export type GroupMilestones<C extends boolean = false> = CORE.GroupMilestones<C>;
+
+export const { GroupProtectedBranches } = API;
+export type GroupProtectedBranches<C extends boolean = false> = CORE.GroupProtectedBranches<C>;
 
 export const { GroupProtectedEnvironments } = API;
 export type GroupProtectedEnvironments<C extends boolean = false> =
@@ -246,6 +256,12 @@ export type GroupReleases<C extends boolean = false> = CORE.GroupReleases<C>;
 export const { GroupRepositoryStorageMoves } = API;
 export type GroupRepositoryStorageMoves<C extends boolean = false> =
   CORE.GroupRepositoryStorageMoves<C>;
+
+export const { GroupSecuritySettings } = API;
+export type GroupSecuritySettings<C extends boolean = false> = CORE.GroupSecuritySettings<C>;
+
+export const { GroupSSHCertificates } = API;
+export type GroupSSHCertificates<C extends boolean = false> = CORE.GroupSSHCertificates<C>;
 
 export const { Groups } = API;
 export type Groups<C extends boolean = false> = CORE.Groups<C>;
@@ -523,8 +539,8 @@ export type ProjectVulnerabilities<C extends boolean = false> = CORE.ProjectVuln
 export const { ProjectWikis } = API;
 export type ProjectWikis<C extends boolean = false> = CORE.ProjectWikis<C>;
 
-export const { ProtectedBranches } = API;
-export type ProtectedBranches<C extends boolean = false> = CORE.ProtectedBranches<C>;
+export const { ProjectProtectedBranches } = API;
+export type ProjectProtectedBranches<C extends boolean = false> = CORE.ProjectProtectedBranches<C>;
 
 export const { ProtectedTags } = API;
 export type ProtectedTags<C extends boolean = false> = CORE.ProtectedTags<C>;

@@ -8,18 +8,20 @@ import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface PushRuleSchema extends Record<string, unknown> {
   id: number;
-  commit_message_regex: string;
-  commit_message_negative_regex: string;
-  branch_name_regex: string;
+  commit_message_regex: string | null;
+  commit_message_negative_regex: string | null;
+  branch_name_regex: string | null;
   deny_delete_tag: boolean;
   created_at: string;
   member_check: boolean;
   prevent_secrets: boolean;
-  author_email_regex: string;
-  file_name_regex: string;
+  author_email_regex: string | null;
+  file_name_regex: string | null;
   max_file_size: number;
-  commit_committer_check?: boolean;
-  reject_unsigned_commits?: boolean;
+  commit_committer_check?: boolean | null;
+  commit_committer_name_check: boolean;
+  reject_unsigned_commits?: boolean | null;
+  reject_non_dco_commits?: boolean | null;
 }
 
 export interface CreateAndEditPushRuleOptions {
@@ -33,7 +35,9 @@ export interface CreateAndEditPushRuleOptions {
   fileNameRegex?: string;
   maxFileSize?: number;
   commitCommitterCheck?: boolean;
+  commitCommitterNameCheck?: boolean;
   rejectUnsignedCommits?: boolean;
+  rejectNonDcoCommits?: boolean;
 }
 
 export class ResourcePushRules<C extends boolean = false> extends BaseResource<C> {

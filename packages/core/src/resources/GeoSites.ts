@@ -18,33 +18,33 @@ export interface GeoSiteCreateOptions {
   enabled?: boolean;
   name: string;
   url: string;
-  internal_url?: string;
-  files_max_capacity?: number;
-  repos_max_capacity?: number;
-  verification_max_capacity?: number;
-  container_repositories_max_capacity?: number;
-  sync_object_storage?: boolean;
-  selective_sync_type?: 'namespaces' | 'shards' | null;
-  selective_sync_shards?: string[];
-  selective_sync_namespace_ids?: number[];
-  minimum_reverification_interval?: number;
-  blob_download_timeout?: number;
+  internalUrl?: string;
+  filesMaxCapacity?: number;
+  reposMaxCapacity?: number;
+  verificationMaxCapacity?: number;
+  containerRepositoriesMaxCapacity?: number;
+  syncObjectStorage?: boolean;
+  selectiveSyncType?: 'namespaces' | 'shards' | null;
+  selectiveSyncShards?: string[];
+  selectiveSyncNamespaceIds?: number[];
+  minimumReverificationInterval?: number;
+  blobDownloadTimeout?: number;
 }
 
 export interface GeoSiteUpdateOptions {
   enabled?: boolean;
   name?: string;
   url?: string;
-  internal_url?: string;
-  files_max_capacity?: number;
-  repos_max_capacity?: number;
-  verification_max_capacity?: number;
-  container_repositories_max_capacity?: number;
-  selective_sync_type?: 'namespaces' | 'shards' | null;
-  selective_sync_shards?: string[];
-  selective_sync_namespace_ids?: number[];
-  minimum_reverification_interval?: number;
-  blob_download_timeout?: number;
+  internalUrl?: string;
+  filesMaxCapacity?: number;
+  reposMaxCapacity?: number;
+  verificationMaxCapacity?: number;
+  containerRepositoriesMaxCapacity?: number;
+  selectiveSyncType?: 'namespaces' | 'shards' | null;
+  selectiveSyncShards?: string[];
+  selectiveSyncNamespaceIds?: number[];
+  minimumReverificationInterval?: number;
+  blobDownloadTimeout?: number;
 }
 
 export interface GeoSiteSchema extends Record<string, unknown> {
