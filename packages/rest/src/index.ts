@@ -81,6 +81,9 @@ export type Composer<C extends boolean = false> = CORE.Composer<C>;
 export const { Conan } = API;
 export type Conan<C extends boolean = false> = CORE.Conan<C>;
 
+export const { ConanV2 } = API;
+export type ConanV2<C extends boolean = false> = CORE.ConanV2<C>;
+
 export const { DataManagement } = API;
 export type DataManagement<C extends boolean = false> = CORE.DataManagement<C>;
 
@@ -345,6 +348,9 @@ export type Keys<C extends boolean = false> = CORE.Keys<C>;
 export const { License } = API;
 export type License<C extends boolean = false> = CORE.License<C>;
 
+export const { Licenses } = API;
+export type Licenses<C extends boolean = false> = CORE.Licenses<C>;
+
 export const { Lint } = API;
 export type Lint<C extends boolean = false> = CORE.Lint<C>;
 
@@ -608,6 +614,9 @@ export type Tags<C extends boolean = false> = CORE.Tags<C>;
 
 export const { TodoLists } = API;
 export type TodoLists<C extends boolean = false> = CORE.TodoLists<C>;
+
+export const { TerraformModules } = API;
+export type TerraformModules<C extends boolean = false> = CORE.TerraformModules<C>;
 
 export const { Topics } = API;
 export type Topics<C extends boolean = false> = CORE.Topics<C>;

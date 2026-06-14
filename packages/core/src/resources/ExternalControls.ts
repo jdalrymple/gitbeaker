@@ -22,14 +22,14 @@ export class ExternalControls<C extends boolean = false> extends BaseResource<C>
   ): Promise<GitlabAPIResponse<ExternalControlStatusSchema, C, E, void>> {
     const { sudo, showExpanded, timestamp, nonce, hmacSignature } = options || {};
     const headers: Record<string, string> = {};
-    const clonedService = { ...this }
+    const clonedService = { ...this };
 
     if (timestamp) headers['X-Gitlab-Timestamp'] = timestamp;
     if (nonce) headers['X-Gitlab-Nonce'] = nonce;
     if (hmacSignature) headers['X-Gitlab-Hmac-Sha256'] = hmacSignature;
 
     if (Object.keys(headers).length > 0) {
-      clonedService.headers = { ...clonedService.headers, ...headers }
+      clonedService.headers = { ...clonedService.headers, ...headers };
     }
 
     return RequestHelper.patch<ExternalControlStatusSchema>()(

@@ -99,9 +99,14 @@ export class GroupIntegrations<C extends boolean = false> extends BaseResource<C
     return RequestHelper.get<GroupIntegrationSchema[]>()(
       this,
       endpoint`groups/${groupId}/integrations`,
-      { sudo, showExpanded, maxPages, searchParams: searchParams as BaseRequestSearchParams &
-              PaginationRequestSearchParams<P> &
-              PaginationType<P>, },
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 

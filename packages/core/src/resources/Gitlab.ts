@@ -23,6 +23,7 @@ import { Commits } from './Commits';
 import { CompliancePolicySettings } from './CompliancePolicySettings';
 import { Composer } from './Composer';
 import { Conan } from './Conan';
+import { ConanV2 } from './ConanV2';
 import { ContainerRegistry } from './ContainerRegistry';
 import { ContainerRegistryProtectionTagRules } from './ContainerRegistryProtectionTagRules';
 import { ContainerRepositoryProtectionRules } from './ContainerRepositoryProtectionRules';
@@ -109,6 +110,7 @@ import { JobArtifacts } from './JobArtifacts';
 import { Jobs } from './Jobs';
 import { Keys } from './Keys';
 import { License } from './License';
+import { Licenses } from './Licenses';
 import { Lint } from './Lint';
 import { Markdown } from './Markdown';
 import { Maven } from './Maven';
@@ -194,6 +196,7 @@ import { Snippets } from './Snippets';
 import { Suggestions } from './Suggestions';
 import { SystemHooks } from './SystemHooks';
 import { Tags } from './Tags';
+import { TerraformModules } from './TerraformModules';
 import { TodoLists } from './TodoLists';
 import { Topics } from './Topics';
 import { UserCustomAttributes } from './UserCustomAttributes';
@@ -224,6 +227,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   CodeSuggestions: CodeSuggestions<C>;
   Composer: Composer<C>;
   Conan: Conan<C>;
+  ConanV2: ConanV2<C>;
   DataManagement: DataManagement<C>;
   DatabaseMigrations: DatabaseMigrations<C>;
   Debian: Debian<C>;
@@ -240,6 +244,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   InstanceLevelCICDVariables: InstanceLevelCICDVariables<C>;
   Keys: Keys<C>;
   License: License<C>;
+  Licenses: Licenses<C>;
   Lint: Lint<C>;
   Markdown: Markdown<C>;
   Maven: Maven<C>;
@@ -262,6 +267,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Snippets: Snippets<C>;
   Suggestions: Suggestions<C>;
   SystemHooks: SystemHooks<C>;
+  TerraformModules: TerraformModules<C>;
   TodoLists: TodoLists<C>;
   Topics: Topics<C>;
   Branches: Branches<C>;
@@ -427,6 +433,7 @@ const resources = {
   CodeSuggestions,
   Composer,
   Conan,
+  ConanV2,
   DataManagement,
   DatabaseMigrations,
   Debian,
@@ -441,6 +448,7 @@ const resources = {
   InstanceLevelCICDVariables,
   Keys,
   License,
+  Licenses,
   Lint,
   Markdown,
   Maven,
@@ -463,6 +471,7 @@ const resources = {
   Snippets,
   Suggestions,
   SystemHooks,
+  TerraformModules,
   TodoLists,
   Topics,
   Branches,

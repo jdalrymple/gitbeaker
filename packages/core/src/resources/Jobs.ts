@@ -26,8 +26,12 @@ export type JobScope =
   | 'failed'
   | 'success'
   | 'canceled'
+  | 'canceling'
   | 'skipped'
   | 'manual'
+  | 'scheduled'
+  | 'preparing'
+  | 'waiting_for_callback'
   | 'waiting_for_resource';
 
 export interface ArtifactSchema extends Record<string, unknown> {
@@ -45,6 +49,19 @@ export interface CondensedJobSchema extends Record<string, unknown> {
   project_name: string;
 }
 
+export interface RunnerManagerSchema extends Record<string, unknown> {
+  id: number;
+  system_id: string;
+  version: string;
+  revision: string;
+  platform: string;
+  architecture: string;
+  created_at: string;
+  contacted_at: string;
+  ip_address: string;
+  status: string;
+}
+
 export interface JobSchema extends Record<string, unknown> {
   id: number;
   name: string;
@@ -52,7 +69,9 @@ export interface JobSchema extends Record<string, unknown> {
   status: string;
   ref: string;
   tag: boolean;
-  coverage?: string;
+  coverage?: string | number | null;
+  archived: boolean;
+  source: string;
   allow_failure: boolean;
   created_at: string;
   started_at?: string;
@@ -65,12 +84,13 @@ export interface JobSchema extends Record<string, unknown> {
   pipeline: PipelineSchema;
   web_url: string;
   artifacts: ArtifactSchema[];
-  queued_duration: number;
-  artifacts_file: {
+  queued_duration?: number;
+  artifacts_file?: {
     filename: string;
     size: number;
-  };
-  runner: RunnerSchema;
+  } | null;
+  runner?: RunnerSchema | null;
+  runner_manager?: RunnerManagerSchema | null;
   artifacts_expire_at?: string;
   tag_list?: string[];
   project?: {
@@ -125,6 +145,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
       pipelineId?: number;
       scope?: JobScope | JobScope[];
       includeRetried?: boolean;
+      orderBy?: 'id';
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -164,9 +185,9 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   cancel<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: ShowExpanded<E> & Sudo,
+    options?: { force?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.post<JobSchema>()(
       this,
@@ -174,6 +195,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
+        searchParams,
       },
     );
   }
@@ -198,7 +220,11 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   play<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: { jobVariablesAttributes?: JobVariableAttributeOption[] } & ShowExpanded<E> & Sudo,
+    options?: {
+      jobVariablesAttributes?: JobVariableAttributeOption[];
+      jobInputs?: Record<string, unknown>;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -216,9 +242,9 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
   retry<E extends boolean = false>(
     projectId: string | number,
     jobId: number,
-    options?: ShowExpanded<E> & Sudo,
+    options?: { jobInputs?: Record<string, unknown> } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.post<JobSchema>()(
       this,
@@ -226,6 +252,7 @@ export class Jobs<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
+        body,
       },
     );
   }

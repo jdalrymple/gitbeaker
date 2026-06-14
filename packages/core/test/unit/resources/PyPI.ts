@@ -82,7 +82,8 @@ describe('PyPI.uploadPackageFile', () => {
     await service.uploadPackageFile(1, file);
 
     const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'pkg.txt');
+    expectedFormData.append('content', content, 'pkg.txt');
+
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/packages/pypi', {
       body: expectedFormData,
       showExpanded: undefined,

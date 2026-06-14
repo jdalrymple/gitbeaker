@@ -274,6 +274,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>ConanV2</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/conan.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ConanV2.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>DataManagement</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/admin/data_management.html">🦊</a>
@@ -1765,6 +1774,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/Tags.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>TerraformModules</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/terraform_modules.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/TerraformModules.ts">⌨️</a>
 </td>
 </tr>
 <tr>

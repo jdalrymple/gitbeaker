@@ -47,9 +47,14 @@ export class GroupProtectedBranches<C extends boolean = false> extends BaseResou
     return RequestHelper.get<GroupProtectedBranchSchema[]>()(
       this,
       endpoint`groups/${groupId}/protected_branches`,
-      { sudo, showExpanded, maxPages, searchParams: searchParams as BaseRequestSearchParams &
-              PaginationRequestSearchParams<P> &
-              PaginationType<P>, },
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
     );
   }
 

@@ -8,6 +8,7 @@ import {
   endpoint,
   ensureRequiredParams,
   getPrefixedUrl,
+  normalizeFormData,
 } from '../infrastructure';
 
 export class PyPI<C extends boolean = false> extends BaseResource<C> {
@@ -63,14 +64,48 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
   uploadPackageFile<E extends boolean = false>(
     projectId: string | number,
     packageFile: { content: Blob; filename: string },
-    options?: ShowExpanded<E> & Sudo,
+    options?: {
+      requiresPython?: string;
+      sha256Digest?: string;
+      name?: string;
+      version?: string;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...body } =
+      options || {};
 
-    return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/pypi`, {
+    return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/packages/pypi`, {
       sudo,
       showExpanded,
-      body: createFormData({ file: [packageFile.content, packageFile.filename] }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          content: [packageFile.content, packageFile.filename],
+        }),
+      ),
+    });
+  }
+
+  allPackages<E extends boolean = false>({
+    projectId,
+    groupId,
+    ...options
+  }: OneOf<{ projectId: string | number; groupId: string | number }> &
+    ShowExpanded<E> &
+    Sudo): Promise<GitlabAPIResponse<string, C, E, void>> {
+    ensureRequiredParams({ projectId, groupId });
+
+    const url = getPrefixedUrl('packages/pypi/simple', {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
+
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, url, {
+      sudo,
+      showExpanded,
     });
   }
 }
