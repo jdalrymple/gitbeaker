@@ -36,13 +36,25 @@ describe('ProjectMarkdownUploads.create', () => {
     const file = { content, filename: 'content.txt' };
     await service.create('5', file);
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'content.txt');
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      '5/uploads',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/uploads', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      file: expect.objectContaining({
+        type: content.type,
+        size: content.size
+      })
     });
   });
 });

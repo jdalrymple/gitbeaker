@@ -54,18 +54,32 @@ describe('ProjectImportExport.showExportStatus', () => {
 describe('ProjectImportExport.import', () => {
   it('should request POST /projects/import', async () => {
     const content = new Blob(['content'], { type: 'text/plain' });
+    const expectedFile = new File([content], 'test.tar.gz', { type: content.type });
 
     await service.import({ content, filename: 'test.tar.gz' }, 'path', { name: 'test' });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('name', 'test');
-    expectedFormData.append('path', 'path');
-    expectedFormData.append('file', new File([content], 'test.tar.gz', { type: content.type }));
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/import',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/import', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      name: 'test',
+      path: 'path',
+      file: expect.objectContaining({
+        type: expectedFile.type,
+        size: expectedFile.size,
+        name: expectedFile.name
+      })
     });
   });
 });

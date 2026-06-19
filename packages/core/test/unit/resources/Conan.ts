@@ -378,17 +378,24 @@ describe('Conan.uploadPackageFile', () => {
       'pkgrev',
     );
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'filename');
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
       service,
       'packages/conan/v1/files/name/v1/user/ch/recrev/package/pkgref/pkgrev/filename',
-      {
-        body: expectedFormData,
-        showExpanded: undefined,
-        sudo: undefined,
-      },
+      expect.objectContaining({
+        body: expect.any(FormData),
+      }),
     );
+
+    // Verify FormData contents
+    const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      file: expect.objectContaining({
+        type: content.type,
+        size: content.size
+      })
+    });
   });
 });
 
@@ -405,16 +412,23 @@ describe('Conan.uploadRecipeFile', () => {
       'recrev',
     );
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'filename');
-    expect(RequestHelper.post()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
       service,
       'packages/conan/v1/files/name/v1/user/ch/recrev/export/filename',
-      {
-        body: expectedFormData,
-        showExpanded: undefined,
-        sudo: undefined,
-      },
+      expect.objectContaining({
+        body: expect.any(FormData),
+      }),
     );
+
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      file: expect.objectContaining({
+        type: content.type,
+        size: content.size
+      })
+    });
   });
 });

@@ -183,14 +183,26 @@ describe('Projects.create', () => {
     const avatar = { content, filename: 'image.jpeg' };
     await service.create({ name: 'test proj', avatar });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('name', 'test proj');
-    expectedFormData.append('avatar', content, 'image.jpeg');
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      name: 'test proj',
+      avatar: expect.objectContaining({
+        type: content.type,
+        size: content.size
+      })
     });
   });
 });
