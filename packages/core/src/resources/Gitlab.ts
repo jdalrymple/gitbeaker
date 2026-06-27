@@ -89,6 +89,7 @@ import { GroupSecuritySettings } from './GroupSecuritySettings';
 import { GroupServiceAccounts } from './GroupServiceAccounts';
 import { GroupSSHCertificates } from './GroupSSHCertificates';
 import { GroupVariables } from './GroupVariables';
+import { GroupWikiNotes } from './GroupWikiNotes';
 import { GroupWikis } from './GroupWikis';
 import { Helm } from './Helm';
 import { Import } from './Import';
@@ -115,6 +116,7 @@ import { Lint } from './Lint';
 import { Markdown } from './Markdown';
 import { Maven } from './Maven';
 import { MergeRequestApprovals } from './MergeRequestApprovals';
+import { MergeRequestApprovalSettings } from './MergeRequestApprovalSettings';
 import { MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
 import { MergeRequestContextCommits } from './MergeRequestContextCommits';
 import { MergeRequestDiscussions } from './MergeRequestDiscussions';
@@ -128,18 +130,24 @@ import { MergeRequestStateEvents } from './MergeRequestStateEvents';
 import { MergeTrains } from './MergeTrains';
 import { Metadata } from './Metadata';
 import { Migrations } from './Migrations';
+import { ModelRegistry } from './ModelRegistry';
 import { Namespaces } from './Namespaces';
 import { NotificationSettings } from './NotificationSettings';
 import { NPM } from './NPM';
 import { NuGet } from './NuGet';
+import { Orbit } from './Orbit';
+import { Organizations } from './Organizations';
 import { PackageRegistry } from './PackageRegistry';
 import { Packages } from './Packages';
+import { Pages } from './Pages';
 import { PagesDomains } from './PagesDomains';
 import { PersonalAccessTokens } from './PersonalAccessTokens';
 import { Pipelines } from './Pipelines';
 import { PipelineSchedules } from './PipelineSchedules';
 import { PipelineScheduleVariables } from './PipelineScheduleVariables';
+import { PipelineTriggers } from './PipelineTriggers';
 import { PipelineTriggerTokens } from './PipelineTriggerTokens';
+import { PlanLimits } from './PlanLimits';
 import { ProductAnalytics } from './ProductAnalytics';
 import { ProjectAccessRequests } from './ProjectAccessRequests';
 import { ProjectAccessTokens } from './ProjectAccessTokens';
@@ -174,6 +182,7 @@ import { ProjectTemplates } from './ProjectTemplates';
 import { ProjectTerraformState } from './ProjectTerraformState';
 import { ProjectVariables } from './ProjectVariables';
 import { ProjectVulnerabilities } from './ProjectVulnerabilities';
+import { ProjectWikiNotes } from './ProjectWikiNotes';
 import { ProjectWikis } from './ProjectWikis';
 import { ProtectedTags } from './ProtectedTags';
 import { PyPI } from './PyPI';
@@ -250,11 +259,17 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Maven: Maven<C>;
   Metadata: Metadata<C>;
   Migrations: Migrations<C>;
+  ModelRegistry: ModelRegistry<C>;
   Namespaces: Namespaces<C>;
   NotificationSettings: NotificationSettings<C>;
   NPM: NPM<C>;
   NuGet: NuGet<C>;
+  Orbit: Orbit<C>;
+  Organizations: Organizations<C>;
+  Pages: Pages<C>;
   PersonalAccessTokens: PersonalAccessTokens<C>;
+  PipelineTriggers: PipelineTriggers<C>;
+  PlanLimits: PlanLimits<C>;
   PyPI: PyPI<C>;
   RubyGems: RubyGems<C>;
   Search: Search<C>;
@@ -309,6 +324,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   JobArtifacts: JobArtifacts<C>;
   Jobs: Jobs<C>;
   MergeRequestApprovals: MergeRequestApprovals<C>;
+  MergeRequestApprovalSettings: MergeRequestApprovalSettings<C>;
   MergeRequestAwardEmojis: MergeRequestAwardEmojis<C>;
   MergeRequestContextCommits: MergeRequestContextCommits<C>;
   MergeRequestDiscussions: MergeRequestDiscussions<C>;
@@ -360,6 +376,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectTerraformState: ProjectTerraformState<C>;
   ProjectVariables: ProjectVariables<C>;
   ProjectVulnerabilities: ProjectVulnerabilities<C>;
+  ProjectWikiNotes: ProjectWikiNotes<C>;
   ProjectWikis: ProjectWikis<C>;
   ProjectProtectedBranches: ProjectProtectedBranches<C>;
   ProtectedTags: ProtectedTags<C>;
@@ -407,6 +424,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupSCIMIdentities: GroupSCIMIdentities<C>;
   GroupServiceAccounts: GroupServiceAccounts<C>;
   GroupVariables: GroupVariables<C>;
+  GroupWikiNotes: GroupWikiNotes<C>;
   GroupWikis: GroupWikis<C>;
   UserCustomAttributes: UserCustomAttributes<C>;
   UserEmails: UserEmails<C>;
@@ -454,11 +472,17 @@ const resources = {
   Maven,
   Metadata,
   Migrations,
+  ModelRegistry,
   Namespaces,
   NotificationSettings,
   NPM,
   NuGet,
+  Orbit,
+  Organizations,
+  Pages,
   PersonalAccessTokens,
+  PipelineTriggers,
+  PlanLimits,
   PyPI,
   RubyGems,
   Search,
@@ -515,6 +539,7 @@ const resources = {
   JobArtifacts,
   Jobs,
   MergeRequestApprovals,
+  MergeRequestApprovalSettings,
   MergeRequestAwardEmojis,
   MergeRequestContextCommits,
   MergeRequestDiscussions,
@@ -566,6 +591,7 @@ const resources = {
   ProjectTerraformState,
   ProjectVariables,
   ProjectVulnerabilities,
+  ProjectWikiNotes,
   ProjectWikis,
   ProjectProtectedBranches,
   ProtectedTags,
@@ -613,6 +639,7 @@ const resources = {
   GroupSCIMIdentities,
   GroupServiceAccounts,
   GroupVariables,
+  GroupWikiNotes,
   GroupWikis,
   UserCustomAttributes,
   UserEmails,

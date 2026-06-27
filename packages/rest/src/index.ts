@@ -284,6 +284,9 @@ export type GroupServiceAccounts<C extends boolean = false> = CORE.GroupServiceA
 export const { GroupVariables } = API;
 export type GroupVariables<C extends boolean = false> = CORE.GroupVariables<C>;
 
+export const { GroupWikiNotes } = API;
+export type GroupWikiNotes<C extends boolean = false> = CORE.GroupWikiNotes<C>;
+
 export const { GroupWikis } = API;
 export type GroupWikis<C extends boolean = false> = CORE.GroupWikis<C>;
 
@@ -363,6 +366,10 @@ export type Maven<C extends boolean = false> = CORE.Maven<C>;
 export const { MergeRequestApprovals } = API;
 export type MergeRequestApprovals<C extends boolean = false> = CORE.MergeRequestApprovals<C>;
 
+export const { MergeRequestApprovalSettings } = API;
+export type MergeRequestApprovalSettings<C extends boolean = false> =
+  CORE.MergeRequestApprovalSettings<C>;
+
 export const { MergeRequestAwardEmojis } = API;
 export type MergeRequestAwardEmojis<C extends boolean = false> = CORE.MergeRequestAwardEmojis<C>;
 
@@ -402,6 +409,9 @@ export type Metadata<C extends boolean = false> = CORE.Metadata<C>;
 export const { Migrations } = API;
 export type Migrations<C extends boolean = false> = CORE.Migrations<C>;
 
+export const { ModelRegistry } = API;
+export type ModelRegistry<C extends boolean = false> = CORE.ModelRegistry<C>;
+
 export const { Namespaces } = API;
 export type Namespaces<C extends boolean = false> = CORE.Namespaces<C>;
 
@@ -414,6 +424,15 @@ export type NPM<C extends boolean = false> = CORE.NPM<C>;
 export const { NuGet } = API;
 export type NuGet<C extends boolean = false> = CORE.NuGet<C>;
 
+export const { Orbit } = API;
+export type Orbit<C extends boolean = false> = CORE.Orbit<C>;
+
+export const { Organizations } = API;
+export type Organizations<C extends boolean = false> = CORE.Organizations<C>;
+
+export const { Pages } = API;
+export type Pages<C extends boolean = false> = CORE.Pages<C>;
+
 export const { PackageRegistry } = API;
 export type PackageRegistry<C extends boolean = false> = CORE.PackageRegistry<C>;
 
@@ -425,6 +444,9 @@ export type PagesDomains<C extends boolean = false> = CORE.PagesDomains<C>;
 
 export const { PersonalAccessTokens } = API;
 export type PersonalAccessTokens<C extends boolean = false> = CORE.PersonalAccessTokens<C>;
+
+export const { PipelineTriggers } = API;
+export type PipelineTriggers<C extends boolean = false> = CORE.PipelineTriggers<C>;
 
 export const { PipelineSchedules } = API;
 export type PipelineSchedules<C extends boolean = false> = CORE.PipelineSchedules<C>;
@@ -542,6 +564,9 @@ export type ProjectVariables<C extends boolean = false> = CORE.ProjectVariables<
 export const { ProjectVulnerabilities } = API;
 export type ProjectVulnerabilities<C extends boolean = false> = CORE.ProjectVulnerabilities<C>;
 
+export const { ProjectWikiNotes } = API;
+export type ProjectWikiNotes<C extends boolean = false> = CORE.ProjectWikiNotes<C>;
+
 export const { ProjectWikis } = API;
 export type ProjectWikis<C extends boolean = false> = CORE.ProjectWikis<C>;
 
@@ -550,6 +575,9 @@ export type ProjectProtectedBranches<C extends boolean = false> = CORE.ProjectPr
 
 export const { ProtectedTags } = API;
 export type ProtectedTags<C extends boolean = false> = CORE.ProtectedTags<C>;
+
+export const { PlanLimits } = API;
+export type PlanLimits<C extends boolean = false> = CORE.PlanLimits<C>;
 
 export const { PyPI } = API;
 export type PyPI<C extends boolean = false> = CORE.PyPI<C>;

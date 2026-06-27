@@ -151,4 +151,21 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
       },
     );
   }
+
+  allPipelines<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<PipelineSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/packages/${packageId}/pipelines`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
 }

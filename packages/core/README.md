@@ -832,6 +832,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>GroupWikiNotes</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#group-wikis">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupWikiNotes.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupWikis</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/group_wikis.html">🦊</a>
@@ -1066,6 +1075,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>MergeRequestApprovalSettings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_request_approval_settings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/MergeRequestApprovalSettings.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>MergeRequestAwardEmojis</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
@@ -1158,10 +1176,19 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Metadata</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metadata.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/metadata.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Metadata.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ModelRegistry</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/model_registry.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ModelRegistry.ts">⌨️</a>
 </td>
 </tr>
 <tr>
@@ -1558,6 +1585,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/ProjectVulnerabilities.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ProjectWikiNotes</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#project-wikis">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ProjectWikiNotes.ts">⌨️</a>
 </td>
 </tr>
 <tr>

@@ -10,14 +10,17 @@ import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 export interface ProjectLevelMergeRequestApprovalSchema extends Record<string, unknown> {
   approvals_before_merge: number;
   reset_approvals_on_push: boolean;
+  selective_code_owner_removals: boolean;
   disable_overriding_approvers_per_merge_request: boolean;
   merge_requests_author_approval: boolean;
   merge_requests_disable_committers_approval: boolean;
   require_password_to_approve: boolean;
+  require_reauthentication_to_approve: boolean;
 }
 
-export interface ApprovedByEntity {
+export interface ApprovedByEntitySchema {
   user: MappedOmit<SimpleUserSchema, 'created_at'>;
+  approved_at?: string;
 }
 
 export interface MergeRequestLevelMergeRequestApprovalSchema extends Record<string, unknown> {
@@ -32,7 +35,7 @@ export interface MergeRequestLevelMergeRequestApprovalSchema extends Record<stri
   merge_status: string;
   approvals_required: number;
   approvals_left: number;
-  approved_by?: ApprovedByEntity[];
+  approved_by?: ApprovedByEntitySchema[];
 }
 
 export interface ApprovalRuleSchema extends Record<string, unknown> {
@@ -49,6 +52,7 @@ export interface ApprovalRuleSchema extends Record<string, unknown> {
 
 export interface ProjectLevelApprovalRuleSchema extends ApprovalRuleSchema {
   protected_branches?: ProtectedBranchSchema[];
+  applies_to_all_protected_branches?: boolean;
 }
 
 export interface MergeRequestLevelApprovalRuleSchema extends ApprovalRuleSchema {
@@ -84,6 +88,7 @@ export type EditConfigurationOptions = {
   mergeRequestsAuthorApproval?: boolean;
   mergeRequestsDisableCommittersApproval?: boolean;
   requirePasswordToApprove?: boolean;
+  requireReauthenticationToApprove?: boolean;
   resetApprovalsOnPush?: boolean;
   selectiveCodeOwnerRemovals?: boolean;
 };
@@ -320,6 +325,20 @@ export class MergeRequestApprovals<C extends boolean = false> extends BaseResour
     return RequestHelper.post<void>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/unapprove`,
+      { sudo, showExpanded },
+    );
+  }
+
+  resetApprovals<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.put<void>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/reset_approvals`,
       { sudo, showExpanded },
     );
   }

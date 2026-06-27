@@ -47,7 +47,51 @@ export type AllPersonalAccessTokenOptions = {
   lastUsedAfter?: string;
   createdBefore?: string;
   createdAfter?: string;
+  expiresAfter?: string;
+  expiresBefore?: string;
+  sort?: 'created_asc' | 'created_desc' | 'expires_asc' | 'expires_desc' | 'last_used_asc' | 'last_used_desc' | 'name_asc' | 'name_desc';
 };
+
+export interface TokenAssociationGroupSchema extends Record<string, unknown> {
+  id: number;
+  web_url: string;
+  name: string;
+  parent_id: number | null;
+  organization_id: number;
+  access_levels: number;
+  visibility: string;
+}
+
+export interface TokenAssociationProjectSchema extends Record<string, unknown> {
+  id: number;
+  description: string;
+  name: string;
+  name_with_namespace: string;
+  path: string;
+  path_with_namespace: string;
+  created_at: string;
+  access_levels: {
+    project_access_level: number | null;
+    group_access_level: number | null;
+  };
+  visibility: string;
+  web_url: string;
+  namespace: {
+    id: number;
+    name: string;
+    path: string;
+    kind: string;
+    full_path: string;
+    parent_id: number | null;
+    avatar_url: string | null;
+    web_url: string;
+  };
+}
+
+export interface TokenAssociationsSchema extends Record<string, unknown> {
+  groups: TokenAssociationGroupSchema[];
+  projects: TokenAssociationProjectSchema[];
+}
 
 export class PersonalAccessTokens<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -138,5 +182,28 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
       sudo,
       showExpanded,
     });
+  }
+
+  allAssociations<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: {
+      minAccessLevel?: 5 | 10 | 15 | 20 | 25 | 30 | 40 | 50;
+      page?: number;
+      perPage?: number;
+    } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<TokenAssociationsSchema, C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<TokenAssociationsSchema>()(
+      this,
+      'personal_access_tokens/self/associations',
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
+      },
+    );
   }
 }
