@@ -72,8 +72,7 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { sudo, showExpanded, ...body } =
-      options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.post<void>()(this, endpoint`projects/${projectId}/packages/pypi`, {
       sudo,

@@ -393,8 +393,8 @@ describe('Conan.uploadPackageFile', () => {
     expect(formDataObj).toEqual({
       file: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });
@@ -427,8 +427,8 @@ describe('Conan.uploadRecipeFile', () => {
     expect(formDataObj).toEqual({
       file: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

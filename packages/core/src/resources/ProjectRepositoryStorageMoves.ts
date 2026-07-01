@@ -32,8 +32,11 @@ export interface ProjectRepositoryStorageMoves<C extends boolean = false>
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    sourceStorageName: string,
-    options?: { projectId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+    options?: {
+      projectId?: string | number;
+      sourceStorageName?: string;
+      destinationStorageName?: string;
+    } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 }

@@ -8,6 +8,8 @@ import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface PushRuleSchema extends Record<string, unknown> {
   id: number;
+  project_id?: number;
+  group_id?: number;
   commit_message_regex: string | null;
   commit_message_negative_regex: string | null;
   branch_name_regex: string | null;

@@ -75,7 +75,18 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     options?: {
       scope?: 'running' | 'pending' | 'finished' | 'branches' | 'tags';
       sort?: 'asc' | 'desc';
-      status?: 'created' | 'waiting_for_resource' | 'preparing' | 'pending' | 'running' | 'success' | 'failed' | 'canceled' | 'skipped' | 'manual' | 'scheduled';
+      status?:
+        | 'created'
+        | 'waiting_for_resource'
+        | 'preparing'
+        | 'pending'
+        | 'running'
+        | 'success'
+        | 'failed'
+        | 'canceled'
+        | 'skipped'
+        | 'manual'
+        | 'scheduled';
       updatedAfter?: string;
       updatedBefore?: string;
       createdAfter?: string;
@@ -106,11 +117,12 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     description: string,
     ref: string,
     cron: string,
-    options?: { 
-      cronTimezone?: string; 
+    options?: {
+      cronTimezone?: string;
       active?: boolean;
       inputs?: PipelineInputSchema[];
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

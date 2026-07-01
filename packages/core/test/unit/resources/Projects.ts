@@ -201,8 +201,8 @@ describe('Projects.create', () => {
       name: 'test proj',
       avatar: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

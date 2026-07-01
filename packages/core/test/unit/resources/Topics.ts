@@ -76,8 +76,8 @@ describe('Topics.create', () => {
       name: 'topicname',
       avatar: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });
@@ -115,8 +115,8 @@ describe('Topics.edit', () => {
     expect(formDataObj).toEqual({
       avatar: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

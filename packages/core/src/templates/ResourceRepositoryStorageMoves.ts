@@ -79,24 +79,30 @@ export class ResourceRepositoryStorageMoves<C extends boolean = false> extends B
   }
 
   schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    sourceStorageName: string,
-    options?: { destinationStorageName?: string } & BaseRequestSearchParams &
+    options?: {
+      sourceStorageName?: string;
+      destinationStorageName?: string;
+    } & BaseRequestSearchParams &
       ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<RepositoryStorageMoveSchema, C, E, P>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { sudo, showExpanded, sourceStorageName, destinationStorageName, ...body } =
+      options || {};
     const resourceId = body?.[`${this.resourceTypeSingular}Id`] as string | number;
     const url = resourceId
       ? endpoint`${this.resourceType}/${resourceId}/repository_storage_moves`
       : `${this.resourceTypeSingular}_repository_storage_moves`;
 
+    // For project-specific moves, only send destinationStorageName
+    // For bulk moves, only send sourceStorageName
+    const requestBody = resourceId
+      ? { destination_storage_name: destinationStorageName }
+      : { source_storage_name: sourceStorageName };
+
     return RequestHelper.post<RepositoryStorageMoveSchema>()(this, url, {
       sudo,
       showExpanded,
-      body: {
-        ...body,
-        sourceStorageName,
-      },
+      body: requestBody,
     });
   }
 }

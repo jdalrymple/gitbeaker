@@ -62,8 +62,8 @@ describe('ApplicationAppearance.edit', () => {
     expect(formDataObj).toEqual({
       logo: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 
@@ -89,8 +89,8 @@ describe('ApplicationAppearance.edit', () => {
     expect(formDataObj).toEqual({
       pwa_icon: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

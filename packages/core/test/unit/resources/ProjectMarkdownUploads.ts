@@ -53,8 +53,8 @@ describe('ProjectMarkdownUploads.create', () => {
     expect(formDataObj).toEqual({
       file: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

@@ -69,8 +69,8 @@ describe('GroupImportExport.import', () => {
       file: expect.objectContaining({
         type: expectedFile.type,
         size: expectedFile.size,
-        name: expectedFile.name
-      })
+        name: expectedFile.name,
+      }),
     });
   });
 });

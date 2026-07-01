@@ -1329,7 +1329,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAccessTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_access_tokens.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_access_tokens.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAccessTokens.ts">⌨️</a>
@@ -1338,7 +1338,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAliases</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_aliases.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_aliases.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAliases.ts">⌨️</a>
@@ -1347,7 +1347,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectBadges</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_badges.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_badges.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectBadges.ts">⌨️</a>
@@ -1383,7 +1383,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectImportExports</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_import_export.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_import_export.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectImportExports.ts">⌨️</a>
@@ -1608,7 +1608,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Projects</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/projects.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/projects.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Projects.ts">⌨️</a>

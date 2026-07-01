@@ -67,28 +67,30 @@ export class Orbit<C extends boolean = false> extends BaseResource<C> {
     options?: {
       expand?: string;
       responseFormat?: 'raw' | 'llm';
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<OrbitSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<OrbitSchema>()(this, 'orbit/schema', {
       sudo,
       showExpanded,
-      searchParams
+      searchParams,
     });
   }
 
   showStatus<E extends boolean = false>(
     options?: {
       responseFormat?: 'raw' | 'llm';
-    } & ShowExpanded<E> & Sudo,
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<OrbitStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<OrbitStatusSchema>()(this, 'orbit/status', {
       sudo,
       showExpanded,
-      searchParams
+      searchParams,
     });
   }
 

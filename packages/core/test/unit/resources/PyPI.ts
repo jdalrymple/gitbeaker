@@ -98,8 +98,8 @@ describe('PyPI.uploadPackageFile', () => {
     expect(formDataObj).toEqual({
       content: expect.objectContaining({
         type: content.type,
-        size: content.size
-      })
+        size: content.size,
+      }),
     });
   });
 });

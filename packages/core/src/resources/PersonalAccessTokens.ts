@@ -49,7 +49,15 @@ export type AllPersonalAccessTokenOptions = {
   createdAfter?: string;
   expiresAfter?: string;
   expiresBefore?: string;
-  sort?: 'created_asc' | 'created_desc' | 'expires_asc' | 'expires_desc' | 'last_used_asc' | 'last_used_desc' | 'name_asc' | 'name_desc';
+  sort?:
+    | 'created_asc'
+    | 'created_desc'
+    | 'expires_asc'
+    | 'expires_desc'
+    | 'last_used_asc'
+    | 'last_used_desc'
+    | 'name_asc'
+    | 'name_desc';
 };
 
 export interface TokenAssociationGroupSchema extends Record<string, unknown> {
@@ -189,7 +197,9 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
       minAccessLevel?: 5 | 10 | 15 | 20 | 25 | 30 | 40 | 50;
       page?: number;
       perPage?: number;
-    } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+    } & PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<TokenAssociationsSchema, C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 

@@ -146,6 +146,7 @@ export * from './ProjectRelationsExport';
 export * from './ProjectReleases';
 export * from './ProjectRemoteMirrors';
 export * from './ProjectRepositoryStorageMoves';
+export * from './ProjectSecuritySettings';
 export * from './ProjectSnippetAwardEmojis';
 export * from './ProjectSnippetDiscussions';
 export * from './ProjectSnippetNotes';

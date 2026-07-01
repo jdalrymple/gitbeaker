@@ -13,9 +13,18 @@ import type {
 
 import { RequestHelper, endpoint } from '../infrastructure';
 
+export interface RemoteMirrorHostKey {
+  fingerprint_sha256: string;
+}
+
+export interface RemoteMirrorPublicKey {
+  public_key: string;
+}
+
 export interface ProjectRemoteMirrorSchema extends Record<string, unknown> {
   enabled: boolean;
   id: number;
+  auth_method?: string;
   last_error?: string;
   last_successful_update_at: string;
   last_update_at: string;
@@ -24,6 +33,7 @@ export interface ProjectRemoteMirrorSchema extends Record<string, unknown> {
   keep_divergent_refs: boolean;
   update_status: string;
   url: string;
+  host_keys?: RemoteMirrorHostKey[];
 }
 
 export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResource<C> {
@@ -76,6 +86,8 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     url: string,
     options?: {
       enabled?: boolean;
+      authMethod?: 'ssh_public_key' | 'password';
+      hostKeys?: string[];
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
       mirrorBranchRegex?: string;
@@ -103,6 +115,8 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     mirrorId: number,
     options?: {
       enabled?: boolean;
+      authMethod?: 'ssh_public_key' | 'password';
+      hostKeys?: string[];
       onlyProtectedBranches?: boolean;
       keepDivergentRefs?: boolean;
       mirrorBranchRegex?: string;
@@ -111,7 +125,7 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
   ): Promise<GitlabAPIResponse<ProjectRemoteMirrorSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<ProjectRemoteMirrorSchema>()(
+    return RequestHelper.put<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
       {
@@ -145,6 +159,23 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     return RequestHelper.get<ProjectRemoteMirrorSchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
+  publicKey<E extends boolean = false>(
+    projectId: string | number,
+    mirrorId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<RemoteMirrorPublicKey, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<RemoteMirrorPublicKey>()(
+      this,
+      endpoint`projects/${projectId}/remote_mirrors/${mirrorId}/public_key`,
       {
         sudo,
         showExpanded,

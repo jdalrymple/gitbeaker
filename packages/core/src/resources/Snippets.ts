@@ -30,6 +30,8 @@ export interface SimpleSnippetSchema extends Record<string, unknown> {
 export interface SnippetSchema extends SimpleSnippetSchema {
   visibility: SnippetVisibility;
   raw_url: string;
+  imported?: boolean;
+  imported_from?: string;
 }
 
 export interface ExpandedSnippetSchema extends SnippetSchema {

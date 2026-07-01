@@ -9,7 +9,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { InvitationSchema, InvitationResponseSchema, UpdateInvitationResponseSchema } from '../templates/ResourceInvitations';
+import type {
+  InvitationSchema,
+  InvitationResponseSchema,
+  UpdateInvitationResponseSchema,
+} from '../templates/ResourceInvitations';
 
 import { AccessLevel } from '../constants';
 import { ResourceInvitations } from '../templates';

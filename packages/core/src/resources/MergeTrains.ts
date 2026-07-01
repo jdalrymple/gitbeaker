@@ -14,7 +14,12 @@ import type { CondensedMergeRequestSchema } from './MergeRequests';
 import type { PipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
 
-import { BaseRequestSearchParams, RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  RequestHelper,
+  endpoint,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export interface MergeTrainSchema extends Record<string, unknown> {
   id: number;
@@ -43,22 +48,18 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
     const { sudo, showExpanded, maxPages, targetBranch, ...searchParams } = options || {};
 
     const url = getPrefixedUrl('', {
-      'projects': projectId,
-      'merge_trains': targetBranch || true
-    })
+      projects: projectId,
+      merge_trains: targetBranch || true,
+    });
 
-    return RequestHelper.get<MergeTrainSchema[]>()(
-      this,
-      url,
-      {
-        sudo,
-        showExpanded,
-        maxPages,
-        searchParams: searchParams as BaseRequestSearchParams &
-          PaginationRequestSearchParams<P> &
-          PaginationType<P>,
-      },
-    );
+    return RequestHelper.get<MergeTrainSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   showStatus<E extends boolean = false>(
