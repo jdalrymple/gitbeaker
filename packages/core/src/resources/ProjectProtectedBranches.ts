@@ -26,6 +26,7 @@ export interface ExtendedProtectedBranchAccessLevelSchema {
   access_level_description: string;
   user_id?: number | null;
   group_id?: number | null;
+  deploy_key_id?: number | null;
 }
 
 export interface ProtectedBranchSchema extends Record<string, unknown> {
@@ -36,11 +37,13 @@ export interface ProtectedBranchSchema extends Record<string, unknown> {
   unprotect_access_levels?: ExtendedProtectedBranchAccessLevelSchema[];
   allow_force_push: boolean;
   code_owner_approval_required: boolean;
+  inherited?: boolean;
 }
 
 export type CreateProtectedBranchAllowOptions =
   | { userId: number }
   | { groupId: number }
+  | { deployKeyId: number }
   | { accessLevel: ProtectedBranchAccessLevel };
 
 export type EditProtectedBranchAllowOptions = {
@@ -48,6 +51,7 @@ export type EditProtectedBranchAllowOptions = {
 } & (
   | { userId: number }
   | { groupId: number }
+  | { deployKeyId: number }
   | {
       accessLevel: ProtectedBranchAccessLevel;
       id: number;
@@ -130,9 +134,9 @@ export class ProjectProtectedBranches<C extends boolean = false> extends BaseRes
   edit<E extends boolean = false>(
     projectId: string | number,
     branchName: string,
-    options?: BaseRequestSearchParams & EditProtectedBranchOptions & ShowExpanded<E> & Sudo,
+    options?: EditProtectedBranchOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProtectedBranchSchema, C, E, void>> {
-    const { sudo, showExpanded, ...searchParams } = options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.patch<ProtectedBranchSchema>()(
       this,
@@ -140,7 +144,7 @@ export class ProjectProtectedBranches<C extends boolean = false> extends BaseRes
       {
         sudo,
         showExpanded,
-        searchParams,
+        body,
       },
     );
   }

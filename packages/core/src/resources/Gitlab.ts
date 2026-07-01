@@ -121,6 +121,7 @@ import { MergeRequestAwardEmojis } from './MergeRequestAwardEmojis';
 import { MergeRequestContextCommits } from './MergeRequestContextCommits';
 import { MergeRequestDiscussions } from './MergeRequestDiscussions';
 import { MergeRequestDraftNotes } from './MergeRequestDraftNotes';
+import { MergeRequestIterationEvents } from './MergeRequestIterationEvents';
 import { MergeRequestLabelEvents } from './MergeRequestLabelEvents';
 import { MergeRequestMilestoneEvents } from './MergeRequestMilestoneEvents';
 import { MergeRequestNoteAwardEmojis } from './MergeRequestNoteAwardEmojis';
@@ -167,6 +168,7 @@ import { ProjectMembers } from './ProjectMembers';
 import { ProjectMilestones } from './ProjectMilestones';
 import { ProjectProtectedBranches } from './ProjectProtectedBranches';
 import { ProjectProtectedEnvironments } from './ProjectProtectedEnvironments';
+import { ProjectPullMirroring } from './ProjectPullMirroring';
 import { ProjectPushRules } from './ProjectPushRules';
 import { ProjectRelationsExport } from './ProjectRelationsExport';
 import { ProjectReleases } from './ProjectReleases';
@@ -328,6 +330,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   MergeRequestAwardEmojis: MergeRequestAwardEmojis<C>;
   MergeRequestContextCommits: MergeRequestContextCommits<C>;
   MergeRequestDiscussions: MergeRequestDiscussions<C>;
+  MergeRequestIterationEvents: MergeRequestIterationEvents<C>;
   MergeRequestLabelEvents: MergeRequestLabelEvents<C>;
   MergeRequestMilestoneEvents: MergeRequestMilestoneEvents<C>;
   MergeRequestStateEvents: MergeRequestStateEvents<C>;
@@ -361,6 +364,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectMembers: ProjectMembers<C>;
   ProjectMilestones: ProjectMilestones<C>;
   ProjectProtectedEnvironments: ProjectProtectedEnvironments<C>;
+  ProjectPullMirroring: ProjectPullMirroring<C>;
   ProjectPushRules: ProjectPushRules<C>;
   ProjectRelationsExport: ProjectRelationsExport<C>;
   ProjectReleases: ProjectReleases<C>;
@@ -543,6 +547,7 @@ const resources = {
   MergeRequestAwardEmojis,
   MergeRequestContextCommits,
   MergeRequestDiscussions,
+  MergeRequestIterationEvents,
   MergeRequestLabelEvents,
   MergeRequestMilestoneEvents,
   MergeRequestStateEvents,
@@ -576,6 +581,7 @@ const resources = {
   ProjectMembers,
   ProjectMilestones,
   ProjectProtectedEnvironments,
+  ProjectPullMirroring,
   ProjectPushRules,
   ProjectRelationsExport,
   ProjectReleases,

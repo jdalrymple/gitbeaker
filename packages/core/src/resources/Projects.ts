@@ -190,6 +190,14 @@ export interface ProjectSchema extends SimpleProjectSchema {
   compliance_frameworks: string[] | null;
   warn_about_potentially_unwanted_characters: boolean;
   secret_push_protection_enabled: boolean;
+  repository_object_format: 'sha1' | 'sha256';
+  package_registry_access_level: string;
+  mr_default_title_template: string | null;
+  emails_enabled: boolean;
+  ci_pipeline_variables_minimum_override_role: string;
+  ci_display_pipeline_variables: boolean;
+  model_experiments_access_level: string;
+  model_registry_access_level: string;
   statistics: ProjectStatisticsSchema;
   container_registry_image_prefix: string;
   _links: {
@@ -282,6 +290,7 @@ export type CreateProjectOptions = {
   defaultBranch?: string;
   description?: string;
   emailsDisabled?: boolean;
+  emailsEnabled?: boolean;
   externalAuthorizationClassificationLabel?: string;
   forkingAccessLevel?: AccessLevelSettingState;
   groupWithProjectTemplatesId?: number;
@@ -295,10 +304,12 @@ export type CreateProjectOptions = {
   mergeTrainsEnabled?: boolean;
   mirrorTriggerBuilds?: boolean;
   mirror?: boolean;
+  mrDefaultTitleTemplate?: string;
   namespaceId?: number;
   onlyAllowMergeIfAllDiscussionsAreResolved?: boolean;
   onlyAllowMergeIfPipelineSucceeds?: boolean;
   packagesEnabled?: boolean;
+  packageRegistryAccessLevel?: AccessLevelSettingState;
   pagesAccessLevel?: AccessLevelSettingState | 'public';
   printingMergeRequestLinkEnabled?: boolean;
   publicBuilds?: boolean;
@@ -307,8 +318,11 @@ export type CreateProjectOptions = {
   featureFlagsAccessLevel?: AccessLevelSettingState;
   infrastructureAccessLevel?: AccessLevelSettingState;
   monitorAccessLevel?: AccessLevelSettingState;
+  modelExperimentsAccessLevel?: AccessLevelSettingState;
+  modelRegistryAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
   repositoryAccessLevel?: AccessLevelSettingState;
+  repositoryObjectFormat?: 'sha1' | 'sha256';
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
   requirementsAccessLevel?: AccessLevelSettingState;
@@ -376,6 +390,7 @@ export type EditProjectOptions = {
   onlyAllowMergeIfPipelineSucceeds?: boolean;
   onlyMirrorProtectedBranches?: boolean;
   packagesEnabled?: boolean;
+  packageRegistryAccessLevel?: string;
   pagesAccessLevel?: string;
   path?: string;
   printingMergeRequestLinkEnabled?: boolean;
@@ -385,8 +400,11 @@ export type EditProjectOptions = {
   featureFlagsAccessLevel?: AccessLevelSettingState;
   infrastructureAccessLevel?: AccessLevelSettingState;
   monitorAccessLevel?: AccessLevelSettingState;
+  modelExperimentsAccessLevel?: AccessLevelSettingState;
+  modelRegistryAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
   repositoryAccessLevel?: AccessLevelSettingState;
+  repositoryObjectFormat?: 'sha1' | 'sha256';
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
   requirementsAccessLevel?: AccessLevelSettingState;

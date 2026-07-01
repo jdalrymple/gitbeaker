@@ -26,6 +26,36 @@ export interface RepositoryCompareSchema extends Record<string, unknown> {
   diffs?: CommitDiffSchema[];
   compare_timeout: boolean;
   compare_same_ref: boolean;
+  collapsed?: boolean;
+  too_large?: boolean;
+}
+
+export interface RepositoryHealthSchema extends Record<string, unknown> {
+  size: number;
+  objects: {
+    count: number;
+    size: number;
+  };
+  refs: {
+    count: number;
+    size: number;
+  };
+  packfiles: {
+    count: number;
+    size: number;
+  };
+  alternate_objects: {
+    count: number;
+    size: number;
+  };
+  loose_objects: {
+    count: number;
+    size: number;
+  };
+  packfile_objects: {
+    count: number;
+    size: number;
+  };
 }
 
 export interface RepositoryContributorSchema extends Record<string, unknown> {
@@ -83,6 +113,7 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
     options?: {
       orderBy?: string;
       sort?: string;
+      ref?: string;
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<RepositoryContributorSchema[], C, E, void>> {
@@ -95,6 +126,22 @@ export class Repositories<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         searchParams,
+      },
+    );
+  }
+
+  showHealth<E extends boolean = false>(
+    projectId: string | number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<RepositoryHealthSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<RepositoryHealthSchema>()(
+      this,
+      endpoint`projects/${projectId}/repository/health`,
+      {
+        sudo,
+        showExpanded,
       },
     );
   }
