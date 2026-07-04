@@ -194,12 +194,15 @@ import { RepositoryFiles } from './RepositoryFiles';
 import { RepositorySubmodules } from './RepositorySubmodules';
 import { ResourceGroups } from './ResourceGroups';
 import { RubyGems } from './RubyGems';
+import { RunnerControllers } from './RunnerControllers';
+import { RunnerControllerTokens } from './RunnerControllerTokens';
 import { Runners } from './Runners';
 import { Search } from './Search';
 import { SearchAdmin } from './SearchAdmin';
 import { SecureFiles } from './SecureFiles';
 import { ServiceAccounts } from './ServiceAccounts';
 import { ServiceData } from './ServiceData';
+import { ServicePing } from './ServicePing';
 import { SidekiqMetrics } from './SidekiqMetrics';
 import { SidekiqQueues } from './SidekiqQueues';
 import { SnippetRepositoryStorageMoves } from './SnippetRepositoryStorageMoves';
@@ -274,10 +277,14 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   PlanLimits: PlanLimits<C>;
   PyPI: PyPI<C>;
   RubyGems: RubyGems<C>;
+  RunnerControllers: RunnerControllers<C>;
+  RunnerControllerTokens: RunnerControllerTokens<C>;
+  Runners: Runners<C>;
   Search: Search<C>;
   SearchAdmin: SearchAdmin<C>;
   ServiceAccounts: ServiceAccounts<C>;
   ServiceData: ServiceData<C>;
+  ServicePing: ServicePing<C>;
   SidekiqMetrics: SidekiqMetrics<C>;
   SidekiqQueues: SidekiqQueues<C>;
   SnippetRepositoryStorageMoves: SnippetRepositoryStorageMoves<C>;
@@ -489,10 +496,14 @@ const resources = {
   PlanLimits,
   PyPI,
   RubyGems,
+  RunnerControllers,
+  RunnerControllerTokens,
+  Runners,
   Search,
   SearchAdmin,
   ServiceAccounts,
   ServiceData,
+  ServicePing,
   SidekiqMetrics,
   SidekiqQueues,
   SnippetRepositoryStorageMoves,
@@ -606,7 +617,6 @@ const resources = {
   RepositoryFiles,
   RepositorySubmodules,
   ResourceGroups,
-  Runners,
   SecureFiles,
   Tags,
   UserStarredMetricsDashboard,
