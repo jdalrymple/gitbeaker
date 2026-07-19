@@ -7,7 +7,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { ExpandedHookSchema, AddResourceHookOptions, EditResourceHookOptions } from '../templates/ResourceHooks';
+import type { ExpandedHookSchema, AddResourceHookOptions } from '../templates/ResourceHooks';
 
 import { RequestHelper } from '../infrastructure';
 
@@ -20,9 +20,24 @@ export interface SystemHookTestResponse extends Record<string, unknown> {
   event_name: string;
 }
 
-export type CreateSystemHookOptions = Omit<AddResourceHookOptions, 'issuesEvents' | 'confidentialIssuesEvents' | 'noteEvents' | 'confidentialNoteEvents' | 'jobEvents' | 'pipelineEvents' | 'wikiPageEvents' | 'deploymentEvents' | 'featureFlagEvents' | 'milestoneEvents' | 'subgroupEvents' | 'projectEvents' | 'resourceAccessTokenEvents'> & {
+export type CreateSystemHookOptions = {
   repositoryUpdateEvents?: boolean;
-};
+} & Omit<
+  AddResourceHookOptions,
+  | 'issuesEvents'
+  | 'confidentialIssuesEvents'
+  | 'noteEvents'
+  | 'confidentialNoteEvents'
+  | 'jobEvents'
+  | 'pipelineEvents'
+  | 'wikiPageEvents'
+  | 'deploymentEvents'
+  | 'featureFlagEvents'
+  | 'milestoneEvents'
+  | 'subgroupEvents'
+  | 'projectEvents'
+  | 'resourceAccessTokenEvents'
+>;
 
 export type EditSystemHookOptions = CreateSystemHookOptions;
 

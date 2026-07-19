@@ -9,6 +9,8 @@ export interface UserSSHKeySchema extends Record<string, unknown> {
   key: string;
   title: string;
   created_at: string;
+  expires_at?: string;
+  usage_type: 'auth' | 'signing' | 'auth_and_signing';
 }
 
 export class UserSSHKeys<C extends boolean = false> extends BaseResource<C> {

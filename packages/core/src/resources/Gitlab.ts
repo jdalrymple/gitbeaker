@@ -212,14 +212,21 @@ import { SystemHooks } from './SystemHooks';
 import { Tags } from './Tags';
 import { TerraformModules } from './TerraformModules';
 import { TodoLists } from './TodoLists';
+import { TokenInformation } from './TokenInformation';
 import { Topics } from './Topics';
 import { UserCustomAttributes } from './UserCustomAttributes';
 import { UserEmails } from './UserEmails';
+import { UserFollows } from './UserFollows';
 import { UserGPGKeys } from './UserGPGKeys';
 import { UserImpersonationTokens } from './UserImpersonationTokens';
+import { UserModeration } from './UserModeration';
 import { Users } from './Users';
 import { UserSSHKeys } from './UserSSHKeys';
 import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
+import { UserSupportPin } from './UserSupportPin';
+import { VirtualRegistriesCleanupPolicies } from './VirtualRegistriesCleanupPolicies';
+import { VulnerabilityArchiveExports } from './VulnerabilityArchiveExports';
+import { VulnerabilityFindings } from './VulnerabilityFindings';
 
 // Figure out a better way of doing this using mapped types: https://stackoverflow.com/questions/67729408/how-to-create-mapped-type-using-generic-class-instances-in-typesscript?noredirect=1#comment119718863_67729408
 // This will most likely be accomplished using higher kinded types: https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-750930496
@@ -399,6 +406,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   Runners: Runners<C>;
   SecureFiles: SecureFiles<C>;
   Tags: Tags<C>;
+  TokenInformation: TokenInformation<C>;
   UserStarredMetricsDashboard: UserStarredMetricsDashboard<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
   GroupAccessTokens: GroupAccessTokens<C>;
@@ -439,10 +447,16 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   GroupWikis: GroupWikis<C>;
   UserCustomAttributes: UserCustomAttributes<C>;
   UserEmails: UserEmails<C>;
+  UserFollows: UserFollows<C>;
   UserGPGKeys: UserGPGKeys<C>;
   UserImpersonationTokens: UserImpersonationTokens<C>;
+  UserModeration: UserModeration<C>;
   Users: Users<C>;
   UserSSHKeys: UserSSHKeys<C>;
+  UserSupportPin: UserSupportPin<C>;
+  VirtualRegistriesCleanupPolicies: VirtualRegistriesCleanupPolicies<C>;
+  VulnerabilityArchiveExports: VulnerabilityArchiveExports<C>;
+  VulnerabilityFindings: VulnerabilityFindings<C>;
 }
 
 const resources = {
@@ -619,6 +633,7 @@ const resources = {
   ResourceGroups,
   SecureFiles,
   Tags,
+  TokenInformation,
   UserStarredMetricsDashboard,
   GroupAccessRequests,
   GroupAccessTokens,
@@ -659,10 +674,16 @@ const resources = {
   GroupWikis,
   UserCustomAttributes,
   UserEmails,
+  UserFollows,
   UserGPGKeys,
   UserImpersonationTokens,
+  UserModeration,
   Users,
   UserSSHKeys,
+  UserSupportPin,
+  VirtualRegistriesCleanupPolicies,
+  VulnerabilityArchiveExports,
+  VulnerabilityFindings,
 };
 
 export class Gitlab<C extends boolean = false> extends BaseResource<C> {

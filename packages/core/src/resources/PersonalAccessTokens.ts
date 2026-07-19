@@ -11,16 +11,17 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface PersonalAccessTokenSchema extends Record<string, unknown> {
   id: number;
   name: string;
+  description?: string;
   revoked: boolean;
   created_at: string;
   scopes?: string[];
   user_id: number;
-  last_used_at: string;
+  last_used_at: string | null;
   active: boolean;
   expires_at?: string;
   token: string;
@@ -121,28 +122,28 @@ export class PersonalAccessTokens<C extends boolean = false> extends BaseResourc
     });
   }
 
-  // Convience method - Also located in Users
+  // Convenience method - Also located in Users
   create<E extends boolean = false>(
-    userId: number,
     name: string,
     scopes: string[],
-    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
+    {
+      userId,
+      ...options
+    }: { userId?: number; expiresAt?: string; description?: string } & ShowExpanded<E> & Sudo = {},
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<PersonalAccessTokenSchema>()(
-      this,
-      endpoint`users/${userId}/personal_access_tokens`,
-      {
-        sudo,
-        showExpanded,
-        body: {
-          ...body,
-          name,
-          scopes,
-        },
+    const url = getPrefixedUrl('personal_access_tokens', { users: userId, user: !userId });
+
+    return RequestHelper.post<PersonalAccessTokenSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+        scopes,
       },
-    );
+    });
   }
 
   remove<E extends boolean = false>(

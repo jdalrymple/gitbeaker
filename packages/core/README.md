@@ -1813,6 +1813,15 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>TokenInformation</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/admin/token.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/TokenInformation.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>TerraformModules</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/packages/terraform_modules.html">🦊</a>
@@ -1858,12 +1867,30 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
+<th>UserFollows</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/user_follow_unfollow.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserFollows.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>UserGPGKeys</th>
 <td>
 <a href="https://docs.gitlab.com/17.3/ee/api/users.html#list-all-gpg-keys">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserGPGKeys.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>UserModeration</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/user_moderation.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserModeration.ts">⌨️</a>
 </td>
 </tr>
 <tr>
@@ -1900,6 +1927,42 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 <td>
 <a href="./src/resources/Users.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>UserSupportPin</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#support-pin">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserSupportPin.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VirtualRegistriesCleanupPolicies</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/virtual_registries_cleanup_policies.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VirtualRegistriesCleanupPolicies.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VulnerabilityArchiveExports</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/vulnerability_archive_exports.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VulnerabilityArchiveExports.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VulnerabilityFindings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/vulnerability_findings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VulnerabilityFindings.ts">⌨️</a>
 </td>
 </tr>
 

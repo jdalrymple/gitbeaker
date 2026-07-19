@@ -639,6 +639,8 @@ export type SystemHooks<C extends boolean = false> = CORE.SystemHooks<C>;
 
 export const { Tags } = API;
 export type Tags<C extends boolean = false> = CORE.Tags<C>;
+export const { TokenInformation } = API;
+export type TokenInformation<C extends boolean = false> = CORE.TokenInformation<C>;
 
 export const { TodoLists } = API;
 export type TodoLists<C extends boolean = false> = CORE.TodoLists<C>;
@@ -654,9 +656,14 @@ export type UserCustomAttributes<C extends boolean = false> = CORE.UserCustomAtt
 
 export const { UserEmails } = API;
 export type UserEmails<C extends boolean = false> = CORE.UserEmails<C>;
+export const { UserFollows } = API;
+export type UserFollows<C extends boolean = false> = CORE.UserFollows<C>;
 
 export const { UserGPGKeys } = API;
 export type UserGPGKeys<C extends boolean = false> = CORE.UserGPGKeys<C>;
+
+export const { UserModeration } = API;
+export type UserModeration<C extends boolean = false> = CORE.UserModeration<C>;
 
 export const { UserImpersonationTokens } = API;
 export type UserImpersonationTokens<C extends boolean = false> = CORE.UserImpersonationTokens<C>;

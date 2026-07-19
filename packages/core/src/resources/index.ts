@@ -65,6 +65,9 @@ export * from './SystemHooks';
 export * from './TerraformModules';
 export * from './TodoLists';
 export * from './Topics';
+export * from './VirtualRegistriesCleanupPolicies';
+export * from './VulnerabilityArchiveExports';
+export * from './VulnerabilityFindings';
 
 // Projects
 export * from './Branches';
@@ -174,6 +177,7 @@ export * from './ResourceGroups';
 export * from './Runners';
 export * from './SecureFiles';
 export * from './Tags';
+export * from './TokenInformation';
 export * from './UserStarredMetricsDashboard';
 
 // Groups
@@ -218,9 +222,12 @@ export * from './Groups';
 // Users
 export * from './UserCustomAttributes';
 export * from './UserEmails';
+export * from './UserFollows';
 export * from './UserGPGKeys';
 export * from './UserImpersonationTokens';
+export * from './UserModeration';
 export * from './UserSSHKeys';
+export * from './UserSupportPin';
 export * from './Users';
 
 // Bundle

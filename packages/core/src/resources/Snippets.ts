@@ -65,11 +65,11 @@ export type EditSnippetOptions = {
 export class Snippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     public: ppublic,
-    all: all,
+    all,
     ...options
   }: {
     public?: boolean;
-    all?: boolean,
+    all?: boolean;
     createdAfter?: string;
     createdBefore?: string;
     repositoryStorage?: string;
