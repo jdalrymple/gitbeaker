@@ -699,7 +699,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupMarkdownUploads</th>
 <td>
-<a href="https://docs.gitlab.com/17.9/api/group_markdown_uploads.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/api/group_markdown_uploads.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupMarkdownUploads.ts">⌨️</a>
@@ -1437,7 +1437,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectMarkdownUploads</th>
 <td>
-<a href="https://docs.gitlab.com/17.9/api/project_markdown_uploads.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/api/project_markdown_uploads.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectMarkdownUploads.ts">⌨️</a>
