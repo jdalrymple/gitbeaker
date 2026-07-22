@@ -66,8 +66,10 @@ export * from './TerraformModules';
 export * from './TodoLists';
 export * from './Topics';
 export * from './VirtualRegistriesCleanupPolicies';
+export * from './Vulnerabilities';
 export * from './VulnerabilityArchiveExports';
 export * from './VulnerabilityFindings';
+export * from './WebCommits';
 
 // Projects
 export * from './Branches';

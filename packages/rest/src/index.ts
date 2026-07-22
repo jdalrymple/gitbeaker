@@ -678,5 +678,17 @@ export const { UserStarredMetricsDashboard } = API;
 export type UserStarredMetricsDashboard<C extends boolean = false> =
   CORE.UserStarredMetricsDashboard<C>;
 
+export const { Vulnerabilities } = API;
+export type Vulnerabilities<C extends boolean = false> = CORE.Vulnerabilities<C>;
+
+export const { VulnerabilityArchiveExports } = API;
+export type VulnerabilityArchiveExports<C extends boolean = false> = CORE.VulnerabilityArchiveExports<C>;
+
+export const { VulnerabilityFindings } = API;
+export type VulnerabilityFindings<C extends boolean = false> = CORE.VulnerabilityFindings<C>;
+
+export const { WebCommits } = API;
+export type WebCommits<C extends boolean = false> = CORE.WebCommits<C>;
+
 export const { Gitlab } = API;
 export type Gitlab<C extends boolean = false> = CORE.Gitlab<C>;

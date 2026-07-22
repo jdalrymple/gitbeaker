@@ -225,8 +225,10 @@ import { UserSSHKeys } from './UserSSHKeys';
 import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
 import { UserSupportPin } from './UserSupportPin';
 import { VirtualRegistriesCleanupPolicies } from './VirtualRegistriesCleanupPolicies';
+import { Vulnerabilities } from './Vulnerabilities';
 import { VulnerabilityArchiveExports } from './VulnerabilityArchiveExports';
 import { VulnerabilityFindings } from './VulnerabilityFindings';
+import { WebCommits } from './WebCommits';
 
 // Figure out a better way of doing this using mapped types: https://stackoverflow.com/questions/67729408/how-to-create-mapped-type-using-generic-class-instances-in-typesscript?noredirect=1#comment119718863_67729408
 // This will most likely be accomplished using higher kinded types: https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-750930496
@@ -455,8 +457,10 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   UserSSHKeys: UserSSHKeys<C>;
   UserSupportPin: UserSupportPin<C>;
   VirtualRegistriesCleanupPolicies: VirtualRegistriesCleanupPolicies<C>;
+  Vulnerabilities: Vulnerabilities<C>;
   VulnerabilityArchiveExports: VulnerabilityArchiveExports<C>;
   VulnerabilityFindings: VulnerabilityFindings<C>;
+  WebCommits: WebCommits<C>;
 }
 
 const resources = {
@@ -682,8 +686,10 @@ const resources = {
   UserSSHKeys,
   UserSupportPin,
   VirtualRegistriesCleanupPolicies,
+  Vulnerabilities,
   VulnerabilityArchiveExports,
   VulnerabilityFindings,
+  WebCommits,
 };
 
 export class Gitlab<C extends boolean = false> extends BaseResource<C> {

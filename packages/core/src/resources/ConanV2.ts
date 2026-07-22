@@ -151,7 +151,7 @@ export class ConanV2<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.del<void>()(
       this,
-      endpoint`projects/${projectId}/packages/conan/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions/${recipeRevision}`,
+      endpoint`projects/${projectId}/packages/conan/v2/conans/${packageName}/${packageVersion}/${packageUsername}/${packageChannel}/revisions/${recipeRevision}`,
       {
         showExpanded,
       },
