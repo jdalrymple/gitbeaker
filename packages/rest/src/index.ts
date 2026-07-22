@@ -383,6 +383,9 @@ export type MergeRequestDiscussions<C extends boolean = false> = CORE.MergeReque
 export const { MergeRequestDraftNotes } = API;
 export type MergeRequestDraftNotes<C extends boolean = false> = CORE.MergeRequestDraftNotes<C>;
 
+export const { MergeRequestIterationEvents } = API;
+export type MergeRequestIterationEvents<C extends boolean = false> = CORE.MergeRequestIterationEvents<C>;
+
 export const { MergeRequestLabelEvents } = API;
 export type MergeRequestLabelEvents<C extends boolean = false> = CORE.MergeRequestLabelEvents<C>;
 
@@ -516,6 +519,9 @@ export const { ProjectProtectedEnvironments } = API;
 export type ProjectProtectedEnvironments<C extends boolean = false> =
   CORE.ProjectProtectedEnvironments<C>;
 
+export const { ProjectPullMirroring } = API;
+export type ProjectPullMirroring<C extends boolean = false> = CORE.ProjectPullMirroring<C>;
+
 export const { ProjectPushRules } = API;
 export type ProjectPushRules<C extends boolean = false> = CORE.ProjectPushRules<C>;
 
@@ -531,6 +537,9 @@ export type ProjectRemoteMirrors<C extends boolean = false> = CORE.ProjectRemote
 export const { ProjectRepositoryStorageMoves } = API;
 export type ProjectRepositoryStorageMoves<C extends boolean = false> =
   CORE.ProjectRepositoryStorageMoves<C>;
+
+export const { ProjectSecuritySettings } = API;
+export type ProjectSecuritySettings<C extends boolean = false> = CORE.ProjectSecuritySettings<C>;
 
 export const { Projects } = API;
 export type Projects<C extends boolean = false> = CORE.Projects<C>;
@@ -603,6 +612,12 @@ export type RubyGems<C extends boolean = false> = CORE.RubyGems<C>;
 export const { Runners } = API;
 export type Runners<C extends boolean = false> = CORE.Runners<C>;
 
+export const { RunnerControllers } = API;
+export type RunnerControllers<C extends boolean = false> = CORE.RunnerControllers<C>;
+
+export const { RunnerControllerTokens } = API;
+export type RunnerControllerTokens<C extends boolean = false> = CORE.RunnerControllerTokens<C>;
+
 export const { Search } = API;
 export type Search<C extends boolean = false> = CORE.Search<C>;
 
@@ -617,6 +632,9 @@ export type ServiceAccounts<C extends boolean = false> = CORE.ServiceAccounts<C>
 
 export const { ServiceData } = API;
 export type ServiceData<C extends boolean = false> = CORE.ServiceData<C>;
+
+export const { ServicePing } = API;
+export type ServicePing<C extends boolean = false> = CORE.ServicePing<C>;
 
 export const { SidekiqMetrics } = API;
 export type SidekiqMetrics<C extends boolean = false> = CORE.SidekiqMetrics<C>;
@@ -678,6 +696,12 @@ export const { UserStarredMetricsDashboard } = API;
 export type UserStarredMetricsDashboard<C extends boolean = false> =
   CORE.UserStarredMetricsDashboard<C>;
 
+export const { UserSupportPin } = API;
+export type UserSupportPin<C extends boolean = false> = CORE.UserSupportPin<C>;
+
+export const { VirtualRegistriesCleanupPolicies } = API;
+export type VirtualRegistriesCleanupPolicies<C extends boolean = false> = CORE.VirtualRegistriesCleanupPolicies<C>;
+
 export const { Vulnerabilities } = API;
 export type Vulnerabilities<C extends boolean = false> = CORE.Vulnerabilities<C>;
 
@@ -689,6 +713,9 @@ export type VulnerabilityFindings<C extends boolean = false> = CORE.Vulnerabilit
 
 export const { WebCommits } = API;
 export type WebCommits<C extends boolean = false> = CORE.WebCommits<C>;
+
+export const { Webhooks } = API;
+export type Webhooks<C extends boolean = false> = CORE.Webhooks<C>;
 
 export const { Gitlab } = API;
 export type Gitlab<C extends boolean = false> = CORE.Gitlab<C>;
