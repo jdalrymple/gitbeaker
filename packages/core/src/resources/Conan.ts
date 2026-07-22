@@ -267,9 +267,7 @@ export class Conan<C extends boolean = false> extends BaseResource<C> {
   }: {
     projectId?: string | number;
     q: string;
-  } & ShowExpanded<E>): Promise<
-    GitlabAPIResponse<{ results: string[] }, C, E, void>
-  > {
+  } & ShowExpanded<E>): Promise<GitlabAPIResponse<{ results: string[] }, C, E, void>> {
     const { showExpanded, ...searchParams } = options || {};
     const uri = getPrefixedUrl('packages/conan/v1/conans/search', { projects: projectId });
 

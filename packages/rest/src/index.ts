@@ -384,7 +384,8 @@ export const { MergeRequestDraftNotes } = API;
 export type MergeRequestDraftNotes<C extends boolean = false> = CORE.MergeRequestDraftNotes<C>;
 
 export const { MergeRequestIterationEvents } = API;
-export type MergeRequestIterationEvents<C extends boolean = false> = CORE.MergeRequestIterationEvents<C>;
+export type MergeRequestIterationEvents<C extends boolean = false> =
+  CORE.MergeRequestIterationEvents<C>;
 
 export const { MergeRequestLabelEvents } = API;
 export type MergeRequestLabelEvents<C extends boolean = false> = CORE.MergeRequestLabelEvents<C>;
@@ -700,13 +701,15 @@ export const { UserSupportPin } = API;
 export type UserSupportPin<C extends boolean = false> = CORE.UserSupportPin<C>;
 
 export const { VirtualRegistriesCleanupPolicies } = API;
-export type VirtualRegistriesCleanupPolicies<C extends boolean = false> = CORE.VirtualRegistriesCleanupPolicies<C>;
+export type VirtualRegistriesCleanupPolicies<C extends boolean = false> =
+  CORE.VirtualRegistriesCleanupPolicies<C>;
 
 export const { Vulnerabilities } = API;
 export type Vulnerabilities<C extends boolean = false> = CORE.Vulnerabilities<C>;
 
 export const { VulnerabilityArchiveExports } = API;
-export type VulnerabilityArchiveExports<C extends boolean = false> = CORE.VulnerabilityArchiveExports<C>;
+export type VulnerabilityArchiveExports<C extends boolean = false> =
+  CORE.VulnerabilityArchiveExports<C>;
 
 export const { VulnerabilityFindings } = API;
 export type VulnerabilityFindings<C extends boolean = false> = CORE.VulnerabilityFindings<C>;
