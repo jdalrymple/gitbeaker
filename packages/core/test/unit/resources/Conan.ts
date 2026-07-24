@@ -133,20 +133,26 @@ describe('Conan.showPackageUploadUrls', () => {
       'conan_package.tgz': 1234,
     });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/upload_urls',
-      { showExpanded: undefined },
+      {
+        body: { 'conan_package.tgz': 1234 },
+        showExpanded: undefined,
+      },
     );
   });
 
-  it('should request GET /project/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/upload_urls', async () => {
-    await service.showPackageUploadUrls('name', 'v1', 'user', 'ch', 'pkgref', { projectId: 3 });
+  it('should request POST /project/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/upload_urls', async () => {
+    await service.showPackageUploadUrls('name', 'v1', 'user', 'ch', 'pkgref', {}, { projectId: 3 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/packages/pkgref/upload_urls',
-      { showExpanded: undefined },
+      {
+        body: {},
+        showExpanded: undefined,
+      },
     );
   });
 });
@@ -236,23 +242,29 @@ describe('Conan.ping', () => {
 });
 
 describe('Conan.showRecipeUploadUrls', () => {
-  it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
+  it('should request POST /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
     await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch', { 'conanfile.py': 410 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'packages/conan/v1/conans/name/v1/user/ch/upload_urls',
-      { showExpanded: undefined },
+      {
+        body: { 'conanfile.py': 410 },
+        showExpanded: undefined,
+      },
     );
   });
 
-  it('should request GET /project/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
-    await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch', { projectId: 3 });
+  it('should request POST /project/:id/packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
+    await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch', {}, { projectId: 3 });
 
-    expect(RequestHelper.get()).toHaveBeenCalledWith(
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/name/v1/user/ch/upload_urls',
-      { showExpanded: undefined },
+      {
+        body: {},
+        showExpanded: undefined,
+      },
     );
   });
 });
@@ -350,6 +362,7 @@ describe('Conan.search', () => {
     await service.search({ q: '*' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'packages/conan/v1/conans/search', {
+      searchParams: { q: '*' },
       showExpanded: undefined,
     });
   });
@@ -360,7 +373,10 @@ describe('Conan.search', () => {
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
       'projects/3/packages/conan/v1/conans/search',
-      { showExpanded: undefined },
+      {
+        searchParams: { q: '*' },
+        showExpanded: undefined,
+      },
     );
   });
 });

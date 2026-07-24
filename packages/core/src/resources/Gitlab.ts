@@ -175,6 +175,7 @@ import { ProjectReleases } from './ProjectReleases';
 import { ProjectRemoteMirrors } from './ProjectRemoteMirrors';
 import { ProjectRepositoryStorageMoves } from './ProjectRepositoryStorageMoves';
 import { Projects } from './Projects';
+import { ProjectSecuritySettings } from './ProjectSecuritySettings';
 import { ProjectSnippetAwardEmojis } from './ProjectSnippetAwardEmojis';
 import { ProjectSnippetDiscussions } from './ProjectSnippetDiscussions';
 import { ProjectSnippetNotes } from './ProjectSnippetNotes';
@@ -385,6 +386,7 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   ProjectReleases: ProjectReleases<C>;
   ProjectRemoteMirrors: ProjectRemoteMirrors<C>;
   ProjectRepositoryStorageMoves: ProjectRepositoryStorageMoves<C>;
+  ProjectSecuritySettings: ProjectSecuritySettings<C>;
   Projects: Projects<C>;
   ProjectSnippetAwardEmojis: ProjectSnippetAwardEmojis<C>;
   ProjectSnippetDiscussions: ProjectSnippetDiscussions<C>;
@@ -615,6 +617,7 @@ const resources = {
   ProjectReleases,
   ProjectRemoteMirrors,
   ProjectRepositoryStorageMoves,
+  ProjectSecuritySettings,
   Projects,
   ProjectSnippetAwardEmojis,
   ProjectSnippetDiscussions,

@@ -47,7 +47,10 @@ describe('Topics.create', () => {
     await service.create('topicname', 'Topic Title');
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'topics', {
-      body: {},
+      body: {
+        name: 'topicname',
+        title: 'Topic Title',
+      },
       showExpanded: undefined,
       sudo: undefined,
     });
@@ -76,6 +79,7 @@ describe('Topics.create', () => {
     const formDataObj = Object.fromEntries(formData.entries());
     expect(formDataObj).toEqual({
       name: 'topicname',
+      title: 'Topic Title',
       avatar: expect.objectContaining({
         type: content.type,
         size: content.size,
