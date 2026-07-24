@@ -14,7 +14,7 @@ describe('API Map', () => {
       'BroadcastMessages',
       'ClusterAgents',
       'Composer',
-      'Conan',
+      'ConanV1',
       'ContainerVirtualRegistry',
       'DataManagement',
       'DatabaseMigrations',

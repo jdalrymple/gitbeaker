@@ -24,7 +24,7 @@ describe('Browser Import', () => {
     'BulkImports',
     'CodeSuggestions',
     'Composer',
-    'Conan',
+    'ConanV1',
     'ConanV2',
     'DataManagement',
     'DatabaseMigrations',

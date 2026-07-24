@@ -25,7 +25,7 @@ export interface PackageReferenceMetadata {
 
 export interface PackageSearchResult extends Record<string, PackageReferenceMetadata> {}
 
-export class Conan<C extends boolean = false> extends BaseResource<C> {
+export class ConanV1<C extends boolean = false> extends BaseResource<C> {
   authenticate<E extends boolean = false>({
     projectId,
     ...options

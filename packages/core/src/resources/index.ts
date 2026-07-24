@@ -14,7 +14,7 @@ export * from './BulkImports';
 export * from './ClusterAgents';
 export * from './CodeSuggestions';
 export * from './Composer';
-export * from './Conan';
+export * from './ConanV1';
 export * from './ConanV2';
 export * from './DataManagement';
 export * from './DatabaseMigrations';

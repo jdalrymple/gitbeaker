@@ -1,7 +1,7 @@
 import { RequesterFn } from '@gitbeaker/requester-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { Conan } from '../../../src';
+import { ConanV1 } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 vi.mock('../../../src/infrastructure/RequestHelper', async () => {
@@ -9,16 +9,16 @@ vi.mock('../../../src/infrastructure/RequestHelper', async () => {
   return (mock as any).default;
 });
 
-let service: Conan;
+let service: ConanV1;
 
 beforeEach(() => {
-  service = new Conan({
+  service = new ConanV1({
     requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
 
-describe('Conan.authenticate', () => {
+describe('ConanV1.authenticate', () => {
   it('should request GET /packages/conan/v1/users/authenticate without projectId', async () => {
     await service.authenticate();
 
@@ -40,7 +40,7 @@ describe('Conan.authenticate', () => {
   });
 });
 
-describe('Conan.checkCredentials', () => {
+describe('ConanV1.checkCredentials', () => {
   it('should request GET /packages/conan/v1/users/check_credentials', async () => {
     await service.checkCredentials();
 
@@ -62,7 +62,7 @@ describe('Conan.checkCredentials', () => {
   });
 });
 
-describe('Conan.downloadPackageFile', () => {
+describe('ConanV1.downloadPackageFile', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:ref/:pkgrev/:filename', async () => {
     await service.downloadPackageFile(
       'name',
@@ -103,7 +103,7 @@ describe('Conan.downloadPackageFile', () => {
   });
 });
 
-describe('Conan.downloadRecipeFile', () => {
+describe('ConanV1.downloadRecipeFile', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/export/:filename', async () => {
     await service.downloadRecipeFile('name', 'v1', 'user', 'ch', 'recrev', 'filename');
 
@@ -127,7 +127,7 @@ describe('Conan.downloadRecipeFile', () => {
   });
 });
 
-describe('Conan.showPackageUploadUrls', () => {
+describe('ConanV1.showPackageUploadUrls', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/upload_urls', async () => {
     await service.showPackageUploadUrls('name', 'v1', 'user', 'ch', 'pkgref', {
       'conan_package.tgz': 1234,
@@ -157,7 +157,7 @@ describe('Conan.showPackageUploadUrls', () => {
   });
 });
 
-describe('Conan.showPackageDownloadUrls', () => {
+describe('ConanV1.showPackageDownloadUrls', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/download_urls', async () => {
     await service.showPackageDownloadUrls('name', 'v1', 'user', 'ch', 'pkgref');
 
@@ -179,7 +179,7 @@ describe('Conan.showPackageDownloadUrls', () => {
   });
 });
 
-describe('Conan.showPackageManifest', () => {
+describe('ConanV1.showPackageManifest', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/digest', async () => {
     await service.showPackageManifest('name', 'v1', 'user', 'ch', 'pkgref');
 
@@ -201,7 +201,7 @@ describe('Conan.showPackageManifest', () => {
   });
 });
 
-describe('Conan.showPackageSnapshot', () => {
+describe('ConanV1.showPackageSnapshot', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref', async () => {
     await service.showPackageSnapshot('name', 'v1', 'user', 'ch', 'pkgref');
 
@@ -223,7 +223,7 @@ describe('Conan.showPackageSnapshot', () => {
   });
 });
 
-describe('Conan.ping', () => {
+describe('ConanV1.ping', () => {
   it('should request GET /packages/conan/v1/ping', async () => {
     await service.ping();
 
@@ -241,7 +241,7 @@ describe('Conan.ping', () => {
   });
 });
 
-describe('Conan.showRecipeUploadUrls', () => {
+describe('ConanV1.showRecipeUploadUrls', () => {
   it('should request POST /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
     await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch', { 'conanfile.py': 410 });
 
@@ -269,7 +269,7 @@ describe('Conan.showRecipeUploadUrls', () => {
   });
 });
 
-describe('Conan.showRecipeDownloadUrls', () => {
+describe('ConanV1.showRecipeDownloadUrls', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/download_urls', async () => {
     await service.showRecipeDownloadUrls('name', 'v1', 'user', 'ch');
 
@@ -291,7 +291,7 @@ describe('Conan.showRecipeDownloadUrls', () => {
   });
 });
 
-describe('Conan.showRecipeManifest', () => {
+describe('ConanV1.showRecipeManifest', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgchdigest', async () => {
     await service.showRecipeManifest('name', 'v1', 'user', 'ch');
 
@@ -313,7 +313,7 @@ describe('Conan.showRecipeManifest', () => {
   });
 });
 
-describe('Conan.showRecipeSnapshot', () => {
+describe('ConanV1.showRecipeSnapshot', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch', async () => {
     await service.showRecipeSnapshot('name', 'v1', 'user', 'ch');
 
@@ -335,7 +335,7 @@ describe('Conan.showRecipeSnapshot', () => {
   });
 });
 
-describe('Conan.removePackageFile', () => {
+describe('ConanV1.removePackageFile', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch', async () => {
     await service.removePackageFile('name', 'v1', 'user', 'ch');
 
@@ -357,7 +357,7 @@ describe('Conan.removePackageFile', () => {
   });
 });
 
-describe('Conan.search', () => {
+describe('ConanV1.search', () => {
   it('should request GET /packages/conan/v1/conans/search', async () => {
     await service.search({ q: '*' });
 
@@ -381,7 +381,7 @@ describe('Conan.search', () => {
   });
 });
 
-describe('Conan.uploadPackageFile', () => {
+describe('ConanV1.uploadPackageFile', () => {
   it('should request GET /packages/conan/v1/files/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/package/:pkgrev/:filename', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 
@@ -417,7 +417,7 @@ describe('Conan.uploadPackageFile', () => {
   });
 });
 
-describe('Conan.uploadRecipeFile', () => {
+describe('ConanV1.uploadRecipeFile', () => {
   it('should request GET /packages/conan/v1/files/:pkgname/:pkgversion/:pkgusername/:pkgch/:recrev/export/:filename', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 

@@ -78,8 +78,8 @@ export type CompliancePolicySettings<C extends boolean = false> = CORE.Complianc
 export const { Composer } = API;
 export type Composer<C extends boolean = false> = CORE.Composer<C>;
 
-export const { Conan } = API;
-export type Conan<C extends boolean = false> = CORE.Conan<C>;
+export const { ConanV1 } = API;
+export type ConanV1<C extends boolean = false> = CORE.ConanV1<C>;
 
 export const { ConanV2 } = API;
 export type ConanV2<C extends boolean = false> = CORE.ConanV2<C>;
