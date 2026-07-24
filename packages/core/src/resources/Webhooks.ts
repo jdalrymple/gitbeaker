@@ -72,6 +72,10 @@ export type ReviewerState =
   | 'review_started'
   | 'unapproved';
 
+export type MergeRequestSystemAction =
+  | 'approvals_reset_on_push'
+  | 'code_owner_approvals_reset_on_push';
+
 export type WebhookUserSchema = {
   email: string;
 } & Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>;
@@ -367,6 +371,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     labels: WebhookLabelSchema[] | null;
     action: string;
     detailed_merge_status: string;
+    system: boolean;
+    system_action?: MergeRequestSystemAction;
   };
   labels: WebhookLabelSchema[] | null;
   changes: {
