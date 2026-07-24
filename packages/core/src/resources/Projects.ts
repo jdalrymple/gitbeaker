@@ -194,7 +194,6 @@ export interface ProjectSchema extends SimpleProjectSchema {
   package_registry_access_level: string;
   mr_default_title_template: string | null;
   emails_enabled: boolean;
-  ci_pipeline_variables_minimum_override_role: string;
   ci_display_pipeline_variables: boolean;
   model_experiments_access_level: string;
   model_registry_access_level: string;

@@ -11,6 +11,7 @@ import type {
 } from '../infrastructure';
 import type { CustomAttributeSchema } from '../templates/ResourceCustomAttributes';
 import type { AllEventOptions, EventSchema } from './Events';
+import type { PersonalAccessTokenSchema } from './PersonalAccessTokens';
 import type { ProjectSchema, ProjectStatisticsSchema, SimpleProjectSchema } from './Projects';
 
 import { AccessLevel } from '../constants';

@@ -31,14 +31,14 @@ export interface ProjectRepositoryStorageMoves<C extends boolean = false>
     options?: { projectId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 
-  schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+  create<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: {
       projectId?: string | number;
       sourceStorageName?: string;
       destinationStorageName?: string;
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
+  ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema | { message: string }, C, E, P>>;
 }
 
 export class ProjectRepositoryStorageMoves<

@@ -44,7 +44,7 @@ describe('Topics.all', () => {
 
 describe('Topics.create', () => {
   it('should request POST /topics without properties', async () => {
-    await service.create('topicname');
+    await service.create('topicname', 'Topic Title');
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'topics', {
       body: {},
@@ -56,7 +56,9 @@ describe('Topics.create', () => {
   it('should request POST /topics with form properties', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 
-    await service.create('topicname', { avatar: { content, filename: 'name.jpeg' } });
+    await service.create('topicname', 'Topic Title', {
+      avatar: { content, filename: 'name.jpeg' },
+    });
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(
       service,

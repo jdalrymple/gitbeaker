@@ -136,7 +136,7 @@ export class SystemHooks<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.put()(this, `hooks/${hookId}/url_variables/${key}`, {
+    return RequestHelper.put<void>()(this, `hooks/${hookId}/url_variables/${key}`, {
       sudo,
       showExpanded,
       body: { value },

@@ -48,7 +48,7 @@ export interface ServicePingQueriesSchema extends Record<string, unknown> {
   [key: string]: unknown;
 }
 
-export interface TrackEventOptions {
+export interface TrackEventOptions extends Record<string, unknown> {
   event: string;
   sendToSnowplow?: boolean;
   namespaceId?: number;

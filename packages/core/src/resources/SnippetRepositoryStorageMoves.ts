@@ -44,7 +44,7 @@ export interface SnippetRepositoryStorageMoves<C extends boolean = false>
     options?: { snippetId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SnippetRepositoryStorageMoveSchema, C, E, P>>;
 
-  schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+  create<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: {
       snippetId?: string | number;
       sourceStorageName?: string;

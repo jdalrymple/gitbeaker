@@ -14,6 +14,7 @@ import type {
 import type { CondensedCommitSchema } from './Commits';
 import type { PipelineSchema } from './Pipelines';
 import type { SimpleProjectSchema } from './Projects';
+import type { RunnerManagerSchema } from './Runners';
 import type { RunnerSchema } from './Runners';
 import type { ExpandedUserSchema, SimpleUserSchema } from './Users';
 
@@ -47,19 +48,6 @@ export interface CondensedJobSchema extends Record<string, unknown> {
   stage: string;
   project_id: string | number;
   project_name: string;
-}
-
-export interface RunnerManagerSchema extends Record<string, unknown> {
-  id: number;
-  system_id: string;
-  version: string;
-  revision: string;
-  platform: string;
-  architecture: string;
-  created_at: string;
-  contacted_at: string;
-  ip_address: string;
-  status: string;
 }
 
 export interface JobSchema extends Record<string, unknown> {

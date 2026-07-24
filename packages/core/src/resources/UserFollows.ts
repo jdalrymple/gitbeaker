@@ -24,7 +24,7 @@ export class UserFollows<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.post()(this, endpoint`users/${userId}/unfollow`, {
+    return RequestHelper.post<void>()(this, endpoint`users/${userId}/unfollow`, {
       sudo,
       showExpanded,
     });

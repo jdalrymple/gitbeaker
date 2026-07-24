@@ -17,7 +17,7 @@ export interface RemoteMirrorHostKey {
   fingerprint_sha256: string;
 }
 
-export interface RemoteMirrorPublicKey {
+export interface RemoteMirrorPublicKeySchema extends Record<string, unknown> {
   public_key: string;
 }
 
@@ -170,10 +170,10 @@ export class ProjectRemoteMirrors<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     mirrorId: number,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<RemoteMirrorPublicKey, C, E, void>> {
+  ): Promise<GitlabAPIResponse<RemoteMirrorPublicKeySchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.get<RemoteMirrorPublicKey>()(
+    return RequestHelper.get<RemoteMirrorPublicKeySchema>()(
       this,
       endpoint`projects/${projectId}/remote_mirrors/${mirrorId}/public_key`,
       {

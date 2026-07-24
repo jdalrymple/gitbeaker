@@ -717,8 +717,5 @@ export type VulnerabilityFindings<C extends boolean = false> = CORE.Vulnerabilit
 export const { WebCommits } = API;
 export type WebCommits<C extends boolean = false> = CORE.WebCommits<C>;
 
-export const { Webhooks } = API;
-export type Webhooks<C extends boolean = false> = CORE.Webhooks<C>;
-
 export const { Gitlab } = API;
 export type Gitlab<C extends boolean = false> = CORE.Gitlab<C>;

@@ -129,7 +129,9 @@ describe('Conan.downloadRecipeFile', () => {
 
 describe('Conan.showPackageUploadUrls', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/packages/:pkgref/upload_urls', async () => {
-    await service.showPackageUploadUrls('name', 'v1', 'user', 'ch', 'pkgref');
+    await service.showPackageUploadUrls('name', 'v1', 'user', 'ch', 'pkgref', {
+      'conan_package.tgz': 1234,
+    });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -235,7 +237,7 @@ describe('Conan.ping', () => {
 
 describe('Conan.showRecipeUploadUrls', () => {
   it('should request GET /packages/conan/v1/conans/:pkgname/:pkgversion/:pkgusername/:pkgch/upload_urls', async () => {
-    await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch');
+    await service.showRecipeUploadUrls('name', 'v1', 'user', 'ch', { 'conanfile.py': 410 });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
@@ -345,7 +347,7 @@ describe('Conan.removePackageFile', () => {
 
 describe('Conan.search', () => {
   it('should request GET /packages/conan/v1/conans/search', async () => {
-    await service.search();
+    await service.search({ q: '*' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'packages/conan/v1/conans/search', {
       showExpanded: undefined,
@@ -353,7 +355,7 @@ describe('Conan.search', () => {
   });
 
   it('should request GET /project/:id/packages/conan/v1/conans/search', async () => {
-    await service.search({ projectId: 3 });
+    await service.search({ projectId: 3, q: '*' });
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,

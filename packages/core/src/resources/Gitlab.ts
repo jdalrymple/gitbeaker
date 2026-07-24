@@ -288,7 +288,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   RubyGems: RubyGems<C>;
   RunnerControllers: RunnerControllers<C>;
   RunnerControllerTokens: RunnerControllerTokens<C>;
-  Runners: Runners<C>;
   Search: Search<C>;
   SearchAdmin: SearchAdmin<C>;
   ServiceAccounts: ServiceAccounts<C>;
