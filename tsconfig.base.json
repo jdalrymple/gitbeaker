@@ -8,14 +8,13 @@
     "inlineSources": true,
     "allowJs": true,
 
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "skipLibCheck": true,
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
-    "downlevelIteration": true,
     "esModuleInterop": true,
 
     "noUnusedLocals": true,
