@@ -47,14 +47,14 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "picomatch": "^4.0.4",
+    "picomatch": "^4.0.5",
     "picoquery": "^2.5.0",
     "rate-limiter-flexible": "^8.3.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.12.2",
-    "tsdown": "^0.21.7",
+    "@types/node": "^24.13.3",
+    "tsdown": "^0.21.10",
     "typescript": "^5.9.3"
   }
 }

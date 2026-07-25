@@ -46,8 +46,8 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "tsdown": "^0.21.7",
-    "@vitest/expect": "^4.0.10",
+    "@vitest/expect": "^4.1.10",
+    "tsdown": "^0.21.10",
     "typescript": "^5.9.3",
     "vitest-extended": "^0.0.1"
   }
