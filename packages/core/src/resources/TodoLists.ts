@@ -24,14 +24,19 @@ export type TodoAction =
   | 'approval_required'
   | 'unmergeable'
   | 'directly_addressed'
-  | 'merge_train_removed';
+  | 'merge_train_removed'
+  | 'member_access_requested';
 export type TodoType =
   | 'Issue'
   | 'MergeRequest'
   | 'Commit'
   | 'Epic'
   | 'DesignManagement::Design'
-  | 'AlertManagement::Alert';
+  | 'AlertManagement::Alert'
+  | 'Project'
+  | 'Namespace'
+  | 'Vulnerability'
+  | 'WikiPage::Meta';
 export type TodoState = 'pending' | 'done';
 
 export interface TodoSchema extends Record<string, unknown> {

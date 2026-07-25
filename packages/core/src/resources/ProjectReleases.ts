@@ -70,7 +70,10 @@ export interface ReleaseSchema extends Record<string, unknown> {
 export class ProjectReleases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { includeHtmlDescription: true } & BaseRequestSearchParams &
+    options?: { includeHtmlDescription: true } & {
+      orderBy?: 'released_at' | 'created_at';
+      sort?: 'desc' | 'asc';
+    } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -78,12 +81,21 @@ export class ProjectReleases<C extends boolean = false> extends BaseResource<C> 
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+    options?: {
+      orderBy?: 'released_at' | 'created_at';
+      sort?: 'desc' | 'asc';
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options?: { includeHtmlDescription?: boolean } & BaseRequestSearchParams &
+    options?: { includeHtmlDescription?: boolean } & {
+      orderBy?: 'released_at' | 'created_at';
+      sort?: 'desc' | 'asc';
+    } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,

@@ -90,6 +90,23 @@ export class PagesDomains<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  verify<E extends boolean = false>(
+    projectId: string | number,
+    domain: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<PagesDomainSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.put<PagesDomainSchema>()(
+      this,
+      endpoint`projects/${projectId}/pages/domains/${domain}/verify`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
   remove<E extends boolean = false>(
     projectId: string | number,
     domain: string,

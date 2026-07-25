@@ -20,11 +20,12 @@ import { RequestHelper, endpoint } from '../infrastructure';
 export interface MilestoneSchema extends Record<string, unknown> {
   id: number;
   iid: number;
-  project_id: number;
+  project_id?: number;
+  group_id?: number;
   title: string;
   description: string;
   due_date?: string;
-  start_date: string;
+  start_date?: string;
   state: string;
   updated_at: string;
   created_at: string;
@@ -43,9 +44,15 @@ export interface AllMilestonesOptions {
   state?: string;
   title?: string;
   search?: string;
+  searchTitle?: string;
   includeParentMilestones?: boolean;
+  includeAncestors?: boolean;
+  includeDescendants?: boolean;
   updatedBefore?: string;
   updatedAfter?: string;
+  containingDate?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export class ResourceMilestones<C extends boolean = false> extends BaseResource<C> {

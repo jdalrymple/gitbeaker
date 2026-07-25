@@ -33,7 +33,7 @@ export interface TagSignatureSchema extends Record<string, unknown> {
     subject: string;
     subject_key_identifier: string;
     email: string;
-    serial_number: number;
+    serial_number: string | number;
     certificate_status: string;
     x509_issuer: {
       id: number;
@@ -51,6 +51,7 @@ export class Tags<C extends boolean = false> extends BaseResource<C> {
       orderBy?: 'name' | 'updated' | 'version';
       sort?: 'asc' | 'desc';
       search?: string;
+      pageToken?: string;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &

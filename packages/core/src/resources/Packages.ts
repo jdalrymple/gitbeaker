@@ -45,10 +45,21 @@ export type AllPackageOptions = {
   excludeSubgroups?: boolean;
   orderBy?: 'created_at' | 'name' | 'version' | 'type' | 'project_path';
   sort?: 'asc' | 'desc';
-  packageType?: 'conan' | 'maven' | 'npm' | 'pypi' | 'composer' | 'nuget' | 'helm' | 'golang';
+  packageType?:
+    | 'conan'
+    | 'maven'
+    | 'npm'
+    | 'pypi'
+    | 'composer'
+    | 'nuget'
+    | 'helm'
+    | 'golang'
+    | 'generic'
+    | 'terraform_module';
   packageName?: string;
+  packageVersion?: string;
   includeVersionless?: boolean;
-  status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction';
+  status?: 'default' | 'hidden' | 'processing' | 'error' | 'pending_destruction' | 'deprecated';
 };
 
 export class Packages<C extends boolean = false> extends BaseResource<C> {
@@ -134,6 +145,23 @@ export class Packages<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.get<ExpandedPackageSchema>()(
       this,
       endpoint`projects/${projectId}/packages/${packageId}`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
+  allPipelines<E extends boolean = false>(
+    projectId: string | number,
+    packageId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<PipelineSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/packages/${packageId}/pipelines`,
       {
         sudo,
         showExpanded,

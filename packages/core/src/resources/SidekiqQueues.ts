@@ -32,7 +32,7 @@ export class SidekiqQueues<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<SidekiqQueueStatus, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
-    return RequestHelper.get<SidekiqQueueStatus>()(
+    return RequestHelper.del<SidekiqQueueStatus>()(
       this,
       endpoint`admin/sidekiq/queues/${queueName}`,
       {
