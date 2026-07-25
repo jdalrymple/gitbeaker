@@ -5,17 +5,17 @@ import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import { RequestHelper } from '../infrastructure';
 
 export interface ApplicationStatisticSchema extends Record<string, unknown> {
-  forks: string;
-  issues: string;
-  merge_requests: string;
-  notes: string;
-  snippets: string;
-  ssh_keys: string;
-  milestones: string;
-  users: string;
-  groups: string;
-  projects: string;
-  active_users: string;
+  forks: number;
+  issues: number;
+  merge_requests: number;
+  notes: number;
+  snippets: number;
+  ssh_keys: number;
+  milestones: number;
+  users: number;
+  groups: number;
+  projects: number;
+  active_users: number;
 }
 
 export class ApplicationStatistics<C extends boolean = false> extends BaseResource<C> {

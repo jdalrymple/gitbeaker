@@ -15,14 +15,17 @@ import {
   RequestHelper,
   createFormData,
   endpoint,
+  normalizeFormData,
 } from '../infrastructure';
 
 export interface TopicSchema extends Record<string, unknown> {
   id: number;
   name: string;
-  description: string;
+  title: string;
+  description: string | null;
   total_projects_count: number;
-  avatar_url: string;
+  organization_id: number | null;
+  avatar_url: string | null;
 }
 
 export class Topics<C extends boolean = false> extends BaseResource<C> {
@@ -46,10 +49,15 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
 
   create<E extends boolean = false>(
     name: string,
+    title: string,
     {
       avatar,
       ...options
-    }: { avatar?: { content: Blob; filename: string }; description?: string } & ShowExpanded<E> &
+    }: {
+      avatar?: { content: Blob; filename: string };
+      description?: string;
+      organizationId?: number;
+    } & ShowExpanded<E> &
       Sudo = {},
   ): Promise<GitlabAPIResponse<TopicSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
@@ -58,12 +66,19 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              name,
+              title,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
+        : {
             ...body,
             name,
-            avatar: [avatar.content, avatar.filename],
-          })
-        : body,
+            title,
+          },
     });
   }
 
@@ -86,10 +101,12 @@ export class Topics<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }

@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  lodash: '>=4.18.1'
-  tar: ^7.5.13
-  undici: '>=8.0.2'
-
 importers:
 
   .:
@@ -512,6 +507,10 @@ packages:
   '@eslint/plugin-kit@0.7.1':
     resolution: {integrity: sha512-rZAP3aVgB9ds9KOeUSL+zZ21hPmo8dh6fnIFwRQj5EAZl9gzR7wxYbYXYysAM8CTqGmUGyp2S4kUdV17MnGuWQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@fastify/busboy@2.1.1':
+    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
+    engines: {node: '>=14'}
 
   '@gitbeaker/core@43.8.0':
     resolution: {integrity: sha512-H+LfKuf4dExBinb79c+CXViRBvTVQNf5BYLNSizm2SiqdED5JruhKX88payefleY0szp7G/mySlFSXPyGRH1dQ==}
@@ -1443,7 +1442,7 @@ packages:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
 
   all-contributors-cli@https://codeload.github.com/jdalrymple/all-contributors-cli/tar.gz/7ecc1a0f36b91fe5e3face34e5217f3db2b0359b:
-    resolution: {tarball: https://codeload.github.com/jdalrymple/all-contributors-cli/tar.gz/7ecc1a0f36b91fe5e3face34e5217f3db2b0359b}
+    resolution: {gitHosted: true, integrity: sha512-fhfyotpoUYMeCRGwR6xh7wiNFqc5Tqt+3Avx6BakX+FPUvktqeeNzWmbQNCr2iKvCb6JKaJ7ksKaQ1Q+j/aX/g==, tarball: https://codeload.github.com/jdalrymple/all-contributors-cli/tar.gz/7ecc1a0f36b91fe5e3face34e5217f3db2b0359b}
     version: 0.0.0-semantically-released
     engines: {node: '>=22'}
     hasBin: true
@@ -2883,9 +2882,9 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici@8.0.2:
-    resolution: {integrity: sha512-B9MeU5wuFhkFAuNeA19K2GDFcQXZxq33fL0nRy2Aq30wdufZbyyvxW3/ChaeipXVfy/wUweZyzovQGk39+9k2w==}
-    engines: {node: '>=22.19.0'}
+  undici@5.29.0:
+    resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
+    engines: {node: '>=14.0'}
 
   universal-user-agent@6.0.1:
     resolution: {integrity: sha512-yCzhz6FN2wU1NiiQRogkTQszlQSlpWaw8SvVegAc+bDxbzHgh1vX8uIe8OYyMH6DwH+sdTJsgMl36+mSMdRJIQ==}
@@ -3103,12 +3102,12 @@ snapshots:
       '@octokit/plugin-rest-endpoint-methods': 10.4.1(@octokit/core@5.2.2)
       '@octokit/request': 8.4.1
       '@octokit/request-error': 5.1.1
-      undici: 8.0.2
+      undici: 5.29.0
 
   '@actions/http-client@2.2.3':
     dependencies:
       tunnel: 0.0.6
-      undici: 8.0.2
+      undici: 5.29.0
 
   '@actions/io@1.1.3': {}
 
@@ -3460,6 +3459,8 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
+
+  '@fastify/busboy@2.1.1': {}
 
   '@gitbeaker/core@43.8.0':
     dependencies:
@@ -5620,7 +5621,9 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici@8.0.2: {}
+  undici@5.29.0:
+    dependencies:
+      '@fastify/busboy': 2.1.1
 
   universal-user-agent@6.0.1: {}
 

@@ -15,7 +15,7 @@ import type { CondensedProjectSchema, ProjectSchema } from './Projects';
 import type { SimpleUserSchema } from './Users';
 
 import { AccessLevel } from '../constants';
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface GroupStatisticsSchema {
   storage_size: number;
@@ -461,12 +461,14 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            name,
-            path,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              name,
+              path,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : {
             ...body,
             name,
@@ -497,10 +499,12 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }
@@ -632,10 +636,12 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.put<{ avatar_url: string }>()(this, endpoint`groups/${groupId}/avatar`, {
       sudo,
       showExpanded,
-      body: createFormData({
-        ...body,
-        file: [content, filename],
-      }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          file: [content, filename],
+        }),
+      ),
     });
   }
 }

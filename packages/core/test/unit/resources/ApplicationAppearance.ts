@@ -30,7 +30,7 @@ describe('ApplicationAppearance.show', () => {
 });
 
 describe('ApplicationAppearance.edit', () => {
-  it('should request PUT /application/appearence without arguments', async () => {
+  it('should request PUT /application/appearance without arguments', async () => {
     await service.edit();
 
     expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearance', {
@@ -40,33 +40,57 @@ describe('ApplicationAppearance.edit', () => {
     });
   });
 
-  it('should request PUT /application/appearence with a logo property', async () => {
+  it('should request PUT /application/appearance with a logo property', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 
     await service.edit({ logo: { content, filename: 'test.jpeg' } });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('logo', content, 'test.jpeg');
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'application/appearance',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearance', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      logo: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 
-  it('should request PUT /application/appearence with a pwaIcon property', async () => {
+  it('should request PUT /application/appearance with a pwaIcon property', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 
     await service.edit({ pwaIcon: { content, filename: 'test.jpeg' } });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('pwaIcon', content, 'test.jpeg');
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'application/appearance',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'application/appearance', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      pwa_icon: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 });

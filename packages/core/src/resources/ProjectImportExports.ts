@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export interface ExportStatusSchema extends Record<string, unknown> {
   id: number;
@@ -26,6 +26,7 @@ export interface FailedRelationSchema {
   exception_message: string;
   source: string;
   relation_name: string;
+  line_number: number;
 }
 
 export interface ImportStatusSchema extends Record<string, unknown> {
@@ -40,6 +41,20 @@ export interface ImportStatusSchema extends Record<string, unknown> {
   correlation_id: string;
   failed_relations?: FailedRelationSchema[];
   import_error?: string;
+  import_type?: string;
+  stats?: {
+    fetched: Record<string, number>;
+    imported: Record<string, number>;
+  };
+}
+
+export interface RelationImportSchema extends Record<string, unknown> {
+  id: number;
+  project_path: string;
+  relation: string;
+  status: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export class ProjectImportExports<C extends boolean = false> extends BaseResource<C> {
@@ -76,6 +91,8 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     options?: {
       name?: string;
       namespace?: number | string;
+      namespaceId?: number;
+      namespacePath?: string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
     } & ShowExpanded<E> &
@@ -86,11 +103,13 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     return RequestHelper.post<ImportStatusSchema>()(this, 'projects/import', {
       sudo,
       showExpanded,
-      body: createFormData({
-        ...body,
-        file: [file.content, file.filename],
-        path,
-      }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          file: [file.content, file.filename],
+          path,
+        }),
+      ),
     });
   }
 
@@ -98,8 +117,10 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     url: string,
     path: string,
     options?: {
-      name?: number;
+      name?: string;
       namespace?: number | string;
+      namespaceId?: number;
+      namespacePath?: string;
       overrideParams?: Record<string, unknown>;
       overwrite?: boolean;
     } & ShowExpanded<E> &
@@ -125,11 +146,17 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     path: string,
     region: string,
     secretAccessKey: string,
-    options?: { name?: number; namespace?: number | string } & ShowExpanded<E> & Sudo,
+    options?: {
+      name?: string;
+      namespace?: number | string;
+      namespaceId?: number;
+      namespacePath?: string;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import', {
+    return RequestHelper.post<ImportStatusSchema>()(this, 'projects/remote-import-s3', {
       sudo,
       showExpanded,
       body: {
@@ -142,6 +169,43 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
         secretAccessKey,
       },
     });
+  }
+
+  importRelation<E extends boolean = false>(
+    file: { content: Blob; filename: string },
+    path: string,
+    relation: 'issues' | 'milestones' | 'ci_pipelines' | 'merge_requests',
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<RelationImportSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<RelationImportSchema>()(this, 'projects/import-relation', {
+      sudo,
+      showExpanded,
+      body: createFormData(
+        normalizeFormData({
+          file: [file.content, file.filename],
+          path,
+          relation,
+        }),
+      ),
+    });
+  }
+
+  showRelationImportStatus<E extends boolean = false>(
+    projectId: string | number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<RelationImportSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<RelationImportSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/relation-imports`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 
   showExportStatus<E extends boolean = false>(

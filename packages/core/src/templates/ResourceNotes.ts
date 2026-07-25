@@ -20,16 +20,22 @@ import { SimpleUserSchema } from '../resources/Users';
 export interface NoteSchema extends Record<string, unknown> {
   id: number;
   body: string;
-  attachment: string | null;
+  attachment?: string | null;
   author: MappedOmit<SimpleUserSchema, 'created_at'>;
   created_at: string;
   updated_at: string;
   system: boolean;
   noteable_id: number;
-  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'MergeRequest';
-  noteable_iid: number;
-  project_id: number;
+  noteable_type: 'Issue' | 'Snippet' | 'Epic' | 'Commit' | 'MergeRequest' | 'WikiPage::Meta';
+  noteable_iid: number | null;
+  project_id: number | null;
   resolvable: boolean;
+  confidential?: boolean;
+  internal?: boolean;
+  imported?: boolean;
+  imported_from?: string;
+  commands_changes?: Record<string, unknown>;
+  type?: string | null;
 }
 
 export class ResourceNotes<C extends boolean = false> extends BaseResource<C> {

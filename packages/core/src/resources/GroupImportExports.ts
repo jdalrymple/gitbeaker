@@ -3,7 +3,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type { AsStream, GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 import type { ImportStatusSchema } from './ProjectImportExports';
 
-import { RequestHelper, createFormData, endpoint } from '../infrastructure';
+import { RequestHelper, createFormData, endpoint, normalizeFormData } from '../infrastructure';
 
 export class GroupImportExports<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
@@ -39,18 +39,19 @@ export class GroupImportExports<C extends boolean = false> extends BaseResource<
     path: string,
     { parentId, name, ...options }: { parentId?: number; name?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ImportStatusSchema, C, E, void>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { sudo, showExpanded } = options || {};
 
     return RequestHelper.post<ImportStatusSchema>()(this, 'groups/import', {
       sudo,
       showExpanded,
-      body: createFormData({
-        ...body,
-        file: [file.content, file.filename],
-        path,
-        name: name || path.split('/').at(0),
-        parentId,
-      }),
+      body: createFormData(
+        normalizeFormData({
+          file: [file.content, file.filename],
+          path,
+          name: name || path.split('/').at(0),
+          parentId,
+        }),
+      ),
     });
   }
 

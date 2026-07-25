@@ -19,7 +19,13 @@ import type { ProjectRemoteMirrorSchema } from './ProjectRemoteMirrors';
 import type { SimpleUserSchema } from './Users';
 
 import { AccessLevel } from '../constants';
-import { RequestHelper, createFormData, endpoint, getPrefixedUrl } from '../infrastructure';
+import {
+  RequestHelper,
+  createFormData,
+  endpoint,
+  getPrefixedUrl,
+  normalizeFormData,
+} from '../infrastructure';
 
 export type AccessLevelSettingState = 'disabled' | 'enabled' | 'private';
 
@@ -80,6 +86,12 @@ export interface SimpleProjectSchema extends CondensedProjectSchema {
   namespace: CondensedNamespaceSchema;
 }
 
+export interface ForkedProjectSchema extends SimpleProjectSchema {
+  license_url: string;
+  license: ProjectLicenseSchema;
+  repository_storage: string;
+}
+
 export interface ProjectSchema extends SimpleProjectSchema {
   description_html: string;
   visibility: 'public' | 'internal' | 'private';
@@ -132,8 +144,11 @@ export interface ProjectSchema extends SimpleProjectSchema {
   ci_forward_deployment_enabled: boolean;
   ci_forward_deployment_rollback_allowed: boolean;
   ci_allow_fork_pipelines_to_run_in_parent_project: boolean;
+  ci_id_token_sub_claim_components: string[];
   ci_separated_caches: boolean;
   ci_restrict_pipeline_cancellation_role: string;
+  ci_pipeline_variables_minimum_override_role: string;
+  ci_push_repository_for_job_token_allowed: boolean;
   public_jobs: boolean;
   shared_with_groups:
     | {
@@ -146,7 +161,8 @@ export interface ProjectSchema extends SimpleProjectSchema {
   repository_storage: string;
   only_allow_merge_if_pipeline_succeeds: boolean;
   allow_merge_on_skipped_pipeline: boolean;
-  ci_pipeline_variables_minimum_override_role: boolean;
+  allow_pipeline_trigger_approve_deployment: boolean;
+  restrict_user_defined_variables: boolean;
   only_allow_merge_if_all_discussions_are_resolved: boolean;
   remove_source_branch_after_merge: boolean;
   printing_merge_requests_link_enabled: boolean;
@@ -173,6 +189,15 @@ export interface ProjectSchema extends SimpleProjectSchema {
   marked_for_deletion_on: string;
   compliance_frameworks: string[] | null;
   warn_about_potentially_unwanted_characters: boolean;
+  secret_push_protection_enabled: boolean;
+  repository_object_format: 'sha1' | 'sha256';
+  package_registry_access_level: string;
+  mr_default_title_template: string | null;
+  emails_enabled: boolean;
+  ci_display_pipeline_variables: boolean;
+  model_experiments_access_level: string;
+  model_registry_access_level: string;
+  statistics: ProjectStatisticsSchema;
   container_registry_image_prefix: string;
   _links: {
     self: string;
@@ -184,6 +209,9 @@ export interface ProjectSchema extends SimpleProjectSchema {
     members: string;
     cluster_agents: string;
   };
+  only_allow_merge_if_all_status_checks_passed?: boolean;
+  mr_default_target_self?: boolean;
+  forked_from_project?: ForkedProjectSchema;
 }
 
 export interface ProjectFileUploadSchema extends Record<string, unknown> {
@@ -261,6 +289,7 @@ export type CreateProjectOptions = {
   defaultBranch?: string;
   description?: string;
   emailsDisabled?: boolean;
+  emailsEnabled?: boolean;
   externalAuthorizationClassificationLabel?: string;
   forkingAccessLevel?: AccessLevelSettingState;
   groupWithProjectTemplatesId?: number;
@@ -274,10 +303,12 @@ export type CreateProjectOptions = {
   mergeTrainsEnabled?: boolean;
   mirrorTriggerBuilds?: boolean;
   mirror?: boolean;
+  mrDefaultTitleTemplate?: string;
   namespaceId?: number;
   onlyAllowMergeIfAllDiscussionsAreResolved?: boolean;
   onlyAllowMergeIfPipelineSucceeds?: boolean;
   packagesEnabled?: boolean;
+  packageRegistryAccessLevel?: AccessLevelSettingState;
   pagesAccessLevel?: AccessLevelSettingState | 'public';
   printingMergeRequestLinkEnabled?: boolean;
   publicBuilds?: boolean;
@@ -286,8 +317,11 @@ export type CreateProjectOptions = {
   featureFlagsAccessLevel?: AccessLevelSettingState;
   infrastructureAccessLevel?: AccessLevelSettingState;
   monitorAccessLevel?: AccessLevelSettingState;
+  modelExperimentsAccessLevel?: AccessLevelSettingState;
+  modelRegistryAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
   repositoryAccessLevel?: AccessLevelSettingState;
+  repositoryObjectFormat?: 'sha1' | 'sha256';
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
   requirementsAccessLevel?: AccessLevelSettingState;
@@ -303,6 +337,7 @@ export type CreateProjectOptions = {
   useCustomTemplate?: boolean;
   visibility?: 'public' | 'internal' | 'private';
   wikiAccessLevel?: AccessLevelSettingState;
+  warnAboutPotentiallyUnwantedCharacters?: boolean;
 };
 
 export type EditProjectOptions = {
@@ -354,6 +389,7 @@ export type EditProjectOptions = {
   onlyAllowMergeIfPipelineSucceeds?: boolean;
   onlyMirrorProtectedBranches?: boolean;
   packagesEnabled?: boolean;
+  packageRegistryAccessLevel?: string;
   pagesAccessLevel?: string;
   path?: string;
   printingMergeRequestLinkEnabled?: boolean;
@@ -363,8 +399,11 @@ export type EditProjectOptions = {
   featureFlagsAccessLevel?: AccessLevelSettingState;
   infrastructureAccessLevel?: AccessLevelSettingState;
   monitorAccessLevel?: AccessLevelSettingState;
+  modelExperimentsAccessLevel?: AccessLevelSettingState;
+  modelRegistryAccessLevel?: AccessLevelSettingState;
   removeSourceBranchAfterMerge?: boolean;
   repositoryAccessLevel?: AccessLevelSettingState;
+  repositoryObjectFormat?: 'sha1' | 'sha256';
   repositoryStorage?: string;
   requestAccessEnabled?: boolean;
   requirementsAccessLevel?: AccessLevelSettingState;
@@ -693,10 +732,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body: avatar
-        ? createFormData({
-            ...body,
-            avatar: [avatar.content, avatar.filename],
-          })
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
         : body,
     });
   }
@@ -770,10 +811,12 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         body: avatar
-          ? createFormData({
-              ...body,
-              avatar: [avatar.content, avatar.filename],
-            })
+          ? createFormData(
+              normalizeFormData({
+                ...body,
+                avatar: [avatar.content, avatar.filename],
+              }),
+            )
           : body,
       },
     });

@@ -1,5 +1,5 @@
 import { stringify } from 'picoquery';
-import { decamelizeKeys } from 'xcase';
+import { decamelizeKeys as decamelizeObjKeys, decamelize } from 'xcase';
 
 export interface UserAgentDetailSchema extends Record<string, unknown> {
   user_agent: string;
@@ -96,30 +96,50 @@ export function parseLinkHeader(linkString: string): { next?: string; prev?: str
   return output;
 }
 
-export function reformatObjectOptions(
+/*
+Since the formatting of formdata depends on the endpoint, a catch all solution within the requester utils would not work.
+*/
+export function normalizeFormData(
   obj: Record<string, unknown>,
-  prefixKey: string,
-  decamelizeValues = false,
-): Record<string, string> {
-  const formatted = decamelizeValues ? decamelizeKeys(obj) : obj;
+  { decamelizeKeys = true }: { decamelizeKeys?: boolean } = {},
+): Record<string, unknown> {
+  if (Object.keys(obj).length === 0) return {};
 
-  return stringify(
-    { [prefixKey]: formatted },
-    {
+  const result: Record<string, unknown> = {};
+  const fileArrayEntries: [string, [Blob, string]][] = [];
+  const nonFileArrayObj: Record<string, unknown> = {};
+
+  // Split out Blob/File entries from main object
+  Object.entries(obj).forEach(([key, value]) => {
+    if (Array.isArray(value) && value.length === 2 && value[0] instanceof Blob) {
+      fileArrayEntries.push([key, value as [Blob, string]]);
+    } else {
+      nonFileArrayObj[key] = value;
+    }
+  });
+
+  // Process non-file-array values through decamelize and stringify
+  if (Object.keys(nonFileArrayObj).length > 0) {
+    const normObj = decamelizeKeys ? decamelizeObjKeys(nonFileArrayObj) : nonFileArrayObj;
+    const stringified = stringify(normObj, {
       nesting: true,
       nestingSyntax: 'index',
-      arrayRepeat: true,
-      arrayRepeatSyntax: 'bracket',
-    },
-  )
-    .split('&')
-    .reduce((acc: Record<string, string>, cur: string) => {
+    });
+
+    stringified.split('&').forEach((cur: string) => {
       const [key, val] = cur.split(/=(.*)/);
+      result[decodeURIComponent(key)] = decodeURIComponent(val);
+    });
+  }
 
-      acc[decodeURIComponent(key)] = decodeURIComponent(val);
+  // Add file arrays back with normalized keys
+  fileArrayEntries.forEach(([key, value]) => {
+    const normKey = decamelizeKeys ? decamelize(key) : key;
 
-      return acc;
-    }, {});
+    result[normKey] = value;
+  });
+
+  return result;
 }
 
 export function getPrefixedUrl(

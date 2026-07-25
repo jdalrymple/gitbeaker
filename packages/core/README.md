@@ -103,18 +103,27 @@ import { Gitlab } from '@gitbeaker/core';
 <tbody valign=top align=left>
 
 <tr>
-<th>Agents</th>
+<th>AICatalog</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/cluster_agents.html">🦊</a>
+<a href="https://docs.gitlab.com/ee/api/admin/ai_catalog.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/Agents.ts">⌨️</a>
+<a href="./src/resources/AICatalog.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ClusterAgents</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/cluster_agents.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ClusterAgents.ts">⌨️</a>
 </td>
 </tr>
 <tr>
 <th>AlertManagement</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/alert_management_alerts.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/alert_management_alerts.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/AlertManagement.ts">⌨️</a>
@@ -123,7 +132,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ApplicationAppearance</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/appearance.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/appearance.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ApplicationAppearance.ts">⌨️</a>
@@ -132,7 +141,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ApplicationPlanLimits</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/plan_limits.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/plan_limits.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ApplicationPlanLimits.ts">⌨️</a>
@@ -141,7 +150,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ApplicationSettings</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/settings.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/settings.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ApplicationSettings.ts">⌨️</a>
@@ -150,7 +159,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ApplicationStatistics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/statistics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/statistics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ApplicationStatistics.ts">⌨️</a>
@@ -159,7 +168,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Applications</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/applications.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/applications.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Applications.ts">⌨️</a>
@@ -168,7 +177,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>AuditEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/audit_events.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/audit_events.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/AuditEvents.ts">⌨️</a>
@@ -177,7 +186,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Avatar</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/avatar.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/avatar.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Avatar.ts">⌨️</a>
@@ -186,7 +195,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Branches</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/branches.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/branches.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Branches.ts">⌨️</a>
@@ -195,16 +204,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>BroadcastMessages</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/broadcast_messages.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/broadcast_messages.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/BroadcastMessages.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>BulkImports</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/bulk_imports.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/BulkImports.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>CommitDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#commits">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#commits">🦊</a>
 </td>
 <td>
 <a href="./src/resources/CommitDiscussions.ts">⌨️</a>
@@ -213,7 +231,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Code Suggestions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/code_suggestions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/code_suggestions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/CodeSuggestions.ts">⌨️</a>
@@ -222,16 +240,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Commits</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/commits.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/commits.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Commits.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>CompliancePolicySettings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/compliance_policy_settings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/CompliancePolicySettings.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>Composer</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/composer.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/composer.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Composer.ts">⌨️</a>
@@ -240,43 +267,106 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Conan</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/conan.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/conan.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Conan.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>ConanV2</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/conan.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ConanV2.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>DataManagement</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/admin/data_management.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DataManagement.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>DatabaseMigrations</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/database_migrations.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DatabaseMigrations.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ContainerRegistry</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/container_registry.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/container_registry.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ContainerRegistry.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>DashboardAnnotations</th>
+<th>ContainerRegistryProtectionTagRules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metrics_dashboard_annotations.html">🦊</a>
+<a href="https://docs.gitlab.com/ee/api/container_registry_protection_tag_rules.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/DashboardAnnotations.ts">⌨️</a>
+<a href="./src/resources/ContainerRegistryProtectionTagRules.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ContainerRepositoryProtectionRules</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/container_repository_protection_rules.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ContainerRepositoryProtectionRules.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>ContainerVirtualRegistry</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/container_virtual_registries.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ContainerVirtualRegistry.ts">⌨️</a>
 </td>
 </tr>
 <tr>
 <th>Debian</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/debian.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/debian.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Debian.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>Dependencies</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/dependencies.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Dependencies.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>DependencyListExport</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/dependency_list_export.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/DependencyListExport.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>DependencyProxy</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/dependency_proxy.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/dependency_proxy.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/DependencyProxy.ts">⌨️</a>
@@ -285,7 +375,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>DeployKeys</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/deploy_keys.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/deploy_keys.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/DeployKeys.ts">⌨️</a>
@@ -294,7 +384,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>DeployTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/deploy_tokens.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/deploy_tokens.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/DeployTokens.ts">⌨️</a>
@@ -303,97 +393,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Deployments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/deployments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/deployments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Deployments.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>DockerfileTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/dockerfiles.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/DockerfileTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>Environments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/environments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/environments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Environments.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>EpicAwardEmojis</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicAwardEmojis.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicDiscussions</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicDiscussions.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicIssues</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epic_issues.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicIssues.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicLabelEvents</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_label_events.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicLabelEvents.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicLinks</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epic_links.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicLinks.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>EpicNotes</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notes.html#epics">🦊</a>
-</td>
-<td>
-<a href="./src/resources/EpicNotes.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>Epics</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/epics.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/Epics.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>ErrorTrackingClientKeys</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/error_tracking.html#error-tracking-client-keys">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/error_tracking.html#error-tracking-client-keys">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ErrorTrackingClientKeys.ts">⌨️</a>
@@ -402,7 +420,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ErrorTrackingSettings</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/error_tracking.html#error-tracking-project-settings">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/error_tracking.html#error-tracking-project-settings">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ErrorTrackingSettings.ts">⌨️</a>
@@ -411,7 +429,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Events</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/events.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/events.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Events.ts">⌨️</a>
@@ -420,16 +438,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Experiments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/experiments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/experiments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Experiments.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>ExternalControls</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/external_controls.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ExternalControls.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ExternalStatusChecks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/status_checks.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/status_checks.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ExternalStatusChecks.ts">⌨️</a>
@@ -438,7 +465,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>FeatureFlagUserLists</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/feature_flag_user_lists.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/feature_flag_user_lists.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/FeatureFlagUserLists.ts">⌨️</a>
@@ -447,61 +474,61 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>FeatureFlags</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/feature_flags.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/feature_flags.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/FeatureFlags.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>Features</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/features.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Features.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>Flows</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/duo_agent_platform_flows.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/Flows.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>FreezePeriods</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/freeze_periods.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/freeze_periods.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/FreezePeriods.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>GeoNodes</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/geo_nodes.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GeoNodes.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>GeoSites</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/geo_sites.html">🦊</a>
+<a href="https://docs.gitlab.com/ee/api/geo_sites.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GeoSites.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>GitLabCIYMLTemplates</th>
+<th>GitLabDuoChat</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/gitlab_ci_ymls.html">🦊</a>
+<a href="https://docs.gitlab.com/ee/api/chat.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/GitLabCIYMLTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>GitignoreTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/gitignores.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GitignoreTemplates.ts">⌨️</a>
+<a href="./src/resources/GitLabDuoChat.ts">⌨️</a>
 </td>
 </tr>
 <tr>
 <th>GitlabPages</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pages.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pages.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GitlabPages.ts">⌨️</a>
@@ -510,16 +537,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GoProxy</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/go_proxy.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/go_proxy.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GoProxy.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>GoogleCloudIntegration</th>
+<td>
+<a href="https://docs.gitlab.com/ee/api/google_cloud_integration.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GoogleCloudIntegration.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupAccessRequests</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/access_requests.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/access_requests.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupAccessRequests.ts">⌨️</a>
@@ -528,7 +564,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupAccessTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_access_tokens.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_access_tokens.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupAccessTokens.ts">⌨️</a>
@@ -537,25 +573,16 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupActivityAnalytics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_activity_analytics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_activity_analytics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupActivityAnalytics.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<tr>
-<th>GroupEpicBoards</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_epic_boards.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/GroupEpicBoards.ts">⌨️</a>
-</td>
-</tr>
 <th>GroupBadges</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_badges.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_badges.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupBadges.ts">⌨️</a>
@@ -564,16 +591,34 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupCustomAttributes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/custom_attributes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/custom_attributes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupCustomAttributes.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>GroupEnterpriseUsers</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_enterprise_users.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupEnterpriseUsers.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>GroupEpicBoards</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_epic_boards.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupEpicBoards.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupDORA4Metrics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/dora/metrics.html#get-group-level-dora-metrics">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/dora/metrics.html#retrieve-group-level-dora-metrics">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupDORA4Metrics.ts">⌨️</a>
@@ -582,7 +627,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupHooks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html#hooks">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html#hooks">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupHooks.ts">⌨️</a>
@@ -591,16 +636,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupImportExports</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_import_export.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_import_export.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupImportExports.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>GroupIntegrations</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_integrations.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupIntegrations.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupInvitations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/invitations.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/invitations.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupInvitations.ts">⌨️</a>
@@ -609,7 +663,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupIssueBoards</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_boards.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_boards.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupIssueBoards.ts">⌨️</a>
@@ -618,7 +672,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupIterations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_iterations.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_iterations.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupIterations.ts">⌨️</a>
@@ -627,7 +681,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupLDAPLinks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html#ldap-group-links">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html#ldap-group-links">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupLDAPLinks.ts">⌨️</a>
@@ -636,7 +690,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupLabels</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_labels.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_labels.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupLabels.ts">⌨️</a>
@@ -645,7 +699,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupMarkdownUploads</th>
 <td>
-<a href="https://docs.gitlab.com/17.9/api/group_markdown_uploads.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/api/group_markdown_uploads.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupMarkdownUploads.ts">⌨️</a>
@@ -654,7 +708,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupMemberRoles</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/member_roles.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/member_roles.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupMemberRoles.ts">⌨️</a>
@@ -663,7 +717,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupMembers</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/members.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/members.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupMembers.ts">⌨️</a>
@@ -672,16 +726,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupMilestones</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_milestones.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_milestones.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupMilestones.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>GroupProtectedBranches</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_protected_branches.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupProtectedBranches.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupProtectedEnvironments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_protected_environments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_protected_environments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupProtectedEnvironments.ts">⌨️</a>
@@ -690,7 +753,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupPushRules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html#push-rules">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html#push-rules">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupPushRules.ts">⌨️</a>
@@ -699,7 +762,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupRelationExports</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_relations_export.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_relations_export.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupRelationExports.ts">⌨️</a>
@@ -708,7 +771,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupReleases</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_releases.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_releases.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupReleases.ts">⌨️</a>
@@ -717,7 +780,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupRepositoryStorageMoves</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_repository_storage_moves.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_repository_storage_moves.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupRepositoryStorageMoves.ts">⌨️</a>
@@ -726,7 +789,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupSAMLIdentities</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/saml.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/saml.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupSAMLIdentities.ts">⌨️</a>
@@ -735,7 +798,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupSAMLLinks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html#saml-group-links">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html#saml-group-links">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupSAMLLinks.ts">⌨️</a>
@@ -744,7 +807,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupSCIMIdentities</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/scim.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/scim.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupSCIMIdentities.ts">⌨️</a>
@@ -753,7 +816,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupServiceAccounts</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html#create-personal-access-token-for-service-account-user">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html#create-personal-access-token-for-service-account-user">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupServiceAccounts.ts">⌨️</a>
@@ -762,16 +825,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>GroupVariables</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_level_variables.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_level_variables.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupVariables.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>GroupWikiNotes</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#group-wikis">🦊</a>
+</td>
+<td>
+<a href="./src/resources/GroupWikiNotes.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>GroupWikis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/group_wikis.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/group_wikis.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/GroupWikis.ts">⌨️</a>
@@ -780,7 +852,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Groups</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/groups.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/groups.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Groups.ts">⌨️</a>
@@ -789,7 +861,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Helm</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/helm.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/helm.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Helm.ts">⌨️</a>
@@ -798,7 +870,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Import</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/import.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/import.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Import.ts">⌨️</a>
@@ -807,7 +879,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>InstanceLevelCICDVariables</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/instance_level_ci_variables.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/instance_level_ci_variables.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/InstanceLevelCICDVariables.ts">⌨️</a>
@@ -816,7 +888,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Integrations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/integrations.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/integrations.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Integrations.ts">⌨️</a>
@@ -825,7 +897,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueAwardEmojis.ts">⌨️</a>
@@ -834,7 +906,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueDiscussions.ts">⌨️</a>
@@ -843,7 +915,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueIterationEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_iteration_events.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_iteration_events.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueIterationEvents.ts">⌨️</a>
@@ -852,7 +924,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueLabelEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_label_events.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_label_events.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueLabelEvents.ts">⌨️</a>
@@ -861,7 +933,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueLinks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/issue_links.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/issue_links.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueLinks.ts">⌨️</a>
@@ -870,7 +942,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueMilestoneEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_milestone_events.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_milestone_events.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueMilestoneEvents.ts">⌨️</a>
@@ -879,7 +951,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueNoteAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueNoteAwardEmojis.ts">⌨️</a>
@@ -888,7 +960,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueNotes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notes.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueNotes.ts">⌨️</a>
@@ -897,7 +969,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueStateEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_state_events.html#issues">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_state_events.html#issues">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueStateEvents.ts">⌨️</a>
@@ -906,7 +978,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssueWeightEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_weight_events.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_weight_events.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssueWeightEvents.ts">⌨️</a>
@@ -915,7 +987,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Issues</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/issues.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/issues.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Issues.ts">⌨️</a>
@@ -924,7 +996,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>IssuesStatistics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/issues_statistics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/issues_statistics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/IssuesStatistics.ts">⌨️</a>
@@ -933,7 +1005,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>JobArtifacts</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/job_artifacts.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/job_artifacts.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/JobArtifacts.ts">⌨️</a>
@@ -942,7 +1014,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Jobs</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/jobs.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/jobs.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Jobs.ts">⌨️</a>
@@ -951,7 +1023,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Keys</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/keys.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/keys.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Keys.ts">⌨️</a>
@@ -960,34 +1032,16 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>License</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/license.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/license.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/License.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>LicenseTemplates</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/templates/licenses.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/LicenseTemplates.ts">⌨️</a>
-</td>
-</tr>
-<tr>
-<th>LinkedEpics</th>
-<td>
-<a href="https://docs.gitlab.com/17.3/ee/api/linked_epics.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/LinkedEpics.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>Lint</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/lint.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/lint.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Lint.ts">⌨️</a>
@@ -996,7 +1050,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Markdown</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/markdown.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/markdown.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Markdown.ts">⌨️</a>
@@ -1005,7 +1059,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Maven</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/maven.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/maven.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Maven.ts">⌨️</a>
@@ -1014,16 +1068,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestApprovals</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/merge_request_approvals.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_request_approvals.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestApprovals.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>MergeRequestApprovalSettings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_request_approval_settings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/MergeRequestApprovalSettings.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>MergeRequestAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestAwardEmojis.ts">⌨️</a>
@@ -1032,7 +1095,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestContextCommits</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/merge_request_context_commits.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_request_context_commits.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestContextCommits.ts">⌨️</a>
@@ -1041,7 +1104,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#merge-requests">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#merge-requests">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestDiscussions.ts">⌨️</a>
@@ -1050,7 +1113,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestDraftNotes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/draft_notes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/draft_notes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestDraftNotes.ts">⌨️</a>
@@ -1059,7 +1122,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestLabelEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_label_events.html#merge-requests">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_label_events.html#merge-requests">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestLabelEvents.ts">⌨️</a>
@@ -1068,7 +1131,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestMilestoneEvents</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_milestone_events.html#merge-requests">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_milestone_events.html#merge-requests">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestMilestoneEvents.ts">⌨️</a>
@@ -1077,7 +1140,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestNoteAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestNoteAwardEmojis.ts">⌨️</a>
@@ -1086,7 +1149,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequestNotes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notes.html#merge-requests">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#merge-requests">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequestNotes.ts">⌨️</a>
@@ -1095,7 +1158,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeRequests</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/merge_requests.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_requests.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeRequests.ts">⌨️</a>
@@ -1104,7 +1167,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>MergeTrains</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/merge_trains.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/merge_trains.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/MergeTrains.ts">⌨️</a>
@@ -1113,16 +1176,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Metadata</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metadata.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/metadata.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Metadata.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>ModelRegistry</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/model_registry.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ModelRegistry.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>Migrations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/bulk_imports.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/bulk_imports.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Migrations.ts">⌨️</a>
@@ -1131,7 +1203,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>NPM</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/npm.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/npm.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/NPM.ts">⌨️</a>
@@ -1140,7 +1212,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Namespaces</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/namespaces.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/namespaces.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Namespaces.ts">⌨️</a>
@@ -1149,7 +1221,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>NotificationSettings</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notification_settings.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/notification_settings.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/NotificationSettings.ts">⌨️</a>
@@ -1158,7 +1230,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>NuGet</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/nuget.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/nuget.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/NuGet.ts">⌨️</a>
@@ -1167,7 +1239,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PackageRegistry</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/user/packages/generic_packages/">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/user/packages/generic_packages/">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PackageRegistry.ts">⌨️</a>
@@ -1176,7 +1248,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Packages</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Packages.ts">⌨️</a>
@@ -1185,7 +1257,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PagesDomains</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pages_domains.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pages_domains.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PagesDomains.ts">⌨️</a>
@@ -1194,7 +1266,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PersonalAccessTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/personal_access_tokens.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/personal_access_tokens.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PersonalAccessTokens.ts">⌨️</a>
@@ -1203,7 +1275,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PipelineScheduleVariables</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pipeline_schedules.html#pipeline-schedule-variables">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pipeline_schedules.html#pipeline-schedule-variables">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PipelineScheduleVariables.ts">⌨️</a>
@@ -1212,7 +1284,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PipelineSchedules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pipeline_schedules.html#get-all-pipeline-schedules>🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pipeline_schedules.html#get-all-pipeline-schedules>🦊</a>
 </td>
 <td>
 <a href="./src/resources/PipelineSchedules.ts">⌨️</a>
@@ -1221,7 +1293,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PipelineTriggerTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pipeline_triggers.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pipeline_triggers.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PipelineTriggerTokens.ts">⌨️</a>
@@ -1230,7 +1302,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Pipelines</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/pipelines.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/pipelines.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Pipelines.ts">⌨️</a>
@@ -1239,7 +1311,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProductAnalytics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/product_analytics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/product_analytics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProductAnalytics.ts">⌨️</a>
@@ -1248,7 +1320,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAccessRequests</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/access_requests.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/access_requests.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAccessRequests.ts">⌨️</a>
@@ -1257,7 +1329,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAccessTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_access_tokens.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_access_tokens.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAccessTokens.ts">⌨️</a>
@@ -1266,7 +1338,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectAliases</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_aliases.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_aliases.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectAliases.ts">⌨️</a>
@@ -1275,7 +1347,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectBadges</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_badges.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_badges.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectBadges.ts">⌨️</a>
@@ -1284,7 +1356,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectCustomAttributes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/custom_attributes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/custom_attributes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectCustomAttributes.ts">⌨️</a>
@@ -1293,7 +1365,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectDORA4Metrics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metrics.html#get-project-level-dora-metrics">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/dora/metrics.html#retrieve-project-level-dora-metrics">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectDORA4Metrics.ts">⌨️</a>
@@ -1302,7 +1374,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectHooks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/projects.html#hooks">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/projects.html#hooks">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectHooks.ts">⌨️</a>
@@ -1311,7 +1383,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectImportExports</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_import_export.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_import_export.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectImportExports.ts">⌨️</a>
@@ -1320,7 +1392,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectInvitations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/invitations.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/invitations.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectInvitations.ts">⌨️</a>
@@ -1329,7 +1401,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectIssueBoards</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/boards.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/boards.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectIssueBoards.ts">⌨️</a>
@@ -1338,7 +1410,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectIterations</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/iterations.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/iterations.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectIterations.ts">⌨️</a>
@@ -1347,7 +1419,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectJobTokenScopes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_job_token_scopes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_job_token_scopes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectJobTokenScopes.ts">⌨️</a>
@@ -1356,7 +1428,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectLabels</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/labels.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/labels.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectLabels.ts">⌨️</a>
@@ -1365,7 +1437,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectMarkdownUploads</th>
 <td>
-<a href="https://docs.gitlab.com/17.9/api/project_markdown_uploads.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/api/project_markdown_uploads.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectMarkdownUploads.ts">⌨️</a>
@@ -1374,7 +1446,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectMembers</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/members.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/members.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectMembers.ts">⌨️</a>
@@ -1383,7 +1455,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectMilestones</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/milestones.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/milestones.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectMilestones.ts">⌨️</a>
@@ -1392,7 +1464,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectProtectedEnvironments</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/protected_environments.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/protected_environments.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectProtectedEnvironments.ts">⌨️</a>
@@ -1401,7 +1473,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectPushRules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/projects.html#push-rules">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/projects.html#push-rules">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectPushRules.ts">⌨️</a>
@@ -1410,7 +1482,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectRelationsExport</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_relations_export.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_relations_export.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectRelationsExport.ts">⌨️</a>
@@ -1419,7 +1491,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectReleases</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/releases/">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/releases/">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectReleases.ts">⌨️</a>
@@ -1428,7 +1500,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectRemoteMirrors</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/remote_mirrors.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/remote_mirrors.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectRemoteMirrors.ts">⌨️</a>
@@ -1437,7 +1509,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectRepositoryStorageMoves</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_repository_storage_moves.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_repository_storage_moves.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectRepositoryStorageMoves.ts">⌨️</a>
@@ -1446,7 +1518,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippetAwardEmojis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/emoji_reactions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/emoji_reactions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippetAwardEmojis.ts">⌨️</a>
@@ -1455,7 +1527,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippetDiscussions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/discussions.html#snippets">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/discussions.html#snippets">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippetDiscussions.ts">⌨️</a>
@@ -1464,7 +1536,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippetNotes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/notes.html#snippets">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#snippets">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippetNotes.ts">⌨️</a>
@@ -1473,7 +1545,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectSnippets</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_snippets.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_snippets.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectSnippets.ts">⌨️</a>
@@ -1482,7 +1554,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectStatistics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_statistics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_statistics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectStatistics.ts">⌨️</a>
@@ -1491,7 +1563,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectTemplates</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_templates.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_templates.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectTemplates.ts">⌨️</a>
@@ -1500,7 +1572,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectVariables</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_level_variables.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_level_variables.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectVariables.ts">⌨️</a>
@@ -1509,16 +1581,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ProjectVulnerabilities</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/project_vulnerabilities.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/project_vulnerabilities.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectVulnerabilities.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>ProjectWikiNotes</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/notes.html#project-wikis">🦊</a>
+</td>
+<td>
+<a href="./src/resources/ProjectWikiNotes.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>ProjectWikis</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/wikis.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/wikis.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProjectWikis.ts">⌨️</a>
@@ -1527,25 +1608,25 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Projects</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/projects.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/projects.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Projects.ts">⌨️</a>
 </td>
 </tr>
 <tr>
-<th>ProtectedBranches</th>
+<th>ProjectProtectedBranches</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/protected_branches.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/protected_branches.html">🦊</a>
 </td>
 <td>
-<a href="./src/resources/ProtectedBranches.ts">⌨️</a>
+<a href="./src/resources/ProjectProtectedBranches.ts">⌨️</a>
 </td>
 </tr>
 <tr>
 <th>ProtectedTags</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/protected_tags.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/protected_tags.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ProtectedTags.ts">⌨️</a>
@@ -1554,7 +1635,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>PyPI</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/pypi.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/pypi.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/PyPI.ts">⌨️</a>
@@ -1563,7 +1644,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ReleaseLinks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/releases/links.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/releases/links.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ReleaseLinks.ts">⌨️</a>
@@ -1572,7 +1653,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Repositories</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Repositories.ts">⌨️</a>
@@ -1581,7 +1662,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>RepositoryFiles</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/repository_files.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/repository_files.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/RepositoryFiles.ts">⌨️</a>
@@ -1590,7 +1671,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>RepositorySubmodules</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/repository_submodules.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/repository_submodules.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/RepositorySubmodules.ts">⌨️</a>
@@ -1599,7 +1680,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ResourceGroups</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/resource_groups.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/resource_groups.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ResourceGroups.ts">⌨️</a>
@@ -1608,7 +1689,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>RubyGems</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/packages/rubygems.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/rubygems.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/RubyGems.ts">⌨️</a>
@@ -1617,7 +1698,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Runners</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/runners.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/runners.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Runners.ts">⌨️</a>
@@ -1626,7 +1707,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Search</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/search.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/search.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Search.ts">⌨️</a>
@@ -1635,7 +1716,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SearchAdmin</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/search_admin.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/search_admin.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SearchAdmin.ts">⌨️</a>
@@ -1644,7 +1725,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SecureFiles</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/secure_files.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/secure_files.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SecureFiles.ts">⌨️</a>
@@ -1662,7 +1743,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>ServiceData</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/usage_data.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/usage_data.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/ServiceData.ts">⌨️</a>
@@ -1671,7 +1752,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SidekiqMetrics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/sidekiq_metrics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/sidekiq_metrics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SidekiqMetrics.ts">⌨️</a>
@@ -1680,7 +1761,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SidekiqQueues</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/admin_sidekiq_queues.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/admin_sidekiq_queues.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SidekiqQueues.ts">⌨️</a>
@@ -1689,7 +1770,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SnippetRepositoryStorageMoves</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/snippet_repository_storage_moves.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/snippet_repository_storage_moves.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SnippetRepositoryStorageMoves.ts">⌨️</a>
@@ -1698,7 +1779,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Snippets</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/snippets.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/snippets.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Snippets.ts">⌨️</a>
@@ -1707,7 +1788,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Suggestions</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/suggestions.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/suggestions.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Suggestions.ts">⌨️</a>
@@ -1716,7 +1797,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>SystemHooks</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/system_hooks.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/system_hooks.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/SystemHooks.ts">⌨️</a>
@@ -1725,16 +1806,34 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Tags</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/tags.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/tags.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Tags.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>TokenInformation</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/admin/token.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/TokenInformation.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>TerraformModules</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/packages/terraform_modules.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/TerraformModules.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>TodoLists</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/todos.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/todos.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/TodoLists.ts">⌨️</a>
@@ -1743,7 +1842,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Topics</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/topics.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/topics.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Topics.ts">⌨️</a>
@@ -1752,7 +1851,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>UserCustomAttributes</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/custom_attributes.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/custom_attributes.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserCustomAttributes.ts">⌨️</a>
@@ -1761,25 +1860,43 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>UserEmails</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/users.html#list-emails">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#list-emails">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserEmails.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>UserFollows</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/user_follow_unfollow.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserFollows.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>UserGPGKeys</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/users.html#list-all-gpg-keys">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#list-all-gpg-keys">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserGPGKeys.ts">⌨️</a>
 </td>
 </tr>
 <tr>
+<th>UserModeration</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/user_moderation.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserModeration.ts">⌨️</a>
+</td>
+</tr>
+<tr>
 <th>UserImpersonationTokens</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/users.html#get-an-impersonation-token-of-a-user">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#get-an-impersonation-token-of-a-user">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserImpersonationTokens.ts">⌨️</a>
@@ -1788,7 +1905,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>UserSSHKeys</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/users.html#list-ssh-keys">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#list-ssh-keys">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserSSHKeys.ts">⌨️</a>
@@ -1797,7 +1914,7 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>UserStarredMetricsDashboard</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/metrics_user_starred_dashboards.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/metrics_user_starred_dashboards.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/UserStarredMetricsDashboard.ts">⌨️</a>
@@ -1806,10 +1923,46 @@ import { Gitlab } from '@gitbeaker/core';
 <tr>
 <th>Users</th>
 <td>
-<a href="https://docs.gitlab.com/17.3/ee/api/users.html">🦊</a>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html">🦊</a>
 </td>
 <td>
 <a href="./src/resources/Users.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>UserSupportPin</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/users.html#support-pin">🦊</a>
+</td>
+<td>
+<a href="./src/resources/UserSupportPin.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VirtualRegistriesCleanupPolicies</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/virtual_registries_cleanup_policies.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VirtualRegistriesCleanupPolicies.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VulnerabilityArchiveExports</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/vulnerability_archive_exports.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VulnerabilityArchiveExports.ts">⌨️</a>
+</td>
+</tr>
+<tr>
+<th>VulnerabilityFindings</th>
+<td>
+<a href="https://docs.gitlab.com/19.0/ee/api/vulnerability_findings.html">🦊</a>
+</td>
+<td>
+<a href="./src/resources/VulnerabilityFindings.ts">⌨️</a>
 </td>
 </tr>
 

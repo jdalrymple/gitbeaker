@@ -40,7 +40,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
     chart: { content: Blob; filename: string },
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { sudo, showExpanded } = options || {};
 
     return RequestHelper.post<void>()(
       this,
@@ -49,7 +49,6 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         body: createFormData({
-          ...body,
           chart,
         }),
       },

@@ -23,17 +23,22 @@ export type AccessTokenScopes =
   | 'read_registry'
   | 'write_registry'
   | 'read_repository'
-  | 'write_repository';
+  | 'write_repository'
+  | 'manage_runners'
+  | 'admin_runners'
+  | 'self_rotate';
 
 export interface AccessTokenSchema extends Record<string, unknown> {
   user_id: number;
   scopes?: AccessTokenScopes[];
   name: string;
-  expires_at: string;
+  expires_at: string | null;
   id: number;
   active: boolean;
   created_at: string;
+  description?: string;
   revoked: boolean;
+  last_used_at?: string | null;
   access_level: Exclude<
     AccessLevel,
     AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
@@ -69,8 +74,9 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
     resourceId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
-    expiresAt: string,
     options?: {
+      expiresAt?: string;
+      description?: string;
       accessLevel?: Exclude<
         AccessLevel,
         AccessLevel.NO_ACCESS | AccessLevel.MINIMAL_ACCESS | AccessLevel.ADMIN
@@ -90,7 +96,6 @@ export class ResourceAccessTokens<C extends boolean = false> extends BaseResourc
           ...body,
           name,
           scopes,
-          expiresAt,
         },
       },
     );

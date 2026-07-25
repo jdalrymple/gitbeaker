@@ -1,9 +1,23 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
+import type {
+  GitlabAPIResponse,
+  PaginationRequestOptions,
+  PaginationTypes,
+  ShowExpanded,
+  Sudo,
+} from '../infrastructure';
 import type { JobSchema } from './Jobs';
 
 import { RequestHelper, endpoint, ensureRequiredParams, getPrefixedUrl } from '../infrastructure';
+
+export interface ArtifactFileSchema extends Record<string, unknown> {
+  name: string;
+  path: string;
+  type: 'file' | 'directory';
+  size?: number;
+  mode: string;
+}
 
 export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
   downloadArchive<E extends boolean = false>(
@@ -85,5 +99,30 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
     const url = getPrefixedUrl('artifacts', { projects: projectId, jobs: jobId });
 
     return RequestHelper.del()(this, url, { sudo, showExpanded });
+  }
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    projectId: string | number,
+    jobId: number,
+    options?: {
+      path?: string;
+      recursive?: boolean;
+      jobToken?: string;
+    } & PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<ArtifactFileSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<ArtifactFileSchema[]>()(
+      this,
+      endpoint`projects/${projectId}/jobs/${jobId}/artifacts/tree`,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams,
+      },
+    );
   }
 }

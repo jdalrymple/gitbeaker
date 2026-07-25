@@ -44,10 +44,13 @@ describe('Topics.all', () => {
 
 describe('Topics.create', () => {
   it('should request POST /topics without properties', async () => {
-    await service.create('topicname');
+    await service.create('topicname', 'Topic Title');
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'topics', {
-      body: {},
+      body: {
+        name: 'topicname',
+        title: 'Topic Title',
+      },
       showExpanded: undefined,
       sudo: undefined,
     });
@@ -56,15 +59,31 @@ describe('Topics.create', () => {
   it('should request POST /topics with form properties', async () => {
     const content = new Blob(['image'], { type: 'image/jpeg' });
 
-    await service.create('topicname', { avatar: { content, filename: 'name.jpeg' } });
+    await service.create('topicname', 'Topic Title', {
+      avatar: { content, filename: 'name.jpeg' },
+    });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('name', 'topicname');
-    expectedFormData.append('avatar', content, 'name.jpeg');
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'topics', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'topics',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
+
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      name: 'topicname',
+      title: 'Topic Title',
+      avatar: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 });
@@ -85,12 +104,25 @@ describe('Topics.edit', () => {
 
     await service.edit(3, { avatar: { content, filename: 'name.jpeg' } });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('avatar', content, 'name.jpeg');
-    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'topics/3', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
+      service,
+      'topics/3',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
+
+    // Verify FormData contents
+    const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      avatar: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 });

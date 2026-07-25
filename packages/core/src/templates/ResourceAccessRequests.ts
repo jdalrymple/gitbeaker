@@ -21,8 +21,12 @@ export interface AccessRequestSchema extends Record<string, unknown> {
   username: string;
   name: string;
   state: string;
+  locked?: boolean;
+  avatar_url?: string;
+  web_url?: string;
   created_at: string;
   requested_at: string;
+  access_level?: number;
 }
 
 export class ResourceAccessRequests<C extends boolean = false> extends BaseResource<C> {

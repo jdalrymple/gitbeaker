@@ -24,11 +24,17 @@ export interface CondensedNamespaceSchema extends Record<string, unknown> {
 }
 
 export interface NamespaceSchema extends CondensedNamespaceSchema {
-  members_count_with_descendants: number;
-  billable_members_count: number;
-  plan: string;
-  trial_ends_on?: string;
-  trial: boolean;
+  members_count_with_descendants?: number;
+  billable_members_count?: number;
+  max_seats_used?: number;
+  max_seats_used_changed_at?: string;
+  seats_in_use?: number;
+  plan?: string;
+  end_date?: string | null;
+  trial_ends_on?: string | null;
+  trial?: boolean;
+  root_repository_size?: number;
+  projects_count?: number;
 }
 
 export interface NamespaceExistsSchema extends Record<string, unknown> {
@@ -40,8 +46,9 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: {
       search?: string;
-      ownedOnly?: string;
+      ownedOnly?: boolean;
       topLevelOnly?: boolean;
+      fullPathSearch?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -61,7 +68,7 @@ export class Namespaces<C extends boolean = false> extends BaseResource<C> {
 
   exists<E extends boolean = false>(
     namespace: string,
-    options?: { parentId?: string } & ShowExpanded<E> & Sudo,
+    options?: { parentId?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<NamespaceExistsSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

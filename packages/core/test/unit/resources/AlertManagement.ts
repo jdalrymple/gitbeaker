@@ -68,18 +68,26 @@ describe('Agents.uploadMetricImage', () => {
 
     await service.uploadMetricImage(1, 2, image, { urlText: 'text' });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'image.jpeg');
-    expectedFormData.append('urlText', 'text');
-
     expect(RequestHelper.post()).toHaveBeenCalledWith(
       service,
       'projects/1/alert_management_alerts/2/metric_images',
-      {
-        body: expectedFormData,
+      expect.objectContaining({
+        body: expect.any(FormData),
         showExpanded: undefined,
         sudo: undefined,
-      },
+      }),
     );
+
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      url_text: 'text',
+      file: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
+    });
   });
 });

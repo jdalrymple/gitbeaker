@@ -10,6 +10,7 @@ import {
   type Sudo,
   createFormData,
   endpoint,
+  normalizeFormData,
 } from '../infrastructure';
 import {
   MarkdownUploadCreatedSchema,
@@ -73,10 +74,12 @@ export class ProjectMarkdownUploads<C extends boolean = false> extends ResourceM
     return RequestHelper.post<MarkdownUploadCreatedSchema>()(this, endpoint`${projectId}/uploads`, {
       sudo,
       showExpanded,
-      body: createFormData({
-        ...body,
-        file: [file.content, file.filename],
-      }),
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          file: [file.content, file.filename],
+        }),
+      ),
     });
   }
 }

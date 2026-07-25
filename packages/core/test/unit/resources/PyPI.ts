@@ -81,12 +81,25 @@ describe('PyPI.uploadPackageFile', () => {
 
     await service.uploadPackageFile(1, file);
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('file', content, 'pkg.txt');
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/packages/pypi', {
-      body: expectedFormData,
-      showExpanded: undefined,
-      sudo: undefined,
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/packages/pypi',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
+
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      content: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 });
