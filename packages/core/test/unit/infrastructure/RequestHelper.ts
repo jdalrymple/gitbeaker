@@ -81,7 +81,7 @@ function mockedTimedoutRequest(
 ) {
   return (
     endpoint: string,
-    options: DefaultRequesterOptions,
+    options?: DefaultRequesterOptions,
   ): Promise<FormattedResponse<ResponseBodyType>> =>
     new Promise((resolve, reject) => {
       if (options?.signal?.aborted) return;
@@ -92,7 +92,7 @@ function mockedTimedoutRequest(
 
       const timeoutId = setTimeout(() => {
         options?.signal?.removeEventListener('abort', abortListener);
-        const response = responseFn(endpoint, options);
+        const response = responseFn(endpoint, options || {});
         resolve(response);
       }, 100);
 
