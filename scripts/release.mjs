@@ -39,7 +39,7 @@ function execCommand(command, description) {
 
 function getPackageNames() {
   try {
-    const output = execSync('yarn workspaces list --json', { encoding: 'utf8' });
+    const output = execSync('pnpm workspaces list --json', { encoding: 'utf8' });
     const workspaces = output
       .trim()
       .split('\n')
@@ -194,8 +194,8 @@ async function release() {
 
   // Version packages
   const versionCommand = isCanary
-    ? 'yarn changeset version --snapshot canary'
-    : 'yarn changeset version';
+    ? 'pnpm changeset version --snapshot canary'
+    : 'pnpm changeset version';
 
   if (!execCommand(versionCommand, `Creating ${releaseType} versions`)) {
     process.exit(1);
@@ -203,13 +203,13 @@ async function release() {
 
   // Update contributors (production only)
   if (!isCanary) {
-    execCommand('yarn all-contributors-cli generate', 'Updating contributors (non-blocking)');
+    execCommand('pnpm all-contributors-cli generate', 'Updating contributors (non-blocking)');
   }
 
   // Publish packages
   const publishCommand = isCanary
-    ? 'yarn changeset publish --tag canary --no-git-tag'
-    : 'yarn changeset publish';
+    ? 'pnpm changeset publish --tag canary --no-git-tag'
+    : 'pnpm changeset publish';
 
   let publishedPackages = [];
 
