@@ -2,10 +2,25 @@
 
 import { execSync } from 'child_process';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 
-const isCanary = process.argv[2] === 'canary';
-const releaseType = isCanary ? 'canary' : 'production';
-const emoji = isCanary ? '🐤' : '🚀';
+const releaseArg = process.argv[2];
+
+let releaseType, emoji;
+
+switch (releaseArg) {
+  case 'canary':
+    releaseType = 'canary';
+    emoji = '🐤';
+    break;
+  case 'pre':
+    releaseType = 'pre';
+    emoji = '🚧';
+    break;
+  default:
+    releaseType = 'production';
+    emoji = '🚀';
+}
 
 const labelToChangeType = {
   breaking: 'major',
@@ -19,6 +34,7 @@ const labelToChangeType = {
   'type:testing': null,
   'type:documentation': null,
   'release:canary': 'patch',
+  'release:pre': 'patch',
 };
 
 function logStep(message) {
@@ -39,13 +55,16 @@ function execCommand(command, description) {
 
 function getPackageNames() {
   try {
-    const output = execSync('pnpm workspaces list --json', { encoding: 'utf8' });
-    const workspaces = output
-      .trim()
-      .split('\n')
-      .map((line) => JSON.parse(line));
+    const output = execSync('pnpm ls --depth -1', { encoding: 'utf8' });
+    const lines = output.trim().split('\n');
 
-    return workspaces.filter((ws) => ws.location !== '.' && ws.name).map((ws) => ws.name);
+    return lines
+      .filter(line => line.includes('@') && !line.includes('(PRIVATE)'))
+      .map(line => {
+        const match = line.match(/^(@?[^@\s]+)/);
+        return match ? match[1] : null;
+      })
+      .filter(Boolean);
   } catch (error) {
     console.warn('Could not get workspace packages:', error.message);
     return [];
@@ -57,16 +76,41 @@ function generateChangesetYaml(packageNames, changeType) {
   return packageNames.map((name) => `"${name}": ${changeType}`).join('\n');
 }
 
-function extractPublishedPackages(publishOutput, isCanary) {
+function extractPublishedPackages(publishOutput, releaseType) {
   const publishLines = publishOutput.split('\n');
 
   return publishLines
     .filter((line) => {
-      return line.includes('@') && (isCanary ? line.includes('canary') : !line.includes('canary'));
+      if (!line.includes('@')) return false;
+
+      switch (releaseType) {
+        case 'canary':
+          return line.includes('canary');
+        case 'pre':
+          return line.includes('pre');
+        case 'production':
+          return !line.includes('canary') && !line.includes('pre');
+        default:
+          return false;
+      }
     })
     .map((line) => {
       // Extract package@version from changeset output lines
-      const regex = isCanary ? /(@[^@]+@[\d\.-]+canary[\d-]+)/ : /(@[^@\s]+@[\d\.\-\w]+)/;
+      let regex;
+      switch (releaseType) {
+        case 'canary':
+          regex = /(@[^@]+@[\d\.-]+canary[\d-]+)/;
+          break;
+        case 'pre':
+          regex = /(@[^@]+@[\d\.-]+pre[\d-]+)/;
+          break;
+        case 'production':
+          regex = /(@[^@\s]+@[\d\.\-\w]+)/;
+          break;
+        default:
+          return null;
+      }
+
       const match = line.match(regex);
       return match ? match[1] : null;
     })
@@ -174,8 +218,13 @@ async function release() {
   const prData = await githubApiRequest(`/pulls/${prNumber}`);
   const labels = prData.labels.map((label) => label.name);
 
-  if (isCanary && !labels.includes('release:canary')) {
+  if (releaseType === 'canary' && !labels.includes('release:canary')) {
     logStep('No canary label present - skipping canary release');
+    return;
+  }
+
+  if (releaseType === 'pre' && !labels.includes('release:pre')) {
+    logStep('No pre label present - skipping pre release');
     return;
   }
 
@@ -193,23 +242,41 @@ async function release() {
   }
 
   // Version packages
-  const versionCommand = isCanary
-    ? 'pnpm changeset version --snapshot canary'
-    : 'pnpm changeset version';
+  let versionCommand;
+  switch (releaseType) {
+    case 'canary':
+      versionCommand = 'pnpm changeset version --snapshot canary';
+      break;
+    case 'pre':
+      versionCommand = 'pnpm changeset version --snapshot pre';
+      break;
+    case 'production':
+      versionCommand = 'pnpm changeset version';
+      break;
+  }
 
   if (!execCommand(versionCommand, `Creating ${releaseType} versions`)) {
     process.exit(1);
   }
 
   // Update contributors (production only)
-  if (!isCanary) {
+  if (releaseType === 'production') {
     execCommand('pnpm all-contributors-cli generate', 'Updating contributors (non-blocking)');
   }
 
   // Publish packages
-  const publishCommand = isCanary
-    ? 'pnpm changeset publish --tag canary --no-git-tag'
-    : 'pnpm changeset publish';
+  let publishCommand;
+  switch (releaseType) {
+    case 'canary':
+      publishCommand = 'pnpm changeset publish --tag canary --no-git-tag';
+      break;
+    case 'pre':
+      publishCommand = 'pnpm changeset publish --tag pre';
+      break;
+    case 'production':
+      publishCommand = 'pnpm changeset publish';
+      break;
+  }
 
   let publishedPackages = [];
 
@@ -221,7 +288,7 @@ async function release() {
 
     logStep(publishOutput); // Show the output to user
 
-    publishedPackages = extractPublishedPackages(publishOutput, isCanary);
+    publishedPackages = extractPublishedPackages(publishOutput, releaseType);
   } catch (error) {
     console.error(`❌ Failed to parse published packages: ${error.message}`);
     process.exit(1);
@@ -230,11 +297,25 @@ async function release() {
   // Post PR comment for releases
   if (prNumber && publishedPackages.length > 0) {
     try {
-      const releaseTitle = isCanary ? 'Canary Release Published' : 'Production Release Published';
-      const releaseDescription = isCanary ? 'canary versions' : 'new versions';
-      const installNote = isCanary
-        ? 'Note: Canary releases are temporary and may be unstable. Use for testing purposes only.'
-        : 'Note: These are production releases available on the `latest` tag.';
+      let releaseTitle, releaseDescription, installNote;
+
+      switch (releaseType) {
+        case 'canary':
+          releaseTitle = 'Canary Release Published';
+          releaseDescription = 'canary versions';
+          installNote = 'Note: Canary releases are temporary and may be unstable. Use for testing purposes only.';
+          break;
+        case 'pre':
+          releaseTitle = 'Pre Release Published';
+          releaseDescription = 'pre-release versions';
+          installNote = 'Note: Pre-releases are beta versions that may contain breaking changes. Use with caution.';
+          break;
+        case 'production':
+          releaseTitle = 'Production Release Published';
+          releaseDescription = 'new versions';
+          installNote = 'Note: These are production releases available on the `latest` tag.';
+          break;
+      }
 
       logStep(`Posting ${releaseType} release comment to PR`);
 
@@ -256,7 +337,7 @@ ${releaseLinks}
 
 ${installNote}`;
 
-      const commentType = isCanary ? 'canary' : 'production';
+      const commentType = releaseType;
 
       await githubApiRequest('/actions/workflows/post-release-comment.yml/dispatches', {
         method: 'POST',
@@ -277,7 +358,7 @@ ${installNote}`;
   }
 
   // Commit and push (production only)
-  if (!isCanary) {
+  if (releaseType === 'production') {
     const hasChanges = execCommand('git status --porcelain', { encoding: 'utf8' }).trim();
 
     if (hasChanges) {
