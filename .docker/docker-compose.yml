@@ -5,7 +5,7 @@ x-common-variables: &common-variables
 
 services:
   gitlab:
-    image: gitlab/gitlab-ce:19.0.1-ce.0
+    image: gitlab/gitlab-ce:19.2.0-ce.0
     container_name: gitlab
     restart: unless-stopped
     hostname: gitlab

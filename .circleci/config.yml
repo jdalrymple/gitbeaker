@@ -9,10 +9,10 @@ orbs:
 # ====================
 # ENVIRONMENT VARIABLES
 # ====================
-# Note: GITLAB_VERSION is fixed by the custom image (gitlab-ready-image-16) to 16.11.10-ce.0
+# Note: Custom image gitlab-ready-image-[major-version] will be created automatically if it doesn't exist
 x-environment: &default_environment
   GCP_ZONE: us-central1-c
-  GITLAB_VERSION: 16.11.10-ce.0 # Fixed by custom image
+  GITLAB_VERSION: 19.2.0-ce.0 # Custom image will be created automatically
   GITLAB_MACHINE_TYPE: e2-standard-4
   GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
   GITLAB_ROOT_PASSWORD: gitbeaker
@@ -23,7 +23,7 @@ x-environment: &default_environment
 executors:
   node-executor:
     docker:
-      - image: cimg/node:22.22.2
+      - image: cimg/node:24.18.0
     resource_class: medium
     working_directory: ~/project
 
@@ -35,7 +35,7 @@ executors:
 
   gcp-executor:
     docker:
-      - image: cimg/gcp:2025.01
+      - image: cimg/gcp:2026.07.1
     resource_class: small
     working_directory: ~/project
 
@@ -115,6 +115,24 @@ commands:
           command: pnpm test:<< parameters.test_type >> --projects=<< parameters.package >>
           no_output_timeout: 30m
       - save_nx_cache
+
+  setup_gitlab_vars:
+    description: 'Set up GitLab-related environment variables'
+    steps:
+      - run:
+          name: Set GitLab image variables
+          command: |
+            # Extract major version number from GITLAB_VERSION (e.g., 19 from 19.2.0-ce.0)
+            GITLAB_MAJOR_VERSION=$(echo "${GITLAB_VERSION}" | cut -d. -f1)
+            GITLAB_IMAGE_NAME="gitlab-ready-image-${GITLAB_MAJOR_VERSION}"
+            
+            # Export to BASH_ENV so they're available in subsequent steps
+            echo "export GITLAB_MAJOR_VERSION=${GITLAB_MAJOR_VERSION}" >> $BASH_ENV
+            echo "export GITLAB_IMAGE_NAME=${GITLAB_IMAGE_NAME}" >> $BASH_ENV
+            
+            echo "GitLab version: ${GITLAB_VERSION}"
+            echo "GitLab major version: ${GITLAB_MAJOR_VERSION}"
+            echo "GitLab image name: ${GITLAB_IMAGE_NAME}"
 
 # ====================
 # JOBS
@@ -257,6 +275,37 @@ jobs:
     steps:
       - checkout
       - gcp_auth
+      - setup_gitlab_vars
+      - run:
+          name: Check and create GitLab image if needed
+          command: |
+            echo "Checking for required GitLab image: ${GITLAB_IMAGE_NAME}"
+            
+            # Check if the required image exists
+            if gcloud compute images describe "${GITLAB_IMAGE_NAME}" --project=gitbeaker --quiet >/dev/null 2>&1; then
+              echo "✅ GitLab image ${GITLAB_IMAGE_NAME} already exists"
+            else
+              echo "❌ GitLab image ${GITLAB_IMAGE_NAME} does not exist"
+              echo "🚀 Building new GitLab image..."
+              
+              # Install packer if not available
+              if ! command -v packer &> /dev/null; then
+                echo "Installing Packer..."
+                curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+                sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+                sudo apt-get update && sudo apt-get install packer
+              fi
+              
+              # Initialize and build the image
+              cd scripts
+              packer init gitlab-image-19.pkr.hcl
+              packer validate gitlab-image-19.pkr.hcl
+              
+              echo "Building GitLab image (this may take 5-10 minutes)..."
+              packer build gitlab-image-19.pkr.hcl
+              
+              echo "✅ GitLab image ${GITLAB_IMAGE_NAME} created successfully"
+            fi
       - run:
           name: Setup live GitLab instance
           command: |
@@ -268,9 +317,9 @@ jobs:
 
             # Create startup script
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
-
+            
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            echo "Creating GCP instance..."
+            echo "Creating GCP instance using image: ${GITLAB_IMAGE_NAME}"
             GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
@@ -282,7 +331,7 @@ jobs:
               --max-run-duration=15m \
               --instance-termination-action=DELETE \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
-              --image=gitlab-ready-image-16 \
+              --image=$GITLAB_IMAGE_NAME \
               --image-project=gitbeaker 2>&1)
 
             # Extract IP address from the created instance
@@ -427,6 +476,59 @@ jobs:
             else
               echo "No gitlab-env.txt file found - no GitLab instance to clean up"
             fi
+
+  # ====================
+  # CLEANUP OLD IMAGES
+  # ====================
+  cleanup-old-gitlab-images:
+    executor: gcp-executor
+    description: 'Clean up old GitLab images that dont match current version (optional job)'
+    environment: *default_environment
+    steps:
+      - checkout
+      - gcp_auth
+      - setup_gitlab_vars
+      - run:
+          name: Clean up old GitLab images
+          command: |
+            echo "Current GitLab version: ${GITLAB_VERSION}"
+            echo "Current image name: ${GITLAB_IMAGE_NAME}"
+            echo ""
+            
+            # Find all gitlab-ready-image-* images in the project
+            OLD_IMAGES=$(gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-[0-9]+$" \
+              --format="value(name)" | grep -v "^${GITLAB_IMAGE_NAME}$" || true)
+            
+            if [ -z "$OLD_IMAGES" ]; then
+              echo "✅ No old GitLab images found to clean up"
+            else
+              echo "🧹 Found old GitLab images to clean up:"
+              echo "$OLD_IMAGES"
+              echo ""
+              
+              # Delete each old image
+              echo "$OLD_IMAGES" | while read -r image_name; do
+                if [ -n "$image_name" ]; then
+                  echo "🗑️  Deleting old image: $image_name"
+                  gcloud compute images delete "$image_name" \
+                    --project=gitbeaker \
+                    --quiet || echo "❌ Failed to delete $image_name"
+                fi
+              done
+              
+              echo ""
+              echo "✅ Cleanup completed"
+            fi
+            
+            # Show remaining GitLab images
+            echo ""
+            echo "📋 Remaining GitLab images:"
+            gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-" \
+              --format="table(name,creationTimestamp,diskSizeGb)" || echo "No GitLab images found"
 
   # ====================
   # CODECOV UPLOAD
@@ -681,6 +783,20 @@ workflows:
             - test-integration-core
             - test-e2e-rest
             - test-e2e-cli
+          filters:
+            branches:
+              only: [main, next]
+
+      # Optional cleanup job (manual approval required)
+      - approve-cleanup-old-images:
+          type: approval
+          requires: [build]
+          filters:
+            branches:
+              only: [main, next]
+
+      - cleanup-old-gitlab-images:
+          requires: [approve-cleanup-old-images]
           filters:
             branches:
               only: [main, next]
