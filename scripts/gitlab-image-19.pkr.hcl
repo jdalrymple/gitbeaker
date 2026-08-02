@@ -11,15 +11,15 @@ packer {
 }
 
 source "googlecompute" "gitlab" {
-  project_id           = "gitbeaker"
-  source_image_family  = "debian-12"
-  source_image_project = "debian-cloud"
-  zone                 = "us-central1-c"
-  image_name          = "gitlab-ready-image-19"
-  image_description   = "Debian 12 with Docker and GitLab CE 19.2.0 pre-installed for CI/CD"
-  machine_type        = "e2-medium"
-  disk_size           = 25
-  disk_type           = "pd-ssd"
+  project_id              = "gitbeaker"
+  source_image_family     = "debian-12"
+  source_image_project_id = "debian-cloud"
+  zone                    = "us-central1-c"
+  image_name             = "gitlab-ready-image-19"
+  image_description      = "Debian 12 with Docker and GitLab CE 19.2.0 pre-installed for CI/CD"
+  machine_type           = "e2-medium"
+  disk_size              = 25
+  disk_type              = "pd-ssd"
   
   // Add labels for tracking
   image_labels = {
