@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from 'child_process';
-import { writeFileSync, existsSync, mkdirSync, readFileSync, readdirSync } from 'fs';
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 const releaseArg = process.argv[2];
@@ -57,7 +57,7 @@ function getPackageNames() {
   try {
     const output = execSync('pnpm ls --depth -1', { encoding: 'utf8' });
     const lines = output.trim().split('\n');
-    
+
     return lines
       .filter(line => line.includes('@') && !line.includes('(PRIVATE)'))
       .map(line => {
@@ -82,7 +82,7 @@ function extractPublishedPackages(publishOutput, releaseType) {
   return publishLines
     .filter((line) => {
       if (!line.includes('@')) return false;
-      
+
       switch (releaseType) {
         case 'canary':
           return line.includes('canary');
@@ -110,7 +110,7 @@ function extractPublishedPackages(publishOutput, releaseType) {
         default:
           return null;
       }
-      
+
       const match = line.match(regex);
       return match ? match[1] : null;
     })
@@ -222,7 +222,7 @@ async function release() {
     logStep('No canary label present - skipping canary release');
     return;
   }
-  
+
   if (releaseType === 'pre' && !labels.includes('release:pre')) {
     logStep('No pre label present - skipping pre release');
     return;
@@ -298,7 +298,7 @@ async function release() {
   if (prNumber && publishedPackages.length > 0) {
     try {
       let releaseTitle, releaseDescription, installNote;
-      
+
       switch (releaseType) {
         case 'canary':
           releaseTitle = 'Canary Release Published';
