@@ -529,6 +529,24 @@ jobs:
 
             pnpm release:canary
 
+  release-pre:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Check for pre release
+          command: |
+            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+
+            pnpm release:pre
+
   release-production:
     executor: node-executor
     steps:
