@@ -24,6 +24,7 @@
     "cli",
     "gitbeaker"
   ],
+  "type": "module",
   "bin": {
     "gb": "dist/index.mjs",
     "gitbeaker": "dist/index.mjs"

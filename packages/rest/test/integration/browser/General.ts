@@ -1,5 +1,5 @@
 import { expect, test as it } from '@playwright/test';
-import path from 'path';
+import { fileURLToPath } from 'url';
 
 const { describe } = it;
 
@@ -241,7 +241,7 @@ describe('Browser Import', () => {
   it('should import all resources in the Gitbeaker library though the global gitbeaker ', async ({
     page,
   }) => {
-    const filepath = path.resolve(__dirname, '..', '..', 'assets', 'test-import.html');
+    const filepath = fileURLToPath(new URL('../../assets/test-import.html', import.meta.url));
 
     await page.goto(`file://${filepath}`);
 
