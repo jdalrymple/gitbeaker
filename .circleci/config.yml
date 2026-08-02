@@ -292,7 +292,7 @@ jobs:
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            echo "Creating GCP instance using image: ${GITLAB_IMAGE_NAME}"
+            echo "Creating GCP instance '$CONTAINER_NAME' using image: ${GITLAB_IMAGE_NAME}"
             GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
