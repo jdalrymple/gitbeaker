@@ -704,7 +704,7 @@ workflows:
       - codecov-upload:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
@@ -717,11 +717,11 @@ workflows:
       - release-canary:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
-            - test-types-utils
+            - test-types-requester-utils
             - test-types-core
             - test-types-rest
             - test-integration-rest
@@ -733,11 +733,11 @@ workflows:
       - release-production:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
-            - test-types-utils
+            - test-types-requester-utils
             - test-types-core
             - test-types-rest
             - test-integration-rest
