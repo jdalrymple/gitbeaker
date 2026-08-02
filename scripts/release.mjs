@@ -59,8 +59,8 @@ function getPackageNames() {
     const lines = output.trim().split('\n');
 
     return lines
-      .filter(line => line.includes('@') && !line.includes('(PRIVATE)'))
-      .map(line => {
+      .filter((line) => line.includes('@') && !line.includes('(PRIVATE)'))
+      .map((line) => {
         const match = line.match(/^(@?[^@\s]+)/);
         return match ? match[1] : null;
       })
@@ -303,12 +303,14 @@ async function release() {
         case 'canary':
           releaseTitle = 'Canary Release Published';
           releaseDescription = 'canary versions';
-          installNote = 'Note: Canary releases are temporary and may be unstable. Use for testing purposes only.';
+          installNote =
+            'Note: Canary releases are temporary and may be unstable. Use for testing purposes only.';
           break;
         case 'pre':
           releaseTitle = 'Pre Release Published';
           releaseDescription = 'pre-release versions';
-          installNote = 'Note: Pre-releases are beta versions that may contain breaking changes. Use with caution.';
+          installNote =
+            'Note: Pre-releases are beta versions that may contain breaking changes. Use with caution.';
           break;
         case 'production':
           releaseTitle = 'Production Release Published';
