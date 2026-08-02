@@ -629,7 +629,7 @@ workflows:
       # E2E tests
       - run-package-tests:
           name: test-e2e-rest
-          package: '@gitbeaker/rest'
+          package_short: 'rest'
           test_type: 'e2e'
           executor_type: 'playwright-executor'
           requires_gitlab_env: true
@@ -640,7 +640,7 @@ workflows:
 
       - run-package-tests:
           name: test-e2e-rest-manual
-          package: '@gitbeaker/rest'
+          package_short: 'rest'
           test_type: 'e2e'
           executor_type: 'playwright-executor'
           requires_gitlab_env: true
@@ -651,7 +651,7 @@ workflows:
 
       - run-package-tests:
           name: test-e2e-cli
-          package: '@gitbeaker/cli'
+          package_short: 'cli'
           test_type: 'e2e'
           requires_gitlab_env: true
           requires: [setup-e2e-tests]
@@ -660,7 +660,7 @@ workflows:
               only: [main, next]
       - run-package-tests:
           name: test-e2e-cli-manual
-          package: '@gitbeaker/cli'
+          package_short: 'cli'
           test_type: 'e2e'
           requires_gitlab_env: true
           requires: [setup-e2e-tests-manual]
