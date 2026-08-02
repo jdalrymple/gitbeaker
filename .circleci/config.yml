@@ -731,7 +731,9 @@ workflows:
               # Exclude forked PR branches which start with 'pull/'
               ignore: /^pull\/.*/
 
-      # Releases
+      # Releases - mutually exclusive per pipeline run
+
+      # Canary: any branch except main, next, release (where pre-releases run)
       - release-canary:
           requires:
             - build
@@ -746,8 +748,26 @@ workflows:
             - test-integration-core
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main, next, release]
 
+      # Pre-release: only release or next branches
+      - release-pre:
+          requires:
+            - build
+            - test-unit-requester-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-requester-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+          filters:
+            branches:
+              only: [release, next]
+
+      # Production: only main branch
       - release-production:
           requires:
             - build
@@ -764,7 +784,7 @@ workflows:
             - test-e2e-cli
           filters:
             branches:
-              only: [main, next]
+              only: [main]
 
       # Optional cleanup job (manual approval required)
       - approve-cleanup-old-images:
