@@ -50,16 +50,14 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Packages](#packages)
-- [Usage](./packages/rest/README.md#usage)
-- [FAQ](./docs/FAQ.md)
 - [Contributors](#contributors)
-- [Changelog](./CHANGELOG.md)
 
 ## Features
 
-- **Complete** - All features of GitLab's exposed APIs are covered up to version [16.5](https://docs.gitlab.com/16.5/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
+- **Complete** - All features of GitLab's exposed APIs are covered up to version [19.0](https://docs.gitlab.com/19.0/ee/api/api_resources.html). See [here](./packages/core/README.md#supported-apis) for the full list.
 - **Universal** - Works in all modern browsers, [Node.js](https://nodejs.org/), [Deno](https://deno.land/) and [Bun](https://bun.com/) and supports [CLI](https://www.npmjs.com/package/@gitbeaker/cli) usage.
 - **Tested** - All libraries have > 80% test coverage.
 - **Typed** - All libraries have extensive TypeScript declarations.
