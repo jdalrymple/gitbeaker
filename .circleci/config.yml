@@ -570,8 +570,8 @@ workflows:
 
       # Unit tests (matrix approach)
       - run-package-tests:
-          name: test-unit-<< matrix.package_short >>
           matrix:
+            alias: [utils, core, rest, cli]
             parameters:
               package:
                 [
@@ -580,35 +580,35 @@ workflows:
                   '@gitbeaker/rest',
                   '@gitbeaker/cli',
                 ]
-              package_short: ['utils', 'core', 'rest', 'cli']
+          name: test-unit-<< matrix.alias >>
           package: << matrix.package >>
           test_type: 'unit'
           requires: [install]
 
       # Type tests (matrix approach)
       - run-package-tests:
-          name: test-types-<< matrix.package_short >>
           matrix:
+            alias: [utils, core, rest]
             parameters:
               package: ['@gitbeaker/requester-utils', '@gitbeaker/core', '@gitbeaker/rest']
-              package_short: ['utils', 'core', 'rest']
+          name: test-types-<< matrix.alias >>
           package: << matrix.package >>
           test_type: 'types'
           requires: [build]
 
       # Integration tests (matrix approach)
       - run-package-tests:
-          name: test-integration-<< matrix.package_short >>
           matrix:
+            alias: [rest, core]
             parameters:
               package: ['@gitbeaker/rest', '@gitbeaker/core']
-              package_short: ['rest', 'core']
               executor_type: ['playwright-executor', 'node-executor']
             exclude:
               - package: '@gitbeaker/core'
                 executor_type: 'playwright-executor'
               - package: '@gitbeaker/rest'
                 executor_type: 'node-executor'
+          name: test-integration-<< matrix.alias >>
           package: << matrix.package >>
           test_type: 'integration'
           executor_type: << matrix.executor_type >>
