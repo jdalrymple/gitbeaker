@@ -9,6 +9,12 @@ packer {
   }
 }
 
+variable "gcp_credentials" {
+  type        = string
+  description = "GCP service account credentials JSON"
+  sensitive   = true
+}
+
 source "googlecompute" "gitlab" {
   project_id              = "gitbeaker"
   source_image_family     = "debian-12"
@@ -20,7 +26,7 @@ source "googlecompute" "gitlab" {
   disk_size              = 25
   disk_type              = "pd-ssd"
   ssh_username           = "packer"
-  credentials_json        = "${env.PACKER_GCP_CREDENTIALS}"
+  credentials_json        = var.gcp_credentials
 
   // Add labels for tracking
   image_labels = {

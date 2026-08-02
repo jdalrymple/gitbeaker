@@ -272,13 +272,10 @@ jobs:
               # Initialize and build the image
               cd scripts
               packer init gitlab-image-19.pkr.hcl
-              packer validate gitlab-image-19.pkr.hcl
-
-              # Set credentials for Packer
-              export PACKER_GCP_CREDENTIALS="$(echo $GCLOUD_SERVICE_KEY | base64 -d)"
+              packer validate -var "gcp_credentials=$(echo $GCLOUD_SERVICE_KEY | base64 -d)" gitlab-image-19.pkr.hcl
 
               echo "Building GitLab image (this may take 5-10 minutes)..."
-              packer build gitlab-image-19.pkr.hcl
+              packer build -var "gcp_credentials=$(echo $GCLOUD_SERVICE_KEY | base64 -d)" gitlab-image-19.pkr.hcl
 
               echo "✅ GitLab image ${GITLAB_IMAGE_NAME} created successfully"
             fi
