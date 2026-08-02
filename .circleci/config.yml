@@ -212,9 +212,9 @@ jobs:
   run-package-tests:
     executor: << parameters.executor_type >>
     parameters:
-      package:
+      package_short:
         type: string
-        description: 'Package name (e.g., @gitbeaker/core)'
+        description: 'Short package name (e.g., core, rest, cli, requester-utils)'
       test_type:
         type: string
         description: 'Test type (unit, types, integration, e2e)'
@@ -235,7 +235,7 @@ jobs:
           steps:
             - load_gitlab_environment
       - run_package_tests:
-          package: << parameters.package >>
+          package: '@gitbeaker/<< parameters.package_short >>'
           test_type: << parameters.test_type >>
 
   # ====================
@@ -571,45 +571,36 @@ workflows:
       # Unit tests (matrix approach)
       - run-package-tests:
           matrix:
-            alias: [utils, core, rest, cli]
             parameters:
-              package:
-                [
-                  '@gitbeaker/requester-utils',
-                  '@gitbeaker/core',
-                  '@gitbeaker/rest',
-                  '@gitbeaker/cli',
-                ]
-          name: test-unit-<< matrix.alias >>
-          package: << matrix.package >>
+              package_short: ['requester-utils', 'core', 'rest', 'cli']
+          name: test-unit-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
           test_type: 'unit'
           requires: [install]
 
       # Type tests (matrix approach)
       - run-package-tests:
           matrix:
-            alias: [utils, core, rest]
             parameters:
-              package: ['@gitbeaker/requester-utils', '@gitbeaker/core', '@gitbeaker/rest']
-          name: test-types-<< matrix.alias >>
-          package: << matrix.package >>
+              package_short: ['requester-utils', 'core', 'rest']
+          name: test-types-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
           test_type: 'types'
           requires: [build]
 
       # Integration tests (matrix approach)
       - run-package-tests:
           matrix:
-            alias: [rest, core]
             parameters:
-              package: ['@gitbeaker/rest', '@gitbeaker/core']
+              package_short: ['rest', 'core']
               executor_type: ['playwright-executor', 'node-executor']
             exclude:
-              - package: '@gitbeaker/core'
+              - package_short: 'core'
                 executor_type: 'playwright-executor'
-              - package: '@gitbeaker/rest'
+              - package_short: 'rest'
                 executor_type: 'node-executor'
-          name: test-integration-<< matrix.alias >>
-          package: << matrix.package >>
+          name: test-integration-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
           test_type: 'integration'
           executor_type: << matrix.executor_type >>
           requires: [build]
