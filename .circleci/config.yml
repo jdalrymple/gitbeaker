@@ -137,11 +137,11 @@ commands:
     steps:
       - when:
           condition:
-            equal: [ "playwright-executor", << parameters.executor_type >> ]
+            equal: ['playwright-executor', << parameters.executor_type >>]
           steps:
             - run:
                 name: Install pnpm (Playwright executor only)
-                command: npm install -g pnpm@11.17.0  # Match package.json version
+                command: npm install -g pnpm@11.17.0 # Match package.json version
 
   load_gitlab_environment:
     description: 'Load GitLab environment variables for e2e tests'
@@ -237,7 +237,6 @@ jobs:
       - run_package_tests:
           package: << parameters.package >>
           test_type: << parameters.test_type >>
-
 
   # ====================
   # LIVE TEST SETUP
@@ -384,7 +383,6 @@ jobs:
           root: .
           paths:
             - gitlab-env.txt
-
 
   # ====================
   # TEARDOWN
@@ -575,7 +573,13 @@ workflows:
           name: test-unit-<< matrix.package_short >>
           matrix:
             parameters:
-              package: ['@gitbeaker/requester-utils', '@gitbeaker/core', '@gitbeaker/rest', '@gitbeaker/cli']
+              package:
+                [
+                  '@gitbeaker/requester-utils',
+                  '@gitbeaker/core',
+                  '@gitbeaker/rest',
+                  '@gitbeaker/cli',
+                ]
               package_short: ['utils', 'core', 'rest', 'cli']
           package: << matrix.package >>
           test_type: 'unit'
