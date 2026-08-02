@@ -6,7 +6,7 @@ version: 2.1
 # Note: Custom image gitlab-ready-image-[major-version] will be created automatically if it doesn't exist
 x-environment: &default_environment
   GCP_ZONE: us-central1-c
-  GITLAB_VERSION: 19.2.0-ce.0 # Custom image will be created automatically
+  GITLAB_VERSION: 19.2.0-ce.0
   GITLAB_MACHINE_TYPE: e2-standard-4
   GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
   GITLAB_ROOT_PASSWORD: gitbeaker
@@ -141,7 +141,7 @@ commands:
           steps:
             - run:
                 name: Install pnpm (Playwright executor only)
-                command: npm install -g pnpm@11.17.0 # Match package.json version
+                command: npm install -g pnpm@11.17.0
 
   load_gitlab_environment:
     description: 'Load GitLab environment variables for e2e tests'
