@@ -19,6 +19,7 @@ source "googlecompute" "gitlab" {
   machine_type           = "e2-medium"
   disk_size              = 25
   disk_type              = "pd-ssd"
+  ssh_username           = "packer"
 
   // Add labels for tracking
   image_labels = {
