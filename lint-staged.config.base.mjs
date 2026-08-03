@@ -1,4 +1,4 @@
 export default {
-  '**/*.{ts,js,json,md,yml}': ['pnpm --workspace-root format:fix'],
-  '**/*.{ts,js}': ['pnpm --workspace-root lint:fix'],
+  '**/*.{mts,mjs,ts,js,json,md,yml}': ['oxfmt --write'],
+  '**/*.{mts,mjs,ts,js}': ['oxlint --fix'],
 };

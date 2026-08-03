@@ -32,7 +32,7 @@
   <a href="https://codecov.io/gh/jdalrymple/gitbeaker">
     <img alt="REST Coverage" src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker?flag=rest&logo=codecov&label=coverage"/>
   </a>
-  
+
   <a href="https://github.com/intuit/auto">
     <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
   </a>

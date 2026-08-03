@@ -12,9 +12,9 @@
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
     "clean": "pnpm dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports,.nx}'",
-    "format:docs": "prettier './**/(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check ",
-    "format:src": "prettier '**/{src,test,scripts}/**/*.ts' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check",
-    "format": "pnpm format:src && pnpm format:docs",
+    "format:docs": "oxfmt './*.{json,yml,md,mjs,mts,js,ts}' './packages/*/*.{json,yml,md,mjs,mts,js,ts}'",
+    "format:src": "oxfmt '**/{src,test,scripts}/**/*.ts'",
+    "format": "pnpm format:src --check && pnpm format:docs --check",
     "format:fix": "pnpm format:src --write && pnpm format:docs --write",
     "test:types": "nx run-many --target=test:types",
     "test:unit": "nx run-many --target=test:unit",
@@ -26,28 +26,23 @@
     "release:pre": "node scripts/release.mjs pre",
     "prepare": "husky"
   },
-  "dependencies": {
-    "types": "^0.1.1"
-  },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.7.0",
-    "@changesets/cli": "^2.31.1",
+    "@changesets/changelog-github": "1.0.0-next.8",
+    "@changesets/cli": "3.0.0-next.10",
     "@codecov/bundle-analyzer": "^2.0.1",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.1.10",
-    "@vitest/eslint-plugin": "^1.6.24",
     "@vitest/ui": "^4.1.10",
     "all-contributors-cli": "^6.27.0-rc.1",
     "eslint-plugin-perfectionist": "^5.10.0",
-    "globals": "^17.7.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.2.0",
-    "nx": "^23.1.0",
-    "oxlint": "^1.75.0",
-    "prettier": "3.6.2",
+    "lint-staged": "^17.3.0",
+    "nx": "^23.1.1",
+    "oxfmt": "^0.61.0",
+    "oxlint": "^1.76.0",
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
+  "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }

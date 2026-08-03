@@ -17,8 +17,9 @@ export interface ProjectRepositoryStorageMoveSchema extends RepositoryStorageMov
   project: SimpleProjectSchema;
 }
 
-export interface ProjectRepositoryStorageMoves<C extends boolean = false>
-  extends ResourceRepositoryStorageMoves<C> {
+export interface ProjectRepositoryStorageMoves<
+  C extends boolean = false,
+> extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { projectId?: string | number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &

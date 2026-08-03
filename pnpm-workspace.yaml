@@ -4,7 +4,3 @@ allowBuilds:
   '@swc/core': true
   esbuild: true
   nx: false
-overrides:
-  brace-expansion: ^5.0.7
-  js-yaml: ^4.3.0
-  axios: ^1.18.0
