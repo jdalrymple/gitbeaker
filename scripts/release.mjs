@@ -1,10 +1,41 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+import { writeFile, readFile, access, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { glob } from 'node:fs/promises';
+import { getChangedPackagesSinceRef } from '@changesets/git';
+import writeChangeset from '@changesets/write';
+import getReleasePlan from '@changesets/get-release-plan';
 
-const releaseArg = process.argv[2];
+const execAsync = promisify(exec);
+
+const args = process.argv.slice(2);
+const releaseArg = args.find((arg) => !arg.startsWith('--'));
+const isDryRun = args.includes('--dry-run');
+
+// Show help message
+if (args.includes('--help') || args.includes('-h')) {
+  console.log(`
+Usage: node scripts/release.mjs [type] [options]
+
+Release Types:
+  canary      Create a canary release
+  pre         Create a pre-release
+  (default)   Create a production release
+
+Options:
+  --dry-run   Run without publishing packages or making changes
+  --help, -h  Show this help message
+
+Examples:
+  node scripts/release.mjs pre --dry-run
+  node scripts/release.mjs canary
+  node scripts/release.mjs --dry-run
+`);
+  process.exit(0);
+}
 
 let releaseType, emoji;
 
@@ -38,13 +69,16 @@ const labelToChangeType = {
 };
 
 function logStep(message) {
-  console.log(`${emoji} ${message}`);
+  const dryRunPrefix = isDryRun ? '[DRY-RUN] ' : '';
+  console.log(`${emoji} ${dryRunPrefix}${message}`);
 }
 
-function execCommand(command, description) {
+async function execCommand(command, description) {
   logStep(description);
   try {
-    execSync(command, { stdio: 'inherit' });
+    const { stdout, stderr } = await execAsync(command);
+    if (stdout) console.log(stdout);
+    if (stderr) console.error(stderr);
     return true;
   } catch (error) {
     console.error(`❌ Failed: ${description}`);
@@ -53,68 +87,57 @@ function execCommand(command, description) {
   }
 }
 
-function getPackageNames() {
+async function getPackageNames() {
   try {
-    const output = execSync('pnpm ls --depth -1', { encoding: 'utf8' });
-    const lines = output.trim().split('\n');
+    const { stdout } = await execAsync('pnpm ls --depth -1 --json');
+    const packages = JSON.parse(stdout);
 
-    return lines
-      .filter((line) => line.includes('@') && !line.includes('(PRIVATE)'))
-      .map((line) => {
-        const match = line.match(/^(@?[^@\s]+)/);
-        return match ? match[1] : null;
-      })
-      .filter(Boolean);
+    return packages.filter((pkg) => !pkg.private && pkg.name.includes('@')).map((pkg) => pkg.name);
   } catch (error) {
     console.warn('Could not get workspace packages:', error.message);
     return [];
   }
 }
 
-function generateChangesetYaml(packageNames, changeType) {
-  if (packageNames.length === 0) return '';
-  return packageNames.map((name) => `"${name}": ${changeType}`).join('\n');
+async function getChangedPackageNames() {
+  try {
+    const changedPackages = await getChangedPackagesSinceRef({
+      cwd: process.cwd(),
+      ref: 'main'
+    });
+
+    return changedPackages
+      .filter((pkg) => !pkg.packageJson.private && pkg.packageJson.name.includes('@'))
+      .map((pkg) => pkg.packageJson.name);
+  } catch (error) {
+    console.warn('Could not get changed packages from changesets, falling back to all packages:', error.message);
+    return await getPackageNames();
+  }
 }
 
-function extractPublishedPackages(publishOutput, releaseType) {
-  const publishLines = publishOutput.split('\n');
+async function getPublishedPackages(releaseType) {
+  try {
+    const releasePlan = await getReleasePlan(process.cwd());
 
-  return publishLines
-    .filter((line) => {
-      if (!line.includes('@')) return false;
-
-      switch (releaseType) {
-        case 'canary':
-          return line.includes('canary');
-        case 'pre':
-          return line.includes('pre');
-        case 'production':
-          return !line.includes('canary') && !line.includes('pre');
-        default:
-          return false;
-      }
-    })
-    .map((line) => {
-      // Extract package@version from changeset output lines
-      let regex;
-      switch (releaseType) {
-        case 'canary':
-          regex = /(@[^@]+@[\d\.-]+canary[\d-]+)/;
-          break;
-        case 'pre':
-          regex = /(@[^@]+@[\d\.-]+pre[\d-]+)/;
-          break;
-        case 'production':
-          regex = /(@[^@\s]+@[\d\.\-\w]+)/;
-          break;
-        default:
-          return null;
-      }
-
-      const match = line.match(regex);
-      return match ? match[1] : null;
-    })
-    .filter(Boolean);
+    return releasePlan.releases
+      .filter(release => {
+        // Filter based on release type logic
+        switch (releaseType) {
+          case 'canary':
+            return release.newVersion.includes('canary');
+          case 'pre':
+            return release.newVersion.includes('pre');
+          case 'production':
+            return !release.newVersion.includes('canary') && !release.newVersion.includes('pre');
+          default:
+            return false;
+        }
+      })
+      .map(release => `${release.name}@${release.newVersion}`);
+  } catch (error) {
+    console.warn('Could not get release plan:', error.message);
+    return [];
+  }
 }
 
 function getRepoInfo() {
@@ -154,13 +177,15 @@ async function githubApiRequest(endpoint, options = {}) {
   return response.json();
 }
 
-async function generateChangesetFromPR(prNumber, labels, prTitle) {
-  if (!prNumber) {
-    logStep('No PR number provided, skipping changeset generation');
+async function generateChangesetFromPR(prData) {
+  if (!prData || !prData?.number) {
+    logStep('No PR data provided, skipping changeset generation');
     return null;
   }
 
-  logStep(`Generating changeset for PR #${prNumber} with labels: ${labels.join(', ')}`);
+  const labels = prData.labels.map(label => label.name);
+
+  logStep(`Generating changeset for PR #${prData.number} with labels: ${labels.join(', ')}`);
 
   // Find change type
   const changeType = labels
@@ -177,40 +202,74 @@ async function generateChangesetFromPR(prNumber, labels, prTitle) {
 
   logStep(`Determined change type: ${changeType}`);
 
-  // Get package names using yarn workspaces
-  const packageNames = getPackageNames();
+  // Get package names that have changes
+  const packageNames = await getChangedPackageNames();
+
   if (packageNames.length === 0) {
-    console.warn('No packages found in yarn workspaces');
+    console.warn('No packages found in workspace');
     return null;
   }
 
   logStep(`Found packages: ${packageNames.join(', ')}`);
 
-  // Create changeset directory if it doesn't exist
-  if (!existsSync('.changeset')) {
-    mkdirSync('.changeset');
+  // Create changeset using changesets' API
+  const changesetId = await writeChangeset(
+    {
+      summary: `${prData.body}\n\nPR: #${prData.number}`,
+      releases: packageNames.map(name => ({ name, type: changeType }))
+    },
+    process.cwd()
+  );
+
+  logStep(`Generated changeset: ${changesetId}`);
+  return changesetId;
+}
+
+async function formatChangelogDates() {
+  logStep('Adding dates to changelog headings');
+
+  const changelogFilesIterator = await glob('packages/*/CHANGELOG.md');
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+
+  for await (const filePath of changelogFilesIterator) {
+    try {
+      let content = await readFile(filePath, 'utf8');
+
+      // Match version headers that don't already have dates
+      // Matches: ## 44.0.0-pre.0  or  # v44.0.0  (without dates)
+      const headerRegex = /^(#{1,2})\s+(v?)(\d+\.\d+\.\d+(?:-[^\s]+)?)\s*$/gm;
+
+      content = content.replace(headerRegex, (match, hashes, vPrefix, version) => {
+        // Add the 'v' prefix if missing and format with date
+        const formattedVersion = vPrefix ? `v${version}` : `v${version}`;
+        return `${hashes} ${formattedVersion} (${dateStr})`;
+      });
+
+      await writeFile(filePath, content);
+    } catch (error) {
+      console.warn(`Failed to format changelog ${filePath}:`, error.message);
+    }
   }
-
-  const changesetContent = `---
-${generateChangesetYaml(packageNames, changeType)}
----
-
-${prTitle}`;
-
-  const filename = `.changeset/pr-${prNumber}-${Date.now()}.md`;
-  writeFileSync(filename, changesetContent);
-
-  logStep(`Generated changeset: ${filename}`);
-  return filename;
 }
 
 async function release() {
-  logStep(`Starting ${releaseType} release`);
+  logStep(`Starting ${releaseType} release${isDryRun ? ' (dry-run mode)' : ''}`);
 
   const prNumber = process.env.PR_NUMBER;
 
   if (!prNumber) {
     logStep('No PR number found - skipping release');
+    return;
+  }
+
+  if (!process.env.GITHUB_TOKEN) {
+    logStep('No GH Token found - skipping release');
     return;
   }
 
@@ -230,8 +289,9 @@ async function release() {
 
   // Generate changesets (direct function call, no subprocess)
   logStep('Generating changeset from PR labels');
+
   try {
-    const changesetFile = await generateChangesetFromPR(prNumber, labels, prData.title);
+    const changesetFile = await generateChangesetFromPR(prData);
     if (!changesetFile) {
       logStep(`No changeset generated - skipping ${releaseType} release`);
       return;
@@ -248,20 +308,33 @@ async function release() {
       versionCommand = 'pnpm changeset version --snapshot canary';
       break;
     case 'pre':
-      versionCommand = 'pnpm changeset version --snapshot pre';
+      versionCommand = 'pnpm changeset pre enter pre && pnpm changeset version';
       break;
     case 'production':
       versionCommand = 'pnpm changeset version';
       break;
   }
 
-  if (!execCommand(versionCommand, `Creating ${releaseType} versions`)) {
+  const versionSuccess = await execCommand(versionCommand, `Creating ${releaseType} versions`);
+
+  if (!versionSuccess) {
     process.exit(1);
   }
 
+  // Format changelog dates
+  await formatChangelogDates();
+
   // Update contributors (production only)
   if (releaseType === 'production') {
-    execCommand('pnpm all-contributors-cli generate', 'Updating contributors (non-blocking)');
+    await execCommand('pnpm all-contributors-cli generate', 'Updating contributors (non-blocking)');
+  }
+
+  // Exit early if dry-run mode
+
+  if (isDryRun) {
+    logStep(`Dry-run complete - ${releaseType} versions would be published`);
+    logStep('Skipping: package publishing, PR comments, and git operations');
+    return;
   }
 
   // Publish packages
@@ -278,23 +351,23 @@ async function release() {
       break;
   }
 
-  let publishedPackages = [];
+  // Get the packages that will be published
+  const publishedPackages = await getPublishedPackages(releaseType);
 
   try {
-    // Capture publish output to extract version info
+    // Publish packages
     logStep(`Publishing ${releaseType} packages`);
 
-    const publishOutput = execSync(publishCommand, { stdio: 'pipe', encoding: 'utf8' });
+    const { stdout: publishOutput } = await execAsync(publishCommand);
 
     logStep(publishOutput); // Show the output to user
-
-    publishedPackages = extractPublishedPackages(publishOutput, releaseType);
   } catch (error) {
-    console.error(`❌ Failed to parse published packages: ${error.message}`);
+    console.error(`❌ Failed to publish packages: ${error.message}`);
     process.exit(1);
   }
 
   // Post PR comment for releases
+
   if (prNumber && publishedPackages.length > 0) {
     try {
       let releaseTitle, releaseDescription, installNote;
@@ -359,22 +432,36 @@ ${installNote}`;
     }
   }
 
+  // Exit pre-release mode if we were in pre mode
+  if (releaseType === 'pre') {
+    const exitPreSuccess = await execCommand('pnpm changeset pre exit', 'Exiting pre-release mode');
+
+    if (!exitPreSuccess) {
+      console.warn('⚠️  Failed to exit pre-release mode - this may need manual cleanup');
+    }
+  }
+
   // Commit and push (production only)
+
   if (releaseType === 'production') {
-    const hasChanges = execCommand('git status --porcelain', { encoding: 'utf8' }).trim();
+    const { stdout: statusOutput } = await execAsync('git status --porcelain');
+    const hasChanges = statusOutput.trim();
 
     if (hasChanges) {
-      if (!execCommand('git add .', 'Staging changes')) process.exit(1);
+      const addSuccess = await execCommand('git add .', 'Staging changes');
 
-      if (
-        !execCommand(
-          'git commit -m "Version packages and update contributors"',
-          'Committing changes',
-        )
-      )
-        process.exit(1);
+      if (!addSuccess) process.exit(1);
 
-      if (!execCommand('git push', 'Pushing changes')) process.exit(1);
+      const commitSuccess = await execCommand(
+        'git commit -m "Version packages and update contributors"',
+        'Committing changes',
+      );
+
+      if (!commitSuccess) process.exit(1);
+
+      const pushSuccess = await execCommand('git push', 'Pushing changes');
+
+      if (!pushSuccess) process.exit(1);
 
       logStep('Successfully committed and pushed version changes');
     }

@@ -1,3 +1,6 @@
+# @gitbeaker
+---
+
 # 43.8.0 (Sat Nov 01 2025)
 
 :tada: This release contains work from a new contributor! :tada:

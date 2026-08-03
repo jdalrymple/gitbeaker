@@ -49,8 +49,8 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^43.8.0",
-    "@gitbeaker/requester-utils": "^43.8.0"
+    "@gitbeaker/core": "workspace:*",
+    "@gitbeaker/requester-utils": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",

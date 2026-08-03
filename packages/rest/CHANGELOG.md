@@ -1,4 +1,6 @@
-# v43.6.0 (Sun Oct 26 2025)
+# @gitbeaker/requester-rest
+
+## v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -26,7 +28,7 @@ Thank you, Daniel Rentz ([@danielrentz](https://github.com/danielrentz)), for al
 
 ---
 
-# v43.5.0 (Tue Sep 02 2025)
+## v43.5.0 (Tue Sep 02 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -48,7 +50,7 @@ Thank you, null[@lanthier](https://github.com/lanthier), for all your work!
 
 ---
 
-# v43.4.0 (Thu Aug 07 2025)
+## v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -84,7 +86,7 @@ Thanks for all your work!
 
 ---
 
-# v43.3.0 (Sat Jul 19 2025)
+## v43.3.0 (Sat Jul 19 2025)
 
 #### 🚨 Tests
 
@@ -96,7 +98,7 @@ Thanks for all your work!
 
 ---
 
-# v43.0.0 (Sun Jul 13 2025)
+## v43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -135,7 +137,7 @@ Thanks for all your work!
 
 ---
 
-# v42.5.0 (Sat Apr 26 2025)
+## v42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature
 
@@ -149,7 +151,7 @@ Thanks for all your work!
 
 ---
 
-# v42.3.0 (Mon Apr 21 2025)
+## v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -166,7 +168,7 @@ Thank you, Zack ([@zk-kb4](https://github.com/zk-kb4)), for all your work!
 
 ---
 
-# v42.2.0 (Mon Mar 24 2025)
+## v42.2.0 (Mon Mar 24 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -191,7 +193,7 @@ Thank you, Endrik Einberg ([@enduity](https://github.com/enduity)), for all your
 
 ---
 
-# v41.2.0 (Sun Nov 10 2024)
+## v41.2.0 (Sun Nov 10 2024)
 
 #### 🐛 Bug Fix
 
@@ -203,7 +205,7 @@ Thank you, Endrik Einberg ([@enduity](https://github.com/enduity)), for all your
 
 ---
 
-# v41.0.0 (Sat Oct 19 2024)
+## v41.0.0 (Sat Oct 19 2024)
 
 #### 💥 Breaking Change
 
@@ -215,7 +217,7 @@ Thank you, Endrik Einberg ([@enduity](https://github.com/enduity)), for all your
 
 ---
 
-# v40.6.0 (Sat Oct 19 2024)
+## v40.6.0 (Sat Oct 19 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -232,7 +234,7 @@ Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your w
 
 ---
 
-# v40.2.0 (Sat Sep 07 2024)
+## v40.2.0 (Sat Sep 07 2024)
 
 #### 📚 Documentation
 
@@ -244,7 +246,7 @@ Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your w
 
 ---
 
-# v40.1.4 (Thu Sep 05 2024)
+## v40.1.4 (Thu Sep 05 2024)
 
 #### 📚 Documentation
 
@@ -256,7 +258,7 @@ Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your w
 
 ---
 
-# v40.1.0 (Mon Jul 08 2024)
+## v40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -286,7 +288,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v40.0.3 (Fri Apr 12 2024)
+## v40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -298,7 +300,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.34.3 (Tue Feb 20 2024)
+## v39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt
 
@@ -310,7 +312,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.34.0 (Mon Jan 29 2024)
+## v39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
 
@@ -322,7 +324,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.33.1 (Mon Jan 29 2024)
+## v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
 
@@ -334,7 +336,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.32.0 (Tue Jan 23 2024)
+## v39.32.0 (Tue Jan 23 2024)
 
 #### 🐛 Bug Fix
 
@@ -346,7 +348,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.30.0 (Wed Jan 17 2024)
+## v39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
 
@@ -358,7 +360,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.28.0 (Sun Dec 31 2023)
+## v39.28.0 (Sun Dec 31 2023)
 
 #### 🔨 Technical Debt
 
@@ -375,7 +377,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.27.1 (Tue Dec 26 2023)
+## v39.27.1 (Tue Dec 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -387,7 +389,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.25.1 (Sat Dec 09 2023)
+## v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
 
@@ -399,7 +401,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.24.0 (Fri Nov 17 2023)
+## v39.24.0 (Fri Nov 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -429,7 +431,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.23.0 (Thu Nov 16 2023)
+## v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
 
@@ -441,7 +443,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.21.1 (Sat Oct 21 2023)
+## v39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
 
@@ -453,7 +455,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.21.0 (Sat Oct 21 2023)
+## v39.21.0 (Sat Oct 21 2023)
 
 #### ✨ Feature
 
@@ -470,7 +472,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.19.0 (Sat Oct 07 2023)
+## v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature
 
@@ -482,7 +484,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.18.0 (Wed Oct 04 2023)
+## v39.18.0 (Wed Oct 04 2023)
 
 #### ✨ Feature
 
@@ -502,7 +504,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.13.0 (Fri Sep 01 2023)
+## v39.13.0 (Fri Sep 01 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -518,7 +520,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v39.10.3 (Tue Aug 08 2023)
+## v39.10.3 (Tue Aug 08 2023)
 
 #### 🔨 Technical Debt
 
@@ -530,7 +532,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v39.6.0 (Wed Jul 12 2023)
+## v39.6.0 (Wed Jul 12 2023)
 
 #### ↕️ Dependencies
 
@@ -542,7 +544,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v39.2.0 (Mon Jun 26 2023)
+## v39.2.0 (Mon Jun 26 2023)
 
 #### ✨ Feature
 
@@ -558,7 +560,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v39.1.1 (Mon Jun 26 2023)
+## v39.1.1 (Mon Jun 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -570,7 +572,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v38.10.0 (Fri Jun 02 2023)
+## v38.10.0 (Fri Jun 02 2023)
 
 #### 🐛 Bug Fix
 
@@ -586,7 +588,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v38.9.0 (Sun May 28 2023)
+## v38.9.0 (Sun May 28 2023)
 
 #### 🐛 Bug Fix
 
@@ -598,7 +600,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v38.8.0 (Mon May 22 2023)
+## v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
 
@@ -610,7 +612,7 @@ Thank you, Alessandro Diez ([@demedos](https://github.com/demedos)), for all you
 
 ---
 
-# v38.7.0 (Sat May 20 2023)
+## v38.7.0 (Sat May 20 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -635,7 +637,7 @@ Thanks for all your work!
 
 ---
 
-# v38.4.0 (Sat May 13 2023)
+## v38.4.0 (Sat May 13 2023)
 
 #### 🐛 Bug Fix
 
@@ -655,7 +657,7 @@ Thanks for all your work!
 
 ---
 
-# v38.3.0 (Sat May 06 2023)
+## v38.3.0 (Sat May 06 2023)
 
 #### ↕️ Dependencies
 
@@ -667,7 +669,7 @@ Thanks for all your work!
 
 ---
 
-# v38.2.0 (Fri May 05 2023)
+## v38.2.0 (Fri May 05 2023)
 
 #### 🐛 Bug Fix
 
@@ -683,7 +685,7 @@ Thanks for all your work!
 
 ---
 
-# v38.1.1 (Wed May 03 2023)
+## v38.1.1 (Wed May 03 2023)
 
 #### 📚 Documentation
 
@@ -695,7 +697,7 @@ Thanks for all your work!
 
 ---
 
-# v38.0.0 (Sat Apr 29 2023)
+## v38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
 
@@ -707,7 +709,7 @@ Thanks for all your work!
 
 ---
 
-# v37.1.0 (Thu Apr 27 2023)
+## v37.1.0 (Thu Apr 27 2023)
 
 #### 🚑 Hot Fix
 
@@ -719,7 +721,7 @@ Thanks for all your work!
 
 ---
 
-# v37.0.0 (Wed Apr 26 2023)
+## v37.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
 
