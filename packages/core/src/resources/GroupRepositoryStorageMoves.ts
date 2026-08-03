@@ -17,8 +17,9 @@ export interface GroupRepositoryStorageMoveSchema extends RepositoryStorageMoveS
   group: Pick<GroupSchema, 'id' | 'web_url' | 'name'>;
 }
 
-export interface GroupRepositoryStorageMoves<C extends boolean = false>
-  extends ResourceRepositoryStorageMoves<C> {
+export interface GroupRepositoryStorageMoves<
+  C extends boolean = false,
+> extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { groupId?: string | number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &

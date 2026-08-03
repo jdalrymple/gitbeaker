@@ -141,7 +141,7 @@ commands:
           steps:
             - run:
                 name: Install pnpm (Playwright executor only)
-                command: npm install -g pnpm@11.17.0
+                command: npm install -g pnpm@11.18.0
 
   load_gitlab_environment:
     description: 'Load GitLab environment variables for e2e tests'
@@ -763,6 +763,8 @@ workflows:
             - test-types-rest
             - test-integration-rest
             - test-integration-core
+            - test-e2e-rest
+            - test-e2e-cli
           filters:
             branches:
               only: [release, next]
