@@ -215,7 +215,7 @@ async function generateChangesetFromPR(prData) {
   // Create changeset using changesets' API
   const changesetId = await writeChangeset(
     {
-      summary: `${prData.body}\n\nPR: #${prData.number}`,
+      summary: `${prData.body}\n\npr: #${prData.number}`,
       releases: packageNames.map(name => ({ name, type: changeType }))
     },
     process.cwd()
@@ -255,6 +255,193 @@ async function formatChangelogDates() {
     } catch (error) {
       console.warn(`Failed to format changelog ${filePath}:`, error.message);
     }
+  }
+}
+
+function sectionFor(content, version) {
+  // Extract the section for a specific version from changelog content
+  const versionPattern = new RegExp(`^## v?${version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(?=^## |$)`, 'm');
+  const match = content.match(versionPattern);
+  return match ? match[0] : null;
+}
+
+function stripDependencyUpdates(section) {
+  return section
+    .split('\n')
+    .filter(line => {
+      // Keep lines that aren't just dependency updates
+      return !line.match(/^\s*- Updated dependencies \[\]/);
+    })
+    .join('\n')
+    .trim();
+}
+
+async function aggregateRootChangelog() {
+  logStep('Aggregating package changelogs into root CHANGELOG.md');
+
+  try {
+    const changelogFiles = [];
+    const changelogFilesIterator = await glob('packages/*/CHANGELOG.md');
+
+    for await (const filePath of changelogFilesIterator) {
+      changelogFiles.push(filePath);
+    }
+
+    // Find the latest version across all packages
+    let latestVersion = null;
+    const packageEntries = new Map();
+
+    for (const filePath of changelogFiles) {
+      try {
+        const content = await readFile(filePath, 'utf8');
+        const packageName = filePath.match(/packages\/([^/]+)/)?.[1];
+
+        if (!packageName) continue;
+
+        // Find the first version header
+        const versionMatch = content.match(/^## (v?\d+\.\d+\.\d+(?:-[^\s]+)?)/m);
+        if (versionMatch) {
+          const version = versionMatch[1].replace(/^v/, ''); // Remove v prefix for comparison
+          if (!latestVersion) {
+            latestVersion = version;
+          }
+
+          // Only process if this matches the latest version
+          if (version === latestVersion) {
+            const section = sectionFor(content, version);
+            if (section) {
+              const cleaned = stripDependencyUpdates(section);
+              if (cleaned && cleaned !== section.split('\n')[0]) { // Has content beyond header
+                packageEntries.set(`@gitbeaker/${packageName}`, cleaned);
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.warn(`Failed to process changelog ${filePath}:`, error.message);
+      }
+    }
+
+    if (!latestVersion || packageEntries.size === 0) {
+      logStep('No changelog entries found to aggregate');
+      return;
+    }
+
+    // Group changes by type and deduplicate by PR number
+    const changesByType = new Map();
+    const prToPackages = new Map(); // Track which packages are affected by each PR
+    const prToDescription = new Map(); // Track PR descriptions
+
+    for (const [packageName, section] of packageEntries) {
+      // Parse sections (### Major Changes, ### Minor Changes, etc.)
+      const sections = section.split(/^### /m).slice(1); // Skip header part
+
+      for (const sectionContent of sections) {
+        const [typeLine, ...contentLines] = sectionContent.split('\n');
+        const changeType = typeLine.trim();
+
+        // Parse individual changes
+        const changes = contentLines
+          .filter(line => line.trim().startsWith('- '))
+          .map(line => line.trim());
+
+        for (const change of changes) {
+          // Extract PR number if present
+          const prMatch = change.match(/\[#(\d+)\]/);
+          const prNumber = prMatch ? prMatch[1] : null;
+
+          if (prNumber) {
+            // Track packages affected by this PR
+            if (!prToPackages.has(prNumber)) {
+              prToPackages.set(prNumber, new Set());
+            }
+            prToPackages.get(prNumber).add(packageName);
+
+            // Store the description (remove the leading "- ")
+            prToDescription.set(prNumber, change.substring(2));
+
+            // Group by change type
+            if (!changesByType.has(changeType)) {
+              changesByType.set(changeType, new Map());
+            }
+            changesByType.get(changeType).set(prNumber, change.substring(2));
+          } else {
+            // Handle changes without PR numbers
+            if (!changesByType.has(changeType)) {
+              changesByType.set(changeType, new Map());
+            }
+            const uniqueKey = `${packageName}:${change}`;
+            changesByType.get(changeType).set(uniqueKey, `${packageName}\n  ${change.substring(2)}`);
+          }
+        }
+      }
+    }
+
+    // Build the aggregated changelog entry
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+
+    let aggregatedEntry = `## v${latestVersion} (${dateStr})\n\n`;
+
+    // Add each change type section
+    const sortedChangeTypes = Array.from(changesByType.keys()).sort();
+    for (const changeType of sortedChangeTypes) {
+      const changes = changesByType.get(changeType);
+      if (changes.size === 0) continue;
+
+      aggregatedEntry += `### ${changeType}\n\n`;
+
+      for (const [prOrKey, description] of changes) {
+        if (prToPackages.has(prOrKey)) {
+          // This is a PR number - group packages
+          const packages = Array.from(prToPackages.get(prOrKey)).sort();
+          const packageList = packages.map(pkg => `\`${pkg}\``).join(', ');
+          aggregatedEntry += `- ${packageList}\n  ${description}\n\n`;
+        } else {
+          // This is a unique change without PR or non-PR change
+          aggregatedEntry += `- ${description}\n\n`;
+        }
+      }
+    }
+
+    // Handle case where no changes were found
+    if (!aggregatedEntry.includes('###')) {
+      aggregatedEntry += '_Version alignment release — no user-facing changes._\n\n';
+    }
+
+    // Read current root changelog
+    let rootChangelog = '';
+    try {
+      rootChangelog = await readFile('CHANGELOG.md', 'utf8');
+    } catch (error) {
+      // Create new changelog if it doesn't exist
+      rootChangelog = '# @gitbeaker\n---\n\n';
+    }
+
+    // Find insertion point (after the header)
+    const insertionMatch = rootChangelog.match(/^# @gitbeaker\n---\n\n/);
+    if (insertionMatch) {
+      const insertionPoint = insertionMatch.index + insertionMatch[0].length;
+      const newChangelog =
+        rootChangelog.substring(0, insertionPoint) +
+        aggregatedEntry +
+        rootChangelog.substring(insertionPoint);
+
+      if (!isDryRun) {
+        await writeFile('CHANGELOG.md', newChangelog);
+      }
+      logStep(`Successfully aggregated changelog for v${latestVersion}`);
+    } else {
+      console.warn('Could not find insertion point in root CHANGELOG.md');
+    }
+
+  } catch (error) {
+    console.warn('Failed to aggregate root changelog:', error.message);
   }
 }
 
@@ -323,6 +510,9 @@ async function release() {
 
   // Format changelog dates
   await formatChangelogDates();
+
+  // Aggregate package changelogs into root changelog
+  await aggregateRootChangelog();
 
   // Update contributors (production only)
   if (releaseType === 'production') {
