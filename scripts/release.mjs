@@ -327,51 +327,75 @@ async function aggregateRootChangelog() {
       return;
     }
 
-    // Group changes by type and deduplicate by PR number
-    const changesByType = new Map();
-    const prToPackages = new Map(); // Track which packages are affected by each PR
-    const prToDescription = new Map(); // Track PR descriptions
+    logStep(`Found ${packageEntries.size} packages with version ${latestVersion}`);
+
+    const prToContent = new Map(); // PR number -> { packages: Set, content: string, changeTypes: Set }
+    const nonPRChanges = new Map(); // changeType -> Set of non-PR changes
 
     for (const [packageName, section] of packageEntries) {
       // Parse sections (### Major Changes, ### Minor Changes, etc.)
-      const sections = section.split(/^### /m).slice(1); // Skip header part
+      const sections = section.split(/^### /m).slice(1);
 
       for (const sectionContent of sections) {
         const [typeLine, ...contentLines] = sectionContent.split('\n');
         const changeType = typeLine.trim();
 
-        // Parse individual changes
-        const changes = contentLines
-          .filter(line => line.trim().startsWith('- '))
-          .map(line => line.trim());
+        // Skip Patch Changes for cleaner output
+        if (changeType === 'Patch Changes') continue;
 
-        for (const change of changes) {
-          // Extract PR number if present
-          const prMatch = change.match(/\[#(\d+)\]/);
-          const prNumber = prMatch ? prMatch[1] : null;
+        // Join all content lines to get the raw section content
+        const fullContent = contentLines.join('\n').trim();
 
-          if (prNumber) {
-            // Track packages affected by this PR
-            if (!prToPackages.has(prNumber)) {
-              prToPackages.set(prNumber, new Set());
+        // Parse PR entries in the corrected format
+        // Pattern: "- [#1234](...)"
+        const prSplitPattern = /^- \[#(\d+)\]\([^)]+\)$/gm;
+        let match;
+
+        while ((match = prSplitPattern.exec(fullContent)) !== null) {
+          const prNumber = match[1];
+          const prLinkStart = match.index;
+          const prLinkEnd = prSplitPattern.lastIndex;
+
+          // Find the next PR or end of content
+          prSplitPattern.lastIndex = prLinkEnd;
+          const nextMatch = prSplitPattern.exec(fullContent);
+          prSplitPattern.lastIndex = prLinkEnd; // Reset for next iteration
+
+          const contentStart = prLinkEnd;
+          const contentEnd = nextMatch ? nextMatch.index : fullContent.length;
+
+          // Extract the content for this PR (everything between this PR link and the next)
+          const prContent = fullContent.substring(contentStart, contentEnd).trim();
+
+          // Remove the leading empty line if present
+          const cleanedPrContent = prContent.replace(/^\n+/, '');
+
+          if (cleanedPrContent) {
+            if (!prToContent.has(prNumber)) {
+              prToContent.set(prNumber, {
+                packages: new Set(),
+                content: cleanedPrContent,
+                changeTypes: new Set()
+              });
             }
-            prToPackages.get(prNumber).add(packageName);
 
-            // Store the description (remove the leading "- ")
-            prToDescription.set(prNumber, change.substring(2));
+            // Add this package and change type to the PR
+            prToContent.get(prNumber).packages.add(packageName);
+            prToContent.get(prNumber).changeTypes.add(changeType);
+          }
+        }
 
-            // Group by change type
-            if (!changesByType.has(changeType)) {
-              changesByType.set(changeType, new Map());
+        // If no PR entries were found, treat as regular bullet points
+        if (prToContent.size === 0) {
+          const changes = contentLines
+            .filter(line => line.trim().startsWith('- '))
+            .map(line => line.trim());
+
+          for (const change of changes) {
+            if (!nonPRChanges.has(changeType)) {
+              nonPRChanges.set(changeType, new Set());
             }
-            changesByType.get(changeType).set(prNumber, change.substring(2));
-          } else {
-            // Handle changes without PR numbers
-            if (!changesByType.has(changeType)) {
-              changesByType.set(changeType, new Map());
-            }
-            const uniqueKey = `${packageName}:${change}`;
-            changesByType.get(changeType).set(uniqueKey, `${packageName}\n  ${change.substring(2)}`);
+            nonPRChanges.get(changeType).add(`${packageName}\n  ${change.substring(2)}`);
           }
         }
       }
@@ -388,23 +412,56 @@ async function aggregateRootChangelog() {
 
     let aggregatedEntry = `## v${latestVersion} (${dateStr})\n\n`;
 
-    // Add each change type section
-    const sortedChangeTypes = Array.from(changesByType.keys()).sort();
+    // Group PRs by their change types for organized output
+    const changeTypeToEntries = new Map();
+
+    // Add PR-based entries (these are the main ones we care about)
+    for (const [prNumber, prData] of prToContent) {
+      for (const changeType of prData.changeTypes) {
+        if (!changeTypeToEntries.has(changeType)) {
+          changeTypeToEntries.set(changeType, []);
+        }
+
+        const packages = Array.from(prData.packages).sort();
+        const packageList = packages.map(pkg => `\`${pkg}\``).join(', ');
+
+        changeTypeToEntries.get(changeType).push({
+          type: 'pr',
+          prNumber,
+          packages: packageList,
+          content: prData.content
+        });
+      }
+    }
+
+    // Add non-PR entries (fallback)
+    for (const [changeType, changes] of nonPRChanges) {
+      if (!changeTypeToEntries.has(changeType)) {
+        changeTypeToEntries.set(changeType, []);
+      }
+
+      for (const change of changes) {
+        changeTypeToEntries.get(changeType).push({
+          type: 'regular',
+          content: change
+        });
+      }
+    }
+
+    // Build final output organized by change type
+    const sortedChangeTypes = Array.from(changeTypeToEntries.keys()).sort();
     for (const changeType of sortedChangeTypes) {
-      const changes = changesByType.get(changeType);
-      if (changes.size === 0) continue;
+      const entries = changeTypeToEntries.get(changeType);
+      if (entries.length === 0) continue;
 
       aggregatedEntry += `### ${changeType}\n\n`;
 
-      for (const [prOrKey, description] of changes) {
-        if (prToPackages.has(prOrKey)) {
-          // This is a PR number - group packages
-          const packages = Array.from(prToPackages.get(prOrKey)).sort();
-          const packageList = packages.map(pkg => `\`${pkg}\``).join(', ');
-          aggregatedEntry += `- ${packageList}\n  ${description}\n\n`;
+      for (const entry of entries) {
+        if (entry.type === 'pr') {
+          // Format as: - [packages] [PR link] followed by indented content
+          aggregatedEntry += `- ${entry.packages}\n  [#${entry.prNumber}](https://github.com/jdalrymple/gitbeaker/pull/${entry.prNumber})\n\n  ${entry.content}\n\n`;
         } else {
-          // This is a unique change without PR or non-PR change
-          aggregatedEntry += `- ${description}\n\n`;
+          aggregatedEntry += `- ${entry.content}\n\n`;
         }
       }
     }
@@ -412,6 +469,12 @@ async function aggregateRootChangelog() {
     // Handle case where no changes were found
     if (!aggregatedEntry.includes('###')) {
       aggregatedEntry += '_Version alignment release — no user-facing changes._\n\n';
+    }
+
+    logStep(`Generated aggregated entry (${aggregatedEntry.length} chars)`);
+    if (isDryRun) {
+      console.log('Aggregated entry preview:');
+      console.log(aggregatedEntry);
     }
 
     // Read current root changelog
@@ -432,9 +495,8 @@ async function aggregateRootChangelog() {
         aggregatedEntry +
         rootChangelog.substring(insertionPoint);
 
-      if (!isDryRun) {
-        await writeFile('CHANGELOG.md', newChangelog);
-      }
+      // Always update root changelog (even in dry-run) since package changelogs are already updated
+      await writeFile('CHANGELOG.md', newChangelog);
       logStep(`Successfully aggregated changelog for v${latestVersion}`);
     } else {
       console.warn('Could not find insertion point in root CHANGELOG.md');

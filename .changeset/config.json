@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
-  "changelog": ["./changelog-github-sans-owner.mjs", { "repo": "jdalrymple/gitbeaker" }],
+  "changelog": ["./changelog-github-sans-owner.mjs", { "repo": "jdalrymple/gitbeaker", "template": "\n\n- {pull} {commit} Thanks {authors}!\n  {summary}" }],
   "commit": false,
   "fixed": [["@gitbeaker/cli", "@gitbeaker/core", "@gitbeaker/requester-utils", "@gitbeaker/rest"]],
   "linked": [],
