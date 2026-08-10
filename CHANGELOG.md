@@ -1,4 +1,5 @@
 # @gitbeaker
+
 ---
 
 ## 43.8.0 (Sat Nov 01 2025)
@@ -3040,8 +3041,6 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 ---
 
 ## 34.0.1 (Sat Sep 04 2021)
-
-
 
 ---
 
