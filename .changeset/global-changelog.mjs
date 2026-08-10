@@ -159,10 +159,6 @@ All notable changes to this project will be documented in this file.
     // Insert the new body and write the updated changelog
     const newChangelog = insertBody(oldChangelog, body);
     fs.writeFileSync(changelogFile, newChangelog, 'utf-8');
-
-    console.log('✅ Global changelog updated successfully!');
-    console.log('📝 Generated content:');
-    console.log(body);
   } catch (error) {
     console.error('❌ Error generating global changelog:', error);
     process.exit(1);
