@@ -14,12 +14,18 @@ importers:
       '@changesets/cli':
         specifier: 3.0.0-next.10
         version: 3.0.0-next.10
+      '@changesets/config':
+        specifier: ^3.1.4
+        version: 3.1.4
       '@changesets/get-release-plan':
         specifier: ^4.0.16
         version: 4.0.16
       '@changesets/git':
         specifier: ^3.0.4
         version: 3.0.4
+      '@changesets/read':
+        specifier: ^0.6.7
+        version: 0.6.7
       '@changesets/write':
         specifier: ^0.4.0
         version: 0.4.0

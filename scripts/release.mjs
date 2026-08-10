@@ -103,14 +103,17 @@ async function getChangedPackageNames() {
   try {
     const changedPackages = await getChangedPackagesSinceRef({
       cwd: process.cwd(),
-      ref: 'main'
+      ref: 'main',
     });
 
     return changedPackages
       .filter((pkg) => !pkg.packageJson.private && pkg.packageJson.name.includes('@'))
       .map((pkg) => pkg.packageJson.name);
   } catch (error) {
-    console.warn('Could not get changed packages from changesets, falling back to all packages:', error.message);
+    console.warn(
+      'Could not get changed packages from changesets, falling back to all packages:',
+      error.message,
+    );
     return await getPackageNames();
   }
 }
@@ -120,7 +123,7 @@ async function getPublishedPackages(releaseType) {
     const releasePlan = await getReleasePlan(process.cwd());
 
     return releasePlan.releases
-      .filter(release => {
+      .filter((release) => {
         // Filter based on release type logic
         switch (releaseType) {
           case 'canary':
@@ -133,7 +136,7 @@ async function getPublishedPackages(releaseType) {
             return false;
         }
       })
-      .map(release => `${release.name}@${release.newVersion}`);
+      .map((release) => `${release.name}@${release.newVersion}`);
   } catch (error) {
     console.warn('Could not get release plan:', error.message);
     return [];
@@ -183,7 +186,7 @@ async function generateChangesetFromPR(prData) {
     return null;
   }
 
-  const labels = prData.labels.map(label => label.name);
+  const labels = prData.labels.map((label) => label.name);
 
   logStep(`Generating changeset for PR #${prData.number} with labels: ${labels.join(', ')}`);
 
@@ -215,10 +218,10 @@ async function generateChangesetFromPR(prData) {
   // Create changeset using changesets' API
   const changesetId = await writeChangeset(
     {
-      summary: `${prData.body}\n\npr: #${prData.number}`,
-      releases: packageNames.map(name => ({ name, type: changeType }))
+      summary: `${prData.title}\n\n${prData.body}\n\npr: #${prData.number}`,
+      releases: packageNames.map((name) => ({ name, type: changeType })),
     },
-    process.cwd()
+    process.cwd(),
   );
 
   logStep(`Generated changeset: ${changesetId}`);
@@ -234,7 +237,7 @@ async function formatChangelogDates() {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   });
 
   for await (const filePath of changelogFilesIterator) {
@@ -260,7 +263,10 @@ async function formatChangelogDates() {
 
 function sectionFor(content, version) {
   // Extract the section for a specific version from changelog content
-  const versionPattern = new RegExp(`^## v?${version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(?=^## |$)`, 'm');
+  const versionPattern = new RegExp(
+    `^## v?${version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(?=^## |$)`,
+    'm',
+  );
   const match = content.match(versionPattern);
   return match ? match[0] : null;
 }
@@ -268,7 +274,7 @@ function sectionFor(content, version) {
 function stripDependencyUpdates(section) {
   return section
     .split('\n')
-    .filter(line => {
+    .filter((line) => {
       // Keep lines that aren't just dependency updates
       return !line.match(/^\s*- Updated dependencies \[\]/);
     })
@@ -311,7 +317,8 @@ async function aggregateRootChangelog() {
             const section = sectionFor(content, version);
             if (section) {
               const cleaned = stripDependencyUpdates(section);
-              if (cleaned && cleaned !== section.split('\n')[0]) { // Has content beyond header
+              if (cleaned && cleaned !== section.split('\n')[0]) {
+                // Has content beyond header
                 packageEntries.set(`@gitbeaker/${packageName}`, cleaned);
               }
             }
@@ -375,7 +382,7 @@ async function aggregateRootChangelog() {
               prToContent.set(prNumber, {
                 packages: new Set(),
                 content: cleanedPrContent,
-                changeTypes: new Set()
+                changeTypes: new Set(),
               });
             }
 
@@ -388,8 +395,8 @@ async function aggregateRootChangelog() {
         // If no PR entries were found, treat as regular bullet points
         if (prToContent.size === 0) {
           const changes = contentLines
-            .filter(line => line.trim().startsWith('- '))
-            .map(line => line.trim());
+            .filter((line) => line.trim().startsWith('- '))
+            .map((line) => line.trim());
 
           for (const change of changes) {
             if (!nonPRChanges.has(changeType)) {
@@ -407,7 +414,7 @@ async function aggregateRootChangelog() {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     });
 
     let aggregatedEntry = `## v${latestVersion} (${dateStr})\n\n`;
@@ -423,13 +430,13 @@ async function aggregateRootChangelog() {
         }
 
         const packages = Array.from(prData.packages).sort();
-        const packageList = packages.map(pkg => `\`${pkg}\``).join(', ');
+        const packageList = packages.map((pkg) => `\`${pkg}\``).join(', ');
 
         changeTypeToEntries.get(changeType).push({
           type: 'pr',
           prNumber,
           packages: packageList,
-          content: prData.content
+          content: prData.content,
         });
       }
     }
@@ -443,7 +450,7 @@ async function aggregateRootChangelog() {
       for (const change of changes) {
         changeTypeToEntries.get(changeType).push({
           type: 'regular',
-          content: change
+          content: change,
         });
       }
     }
@@ -501,7 +508,6 @@ async function aggregateRootChangelog() {
     } else {
       console.warn('Could not find insertion point in root CHANGELOG.md');
     }
-
   } catch (error) {
     console.warn('Failed to aggregate root changelog:', error.message);
   }
@@ -550,6 +556,9 @@ async function release() {
     process.exit(1);
   }
 
+  // Generate global changelog before versioning (so we have access to changeset data)
+  await execCommand('node .changeset/global-changelog.mjs', 'Generating global changelog');
+
   // Version packages
   let versionCommand;
   switch (releaseType) {
@@ -572,9 +581,6 @@ async function release() {
 
   // Format changelog dates
   await formatChangelogDates();
-
-  // Aggregate package changelogs into root changelog
-  await aggregateRootChangelog();
 
   // Update contributors (production only)
   if (releaseType === 'production') {
