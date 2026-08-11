@@ -145,7 +145,7 @@ All notable changes to this project will be documented in this file.
     const options = {
       repo: 'jdalrymple/gitbeaker',
       template: '\n\n- {summary} {ref} ({authors})',
-      disableThanks: true,
+      disableThanks: false,
     };
 
     // Generate the new changelog body

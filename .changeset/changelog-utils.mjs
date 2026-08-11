@@ -2,14 +2,9 @@
  * Shared utilities for changelog generation
  */
 
-/** Usernames that should not get "Thanks @user!" in changelogs (e.g. repo owner) */
+/** Usernames that should not get mentioned in changelogs (e.g. repo owner) */
 export const EXCLUDED_USERS = ['jdalrymple'];
 
-/**
- * Remove excluded maintainers from changelog lines
- * @param {string} line - The changelog line to process
- * @returns {string} - The processed line with excluded users removed
- */
 export function excludeMaintainer(line) {
   for (const user of EXCLUDED_USERS) {
     const userPattern = `\\[@${user}\\]\\([^)]*\\)`;
@@ -23,19 +18,4 @@ export function excludeMaintainer(line) {
     line = line.replace(/ \(\)/g, '');
   }
   return line;
-}
-
-/**
- * Generate package links for the aggregated changelog
- * @param {Array} packages - Array of package names
- * @returns {string} - Comma-separated package links
- */
-export function generatePackageLinks(packages) {
-  return Array.from(packages)
-    .sort()
-    .map((pkg) => {
-      const packageName = pkg.replace('@gitbeaker/', '');
-      return `[@${pkg}](packages/${packageName}/CHANGELOG.md)`;
-    })
-    .join(', ');
 }

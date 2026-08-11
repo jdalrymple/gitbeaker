@@ -5,7 +5,7 @@
     {
       "repo": "jdalrymple/gitbeaker",
       "template": "- {summary} {ref} ({authors})\n\n",
-      "disableThanks": true,
+      "disableThanks": false,
       "global": "./global-changelog.mjs"
     }
   ],
