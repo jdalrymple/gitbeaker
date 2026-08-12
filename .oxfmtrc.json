@@ -6,5 +6,5 @@
   "tabWidth": 2,
   "useTabs": false,
   "sortPackageJson": false,
-  "ignorePatterns": ["reports", "coverage", "dist", "package.json", ".nx", ".husky", "CHANGELOG.md"]
+  "ignorePatterns": ["reports", "coverage", "dist", ".nx", ".husky"]
 }

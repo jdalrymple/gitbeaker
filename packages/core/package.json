@@ -47,7 +47,7 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "@gitbeaker/requester-utils": "^43.8.0",
+    "@gitbeaker/requester-utils": "workspace:*",
     "picoquery": "^2.5.0",
     "xcase": "^2.0.1"
   },

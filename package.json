@@ -29,6 +29,11 @@
   "devDependencies": {
     "@changesets/changelog-github": "1.0.0-next.8",
     "@changesets/cli": "3.0.0-next.10",
+    "@changesets/config": "^3.1.4",
+    "@changesets/get-release-plan": "^4.0.16",
+    "@changesets/git": "^3.0.4",
+    "@changesets/read": "^0.6.7",
+    "@changesets/write": "^0.4.0",
     "@codecov/bundle-analyzer": "^2.0.1",
     "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.1.10",

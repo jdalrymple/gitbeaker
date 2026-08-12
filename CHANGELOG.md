@@ -1,4 +1,8 @@
-# 43.8.0 (Sat Nov 01 2025)
+# @gitbeaker
+
+---
+
+## 43.8.0 (Sat Nov 01 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -16,7 +20,7 @@ Thank you, Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek)), for
 
 ---
 
-# 43.7.0 (Sun Oct 26 2025)
+## 43.7.0 (Sun Oct 26 2025)
 
 #### 🐛 Bug Fix
 
@@ -39,7 +43,7 @@ Thank you, Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek)), for
 
 ---
 
-# 43.6.0 (Sun Oct 26 2025)
+## 43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -103,7 +107,7 @@ Thanks for all your work!
 
 ---
 
-# 43.5.0 (Tue Sep 02 2025)
+## 43.5.0 (Tue Sep 02 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -146,7 +150,7 @@ Thanks for all your work!
 
 ---
 
-# 43.4.0 (Thu Aug 07 2025)
+## 43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -201,7 +205,7 @@ Thanks for all your work!
 
 ---
 
-# 43.3.0 (Sat Jul 19 2025)
+## 43.3.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -228,7 +232,7 @@ Thanks for all your work!
 
 ---
 
-# 43.2.0 (Sat Jul 19 2025)
+## 43.2.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -241,7 +245,7 @@ Thanks for all your work!
 
 ---
 
-# 43.1.0 (Sat Jul 19 2025)
+## 43.1.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -254,7 +258,7 @@ Thanks for all your work!
 
 ---
 
-# 43.0.0 (Sun Jul 13 2025)
+## 43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -341,7 +345,7 @@ Thanks for all your work!
 
 ---
 
-# 42.5.0 (Sat Apr 26 2025)
+## 42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature
 
@@ -360,7 +364,7 @@ Thanks for all your work!
 
 ---
 
-# 42.4.1 (Thu Apr 24 2025)
+## 42.4.1 (Thu Apr 24 2025)
 
 #### 🗃️ Typescript Definitions
 
@@ -373,7 +377,7 @@ Thanks for all your work!
 
 ---
 
-# 42.4.0 (Mon Apr 21 2025)
+## 42.4.0 (Mon Apr 21 2025)
 
 #### 🐛 Bug Fix
 
@@ -387,7 +391,7 @@ Thanks for all your work!
 
 ---
 
-# 42.3.0 (Mon Apr 21 2025)
+## 42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -425,7 +429,7 @@ Thanks for all your work!
 
 ---
 
-# 42.2.0 (Mon Mar 24 2025)
+## 42.2.0 (Mon Mar 24 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -472,7 +476,7 @@ Thanks for all your work!
 
 ---
 
-# 42.1.0 (Mon Jan 20 2025)
+## 42.1.0 (Mon Jan 20 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -490,7 +494,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# 42.0.2 (Thu Jan 02 2025)
+## 42.0.2 (Thu Jan 02 2025)
 
 #### 🗃️ Typescript Definitions
 
@@ -503,7 +507,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# 42.0.1 (Tue Dec 31 2024)
+## 42.0.1 (Tue Dec 31 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -517,7 +521,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# 42.0.0 (Tue Dec 31 2024)
+## 42.0.0 (Tue Dec 31 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -546,7 +550,7 @@ Thank you, Talysson de Oliveira Cassiano ([@talyssonoc](https://github.com/talys
 
 ---
 
-# 41.3.0 (Sun Nov 24 2024)
+## 41.3.0 (Sun Nov 24 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -568,7 +572,7 @@ Thank you, Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01)), for all you
 
 ---
 
-# 41.2.0 (Sun Nov 10 2024)
+## 41.2.0 (Sun Nov 10 2024)
 
 #### 🐛 Bug Fix
 
@@ -581,7 +585,7 @@ Thank you, Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01)), for all you
 
 ---
 
-# 41.1.2 (Sat Nov 09 2024)
+## 41.1.2 (Sat Nov 09 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -598,7 +602,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# 41.1.1 (Sat Nov 02 2024)
+## 41.1.1 (Sat Nov 02 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -611,7 +615,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# 41.1.0 (Sun Oct 20 2024)
+## 41.1.0 (Sun Oct 20 2024)
 
 #### 🐛 Bug Fix
 
@@ -624,7 +628,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# 41.0.0 (Sat Oct 19 2024)
+## 41.0.0 (Sat Oct 19 2024)
 
 #### 💥 Breaking Change
 
@@ -637,7 +641,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# 40.6.0 (Sat Oct 19 2024)
+## 40.6.0 (Sat Oct 19 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -667,7 +671,7 @@ Thank you, Ryan Smith ([@Incisive](https://github.com/Incisive)), for all your w
 
 ---
 
-# 40.5.1 (Sun Oct 13 2024)
+## 40.5.1 (Sun Oct 13 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -684,7 +688,7 @@ Thank you, Youssef ([@yousinix](https://github.com/yousinix)), for all your work
 
 ---
 
-# 40.5.0 (Thu Oct 10 2024)
+## 40.5.0 (Thu Oct 10 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -701,7 +705,7 @@ Thank you, null[@roberta-pavel](https://github.com/roberta-pavel), for all your 
 
 ---
 
-# 40.4.0 (Wed Oct 02 2024)
+## 40.4.0 (Wed Oct 02 2024)
 
 #### 🐛 Bug Fix
 
@@ -714,7 +718,7 @@ Thank you, null[@roberta-pavel](https://github.com/roberta-pavel), for all your 
 
 ---
 
-# 40.3.0 (Thu Sep 26 2024)
+## 40.3.0 (Thu Sep 26 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -741,7 +745,7 @@ Thanks for all your work!
 
 ---
 
-# 40.2.3 (Tue Sep 24 2024)
+## 40.2.3 (Tue Sep 24 2024)
 
 #### ↕️ Dependencies
 
@@ -753,7 +757,7 @@ Thanks for all your work!
 
 ---
 
-# 40.2.2 (Sat Sep 21 2024)
+## 40.2.2 (Sat Sep 21 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -770,7 +774,7 @@ Thank you, Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee)), for all
 
 ---
 
-# 40.2.1 (Sat Sep 14 2024)
+## 40.2.1 (Sat Sep 14 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -783,7 +787,7 @@ Thank you, Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee)), for all
 
 ---
 
-# 40.2.0 (Sat Sep 07 2024)
+## 40.2.0 (Sat Sep 07 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -806,7 +810,7 @@ Thank you, Arnold Hendriks ([@unilynx](https://github.com/unilynx)), for all you
 
 ---
 
-# 40.1.4 (Thu Sep 05 2024)
+## 40.1.4 (Thu Sep 05 2024)
 
 #### ↕️ Dependencies
 
@@ -824,7 +828,7 @@ Thank you, Arnold Hendriks ([@unilynx](https://github.com/unilynx)), for all you
 
 ---
 
-# 40.1.3 (Wed Aug 21 2024)
+## 40.1.3 (Wed Aug 21 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -861,7 +865,7 @@ Thanks for all your work!
 
 ---
 
-# 40.1.2 (Thu Jul 11 2024)
+## 40.1.2 (Thu Jul 11 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -874,7 +878,7 @@ Thanks for all your work!
 
 ---
 
-# 40.1.1 (Mon Jul 08 2024)
+## 40.1.1 (Mon Jul 08 2024)
 
 #### ↕️ Dependencies
 
@@ -886,7 +890,7 @@ Thanks for all your work!
 
 ---
 
-# 40.1.0 (Mon Jul 08 2024)
+## 40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -975,7 +979,7 @@ Thanks for all your work!
 
 ---
 
-# 40.0.3 (Fri Apr 12 2024)
+## 40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -992,7 +996,7 @@ Thanks for all your work!
 
 ---
 
-# 40.0.2 (Tue Mar 26 2024)
+## 40.0.2 (Tue Mar 26 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1009,7 +1013,7 @@ Thank you, Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer)), for al
 
 ---
 
-# 40.0.1 (Mon Mar 18 2024)
+## 40.0.1 (Mon Mar 18 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -1022,7 +1026,7 @@ Thank you, Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer)), for al
 
 ---
 
-# 40.0.0 (Mon Mar 18 2024)
+## 40.0.0 (Mon Mar 18 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1068,7 +1072,7 @@ Thanks for all your work!
 
 ---
 
-# 39.34.3 (Tue Feb 20 2024)
+## 39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt
 
@@ -1086,7 +1090,7 @@ Thanks for all your work!
 
 ---
 
-# 39.34.2 (Fri Feb 02 2024)
+## 39.34.2 (Fri Feb 02 2024)
 
 #### ↕️ Dependencies
 
@@ -1110,7 +1114,7 @@ Thanks for all your work!
 
 ---
 
-# 39.34.1 (Wed Jan 31 2024)
+## 39.34.1 (Wed Jan 31 2024)
 
 #### 🔨 Technical Debt
 
@@ -1136,7 +1140,7 @@ Thanks for all your work!
 
 ---
 
-# 39.34.0 (Mon Jan 29 2024)
+## 39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
 
@@ -1149,7 +1153,7 @@ Thanks for all your work!
 
 ---
 
-# 39.33.2 (Mon Jan 29 2024)
+## 39.33.2 (Mon Jan 29 2024)
 
 #### ↕️ Dependencies
 
@@ -1163,7 +1167,7 @@ Thanks for all your work!
 
 ---
 
-# 39.33.1 (Mon Jan 29 2024)
+## 39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
 
@@ -1181,7 +1185,7 @@ Thanks for all your work!
 
 ---
 
-# 39.33.0 (Tue Jan 23 2024)
+## 39.33.0 (Tue Jan 23 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1199,7 +1203,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.32.0 (Tue Jan 23 2024)
+## 39.32.0 (Tue Jan 23 2024)
 
 #### 🐛 Bug Fix
 
@@ -1212,7 +1216,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.31.1 (Tue Jan 23 2024)
+## 39.31.1 (Tue Jan 23 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -1225,7 +1229,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.31.0 (Mon Jan 22 2024)
+## 39.31.0 (Mon Jan 22 2024)
 
 #### 🐛 Bug Fix
 
@@ -1238,7 +1242,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.30.0 (Wed Jan 17 2024)
+## 39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
 
@@ -1251,7 +1255,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.29.0 (Sun Jan 14 2024)
+## 39.29.0 (Sun Jan 14 2024)
 
 #### 🐛 Bug Fix
 
@@ -1264,7 +1268,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.28.0 (Sun Dec 31 2023)
+## 39.28.0 (Sun Dec 31 2023)
 
 #### 🐛 Bug Fix
 
@@ -1297,7 +1301,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.27.1 (Tue Dec 26 2023)
+## 39.27.1 (Tue Dec 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -1310,7 +1314,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# 39.27.0 (Mon Dec 25 2023)
+## 39.27.0 (Mon Dec 25 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1333,7 +1337,7 @@ Thank you, JounQin ([@JounQin](https://github.com/JounQin)), for all your work!
 
 ---
 
-# 39.26.2 (Mon Dec 18 2023)
+## 39.26.2 (Mon Dec 18 2023)
 
 #### ↕️ Dependencies
 
@@ -1345,7 +1349,7 @@ Thank you, JounQin ([@JounQin](https://github.com/JounQin)), for all your work!
 
 ---
 
-# 39.26.1 (Wed Dec 13 2023)
+## 39.26.1 (Wed Dec 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1362,7 +1366,7 @@ Thank you, Kohei Seino ([@kseino](https://github.com/kseino)), for all your work
 
 ---
 
-# 39.26.0 (Sat Dec 09 2023)
+## 39.26.0 (Sat Dec 09 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1381,7 +1385,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# 39.25.1 (Sat Dec 09 2023)
+## 39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
 
@@ -1394,7 +1398,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# 39.25.0 (Wed Nov 22 2023)
+## 39.25.0 (Wed Nov 22 2023)
 
 #### 🐛 Bug Fix
 
@@ -1413,7 +1417,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# 39.24.0 (Fri Nov 17 2023)
+## 39.24.0 (Fri Nov 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1453,7 +1457,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# 39.23.0 (Thu Nov 16 2023)
+## 39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
 
@@ -1466,7 +1470,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# 39.22.0 (Wed Nov 15 2023)
+## 39.22.0 (Wed Nov 15 2023)
 
 #### 🐛 Bug Fix
 
@@ -1479,7 +1483,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# 39.21.2 (Thu Oct 26 2023)
+## 39.21.2 (Thu Oct 26 2023)
 
 #### ↕️ Dependencies
 
@@ -1491,7 +1495,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# 39.21.1 (Sat Oct 21 2023)
+## 39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
 
@@ -1504,7 +1508,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# 39.21.0 (Sat Oct 21 2023)
+## 39.21.0 (Sat Oct 21 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1535,7 +1539,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# 39.20.0 (Sat Oct 14 2023)
+## 39.20.0 (Sat Oct 14 2023)
 
 #### 🐛 Bug Fix
 
@@ -1548,7 +1552,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# 39.19.0 (Sat Oct 07 2023)
+## 39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature
 
@@ -1561,7 +1565,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# 39.18.0 (Wed Oct 04 2023)
+## 39.18.0 (Wed Oct 04 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1595,7 +1599,7 @@ Thank you, Elan Ruusamäe ([@glensc](https://github.com/glensc)), for all your w
 
 ---
 
-# 39.17.0 (Mon Oct 02 2023)
+## 39.17.0 (Mon Oct 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1612,7 +1616,7 @@ Thank you, Martin Dreher ([@mercutiodesign](https://github.com/mercutiodesign)),
 
 ---
 
-# 39.16.0 (Tue Sep 26 2023)
+## 39.16.0 (Tue Sep 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1629,7 +1633,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# 39.15.0 (Tue Sep 12 2023)
+## 39.15.0 (Tue Sep 12 2023)
 
 #### 🐛 Bug Fix
 
@@ -1642,7 +1646,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# 39.14.0 (Mon Sep 11 2023)
+## 39.14.0 (Mon Sep 11 2023)
 
 #### 🐛 Bug Fix
 
@@ -1656,7 +1660,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# 39.13.0 (Fri Sep 01 2023)
+## 39.13.0 (Fri Sep 01 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1691,7 +1695,7 @@ Thanks for all your work!
 
 ---
 
-# 39.12.0 (Mon Aug 21 2023)
+## 39.12.0 (Mon Aug 21 2023)
 
 #### 🐛 Bug Fix
 
@@ -1706,7 +1710,7 @@ Thanks for all your work!
 
 ---
 
-# 39.11.0 (Thu Aug 17 2023)
+## 39.11.0 (Thu Aug 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1731,7 +1735,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.10.3 (Tue Aug 08 2023)
+## 39.10.3 (Tue Aug 08 2023)
 
 #### 🔨 Technical Debt
 
@@ -1749,7 +1753,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.10.2 (Sun Jul 30 2023)
+## 39.10.2 (Sun Jul 30 2023)
 
 #### 🔨 Technical Debt
 
@@ -1762,7 +1766,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.10.1 (Sun Jul 30 2023)
+## 39.10.1 (Sun Jul 30 2023)
 
 #### ↕️ Dependencies
 
@@ -1782,7 +1786,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.10.0 (Sun Jul 30 2023)
+## 39.10.0 (Sun Jul 30 2023)
 
 #### 🐛 Bug Fix
 
@@ -1802,7 +1806,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.9.0 (Fri Jul 28 2023)
+## 39.9.0 (Fri Jul 28 2023)
 
 #### 🐛 Bug Fix
 
@@ -1825,7 +1829,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.8.0 (Mon Jul 17 2023)
+## 39.8.0 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix
 
@@ -1838,7 +1842,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.7.0 (Fri Jul 14 2023)
+## 39.7.0 (Fri Jul 14 2023)
 
 #### 🐛 Bug Fix
 
@@ -1857,7 +1861,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.6.0 (Wed Jul 12 2023)
+## 39.6.0 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix
 
@@ -1890,7 +1894,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.5.1 (Mon Jul 03 2023)
+## 39.5.1 (Mon Jul 03 2023)
 
 #### ↕️ Dependencies
 
@@ -1902,7 +1906,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.5.0 (Mon Jul 03 2023)
+## 39.5.0 (Mon Jul 03 2023)
 
 #### 🐛 Bug Fix
 
@@ -1920,7 +1924,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.4.0 (Tue Jun 27 2023)
+## 39.4.0 (Tue Jun 27 2023)
 
 #### 🐛 Bug Fix
 
@@ -1933,7 +1937,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# 39.3.0 (Mon Jun 26 2023)
+## 39.3.0 (Mon Jun 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1951,7 +1955,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 39.2.0 (Mon Jun 26 2023)
+## 39.2.0 (Mon Jun 26 2023)
 
 #### ✨ Feature
 
@@ -1977,7 +1981,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 39.1.1 (Mon Jun 26 2023)
+## 39.1.1 (Mon Jun 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -1990,7 +1994,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 39.1.0 (Sun Jun 11 2023)
+## 39.1.0 (Sun Jun 11 2023)
 
 #### 🐛 Bug Fix
 
@@ -2008,7 +2012,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 39.0.0 (Thu Jun 08 2023)
+## 39.0.0 (Thu Jun 08 2023)
 
 #### 💥 Breaking Change
 
@@ -2028,7 +2032,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 38.12.1 (Wed Jun 07 2023)
+## 38.12.1 (Wed Jun 07 2023)
 
 #### 🔨 Technical Debt
 
@@ -2041,7 +2045,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 38.12.0 (Tue Jun 06 2023)
+## 38.12.0 (Tue Jun 06 2023)
 
 #### 🐛 Bug Fix
 
@@ -2054,7 +2058,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# 38.11.0 (Tue Jun 06 2023)
+## 38.11.0 (Tue Jun 06 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2078,7 +2082,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 38.10.0 (Fri Jun 02 2023)
+## 38.10.0 (Fri Jun 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2117,7 +2121,7 @@ Thank you, Will ([@ravewill](https://github.com/ravewill)), for all your work!
 
 ---
 
-# 38.9.0 (Sun May 28 2023)
+## 38.9.0 (Sun May 28 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2153,7 +2157,7 @@ Thanks for all your work!
 
 ---
 
-# 38.8.0 (Mon May 22 2023)
+## 38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
 
@@ -2171,7 +2175,7 @@ Thanks for all your work!
 
 ---
 
-# 38.7.0 (Sat May 20 2023)
+## 38.7.0 (Sat May 20 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2209,7 +2213,7 @@ Thanks for all your work!
 
 ---
 
-# 38.6.0 (Mon May 15 2023)
+## 38.6.0 (Mon May 15 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2226,7 +2230,7 @@ Thank you, Spencer Salisbury ([@smsalisbury](https://github.com/smsalisbury)), f
 
 ---
 
-# 38.5.0 (Sat May 13 2023)
+## 38.5.0 (Sat May 13 2023)
 
 #### 🐛 Bug Fix
 
@@ -2238,7 +2242,7 @@ Thank you, Spencer Salisbury ([@smsalisbury](https://github.com/smsalisbury)), f
 
 ---
 
-# 38.4.0 (Sat May 13 2023)
+## 38.4.0 (Sat May 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2276,7 +2280,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# 38.3.0 (Sat May 06 2023)
+## 38.3.0 (Sat May 06 2023)
 
 #### 🐛 Bug Fix
 
@@ -2298,7 +2302,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# 38.2.0 (Fri May 05 2023)
+## 38.2.0 (Fri May 05 2023)
 
 #### 🐛 Bug Fix
 
@@ -2321,7 +2325,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# 38.1.1 (Wed May 03 2023)
+## 38.1.1 (Wed May 03 2023)
 
 #### ↕️ Dependencies
 
@@ -2339,7 +2343,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# 38.1.0 (Sat Apr 29 2023)
+## 38.1.0 (Sat Apr 29 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2357,7 +2361,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 38.0.1 (Sat Apr 29 2023)
+## 38.0.1 (Sat Apr 29 2023)
 
 #### ↕️ Dependencies
 
@@ -2370,7 +2374,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 38.0.0 (Sat Apr 29 2023)
+## 38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
 
@@ -2383,7 +2387,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 37.1.0 (Thu Apr 27 2023)
+## 37.1.0 (Thu Apr 27 2023)
 
 #### 🚑 Hot Fix
 
@@ -2396,7 +2400,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 36.0.0 (Wed Apr 26 2023)
+## 36.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
 
@@ -2409,7 +2413,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# 35.8.0 (Wed Nov 16 2022)
+## 35.8.0 (Wed Nov 16 2022)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2466,7 +2470,7 @@ Thanks for all your work!
 
 ---
 
-# 35.7.0 (Mon Jul 11 2022)
+## 35.7.0 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2483,7 +2487,7 @@ Thank you, Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh)),
 
 ---
 
-# 35.6.1 (Mon Jul 11 2022)
+## 35.6.1 (Mon Jul 11 2022)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2513,7 +2517,7 @@ Thanks for all your work!
 
 ---
 
-# 35.6.0 (Wed Mar 23 2022)
+## 35.6.0 (Wed Mar 23 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2534,7 +2538,7 @@ Thank you, youngje ([@siosio34](https://github.com/siosio34)), for all your work
 
 ---
 
-# 35.5.0 (Wed Mar 16 2022)
+## 35.5.0 (Wed Mar 16 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2563,7 +2567,7 @@ Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all
 
 ---
 
-# 35.4.0 (Mon Feb 07 2022)
+## 35.4.0 (Mon Feb 07 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2583,7 +2587,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# 35.3.0 (Sat Feb 05 2022)
+## 35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
 
@@ -2611,7 +2615,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# 35.2.0 (Sat Feb 05 2022)
+## 35.2.0 (Sat Feb 05 2022)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2678,7 +2682,7 @@ Thanks for all your work!
 
 ---
 
-# 35.1.0 (Wed Dec 01 2021)
+## 35.1.0 (Wed Dec 01 2021)
 
 #### 🐛 Bug Fix
 
@@ -2690,7 +2694,7 @@ Thanks for all your work!
 
 ---
 
-# 35.0.0 (Wed Dec 01 2021)
+## 35.0.0 (Wed Dec 01 2021)
 
 #### 💥 Breaking Change
 
@@ -2710,7 +2714,7 @@ Thanks for all your work!
 
 ---
 
-# 34.7.0 (Tue Nov 30 2021)
+## 34.7.0 (Tue Nov 30 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2765,7 +2769,7 @@ Thank you, Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth)), 
 
 ---
 
-# 34.6.0 (Mon Nov 15 2021)
+## 34.6.0 (Mon Nov 15 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2794,7 +2798,7 @@ Thank you, Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue)), for
 
 ---
 
-# 34.5.0 (Fri Nov 05 2021)
+## 34.5.0 (Fri Nov 05 2021)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2849,7 +2853,7 @@ Thanks for all your work!
 
 ---
 
-# 34.4.1 (Mon Oct 18 2021)
+## 34.4.1 (Mon Oct 18 2021)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -2867,7 +2871,7 @@ Thanks for all your work!
 
 ---
 
-# 34.3.0 (Sun Oct 17 2021)
+## 34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2966,7 +2970,7 @@ Thanks for all your work!
 
 ---
 
-# 34.2.0 (Sat Sep 18 2021)
+## 34.2.0 (Sat Sep 18 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3015,7 +3019,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# 34.1.0 (Sat Sep 04 2021)
+## 34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix
 
@@ -3036,13 +3040,11 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# 34.0.1 (Sat Sep 04 2021)
-
-
+## 34.0.1 (Sat Sep 04 2021)
 
 ---
 
-# 34.0.0 (Sat Sep 04 2021)
+## 34.0.0 (Sat Sep 04 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3065,7 +3067,7 @@ Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your wor
 
 ---
 
-# 33.0.1 (Thu Sep 02 2021)
+## 33.0.1 (Thu Sep 02 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3093,7 +3095,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# 33.0.0 (Fri Aug 27 2021)
+## 33.0.0 (Fri Aug 27 2021)
 
 #### 💥 Breaking Change
 
@@ -3106,7 +3108,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# 32.3.0 (Fri Aug 27 2021)
+## 32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
 
@@ -3130,7 +3132,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# 32.2.0 (Mon Aug 23 2021)
+## 32.2.0 (Mon Aug 23 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3166,7 +3168,7 @@ Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
 
 ---
 
-# 32.1.2 (Thu Aug 12 2021)
+## 32.1.2 (Thu Aug 12 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3196,7 +3198,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# 32.1.1 (Mon Aug 09 2021)
+## 32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -3220,7 +3222,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# 32.1.0 (Tue Aug 03 2021)
+## 32.1.0 (Tue Aug 03 2021)
 
 #### 🐛 Bug Fix
 
@@ -3246,7 +3248,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# 32.0.0 (Tue Jul 27 2021)
+## 32.0.0 (Tue Jul 27 2021)
 
 #### 💥 Breaking Change
 
@@ -3260,7 +3262,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# 31.1.0 (Tue Jul 27 2021)
+## 31.1.0 (Tue Jul 27 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3329,7 +3331,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 31.0.0 (Mon Jul 05 2021)
+## 31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
 
@@ -3359,7 +3361,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.5.0 (Thu Jun 24 2021)
+## 30.5.0 (Thu Jun 24 2021)
 
 #### 🐛 Bug Fix
 
@@ -3377,7 +3379,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.4.0 (Tue Jun 22 2021)
+## 30.4.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
 
@@ -3401,7 +3403,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.3.0 (Tue Jun 22 2021)
+## 30.3.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
 
@@ -3431,7 +3433,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.2.0 (Mon Jun 07 2021)
+## 30.2.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -3443,7 +3445,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.1.0 (Mon Jun 07 2021)
+## 30.1.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -3464,7 +3466,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 30.0.0 (Mon Jun 07 2021)
+## 30.0.0 (Mon Jun 07 2021)
 
 #### 💥 Breaking Change
 
@@ -3488,7 +3490,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.3.0 (Mon Jun 07 2021)
+## 29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -3523,7 +3525,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.2.4 (Sun May 30 2021)
+## 29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix
 
@@ -3543,7 +3545,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.2.3 (Sat May 29 2021)
+## 29.2.3 (Sat May 29 2021)
 
 #### 🔩 Dependency Updates
 
@@ -3557,7 +3559,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.2.2 (Sat May 29 2021)
+## 29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -3570,7 +3572,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.2.1 (Sat May 29 2021)
+## 29.2.1 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -3602,7 +3604,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.2.0 (Tue May 18 2021)
+## 29.2.0 (Tue May 18 2021)
 
 #### 🐛 Bug Fix
 
@@ -3625,7 +3627,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# 29.1.0 (Fri May 14 2021)
+## 29.1.0 (Fri May 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3653,7 +3655,7 @@ Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all y
 
 ---
 
-# 29.0.0 (Fri May 14 2021)
+## 29.0.0 (Fri May 14 2021)
 
 #### 💥 Breaking Change
 
@@ -3695,11 +3697,11 @@ Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all y
 
 ---
 
-# 28.4.1 (Tue May 04 2021)
+## 28.4.1 (Tue May 04 2021)
 
 ---
 
-# 28.4.0 (Tue May 04 2021)
+## 28.4.0 (Tue May 04 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3767,7 +3769,7 @@ Thank you, null[@divido](https://github.com/divido), for all your work!
 
 ---
 
-# 28.3.0 (Sun Apr 04 2021)
+## 28.3.0 (Sun Apr 04 2021)
 
 #### 🐛 Bug Fix
 
@@ -3820,7 +3822,7 @@ Thank you, null[@divido](https://github.com/divido), for all your work!
 
 ---
 
-# 28.2.0 (Sat Mar 20 2021)
+## 28.2.0 (Sat Mar 20 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3861,7 +3863,7 @@ Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
 
 ---
 
-# 28.1.1 (Sun Mar 14 2021)
+## 28.1.1 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
 
@@ -3874,7 +3876,7 @@ Thank you, Vojtěch Sajdl ([@Pryx](https://github.com/Pryx)), for all your work!
 
 ---
 
-# 28.1.0 (Sun Mar 14 2021)
+## 28.1.0 (Sun Mar 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -3977,7 +3979,7 @@ Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your
 
 ---
 
-# 28.0.4 (Mon Jan 25 2021)
+## 28.0.4 (Mon Jan 25 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -4000,7 +4002,7 @@ Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your
 
 ---
 
-# 28.0.3 (Sun Jan 24 2021)
+## 28.0.3 (Sun Jan 24 2021)
 
 #### 🐛 Bug Fix
 
@@ -4057,7 +4059,7 @@ Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your
 
 ---
 
-# (Sun Jan 03 2021)
+## (Sun Jan 03 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -4077,7 +4079,7 @@ Thank you, Clemens Lieb ([@Vogel612](https://github.com/Vogel612)), for all your
 
 ---
 
-# 28.0.1 (Thu Dec 31 2020)
+## 28.0.1 (Thu Dec 31 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4103,7 +4105,7 @@ Thank you, Sean McGivern ([@smcgivern](https://github.com/smcgivern)), for all y
 
 ---
 
-# 28.0.0 (Mon Dec 28 2020)
+## 28.0.0 (Mon Dec 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4142,7 +4144,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# 27.0.1 (Mon Dec 21 2020)
+## 27.0.1 (Mon Dec 21 2020)
 
 #### 🏿‍♀️ Security
 
@@ -4158,7 +4160,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# 27.0.0 (Fri Dec 18 2020)
+## 27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change
 
@@ -4187,7 +4189,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# 26.0.1 (Mon Dec 14 2020)
+## 26.0.1 (Mon Dec 14 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4223,7 +4225,7 @@ Thank you, null[@xiezht](https://github.com/xiezht), for all your work!
 
 ---
 
-# 26.0.0 (Sun Dec 06 2020)
+## 26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change
 
@@ -4250,7 +4252,7 @@ Thank you, null[@xiezht](https://github.com/xiezht), for all your work!
 
 ---
 
-# 25.6.0 (Mon Nov 30 2020)
+## 25.6.0 (Mon Nov 30 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4275,7 +4277,7 @@ Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all y
 
 ---
 
-# 25.5.0 (Sun Nov 29 2020)
+## 25.5.0 (Sun Nov 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4312,7 +4314,7 @@ Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
 
 ---
 
-# 25.4.0 (Tue Nov 24 2020)
+## 25.4.0 (Tue Nov 24 2020)
 
 #### 🐛 Bug Fix
 
@@ -4360,7 +4362,7 @@ Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
 
 ---
 
-# 25.3.0 (Fri Nov 06 2020)
+## 25.3.0 (Fri Nov 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4382,7 +4384,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# 25.2.0 (Fri Oct 30 2020)
+## 25.2.0 (Fri Oct 30 2020)
 
 #### 🐛 Bug Fix
 
@@ -4422,7 +4424,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# 25.1.0 (Tue Oct 20 2020)
+## 25.1.0 (Tue Oct 20 2020)
 
 #### 🐛 Bug Fix
 
@@ -4452,7 +4454,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# 25.0.0 (Thu Oct 15 2020)
+## 25.0.0 (Thu Oct 15 2020)
 
 #### 💥 Breaking Change
 
@@ -4465,7 +4467,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# 24.3.0 (Thu Oct 15 2020)
+## 24.3.0 (Thu Oct 15 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4494,7 +4496,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# 24.2.0 (Tue Oct 13 2020)
+## 24.2.0 (Tue Oct 13 2020)
 
 #### 🐛 Bug Fix
 
@@ -4507,7 +4509,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# 24.1.0 (Mon Oct 12 2020)
+## 24.1.0 (Mon Oct 12 2020)
 
 #### 💥 Feature
 
@@ -4530,7 +4532,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# 24.0.3 (Mon Oct 12 2020)
+## 24.0.3 (Mon Oct 12 2020)
 
 #### ⚠️ Pushed to `master`
 
@@ -4551,7 +4553,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# (Sun Oct 11 2020)
+## (Sun Oct 11 2020)
 
 #### ⚠️ Pushed to `master`
 
@@ -4575,7 +4577,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# 24.0.1 (Sun Oct 11 2020)
+## 24.0.1 (Sun Oct 11 2020)
 
 #### 🐛 Bug Fix
 
@@ -4611,7 +4613,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# 24.0.0 (Mon Oct 05 2020)
+## 24.0.0 (Mon Oct 05 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4652,7 +4654,7 @@ Thank you, Sander Cox ([@sandercox](https://github.com/sandercox)), for all your
 
 ---
 
-# 23.7.0 (Tue Sep 29 2020)
+## 23.7.0 (Tue Sep 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4679,7 +4681,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# 23.6.0 (Mon Sep 28 2020)
+## 23.6.0 (Mon Sep 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4758,7 +4760,7 @@ Thank you, xieyu ([@Gkxie](https://github.com/Gkxie)), for all your work!
 
 ---
 
-# 23.5.0 (Sun Aug 09 2020)
+## 23.5.0 (Sun Aug 09 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4804,11 +4806,11 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.4.2 (Wed Jul 22 2020)
+## 23.4.2 (Wed Jul 22 2020)
 
 ---
 
-# 23.4.1 (Wed Jul 22 2020)
+## 23.4.1 (Wed Jul 22 2020)
 
 #### 🏿‍♀️ Security
 
@@ -4832,7 +4834,7 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.4.0 (Sun Jul 12 2020)
+## 23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
 
@@ -4847,7 +4849,7 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.3.0 (Sat Jul 11 2020)
+## 23.3.0 (Sat Jul 11 2020)
 
 #### 🐛 Bug Fix
 
@@ -4860,7 +4862,7 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.2.0 (Wed Jul 08 2020)
+## 23.2.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
 
@@ -4873,7 +4875,7 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.1.0 (Wed Jul 08 2020)
+## 23.1.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
 
@@ -4907,7 +4909,7 @@ Thank you, Kipras Melnikovas ([@kiprasmel](https://github.com/kiprasmel)), for a
 
 ---
 
-# 23.0.0 (Tue Jul 07 2020)
+## 23.0.0 (Tue Jul 07 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4929,7 +4931,7 @@ Thank you, s-kazuki ([@s-kazuki](https://github.com/s-kazuki)), for all your wor
 
 ---
 
-# 22.0.1 (Thu Jun 25 2020)
+## 22.0.1 (Thu Jun 25 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -4954,7 +4956,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 22.0.0 (Sat Jun 20 2020)
+## 22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change
 
@@ -4976,7 +4978,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.7.0 (Tue Jun 16 2020)
+## 21.7.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -4989,7 +4991,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.6.0 (Tue Jun 16 2020)
+## 21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -5002,7 +5004,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.5.0 (Sun Jun 14 2020)
+## 21.5.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -5015,7 +5017,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.4.0 (Sun Jun 14 2020)
+## 21.4.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -5028,7 +5030,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.3.0 (Sun Jun 14 2020)
+## 21.3.0 (Sun Jun 14 2020)
 
 #### ⚠️ Pushed to `master`
 
@@ -5040,7 +5042,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.1.0 (Sun Jun 14 2020)
+## 21.1.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -5057,7 +5059,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# 21.0.1 (Fri Jun 12 2020)
+## 21.0.1 (Fri Jun 12 2020)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -5135,7 +5137,7 @@ Thanks for all your work!
 
 ---
 
-# 19.7.0 (Sun May 17 2020)
+## 19.7.0 (Sun May 17 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -5153,7 +5155,7 @@ Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
 
 ---
 
-# 19.6.0 (Sat May 16 2020)
+## 19.6.0 (Sat May 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -5186,11 +5188,11 @@ Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
 
 ---
 
-# 19.5.1 (Mon May 11 2020)
+## 19.5.1 (Mon May 11 2020)
 
 ---
 
-# 19.5.0 (Mon May 11 2020)
+## 19.5.0 (Mon May 11 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -5219,7 +5221,7 @@ Thank you, Corentin Mors ([@Mikescops](https://github.com/Mikescops)), for all y
 
 ---
 
-# 19.4.0 (Wed May 06 2020)
+## 19.4.0 (Wed May 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -5249,7 +5251,7 @@ Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), f
 
 ---
 
-# 19.3.1 (Tue May 05 2020)
+## 19.3.1 (Tue May 05 2020)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -5282,7 +5284,7 @@ Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), f
 
 ---
 
-# 19.3.0 (Fri May 01 2020)
+## 19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix
 
@@ -5303,7 +5305,7 @@ Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), f
 
 ---
 
-# 19.2.0 (Wed Apr 29 2020)
+## 19.2.0 (Wed Apr 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -5339,7 +5341,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# 19.1.0 (Mon Apr 27 2020)
+## 19.1.0 (Mon Apr 27 2020)
 
 #### 🚀 Enhancement
 
@@ -5365,7 +5367,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# 19.0.0 (Thu Apr 23 2020)
+## 19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change
 
@@ -5378,7 +5380,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# 18.2.0 (Wed Apr 22 2020)
+## 18.2.0 (Wed Apr 22 2020)
 
 #### 🐛 Bug Fix
 
@@ -5397,7 +5399,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# 18.1.0 (Wed Apr 22 2020)
+## 18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement
 
@@ -5419,7 +5421,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v18.0.0 (Tue Apr 21 2020)
+## v18.0.0 (Tue Apr 21 2020)
 
 #### 💥 Breaking Change
 
@@ -5437,7 +5439,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v17.0.2 (Sun Apr 19 2020)
+## v17.0.2 (Sun Apr 19 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -5484,7 +5486,7 @@ Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your wor
 
 - Version updates ([2db0be8](https://github.com/jdalrymple/gitbeaker/commit/2db0be83099be589af956dbac5e201e29e09f7cf))
 
-# [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
+## [17.0.0](https://github.com/jdalrymple/gitbeaker/compare/16.0.0...17.0.0) (2020-03-24)
 
 ### Bug Fixes
 
@@ -5494,7 +5496,7 @@ Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your wor
 
 - **core:** Trigger.pipeline now has a defined variables property to house all the pipeline variables to be set. Before these variables were set on the root object, but this made it difficult to parse any future options that may be added to this function.
 
-# [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
+## [16.0.0](https://github.com/jdalrymple/gitbeaker/compare/15.2.0...16.0.0) (2020-03-24)
 
 - Fixed variable name for registry method, as per … (#646) ([992b809](https://github.com/jdalrymple/gitbeaker/commit/992b809cb10959ea8c5c8d16ab7f8713b102da72)), closes [#646](https://github.com/jdalrymple/gitbeaker/issues/646)
 
@@ -5504,19 +5506,19 @@ Thank you, akira345 ([@akira345](https://github.com/akira345)), for all your wor
 
 Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
-# [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
+## [15.2.0](https://github.com/jdalrymple/gitbeaker/compare/15.1.0...15.2.0) (2020-03-22)
 
 ### Features
 
 - **core:** Override arguments in all template children ([#597](https://github.com/jdalrymple/gitbeaker/issues/597)) ([d9c97d4](https://github.com/jdalrymple/gitbeaker/commit/d9c97d44d1a64aafbe0fed9404a714dd2de010cb))
 
-# [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
+## [15.1.0](https://github.com/jdalrymple/gitbeaker/compare/15.0.0...15.1.0) (2020-03-22)
 
 ### Features
 
 - Add typing to project and group variables ([#620](https://github.com/jdalrymple/gitbeaker/issues/620)) ([70f39ab](https://github.com/jdalrymple/gitbeaker/commit/70f39ab4310722ea8e61b0309f445ebea758f833))
 
-# [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
+## [15.0.0](https://github.com/jdalrymple/gitbeaker/compare/14.2.2...15.0.0) (2020-03-22)
 
 ### Bug Fixes
 
@@ -5555,7 +5557,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - added file extension for dummy file name in project import ([#561](https://github.com/jdalrymple/node-gitlab/issues/561)) ([f45cb68](https://github.com/jdalrymple/node-gitlab/commit/f45cb68498b54a2ad1ab1371589d0152d76adf11)), closes [/gitlab.com/gitlab-org/gitlab-foss/issues/50944#note_101737263](https://github.com//gitlab.com/gitlab-org/gitlab-foss/issues/50944/issues/note_101737263)
 
-# [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
+## [14.2.0](https://github.com/jdalrymple/node-gitlab/compare/14.1.1...14.2.0) (2020-01-17)
 
 ### Features
 
@@ -5567,7 +5569,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - resourceDiscussions.editNote add content params, and allowed discussionId to accept a string type ([#524](https://github.com/jdalrymple/node-gitlab/issues/524)) ([22d916a](https://github.com/jdalrymple/node-gitlab/commit/22d916a05fdf2f4361fa2e9d17fdd8784ed6bfb3))
 
-# [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
+## [14.1.0](https://github.com/jdalrymple/node-gitlab/compare/14.0.1...14.1.0) (2019-12-30)
 
 ### Bug Fixes
 
@@ -5583,7 +5585,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Adding back functionality for rejectUnauthorized http option ([#502](https://github.com/jdalrymple/node-gitlab/issues/502)) ([0f17bed](https://github.com/jdalrymple/node-gitlab/commit/0f17bedc0b6ec82793d5f7e6f9c3f53b030a642e))
 
-# [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
+## [14.0.0](https://github.com/jdalrymple/node-gitlab/compare/13.0.0...14.0.0) (2019-12-21)
 
 ### Bug Fixes
 
@@ -5594,7 +5596,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - The title property is not required for the add method.
 
-# [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
+## [13.0.0](https://github.com/jdalrymple/node-gitlab/compare/12.1.0...13.0.0) (2019-12-09)
 
 ### Features
 
@@ -5604,7 +5606,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updated the Members.all function to have the inheritedMembers option to be in the optional object.
 
-# [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
+## [12.1.0](https://github.com/jdalrymple/node-gitlab/compare/12.0.1...12.1.0) (2019-12-05)
 
 ### Bug Fixes
 
@@ -5620,7 +5622,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Encode slug value for Wikis API ([#501](https://github.com/jdalrymple/node-gitlab/issues/501)) ([9c56d48](https://github.com/jdalrymple/node-gitlab/commit/9c56d4819ba120a1ea338fceb950733f0f59f886)), closes [#490](https://github.com/jdalrymple/node-gitlab/issues/490)
 
-# [12.0.0](https://github.com/jdalrymple/node-gitlab/compare/11.6.0...12.0.0) (2019-11-21)
+## [12.0.0](https://github.com/jdalrymple/node-gitlab/compare/11.6.0...12.0.0) (2019-11-21)
 
 - Switching version option type ([6558f09](https://github.com/jdalrymple/node-gitlab/commit/6558f09522ccb27d4314d99394086301fe5ae85e))
 
@@ -5632,7 +5634,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Switch the version option to be a number and not a string. For example 4 instead of 'v4'.
 
-# [11.6.0](https://github.com/jdalrymple/node-gitlab/compare/11.5.1...11.6.0) (2019-11-20)
+## [11.6.0](https://github.com/jdalrymple/node-gitlab/compare/11.5.1...11.6.0) (2019-11-20)
 
 ### Features
 
@@ -5644,7 +5646,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Fixing the map.json file location ([ced9415](https://github.com/jdalrymple/node-gitlab/commit/ced94153d2437c28f4e171ece7573eaf50f7848c)), closes [#491](https://github.com/jdalrymple/node-gitlab/issues/491)
 
-# [11.5.0](https://github.com/jdalrymple/node-gitlab/compare/11.4.2...11.5.0) (2019-11-13)
+## [11.5.0](https://github.com/jdalrymple/node-gitlab/compare/11.4.2...11.5.0) (2019-11-13)
 
 ### Features
 
@@ -5662,7 +5664,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Fixing some minor bugs ([#486](https://github.com/jdalrymple/node-gitlab/issues/486)) ([15c841c](https://github.com/jdalrymple/node-gitlab/commit/15c841c15b11c56a735a6ff41db7aa15fe259125)), closes [#485](https://github.com/jdalrymple/node-gitlab/issues/485) [#475](https://github.com/jdalrymple/node-gitlab/issues/475)
 
-# [11.4.0](https://github.com/jdalrymple/node-gitlab/compare/11.3.2...11.4.0) (2019-10-25)
+## [11.4.0](https://github.com/jdalrymple/node-gitlab/compare/11.3.2...11.4.0) (2019-10-25)
 
 ### Features
 
@@ -5681,7 +5683,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Fixing missing form variables when triggering pipelines ([#465](https://github.com/jdalrymple/node-gitlab/issues/465)) ([3ac6978](https://github.com/jdalrymple/node-gitlab/commit/3ac6978))
 
-# [11.3.0](https://github.com/jdalrymple/node-gitlab/compare/11.2.3...11.3.0) (2019-10-12)
+## [11.3.0](https://github.com/jdalrymple/node-gitlab/compare/11.2.3...11.3.0) (2019-10-12)
 
 ### Features
 
@@ -5709,7 +5711,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - **package:** update ky to version 0.15.0 ([203e7a9](https://github.com/jdalrymple/node-gitlab/commit/203e7a9))
 
-# [11.2.0](https://github.com/jdalrymple/node-gitlab/compare/11.1.2...11.2.0) (2019-10-01)
+## [11.2.0](https://github.com/jdalrymple/node-gitlab/compare/11.1.2...11.2.0) (2019-10-01)
 
 ### Features
 
@@ -5727,7 +5729,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - **package:** update ky to version 0.14.0 ([b907f54](https://github.com/jdalrymple/node-gitlab/commit/b907f54))
 
-# [11.1.0](https://github.com/jdalrymple/node-gitlab/compare/11.0.2...11.1.0) (2019-09-09)
+## [11.1.0](https://github.com/jdalrymple/node-gitlab/compare/11.0.2...11.1.0) (2019-09-09)
 
 ### Features
 
@@ -5745,7 +5747,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Handling empty text responses ([c8deaa2](https://github.com/jdalrymple/node-gitlab/commit/c8deaa2))
 
-# [11.0.0](https://github.com/jdalrymple/node-gitlab/compare/10.2.1...11.0.0) (2019-08-28)
+## [11.0.0](https://github.com/jdalrymple/node-gitlab/compare/10.2.1...11.0.0) (2019-08-28)
 
 ### Bug Fixes
 
@@ -5765,7 +5767,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Adding proper support for the buffer responses ([8bbab73](https://github.com/jdalrymple/node-gitlab/commit/8bbab73))
 
-# [10.2.0](https://github.com/jdalrymple/node-gitlab/compare/10.1.2...10.2.0) (2019-08-22)
+## [10.2.0](https://github.com/jdalrymple/node-gitlab/compare/10.1.2...10.2.0) (2019-08-22)
 
 ### Bug Fixes
 
@@ -5789,7 +5791,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Removing randomstring dependency to improve support for Angular 8 ([c47564b](https://github.com/jdalrymple/node-gitlab/commit/c47564b)), closes [#407](https://github.com/jdalrymple/node-gitlab/issues/407)
 
-# [10.1.0](https://github.com/jdalrymple/node-gitlab/compare/10.0.3...10.1.0) (2019-08-06)
+## [10.1.0](https://github.com/jdalrymple/node-gitlab/compare/10.0.3...10.1.0) (2019-08-06)
 
 ### Features
 
@@ -5813,7 +5815,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Update to Ky 0.11.2 ([74e2b62](https://github.com/jdalrymple/node-gitlab/commit/74e2b62))
 
-# [10.0.0](https://github.com/jdalrymple/node-gitlab/compare/9.1.0...10.0.0) (2019-07-15)
+## [10.0.0](https://github.com/jdalrymple/node-gitlab/compare/9.1.0...10.0.0) (2019-07-15)
 
 ### Code Refactoring
 
@@ -5823,7 +5825,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Labels require a colour and a name to be created. Now the create method takes a second and third argument: 'labelName' and 'color'
 
-# [9.1.0](https://github.com/jdalrymple/node-gitlab/compare/9.0.1...9.1.0) (2019-07-12)
+## [9.1.0](https://github.com/jdalrymple/node-gitlab/compare/9.0.1...9.1.0) (2019-07-12)
 
 ### Features
 
@@ -5835,7 +5837,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Accept any variables that begin with uppercase letters and include an underscore [#254](https://github.com/jdalrymple/node-gitlab/issues/254) ([fe39590](https://github.com/jdalrymple/node-gitlab/commit/fe39590))
 
-# [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
+## [9.0.0](https://github.com/jdalrymple/node-gitlab/compare/8.0.0...9.0.0) (2019-07-04)
 
 ### Bug Fixes
 
@@ -5851,7 +5853,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
   Missing dependency
   dede
 
-# [8.0.0](https://github.com/jdalrymple/node-gitlab/compare/7.0.1...8.0.0) (2019-07-03)
+## [8.0.0](https://github.com/jdalrymple/node-gitlab/compare/7.0.1...8.0.0) (2019-07-03)
 
 ### Bug Fixes
 
@@ -5867,7 +5869,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Revert support for the rejectUnauthorized option until issues in [#377](https://github.com/jdalrymple/node-gitlab/issues/377) are sorted. ([f9a47c7](https://github.com/jdalrymple/node-gitlab/commit/f9a47c7))
 
-# [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
+## [7.0.0](https://github.com/jdalrymple/node-gitlab/compare/6.4.0...7.0.0) (2019-06-28)
 
 ### Features
 
@@ -5877,7 +5879,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - all method now takes an optional object since projectId is no longer required. If no projectId is passed, the all method returns all deploy keys across all projects of the GitLab instance
 
-# [6.4.0](https://github.com/jdalrymple/node-gitlab/compare/6.3.7...6.4.0) (2019-06-28)
+## [6.4.0](https://github.com/jdalrymple/node-gitlab/compare/6.3.7...6.4.0) (2019-06-28)
 
 ### Bug Fixes
 
@@ -5934,19 +5936,19 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Resource Discussion API was using the incorrect url to add a note ([#345](https://github.com/jdalrymple/node-gitlab/issues/345)) ([c6ff86d](https://github.com/jdalrymple/node-gitlab/commit/c6ff86d)), closes [#342](https://github.com/jdalrymple/node-gitlab/issues/342)
 
-# [6.3.0](https://github.com/jdalrymple/node-gitlab/compare/6.2.0...6.3.0) (2019-06-08)
+## [6.3.0](https://github.com/jdalrymple/node-gitlab/compare/6.2.0...6.3.0) (2019-06-08)
 
 ### Features
 
 - Add configurable request timeout ([#341](https://github.com/jdalrymple/node-gitlab/issues/341)) ([4d99902](https://github.com/jdalrymple/node-gitlab/commit/4d99902))
 
-# [6.2.0](https://github.com/jdalrymple/node-gitlab/compare/6.1.0...6.2.0) (2019-06-07)
+## [6.2.0](https://github.com/jdalrymple/node-gitlab/compare/6.1.0...6.2.0) (2019-06-07)
 
 ### Features
 
 - Adding support for Container Registry API [#274](https://github.com/jdalrymple/node-gitlab/issues/274) ([59f9286](https://github.com/jdalrymple/node-gitlab/commit/59f9286))
 
-# [6.1.0](https://github.com/jdalrymple/node-gitlab/compare/6.0.0...6.1.0) (2019-06-06)
+## [6.1.0](https://github.com/jdalrymple/node-gitlab/compare/6.0.0...6.1.0) (2019-06-06)
 
 ### Bug Fixes
 
@@ -5957,7 +5959,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Adding support for ReleaseLinks API ([d6a2248](https://github.com/jdalrymple/node-gitlab/commit/d6a2248))
 - Adding support for Releases API [#295](https://github.com/jdalrymple/node-gitlab/issues/295) ([7191e81](https://github.com/jdalrymple/node-gitlab/commit/7191e81))
 
-# [6.0.0](https://github.com/jdalrymple/node-gitlab/compare/5.0.2...6.0.0) (2019-06-02)
+## [6.0.0](https://github.com/jdalrymple/node-gitlab/compare/5.0.2...6.0.0) (2019-06-02)
 
 ### Code Refactoring
 
@@ -5980,7 +5982,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - **package:** Making lint-staged a dev dependency ([5c949b2](https://github.com/jdalrymple/node-gitlab/commit/5c949b2))
 - **package:** Missing dependency ([40f5d21](https://github.com/jdalrymple/node-gitlab/commit/40f5d21))
 
-# [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.5.1...5.0.0) (2019-05-25)
+## [5.0.0](https://github.com/jdalrymple/node-gitlab/compare/4.5.1...5.0.0) (2019-05-25)
 
 ### Bug Fixes
 
@@ -6029,13 +6031,13 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
 
-# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
+## [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
 
 ### Features
 
 - Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
 
-# [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
+## [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
 
 ### Features
 
@@ -6061,7 +6063,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Update README.md with `rejectUnauthorized`
 - Fixing typo in the host url
 
-# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+## [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
 
 ### Breaking
 
@@ -6111,13 +6113,13 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updating packages ([2c47d24](https://github.com/jdalrymple/node-gitlab/commit/2c47d24))
 
-# [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
+## [4.5.0](https://github.com/jdalrymple/node-gitlab/compare/4.4.1...4.5.0) (2019-03-19)
 
 ### Features
 
 - Updated MergeRequests API options ([a306799](https://github.com/jdalrymple/node-gitlab/commit/a306799))
 
-# [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
+## [4.4.1](https://github.com/jdalrymple/node-gitlab/compare/4.3.0...4.4.1) (2019-03-06)
 
 ### Features
 
@@ -6143,7 +6145,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Update README.md with `rejectUnauthorized`
 - Fixing typo in the host url
 
-# [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
+## [4.3.0](https://github.com/jdalrymple/node-gitlab/compare/4.2.7...4.3.0) (2018-12-12)
 
 ### Features
 
@@ -6185,7 +6187,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updating application settings test to match updated API ([dececa6](https://github.com/jdalrymple/node-gitlab/commit/dececa6))
 
-# [4.2.0](https://github.com/jdalrymple/node-gitlab/compare/4.1.1...4.2.0) (2018-10-10)
+## [4.2.0](https://github.com/jdalrymple/node-gitlab/compare/4.1.1...4.2.0) (2018-10-10)
 
 ### Bug Fixes
 
@@ -6201,7 +6203,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updating ApplicationSettings test ([0d345b7](https://github.com/jdalrymple/node-gitlab/commit/0d345b7))
 
-# [4.1.0](https://github.com/jdalrymple/node-gitlab/compare/4.0.1...4.1.0) (2018-09-19)
+## [4.1.0](https://github.com/jdalrymple/node-gitlab/compare/4.0.1...4.1.0) (2018-09-19)
 
 ### Features
 
@@ -6215,7 +6217,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Updating the package.lock ([9b4b6f9](https://github.com/jdalrymple/node-gitlab/commit/9b4b6f9))
 
-# [4.0.0-beta](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...4.0.0-beta) (2018-08-22)
+## [4.0.0-beta](https://github.com/jdalrymple/node-gitlab/compare/3.11.0...4.0.0-beta) (2018-08-22)
 
 ### Major Update
 
@@ -6241,7 +6243,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - **applications-settings:** Edit of application settings not working ([#169](https://github.com/jdalrymple/node-gitlab/issues/169)) ([f0213ca](https://github.com/jdalrymple/node-gitlab/commit/f0213ca))
 - **test:** Application settings api updated ([#177](https://github.com/jdalrymple/node-gitlab/issues/177)) ([0723a7a](https://github.com/jdalrymple/node-gitlab/commit/0723a7a))
 
-# [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
+## [3.11.0](https://github.com/jdalrymple/node-gitlab/compare/3.10.1...3.11.0) (2018-08-20)
 
 ### Bug Fixes
 
@@ -6257,13 +6259,13 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Typo in PagesDomains all() method ([#162](https://github.com/jdalrymple/node-gitlab/issues/162)) ([128f150](https://github.com/jdalrymple/node-gitlab/commit/128f150))
 
-# [3.10.0](https://github.com/jdalrymple/node-gitlab/compare/3.9.0...3.10.0) (2018-08-15)
+## [3.10.0](https://github.com/jdalrymple/node-gitlab/compare/3.9.0...3.10.0) (2018-08-15)
 
 ### Features
 
 - Expose reject unauthorized in request helper ([#160](https://github.com/jdalrymple/node-gitlab/issues/160)) ([01a2ce2](https://github.com/jdalrymple/node-gitlab/commit/01a2ce2)), closes [#142](https://github.com/jdalrymple/node-gitlab/issues/142)
 
-# [3.9.0](https://github.com/jdalrymple/node-gitlab/compare/3.8.0...3.9.0) (2018-08-15)
+## [3.9.0](https://github.com/jdalrymple/node-gitlab/compare/3.8.0...3.9.0) (2018-08-15)
 
 ### Bug Fixes
 
@@ -6275,7 +6277,7 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Add deploy keys enable functionality ([#155](https://github.com/jdalrymple/node-gitlab/issues/155)) thanks to [Michael Matzka](https://github.com/mimaidms) ([66547ad](https://github.com/jdalrymple/node-gitlab/commit/66547ad))
 
-# [3.8.0](https://github.com/jdalrymple/node-gitlab/compare/3.7.0...3.8.0) (2018-08-14)
+## [3.8.0](https://github.com/jdalrymple/node-gitlab/compare/3.7.0...3.8.0) (2018-08-14)
 
 ### Bug Fixes
 
@@ -6289,14 +6291,14 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Add push rule service ([#143](https://github.com/jdalrymple/node-gitlab/issues/143)) ([395f83c](https://github.com/jdalrymple/node-gitlab/commit/395f83c))
 - Add transfer a project to a new namespace ([#145](https://github.com/jdalrymple/node-gitlab/issues/145)) ([87e9f55](https://github.com/jdalrymple/node-gitlab/commit/87e9f55))
 
-# [3.7.0](https://github.com/jdalrymple/node-gitlab/compare/3.6.0...3.7.0) (2018-08-02)
+## [3.7.0](https://github.com/jdalrymple/node-gitlab/compare/3.6.0...3.7.0) (2018-08-02)
 
 ### Features
 
 - Adding update push rules to Projects, and updating the Protected Branches service to match the updated API thanks to [jennparise](https://github.com/jennparise)([#134](https://github.com/jdalrymple/node-gitlab/issues/134)) ([9f3de02](https://github.com/jdalrymple/node-gitlab/commit/9f3de02))
 - Updating Project Snippets API [#138](https://github.com/jdalrymple/node-gitlab/issues/138) ([a7858bd](https://github.com/jdalrymple/node-gitlab/commit/a7858bd))
 
-# [3.6.0](https://github.com/jdalrymple/node-gitlab/compare/3.5.1...3.6.0) (2018-07-24)
+## [3.6.0](https://github.com/jdalrymple/node-gitlab/compare/3.5.1...3.6.0) (2018-07-24)
 
 ### Bug Fixes
 
@@ -6310,52 +6312,52 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Updating participants function for issues ([f60e7ed](https://github.com/jdalrymple/node-gitlab/commit/f60e7ed)) thanks to [Fabian Aussems](https://github.com/mozinator)
 - Added pipelines to MergeRequests in [#128](https://github.com/jdalrymple/node-gitlab/pull/128) thanks to [jnovick](https://github.com/jnovick)
 
-# [3.5.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-08)
+## [3.5.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-08)
 
 - Fixed migrating-from-node-gitlab link in Table of Contents #118 thanks to [Quentin Dreyer](https://github.com/qkdreyer)
 - Fix methods for editing MR approval/approver settings #119 thanks to [Norm MacLennan](https://github.com/maclennann)
 - Removed codcov patch coverage until a larger portion of the codebase is covered
 
-# [3.5.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-04)
+## [3.5.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-04)
 
 - Obey the rate limit (9b46250), closes #73 thanks to [Max Wittig](https://github.com/max-wittig)
 
-# [3.4.6](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
+## [3.4.6](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
 
 - Title parameter in the Project Milestones API was not being passed in the request (f1c3e1a), closes #116
 
-# [3.4.5](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
+## [3.4.5](https://github.com/jdalrymple/node-gitlab/tags/3.4.5) (2018-7-02)
 
 - Updating badges [PR #115](https://github.com/jdalrymple/node-gitlab/pull/115) thanks to [Munif Tanjim](https://github.com/MunifTanjim)
 - Fixed ProjectIssueBoards url [PR #114](https://github.com/jdalrymple/node-gitlab/pull/114) thanks to [Artem](https://github.com/arthot)
 
-# [3.4.4](https://github.com/jdalrymple/node-gitlab/tags/3.4.4) (2018-6-26)
+## [3.4.4](https://github.com/jdalrymple/node-gitlab/tags/3.4.4) (2018-6-26)
 
 - Updating babel configuration thanks to a prompt from [bodtx](https://github.com/bodtx) and suggestions from [Logan Smyth](loganfsmyth)
 
-# [3.4.3](https://github.com/jdalrymple/node-gitlab/tags/3.4.3) (2018-6-25)
+## [3.4.3](https://github.com/jdalrymple/node-gitlab/tags/3.4.3) (2018-6-25)
 
 - Updating packages
 - Adding support for the retrieval of projects by user id [#105](https://github.com/jdalrymple/node-gitlab/pull/105) thanks to [Michael Townsend](https://github.com/Continuities)
 
-# [3.4.2](https://github.com/jdalrymple/node-gitlab/tags/3.4.2) (2018-6-06)
+## [3.4.2](https://github.com/jdalrymple/node-gitlab/tags/3.4.2) (2018-6-06)
 
 - Fixing previous release errors [#100](https://github.com/jdalrymple/node-gitlab/issues/100)
 - Adding options to the show function of Projects, Groups and Users [#101](https://github.com/jdalrymple/node-gitlab/issues/101) thanks to [Giuseppe Angri](https://github.com/giuseppeangri)
 - Adding project languages function [#102](https://github.com/jdalrymple/node-gitlab/issues/102) thanks to [Giuseppe Angri](https://github.com/giuseppeangri)
 
-# [3.4.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.1) (2018-6-01)
+## [3.4.1](https://github.com/jdalrymple/node-gitlab/tags/3.4.1) (2018-6-01)
 
 - Seperated out changelog
 - Adding ability to view pagination information, [#94](https://github.com/jdalrymple/node-gitlab/issues/94), via the showPagination option
 - Adding CommitDiscussions and MergeRequestDiscussions support
 
-# [3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
+## [3.4.0](https://github.com/jdalrymple/node-gitlab/tags/3.4.0) (2018-5-24)
 
 - Added the first stage of testing in [#71](https://github.com/jdalrymple/node-gitlab/pull/71) with [Adam Dehnel](https://github.com/arsdehnel)'s guidance
 - Added jobs.show() that was missing from the Jobs service
 
-# [3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
+## [3.3.6](https://github.com/jdalrymple/node-gitlab/tags/3.3.6) (2018-5-22)
 
 - Typo fix and branch id encoding thanks to [Igor Katsuba](https://github.com/Defenderbass)
   in [#92](https://github.com/jdalrymple/node-gitlab/pull/92) and [#91](https://github.com/jdalrymple/node-gitlab/pull/91)
@@ -6363,46 +6365,46 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 - Docs update pointing to the wrong npm package thanks to [Joseph Petersen](https://github.com/casz) in [#88](https://github.com/jdalrymple/node-gitlab/pull/88)
 - Licence update (to match the year) thanks to [Sharma-Rajat](https://github.com/Sharma-Rajat) in [#87](https://github.com/jdalrymple/node-gitlab/pull/87)
 
-# [3.3.5](https://github.com/jdalrymple/node-gitlab/tags/3.3.5) (2018-5-15)
+## [3.3.5](https://github.com/jdalrymple/node-gitlab/tags/3.3.5) (2018-5-15)
 
 - Fixing missing exports thanks to [Pavel Birukov](https://github.com/r00ger) in [#86](https://github.com/jdalrymple/node-gitlab/pull/86)
 
-# [3.3.4](https://github.com/jdalrymple/node-gitlab/tags/3.3.4) (2018-5-14)
+## [3.3.4](https://github.com/jdalrymple/node-gitlab/tags/3.3.4) (2018-5-14)
 
 - Fixing [#85](https://github.com/jdalrymple/node-gitlab/pull/85)
 
-# [3.3.3](https://github.com/jdalrymple/node-gitlab/tags/3.3.3) (2018-5-13)
+## [3.3.3](https://github.com/jdalrymple/node-gitlab/tags/3.3.3) (2018-5-13)
 
 - Fixing [#84](https://github.com/jdalrymple/node-gitlab/pull/84)
 
-# [3.3.2](https://github.com/jdalrymple/node-gitlab/tags/3.3.2) (2018-5-9)
+## [3.3.2](https://github.com/jdalrymple/node-gitlab/tags/3.3.2) (2018-5-9)
 
 - Fixing [#82](https://github.com/jdalrymple/node-gitlab/pull/82)
 - Fixing [#83](https://github.com/jdalrymple/node-gitlab/pull/83)
 - Updating repo name for clarity
 
-# [3.3.0](https://github.com/jdalrymple/node-gitlab/tags/3.3.0) (2018-5-7)
+## [3.3.0](https://github.com/jdalrymple/node-gitlab/tags/3.3.0) (2018-5-7)
 
 - Added extended support for the Jobs and Pipelines API thanks to [Isaac Ouellet Therrien](https://github.com/yonguelink) in PR [#77](https://github.com/jdalrymple/node-gitlab/pull/77)
 - Updated packages
 
-# [3.2.2](https://github.com/jdalrymple/node-gitlab/tags/3.2.2) (2018-5-2)
+## [3.2.2](https://github.com/jdalrymple/node-gitlab/tags/3.2.2) (2018-5-2)
 
 - Fixed missing Version API
 
-# [3.2.1](https://github.com/jdalrymple/node-gitlab/tags/3.2.1) (2018-4-23)
+## [3.2.1](https://github.com/jdalrymple/node-gitlab/tags/3.2.1) (2018-4-23)
 
 - Fixed incorrectly named bundles
 
-# [3.2.0](https://github.com/jdalrymple/node-gitlab/tags/3.2.0) (2018-4-21)
+## [3.2.0](https://github.com/jdalrymple/node-gitlab/tags/3.2.0) (2018-4-21)
 
 - Completed ProjectPipeline Support in PR [#72](https://github.com/jdalrymple/node-gitlab/pull/72) thanks to [Frédéric Boutin](https://github.com/fboutin-pmc)
 
-# [3.1.1](https://github.com/jdalrymple/node-gitlab/tags/3.1.1) (2018-4-17)
+## [3.1.1](https://github.com/jdalrymple/node-gitlab/tags/3.1.1) (2018-4-17)
 
 - Fixed missing UserCustomAttributes export
 
-# [3.1.0](https://github.com/jdalrymple/node-gitlab/tags/3.1.0) (2018-4-16)
+## [3.1.0](https://github.com/jdalrymple/node-gitlab/tags/3.1.0) (2018-4-16)
 
 - Added addTimeEstimate, addTimeSpent, timeStats, resetTimeSpent and resetTimeEstimate to the Issues API. Requested in Issue [#68](https://github.com/jdalrymple/node-gitlab/issues/68)
 - Added XMLHttpRequest Support PR [#59](https://github.com/jdalrymple/node-gitlab/pull/59)
@@ -6411,16 +6413,16 @@ Co-authored-by: Joseph Petersen <josephp90@gmail.com>
 
 - Renamed timeEstimate to addTimeEstimate, and timeSpend to addTimeSpent, in the MergeRequests API
 
-# [3.0.4](https://github.com/jdalrymple/node-gitlab/tags/3.0.4) (2018-4-13)
+## [3.0.4](https://github.com/jdalrymple/node-gitlab/tags/3.0.4) (2018-4-13)
 
 - Fixed endpoint for MergeRequestNotes thanks to [Ev Haus](https://github.com/EvHaus) in PR [#63](https://github.com/jdalrymple/node-gitlab/pull/63)
 - Fixed Commits.editStatus method thanks to [zhao0](https://github.com/zhao0) in PR [#65](https://github.com/jdalrymple/node-gitlab/pull/65)
 
-# [3.0.3](https://github.com/jdalrymple/node-gitlab/tags/3.0.3) (2018-4-5)
+## [3.0.3](https://github.com/jdalrymple/node-gitlab/tags/3.0.3) (2018-4-5)
 
 - Fixed the problem with the validation of Event resource options
 
-# [3.0.0](https://github.com/jdalrymple/node-gitlab/tags/3.0.0) (2018-4-2)
+## [3.0.0](https://github.com/jdalrymple/node-gitlab/tags/3.0.0) (2018-4-2)
 
 - Exporting all services separately ie. const { Projects } from 'gitlab'; as well as the usual default export: const Gitlab from 'gitlab'
 - Exporting bundles which are groups of related API's. These include: ProjectsBundle, UsersBundle and GroupsBundle
@@ -6468,41 +6470,41 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 ```
 
-# [2.2.8](https://github.com/jdalrymple/node-gitlab/tags/2.2.7) (2018-4-1)
+## [2.2.8](https://github.com/jdalrymple/node-gitlab/tags/2.2.7) (2018-4-1)
 
 - Updating babel
 
-# [2.2.7](https://github.com/jdalrymple/node-gitlab/tags/2.2.7) (2018-3-15)
+## [2.2.7](https://github.com/jdalrymple/node-gitlab/tags/2.2.7) (2018-3-15)
 
 - Fixing babel runtime
 
-# [2.2.6](https://github.com/jdalrymple/node-gitlab/tags/2.2.6) (2018-3-15)
+## [2.2.6](https://github.com/jdalrymple/node-gitlab/tags/2.2.6) (2018-3-15)
 
 - Fixed more issues within the url concatenation
 
-# [2.2.5](https://github.com/jdalrymple/node-gitlab/tags/2.2.5) (2018-3-15)
+## [2.2.5](https://github.com/jdalrymple/node-gitlab/tags/2.2.5) (2018-3-15)
 
 - Fixed #48 - Problem with trailing `\` in url
 
-# [2.2.4](https://github.com/jdalrymple/node-gitlab/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
+## [2.2.4](https://github.com/jdalrymple/node-gitlab/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 
 - Fixed #33 - Bug within the es5 transpilling configuration
 - Fixed the missing options for tags.all [#40](https://github.com/jdalrymple/node-gitlab/pull/40)
 - Added delete key method to UserKeys.js [#41](https://github.com/jdalrymple/node-gitlab/pull/41) thanks to [Claude Abounegm](https://github.com/claude-abounegm)
 
-# [2.2.3](https://github.com/jdalrymple/node-gitlab/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
+## [2.2.3](https://github.com/jdalrymple/node-gitlab/ce7f17693168b5dec3b36eb1d5ab796c9374613f) (2018-2-3)
 
 - Fixed #37 - Bug within the customAttributes logic
 
-# [2.2.2](https://github.com/jdalrymple/node-gitlab/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
+## [2.2.2](https://github.com/jdalrymple/node-gitlab/ca1906879d869bf5b9aca0b2f64e46c89f3b5f4f) (2018-1-24)
 
 - Fixing bug with the version support
 
-# [2.2.1](https://github.com/jdalrymple/node-gitlab/e864064c98feda59d594d77b67f7d0657db78700) (2018-1-23)
+## [2.2.1](https://github.com/jdalrymple/node-gitlab/e864064c98feda59d594d77b67f7d0657db78700) (2018-1-23)
 
 - Added support for the Version API through version.show()
 
-# [2.2.0](https://github.com/jdalrymple/node-gitlab/96e414a75ad97e88ecaaff15a6c1409a9e27b963) (2018-1-18)
+## [2.2.0](https://github.com/jdalrymple/node-gitlab/96e414a75ad97e88ecaaff15a6c1409a9e27b963) (2018-1-18)
 
 - Fixed the missing options parameter for the ProjectRepositoryCommitComment's model thanks to [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab/pull/21)
 - Removal of the left over debug console.logs's within project issues again by [Martin Benninger](https://github.com/MartinBenninger) in PR [#21](https://github.com/jdalrymple/node-gitlab/pull/22)
@@ -6516,7 +6518,7 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 
 - Fixed a problem with the get responses where the response contained the full request response and not just the body
 
-# [2.1.0](https://github.com/jdalrymple/node-gitlab/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
+## [2.1.0](https://github.com/jdalrymple/node-gitlab/0ea73235e0b465a0d4717a7e1f33251b58777b60) (2017-12-15)
 
 - Added es5 support and clarified the default supported versions of node (>=8.0.0 for default)
 - Updating project docs for consistency
@@ -6535,7 +6537,7 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 - Updated the structure of the ProjectRepository class such that its commits, branches, tags and files are properties and can be accessed like `repository.commits.all()` etc.
 - Removed unused labels endpoint since it already exists under projects.labels
 
-# [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
+## [2.0.1-rc.1](https://github.com/jdalrymple/node-gitlab/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-29)
 
 - Updating pagination changes into v2.0.1
 - Removed unused labels endpoint since it already exists under projects.labels
@@ -6546,23 +6548,23 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 - Added comments endpoints to the ProjectRepositoryCommits class
 - Added the ability to post a status to a specific commit to the Project class
 
-# [1.3.3](https://github.com/jdalrymple/node-gitlab/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
+## [1.3.3](https://github.com/jdalrymple/node-gitlab/b8a3db4a4aaf9482fb3905883d92d940babfb461) (2017-11-29)
 
 - Adding pagination to project pipelines thanks to [Tamás Török-Vistai](https://github.com/tvtamas)
 
-# [2.0.0-rc.2](https://github.com/jdalrymple/node-gitlab/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-28)
+## [2.0.0-rc.2](https://github.com/jdalrymple/node-gitlab/62a4d360f0ca2cd584caf852d96ced3761992072) (2017-11-28)
 
 - Updating all recent core changes into v2.0.0
 
-# [1.3.2](https://github.com/jdalrymple/node-gitlab/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
+## [1.3.2](https://github.com/jdalrymple/node-gitlab/87e3d4b0a9616c19d69e3d6213c196948240d93e) (2017-11-28)
 
 - Adding default values for the BaseModel options parameter.
 
-# [1.3.1](https://github.com/jdalrymple/node-gitlab/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
+## [1.3.1](https://github.com/jdalrymple/node-gitlab/ba80ac10e1e08176da7a3a9848758a989a7199dd) (2017-11-27)
 
 - Fixed broken argument reference in the showFile and showFileRaw functions.
 
-# [2.0.0-rc.1](https://github.com/jdalrymple/node-gitlab/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
+## [2.0.0-rc.1](https://github.com/jdalrymple/node-gitlab/7246896c7bad7b238179109d1d6a391b0c2ef302) (2017-11-25)
 
 - Updated project docs for clarity
 - Cleaned up many linting problems within the class models
@@ -6580,106 +6582,106 @@ Runners = ProjectRunners + Runners. ProjectId is optional for all()
 - Updated the structure of the ProjectRepository class with commits, branches, tags and files properties.
 - Added contributors, showBlob and showBlobRaw functions to the ProjectRepository class
 
-# [1.3.0](https://github.com/jdalrymple/node-gitlab/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
+## [1.3.0](https://github.com/jdalrymple/node-gitlab/3048a3989fabe3992044baccdab1e53257f0f379) (2017-11-25)
 
 - Extending the Groups API, see docs for a full overview.
 
-# [1.2.0](https://github.com/jdalrymple/node-gitlab/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
+## [1.2.0](https://github.com/jdalrymple/node-gitlab/b08779a321fb25668df1e0f7e001394679cc47ba) (2017-11-25)
 
 - Adding fix to the API constructor to include the [missing oauthToken](https://github.com/jdalrymple/node-gitlab/pulls?q=is%3Apr+is%3Aclosed) thanks to [Salim Benabbou](https://github.com/Salimlou).
 - Updated some of the outdated Gitlab repository file endpoints outlined in [Issue #11](https://github.com/jdalrymple/node-gitlab/issues/11): [showFile](https://docs.gitlab.com/ee/api/repository_files.html#get-file-from-repository), [updateFile](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository), and [createFile](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository). Also added [deleteFile](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) and [showRawFile](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository).
 - Fixing bug where many pages where attempted to be loaded on every GET request.
 
-# [1.1.4](https://github.com/jdalrymple/node-gitlab/328bc29fe48d1bf18c83779a214cce34e80dda09) (2017-11-17)
+## [1.1.4](https://github.com/jdalrymple/node-gitlab/328bc29fe48d1bf18c83779a214cce34e80dda09) (2017-11-17)
 
 - Library maintenance, cleaning up spelling errors, updating dependencies, adding to contributors lists etc.
 
-# [1.1.3](https://github.com/jdalrymple/node-gitlab/6f28ce1726ce371d4b0272d5f8305080d51e3e25) (2017-11-17)
+## [1.1.3](https://github.com/jdalrymple/node-gitlab/6f28ce1726ce371d4b0272d5f8305080d51e3e25) (2017-11-17)
 
 - Fixing typos in the project sharing (group_access) thanks to [Christoph Lehmann](https://github.com/christophlehmann)
 - Updated the ReadMe to be more clear based on suggestions from [Frank V](https://github.com/FrankV01)
 
-# [1.1.2](https://github.com/jdalrymple/node-gitlab/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-10-29)
+## [1.1.2](https://github.com/jdalrymple/node-gitlab/36570c32be7cd564bda9c7c7dc07059987969bd4) (2017-10-29)
 
 - Updated the protected branch functionality by adding an options parameter originally proposed by [Martin Bour](https://github.com/shadygrove)
 - Removed old paging logic from groups
 - Updating library dependencies
 
-# [1.1.1](https://github.com/jdalrymple/node-gitlab/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
+## [1.1.1](https://github.com/jdalrymple/node-gitlab/67df1c8772614b3856f2995eaa7d260d0f697e49) (2017-09-24)
 
 - Patch, fixed a broken pagination property
 - Adding in missing options parameter in the groups API thanks to a pull request from [Cory Zibell](https://github.com/coryzibell)
 
-# [1.1.0](https://github.com/jdalrymple/node-gitlab/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
+## [1.1.0](https://github.com/jdalrymple/node-gitlab/385ef9f351981f26180e1381525ade458bcde1cd) (2017-09-24)
 
 - Adding proper pagination support thanks to a problem noticed by [Mike Wyatt](https://github.com/mikew)
 
-# [1.0.14](https://github.com/jdalrymple/node-gitlab/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
+## [1.0.14](https://github.com/jdalrymple/node-gitlab/b8fb74828503f0a6432376ad156b7f9e33f6228e) (2017-08-1)
 
 - Adding default file name for file uploads. If none is supplied, the file name is
   inferred from the file path
 
-# [1.0.13](https://github.com/jdalrymple/node-gitlab/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
+## [1.0.13](https://github.com/jdalrymple/node-gitlab/3eb244a5b487f487859f750e46c8fa287b4455c4) (2017-07-31)
 
 - Fixed another bug in the project file upload functionality
 
-# [1.0.12](https://github.com/jdalrymple/node-gitlab/commit/6f77ee0a462a19ae65bd6206eb94c72e271ba673) (2017-07-30)
+## [1.0.12](https://github.com/jdalrymple/node-gitlab/commit/6f77ee0a462a19ae65bd6206eb94c72e271ba673) (2017-07-30)
 
 - Added issue links (for related issues)
 - Fixed project file upload
 
-# [1.0.11](https://github.com/jdalrymple/node-gitlab/commit/af4eb6955f583b5be4a4032d2d532d81bb2cf54d) (2017-07-20)
+## [1.0.11](https://github.com/jdalrymple/node-gitlab/commit/af4eb6955f583b5be4a4032d2d532d81bb2cf54d) (2017-07-20)
 
 - Fixing the problem where Id was used instead of IId's for Project issues
 - Fixing the naming convention for Project Issues
 - Standardized the use of parseInt in the code base
 - Removed instances of duplicate code found by code climate
 
-# [1.0.10](https://github.com/jdalrymple/node-gitlab/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
+## [1.0.10](https://github.com/jdalrymple/node-gitlab/commit/c4a55aba89d83fda1552b3d5688b090b0c2b60aa) (2017-07-13)
 
 - Fixing Issues [#1](https://github.com/jdalrymple/node-gitlab/pull/1), [#2](https://github.com/jdalrymple/node-gitlab/pull/3), and [#3](https://github.com/jdalrymple/node-gitlab/pull/3)
 
-# [1.0.9](https://github.com/jdalrymple/node-gitlab/commit/7a90dbb6354fe956fff37c56f938a833e3fc5ea1) (2017-07-06)
+## [1.0.9](https://github.com/jdalrymple/node-gitlab/commit/7a90dbb6354fe956fff37c56f938a833e3fc5ea1) (2017-07-06)
 
 - Fixing broken Notes API reference
 - Added Project triggers, members and hooks docs
 - Moved Project Runners into its own scope and separated out general Runners API logic
 
-# [1.0.8](https://github.com/jdalrymple/node-gitlab/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
+## [1.0.8](https://github.com/jdalrymple/node-gitlab/commit/491a707624ba9f58818014eacfeb7182b8ecf800) (2017-06-30)
 
 - Adding more to the Project Issue Notes API
 - Updating Readme to show examples of connecting with OAuth tokens
 - Begun adding documentation for projects
 
-# [1.0.7](https://github.com/jdalrymple/node-gitlab/commit/50642ad764ecd20d2a9e279cf2a47e7b5efe8f07) (2017-06-23)
+## [1.0.7](https://github.com/jdalrymple/node-gitlab/commit/50642ad764ecd20d2a9e279cf2a47e7b5efe8f07) (2017-06-23)
 
 - Fixing bug within the Issues API; reference to an old function.
 
-# [1.0.6](https://github.com/jdalrymple/node-gitlab/commit/2b02d1e354c1c267683d10b893ad055fe856a214) (2017-06-23)
+## [1.0.6](https://github.com/jdalrymple/node-gitlab/commit/2b02d1e354c1c267683d10b893ad055fe856a214) (2017-06-23)
 
 - Fixing bug within the Labels API; Missing required argument.
 
-# [1.0.5](https://github.com/jdalrymple/node-gitlab/commit/03a22b46a62d7b68937575b0b74b6fd3496f7cbf) (2017-06-23)
+## [1.0.5](https://github.com/jdalrymple/node-gitlab/commit/03a22b46a62d7b68937575b0b74b6fd3496f7cbf) (2017-06-23)
 
 - Fixing bug within the delete API calls. It was missing query parameters
 
-# [1.0.4](https://github.com/jdalrymple/node-gitlab/commit/9d9ef2615c6dd778a3fb1c6140d5ce009c421bb1) (2017-06-23)
+## [1.0.4](https://github.com/jdalrymple/node-gitlab/commit/9d9ef2615c6dd778a3fb1c6140d5ce009c421bb1) (2017-06-23)
 
 - Adding more to the Labels API
 - Cleaned up the Issues class
 
-# [1.0.3](https://github.com/jdalrymple/node-gitlab/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
+## [1.0.3](https://github.com/jdalrymple/node-gitlab/commit/fe5a5fbb8d01fb670b7c7b14ce2c5b7f30d71fe5) (2017-06-23)
 
 - Updating problems within the Milestone API
 - Removed the old 'list' calls for projects and issues which displayed a deprecated message. Only all is available now.
 
-# [1.0.2](https://github.com/jdalrymple/node-gitlab/commit/a295d5a613efa13be79fec5fa2835076047cdcc5) (2017-06-22)
+## [1.0.2](https://github.com/jdalrymple/node-gitlab/commit/a295d5a613efa13be79fec5fa2835076047cdcc5) (2017-06-22)
 
 - Updating examples in ReadMe
 - Adding dependency badges
 - Removing unused test files
 
-# [1.0.1](https://github.com/jdalrymple/node-gitlab/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
+## [1.0.1](https://github.com/jdalrymple/node-gitlab/commit/64a8f8c7720f5df9a67d3f26cc8712fc21eb3ac0) (2017-06-21)
 
 - Initial release
 - TODO: Tests, Examples

@@ -1,4 +1,6 @@
-# v43.6.0 (Sun Oct 26 2025)
+# @gitbeaker/requester-utils
+
+## v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -32,7 +34,7 @@ Thank you, ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei)), for all
 
 ---
 
-# v43.5.0 (Tue Sep 02 2025)
+## v43.5.0 (Tue Sep 02 2025)
 
 #### 🔒 Security
 
@@ -44,7 +46,7 @@ Thank you, ShaoWei Teo ([@Teo-ShaoWei](https://github.com/Teo-ShaoWei)), for all
 
 ---
 
-# v43.4.0 (Thu Aug 07 2025)
+## v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -65,7 +67,7 @@ Thank you, null[@tcasebiw](https://github.com/tcasebiw), for all your work!
 
 ---
 
-# v43.0.0 (Sun Jul 13 2025)
+## v43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -91,7 +93,7 @@ Thank you, Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi)), for all y
 
 ---
 
-# v40.2.0 (Sat Sep 07 2024)
+## v40.2.0 (Sat Sep 07 2024)
 
 #### 📚 Documentation
 
@@ -103,7 +105,7 @@ Thank you, Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi)), for all y
 
 ---
 
-# v40.1.4 (Thu Sep 05 2024)
+## v40.1.4 (Thu Sep 05 2024)
 
 #### 📚 Documentation
 
@@ -115,7 +117,7 @@ Thank you, Aidin Abedi ([@aidinabedi](https://github.com/aidinabedi)), for all y
 
 ---
 
-# v40.1.0 (Mon Jul 08 2024)
+## v40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -140,7 +142,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.34.3 (Tue Feb 20 2024)
+## v39.34.3 (Tue Feb 20 2024)
 
 #### 🔨 Technical Debt
 
@@ -152,7 +154,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.33.1 (Mon Jan 29 2024)
+## v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
 
@@ -164,7 +166,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.32.0 (Tue Jan 23 2024)
+## v39.32.0 (Tue Jan 23 2024)
 
 #### 🐛 Bug Fix
 
@@ -176,7 +178,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.30.0 (Wed Jan 17 2024)
+## v39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
 
@@ -188,7 +190,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.28.0 (Sun Dec 31 2023)
+## v39.28.0 (Sun Dec 31 2023)
 
 #### 📚 Documentation
 
@@ -201,7 +203,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.27.1 (Tue Dec 26 2023)
+## v39.27.1 (Tue Dec 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -213,7 +215,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.25.1 (Sat Dec 09 2023)
+## v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
 
@@ -225,7 +227,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.24.0 (Fri Nov 17 2023)
+## v39.24.0 (Fri Nov 17 2023)
 
 #### ↕️ Dependencies
 
@@ -242,7 +244,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.23.0 (Thu Nov 16 2023)
+## v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
 
@@ -254,7 +256,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.21.1 (Sat Oct 21 2023)
+## v39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
 
@@ -266,7 +268,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.21.0 (Sat Oct 21 2023)
+## v39.21.0 (Sat Oct 21 2023)
 
 #### ✨ Feature
 
@@ -282,7 +284,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.19.0 (Sat Oct 07 2023)
+## v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature
 
@@ -294,7 +296,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.18.0 (Wed Oct 04 2023)
+## v39.18.0 (Wed Oct 04 2023)
 
 #### 🐛 Bug Fix
 
@@ -306,7 +308,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.10.3 (Tue Aug 08 2023)
+## v39.10.3 (Tue Aug 08 2023)
 
 #### 🔨 Technical Debt
 
@@ -318,7 +320,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.6.0 (Wed Jul 12 2023)
+## v39.6.0 (Wed Jul 12 2023)
 
 #### ↕️ Dependencies
 
@@ -330,7 +332,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.2.0 (Mon Jun 26 2023)
+## v39.2.0 (Mon Jun 26 2023)
 
 #### ✨ Feature
 
@@ -346,7 +348,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v39.1.1 (Mon Jun 26 2023)
+## v39.1.1 (Mon Jun 26 2023)
 
 #### 🔨 Technical Debt
 
@@ -358,7 +360,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.10.0 (Fri Jun 02 2023)
+## v38.10.0 (Fri Jun 02 2023)
 
 #### 📚 Documentation
 
@@ -370,7 +372,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.8.0 (Mon May 22 2023)
+## v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
 
@@ -382,7 +384,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.3.0 (Sat May 06 2023)
+## v38.3.0 (Sat May 06 2023)
 
 #### ↕️ Dependencies
 
@@ -394,7 +396,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.2.0 (Fri May 05 2023)
+## v38.2.0 (Fri May 05 2023)
 
 #### 📚 Documentation
 
@@ -406,7 +408,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.1.1 (Wed May 03 2023)
+## v38.1.1 (Wed May 03 2023)
 
 #### 📚 Documentation
 
@@ -418,7 +420,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v38.0.0 (Sat Apr 29 2023)
+## v38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
 
@@ -430,7 +432,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v37.1.0 (Thu Apr 27 2023)
+## v37.1.0 (Thu Apr 27 2023)
 
 #### 🚑 Hot Fix
 
@@ -442,7 +444,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v37.0.0 (Wed Apr 26 2023)
+## v37.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
 
@@ -454,7 +456,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v35.8.0 (Wed Nov 16 2022)
+## v35.8.0 (Wed Nov 16 2022)
 
 #### 🔩 Dependency Updates
 
@@ -467,7 +469,7 @@ Thank you, null[@michael-smt](https://github.com/michael-smt), for all your work
 
 ---
 
-# v35.6.1 (Mon Jul 11 2022)
+## v35.6.1 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -483,7 +485,7 @@ Thank you, Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog)), for all 
 
 ---
 
-# v35.3.0 (Sat Feb 05 2022)
+## v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
 
@@ -495,7 +497,7 @@ Thank you, Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog)), for all 
 
 ---
 
-# v35.2.0 (Sat Feb 05 2022)
+## v35.2.0 (Sat Feb 05 2022)
 
 #### ⚠️ Pushed to `master`
 
@@ -517,7 +519,7 @@ Thank you, Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog)), for all 
 
 ---
 
-# v34.7.0 (Tue Nov 30 2021)
+## v34.7.0 (Tue Nov 30 2021)
 
 #### 🔩 Dependency Updates
 
@@ -529,7 +531,7 @@ Thank you, Jeff Bacon ([@thesuavehog](https://github.com/thesuavehog)), for all 
 
 ---
 
-# v34.3.0 (Sun Oct 17 2021)
+## v34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -553,7 +555,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v34.1.0 (Sat Sep 04 2021)
+## v34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix
 
@@ -565,7 +567,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v31.1.0 (Tue Jul 27 2021)
+## v31.1.0 (Tue Jul 27 2021)
 
 #### 🔩 Dependency Updates
 
@@ -577,7 +579,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v31.0.0 (Mon Jul 05 2021)
+## v31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
 
@@ -589,7 +591,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.3.0 (Mon Jun 07 2021)
+## v29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -601,7 +603,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.2.4 (Sun May 30 2021)
+## v29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix
 
@@ -613,7 +615,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.2.2 (Sat May 29 2021)
+## v29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -625,7 +627,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.2.1 (Sat May 29 2021)
+## v29.2.1 (Sat May 29 2021)
 
 #### 🔩 Dependency Updates
 
@@ -637,7 +639,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.2.0 (Tue May 18 2021)
+## v29.2.0 (Tue May 18 2021)
 
 #### 🔩 Dependency Updates
 
@@ -649,7 +651,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v29.0.0 (Fri May 14 2021)
+## v29.0.0 (Fri May 14 2021)
 
 #### 💥 Breaking Change
 
@@ -661,7 +663,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v28.4.0 (Tue May 04 2021)
+## v28.4.0 (Tue May 04 2021)
 
 #### 🔩 Dependency Updates
 
@@ -673,7 +675,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v28.2.0 (Sat Mar 20 2021)
+## v28.2.0 (Sat Mar 20 2021)
 
 #### 🔩 Dependency Updates
 
@@ -685,7 +687,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v28.1.0 (Sun Mar 14 2021)
+## v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
 
@@ -702,7 +704,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# vnull (Sun Jan 03 2021)
+## vnull (Sun Jan 03 2021)
 
 #### 🐛 Bug Fix
 
@@ -718,7 +720,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v28.0.0 (Mon Dec 28 2020)
+## v28.0.0 (Mon Dec 28 2020)
 
 #### 💥 Breaking Change
 
@@ -734,7 +736,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v27.0.0 (Fri Dec 18 2020)
+## v27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change
 
@@ -746,7 +748,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v26.0.0 (Sun Dec 06 2020)
+## v26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change
 
@@ -758,7 +760,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v25.5.0 (Sun Nov 29 2020)
+## v25.5.0 (Sun Nov 29 2020)
 
 #### 🔩 Dependency Updates
 
@@ -770,7 +772,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v25.1.0 (Tue Oct 20 2020)
+## v25.1.0 (Tue Oct 20 2020)
 
 #### 🔩 Dependency Updates
 
@@ -782,7 +784,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v24.2.0 (Tue Oct 13 2020)
+## v24.2.0 (Tue Oct 13 2020)
 
 #### 🐛 Bug Fix
 
@@ -794,7 +796,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v23.7.0 (Tue Sep 29 2020)
+## v23.7.0 (Tue Sep 29 2020)
 
 #### 🐛 Bug Fix
 
@@ -806,7 +808,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v23.6.0 (Mon Sep 28 2020)
+## v23.6.0 (Mon Sep 28 2020)
 
 #### 🚀 Enhancement
 
@@ -826,7 +828,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v23.5.0 (Sun Aug 09 2020)
+## v23.5.0 (Sun Aug 09 2020)
 
 #### 🐛 Bug Fix
 
@@ -838,7 +840,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v23.4.0 (Sun Jul 12 2020)
+## v23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
 
@@ -850,7 +852,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v23.1.0 (Wed Jul 08 2020)
+## v23.1.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
 
@@ -862,7 +864,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v22.0.0 (Sat Jun 20 2020)
+## v22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change
 
@@ -874,7 +876,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.7.0 (Tue Jun 16 2020)
+## v21.7.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -886,7 +888,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.6.0 (Tue Jun 16 2020)
+## v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -898,7 +900,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.4.0 (Sun Jun 14 2020)
+## v21.4.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -911,7 +913,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.3.0 (Sun Jun 14 2020)
+## v21.3.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -923,7 +925,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.2.0 (Sun Jun 14 2020)
+## v21.2.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -935,7 +937,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v21.0.1 (Fri Jun 12 2020)
+## v21.0.1 (Fri Jun 12 2020)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -947,7 +949,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v19.6.0 (Sat May 16 2020)
+## v19.6.0 (Sat May 16 2020)
 
 #### 🔩 Dependencies
 
@@ -959,7 +961,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v19.3.0 (Fri May 01 2020)
+## v19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix
 
@@ -971,7 +973,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v19.0.0 (Thu Apr 23 2020)
+## v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change
 
@@ -983,7 +985,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v18.2.0 (Wed Apr 22 2020)
+## v18.2.0 (Wed Apr 22 2020)
 
 #### 🐛 Bug Fix
 
@@ -995,7 +997,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v18.1.0 (Wed Apr 22 2020)
+## v18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement
 
@@ -1007,7 +1009,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v18.0.0 (Tue Apr 21 2020)
+## v18.0.0 (Tue Apr 21 2020)
 
 #### 🐛 Bug Fix
 
@@ -1020,7 +1022,7 @@ Thank you, nilennoct ([@nilennoct](https://github.com/nilennoct)), for all your 
 
 ---
 
-# v17.0.2 (Sun Apr 19 2020)
+## v17.0.2 (Sun Apr 19 2020)
 
 #### 🔩 Dependencies
 

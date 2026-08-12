@@ -1,4 +1,6 @@
-# v43.8.0 (Sat Nov 01 2025)
+# @gitbeaker/core
+
+## v43.8.0 (Sat Nov 01 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -15,7 +17,7 @@ Thank you, Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek)), for
 
 ---
 
-# v43.7.0 (Sun Oct 26 2025)
+## v43.7.0 (Sun Oct 26 2025)
 
 #### 🐛 Bug Fix
 
@@ -32,7 +34,7 @@ Thank you, Matěj Smíšek ([@matejsmisek](https://github.com/matejsmisek)), for
 
 ---
 
-# v43.6.0 (Sun Oct 26 2025)
+## v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -65,7 +67,7 @@ Thanks for all your work!
 
 ---
 
-# v43.5.0 (Tue Sep 02 2025)
+## v43.5.0 (Tue Sep 02 2025)
 
 #### ✨ Feature
 
@@ -86,7 +88,7 @@ Thanks for all your work!
 
 ---
 
-# v43.4.0 (Thu Aug 07 2025)
+## v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -126,7 +128,7 @@ Thanks for all your work!
 
 ---
 
-# v43.3.0 (Sat Jul 19 2025)
+## v43.3.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -142,7 +144,7 @@ Thanks for all your work!
 
 ---
 
-# v43.1.0 (Sat Jul 19 2025)
+## v43.1.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -154,7 +156,7 @@ Thanks for all your work!
 
 ---
 
-# v43.0.0 (Sun Jul 13 2025)
+## v43.0.0 (Sun Jul 13 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -211,7 +213,7 @@ Thanks for all your work!
 
 ---
 
-# v42.5.0 (Sat Apr 26 2025)
+## v42.5.0 (Sat Apr 26 2025)
 
 #### ✨ Feature
 
@@ -226,7 +228,7 @@ Thanks for all your work!
 
 ---
 
-# v42.4.1 (Thu Apr 24 2025)
+## v42.4.1 (Thu Apr 24 2025)
 
 #### 🗃️ Typescript Definitions
 
@@ -238,7 +240,7 @@ Thanks for all your work!
 
 ---
 
-# v42.4.0 (Mon Apr 21 2025)
+## v42.4.0 (Mon Apr 21 2025)
 
 #### 🐛 Bug Fix
 
@@ -251,7 +253,7 @@ Thanks for all your work!
 
 ---
 
-# v42.3.0 (Mon Apr 21 2025)
+## v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -284,7 +286,7 @@ Thanks for all your work!
 
 ---
 
-# v42.2.0 (Mon Mar 24 2025)
+## v42.2.0 (Mon Mar 24 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -312,7 +314,7 @@ Thank you, Lucas ([@cz-lucas](https://github.com/cz-lucas)), for all your work!
 
 ---
 
-# v42.1.0 (Mon Jan 20 2025)
+## v42.1.0 (Mon Jan 20 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -329,7 +331,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# v42.0.2 (Thu Jan 02 2025)
+## v42.0.2 (Thu Jan 02 2025)
 
 #### 🗃️ Typescript Definitions
 
@@ -341,7 +343,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# v42.0.1 (Tue Dec 31 2024)
+## v42.0.1 (Tue Dec 31 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -354,7 +356,7 @@ Thank you, Marco ([@Sephyr0s](https://github.com/Sephyr0s)), for all your work!
 
 ---
 
-# v42.0.0 (Tue Dec 31 2024)
+## v42.0.0 (Tue Dec 31 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -380,7 +382,7 @@ Thank you, Talysson de Oliveira Cassiano ([@talyssonoc](https://github.com/talys
 
 ---
 
-# v41.3.0 (Sun Nov 24 2024)
+## v41.3.0 (Sun Nov 24 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -396,7 +398,7 @@ Thank you, Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01)), for all you
 
 ---
 
-# v41.2.0 (Sun Nov 10 2024)
+## v41.2.0 (Sun Nov 10 2024)
 
 #### 🐛 Bug Fix
 
@@ -408,7 +410,7 @@ Thank you, Giannis Kepas ([@Retr0-01](https://github.com/Retr0-01)), for all you
 
 ---
 
-# v41.1.2 (Sat Nov 09 2024)
+## v41.1.2 (Sat Nov 09 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -424,7 +426,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# v41.1.1 (Sat Nov 02 2024)
+## v41.1.1 (Sat Nov 02 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -436,7 +438,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# v41.1.0 (Sun Oct 20 2024)
+## v41.1.0 (Sun Oct 20 2024)
 
 #### 🐛 Bug Fix
 
@@ -448,7 +450,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# v41.0.0 (Sat Oct 19 2024)
+## v41.0.0 (Sat Oct 19 2024)
 
 #### 💥 Breaking Change
 
@@ -460,7 +462,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# v40.6.0 (Sat Oct 19 2024)
+## v40.6.0 (Sat Oct 19 2024)
 
 #### ✨ Feature
 
@@ -478,7 +480,7 @@ Thank you, Miguel ([@mpsanchis](https://github.com/mpsanchis)), for all your wor
 
 ---
 
-# v40.5.1 (Sun Oct 13 2024)
+## v40.5.1 (Sun Oct 13 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -494,7 +496,7 @@ Thank you, Youssef ([@yousinix](https://github.com/yousinix)), for all your work
 
 ---
 
-# v40.5.0 (Thu Oct 10 2024)
+## v40.5.0 (Thu Oct 10 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -510,7 +512,7 @@ Thank you, null[@roberta-pavel](https://github.com/roberta-pavel), for all your 
 
 ---
 
-# v40.4.0 (Wed Oct 02 2024)
+## v40.4.0 (Wed Oct 02 2024)
 
 #### 🐛 Bug Fix
 
@@ -522,7 +524,7 @@ Thank you, null[@roberta-pavel](https://github.com/roberta-pavel), for all your 
 
 ---
 
-# v40.3.0 (Thu Sep 26 2024)
+## v40.3.0 (Thu Sep 26 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -547,7 +549,7 @@ Thanks for all your work!
 
 ---
 
-# v40.2.2 (Sat Sep 21 2024)
+## v40.2.2 (Sat Sep 21 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -563,7 +565,7 @@ Thank you, Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee)), for all
 
 ---
 
-# v40.2.1 (Sat Sep 14 2024)
+## v40.2.1 (Sat Sep 14 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -575,7 +577,7 @@ Thank you, Baylee Schmeisser ([@mxbaylee](https://github.com/mxbaylee)), for all
 
 ---
 
-# v40.2.0 (Sat Sep 07 2024)
+## v40.2.0 (Sat Sep 07 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -596,7 +598,7 @@ Thank you, Arnold Hendriks ([@unilynx](https://github.com/unilynx)), for all you
 
 ---
 
-# v40.1.4 (Thu Sep 05 2024)
+## v40.1.4 (Thu Sep 05 2024)
 
 #### 📚 Documentation
 
@@ -608,7 +610,7 @@ Thank you, Arnold Hendriks ([@unilynx](https://github.com/unilynx)), for all you
 
 ---
 
-# v40.1.3 (Wed Aug 21 2024)
+## v40.1.3 (Wed Aug 21 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -631,7 +633,7 @@ Thanks for all your work!
 
 ---
 
-# v40.1.2 (Thu Jul 11 2024)
+## v40.1.2 (Thu Jul 11 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -643,7 +645,7 @@ Thanks for all your work!
 
 ---
 
-# v40.1.0 (Mon Jul 08 2024)
+## v40.1.0 (Mon Jul 08 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -704,7 +706,7 @@ Thanks for all your work!
 
 ---
 
-# v40.0.3 (Fri Apr 12 2024)
+## v40.0.3 (Fri Apr 12 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -719,7 +721,7 @@ Thanks for all your work!
 
 ---
 
-# v40.0.2 (Tue Mar 26 2024)
+## v40.0.2 (Tue Mar 26 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -735,7 +737,7 @@ Thank you, Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer)), for al
 
 ---
 
-# v40.0.1 (Mon Mar 18 2024)
+## v40.0.1 (Mon Mar 18 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -747,7 +749,7 @@ Thank you, Koen Brouwer ([@KoenBrouwer](https://github.com/KoenBrouwer)), for al
 
 ---
 
-# v40.0.0 (Mon Mar 18 2024)
+## v40.0.0 (Mon Mar 18 2024)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -783,7 +785,7 @@ Thanks for all your work!
 
 ---
 
-# v39.34.3 (Tue Feb 20 2024)
+## v39.34.3 (Tue Feb 20 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -795,7 +797,7 @@ Thanks for all your work!
 
 ---
 
-# v39.34.1 (Wed Jan 31 2024)
+## v39.34.1 (Wed Jan 31 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -807,7 +809,7 @@ Thanks for all your work!
 
 ---
 
-# v39.34.0 (Mon Jan 29 2024)
+## v39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
 
@@ -819,7 +821,7 @@ Thanks for all your work!
 
 ---
 
-# v39.33.1 (Mon Jan 29 2024)
+## v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
 
@@ -831,7 +833,7 @@ Thanks for all your work!
 
 ---
 
-# v39.33.0 (Tue Jan 23 2024)
+## v39.33.0 (Tue Jan 23 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -848,7 +850,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.31.1 (Tue Jan 23 2024)
+## v39.31.1 (Tue Jan 23 2024)
 
 #### 🗃️ Typescript Definitions
 
@@ -860,7 +862,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.31.0 (Mon Jan 22 2024)
+## v39.31.0 (Mon Jan 22 2024)
 
 #### 🐛 Bug Fix
 
@@ -872,7 +874,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.30.0 (Wed Jan 17 2024)
+## v39.30.0 (Wed Jan 17 2024)
 
 #### 🐛 Bug Fix
 
@@ -884,7 +886,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.29.0 (Sun Jan 14 2024)
+## v39.29.0 (Sun Jan 14 2024)
 
 #### 🐛 Bug Fix
 
@@ -896,7 +898,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.28.0 (Sun Dec 31 2023)
+## v39.28.0 (Sun Dec 31 2023)
 
 #### 🐛 Bug Fix
 
@@ -920,7 +922,7 @@ Thank you, Elaine Mattos ([@elaine-mattos](https://github.com/elaine-mattos)), f
 
 ---
 
-# v39.27.0 (Mon Dec 25 2023)
+## v39.27.0 (Mon Dec 25 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -937,7 +939,7 @@ Thank you, JounQin ([@JounQin](https://github.com/JounQin)), for all your work!
 
 ---
 
-# v39.26.1 (Wed Dec 13 2023)
+## v39.26.1 (Wed Dec 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -953,7 +955,7 @@ Thank you, Kohei Seino ([@kseino](https://github.com/kseino)), for all your work
 
 ---
 
-# v39.26.0 (Sat Dec 09 2023)
+## v39.26.0 (Sat Dec 09 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -971,7 +973,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# v39.25.1 (Sat Dec 09 2023)
+## v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
 
@@ -983,7 +985,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# v39.25.0 (Wed Nov 22 2023)
+## v39.25.0 (Wed Nov 22 2023)
 
 #### 🐛 Bug Fix
 
@@ -1000,7 +1002,7 @@ Thank you, Dom Harrington ([@domharrington](https://github.com/domharrington)), 
 
 ---
 
-# v39.24.0 (Fri Nov 17 2023)
+## v39.24.0 (Fri Nov 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1027,7 +1029,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.23.0 (Thu Nov 16 2023)
+## v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
 
@@ -1039,7 +1041,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.22.0 (Wed Nov 15 2023)
+## v39.22.0 (Wed Nov 15 2023)
 
 #### 🐛 Bug Fix
 
@@ -1051,7 +1053,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.21.1 (Sat Oct 21 2023)
+## v39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
 
@@ -1063,7 +1065,7 @@ Thank you, David Claybourne ([@Djcd](https://github.com/Djcd)), for all your wor
 
 ---
 
-# v39.21.0 (Sat Oct 21 2023)
+## v39.21.0 (Sat Oct 21 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1085,7 +1087,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# v39.20.0 (Sat Oct 14 2023)
+## v39.20.0 (Sat Oct 14 2023)
 
 #### 🐛 Bug Fix
 
@@ -1097,7 +1099,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# v39.19.0 (Sat Oct 07 2023)
+## v39.19.0 (Sat Oct 07 2023)
 
 #### ✨ Feature
 
@@ -1109,7 +1111,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# v39.18.0 (Wed Oct 04 2023)
+## v39.18.0 (Wed Oct 04 2023)
 
 #### ✨ Feature
 
@@ -1126,7 +1128,7 @@ Thank you, artemoire ([@Artemoire](https://github.com/Artemoire)), for all your 
 
 ---
 
-# v39.17.0 (Mon Oct 02 2023)
+## v39.17.0 (Mon Oct 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1142,7 +1144,7 @@ Thank you, Martin Dreher ([@mercutiodesign](https://github.com/mercutiodesign)),
 
 ---
 
-# v39.16.0 (Tue Sep 26 2023)
+## v39.16.0 (Tue Sep 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1158,7 +1160,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# v39.15.0 (Tue Sep 12 2023)
+## v39.15.0 (Tue Sep 12 2023)
 
 #### 🐛 Bug Fix
 
@@ -1170,7 +1172,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# v39.14.0 (Mon Sep 11 2023)
+## v39.14.0 (Mon Sep 11 2023)
 
 #### 🐛 Bug Fix
 
@@ -1183,7 +1185,7 @@ Thank you, null[@artlist-scottambrose](https://github.com/artlist-scottambrose),
 
 ---
 
-# v39.13.0 (Fri Sep 01 2023)
+## v39.13.0 (Fri Sep 01 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1210,7 +1212,7 @@ Thanks for all your work!
 
 ---
 
-# v39.12.0 (Mon Aug 21 2023)
+## v39.12.0 (Mon Aug 21 2023)
 
 #### 🐛 Bug Fix
 
@@ -1224,7 +1226,7 @@ Thanks for all your work!
 
 ---
 
-# v39.11.0 (Thu Aug 17 2023)
+## v39.11.0 (Thu Aug 17 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1243,7 +1245,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.10.2 (Sun Jul 30 2023)
+## v39.10.2 (Sun Jul 30 2023)
 
 #### 🔨 Technical Debt
 
@@ -1255,7 +1257,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.10.0 (Sun Jul 30 2023)
+## v39.10.0 (Sun Jul 30 2023)
 
 #### 🐛 Bug Fix
 
@@ -1267,7 +1269,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.9.0 (Fri Jul 28 2023)
+## v39.9.0 (Fri Jul 28 2023)
 
 #### 🐛 Bug Fix
 
@@ -1283,7 +1285,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.8.0 (Mon Jul 17 2023)
+## v39.8.0 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix
 
@@ -1295,7 +1297,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.7.0 (Fri Jul 14 2023)
+## v39.7.0 (Fri Jul 14 2023)
 
 #### 🐛 Bug Fix
 
@@ -1308,7 +1310,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.6.0 (Wed Jul 12 2023)
+## v39.6.0 (Wed Jul 12 2023)
 
 #### 🐛 Bug Fix
 
@@ -1330,7 +1332,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.5.0 (Mon Jul 03 2023)
+## v39.5.0 (Mon Jul 03 2023)
 
 #### 🐛 Bug Fix
 
@@ -1342,7 +1344,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.4.0 (Tue Jun 27 2023)
+## v39.4.0 (Tue Jun 27 2023)
 
 #### 🐛 Bug Fix
 
@@ -1354,7 +1356,7 @@ Thank you, Benjamin Beret ([@kouak](https://github.com/kouak)), for all your wor
 
 ---
 
-# v39.3.0 (Mon Jun 26 2023)
+## v39.3.0 (Mon Jun 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1371,7 +1373,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v39.2.0 (Mon Jun 26 2023)
+## v39.2.0 (Mon Jun 26 2023)
 
 #### ✨ Feature
 
@@ -1393,7 +1395,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v39.1.0 (Sun Jun 11 2023)
+## v39.1.0 (Sun Jun 11 2023)
 
 #### 🐛 Bug Fix
 
@@ -1405,7 +1407,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v39.0.0 (Thu Jun 08 2023)
+## v39.0.0 (Thu Jun 08 2023)
 
 #### 💥 Breaking Change
 
@@ -1423,7 +1425,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v38.12.1 (Wed Jun 07 2023)
+## v38.12.1 (Wed Jun 07 2023)
 
 #### 🔨 Technical Debt
 
@@ -1435,7 +1437,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v38.12.0 (Tue Jun 06 2023)
+## v38.12.0 (Tue Jun 06 2023)
 
 #### 🐛 Bug Fix
 
@@ -1447,7 +1449,7 @@ Thank you, null[@ArnaudTA](https://github.com/ArnaudTA), for all your work!
 
 ---
 
-# v38.11.0 (Tue Jun 06 2023)
+## v38.11.0 (Tue Jun 06 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1464,7 +1466,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v38.10.0 (Fri Jun 02 2023)
+## v38.10.0 (Fri Jun 02 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1492,7 +1494,7 @@ Thank you, Will ([@ravewill](https://github.com/ravewill)), for all your work!
 
 ---
 
-# v38.9.0 (Sun May 28 2023)
+## v38.9.0 (Sun May 28 2023)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1517,7 +1519,7 @@ Thanks for all your work!
 
 ---
 
-# v38.8.0 (Mon May 22 2023)
+## v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
 
@@ -1533,7 +1535,7 @@ Thanks for all your work!
 
 ---
 
-# v38.7.0 (Sat May 20 2023)
+## v38.7.0 (Sat May 20 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1554,7 +1556,7 @@ Thank you, Marvin Altemeier ([@iMarv](https://github.com/iMarv)), for all your w
 
 ---
 
-# v38.6.0 (Mon May 15 2023)
+## v38.6.0 (Mon May 15 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1570,7 +1572,7 @@ Thank you, Spencer Salisbury ([@smsalisbury](https://github.com/smsalisbury)), f
 
 ---
 
-# v38.4.0 (Sat May 13 2023)
+## v38.4.0 (Sat May 13 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1593,7 +1595,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# v38.3.0 (Sat May 06 2023)
+## v38.3.0 (Sat May 06 2023)
 
 #### 🐛 Bug Fix
 
@@ -1612,7 +1614,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# v38.2.0 (Fri May 05 2023)
+## v38.2.0 (Fri May 05 2023)
 
 #### 📚 Documentation
 
@@ -1624,7 +1626,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# v38.1.1 (Wed May 03 2023)
+## v38.1.1 (Wed May 03 2023)
 
 #### 📚 Documentation
 
@@ -1636,7 +1638,7 @@ Thank you, Théis Bazin ([@tbazin](https://github.com/tbazin)), for all your wor
 
 ---
 
-# v38.1.0 (Sat Apr 29 2023)
+## v38.1.0 (Sat Apr 29 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1653,7 +1655,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v38.0.0 (Sat Apr 29 2023)
+## v38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
 
@@ -1665,7 +1667,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v37.1.0 (Thu Apr 27 2023)
+## v37.1.0 (Thu Apr 27 2023)
 
 #### 🚑 Hot Fix
 
@@ -1677,7 +1679,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v37.0.0 (Wed Apr 26 2023)
+## v37.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
 
@@ -1689,7 +1691,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v35.8.0 (Wed Nov 16 2022)
+## v35.8.0 (Wed Nov 16 2022)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1731,7 +1733,7 @@ Thanks for all your work!
 
 ---
 
-# v35.7.0 (Mon Jul 11 2022)
+## v35.7.0 (Mon Jul 11 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1747,7 +1749,7 @@ Thank you, Sullivan SENECHAL ([@soullivaneuh](https://github.com/soullivaneuh)),
 
 ---
 
-# v35.6.0 (Wed Mar 23 2022)
+## v35.6.0 (Wed Mar 23 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1767,7 +1769,7 @@ Thank you, youngje ([@siosio34](https://github.com/siosio34)), for all your work
 
 ---
 
-# v35.5.0 (Wed Mar 16 2022)
+## v35.5.0 (Wed Mar 16 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1793,7 +1795,7 @@ Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all
 
 ---
 
-# v35.4.0 (Mon Feb 07 2022)
+## v35.4.0 (Mon Feb 07 2022)
 
 #### 🐛 Bug Fix
 
@@ -1805,7 +1807,7 @@ Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all
 
 ---
 
-# v35.3.0 (Sat Feb 05 2022)
+## v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
 
@@ -1817,7 +1819,7 @@ Thank you, Bilal Aslam ([@BilalAslam1](https://github.com/BilalAslam1)), for all
 
 ---
 
-# v35.2.0 (Sat Feb 05 2022)
+## v35.2.0 (Sat Feb 05 2022)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1845,7 +1847,7 @@ Thanks for all your work!
 
 ---
 
-# v35.0.0 (Wed Dec 01 2021)
+## v35.0.0 (Wed Dec 01 2021)
 
 #### 💥 Breaking Change
 
@@ -1862,7 +1864,7 @@ Thanks for all your work!
 
 ---
 
-# v34.7.0 (Tue Nov 30 2021)
+## v34.7.0 (Tue Nov 30 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1892,7 +1894,7 @@ Thank you, Martin Howarth ([@MartinHowarth](https://github.com/MartinHowarth)), 
 
 ---
 
-# v34.6.0 (Mon Nov 15 2021)
+## v34.6.0 (Mon Nov 15 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -1913,7 +1915,7 @@ Thank you, Laffargue Michael ([@mlaffargue](https://github.com/mlaffargue)), for
 
 ---
 
-# v34.5.0 (Fri Nov 05 2021)
+## v34.5.0 (Fri Nov 05 2021)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1944,7 +1946,7 @@ Thanks for all your work!
 
 ---
 
-# v34.3.0 (Sun Oct 17 2021)
+## v34.3.0 (Sun Oct 17 2021)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -1980,7 +1982,7 @@ Thanks for all your work!
 
 ---
 
-# v34.2.0 (Sat Sep 18 2021)
+## v34.2.0 (Sat Sep 18 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2002,7 +2004,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# v34.1.0 (Sat Sep 04 2021)
+## v34.1.0 (Sat Sep 04 2021)
 
 #### 🐛 Bug Fix
 
@@ -2019,7 +2021,7 @@ Thank you, Roy Jacobs ([@sagacity](https://github.com/sagacity)), for all your w
 
 ---
 
-# v34.0.0 (Sat Sep 04 2021)
+## v34.0.0 (Sat Sep 04 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2035,7 +2037,7 @@ Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your wor
 
 ---
 
-# v33.0.0 (Fri Aug 27 2021)
+## v33.0.0 (Fri Aug 27 2021)
 
 #### 💥 Breaking Change
 
@@ -2047,7 +2049,7 @@ Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your wor
 
 ---
 
-# v32.3.0 (Fri Aug 27 2021)
+## v32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
 
@@ -2059,7 +2061,7 @@ Thank you, Paul Lemke ([@lemkepf](https://github.com/lemkepf)), for all your wor
 
 ---
 
-# v32.2.0 (Mon Aug 23 2021)
+## v32.2.0 (Mon Aug 23 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2075,7 +2077,7 @@ Thank you, Feng Yu ([@F3n67u](https://github.com/F3n67u)), for all your work!
 
 ---
 
-# v32.1.2 (Thu Aug 12 2021)
+## v32.1.2 (Thu Aug 12 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2092,7 +2094,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# v32.1.1 (Mon Aug 09 2021)
+## v32.1.1 (Mon Aug 09 2021)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -2104,7 +2106,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# v32.1.0 (Tue Aug 03 2021)
+## v32.1.0 (Tue Aug 03 2021)
 
 #### 🐛 Bug Fix
 
@@ -2116,7 +2118,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# v32.0.0 (Tue Jul 27 2021)
+## v32.0.0 (Tue Jul 27 2021)
 
 #### 💥 Breaking Change
 
@@ -2129,7 +2131,7 @@ Thank you, Mahmoud Saada ([@saada](https://github.com/saada)), for all your work
 
 ---
 
-# v31.1.0 (Tue Jul 27 2021)
+## v31.1.0 (Tue Jul 27 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2151,7 +2153,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v31.0.0 (Mon Jul 05 2021)
+## v31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
 
@@ -2163,7 +2165,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v30.5.0 (Thu Jun 24 2021)
+## v30.5.0 (Thu Jun 24 2021)
 
 #### 🐛 Bug Fix
 
@@ -2175,7 +2177,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v30.4.0 (Tue Jun 22 2021)
+## v30.4.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
 
@@ -2187,7 +2189,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v30.3.0 (Tue Jun 22 2021)
+## v30.3.0 (Tue Jun 22 2021)
 
 #### 🐛 Bug Fix
 
@@ -2199,7 +2201,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v30.0.0 (Mon Jun 07 2021)
+## v30.0.0 (Mon Jun 07 2021)
 
 #### 💥 Breaking Change
 
@@ -2211,7 +2213,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.3.0 (Mon Jun 07 2021)
+## v29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -2223,7 +2225,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.2.4 (Sun May 30 2021)
+## v29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix
 
@@ -2235,7 +2237,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.2.2 (Sat May 29 2021)
+## v29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -2247,7 +2249,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.2.1 (Sat May 29 2021)
+## v29.2.1 (Sat May 29 2021)
 
 #### 🔩 Dependency Updates
 
@@ -2259,7 +2261,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.2.0 (Tue May 18 2021)
+## v29.2.0 (Tue May 18 2021)
 
 #### 🐛 Bug Fix
 
@@ -2275,7 +2277,7 @@ Thank you, Aliyss Snow ([@Aliyss](https://github.com/Aliyss)), for all your work
 
 ---
 
-# v29.1.0 (Fri May 14 2021)
+## v29.1.0 (Fri May 14 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2292,7 +2294,7 @@ Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all y
 
 ---
 
-# v29.0.0 (Fri May 14 2021)
+## v29.0.0 (Fri May 14 2021)
 
 #### 💥 Breaking Change
 
@@ -2309,7 +2311,7 @@ Thank you, Vincent Boulaye ([@vboulaye](https://github.com/vboulaye)), for all y
 
 ---
 
-# v28.4.0 (Tue May 04 2021)
+## v28.4.0 (Tue May 04 2021)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2331,7 +2333,7 @@ Thank you, null[@divido](https://github.com/divido), for all your work!
 
 ---
 
-# v28.1.0 (Sun Mar 14 2021)
+## v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
 
@@ -2348,7 +2350,7 @@ Thank you, null[@divido](https://github.com/divido), for all your work!
 
 ---
 
-# vnull (Sun Jan 03 2021)
+## vnull (Sun Jan 03 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -2360,7 +2362,7 @@ Thank you, null[@divido](https://github.com/divido), for all your work!
 
 ---
 
-# v28.0.0 (Mon Dec 28 2020)
+## v28.0.0 (Mon Dec 28 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2385,7 +2387,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# v27.0.0 (Fri Dec 18 2020)
+## v27.0.0 (Fri Dec 18 2020)
 
 #### 💥 Breaking Change
 
@@ -2397,7 +2399,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# v26.0.0 (Sun Dec 06 2020)
+## v26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change
 
@@ -2409,7 +2411,7 @@ Thank you, Martin Helmich ([@martin-helmich](https://github.com/martin-helmich))
 
 ---
 
-# v25.6.0 (Mon Nov 30 2020)
+## v25.6.0 (Mon Nov 30 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2426,7 +2428,7 @@ Thank you, Hennadii Varava ([@Sumragen](https://github.com/Sumragen)), for all y
 
 ---
 
-# v25.5.0 (Sun Nov 29 2020)
+## v25.5.0 (Sun Nov 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2447,7 +2449,7 @@ Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
 
 ---
 
-# v25.4.0 (Tue Nov 24 2020)
+## v25.4.0 (Tue Nov 24 2020)
 
 #### 🐛 Bug Fix
 
@@ -2464,7 +2466,7 @@ Thank you, Omar Awamry ([@wamry](https://github.com/wamry)), for all your work!
 
 ---
 
-# v25.3.0 (Fri Nov 06 2020)
+## v25.3.0 (Fri Nov 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2480,7 +2482,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# v25.1.0 (Tue Oct 20 2020)
+## v25.1.0 (Tue Oct 20 2020)
 
 #### 🔩 Dependency Updates
 
@@ -2492,7 +2494,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# v25.0.0 (Thu Oct 15 2020)
+## v25.0.0 (Thu Oct 15 2020)
 
 #### 💥 Breaking Change
 
@@ -2504,7 +2506,7 @@ Thank you, Ilya Dus ([@illyaMs](https://github.com/illyaMs)), for all your work!
 
 ---
 
-# v24.3.0 (Thu Oct 15 2020)
+## v24.3.0 (Thu Oct 15 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2521,7 +2523,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# v24.1.0 (Mon Oct 12 2020)
+## v24.1.0 (Mon Oct 12 2020)
 
 #### 💥 Feature
 
@@ -2533,7 +2535,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# vnull (Sun Oct 11 2020)
+## vnull (Sun Oct 11 2020)
 
 #### 📝 Documentation
 
@@ -2545,7 +2547,7 @@ Thank you, Niklas Lochschmidt ([@nlochschmidt](https://github.com/nlochschmidt))
 
 ---
 
-# v24.0.0 (Mon Oct 05 2020)
+## v24.0.0 (Mon Oct 05 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2567,7 +2569,7 @@ Thank you, Sander Cox ([@sandercox](https://github.com/sandercox)), for all your
 
 ---
 
-# v23.7.0 (Tue Sep 29 2020)
+## v23.7.0 (Tue Sep 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2585,7 +2587,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# v23.6.0 (Mon Sep 28 2020)
+## v23.6.0 (Mon Sep 28 2020)
 
 #### 🚀 Enhancement
 
@@ -2606,7 +2608,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# v23.4.0 (Sun Jul 12 2020)
+## v23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
 
@@ -2619,7 +2621,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# v23.3.0 (Sat Jul 11 2020)
+## v23.3.0 (Sat Jul 11 2020)
 
 #### 🐛 Bug Fix
 
@@ -2631,7 +2633,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# v23.2.0 (Wed Jul 08 2020)
+## v23.2.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
 
@@ -2643,7 +2645,7 @@ Thank you, null[@st1gok](https://github.com/st1gok), for all your work!
 
 ---
 
-# v23.0.0 (Tue Jul 07 2020)
+## v23.0.0 (Tue Jul 07 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2659,7 +2661,7 @@ Thank you, s-kazuki ([@s-kazuki](https://github.com/s-kazuki)), for all your wor
 
 ---
 
-# v22.0.1 (Thu Jun 25 2020)
+## v22.0.1 (Thu Jun 25 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2676,7 +2678,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v22.0.0 (Sat Jun 20 2020)
+## v22.0.0 (Sat Jun 20 2020)
 
 #### 💥 Breaking Change
 
@@ -2688,7 +2690,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v21.6.0 (Tue Jun 16 2020)
+## v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -2700,7 +2702,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v21.4.0 (Sun Jun 14 2020)
+## v21.4.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -2712,7 +2714,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v21.3.0 (Sun Jun 14 2020)
+## v21.3.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -2724,7 +2726,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v21.2.0 (Sun Jun 14 2020)
+## v21.2.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -2737,7 +2739,7 @@ Thank you, Flavien Bridault ([@fbridault](https://github.com/fbridault)), for al
 
 ---
 
-# v21.0.1 (Fri Jun 12 2020)
+## v21.0.1 (Fri Jun 12 2020)
 
 :tada: This release contains work from new contributors! :tada:
 
@@ -2769,7 +2771,7 @@ Thanks for all your work!
 
 ---
 
-# v19.7.0 (Sun May 17 2020)
+## v19.7.0 (Sun May 17 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2786,7 +2788,7 @@ Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
 
 ---
 
-# v19.6.0 (Sat May 16 2020)
+## v19.6.0 (Sat May 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -2807,7 +2809,7 @@ Thank you, null[@xatavian](https://github.com/xatavian), for all your work!
 
 ---
 
-# v19.5.0 (Mon May 11 2020)
+## v19.5.0 (Mon May 11 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2823,7 +2825,7 @@ Thank you, Corentin Mors ([@Mikescops](https://github.com/Mikescops)), for all y
 
 ---
 
-# v19.4.0 (Wed May 06 2020)
+## v19.4.0 (Wed May 06 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2844,7 +2846,7 @@ Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), f
 
 ---
 
-# v19.3.0 (Fri May 01 2020)
+## v19.3.0 (Fri May 01 2020)
 
 #### 🐛 Bug Fix
 
@@ -2856,7 +2858,7 @@ Thank you, Dylan M. Taylor ([@dylanmtaylor](https://github.com/dylanmtaylor)), f
 
 ---
 
-# v19.2.0 (Wed Apr 29 2020)
+## v19.2.0 (Wed Apr 29 2020)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -2872,7 +2874,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v19.1.0 (Mon Apr 27 2020)
+## v19.1.0 (Mon Apr 27 2020)
 
 #### 🚀 Enhancement
 
@@ -2885,7 +2887,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v19.0.0 (Thu Apr 23 2020)
+## v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change
 
@@ -2897,7 +2899,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v18.1.0 (Wed Apr 22 2020)
+## v18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement
 
@@ -2909,7 +2911,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v18.0.0 (Tue Apr 21 2020)
+## v18.0.0 (Tue Apr 21 2020)
 
 #### 💥 Breaking Change
 
@@ -2927,7 +2929,7 @@ Thank you, Daniel Moore ([@danielmoore](https://github.com/danielmoore)), for al
 
 ---
 
-# v17.0.2 (Sun Apr 19 2020)
+## v17.0.2 (Sun Apr 19 2020)
 
 #### 🔩 Dependencies
 
