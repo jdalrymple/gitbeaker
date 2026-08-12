@@ -18,12 +18,6 @@ const targetPath = process.argv[2] ?? path.resolve(__dirname, '..');
  * with changes grouped by packages and bump type
  */
 
-/**
- * Generate the new body for the global changelog
- * @param {Array} changesetsWithCommit - Changesets with commit hashes
- * @param {Object} options - Options for GitHub changelog generation
- * @returns {string} - The new changelog body
- */
 async function getBody(changesetsWithCommit, options) {
   if (changesetsWithCommit.length === 0) return '';
 
@@ -50,14 +44,12 @@ async function getBody(changesetsWithCommit, options) {
   }, {});
 
   for (const { packages, changeset } of Object.values(entriesByContent)) {
-    // Create custom options with affected packages template
     const affectedPackages = Array.from(packages).sort().join(', ');
     const customOptions = {
       ...options,
       template: `- ${affectedPackages}: {summary} {ref} ({authors})`,
     };
 
-    // Use the GitHub changelog generator with our custom template
     const githubLine = await changelogGithub.getReleaseLine(changeset, 'major', customOptions);
 
     if (githubLine) {
@@ -68,12 +60,6 @@ async function getBody(changesetsWithCommit, options) {
   return changelog.trim();
 }
 
-/**
- * Insert the new body into the existing changelog
- * @param {string} oldChangelog - Existing changelog content
- * @param {string} newBody - New changelog body to insert
- * @returns {string} - Updated changelog content
- */
 function insertBody(oldChangelog, newBody) {
   if (!newBody.trim()) return oldChangelog;
 
@@ -102,19 +88,14 @@ function insertBody(oldChangelog, newBody) {
   return lines.join('\n');
 }
 
-/**
- * Main function to generate global changelog
- */
 async function main(cwd) {
   try {
-    // Load the existing changelog
     const changelogFile = path.join(cwd, 'CHANGELOG.md');
     let oldChangelog = '';
 
     if (fs.existsSync(changelogFile)) {
       oldChangelog = fs.readFileSync(changelogFile, 'utf-8');
     } else {
-      // Create a basic changelog if it doesn't exist
       oldChangelog = `# @gitbeaker
 
 All notable changes to this project will be documented in this file.
@@ -140,13 +121,10 @@ All notable changes to this project will be documented in this file.
       commit: commits[idx],
     }));
 
-    // Create options for GitHub changelog generation using valid tokens
-    // The first line of {summary} is the PR title, rest is the body
-    const options = {
-      repo: 'jdalrymple/gitbeaker',
-      template: '\n\n- {summary} {ref} ({authors})',
-      disableThanks: false,
-    };
+    // Read options from config.json
+    const configPath = path.join(__dirname, 'config.json');
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    const options = config.changelog[1]
 
     // Generate the new changelog body
     const body = await getBody(changesetsWithCommit, options);
