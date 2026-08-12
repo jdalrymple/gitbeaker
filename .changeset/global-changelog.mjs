@@ -124,7 +124,7 @@ All notable changes to this project will be documented in this file.
     // Read options from config.json
     const configPath = path.join(__dirname, 'config.json');
     const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    const options = config.changelog[1]
+    const options = config.changelog[1];
 
     // Generate the new changelog body
     const body = await getBody(changesetsWithCommit, options);
