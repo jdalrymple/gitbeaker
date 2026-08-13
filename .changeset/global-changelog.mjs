@@ -3,6 +3,7 @@
 import changelogGithub from '@changesets/changelog-github';
 import { getCommitsThatAddFiles } from '@changesets/git';
 import getChangeSets from '@changesets/read';
+import getReleasePlan from '@changesets/get-release-plan';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -94,29 +95,45 @@ async function getBody(changesetsWithCommit, options) {
   return changelog.trim();
 }
 
-function insertBody(oldChangelog, newBody) {
+function insertBody(oldChangelog, newBody, version) {
   if (!newBody.trim()) return oldChangelog;
+
+  // Create version header with date
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short', 
+    day: 'numeric',
+    year: 'numeric',
+  });
+  
+  const versionHeader = `## v${version} (${dateStr})`;
+  const fullEntry = `${versionHeader}\n\n${newBody}`;
 
   // Find the first ## heading (version) or create one
   const lines = oldChangelog.split('\n');
   const headerIndex = lines.findIndex((line) => line.match(/^## /));
 
   if (headerIndex === -1) {
-    // No existing versions, add after the title
+    // No existing versions, add after the title and any separator
     const titleIndex = lines.findIndex((line) => line.match(/^# /));
     if (titleIndex === -1) {
       // No title, add at the beginning
-      return `${newBody}\n\n${oldChangelog}`;
+      return `${fullEntry}\n\n${oldChangelog}`;
     }
-    // Insert after title and any description
+    // Insert after title and any description/separator
     let insertIndex = titleIndex + 1;
-    while (insertIndex < lines.length && !lines[insertIndex].match(/^## /)) {
+    // Skip empty lines and separators like "---"
+    while (insertIndex < lines.length && 
+           (lines[insertIndex].trim() === '' || 
+            lines[insertIndex].match(/^---/) ||
+            !lines[insertIndex].match(/^## /))) {
       insertIndex++;
     }
-    lines.splice(insertIndex, 0, '', newBody, '');
+    lines.splice(insertIndex, 0, fullEntry, '');
   } else {
     // Insert before the first version
-    lines.splice(headerIndex, 0, newBody, '', '---', '');
+    lines.splice(headerIndex, 0, fullEntry, '', '---', '');
   }
 
   return lines.join('\n');
