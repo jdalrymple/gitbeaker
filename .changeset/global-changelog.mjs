@@ -21,7 +21,12 @@ const targetPath = process.argv[2] ?? path.resolve(__dirname, '..');
 async function getBody(changesetsWithCommit, options) {
   if (changesetsWithCommit.length === 0) return '';
 
-  let changelog = '';
+  // Group changesets by change type (major, minor, patch)
+  const changesByType = {
+    major: [],
+    minor: [],
+    patch: []
+  };
 
   // Group by summary to avoid duplicates and combine packages
   const entriesByContent = changesetsWithCommit.reduce((acc, changeset) => {
@@ -32,29 +37,58 @@ async function getBody(changesetsWithCommit, options) {
         packages: new Set(),
         commit: changeset.commit,
         changeset: changeset,
+        highestChangeType: 'patch'
       };
     }
 
-    // Add all packages that this changeset affects
+    // Add all packages that this changeset affects and determine highest change type
     changeset.releases.forEach((release) => {
       acc[key].packages.add(release.name);
+      
+      // Determine highest change type for this changeset
+      const typeOrder = { patch: 0, minor: 1, major: 2 };
+      if (typeOrder[release.type] > typeOrder[acc[key].highestChangeType]) {
+        acc[key].highestChangeType = release.type;
+      }
     });
 
     return acc;
   }, {});
 
-  for (const { packages, changeset } of Object.values(entriesByContent)) {
-    const affectedPackages = Array.from(packages).sort().join(', ');
-    const customOptions = {
-      ...options,
-      template: `- ${affectedPackages}: {summary} {ref} ({authors})`,
-    };
+  // Sort entries by change type
+  for (const entry of Object.values(entriesByContent)) {
+    changesByType[entry.highestChangeType].push(entry);
+  }
 
-    const githubLine = await changelogGithub.getReleaseLine(changeset, 'major', customOptions);
+  let changelog = '';
 
-    if (githubLine) {
-      changelog += excludeMaintainer(githubLine) + '\n';
+  // Generate sections for each change type
+  const typeLabels = {
+    major: 'Major Changes',
+    minor: 'Minor Changes', 
+    patch: 'Patch Changes'
+  };
+
+  for (const [type, entries] of Object.entries(changesByType)) {
+    if (entries.length === 0) continue;
+
+    changelog += `### ${typeLabels[type]}\n\n`;
+
+    for (const { packages, changeset } of entries) {
+      const affectedPackages = Array.from(packages).sort().join(', ');
+      const customOptions = {
+        ...options,
+        template: `- ${affectedPackages}: {summary} {ref} ({authors})`,
+      };
+
+      const githubLine = await changelogGithub.getReleaseLine(changeset, type, customOptions);
+
+      if (githubLine) {
+        changelog += excludeMaintainer(githubLine) + '\n';
+      }
     }
+
+    changelog += '\n';
   }
 
   return changelog.trim();
@@ -134,8 +168,10 @@ All notable changes to this project will be documented in this file.
       return;
     }
 
+    console.log(`Generated changelog for version: ${version}`);
+    
     // Insert the new body and write the updated changelog
-    const newChangelog = insertBody(oldChangelog, body);
+    const newChangelog = insertBody(oldChangelog, body, version);
     fs.writeFileSync(changelogFile, newChangelog, 'utf-8');
   } catch (error) {
     console.error('❌ Error generating global changelog:', error);
