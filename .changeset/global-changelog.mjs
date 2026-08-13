@@ -155,6 +155,17 @@ All notable changes to this project will be documented in this file.
       commit: commits[idx],
     }));
 
+    // Get the version from the release plan
+    const releasePlan = await getReleasePlan(cwd);
+    const primaryRelease = releasePlan.releases.find(release => release.name === '@gitbeaker/core');
+    
+    if (!primaryRelease) {
+      console.log('No primary release found in release plan.');
+      return;
+    }
+
+    const version = primaryRelease.newVersion;
+
     // Read options from config.json
     const configPath = path.join(__dirname, 'config.json');
     const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));

@@ -556,6 +556,11 @@ async function release() {
     process.exit(1);
   }
 
+
+  if (releaseType === 'pre') {
+    await execCommand('pnpm changeset pre enter pre')
+  }
+
   // Generate global changelog before versioning (so we have access to changeset data)
   await execCommand('node .changeset/global-changelog.mjs', 'Generating global changelog');
 
@@ -566,7 +571,7 @@ async function release() {
       versionCommand = 'pnpm changeset version --snapshot canary';
       break;
     case 'pre':
-      versionCommand = 'pnpm changeset pre enter pre && pnpm changeset version';
+      versionCommand = 'pnpm changeset version';
       break;
     case 'production':
       versionCommand = 'pnpm changeset version';
