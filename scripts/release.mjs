@@ -556,9 +556,8 @@ async function release() {
     process.exit(1);
   }
 
-
   if (releaseType === 'pre') {
-    await execCommand('pnpm changeset pre enter pre')
+    await execCommand('pnpm changeset pre enter pre');
   }
 
   // Generate global changelog before versioning (so we have access to changeset data)

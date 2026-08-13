@@ -26,7 +26,7 @@ async function getBody(changesetsWithCommit, options) {
   const changesByType = {
     major: [],
     minor: [],
-    patch: []
+    patch: [],
   };
 
   // Group by summary to avoid duplicates and combine packages
@@ -38,7 +38,7 @@ async function getBody(changesetsWithCommit, options) {
         packages: new Set(),
         commit: changeset.commit,
         changeset: changeset,
-        highestChangeType: 'patch'
+        highestChangeType: 'patch',
       };
     }
 
@@ -67,7 +67,7 @@ async function getBody(changesetsWithCommit, options) {
   const typeLabels = {
     major: 'Major Changes',
     minor: 'Minor Changes',
-    patch: 'Patch Changes'
+    patch: 'Patch Changes',
   };
 
   for (const [type, entries] of Object.entries(changesByType)) {
@@ -124,10 +124,12 @@ function insertBody(oldChangelog, newBody, version) {
     // Insert after title and any description/separator
     let insertIndex = titleIndex + 1;
     // Skip empty lines and separators like "---"
-    while (insertIndex < lines.length &&
-           (lines[insertIndex].trim() === '' ||
-            lines[insertIndex].match(/^---/) ||
-            !lines[insertIndex].match(/^## /))) {
+    while (
+      insertIndex < lines.length &&
+      (lines[insertIndex].trim() === '' ||
+        lines[insertIndex].match(/^---/) ||
+        !lines[insertIndex].match(/^## /))
+    ) {
       insertIndex++;
     }
     lines.splice(insertIndex, 0, fullEntry, '');
@@ -174,7 +176,9 @@ All notable changes to this project will be documented in this file.
 
     // Get the version from the release plan
     const releasePlan = await getReleasePlan(cwd);
-    const primaryRelease = releasePlan.releases.find(release => release.name === '@gitbeaker/core');
+    const primaryRelease = releasePlan.releases.find(
+      (release) => release.name === '@gitbeaker/core',
+    );
 
     if (!primaryRelease) {
       console.log('No primary release found in release plan.');
