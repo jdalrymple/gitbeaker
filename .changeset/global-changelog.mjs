@@ -45,7 +45,7 @@ async function getBody(changesetsWithCommit, options) {
     // Add all packages that this changeset affects and determine highest change type
     changeset.releases.forEach((release) => {
       acc[key].packages.add(release.name);
-      
+
       // Determine highest change type for this changeset
       const typeOrder = { patch: 0, minor: 1, major: 2 };
       if (typeOrder[release.type] > typeOrder[acc[key].highestChangeType]) {
@@ -66,7 +66,7 @@ async function getBody(changesetsWithCommit, options) {
   // Generate sections for each change type
   const typeLabels = {
     major: 'Major Changes',
-    minor: 'Minor Changes', 
+    minor: 'Minor Changes',
     patch: 'Patch Changes'
   };
 
@@ -102,13 +102,13 @@ function insertBody(oldChangelog, newBody, version) {
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-US', {
     weekday: 'short',
-    month: 'short', 
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
-  
+
   const versionHeader = `## v${version} (${dateStr})`;
-  const fullEntry = `${versionHeader}\n\n${newBody}`;
+  const fullEntry = `${versionHeader}\n${newBody}`;
 
   // Find the first ## heading (version) or create one
   const lines = oldChangelog.split('\n');
@@ -124,8 +124,8 @@ function insertBody(oldChangelog, newBody, version) {
     // Insert after title and any description/separator
     let insertIndex = titleIndex + 1;
     // Skip empty lines and separators like "---"
-    while (insertIndex < lines.length && 
-           (lines[insertIndex].trim() === '' || 
+    while (insertIndex < lines.length &&
+           (lines[insertIndex].trim() === '' ||
             lines[insertIndex].match(/^---/) ||
             !lines[insertIndex].match(/^## /))) {
       insertIndex++;
@@ -175,7 +175,7 @@ All notable changes to this project will be documented in this file.
     // Get the version from the release plan
     const releasePlan = await getReleasePlan(cwd);
     const primaryRelease = releasePlan.releases.find(release => release.name === '@gitbeaker/core');
-    
+
     if (!primaryRelease) {
       console.log('No primary release found in release plan.');
       return;
@@ -197,7 +197,7 @@ All notable changes to this project will be documented in this file.
     }
 
     console.log(`Generated changelog for version: ${version}`);
-    
+
     // Insert the new body and write the updated changelog
     const newChangelog = insertBody(oldChangelog, body, version);
     fs.writeFileSync(changelogFile, newChangelog, 'utf-8');
