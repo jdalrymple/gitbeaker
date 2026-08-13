@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/rest",
-  "version": "43.8.0",
+  "version": "44.0.0-pre.0",
   "description": "Cross Platform implementation of the GitLab API",
   "license": "MIT",
   "engines": {

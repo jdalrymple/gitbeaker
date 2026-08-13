@@ -1,5 +1,46 @@
 # @gitbeaker/requester-utils
 
+## v44.0.0-pre.0 (Wed, Aug 12, 2026)
+
+### Major Changes
+
+- breaking: Major Release v44 ([#3841](https://github.com/jdalrymple/gitbeaker/pull/3841))
+
+  #### 🔧 Dependencies & Build Tools
+  - chore(dep): Switch from eslint to oxlint ([#3839](https://github.com/jdalrymple/gitbeaker/issues/3839))
+  - chore(dep): Replace tsup with tsdown ([#3837](https://github.com/jdalrymple/gitbeaker/issues/3837))
+  - chore: Switch to pnpm ([#3820](https://github.com/jdalrymple/gitbeaker/issues/3820))
+  - chore(dep): Migrate off of auto-it to remove lerna dep ([#3819](https://github.com/jdalrymple/gitbeaker/issues/3819))
+  - chore(dep): Bump picomatch from 4.0.3 to 4.0.4 ([#3836](https://github.com/jdalrymple/gitbeaker/issues/3836))
+  - chore(dep): Bump qs from 6.14.0 to 6.14.1 ([#3808](https://github.com/jdalrymple/gitbeaker/issues/3808))
+  - chore(dep): switch to esm-only distributable ([#3849](https://github.com/jdalrymple/gitbeaker/issues/3849))
+
+  #### ✨ Features
+  - feat: Add support for filtering Jobs by an array of scopes ([#3827](https://github.com/jdalrymple/gitbeaker/issues/3827))
+  - feat: Support inputs on pipeline creation ([#3810](https://github.com/jdalrymple/gitbeaker/issues/3810))
+  - feat: JobArtifacts.downloadArchive: Add support for search_recent_successful_pipelines ([#3812](https://github.com/jdalrymple/gitbeaker/issues/3812))
+  - refactor: Comprehensive API refactoring and type improvements ([#3645](https://github.com/jdalrymple/gitbeaker/issues/3645))
+  - chore: Update API support to match latest Gitlab v19.0 ([#3846](https://github.com/jdalrymple/gitbeaker/issues/3846))
+  - chore(dep): Migrate from jest to vitest to leverage native ESM support ([#3838](https://github.com/jdalrymple/gitbeaker/issues/3838) )
+
+  #### 🐛 Bug Fixes
+  - fix: Replace qs with picoquery ([#3822](https://github.com/jdalrymple/gitbeaker/issues/3822)) - Security improvement replacing qs dependency
+  - fix: Updating picomatch and all-contributors-cli ([#3821](https://github.com/jdalrymple/gitbeaker/issues/3821))
+  - fix(rest): correct exponential backoff delay from seconds to milliseconds ([#3806](https://github.com/jdalrymple/gitbeaker/issues/3806))
+
+  #### 🔒 Security
+  - security: Update latest security CVE's for lodash and udicii ([#3824](https://github.com/jdalrymple/gitbeaker/issues/3824))
+  - security: Update dependencies to address security alerts ([#3799](https://github.com/jdalrymple/gitbeaker/issues/3799))
+
+  #### 🏗️ Infrastructure & CI
+  - ci: Adding dedicated codecov upload job ([#3817](https://github.com/jdalrymple/gitbeaker/issues/3817))
+  - ci: Improving pipeline config ([#3816](https://github.com/jdalrymple/gitbeaker/issues/3816))
+  - ci: Fix codeql-analysis branch reference from master to main ([#3813](https://github.com/jdalrymple/gitbeaker/issues/3813))
+
+  #### 🔧 Enhancements
+  - chore(types): Improve webhook reviewer type definitions ([#3803](https://github.com/jdalrymple/gitbeaker/issues/3803))
+  - chore(types): Add memberEvents option to AddResourceHookOptions ([#3804](https://github.com/jdalrymple/gitbeaker/issues/3804))
+
 ## v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from a new contributor! :tada:
