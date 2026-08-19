@@ -21,9 +21,9 @@
     "test:integration": "nx run-many --target=test:integration",
     "test:e2e": "nx run-many --target=test:e2e",
     "test:full": "./scripts/run-full-test-suite.sh",
-    "release": "node scripts/release.mjs",
-    "release:canary": "node scripts/release.mjs canary",
-    "release:pre": "node scripts/release.mjs pre",
+    "release": "node scripts/auto-release.mjs production",
+    "release:canary": "node scripts/auto-release.mjs canary",
+    "release:pre": "node scripts/auto-release.mjs pre",
     "prepare": "husky"
   },
   "devDependencies": {
