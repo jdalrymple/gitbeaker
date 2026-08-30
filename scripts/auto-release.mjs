@@ -8,7 +8,6 @@ import { existsSync, readFileSync } from 'fs';
 // =============================================================================
 
 const isDryRun = process.argv.includes('--dry-run');
-const dryRunFlag = isDryRun ? '--dry-run' : '';
 
 // =============================================================================
 // Utility Functions
@@ -19,20 +18,22 @@ function log(message, emoji = '📦') {
   console.log(`${emoji} ${prefix}${message}`);
 }
 
-function execCommand(command, description) {
+function execCommandOrThrow(command, description) {
   log(`${description}...`);
   try {
     const output = execSync(command, { encoding: 'utf8', stdio: 'pipe' });
     if (output.trim()) console.log(output);
-    return true;
   } catch (error) {
-    console.error(`❌ ${description} failed:`, error.message);
-    return false;
+    console.error(`❌ ${description} failed: Command failed: ${command}`);
+    if (error.stdout) console.error('STDOUT:', error.stdout.toString());
+    if (error.stderr) console.error('STDERR:', error.stderr.toString());
+    console.error('Error message:', error.message);
+    throw new Error(`${description} failed`);
   }
 }
 
 function validateReleaseType(releaseType, prLabels) {
-  const labels = prLabels.map(label => label.name);
+  const labels = prLabels.map((label) => label.name);
 
   switch (releaseType) {
     case 'canary':
@@ -75,7 +76,9 @@ async function getPRInfo() {
   }
 
   try {
-    const output = execSync(`gh pr view ${prNumber} --json number,title,body,labels`, { encoding: 'utf8' });
+    const output = execSync(`gh pr view ${prNumber} --json number,title,body,labels`, {
+      encoding: 'utf8',
+    });
     return JSON.parse(output);
   } catch (error) {
     log(`Failed to get PR info via GitHub CLI: ${error.message}`, '❌');
@@ -84,7 +87,7 @@ async function getPRInfo() {
 }
 
 function determineChangeType(prData) {
-  const labels = prData.labels.map(label => label.name);
+  const labels = prData.labels.map((label) => label.name);
 
   if (labels.includes('type:breaking')) return 'major';
   if (labels.includes('type:feature')) return 'minor';
@@ -100,8 +103,8 @@ function determineChangeType(prData) {
 }
 
 function shouldSkipRelease(prData) {
-  const labels = prData.labels.map(label => label.name);
-  return labels.some(label => ['no-release', 'type:docs', 'type:test'].includes(label));
+  const labels = prData.labels.map((label) => label.name);
+  return labels.some((label) => ['no-release', 'type:docs', 'type:test'].includes(label));
 }
 
 // =============================================================================
@@ -131,14 +134,9 @@ PR: #${prData.number}`;
   const escapedMessage = message.replace(/"/g, '\\"');
   const packageList = packages.join(' ');
 
-  const command = `pnpm change ${packageList} --type ${changeType} --message "${escapedMessage}" ${dryRunFlag}`;
+  const command = `pnpm change ${packageList} --bump ${changeType} --summary "${escapedMessage}"`;
 
   log(`Creating changeset with pnpm change...`, '📝');
-
-  if (isDryRun) {
-    log(`Would execute: ${command}`, '🔍');
-    return true;
-  }
 
   try {
     execSync(command, { stdio: 'inherit' });
@@ -161,7 +159,7 @@ async function updateReleaseComment(prNumber, releaseType, version, packages) {
 
   if (packages && packages.length > 0) {
     message += `The following packages have been published:\n\n`;
-    packages.forEach(pkg => {
+    packages.forEach((pkg) => {
       const packageVersion = version.includes('@') ? version : `${pkg}@${version}`;
       message += `- [\`${packageVersion}\`](https://www.npmjs.com/package/${pkg}/v/${version})\n`;
     });
@@ -177,14 +175,19 @@ async function updateReleaseComment(prNumber, releaseType, version, packages) {
 
   try {
     // Check if release comment already exists and update/create accordingly
-    const existingComments = execSync(`gh pr view ${prNumber} --json comments --jq '.comments[] | select(.body | contains("${commentMarker}")) | .body'`, { encoding: 'utf8', stdio: 'pipe' }).trim();
+    const existingComments = execSync(
+      `gh pr view ${prNumber} --json comments --jq '.comments[] | select(.body | contains("${commentMarker}")) | .body'`,
+      { encoding: 'utf8', stdio: 'pipe' },
+    ).trim();
 
     if (existingComments) {
       // Update existing comment (GitHub CLI doesn't have direct update, so we'll add a new one with update notice)
       message = `${message}\n\n_Updated release comment_`;
     }
 
-    execSync(`gh pr comment ${prNumber} --body "${message.replace(/"/g, '\\"')}"`, { stdio: 'pipe' });
+    execSync(`gh pr comment ${prNumber} --body "${message.replace(/"/g, '\\"')}"`, {
+      stdio: 'pipe',
+    });
     log(`Updated release comment on PR #${prNumber}`, '💬');
   } catch (error) {
     log(`Failed to update PR comment: ${error.message}`, '⚠️');
@@ -216,8 +219,17 @@ async function createGitHubRelease(version, changelogContent) {
 function executeCanaryRelease() {
   log('Executing canary release...', '🐤');
 
-  execCommand(`pnpm changeset version --snapshot canary ${dryRunFlag}`, 'Creating canary versions');
-  execCommand(`pnpm changeset publish --tag canary --no-git-tag ${dryRunFlag}`, 'Publishing canary packages');
+  execCommandOrThrow('pnpm changeset version --snapshot canary', 'Creating canary versions');
+
+  // Publishing is external operation - handle dry-run
+  if (isDryRun) {
+    log('Would execute: pnpm changeset publish --tag canary --no-git-tag', '🔍');
+  } else {
+    execCommandOrThrow(
+      'pnpm changeset publish --tag canary --no-git-tag',
+      'Publishing canary packages',
+    );
+  }
 
   log('Canary release completed', '✅');
 }
@@ -225,36 +237,18 @@ function executeCanaryRelease() {
 function executePrerelease() {
   log('Executing pre-release...', '🚧');
 
+  // Generate global changelog
+  execCommandOrThrow('node .changeset/global-changelog.mjs', 'Generating global changelog');
+
   // Use snapshot to preserve changesets
-  execCommand(`pnpm changeset version --snapshot pre ${dryRunFlag}`, 'Creating pre-release versions');
+  execCommandOrThrow('pnpm changeset version --snapshot pre', 'Creating pre-release versions');
 
-  // Create git tags for pre-release versions
+  // Publishing is external operation - handle dry-run
   if (isDryRun) {
-    log('Would create and push git tags for pre-release versions', '📌');
+    log('Would execute: pnpm changeset publish --tag pre', '🔍');
   } else {
-    try {
-      const packages = getPackages();
-      for (const pkg of packages) {
-        const packagePath = `packages/${pkg.replace('@gitbeaker/', '')}/package.json`;
-        if (existsSync(packagePath)) {
-          const packageJson = JSON.parse(readFileSync(packagePath, 'utf8'));
-          const version = packageJson.version;
-          if (version.includes('beta')) {
-            const tag = `${pkg}@${version}`;
-            execSync(`git tag "${tag}"`);
-            log(`Created tag: ${tag}`, '📌');
-          }
-        }
-      }
-
-      execSync('git push origin --tags');
-      log('Pushed git tags', '📌');
-    } catch (error) {
-      console.warn('⚠️ Git tagging failed:', error.message);
-    }
+    execCommandOrThrow('pnpm changeset publish --tag pre', 'Publishing pre-release packages');
   }
-
-  execCommand(`pnpm changeset publish --tag pre --no-git-tag ${dryRunFlag}`, 'Publishing pre-release packages');
 
   log('Pre-release completed', '✅');
 }
@@ -262,16 +256,16 @@ function executePrerelease() {
 function executeProductionRelease() {
   log('Executing production release...', '🚀');
 
-  // Generate global changelog BEFORE versioning (as per your existing script)
-  execCommand('node .changeset/global-changelog.mjs', 'Generating global changelog');
+  // Generate global changelog BEFORE versioning (local operation - always execute)
+  execCommandOrThrow('node .changeset/global-changelog.mjs', 'Generating global changelog');
 
-  // Normal versioning (consumes changesets, updates individual changelogs)
-  execCommand(`pnpm changeset version ${dryRunFlag}`, 'Versioning packages');
+  // Normal versioning (consumes changesets, updates individual changelogs - local operation)
+  execCommandOrThrow('pnpm changeset version', 'Versioning packages');
 
-  // Update contributors
-  execCommand('pnpm all-contributors-cli generate', 'Updating contributors');
+  // Update contributors (local operation - always execute)
+  execCommandOrThrow('pnpm all-contributors-cli generate', 'Updating contributors');
 
-  // Commit changes (but only push if not dry-run)
+  // Commit changes (local operation - always execute, but only push if not dry-run)
   try {
     execSync('git add .');
     execSync('git commit -m "Version packages and update changelogs [skip ci]"');
@@ -284,11 +278,15 @@ function executeProductionRelease() {
       log('Pushed changes to origin', '📝');
     }
   } catch (error) {
-    log('No changes to commit or push failed', '📝');
+    throw new Error(`Git commit/push failed: ${error.message}`);
   }
 
-  // Publish packages (creates git tags automatically)
-  execCommand(`pnpm changeset publish ${dryRunFlag}`, 'Publishing production packages');
+  // Publishing is external operation - handle dry-run
+  if (isDryRun) {
+    log('Would execute: pnpm changeset publish', '🔍');
+  } else {
+    execCommandOrThrow('pnpm changeset publish', 'Publishing production packages');
+  }
 
   log('Production release completed', '✅');
 }
@@ -365,7 +363,7 @@ async function main() {
 
 // Execute if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(error => {
+  main().catch((error) => {
     console.error('❌ Release failed:', error);
     process.exit(1);
   });
