@@ -27,8 +27,9 @@ export interface ProjectAccessTokens<C extends boolean = false> extends Resource
     projectId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
-    expiresAt: string,
     options?: {
+      expiresAt?: string;
+      description?: string;
       accessLevel?: Exclude<
         AccessLevel,
         AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN

@@ -17,7 +17,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 export class GroupReleases<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+    options?: { simple?: boolean } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ReleaseSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 

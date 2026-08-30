@@ -35,10 +35,12 @@ export interface UserImpersonationTokenSchema extends Record<string, unknown> {
   scopes?: string[];
   revoked: boolean;
   name: string;
+  description?: string;
   id: number;
   created_at: string;
   impersonation: boolean;
   expires_at: string;
+  last_used_at?: string | null;
   token?: string;
 }
 
@@ -70,7 +72,7 @@ export class UserImpersonationTokens<C extends boolean = false> extends BaseReso
     userId: number,
     name: string,
     scopes: ImpersonationTokenScope[],
-    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
+    options?: { expiresAt?: string; description?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<UserImpersonationTokenSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

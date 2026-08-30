@@ -4,15 +4,15 @@ version: 2.1
 # ORBS
 # ====================
 orbs:
-  codecov: codecov/codecov@5.4.3
+  gh: circleci/github-cli@3.0.0
 
 # ====================
 # ENVIRONMENT VARIABLES
 # ====================
-# Note: GITLAB_VERSION is fixed by the custom image (gitlab-ready-image-16) to 16.11.10-ce.0
+# Note: Custom image gitlab-ready-image-[major-version] will be created automatically if it doesn't exist
 x-environment: &default_environment
   GCP_ZONE: us-central1-c
-  GITLAB_VERSION: 16.11.10-ce.0 # Fixed by custom image
+  GITLAB_VERSION: 19.2.0-ce.0
   GITLAB_MACHINE_TYPE: e2-standard-4
   GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
   GITLAB_ROOT_PASSWORD: gitbeaker
@@ -23,7 +23,7 @@ x-environment: &default_environment
 executors:
   node-executor:
     docker:
-      - image: cimg/node:22.22.2
+      - image: cimg/node:24.18.0
     resource_class: medium
     working_directory: ~/project
 
@@ -35,7 +35,7 @@ executors:
 
   gcp-executor:
     docker:
-      - image: cimg/gcp:2025.01
+      - image: cimg/gcp:2026.07.1
     resource_class: small
     working_directory: ~/project
 
@@ -116,6 +116,55 @@ commands:
           no_output_timeout: 30m
       - save_nx_cache
 
+  setup_gitlab_vars:
+    description: 'Set up GitLab-related environment variables'
+    steps:
+      - run:
+          name: Set GitLab image variables
+          command: |
+            # Extract major version number from GITLAB_VERSION (e.g., 19 from 19.2.0-ce.0)
+            GITLAB_MAJOR_VERSION=$(echo "${GITLAB_VERSION}" | cut -d. -f1)
+            GITLAB_IMAGE_NAME="gitlab-ready-image-${GITLAB_MAJOR_VERSION}"
+
+            # Export to BASH_ENV so they're available in subsequent steps
+            echo "export GITLAB_MAJOR_VERSION=${GITLAB_MAJOR_VERSION}" >> $BASH_ENV
+            echo "export GITLAB_IMAGE_NAME=${GITLAB_IMAGE_NAME}" >> $BASH_ENV
+
+            echo "GitLab version: ${GITLAB_VERSION}"
+            echo "GitLab major version: ${GITLAB_MAJOR_VERSION}"
+            echo "GitLab image name: ${GITLAB_IMAGE_NAME}"
+
+  install_pnpm_if_playwright:
+    description: 'Install pnpm for Playwright executor (uses version from package.json)'
+    parameters:
+      executor_type:
+        type: string
+        description: 'Executor type to check (playwright-executor will trigger pnpm installation)'
+    steps:
+      - when:
+          condition:
+            equal: ['playwright-executor', << parameters.executor_type >>]
+          steps:
+            - run:
+                name: Install pnpm (Playwright executor only)
+                command: npm install -g pnpm@11.18.0
+
+  load_gitlab_environment:
+    description: 'Load GitLab environment variables for e2e tests'
+    steps:
+      - run:
+          name: Load GitLab environment
+          command: |
+            if [ -f gitlab-env.txt ]; then
+              source gitlab-env.txt
+              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
+              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
+              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
+              echo "✅ GitLab environment loaded"
+            else
+              echo "⚠️ No GitLab environment file found"
+            fi
+
 # ====================
 # JOBS
 # ====================
@@ -164,88 +213,36 @@ jobs:
       - save_nx_cache
 
   # ====================
-  # UNIT TESTS
+  # PARAMETERIZED TEST JOB
   # ====================
-  test-unit-utils:
-    executor: node-executor
+  run-package-tests:
+    executor: << parameters.executor_type >>
+    parameters:
+      package_short:
+        type: string
+        description: 'Short package name (e.g., core, rest, cli, requester-utils)'
+      test_type:
+        type: string
+        description: 'Test type (unit, types, integration, e2e)'
+      executor_type:
+        type: string
+        default: 'node-executor'
+        description: 'Executor type to use'
+      requires_gitlab_env:
+        type: boolean
+        default: false
+        description: 'Whether this test requires GitLab environment'
     steps:
       - restore_workspace
+      - install_pnpm_if_playwright:
+          executor_type: << parameters.executor_type >>
+      - when:
+          condition: << parameters.requires_gitlab_env >>
+          steps:
+            - load_gitlab_environment
       - run_package_tests:
-          package: '@gitbeaker/requester-utils'
-          test_type: 'unit'
-
-  test-unit-core:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/core'
-          test_type: 'unit'
-
-  test-unit-rest:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/rest'
-          test_type: 'unit'
-
-  test-unit-cli:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/cli'
-          test_type: 'unit'
-
-  # ====================
-  # TYPE TESTS
-  # ====================
-  test-types-utils:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/requester-utils'
-          test_type: 'types'
-
-  test-types-core:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/core'
-          test_type: 'types'
-
-  test-types-rest:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/rest'
-          test_type: 'types'
-
-  # ====================
-  # INTEGRATION TESTS
-  # ====================
-  test-integration-rest:
-    executor: playwright-executor
-    steps:
-      - restore_workspace
-      - run:
-          name: Install pnpm
-          command: npm install -g pnpm@10.28.0
-      - run_package_tests:
-          package: '@gitbeaker/rest'
-          test_type: 'integration'
-
-  test-integration-core:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - run_package_tests:
-          package: '@gitbeaker/core'
-          test_type: 'integration'
+          package: '@gitbeaker/<< parameters.package_short >>'
+          test_type: << parameters.test_type >>
 
   # ====================
   # LIVE TEST SETUP
@@ -257,6 +254,37 @@ jobs:
     steps:
       - checkout
       - gcp_auth
+      - setup_gitlab_vars
+      - run:
+          name: Check and create GitLab image if needed
+          command: |
+            echo "Checking for required GitLab image: ${GITLAB_IMAGE_NAME}"
+
+            # Check if the required image exists
+            if gcloud compute images describe "${GITLAB_IMAGE_NAME}" --project=gitbeaker --quiet >/dev/null 2>&1; then
+              echo "✅ GitLab image ${GITLAB_IMAGE_NAME} already exists"
+            else
+              echo "❌ GitLab image ${GITLAB_IMAGE_NAME} does not exist"
+              echo "🚀 Building new GitLab image..."
+
+              # Install packer if not available
+              if ! command -v packer &> /dev/null; then
+                echo "Installing Packer..."
+                curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+                sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+                sudo apt-get update && sudo apt-get install packer
+              fi
+
+              # Initialize and build the image
+              cd scripts
+              packer init gitlab-image-19.pkr.hcl
+              packer validate -var "gcp_credentials=$(echo $GCLOUD_SERVICE_KEY | base64 -d)" gitlab-image-19.pkr.hcl
+
+              echo "Building GitLab image (this may take 5-10 minutes)..."
+              packer build -var "gcp_credentials=$(echo $GCLOUD_SERVICE_KEY | base64 -d)" gitlab-image-19.pkr.hcl
+
+              echo "✅ GitLab image ${GITLAB_IMAGE_NAME} created successfully"
+            fi
       - run:
           name: Setup live GitLab instance
           command: |
@@ -270,7 +298,7 @@ jobs:
             envsubst < scripts/startup.sh > scripts/startup_filled.sh
 
             # Create GCP instance with custom GitLab-ready image and auto-expiry
-            echo "Creating GCP instance..."
+            echo "Creating GCP instance '$CONTAINER_NAME' using image: ${GITLAB_IMAGE_NAME}"
             GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
               --project gitbeaker \
               --machine-type=$GITLAB_MACHINE_TYPE \
@@ -282,7 +310,7 @@ jobs:
               --max-run-duration=15m \
               --instance-termination-action=DELETE \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
-              --image=gitlab-ready-image-16 \
+              --image=$GITLAB_IMAGE_NAME \
               --image-project=gitbeaker 2>&1)
 
             # Extract IP address from the created instance
@@ -363,48 +391,6 @@ jobs:
             - gitlab-env.txt
 
   # ====================
-  # E2E TESTS
-  # ====================
-  test-e2e-rest:
-    executor: playwright-executor
-    description: 'Run REST API e2e tests against live GitLab instance'
-    steps:
-      - restore_workspace
-      - run:
-          name: Load GitLab environment
-          command: |
-            if [ -f gitlab-env.txt ]; then
-              source gitlab-env.txt
-              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
-              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
-              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
-            fi
-      - run:
-          name: Install pnpm
-          command: npm install -g pnpm@10.28.0
-      - run_package_tests:
-          package: '@gitbeaker/rest'
-          test_type: 'e2e'
-
-  test-e2e-cli:
-    executor: node-executor
-    description: 'Run CLI e2e tests against live GitLab instance'
-    steps:
-      - restore_workspace
-      - run:
-          name: Load GitLab environment
-          command: |
-            if [ -f gitlab-env.txt ]; then
-              source gitlab-env.txt
-              echo "export GITLAB_URL=$GITLAB_URL" >> $BASH_ENV
-              echo "export GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> $BASH_ENV
-              echo "export CONTAINER_NAME=$CONTAINER_NAME" >> $BASH_ENV
-            fi
-      - run_package_tests:
-          package: '@gitbeaker/cli'
-          test_type: 'e2e'
-
-  # ====================
   # TEARDOWN
   # ====================
 
@@ -427,6 +413,59 @@ jobs:
             else
               echo "No gitlab-env.txt file found - no GitLab instance to clean up"
             fi
+
+  # ====================
+  # CLEANUP OLD IMAGES
+  # ====================
+  cleanup-old-gitlab-images:
+    executor: gcp-executor
+    description: 'Clean up old GitLab images that dont match current version (optional job)'
+    environment: *default_environment
+    steps:
+      - checkout
+      - gcp_auth
+      - setup_gitlab_vars
+      - run:
+          name: Clean up old GitLab images
+          command: |
+            echo "Current GitLab version: ${GITLAB_VERSION}"
+            echo "Current image name: ${GITLAB_IMAGE_NAME}"
+            echo ""
+
+            # Find all gitlab-ready-image-* images in the project
+            OLD_IMAGES=$(gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-[0-9]+$" \
+              --format="value(name)" | grep -v "^${GITLAB_IMAGE_NAME}$" || true)
+
+            if [ -z "$OLD_IMAGES" ]; then
+              echo "✅ No old GitLab images found to clean up"
+            else
+              echo "🧹 Found old GitLab images to clean up:"
+              echo "$OLD_IMAGES"
+              echo ""
+
+              # Delete each old image
+              echo "$OLD_IMAGES" | while read -r image_name; do
+                if [ -n "$image_name" ]; then
+                  echo "🗑️  Deleting old image: $image_name"
+                  gcloud compute images delete "$image_name" \
+                    --project=gitbeaker \
+                    --quiet || echo "❌ Failed to delete $image_name"
+                fi
+              done
+
+              echo ""
+              echo "✅ Cleanup completed"
+            fi
+
+            # Show remaining GitLab images
+            echo ""
+            echo "📋 Remaining GitLab images:"
+            gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-" \
+              --format="table(name,creationTimestamp,diskSizeGb)" || echo "No GitLab images found"
 
   # ====================
   # CODECOV UPLOAD
@@ -482,6 +521,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
+      - gh/setup
       - run:
           name: Setup release environment
           command: |
@@ -496,10 +536,37 @@ jobs:
 
             pnpm release:canary
 
+  release-pre:
+    executor: node-executor
+    steps:
+      - restore_workspace
+      - gh/setup
+      - run:
+          name: Verify GitHub CLI authentication
+          command: |
+            echo "Testing GitHub CLI authentication..."
+            gh auth status
+            echo "Testing API access..."
+            gh api user --jq .login
+      - run:
+          name: Setup release environment
+          command: |
+            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Check for pre release
+          command: |
+            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
+
+            pnpm release:pre
+
   release-production:
     executor: node-executor
     steps:
       - restore_workspace
+      - gh/setup
       - run:
           name: Setup release environment
           command: |
@@ -535,28 +602,41 @@ workflows:
       - format:
           requires: [install]
 
-      # Unit tests (parallel)
-      - test-unit-utils:
-          requires: [install]
-      - test-unit-core:
-          requires: [install]
-      - test-unit-rest:
-          requires: [install]
-      - test-unit-cli:
+      # Unit tests (matrix approach)
+      - run-package-tests:
+          matrix:
+            parameters:
+              package_short: ['requester-utils', 'core', 'rest', 'cli']
+          name: test-unit-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
+          test_type: 'unit'
           requires: [install]
 
-      # Type tests (parallel)
-      - test-types-utils:
-          requires: [build]
-      - test-types-core:
-          requires: [build]
-      - test-types-rest:
+      # Type tests (matrix approach)
+      - run-package-tests:
+          matrix:
+            parameters:
+              package_short: ['requester-utils', 'core', 'rest']
+          name: test-types-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
+          test_type: 'types'
           requires: [build]
 
-      # Integration tests (parallel)
-      - test-integration-rest:
-          requires: [build]
-      - test-integration-core:
+      # Integration tests (matrix approach)
+      - run-package-tests:
+          matrix:
+            parameters:
+              package_short: ['rest', 'core']
+              executor_type: ['playwright-executor', 'node-executor']
+            exclude:
+              - package_short: 'core'
+                executor_type: 'playwright-executor'
+              - package_short: 'rest'
+                executor_type: 'node-executor'
+          name: test-integration-<< matrix.package_short >>
+          package_short: << matrix.package_short >>
+          test_type: 'integration'
+          executor_type: << matrix.executor_type >>
           requires: [build]
 
       # Live test setup (manual for PRs, auto for main/next)
@@ -581,25 +661,42 @@ workflows:
               ignore: [main, next]
 
       # E2E tests
-      - test-e2e-rest:
+      - run-package-tests:
+          name: test-e2e-rest
+          package_short: 'rest'
+          test_type: 'e2e'
+          executor_type: 'playwright-executor'
+          requires_gitlab_env: true
           requires: [setup-e2e-tests]
           filters:
             branches:
               only: [main, next]
-      - test-e2e-rest:
+
+      - run-package-tests:
           name: test-e2e-rest-manual
+          package_short: 'rest'
+          test_type: 'e2e'
+          executor_type: 'playwright-executor'
+          requires_gitlab_env: true
           requires: [setup-e2e-tests-manual]
           filters:
             branches:
               ignore: [main, next]
 
-      - test-e2e-cli:
+      - run-package-tests:
+          name: test-e2e-cli
+          package_short: 'cli'
+          test_type: 'e2e'
+          requires_gitlab_env: true
           requires: [setup-e2e-tests]
           filters:
             branches:
               only: [main, next]
-      - test-e2e-cli:
+      - run-package-tests:
           name: test-e2e-cli-manual
+          package_short: 'cli'
+          test_type: 'e2e'
+          requires_gitlab_env: true
           requires: [setup-e2e-tests-manual]
           filters:
             branches:
@@ -641,7 +738,7 @@ workflows:
       - codecov-upload:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
@@ -650,37 +747,73 @@ workflows:
               # Exclude forked PR branches which start with 'pull/'
               ignore: /^pull\/.*/
 
-      # Releases
+      # Releases - mutually exclusive per pipeline run
+
+      # Canary: any branch except main, next, release (where pre-releases run)
       - release-canary:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
-            - test-types-utils
+            - test-types-requester-utils
             - test-types-core
             - test-types-rest
             - test-integration-rest
             - test-integration-core
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main, next, release]
 
-      - release-production:
+      # Pre-release: only release or next branches
+      - release-pre:
           requires:
             - build
-            - test-unit-utils
+            - test-unit-requester-utils
             - test-unit-core
             - test-unit-rest
             - test-unit-cli
-            - test-types-utils
+            - test-types-requester-utils
             - test-types-core
             - test-types-rest
             - test-integration-rest
             - test-integration-core
             - test-e2e-rest
             - test-e2e-cli
+          filters:
+            branches:
+              only: [release, next]
+
+      # Production: only main branch
+      - release-production:
+          requires:
+            - build
+            - test-unit-requester-utils
+            - test-unit-core
+            - test-unit-rest
+            - test-unit-cli
+            - test-types-requester-utils
+            - test-types-core
+            - test-types-rest
+            - test-integration-rest
+            - test-integration-core
+            - test-e2e-rest
+            - test-e2e-cli
+          filters:
+            branches:
+              only: [main]
+
+      # Optional cleanup job (manual approval required)
+      - approve-cleanup-old-images:
+          type: approval
+          requires: [setup-e2e-tests]
+          filters:
+            branches:
+              only: [main, next]
+
+      - cleanup-old-gitlab-images:
+          requires: [approve-cleanup-old-images]
           filters:
             branches:
               only: [main, next]

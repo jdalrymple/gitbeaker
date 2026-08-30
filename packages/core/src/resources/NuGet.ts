@@ -234,4 +234,96 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
       },
     );
   }
+
+  uploadPackageFileV2<E extends boolean = false>(
+    projectId: string | number,
+    packageName: string,
+    packageVersion: string,
+    packageFile: { content: Blob; filename: string },
+    options?: ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { showExpanded, ...body } = options || {};
+
+    return RequestHelper.put<void>()(this, endpoint`projects/${projectId}/packages/nuget/v2`, {
+      showExpanded,
+      body: createFormData(
+        normalizeFormData({
+          ...body,
+          packageName,
+          packageVersion,
+          file: [packageFile.content, packageFile.filename],
+        }),
+      ),
+    });
+  }
+
+  removePackage<E extends boolean = false>(
+    projectId: string | number,
+    packageName: string,
+    packageVersion: string,
+    options?: ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { showExpanded } = options || {};
+
+    return RequestHelper.del<void>()(
+      this,
+      endpoint`projects/${projectId}/packages/nuget/${packageName}/${packageVersion}`,
+      {
+        showExpanded,
+      },
+    );
+  }
+
+  showServiceIndexV2<E extends boolean = false>(
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { projectId, groupId, showExpanded } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+
+    return RequestHelper.get<Blob>()(this, `${uri}/v2`, {
+      showExpanded,
+    });
+  }
+
+  showV2Metadata<E extends boolean = false>(
+    options: OneOf<{ projectId: string | number; groupId: string | number }> & ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { projectId, groupId, showExpanded } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+
+    return RequestHelper.get<Blob>()(this, `${uri}/v2/$metadata`, {
+      showExpanded,
+    });
+  }
+
+  downloadSymbolFile<E extends boolean = false>(
+    fileName: string,
+    signature: string,
+    options: {
+      symbolChecksum: string;
+    } & OneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { projectId, groupId, showExpanded, symbolChecksum } = options;
+
+    ensureRequiredParams({ projectId, groupId });
+
+    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const clonedService = { ...this };
+    clonedService.headers.Symbolchecksum = symbolChecksum;
+
+    return RequestHelper.get<Blob>()(
+      clonedService,
+      `${uri}/symbolfiles/${fileName}/${signature}/${fileName}`,
+      {
+        showExpanded,
+      },
+    );
+  }
 }

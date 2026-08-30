@@ -33,11 +33,11 @@ describe('BroadcastMessages.all', () => {
 
 describe('BroadcastMessages.create', () => {
   it('should request POST /broadcast_messages', async () => {
-    await service.create({ prop: 'test epic' });
+    await service.create('test epic');
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'broadcast_messages', {
       body: {
-        prop: 'test epic',
+        message: 'test epic',
       },
       showExpanded: undefined,
       sudo: undefined,

@@ -9,8 +9,9 @@ export interface MetadataSchema extends Record<string, unknown> {
   revision: string;
   kas: {
     enabled: boolean;
-    externalUrl: string;
-    version: string;
+    externalUrl: string | null;
+    externalK8sProxyUrl: string | null;
+    version: string | null;
   };
   enterprise: boolean;
 }
@@ -22,6 +23,17 @@ export class Metadata<C extends boolean = false> extends BaseResource<C> {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.get<MetadataSchema>()(this, 'metadata', {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  showVersion<E extends boolean = false>(
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<MetadataSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<MetadataSchema>()(this, 'version', {
       sudo,
       showExpanded,
     });

@@ -95,17 +95,24 @@ describe('PipelineTriggerTokens.trigger', () => {
   it('should request POST /projects/:id/trigger/pipeline', async () => {
     await service.trigger(1, 'main', 'token', { variables: { PAYLOAD: 'test' } });
 
-    const expectedFormData = new FormData();
-    expectedFormData.append('variables[PAYLOAD]', 'test');
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/trigger/pipeline',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        searchParams: {
+          token: 'token',
+          ref: 'main',
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/trigger/pipeline', {
-      body: expectedFormData,
-      searchParams: {
-        token: 'token',
-        ref: 'main',
-      },
-      showExpanded: undefined,
-      sudo: undefined,
-    });
+    // Verify FormData contents
+    const call = (RequestHelper.get() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({ 'variables[PAYLOAD]': 'test' });
   });
 });

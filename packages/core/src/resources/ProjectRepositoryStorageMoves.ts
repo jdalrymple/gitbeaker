@@ -17,8 +17,9 @@ export interface ProjectRepositoryStorageMoveSchema extends RepositoryStorageMov
   project: SimpleProjectSchema;
 }
 
-export interface ProjectRepositoryStorageMoves<C extends boolean = false>
-  extends ResourceRepositoryStorageMoves<C> {
+export interface ProjectRepositoryStorageMoves<
+  C extends boolean = false,
+> extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { projectId?: string | number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
@@ -31,11 +32,14 @@ export interface ProjectRepositoryStorageMoves<C extends boolean = false>
     options?: { projectId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
 
-  schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    sourceStorageName: string,
-    options?: { projectId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+  create<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: {
+      projectId?: string | number;
+      sourceStorageName?: string;
+      destinationStorageName?: string;
+    } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema, C, E, P>>;
+  ): Promise<GitlabAPIResponse<ProjectRepositoryStorageMoveSchema | { message: string }, C, E, P>>;
 }
 
 export class ProjectRepositoryStorageMoves<

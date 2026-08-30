@@ -23,7 +23,7 @@ export interface DiscussionNotePositionBaseSchema extends Record<string, unknown
   base_sha: string;
   start_sha: string;
   head_sha: string;
-  position_type: 'text' | 'image';
+  position_type: 'text' | 'image' | 'file';
   old_path?: string;
   new_path?: string;
 }
@@ -55,9 +55,14 @@ export type DiscussionNotePositionImageSchema = {
   y?: number;
 } & DiscussionNotePositionBaseSchema;
 
+export type DiscussionNotePositionFileSchema = {
+  position_type: 'file';
+} & DiscussionNotePositionBaseSchema;
+
 export type DiscussionNotePositionSchema =
   | DiscussionNotePositionTextSchema
-  | DiscussionNotePositionImageSchema;
+  | DiscussionNotePositionImageSchema
+  | DiscussionNotePositionFileSchema;
 
 export interface DiscussionNoteSchema extends Record<string, unknown> {
   id: number;

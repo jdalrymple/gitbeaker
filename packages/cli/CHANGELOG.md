@@ -1,4 +1,53 @@
-# v43.6.0 (Sun Oct 26 2025)
+# @gitbeaker/cli
+
+## v44.0.0-pre.0 (Wed, Aug 12, 2026)
+
+### Major Changes
+
+- breaking: Major Release v44 ([#3841](https://github.com/jdalrymple/gitbeaker/pull/3841))
+
+  #### 🔧 Dependencies & Build Tools
+  - chore(dep): Switch from eslint to oxlint ([#3839](https://github.com/jdalrymple/gitbeaker/issues/3839))
+  - chore(dep): Replace tsup with tsdown ([#3837](https://github.com/jdalrymple/gitbeaker/issues/3837))
+  - chore: Switch to pnpm ([#3820](https://github.com/jdalrymple/gitbeaker/issues/3820))
+  - chore(dep): Migrate off of auto-it to remove lerna dep ([#3819](https://github.com/jdalrymple/gitbeaker/issues/3819))
+  - chore(dep): Bump picomatch from 4.0.3 to 4.0.4 ([#3836](https://github.com/jdalrymple/gitbeaker/issues/3836))
+  - chore(dep): Bump qs from 6.14.0 to 6.14.1 ([#3808](https://github.com/jdalrymple/gitbeaker/issues/3808))
+  - chore(dep): switch to esm-only distributable ([#3849](https://github.com/jdalrymple/gitbeaker/issues/3849))
+
+  #### ✨ Features
+  - feat: Add support for filtering Jobs by an array of scopes ([#3827](https://github.com/jdalrymple/gitbeaker/issues/3827))
+  - feat: Support inputs on pipeline creation ([#3810](https://github.com/jdalrymple/gitbeaker/issues/3810))
+  - feat: JobArtifacts.downloadArchive: Add support for search_recent_successful_pipelines ([#3812](https://github.com/jdalrymple/gitbeaker/issues/3812))
+  - refactor: Comprehensive API refactoring and type improvements ([#3645](https://github.com/jdalrymple/gitbeaker/issues/3645))
+  - chore: Update API support to match latest Gitlab v19.0 ([#3846](https://github.com/jdalrymple/gitbeaker/issues/3846))
+  - chore(dep): Migrate from jest to vitest to leverage native ESM support ([#3838](https://github.com/jdalrymple/gitbeaker/issues/3838) )
+
+  #### 🐛 Bug Fixes
+  - fix: Replace qs with picoquery ([#3822](https://github.com/jdalrymple/gitbeaker/issues/3822)) - Security improvement replacing qs dependency
+  - fix: Updating picomatch and all-contributors-cli ([#3821](https://github.com/jdalrymple/gitbeaker/issues/3821))
+  - fix(rest): correct exponential backoff delay from seconds to milliseconds ([#3806](https://github.com/jdalrymple/gitbeaker/issues/3806))
+
+  #### 🔒 Security
+  - security: Update latest security CVE's for lodash and udicii ([#3824](https://github.com/jdalrymple/gitbeaker/issues/3824))
+  - security: Update dependencies to address security alerts ([#3799](https://github.com/jdalrymple/gitbeaker/issues/3799))
+
+  #### 🏗️ Infrastructure & CI
+  - ci: Adding dedicated codecov upload job ([#3817](https://github.com/jdalrymple/gitbeaker/issues/3817))
+  - ci: Improving pipeline config ([#3816](https://github.com/jdalrymple/gitbeaker/issues/3816))
+  - ci: Fix codeql-analysis branch reference from master to main ([#3813](https://github.com/jdalrymple/gitbeaker/issues/3813))
+
+  #### 🔧 Enhancements
+  - chore(types): Improve webhook reviewer type definitions ([#3803](https://github.com/jdalrymple/gitbeaker/issues/3803))
+  - chore(types): Add memberEvents option to AddResourceHookOptions ([#3804](https://github.com/jdalrymple/gitbeaker/issues/3804))
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.0.0-pre.0
+  - @gitbeaker/rest@44.0.0-pre.0
+
+## v43.6.0 (Sun Oct 26 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -16,7 +65,7 @@ Thank you, Daniel Rentz ([@danielrentz](https://github.com/danielrentz)), for al
 
 ---
 
-# v43.5.0 (Tue Sep 02 2025)
+## v43.5.0 (Tue Sep 02 2025)
 
 #### 🔒 Security
 
@@ -28,7 +77,7 @@ Thank you, Daniel Rentz ([@danielrentz](https://github.com/danielrentz)), for al
 
 ---
 
-# v43.4.0 (Thu Aug 07 2025)
+## v43.4.0 (Thu Aug 07 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -50,7 +99,7 @@ Thank you, Florian Imdahl ([@ffflorian](https://github.com/ffflorian)), for all 
 
 ---
 
-# v43.2.0 (Sat Jul 19 2025)
+## v43.2.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -62,7 +111,7 @@ Thank you, Florian Imdahl ([@ffflorian](https://github.com/ffflorian)), for all 
 
 ---
 
-# v43.1.0 (Sat Jul 19 2025)
+## v43.1.0 (Sat Jul 19 2025)
 
 #### 🐛 Bug Fix
 
@@ -74,7 +123,7 @@ Thank you, Florian Imdahl ([@ffflorian](https://github.com/ffflorian)), for all 
 
 ---
 
-# v43.0.0 (Sun Jul 13 2025)
+## v43.0.0 (Sun Jul 13 2025)
 
 #### 🐛 Bug Fix
 
@@ -100,7 +149,7 @@ Thank you, Florian Imdahl ([@ffflorian](https://github.com/ffflorian)), for all 
 
 ---
 
-# v42.3.0 (Mon Apr 21 2025)
+## v42.3.0 (Mon Apr 21 2025)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -117,7 +166,7 @@ Thank you, Zack ([@zk-kb4](https://github.com/zk-kb4)), for all your work!
 
 ---
 
-# v40.2.0 (Sat Sep 07 2024)
+## v40.2.0 (Sat Sep 07 2024)
 
 #### 📚 Documentation
 
@@ -129,7 +178,7 @@ Thank you, Zack ([@zk-kb4](https://github.com/zk-kb4)), for all your work!
 
 ---
 
-# v40.1.4 (Thu Sep 05 2024)
+## v40.1.4 (Thu Sep 05 2024)
 
 #### 📚 Documentation
 
@@ -141,7 +190,7 @@ Thank you, Zack ([@zk-kb4](https://github.com/zk-kb4)), for all your work!
 
 ---
 
-# v40.1.3 (Wed Aug 21 2024)
+## v40.1.3 (Wed Aug 21 2024)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -157,7 +206,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v40.1.0 (Mon Jul 08 2024)
+## v40.1.0 (Mon Jul 08 2024)
 
 #### 🚑 Hot Fix
 
@@ -181,7 +230,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.34.0 (Mon Jan 29 2024)
+## v39.34.0 (Mon Jan 29 2024)
 
 #### 🚑 Hot Fix
 
@@ -193,7 +242,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.33.1 (Mon Jan 29 2024)
+## v39.33.1 (Mon Jan 29 2024)
 
 #### 🔨 Technical Debt
 
@@ -205,7 +254,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.28.0 (Sun Dec 31 2023)
+## v39.28.0 (Sun Dec 31 2023)
 
 #### 🔨 Technical Debt
 
@@ -222,7 +271,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.25.1 (Sat Dec 09 2023)
+## v39.25.1 (Sat Dec 09 2023)
 
 #### ↕️ Dependencies
 
@@ -234,7 +283,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.24.0 (Fri Nov 17 2023)
+## v39.24.0 (Fri Nov 17 2023)
 
 #### ↕️ Dependencies
 
@@ -252,7 +301,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.23.0 (Thu Nov 16 2023)
+## v39.23.0 (Thu Nov 16 2023)
 
 #### 🐛 Bug Fix
 
@@ -264,7 +313,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.21.1 (Sat Oct 21 2023)
+## v39.21.1 (Sat Oct 21 2023)
 
 #### ↕️ Dependencies
 
@@ -276,7 +325,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.18.0 (Wed Oct 04 2023)
+## v39.18.0 (Wed Oct 04 2023)
 
 #### 🐛 Bug Fix
 
@@ -288,7 +337,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.6.0 (Wed Jul 12 2023)
+## v39.6.0 (Wed Jul 12 2023)
 
 #### ↕️ Dependencies
 
@@ -300,7 +349,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v39.2.0 (Mon Jun 26 2023)
+## v39.2.0 (Mon Jun 26 2023)
 
 #### ↕️ Dependencies
 
@@ -312,7 +361,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v38.8.0 (Mon May 22 2023)
+## v38.8.0 (Mon May 22 2023)
 
 #### ✨ Feature
 
@@ -324,7 +373,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v38.1.1 (Wed May 03 2023)
+## v38.1.1 (Wed May 03 2023)
 
 #### 📚 Documentation
 
@@ -336,7 +385,7 @@ Thank you, Shunta KARASAWA ([@kashz](https://github.com/kashz)), for all your wo
 
 ---
 
-# v38.1.0 (Sat Apr 29 2023)
+## v38.1.0 (Sat Apr 29 2023)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -353,7 +402,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v38.0.0 (Sat Apr 29 2023)
+## v38.0.0 (Sat Apr 29 2023)
 
 #### 💥 Breaking Change
 
@@ -365,7 +414,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v37.1.0 (Thu Apr 27 2023)
+## v37.1.0 (Thu Apr 27 2023)
 
 #### 🚑 Hot Fix
 
@@ -377,7 +426,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v37.0.0 (Wed Apr 26 2023)
+## v37.0.0 (Wed Apr 26 2023)
 
 #### 💥 Breaking Change
 
@@ -389,7 +438,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v35.8.0 (Wed Nov 16 2022)
+## v35.8.0 (Wed Nov 16 2022)
 
 #### 🔩 Dependency Updates
 
@@ -401,7 +450,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v35.6.1 (Mon Jul 11 2022)
+## v35.6.1 (Mon Jul 11 2022)
 
 #### 🐛 Bug Fix
 
@@ -413,7 +462,7 @@ Thank you, Rafael Mello ([@merorafael](https://github.com/merorafael)), for all 
 
 ---
 
-# v35.4.0 (Mon Feb 07 2022)
+## v35.4.0 (Mon Feb 07 2022)
 
 :tada: This release contains work from a new contributor! :tada:
 
@@ -429,7 +478,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v35.3.0 (Sat Feb 05 2022)
+## v35.3.0 (Sat Feb 05 2022)
 
 #### 🐛 Bug Fix
 
@@ -441,7 +490,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v34.7.0 (Tue Nov 30 2021)
+## v34.7.0 (Tue Nov 30 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -469,7 +518,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v34.3.0 (Sun Oct 17 2021)
+## v34.3.0 (Sun Oct 17 2021)
 
 #### 🐛 Bug Fix
 
@@ -482,7 +531,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v34.2.0 (Sat Sep 18 2021)
+## v34.2.0 (Sat Sep 18 2021)
 
 #### 🔩 Dependency Updates
 
@@ -494,7 +543,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v32.3.0 (Fri Aug 27 2021)
+## v32.3.0 (Fri Aug 27 2021)
 
 #### 🐛 Bug Fix
 
@@ -506,7 +555,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v31.0.0 (Mon Jul 05 2021)
+## v31.0.0 (Mon Jul 05 2021)
 
 #### 💥 Breaking Change
 
@@ -518,7 +567,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v30.0.0 (Mon Jun 07 2021)
+## v30.0.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -530,7 +579,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v29.3.0 (Mon Jun 07 2021)
+## v29.3.0 (Mon Jun 07 2021)
 
 #### 🐛 Bug Fix
 
@@ -542,7 +591,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v29.2.4 (Sun May 30 2021)
+## v29.2.4 (Sun May 30 2021)
 
 #### 🐛 Bug Fix
 
@@ -554,7 +603,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v29.2.2 (Sat May 29 2021)
+## v29.2.2 (Sat May 29 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -566,7 +615,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v29.2.0 (Tue May 18 2021)
+## v29.2.0 (Tue May 18 2021)
 
 #### 🔩 Dependency Updates
 
@@ -578,7 +627,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v28.4.0 (Tue May 04 2021)
+## v28.4.0 (Tue May 04 2021)
 
 #### 🔩 Dependency Updates
 
@@ -590,7 +639,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v28.3.0 (Sun Apr 04 2021)
+## v28.3.0 (Sun Apr 04 2021)
 
 #### 🐛 Bug Fix
 
@@ -602,7 +651,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v28.1.0 (Sun Mar 14 2021)
+## v28.1.0 (Sun Mar 14 2021)
 
 #### 🐛 Bug Fix
 
@@ -614,7 +663,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# vnull (Sun Jan 03 2021)
+## vnull (Sun Jan 03 2021)
 
 #### ⚠️ Pushed to `master`
 
@@ -626,7 +675,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v26.0.0 (Sun Dec 06 2020)
+## v26.0.0 (Sun Dec 06 2020)
 
 #### 💥 Breaking Change
 
@@ -638,7 +687,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v25.5.0 (Sun Nov 29 2020)
+## v25.5.0 (Sun Nov 29 2020)
 
 #### 🔩 Dependency Updates
 
@@ -650,7 +699,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v25.1.0 (Tue Oct 20 2020)
+## v25.1.0 (Tue Oct 20 2020)
 
 #### 🔩 Dependency Updates
 
@@ -662,7 +711,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v24.0.3 (Mon Oct 12 2020)
+## v24.0.3 (Mon Oct 12 2020)
 
 #### 🐛 Bug Fix
 
@@ -674,7 +723,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# vnull (Sun Oct 11 2020)
+## vnull (Sun Oct 11 2020)
 
 #### ⚠️ Pushed to `master`
 
@@ -686,7 +735,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v23.7.0 (Tue Sep 29 2020)
+## v23.7.0 (Tue Sep 29 2020)
 
 #### 🐛 Bug Fix
 
@@ -698,7 +747,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v23.6.0 (Mon Sep 28 2020)
+## v23.6.0 (Mon Sep 28 2020)
 
 #### 🚀 Enhancement
 
@@ -718,7 +767,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v23.4.0 (Sun Jul 12 2020)
+## v23.4.0 (Sun Jul 12 2020)
 
 #### 🐛 Bug Fix
 
@@ -730,7 +779,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v23.1.0 (Wed Jul 08 2020)
+## v23.1.0 (Wed Jul 08 2020)
 
 #### 🐛 Bug Fix
 
@@ -742,7 +791,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.6.0 (Tue Jun 16 2020)
+## v21.6.0 (Tue Jun 16 2020)
 
 #### 🐛 Bug Fix
 
@@ -754,7 +803,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.5.0 (Sun Jun 14 2020)
+## v21.5.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -766,7 +815,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.4.0 (Sun Jun 14 2020)
+## v21.4.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -778,7 +827,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.3.0 (Sun Jun 14 2020)
+## v21.3.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -790,7 +839,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.2.0 (Sun Jun 14 2020)
+## v21.2.0 (Sun Jun 14 2020)
 
 #### 🐛 Bug Fix
 
@@ -803,7 +852,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v21.0.1 (Fri Jun 12 2020)
+## v21.0.1 (Fri Jun 12 2020)
 
 #### 👷🏼‍♀️ Technical Debt
 
@@ -815,7 +864,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v19.0.0 (Thu Apr 23 2020)
+## v19.0.0 (Thu Apr 23 2020)
 
 #### 💥 Breaking Change
 
@@ -827,7 +876,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v18.1.0 (Wed Apr 22 2020)
+## v18.1.0 (Wed Apr 22 2020)
 
 #### 🚀 Enhancement
 
@@ -839,7 +888,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v18.0.0 (Tue Apr 21 2020)
+## v18.0.0 (Tue Apr 21 2020)
 
 #### 🐛 Bug Fix
 
@@ -852,7 +901,7 @@ Thank you, Ikko Ashimine ([@eltociear](https://github.com/eltociear)), for all y
 
 ---
 
-# v17.0.2 (Sun Apr 19 2020)
+## v17.0.2 (Sun Apr 19 2020)
 
 #### 🔩 Dependencies
 

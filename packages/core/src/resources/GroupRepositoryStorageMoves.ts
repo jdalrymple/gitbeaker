@@ -17,8 +17,9 @@ export interface GroupRepositoryStorageMoveSchema extends RepositoryStorageMoveS
   group: Pick<GroupSchema, 'id' | 'web_url' | 'name'>;
 }
 
-export interface GroupRepositoryStorageMoves<C extends boolean = false>
-  extends ResourceRepositoryStorageMoves<C> {
+export interface GroupRepositoryStorageMoves<
+  C extends boolean = false,
+> extends ResourceRepositoryStorageMoves<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     options?: { groupId?: string | number } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
@@ -31,11 +32,14 @@ export interface GroupRepositoryStorageMoves<C extends boolean = false>
     options?: { groupId?: string | number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema, C, E, P>>;
 
-  schedule<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    sourceStorageName: string,
-    options?: { groupId?: string | number; destinationStorageName?: string } & ShowExpanded<E> &
+  create<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    options?: {
+      sourceStorageName?: string;
+      destinationStorageName?: string;
+    } & BaseRequestSearchParams &
+      ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema, C, E, P>>;
+  ): Promise<GitlabAPIResponse<GroupRepositoryStorageMoveSchema | { message: string }, C, E, P>>;
 }
 
 export class GroupRepositoryStorageMoves<
