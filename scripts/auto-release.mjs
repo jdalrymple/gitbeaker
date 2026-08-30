@@ -81,8 +81,7 @@ async function getPRInfo() {
     });
     return JSON.parse(output);
   } catch (error) {
-    log(`Failed to get PR info via GitHub CLI: ${error.message}`, '❌');
-    return null;
+    throw new Error(`Failed to get PR info via GitHub CLI: ${error.message}`);
   }
 }
 
@@ -304,10 +303,6 @@ async function main() {
 
   // Get PR information
   const prData = await getPRInfo();
-  if (!prData) {
-    log('Could not get PR information', '❌');
-    return;
-  }
 
   log(`Processing PR #${prData.number}: ${prData.title}`, '📋');
 

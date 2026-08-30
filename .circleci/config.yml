@@ -1,6 +1,12 @@
 version: 2.1
 
 # ====================
+# ORBS
+# ====================
+orbs:
+  github-cli: circleci/github-cli@3.0.0
+
+# ====================
 # ENVIRONMENT VARIABLES
 # ====================
 # Note: Custom image gitlab-ready-image-[major-version] will be created automatically if it doesn't exist
@@ -515,6 +521,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
+      - github-cli/setup
       - run:
           name: Setup release environment
           command: |
@@ -533,6 +540,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
+      - github-cli/setup
       - run:
           name: Setup release environment
           command: |
@@ -551,6 +559,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
+      - github-cli/setup
       - run:
           name: Setup release environment
           command: |
