@@ -4,7 +4,7 @@ version: 2.1
 # ORBS
 # ====================
 orbs:
-  github-cli: circleci/github-cli@3.0.0
+  gh: circleci/github-cli@3.0.0
 
 # ====================
 # ENVIRONMENT VARIABLES
@@ -521,7 +521,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
-      - github-cli/setup
+      - gh/setup
       - run:
           name: Setup release environment
           command: |
@@ -540,7 +540,14 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
-      - github-cli/setup
+      - gh/setup
+      - run:
+          name: Verify GitHub CLI authentication
+          command: |
+            echo "Testing GitHub CLI authentication..."
+            gh auth status
+            echo "Testing API access..."
+            gh api user --jq .login
       - run:
           name: Setup release environment
           command: |
@@ -559,7 +566,7 @@ jobs:
     executor: node-executor
     steps:
       - restore_workspace
-      - github-cli/setup
+      - gh/setup
       - run:
           name: Setup release environment
           command: |
