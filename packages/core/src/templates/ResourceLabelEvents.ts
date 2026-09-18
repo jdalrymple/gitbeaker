@@ -24,7 +24,7 @@ export interface LabelEventSchema extends Record<string, unknown> {
   created_at: string;
   resource_type: 'Issue' | 'Epic' | 'MergeRequest';
   resource_id: number;
-  label: LabelSchema;
+  label: LabelSchema | null;
   action: 'add' | 'remove';
 }
 
