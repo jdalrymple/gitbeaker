@@ -367,6 +367,16 @@ api.Projects.all().then((projects) => {
 });
 ```
 
+For project searches in the `blobs`, `commits`, or `wiki_blobs` scope, pass `ref` to
+search a specific branch or tag. Omitting `ref` uses the project's default branch:
+
+```javascript
+const blobs = await api.Search.all('blobs', 'search terms', {
+  projectId: 1,
+  ref: 'feature/search',
+});
+```
+
 A general rule about all the function parameters:
 
 - If it's a required parameter, it is a named argument in the functions
