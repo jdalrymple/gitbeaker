@@ -12,6 +12,8 @@ vi.mock('../../../src/infrastructure/RequestHelper', async () => {
 let service: ContainerRegistry;
 
 beforeEach(() => {
+  vi.clearAllMocks();
+
   service = new ContainerRegistry({
     requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
@@ -56,6 +58,11 @@ describe('ContainerRegistry.removeRepository', () => {
 });
 
 describe('ContainerRegistry.removeTag', () => {
+  it('should reject an empty tag name without making a request', () => {
+    expect(() => service.removeTag(1, 2, '')).toThrow('tagName must not be empty');
+    expect(RequestHelper.del()).not.toHaveBeenCalled();
+  });
+
   it('should request DELETE /projects/:id/registry/repositories/:id/tags/:id', async () => {
     await service.removeTag(1, 2, 'name');
 
@@ -93,6 +100,11 @@ describe('ContainerRegistry.showRepository', () => {
 });
 
 describe('ContainerRegistry.showTag', () => {
+  it('should reject an empty tag name without making a request', () => {
+    expect(() => service.showTag(1, 2, '')).toThrow('tagName must not be empty');
+    expect(RequestHelper.get()).not.toHaveBeenCalled();
+  });
+
   it('should request GET /projects/:id/registry/repositories/:id/tags/:id', async () => {
     await service.showTag(1, 2, 'name');
 
