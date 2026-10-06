@@ -128,6 +128,8 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     tagName: string,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    if (tagName === '') throw new Error('tagName must not be empty');
+
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.del()(
@@ -188,6 +190,8 @@ export class ContainerRegistry<C extends boolean = false> extends BaseResource<C
     tagName: string,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<RegistryRepositoryTagSchema, C, E, void>> {
+    if (tagName === '') throw new Error('tagName must not be empty');
+
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.get<RegistryRepositoryTagSchema>()(
