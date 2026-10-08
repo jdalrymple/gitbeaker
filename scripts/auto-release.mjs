@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
+import { execFileSync, execSync } from 'child_process';
 import { existsSync, readFileSync } from 'fs';
 
 // =============================================================================
@@ -129,16 +129,12 @@ ${prData.body || ''}
 
 PR: #${prData.number}`;
 
-  // Escape quotes in message for shell command
-  const escapedMessage = message.replace(/"/g, '\\"');
-  const packageList = packages.join(' ');
-
-  const command = `pnpm change ${packageList} --bump ${changeType} --summary "${escapedMessage}"`;
+  const args = ['change', ...packages, '--bump', changeType, '--summary', message];
 
   log(`Creating changeset with pnpm change...`, '📝');
 
   try {
-    execSync(command, { stdio: 'inherit' });
+    execFileSync('pnpm', args, { stdio: 'inherit' });
     log('Changeset created successfully', '✅');
     return true;
   } catch (error) {
