@@ -180,8 +180,9 @@ async function updateReleaseComment(prNumber, releaseType, version, packages) {
       message = `${message}\n\n_Updated release comment_`;
     }
 
-    execSync(`gh pr comment ${prNumber} --body "${message.replace(/"/g, '\\"')}"`, {
+    execSync(`gh pr comment ${prNumber} --body-file -`, {
       stdio: 'pipe',
+      input: message,
     });
     log(`Updated release comment on PR #${prNumber}`, '💬');
   } catch (error) {
