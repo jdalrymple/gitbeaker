@@ -5,10 +5,12 @@ x-common-variables: &common-variables
 
 services:
   gitlab:
-    image: gitlab/gitlab-ce:16.0.1-ce.0
+    image: gitlab/gitlab-ce:19.2.0-ce.0
     container_name: gitlab
     restart: unless-stopped
     hostname: gitlab
+    privileged: true
+    shm_size: '256m'
     environment:
       <<: *common-variables
       GITLAB_OMNIBUS_CONFIG: |
@@ -24,7 +26,6 @@ services:
         redis_exporter['enable'] = false
         postgres_exporter['enable'] = false
         gitlab_exporter['enable'] = false
-        grafana['enable'] = false
     entrypoint:
       - /bin/sh
       - -c
@@ -43,7 +44,7 @@ services:
         token.set_token(ENV["GITLAB_PERSONAL_ACCESS_TOKEN"])
         token.save!
         EOF
-        exec /assets/wrapper
+        exec /assets/init-container
     ports:
       - '8080:80'
       - '8443:443'

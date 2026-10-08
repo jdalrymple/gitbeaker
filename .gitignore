@@ -9,7 +9,6 @@ test-results
 .DS_Store
 yarn-error.log
 .env
-.npmrc
 .turbo
 tmp
 .nx
@@ -22,3 +21,4 @@ tmp
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.gitlab-master-doc-api

@@ -26,14 +26,34 @@ export interface RunnerToken extends Record<string, unknown> {
 
 export interface RunnerSchema extends Record<string, unknown> {
   id: number;
+  active: boolean;
   paused: boolean;
   description: string;
   ip_address: string;
   is_shared: boolean;
   runner_type: 'instance_type' | 'group_type' | 'project_type';
-  name: string;
+  name: string | null;
   online: boolean;
-  status: 'online' | 'offline';
+  status: 'online' | 'offline' | 'stale' | 'never_contacted' | 'paused';
+  job_execution_status: 'idle' | string;
+}
+
+export interface RunnerManagerSchema extends Record<string, unknown> {
+  id: number;
+  system_id: string;
+  version: string;
+  revision: string;
+  platform: string;
+  architecture: string;
+  created_at: string;
+  contacted_at: string;
+  ip_address: string;
+  status: string;
+  job_execution_status: string;
+}
+
+export interface JobRouterDiscoverySchema extends Record<string, unknown> {
+  server_url: string;
 }
 
 export interface ExpandedRunnerSchema extends RunnerSchema {
@@ -47,12 +67,13 @@ export interface ExpandedRunnerSchema extends RunnerSchema {
   >[];
   groups: CondensedGroupSchema[];
   revision: string | null;
-  tag_list: string[] | null;
+  tag_list: string[];
   version: string | null;
   access_level: string;
   maximum_timeout: number | null;
   run_untagged: boolean;
   locked: boolean;
+  maintenance_note?: string;
 }
 
 export type AllRunnersOptions = {
@@ -60,6 +81,7 @@ export type AllRunnersOptions = {
   status?: 'online' | 'offline' | 'stale' | 'never_contacted' | 'active' | 'paused';
   paused?: boolean;
   tagList?: string[];
+  versionPrefix?: string;
 };
 
 export type EditRunnerOptions = {
@@ -71,6 +93,7 @@ export type EditRunnerOptions = {
   locked?: boolean;
   accessLevel?: 'not_protected' | 'ref_protected';
   maximumTimeout?: number;
+  maintenanceNote?: string;
 };
 
 export type CreateRunnerOptions = {
@@ -283,6 +306,115 @@ export class Runners<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
       body,
+    });
+  }
+
+  allManagers<E extends boolean = false>(
+    runnerId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<RunnerManagerSchema[], C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<RunnerManagerSchema[]>()(this, `runners/${runnerId}/managers`, {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  allGroupRunners<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    options?: AllRunnersOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<RunnerSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<RunnerSchema[]>()(this, endpoint`groups/${groupId}/runners`, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
+  }
+
+  resetInstanceRegistrationToken<E extends boolean = false>(
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, 'runners/reset_registration_token', {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  resetProjectRegistrationToken<E extends boolean = false>(
+    projectId: string | number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(
+      this,
+      endpoint`projects/${projectId}/runners/reset_registration_token`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
+  resetGroupRegistrationToken<E extends boolean = false>(
+    groupId: string | number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(
+      this,
+      endpoint`groups/${groupId}/runners/reset_registration_token`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
+  resetRunnerAuthenticationToken<E extends boolean = false>(
+    runnerId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, `runners/${runnerId}/reset_authentication_token`, {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  resetCurrentRunnerAuthenticationToken<E extends boolean = false>(
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<void>()(this, 'runners/reset_authentication_token', {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  discoverJobRouter<E extends boolean = false>(
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<JobRouterDiscoverySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobRouterDiscoverySchema>()(this, 'runners/router/discovery', {
+      sudo,
+      showExpanded,
     });
   }
 }

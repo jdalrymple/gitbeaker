@@ -30,6 +30,9 @@ export interface SimpleSnippetSchema extends Record<string, unknown> {
 export interface SnippetSchema extends SimpleSnippetSchema {
   visibility: SnippetVisibility;
   raw_url: string;
+  imported?: boolean;
+  imported_from?: string;
+  repository_storage?: string;
 }
 
 export interface ExpandedSnippetSchema extends SnippetSchema {
@@ -62,18 +65,21 @@ export type EditSnippetOptions = {
 export class Snippets<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false>({
     public: ppublic,
+    all,
     ...options
   }: {
     public?: boolean;
+    all?: boolean;
     createdAfter?: string;
     createdBefore?: string;
+    repositoryStorage?: string;
   } & BaseRequestSearchParams &
     PaginationRequestOptions<'offset'> &
     ShowExpanded<E> &
     Sudo = {}): Promise<GitlabAPIResponse<SnippetSchema[], C, E, 'offset'>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options;
 
-    const url = getPrefixedUrl('', { snippets: true, public: ppublic });
+    const url = getPrefixedUrl('', { snippets: true, public: ppublic, all });
 
     return RequestHelper.get<SnippetSchema[]>()(this, url, {
       sudo,

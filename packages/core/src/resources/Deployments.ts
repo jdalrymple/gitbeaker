@@ -58,10 +58,12 @@ export interface DeploymentSchema extends Record<string, unknown> {
 }
 
 export type AllDeploymentsOptions = {
-  orderBy?: 'id' | 'iid' | 'created_at' | 'updated_at' | 'ref';
+  orderBy?: 'id' | 'iid' | 'created_at' | 'updated_at' | 'finished_at' | 'ref';
   sort?: 'asc' | 'desc';
   updatedAfter?: string;
   updatedBefore?: string;
+  finishedAfter?: string;
+  finishedBefore?: string;
   environment?: string;
   status?: 'created' | 'running' | 'success' | 'failed' | 'canceled' | 'blocked';
 };
@@ -110,9 +112,10 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
     sha: string,
     ref: string,
     tag: boolean,
-    options?: { status?: 'running' | 'success' | 'failed' | 'canceled' } & ShowExpanded<E> & Sudo,
+    status: 'running' | 'success' | 'failed' | 'canceled',
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeploymentSchema, C, E, void>> {
-    const { showExpanded, sudo, ...searchParams } = options || {};
+    const { showExpanded, sudo } = options || {};
 
     return RequestHelper.post<DeploymentSchema>()(
       this,
@@ -120,12 +123,12 @@ export class Deployments<C extends boolean = false> extends BaseResource<C> {
       {
         showExpanded,
         sudo,
-        searchParams: {
-          ...searchParams,
+        body: {
           environment,
           sha,
           ref,
           tag,
+          status,
         },
       },
     );

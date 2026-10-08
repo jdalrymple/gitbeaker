@@ -91,7 +91,7 @@ export class BaseResource<C extends boolean = false> {
 
   public readonly requester: RequesterType;
 
-  public readonly headers: { [header: string]: string };
+  public headers: { [header: string]: string };
 
   public readonly authHeaders: { [authHeader: string]: () => Promise<string> };
 

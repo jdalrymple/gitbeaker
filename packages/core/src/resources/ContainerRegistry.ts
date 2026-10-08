@@ -38,6 +38,8 @@ export interface RegistryRepositorySchema extends Record<string, unknown> {
   cleanup_policy_started_at: string;
   tags_count?: number;
   tags?: Pick<RegistryRepositoryTagSchema, 'name' | 'path' | 'location'>[];
+  size?: number;
+  status?: string | null;
 }
 
 export type CondensedRegistryRepositorySchema = MappedOmit<

@@ -165,6 +165,7 @@ describe('Jobs.cancel', () => {
     await service.cancel(1, 2);
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/jobs/2/cancel', {
+      searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
     });
@@ -210,6 +211,7 @@ describe('Jobs.retry', () => {
     await service.retry(1, 2);
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/1/jobs/2/retry', {
+      body: {},
       showExpanded: undefined,
       sudo: undefined,
     });

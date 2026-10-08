@@ -23,6 +23,8 @@ describe('InstanceLevelCICDVariables.all', () => {
     await service.all();
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'admin/ci/variables', {
+      maxPages: undefined,
+      searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
     });

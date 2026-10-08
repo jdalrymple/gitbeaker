@@ -23,6 +23,7 @@ export interface IssueNotes<C extends boolean = false> extends ResourceNotes<C> 
     options?: {
       sort?: 'asc' | 'desc';
       orderBy?: 'created_at' | 'updated_at';
+      activityFilter?: 'all_notes' | 'only_comments' | 'only_activity';
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &

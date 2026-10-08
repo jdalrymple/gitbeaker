@@ -17,25 +17,49 @@ export interface AuditEventSchema extends Record<string, unknown> {
   entity_id: number;
   entity_type: string;
   details: {
+    // Change-related fields
     change?: string;
     from?: string;
     to?: string;
+    add?: string;
+    remove?: string;
+
+    // Message fields
     custom_message?: string;
-    author_name: string;
-    author_email: string;
-    target_id: string;
-    target_type: string;
-    target_details: string;
-    ip_address: string;
-    entity_path: string;
+
+    // Author information
+    author_name?: string;
+    author_email?: string;
+    author_class?: string;
+
+    // Target information
+    target_id?: string | number;
+    target_type?: string;
+    target_details?: string;
+
+    // Network and location
+    ip_address?: string | null;
+    entity_path?: string;
+
+    // Additional dynamic fields that can appear in details
+    [key: string]: unknown;
   };
   created_at: string;
+
+  // Optional top-level fields that may appear in responses
+  ip_address?: string;
+  author_name?: string;
+  entity_path?: string;
+  target_details?: string;
+  target_type?: string;
+  target_id?: number;
+  event_type?: string;
 }
 
 export interface AllAuditEventOptions {
   createdAfter?: string;
   createdBefore?: string;
-  entityType?: string;
+  entityType?: 'User' | 'Group' | 'Project' | 'Gitlab::Audit::InstanceScope' | string;
   entityId?: number;
 }
 

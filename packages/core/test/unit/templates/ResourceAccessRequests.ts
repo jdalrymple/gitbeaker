@@ -88,7 +88,7 @@ describe('ResourceAccessRequests.approve', () => {
   it('should accept the correct access levels', async () => {
     await service.approve(5, 1, { accessLevel: 20 });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_requests/1/approve', {
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/access_requests/1/approve', {
       body: {
         accessLevel: 20,
       },
@@ -100,7 +100,7 @@ describe('ResourceAccessRequests.approve', () => {
   it('should allow for sudo calls', async () => {
     await service.approve(5, 1, { sudo: 'test' });
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_requests/1/approve', {
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '5/access_requests/1/approve', {
       body: {},
       showExpanded: undefined,
       sudo: 'test',

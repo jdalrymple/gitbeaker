@@ -11,7 +11,7 @@ import type {
   Sudo,
 } from '../infrastructure';
 
-import { RequestHelper } from '../infrastructure';
+import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
 export interface LicenseSchema extends Record<string, unknown> {
   id: number;
@@ -24,14 +24,13 @@ export interface LicenseSchema extends Record<string, unknown> {
   expired: boolean;
   overage: number;
   user_limit: number;
-  active_users: number;
+  active_users?: number;
   licensee: {
     Name: string;
+    Email: string;
+    Company: string;
   };
-  add_ons: {
-    GitLab_FileLocks: number;
-    GitLab_Auditor_User: number;
-  };
+  add_ons: Record<string, number>;
 }
 
 export class License<C extends boolean = false> extends BaseResource<C> {
@@ -65,32 +64,42 @@ export class License<C extends boolean = false> extends BaseResource<C> {
   }
 
   show<E extends boolean = false>(
+    licenseId?: number,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
+    const url = getPrefixedUrl('license', { license: licenseId });
 
-    return RequestHelper.get<LicenseSchema>()(this, 'license', { sudo, showExpanded });
+    return RequestHelper.get<LicenseSchema>()(this, url, { sudo, showExpanded });
   }
 
   remove<E extends boolean = false>(
     licenceId: number,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.del<LicenseSchema>()(this, `license/${licenceId}`, { sudo, showExpanded });
+    return RequestHelper.del()(this, endpoint`license/${licenceId}`, { sudo, showExpanded });
+  }
+
+  exportUsage<E extends boolean = false>(
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<string, void, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<string>()(this, 'license/usage_export.csv', { sudo, showExpanded });
   }
 
   recalculateBillableUsers<E extends boolean = false>(
     licenceId: number,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<{ success: boolean }, C, E, void>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { sudo, showExpanded } = options || {};
 
     return RequestHelper.put<{ success: boolean }>()(
       this,
-      `license/${licenceId}/refresh_billable_users`,
-      { sudo, showExpanded, body },
+      endpoint`license/${licenceId}/refresh_billable_users`,
+      { sudo, showExpanded },
     );
   }
 }

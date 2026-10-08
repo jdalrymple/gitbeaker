@@ -1,10 +1,10 @@
 {
   "name": "@gitbeaker/cli",
-  "version": "43.8.0",
+  "version": "44.0.0-pre.0",
   "description": "CLI implementation of the GitLab API.",
   "license": "MIT",
   "engines": {
-    "node": ">=18.20.0"
+    "node": ">=v24.16.0"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "cli",
     "gitbeaker"
   ],
+  "type": "module",
   "bin": {
     "gb": "dist/index.mjs",
     "gitbeaker": "dist/index.mjs"
@@ -39,16 +40,16 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^43.8.0",
-    "@gitbeaker/rest": "^43.8.0",
+    "@gitbeaker/core": "workspace:*",
+    "@gitbeaker/rest": "workspace:*",
     "chalk": "^5.6.2",
     "sywac": "^1.3.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "tsdown": "^0.21.7",
-    "@vitest/expect": "^4.0.10",
-    "typescript": "^5.9.3",
+    "@vitest/expect": "^4.1.10",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3",
     "vitest-extended": "^0.0.1"
   }
 }

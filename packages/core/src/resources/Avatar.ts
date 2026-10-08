@@ -11,14 +11,14 @@ export interface AvatarSchema extends Record<string, unknown> {
 export class Avatar<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     email: string,
-    options?: ShowExpanded<E> & Sudo,
+    options?: { size?: number } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<AvatarSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<AvatarSchema>()(this, 'avatar', {
       sudo,
       showExpanded,
-      searchParams: { email },
+      searchParams: { email, ...searchParams },
     });
   }
 }

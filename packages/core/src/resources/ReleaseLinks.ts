@@ -17,8 +17,9 @@ export interface ReleaseLinkSchema extends Record<string, unknown> {
   id: number;
   name: string;
   url: string;
+  direct_asset_url?: string;
   external: boolean;
-  link_type: string;
+  link_type: 'other' | 'runbook' | 'image' | 'package';
 }
 
 export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
@@ -50,7 +51,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
     url: string,
     options?: {
       filePath?: string;
-      linkType?: string;
+      linkType?: 'other' | 'runbook' | 'image' | 'package';
       directAssetPath?: string;
     } & BaseRequestSearchParams &
       ShowExpanded<E> &
@@ -81,7 +82,7 @@ export class ReleaseLinks<C extends boolean = false> extends BaseResource<C> {
       name?: string;
       url?: string;
       filePath?: string;
-      linkType?: string;
+      linkType?: 'other' | 'runbook' | 'image' | 'package';
       directAssetPath?: string;
     } & BaseRequestSearchParams &
       ShowExpanded<E> &

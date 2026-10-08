@@ -40,6 +40,8 @@ describe('GroupEpicBoards.allLists', () => {
     await service.allLists('5', 6);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/5/epic_boards/6/lists', {
+      maxPages: undefined,
+      searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
     });

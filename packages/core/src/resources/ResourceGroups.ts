@@ -97,4 +97,21 @@ export class ResourceGroups<C extends boolean = false> extends BaseResource<C> {
       },
     );
   }
+
+  showCurrentJob<E extends boolean = false>(
+    projectId: string | number,
+    key: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<JobSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<JobSchema>()(
+      this,
+      endpoint`projects/${projectId}/resource_groups/${key}/current_job`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
 }

@@ -13,6 +13,7 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
+import type { SimpleUserSchema } from '../resources/Users';
 
 import { AccessLevel } from '../constants';
 import { RequestHelper, endpoint } from '../infrastructure';
@@ -31,17 +32,23 @@ export interface CondensedMemberSchema extends Record<string, unknown> {
 }
 
 export interface SimpleMemberSchema extends CondensedMemberSchema {
-  expires_at: string;
+  expires_at?: string | null;
   access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
-  email: string;
+  email?: string;
 }
 
 export interface MemberSchema extends SimpleMemberSchema {
-  group_saml_identity: {
+  created_at?: string;
+  created_by?: SimpleUserSchema;
+  is_using_seat?: boolean;
+  group_saml_identity?: {
     extern_uid: string;
     provider: string;
     saml_provider_id: number;
-  };
+  } | null;
+  group_scim_identity?: {
+    [key: string]: unknown;
+  } | null;
 }
 
 export type AddMemberOptions = {
@@ -56,6 +63,7 @@ export interface AllMembersOptions {
   userIds?: number[];
   skipUsers?: number[];
   showSeatInfo?: boolean;
+  state?: 'awaiting' | 'active';
 }
 
 export class ResourceMembers<C extends boolean = false> extends BaseResource<C> {

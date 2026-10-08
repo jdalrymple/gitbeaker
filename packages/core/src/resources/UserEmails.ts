@@ -7,7 +7,7 @@ import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 export interface UserEmailSchema extends Record<string, unknown> {
   id: number;
   email: string;
-  confirmed_at: string;
+  confirmed_at: string | null;
 }
 
 export class UserEmails<C extends boolean = false> extends BaseResource<C> {

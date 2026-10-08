@@ -1,10 +1,10 @@
 {
   "name": "@gitbeaker/core",
-  "version": "43.8.0",
+  "version": "44.0.0-pre.0",
   "description": "Core API implementation of the GitLab API",
   "license": "MIT",
   "engines": {
-    "node": ">=18.20.0"
+    "node": ">=v24.16.0"
   },
   "repository": {
     "type": "git",
@@ -24,18 +24,13 @@
     "core",
     "gitbeaker"
   ],
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "types": "./dist/index.d.mts",
   "exports": {
     "./map.json": "./dist/map.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "files": [
@@ -44,7 +39,7 @@
   "scripts": {
     "build": "pnpm run build:self && pnpm run build:map",
     "build:map": "tsx scripts/generate.ts",
-    "build:self": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
+    "build:self": "tsdown src/index.ts --format esm --dts --treeshake",
     "test:types": "tsc",
     "test:integration": "vitest run --config vitest.config.mjs test/integration",
     "test:unit": "vitest run --config vitest.config.mjs test/unit",
@@ -52,14 +47,14 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "@gitbeaker/requester-utils": "^43.8.0",
+    "@gitbeaker/requester-utils": "workspace:*",
     "picoquery": "^2.5.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.12.2",
-    "tsdown": "^0.21.7",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "@types/node": "^26.1.2",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.23.1",
+    "typescript": "^6.0.3"
   }
 }

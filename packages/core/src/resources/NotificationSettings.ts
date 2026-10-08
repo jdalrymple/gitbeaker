@@ -13,51 +13,58 @@ export type NotificationSettingLevel =
   | 'custom';
 
 export type CustomSettingLevelEmailEvents =
-  | 'new_note'
-  | 'new_issue'
-  | 'reopen_issue'
+  | 'approver'
+  | 'change_reviewer_merge_request'
   | 'close_issue'
-  | 'reassign_issue'
-  | 'issue_due'
-  | 'new_merge_request'
-  | 'push_to_merge_request'
-  | 'reopen_merge_request'
   | 'close_merge_request'
-  | 'reassign_merge_request'
-  | 'merge_merge_request'
   | 'failed_pipeline'
   | 'fixed_pipeline'
-  | 'success_pipeline'
-  | 'moved_project'
+  | 'issue_due'
+  | 'merge_merge_request'
   | 'merge_when_pipeline_succeeds'
-  | 'new_epic ';
+  | 'moved_project'
+  | 'new_epic'
+  | 'new_issue'
+  | 'new_merge_request'
+  | 'new_note'
+  | 'new_release'
+  | 'push_to_merge_request'
+  | 'reassign_issue'
+  | 'reassign_merge_request'
+  | 'reopen_issue'
+  | 'reopen_merge_request'
+  | 'success_pipeline';
 
 export interface NotificationSettingSchema extends Record<string, unknown> {
   level: NotificationSettingLevel;
   notification_email?: string;
+  events?: Record<CustomSettingLevelEmailEvents, boolean | null>;
 }
 
 export type EditNotificationSettingsOptions = {
-  level?: string;
+  level?: NotificationSettingLevel;
   notificationEmail?: string;
-  newNote?: boolean;
-  newIssue?: boolean;
-  reopenIssue?: boolean;
+  approver?: boolean;
+  changeReviewerMergeRequest?: boolean;
   closeIssue?: boolean;
-  reassignIssue?: boolean;
-  issueDue?: boolean;
-  newMergeRequest?: boolean;
-  pushToMergeRequest?: boolean;
-  reopenMergeRequest?: boolean;
   closeMergeRequest?: boolean;
-  reassignMergeRequest?: boolean;
-  mergeMergeRequest?: boolean;
   failedPipeline?: boolean;
   fixedPipeline?: boolean;
-  successPipeline?: boolean;
-  movedProject?: boolean;
+  issueDue?: boolean;
+  mergeMergeRequest?: boolean;
   mergeWhenPipelineSucceeds?: boolean;
+  movedProject?: boolean;
   newEpic?: boolean;
+  newIssue?: boolean;
+  newMergeRequest?: boolean;
+  newNote?: boolean;
+  newRelease?: boolean;
+  pushToMergeRequest?: boolean;
+  reassignIssue?: boolean;
+  reassignMergeRequest?: boolean;
+  reopenIssue?: boolean;
+  reopenMergeRequest?: boolean;
+  successPipeline?: boolean;
 };
 
 export class NotificationSettings<C extends boolean = false> extends BaseResource<C> {

@@ -18,19 +18,36 @@ import { AccessLevel } from '../constants';
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export interface ProtectedEnvironmentAccessLevelSummarySchema {
-  access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;
+  id: number;
+  access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN | null;
   access_level_description: string;
-  user_id?: number;
-  group_id?: number;
+  user_id?: number | null;
+  group_id?: number | null;
+  group_inheritance_type?: 0 | 1;
+}
+
+export interface ProtectedEnvironmentApprovalRuleSchema {
+  id: number;
+  access_level: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN | null;
+  access_level_description: string;
+  user_id?: number | null;
+  group_id?: number | null;
+  required_approvals: number;
+  group_inheritance_type?: 0 | 1;
 }
 
 export interface ProtectedEnvironmentSchema extends Record<string, unknown> {
   name: string;
   deploy_access_levels?: ProtectedEnvironmentAccessLevelSummarySchema[];
   required_approval_count: number;
+  approval_rules?: ProtectedEnvironmentApprovalRuleSchema[];
 }
 
-export type ProtectedEnvironmentAccessLevelEntity = OneOf<{
+export type ProtectedEnvironmentAccessLevelEntity = {
+  groupInheritanceType?: 0 | 1;
+  requiredApprovals?: number;
+  _destroy?: boolean;
+} & OneOf<{
   userId: number;
   groupId: number;
   accessLevel: AccessLevel.DEVELOPER | AccessLevel.MAINTAINER | AccessLevel.ADMIN;

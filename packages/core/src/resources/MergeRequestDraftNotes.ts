@@ -89,7 +89,7 @@ export class MergeRequestDraftNotes<C extends boolean = false> extends BaseResou
   ): Promise<GitlabAPIResponse<MergeRequestDraftNoteSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<MergeRequestDraftNoteSchema>()(
+    return RequestHelper.put<MergeRequestDraftNoteSchema>()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/draft_notes/${draftNoteId}`,
       {

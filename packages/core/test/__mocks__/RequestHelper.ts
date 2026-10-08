@@ -3,7 +3,11 @@ import { vi } from 'vitest';
 
 const mockHelperFn = vi.fn();
 
-export default {
+type RequestHelperMock = {
+  RequestHelper: Record<string, unknown>;
+};
+
+const mock: RequestHelperMock = {
   RequestHelper: {
     post: () => mockHelperFn,
     get: () => mockHelperFn,
@@ -12,3 +16,5 @@ export default {
     patch: () => mockHelperFn,
   },
 };
+
+export default mock;

@@ -18,6 +18,7 @@ import { RequestHelper, endpoint } from '../infrastructure';
 export interface IterationSchema extends Record<string, unknown> {
   id: number;
   iid: number;
+  sequence: number;
   group_id: number;
   title: string;
   description: string;
@@ -32,7 +33,9 @@ export interface IterationSchema extends Record<string, unknown> {
 export interface AllIterationsOptions {
   state?: 'opened' | 'upcoming' | 'current' | 'closed' | 'all';
   search?: string;
+  in?: ('title' | 'cadence_title')[];
   includeAncestors?: boolean;
+  includeDescendants?: boolean;
   updatedBefore?: string;
   updatedAfter?: string;
 }

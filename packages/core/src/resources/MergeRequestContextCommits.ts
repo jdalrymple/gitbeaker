@@ -17,7 +17,7 @@ export interface MergeRequestContextCommitSchema extends Record<string, unknown>
   id: string;
   short_id: string;
   created_at: string;
-  parent_ids?: null;
+  parent_ids?: string[] | null;
   title: string;
   message: string;
   author_name: string;
@@ -26,6 +26,8 @@ export interface MergeRequestContextCommitSchema extends Record<string, unknown>
   committer_name: string;
   committer_email: string;
   committed_date: string;
+  trailers?: Record<string, unknown>;
+  web_url?: string;
 }
 
 export class MergeRequestContextCommits<C extends boolean = false> extends BaseResource<C> {
@@ -72,14 +74,19 @@ export class MergeRequestContextCommits<C extends boolean = false> extends BaseR
   remove<E extends boolean = false>(
     projectId: string | number,
     mergerequestIId: number,
+    commits: string[],
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.del()(
       this,
       endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/context_commits`,
-      { sudo, showExpanded },
+      {
+        sudo,
+        showExpanded,
+        body: { ...body, commits },
+      },
     );
   }
 }

@@ -9,26 +9,26 @@ export interface ProcessMetricSchema {
   pid: number;
   tag: string;
   started_at: string;
-  queues?: string[];
-  labels?: string[];
+  queues: string[];
+  labels: string[];
   concurrency: number;
   busy: number;
 }
 
-export interface SidekickProcessMetricsSchema extends Record<string, unknown> {
-  processes?: ProcessMetricSchema[];
+export interface SidekiqProcessMetricsSchema extends Record<string, unknown> {
+  processes: ProcessMetricSchema[];
 }
 
-export interface SidekickQueueMetricsSchema extends Record<string, unknown> {
+export interface SidekiqQueueMetricsSchema extends Record<string, unknown> {
   queues: {
-    default: {
+    [queueName: string]: {
       backlog: number;
       latency: number;
     };
   };
 }
 
-export interface SidekickJobStatsSchema extends Record<string, unknown> {
+export interface SidekiqJobStatsSchema extends Record<string, unknown> {
   jobs: {
     processed: number;
     failed: number;
@@ -37,32 +37,32 @@ export interface SidekickJobStatsSchema extends Record<string, unknown> {
   };
 }
 
-export type SidekickCompoundMetricsSchema = SidekickJobStatsSchema &
-  SidekickProcessMetricsSchema &
-  SidekickQueueMetricsSchema;
+export type SidekiqCompoundMetricsSchema = SidekiqJobStatsSchema &
+  SidekiqProcessMetricsSchema &
+  SidekiqQueueMetricsSchema;
 
 export class SidekiqMetrics<C extends boolean = false> extends BaseResource<C> {
   queueMetrics<E extends boolean = false>(): Promise<
-    GitlabAPIResponse<SidekickQueueMetricsSchema, C, E, void>
+    GitlabAPIResponse<SidekiqQueueMetricsSchema, C, E, void>
   > {
-    return RequestHelper.get<SidekickQueueMetricsSchema>()(this, 'sidekiq/queue_metrics');
+    return RequestHelper.get<SidekiqQueueMetricsSchema>()(this, 'sidekiq/queue_metrics');
   }
 
   processMetrics<E extends boolean = false>(): Promise<
-    GitlabAPIResponse<SidekickProcessMetricsSchema, C, E, void>
+    GitlabAPIResponse<SidekiqProcessMetricsSchema, C, E, void>
   > {
-    return RequestHelper.get<SidekickProcessMetricsSchema>()(this, 'sidekiq/process_metrics');
+    return RequestHelper.get<SidekiqProcessMetricsSchema>()(this, 'sidekiq/process_metrics');
   }
 
   jobStats<E extends boolean = false>(): Promise<
-    GitlabAPIResponse<SidekickJobStatsSchema, C, E, void>
+    GitlabAPIResponse<SidekiqJobStatsSchema, C, E, void>
   > {
-    return RequestHelper.get<SidekickJobStatsSchema>()(this, 'sidekiq/job_stats');
+    return RequestHelper.get<SidekiqJobStatsSchema>()(this, 'sidekiq/job_stats');
   }
 
   compoundMetrics<E extends boolean = false>(): Promise<
-    GitlabAPIResponse<SidekickCompoundMetricsSchema, C, E, void>
+    GitlabAPIResponse<SidekiqCompoundMetricsSchema, C, E, void>
   > {
-    return RequestHelper.get<SidekickCompoundMetricsSchema>()(this, 'sidekiq/compound_metrics');
+    return RequestHelper.get<SidekiqCompoundMetricsSchema>()(this, 'sidekiq/compound_metrics');
   }
 }

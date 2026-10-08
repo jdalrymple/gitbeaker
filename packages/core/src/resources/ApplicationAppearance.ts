@@ -19,6 +19,7 @@ export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   logo: string;
   header_logo: string;
   favicon: string;
+  member_guidelines: string;
   new_project_guidelines: string;
   profile_image_guidelines: string;
   header_message: string;
@@ -26,6 +27,7 @@ export interface ApplicationAppearanceSchema extends Record<string, unknown> {
   message_background_color: string;
   message_font_color: string;
   email_header_and_footer_enabled: boolean;
+  site_name: string;
 }
 
 export class ApplicationAppearance<C extends boolean = false> extends BaseResource<C> {

@@ -1,10 +1,10 @@
 {
   "name": "@gitbeaker/rest",
-  "version": "43.8.0",
+  "version": "44.0.0-pre.0",
   "description": "Cross Platform implementation of the GitLab API",
   "license": "MIT",
   "engines": {
-    "node": ">=18.20.0"
+    "node": ">=v24.16.0"
   },
   "repository": {
     "type": "git",
@@ -25,24 +25,19 @@
     "browser",
     "gitbeaker"
   ],
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --treeshake",
+    "build": "tsdown src/index.ts --format esm --dts --treeshake",
     "test:types": "tsc",
     "test:e2e:browser": "playwright test --project=e2e",
     "test:e2e:nodejs": "vitest run --config vitest.config.mjs test/e2e/nodejs",
@@ -54,13 +49,13 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "@gitbeaker/core": "^43.8.0",
-    "@gitbeaker/requester-utils": "^43.8.0"
+    "@gitbeaker/core": "workspace:*",
+    "@gitbeaker/requester-utils": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",
-    "@types/node": "^24.12.2",
-    "tsdown": "^0.21.7",
-    "typescript": "^5.9.3"
+    "@types/node": "^26.1.2",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3"
   }
 }

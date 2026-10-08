@@ -28,6 +28,8 @@ export interface BillableGroupMemberSchema extends CondensedMemberSchema {
   membership_type: string;
   removable: boolean;
   created_at: string;
+  last_login_at?: string;
+  email?: string;
 }
 
 export interface BillableGroupMemberMembershipSchema extends Record<string, unknown> {
@@ -36,7 +38,7 @@ export interface BillableGroupMemberMembershipSchema extends Record<string, unkn
   source_full_name: string;
   source_members_url: string;
   created_at: string;
-  expires_at: string;
+  expires_at: string | null;
   access_level: {
     string_value: string;
     integer_value: Exclude<AccessLevel, AccessLevel.ADMIN>;
@@ -45,6 +47,17 @@ export interface BillableGroupMemberMembershipSchema extends Record<string, unkn
 
 export interface OverrodeGroupMemberSchema extends SimpleMemberSchema {
   override: boolean;
+}
+
+export interface PendingMemberSchema extends Record<string, unknown> {
+  id: number;
+  name?: string;
+  username?: string;
+  email: string;
+  avatar_url: string;
+  web_url?: string;
+  approved: boolean;
+  invited: boolean;
 }
 
 export interface GroupMembers<C extends boolean = false> extends ResourceMembers<C> {
@@ -92,7 +105,23 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
 
   allBillable<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+    options?: {
+      search?: string;
+      sort?:
+        | 'access_level_asc'
+        | 'access_level_desc'
+        | 'last_joined'
+        | 'name_asc'
+        | 'name_desc'
+        | 'oldest_joined'
+        | 'oldest_sign_in'
+        | 'recent_sign_in'
+        | 'last_activity_on_asc'
+        | 'last_activity_on_desc';
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<BillableGroupMemberSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
@@ -113,10 +142,10 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   allPending<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<MemberSchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<PendingMemberSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    return RequestHelper.get<MemberSchema[]>()(this, endpoint`${groupId}/pending_members`, {
+    return RequestHelper.get<PendingMemberSchema[]>()(this, endpoint`${groupId}/pending_members`, {
       sudo,
       showExpanded,
       maxPages,
@@ -126,26 +155,12 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
     });
   }
 
-  allBillableMemberships<E extends boolean = false>(
+  allBillableMemberships<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     userId: number,
-    options?: {
-      search?: string;
-      sort?:
-        | 'access_level_asc'
-        | 'access_level_desc'
-        | 'last_joined'
-        | 'name_asc'
-        | 'name_desc'
-        | 'oldest_joined'
-        | 'oldest_sign_in'
-        | 'recent_sign_in'
-        | 'last_activity_on_asc'
-        | 'last_activity_on_desc';
-    } & ShowExpanded<E> &
-      Sudo,
-  ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, void>> {
-    const { sudo, showExpanded, ...searchParams } = options || {};
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
     return RequestHelper.get<BillableGroupMemberMembershipSchema[]>()(
       this,
@@ -153,7 +168,27 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
       {
         sudo,
         showExpanded,
-        searchParams,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & PaginationType<P>,
+      },
+    );
+  }
+
+  allBillableIndirect<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    userId: number,
+    options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<BillableGroupMemberMembershipSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+
+    return RequestHelper.get<BillableGroupMemberMembershipSchema[]>()(
+      this,
+      endpoint`${groupId}/billable_members/${userId}/indirect`,
+      {
+        sudo,
+        showExpanded,
+        maxPages,
+        searchParams: searchParams as PaginationRequestSearchParams<P> & PaginationType<P>,
       },
     );
   }
@@ -177,10 +212,29 @@ export class GroupMembers<C extends boolean = false> extends ResourceMembers<C> 
   ): Promise<GitlabAPIResponse<MemberSchema[], C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.put<MemberSchema[]>()(this, endpoint`${groupId}/members/approve_all`, {
+    return RequestHelper.post<MemberSchema[]>()(this, endpoint`${groupId}/members/approve_all`, {
       sudo,
       showExpanded,
     });
+  }
+
+  changeMembershipState<E extends boolean = false>(
+    groupId: string | number,
+    userId: number,
+    state: 'awaiting' | 'active',
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<{ success: boolean }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.put<{ success: boolean }>()(
+      this,
+      endpoint`${groupId}/members/${userId}/state`,
+      {
+        sudo,
+        showExpanded,
+        searchParams: { state },
+      },
+    );
   }
 
   removeBillable<E extends boolean = false>(

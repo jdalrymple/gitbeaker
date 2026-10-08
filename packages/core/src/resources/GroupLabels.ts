@@ -19,7 +19,10 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
     options: {
       withCounts: true;
       includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
       search?: string;
+      archived?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -28,21 +31,12 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options: {
-      includeAncestorGroups?: boolean;
-      search?: string;
-    } & BaseRequestSearchParams &
-      PaginationRequestOptions<P> &
-      ShowExpanded<E> &
-      Sudo,
-  ): Promise<GitlabAPIResponse<LabelSchema[], C, E, P>>;
-
-  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
-    groupId: string | number,
     options?: {
-      withCounts?: boolean;
       includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
       search?: string;
+      archived?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -53,7 +47,8 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
     groupId: string | number,
     labelName: string,
     color: string,
-    options?: { description?: string; priority?: number } & ShowExpanded<E> & Sudo,
+    options?: { description?: string; priority?: number; archived?: boolean } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
@@ -62,6 +57,7 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
     options: {
       description?: string;
       priority?: number;
+      archived?: boolean;
     } & OneOf<{ newName: string; color: string }> &
       ShowExpanded<E> &
       Sudo,
@@ -82,7 +78,12 @@ export interface GroupLabels<C extends boolean = false> extends ResourceLabels<C
   show<E extends boolean = false>(
     groupId: string | number,
     labelId: number | string,
-    options?: { includeAncestorGroups?: boolean } & ShowExpanded<E> & Sudo,
+    options?: {
+      includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>>;
 
   subscribe<E extends boolean = false>(

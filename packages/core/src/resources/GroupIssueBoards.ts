@@ -38,16 +38,22 @@ export interface GroupIssueBoards<C extends boolean = false> extends ResourceIss
   createList<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
-    options?: ShowExpanded<E> & Sudo,
+    options?: {
+      labelId?: number;
+      assigneeId?: number;
+      milestoneId?: number;
+      iterationId?: number;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<IssueBoardListSchema, C, E, void>>;
 
   edit<E extends boolean = false>(
     groupId: string | number,
     boardId: number,
     options?: {
+      name?: string;
       hideBacklogList?: boolean;
       hideClosedList?: boolean;
-      name?: string;
       assigneeId?: number;
       milestoneId?: number;
       labels?: string;

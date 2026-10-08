@@ -11,8 +11,9 @@ import type { DiscussionNoteSchema, DiscussionSchema } from '../templates/Resour
 
 import { ResourceDiscussions } from '../templates';
 
-export interface ProjectSnippetDiscussions<C extends boolean = false>
-  extends ResourceDiscussions<C> {
+export interface ProjectSnippetDiscussions<
+  C extends boolean = false,
+> extends ResourceDiscussions<C> {
   addNote<E extends boolean = false>(
     projectId: string | number,
     snippetId: string | number,

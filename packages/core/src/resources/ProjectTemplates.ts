@@ -17,9 +17,25 @@ export type ProjectTemplateType =
   | 'licenses'
   | 'issues'
   | 'merge_requests';
+
+export interface ProjectTemplateListSchema extends Record<string, unknown> {
+  key: string;
+  name: string;
+}
+
 export interface ProjectTemplateSchema extends Record<string, unknown> {
   name: string;
   content: string;
+  // License-specific fields
+  key?: string;
+  nickname?: string;
+  popular?: boolean;
+  html_url?: string;
+  source_url?: string;
+  description?: string;
+  conditions?: string[];
+  permissions?: string[];
+  limitations?: string[];
 }
 
 export class ProjectTemplates<C extends boolean = false> extends BaseResource<C> {
@@ -27,10 +43,10 @@ export class ProjectTemplates<C extends boolean = false> extends BaseResource<C>
     projectId: string | number,
     type: ProjectTemplateType,
     options?: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<ProjectTemplateSchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<ProjectTemplateListSchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    return RequestHelper.get<ProjectTemplateSchema[]>()(
+    return RequestHelper.get<ProjectTemplateListSchema[]>()(
       this,
       endpoint`projects/${projectId}/templates/${type}`,
       {

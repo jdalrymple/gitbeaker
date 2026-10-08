@@ -193,7 +193,7 @@ describe('Users.create', () => {
 
 describe('Users.createPersonalAccessToken', () => {
   it('should request POST users/:id/personal_access_tokens', async () => {
-    await service.createPersonalAccessToken(1, 'token', ['test'], { expiresAt: '10' });
+    await service.createPersonalAccessToken('token', ['test'], { userId: 1, expiresAt: '10' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'users/1/personal_access_tokens', {
       body: {

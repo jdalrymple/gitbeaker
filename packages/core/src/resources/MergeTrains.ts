@@ -14,47 +14,52 @@ import type { CondensedMergeRequestSchema } from './MergeRequests';
 import type { PipelineSchema } from './Pipelines';
 import type { SimpleUserSchema } from './Users';
 
-import { BaseRequestSearchParams, RequestHelper, endpoint } from '../infrastructure';
+import {
+  BaseRequestSearchParams,
+  RequestHelper,
+  endpoint,
+  getPrefixedUrl,
+} from '../infrastructure';
 
 export interface MergeTrainSchema extends Record<string, unknown> {
   id: number;
   merge_request: CondensedMergeRequestSchema;
   user: MappedOmit<SimpleUserSchema, 'created_at'>;
-  pipeline: PipelineSchema;
+  pipeline: PipelineSchema | null;
   created_at: string;
   updated_at: string;
   target_branch: string;
-  status: string;
-  merged_at: string;
-  duration: number;
+  status: 'idle' | 'stale' | 'fresh' | 'merging' | 'merged' | 'skip_merged';
+  merged_at: string | null;
+  duration: number | null;
 }
 
 export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
-    options: {
+    options?: {
       targetBranch?: string;
       scope?: 'active' | 'complete';
-      sort?: 'asc' | 'desc';
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<MergeTrainSchema[], C, E, P>> {
-    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
+    const { sudo, showExpanded, maxPages, targetBranch, ...searchParams } = options || {};
 
-    return RequestHelper.get<MergeTrainSchema[]>()(
-      this,
-      endpoint`projects/${projectId}/merge_trains`,
-      {
-        sudo,
-        showExpanded,
-        maxPages,
-        searchParams: searchParams as BaseRequestSearchParams &
-          PaginationRequestSearchParams<P> &
-          PaginationType<P>,
-      },
-    );
+    const url = getPrefixedUrl('', {
+      projects: projectId,
+      merge_trains: targetBranch || true,
+    });
+
+    return RequestHelper.get<MergeTrainSchema[]>()(this, url, {
+      sudo,
+      showExpanded,
+      maxPages,
+      searchParams: searchParams as BaseRequestSearchParams &
+        PaginationRequestSearchParams<P> &
+        PaginationType<P>,
+    });
   }
 
   showStatus<E extends boolean = false>(
@@ -77,7 +82,12 @@ export class MergeTrains<C extends boolean = false> extends BaseResource<C> {
   addMergeRequest<E extends boolean = false>(
     projectId: string | number,
     mergeRequestIId: number,
-    options?: { whenPipelineSucceeds?: boolean; sha?: string; squash?: boolean } & ShowExpanded<E> &
+    options?: {
+      autoMerge?: boolean;
+      whenPipelineSucceeds?: boolean;
+      sha?: string;
+      squash?: boolean;
+    } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<MergeTrainSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};

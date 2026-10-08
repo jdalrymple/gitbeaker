@@ -56,7 +56,7 @@ describe('ResourceAccessTokens.all', () => {
 
 describe('ResourceAccessTokens.create', () => {
   it('should call the correct url for creating access token with a string identifer', async () => {
-    await service.create('5', 'test', ['api'], '2021-01-31');
+    await service.create('5', 'test', ['api'], { expiresAt: '2021-01-31' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_tokens', {
       body: {
@@ -70,7 +70,7 @@ describe('ResourceAccessTokens.create', () => {
   });
 
   it('should call the correct url for creating access token with a number identifer', async () => {
-    await service.create(5, 'test', ['api'], '2021-01-31');
+    await service.create(5, 'test', ['api'], { expiresAt: '2021-01-31' });
 
     expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/access_tokens', {
       body: {

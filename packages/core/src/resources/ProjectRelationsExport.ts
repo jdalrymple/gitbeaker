@@ -4,18 +4,33 @@ import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 
+export interface RelationsExportBatchSchema extends Record<string, unknown> {
+  status: number;
+  batch_number: number;
+  objects_count: number;
+  error?: string;
+  updated_at: string;
+}
+
 export interface RelationsExportStatusSchema extends Record<string, unknown> {
   relation: string;
   status: number;
   error?: string;
   updated_at: string;
+  batched: boolean;
+  batches_count: number;
+  batches?: RelationsExportBatchSchema[];
 }
 
 export class ProjectRelationsExport<C extends boolean = false> extends BaseResource<C> {
   download<E extends boolean = false>(
     projectId: string | number,
     relation: string,
-    options?: ShowExpanded<E> & Sudo,
+    options?: {
+      batched?: boolean;
+      batchNumber?: number;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -35,23 +50,30 @@ export class ProjectRelationsExport<C extends boolean = false> extends BaseResou
 
   showExportStatus<E extends boolean = false>(
     projectId: string | number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<RelationsExportStatusSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: {
+      relation?: string;
+    } & ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<RelationsExportStatusSchema[], C, E, void>> {
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
-    return RequestHelper.get<RelationsExportStatusSchema>()(
+    return RequestHelper.get<RelationsExportStatusSchema[]>()(
       this,
       endpoint`projects/${projectId}/export_relations/status`,
       {
         sudo,
         showExpanded,
+        searchParams,
       },
     );
   }
 
   scheduleExport<E extends boolean = false>(
     projectId: string | number,
-    options?: ShowExpanded<E> & Sudo,
+    options?: {
+      batched?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

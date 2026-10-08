@@ -21,6 +21,7 @@ export interface RepositoryFileExpandedSchema extends Record<string, unknown> {
   blob_id: string;
   commit_id: string;
   last_commit_id: string;
+  execute_filemode: boolean;
 }
 
 export interface RepositoryFileBlameSchema extends Record<string, unknown> {

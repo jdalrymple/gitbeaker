@@ -47,6 +47,23 @@ export type CondensedEnvironmentSchema = MappedOmit<
 
 export type ReviewAppSchema = MappedOmit<CondensedEnvironmentSchema, 'state'>;
 
+export type CreateEnvironmentOptions = {
+  description?: string;
+  externalUrl?: string;
+  tier?: EnvironmentTier;
+  clusterAgentId?: number;
+  kubernetesNamespace?: string;
+  fluxResourcePath?: string;
+  autoStopSetting?: 'always' | 'with_action';
+};
+
+export type EditEnvironmentOptions = {
+  clusterAgentId?: number | null;
+  kubernetesNamespace?: string | null;
+  fluxResourcePath?: string | null;
+  autoStopSetting?: string | null;
+} & CreateEnvironmentOptions;
+
 export class Environments<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
@@ -77,7 +94,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   create<E extends boolean = false>(
     projectId: string | number,
     name: string,
-    options?: { externalUrl?: string; tier?: EnvironmentTier } & ShowExpanded<E> & Sudo,
+    options?: CreateEnvironmentOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -98,7 +115,7 @@ export class Environments<C extends boolean = false> extends BaseResource<C> {
   edit<E extends boolean = false>(
     projectId: string | number,
     environmentId: number,
-    options?: { externalUrl?: string; tier?: EnvironmentTier } & ShowExpanded<E> & Sudo,
+    options?: EditEnvironmentOptions & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<CondensedEnvironmentSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

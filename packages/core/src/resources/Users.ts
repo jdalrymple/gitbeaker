@@ -109,6 +109,10 @@ export interface UserStatusSchema extends Record<string, unknown> {
   clear_status_at: string;
 }
 
+export interface UserAvatarUploadSchema extends Record<string, unknown> {
+  avatar_url: string;
+}
+
 export interface UserPreferenceSchema extends Record<string, unknown> {
   id: number;
   user_id: number;
@@ -577,26 +581,24 @@ export class Users<C extends boolean = false> extends BaseResource<C> {
   }
 
   createPersonalAccessToken<E extends boolean = false>(
-    userId: number,
     name: string,
     scopes: string[],
-    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
+    options?: { userId?: number; expiresAt?: string; description?: string } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PersonalAccessTokenSchema, C, E, void>> {
-    const { sudo, showExpanded, ...body } = options || {};
+    const { userId, sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<PersonalAccessTokenSchema>()(
-      this,
-      endpoint`users/${userId}/personal_access_tokens`,
-      {
-        sudo,
-        showExpanded,
-        body: {
-          ...body,
-          name,
-          scopes,
-        },
+    const url = getPrefixedUrl('personal_access_tokens', { users: userId, user: !userId });
+
+    return RequestHelper.post<PersonalAccessTokenSchema>()(this, url, {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        name,
+        scopes,
       },
-    );
+    });
   }
 
   createCIRunner<E extends boolean = false>(

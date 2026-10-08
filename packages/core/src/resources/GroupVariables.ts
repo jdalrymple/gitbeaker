@@ -26,6 +26,7 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      maskedAndHidden?: boolean;
       environmentScope?: string;
       description?: string;
       raw?: boolean;
@@ -41,10 +42,11 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      maskedAndHidden?: boolean;
       environmentScope?: string;
       description?: string;
       raw?: boolean;
-      filter: VariableFilter;
+      filter?: VariableFilter;
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
@@ -52,13 +54,13 @@ export interface GroupVariables<C extends boolean = false> extends ResourceVaria
   show<E extends boolean = false>(
     groupId: string | number,
     key: string,
-    options?: ShowExpanded<E> & Sudo,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<VariableSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     key: string,
-    options?: ShowExpanded<E> & Sudo,
+    options?: { filter?: VariableFilter } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
