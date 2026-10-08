@@ -197,11 +197,11 @@ async function createGitHubRelease(version, changelogContent) {
   }
 
   try {
-    // Clean up changelog content for GitHub release
-    const cleanChangelog = changelogContent.replace(/"/g, '\\"').replace(/\n/g, '\\n');
-    const releaseCommand = `gh release create v${version} --title "v${version}" --notes "${cleanChangelog}"`;
-
-    execSync(releaseCommand, { stdio: 'pipe' });
+    execFileSync(
+      'gh',
+      ['release', 'create', `v${version}`, '--title', `v${version}`, '--notes', changelogContent],
+      { stdio: 'pipe', encoding: 'utf8' },
+    );
     log(`Created GitHub release v${version}`, '🚀');
   } catch (error) {
     log(`Failed to create GitHub release: ${error.message}`, '⚠️');
