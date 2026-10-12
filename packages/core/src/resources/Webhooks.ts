@@ -114,6 +114,7 @@ export interface WebhookBaseNoteEventSchema extends BaseWebhookEventSchema {
     system: boolean;
     st_diff: WebhookDiffSchema | null;
     url: string;
+    action: 'create' | 'update';
   };
 }
 
@@ -367,6 +368,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     labels: WebhookLabelSchema[] | null;
     action: string;
     detailed_merge_status: string;
+    // Only present on `update` events that pushed new commits
+    oldrev?: string;
   };
   labels: WebhookLabelSchema[] | null;
   changes: {
@@ -672,7 +675,7 @@ export interface WebhookReleaseEventSchema {
 
 export interface WebhookEmojiEventSchema extends BaseWebhookEventSchema {
   object_kind: 'emoji';
-  event_type: 'award';
+  event_type: 'award' | 'revoke';
   merge_request?: WebhookMergeRequestEventSchema['object_attributes'];
   project_id: number;
   object_attributes: {
@@ -686,7 +689,7 @@ export interface WebhookEmojiEventSchema extends BaseWebhookEventSchema {
     action: string;
     awarded_on_url: string;
   };
-  note: {
+  note?: {
     attachment: string | null;
     author_id: number;
     change_position: boolean | null;
@@ -712,7 +715,7 @@ export interface WebhookEmojiEventSchema extends BaseWebhookEventSchema {
     description: string;
     url: string;
   };
-  issue: {
+  issue?: {
     author_id: number;
     closed_at: string | null;
     confidential: boolean;
