@@ -7,7 +7,7 @@ import {
 } from '@gitbeaker/requester-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { defaultRequestHandler, processBody } from '../../src/Requester';
+import { defaultRequestHandler, getRetryAfterDelay, processBody } from '../../src/Requester';
 import { getError } from '../utils/index';
 
 const mockFetch = vi.fn<typeof fetch>();
@@ -377,6 +377,137 @@ describe('defaultRequestHandler', () => {
       headers: { 'content-type': 'application/json' },
       status: 200,
     });
+  });
+
+  it('should parse a Retry-After header given in seconds', () => {
+    const response = new Response(null, { status: 429, headers: { 'retry-after': '30' } });
+
+    expect(getRetryAfterDelay(response)).toBe(30_000);
+  });
+
+  it('should parse a Retry-After header given as an HTTP date', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-11-02T10:00:00Z'));
+
+    const response = new Response(null, {
+      status: 429,
+      headers: { 'retry-after': 'Mon, 02 Nov 2026 10:00:45 GMT' },
+    });
+
+    expect(getRetryAfterDelay(response)).toBe(45_000);
+
+    vi.useRealTimers();
+  });
+
+  it('should not return a negative delay for a Retry-After date in the past', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-11-02T10:00:00Z'));
+
+    const response = new Response(null, {
+      status: 429,
+      headers: { 'retry-after': 'Mon, 02 Nov 2026 09:00:00 GMT' },
+    });
+
+    expect(getRetryAfterDelay(response)).toBe(0);
+
+    vi.useRealTimers();
+  });
+
+  it('should return undefined when Retry-After is missing or unparseable', () => {
+    expect(getRetryAfterDelay(new Response(null, { status: 429 }))).toBeUndefined();
+    expect(
+      getRetryAfterDelay(new Response(null, { status: 429, headers: { 'retry-after': 'soon' } })),
+    ).toBeUndefined();
+    expect(
+      getRetryAfterDelay(new Response(null, { status: 429, headers: { 'retry-after': '-5' } })),
+    ).toBeUndefined();
+  });
+
+  it('should wait for the Retry-After header duration before retrying a 429 response', async () => {
+    vi.useFakeTimers();
+
+    const fakeFailedReturnValue = Promise.resolve(
+      new Response(JSON.stringify({ error: 'msg' }), {
+        status: 429,
+        statusText: 'Too Many Requests',
+        headers: {
+          'content-type': 'application/json',
+          'retry-after': '30',
+        },
+      }),
+    );
+
+    const fakeSuccessfulReturnValue = Promise.resolve(
+      new Response(JSON.stringify({}), {
+        status: 200,
+        statusText: 'Good',
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    );
+
+    mockFetch.mockReturnValueOnce(fakeFailedReturnValue);
+    mockFetch.mockReturnValueOnce(fakeSuccessfulReturnValue);
+
+    const outputPromise = defaultRequestHandler('http://test.com', {} as RequestOptions);
+
+    // Default backoff for the first retry is 250ms. The request must still be waiting past that.
+    await vi.advanceTimersByTimeAsync(29_000);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(1_000);
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+
+    const output = await outputPromise;
+
+    expect(output).toMatchObject({
+      body: {},
+      headers: { 'content-type': 'application/json' },
+      status: 200,
+    });
+
+    vi.useRealTimers();
+  });
+
+  it('should fall back to exponential backoff when Retry-After is absent', async () => {
+    vi.useFakeTimers();
+
+    const fakeFailedReturnValue = Promise.resolve(
+      new Response(JSON.stringify({ error: 'msg' }), {
+        status: 429,
+        statusText: 'Too Many Requests',
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    );
+
+    const fakeSuccessfulReturnValue = Promise.resolve(
+      new Response(JSON.stringify({}), {
+        status: 200,
+        statusText: 'Good',
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    );
+
+    mockFetch.mockReturnValueOnce(fakeFailedReturnValue);
+    mockFetch.mockReturnValueOnce(fakeSuccessfulReturnValue);
+
+    const outputPromise = defaultRequestHandler('http://test.com', {} as RequestOptions);
+
+    await vi.advanceTimersByTimeAsync(249);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(1);
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+
+    const output = await outputPromise;
+    expect(output).toMatchObject({ status: 200 });
+
+    vi.useRealTimers();
   });
 
   it('should return a default error if retries are unsuccessful', async () => {
