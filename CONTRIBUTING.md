@@ -7,86 +7,77 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a
-   build.
-2. Update the README.md with details of changes to the interface, this includes new environment
-   variables, exposed ports, useful file locations and container parameters.
-3. Increase the version numbers in any examples files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+1. Branch off `main` and install dependencies with `pnpm install`. A pre-commit hook runs the
+   linter and formatter for you.
+2. Add or update tests for your change, and make sure `pnpm lint`, `pnpm format`, `pnpm test:types`
+   and `pnpm test:unit` pass. See the [Testing Guide](./docs/TESTING.md) for integration and e2e
+   tests, which run against a real GitLab instance.
+3. Update the README.md and the [docs](./docs) if your change affects how the library is used.
+4. Give the PR a conventional commit title, as described in
+   [PR Titles and Releases](#pr-titles-and-releases). Don't change version numbers or changelogs
+   yourself; they are updated automatically when the PR is released.
+5. Once CI passes and a maintainer has approved the PR, they will squash merge it into `main`.
+
+## PR Titles and Releases
+
+Releases are fully automated and driven by the PR title, which must follow the
+[Conventional Commits](https://www.conventionalcommits.org/) format. A check on every PR enforces
+this.
+
+```
+type(scope)!: Subject
+```
+
+The scope and `!` are optional. The type decides whether merging the PR publishes a release, and
+which version is bumped:
+
+| Type                                           | Release |
+| ---------------------------------------------- | ------- |
+| `feat`                                         | Minor   |
+| `fix`, `perf`, `security`, `refactor`, `chore` | Patch   |
+| `docs`                                         | None    |
+| Any type with `!`, e.g. `feat!: ...`           | Major   |
+
+- A line starting with `BREAKING CHANGE:` in the PR description also makes the release major.
+- The `dev-deps` scope never releases, whatever the type, e.g. `chore(dev-deps): Bump vitest`.
+  Changes to dependencies that ship with the packages use `chore(deps)` and release a patch.
+- There are no separate `build`, `ci`, `style`, `test` or `dep` types. Use a scope of `chore` or
+  `fix` instead, e.g. `chore(ci): ...` or `fix(deps): ...`.
+- Adding `[skip ci]` to the PR title or description skips the release. As the title becomes the
+  merge commit message, it also skips the CI pipeline on `main`.
+
+The PR title and description become the changelog entry, so write them for the people using the
+library.
+
+### Production releases
+
+PRs are squash merged into `main`. Each merge triggers a release of every PR merged since the last
+release, once all tests pass. If several PRs are merged in quick succession, they are released
+together by the pipeline for the newest one.
+
+### Canary and pre-releases
+
+Maintainers can release a PR before it is merged by approving an optional job in its CircleCI
+pipeline:
+
+- `approve-canary` releases under the `canary` npm tag. It becomes available once unit and
+  integration tests pass.
+- `approve-pre` releases under the `pre` npm tag. It also waits for the e2e tests, which need to be
+  approved in CircleCI first.
+
+The release is built from the exact commit of that pipeline. These jobs are not available on PRs
+from forks, which never run with release credentials.
+
+As an extra safeguard, these releases are only staged on npm. They become available once a
+maintainer approves them on npmjs.com with two-factor authentication, or with `npm stage approve`.
+The staged versions are posted as a comment on the PR.
+
+### Publishing
+
+Packages are published with [npm trusted publishing](https://docs.npmjs.com/trusted-publishers), so
+no npm token is stored in CI. Production releases can only publish from `main`.
 
 ## Code of Conduct
 
-### Our Pledge
-
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
-
-### Our Standards
-
-Examples of behavior that contributes to creating a positive environment
-include:
-
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
-
-Examples of unacceptable behavior by participants include:
-
-- The use of sexualized language or imagery and unwelcome sexual attention or
-  advances
-- Trolling, insulting/derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information, such as a physical or electronic
-  address, without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a
-  professional setting
-
-### Our Responsibilities
-
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
-
-Project maintainers have the right and responsibility to remove, edit, or
-reject comments, commits, code, wiki edits, issues, and other contributions
-that are not aligned to this Code of Conduct, or to ban temporarily or
-permanently any contributor for other behaviors that they deem inappropriate,
-threatening, offensive, or harmful.
-
-### Scope
-
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
-
-### Enforcement
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
-
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
-
-### Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at [http://contributor-covenant.org/version/1/4][version]
-
-[homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
+This project follows the [Code of Conduct](./CODE_OF_CONDUCT.md). By participating, you are expected
+to uphold it.

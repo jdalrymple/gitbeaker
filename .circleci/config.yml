@@ -517,50 +517,24 @@ jobs:
   # ====================
   # RELEASE JOBS
   # ====================
-  release-canary:
+  release-prerelease:
     executor: node-executor
+    parameters:
+      release_type:
+        type: enum
+        enum: [canary, pre]
     steps:
       - restore_workspace
       - gh/setup
       - run:
           name: Setup release environment
           command: |
-            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
             git config --global user.name "CircleCI"
             git config --global user.email "ci@circleci.com"
             git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
       - run:
-          name: Check for canary release
-          command: |
-            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
-
-            pnpm release:canary
-
-  release-pre:
-    executor: node-executor
-    steps:
-      - restore_workspace
-      - gh/setup
-      - run:
-          name: Verify GitHub CLI authentication
-          command: |
-            echo "Testing GitHub CLI authentication..."
-            gh auth status
-            echo "Testing API access..."
-            gh api user --jq .login
-      - run:
-          name: Setup release environment
-          command: |
-            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-            git config --global user.name "CircleCI"
-            git config --global user.email "ci@circleci.com"
-            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-      - run:
-          name: Check for pre release
-          command: |
-            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
-
-            pnpm release:pre
+          name: Release << parameters.release_type >>
+          command: pnpm release:<< parameters.release_type >>
 
   release-production:
     executor: node-executor
@@ -570,18 +544,12 @@ jobs:
       - run:
           name: Setup release environment
           command: |
-            npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
             git config --global user.name "CircleCI"
             git config --global user.email "ci@circleci.com"
             git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-            git fetch --all
-            git checkout $CIRCLE_BRANCH
       - run:
           name: Release production
-          command: |
-            export PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | sed 's/.*\/pull\///')
-
-            pnpm release
+          command: pnpm release
 
 # ====================
 # WORKFLOWS
@@ -639,26 +607,26 @@ workflows:
           executor_type: << matrix.executor_type >>
           requires: [build]
 
-      # Live test setup (manual for PRs, auto for main/next)
+      # Live test setup (manual for PRs, auto for main)
       - setup-e2e-tests:
           requires: [build, lint, format]
           filters:
             branches:
-              only: [main, next]
+              only: [main]
 
       - approve-e2e-tests:
           type: approval
           requires: [build, lint, format]
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main]
 
       - setup-e2e-tests:
           name: setup-e2e-tests-manual
           requires: [approve-e2e-tests]
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main]
 
       # E2E tests
       - run-package-tests:
@@ -670,7 +638,7 @@ workflows:
           requires: [setup-e2e-tests]
           filters:
             branches:
-              only: [main, next]
+              only: [main]
 
       - run-package-tests:
           name: test-e2e-rest-manual
@@ -681,7 +649,7 @@ workflows:
           requires: [setup-e2e-tests-manual]
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main]
 
       - run-package-tests:
           name: test-e2e-cli
@@ -691,7 +659,7 @@ workflows:
           requires: [setup-e2e-tests]
           filters:
             branches:
-              only: [main, next]
+              only: [main]
       - run-package-tests:
           name: test-e2e-cli-manual
           package_short: 'cli'
@@ -700,7 +668,7 @@ workflows:
           requires: [setup-e2e-tests-manual]
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main]
 
       # Cleanup - runs on success OR failure of tests
       - teardown-e2e-tests:
@@ -719,7 +687,7 @@ workflows:
                 - success
           filters:
             branches:
-              only: [main, next]
+              only: [main]
 
       - teardown-e2e-tests:
           name: teardown-e2e-tests-manual
@@ -732,7 +700,7 @@ workflows:
                 - success
           filters:
             branches:
-              ignore: [main, next]
+              ignore: [main]
 
       # Codecov uploads (only on non-forked branches to avoid token access issues)
       - codecov-upload:
@@ -749,8 +717,9 @@ workflows:
 
       # Releases - mutually exclusive per pipeline run
 
-      # Canary: any branch except main, next, release (where pre-releases run)
-      - release-canary:
+      # Canary and pre: optional, started by a maintainer approving the job in CircleCI
+      - approve-canary:
+          type: approval
           requires:
             - build
             - test-unit-requester-utils
@@ -764,10 +733,23 @@ workflows:
             - test-integration-core
           filters:
             branches:
-              ignore: [main, next, release]
+              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
+              ignore: [main, /^pull\/.*/]
 
-      # Pre-release: only release or next branches
-      - release-pre:
+      - release-prerelease:
+          name: release-canary
+          # npm trusted publisher for this context may only stage (see scripts/auto-release.mjs)
+          context: [npm-prerelease]
+          release_type: canary
+          requires: [approve-canary]
+          filters:
+            branches:
+              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
+              ignore: [main, /^pull\/.*/]
+
+      # Pre-release also waits on e2e, which needs its own approval on PR branches
+      - approve-pre:
+          type: approval
           requires:
             - build
             - test-unit-requester-utils
@@ -779,14 +761,30 @@ workflows:
             - test-types-rest
             - test-integration-rest
             - test-integration-core
-            - test-e2e-rest
-            - test-e2e-cli
+            - test-e2e-rest-manual
+            - test-e2e-cli-manual
           filters:
             branches:
-              only: [release, next]
+              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
+              ignore: [main, /^pull\/.*/]
+
+      - release-prerelease:
+          name: release-pre
+          # npm trusted publisher for this context may only stage (see scripts/auto-release.mjs)
+          context: [npm-prerelease]
+          release_type: pre
+          requires: [approve-pre]
+          filters:
+            branches:
+              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
+              ignore: [main, /^pull\/.*/]
 
       # Production: only main branch
       - release-production:
+          # Run one production release at a time, in merge order
+          serial-group: << pipeline.project.slug >>/release-production
+          # Restricted to main in CircleCI; npm trusted publisher for this context may publish
+          context: [npm-production]
           requires:
             - build
             - test-unit-requester-utils
@@ -810,10 +808,10 @@ workflows:
           requires: [setup-e2e-tests]
           filters:
             branches:
-              only: [main, next]
+              only: [main]
 
       - cleanup-old-gitlab-images:
           requires: [approve-cleanup-old-images]
           filters:
             branches:
-              only: [main, next]
+              only: [main]

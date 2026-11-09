@@ -4,5 +4,15 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-    labels:
-      - 'type:dependencies'
+    # PR titles drive releases (see scripts/auto-release.mjs):
+    # chore(deps) releases a patch, chore(dev-deps) doesn't release
+    commit-message:
+      prefix: 'chore(deps)'
+      prefix-development: 'chore(dev-deps)'
+    # One PR per week for each dependency type, so production dependencies cause at most one
+    # patch release a week. Security updates are not grouped and still arrive as individual PRs.
+    groups:
+      production:
+        dependency-type: 'production'
+      development:
+        dependency-type: 'development'
