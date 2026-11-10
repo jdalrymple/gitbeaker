@@ -38,7 +38,7 @@
     "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/ui": "^4.1.10",
-    "all-contributors-cli": "^6.27.0-rc.1",
+    "all-contributors-cli": "^7.0.0",
     "eslint-plugin-perfectionist": "^5.10.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0",
