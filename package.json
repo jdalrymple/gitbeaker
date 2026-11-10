@@ -36,8 +36,8 @@
     "@changesets/write": "^0.4.0",
     "@codecov/bundle-analyzer": "^2.0.1",
     "@types/node": "^26.1.2",
-    "@vitest/coverage-v8": "^4.1.10",
-    "@vitest/ui": "^4.1.10",
+    "@vitest/coverage-v8": "^5.0.0",
+    "@vitest/ui": "^5.0.0",
     "all-contributors-cli": "^7.0.0",
     "eslint-plugin-perfectionist": "^5.10.0",
     "husky": "^9.1.7",
@@ -47,7 +47,7 @@
     "oxlint": "^1.76.0",
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.10"
+    "vitest": "^5.0.0"
   },
   "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }
