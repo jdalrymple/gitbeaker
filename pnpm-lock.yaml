@@ -179,8 +179,8 @@ importers:
         specifier: ^4.0.16
         version: 4.0.16
       '@changesets/git':
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^4.0.0
+        version: 4.0.1
       '@changesets/read':
         specifier: ^1.0.0
         version: 1.0.1
