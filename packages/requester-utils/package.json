@@ -42,9 +42,9 @@
     "lint:fix": "oxlint src test scripts --fix"
   },
   "dependencies": {
-    "picomatch": "^4.0.5",
+    "picomatch": "^4.0.7",
     "picoquery": "^2.5.0",
-    "rate-limiter-flexible": "^11.2.0",
+    "rate-limiter-flexible": "^11.3.0",
     "xcase": "^2.0.1"
   },
   "devDependencies": {
