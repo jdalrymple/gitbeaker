@@ -27,8 +27,8 @@ importers:
         specifier: ^0.6.7
         version: 0.6.7
       '@changesets/write':
-        specifier: ^0.4.0
-        version: 0.4.0
+        specifier: ^1.0.0
+        version: 1.0.1
       '@codecov/bundle-analyzer':
         specifier: ^2.0.1
         version: 2.0.1
@@ -336,11 +336,8 @@ packages:
     resolution: {integrity: sha512-OLo8iYUapRK92AXRW2vCxN0YtkB8B+E5viuxnVLZAlm3fcmQIpMXic0Yloha5Q0v4p1iw4vXWOYIeBj3HQ8vbg==}
     engines: {node: ^22.11 || ^24 || >=26}
 
-  '@changesets/write@0.4.0':
-    resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
-
-  '@changesets/write@1.0.0-next.8':
-    resolution: {integrity: sha512-cLU+1MLWYlqV8JbV4gGK3CyDFuZAe7qx81ezjkiXruTquUI90UKSSH5gynhOwG7tZEqpY4xHTOBQ2ssXU0b4sw==}
+  '@changesets/write@1.0.1':
+    resolution: {integrity: sha512-q/ThtP9gcnEP6xlv7LrY26C2mHqdGBti/MmOVngt/M/oIGYkssmQGxPK9WzBNt2juVcH/vml2WQ+ra8LXYOTaA==}
     engines: {node: ^22.11 || ^24 || >=26}
 
   '@clack/core@1.4.3':
@@ -2071,9 +2068,6 @@ packages:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
 
-  flatted@3.4.3:
-    resolution: {integrity: sha512-/zipXxyO6rGvuNGDiULY9MvEGSkb2gaG4GGH4ygMi0ZZzyMHdUZBmntJmx5x1G2VuPytCwGN4xsJP6cw+sK+vQ==}
-
   flatted@3.4.4:
     resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
 
@@ -2662,11 +2656,6 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
-
-  prettier@2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
 
   prettier@3.6.2:
     resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
@@ -3287,7 +3276,7 @@ snapshots:
       '@changesets/read': 1.0.0-next.9
       '@changesets/should-skip-package': 1.0.0-next.8
       '@changesets/types': 7.0.0-next.8
-      '@changesets/write': 1.0.0-next.8
+      '@changesets/write': 1.0.1
       '@clack/prompts': 1.7.0
       '@manypkg/get-packages': 3.1.0
       '@pnpm/deps.graph-sequencer': 1100.0.1
@@ -3385,7 +3374,7 @@ snapshots:
 
   '@changesets/parse@1.0.0-next.9':
     dependencies:
-      '@changesets/types': 7.0.0-next.8
+      '@changesets/types': 7.0.0
       yaml: 2.9.0
 
   '@changesets/pre@2.0.2':
@@ -3438,17 +3427,10 @@ snapshots:
 
   '@changesets/types@7.0.0-next.8': {}
 
-  '@changesets/write@0.4.0':
-    dependencies:
-      '@changesets/types': 6.1.0
-      fs-extra: 7.0.1
-      human-id: 4.2.0
-      prettier: 2.8.8
-
-  '@changesets/write@1.0.0-next.8':
+  '@changesets/write@1.0.1':
     dependencies:
       '@changesets/format': 0.1.1
-      '@changesets/types': 7.0.0-next.8
+      '@changesets/types': 7.0.0
       human-id: 4.2.0
 
   '@clack/core@1.4.3':
@@ -4826,12 +4808,10 @@ snapshots:
 
   flat-cache@4.0.1:
     dependencies:
-      flatted: 3.4.3
+      flatted: 3.4.4
       keyv: 4.5.4
 
   flat@5.0.2: {}
-
-  flatted@3.4.3: {}
 
   flatted@3.4.4: {}
 
@@ -5478,8 +5458,6 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
-
-  prettier@2.8.8: {}
 
   prettier@3.6.2:
     optional: true
