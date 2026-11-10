@@ -52,9 +52,9 @@
     "xcase": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^26.1.2",
-    "tsdown": "^0.22.14",
-    "tsx": "^4.23.1",
-    "typescript": "^6.0.3"
+    "@types/node": "^26.6.6",
+    "tsdown": "^0.23.7",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }
