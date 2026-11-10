@@ -460,7 +460,8 @@ function executeProductionRelease() {
   execCommandOrThrow('pnpm changeset version', 'Versioning packages');
 
   // Update contributors (local operation - always execute)
-  execCommandOrThrow('pnpm all-contributors-cli generate', 'Updating contributors');
+  // The all-contributors-cli package installs its binary as "all-contributors"
+  execCommandOrThrow('pnpm all-contributors generate', 'Updating contributors');
 
   // Commit changes (local operation - always execute)
   try {
