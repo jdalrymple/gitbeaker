@@ -31,7 +31,7 @@
     "@changesets/cli": "3.0.0-next.10",
     "@changesets/config": "^4.0.0",
     "@changesets/get-release-plan": "^4.0.16",
-    "@changesets/git": "^3.0.4",
+    "@changesets/git": "^4.0.0",
     "@changesets/read": "^1.0.0",
     "@changesets/write": "^1.0.0",
     "@codecov/bundle-analyzer": "^2.0.1",
