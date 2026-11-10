@@ -12,8 +12,9 @@ import type { CustomAttributeSchema } from '../templates/ResourceCustomAttribute
 
 import { ResourceCustomAttributes } from '../templates';
 
-export interface GroupCustomAttributes<C extends boolean = false>
-  extends ResourceCustomAttributes<C> {
+export interface GroupCustomAttributes<
+  C extends boolean = false,
+> extends ResourceCustomAttributes<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,

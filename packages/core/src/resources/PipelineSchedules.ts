@@ -17,6 +17,11 @@ import type { SimpleUserSchema } from './Users';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 
+export interface PipelineInputSchema extends Record<string, unknown> {
+  name: string;
+  value: string | number | boolean | string[];
+}
+
 export interface CondensedPipelineScheduleSchema extends Record<string, unknown> {
   id: number;
   description: string;
@@ -28,6 +33,7 @@ export interface CondensedPipelineScheduleSchema extends Record<string, unknown>
   created_at: string;
   updated_at: string;
   owner: MappedOmit<SimpleUserSchema, 'created_at'>;
+  inputs?: PipelineInputSchema[];
 }
 
 export interface PipelineScheduleSchema extends CondensedPipelineScheduleSchema {
@@ -63,12 +69,34 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     );
   }
 
-  allTriggeredPipelines<E extends boolean = false>(
+  allTriggeredPipelines<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     pipelineScheduleId: number,
-    options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    options?: {
+      scope?: 'running' | 'pending' | 'finished' | 'branches' | 'tags';
+      sort?: 'asc' | 'desc';
+      status?:
+        | 'created'
+        | 'waiting_for_resource'
+        | 'preparing'
+        | 'pending'
+        | 'running'
+        | 'success'
+        | 'failed'
+        | 'canceled'
+        | 'skipped'
+        | 'manual'
+        | 'scheduled';
+      updatedAfter?: string;
+      updatedBefore?: string;
+      createdAfter?: string;
+      createdBefore?: string;
+    } & BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<PipelineSchema[], C, E, P>> {
+    const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
     return RequestHelper.get<PipelineSchema[]>()(
       this,
@@ -76,6 +104,10 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
       {
         sudo,
         showExpanded,
+        maxPages,
+        searchParams: searchParams as BaseRequestSearchParams &
+          PaginationRequestSearchParams<P> &
+          PaginationType<P>,
       },
     );
   }
@@ -85,7 +117,12 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
     description: string,
     ref: string,
     cron: string,
-    options?: { cronTimezone?: string; active?: boolean } & ShowExpanded<E> & Sudo,
+    options?: {
+      cronTimezone?: string;
+      active?: boolean;
+      inputs?: PipelineInputSchema[];
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -114,6 +151,7 @@ export class PipelineSchedules<C extends boolean = false> extends BaseResource<C
       cron?: string;
       cronTimezone?: string;
       active?: boolean;
+      inputs?: PipelineInputSchema[];
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<PipelineScheduleSchema, C, E, void>> {

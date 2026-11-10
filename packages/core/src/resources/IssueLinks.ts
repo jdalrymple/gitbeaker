@@ -40,6 +40,7 @@ export interface IssueLinkSchema extends Record<string, unknown> {
 }
 
 export interface ExpandedIssueLinkSchema extends Record<string, unknown> {
+  id: number;
   source_issue: MappedOmit<
     IssueLinkSchema,
     'link_type' | 'link_created_at' | 'link_updated_at' | 'issue_link_id'
@@ -69,6 +70,24 @@ export class IssueLinks<C extends boolean = false> extends BaseResource<C> {
         searchParams: searchParams as BaseRequestSearchParams &
           PaginationRequestSearchParams<P> &
           PaginationType<P>,
+      },
+    );
+  }
+
+  show<E extends boolean = false>(
+    projectId: string | number,
+    issueIId: number,
+    issueLinkId: string | number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ExpandedIssueLinkSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<ExpandedIssueLinkSchema>()(
+      this,
+      endpoint`projects/${projectId}/issues/${issueIId}/links/${issueLinkId}`,
+      {
+        sudo,
+        showExpanded,
       },
     );
   }

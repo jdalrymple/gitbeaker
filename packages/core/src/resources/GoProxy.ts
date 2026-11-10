@@ -50,7 +50,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     moduleName: string,
     moduleVersion: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<Blob, C, E, void>> {
+  ): Promise<GitlabAPIResponse<Blob, false, E, void>> {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.get<Blob>()(
@@ -68,7 +68,7 @@ export class GoProxy<C extends boolean = false> extends BaseResource<C> {
     moduleName: string,
     moduleVersion: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+  ): Promise<GitlabAPIResponse<Blob, false, E, void>> {
     const { sudo, showExpanded } = options || {};
 
     return RequestHelper.get<Blob>()(

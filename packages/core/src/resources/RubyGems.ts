@@ -42,6 +42,23 @@ export class RubyGems<C extends boolean = false> extends BaseResource<C> {
     );
   }
 
+  downloadGemspecFile<E extends boolean = false>(
+    projectId: string,
+    fileName: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<Blob>()(
+      this,
+      endpoint`projects/${projectId}/packages/rubygems/quick/Marshal.4.8/${fileName}`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
+  }
+
   uploadGemFile<E extends boolean = false>(
     projectId: string | number,
     packageFile: { content: Blob; filename: string },

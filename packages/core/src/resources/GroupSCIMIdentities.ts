@@ -9,16 +9,20 @@ import type {
 } from '../infrastructure';
 import type { IdentitySchema } from './GroupSAMLIdentities';
 
+export interface SCIMIdentitySchema extends IdentitySchema {
+  active: boolean;
+}
+
 import { RequestHelper, endpoint } from '../infrastructure';
 
 export class GroupSCIMIdentities<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
     options: PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<IdentitySchema[], C, E, P>> {
+  ): Promise<GitlabAPIResponse<SCIMIdentitySchema[], C, E, P>> {
     const { sudo, showExpanded, maxPages, ...searchParams } = options || {};
 
-    return RequestHelper.get<IdentitySchema[]>()(
+    return RequestHelper.get<SCIMIdentitySchema[]>()(
       this,
       endpoint`groups/${groupId}/scim/identities`,
       {
@@ -41,6 +45,32 @@ export class GroupSCIMIdentities<C extends boolean = false> extends BaseResource
       sudo,
       showExpanded,
       body,
+    });
+  }
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    uid: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<SCIMIdentitySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<SCIMIdentitySchema>()(this, endpoint`groups/${groupId}/scim/${uid}`, {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  remove<E extends boolean = false>(
+    groupId: string | number,
+    uid: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/scim/${uid}`, {
+      sudo,
+      showExpanded,
     });
   }
 }

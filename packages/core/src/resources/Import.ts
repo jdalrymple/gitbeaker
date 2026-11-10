@@ -9,13 +9,13 @@ export interface RepositoryImportStatusSchema extends Record<string, unknown> {
   name: string;
   full_path: string;
   full_name: string;
-}
-
-export interface ExpandedRepositoryImportStatusSchema extends RepositoryImportStatusSchema {
-  import_source: string;
-  import_status: string;
-  human_import_status_name: string;
-  provider_link: string;
+  refs_url?: string;
+  import_source?: string;
+  import_status?: string;
+  human_import_status_name?: string;
+  provider_link?: string;
+  relation_type?: string | null;
+  import_warning?: string | null;
 }
 
 export class Import<C extends boolean = false> extends BaseResource<C> {
@@ -26,7 +26,14 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     options?: {
       newName?: string;
       githubHostname?: string;
-      optionalStages?: Record<string, string>;
+      optionalStages?: {
+        attachmentsImport?: boolean;
+        collaboratorsImport?: boolean;
+        singleEndpointIssueEventsImport?: boolean;
+        singleEndpointNotesImport?: boolean;
+      };
+      paginationLimit?: number;
+      timeoutStrategy?: 'optimistic' | 'pessimistic';
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
@@ -76,7 +83,12 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
     personalAccessToken: string,
     bitbucketServerProject: string,
     bitbucketServerRepository: string,
-    options?: { newName?: string; targetNamespace?: string } & ShowExpanded<E> & Sudo,
+    options?: {
+      newName?: string;
+      targetNamespace?: string;
+      timeoutStrategy?: 'optimistic' | 'pessimistic';
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -90,6 +102,31 @@ export class Import<C extends boolean = false> extends BaseResource<C> {
         personalAccessToken,
         bitbucketServerProject,
         bitbucketServerRepo: bitbucketServerRepository,
+      },
+    });
+  }
+
+  importBitbucketCloudRepository<E extends boolean = false>(
+    repoPath: string,
+    targetNamespace: string,
+    options?: {
+      bitbucketApiToken?: string;
+      bitbucketEmail?: string;
+      bitbucketUsername?: string;
+      bitbucketAppPassword?: string;
+      newName?: string;
+    } & ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<RepositoryImportStatusSchema, C, E, void>> {
+    const { sudo, showExpanded, ...body } = options || {};
+
+    return RequestHelper.post<RepositoryImportStatusSchema>()(this, 'import/bitbucket', {
+      sudo,
+      showExpanded,
+      body: {
+        ...body,
+        repoPath,
+        targetNamespace,
       },
     });
   }

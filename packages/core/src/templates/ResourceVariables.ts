@@ -21,7 +21,11 @@ export interface VariableSchema extends Record<string, unknown> {
   value: string;
   protected: boolean;
   masked: boolean;
+  hidden?: boolean;
   key: string;
+  environment_scope?: string;
+  description?: string;
+  raw?: boolean;
 }
 export type VariableFilter = Record<'environment_scope', number | string>;
 
@@ -54,6 +58,7 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      maskedAndHidden?: boolean;
       environmentScope?: string;
       description?: string;
       raw?: boolean;
@@ -81,8 +86,9 @@ export class ResourceVariables<C extends boolean> extends BaseResource<C> {
       variableType?: VariableType;
       protected?: boolean;
       masked?: boolean;
+      maskedAndHidden?: boolean;
       environmentScope?: string;
-      filter: VariableFilter;
+      filter?: VariableFilter;
       description?: string;
       raw?: boolean;
     } & ShowExpanded<E> &

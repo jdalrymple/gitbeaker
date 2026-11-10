@@ -33,6 +33,12 @@ export interface GroupHooks<C extends boolean = false> {
     options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<GroupHookSchema[], C, E, P>>;
 
+  allEvents<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    groupId: string | number,
+    hookId: number,
+    options?: { status?: string | number } & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<import('../templates/ResourceHooks').HookEventSchema[], C, E, P>>;
+
   edit<E extends boolean = false>(
     groupId: string | number,
     hookId: number,
@@ -45,6 +51,13 @@ export interface GroupHooks<C extends boolean = false> {
     hookId: number,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
+
+  resendEvent<E extends boolean = false>(
+    groupId: string | number,
+    hookId: number,
+    eventId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<{ response_status: number }, C, E, void>>;
 
   show<E extends boolean = false>(
     groupId: string | number,

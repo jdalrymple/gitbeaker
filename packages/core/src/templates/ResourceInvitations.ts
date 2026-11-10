@@ -22,9 +22,20 @@ export interface InvitationSchema extends Record<string, unknown> {
   invite_email: string;
   created_at: string;
   access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
-  expires_at: string;
-  user_name: string;
-  created_by_name: string;
+  expires_at?: string | null;
+  user_name?: string;
+  created_by_name?: string;
+}
+
+export interface InvitationResponseSchema extends Record<string, unknown> {
+  status: 'success' | 'error';
+  message?: Record<string, string>;
+  queued_users?: Record<string, string>;
+}
+
+export interface UpdateInvitationResponseSchema extends Record<string, unknown> {
+  expires_at?: string | null;
+  access_level: Exclude<AccessLevel, AccessLevel.ADMIN>;
 }
 
 export class ResourceInvitations<C extends boolean = false> extends BaseResource<C> {
@@ -38,24 +49,29 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     options: {
       expiresAt?: string;
       inviteSource?: string;
+      memberRoleId?: number;
       tasksToBeDone?: string[];
       tasksProjectId?: number;
     } & OneOf<{ email: string; userId: string }> &
       ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<InvitationResponseSchema, C, E, void>> {
     ensureRequiredParams({ email: options?.email, userId: options?.userId });
 
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.post<InvitationSchema>()(this, endpoint`${resourceId}/invitations`, {
-      sudo,
-      showExpanded,
-      body: {
-        ...body,
-        accessLevel,
+    return RequestHelper.post<InvitationResponseSchema>()(
+      this,
+      endpoint`${resourceId}/invitations`,
+      {
+        sudo,
+        showExpanded,
+        body: {
+          ...body,
+          accessLevel,
+        },
       },
-    });
+    );
   }
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -85,10 +101,10 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
       accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<UpdateInvitationResponseSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.put<InvitationSchema>()(
+    return RequestHelper.put<UpdateInvitationResponseSchema>()(
       this,
       endpoint`${resourceId}/invitations/${email}`,
       {
@@ -103,16 +119,12 @@ export class ResourceInvitations<C extends boolean = false> extends BaseResource
     resourceId: string | number,
     email: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.del<InvitationSchema>()(
-      this,
-      endpoint`${resourceId}/invitations/${email}`,
-      {
-        sudo,
-        showExpanded,
-      },
-    );
+    return RequestHelper.del()(this, endpoint`${resourceId}/invitations/${email}`, {
+      sudo,
+      showExpanded,
+    });
   }
 }

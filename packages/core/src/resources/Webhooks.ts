@@ -72,6 +72,10 @@ export type ReviewerState =
   | 'review_started'
   | 'unapproved';
 
+export type MergeRequestSystemAction =
+  | 'approvals_reset_on_push'
+  | 'code_owner_approvals_reset_on_push';
+
 export type WebhookUserSchema = {
   email: string;
 } & Pick<SimpleUserSchema, 'id' | 'name' | 'username' | 'avatar_url'>;
@@ -367,6 +371,8 @@ export interface WebhookMergeRequestEventSchema extends BaseWebhookEventSchema {
     labels: WebhookLabelSchema[] | null;
     action: string;
     detailed_merge_status: string;
+    system: boolean;
+    system_action?: MergeRequestSystemAction;
   };
   labels: WebhookLabelSchema[] | null;
   changes: {
@@ -432,8 +438,10 @@ export interface WebhookWikiEventSchema extends MappedOmit<BaseWebhookEventSchem
   };
 }
 
-export interface WebhookPipelineEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookPipelineEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'pipeline';
   object_attributes: {
     id: number;
@@ -569,8 +577,10 @@ export interface WebhookJobEventSchema extends MappedOmit<BaseWebhookEventSchema
   source_pipeline: WebhookPipelineSchema;
 }
 
-export interface WebhookDeploymentEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookDeploymentEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'deployment';
   status: string;
   status_changed_at: string;
@@ -617,8 +627,10 @@ export interface WebhookSubGroupEventSchema {
   parent_full_path: string;
 }
 
-export interface WebhookFeatureFlagEventSchema
-  extends MappedOmit<BaseWebhookEventSchema, 'event_name'> {
+export interface WebhookFeatureFlagEventSchema extends MappedOmit<
+  BaseWebhookEventSchema,
+  'event_name'
+> {
   object_kind: 'feature_flag';
   user_url: string;
   object_attributes: {

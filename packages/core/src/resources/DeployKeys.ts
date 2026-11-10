@@ -65,7 +65,7 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
     projectId: string | number,
     title: string,
     key: string,
-    options?: { canPush?: boolean } & ShowExpanded<E> & Sudo,
+    options?: { canPush?: boolean; expiresAt?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
     const { showExpanded, sudo, ...body } = options || {};
 
@@ -82,6 +82,24 @@ export class DeployKeys<C extends boolean = false> extends BaseResource<C> {
         },
       },
     );
+  }
+
+  createAdmin<E extends boolean = false>(
+    title: string,
+    key: string,
+    options?: { expiresAt?: string } & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<DeployKeySchema, C, E, void>> {
+    const { showExpanded, sudo, ...body } = options || {};
+
+    return RequestHelper.post<DeployKeySchema>()(this, 'deploy_keys', {
+      showExpanded,
+      sudo,
+      body: {
+        ...body,
+        title,
+        key,
+      },
+    });
   }
 
   edit<E extends boolean = false>(

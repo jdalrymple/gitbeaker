@@ -17,6 +17,8 @@ import { RequestHelper, endpoint } from '../infrastructure';
 export interface SAMLGroupSchema extends Record<string, unknown> {
   name: string;
   access_level: number;
+  member_role_id?: number;
+  provider?: string;
 }
 
 export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
@@ -44,7 +46,11 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     samlGroupName: string,
     accessLevel: Exclude<AccessLevel, AccessLevel.ADMIN>,
-    options?: ShowExpanded<E> & Sudo,
+    options?: {
+      memberRoleId?: number;
+      provider?: string;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -62,9 +68,9 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   remove<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    options?: ShowExpanded<E> & Sudo,
+    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.del()(
       this,
@@ -72,6 +78,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
+        searchParams,
       },
     );
   }
@@ -79,9 +86,9 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     groupId: string | number,
     samlGroupName: string,
-    options: ShowExpanded<E> & Sudo,
+    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SAMLGroupSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<SAMLGroupSchema>()(
       this,
@@ -89,6 +96,7 @@ export class GroupSAMLLinks<C extends boolean = false> extends BaseResource<C> {
       {
         sudo,
         showExpanded,
+        searchParams,
       },
     );
   }

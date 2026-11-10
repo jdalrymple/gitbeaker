@@ -1,6 +1,6 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
-import type { GitlabAPIResponse, ShowExpanded } from '../infrastructure';
+import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded } from '../infrastructure';
 
 import { RequestHelper, endpoint, getPrefixedUrl } from '../infrastructure';
 
@@ -44,10 +44,14 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
   removeDistTag<E extends boolean = false>(
     packageName: string,
     tag: string,
-    options?: { projectId?: string | number } & ShowExpanded<E>,
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { showExpanded, projectId } = options || {};
-    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
+    const { showExpanded, projectId, groupId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
 
     return RequestHelper.del()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
       showExpanded,
@@ -57,10 +61,14 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
   setDistTag<E extends boolean = false>(
     packageName: string,
     tag: string,
-    options?: { projectId?: string | number } & ShowExpanded<E>,
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<void, C, E, void>> {
-    const { showExpanded, projectId } = options || {};
-    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
+    const { showExpanded, projectId, groupId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
 
     return RequestHelper.put<void>()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
       showExpanded,
@@ -69,10 +77,14 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
 
   showDistTags<E extends boolean = false>(
     packageName: string,
-    options?: { projectId?: string | number } & ShowExpanded<E>,
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Record<string, string>, C, E, void>> {
-    const { showExpanded, projectId } = options || {};
-    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
+    const { showExpanded, projectId, groupId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
 
     return RequestHelper.get<Record<string, string>>()(
       this,
@@ -85,10 +97,14 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
 
   showMetadata<E extends boolean = false>(
     packageName: string,
-    options?: { projectId?: string | number } & ShowExpanded<E>,
+    options?: OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
+      ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<NPMPackageMetadataSchema, C, E, void>> {
-    const { showExpanded, projectId } = options || {};
-    const prefix = getPrefixedUrl('packages/npm', { projects: projectId });
+    const { showExpanded, projectId, groupId } = options || {};
+    const prefix = getPrefixedUrl('packages/npm', {
+      projects: projectId,
+      groups: groupId ? `${groupId}/-` : undefined,
+    });
 
     return RequestHelper.get<NPMPackageMetadataSchema>()(this, `${prefix}/${packageName}`, {
       showExpanded,

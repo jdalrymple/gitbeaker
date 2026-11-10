@@ -82,7 +82,7 @@ describe('ResourceLabels.subscribe', () => {
   it('should call the correct url with a resource id and label id', async () => {
     await service.subscribe('5', 6);
 
-    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/issues/6/subscribe', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/labels/6/subscribe', {
       body: {},
       showExpanded: undefined,
       sudo: undefined,
@@ -94,7 +94,7 @@ describe('ResourceLabels.unsubscribe', () => {
   it('should call the correct url with a resource id and label id', async () => {
     await service.unsubscribe('5', 6);
 
-    expect(RequestHelper.del()).toHaveBeenCalledWith(service, '5/issues/6/unsubscribe', {
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, '5/labels/6/unsubscribe', {
       body: {},
       showExpanded: undefined,
       sudo: undefined,

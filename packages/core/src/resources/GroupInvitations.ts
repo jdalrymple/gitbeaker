@@ -9,7 +9,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { InvitationSchema } from '../templates/ResourceInvitations';
+import type {
+  InvitationSchema,
+  InvitationResponseSchema,
+  UpdateInvitationResponseSchema,
+} from '../templates/ResourceInvitations';
 
 import { AccessLevel } from '../constants';
 import { ResourceInvitations } from '../templates';
@@ -21,12 +25,13 @@ export interface GroupInvitations<C extends boolean = false> {
     options: {
       expiresAt?: string;
       inviteSource?: string;
+      memberRoleId?: number;
       tasksToBeDone?: string[];
       tasksProjectId?: number;
     } & OneOf<{ email: string; userId: string }> &
       ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<InvitationResponseSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
@@ -44,13 +49,13 @@ export interface GroupInvitations<C extends boolean = false> {
       accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<UpdateInvitationResponseSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     groupId: string | number,
     email: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
 export class GroupInvitations<C extends boolean = false> extends ResourceInvitations<C> {

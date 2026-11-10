@@ -1,0 +1,34 @@
+# Release versions are derived from the PR title (see scripts/auto-release.mjs), so it
+# must be a conventional commit: type(scope)!: Subject
+name: 'PR Title'
+
+on:
+  # pull_request_target so fork PRs can report a status. Safe here: no PR code is checked out.
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  validate:
+    # Required status check on main - renaming this changes the check name
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Keep in sync with CHANGE_TYPES in scripts/auto-release.mjs
+          types: |
+            feat
+            fix
+            perf
+            security
+            refactor
+            chore
+            docs
+          # Same shape as TITLE_PATTERN in scripts/auto-release.mjs, including the breaking "!"
+          headerPattern: '^(\w+)(?:\(([^)]+)\))?!?: (\S.*)$'
+          headerPatternCorrespondence: type, scope, subject

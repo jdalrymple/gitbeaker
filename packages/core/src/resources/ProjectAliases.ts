@@ -53,13 +53,13 @@ export class ProjectAliases<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  edit<E extends boolean = false>(
+  show<E extends boolean = false>(
     name: string,
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectAliasSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
 
-    return RequestHelper.post<ProjectAliasSchema>()(this, `project_aliases/${name}`, {
+    return RequestHelper.get<ProjectAliasSchema>()(this, `project_aliases/${name}`, {
       sudo,
       showExpanded,
     });

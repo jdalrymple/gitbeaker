@@ -14,9 +14,10 @@ export interface ApplicationSchema extends Record<string, unknown> {
   id: number;
   application_id: string;
   application_name: string;
-  secret: string;
+  secret?: string;
   callback_url: string;
   confidential: boolean;
+  scopes: string[];
 }
 
 export class Applications<C extends boolean = false> extends BaseResource<C> {
@@ -63,5 +64,21 @@ export class Applications<C extends boolean = false> extends BaseResource<C> {
       sudo,
       showExpanded,
     });
+  }
+
+  renewSecret<E extends boolean = false>(
+    applicationId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ApplicationSchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<ApplicationSchema>()(
+      this,
+      `applications/${applicationId}/renew-secret`,
+      {
+        sudo,
+        showExpanded,
+      },
+    );
   }
 }

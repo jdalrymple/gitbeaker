@@ -83,21 +83,30 @@ describe('ResourceDiscussions.create', () => {
       },
     });
 
-    const formData = new FormData();
-    formData.append('body', 'test');
-    formData.append('position[base_sha]', 'sha1');
-    formData.append('position[start_sha]', 'sha2');
-    formData.append('position[head_sha]', 'sha3');
-    formData.append('position[position_type]', 'text');
-    formData.append('position[new_line]', '1');
-    formData.append('position[new_path]', 'index.js');
-    formData.append('position[line_range][start][type]', 'new');
-    formData.append('position[line_range][start][line_code]', '1');
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      '1/resource2/2/discussions',
+      expect.objectContaining({
+        body: expect.any(FormData),
+        showExpanded: undefined,
+        sudo: undefined,
+      }),
+    );
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, '1/resource2/2/discussions', {
-      body: formData,
-      showExpanded: undefined,
-      sudo: undefined,
+    // Verify FormData contents
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formData = call[2].body as FormData;
+    const formDataObj = Object.fromEntries(formData.entries());
+    expect(formDataObj).toEqual({
+      body: 'test',
+      'position[base_sha]': 'sha1',
+      'position[start_sha]': 'sha2',
+      'position[head_sha]': 'sha3',
+      'position[position_type]': 'text',
+      'position[new_line]': '1',
+      'position[new_path]': 'index.js',
+      'position[line_range][start][type]': 'new',
+      'position[line_range][start][line_code]': '1',
     });
   });
 });

@@ -73,7 +73,7 @@ export class FeatureFlagUserLists<C extends boolean = false> extends BaseResourc
   edit<E extends boolean = false>(
     projectId: string | number,
     featureFlagUserListIId: string | number,
-    options?: { name?: string; userXIds?: string } & ShowExpanded<E> & Sudo,
+    options?: { name?: string; userXids?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<FeatureFlagUserListSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 

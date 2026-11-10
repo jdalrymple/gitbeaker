@@ -11,8 +11,9 @@ import type { AwardEmojiSchema } from '../templates/ResourceAwardEmojis';
 
 import { ResourceAwardEmojis } from '../templates';
 
-export interface ProjectSnippetAwardEmojis<C extends boolean = false>
-  extends ResourceAwardEmojis<C> {
+export interface ProjectSnippetAwardEmojis<
+  C extends boolean = false,
+> extends ResourceAwardEmojis<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
     snippetId: number,

@@ -25,6 +25,9 @@ export interface ProtectedTagAccessLevelSummarySchema {
   id: number;
   access_level: ProtectedTagAccessLevel;
   access_level_description: string;
+  deploy_key_id?: number | null;
+  group_id?: number | null;
+  user_id?: number | null;
 }
 
 export interface ProtectedTagSchema extends Record<string, unknown> {
@@ -35,6 +38,7 @@ export interface ProtectedTagSchema extends Record<string, unknown> {
 export type ProtectedTagAccessLevelEntity = OneOf<{
   userId: number;
   groupId: number;
+  deployKeyId: number;
   accessLevel: ProtectedTagAccessLevel;
 }>;
 
@@ -65,8 +69,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
-    } & BaseRequestSearchParams &
-      ShowExpanded<E> &
+    } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
@@ -92,8 +95,7 @@ export class ProtectedTags<C extends boolean = false> extends BaseResource<C> {
     options?: {
       createAccessLevel?: ProtectedTagAccessLevel;
       allowedToCreate?: ProtectedTagAccessLevelEntity[];
-    } & BaseRequestSearchParams &
-      ShowExpanded<E> &
+    } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ProtectedTagSchema, C, E, void>> {
     return this.create(projectId, tagName, options);

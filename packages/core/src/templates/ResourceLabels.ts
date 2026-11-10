@@ -32,6 +32,7 @@ export interface LabelSchema extends SimpleLabelSchema {
   subscribed: boolean;
   priority: number;
   is_project_label: boolean;
+  archived?: boolean;
 }
 
 export interface LabelCountSchema extends Record<string, unknown> {
@@ -50,7 +51,10 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     options: {
       withCounts: true;
       includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
       search?: string;
+      archived?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -61,7 +65,10 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     options?: {
       includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
       search?: string;
+      archived?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -73,7 +80,10 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     options?: {
       withCounts?: boolean;
       includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
       search?: string;
+      archived?: boolean;
     } & BaseRequestSearchParams &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
@@ -95,7 +105,8 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     resourceId: string | number,
     labelName: string,
     color: string,
-    options?: { description?: string; priority?: number } & ShowExpanded<E> & Sudo,
+    options?: { description?: string; priority?: number; archived?: boolean } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -116,6 +127,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
     options: {
       description?: string;
       priority?: number;
+      archived?: boolean;
     } & OneOf<{ newName: string; color: string }> &
       ShowExpanded<E> &
       Sudo,
@@ -168,7 +180,12 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
   show<E extends boolean = false>(
     resourceId: string | number,
     labelId: number | string,
-    options?: { includeAncestorGroups?: boolean } & ShowExpanded<E> & Sudo,
+    options?: {
+      includeAncestorGroups?: boolean;
+      includeDescendantGroups?: boolean;
+      onlyGroupLabels?: boolean;
+    } & ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<LabelSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 
@@ -188,7 +205,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.post<LabelSchema>()(
       this,
-      endpoint`${resourceId}/issues/${labelId}/subscribe`,
+      endpoint`${resourceId}/labels/${labelId}/subscribe`,
       {
         sudo,
         showExpanded,
@@ -206,7 +223,7 @@ export class ResourceLabels<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.post<LabelSchema>()(
       this,
-      endpoint`${resourceId}/issues/${labelId}/unsubscribe`,
+      endpoint`${resourceId}/labels/${labelId}/unsubscribe`,
       {
         sudo,
         showExpanded,

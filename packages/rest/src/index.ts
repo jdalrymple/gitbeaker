@@ -22,8 +22,11 @@ export { AccessLevel };
 
 // Dual Export Pattern: Each class exported as both constructor and instance type
 
-export const { Agents } = API;
-export type Agents<C extends boolean = false> = CORE.Agents<C>;
+export const { ClusterAgents } = API;
+export type ClusterAgents<C extends boolean = false> = CORE.ClusterAgents<C>;
+
+export const { AICatalog } = API;
+export type AICatalog<C extends boolean = false> = CORE.AICatalog<C>;
 
 export const { AlertManagement } = API;
 export type AlertManagement<C extends boolean = false> = CORE.AlertManagement<C>;
@@ -36,6 +39,8 @@ export type ApplicationPlanLimits<C extends boolean = false> = CORE.ApplicationP
 
 export const { Applications } = API;
 export type Applications<C extends boolean = false> = CORE.Applications<C>;
+export const { Attestations } = API;
+export type Attestations<C extends boolean = false> = CORE.Attestations<C>;
 
 export const { ApplicationSettings } = API;
 export type ApplicationSettings<C extends boolean = false> = CORE.ApplicationSettings<C>;
@@ -55,6 +60,9 @@ export type Branches<C extends boolean = false> = CORE.Branches<C>;
 export const { BroadcastMessages } = API;
 export type BroadcastMessages<C extends boolean = false> = CORE.BroadcastMessages<C>;
 
+export const { BulkImports } = API;
+export type BulkImports<C extends boolean = false> = CORE.BulkImports<C>;
+
 export const { CodeSuggestions } = API;
 export type CodeSuggestions<C extends boolean = false> = CORE.CodeSuggestions<C>;
 
@@ -64,20 +72,46 @@ export type CommitDiscussions<C extends boolean = false> = CORE.CommitDiscussion
 export const { Commits } = API;
 export type Commits<C extends boolean = false> = CORE.Commits<C>;
 
+export const { CompliancePolicySettings } = API;
+export type CompliancePolicySettings<C extends boolean = false> = CORE.CompliancePolicySettings<C>;
+
 export const { Composer } = API;
 export type Composer<C extends boolean = false> = CORE.Composer<C>;
 
-export const { Conan } = API;
-export type Conan<C extends boolean = false> = CORE.Conan<C>;
+export const { ConanV1 } = API;
+export type ConanV1<C extends boolean = false> = CORE.ConanV1<C>;
+
+export const { ConanV2 } = API;
+export type ConanV2<C extends boolean = false> = CORE.ConanV2<C>;
+
+export const { DataManagement } = API;
+export type DataManagement<C extends boolean = false> = CORE.DataManagement<C>;
+
+export const { DatabaseMigrations } = API;
+export type DatabaseMigrations<C extends boolean = false> = CORE.DatabaseMigrations<C>;
 
 export const { ContainerRegistry } = API;
 export type ContainerRegistry<C extends boolean = false> = CORE.ContainerRegistry<C>;
 
-export const { DashboardAnnotations } = API;
-export type DashboardAnnotations<C extends boolean = false> = CORE.DashboardAnnotations<C>;
+export const { ContainerRegistryProtectionTagRules } = API;
+export type ContainerRegistryProtectionTagRules<C extends boolean = false> =
+  CORE.ContainerRegistryProtectionTagRules<C>;
+
+export const { ContainerRepositoryProtectionRules } = API;
+export type ContainerRepositoryProtectionRules<C extends boolean = false> =
+  CORE.ContainerRepositoryProtectionRules<C>;
+
+export const { ContainerVirtualRegistry } = API;
+export type ContainerVirtualRegistry<C extends boolean = false> = CORE.ContainerVirtualRegistry<C>;
 
 export const { Debian } = API;
 export type Debian<C extends boolean = false> = CORE.Debian<C>;
+
+export const { Dependencies } = API;
+export type Dependencies<C extends boolean = false> = CORE.Dependencies<C>;
+
+export const { DependencyListExport } = API;
+export type DependencyListExport<C extends boolean = false> = CORE.DependencyListExport<C>;
 
 export const { DependencyProxy } = API;
 export type DependencyProxy<C extends boolean = false> = CORE.DependencyProxy<C>;
@@ -91,38 +125,17 @@ export type DeployTokens<C extends boolean = false> = CORE.DeployTokens<C>;
 export const { Deployments } = API;
 export type Deployments<C extends boolean = false> = CORE.Deployments<C>;
 
-export const { DockerfileTemplates } = API;
-export type DockerfileTemplates<C extends boolean = false> = CORE.DockerfileTemplates<C>;
-
 export const { Environments } = API;
 export type Environments<C extends boolean = false> = CORE.Environments<C>;
-
-export const { EpicAwardEmojis } = API;
-export type EpicAwardEmojis<C extends boolean = false> = CORE.EpicAwardEmojis<C>;
-
-export const { EpicDiscussions } = API;
-export type EpicDiscussions<C extends boolean = false> = CORE.EpicDiscussions<C>;
-
-export const { EpicIssues } = API;
-export type EpicIssues<C extends boolean = false> = CORE.EpicIssues<C>;
-
-export const { EpicLabelEvents } = API;
-export type EpicLabelEvents<C extends boolean = false> = CORE.EpicLabelEvents<C>;
-
-export const { EpicLinks } = API;
-export type EpicLinks<C extends boolean = false> = CORE.EpicLinks<C>;
-
-export const { EpicNotes } = API;
-export type EpicNotes<C extends boolean = false> = CORE.EpicNotes<C>;
-
-export const { Epics } = API;
-export type Epics<C extends boolean = false> = CORE.Epics<C>;
 
 export const { ErrorTrackingClientKeys } = API;
 export type ErrorTrackingClientKeys<C extends boolean = false> = CORE.ErrorTrackingClientKeys<C>;
 
 export const { ErrorTrackingSettings } = API;
 export type ErrorTrackingSettings<C extends boolean = false> = CORE.ErrorTrackingSettings<C>;
+
+export const { ExternalControls } = API;
+export type ExternalControls<C extends boolean = false> = CORE.ExternalControls<C>;
 
 export const { Events } = API;
 export type Events<C extends boolean = false> = CORE.Events<C>;
@@ -139,26 +152,29 @@ export type FeatureFlags<C extends boolean = false> = CORE.FeatureFlags<C>;
 export const { FeatureFlagUserLists } = API;
 export type FeatureFlagUserLists<C extends boolean = false> = CORE.FeatureFlagUserLists<C>;
 
+export const { Features } = API;
+export type Features<C extends boolean = false> = CORE.Features<C>;
+
+export const { Flows } = API;
+export type Flows<C extends boolean = false> = CORE.Flows<C>;
+
 export const { FreezePeriods } = API;
 export type FreezePeriods<C extends boolean = false> = CORE.FreezePeriods<C>;
-
-export const { GeoNodes } = API;
-export type GeoNodes<C extends boolean = false> = CORE.GeoNodes<C>;
 
 export const { GeoSites } = API;
 export type GeoSites<C extends boolean = false> = CORE.GeoSites<C>;
 
-export const { GitignoreTemplates } = API;
-export type GitignoreTemplates<C extends boolean = false> = CORE.GitignoreTemplates<C>;
-
-export const { GitLabCIYMLTemplates } = API;
-export type GitLabCIYMLTemplates<C extends boolean = false> = CORE.GitLabCIYMLTemplates<C>;
+export const { GitLabDuoChat } = API;
+export type GitLabDuoChat<C extends boolean = false> = CORE.GitLabDuoChat<C>;
 
 export const { GitlabPages } = API;
 export type GitlabPages<C extends boolean = false> = CORE.GitlabPages<C>;
 
 export const { GoProxy } = API;
 export type GoProxy<C extends boolean = false> = CORE.GoProxy<C>;
+
+export const { GoogleCloudIntegration } = API;
+export type GoogleCloudIntegration<C extends boolean = false> = CORE.GoogleCloudIntegration<C>;
 
 export const { GroupAccessRequests } = API;
 export type GroupAccessRequests<C extends boolean = false> = CORE.GroupAccessRequests<C>;
@@ -175,17 +191,23 @@ export type GroupBadges<C extends boolean = false> = CORE.GroupBadges<C>;
 export const { GroupCustomAttributes } = API;
 export type GroupCustomAttributes<C extends boolean = false> = CORE.GroupCustomAttributes<C>;
 
-export const { GroupDORA4Metrics } = API;
-export type GroupDORA4Metrics<C extends boolean = false> = CORE.GroupDORA4Metrics<C>;
+export const { GroupEnterpriseUsers } = API;
+export type GroupEnterpriseUsers<C extends boolean = false> = CORE.GroupEnterpriseUsers<C>;
 
 export const { GroupEpicBoards } = API;
 export type GroupEpicBoards<C extends boolean = false> = CORE.GroupEpicBoards<C>;
+
+export const { GroupDORA4Metrics } = API;
+export type GroupDORA4Metrics<C extends boolean = false> = CORE.GroupDORA4Metrics<C>;
 
 export const { GroupHooks } = API;
 export type GroupHooks<C extends boolean = false> = CORE.GroupHooks<C>;
 
 export const { GroupImportExports } = API;
 export type GroupImportExports<C extends boolean = false> = CORE.GroupImportExports<C>;
+
+export const { GroupIntegrations } = API;
+export type GroupIntegrations<C extends boolean = false> = CORE.GroupIntegrations<C>;
 
 export const { GroupInvitations } = API;
 export type GroupInvitations<C extends boolean = false> = CORE.GroupInvitations<C>;
@@ -205,6 +227,10 @@ export type GroupLDAPLinks<C extends boolean = false> = CORE.GroupLDAPLinks<C>;
 export const { GroupMarkdownUploads } = API;
 export type GroupMarkdownUploads<C extends boolean = false> = CORE.GroupMarkdownUploads<C>;
 
+export const { GroupPlaceholderReassignments } = API;
+export type GroupPlaceholderReassignments<C extends boolean = false> =
+  CORE.GroupPlaceholderReassignments<C>;
+
 export const { GroupMemberRoles } = API;
 export type GroupMemberRoles<C extends boolean = false> = CORE.GroupMemberRoles<C>;
 
@@ -213,6 +239,9 @@ export type GroupMembers<C extends boolean = false> = CORE.GroupMembers<C>;
 
 export const { GroupMilestones } = API;
 export type GroupMilestones<C extends boolean = false> = CORE.GroupMilestones<C>;
+
+export const { GroupProtectedBranches } = API;
+export type GroupProtectedBranches<C extends boolean = false> = CORE.GroupProtectedBranches<C>;
 
 export const { GroupProtectedEnvironments } = API;
 export type GroupProtectedEnvironments<C extends boolean = false> =
@@ -231,6 +260,12 @@ export const { GroupRepositoryStorageMoves } = API;
 export type GroupRepositoryStorageMoves<C extends boolean = false> =
   CORE.GroupRepositoryStorageMoves<C>;
 
+export const { GroupSecuritySettings } = API;
+export type GroupSecuritySettings<C extends boolean = false> = CORE.GroupSecuritySettings<C>;
+
+export const { GroupSSHCertificates } = API;
+export type GroupSSHCertificates<C extends boolean = false> = CORE.GroupSSHCertificates<C>;
+
 export const { Groups } = API;
 export type Groups<C extends boolean = false> = CORE.Groups<C>;
 
@@ -248,6 +283,9 @@ export type GroupServiceAccounts<C extends boolean = false> = CORE.GroupServiceA
 
 export const { GroupVariables } = API;
 export type GroupVariables<C extends boolean = false> = CORE.GroupVariables<C>;
+
+export const { GroupWikiNotes } = API;
+export type GroupWikiNotes<C extends boolean = false> = CORE.GroupWikiNotes<C>;
 
 export const { GroupWikis } = API;
 export type GroupWikis<C extends boolean = false> = CORE.GroupWikis<C>;
@@ -313,11 +351,8 @@ export type Keys<C extends boolean = false> = CORE.Keys<C>;
 export const { License } = API;
 export type License<C extends boolean = false> = CORE.License<C>;
 
-export const { LicenseTemplates } = API;
-export type LicenseTemplates<C extends boolean = false> = CORE.LicenseTemplates<C>;
-
-export const { LinkedEpics } = API;
-export type LinkedEpics<C extends boolean = false> = CORE.LinkedEpics<C>;
+export const { Licenses } = API;
+export type Licenses<C extends boolean = false> = CORE.Licenses<C>;
 
 export const { Lint } = API;
 export type Lint<C extends boolean = false> = CORE.Lint<C>;
@@ -331,6 +366,10 @@ export type Maven<C extends boolean = false> = CORE.Maven<C>;
 export const { MergeRequestApprovals } = API;
 export type MergeRequestApprovals<C extends boolean = false> = CORE.MergeRequestApprovals<C>;
 
+export const { MergeRequestApprovalSettings } = API;
+export type MergeRequestApprovalSettings<C extends boolean = false> =
+  CORE.MergeRequestApprovalSettings<C>;
+
 export const { MergeRequestAwardEmojis } = API;
 export type MergeRequestAwardEmojis<C extends boolean = false> = CORE.MergeRequestAwardEmojis<C>;
 
@@ -343,6 +382,10 @@ export type MergeRequestDiscussions<C extends boolean = false> = CORE.MergeReque
 
 export const { MergeRequestDraftNotes } = API;
 export type MergeRequestDraftNotes<C extends boolean = false> = CORE.MergeRequestDraftNotes<C>;
+
+export const { MergeRequestIterationEvents } = API;
+export type MergeRequestIterationEvents<C extends boolean = false> =
+  CORE.MergeRequestIterationEvents<C>;
 
 export const { MergeRequestLabelEvents } = API;
 export type MergeRequestLabelEvents<C extends boolean = false> = CORE.MergeRequestLabelEvents<C>;
@@ -370,6 +413,9 @@ export type Metadata<C extends boolean = false> = CORE.Metadata<C>;
 export const { Migrations } = API;
 export type Migrations<C extends boolean = false> = CORE.Migrations<C>;
 
+export const { ModelRegistry } = API;
+export type ModelRegistry<C extends boolean = false> = CORE.ModelRegistry<C>;
+
 export const { Namespaces } = API;
 export type Namespaces<C extends boolean = false> = CORE.Namespaces<C>;
 
@@ -382,6 +428,15 @@ export type NPM<C extends boolean = false> = CORE.NPM<C>;
 export const { NuGet } = API;
 export type NuGet<C extends boolean = false> = CORE.NuGet<C>;
 
+export const { Orbit } = API;
+export type Orbit<C extends boolean = false> = CORE.Orbit<C>;
+
+export const { Organizations } = API;
+export type Organizations<C extends boolean = false> = CORE.Organizations<C>;
+
+export const { Pages } = API;
+export type Pages<C extends boolean = false> = CORE.Pages<C>;
+
 export const { PackageRegistry } = API;
 export type PackageRegistry<C extends boolean = false> = CORE.PackageRegistry<C>;
 
@@ -393,6 +448,9 @@ export type PagesDomains<C extends boolean = false> = CORE.PagesDomains<C>;
 
 export const { PersonalAccessTokens } = API;
 export type PersonalAccessTokens<C extends boolean = false> = CORE.PersonalAccessTokens<C>;
+
+export const { PipelineTriggers } = API;
+export type PipelineTriggers<C extends boolean = false> = CORE.PipelineTriggers<C>;
 
 export const { PipelineSchedules } = API;
 export type PipelineSchedules<C extends boolean = false> = CORE.PipelineSchedules<C>;
@@ -462,6 +520,9 @@ export const { ProjectProtectedEnvironments } = API;
 export type ProjectProtectedEnvironments<C extends boolean = false> =
   CORE.ProjectProtectedEnvironments<C>;
 
+export const { ProjectPullMirroring } = API;
+export type ProjectPullMirroring<C extends boolean = false> = CORE.ProjectPullMirroring<C>;
+
 export const { ProjectPushRules } = API;
 export type ProjectPushRules<C extends boolean = false> = CORE.ProjectPushRules<C>;
 
@@ -477,6 +538,9 @@ export type ProjectRemoteMirrors<C extends boolean = false> = CORE.ProjectRemote
 export const { ProjectRepositoryStorageMoves } = API;
 export type ProjectRepositoryStorageMoves<C extends boolean = false> =
   CORE.ProjectRepositoryStorageMoves<C>;
+
+export const { ProjectSecuritySettings } = API;
+export type ProjectSecuritySettings<C extends boolean = false> = CORE.ProjectSecuritySettings<C>;
 
 export const { Projects } = API;
 export type Projects<C extends boolean = false> = CORE.Projects<C>;
@@ -510,14 +574,20 @@ export type ProjectVariables<C extends boolean = false> = CORE.ProjectVariables<
 export const { ProjectVulnerabilities } = API;
 export type ProjectVulnerabilities<C extends boolean = false> = CORE.ProjectVulnerabilities<C>;
 
+export const { ProjectWikiNotes } = API;
+export type ProjectWikiNotes<C extends boolean = false> = CORE.ProjectWikiNotes<C>;
+
 export const { ProjectWikis } = API;
 export type ProjectWikis<C extends boolean = false> = CORE.ProjectWikis<C>;
 
-export const { ProtectedBranches } = API;
-export type ProtectedBranches<C extends boolean = false> = CORE.ProtectedBranches<C>;
+export const { ProjectProtectedBranches } = API;
+export type ProjectProtectedBranches<C extends boolean = false> = CORE.ProjectProtectedBranches<C>;
 
 export const { ProtectedTags } = API;
 export type ProtectedTags<C extends boolean = false> = CORE.ProtectedTags<C>;
+
+export const { PlanLimits } = API;
+export type PlanLimits<C extends boolean = false> = CORE.PlanLimits<C>;
 
 export const { PyPI } = API;
 export type PyPI<C extends boolean = false> = CORE.PyPI<C>;
@@ -543,6 +613,12 @@ export type RubyGems<C extends boolean = false> = CORE.RubyGems<C>;
 export const { Runners } = API;
 export type Runners<C extends boolean = false> = CORE.Runners<C>;
 
+export const { RunnerControllers } = API;
+export type RunnerControllers<C extends boolean = false> = CORE.RunnerControllers<C>;
+
+export const { RunnerControllerTokens } = API;
+export type RunnerControllerTokens<C extends boolean = false> = CORE.RunnerControllerTokens<C>;
+
 export const { Search } = API;
 export type Search<C extends boolean = false> = CORE.Search<C>;
 
@@ -557,6 +633,9 @@ export type ServiceAccounts<C extends boolean = false> = CORE.ServiceAccounts<C>
 
 export const { ServiceData } = API;
 export type ServiceData<C extends boolean = false> = CORE.ServiceData<C>;
+
+export const { ServicePing } = API;
+export type ServicePing<C extends boolean = false> = CORE.ServicePing<C>;
 
 export const { SidekiqMetrics } = API;
 export type SidekiqMetrics<C extends boolean = false> = CORE.SidekiqMetrics<C>;
@@ -579,9 +658,14 @@ export type SystemHooks<C extends boolean = false> = CORE.SystemHooks<C>;
 
 export const { Tags } = API;
 export type Tags<C extends boolean = false> = CORE.Tags<C>;
+export const { TokenInformation } = API;
+export type TokenInformation<C extends boolean = false> = CORE.TokenInformation<C>;
 
 export const { TodoLists } = API;
 export type TodoLists<C extends boolean = false> = CORE.TodoLists<C>;
+
+export const { TerraformModules } = API;
+export type TerraformModules<C extends boolean = false> = CORE.TerraformModules<C>;
 
 export const { Topics } = API;
 export type Topics<C extends boolean = false> = CORE.Topics<C>;
@@ -591,9 +675,14 @@ export type UserCustomAttributes<C extends boolean = false> = CORE.UserCustomAtt
 
 export const { UserEmails } = API;
 export type UserEmails<C extends boolean = false> = CORE.UserEmails<C>;
+export const { UserFollows } = API;
+export type UserFollows<C extends boolean = false> = CORE.UserFollows<C>;
 
 export const { UserGPGKeys } = API;
 export type UserGPGKeys<C extends boolean = false> = CORE.UserGPGKeys<C>;
+
+export const { UserModeration } = API;
+export type UserModeration<C extends boolean = false> = CORE.UserModeration<C>;
 
 export const { UserImpersonationTokens } = API;
 export type UserImpersonationTokens<C extends boolean = false> = CORE.UserImpersonationTokens<C>;
@@ -607,6 +696,26 @@ export type UserSSHKeys<C extends boolean = false> = CORE.UserSSHKeys<C>;
 export const { UserStarredMetricsDashboard } = API;
 export type UserStarredMetricsDashboard<C extends boolean = false> =
   CORE.UserStarredMetricsDashboard<C>;
+
+export const { UserSupportPin } = API;
+export type UserSupportPin<C extends boolean = false> = CORE.UserSupportPin<C>;
+
+export const { VirtualRegistriesCleanupPolicies } = API;
+export type VirtualRegistriesCleanupPolicies<C extends boolean = false> =
+  CORE.VirtualRegistriesCleanupPolicies<C>;
+
+export const { Vulnerabilities } = API;
+export type Vulnerabilities<C extends boolean = false> = CORE.Vulnerabilities<C>;
+
+export const { VulnerabilityArchiveExports } = API;
+export type VulnerabilityArchiveExports<C extends boolean = false> =
+  CORE.VulnerabilityArchiveExports<C>;
+
+export const { VulnerabilityFindings } = API;
+export type VulnerabilityFindings<C extends boolean = false> = CORE.VulnerabilityFindings<C>;
+
+export const { WebCommits } = API;
+export type WebCommits<C extends boolean = false> = CORE.WebCommits<C>;
 
 export const { Gitlab } = API;
 export type Gitlab<C extends boolean = false> = CORE.Gitlab<C>;

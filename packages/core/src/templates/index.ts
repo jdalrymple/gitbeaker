@@ -12,7 +12,6 @@ export * from './ResourceMarkdownUploads';
 export * from './ResourceMembers';
 export * from './ResourceMilestones';
 export * from './ResourceNotes';
-export * from './ResourceTemplates';
 export * from './ResourceVariables';
 export * from './ResourceWikis';
 export * from './ResourceHooks';

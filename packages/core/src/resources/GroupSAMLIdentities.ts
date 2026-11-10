@@ -47,4 +47,30 @@ export class GroupSAMLIdentities<C extends boolean = false> extends BaseResource
       body,
     });
   }
+
+  show<E extends boolean = false>(
+    groupId: string | number,
+    uid: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<IdentitySchema, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.get<IdentitySchema>()(this, endpoint`groups/${groupId}/saml/${uid}`, {
+      sudo,
+      showExpanded,
+    });
+  }
+
+  remove<E extends boolean = false>(
+    groupId: string | number,
+    uid: string,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<void, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.del()(this, endpoint`groups/${groupId}/saml/${uid}`, {
+      sudo,
+      showExpanded,
+    });
+  }
 }

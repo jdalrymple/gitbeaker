@@ -15,7 +15,7 @@ export interface BaseExternalStatusCheckSchema extends Record<string, unknown> {
   id: number;
   name: string;
   external_url: string;
-  status: string;
+  status?: string;
 }
 
 export type MergeRequestExternalStatusCheckSchema = BaseExternalStatusCheckSchema;
@@ -31,6 +31,7 @@ export interface ExternalStatusCheckProtectedBranchesSchema {
 
 export interface ProjectExternalStatusCheckSchema extends BaseExternalStatusCheckSchema {
   project_id: number;
+  hmac?: boolean;
   protected_branches?: ExternalStatusCheckProtectedBranchesSchema[];
 }
 
@@ -76,7 +77,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     name: string,
     externalUrl: string,
-    options?: { protectedBranchIds: number[] } & ShowExpanded<E> & Sudo,
+    options?: { protectedBranchIds?: number[]; sharedSecret?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -102,6 +103,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
       protectedBranchIds?: number[];
       externalUrl?: string;
       name?: string;
+      sharedSecret?: string;
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
@@ -140,7 +142,7 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
     mergerequestIId: number,
     sha: string,
     externalStatusCheckId: number,
-    options?: { status?: 'passed' | 'failed' } & ShowExpanded<E> & Sudo,
+    options?: { status?: 'passed' | 'failed' | 'pending' } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ProjectExternalStatusCheckSchema, C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
@@ -155,6 +157,24 @@ export class ExternalStatusChecks<C extends boolean = false> extends BaseResourc
           sha,
           externalStatusCheckId,
         },
+      },
+    );
+  }
+
+  retry<E extends boolean = false>(
+    projectId: string | number,
+    mergerequestIId: number,
+    externalStatusCheckId: number,
+    options?: ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<{ message: string }, C, E, void>> {
+    const { sudo, showExpanded } = options || {};
+
+    return RequestHelper.post<{ message: string }>()(
+      this,
+      endpoint`projects/${projectId}/merge_requests/${mergerequestIId}/status_checks/${externalStatusCheckId}/retry`,
+      {
+        sudo,
+        showExpanded,
       },
     );
   }

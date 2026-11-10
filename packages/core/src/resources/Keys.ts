@@ -19,7 +19,8 @@ export interface KeySchema extends Record<string, unknown> {
   title: string;
   key: string;
   created_at: string;
-  expires_at: string;
+  expires_at?: string;
+  last_used_at?: string;
   usage_type?: string;
   user: ExpandedUserSchema;
   deploy_keys_projects?: DeployKeyProjectsSchema[];

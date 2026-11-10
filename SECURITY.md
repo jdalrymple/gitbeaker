@@ -2,20 +2,24 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Security fixes are released for the latest major version only, i.e. the version published under the
+`latest` tag on npm. This applies to all `@gitbeaker/*` packages, which are always released together
+under the same version.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please do not report security vulnerabilities through public GitHub issues, discussions or pull
+requests.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Instead, report them privately through
+[GitHub's private vulnerability reporting](https://github.com/jdalrymple/gitbeaker/security/advisories/new).
+Please include:
+
+- The affected package(s) and version(s)
+- A description of the vulnerability and its impact
+- Steps to reproduce, or a proof of concept if you have one
+
+This project is maintained in spare time, so responses are best effort. You'll be kept updated
+through the advisory as the report is investigated. If the vulnerability is confirmed, a fix will be
+released and the advisory published once users have had a chance to upgrade, with credit to you if
+you'd like.

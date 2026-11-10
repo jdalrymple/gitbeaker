@@ -1,7 +1,7 @@
 import { RequesterFn } from '@gitbeaker/requester-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ProtectedBranches } from '../../../src';
+import { ProjectProtectedBranches } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
 
 vi.mock('../../../src/infrastructure/RequestHelper', async () => {
@@ -9,16 +9,16 @@ vi.mock('../../../src/infrastructure/RequestHelper', async () => {
   return (mock as any).default;
 });
 
-let service: ProtectedBranches;
+let service: ProjectProtectedBranches;
 
 beforeEach(() => {
-  service = new ProtectedBranches({
+  service = new ProjectProtectedBranches({
     requesterFn: vi.fn<RequesterFn>(),
     token: 'abcdefg',
   });
 });
 
-describe('ProtectedBranches.all', () => {
+describe('ProjectProtectedBranches.all', () => {
   it('should request GET /projects/:id/protected_branches', async () => {
     await service.all(1, { search: 'dedde' });
 
@@ -44,7 +44,7 @@ describe('ProtectedBranches.all', () => {
   });
 });
 
-describe('ProtectedBranches.create', () => {
+describe('ProjectProtectedBranches.create', () => {
   it('should request POST /projects/:id/protected_branches', async () => {
     await service.create(1, 'name', { allowForcePush: true });
 
@@ -57,7 +57,7 @@ describe('ProtectedBranches.create', () => {
   });
 });
 
-describe('ProtectedBranches.protect', () => {
+describe('ProjectProtectedBranches.protect', () => {
   it('should request POST /projects/:id/protected_branches', async () => {
     const spy = vi.spyOn(service, 'create');
 
@@ -67,7 +67,7 @@ describe('ProtectedBranches.protect', () => {
   });
 });
 
-describe('ProtectedBranches.show', () => {
+describe('ProjectProtectedBranches.show', () => {
   it('should request GET /projects/:id/protected_branches/:branch_name', async () => {
     await service.show(1, 'name', { sudo: 1 });
 
@@ -92,7 +92,7 @@ describe('ProtectedBranches.show', () => {
   });
 });
 
-describe('ProtectedBranches.remove', () => {
+describe('ProjectProtectedBranches.remove', () => {
   it('should request DEL /projects/:id/protected_branches/:branch_name without options', async () => {
     await service.remove(1, 'name');
 
@@ -114,7 +114,7 @@ describe('ProtectedBranches.remove', () => {
   });
 });
 
-describe('ProtectedBranches.unprotect', () => {
+describe('ProjectProtectedBranches.unprotect', () => {
   it('should request DEL /projects/:id/protected_branches/:branch_name without options', async () => {
     const spy = vi.spyOn(service, 'remove');
 

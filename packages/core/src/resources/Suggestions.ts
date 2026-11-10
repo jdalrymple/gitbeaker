@@ -15,7 +15,7 @@ export interface SuggestionSchema extends Record<string, unknown> {
 }
 
 export class Suggestions<C extends boolean = false> extends BaseResource<C> {
-  edit<E extends boolean = false>(
+  apply<E extends boolean = false>(
     suggestionId: number,
     options?: { commitMessage?: string } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<SuggestionSchema, C, E, void>> {
@@ -28,13 +28,13 @@ export class Suggestions<C extends boolean = false> extends BaseResource<C> {
     });
   }
 
-  editBatch<E extends boolean = false>(
+  applyBatch<E extends boolean = false>(
     suggestionIds: number[],
     options?: { commitMessage?: string } & ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<SuggestionSchema, C, E, void>> {
+  ): Promise<GitlabAPIResponse<SuggestionSchema[], C, E, void>> {
     const { sudo, showExpanded, ...body } = options || {};
 
-    return RequestHelper.put<SuggestionSchema>()(this, `suggestions/batch_apply`, {
+    return RequestHelper.put<SuggestionSchema[]>()(this, `suggestions/batch_apply`, {
       sudo,
       showExpanded,
       body: {

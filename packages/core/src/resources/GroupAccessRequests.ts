@@ -33,6 +33,7 @@ export interface GroupAccessRequests<C extends boolean = false> extends Resource
   deny<E extends boolean = false>(
     groupId: string | number,
     userId: number,
+    options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 

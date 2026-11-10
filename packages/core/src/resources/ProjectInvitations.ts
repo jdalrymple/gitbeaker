@@ -9,7 +9,11 @@ import type {
   ShowExpanded,
   Sudo,
 } from '../infrastructure';
-import type { InvitationSchema } from '../templates/ResourceInvitations';
+import type {
+  InvitationSchema,
+  InvitationResponseSchema,
+  UpdateInvitationResponseSchema,
+} from '../templates/ResourceInvitations';
 
 import { AccessLevel } from '../constants';
 import { ResourceInvitations } from '../templates';
@@ -26,7 +30,7 @@ export interface ProjectInvitations<C extends boolean = false> {
     } & OneOf<{ email: string; userId: string }> &
       ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<InvitationResponseSchema, C, E, void>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     projectId: string | number,
@@ -44,13 +48,13 @@ export interface ProjectInvitations<C extends boolean = false> {
       accessLevel?: Exclude<AccessLevel, AccessLevel.ADMIN>;
     } & ShowExpanded<E> &
       Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<UpdateInvitationResponseSchema, C, E, void>>;
 
   remove<E extends boolean = false>(
     projectId: string | number,
     email: string,
     options?: ShowExpanded<E> & Sudo,
-  ): Promise<GitlabAPIResponse<InvitationSchema, C, E, void>>;
+  ): Promise<GitlabAPIResponse<void, C, E, void>>;
 }
 
 export class ProjectInvitations<C extends boolean = false> extends ResourceInvitations<C> {

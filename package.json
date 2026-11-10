@@ -7,56 +7,47 @@
     "url": "https://github.com/jdalrymple/gitbeaker/issues"
   },
   "author": "Justin Dalrymple",
-  "pnpm": {
-    "overrides": {
-      "lodash": ">=4.18.1",
-      "tar": "^7.5.13",
-      "undici": ">=8.0.2"
-    },
-    "ignoredBuiltDependencies": [
-      "nx"
-    ]
-  },
   "scripts": {
     "build": "nx run-many --target=build",
     "lint": "nx run-many --target=lint",
     "lint:fix": "nx run-many --target=lint:fix",
     "clean": "pnpm dlx rimraf --glob '**/{tmp,dist,node_modules,coverage,reports,.nx}'",
-    "format:docs": "prettier './**/(*.json|*.yml|*.md|*.(c|m)js|*.(c|m)ts)' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check ",
-    "format:src": "prettier '**/{src,test,scripts}/**/*.ts' --ignore-path ./.prettierignore --config ./prettier.config.mjs --check",
-    "format": "pnpm format:src && pnpm format:docs",
+    "format:docs": "oxfmt './*.{json,yml,md,mjs,mts,js,ts}' './packages/*/*.{json,yml,md,mjs,mts,js,ts}'",
+    "format:src": "oxfmt '**/{src,test,scripts}/**/*.ts'",
+    "format": "pnpm format:src --check && pnpm format:docs --check",
     "format:fix": "pnpm format:src --write && pnpm format:docs --write",
     "test:types": "nx run-many --target=test:types",
     "test:unit": "nx run-many --target=test:unit",
     "test:integration": "nx run-many --target=test:integration",
     "test:e2e": "nx run-many --target=test:e2e",
     "test:full": "./scripts/run-full-test-suite.sh",
-    "release": "node scripts/release.mjs",
-    "release:canary": "node scripts/release.mjs canary",
+    "release": "node scripts/auto-release.mjs production",
+    "release:canary": "node scripts/auto-release.mjs canary",
+    "release:pre": "node scripts/auto-release.mjs pre",
     "prepare": "husky"
   },
-  "dependencies": {
-    "types": "^0.1.1"
-  },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.2",
-    "@changesets/cli": "^2.30.0",
-    "@codecov/bundle-analyzer": "^1.9.1",
-    "@types/node": "^24.12.2",
-    "@vitest/coverage-v8": "^4.0.10",
-    "@vitest/eslint-plugin": "^1.4.3",
-    "@vitest/ui": "^4.0.10",
-    "all-contributors-cli": "github:jdalrymple/all-contributors-cli#dist",
-    "eslint-plugin-perfectionist": "^5.9.0",
-    "globals": "^16.5.0",
+    "@changesets/changelog-github": "1.0.0-next.8",
+    "@changesets/cli": "3.0.0-next.10",
+    "@changesets/config": "^3.1.4",
+    "@changesets/get-release-plan": "^4.0.16",
+    "@changesets/git": "^3.0.4",
+    "@changesets/read": "^0.6.7",
+    "@changesets/write": "^0.4.0",
+    "@codecov/bundle-analyzer": "^2.0.1",
+    "@types/node": "^26.1.2",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
+    "all-contributors-cli": "^6.27.0-rc.1",
+    "eslint-plugin-perfectionist": "^5.10.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6",
-    "nx": "^22.0.3",
-    "oxlint": "^1.58.0",
-    "prettier": "3.6.2",
-    "tsdown": "^0.21.7",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.5"
+    "lint-staged": "^17.3.0",
+    "nx": "^23.1.1",
+    "oxfmt": "^0.61.0",
+    "oxlint": "^1.76.0",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
+  "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }

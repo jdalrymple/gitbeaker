@@ -17,18 +17,44 @@ import type {
 import { AccessLevel } from '../constants';
 import { ResourceAccessTokens } from '../templates';
 
+export interface GroupAccessTokenFilterOptions {
+  created_after?: string;
+  created_before?: string;
+  expires_after?: string;
+  expires_before?: string;
+  last_used_after?: string;
+  last_used_before?: string;
+  revoked?: boolean;
+  search?: string;
+  sort?:
+    | 'created_asc'
+    | 'created_desc'
+    | 'expires_asc'
+    | 'expires_desc'
+    | 'last_used_asc'
+    | 'last_used_desc'
+    | 'name_asc'
+    | 'name_desc';
+  state?: 'active' | 'inactive';
+}
+
 export interface GroupAccessTokens<C extends boolean = false> extends ResourceAccessTokens<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & PaginationRequestOptions<P> & ShowExpanded<E> & Sudo,
+    options?: BaseRequestSearchParams &
+      GroupAccessTokenFilterOptions &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
   ): Promise<GitlabAPIResponse<AccessTokenSchema[], C, E, P>>;
 
   create<E extends boolean = false>(
     groupId: string | number,
     name: string,
     scopes: AccessTokenScopes[],
-    expiresAt: string,
     options?: {
+      expiresAt?: string;
+      description?: string;
       accessLevel?: Exclude<
         AccessLevel,
         AccessLevel.MINIMAL_ACCESS | AccessLevel.NO_ACCESS | AccessLevel.ADMIN

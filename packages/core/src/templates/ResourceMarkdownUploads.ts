@@ -26,7 +26,7 @@ export interface MarkdownUploadSchema extends Record<string, unknown> {
   size: number;
   filename: string;
   created_at: string;
-  uploaded_by: MarkdownUploadUserSchema;
+  uploaded_by: MarkdownUploadUserSchema | null;
 }
 
 export interface MarkdownUploadCreatedSchema extends Record<string, unknown> {
