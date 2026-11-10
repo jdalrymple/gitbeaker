@@ -1,0 +1,47 @@
+// PR titles drive releases (see scripts/auto-release.mjs): chore(deps) releases a patch,
+// chore(dev-deps) doesn't release. Only dependencies that ship with the published packages use
+// chore(deps); everything else (tooling, CI, the lockfile) uses chore(dev-deps).
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended', 'schedule:weekly'],
+  timezone: 'America/Toronto',
+
+  semanticCommits: 'enabled',
+  semanticCommitType: 'chore',
+  semanticCommitScope: 'dev-deps',
+
+  // Refresh transitive dependencies in pnpm-lock.yaml once a week. The lockfile isn't published,
+  // so this never needs a release. It's also how fixes for vulnerable transitive dependencies
+  // arrive, as long as the parent's version range allows the fixed version.
+  lockFileMaintenance: {
+    enabled: true,
+  },
+
+  // Fix PRs for GitHub's Dependabot alerts (which must stay enabled on the repository). These skip
+  // the weekly schedule and the groups below, and arrive as their own PRs.
+  vulnerabilityAlerts: {
+    enabled: true,
+  },
+
+  // Later rules override earlier ones
+  packageRules: [
+    {
+      description: 'One weekly PR for minor and patch updates of everything else (tooling, CI); majors get their own PR',
+      matchUpdateTypes: ['minor', 'patch', 'digest', 'pin', 'pinDigest'],
+      groupName: 'development dependencies',
+    },
+    {
+      description: 'Dependencies of the published packages ship to users, so they release a patch',
+      matchManagers: ['npm'],
+      matchDepTypes: ['dependencies', 'peerDependencies', 'optionalDependencies'],
+      semanticCommitScope: 'deps',
+    },
+    {
+      description: 'One weekly PR for minor and patch updates of shipped dependencies; majors get their own PR',
+      matchManagers: ['npm'],
+      matchDepTypes: ['dependencies', 'peerDependencies', 'optionalDependencies'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'production dependencies',
+    },
+  ],
+}
