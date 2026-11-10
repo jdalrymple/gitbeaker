@@ -182,8 +182,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4
       '@changesets/read':
-        specifier: ^0.6.7
-        version: 0.6.7
+        specifier: ^1.0.0
+        version: 1.0.1
       '@changesets/write':
         specifier: ^1.0.0
         version: 1.0.1
@@ -412,6 +412,10 @@ packages:
   '@changesets/errors@0.2.0':
     resolution: {integrity: sha512-6BLOQUscTpZeGljvyQXlWOItQyU71kCdGz7Pi8H8zdw6BI0g3m43iL4xKUVPWtG+qrrL9DTjpdn8eYuCQSRpow==}
 
+  '@changesets/errors@1.0.0':
+    resolution: {integrity: sha512-ElN/mEzn6zmETgjwf5MclCMa9ef59sAR0lfO8VSYIsiRvbC2FbLB/92EoYw10Sl0kGixxHFiJZUSv7dA+YpR8g==}
+    engines: {node: ^22.11 || ^24 || >=26}
+
   '@changesets/errors@1.0.0-next.4':
     resolution: {integrity: sha512-ZUoabMz+a4t0/Eoz5uUHzufcWfXIlkpCuCUWUMkWErqcCjgB0pwuPWSU2CamhufsG7ZKDUlUoIGVSQWyPc77CA==}
     engines: {node: ^22.11 || ^24 || >=26}
@@ -445,14 +449,18 @@ packages:
     resolution: {integrity: sha512-PZqzc7NtBHRLmUcRj4ZOATAvDtcIl6DKVFuQPHWKEUqCXhnmgKheCfC6SA0Kxx4w+9JywkEjVX1f/h8y4cv9jg==}
     engines: {node: ^22.11 || ^24 || >=26}
 
+  '@changesets/git@4.0.1':
+    resolution: {integrity: sha512-6vWpIAC4LkpmlqaIu37ViT5enyd9+uBwAiGqCGhASvkSHBgx4PrtTGXWTMFYpDmZbjgyonyVgMciPrW4MqtJsA==}
+    engines: {node: ^22.11 || ^24 || >=26}
+
   '@changesets/logger@0.1.1':
     resolution: {integrity: sha512-OQtR36ZlnuTxKqoW4Sv6x5YIhOmClRd5pWsjZsddYxpWs517R0HkyiefQPIytCVh4ZcC5x9XaG8KTdd5iRQUfg==}
 
   '@changesets/parse@0.4.3':
     resolution: {integrity: sha512-ZDmNc53+dXdWEv7fqIUSgRQOLYoUom5Z40gmLgmATmYR9NbL6FJJHwakcCpzaeCy+1D0m0n7mT4jj2B/MQPl7A==}
 
-  '@changesets/parse@1.0.0-next.9':
-    resolution: {integrity: sha512-U7SAqJgr3zcjsVE6GwsvkwztOYKiTvxoiy/p0M6TIeND3ny7AODvaKu7+JjoULZwmiJtFJKt5ZnAzdonTCjwlg==}
+  '@changesets/parse@1.0.0':
+    resolution: {integrity: sha512-P0iaMb9p9CRYZiTgAllEIF9AUMQHIy1G72tKlcIqJp61icZSsKQNiOPdxAMZG8m/DvZwt/oz5xEbTpike//dWg==}
     engines: {node: ^22.11 || ^24 || >=26}
 
   '@changesets/pre@2.0.2':
@@ -465,8 +473,8 @@ packages:
   '@changesets/read@0.6.7':
     resolution: {integrity: sha512-D1G4AUYGrBEk8vj8MGwf75k9GpN6XL3wg8i42P2jZZwFLXnlr2Pn7r9yuQNbaMCarP7ZQWNJbV6XLeysAIMhTA==}
 
-  '@changesets/read@1.0.0-next.9':
-    resolution: {integrity: sha512-jqbSU0oO3Forv/6abO05eDrXYFrtxccAzdmp7M9SYzACtX4EVjY2p6x3OJPchBaJgCwqOmW8T9aQuTai6tuVkQ==}
+  '@changesets/read@1.0.1':
+    resolution: {integrity: sha512-nzvSC6RcTiWf/dsuwZFXpLzGGsRHYCL68U3uHV7srsulU93aVWY7u2GEJiDZ+4GIIElfaW5EqtKC0UHroY+LTQ==}
     engines: {node: ^22.11 || ^24 || >=26}
 
   '@changesets/should-skip-package@0.1.2':
@@ -3431,7 +3439,7 @@ snapshots:
       '@changesets/get-dependents-graph': 3.0.0-next.8
       '@changesets/git': 4.0.0-next.8
       '@changesets/pre': 3.0.0-next.8
-      '@changesets/read': 1.0.0-next.9
+      '@changesets/read': 1.0.1
       '@changesets/should-skip-package': 1.0.0-next.8
       '@changesets/types': 7.0.0-next.8
       '@changesets/write': 1.0.1
@@ -3467,6 +3475,8 @@ snapshots:
   '@changesets/errors@0.2.0':
     dependencies:
       extendable-error: 0.1.7
+
+  '@changesets/errors@1.0.0': {}
 
   '@changesets/errors@1.0.0-next.4': {}
 
@@ -3521,6 +3531,14 @@ snapshots:
       picomatch: 4.0.5
       tinyexec: 1.2.4
 
+  '@changesets/git@4.0.1':
+    dependencies:
+      '@changesets/errors': 1.0.0
+      '@changesets/types': 7.0.0
+      '@manypkg/get-packages': 3.1.0
+      picomatch: 4.0.7
+      tinyexec: 1.3.1
+
   '@changesets/logger@0.1.1':
     dependencies:
       picocolors: 1.1.1
@@ -3530,7 +3548,7 @@ snapshots:
       '@changesets/types': 6.1.0
       js-yaml: 4.3.1
 
-  '@changesets/parse@1.0.0-next.9':
+  '@changesets/parse@1.0.0':
     dependencies:
       '@changesets/types': 7.0.0
       yaml: 2.9.0
@@ -3558,11 +3576,11 @@ snapshots:
       p-filter: 2.1.0
       picocolors: 1.1.1
 
-  '@changesets/read@1.0.0-next.9':
+  '@changesets/read@1.0.1':
     dependencies:
-      '@changesets/git': 4.0.0-next.8
-      '@changesets/parse': 1.0.0-next.9
-      '@changesets/types': 7.0.0-next.8
+      '@changesets/git': 4.0.1
+      '@changesets/parse': 1.0.0
+      '@changesets/types': 7.0.0
 
   '@changesets/should-skip-package@0.1.2':
     dependencies:

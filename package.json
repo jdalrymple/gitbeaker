@@ -32,7 +32,7 @@
     "@changesets/config": "^4.0.0",
     "@changesets/get-release-plan": "^4.0.16",
     "@changesets/git": "^3.0.4",
-    "@changesets/read": "^0.6.7",
+    "@changesets/read": "^1.0.0",
     "@changesets/write": "^1.0.0",
     "@codecov/bundle-analyzer": "^2.0.1",
     "@types/node": "^26.1.2",
