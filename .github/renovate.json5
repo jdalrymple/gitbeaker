@@ -10,6 +10,10 @@
   semanticCommitType: 'chore',
   semanticCommitScope: 'dev-deps',
 
+  // pnpm 11 refuses to install versions published less than a day ago (minimumReleaseAge, 1440
+  // minutes by default), so don't propose them any sooner
+  minimumReleaseAge: '1 day',
+
   // Refresh transitive dependencies in pnpm-lock.yaml once a week. The lockfile isn't published,
   // so this never needs a release. It's also how fixes for vulnerable transitive dependencies
   // arrive, as long as the parent's version range allows the fixed version.
