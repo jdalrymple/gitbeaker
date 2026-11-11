@@ -4,3 +4,7 @@ allowBuilds:
   '@swc/core': true
   esbuild: true
   nx: false
+# Security fixes for transitive dependencies. Remove each once its dependents allow the fixed version
+overrides:
+  # GHSA-g3hv-75wg-m249: fixed in 11.0.1, but nx pins 10.2.5 and eslint wants ^10
+  'minimatch@10': ^11.0.5
