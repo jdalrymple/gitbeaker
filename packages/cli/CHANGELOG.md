@@ -1,5 +1,19 @@
 # @gitbeaker/cli
 
+## 44.0.4
+
+### Patch Changes
+
+- fix(build): Typescript bump introduced additional build files ([#3888](https://github.com/jdalrymple/gitbeaker/pull/3888))
+
+  ## Summary
+
+  Previous work that bumped TS to v7 ([#3879](https://github.com/jdalrymple/gitbeaker/issues/3879)), generated a ton of build files that were not required. This should resolve that reconfiguration.
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.0.4
+  - @gitbeaker/rest@44.0.4
+
 ## 44.0.3
 
 ### Patch Changes
