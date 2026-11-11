@@ -39,7 +39,7 @@
   "scripts": {
     "build": "pnpm run build:self && pnpm run build:map",
     "build:map": "tsx scripts/generate.ts",
-    "build:self": "tsdown src/index.ts --format esm --dts --treeshake",
+    "build:self": "tsdown src/index.ts --format esm --dts --treeshake --tsconfig tsconfig.build.json",
     "test:types": "tsc",
     "test:integration": "vitest run --config vitest.config.mjs test/integration",
     "test:unit": "vitest run --config vitest.config.mjs test/unit",
