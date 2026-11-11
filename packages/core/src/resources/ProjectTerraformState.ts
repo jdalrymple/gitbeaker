@@ -1,5 +1,6 @@
-import { GitlabAPIResponse, ShowExpanded, Sudo } from '@gitbeaker/core';
 import { BaseResource } from '@gitbeaker/requester-utils';
+
+import type { GitlabAPIResponse, ShowExpanded, Sudo } from '../infrastructure';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 

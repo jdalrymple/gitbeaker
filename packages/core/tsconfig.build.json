@@ -1,0 +1,9 @@
+// Used by the build. Without the paths mapping to sibling packages' src, their types come from
+// their built dist instead, so TypeScript 7 doesn't emit stray .d.ts files into their src
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {}
+  },
+  "include": ["./src/**/*.ts"]
+}
