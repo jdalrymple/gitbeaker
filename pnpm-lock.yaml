@@ -296,7 +296,7 @@ importers:
         version: 2.5.0
       rate-limiter-flexible:
         specifier: ^11.2.0
-        version: 11.4.0
+        version: 11.4.1
       xcase:
         specifier: ^2.0.1
         version: 2.0.1
@@ -2434,8 +2434,8 @@ packages:
   quansync@1.0.0:
     resolution: {integrity: sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA==}
 
-  rate-limiter-flexible@11.4.0:
-    resolution: {integrity: sha512-+RyuiXEG3odp5c9aZP83H8cld0L7swvz1FxlVzy/7N4zYo4i0GDy5tBhZlPFFOdXXwEilyBREKbVIKDq5bfjlw==}
+  rate-limiter-flexible@11.4.1:
+    resolution: {integrity: sha512-rT3HoDh6M+xhmmFKoqwMfIVO+Qw5GpoMZbvt9tgVLAj2H2NsHiEAtEIdZ72rKMXutQ/TntxrYc/BkzjizdrcGw==}
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
@@ -4765,7 +4765,7 @@ snapshots:
 
   quansync@1.0.0: {}
 
-  rate-limiter-flexible@11.4.0: {}
+  rate-limiter-flexible@11.4.1: {}
 
   react-is@18.3.1: {}
 
