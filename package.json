@@ -30,7 +30,7 @@
     "@changesets/changelog-github": "1.0.0-next.8",
     "@changesets/cli": "3.0.0-next.10",
     "@changesets/config": "^4.0.0",
-    "@changesets/get-release-plan": "^4.0.16",
+    "@changesets/get-release-plan": "^5.0.0",
     "@changesets/git": "^4.0.0",
     "@changesets/read": "^1.0.0",
     "@changesets/write": "^1.0.0",
