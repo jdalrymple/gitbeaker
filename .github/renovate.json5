@@ -47,5 +47,10 @@
       matchUpdateTypes: ['minor', 'patch'],
       groupName: 'production dependencies',
     },
+    {
+      description: 'The browser e2e job runs in the Playwright image, whose browsers only work with the same @playwright/test version',
+      matchPackageNames: ['@playwright/test', 'mcr.microsoft.com/playwright'],
+      groupName: 'playwright',
+    },
   ],
 }

@@ -29,7 +29,8 @@ executors:
 
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.57.0-noble
+      # Must match @playwright/test in packages/rest/package.json. Renovate updates both together
+      - image: mcr.microsoft.com/playwright:v1.65.0-noble
     resource_class: medium
     working_directory: ~/project
 
@@ -61,9 +62,7 @@ commands:
             - v1-dependencies-
       - run:
           name: Install dependencies
-          command: |
-            pnpm install --frozen-lockfile
-            echo "PLAYWRIGHT_VERSION=$(pnpm view @playwright/test version --json | jq -r '.')" >> $BASH_ENV
+          command: pnpm install --frozen-lockfile
       - save_cache:
           key: v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
           paths:
