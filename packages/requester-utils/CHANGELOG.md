@@ -1,5 +1,26 @@
 # @gitbeaker/requester-utils
 
+## 44.0.5
+
+### Patch Changes
+
+- fix(security): Bump to address security alerts ([#3889](https://github.com/jdalrymple/gitbeaker/pull/3889))
+
+  ## Summary
+
+  Fixes the open critical and high Dependabot alerts. They all come from development tooling, so nothing that ships to users changes.
+
+  | Alerts                                                                                                                                                                                                                                                                                                            | Package                                                                  | Pulled in by                                | Fix                                                    |
+  | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------- | ------------------------------------------------------ |
+  | [#241](https://github.com/jdalrymple/gitbeaker/issues/241), [#242](https://github.com/jdalrymple/gitbeaker/issues/242) (critical)                                                                                                                                                                                 | `tinypool` < 2.1.2: prototype pollution leading to remote code execution | `oxfmt@0.61.0`, which pins `tinypool@2.1.0` | `oxfmt` `^0.61.0` → `^0.78.0` (ships `tinypool@2.2.0`) |
+  | [#265](https://github.com/jdalrymple/gitbeaker/issues/265), [#274](https://github.com/jdalrymple/gitbeaker/issues/274), [#277](https://github.com/jdalrymple/gitbeaker/issues/277), [#278](https://github.com/jdalrymple/gitbeaker/issues/278), [#279](https://github.com/jdalrymple/gitbeaker/issues/279) (high) | `undici` 7.x < 7.30.1: TLS validation bypass, cache poisoning, DoS       | `nx@23.3.1`, which pins `undici@7.29.0`     | `nx` `^23.1.1` → `^24.0.5` (ships `undici@7.30.1`)     |
+
+  Also removes the `lodash`, `tar` and `undici` overrides from `.npmrc`. pnpm no longer reads overrides from `.npmrc`, so they weren't doing anything. lodash and tar are no longer in the lockfile.
+
+  ## Additional Notes
+  - nx 23 → 24 is a major version bump. `nx.json` only uses basic settings and nothing depends on `@nx/*` packages, so no migration was needed.
+  - I picked nx 24.0.5 over 24.0.6 because 24.0.6 was still inside pnpm's one-day `minimumReleaseAge` window.
+
 ## 44.0.4
 
 ### Patch Changes
