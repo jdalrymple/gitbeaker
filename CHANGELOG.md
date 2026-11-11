@@ -2,6 +2,20 @@
 
 ---
 
+## v44.0.3 (Wed, Nov 11, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: fix: Playwright version blocked local testing ([#3887](https://github.com/jdalrymple/gitbeaker/pull/3887))
+
+  ## Summary
+
+  Playwright version <= 1.60 was stalling browser installation during e2e tests locally.
+
+  See: https://github.com/microsoft/playwright/issues/41092
+
+---
+
 ## v44.0.2 (Wed, Nov 11, 2026)
 
 ### Patch Changes
