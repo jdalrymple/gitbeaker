@@ -56,6 +56,6 @@
     "@playwright/test": "1.57.0",
     "@types/node": "^26.1.2",
     "tsdown": "^0.22.14",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.0"
   }
 }

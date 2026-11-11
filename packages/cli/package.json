@@ -49,7 +49,7 @@
   "devDependencies": {
     "@vitest/expect": "^5.0.0",
     "tsdown": "^0.22.14",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.0",
     "vitest-extended": "^0.0.1"
   }
 }
