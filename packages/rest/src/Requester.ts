@@ -29,6 +29,30 @@ function delay(ms: number) {
   });
 }
 
+/**
+ * Parse the Retry-After header into a delay in milliseconds.
+ *
+ * GitLab returns the number of seconds until the rate limit quota resets
+ * (https://docs.gitlab.com/user/gitlab_com/rate_limits/#when-you-exceed-a-limit).
+ * The HTTP-date form from RFC 9110 is also supported.
+ *
+ * Returns undefined when the header is absent or cannot be parsed.
+ */
+export function getRetryAfterDelay(response: Response): number | undefined {
+  const header = response.headers.get('retry-after')?.trim();
+  if (!header) return undefined;
+
+  if (/^-?\d+$/.test(header)) {
+    const seconds = Number(header);
+    return seconds >= 0 ? seconds * 1000 : undefined;
+  }
+
+  const resetTime = Date.parse(header);
+  if (Number.isNaN(resetTime)) return undefined;
+
+  return Math.max(0, resetTime - Date.now());
+}
+
 async function parseResponse(response: Response, asStream = false) {
   const { status, headers: rawHeaders } = response;
   const headers = Object.fromEntries(rawHeaders.entries());
@@ -114,9 +138,10 @@ export async function defaultRequestHandler(endpoint: string, options?: RequestO
     if (response.ok) return parseResponse(response, asStream);
     if (!retryCodes.includes(response.status)) await throwFailedRequestError(request, response);
 
-    // Retry with exponential backoff (in milliseconds)
+    // Honour the server's Retry-After header when present, otherwise
+    // retry with exponential backoff (in milliseconds)
     lastStatus = response.status;
-    await delay(2 ** i * 250);
+    await delay(getRetryAfterDelay(response) ?? 2 ** i * 250);
 
     continue;
   }
