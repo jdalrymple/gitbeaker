@@ -516,25 +516,7 @@ jobs:
   # ====================
   # RELEASE JOBS
   # ====================
-  release-prerelease:
-    executor: node-executor
-    parameters:
-      release_type:
-        type: enum
-        enum: [canary, pre]
-    steps:
-      - restore_workspace
-      - gh/setup
-      - run:
-          name: Setup release environment
-          command: |
-            git config --global user.name "CircleCI"
-            git config --global user.email "ci@circleci.com"
-            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-      - run:
-          name: Release << parameters.release_type >>
-          command: pnpm release:<< parameters.release_type >>
-
+  # Canary and pre releases run in their own pipeline (prerelease.yml)
   release-production:
     executor: node-executor
     steps:
@@ -714,71 +696,8 @@ workflows:
               # Exclude forked PR branches which start with 'pull/'
               ignore: /^pull\/.*/
 
-      # Releases - mutually exclusive per pipeline run
-
-      # Canary and pre: optional, started by a maintainer approving the job in CircleCI
-      - approve-canary:
-          type: approval
-          requires:
-            - build
-            - test-unit-requester-utils
-            - test-unit-core
-            - test-unit-rest
-            - test-unit-cli
-            - test-types-requester-utils
-            - test-types-core
-            - test-types-rest
-            - test-integration-rest
-            - test-integration-core
-          filters:
-            branches:
-              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
-              ignore: [main, /^pull\/.*/]
-
-      - release-prerelease:
-          name: release-canary
-          # npm trusted publisher for this context may only stage (see scripts/auto-release.mjs)
-          context: [npm-prerelease]
-          release_type: canary
-          requires: [approve-canary]
-          filters:
-            branches:
-              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
-              ignore: [main, /^pull\/.*/]
-
-      # Pre-release also waits on e2e, which needs its own approval on PR branches
-      - approve-pre:
-          type: approval
-          requires:
-            - build
-            - test-unit-requester-utils
-            - test-unit-core
-            - test-unit-rest
-            - test-unit-cli
-            - test-types-requester-utils
-            - test-types-core
-            - test-types-rest
-            - test-integration-rest
-            - test-integration-core
-            - test-e2e-rest-manual
-            - test-e2e-cli-manual
-          filters:
-            branches:
-              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
-              ignore: [main, /^pull\/.*/]
-
-      - release-prerelease:
-          name: release-pre
-          # npm trusted publisher for this context may only stage (see scripts/auto-release.mjs)
-          context: [npm-prerelease]
-          release_type: pre
-          requires: [approve-pre]
-          filters:
-            branches:
-              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
-              ignore: [main, /^pull\/.*/]
-
-      # Production: only main branch
+      # Production release, main only. Canary and pre releases run in their own pipeline
+      # (prerelease.yml), so npm can tell their trusted publisher apart from this one
       - release-production:
           # Run one production release at a time, in merge order
           serial-group: << pipeline.project.slug >>/release-production

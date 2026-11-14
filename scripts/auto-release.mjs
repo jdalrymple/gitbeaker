@@ -49,6 +49,23 @@ async function getPRInfo(prNumber) {
   }
 }
 
+// CircleCI only sets CIRCLE_PULL_REQUEST (".../pull/123") on some pipeline triggers, so fall
+// back to looking up the open PR for the branch. Fork PRs are excluded, since they run untrusted code
+function getBranchPRNumber(branch) {
+  const fromEnv = process.env.CIRCLE_PULL_REQUEST?.match(/\/pull\/(\d+)$/)?.[1];
+
+  if (fromEnv) return fromEnv;
+
+  const output = execFileSync(
+    'gh',
+    ['pr', 'list', '--head', branch, '--state', 'open', '--json', 'number,isCrossRepository'],
+    { encoding: 'utf8' },
+  );
+  const pr = JSON.parse(output).find(({ isCrossRepository }) => !isCrossRepository);
+
+  return pr ? String(pr.number) : undefined;
+}
+
 // Conventional commit types and the bump they produce. null means a valid type that doesn't release.
 // build, ci, style, test and dep are expressed as scopes of chore/fix instead, e.g. chore(ci): ...
 const CHANGE_TYPES = {
@@ -522,9 +539,8 @@ async function main() {
     if (!checkoutLatestMain()) return;
     prNumbers = getUnreleasedPRNumbers();
   } else {
-    // Started by approving the job in CircleCI, which pins it to this pipeline's commit.
-    // CircleCI sets CIRCLE_PULL_REQUEST (".../pull/123") when the branch has an open PR.
-    const prNumber = process.env.CIRCLE_PULL_REQUEST?.match(/\/pull\/(\d+)$/)?.[1];
+    // Started by manually triggering the prerelease pipeline on the PR's branch
+    const prNumber = getBranchPRNumber(branch);
 
     prNumbers = prNumber ? [prNumber] : [];
   }
