@@ -57,9 +57,9 @@ together by the pipeline for the newest one.
 
 ### Canary and pre-releases
 
-Maintainers can release a PR before it is merged by manually triggering the separate `prerelease`
-CircleCI pipeline (`.circleci/prerelease.yml`) on the PR's branch, with the `release_type`
-parameter:
+Maintainers can release a PR before it is merged by manually triggering the separate
+`release-preview` CircleCI pipeline (`.circleci/release-preview.yml`) on the PR's branch, with the
+`release_type` parameter:
 
 - `canary` (the default) releases under the `canary` npm tag.
 - `pre` releases under the `pre` npm tag.

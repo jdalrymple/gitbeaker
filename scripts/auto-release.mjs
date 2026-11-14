@@ -539,7 +539,7 @@ async function main() {
     if (!checkoutLatestMain()) return;
     prNumbers = getUnreleasedPRNumbers();
   } else {
-    // Started by manually triggering the prerelease pipeline on the PR's branch
+    // Started by manually triggering the release-preview pipeline on the PR's branch
     const prNumber = getBranchPRNumber(branch);
 
     prNumbers = prNumber ? [prNumber] : [];

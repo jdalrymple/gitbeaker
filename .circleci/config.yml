@@ -516,7 +516,7 @@ jobs:
   # ====================
   # RELEASE JOBS
   # ====================
-  # Canary and pre releases run in their own pipeline (prerelease.yml)
+  # Canary and pre releases run in their own pipeline (release-preview.yml)
   release-production:
     executor: node-executor
     steps:
@@ -697,7 +697,7 @@ workflows:
               ignore: /^pull\/.*/
 
       # Production release, main only. Canary and pre releases run in their own pipeline
-      # (prerelease.yml), so npm can tell their trusted publisher apart from this one
+      # (release-preview.yml), so npm can tell their trusted publisher apart from this one
       - release-production:
           # Run one production release at a time, in merge order
           serial-group: << pipeline.project.slug >>/release-production

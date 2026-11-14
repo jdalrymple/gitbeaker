@@ -26,7 +26,7 @@ executors:
     working_directory: ~/project
 
 jobs:
-  release-prerelease:
+  release-preview:
     executor: node-executor
     steps:
       - checkout
@@ -36,7 +36,7 @@ jobs:
           command: |
             api() { curl -fsS -H "Circle-Token: $CIRCLE_TOKEN" "https://circleci.com/api/v2/$1"; }
 
-            # Newest main workflow among this commit's pipelines (skips this prerelease pipeline)
+            # Newest main workflow among this commit's pipelines (skips this release-preview pipeline)
             workflow=""
             for pipeline in $(api "project/<< pipeline.project.slug >>/pipeline?branch=$CIRCLE_BRANCH" \
               | jq -r '.items[] | select(.vcs.revision == env.CIRCLE_SHA1) | .id'); do
@@ -79,9 +79,9 @@ jobs:
           command: pnpm release:<< pipeline.parameters.release_type >>
 
 workflows:
-  prerelease:
+  release-preview:
     jobs:
-      - release-prerelease:
+      - release-preview:
           name: release-<< pipeline.parameters.release_type >>
           # npm trusted publisher for this pipeline may only stage (see scripts/auto-release.mjs)
           context: [npm-prerelease]
