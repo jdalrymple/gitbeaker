@@ -78,7 +78,10 @@ The staged versions are posted as a comment on the PR.
 ### Publishing
 
 Packages are published with [npm trusted publishing](https://docs.npmjs.com/trusted-publishers), so
-no npm token is stored in CI. Production releases can only publish from `main`.
+no npm token is stored in CI. Releases run in their own CircleCI pipelines, separate from the one
+that tests PRs (including PRs from forks), so the test pipeline can never publish. Production
+releases (`.circleci/release-production.yml`) are started by the test pipeline on `main` once
+everything passes, and can only publish from `main`.
 
 ## Code of Conduct
 

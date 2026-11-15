@@ -139,28 +139,6 @@ function getPRNumberFromSubject(subject) {
   return match?.[1];
 }
 
-// Only the pipeline for the newest commit on main releases, and it releases every PR
-// merged since the last release. Older pipelines defer to it, so what gets published is
-// always exactly what the releasing pipeline built and tested.
-function checkoutLatestMain() {
-  const sha = process.env.CIRCLE_SHA1 || git('rev-parse', 'HEAD');
-
-  git('fetch', 'origin', 'main');
-
-  const newerCommits = getCommitSubjects(`${sha}..origin/main`).filter(
-    (subject) => !isReleaseCommit(subject),
-  );
-
-  if (newerCommits.length > 0) {
-    log(`main has ${newerCommits.length} newer commit(s) - deferring to their pipeline`, '⏭️');
-    return false;
-  }
-
-  // origin/main may be ahead by release commits only, which must be included so versions are current
-  git('checkout', '-B', 'main', 'origin/main');
-  return true;
-}
-
 // PR numbers merged since the last release commit, oldest first
 function getUnreleasedPRNumbers() {
   const lastRelease = git('log', '-1', '--format=%H', '-E', `--grep=${RELEASE_COMMIT_GREP}`);
@@ -536,7 +514,8 @@ async function main() {
   let prNumbers;
 
   if (releaseType === 'production') {
-    if (!checkoutLatestMain()) return;
+    // The release-production pipeline has already checked that main is the commit it was started
+    // for, so these PRs have all been tested
     prNumbers = getUnreleasedPRNumbers();
   } else {
     // Started by manually triggering the release-preview pipeline on the PR's branch
