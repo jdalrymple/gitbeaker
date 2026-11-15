@@ -5,9 +5,9 @@ version: 2.1
 # confused with the production one in config.yml.
 #
 # This pipeline has no automatic triggers: a maintainer runs it manually on a PR's branch, choosing
-# release_type. It doesn't run any tests itself: it first checks that the main pipeline passed for
-# the same commit. That needs a read-only CircleCI personal API token as CIRCLE_TOKEN in the
-# npm-prerelease context.
+# release_type. It doesn't run any tests itself: it first checks that the validate-and-test
+# pipeline passed for the same commit. That needs a read-only CircleCI personal API token as
+# CIRCLE_TOKEN in the npm-prerelease context.
 
 parameters:
   release_type:
@@ -32,29 +32,32 @@ jobs:
       - checkout
       - run:
           # A canary may go out while the e2e tests wait for approval; a pre release needs them too
-          name: Check the main pipeline passed for this commit
+          name: Check the validate-and-test pipeline passed for this commit
           command: |
             api() { curl -fsS -H "Circle-Token: $CIRCLE_TOKEN" "https://circleci.com/api/v2/$1"; }
 
-            # Newest main workflow among this commit's pipelines (skips this release-preview pipeline)
+            # Newest validate-and-test workflow among this commit's pipelines (skips this
+            # release-preview pipeline)
             workflow=""
             for pipeline in $(api "project/<< pipeline.project.slug >>/pipeline?branch=$CIRCLE_BRANCH" \
               | jq -r '.items[] | select(.vcs.revision == env.CIRCLE_SHA1) | .id'); do
               workflow=$(api "pipeline/$pipeline/workflow" \
-                | jq -c '[.items[] | select(.name == "main")] | sort_by(.created_at) | last // empty')
+                | jq -c '[.items[] | select(.name == "validate-and-test")] | sort_by(.created_at) | last // empty')
               [ -n "$workflow" ] && break
             done
 
-            [ -n "$workflow" ] || { echo "No main pipeline has run on ${CIRCLE_SHA1:0:7}"; exit 1; }
+            [ -n "$workflow" ] \
+              || { echo "No validate-and-test pipeline has run on ${CIRCLE_SHA1:0:7}"; exit 1; }
 
             status=$(jq -r .status \<<< "$workflow")
 
             if [ "<< pipeline.parameters.release_type >>" = canary ]; then
               api "workflow/$(jq -r .id \<<< "$workflow")/job" \
                 | jq -e '[.items[] | select(.status | IN("success", "not_run", "on_hold", "blocked") | not)] | length == 0' >/dev/null \
-                || { echo "The main pipeline for ${CIRCLE_SHA1:0:7} hasn't passed ($status)"; exit 1; }
+                || { echo "The validate-and-test pipeline for ${CIRCLE_SHA1:0:7} hasn't passed ($status)"; exit 1; }
             elif [ "$status" != success ]; then
-              echo "The main pipeline for ${CIRCLE_SHA1:0:7} is $status, but a pre release needs it to have passed"
+              echo "The validate-and-test pipeline for ${CIRCLE_SHA1:0:7} is $status," \
+                "but a pre release needs it to have passed"
               exit 1
             fi
       - restore_cache:

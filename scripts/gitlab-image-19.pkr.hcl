@@ -9,9 +9,9 @@ packer {
   }
 }
 
-variable "gcp_credentials" {
+variable "gcp_access_token" {
   type        = string
-  description = "GCP service account credentials JSON"
+  description = "Short-lived GCP access token, e.g. from gcloud auth print-access-token"
   sensitive   = true
 }
 
@@ -26,7 +26,7 @@ source "googlecompute" "gitlab" {
   disk_size              = 25
   disk_type              = "pd-ssd"
   ssh_username           = "packer"
-  credentials_json        = var.gcp_credentials
+  access_token            = var.gcp_access_token
 
   // Add labels for tracking
   image_labels = {

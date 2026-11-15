@@ -18,6 +18,17 @@ Please note we have a code of conduct, please follow it in all your interactions
    yourself; they are updated automatically when the PR is released.
 5. Once CI passes and a maintainer has approved the PR, they will squash merge it into `main`.
 
+### E2E tests in CI
+
+The e2e tests run against a GitLab instance on GCP, so they need credentials. They run
+automatically on `main`, and on PRs once a maintainer approves the `approve-e2e-tests` job.
+
+CI never gives credentials to PRs from forks, so their e2e tests run separately. Once a maintainer
+has reviewed the PR, they trigger the `validate-and-test` pipeline on `main` in CircleCI with the
+`e2e_pr` parameter set to the PR number. That run uses the CI config from `main`: only `main`'s code
+creates and deletes the GitLab instance, and the PR's code runs in jobs without any credentials or
+access to shared caches.
+
 ## PR Titles and Releases
 
 Releases are fully automated and driven by the PR title, which must follow the
@@ -64,9 +75,9 @@ Maintainers can release a PR before it is merged by manually triggering the sepa
 - `canary` (the default) releases under the `canary` npm tag.
 - `pre` releases under the `pre` npm tag.
 
-This pipeline doesn't run any tests itself. Before releasing, it checks that the main pipeline
-passed for the same commit. A canary can go out while the e2e tests are still waiting for approval,
-but a pre-release needs them to have passed too.
+This pipeline doesn't run any tests itself. Before releasing, it checks that the `validate-and-test`
+pipeline passed for the same commit. A canary can go out while the e2e tests are still waiting for
+approval, but a pre-release needs them to have passed too.
 
 The release is built from the branch's latest commit when the pipeline is triggered. It can't run on
 PRs from forks, which never run with release credentials.
