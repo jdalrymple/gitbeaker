@@ -1,5 +1,18 @@
 # @gitbeaker/core
 
+## 44.0.6
+
+### Patch Changes
+
+- fix(ci): Harden the pre-release flow ([#3891](https://github.com/jdalrymple/gitbeaker/pull/3891))
+
+  ## Summary
+
+  Add dedicated context for pre-releases to also have them leverage a trusted-publisher configuration
+
+- Updated dependencies []:
+  - @gitbeaker/requester-utils@44.0.6
+
 ## 44.0.5
 
 ### Patch Changes

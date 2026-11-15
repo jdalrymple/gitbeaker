@@ -2,6 +2,18 @@
 
 ---
 
+## v44.0.6 (Sun, Nov 15, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: fix(ci): Harden the pre-release flow ([#3891](https://github.com/jdalrymple/gitbeaker/pull/3891))
+
+  ## Summary
+
+  Add dedicated context for pre-releases to also have them leverage a trusted-publisher configuration
+
+---
+
 ## v44.0.5 (Wed, Nov 11, 2026)
 
 ### Patch Changes
