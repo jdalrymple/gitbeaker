@@ -1,12 +1,6 @@
 version: 2.1
 
 # ====================
-# ORBS
-# ====================
-orbs:
-  gh: circleci/github-cli@3.0.0
-
-# ====================
 # ENVIRONMENT VARIABLES
 # ====================
 # Note: Custom image gitlab-ready-image-[major-version] will be created automatically if it doesn't exist
@@ -516,21 +510,17 @@ jobs:
   # ====================
   # RELEASE JOBS
   # ====================
-  # Canary and pre releases run in their own pipeline (release-preview.yml)
-  release-production:
+  # Releases run in their own pipelines, so this one (which also builds fork PRs) can't publish:
+  # release-production.yml (started below) and release-preview.yml (started manually)
+  trigger-release-production:
     executor: node-executor
     steps:
-      - restore_workspace
-      - gh/setup
       - run:
-          name: Setup release environment
+          name: Start the release-production pipeline
+          # Through the pipeline's custom webhook trigger, which can only start that pipeline on main
           command: |
-            git config --global user.name "CircleCI"
-            git config --global user.email "ci@circleci.com"
-            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
-      - run:
-          name: Release production
-          command: pnpm release
+            curl -fsS -X POST -H 'Content-Type: application/json' \
+              -d "{\"sha\": \"$CIRCLE_SHA1\"}" "$RELEASE_PRODUCTION_WEBHOOK_URL"
 
 # ====================
 # WORKFLOWS
@@ -696,12 +686,9 @@ workflows:
               # Exclude forked PR branches which start with 'pull/'
               ignore: /^pull\/.*/
 
-      # Production release, main only. Canary and pre releases run in their own pipeline
-      # (release-preview.yml), so npm can tell their trusted publisher apart from this one
-      - release-production:
-          # Run one production release at a time, in merge order
-          serial-group: << pipeline.project.slug >>/release-production
-          # Restricted to main in CircleCI; npm trusted publisher for this context may publish
+      # Production release, main only, once everything has passed
+      - trigger-release-production:
+          # Holds the release-production webhook URL (RELEASE_PRODUCTION_WEBHOOK_URL); restricted to main
           context: [npm-production]
           requires:
             - build

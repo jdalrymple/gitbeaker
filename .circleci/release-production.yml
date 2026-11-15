@@ -1,0 +1,71 @@
+version: 2.1
+
+# Production releases, in their own CircleCI pipeline. npm identifies a CircleCI trusted publisher
+# by its pipeline definition, so only this pipeline can publish: the main pipeline (config.yml),
+# which also builds PRs from forks, can't.
+#
+# This pipeline's only trigger is a custom webhook on main. The main pipeline calls it once every
+# test has passed (trigger-release-production in config.yml), sending the commit it tested as `sha`.
+
+orbs:
+  gh: circleci/github-cli@3.0.0
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:26.13.0
+    resource_class: medium
+    working_directory: ~/project
+
+jobs:
+  release-production:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Check main is the tested commit
+          # Only the pipeline for the newest commit on main releases, and it releases every PR merged
+          # since the last release. If another PR has merged since the tested commit, this pipeline
+          # stops and leaves the release to that PR's pipeline, so only tested code is published.
+          # Newer release commits are fine, and keep versions current
+          command: |
+            sha=$(jq -r '.sha // empty' \<<< '<< pipeline.trigger_parameters.webhook.body >>')
+            [[ $sha =~ ^[0-9a-f]{40}$ ]] || { echo "The webhook body has no valid sha"; exit 1; }
+            latest_merge=$(git log -1 --format=%H --invert-grep --grep='^Version packages and update changelogs')
+
+            if [ "$latest_merge" != "$sha" ]; then
+              echo "main has moved on to ${latest_merge:0:7} - deferring to its pipeline"
+              circleci-agent step halt
+            fi
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Build packages
+          command: pnpm build
+      - gh/setup
+      - run:
+          name: Setup release environment
+          command: |
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Release production
+          command: pnpm release
+
+workflows:
+  release-production:
+    jobs:
+      - release-production:
+          # Run one production release at a time, in merge order
+          serial-group: << pipeline.project.slug >>/release-production
+          # Restricted to main in CircleCI; npm trusted publisher for this pipeline may publish
+          context: [npm-production]
+          filters:
+            branches:
+              only: [main]
