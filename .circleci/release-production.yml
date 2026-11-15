@@ -1,11 +1,12 @@
 version: 2.1
 
 # Production releases, in their own CircleCI pipeline. npm identifies a CircleCI trusted publisher
-# by its pipeline definition, so only this pipeline can publish: the main pipeline (config.yml),
-# which also builds PRs from forks, can't.
+# by its pipeline definition, so only this pipeline can publish: the validate-and-test pipeline
+# (config.yml), which also builds PRs from forks, can't.
 #
-# This pipeline's only trigger is a custom webhook on main. The main pipeline calls it once every
-# test has passed (trigger-release-production in config.yml), sending the commit it tested as `sha`.
+# This pipeline's only trigger is a custom webhook on main. The validate-and-test pipeline calls it
+# once every test has passed (trigger-release-production in config.yml), sending the commit it
+# tested as `sha`.
 
 orbs:
   gh: circleci/github-cli@3.0.0

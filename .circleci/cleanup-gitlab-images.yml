@@ -1,0 +1,91 @@
+version: 2.1
+
+# Deletes the GCP images of old GitLab versions, which the e2e tests no longer use. Only needed now
+# and then, after GITLAB_VERSION changes in config.yml.
+#
+# This pipeline has no automatic triggers: a maintainer runs it manually on main. It authenticates
+# to GCP the same way as the e2e jobs in config.yml (gcp_auth), so it needs the gcp context.
+
+executors:
+  gcp-executor:
+    docker:
+      - image: cimg/gcp:2026.07.1
+    resource_class: small
+    working_directory: ~/project
+
+jobs:
+  cleanup-old-gitlab-images:
+    executor: gcp-executor
+    steps:
+      - checkout
+      - run:
+          name: Authenticate with GCP
+          # Exchanges this job's CircleCI OIDC token for short-lived GCP credentials (Workload
+          # Identity Federation), so no GCP key is stored in CircleCI. GCP only accepts tokens from
+          # this project's jobs that use the gcp context. GCP_WORKLOAD_IDENTITY_PROVIDER and
+          # GCP_SERVICE_ACCOUNT come from that context too
+          command: |
+            echo "$CIRCLE_OIDC_TOKEN_V2" > /tmp/circleci-oidc-token
+            gcloud iam workload-identity-pools create-cred-config "$GCP_WORKLOAD_IDENTITY_PROVIDER" \
+              --service-account="$GCP_SERVICE_ACCOUNT" \
+              --credential-source-file=/tmp/circleci-oidc-token \
+              --output-file=/tmp/gcp-credentials.json
+            gcloud auth login --cred-file=/tmp/gcp-credentials.json --quiet
+            gcloud --quiet config set project gitbeaker
+      - run:
+          name: Clean up old GitLab images
+          command: |
+            # The e2e tests use one image per GitLab major version. Read the current version from
+            # config.yml, so it's only defined in one place
+            GITLAB_VERSION=$(sed -n 's/^ *GITLAB_VERSION: *//p' .circleci/config.yml | head -1)
+            [ -n "$GITLAB_VERSION" ] || { echo "GITLAB_VERSION not found in config.yml"; exit 1; }
+            GITLAB_IMAGE_NAME="gitlab-ready-image-${GITLAB_VERSION%%.*}"
+
+            echo "Current GitLab version: ${GITLAB_VERSION}"
+            echo "Current image name: ${GITLAB_IMAGE_NAME}"
+            echo ""
+
+            # Find all gitlab-ready-image-* images in the project
+            OLD_IMAGES=$(gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-[0-9]+$" \
+              --format="value(name)" | grep -v "^${GITLAB_IMAGE_NAME}$" || true)
+
+            if [ -z "$OLD_IMAGES" ]; then
+              echo "✅ No old GitLab images found to clean up"
+            else
+              echo "🧹 Found old GitLab images to clean up:"
+              echo "$OLD_IMAGES"
+              echo ""
+
+              # Delete each old image
+              echo "$OLD_IMAGES" | while read -r image_name; do
+                if [ -n "$image_name" ]; then
+                  echo "🗑️  Deleting old image: $image_name"
+                  gcloud compute images delete "$image_name" \
+                    --project=gitbeaker \
+                    --quiet || echo "❌ Failed to delete $image_name"
+                fi
+              done
+
+              echo ""
+              echo "✅ Cleanup completed"
+            fi
+
+            # Show remaining GitLab images
+            echo ""
+            echo "📋 Remaining GitLab images:"
+            gcloud compute images list \
+              --project=gitbeaker \
+              --filter="name~^gitlab-ready-image-" \
+              --format="table(name,creationTimestamp,diskSizeGb)" || echo "No GitLab images found"
+
+workflows:
+  cleanup-gitlab-images:
+    jobs:
+      - cleanup-old-gitlab-images:
+          # GCP only accepts OIDC tokens from jobs that use this context
+          context: [gcp]
+          filters:
+            branches:
+              only: [main]
