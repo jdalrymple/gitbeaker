@@ -1,5 +1,32 @@
 # @gitbeaker/requester-rest
 
+## 44.1.1
+
+### Patch Changes
+
+- chore(ci): Authenticate e2e to GCP with OIDC and support e2e for fork PRs ([#3893](https://github.com/jdalrymple/gitbeaker/pull/3893))
+
+  ## Summary
+  - **GCP authentication without a stored key**
+    - e2e jobs now exchange their CircleCI OIDC token for short-lived GCP credentials (Workload Identity Federation), so CircleCI no longer stores a GCP service account key.
+    - GCP only accepts tokens from this project's jobs that use the new gcp context. Only the e2e setup, teardown and image cleanup jobs use it.
+    - Packer takes a short-lived access token instead of the key.
+
+  - **E2E tests for PRs from forks**
+    - Fork PRs never get credentials, so their e2e tests couldn't run. A maintainer can now trigger the validate-and-test pipeline on main with e2e_pr=<PR number>.
+    - That run uses main's config: only main's code creates and deletes the GitLab instance. The PR's code runs in jobs with no context, which never save caches.
+    - Teardown now finds a pipeline's GitLab instances by label instead of reading the workspace, which the PR's code can write to.
+    - Fork PR pipelines no longer show the approve-e2e-tests button, which could only fail there.
+    - CODECOV_TOKEN moves into a codecov context, so no secrets are left in project environment variables.
+
+  - **Misc CI changes**
+    - The main workflow is renamed to validate-and-test.
+    - The GitLab image cleanup moves out of validate-and-test, where its approval left main's status pending forever, into its own manually triggered pipeline (.circleci/cleanup-gitlab-images.yml).
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.1
+  - @gitbeaker/requester-utils@44.1.1
+
 ## 44.1.0
 
 ### Minor Changes
