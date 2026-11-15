@@ -1,0 +1,91 @@
+version: 2.1
+
+# Canary and pre releases, in their own CircleCI pipeline. npm identifies a CircleCI trusted
+# publisher by its pipeline definition, so this pipeline gets a stage-only publisher that can't be
+# confused with the production one in config.yml.
+#
+# This pipeline has no automatic triggers: a maintainer runs it manually on a PR's branch, choosing
+# release_type. It doesn't run any tests itself: it first checks that the main pipeline passed for
+# the same commit. That needs a read-only CircleCI personal API token as CIRCLE_TOKEN in the
+# npm-prerelease context.
+
+parameters:
+  release_type:
+    type: enum
+    enum: [canary, pre]
+    default: canary
+
+orbs:
+  gh: circleci/github-cli@3.0.0
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:26.13.0
+    resource_class: medium
+    working_directory: ~/project
+
+jobs:
+  release-preview:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          # A canary may go out while the e2e tests wait for approval; a pre release needs them too
+          name: Check the main pipeline passed for this commit
+          command: |
+            api() { curl -fsS -H "Circle-Token: $CIRCLE_TOKEN" "https://circleci.com/api/v2/$1"; }
+
+            # Newest main workflow among this commit's pipelines (skips this release-preview pipeline)
+            workflow=""
+            for pipeline in $(api "project/<< pipeline.project.slug >>/pipeline?branch=$CIRCLE_BRANCH" \
+              | jq -r '.items[] | select(.vcs.revision == env.CIRCLE_SHA1) | .id'); do
+              workflow=$(api "pipeline/$pipeline/workflow" \
+                | jq -c '[.items[] | select(.name == "main")] | sort_by(.created_at) | last // empty')
+              [ -n "$workflow" ] && break
+            done
+
+            [ -n "$workflow" ] || { echo "No main pipeline has run on ${CIRCLE_SHA1:0:7}"; exit 1; }
+
+            status=$(jq -r .status \<<< "$workflow")
+
+            if [ "<< pipeline.parameters.release_type >>" = canary ]; then
+              api "workflow/$(jq -r .id \<<< "$workflow")/job" \
+                | jq -e '[.items[] | select(.status | IN("success", "not_run", "on_hold", "blocked") | not)] | length == 0' >/dev/null \
+                || { echo "The main pipeline for ${CIRCLE_SHA1:0:7} hasn't passed ($status)"; exit 1; }
+            elif [ "$status" != success ]; then
+              echo "The main pipeline for ${CIRCLE_SHA1:0:7} is $status, but a pre release needs it to have passed"
+              exit 1
+            fi
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Build packages
+          command: pnpm build
+      - gh/setup
+      - run:
+          name: Setup release environment
+          command: |
+            git config --global user.name "CircleCI"
+            git config --global user.email "ci@circleci.com"
+            git remote set-url origin https://jdalrymple:${GITHUB_TOKEN}@github.com/jdalrymple/gitbeaker.git
+      - run:
+          name: Release << pipeline.parameters.release_type >>
+          command: pnpm release:<< pipeline.parameters.release_type >>
+
+workflows:
+  release-preview:
+    jobs:
+      - release-preview:
+          name: release-<< pipeline.parameters.release_type >>
+          # npm trusted publisher for this pipeline may only stage (see scripts/auto-release.mjs)
+          context: [npm-prerelease]
+          filters:
+            branches:
+              # Not on main, nor on fork PRs (pull/<n>), which run untrusted code
+              ignore: [main, /^pull\/.*/]

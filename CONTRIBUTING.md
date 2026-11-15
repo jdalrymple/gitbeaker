@@ -57,16 +57,19 @@ together by the pipeline for the newest one.
 
 ### Canary and pre-releases
 
-Maintainers can release a PR before it is merged by approving an optional job in its CircleCI
-pipeline:
+Maintainers can release a PR before it is merged by manually triggering the separate
+`release-preview` CircleCI pipeline (`.circleci/release-preview.yml`) on the PR's branch, with the
+`release_type` parameter:
 
-- `approve-canary` releases under the `canary` npm tag. It becomes available once unit and
-  integration tests pass.
-- `approve-pre` releases under the `pre` npm tag. It also waits for the e2e tests, which need to be
-  approved in CircleCI first.
+- `canary` (the default) releases under the `canary` npm tag.
+- `pre` releases under the `pre` npm tag.
 
-The release is built from the exact commit of that pipeline. These jobs are not available on PRs
-from forks, which never run with release credentials.
+This pipeline doesn't run any tests itself. Before releasing, it checks that the main pipeline
+passed for the same commit. A canary can go out while the e2e tests are still waiting for approval,
+but a pre-release needs them to have passed too.
+
+The release is built from the branch's latest commit when the pipeline is triggered. It can't run on
+PRs from forks, which never run with release credentials.
 
 As an extra safeguard, these releases are only staged on npm. They become available once a
 maintainer approves them on npmjs.com with two-factor authentication, or with `npm stage approve`.
