@@ -1,5 +1,25 @@
 # @gitbeaker/core
 
+## 44.0.7
+
+### Patch Changes
+
+- chore(ci): Move production releases into their own pipeline ([#3892](https://github.com/jdalrymple/gitbeaker/pull/3892))
+
+  ## Summary
+
+  Production releases now run in a separate CircleCI pipeline, release-production (.circleci/release-production.yml), instead of as a job in the main pipeline.
+
+  **Why**: npm trusted publishing identifies a CircleCI publisher by its pipeline definition. The main pipeline also builds PRs from forks, so it shouldn't be the pipeline npm trusts to publish. With this change, only release-production (and release-preview for canary/pre) can publish.
+
+  **How it works**
+  - Once every test passes on main, trigger-release-production calls the new pipeline's custom webhook with the commit it tested. No CircleCI API token is involved; the webhook can only start that one pipeline, on main.
+  - The release pipeline's first step checks that the tested commit is still the latest merge on main. If another PR has merged since, it stops and leaves the release to that PR's pipeline, which releases both. This check moved from auto-release.mjs into the pipeline, so a deferred run skips the install and build.
+  - Releases run one at a time (serial group), with the npm-production context.
+
+- Updated dependencies []:
+  - @gitbeaker/requester-utils@44.0.7
+
 ## 44.0.6
 
 ### Patch Changes
