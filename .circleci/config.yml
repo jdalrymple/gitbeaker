@@ -10,9 +10,6 @@ x-environment: &default_environment
   GITLAB_MACHINE_TYPE: e2-standard-4
   GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
   GITLAB_ROOT_PASSWORD: gitbeaker
-  # GCP authenticates jobs through their CircleCI OIDC token (see gcp_auth); these aren't secrets
-  GCP_WORKLOAD_IDENTITY_PROVIDER: projects/1049594296357/locations/global/workloadIdentityPools/circleci/providers/circleci
-  GCP_SERVICE_ACCOUNT: ci-bot@gitbeaker.iam.gserviceaccount.com
 
 # ====================
 # PARAMETERS
@@ -57,7 +54,8 @@ commands:
           name: Authenticate with GCP
           # Exchanges this job's CircleCI OIDC token for short-lived GCP credentials (Workload
           # Identity Federation), so no GCP key is stored in CircleCI. GCP only accepts tokens from
-          # this project's jobs that use the gcp context
+          # this project's jobs that use the gcp context. GCP_WORKLOAD_IDENTITY_PROVIDER and
+          # GCP_SERVICE_ACCOUNT come from that context too
           command: |
             echo "$CIRCLE_OIDC_TOKEN_V2" > /tmp/circleci-oidc-token
             gcloud iam workload-identity-pools create-cred-config "$GCP_WORKLOAD_IDENTITY_PROVIDER" \
