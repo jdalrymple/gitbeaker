@@ -2,6 +2,29 @@
 
 ---
 
+## v44.1.0 (Sun, Nov 15, 2026)
+
+### Minor Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: feat: Honour the Retry-After header when retrying rate limited requests ([#3865](https://github.com/jdalrymple/gitbeaker/pull/3865)) ([@X-Guardian](https://github.com/X-Guardian))
+
+  ### Summary
+
+  GitLab asks clients to wait for the number of seconds given in the `Retry-After` header before retrying a `429 Too Many Requests` response ([When you exceed a limit](https://docs.gitlab.com/user/gitlab_com/rate_limits/#when-you-exceed-a-limit)). `@gitbeaker/rest` currently ignores the header and retries on a fixed exponential schedule, so it either calls the endpoint again before the quota resets or gives up after about 4 minutes when GitLab has asked for a longer wait.
+
+  This used to work incidentally. Before [#2258](https://github.com/jdalrymple/gitbeaker/issues/2258) the node requester ran on `got@11.8.3`, whose built-in retry honours `Retry-After` on `429`. When that release replaced `got` with native `fetch`, the outer backoff loop was ported across but the header-aware wait underneath it was not. This PR adds it to gitbeaker directly.
+
+  - Closes [#3864](https://github.com/jdalrymple/gitbeaker/issues/3864)
+
+  ### Changes:
+  1. Adds `getRetryAfterDelay`, which parses `Retry-After` as either the seconds form GitLab sends or an RFC 9110 HTTP-date. Missing, non-numeric or negative values return `undefined`.
+  2. Uses that delay in `defaultRequestHandler` when present, falling back to the existing `2 ** i * 250` backoff otherwise. The 10-attempt cap still counts attempts, so a long `Retry-After` is waited out in full rather than cut short.
+  3. Adds unit tests for the parser and fake-timer tests confirming a `429` with `Retry-After: 30` is not refetched until 30 seconds have passed, and that backoff still applies without the header.
+
+  The header is honoured for both retryable status codes (`429` and `502`). GitLab only documents it for `429`, but respecting it on any retryable response is harmless and matches how `got` behaved.
+
+---
+
 ## v44.0.7 (Sun, Nov 15, 2026)
 
 ### Patch Changes
