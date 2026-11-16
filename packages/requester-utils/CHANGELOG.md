@@ -1,5 +1,13 @@
 # @gitbeaker/requester-utils
 
+## 44.1.4
+
+### Patch Changes
+
+- fix: `Projects.edit` incorrectly nested its body parameter ([#3896](https://github.com/jdalrymple/gitbeaker/pull/3896))
+
+  fixes [#3895](https://github.com/jdalrymple/gitbeaker/issues/3895)
+
 ## 44.1.3
 
 ### Patch Changes
