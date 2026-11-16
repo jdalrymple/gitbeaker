@@ -378,6 +378,7 @@ jobs:
               --max-run-duration=15m \
               --instance-termination-action=DELETE \
               --labels=circleci-pipeline=<< pipeline.number >> \
+              --no-service-account --no-scopes \
               --metadata-from-file startup-script=scripts/startup_filled.sh \
               --image=$GITLAB_IMAGE_NAME \
               --image-project=gitbeaker 2>&1)
