@@ -35,13 +35,12 @@
     <img alt="CLI Coverage" src="https://img.shields.io/codecov/c/github/jdalrymple/gitbeaker?flag=cli&logo=codecov&label=coverage"/>
   </a>
 
-  <a href="https://github.com/intuit/auto">
-    <img src="https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto" alt="Auto">
-  </a>
   <a href="#contributors-">
     <img src="https://img.shields.io/badge/all_contributors-orange.svg?style=round" alt="All Contributors" />
   </a>
-  <img src="https://img.shields.io/badge/code%20style-prettier-ff69b4.svg" alt="Prettier">
+  <a href="https://oxc.rs/docs/guide/usage/formatter">
+    <img src="https://img.shields.io/badge/code%20style-oxfmt-ff69b4.svg" alt="Oxfmt">
+  </a>
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence: MIT">
   </a>

@@ -7,6 +7,8 @@ export default defineConfig({
     include: ['**/test/**/*.ts'],
     exclude: ['**/node_modules/**', '**/dist/**'],
     globals: false,
+    // The JUnit report is uploaded to Codecov's test analytics in CI
+    reporters: ['default', ['junit', { outputFile: 'reports/junit.xml' }]],
     coverage: {
       enabled: true,
       reporter: ['lcov', 'text', 'text-summary', 'cobertura'],
