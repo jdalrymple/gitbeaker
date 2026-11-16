@@ -28,6 +28,9 @@ source "googlecompute" "gitlab" {
   ssh_username           = "packer"
   access_token            = var.gcp_access_token
 
+  // The build VM doesn't call GCP, so it runs without a service account
+  disable_default_service_account = true
+
   // Add labels for tracking
   image_labels = {
     environment = "ci"
