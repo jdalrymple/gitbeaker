@@ -23,11 +23,13 @@ Please note we have a code of conduct, please follow it in all your interactions
 The e2e tests run against a GitLab instance on GCP, so they need credentials. They run
 automatically on `main`, and on PRs once a maintainer approves the `approve-e2e-tests` job.
 
-CI never gives credentials to PRs from forks, so their e2e tests run separately. Once a maintainer
-has reviewed the PR, they trigger the `validate-and-test` pipeline on `main` in CircleCI with the
-`e2e_pr` parameter set to the PR number. That run uses the CI config from `main`: only `main`'s code
-creates and deletes the GitLab instance, and the PR's code runs in jobs without any credentials or
-access to shared caches.
+CI never gives credentials to PRs from forks, so their e2e tests run in a separate pipeline,
+`e2e-fork-pr` (`.circleci/e2e-fork-pr.yml`). Once a maintainer has reviewed the PR, they trigger it
+in CircleCI on `main`, with the `e2e_pr` parameter set to the PR number.
+
+The run tests the PR merged into `main`, so the PR must not conflict with `main`. The result is
+posted on the PR as the `ci/circleci: e2e (fork PR)` status. Only `main`'s code runs with
+credentials; the PR's code runs in jobs without any credentials or access to shared caches.
 
 ## PR Titles and Releases
 

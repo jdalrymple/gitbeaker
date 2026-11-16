@@ -12,15 +12,6 @@ x-environment: &default_environment
   GITLAB_ROOT_PASSWORD: gitbeaker
 
 # ====================
-# PARAMETERS
-# ====================
-parameters:
-  # Set by a maintainer to run the e2e tests for a PR from a fork (see the e2e-pr workflow)
-  e2e_pr:
-    type: integer
-    default: 0
-
-# ====================
 # EXECUTORS
 # ====================
 executors:
@@ -116,9 +107,6 @@ commands:
         type: string
       test_type:
         type: string
-      save_cache:
-        type: boolean
-        default: true
     steps:
       - setup_nx_cache
       - run:
@@ -128,10 +116,7 @@ commands:
             JEST_MAX_WORKERS: '1'
           command: pnpm test:<< parameters.test_type >> --projects=<< parameters.package >>
           no_output_timeout: 30m
-      - when:
-          condition: << parameters.save_cache >>
-          steps:
-            - save_nx_cache
+      - save_nx_cache
 
   setup_gitlab_vars:
     description: 'Set up GitLab-related environment variables'
@@ -249,10 +234,6 @@ jobs:
         type: boolean
         default: false
         description: 'Whether this test requires GitLab environment'
-      save_cache:
-        type: boolean
-        default: true
-        description: 'Whether to save the NX cache (never for untrusted code, see the e2e-pr workflow)'
     steps:
       - restore_workspace
       - install_pnpm_if_playwright:
@@ -264,51 +245,6 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/<< parameters.package_short >>'
           test_type: << parameters.test_type >>
-          save_cache: << parameters.save_cache >>
-
-  # ====================
-  # FORK PR E2E (e2e-pr workflow)
-  # ====================
-  # Checks out and builds a fork PR's code, which is untrusted. It and the test jobs after it have
-  # no context and never save caches, so that code can't reach any credentials or poison a cache
-  # that trusted jobs restore
-  build-pr:
-    executor: node-executor
-    steps:
-      - checkout
-      - run:
-          name: Check no secrets would be exposed
-          command: |
-            # Project environment variables reach every job, including this one
-            for name in GITHUB_TOKEN GCLOUD_SERVICE_KEY CODECOV_TOKEN; do
-              if [ -n "${!name:-}" ]; then
-                echo "$name is a project environment variable, so the PR's code could read it. Move it into a context first"
-                exit 1
-              fi
-            done
-      - run:
-          name: Check out PR #<< pipeline.parameters.e2e_pr >>
-          command: |
-            git fetch --force origin "pull/<< pipeline.parameters.e2e_pr >>/head"
-            git checkout --detach FETCH_HEAD
-            echo "Testing PR #<< pipeline.parameters.e2e_pr >> at $(git log -1 --format='%H: %s')"
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
-      - run:
-          name: Install dependencies
-          command: pnpm install --frozen-lockfile
-      - run:
-          name: Build packages
-          command: pnpm build
-      - run:
-          name: Remove any GitLab environment file from the PR
-          # setup-e2e-tests provides the real one
-          command: rm -f gitlab-env.txt
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
   # ====================
   # LIVE TEST SETUP
@@ -473,8 +409,7 @@ jobs:
       - run:
           when: always
           name: Cleanup GitLab GCP instance
-          # Finds this pipeline's instances by label rather than through the workspace, which a fork
-          # PR's code also writes to in the e2e-pr workflow
+          # Finds this pipeline's instances by label rather than through the workspace
           command: |
             instances=$(gcloud compute instances list --project=gitbeaker \
               --filter="labels.circleci-pipeline=<< pipeline.number >>" --format="value(name,zone.basename())")
@@ -559,8 +494,6 @@ workflows:
 
   # Validates and tests every branch, including PRs from forks
   validate-and-test:
-    when:
-      equal: [0, << pipeline.parameters.e2e_pr >>]
     jobs:
       - install
       - build:
@@ -618,7 +551,8 @@ workflows:
             branches:
               only: [main]
 
-      # Fork PR pipelines have no credentials, so their e2e tests run through the e2e-pr workflow
+      # Fork PR pipelines have no credentials, so their e2e tests run in the e2e-fork-pr pipeline
+      # (.circleci/e2e-fork-pr.yml)
       - approve-e2e-tests:
           type: approval
           requires: [build, lint, format]
@@ -750,50 +684,3 @@ workflows:
           filters:
             branches:
               only: [main]
-
-  # E2E tests for a PR from a fork, started by a maintainer: trigger this pipeline on main with
-  # e2e_pr set to the PR number. The config comes from main, so the PR can't change it. Only main's
-  # code runs with GCP access (setup and teardown); the PR's code runs in build-pr and the test jobs
-  e2e-pr:
-    when:
-      and:
-        - not:
-            equal: [0, << pipeline.parameters.e2e_pr >>]
-        - equal: [main, << pipeline.git.branch >>]
-    jobs:
-      - build-pr
-      - setup-e2e-tests:
-          # GCP only accepts OIDC tokens from jobs that use this context (see gcp_auth)
-          context: [gcp]
-
-      - run-package-tests:
-          name: test-e2e-rest
-          package_short: 'rest'
-          test_type: 'e2e'
-          executor_type: 'playwright-executor'
-          requires_gitlab_env: true
-          save_cache: false
-          requires: [build-pr, setup-e2e-tests]
-      - run-package-tests:
-          name: test-e2e-cli
-          package_short: 'cli'
-          test_type: 'e2e'
-          requires_gitlab_env: true
-          save_cache: false
-          requires: [build-pr, setup-e2e-tests]
-
-      - teardown-e2e-tests:
-          name: teardown-e2e-setup-failure
-          context: [gcp]
-          requires:
-            - setup-e2e-tests:
-                - failed
-      - teardown-e2e-tests:
-          context: [gcp]
-          requires:
-            - test-e2e-rest:
-                - failed
-                - success
-            - test-e2e-cli:
-                - failed
-                - success

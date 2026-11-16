@@ -1,0 +1,423 @@
+version: 2.1
+
+# Runs the e2e tests for a PR from a fork. CI never gives credentials to fork PRs, so their own
+# pipelines can't create the GitLab instance the e2e tests need.
+#
+# This pipeline has no automatic triggers: once a maintainer has reviewed the PR, they run it with
+# its config from main and the e2e_pr parameter set to the PR number. It tests the PR merged into
+# main, and posts the result on the PR as the "ci/circleci: e2e (fork PR)" status.
+#
+# Only main's code runs with credentials (setup, teardown and the status reports). The PR's code
+# runs in build-pr and the test jobs, which have no context and never save caches, so it can't reach
+# any credentials or poison a cache that trusted jobs restore.
+#
+# The setup and teardown jobs are copies of those in config.yml, so keep them in step.
+
+x-environment: &default_environment
+  GCP_ZONE: us-central1-c
+  GITLAB_VERSION: 19.2.0-ce.0
+  GITLAB_MACHINE_TYPE: e2-standard-4
+  GITLAB_PERSONAL_ACCESS_TOKEN: gitbeaker
+  GITLAB_ROOT_PASSWORD: gitbeaker
+
+parameters:
+  e2e_pr:
+    type: integer
+    default: 0
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:26.13.0
+    resource_class: medium
+    working_directory: ~/project
+
+  playwright-executor:
+    docker:
+      # Must match @playwright/test in packages/rest/package.json. Renovate updates both together
+      - image: mcr.microsoft.com/playwright:v1.65.0-noble
+    resource_class: medium
+    working_directory: ~/project
+
+  gcp-executor:
+    docker:
+      - image: cimg/gcp:2026.07.1
+    resource_class: small
+    working_directory: ~/project
+
+commands:
+  checkout_main:
+    description: "Check out main's latest commit, whichever branch the pipeline was started on"
+    steps:
+      - checkout
+      - run:
+          name: Switch to main
+          command: |
+            git fetch --force origin main
+            git checkout --detach FETCH_HEAD
+            echo "Using main at $(git log -1 --format='%H: %s')"
+
+  gcp_auth:
+    description: 'Authenticate with GCP and set project'
+    steps:
+      - run:
+          name: Authenticate with GCP
+          # Exchanges this job's CircleCI OIDC token for short-lived GCP credentials (Workload
+          # Identity Federation), so no GCP key is stored in CircleCI. GCP only accepts tokens from
+          # this project's jobs that use the gcp context. GCP_WORKLOAD_IDENTITY_PROVIDER and
+          # GCP_SERVICE_ACCOUNT come from that context too
+          command: |
+            echo "$CIRCLE_OIDC_TOKEN_V2" > /tmp/circleci-oidc-token
+            gcloud iam workload-identity-pools create-cred-config "$GCP_WORKLOAD_IDENTITY_PROVIDER" \
+              --service-account="$GCP_SERVICE_ACCOUNT" \
+              --credential-source-file=/tmp/circleci-oidc-token \
+              --output-file=/tmp/gcp-credentials.json
+            gcloud auth login --cred-file=/tmp/gcp-credentials.json --quiet
+            gcloud --quiet config set project gitbeaker
+
+  setup_gitlab_vars:
+    description: 'Set up GitLab-related environment variables'
+    steps:
+      - run:
+          name: Set GitLab image variables
+          command: |
+            # Extract major version number from GITLAB_VERSION (e.g., 19 from 19.2.0-ce.0)
+            GITLAB_MAJOR_VERSION=$(echo "${GITLAB_VERSION}" | cut -d. -f1)
+            GITLAB_IMAGE_NAME="gitlab-ready-image-${GITLAB_MAJOR_VERSION}"
+
+            # Export to BASH_ENV so they're available in subsequent steps
+            echo "export GITLAB_MAJOR_VERSION=${GITLAB_MAJOR_VERSION}" >> $BASH_ENV
+            echo "export GITLAB_IMAGE_NAME=${GITLAB_IMAGE_NAME}" >> $BASH_ENV
+
+            echo "GitLab version: ${GITLAB_VERSION}"
+            echo "GitLab major version: ${GITLAB_MAJOR_VERSION}"
+            echo "GitLab image name: ${GITLAB_IMAGE_NAME}"
+
+jobs:
+  # Merges the PR into main and builds it. This runs the PR's code, which is untrusted
+  build-pr:
+    executor: node-executor
+    steps:
+      - checkout_main
+      - run:
+          name: Check no secrets would be exposed
+          command: |
+            # Project environment variables reach every job, including this one
+            for name in GITHUB_TOKEN GITHUB_STATUS_TOKEN GCLOUD_SERVICE_KEY CODECOV_TOKEN; do
+              if [ -n "${!name:-}" ]; then
+                echo "$name is a project environment variable, so the PR's code could read it. Move it into a context first"
+                exit 1
+              fi
+            done
+      - run:
+          name: Merge PR #<< pipeline.parameters.e2e_pr >> into main
+          # Tests the PR as it would land. A PR branched from an older main can have dependencies,
+          # such as Playwright, that no longer match the executors in this config
+          command: |
+            git fetch --force origin "pull/<< pipeline.parameters.e2e_pr >>/head"
+            echo "Testing PR #<< pipeline.parameters.e2e_pr >> at $(git log -1 --format='%H: %s' FETCH_HEAD)"
+            if ! git -c user.name=circleci -c user.email=circleci@localhost merge --no-ff --no-edit FETCH_HEAD; then
+              echo "PR #<< pipeline.parameters.e2e_pr >> conflicts with main. Ask the author to update their branch, then run this again"
+              exit 1
+            fi
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          name: Install dependencies
+          command: pnpm install --frozen-lockfile
+      - run:
+          name: Build packages
+          command: pnpm build
+      - run:
+          name: Remove any GitLab environment file from the PR
+          # setup-e2e-tests provides the real one
+          command: rm -f gitlab-env.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  setup-e2e-tests:
+    executor: gcp-executor
+    description: 'Create GitLab instance on GCP for e2e testing'
+    environment: *default_environment
+    steps:
+      - checkout_main
+      - gcp_auth
+      - setup_gitlab_vars
+      - run:
+          name: Check the GitLab image exists
+          # config.yml's pipeline builds the image when GITLAB_VERSION changes, so it exists once
+          # main is green
+          command: |
+            gcloud compute images describe "${GITLAB_IMAGE_NAME}" --project=gitbeaker --quiet >/dev/null || {
+              echo "GitLab image ${GITLAB_IMAGE_NAME} doesn't exist. Run this again once main's pipeline has built it"
+              exit 1
+            }
+      - run:
+          name: Setup live GitLab instance
+          command: |
+            set +e  # Don't exit on errors, we handle them manually
+
+            # Replace periods and other invalid characters with hyphens for GCP instance name
+            GITLAB_VERSION_SAFE=$(echo "${GITLAB_VERSION}" | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/-$//')
+            export CONTAINER_NAME=gitlab-${GITLAB_VERSION_SAFE}-${CIRCLE_BUILD_NUM}
+
+            # Create startup script
+            envsubst < scripts/startup.sh > scripts/startup_filled.sh
+
+            # Create GCP instance with custom GitLab-ready image and auto-expiry. The label has a
+            # different key from config.yml's, so neither pipeline's teardown deletes the other's
+            echo "Creating GCP instance '$CONTAINER_NAME' using image: ${GITLAB_IMAGE_NAME}"
+            GCLOUD_OUTPUT=$(gcloud compute instances create $CONTAINER_NAME \
+              --project gitbeaker \
+              --machine-type=$GITLAB_MACHINE_TYPE \
+              --boot-disk-size=50GB \
+              --boot-disk-type=pd-ssd \
+              --zone=$GCP_ZONE \
+              --tags http-server \
+              --provisioning-model=SPOT \
+              --max-run-duration=15m \
+              --instance-termination-action=DELETE \
+              --labels=circleci-fork-pr-pipeline=<< pipeline.number >> \
+              --no-service-account --no-scopes \
+              --metadata-from-file startup-script=scripts/startup_filled.sh \
+              --image=$GITLAB_IMAGE_NAME \
+              --image-project=gitbeaker 2>&1)
+
+            # Extract IP address from the created instance
+            GITLAB_HOST=$(gcloud compute instances describe $CONTAINER_NAME \
+              --zone=$GCP_ZONE \
+              --project=gitbeaker \
+              --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+
+            if [ -z "$GITLAB_HOST" ]; then
+              echo "ERROR: Failed to get IP address for instance $CONTAINER_NAME"
+              echo "$GCLOUD_OUTPUT"
+              exit 1
+            fi
+
+            export GITLAB_URL="http://${GITLAB_HOST}"
+
+            # Wait for GitLab to be ready with smarter polling
+            echo "Waiting for GitLab to start..."
+
+            # Start polling earlier with exponential backoff
+            attempt=1
+            wait_time=30
+            max_attempts=40  # ~20 minutes total with exponential backoff
+
+            while [ $attempt -le $max_attempts ]; do
+              echo "Polling attempt $attempt (waiting ${wait_time}s)..."
+              sleep $wait_time
+
+              # Check if GitLab is responding
+              curl_output=""
+              curl --fail --silent --max-time 10 -X GET "$GITLAB_URL/-/readiness?all=1" --insecure > /tmp/curl_output 2>&1
+
+              curl_exit_code=$?
+
+              if [ -f /tmp/curl_output ]; then
+                curl_output=$(cat /tmp/curl_output)
+              fi
+
+              if [ $curl_exit_code -eq 0 ]; then
+                readiness_response="$curl_output"
+
+                if echo "$readiness_response" | jq -e '.master_check[0].status == "ok"' > /dev/null 2>&1; then
+                  echo "GitLab is ready!"
+                  break
+                else
+                  echo "GitLab responding but not fully ready yet..."
+                fi
+              else
+                echo "GitLab not responding yet..."
+              fi
+
+              ((attempt++))
+              # Exponential backoff: 30s, 45s, 60s, then cap at 60s
+              if [ $wait_time -lt 60 ]; then
+                wait_time=$((wait_time + 15))
+              fi
+            done
+
+            if [ $attempt -gt $max_attempts ]; then
+              echo "ERROR: GitLab failed to start within timeout (~20 minutes)"
+              exit 1
+            fi
+
+            echo "GitLab is ready and operational!"
+
+            # Create environment file for e2e tests
+            echo "GITLAB_URL=$GITLAB_URL" > gitlab-env.txt
+            echo "GITLAB_PERSONAL_ACCESS_TOKEN=$GITLAB_PERSONAL_ACCESS_TOKEN" >> gitlab-env.txt
+            echo "CONTAINER_NAME=$CONTAINER_NAME" >> gitlab-env.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - gitlab-env.txt
+
+  # Runs the PR's e2e tests against the GitLab instance. No context, and no caches saved
+  test-e2e:
+    executor: << parameters.executor_type >>
+    parameters:
+      package_short:
+        type: string
+      executor_type:
+        type: string
+        default: 'node-executor'
+    steps:
+      - attach_workspace:
+          at: .
+      - when:
+          condition:
+            equal: ['playwright-executor', << parameters.executor_type >>]
+          steps:
+            - run:
+                name: Install pnpm (Playwright executor only)
+                command: npm install -g pnpm@11.18.0
+      - run:
+          name: Run e2e tests for @gitbeaker/<< parameters.package_short >>
+          environment:
+            NODE_OPTIONS: '--max-old-space-size=3584'
+            JEST_MAX_WORKERS: '1'
+          command: |
+            set -a
+            source gitlab-env.txt
+            set +a
+            pnpm test:e2e --projects=@gitbeaker/<< parameters.package_short >>
+          no_output_timeout: 30m
+
+  teardown-e2e-tests:
+    executor: gcp-executor
+    description: 'Clean up GitLab GCP instance after e2e tests complete'
+    steps:
+      - gcp_auth
+      - run:
+          name: Cleanup GitLab GCP instance
+          # Finds this pipeline's instances by label rather than through the workspace, which the
+          # PR's code also writes to
+          command: |
+            instances=$(gcloud compute instances list --project=gitbeaker \
+              --filter="labels.circleci-fork-pr-pipeline=<< pipeline.number >>" --format="value(name,zone.basename())")
+
+            if [ -z "$instances" ]; then
+              echo "No GitLab instance to clean up"
+              exit 0
+            fi
+
+            echo "$instances" | while read -r name zone; do
+              echo "Cleaning up GitLab instance: $name"
+              gcloud compute instances delete "$name" --zone="$zone" --project=gitbeaker --quiet || true
+            done
+
+  # Sets the result as a commit status on the PR. It doesn't check out any code or attach the
+  # workspace, so the PR's code can't reach GITHUB_STATUS_TOKEN
+  report-status:
+    executor: node-executor
+    parameters:
+      state:
+        type: enum
+        enum: [pending, success, failure, error]
+    steps:
+      - run:
+          name: Set the e2e status on PR #<< pipeline.parameters.e2e_pr >>
+          command: |
+            api=https://api.github.com/repos/jdalrymple/gitbeaker
+
+            # The PR's latest commit. If the author pushes during the run, the status lands on the
+            # new commit, so build-pr's log shows which commit was tested
+            sha=$(curl -fsS -H "Authorization: Bearer $GITHUB_STATUS_TOKEN" \
+              "$api/pulls/<< pipeline.parameters.e2e_pr >>" | jq -r .head.sha) || true
+            [[ $sha =~ ^[0-9a-f]{40}$ ]] || { echo "Couldn't find PR #<< pipeline.parameters.e2e_pr >>. Set e2e_pr to the PR number"; exit 1; }
+
+            case << parameters.state >> in
+              pending) description="Running, merged into main" ;;
+              success) description="Passed, merged into main" ;;
+              failure) description="Failed, merged into main" ;;
+              error) description="Couldn't create the GitLab instance" ;;
+            esac
+
+            echo "Setting << parameters.state >> on ${sha:0:7}"
+            curl -fsS -o /dev/null -X POST -H "Authorization: Bearer $GITHUB_STATUS_TOKEN" \
+              "$api/statuses/$sha" \
+              -d "$(jq -n --arg state << parameters.state >> --arg description "$description" \
+                --arg url "$CIRCLE_BUILD_URL" \
+                '{state: $state, description: $description, target_url: $url, context: "ci/circleci: e2e (fork PR)"}')"
+
+workflows:
+  e2e-fork-pr:
+    jobs:
+      # report-status jobs use the github-e2e-status context, which holds GITHUB_STATUS_TOKEN. It
+      # can only set commit statuses
+      - report-status:
+          name: report-pending
+          state: pending
+          context: [github-e2e-status]
+
+      - build-pr:
+          requires: [report-pending]
+      - setup-e2e-tests:
+          # GCP only accepts OIDC tokens from jobs that use this context (see gcp_auth)
+          context: [gcp]
+          requires: [report-pending]
+
+      - test-e2e:
+          name: test-e2e-rest
+          package_short: rest
+          executor_type: playwright-executor
+          requires: [build-pr, setup-e2e-tests]
+      - test-e2e:
+          name: test-e2e-cli
+          package_short: cli
+          requires: [build-pr, setup-e2e-tests]
+
+      # Teardown, whether the tests pass or fail
+      - teardown-e2e-tests:
+          name: teardown-after-setup-failure
+          context: [gcp]
+          requires:
+            - setup-e2e-tests: [failed]
+      - teardown-e2e-tests:
+          name: teardown-after-build-failure
+          context: [gcp]
+          requires:
+            - build-pr: [failed]
+            - setup-e2e-tests: [success, failed]
+      - teardown-e2e-tests:
+          context: [gcp]
+          requires:
+            - test-e2e-rest: [success, failed]
+            - test-e2e-cli: [success, failed]
+
+      # The result on the PR
+      - report-status:
+          name: report-success
+          state: success
+          context: [github-e2e-status]
+          requires: [test-e2e-rest, test-e2e-cli]
+      - report-status:
+          name: report-build-failure
+          state: failure
+          context: [github-e2e-status]
+          requires:
+            - build-pr: [failed]
+      - report-status:
+          name: report-rest-failure
+          state: failure
+          context: [github-e2e-status]
+          requires:
+            - test-e2e-rest: [failed]
+      - report-status:
+          name: report-cli-failure
+          state: failure
+          context: [github-e2e-status]
+          requires:
+            - test-e2e-cli: [failed]
+      - report-status:
+          name: report-setup-error
+          state: error
+          context: [github-e2e-status]
+          requires:
+            - setup-e2e-tests: [failed]
