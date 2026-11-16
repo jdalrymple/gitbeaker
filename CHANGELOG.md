@@ -2,6 +2,18 @@
 
 ---
 
+## v44.1.5 (Mon, Nov 16, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: fix: Seperate our e2e testing branch and update READMEs ([#3897](https://github.com/jdalrymple/gitbeaker/pull/3897))
+
+  ## Summary
+  - Readme's have been outdated for a while, using the wrong badges for example
+  - e2e tests on main pointing to a PR, but this would set the wrong status on the main branch pipeline. Instead, move the tests to a dedicated pipeline and branch to keep the status consistent
+
+---
+
 ## v44.1.4 (Mon, Nov 16, 2026)
 
 ### Patch Changes
