@@ -1,5 +1,41 @@
 # @gitbeaker/requester-rest
 
+## 44.1.2
+
+### Patch Changes
+
+- fix(types): Allow a null label in LabelEventSchema ([#3859](https://github.com/jdalrymple/gitbeaker/pull/3859)) ([@pataar](https://github.com/pataar))
+
+  ## Problem
+
+  The resource label events endpoints (`IssueLabelEvents`, `MergeRequestLabelEvents`, `EpicLabelEvents`) return `"label": null` for an event whose label has since been deleted:
+
+  ```json
+  {
+    "id": 123,
+    "user": { "id": 1, "username": "jane", "...": "..." },
+    "created_at": "2024-01-29T14:26:49.909+01:00",
+    "resource_type": "Issue",
+    "resource_id": 456,
+    "label": null,
+    "action": "add"
+  }
+  ```
+
+  GitLab keeps the event and nullifies its label reference when the label is removed from the project or group, so any long-lived issue or merge request can carry a few of these. Observed on a self-managed GitLab instance.
+
+  `LabelEventSchema` types the field as `label: LabelSchema`, so `event.label.name` compiles without complaint and throws `TypeError: Cannot read properties of null (reading 'name')` at runtime.
+
+  ## Change
+
+  `label: LabelSchema` → `label: LabelSchema | null`.
+
+  Types only, no runtime change. Nothing inside gitbeaker reads the field. For consumers this surfaces the missing null check at compile time — which is the point, but it does mean code doing `event.label.name` will need a `?.` after upgrading.
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.2
+  - @gitbeaker/requester-utils@44.1.2
+
 ## 44.1.1
 
 ### Patch Changes
