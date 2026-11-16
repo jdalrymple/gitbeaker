@@ -122,6 +122,29 @@ commands:
           no_output_timeout: 30m
       - save_nx_cache
 
+  codecov_upload_package:
+    description: 'Upload a package’s unit test coverage and results to Codecov'
+    parameters:
+      package_short:
+        type: string
+    steps:
+      # Each package is uploaded separately, so it gets its own flag (used by the package READMEs'
+      # badges). fail_on_error, as the orb otherwise passes even when nothing is uploaded
+      - codecov/upload:
+          upload_name: << parameters.package_short >>
+          files: packages/<< parameters.package_short >>/coverage/lcov.info
+          flags: << parameters.package_short >>
+          disable_search: true
+          fail_on_error: true
+      # Test results, for the PR comment's flaky tests
+      - codecov/upload:
+          report_type: test_results
+          upload_name: << parameters.package_short >>
+          files: packages/<< parameters.package_short >>/reports/junit.xml
+          flags: << parameters.package_short >>
+          disable_search: true
+          fail_on_error: true
+
   setup_gitlab_vars:
     description: 'Set up GitLab-related environment variables'
     steps:
@@ -249,8 +272,8 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/<< parameters.package_short >>'
           test_type: << parameters.test_type >>
-      # Only the unit tests' coverage is uploaded (by codecov-upload). The other test types write
-      # their coverage to the same path, so persisting theirs would clash
+      # Only the unit tests' coverage and results are uploaded (by codecov-upload). The other test
+      # types write theirs to the same paths, so persisting them would clash
       - when:
           condition:
             equal: [unit, << parameters.test_type >>]
@@ -259,6 +282,7 @@ jobs:
                 root: .
                 paths:
                   - packages/<< parameters.package_short >>/coverage/lcov.info
+                  - packages/<< parameters.package_short >>/reports/junit.xml
 
   # ====================
   # LIVE TEST SETUP
@@ -446,44 +470,14 @@ jobs:
     description: 'Upload coverage reports and bundle analysis to Codecov'
     steps:
       - restore_workspace
-      # One upload per package, so each gets its own flag (used by the package READMEs' badges).
-      # fail_on_error, as the orb otherwise passes even when nothing is uploaded
-      - codecov/upload:
-          upload_name: requester-utils
-          files: packages/requester-utils/coverage/lcov.info
-          flags: requester-utils
-          disable_search: true
-          fail_on_error: true
-      - codecov/upload:
-          upload_name: core
-          files: packages/core/coverage/lcov.info
-          flags: core
-          disable_search: true
-          fail_on_error: true
-      - codecov/upload:
-          upload_name: rest
-          files: packages/rest/coverage/lcov.info
-          flags: rest
-          disable_search: true
-          fail_on_error: true
-      - codecov/upload:
-          upload_name: cli
-          files: packages/cli/coverage/lcov.info
-          flags: cli
-          disable_search: true
-          fail_on_error: true
-      - run:
-          name: Upload test results
-          command: |
-            # Upload test results for each package that has test reports
-            for reports_dir in packages/*/reports; do
-              if [ -d "$reports_dir" ] && [ "$(ls -A "$reports_dir"/*.xml 2>/dev/null)" ]; then
-                package=$(basename $(dirname "$reports_dir"))
-                echo "Uploading test results for ${package}..."
-                pnpm dlx @codecov/cli upload-test-results \
-                  --dir "$reports_dir"
-              fi
-            done
+      - codecov_upload_package:
+          package_short: requester-utils
+      - codecov_upload_package:
+          package_short: core
+      - codecov_upload_package:
+          package_short: rest
+      - codecov_upload_package:
+          package_short: cli
       - run:
           name: Upload bundle analysis
           command: |
