@@ -1,5 +1,9 @@
 version: 2.1
 
+orbs:
+  # Uploads coverage with the official Codecov CLI, after checking its signature
+  codecov: codecov/codecov@6.1.0
+
 # ====================
 # ENVIRONMENT VARIABLES
 # ====================
@@ -245,6 +249,16 @@ jobs:
       - run_package_tests:
           package: '@gitbeaker/<< parameters.package_short >>'
           test_type: << parameters.test_type >>
+      # Only the unit tests' coverage is uploaded (by codecov-upload). The other test types write
+      # their coverage to the same path, so persisting theirs would clash
+      - when:
+          condition:
+            equal: [unit, << parameters.test_type >>]
+          steps:
+            - persist_to_workspace:
+                root: .
+                paths:
+                  - packages/<< parameters.package_short >>/coverage/lcov.info
 
   # ====================
   # LIVE TEST SETUP
@@ -432,19 +446,32 @@ jobs:
     description: 'Upload coverage reports and bundle analysis to Codecov'
     steps:
       - restore_workspace
-      - run:
-          name: Upload coverage reports
-          command: |
-            # Upload coverage reports for each package that has coverage
-            for coverage_file in packages/*/coverage/lcov.info; do
-              if [ -f "$coverage_file" ]; then
-                package=$(basename $(dirname $(dirname "$coverage_file")))
-                echo "Uploading coverage for ${package}..."
-                pnpm dlx @codecov/cli upload-coverage \
-                  --file "$coverage_file" \
-                  --flags ${package}
-              fi
-            done
+      # One upload per package, so each gets its own flag (used by the package READMEs' badges).
+      # fail_on_error, as the orb otherwise passes even when nothing is uploaded
+      - codecov/upload:
+          upload_name: requester-utils
+          files: packages/requester-utils/coverage/lcov.info
+          flags: requester-utils
+          disable_search: true
+          fail_on_error: true
+      - codecov/upload:
+          upload_name: core
+          files: packages/core/coverage/lcov.info
+          flags: core
+          disable_search: true
+          fail_on_error: true
+      - codecov/upload:
+          upload_name: rest
+          files: packages/rest/coverage/lcov.info
+          flags: rest
+          disable_search: true
+          fail_on_error: true
+      - codecov/upload:
+          upload_name: cli
+          files: packages/cli/coverage/lcov.info
+          flags: cli
+          disable_search: true
+          fail_on_error: true
       - run:
           name: Upload test results
           command: |
