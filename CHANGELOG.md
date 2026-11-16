@@ -2,6 +2,14 @@
 
 ---
 
+## v44.1.3 (Mon, Nov 16, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: fix(ci): Restricting the scopes of the gcp service account ([#3894](https://github.com/jdalrymple/gitbeaker/pull/3894))
+
+---
+
 ## v44.1.2 (Mon, Nov 16, 2026)
 
 ### Patch Changes
