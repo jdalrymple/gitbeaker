@@ -807,18 +807,14 @@ export class Projects<C extends boolean = false> extends BaseResource<C> {
     return RequestHelper.put<ProjectSchema>()(this, url, {
       sudo,
       showExpanded,
-      body: {
-        sudo,
-        showExpanded,
-        body: avatar
-          ? createFormData(
-              normalizeFormData({
-                ...body,
-                avatar: [avatar.content, avatar.filename],
-              }),
-            )
-          : body,
-      },
+      body: avatar
+        ? createFormData(
+            normalizeFormData({
+              ...body,
+              avatar: [avatar.content, avatar.filename],
+            }),
+          )
+        : body,
     });
   }
 

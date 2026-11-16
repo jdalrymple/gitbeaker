@@ -223,13 +223,7 @@ describe('Projects.edit', () => {
     await service.edit(12, { name: 'test proj 2' });
 
     expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'projects/12', {
-      body: {
-        body: {
-          name: 'test proj 2',
-        },
-        showExpanded: undefined,
-        sudo: undefined,
-      },
+      body: { name: 'test proj 2' },
       showExpanded: undefined,
       sudo: undefined,
     });
@@ -239,15 +233,36 @@ describe('Projects.edit', () => {
     await service.edit(12, { ciDeletePipelinesInSeconds: 3600 });
 
     expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'projects/12', {
-      body: {
-        body: {
-          ciDeletePipelinesInSeconds: 3600,
-        },
-        showExpanded: undefined,
-        sudo: undefined,
-      },
+      body: { ciDeletePipelinesInSeconds: 3600 },
       showExpanded: undefined,
       sudo: undefined,
+    });
+  });
+
+  it('should request PUT /projects as formdata when avatar is passed', async () => {
+    const content = new Blob(['image'], { type: 'image/jpeg' });
+    await service.edit(12, {
+      name: 'test proj 2',
+      avatar: { content, filename: 'image.jpeg' },
+      sudo: 'user',
+      showExpanded: true,
+    });
+
+    // The request options stay beside the body, they aren't sent as part of it
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'projects/12', {
+      body: expect.any(FormData),
+      showExpanded: true,
+      sudo: 'user',
+    });
+
+    const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
+    const formDataObj = Object.fromEntries((call[2].body as FormData).entries());
+    expect(formDataObj).toEqual({
+      name: 'test proj 2',
+      avatar: expect.objectContaining({
+        type: content.type,
+        size: content.size,
+      }),
     });
   });
 });
