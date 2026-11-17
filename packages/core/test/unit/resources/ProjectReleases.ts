@@ -77,3 +77,88 @@ describe('ProjectReleases.remove', () => {
     });
   });
 });
+
+describe('ProjectReleases.all with options', () => {
+  it('should pass options as search params', async () => {
+    await service.all(1, { orderBy: 'created_at', sort: 'asc', maxPages: 2 });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/releases', {
+      maxPages: 2,
+      searchParams: { orderBy: 'created_at', sort: 'asc' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('ProjectReleases.createEvidence', () => {
+  it('should request POST /projects/:id/releases/:tag/evidence', async () => {
+    await service.createEvidence(1, 'v1');
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/releases/v1/evidence',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
+
+describe('ProjectReleases.download', () => {
+  it('should request GET /projects/:id/releases/:tag/downloads/:path', async () => {
+    await service.download(1, 'v1', 'bin/app');
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/releases/v1/downloads/bin%2Fapp',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
+
+describe('ProjectReleases.downloadLatest', () => {
+  it('should request GET /projects/:id/releases/permalink/latest/downloads/:path', async () => {
+    await service.downloadLatest(1, 'bin/app');
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/releases/permalink/latest/downloads/bin%2Fapp',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
+
+describe('ProjectReleases.show with options', () => {
+  it('should pass includeHtmlDescription as search param', async () => {
+    await service.show(1, '2', { includeHtmlDescription: true });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/releases/2', {
+      searchParams: { includeHtmlDescription: true },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('ProjectReleases.showLatest', () => {
+  it('should request GET /projects/:id/releases/permalink/latest', async () => {
+    await service.showLatest(1);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/releases/permalink/latest',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
+
+describe('ProjectReleases.showLatestEvidence', () => {
+  it('should request GET /projects/:id/releases/permalink/latest/evidence', async () => {
+    await service.showLatestEvidence(1);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/releases/permalink/latest/evidence',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
