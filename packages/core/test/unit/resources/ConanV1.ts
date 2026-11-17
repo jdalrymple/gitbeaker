@@ -450,3 +450,25 @@ describe('ConanV1.uploadRecipeFile', () => {
     });
   });
 });
+
+describe('ConanV1.searchPackageReferences', () => {
+  it('should request GET /packages/conan/v1/conans/:name/:version/:user/:channel/search', async () => {
+    await service.searchPackageReferences('name', '1.0', 'user', 'stable');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'packages/conan/v1/conans/name/1.0/user/stable/search',
+      { showExpanded: undefined },
+    );
+  });
+
+  it('should request GET /projects/:id/packages/conan/v1/conans/:name/:version/:user/:channel/search', async () => {
+    await service.searchPackageReferences('name', '1.0', 'user', 'stable', { projectId: 3 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/3/packages/conan/v1/conans/name/1.0/user/stable/search',
+      { showExpanded: undefined },
+    );
+  });
+});

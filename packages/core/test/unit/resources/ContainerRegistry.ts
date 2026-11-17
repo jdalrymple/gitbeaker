@@ -103,3 +103,25 @@ describe('ContainerRegistry.showTag', () => {
     );
   });
 });
+
+describe('ContainerRegistry.editRegistryVisibility', () => {
+  it('should request PUT /projects/:id', async () => {
+    await service.editRegistryVisibility(1, { containerRegistryAccessLevel: 'private' });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1', {
+      body: { containerRegistryAccessLevel: 'private' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should send empty body without options', async () => {
+    await service.editRegistryVisibility(1);
+
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'projects/1', {
+      body: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

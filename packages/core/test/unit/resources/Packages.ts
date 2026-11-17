@@ -93,3 +93,14 @@ describe('Packages.allFiles', () => {
     );
   });
 });
+
+describe('Packages.allPipelines', () => {
+  it('should request GET projects/:id/packages/:id/pipelines', async () => {
+    await service.allPipelines(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/packages/2/pipelines', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
