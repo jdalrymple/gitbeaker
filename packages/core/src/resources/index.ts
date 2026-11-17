@@ -180,7 +180,6 @@ export * from './Runners';
 export * from './SecureFiles';
 export * from './Tags';
 export * from './TokenInformation';
-export * from './UserStarredMetricsDashboard';
 
 // Groups
 export * from './GroupAccessRequests';

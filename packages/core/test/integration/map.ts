@@ -144,7 +144,6 @@ describe('API Map', () => {
       'Runners',
       'SecureFiles',
       'Tags',
-      'UserStarredMetricsDashboard',
       'GroupAccessRequests',
       'GroupAccessTokens',
       'GroupActivityAnalytics',
