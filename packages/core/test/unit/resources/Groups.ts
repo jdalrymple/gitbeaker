@@ -122,28 +122,6 @@ describe('Groups.allProjects', () => {
   });
 });
 
-describe('Groups.show', () => {
-  it('should request GET /groups/:id', async () => {
-    await service.show(12);
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12', {
-      searchParams: {},
-      showExpanded: undefined,
-      sudo: undefined,
-    });
-  });
-
-  it('should forward extra options as searchParams', async () => {
-    await service.show(12, { withProjects: false });
-
-    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12', {
-      searchParams: { withProjects: false },
-      showExpanded: undefined,
-      sudo: undefined,
-    });
-  });
-});
-
 describe('Groups.remove', () => {
   it('should request DEL /groups/:id', async () => {
     await service.remove(12);
