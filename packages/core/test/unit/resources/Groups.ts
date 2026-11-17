@@ -127,6 +127,7 @@ describe('Groups.show', () => {
     await service.show(12);
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12', {
+      searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
     });

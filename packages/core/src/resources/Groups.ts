@@ -579,11 +579,12 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
     groupId: string | number,
     options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
-    const { sudo, showExpanded } = options || {};
+    const { sudo, showExpanded, ...searchParams } = options || {};
 
     return RequestHelper.get<ExpandedGroupSchema>()(this, endpoint`groups/${groupId}`, {
       sudo,
       showExpanded,
+      searchParams,
     });
   }
 
