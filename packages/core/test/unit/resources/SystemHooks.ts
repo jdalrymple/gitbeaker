@@ -75,3 +75,72 @@ describe('SystemHooks.remove', () => {
     });
   });
 });
+
+describe('SystemHooks.create', () => {
+  it('should request POST /hooks', async () => {
+    await service.create('url', { token: 'abc', pushEvents: true, sudo: 1 });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'hooks', {
+      body: { url: 'url', token: 'abc', pushEvents: true },
+      showExpanded: undefined,
+      sudo: 1,
+    });
+  });
+});
+
+describe('SystemHooks.edit', () => {
+  it('should request PUT /hooks/:hook_id', async () => {
+    await service.edit(2, { token: 'new', sudo: 1 });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'hooks/2', {
+      body: { token: 'new' },
+      showExpanded: undefined,
+      sudo: 1,
+    });
+  });
+});
+
+describe('SystemHooks.test', () => {
+  it('should request POST /hooks/:hook_id', async () => {
+    await service.test(2);
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'hooks/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('SystemHooks.show', () => {
+  it('should request GET /hooks/:hook_id', async () => {
+    await service.show(2);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'hooks/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('SystemHooks.setUrlVariable', () => {
+  it('should request PUT /hooks/:hook_id/url_variables/:key', async () => {
+    await service.setUrlVariable(2, 'KEY', 'val');
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'hooks/2/url_variables/KEY', {
+      body: { value: 'val' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('SystemHooks.removeUrlVariable', () => {
+  it('should request DEL /hooks/:hook_id/url_variables/:key', async () => {
+    await service.removeUrlVariable(2, 'KEY');
+
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'hooks/2/url_variables/KEY', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

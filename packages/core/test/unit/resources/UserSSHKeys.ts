@@ -97,3 +97,25 @@ describe('UserSSHKeys.remove', () => {
     });
   });
 });
+
+describe('UserSSHKeys.add', () => {
+  it('should request POST user/keys', async () => {
+    await service.add('title', 'key');
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'user/keys', {
+      body: { title: 'title', key: 'key' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should request POST users/1/keys with a userId', async () => {
+    await service.add('title', 'key', { userId: 1 });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'users/1/keys', {
+      body: { title: 'title', key: 'key' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

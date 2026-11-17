@@ -221,3 +221,28 @@ describe('GroupMembers.setOverrideFlag', () => {
     });
   });
 });
+
+describe('GroupMembers.allBillableIndirect', () => {
+  it('should request GET groups/:id/billable_members/:id/indirect', async () => {
+    await service.allBillableIndirect(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, '1/billable_members/2/indirect', {
+      maxPages: undefined,
+      searchParams: {},
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('GroupMembers.changeMembershipState', () => {
+  it('should request PUT groups/:id/members/:id/state', async () => {
+    await service.changeMembershipState(1, 2, 'active');
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, '1/members/2/state', {
+      searchParams: { state: 'active' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

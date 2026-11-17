@@ -115,3 +115,14 @@ describe('GeoSites.allStatuses', () => {
     });
   });
 });
+
+describe('GeoSites.remove', () => {
+  it('should request DEL /geo_sites/:id', async () => {
+    await service.remove(1);
+
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'geo_sites/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
