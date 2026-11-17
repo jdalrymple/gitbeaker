@@ -47,7 +47,7 @@ export class GoogleCloudIntegration<C extends boolean = false> extends BaseResou
 
     return RequestHelper.get<string>()(
       this,
-      endpoint`${projectId}/google_cloud/setup/integrations.sh`,
+      endpoint`projects/${projectId}/google_cloud/setup/integrations.sh`,
       {
         sudo,
         showExpanded,
@@ -64,7 +64,7 @@ export class GoogleCloudIntegration<C extends boolean = false> extends BaseResou
 
     return RequestHelper.get<string>()(
       this,
-      endpoint`${projectId}/google_cloud/setup/runner_deployment_project.sh`,
+      endpoint`projects/${projectId}/google_cloud/setup/runner_deployment_project.sh`,
       {
         searchParams,
         showExpanded,

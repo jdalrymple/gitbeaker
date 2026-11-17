@@ -158,11 +158,11 @@ export class TerraformModules<C extends boolean = false> extends BaseResource<C>
     options?: ShowExpanded<E>,
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     const { showExpanded } = options || {};
-    const versionPath = moduleVersion || '';
+    const basePath = endpoint`projects/${projectId}/packages/terraform/modules/${moduleName}/${moduleSystem}`;
 
     return RequestHelper.get<Blob>()(
       this,
-      endpoint`projects/${projectId}/packages/terraform/modules/${moduleName}/${moduleSystem}/${versionPath}`,
+      moduleVersion ? `${basePath}/${encodeURIComponent(moduleVersion)}` : basePath,
       {
         showExpanded,
       },
