@@ -65,7 +65,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       `dists/${distribution}/${component}/binary-${architecture}/Packages`,
       {
         projects: projectId,
-        groups: groupId ? `${groupId}/-` : undefined,
+        groups: groupId,
+        '-': !!groupId,
       },
     );
 
@@ -88,7 +89,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`packages/debian/dists/${distribution}/Release`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Blob>()(this, url, { showExpanded });
@@ -108,7 +110,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`packages/debian/dists/${distribution}/InRelease`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Blob>()(this, url, { showExpanded });
@@ -128,7 +131,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`packages/debian/dists/${distribution}/Release.gpg`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Blob>()(this, url, { showExpanded });
@@ -192,7 +196,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl('debian_distributions', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<DebianDistributionSchema[]>()(this, url, {
@@ -216,7 +221,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`debian_distributions/${codename}`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<DebianDistributionSchema>()(this, url, {
@@ -240,7 +246,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`debian_distributions/${codename}/key.asc`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<string>()(this, url, { showExpanded, searchParams });
@@ -260,7 +267,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl('debian_distributions', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.post<DebianDistributionSchema>()(this, url, {
@@ -287,7 +295,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`debian_distributions/${codename}`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.put<DebianDistributionSchema>()(this, url, {
@@ -311,7 +320,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`debian_distributions/${codename}`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.del<void>()(this, url, { sudo, showExpanded, searchParams });
@@ -336,7 +346,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       `dists/${distribution}/${component}/binary-${architecture}/by-hash/SHA256/${fileSha256}`,
       {
         projects: projectId,
-        groups: groupId ? `${groupId}/-` : undefined,
+        groups: groupId,
+        '-': !!groupId,
       },
     );
 
@@ -361,7 +372,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       `dists/${distribution}/${component}/debian-installer/binary-${architecture}/Packages`,
       {
         projects: projectId,
-        groups: groupId ? `${groupId}/-` : undefined,
+        groups: groupId,
+        '-': !!groupId,
       },
     );
 
@@ -387,7 +399,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       `dists/${distribution}/${component}/debian-installer/binary-${architecture}/by-hash/SHA256/${fileSha256}`,
       {
         projects: projectId,
-        groups: groupId ? `${groupId}/-` : undefined,
+        groups: groupId,
+        '-': !!groupId,
       },
     );
 
@@ -409,7 +422,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl(`dists/${distribution}/${component}/source/Sources`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Blob>()(this, url, { showExpanded });
@@ -433,7 +447,8 @@ export class Debian<C extends boolean = false> extends BaseResource<C> {
       `dists/${distribution}/${component}/source/by-hash/SHA256/${fileSha256}`,
       {
         projects: projectId,
-        groups: groupId ? `${groupId}/-` : undefined,
+        groups: groupId,
+        '-': !!groupId,
       },
     );
 

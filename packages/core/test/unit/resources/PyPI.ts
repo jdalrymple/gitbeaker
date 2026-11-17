@@ -24,7 +24,7 @@ describe('PyPI.downloadPackageFile', () => {
 
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       service,
-      'projects/1//packages/pypi/files/sha/id',
+      'projects/1/packages/pypi/files/sha/id',
       { showExpanded: undefined, sudo: undefined },
     );
   });
@@ -34,7 +34,7 @@ describe('PyPI.downloadPackageFile', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'groups/1//packages/pypi/files/sha/id',
+      'groups/1/-/packages/pypi/files/sha/id',
       { showExpanded: undefined, sudo: undefined },
     );
   });
@@ -52,7 +52,7 @@ describe('PyPI.showPackageDescriptor', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'projects/1//packages/pypi/simple/name',
+      'projects/1/packages/pypi/simple/name',
       { showExpanded: undefined, sudo: undefined },
     );
   });
@@ -62,7 +62,7 @@ describe('PyPI.showPackageDescriptor', () => {
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(
       service,
-      'groups/1//packages/pypi/simple/name',
+      'groups/1/-/packages/pypi/simple/name',
       { showExpanded: undefined, sudo: undefined },
     );
   });
@@ -101,5 +101,36 @@ describe('PyPI.uploadPackageFile', () => {
         size: content.size,
       }),
     });
+  });
+});
+
+describe('PyPI.allPackages', () => {
+  it('should request GET projects/1/packages/pypi/simple', async () => {
+    await service.allPackages({ projectId: 1 });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/packages/pypi/simple',
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request GET groups/1/-/packages/pypi/simple', async () => {
+    await service.allPackages({ groupId: 1 });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      'groups/1/-/packages/pypi/simple',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+
+  it('should throw an error if groupId or projectId is not passed', () => {
+    expect(() => service.allPackages({} as any)).toThrow(
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
+    );
   });
 });

@@ -107,7 +107,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
     const { projectId, groupId, showExpanded, ...searchParams } = options;
 
     ensureRequiredParams({ projectId, groupId });
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<NuGetSearchResultsSchema>()(this, `${uri}/query`, {
       showExpanded,
@@ -126,7 +130,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<NuGetServiceMetadataSchema>()(
       this,
@@ -160,7 +168,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<NuGetServiceIndexSchema>()(this, `${uri}/index`, {
       showExpanded,
@@ -176,7 +188,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<NuGetServiceMetadataVersionSchema>()(
       this,
@@ -281,7 +297,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<Blob>()(this, `${uri}/v2`, {
       showExpanded,
@@ -295,7 +315,11 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
 
     return RequestHelper.get<Blob>()(this, `${uri}/v2/$metadata`, {
       showExpanded,
@@ -314,9 +338,13 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
 
     ensureRequiredParams({ projectId, groupId });
 
-    const uri = getPrefixedUrl('packages/nuget', { projects: projectId, 'groups/-': groupId });
+    const uri = getPrefixedUrl('packages/nuget', {
+      projects: projectId,
+      groups: groupId,
+      '-': !!groupId,
+    });
     const clonedService = { ...this };
-    clonedService.headers.Symbolchecksum = symbolChecksum;
+    clonedService.headers = { ...clonedService.headers, Symbolchecksum: symbolChecksum };
 
     return RequestHelper.get<Blob>()(
       clonedService,
