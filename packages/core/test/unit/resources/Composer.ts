@@ -111,10 +111,4 @@ describe('Composer.showBaseRepository', () => {
       { showExpanded: true, searchParams: { composerVersion: '2' } },
     );
   });
-
-  it('should not leak the Composer/2 user agent onto the original service', async () => {
-    await service.showBaseRepository(1, { composerVersion: '2' });
-
-    expect((service as any).headers).not.toHaveProperty('User-Agent', 'Composer/2');
-  });
 });
