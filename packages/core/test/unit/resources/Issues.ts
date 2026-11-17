@@ -238,3 +238,202 @@ describe('Issues.unsubscribe', () => {
     );
   });
 });
+
+const noOpts = { showExpanded: undefined, sudo: undefined };
+
+describe('Issues.allMetricImages', () => {
+  it('should request GET /projects/:id/issues/:iid/metric_images', async () => {
+    await service.allMetricImages(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/metric_images',
+      noOpts,
+    );
+  });
+});
+
+describe('Issues.allRelatedMergeRequests', () => {
+  it('should request GET /projects/:id/issues/:iid/related_merge_requests', async () => {
+    await service.allRelatedMergeRequests(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/related_merge_requests',
+      noOpts,
+    );
+  });
+});
+
+describe('Issues.allClosedByMergeRequestst', () => {
+  it('should request GET /projects/:id/issues/:iid/closed_by', async () => {
+    await service.allClosedByMergeRequestst(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/closed_by',
+      noOpts,
+    );
+  });
+});
+
+describe('Issues.showUserAgentDetails', () => {
+  it('should request GET /projects/:id/issues/:iid/user_agent_details', async () => {
+    await service.showUserAgentDetails(1, 2);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/user_agent_details',
+      noOpts,
+    );
+  });
+});
+
+describe('Issues.createTodo', () => {
+  it('should request POST /projects/:id/issues/:iid/todo', async () => {
+    await service.createTodo(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/todo', {
+      body: {},
+      ...noOpts,
+    });
+  });
+});
+
+describe('Issues.clone', () => {
+  it('should request POST /projects/:id/issues/:iid/clone', async () => {
+    await service.clone(1, 2, 3);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/clone', {
+      body: { toProjectId: 3 },
+      ...noOpts,
+    });
+  });
+
+  it('should pass withNotes', async () => {
+    await service.clone(1, 2, 3, { withNotes: true });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/clone', {
+      body: { withNotes: true, toProjectId: 3 },
+      ...noOpts,
+    });
+  });
+});
+
+describe('Issues.move', () => {
+  it('should request POST /projects/:id/issues/:iid/move', async () => {
+    await service.move(1, 2, 3);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/move', {
+      body: { toProjectId: 3 },
+      ...noOpts,
+    });
+  });
+});
+
+describe('Issues.promote', () => {
+  it('should request POST /projects/:id/issues/:iid/notes with /promote appended', async () => {
+    await service.promote(1, 2, 'comment');
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/notes', {
+      body: { body: 'comment \n /promote' },
+      ...noOpts,
+    });
+  });
+
+  it('should pass extra options in body', async () => {
+    await service.promote(1, 2, 'comment', { sudo: 'u' });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/issues/2/notes', {
+      body: { body: 'comment \n /promote' },
+      showExpanded: undefined,
+      sudo: 'u',
+    });
+  });
+});
+
+describe('Issues.editMetricImage', () => {
+  it('should request PUT /projects/:id/issues/:iid/metric_images/:imageId', async () => {
+    await service.editMetricImage(1, 2, 3, { url: 'u', urlText: 't' });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/metric_images/3',
+      { body: { url: 'u', urlText: 't' }, ...noOpts },
+    );
+  });
+
+  it('should send empty body without options', async () => {
+    await service.editMetricImage(1, 2, 3);
+
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/issues/2/metric_images/3',
+      { body: {}, ...noOpts },
+    );
+  });
+});
+
+describe('Issues.removeMetricImage', () => {
+  it('should request DEL /projects/:id/issues/:iid/metric_images/:imageId', async () => {
+    await service.removeMetricImage(1, 2, 3);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/1/issues/2/metric_images/3',
+      noOpts,
+    );
+  });
+});
+
+describe('Issues.reorder', () => {
+  it('should request PUT /projects/:id/issues/:iid/reorder', async () => {
+    await service.reorder(1, 2, { moveAfterId: 4, moveBeforeId: 5 });
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/issues/2/reorder', {
+      body: { moveAfterId: 4, moveBeforeId: 5 },
+      ...noOpts,
+    });
+  });
+
+  it('should send empty body without options', async () => {
+    await service.reorder(1, 2);
+
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'projects/1/issues/2/reorder', {
+      body: {},
+      ...noOpts,
+    });
+  });
+});
+
+describe('Issues.uploadMetricImage', () => {
+  it('should request POST /projects/:id/issues/:iid/metric_images with form data', async () => {
+    const content = new Blob(['text'], { type: 'text/plain' });
+
+    await service.uploadMetricImage(1, 2, { content, filename: 'a.png' }, { url: 'u' });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/issues/2/metric_images',
+      expect.objectContaining({ body: expect.any(FormData), ...noOpts }),
+    );
+
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formDataObj = Object.fromEntries((call[2].body as FormData).entries());
+    expect(formDataObj).toEqual({
+      url: 'u',
+      file: expect.objectContaining({ size: content.size }),
+    });
+  });
+});
+
+describe('Issues.show without projectId', () => {
+  it('should request GET /issues/:id', async () => {
+    await service.show(1);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'issues/1', {
+      searchParams: {},
+      ...noOpts,
+    });
+  });
+});

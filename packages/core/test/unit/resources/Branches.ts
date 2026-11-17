@@ -69,3 +69,15 @@ describe('Branches.show', () => {
     );
   });
 });
+
+describe('Branches.removeMerged', () => {
+  it('should request DEL /projects/:id/repository/merged_branches', async () => {
+    await service.removeMerged(1);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/merged_branches',
+      undefined,
+    );
+  });
+});

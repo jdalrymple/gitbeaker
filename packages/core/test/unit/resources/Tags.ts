@@ -69,3 +69,15 @@ describe('Tags.remove', () => {
     });
   });
 });
+
+describe('Tags.showSignature', () => {
+  it('should request GET /projects/:id/repository/tags/:name/signature', async () => {
+    await service.showSignature(1, 'name');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/tags/name/signature',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});

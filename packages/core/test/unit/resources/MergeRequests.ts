@@ -350,3 +350,52 @@ describe('MergeRequests.showReviewers', () => {
     );
   });
 });
+
+describe('MergeRequests.createTodo', () => {
+  it('should request POST /projects/:id/merge_requests/:iid/todo', async () => {
+    await service.createTodo(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/merge_requests/2/todo', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('MergeRequests.mergeToDefault', () => {
+  it('should request PUT /projects/:id/merge_requests/:iid/merge_ref', async () => {
+    await service.mergeToDefault(1, 2);
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'projects/1/merge_requests/2/merge_ref',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
+
+describe('MergeRequests.rebase', () => {
+  it('should request PUT /projects/:id/merge_requests/:iid/rebase', async () => {
+    await service.rebase(1, 2);
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'projects/1/merge_requests/2/rebase',
+      {
+        body: { skipCi: undefined },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should map skipCI to skipCi in the body', async () => {
+    await service.rebase(1, 2, { skipCI: true });
+
+    expect(RequestHelper.put()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/merge_requests/2/rebase',
+      { body: { skipCi: true }, showExpanded: undefined, sudo: undefined },
+    );
+  });
+});
