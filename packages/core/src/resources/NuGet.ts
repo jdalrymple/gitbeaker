@@ -344,7 +344,7 @@ export class NuGet<C extends boolean = false> extends BaseResource<C> {
       '-': !!groupId,
     });
     const clonedService = { ...this };
-    clonedService.headers = { ...clonedService.headers, Symbolchecksum: symbolChecksum };
+    clonedService.headers.Symbolchecksum = symbolChecksum;
 
     return RequestHelper.get<Blob>()(
       clonedService,
