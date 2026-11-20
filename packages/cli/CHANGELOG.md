@@ -1,5 +1,29 @@
 # @gitbeaker/cli
 
+## 44.1.8
+
+### Patch Changes
+
+- fix: `NuGet.downloadSymbolFile` header assignment ([#3906](https://github.com/jdalrymple/gitbeaker/pull/3906))
+
+  ## Summary
+
+  As a portion of the [#3898](https://github.com/jdalrymple/gitbeaker/issues/3898) i had missed this change that effectively broke the header assignment. While this implementation has its flaws, it at least works for the short term until i can refactor passing custom headers for specific endpoints.
+
+- fix(types): Correct webhook and merge request discussion note types ([#3863](https://github.com/jdalrymple/gitbeaker/pull/3863)) ([@dmitryuk](https://github.com/dmitryuk))
+
+  ## Summary
+
+  Various event webhook types were out of date:
+  - WebhookBaseNoteEventSchema: add object_attributes.action
+  - WebhookMergeRequestEventSchema: add optional object_attributes.oldrev
+  - WebhookEmojiEventSchema: allow event_type 'revoke', make note and issue optional
+  - MergeRequestDiscussionNoteSchema: add optional suggestions
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.8
+  - @gitbeaker/rest@44.1.8
+
 ## 44.1.7
 
 ### Patch Changes
