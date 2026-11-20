@@ -242,7 +242,7 @@ describe('Groups.downloadAvatar', () => {
   it('should request GET /groups/:id/avatar', async () => {
     await service.downloadAvatar(12);
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/avatar', noOpts);
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/avatar', {});
   });
 });
 
@@ -264,7 +264,6 @@ describe('Groups.removeAvatar', () => {
 
     expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'groups/12', {
       body: { avatar: '' },
-      ...noOpts,
     });
   });
 });
@@ -273,7 +272,7 @@ describe('Groups.restore', () => {
   it('should request POST /groups/:id/restore', async () => {
     await service.restore(12);
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/restore', noOpts);
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/restore', {});
   });
 });
 
@@ -283,7 +282,6 @@ describe('Groups.share', () => {
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/share', {
       body: { expiresAt: '2030-01-01', groupId: 13, groupAccess: 30 },
-      ...noOpts,
     });
   });
 });
@@ -294,7 +292,6 @@ describe('Groups.transfer', () => {
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/transfer', {
       body: { groupId: 5 },
-      ...noOpts,
     });
   });
 
@@ -303,7 +300,6 @@ describe('Groups.transfer', () => {
 
     expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/transfer', {
       body: {},
-      ...noOpts,
     });
   });
 });
@@ -312,7 +308,7 @@ describe('Groups.transferProject', () => {
   it('should request POST /groups/:id/projects/:id', async () => {
     await service.transferProject(12, 7);
 
-    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/projects/7', noOpts);
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'groups/12/projects/7', {});
   });
 });
 
@@ -320,7 +316,7 @@ describe('Groups.unshare', () => {
   it('should request DELETE /groups/:id/share/:id', async () => {
     await service.unshare(12, 13);
 
-    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'groups/12/share/13', noOpts);
+    expect(RequestHelper.del()).toHaveBeenLastCalledWith(service, 'groups/12/share/13', {});
   });
 });
 
@@ -332,7 +328,6 @@ describe('Groups.uploadAvatar', () => {
 
     expect(RequestHelper.put()).toHaveBeenLastCalledWith(service, 'groups/12/avatar', {
       body: expect.any(FormData),
-      ...noOpts,
     });
 
     const call = (RequestHelper.put() as any).mock.calls.slice(-1)[0];
