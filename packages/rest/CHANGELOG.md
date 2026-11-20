@@ -1,5 +1,35 @@
 # @gitbeaker/requester-rest
 
+## 44.1.6
+
+### Patch Changes
+
+- fix: Removing deprecated API `UserStarredMetricsDashboard` ([#3901](https://github.com/jdalrymple/gitbeaker/pull/3901))
+
+  ## Summary
+
+  The UserStarredMetricsDashboard API was deprecated back in v16, but was missed during the last major update PR. This will not be marked as breaking since the recommended Gitlab support for the library is set to v19+ which already does not support this API.
+
+- chore(tests): Add unit tests for Git, MergeRequest, and Issue resources ([#3903](https://github.com/jdalrymple/gitbeaker/pull/3903))
+- fix: Update `ContainerRegistryProtectionTagRule` edit and prefixUrl usage ([#3898](https://github.com/jdalrymple/gitbeaker/pull/3898))
+
+  ## Summary
+
+  The url generation through getProfixURL kept failing the way the baseUrl was being set.
+
+  Additionally, updated the broken ContainerRegistryProtectionTagRule edit function which returns the wrong type
+
+- chore(tests): Add unit tests for security and analytics resources ([#3902](https://github.com/jdalrymple/gitbeaker/pull/3902))
+- fix: Incorrect path in various services ([#3899](https://github.com/jdalrymple/gitbeaker/pull/3899))
+
+  ## Summary
+  - Fix incorrect paths in three services
+  - Add missing unit tests
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.6
+  - @gitbeaker/requester-utils@44.1.6
+
 ## 44.1.5
 
 ### Patch Changes
