@@ -223,7 +223,6 @@ import { UserImpersonationTokens } from './UserImpersonationTokens';
 import { UserModeration } from './UserModeration';
 import { Users } from './Users';
 import { UserSSHKeys } from './UserSSHKeys';
-import { UserStarredMetricsDashboard } from './UserStarredMetricsDashboard';
 import { UserSupportPin } from './UserSupportPin';
 import { VirtualRegistriesCleanupPolicies } from './VirtualRegistriesCleanupPolicies';
 import { Vulnerabilities } from './Vulnerabilities';
@@ -410,7 +409,6 @@ export interface Gitlab<C extends boolean = false> extends BaseResource<C> {
   SecureFiles: SecureFiles<C>;
   Tags: Tags<C>;
   TokenInformation: TokenInformation<C>;
-  UserStarredMetricsDashboard: UserStarredMetricsDashboard<C>;
   GroupAccessRequests: GroupAccessRequests<C>;
   GroupAccessTokens: GroupAccessTokens<C>;
   GroupActivityAnalytics: GroupActivityAnalytics<C>;
@@ -640,7 +638,6 @@ const resources = {
   SecureFiles,
   Tags,
   TokenInformation,
-  UserStarredMetricsDashboard,
   GroupAccessRequests,
   GroupAccessTokens,
   GroupActivityAnalytics,

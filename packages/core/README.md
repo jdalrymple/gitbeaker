@@ -1911,15 +1911,6 @@ import { Gitlab } from '@gitbeaker/core';
 </td>
 </tr>
 <tr>
-<th>UserStarredMetricsDashboard</th>
-<td>
-<a href="https://docs.gitlab.com/19.0/ee/api/metrics_user_starred_dashboards.html">🦊</a>
-</td>
-<td>
-<a href="./src/resources/UserStarredMetricsDashboard.ts">⌨️</a>
-</td>
-</tr>
-<tr>
 <th>Users</th>
 <td>
 <a href="https://docs.gitlab.com/19.0/ee/api/users.html">🦊</a>

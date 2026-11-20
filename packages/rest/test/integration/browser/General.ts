@@ -228,7 +228,6 @@ describe('Browser Import', () => {
     'UserImpersonationTokens',
     'UserModeration',
     'UserSSHKeys',
-    'UserStarredMetricsDashboard',
     'UserSupportPin',
     'Users',
     'VirtualRegistriesCleanupPolicies',

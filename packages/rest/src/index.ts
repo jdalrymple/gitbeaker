@@ -693,10 +693,6 @@ export type Users<C extends boolean = false> = CORE.Users<C>;
 export const { UserSSHKeys } = API;
 export type UserSSHKeys<C extends boolean = false> = CORE.UserSSHKeys<C>;
 
-export const { UserStarredMetricsDashboard } = API;
-export type UserStarredMetricsDashboard<C extends boolean = false> =
-  CORE.UserStarredMetricsDashboard<C>;
-
 export const { UserSupportPin } = API;
 export type UserSupportPin<C extends boolean = false> = CORE.UserSupportPin<C>;
 
