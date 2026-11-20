@@ -49,7 +49,7 @@ export class Helm<C extends boolean = false> extends BaseResource<C> {
         sudo,
         showExpanded,
         body: createFormData({
-          chart,
+          chart: [chart.content, chart.filename],
         }),
       },
     );

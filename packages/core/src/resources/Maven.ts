@@ -2,7 +2,7 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type { GitlabAPIResponse, OneOrNoneOf, ShowExpanded, Sudo } from '../infrastructure';
 
-import { RequestHelper, endpoint } from '../infrastructure';
+import { RequestHelper } from '../infrastructure';
 import { createFormData, getPrefixedUrl } from '../infrastructure';
 
 export class Maven<C extends boolean = false> extends BaseResource<C> {
@@ -16,7 +16,8 @@ export class Maven<C extends boolean = false> extends BaseResource<C> {
     const { projectId, groupId, sudo, showExpanded } = options || {};
     const url = getPrefixedUrl(`packages/maven/${path}/${filename}`, {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Blob>()(this, url, { sudo, showExpanded });
@@ -32,7 +33,7 @@ export class Maven<C extends boolean = false> extends BaseResource<C> {
 
     return RequestHelper.put<void>()(
       this,
-      endpoint`projects/${projectId}/packages/maven/${path}/${packageFile.filename}`,
+      getPrefixedUrl(`packages/maven/${path}/${packageFile.filename}`, { projects: projectId }),
       {
         sudo,
         showExpanded,

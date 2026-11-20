@@ -25,9 +25,10 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
     ensureRequiredParams({ projectId, groupId });
 
-    const url = getPrefixedUrl(endpoint`/packages/pypi/files/${sha}/${fileIdentifier}`, {
+    const url = getPrefixedUrl(endpoint`packages/pypi/files/${sha}/${fileIdentifier}`, {
       projects: projectId,
       groups: groupId,
+      '-': !!groupId,
     });
 
     const { sudo, showExpanded } = options || {};
@@ -48,9 +49,10 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
   ): Promise<GitlabAPIResponse<string, C, E, void>> {
     ensureRequiredParams({ projectId, groupId });
 
-    const url = getPrefixedUrl(endpoint`/packages/pypi/simple/${packageName}`, {
+    const url = getPrefixedUrl(endpoint`packages/pypi/simple/${packageName}`, {
       projects: projectId,
       groups: groupId,
+      '-': !!groupId,
     });
 
     const { sudo, showExpanded } = options || {};
@@ -97,7 +99,8 @@ export class PyPI<C extends boolean = false> extends BaseResource<C> {
 
     const url = getPrefixedUrl('packages/pypi/simple', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     const { sudo, showExpanded } = options || {};

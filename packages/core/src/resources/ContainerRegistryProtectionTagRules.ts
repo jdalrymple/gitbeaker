@@ -73,7 +73,7 @@ export class ContainerRegistryProtectionTagRules<
     } & ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<ContainerRegistryProtectionTagRuleSchema, C, E, void>> {
-    const { sudo, showExpanded, ...searchParams } = options || {};
+    const { sudo, showExpanded, ...body } = options || {};
 
     return RequestHelper.patch<ContainerRegistryProtectionTagRuleSchema>()(
       this,
@@ -81,7 +81,7 @@ export class ContainerRegistryProtectionTagRules<
       {
         sudo,
         showExpanded,
-        searchParams,
+        body,
       },
     );
   }

@@ -50,7 +50,8 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     const { showExpanded, projectId, groupId } = options || {};
     const prefix = getPrefixedUrl('packages/npm', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.del()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
@@ -67,7 +68,8 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     const { showExpanded, projectId, groupId } = options || {};
     const prefix = getPrefixedUrl('packages/npm', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.put<void>()(this, `${prefix}/-/package/${packageName}/dist-tags/${tag}`, {
@@ -83,7 +85,8 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     const { showExpanded, projectId, groupId } = options || {};
     const prefix = getPrefixedUrl('packages/npm', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<Record<string, string>>()(
@@ -103,7 +106,8 @@ export class NPM<C extends boolean = false> extends BaseResource<C> {
     const { showExpanded, projectId, groupId } = options || {};
     const prefix = getPrefixedUrl('packages/npm', {
       projects: projectId,
-      groups: groupId ? `${groupId}/-` : undefined,
+      groups: groupId,
+      '-': !!groupId,
     });
 
     return RequestHelper.get<NPMPackageMetadataSchema>()(this, `${prefix}/${packageName}`, {
