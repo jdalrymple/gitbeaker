@@ -122,6 +122,17 @@ describe('Groups.allProjects', () => {
   });
 });
 
+describe('Groups.show', () => {
+  it('should request GET /groups/:id', async () => {
+    await service.show(12);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
 describe('Groups.remove', () => {
   it('should request DEL /groups/:id', async () => {
     await service.remove(12);
