@@ -219,3 +219,57 @@ describe('Commits.showSequence', () => {
     );
   });
 });
+
+describe('Commits.allDiscussions', () => {
+  it('should request GET projects/:id/repository/commits/:sha/discussions', async () => {
+    await service.allDiscussions(1, '5a');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/commits/5a/discussions',
+      undefined,
+    );
+  });
+});
+
+describe('Commits.revert', () => {
+  it('should request POST projects/:id/repository/commits/:sha/revert', async () => {
+    await service.revert(1, '5a', 'master');
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/commits/5a/revert',
+      {
+        body: { branch: 'master' },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should pass dryRun in the body', async () => {
+    await service.revert(1, '5a', 'master', { dryRun: true });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/repository/commits/5a/revert',
+      {
+        body: { dryRun: true, branch: 'master' },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});
+
+describe('Commits.showGPGSignature', () => {
+  it('should request GET projects/:id/repository/commits/:sha/signature', async () => {
+    await service.showGPGSignature(1, '5a');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/repository/commits/5a/signature',
+      undefined,
+    );
+  });
+});

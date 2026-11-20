@@ -131,3 +131,29 @@ describe('ProjectProtectedBranches.unprotect', () => {
     expect(spy).toHaveBeenCalledWith(1, 'name', { sudo: 1 });
   });
 });
+
+describe('ProjectProtectedBranches.edit', () => {
+  it('should request PATCH /projects/:id/protected_branches/:name', async () => {
+    await service.edit(1, 'main', { allowForcePush: true });
+
+    expect(RequestHelper.patch()).toHaveBeenCalledWith(
+      service,
+      'projects/1/protected_branches/main',
+      {
+        body: { allowForcePush: true },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should request PATCH without options', async () => {
+    await service.edit(1, 'main');
+
+    expect(RequestHelper.patch()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/protected_branches/main',
+      { body: {}, showExpanded: undefined, sudo: undefined },
+    );
+  });
+});

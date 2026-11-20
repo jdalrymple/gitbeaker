@@ -268,3 +268,15 @@ describe('MergeRequestApprovals.unapprove', () => {
     );
   });
 });
+
+describe('MergeRequestApprovals.resetApprovals', () => {
+  it('should request PUT /projects/:id/merge_requests/:merge_request_iid/reset_approvals', async () => {
+    await service.resetApprovals(2, 3);
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'projects/2/merge_requests/3/reset_approvals',
+      { showExpanded: undefined, sudo: undefined },
+    );
+  });
+});

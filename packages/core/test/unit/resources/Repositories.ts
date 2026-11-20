@@ -158,3 +158,14 @@ describe('Repositorys.showChangelog', () => {
     });
   });
 });
+
+describe('Repositorys.showHealth', () => {
+  it('should request GET projects/:id/repository/health', async () => {
+    await service.showHealth(1);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/repository/health', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
