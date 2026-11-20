@@ -285,13 +285,19 @@ describe('NuGet.downloadSymbolFile', () => {
   it('should request GET symbolfiles with Symbolchecksum header (project)', async () => {
     await service.downloadSymbolFile('a.pdb', 'sig', { projectId: 1, symbolChecksum: 'sum' });
 
-    expect((service as any).headers).not.toHaveProperty('Symbolchecksum');
-
     expect(RequestHelper.get()).toHaveBeenCalledWith(
       expect.objectContaining({ headers: expect.objectContaining({ Symbolchecksum: 'sum' }) }),
       'projects/1/packages/nuget/symbolfiles/a.pdb/sig/a.pdb',
       { showExpanded: undefined },
     );
+  });
+
+  it('should set the header on the headers object the requester was built with', async () => {
+    await service.downloadSymbolFile('a.pdb', 'sig', { projectId: 1, symbolChecksum: 'sum' });
+
+    const [clonedService] = vi.mocked(RequestHelper.get()).mock.lastCall as any[];
+
+    expect(clonedService.headers).toBe((service as any).headers);
   });
 
   it('should request GET symbolfiles with group prefix', async () => {
