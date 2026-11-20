@@ -15,6 +15,7 @@ import type {
   DiscussionNoteSchema,
   DiscussionSchema,
 } from '../templates/ResourceDiscussions';
+import type { SuggestionSchema } from './Suggestions';
 
 import { RequestHelper, endpoint } from '../infrastructure';
 import { ResourceDiscussions } from '../templates';
@@ -23,6 +24,7 @@ export interface MergeRequestDiscussionNoteSchema extends DiscussionNoteSchema {
   resolved_by: string;
   resolved_at: string;
   position?: DiscussionNotePositionSchema;
+  suggestions?: SuggestionSchema[];
 }
 
 export type MergeRequestDiscussionNotePositionOptions = {
