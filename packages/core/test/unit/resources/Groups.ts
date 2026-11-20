@@ -160,23 +160,13 @@ describe('Groups.search', () => {
   });
 });
 
-const noOpts = { showExpanded: undefined, sudo: undefined };
-const listOpts = {
-  maxPages: undefined,
-  searchParams: {},
-  showExpanded: undefined,
-  sudo: undefined,
-};
-
 describe('Groups.allDescendantGroups', () => {
   it('should request GET /groups/:id/descendant_groups', async () => {
     await service.allDescendantGroups(12, {});
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
-      service,
-      'groups/12/descendant_groups',
-      listOpts,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/descendant_groups', {
+      searchParams: {},
+    });
   });
 });
 
@@ -184,11 +174,9 @@ describe('Groups.allSharedProjects', () => {
   it('should request GET /groups/:id/projects/shared', async () => {
     await service.allSharedProjects(12);
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
-      service,
-      'groups/12/projects/shared',
-      listOpts,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/projects/shared', {
+      searchParams: {},
+    });
   });
 });
 
@@ -197,7 +185,6 @@ describe('Groups.allSubgroups', () => {
     await service.allSubgroups(12, { statistics: true, maxPages: 2 });
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/subgroups', {
-      ...listOpts,
       maxPages: 2,
       searchParams: { statistics: true },
     });
@@ -208,11 +195,9 @@ describe('Groups.allProvisionedUsers', () => {
   it('should request GET /groups/:id/provisioned_users', async () => {
     await service.allProvisionedUsers(12);
 
-    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
-      service,
-      'groups/12/provisioned_users',
-      listOpts,
-    );
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/provisioned_users', {
+      searchParams: {},
+    });
   });
 });
 
@@ -221,7 +206,6 @@ describe('Groups.allTransferLocations', () => {
     await service.allTransferLocations(12, { search: 'foo' });
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/12/transfer_locations', {
-      ...listOpts,
       searchParams: { search: 'foo' },
     });
   });
