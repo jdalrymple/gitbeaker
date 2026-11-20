@@ -2,6 +2,14 @@
 
 ---
 
+## v44.1.7 (Fri, Nov 20, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: chore(release): Make the tests scope a non-release scope ([#3905](https://github.com/jdalrymple/gitbeaker/pull/3905))
+
+---
+
 ## v44.1.6 (Fri, Nov 20, 2026)
 
 ### Patch Changes

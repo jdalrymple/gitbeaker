@@ -1,5 +1,14 @@
 # @gitbeaker/cli
 
+## 44.1.7
+
+### Patch Changes
+
+- chore(release): Make the tests scope a non-release scope ([#3905](https://github.com/jdalrymple/gitbeaker/pull/3905))
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.7
+  - @gitbeaker/rest@44.1.7
+
 ## 44.1.6
 
 ### Patch Changes
