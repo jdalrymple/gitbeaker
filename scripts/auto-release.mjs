@@ -78,8 +78,8 @@ const CHANGE_TYPES = {
   docs: null,
 };
 
-// Scopes that never release, whatever the type, e.g. chore(dev-deps): ...
-const NON_RELEASE_SCOPES = ['dev-deps'];
+// Scopes that never release, whatever the type, e.g. chore(dev-deps): ... or chore(tests): ...
+const NON_RELEASE_SCOPES = ['dev-deps', 'tests'];
 
 // Matches "type: ...", "type(scope): ..." and "type(scope)!: ..."
 const TITLE_PATTERN = /^(?<type>[a-z]+)(?:\((?<scope>[^)]+)\))?(?<breaking>!)?: \S/;

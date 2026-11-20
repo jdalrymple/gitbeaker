@@ -52,7 +52,8 @@ which version is bumped:
 | Any type with `!`, e.g. `feat!: ...`           | Major   |
 
 - A line starting with `BREAKING CHANGE:` in the PR description also makes the release major.
-- The `dev-deps` scope never releases, whatever the type, e.g. `chore(dev-deps): Bump vitest`.
+- The `dev-deps` and `tests` scopes never release, whatever the type, e.g.
+  `chore(dev-deps): Bump vitest` or `chore(tests): Add unit tests for Runners`.
   Changes to dependencies that ship with the packages use `chore(deps)` and release a patch.
 - There are no separate `build`, `ci`, `style`, `test` or `dep` types. Use a scope of `chore` or
   `fix` instead, e.g. `chore(ci): ...` or `fix(deps): ...`.
