@@ -68,7 +68,7 @@ export class License<C extends boolean = false> extends BaseResource<C> {
     options?: ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<LicenseSchema, C, E, void>> {
     const { sudo, showExpanded } = options || {};
-    const url = getPrefixedUrl('license', { license: licenseId });
+    const url = getPrefixedUrl('', { license: licenseId || true });
 
     return RequestHelper.get<LicenseSchema>()(this, url, { sudo, showExpanded });
   }

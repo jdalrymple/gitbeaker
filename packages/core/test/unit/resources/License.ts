@@ -67,3 +67,36 @@ describe('License.remove', () => {
     });
   });
 });
+
+describe('License.show with id', () => {
+  it('should request GET license/:id', async () => {
+    await service.show(5);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'license/5', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('License.exportUsage', () => {
+  it('should request GET license/usage_export.csv', async () => {
+    await service.exportUsage();
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'license/usage_export.csv', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('License.recalculateBillableUsers', () => {
+  it('should request PUT license/:id/refresh_billable_users', async () => {
+    await service.recalculateBillableUsers(5);
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'license/5/refresh_billable_users', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
