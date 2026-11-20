@@ -577,7 +577,7 @@ export class Groups<C extends boolean = false> extends BaseResource<C> {
 
   show<E extends boolean = false>(
     groupId: string | number,
-    options?: BaseRequestSearchParams & ShowExpanded<E> & Sudo,
+    options?: { withCustomAttributes?: boolean; withProjects?: boolean } & ShowExpanded<E> & Sudo,
   ): Promise<GitlabAPIResponse<ExpandedGroupSchema, C, E, void>> {
     const { sudo, showExpanded, ...searchParams } = options || {};
 

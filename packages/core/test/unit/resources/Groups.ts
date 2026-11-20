@@ -132,6 +132,16 @@ describe('Groups.show', () => {
       sudo: undefined,
     });
   });
+
+  it('should forward withCustomAttributes and withProjects as searchParams', async () => {
+    await service.show(12, { withCustomAttributes: true, withProjects: false });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/12', {
+      searchParams: { withCustomAttributes: true, withProjects: false },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
 });
 
 describe('Groups.remove', () => {
