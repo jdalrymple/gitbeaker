@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/cli",
-  "version": "44.1.8",
+  "version": "44.1.9",
   "description": "CLI implementation of the GitLab API.",
   "license": "MIT",
   "engines": {

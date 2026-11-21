@@ -1,5 +1,13 @@
 # @gitbeaker/core
 
+## 44.1.9
+
+### Patch Changes
+
+- chore(ci): Post Codecov coverage without waiting for CI to finish ([#3909](https://github.com/jdalrymple/gitbeaker/pull/3909))
+- Updated dependencies []:
+  - @gitbeaker/requester-utils@44.1.9
+
 ## 44.1.8
 
 ### Patch Changes

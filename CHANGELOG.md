@@ -2,6 +2,14 @@
 
 ---
 
+## v44.1.9 (Sat, Nov 21, 2026)
+
+### Patch Changes
+
+- @gitbeaker/cli, @gitbeaker/core, @gitbeaker/requester-utils, @gitbeaker/rest: chore(ci): Post Codecov coverage without waiting for CI to finish ([#3909](https://github.com/jdalrymple/gitbeaker/pull/3909))
+
+---
+
 ## v44.1.8 (Fri, Nov 20, 2026)
 
 ### Patch Changes
