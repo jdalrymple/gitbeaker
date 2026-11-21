@@ -51,6 +51,7 @@ export type AllSearchOptions = {
   orderBy?: 'created_at';
   state?: 'issues' | 'merge_requests';
   confidential?: boolean;
+  ref?: string;
 };
 
 export class Search<C extends boolean = false> extends BaseResource<C> {
@@ -79,7 +80,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'blobs',
     search: string,
-    options?: { ref?: string } & AllSearchOptions &
+    options?: AllSearchOptions &
       BaseRequestSearchParams &
       OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
@@ -90,7 +91,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'commits',
     search: string,
-    options?: { ref?: string } & AllSearchOptions &
+    options?: AllSearchOptions &
       BaseRequestSearchParams &
       OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
@@ -101,7 +102,7 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'wiki_blobs',
     search: string,
-    options?: { ref?: string } & AllSearchOptions &
+    options?: AllSearchOptions &
       BaseRequestSearchParams &
       OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
