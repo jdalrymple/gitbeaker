@@ -3,7 +3,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
-  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -12,6 +11,7 @@ import type {
 import type { MilestoneSchema } from '../templates/ResourceMilestones';
 import type { NoteSchema } from '../templates/ResourceNotes';
 import type { CommitSchema } from './Commits';
+import type { CondensedGroupSchema } from './Groups';
 import type { IssueSchema } from './Issues';
 import type { MergeRequestSchema } from './MergeRequests';
 import type { ProjectSchema } from './Projects';
@@ -37,7 +37,9 @@ export interface SearchCommitSchema extends CommitSchema {
 
 export type SearchScopes =
   | 'projects'
+  | 'groups'
   | 'issues'
+  | 'work_items'
   | 'merge_requests'
   | 'milestones'
   | 'snippet_titles'
@@ -47,11 +49,60 @@ export type SearchScopes =
   | 'notes'
   | 'users';
 
-export type AllSearchOptions = {
-  orderBy?: 'created_at';
-  state?: 'issues' | 'merge_requests';
+export type SearchWorkItemType =
+  | 'issue'
+  | 'task'
+  | 'epic'
+  | 'incident'
+  | 'test_case'
+  | 'requirement'
+  | 'objective'
+  | 'key_result'
+  | 'ticket';
+
+export type SharedSearchOptions = {
+  searchType?: 'basic' | 'advanced' | 'zoekt';
+  state?: 'all' | 'opened' | 'closed' | 'merged';
   confidential?: boolean;
+  type?: SearchWorkItemType[];
+  fields?: 'title'[];
+  numContextLines?: number;
+  regex?: boolean;
+  orderBy?: 'created_at' | 'title';
+  sort?: 'asc' | 'desc';
+  authorUsername?: string;
+  labelName?: string[];
+  sourceBranch?: string;
+  targetBranch?: string;
+  not?: { authorUsername?: string; sourceBranch?: string; targetBranch?: string };
 };
+
+export type InstanceSearchOptions = {
+  projectId?: never;
+  groupId?: never;
+  includeArchived?: boolean;
+  excludeForks?: boolean;
+  ref?: never;
+} & SharedSearchOptions;
+
+export type GroupSearchOptions = {
+  projectId?: never;
+  groupId: string | number;
+  includeArchived?: boolean;
+  excludeForks?: boolean;
+  ref?: never;
+} & SharedSearchOptions;
+
+export type ProjectSearchOptions = {
+  projectId: string | number;
+  groupId?: never;
+  includeArchived?: never;
+  excludeForks?: never;
+  // Only applies to the blobs, commits and wiki_blobs scopes
+  ref?: string;
+} & SharedSearchOptions;
+
+export type AllSearchOptions = InstanceSearchOptions | GroupSearchOptions | ProjectSearchOptions;
 
 export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -59,7 +110,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -70,7 +120,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -81,7 +130,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -92,7 +140,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -103,7 +150,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -114,7 +160,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -125,7 +170,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -136,7 +180,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -147,18 +190,36 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
   ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>>;
 
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'work_items',
+    search: string,
+    options?: AllSearchOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<IssueSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
+    scope: 'groups',
+    search: string,
+    options?: AllSearchOptions &
+      BaseRequestSearchParams &
+      PaginationRequestOptions<P> &
+      ShowExpanded<E> &
+      Sudo,
+  ): Promise<GitlabAPIResponse<CondensedGroupSchema[], C, E, P>>;
+
+  all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
     scope: 'projects',
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -169,7 +230,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
