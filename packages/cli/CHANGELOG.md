@@ -1,5 +1,22 @@
 # @gitbeaker/cli
 
+## 44.1.10
+
+### Patch Changes
+
+- fix(types): Type repository search refs ([#3911](https://github.com/jdalrymple/gitbeaker/pull/3911))
+
+  Search.all has no explicit ref option for repository searches. This adds ref?: string to the blobs, commits, and wiki_blobs overloads, matching the [GitLab project search API](https://docs.gitlab.com/api/search/#search-a-project), and documents a branch search example.
+
+  The existing generic search parameters already forward ref at runtime; this change makes the option discoverable and checks its type. Regression tests cover branch and tag forwarding for all three scopes, reject numeric refs during type checking, and preserve the result types.
+
+  Fixes [#3860](https://github.com/jdalrymple/gitbeaker/issues/3860)
+  Relates [#3862](https://github.com/jdalrymple/gitbeaker/issues/3862)
+
+- Updated dependencies []:
+  - @gitbeaker/core@44.1.10
+  - @gitbeaker/rest@44.1.10
+
 ## 44.1.9
 
 ### Patch Changes

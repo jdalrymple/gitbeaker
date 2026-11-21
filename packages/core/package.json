@@ -1,6 +1,6 @@
 {
   "name": "@gitbeaker/core",
-  "version": "44.1.9",
+  "version": "44.1.10",
   "description": "Core API implementation of the GitLab API",
   "license": "MIT",
   "engines": {
