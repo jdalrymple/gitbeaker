@@ -1,6 +1,10 @@
 codecov:
   max_report_age: false
   require_ci_to_pass: false
+  notify:
+    # Post coverage once the uploads are processed. Waiting for CI never finishes on PRs, as the
+    # e2e approval job stays on hold
+    wait_for_ci: false
 
 comment:
   layout: 'diff,components,tree'
