@@ -28,3 +28,14 @@ describe('GitlabPages.remove', () => {
     });
   });
 });
+
+describe('GitlabPages.showSettings', () => {
+  it('should request GET /projects/1/pages', async () => {
+    await service.showSettings(1);
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/pages', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

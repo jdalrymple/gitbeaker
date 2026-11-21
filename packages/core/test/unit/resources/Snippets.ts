@@ -118,3 +118,18 @@ describe('Snippets.showUserAgentDetails', () => {
     });
   });
 });
+
+describe('Snippets.showRepositoryFileContent', () => {
+  it('should request GET /snippets/:id/files/:ref/:path/raw', async () => {
+    await service.showRepositoryFileContent(12, 'main', 'dir/file.txt');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'snippets/12/files/main/dir%2Ffile.txt/raw',
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});

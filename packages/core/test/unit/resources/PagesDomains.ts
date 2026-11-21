@@ -85,3 +85,18 @@ describe('PagesDomains.remove', () => {
     });
   });
 });
+
+describe('PagesDomains.verify', () => {
+  it('should request PUT /projects/:id/pages/domains/:domain/verify', async () => {
+    await service.verify(1, 'domain');
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(
+      service,
+      'projects/1/pages/domains/domain/verify',
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});

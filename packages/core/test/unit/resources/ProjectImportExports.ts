@@ -106,3 +106,70 @@ describe('ProjectImportExport.scheduleExport', () => {
     });
   });
 });
+
+describe('ProjectImportExport.importRemote', () => {
+  it('should request POST /projects/remote-import', async () => {
+    await service.importRemote('https://example.com/p.tar.gz', 'path', { name: 'test' });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/remote-import', {
+      body: { name: 'test', path: 'path', url: 'https://example.com/p.tar.gz' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('ProjectImportExport.importRemoteS3', () => {
+  it('should request POST /projects/remote-import-s3', async () => {
+    await service.importRemoteS3('key', 'bucket', 'file', 'path', 'us-east-1', 'secret', {
+      name: 'test',
+    });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/remote-import-s3', {
+      body: {
+        name: 'test',
+        accessKeyId: 'key',
+        bucketName: 'bucket',
+        fileKey: 'file',
+        path: 'path',
+        region: 'us-east-1',
+        secretAccessKey: 'secret',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('ProjectImportExport.importRelation', () => {
+  it('should request POST /projects/import-relation', async () => {
+    const content = new Blob(['content'], { type: 'text/plain' });
+
+    await service.importRelation({ content, filename: 'issues.ndjson' }, 'path', 'issues');
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(service, 'projects/import-relation', {
+      body: expect.any(FormData),
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+
+    const call = (RequestHelper.post() as any).mock.calls.slice(-1)[0];
+    const formDataObj = Object.fromEntries((call[2].body as FormData).entries());
+    expect(formDataObj).toEqual({
+      path: 'path',
+      relation: 'issues',
+      file: expect.objectContaining({ name: 'issues.ndjson', size: content.size }),
+    });
+  });
+});
+
+describe('ProjectImportExport.showRelationImportStatus', () => {
+  it('should request GET /projects/:id/relation-imports', async () => {
+    await service.showRelationImportStatus(1);
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/relation-imports', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

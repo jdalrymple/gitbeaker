@@ -57,3 +57,14 @@ describe('Applications.remove', () => {
     });
   });
 });
+
+describe('Applications.renewSecret', () => {
+  it('should request POST /applications/:id/renew-secret', async () => {
+    await service.renewSecret(12);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'applications/12/renew-secret', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});

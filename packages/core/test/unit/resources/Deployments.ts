@@ -53,3 +53,74 @@ describe('Deployments.allMergeRequests', () => {
     );
   });
 });
+
+describe('Deployments.create', () => {
+  it('should request POST /projects/:id/deployments', async () => {
+    await service.create(1, 'production', 'abc123', 'main', false, 'running');
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/deployments', {
+      body: {
+        environment: 'production',
+        sha: 'abc123',
+        ref: 'main',
+        tag: false,
+        status: 'running',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('Deployments.edit', () => {
+  it('should request PUT /projects/:id/deployments/:id', async () => {
+    await service.edit(1, 2, 'success');
+
+    expect(RequestHelper.put()).toHaveBeenCalledWith(service, 'projects/1/deployments/2', {
+      body: { status: 'success' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('Deployments.remove', () => {
+  it('should request DEL /projects/:id/deployments/:id', async () => {
+    await service.remove(1, 2);
+
+    expect(RequestHelper.del()).toHaveBeenCalledWith(service, 'projects/1/deployments/2', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('Deployments.setApproval', () => {
+  it('should request POST /projects/:id/deployments/:id/approval', async () => {
+    await service.setApproval(1, 2, 'approved');
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/1/deployments/2/approval',
+      {
+        body: { status: 'approved' },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should include comment and representedAs in the body', async () => {
+    await service.setApproval(1, 2, 'rejected', { comment: 'no', representedAs: 'group' });
+
+    expect(RequestHelper.post()).toHaveBeenLastCalledWith(
+      service,
+      'projects/1/deployments/2/approval',
+      {
+        body: { comment: 'no', representedAs: 'group', status: 'rejected' },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});

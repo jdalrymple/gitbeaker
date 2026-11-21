@@ -130,3 +130,18 @@ describe('ExternalStatusChecks.remove', () => {
     );
   });
 });
+
+describe('ExternalStatusChecks.retry', () => {
+  it('should request POST /projects/:id/merge_requests/:iid/status_checks/:id/retry', async () => {
+    await service.retry(1, 2, 3);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(
+      service,
+      'projects/1/merge_requests/2/status_checks/3/retry',
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});

@@ -237,3 +237,16 @@ describe('JobArtifacts.remove', () => {
     });
   });
 });
+
+describe('JobArtifacts.all', () => {
+  it('should request GET /projects/:id/jobs/:id/artifacts/tree', async () => {
+    await service.all(1, 2, { path: 'a/b', recursive: true, jobToken: 'tok', maxPages: 2 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/1/jobs/2/artifacts/tree', {
+      sudo: undefined,
+      showExpanded: undefined,
+      maxPages: 2,
+      searchParams: { path: 'a/b', recursive: true, jobToken: 'tok' },
+    });
+  });
+});

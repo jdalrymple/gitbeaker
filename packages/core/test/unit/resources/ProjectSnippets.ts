@@ -106,3 +106,18 @@ describe('ProjectSnippets.showUserAgentDetails', () => {
     );
   });
 });
+
+describe('ProjectSnippets.showRepositoryFileContent', () => {
+  it('should request GET /projects/:id/snippets/:id/files/:ref/:path/raw', async () => {
+    await service.showRepositoryFileContent(1, 12, 'main', 'dir/file.txt');
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(
+      service,
+      'projects/1/snippets/12/files/main/dir%2Ffile.txt/raw',
+      {
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+});

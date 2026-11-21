@@ -137,3 +137,29 @@ describe('DeployTokens.remove', () => {
     });
   });
 });
+
+describe('DeployTokens.show', () => {
+  it('should request GET projects/5/deploy_tokens/1', async () => {
+    await service.show(1, { projectId: 5 });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'projects/5/deploy_tokens/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should request GET groups/5/deploy_tokens/1', async () => {
+    await service.show(1, { groupId: 5 });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'groups/5/deploy_tokens/1', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should throw without projectId or groupId', () => {
+    expect(() => service.show(1)).toThrow(
+      'Missing required argument. Please supply a projectId or groupId in the options parameter.',
+    );
+  });
+});

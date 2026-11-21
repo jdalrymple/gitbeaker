@@ -92,3 +92,36 @@ describe('DeployKeys.remove', () => {
     });
   });
 });
+
+describe('DeployKeys.createAdmin', () => {
+  it('should request POST /deploy_keys', async () => {
+    await service.createAdmin('title', 'key');
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'deploy_keys', {
+      body: { title: 'title', key: 'key' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should include expiresAt when provided', async () => {
+    await service.createAdmin('title', 'key', { expiresAt: '2030-01-01' });
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'deploy_keys', {
+      body: { title: 'title', key: 'key', expiresAt: '2030-01-01' },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
+
+describe('DeployKeys.enable', () => {
+  it('should request POST /projects/:id/deploy_keys/:key/enable', async () => {
+    await service.enable(1, 2);
+
+    expect(RequestHelper.post()).toHaveBeenCalledWith(service, 'projects/1/deploy_keys/2/enable', {
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+});
