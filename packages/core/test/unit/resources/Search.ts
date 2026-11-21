@@ -151,6 +151,27 @@ describe('Search.all', () => {
     }>();
   });
 
+  it('should only allow endpoint specific options on their endpoint', () => {
+    const checkEndpointOptions = () => {
+      service.all('blobs', 'query', { projectId: 1, ref: 'main' });
+      service.all('blobs', 'query', { includeArchived: true, excludeForks: false });
+      service.all('blobs', 'query', { groupId: 2, includeArchived: true, excludeForks: false });
+
+      // @ts-expect-error Ref is only supported by project search.
+      service.all('blobs', 'query', { ref: 'main' });
+      // @ts-expect-error Ref is only supported by project search.
+      service.all('blobs', 'query', { groupId: 2, ref: 'main' });
+      // @ts-expect-error Archived projects can't be included in project search.
+      service.all('blobs', 'query', { projectId: 1, includeArchived: true });
+      // @ts-expect-error Forks can't be excluded in project search.
+      service.all('blobs', 'query', { projectId: 1, excludeForks: true });
+      // @ts-expect-error A search can't be scoped to both a project and a group.
+      service.all('blobs', 'query', { projectId: 1, groupId: 2 });
+    };
+
+    expectTypeOf(checkEndpointOptions).returns.toBeVoid();
+  });
+
   it('should forward the work item filters as searchParams', async () => {
     await service.all('work_items', 'migrate', {
       groupId: 2,

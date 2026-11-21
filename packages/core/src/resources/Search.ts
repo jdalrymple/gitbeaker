@@ -3,7 +3,6 @@ import { BaseResource } from '@gitbeaker/requester-utils';
 import type {
   BaseRequestSearchParams,
   GitlabAPIResponse,
-  OneOrNoneOf,
   PaginationRequestOptions,
   PaginationTypes,
   ShowExpanded,
@@ -61,7 +60,7 @@ export type SearchWorkItemType =
   | 'key_result'
   | 'ticket';
 
-export type AllSearchOptions = {
+export type SharedSearchOptions = {
   searchType?: 'basic' | 'advanced' | 'zoekt';
   state?: 'all' | 'opened' | 'closed' | 'merged';
   confidential?: boolean;
@@ -76,12 +75,34 @@ export type AllSearchOptions = {
   sourceBranch?: string;
   targetBranch?: string;
   not?: { authorUsername?: string; sourceBranch?: string; targetBranch?: string };
-  // Instance and group search only
+};
+
+export type InstanceSearchOptions = {
+  projectId?: never;
+  groupId?: never;
   includeArchived?: boolean;
   excludeForks?: boolean;
-  // Project search only, for the blobs, commits and wiki_blobs scopes
+  ref?: never;
+} & SharedSearchOptions;
+
+export type GroupSearchOptions = {
+  projectId?: never;
+  groupId: string | number;
+  includeArchived?: boolean;
+  excludeForks?: boolean;
+  ref?: never;
+} & SharedSearchOptions;
+
+export type ProjectSearchOptions = {
+  projectId: string | number;
+  groupId?: never;
+  includeArchived?: never;
+  excludeForks?: never;
+  // Only applies to the blobs, commits and wiki_blobs scopes
   ref?: string;
-};
+} & SharedSearchOptions;
+
+export type AllSearchOptions = InstanceSearchOptions | GroupSearchOptions | ProjectSearchOptions;
 
 export class Search<C extends boolean = false> extends BaseResource<C> {
   all<E extends boolean = false, P extends PaginationTypes = 'offset'>(
@@ -89,7 +110,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -100,7 +120,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -111,7 +130,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -122,7 +140,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -133,7 +150,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -144,7 +160,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -155,7 +170,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -166,7 +180,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -177,7 +190,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -188,7 +200,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -199,7 +210,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -210,7 +220,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
@@ -221,7 +230,6 @@ export class Search<C extends boolean = false> extends BaseResource<C> {
     search: string,
     options?: AllSearchOptions &
       BaseRequestSearchParams &
-      OneOrNoneOf<{ projectId: string | number; groupId: string | number }> &
       PaginationRequestOptions<P> &
       ShowExpanded<E> &
       Sudo,
