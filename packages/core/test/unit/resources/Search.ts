@@ -1,7 +1,12 @@
 import { RequesterFn } from '@gitbeaker/requester-utils';
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 
-import type { BlobSchema, SearchCommitSchema } from '../../../src';
+import type {
+  BlobSchema,
+  CondensedGroupSchema,
+  IssueSchema,
+  SearchCommitSchema,
+} from '../../../src';
 
 import { Search } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
@@ -117,6 +122,101 @@ describe('Search.all', () => {
       searchParams: {
         scope: 'issues',
         search: 'search terms',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should type the groups and work_items scopes and the documented option values', () => {
+    const checkScopeTypes = () => {
+      const groups = service.all('groups', 'query');
+      const workItems = service.all('work_items', 'query', { type: ['task', 'key_result'] });
+
+      service.all('issues', 'query', { state: 'opened', orderBy: 'title', sort: 'asc' });
+
+      // @ts-expect-error State takes a state, not a scope.
+      service.all('issues', 'query', { state: 'issues' });
+      // @ts-expect-error Work item types are limited to the documented values.
+      service.all('work_items', 'query', { type: ['bug'] });
+      // @ts-expect-error Only the title field can be searched.
+      service.all('issues', 'query', { fields: ['description'] });
+
+      return { groups, workItems };
+    };
+
+    expectTypeOf(checkScopeTypes).returns.toEqualTypeOf<{
+      groups: Promise<CondensedGroupSchema[]>;
+      workItems: Promise<IssueSchema[]>;
+    }>();
+  });
+
+  it('should forward the work item filters as searchParams', async () => {
+    await service.all('work_items', 'migrate', {
+      groupId: 2,
+      type: ['task', 'issue'],
+      state: 'opened',
+      confidential: false,
+      includeArchived: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'groups/2/search', {
+      maxPages: undefined,
+      searchParams: {
+        scope: 'work_items',
+        search: 'migrate',
+        type: ['task', 'issue'],
+        state: 'opened',
+        confidential: false,
+        includeArchived: true,
+      },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should forward the advanced search merge request filters as searchParams', async () => {
+    await service.all('merge_requests', 'fix', {
+      searchType: 'advanced',
+      fields: ['title'],
+      authorUsername: 'root',
+      labelName: ['bug', 'backend'],
+      sourceBranch: 'feature',
+      not: { targetBranch: 'stable' },
+      orderBy: 'title',
+      sort: 'desc',
+    });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'search', {
+      maxPages: undefined,
+      searchParams: {
+        scope: 'merge_requests',
+        search: 'fix',
+        searchType: 'advanced',
+        fields: ['title'],
+        authorUsername: 'root',
+        labelName: ['bug', 'backend'],
+        sourceBranch: 'feature',
+        not: { targetBranch: 'stable' },
+        orderBy: 'title',
+        sort: 'desc',
+      },
+      showExpanded: undefined,
+      sudo: undefined,
+    });
+  });
+
+  it('should forward the code search options as searchParams', async () => {
+    await service.all('blobs', 'TODO', { regex: true, numContextLines: 2, excludeForks: false });
+
+    expect(RequestHelper.get()).toHaveBeenCalledWith(service, 'search', {
+      maxPages: undefined,
+      searchParams: {
+        scope: 'blobs',
+        search: 'TODO',
+        regex: true,
+        numContextLines: 2,
+        excludeForks: false,
       },
       showExpanded: undefined,
       sudo: undefined,
