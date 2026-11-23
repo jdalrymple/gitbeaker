@@ -33,7 +33,8 @@ describe('ProjectImportExport.download', () => {
     await service.download(1, { asStream: true });
 
     expect(RequestHelper.get()).toHaveBeenLastCalledWith(service, 'projects/1/export/download', {
-      searchParams: { asStream: true },
+      asStream: true,
+      searchParams: {},
       showExpanded: undefined,
       sudo: undefined,
     });
