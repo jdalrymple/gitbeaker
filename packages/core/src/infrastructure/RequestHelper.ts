@@ -345,6 +345,7 @@ export function get<T extends ResponseType = Record<string, unknown>>(): getOver
     const response = await service.requester.get(endpoint, {
       ...(searchParams && { searchParams: searchParams as RequesterSearchParams }),
       ...(sudo && { sudo }),
+      ...(asStream && { asStream }),
       ...(signal && { signal }),
     });
 

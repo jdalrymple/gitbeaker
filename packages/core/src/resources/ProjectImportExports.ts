@@ -72,7 +72,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
     projectId: string | number,
     options?: AsStream & ShowExpanded<E> & Sudo,
   ): Promise<any> {
-    const { sudo, showExpanded, ...searchParams } = options || {};
+    const { sudo, showExpanded, asStream, ...searchParams } = options || {};
 
     return RequestHelper.get<Blob | ReadableStream>()(
       this,
@@ -80,6 +80,7 @@ export class ProjectImportExports<C extends boolean = false> extends BaseResourc
       {
         sudo,
         showExpanded,
+        asStream,
         searchParams,
       },
     );
