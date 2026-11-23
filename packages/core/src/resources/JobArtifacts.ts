@@ -1,6 +1,7 @@
 import { BaseResource } from '@gitbeaker/requester-utils';
 
 import type {
+  AsStream,
   GitlabAPIResponse,
   PaginationRequestOptions,
   PaginationTypes,
@@ -19,7 +20,36 @@ export interface ArtifactFileSchema extends Record<string, unknown> {
   mode: string;
 }
 
+export type DownloadArchiveOptions = { jobToken?: string } & (
+  | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
+  | { jobId: number; artifactPath: string; job?: undefined; ref?: undefined }
+  | {
+      jobId?: undefined;
+      artifactPath?: undefined;
+      job: string;
+      ref: string;
+      searchRecentSuccessfulPipelines?: boolean;
+    }
+  | {
+      jobId?: undefined;
+      artifactPath: string;
+      job: string;
+      ref: string;
+      searchRecentSuccessfulPipelines?: boolean;
+    }
+);
+
 export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
+  downloadArchive<E extends boolean = false>(
+    projectId: string | number,
+    options: { asStream: true } & DownloadArchiveOptions & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<ReadableStream, void, E, void>>;
+
+  downloadArchive<E extends boolean = false>(
+    projectId: string | number,
+    options?: { asStream?: boolean } & DownloadArchiveOptions & ShowExpanded<E> & Sudo,
+  ): Promise<GitlabAPIResponse<Blob, void, E, void>>;
+
   downloadArchive<E extends boolean = false>(
     projectId: string | number,
     {
@@ -29,28 +59,10 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
       job,
       sudo,
       showExpanded,
+      asStream,
       ...searchParams
-    }: { jobToken?: string } & (
-      | { jobId: number; artifactPath?: undefined; job?: undefined; ref?: undefined }
-      | { jobId: number; artifactPath: string; job?: undefined; ref?: undefined }
-      | {
-          jobId?: undefined;
-          artifactPath?: undefined;
-          job: string;
-          ref: string;
-          searchRecentSuccessfulPipelines?: boolean;
-        }
-      | {
-          jobId?: undefined;
-          artifactPath: string;
-          job: string;
-          ref: string;
-          searchRecentSuccessfulPipelines?: boolean;
-        }
-    ) &
-      ShowExpanded<E> &
-      Sudo = {} as any,
-  ): Promise<GitlabAPIResponse<Blob, void, E, void>> {
+    }: AsStream & DownloadArchiveOptions & ShowExpanded<E> & Sudo = {} as any,
+  ): Promise<any> {
     let url = '';
 
     ensureRequiredParams({ jobId, 'job and ref': job && ref });
@@ -70,9 +82,10 @@ export class JobArtifacts<C extends boolean = false> extends BaseResource<C> {
         download: !artifactPath,
       });
 
-    return RequestHelper.get<Blob>()(this, url, {
+    return RequestHelper.get<Blob | ReadableStream>()(this, url, {
       sudo,
       showExpanded,
+      asStream,
       searchParams,
     });
   }

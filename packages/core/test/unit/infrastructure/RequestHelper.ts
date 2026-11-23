@@ -447,6 +447,10 @@ describe('RequestHelper.get()', () => {
 
     const response = await RequestHelper.get()(service, 'test', { asStream: true });
 
+    expect(mockedRequester.get).toHaveBeenLastCalledWith(
+      'test',
+      expect.objectContaining({ asStream: true }),
+    );
     expect(response).toBe(readableStream);
   });
 

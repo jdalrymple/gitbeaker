@@ -1,5 +1,5 @@
 import { RequesterFn } from '@gitbeaker/requester-utils';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 
 import { JobArtifacts } from '../../../src';
 import { RequestHelper } from '../../../src/infrastructure';
@@ -199,6 +199,50 @@ describe('JobArtifacts.downloadArchive', () => {
         searchParams: {
           jobToken: 'token',
           searchRecentSuccessfulPipelines: true,
+        },
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should pass asStream to the request helper instead of sending it as a search param', async () => {
+    await service.downloadArchive(1, { jobId: 43, artifactPath: 'path', asStream: true });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      `projects/1/jobs/43/artifacts/path`,
+      {
+        asStream: true,
+        searchParams: {},
+        showExpanded: undefined,
+        sudo: undefined,
+      },
+    );
+  });
+
+  it('should type the response as a ReadableStream only when asStream is true', () => {
+    expectTypeOf(
+      service.downloadArchive(1, { jobId: 43, asStream: true }),
+    ).resolves.toEqualTypeOf<ReadableStream>();
+    expectTypeOf(service.downloadArchive(1, { jobId: 43 })).resolves.toEqualTypeOf<Blob>();
+  });
+
+  it('should pass asStream to the request helper when downloading by job name and ref', async () => {
+    await service.downloadArchive(1, {
+      job: 'job1',
+      ref: 'ref1',
+      jobToken: 'token',
+      asStream: true,
+    });
+
+    expect(RequestHelper.get()).toHaveBeenLastCalledWith(
+      service,
+      `projects/1/jobs/artifacts/ref1/download`,
+      {
+        asStream: true,
+        searchParams: {
+          jobToken: 'token',
         },
         showExpanded: undefined,
         sudo: undefined,
