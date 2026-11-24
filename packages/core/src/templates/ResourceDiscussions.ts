@@ -40,12 +40,15 @@ export interface DiscussionNotePositionLineRangeSchema {
   end?: DiscussionNotePositionTextLineSchema;
 }
 
-export type DiscussionNotePositionTextSchema = {
+type DiscussionNotePositionTextBaseSchema = {
   position_type: 'text';
-  new_line?: string;
-  old_line?: string;
   line_range?: DiscussionNotePositionLineRangeSchema;
 } & DiscussionNotePositionBaseSchema;
+
+export type DiscussionNotePositionTextSchema = {
+  new_line?: number | null;
+  old_line?: number | null;
+} & DiscussionNotePositionTextBaseSchema;
 
 export type DiscussionNotePositionImageSchema = {
   position_type: 'image';
@@ -85,7 +88,11 @@ export interface DiscussionSchema extends Record<string, unknown> {
   notes?: DiscussionNoteSchema[];
 }
 
-export type DiscussionNotePositionOptions = Camelize<DiscussionNotePositionSchema>;
+export type DiscussionNotePositionOptions = Camelize<
+  | ({ new_line?: string; old_line?: string } & DiscussionNotePositionTextBaseSchema)
+  | DiscussionNotePositionImageSchema
+  | DiscussionNotePositionFileSchema
+>;
 
 export class ResourceDiscussions<C extends boolean = false> extends BaseResource<C> {
   protected resource2Type: string | RawPathSegment;
