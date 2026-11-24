@@ -24,7 +24,7 @@ export interface StateEventSchema extends Record<string, unknown> {
   resource_type: 'Issue';
   resource_id: number;
   action: 'add' | 'remove';
-  state: 'opened' | 'closed' | 'reopened';
+  state: 'opened' | 'closed' | 'reopened' | 'merged' | 'locked';
 }
 
 export class ResourceStateEvents<C extends boolean = false> extends BaseResource<C> {
