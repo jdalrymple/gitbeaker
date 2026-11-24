@@ -22,7 +22,7 @@ export interface IssueLinkSchema extends Record<string, unknown> {
   project_id: number;
   issue_link_id: number;
   state: string;
-  description: string;
+  description: string | null;
   weight?: number;
   author: MappedOmit<SimpleUserSchema, 'created_at'>;
   milestone: MilestoneSchema;

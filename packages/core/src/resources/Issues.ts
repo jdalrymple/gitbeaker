@@ -38,7 +38,7 @@ export interface TimeStatsSchema extends Record<string, unknown> {
 
 export interface IssueSchema extends Record<string, unknown> {
   state: string;
-  description: string;
+  description: string | null;
   health_status?: string;
   weight?: number;
   author: MappedOmit<SimpleUserSchema, 'created_at'>;
